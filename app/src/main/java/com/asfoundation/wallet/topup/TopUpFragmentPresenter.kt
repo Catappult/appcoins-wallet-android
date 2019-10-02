@@ -30,12 +30,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     private const val PRESELECTED_CHIP = 1
   }
 
-  fun present(appPackage: String) {
+  fun present(appPackage: String, initialSetup: Boolean) {
     chipValuesList = getChipValuesList()
-    setupUi()
+    setupUi(initialSetup)
     handleChangeCurrencyClick()
     handleNextClick()
-    handleAmountChange(appPackage)
+    handleManualAmountChange(appPackage)
     handlePaymentMethodSelected()
     handleDefaultValueChips()
     handleValueChipsClick()
@@ -45,14 +45,18 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.dispose()
   }
 
-  private fun setupUi() {
+  private fun setupUi(initialSetup: Boolean) {
     disposables.add(Single.zip(
         interactor.getPaymentMethods().subscribeOn(networkScheduler).observeOn(viewScheduler),
         interactor.getLocalCurrency().subscribeOn(networkScheduler).observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, currency: LocalCurrency ->
           view.setupUiElements(filterPaymentMethods(paymentMethods), currency)
         })
-        .doOnSuccess { handlePreselectedChip() }
+        .doOnSuccess {
+          if (initialSetup) {
+            handlePreselectedChip()
+          }
+        }
         .subscribe({ }, { throwable -> throwable.printStackTrace() }))
   }
 
@@ -80,7 +84,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }.subscribe())
   }
 
-  private fun handleAmountChange(packageName: String) {
+  private fun handleManualAmountChange(packageName: String) {
     disposables.add(view.getEditTextChanges().filter {
       isNumericOrEmpty(it)
     }.doOnNext { view.setNextButtonState(false) }.debounce(700, TimeUnit.MILLISECONDS)

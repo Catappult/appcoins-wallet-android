@@ -57,6 +57,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
+    private const val SELECTED_CHIP = "SELECTED_CHIP"
 
     private const val NUMBER_OF_CHIPS = 4
 
@@ -116,14 +117,21 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
     setupDefaultValuesChips()
     topUpActivityView?.showToolbar()
-    presenter.present(appPackage)
-
+    if (savedInstanceState?.containsKey(SELECTED_CHIP) == true) {
+      if (savedInstanceState.getInt(SELECTED_CHIP) != -1) {
+        setChipChecked(savedInstanceState.getInt(SELECTED_CHIP))
+      }
+      presenter.present(appPackage, false)
+    } else {
+      presenter.present(appPackage, true)
+    }
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
+    outState.putInt(SELECTED_CHIP, getSelectedChip())
   }
 
   override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
