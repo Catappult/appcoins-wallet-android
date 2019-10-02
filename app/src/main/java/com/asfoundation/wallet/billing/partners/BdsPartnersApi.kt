@@ -16,7 +16,7 @@ interface BdsPartnersApi {
   fun getOemWallet(@Query("package.name") packageName: String?,
                    @Query("device.manufacturer") manufacturer: String?,
                    @Query("device.model") model: String?,
-                   @Query("uid") uid: String?): Single<GetWalletResponse>
+                   @Query("oemid") uid: String?): Single<GetWalletResponse>
 }
 
 data class GetWalletResponse(val items: List<Store>)

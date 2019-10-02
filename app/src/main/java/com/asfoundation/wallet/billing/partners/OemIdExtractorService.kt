@@ -6,7 +6,7 @@ import java.util.*
 import java.util.zip.ZipFile
 
 
-class ApkFyService(private val context: Context) {
+class OemIdExtractorService(private val context: Context) {
 
   fun extractOemId(packageName: String): Single<String> {
     return Single.create {
@@ -17,10 +17,10 @@ class ApkFyService(private val context: Context) {
             .applicationInfo.sourceDir
         val myZipFile = ZipFile(sourceDir)
         val entry = myZipFile.getEntry("META-INF/attrib")
-        if (entry != null) {
-          val `is` = myZipFile.getInputStream(entry)
+        entry?.let {
+          val inputStream = myZipFile.getInputStream(entry)
           val properties = Properties()
-          properties.load(`is`)
+          properties.load(inputStream)
           if (properties.containsKey("oemid")) {
             oemId = properties.getProperty("oemid")
           }

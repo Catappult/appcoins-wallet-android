@@ -8,11 +8,12 @@ import io.reactivex.functions.BiFunction
 class PartnerAddressService(private val installerService: InstallerService,
                             private val walletAddressService: WalletAddressService,
                             private val deviceInfo: DeviceInfo,
-                            private val apkFyService: ApkFyService) : AddressService {
+                            private val oemIdExtractorService: OemIdExtractorService) :
+    AddressService {
 
   override fun getStoreAddressForPackage(packageName: String): Single<String> {
     return Single.zip(installerService.getInstallerPackageName(packageName),
-        apkFyService.extractOemId(packageName),
+        oemIdExtractorService.extractOemId(packageName),
         BiFunction { t1: String, t2: String -> Pair(t1, t2) }
     )
         .flatMap { pair ->
@@ -24,7 +25,7 @@ class PartnerAddressService(private val installerService: InstallerService,
 
   override fun getOemAddressForPackage(packageName: String): Single<String> {
     return Single.zip(installerService.getInstallerPackageName(packageName),
-        apkFyService.extractOemId(packageName),
+        oemIdExtractorService.extractOemId(packageName),
         BiFunction { t1: String, t2: String -> Pair(t1, t2) }
     )
         .flatMap { pair ->

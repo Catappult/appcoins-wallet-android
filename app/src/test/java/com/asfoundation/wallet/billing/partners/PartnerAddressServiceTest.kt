@@ -23,7 +23,7 @@ class PartnerAddressServiceTest {
   @Mock
   lateinit var deviceInfo: DeviceInfo
   @Mock
-  lateinit var apkFyService: ApkFyService
+  lateinit var oemIdExtractorService: OemIdExtractorService
 
   private lateinit var scheduler: TestScheduler
   private lateinit var partnerAddressService: AddressService
@@ -44,7 +44,7 @@ class PartnerAddressServiceTest {
 
     `when`(installerService.getInstallerPackageName(APP_PACKAGE_NAME)).thenReturn(
         Single.just(INSTALLER_PACKAGE_NAME))
-    `when`(apkFyService.extractOemId(APP_PACKAGE_NAME)).thenReturn(
+    `when`(oemIdExtractorService.extractOemId(APP_PACKAGE_NAME)).thenReturn(
         Single.just(OEM_ID))
 
     `when`(walletAddressService.getStoreWalletForPackage(INSTALLER_PACKAGE_NAME,
@@ -61,7 +61,8 @@ class PartnerAddressServiceTest {
 
     scheduler = TestScheduler()
     partnerAddressService =
-        PartnerAddressService(installerService, walletAddressService, deviceInfo, apkFyService)
+        PartnerAddressService(installerService, walletAddressService, deviceInfo,
+            oemIdExtractorService)
   }
 
   @Test
@@ -96,7 +97,8 @@ class PartnerAddressServiceTest {
     walletAddressService = PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
         BuildConfig.DEFAULT_OEM_ADDRESS)
     partnerAddressService =
-        PartnerAddressService(installerService, walletAddressService, deviceInfo, apkFyService)
+        PartnerAddressService(installerService, walletAddressService, deviceInfo,
+            oemIdExtractorService)
 
     val testStoreWalletAddress = TestObserver<String>()
     partnerAddressService.getStoreAddressForPackage(APP_PACKAGE_NAME)
