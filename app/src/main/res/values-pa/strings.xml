@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ</string>
   <string name="verification_validating_title">ਤੁਹਾਡੇ ਕੋਡ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="verification_completed_title">ਹੋ ਗਿਆ!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">ਹੁਣ ਤੁਸੀਂ ਦੋਸਤਾਂ ਨੂੰ ਬੁਲਾ ਕੇ ਜਾਂ ਐਪਾਂ ਇੰਸਟਾਲ ਕਰਕੇ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਸਕਦੇ ਹੋ|</string>
   <string name="verification_notification_reward_received_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਹੋਇਆ, ਆਨੰਦ ਮਾਣੋ! 👌</string>
   <string name="verification_notification_reward_already_received_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇਹ ਫੋਨ ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਜਾ ਚੁੱਕਾ ਹੈ 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਗਿਆ ਹੈ|</string>
@@ -436,14 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ!</string>
   <string name="referral_onboarding_body">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ %s ਤੱਕ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
-  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
+  <string name="referral_onboarding_body_no_connection">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ ਐਪ ਸਿੱਕੇ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
   <string name="referral_onboarding_redeem_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_verification_title">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_verification_body">ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਵਿਚ ਹਿੱਸਾ ਲੈਣ ਲਈ ਤੁਹਾਨੂੰ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ| ਅਸੀਂ ਤੁਹਾਨੂੰ ਐਸਐਮਐਸ ਦੁਆਰਾ ਇੱਕ ਪ੍ਰਮਾਣੀਕਰਨ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
   <string name="referral_verification_confirmation_title">ਤੁਹਾਡਾ ਸੱਦਾ ਪ੍ਰਮਾਣਿਤ ਕੀਤਾ ਗਿਆ ਸੀ!</string>
-  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">ਤੁਸੀਂ ਆਪਣੀ ਪਹਿਲੀ ਇਨ-ਐਪ ਖਰੀਦ ਤੇ %1$s ਦੇ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ| ਤੁਹਾਡੀ ਪਹਿਲੀ ਖਰੀਦ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੋਂ ਇਲਾਵਾ ਕਿਸੇ ਵੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ %2$s ਤੋਂ ਵੱਧ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ|</string>
   <string name="referral_verification_not_invited_title">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਇਸ ਨੰਬਰ ਨੂੰ ਬੁਲਾਇਆ ਨਹੀਂ ਗਿਆ ਸੀ&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">ਪਰ ਤੁਸੀਂ ਦੋਸਤਾਂ ਨੂੰ ਬੁਲਾ ਕੇ ਅਜੇ ਵੀ %s ਤੱਕ ਕਮਾ ਸਕਦੇ ਹੋ!💃🏽</string>
   <string name="referral_notification_bonus_pending_title">%s ਰੈਫਰਲ ਬੋਨਸ ਬਕਾਇਆ ਹੈ</string>
   <string name="referral_notification_bonus_pending_body">ਆਪਣਾ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੀ ਪਹਿਲੀ ਇਨ ਐਪ ਖਰੀਦ ਕਰੋ|</string>
   <string name="referral_view_title">ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
   <string name="referral_dropup_menu_requirements_title">ਜਰੂਰਤਾਂ</string>
   <string name="referral_dropup_menu_requirements_verification">ਇੱਕ ਫੋਨ ਨੰਬਰ ਨਾਲ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
+  <string name="referral_dropup_menu_requirements_purchase">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੋਂ ਇਲਾਵਾ ਕਿਸੇ ਵੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ ਇੱਕ ਇਨ-ਐਪ ਖਰੀਦਦਾਰੀ ਕਰੋ ਜਾਂ %s ਤੋਂ ਉੱਪਰ ਦਾ ਉਪਯੋਗ ਕਰੋ|</string>
   <string name="referral_dropup_menu_requirements_body">ਤੁਸੀਂ ਬੂਥ ਦੀਆਂ ਜਰੂਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨ ਵਾਲੇ ਹਰ ਇੱਕ ਦੋਸਤ (%1$s) ਲਈ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %2$s ਦੀ ਕਮਾਈ ਕਰੋਗੇ|</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ਪ੍ਰਚਾਰ</string>
