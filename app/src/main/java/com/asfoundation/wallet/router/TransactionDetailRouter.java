@@ -12,6 +12,7 @@ public class TransactionDetailRouter {
   public void open(Context context, Transaction transaction) {
     Intent intent = new Intent(context, TransactionDetailActivity.class);
     intent.putExtra(TRANSACTION, transaction);
+    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     context.startActivity(intent);
   }
 }
