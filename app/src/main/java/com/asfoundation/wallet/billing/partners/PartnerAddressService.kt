@@ -14,8 +14,7 @@ class PartnerAddressService(private val installerService: InstallerService,
   override fun getStoreAddressForPackage(packageName: String): Single<String> {
     return Single.zip(installerService.getInstallerPackageName(packageName),
         oemIdExtractorService.extractOemId(packageName),
-        BiFunction { t1: String, t2: String -> Pair(t1, t2) }
-    )
+        BiFunction { installerPackage: String, oemId: String -> Pair(installerPackage, oemId) })
         .flatMap { pair ->
           walletAddressService.getStoreWalletForPackage(pair.first.ifEmpty { null },
               deviceInfo.manufacturer, deviceInfo.model, pair.second.ifEmpty { null })
@@ -26,8 +25,7 @@ class PartnerAddressService(private val installerService: InstallerService,
   override fun getOemAddressForPackage(packageName: String): Single<String> {
     return Single.zip(installerService.getInstallerPackageName(packageName),
         oemIdExtractorService.extractOemId(packageName),
-        BiFunction { t1: String, t2: String -> Pair(t1, t2) }
-    )
+        BiFunction { installerPackage: String, oemId: String -> Pair(installerPackage, oemId) })
         .flatMap { pair ->
           walletAddressService.getOemWalletForPackage(pair.first.ifEmpty { null },
               deviceInfo.manufacturer, deviceInfo.model, pair.second.ifEmpty { null })
