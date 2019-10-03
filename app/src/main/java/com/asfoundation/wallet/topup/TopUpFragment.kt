@@ -120,7 +120,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     topUpActivityView?.showToolbar()
     if (savedInstanceState?.containsKey(SELECTED_CHIP) == true) {
       if (savedInstanceState.getInt(SELECTED_CHIP) != -1) {
-        setChipChecked(savedInstanceState.getInt(SELECTED_CHIP))
+        selectChip(savedInstanceState.getInt(SELECTED_CHIP))
       }
       presenter.present(appPackage, false)
     } else {
