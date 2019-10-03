@@ -46,7 +46,7 @@ class CampaignService(
 
   private fun handleResponse(response: PoaInformationResponse): PoaInformationModel {
     return PoaInformationModel(response.remainingPoa, response.hoursRemaining,
-        response.remainingPoa)
+        response.minutesRemaining)
   }
 
   private fun handleResponse(response: SubmitPoAResponse): String {
