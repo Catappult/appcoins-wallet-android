@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">कोड पुनः भेजें</string>
   <string name="verification_validating_title">आपके कोड को सत्यापित कर रहा है&#8230;</string>
   <string name="verification_completed_title">पूर्ण!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">अब आप मित्रों को आमंत्रित करके या ऐप्स स्थापित करके AppCoins Credits कमा सकते हैं।</string>
   <string name="verification_notification_reward_received_body">इनाम प्राप्त हुआ, मजा लें! 👌</string>
   <string name="verification_notification_reward_already_received_body">इस फोन नंबर का उपयोग यह इनाम पाने के लिए पहले ही किया जा चुका है 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">नंबर पहले से ही उपयोग किया है।</string>
@@ -436,14 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">अपने मित्रों को आमंत्रित करें!</string>
   <string name="referral_onboarding_body">आप और आपके मित्र हमारे रेफरल प्रोग्राम के साथ %s तक कमा सकते हैं!</string>
-  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
+  <string name="referral_onboarding_body_no_connection">आप और आपके मित्र हमारे रेफरल प्रोग्राम के साथ AppCoins Credits कमा सकते हैं!</string>
   <string name="referral_onboarding_redeem_button">मुझे आमंत्रित किया गया है</string>
   <string name="referral_verification_title">अपना वॉलेट सत्यापित करें</string>
   <string name="referral_verification_body">रेफरल प्रोग्राम में भाग लेने के लिए आपको अपने वॉलेट को सत्यापित करना होगा। हम आपको एसएमएस द्वारा एक सत्यापन कोड भेजेंगे।</string>
   <string name="referral_verification_confirmation_title">आपका आमंत्रण सत्यापित किया गया था!</string>
-  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">आपको अपनी पहली इन-एप्प खरीद पर %1$s मूल्य के AppCoins Credits मिलेंगे। आपकी पहली खरीद AppCoins Credits के अलावा किसी भी भुगतान विधि के साथ %2$s से ऊपर होनी चाहिए।</string>
   <string name="referral_verification_not_invited_title">शायद यह नंबर आमंत्रित नहीं किया गया था&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">लेकिन आप अभी भी मित्रों को आमंत्रित करके %s तक कमा सकते हैं! 💃🏽</string>
   <string name="referral_notification_bonus_pending_title">%s रेफरल बोनस लंबित</string>
   <string name="referral_notification_bonus_pending_body">अपना बोनस पाने के लिए अपनी पहली इन-एप्प खरीद करें।</string>
   <string name="referral_view_title">मित्र आमंत्रित करें</string>
@@ -452,7 +452,7 @@
   <string name="referral_view_share_link_button">आमंत्रण लिंक साझा करें</string>
   <string name="referral_view_notifications_title">अधिसूचनाएँ</string>
   <string name="referral_share_sheet_title">आमंत्रण लिंक साझा करें:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">प्रत्येक मित्र के लिए %s मूल्य के AppCoins Credits पाएँ। आपको पहले अपना वॉलेट सत्यापित करने की जरूरत है!</string>
   <string name="referral_view_verify_button">वॉलेट सत्यापित करें</string>
   <string name="referral_view_i_have_been_invited_button">मुझे आमंत्रित किया गया है</string>
   <string name="referral_view_dropup_menu_friends_invited">मित्र आमंत्रित किये</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">मित्र आमंत्रित किये</string>
   <string name="referral_dropup_menu_requirements_title">आवश्यकताएँ</string>
   <string name="referral_dropup_menu_requirements_verification">एक फोन नंबर के साथ अपना वॉलेट सत्यापित करें</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
+  <string name="referral_dropup_menu_requirements_purchase">AppCoins Credits के अलावा किसी भी भुगतान विधि के साथ %s से ऊपर की इन-एप्प खरीद या टॉप-अप करें</string>
   <string name="referral_dropup_menu_requirements_body">आप दोनों आवश्यकताओं को पूरा करने वाले प्रत्येक मित्र के लिए %1$s मूल्य के AppCoins Credits कमाएँगे (%2$s तक)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">प्रमोशन</string>
