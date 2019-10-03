@@ -24,29 +24,34 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
                                private val conversionService: TokenRateService,
                                private val cache: Repository<String, TransactionBuilder>) {
 
-  fun buildTransaction(uri: OneStepUri): Single<TransactionBuilder> {
-    return if (cache.getSync(uri.toString()) != null) Single.just(cache.getSync(uri.toString()))
-    else Single.zip(getToken(), getIabContract(), getWallet(uri),
-        getTokenContract(),
-        getAmount(uri),
-        Function5 { token: Token, iabContract: String, walletAddress: String, tokenContract: String,
-                    amount: BigDecimal ->
-          TransactionBuilder(token.tokenInfo.symbol, tokenContract,
-              getChainId(uri), walletAddress, amount, getSkuId(uri), token.tokenInfo.decimals,
-              iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), null,
-              getDomain(uri), getPayload(uri), getCallback(uri),
-              getOrderReference(uri)).shouldSendToken(true)
-        }).map {
-      it.originalOneStepValue = uri.parameters[Parameters.VALUE]
-      var currency = uri.parameters[Parameters.CURRENCY]
-      if (currency == null) {
-        currency = "APPC"
-      }
-      it.originalOneStepCurrency = currency
-      return@map it
-    }.doOnSuccess { transactionBuilder ->
-      cache.saveSync(uri.toString(), transactionBuilder)
-    }.subscribeOn(Schedulers.io())
+  fun buildTransaction(oneStepUri: OneStepUri, referrerUrl: String): Single<TransactionBuilder> {
+    return if (cache.getSync(oneStepUri.toString()) != null) {
+      Single.just(cache.getSync(oneStepUri.toString()))
+    } else {
+      Single.zip(getToken(), getIabContract(), getWallet(oneStepUri), getTokenContract(),
+          getAmount(oneStepUri),
+          Function5 { token: Token, iabContract: String, walletAddress: String,
+                      tokenContract: String, amount: BigDecimal ->
+            TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
+                walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
+                iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(),
+                null, getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
+                getOrderReference(oneStepUri), referrerUrl).shouldSendToken(true)
+          })
+          .map {
+            it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
+            var currency = oneStepUri.parameters[Parameters.CURRENCY]
+            if (currency == null) {
+              currency = "APPC"
+            }
+            it.originalOneStepCurrency = currency
+            it
+          }
+          .doOnSuccess { transactionBuilder ->
+            cache.saveSync(oneStepUri.toString(), transactionBuilder)
+          }
+          .subscribeOn(Schedulers.io())
+    }
   }
 
   private fun getOrderReference(uri: OneStepUri): String? {
@@ -54,11 +59,12 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   }
 
   private fun getAmount(uri: OneStepUri): Single<BigDecimal> {
-    return if (uri.parameters[Parameters.VALUE] == null) {
-      getProductValue(getDomain(uri), getSkuId(uri))
-    } else {
-      getTransactionValue(uri)
-    }
+    return getProductValue(getDomain(uri), getSkuId(uri))
+        .onErrorResumeNext {
+          uri.parameters[Parameters.VALUE]?.let {
+            getTransactionValue(uri)
+          } ?: Single.error(MissingProductException())
+        }
   }
 
   private fun getToAddress(uri: OneStepUri): String? {
@@ -87,20 +93,23 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   }
 
   private fun getToken(): Single<Token> {
-    return proxyService.getAppCoinsAddress(BuildConfig.DEBUG).flatMap { tokenAddress ->
-      findDefaultWalletInteract.find().flatMap { wallet: Wallet ->
-        tokenRepositoryType.fetchAll(wallet.address)
-            .flatMapIterable { tokens: Array<Token> -> tokens.toCollection(ArrayList()) }
-            .filter { token: Token -> token.tokenInfo.address.equals(tokenAddress, true) }
-            .toList()
-      }.flatMap { tokens ->
-        if (tokens.isEmpty()) {
-          Single.error(UnknownTokenException())
-        } else {
-          Single.just(tokens[0])
+    return proxyService.getAppCoinsAddress(BuildConfig.DEBUG)
+        .flatMap { tokenAddress ->
+          findDefaultWalletInteract.find()
+              .flatMap { wallet: Wallet ->
+                tokenRepositoryType.fetchAll(wallet.address)
+                    .flatMapIterable { tokens: Array<Token> -> tokens.toCollection(ArrayList()) }
+                    .filter { token: Token -> token.tokenInfo.address.equals(tokenAddress, true) }
+                    .toList()
+              }
+              .flatMap { tokens ->
+                if (tokens.isEmpty()) {
+                  Single.error(UnknownTokenException())
+                } else {
+                  Single.just(tokens[0])
+                }
+              }
         }
-      }
-    }
   }
 
   private fun getIabContract(): Single<String> {
@@ -119,9 +128,10 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
     }
 
     return if (domain != null) {
-      billing.getWallet(domain).onErrorReturn {
-        toAddressWallet
-      }
+      billing.getWallet(domain)
+          .onErrorReturn {
+            toAddressWallet
+          }
     } else {
       Single.just(toAddressWallet)
     }
@@ -141,10 +151,11 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
     return if (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) {
       Single.just(BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18))
     } else {
-      conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase()).map {
-        BigDecimal(uri.parameters[Parameters.VALUE])
-            .divide(it.amount, 18, RoundingMode.UP)
-      }
+      conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase())
+          .map {
+            BigDecimal(uri.parameters[Parameters.VALUE])
+                .divide(it.amount, 18, RoundingMode.UP)
+          }
     }
   }
 
@@ -156,3 +167,5 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
 class MissingWalletException : RuntimeException()
 
 class MissingProductException : RuntimeException()
+
+class SignatureException : RuntimeException()

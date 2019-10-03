@@ -21,23 +21,24 @@ import java.math.BigDecimal
 @RunWith(MockitoJUnitRunner::class)
 class BillingPaymentProofSubmissionTest {
   companion object {
-    val walletAddress = "wallet_address"
-    val developerAddress = "developer_address"
-    val oemAddress = "developer_address"
-    val storeAddress = "store_address"
-    val signedContent = "signed $walletAddress"
-    val productName = "product_name"
-    val packageName = "package_name"
-    val paymentId = "payment_id"
-    val paymentToken = "paymentToken"
-    val paymentType = "type"
-    val developerPayload = "developer_payload"
-    val origin = "origin"
-    val priceValue = "1"
-    val currency = "APPC"
-    val type = "APPC"
-    val callback = "callback_url"
-    val orderReference = "order_reference"
+    const val walletAddress = "wallet_address"
+    const val developerAddress = "developer_address"
+    const val oemAddress = "developer_address"
+    const val storeAddress = "store_address"
+    const val signedContent = "signed $walletAddress"
+    const val productName = "product_name"
+    const val packageName = "package_name"
+    const val paymentId = "payment_id"
+    const val paymentToken = "paymentToken"
+    const val paymentType = "type"
+    const val developerPayload = "developer_payload"
+    const val origin = "origin"
+    const val priceValue = "1"
+    const val currency = "APPC"
+    const val type = "APPC"
+    const val callback = "callback_url"
+    const val orderReference = "order_reference"
+    const val referrerUrl = "a_random_url"
   }
 
   @Mock
@@ -65,12 +66,11 @@ class BillingPaymentProofSubmissionTest {
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
             type, null, developerAddress, storeAddress, oemAddress, paymentId,
-            developerPayload, callback, orderReference,
-            walletAddress,
-            signedContent)).thenReturn(
+            developerPayload, callback, orderReference, walletAddress, signedContent,
+            referrerUrl)).thenReturn(
         Single.just(Transaction(paymentId, Transaction.Status.FAILED,
-            Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null, "orderReference",
-            null, "")))
+            Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
+            "orderReference", null, "")))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())
@@ -82,8 +82,8 @@ class BillingPaymentProofSubmissionTest {
     val purchaseDisposable = TestObserver<Any>()
     billing.processAuthorizationProof(
         AuthorizationProof(paymentType, paymentId, productName, packageName, BigDecimal.ONE,
-            storeAddress,
-            oemAddress, developerAddress, type, origin, developerPayload, callback, orderReference))
+            storeAddress, oemAddress, developerAddress, type, origin, developerPayload, callback,
+            orderReference, referrerUrl))
         .subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
@@ -97,10 +97,12 @@ class BillingPaymentProofSubmissionTest {
         .assertComplete()
     purchaseDisposable.assertNoErrors()
         .assertComplete()
-    verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
-        productName, type, null, developerAddress, storeAddress, oemAddress, paymentId,
-        developerPayload, callback, orderReference, walletAddress, signedContent)
-    verify(api, times(1)).patchTransaction(paymentType, paymentId, walletAddress, signedContent,
+    verify(api, times(1)).createTransaction(paymentType, origin, packageName,
+        priceValue, currency, productName, type, null, developerAddress, storeAddress,
+        oemAddress, paymentId, developerPayload, callback, orderReference, walletAddress,
+        signedContent, referrerUrl)
+    verify(api, times(1)).patchTransaction(paymentType, paymentId,
+        walletAddress, signedContent,
         paymentToken)
 
   }

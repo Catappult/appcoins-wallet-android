@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">आपका आमंत्रण सत्यापित किया गया था!</string>
   <string name="referral_verification_confirmation_body">जैसे ही आप अपनी पहली खरीद करते हैं, आपको %s मूल्य के AppCoins Credits मिलेंगे।</string>
   <string name="referral_verification_not_invited_title">शायद यह नंबर आमंत्रित नहीं किया गया था&#8230;</string>
-  <string name="referral_verification_not_invited_body">लेकिन आप अभी भी मित्रों को आमंत्रित करके %s तक कमा सकते हैं! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s रेफरल बोनस लंबित</string>
   <string name="referral_notification_bonus_pending_body">अपना बोनस पाने के लिए अपनी पहली इन-एप्प खरीद करें।</string>
   <string name="referral_view_title">मित्र आमंत्रित करें</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">आवश्यकताएँ</string>
   <string name="referral_dropup_menu_requirements_verification">एक फोन नंबर के साथ अपना वॉलेट सत्यापित करें</string>
   <string name="referral_dropup_menu_requirements_purchase">एक इन-एप्प खरीदारी या टॉप-अप करें</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">आप दोनों आवश्यकताओं को पूरा करने वाले प्रत्येक मित्र के लिए %1$s मूल्य के AppCoins Credits कमाएँगे (%2$s तक)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">प्रमोशन</string>
   <string name="bottom_navigation_promotions_detailed">हमारे प्रमोशन एवं अभियानों के साथ मुफ्त AppCoins Credits कमाने का तरीका जानें!</string>

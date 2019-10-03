@@ -16,11 +16,11 @@ class ReferralInteractor(
     private val promotionsRepository: PromotionsRepository) :
     ReferralInteractorContract {
 
-  override fun hasReferralUpdate(address: String, friendsInvited: Int, receivedValue: BigDecimal,
-                                 isVerified: Boolean, screen: ReferralsScreen): Single<Boolean> {
+  override fun hasReferralUpdate(address: String, friendsInvited: Int, isVerified: Boolean,
+                                 screen: ReferralsScreen): Single<Boolean> {
     return getReferralInformation(address, screen)
         .map {
-          hasDifferentInformation(receivedValue.toString() + friendsInvited + isVerified, it)
+          hasDifferentInformation(friendsInvited.toString() + isVerified, it)
         }
   }
 
@@ -29,22 +29,32 @@ class ReferralInteractor(
         .flatMap { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
               .flatMap {
-                hasReferralUpdate(wallet.address, it.completed, it.receivedAmount,
+                hasReferralUpdate(wallet.address, it.completed,
                     it.link != null, screen)
               }
         }
   }
 
-  override fun retrieveReferral(): Single<ReferralResponse> {
+  override fun retrieveReferral(): Single<ReferralsModel> {
     return defaultWallet.find()
-        .flatMap { promotionsRepository.getReferralUserStatus(it.address) }
+        .flatMap {
+          promotionsRepository.getReferralUserStatus(it.address)
+        }
+        .map { map(it) }
   }
 
-  override fun saveReferralInformation(numberOfFriends: Int, totalEarned: String,
-                                       isVerified: Boolean, screen: ReferralsScreen): Completable {
+  private fun map(referralResponse: ReferralResponse): ReferralsModel {
+    return ReferralsModel(referralResponse.completed, referralResponse.link,
+        referralResponse.invited, referralResponse.pendingAmount, referralResponse.amount,
+        referralResponse.symbol, referralResponse.maxAmount, referralResponse.minAmount,
+        referralResponse.available, referralResponse.receivedAmount, referralResponse.userStatus)
+  }
+
+  override fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
+                                       screen: ReferralsScreen): Completable {
     return defaultWallet.find()
         .flatMapCompletable {
-          saveReferralInformation(it.address, totalEarned, numberOfFriends, isVerified, screen)
+          saveReferralInformation(it.address, numberOfFriends, isVerified, screen)
         }
   }
 
@@ -52,10 +62,10 @@ class ReferralInteractor(
     return preferences.getReferralInformation(address, screen.toString())
   }
 
-  private fun saveReferralInformation(address: String, totalEarned: String, numberOfFriends: Int,
+  private fun saveReferralInformation(address: String, numberOfFriends: Int,
                                       isVerified: Boolean,
                                       screen: ReferralsScreen): Completable {
-    return preferences.saveReferralInformation(address, totalEarned, numberOfFriends, isVerified,
+    return preferences.saveReferralInformation(address, numberOfFriends, isVerified,
         screen.toString())
   }
 
@@ -64,10 +74,28 @@ class ReferralInteractor(
   }
 
   override fun getReferralNotifications(): Maybe<List<ReferralNotification>> {
-    return getPendingBonusNotification().map { listOf(it) }
+    return getUnwatchedPendingBonusNotification().map { listOf(it) }
   }
 
   override fun getPendingBonusNotification(): Maybe<ReferralNotification> {
+    return defaultWallet.find()
+        .flatMapMaybe { wallet ->
+          promotionsRepository.getReferralUserStatus(wallet.address)
+              .filter {
+                it.pendingAmount.compareTo(BigDecimal.ZERO) != 0
+              }
+              .map {
+                ReferralNotification(PENDING_AMOUNT_ID,
+                    R.string.referral_notification_bonus_pending_title,
+                    R.string.referral_notification_bonus_pending_body,
+                    R.drawable.ic_bonus_pending,
+                    it.pendingAmount,
+                    it.symbol)
+              }
+        }
+  }
+
+  override fun getUnwatchedPendingBonusNotification(): Maybe<ReferralNotification> {
     return defaultWallet.find()
         .flatMapMaybe { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
@@ -75,14 +103,14 @@ class ReferralInteractor(
                 preferences.getPendingAmountNotification(wallet.address)
                     .filter {
                       userStats.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
-                          it != userStats.pendingAmount.toPlainString()
+                          it != userStats.pendingAmount.scaleToString(2)
                     }
                     .map {
                       ReferralNotification(PENDING_AMOUNT_ID,
                           R.string.referral_notification_bonus_pending_title,
                           R.string.referral_notification_bonus_pending_body,
                           R.drawable.ic_bonus_pending,
-                          userStats.pendingAmount.scaleToString(2),
+                          userStats.pendingAmount,
                           userStats.symbol)
                     }
               }
@@ -92,8 +120,13 @@ class ReferralInteractor(
   override fun dismissNotification(referralNotification: ReferralNotification): Completable {
     return defaultWallet.find()
         .flatMapCompletable {
-          preferences.savePendingAmountNotification(it.address, referralNotification.pendingAmount)
+          preferences.savePendingAmountNotification(it.address,
+              referralNotification.pendingAmount.scaleToString(2))
         }
+  }
+
+  override fun getReferralInfo(): Single<ReferralResponse> {
+    return promotionsRepository.getReferralInfo()
   }
 
   companion object {

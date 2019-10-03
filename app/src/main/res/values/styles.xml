@@ -29,10 +29,9 @@
     <item name="android:windowContentOverlay">@null</item>
   </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-  </style>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
   <!-- Splash Screen theme. -->
 
@@ -70,8 +69,7 @@
     <item name="android:windowContentTransitions">true</item>
   </style>
 
-  <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent">
-  </style>
+  <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent"/>
 
   <style name="Theme.AppCompat.Transparent.FitAppWindow" parent="Theme.AppCompat.Transparent">
     <item name="android:fitsSystemWindows">true</item>
@@ -133,7 +131,7 @@
     <item name="android:letterSpacing">.09</item>
   </style>
 
-  <style name="ButtonStyle.Alternative">
+  <style name="ButtonStyle.Alternative" parent="ButtonStyle">
     <item name="android:background">@drawable/button_snd_background</item>
     <item name="android:textColor">@color/btn_text_enable_color</item>
   </style>
@@ -189,7 +187,7 @@
   </style>
 
   <style name="CancelButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
-    <item name="android:background">?attr/selectableItemBackground</item>
+    <item name="android:background">@drawable/borderless_button_background</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@color/btn_cancel_text</item>
     <item name="android:fontFamily">sans-serif-medium</item>
@@ -201,15 +199,8 @@
     <item name="android:letterSpacing">.09</item>
   </style>
 
-  <style name="CancelBorderlessButtonStyle" parent="Base.Widget.AppCompat.Button.Borderless">
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@color/btn_cancel_text</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:letterSpacing">.09</item>
+  <style name="CancelBorderlessButtonStyle" parent="CancelButtonStyle">
+    <item name="android:textStyle">normal</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Subtitle">

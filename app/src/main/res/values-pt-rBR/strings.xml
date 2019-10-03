@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Seu convite foi validado!</string>
   <string name="referral_verification_confirmation_body">Assim que tiver feito sua primeira compra, você receberá %s em Créditos AppCoins.</string>
   <string name="referral_verification_not_invited_title">Parece que este número não foi convidado&#8230;</string>
-  <string name="referral_verification_not_invited_body">Mas você ainda pode ganhar até %s convidando seus amigos! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bônus Pendente por Indicações</string>
   <string name="referral_notification_bonus_pending_body">Faça sua primeira compra dentro do aplicativo para receber seu bônus.</string>
   <string name="referral_view_title">Convidar Amigos</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Requisitos</string>
   <string name="referral_dropup_menu_requirements_verification">Verifique sua wallet com um número de telefone</string>
   <string name="referral_dropup_menu_requirements_purchase">Faça uma compra dentro de um aplicativo ou uma recarga</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Você ganhará %1$s em Créditos AppCoins por cada amigo que cumprir os dois requisitos (até %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promoções</string>
   <string name="bottom_navigation_promotions_detailed">Descubra como ganhar Créditos AppCoins com nossas promoções e campanhas!</string>

@@ -111,7 +111,8 @@ class CodeValidationPresenter(
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
           .doOnSuccess {
-            handleReferralStatus(it.invited, it.symbol, it.maxAmount, it.pendingAmount)
+            handleReferralStatus(it.invited, it.symbol, it.maxAmount, it.pendingAmount,
+                it.minAmount)
           }
           .subscribe()
       )
@@ -119,9 +120,10 @@ class CodeValidationPresenter(
   }
 
   private fun handleReferralStatus(eligible: Boolean, currency: String, maxAmount: BigDecimal,
-                                   pendingAmount: BigDecimal) {
+                                   pendingAmount: BigDecimal, minAmount: BigDecimal) {
     if (eligible) {
-      view.showReferralEligible(currency, pendingAmount.scaleToString(2))
+      view.showReferralEligible(currency, pendingAmount.scaleToString(2),
+          minAmount.scaleToString(2))
     } else {
       view.showReferralIneligible(currency, maxAmount.scaleToString(2))
     }

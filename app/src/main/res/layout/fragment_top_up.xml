@@ -198,7 +198,7 @@
             android:id="@+id/change_card_button"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="126dp"
-            android:layout_height="35dp"
+            android:layout_height="@dimen/button_height"
             android:layout_below="@id/fragment_braintree_credit_card_form"
             android:gravity="center_vertical"
             android:paddingStart="7dp"

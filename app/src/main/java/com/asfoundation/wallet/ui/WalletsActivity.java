@@ -282,11 +282,14 @@ public class WalletsActivity extends BaseActivity
   }
 
   private void openShareDialog(String jsonData) {
-    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-    sharingIntent.setType("text/plain");
-    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Keystore");
-    sharingIntent.putExtra(Intent.EXTRA_TEXT, jsonData);
-    startActivityForResult(Intent.createChooser(sharingIntent, "Share via"), SHARE_REQUEST_CODE);
+    if (jsonData != null) {
+      viewModel.clearExportedStore();
+      Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+      sharingIntent.setType("text/plain");
+      sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Keystore");
+      sharingIntent.putExtra(Intent.EXTRA_TEXT, jsonData);
+      startActivityForResult(Intent.createChooser(sharingIntent, "Share via"), SHARE_REQUEST_CODE);
+    }
   }
 
   private void onExportWalletError(ErrorEnvelope errorEnvelope) {

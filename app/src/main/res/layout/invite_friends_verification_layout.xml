@@ -71,7 +71,7 @@
 
   <Button
       android:id="@+id/invited_button"
-      style="?android:attr/borderlessButtonStyle"
+      style="@style/CancelBorderlessButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"
       android:layout_marginTop="8dp"

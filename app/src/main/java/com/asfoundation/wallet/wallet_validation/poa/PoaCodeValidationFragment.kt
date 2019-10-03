@@ -12,6 +12,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.DeleteKeyListener
 import com.asfoundation.wallet.wallet_validation.PasteTextWatcher
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.jakewharton.rxbinding2.view.RxView
@@ -135,6 +136,12 @@ class PoaCodeValidationFragment : DaggerFragment(),
     code_4.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 3))
     code_5.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 4))
     code_6.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 5))
+    code_1.code.setOnKeyListener(DeleteKeyListener(inputTexts, 0))
+    code_2.code.setOnKeyListener(DeleteKeyListener(inputTexts, 1))
+    code_3.code.setOnKeyListener(DeleteKeyListener(inputTexts, 2))
+    code_4.code.setOnKeyListener(DeleteKeyListener(inputTexts, 3))
+    code_5.code.setOnKeyListener(DeleteKeyListener(inputTexts, 4))
+    code_6.code.setOnKeyListener(DeleteKeyListener(inputTexts, 5))
   }
 
   override fun clearUI() {

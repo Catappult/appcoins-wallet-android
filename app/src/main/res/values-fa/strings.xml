@@ -385,7 +385,7 @@
   <string name="dismiss_button">رد کردن</string>
   <string name="discover_button">Discover</string>
   <string name="retry_button">Retry</string>
-  <string name="do_it_later_button">Do it later</string>
+  <string name="do_it_later_button">بعدا انجام شود</string>
   <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
@@ -405,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">پاداش آماده است ولی نیازمند تایید است</string>
   <string name="verification_notification_verification_needed_body">به دلایل امنیتی، نیازمند به تایید کیف پول شما با یک کد پیامکی هستیم.</string>
   <string name="verification_insert_phone_title">شماره تلفن خود را وارد کنید</string>
-  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
+  <string name="verification_insert_phone_body">برای دریافت پاداش، کیف پول خود را تایید کنید! کد تاییدیه را برای شما ارسال خواهیم کرد.</string>
   <string name="verification_insert_phone_field_country">کشور</string>
   <string name="verification_insert_phone_field_number">شماره تلفن</string>
   <string name="verification_insert_phone_field_number_error">شمشماره تلفن نامعتبر</string>
@@ -417,14 +417,14 @@
   <string name="verification_insert_code_resend_button">ارسال مجدد کد</string>
   <string name="verification_validating_title">تایید اعتبار کد شما &#8230;</string>
   <string name="verification_completed_title">تمام!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">اکنون می‌توانید با دعوت کردن دوستان یا نصب اپلیکیشن، اعتبار Appcoins دریافت کنید.</string>
   <string name="verification_notification_reward_received_body">پاداش دریافت شد، لذت ببرید! 👌</string>
   <string name="verification_notification_reward_already_received_body">این شماره تلفن قبلا برای دریافت این پاداش استفاده شده است 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Number already used.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">شماره قبلا استفاده شده است.</string>
   <string name="verification_insert_code_error_common">مشکلی پیش آمده است. دوباره امتحان کنید!</string>
-  <string name="verification_settings_unverified_title">Verify Wallet</string>
-  <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
-  <string name="verification_settings_verified_title">Wallet Verified</string>
+  <string name="verification_settings_unverified_title">تایید کیف پول</string>
+  <string name="verification_settings_unverified_body">پاداش دریافت کنید و دوستان را دعوت کنید</string>
+  <string name="verification_settings_verified_title">کیف پول تاییدشد</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
   <string name="purchase_more_payment_methods_button">سایر روش‌های پرداخت</string>
@@ -434,39 +434,39 @@
   <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی اعتبار APPC ندارید، اقدام به افزایش اعتبار کنید!</string>
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی اعتبار AppCoins برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
   <!--Referral Program-->
-  <string name="referral_onboarding_title">Invite Your Friends!</string>
-  <string name="referral_onboarding_body">You and your friends can earn up to %s with our Referral Program!</string>
-  <string name="referral_onboarding_redeem_button">I\'ve been invited</string>
-  <string name="referral_verification_title">Verify Your Wallet</string>
-  <string name="referral_verification_body">You need to verify your wallet to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
-  <string name="referral_verification_confirmation_title">Your invite was validated!</string>
-  <string name="referral_verification_confirmation_body">As soon as you make your first purchase you\'ll get %s worth of AppCoins Credits.</string>
-  <string name="referral_verification_not_invited_title">It seems this number wasn\’t invited&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃🏽</string>
-  <string name="referral_notification_bonus_pending_title">%s Referral Bonus Pending</string>
-  <string name="referral_notification_bonus_pending_body">Make your first in-app purchase to get your bonus.</string>
-  <string name="referral_view_title">Invite Friends</string>
-  <string name="referral_view_title_1">Invite Friends and Earn More!</string>
-  <string name="referral_view_verified_body">Receive %s worth of AppCoins Credits for each friend. Just share the link!</string>
-  <string name="referral_view_share_link_button">SHARE INVITE LINK</string>
-  <string name="referral_view_notifications_title">Notifications</string>
-  <string name="referral_share_sheet_title">Share invite link via:</string>
+  <string name="referral_onboarding_title">دوستان خود را دعوت کنید!</string>
+  <string name="referral_onboarding_body">شما و دوستان شما می‌توانید از برنامه همکاری ما تا %s کسب درآمد کنید!</string>
+  <string name="referral_onboarding_redeem_button">دعوت شده‌ام</string>
+  <string name="referral_verification_title">کیف پول خود را تاییدکنید</string>
+  <string name="referral_verification_body">برای مشارکت در برنامه برنامه همکاری باید کیف پول خود را تایید کنید. یک کد تاییدیه از طریق اس‌ام‌اس برای شما ارسال می‌کنیم.</string>
+  <string name="referral_verification_confirmation_title">دعوت شما معتبر است!</string>
+  <string name="referral_verification_confirmation_body">به محض انجام اولین خرید خود، به ارزش %s اعتبار AppCoins دریافت خواهید کرد.</string>
+  <string name="referral_verification_not_invited_title">به نظر می‌رسد که این شماره دعوت نشده‌است&#8230;</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_notification_bonus_pending_title">%s پاداش همکاری به حالت تعلیق</string>
+  <string name="referral_notification_bonus_pending_body">اولین خرید داخل اپلیکیشن خود را انجام دهید تا پاداش خود را دریافت کنید.</string>
+  <string name="referral_view_title">دوستان را دعوت کنید</string>
+  <string name="referral_view_title_1">دوستان را دعوت کنید و بیشتر کسب درآمد کنید!</string>
+  <string name="referral_view_verified_body">به ارزش %s برای هر دوست، اعتبار AppCoins دریافت کنید. کافی است لینک را به اشتراک بگذارید!</string>
+  <string name="referral_view_share_link_button">لینک دعوت را به اشتراک بگذارید</string>
+  <string name="referral_view_notifications_title">اعلانات</string>
+  <string name="referral_share_sheet_title">لینک دعوت را به اشتراک بگذارید:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">VERIFY WALLET</string>
-  <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
-  <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
-  <string name="referral_view_dropup_menu_earned">Earned</string>
-  <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
-  <string name="referral_dropup_menu_requirements_title">Requirements</string>
-  <string name="referral_dropup_menu_requirements_verification">Verify your wallet with a phone number</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_view_verify_button">تایید کیف پول</string>
+  <string name="referral_view_i_have_been_invited_button">دعوت شده‌ام</string>
+  <string name="referral_view_dropup_menu_friends_invited">دوستان دعوت‌شده</string>
+  <string name="referral_view_dropup_menu_earned">کسب شده</string>
+  <string name="referral_dropup_menu_friends_title_1">دوستان دعوت‌شده</string>
+  <string name="referral_dropup_menu_requirements_title">الزامات</string>
+  <string name="referral_dropup_menu_requirements_verification">کیف پول خود را با یک شماره تلفن تایید کنید</string>
+  <string name="referral_dropup_menu_requirements_purchase">یک خرید داخل اپلیکیشنی انجام دهید یا افزایش اعتبار کنید</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
-  <string name="bottom_navigation_promotions">Promotions</string>
-  <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
-  <string name="promotions_title">Promotions</string>
-  <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
-  <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
-  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
-  <string name="promotions_new">NEW</string>
+  <string name="bottom_navigation_promotions">پیشنهادات تشویقی</string>
+  <string name="bottom_navigation_promotions_detailed">کشف کنید که چگونه می‌توانید با پیشنهادهای تشویقی ما، اعتبار AppCoins رایگان دریافت کنید!</string>
+  <string name="promotions_title">پیشنهادات تشویقی</string>
+  <string name="promotions_referral_card_title">با دعوت دوستان تا %s کسب درآمد کنید</string>
+  <string name="promotions_referral_card_body">لینک دعوت خود را به اشتراک بگذارید و اعتبار AppCoins کسب کنید.</string>
+  <string name="promotions_gamification_card_title">برای هر خرید، تا ۳۰% پاداش دریافت کنید</string>
+  <string name="promotions_new">جدید</string>
 </resources>
