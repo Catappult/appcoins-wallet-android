@@ -2,10 +2,9 @@ package com.asfoundation.wallet.repository.entity
 
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity
-data class TransactionEntity(@PrimaryKey val transactionId: String,
+@Entity(primaryKeys = ["transactionId", "relatedWallet"])
+data class TransactionEntity(val transactionId: String,
                              val relatedWallet: String,
                              val approveTransactionId: String?,
                              val type: TransactionType,

@@ -14,7 +14,6 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
@@ -54,7 +53,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final CompositeDisposable disposables;
-  private final DefaultTokenProvider defaultTokenProvider;
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -65,10 +63,9 @@ public class TransactionsViewModel extends BaseViewModel {
   private Disposable fetchTransactionsDisposable;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
 
-  TransactionsViewModel(DefaultTokenProvider defaultTokenProvider, AppcoinsApps applications,
-      TransactionsAnalytics analytics, TransactionViewNavigator transactionViewNavigator,
+  TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
+      TransactionViewNavigator transactionViewNavigator,
       TransactionViewInteract transactionViewInteract) {
-    this.defaultTokenProvider = defaultTokenProvider;
     this.applications = applications;
     this.analytics = analytics;
     this.transactionViewNavigator = transactionViewNavigator;
@@ -227,7 +224,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private boolean shouldShow(Pair<Balance, FiatValue> balance, Double threshold) {
     return balance.first.getStringValue()
         .length() > 0
-        && Double.valueOf(balance.first.getStringValue()) >= threshold
+        && Double.parseDouble(balance.first.getStringValue()) >= threshold
         && (balance.second.getAmount()
         .compareTo(MINUS_ONE) > 0)
         && balance.second.getAmount()
@@ -296,9 +293,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSend(Context context) {
-    defaultTokenProvider.getDefaultToken()
-        .doOnSuccess(defaultToken -> transactionViewNavigator.openSendView(context, defaultToken))
-        .subscribe();
+    transactionViewNavigator.openSendView(context);
   }
 
   public void showDetails(Context context, Transaction transaction) {

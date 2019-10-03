@@ -26,18 +26,18 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         .observeOn(viewScheduler)
         .doOnSuccess { handleValidationResult(it) }
         .flatMapCompletable {
-          referralInteractor.saveReferralInformation(it.completed, it.receivedAmount.toString(),
-              it.link != null, ReferralsScreen.INVITE_FRIENDS)
+          referralInteractor.saveReferralInformation(it.completed, it.link != null,
+              ReferralsScreen.INVITE_FRIENDS)
         }
         .subscribe({}, { handleError(it) })
     )
   }
 
-  private fun handleValidationResult(referral: ReferralResponse) {
+  private fun handleValidationResult(referral: ReferralsModel) {
     if (referral.link != null) {
       activity.navigateToInviteFriends(referral.amount, referral.pendingAmount,
           referral.symbol, referral.link, referral.completed, referral.receivedAmount,
-          referral.maxAmount, referral.available)
+          referral.maxAmount, referral.available, referral.isRedeemed())
       handleInfoButtonVisibility()
     } else {
       activity.navigateToVerificationFragment(referral.amount, referral.symbol)
@@ -71,6 +71,9 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         .subscribe({}, { it.printStackTrace() }))
   }
 
+  private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
+    return userStatus != null && userStatus == ReferralResponse.UserStatus.REDEEMED
+  }
 
   fun stop() {
     disposables.clear()

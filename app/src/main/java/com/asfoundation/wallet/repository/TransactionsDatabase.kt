@@ -8,7 +8,7 @@ import com.asfoundation.wallet.repository.entity.TransactionEntity
 
 @Database(
     entities = [TransactionEntity::class, TransactionDetailsEntity::class, TransactionDetailsEntity.Icon::class],
-    version = 1)
+    version = 2)
 @TypeConverters(TransactionTypeConverter::class)
 abstract class TransactionsDatabase : RoomDatabase() {
   abstract fun transactionsDao(): TransactionsDao

@@ -179,7 +179,8 @@ public class AdyenAuthorizationPresenter {
         .andThen(transactionBuilder.flatMapCompletable(
             transaction -> billingService.getAuthorization(transaction.getSkuId(),
                 transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
-                transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
+                transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
+                transaction.getReferrerUrl())
                 .observeOn(viewScheduler)
                 .filter(AdyenAuthorization::isPendingAuthorization)
                 .firstOrError()
@@ -212,7 +213,8 @@ public class AdyenAuthorizationPresenter {
     disposables.add(transactionBuilder.flatMapCompletable(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
-            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
+            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
+            transaction.getReferrerUrl())
             .filter(AdyenAuthorization::isCompleted)
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
@@ -239,8 +241,7 @@ public class AdyenAuthorizationPresenter {
                 .map(throwable -> 0)
                 .timeout(3, TimeUnit.MINUTES))
             .map(purchase -> billingMessagesMapper.mapPurchase(purchase,
-                transaction.getOrderReference()))
-            .map(bundle -> mapPaymentMethodId(bundle, paymentType));
+                transaction.getOrderReference()));
       } else {
         return inAppPurchaseInteractor.getTransactionUid(billingService.getTransactionUid())
             .retryWhen(errors -> {
@@ -250,7 +251,8 @@ public class AdyenAuthorizationPresenter {
             })
             .map(billingMessagesMapper::successBundle);
       }
-    });
+    })
+        .map(bundle -> mapPaymentMethodId(bundle, paymentType));
   }
 
   private Bundle mapPaymentMethodId(Bundle bundle, PaymentType paymentType) {
@@ -270,7 +272,8 @@ public class AdyenAuthorizationPresenter {
     disposables.add(transactionBuilder.flatMap(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
-            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
+            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
+            transaction.getReferrerUrl())
             .filter(AdyenAuthorization::isFailed)
             .firstOrError()
             .observeOn(viewScheduler)
@@ -289,7 +292,8 @@ public class AdyenAuthorizationPresenter {
     disposables.add(transactionBuilder.flatMapObservable(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
-            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
+            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
+            transaction.getReferrerUrl())
             .filter(AdyenAuthorization::isProcessing)
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))

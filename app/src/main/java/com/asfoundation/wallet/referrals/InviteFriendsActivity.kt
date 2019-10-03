@@ -84,10 +84,10 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   override fun navigateToInviteFriends(amount: BigDecimal, pendingAmount: BigDecimal,
                                        currency: String, link: String?, completed: Int,
                                        receivedAmount: BigDecimal, maxAmount: BigDecimal,
-                                       available: Int) {
+                                       available: Int, isRedeemed: Boolean) {
     hideNoNetworkView()
     navigateTo(InviteFriendsFragment.newInstance(amount, pendingAmount, currency, link, completed,
-        receivedAmount, maxAmount, available))
+        receivedAmount, maxAmount, available, isRedeemed))
   }
 
   override fun getInfoButtonClick(): Observable<Any> {

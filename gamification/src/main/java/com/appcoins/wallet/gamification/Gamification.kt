@@ -27,6 +27,10 @@ class Gamification(private val repository: PromotionsRepository) {
         .onErrorReturn { mapReferralError(it) }
   }
 
+  fun getReferralsUserStatus(wallet: String): Single<ReferralResponse> {
+    return repository.getReferralUserStatus(wallet)
+  }
+
   private fun map(referralResponse: ReferralResponse?): ForecastBonus {
     if (referralResponse == null || referralResponse.pendingAmount.compareTo(
             BigDecimal.ZERO) == 0) {

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
@@ -47,8 +46,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     setPreferencesFromResource(R.xml.fragment_settings, rootKey)
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
+  override fun onResume() {
+    super.onResume()
     presenter.present()
   }
 

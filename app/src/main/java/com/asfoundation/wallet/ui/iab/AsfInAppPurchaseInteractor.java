@@ -16,7 +16,6 @@ import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
-import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AsfInAppPurchaseInteractor {
-  public static final double GAS_PRICE_MULTIPLIER = 1.25;
+  private static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
   private final CurrencyConversionService currencyConversionService;
@@ -43,16 +42,13 @@ public class AsfInAppPurchaseInteractor {
   private final BdsTransactionService trackTransactionService;
   private final Scheduler scheduler;
 
-  private final TransactionIdHelper transactionIdHelper;
-
   public AsfInAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser,
       BillingMessagesMapper billingMessagesMapper, Billing billing,
       ExternalBillingSerializer billingSerializer,
       CurrencyConversionService currencyConversionService,
-      BdsTransactionService trackTransactionService, Scheduler scheduler,
-      TransactionIdHelper transactionIdHelper) {
+      BdsTransactionService trackTransactionService, Scheduler scheduler) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -64,7 +60,6 @@ public class AsfInAppPurchaseInteractor {
     this.currencyConversionService = currencyConversionService;
     this.trackTransactionService = trackTransactionService;
     this.scheduler = scheduler;
-    this.transactionIdHelper = transactionIdHelper;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -72,13 +67,12 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public Completable send(String uri, TransactionType transactionType, String packageName,
-      String productName, BigDecimal channelBudget, String developerPayload) {
-    switch (transactionType) {
-      case NORMAL:
-        return buildPaymentTransaction(uri, packageName, productName,
-            developerPayload).flatMapCompletable(
-            paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
-                paymentTransaction));
+      String productName, String developerPayload) {
+    if (transactionType == TransactionType.NORMAL) {
+      return buildPaymentTransaction(uri, packageName, productName,
+          developerPayload).flatMapCompletable(
+          paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
+              paymentTransaction));
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction type " + transactionType + " not supported"));
@@ -86,19 +80,17 @@ public class AsfInAppPurchaseInteractor {
 
   public Completable resume(String uri, TransactionType transactionType, String packageName,
       String productName, String approveKey, String developerPayload) {
-    switch (transactionType) {
-      case NORMAL:
-        return buildPaymentTransaction(uri, packageName, productName,
-            developerPayload).flatMapCompletable(
-            paymentTransaction -> billing.getSkuTransaction(packageName,
-                paymentTransaction.getTransactionBuilder()
-                    .getSkuId(), scheduler)
-                .flatMapCompletable(
-                    transaction -> resumePayment(approveKey, paymentTransaction, transaction)));
-      default:
-        return Completable.error(new UnsupportedOperationException(
-            "Transaction type " + transactionType + " not supported"));
+    if (transactionType == TransactionType.NORMAL) {
+      return buildPaymentTransaction(uri, packageName, productName,
+          developerPayload).flatMapCompletable(
+          paymentTransaction -> billing.getSkuTransaction(packageName,
+              paymentTransaction.getTransactionBuilder()
+                  .getSkuId(), scheduler)
+              .flatMapCompletable(
+                  transaction -> resumePayment(approveKey, paymentTransaction, transaction)));
     }
+    return Completable.error(new UnsupportedOperationException(
+        "Transaction type " + transactionType + " not supported"));
   }
 
   private Completable resumePayment(String approveKey, PaymentTransaction paymentTransaction,

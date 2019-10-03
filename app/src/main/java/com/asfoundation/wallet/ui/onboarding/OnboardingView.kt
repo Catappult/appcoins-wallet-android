@@ -6,7 +6,9 @@ import io.reactivex.Observable
 
 interface OnboardingView {
 
-  fun setupUi()
+  fun updateUI(maxAmount: String)
+
+  fun updateUINoInternet()
 
   fun showLoading()
 
@@ -29,5 +31,7 @@ interface OnboardingView {
   fun getRetryButtonClicks(): Observable<Any>
 
   fun getLaterButtonClicks(): Observable<Any>
+
+  fun showWarningText()
 
 }

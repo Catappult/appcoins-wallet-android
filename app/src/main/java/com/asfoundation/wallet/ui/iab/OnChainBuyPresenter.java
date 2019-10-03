@@ -79,7 +79,7 @@ public class OnChainBuyPresenter {
     showTransactionState(uriString);
     disposables.add(
         inAppPurchaseInteractor.send(uriString, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-            appPackage, productName, BigDecimal.ZERO, developerPayload, isBds)
+            appPackage, productName, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError)
             .observeOn(Schedulers.io())
