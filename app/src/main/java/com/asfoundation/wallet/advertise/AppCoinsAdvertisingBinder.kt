@@ -41,11 +41,11 @@ internal class AppCoinsAdvertisingBinder(
     if (campaign.minutesRemaining in 0..9) {
       leadingZero = "0"
     }
-    notificationManager.notify(WalletPoAService.SERVICE_ID,
-        headsUpNotificationBuilder.setContentTitle(
-            context.getString(R.string.test_poa_hours_remaining,
-                campaign.hoursRemaining.toString(),
-                leadingZero + campaign.minutesRemaining)).build())
+    val message = context.getString(R.string.test_poa_hours_remaining,
+        campaign.hoursRemaining.toString(), leadingZero + campaign.minutesRemaining)
+    val notificationBuilder =
+        headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle().bigText(message))
+    notificationManager.notify(WalletPoAService.SERVICE_ID, notificationBuilder.build())
   }
 
   private fun mapCampaignDetails(details: CampaignDetails): Bundle {

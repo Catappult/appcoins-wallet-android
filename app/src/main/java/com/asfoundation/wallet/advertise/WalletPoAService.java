@@ -205,10 +205,12 @@ public class WalletPoAService extends Service {
     if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
       leadingZero = "0";
     }
-    notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(
+    String message =
         getString(R.string.test_poa_hours_remaining, String.valueOf(proof.getHoursRemaining()),
-            leadingZero + proof.getMinutesRemaining()))
-        .build());
+            leadingZero + proof.getMinutesRemaining());
+    notificationManager.notify(SERVICE_ID,
+        headsUpNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+            .build());
   }
 
   private void stopTimeout() {
