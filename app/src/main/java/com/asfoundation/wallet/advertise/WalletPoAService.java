@@ -267,10 +267,13 @@ public class WalletPoAService extends Service {
           completed = buildNoPoaRemainingString(poaInformation);
         }
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
+        NotificationCompat.Builder notificationBuilder = headsUpNotificationBuilder.setStyle(
             new NotificationCompat.BigTextStyle().bigText(completed))
-            .setContentIntent(pendingIntent)
-            .build());
+            .setContentIntent(pendingIntent);
+        if (appName != null) {
+          notificationBuilder.setContentTitle(appName);
+        }
+        notificationManager.notify(SERVICE_ID, notificationBuilder.build());
         break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
