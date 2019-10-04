@@ -37,7 +37,7 @@ internal class AppCoinsAdvertisingBinder(
   }
 
   private fun handleNotificationBuild(campaign: CampaignDetails) {
-    if (campaign.limitReached()) {
+    if (campaign.hasReachedPoaLimit()) {
       var leadingZero = ""
       if (campaign.minutesRemaining in 0..9) {
         leadingZero = "0"
