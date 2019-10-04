@@ -181,15 +181,7 @@ public class WalletPoAService extends Service {
         //No campaign or already rewarded so there is no need to notify the user of anything
         proofOfAttentionService.remove(packageName);
         if (proof.hasReachedPoaLimit()) {
-          String leadingZero = "";
-          if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
-            leadingZero = "0";
-          }
-          notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(
-              getString(R.string.test_poa_hours_remaining,
-                  String.valueOf(proof.getHoursRemaining()),
-                  leadingZero + proof.getMinutesRemaining()))
-              .build());
+          showNotification(proof);
           stopForeground(false);
         } else {
           stopForeground(true);
@@ -207,6 +199,17 @@ public class WalletPoAService extends Service {
         logger.log(new Throwable(new WrongNetworkException("Unknown network")));
         break;
     }
+  }
+
+  private void showNotification(ProofSubmissionFeeData proof) {
+    String leadingZero = "";
+    if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
+      leadingZero = "0";
+    }
+    notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(
+        getString(R.string.test_poa_hours_remaining, String.valueOf(proof.getHoursRemaining()),
+            leadingZero + proof.getMinutesRemaining()))
+        .build());
   }
 
   private void stopTimeout() {

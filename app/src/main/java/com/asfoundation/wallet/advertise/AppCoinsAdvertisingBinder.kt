@@ -31,23 +31,21 @@ internal class AppCoinsAdvertisingBinder(
     val pkg = packageManager.getNameForUid(uid)
     val pkgInfo = packageManager.getPackageInfo(pkg, 0)
     return campaignInteract.getCampaign(pkg, pkgInfo.versionCode)
-        .doOnSuccess { handleNotificationBuild(it) }
+        .doOnSuccess { if (it.hasReachedPoaLimit()) showNotification(it) }
         .map { mapCampaignDetails(it) }
         .blockingGet()
   }
 
-  private fun handleNotificationBuild(campaign: CampaignDetails) {
-    if (campaign.hasReachedPoaLimit()) {
-      var leadingZero = ""
-      if (campaign.minutesRemaining in 0..9) {
-        leadingZero = "0"
-      }
-      notificationManager.notify(WalletPoAService.SERVICE_ID,
-          headsUpNotificationBuilder.setContentTitle(
-              context.getString(R.string.test_poa_hours_remaining,
-                  campaign.hoursRemaining.toString(),
-                  leadingZero + campaign.minutesRemaining)).build())
+  private fun showNotification(campaign: CampaignDetails) {
+    var leadingZero = ""
+    if (campaign.minutesRemaining in 0..9) {
+      leadingZero = "0"
     }
+    notificationManager.notify(WalletPoAService.SERVICE_ID,
+        headsUpNotificationBuilder.setContentTitle(
+            context.getString(R.string.test_poa_hours_remaining,
+                campaign.hoursRemaining.toString(),
+                leadingZero + campaign.minutesRemaining)).build())
   }
 
   private fun mapCampaignDetails(details: CampaignDetails): Bundle {
