@@ -68,6 +68,7 @@ import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.billing.partners.BdsPartnersApi;
 import com.asfoundation.wallet.billing.partners.InstallerService;
 import com.asfoundation.wallet.billing.partners.InstallerSourceService;
+import com.asfoundation.wallet.billing.partners.OemIdExtractorService;
 import com.asfoundation.wallet.billing.partners.PartnerAddressService;
 import com.asfoundation.wallet.billing.partners.PartnerWalletAddressService;
 import com.asfoundation.wallet.billing.partners.WalletAddressService;
@@ -195,7 +196,6 @@ import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
-import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.util.UserAgentInterceptor;
 import com.facebook.appevents.AppEventsLogger;
@@ -235,8 +235,6 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
 @Module class ToolsModule {
-
-  private final TransactionIdHelper transactionIdHelper = new TransactionIdHelper();
 
   @Provides Context provideContext(App application) {
     return application.getApplicationContext();
@@ -432,7 +430,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
-        bdsTransactionService, Schedulers.io(), transactionIdHelper);
+        bdsTransactionService, Schedulers.io());
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_INTERACTOR")
@@ -444,7 +442,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
-        bdsTransactionService, Schedulers.io(), transactionIdHelper);
+        bdsTransactionService, Schedulers.io());
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
@@ -955,9 +953,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,
-      WalletAddressService addressService) {
+      WalletAddressService addressService, OemIdExtractorService oemIdExtractorService) {
     return new PartnerAddressService(installerService, addressService,
-        new DeviceInfo(Build.MANUFACTURER, Build.MODEL));
+        new DeviceInfo(Build.MANUFACTURER, Build.MODEL), oemIdExtractorService);
   }
 
   @Singleton @Provides InstallerService providesInstallerService(Context context) {
@@ -1172,5 +1170,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setAutoCancel(true)
         .setOngoing(false);
+  }
+
+  @Singleton @Provides OemIdExtractorService provideOemIdExtractorService(Context context) {
+    return new OemIdExtractorService(context);
   }
 }

@@ -45,7 +45,8 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
                 .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
                 .getOrigin(), paymentTransaction.getDeveloperPayload(),
             paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
-            .getOrderReference()))
+            .getOrderReference(), paymentTransaction.getTransactionBuilder()
+            .getReferrerUrl()))
         .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }

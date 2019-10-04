@@ -16,7 +16,7 @@ class TransferParser(private val eipTransactionParser: EIPTransactionParser,
           .flatMap { erc681 -> eipTransactionParser.buildTransaction(erc681) }
     } else if (Uri.parse(uri).isOneStepURLString()) {
       return Single.just<OneStepUri>(parseOneStep(Uri.parse(uri)))
-          .flatMap { oneStepUri -> oneStepTransactionParser.buildTransaction(oneStepUri) }
+          .flatMap { oneStepUri -> oneStepTransactionParser.buildTransaction(oneStepUri, uri) }
     }
     return Single.error(RuntimeException("is not an supported URI"))
   }

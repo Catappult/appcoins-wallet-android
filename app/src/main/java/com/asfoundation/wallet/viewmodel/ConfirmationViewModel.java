@@ -45,6 +45,11 @@ public class ConfirmationViewModel extends BaseViewModel {
     super.onCleared();
   }
 
+  @Override protected void onError(Throwable throwable) {
+    super.onError(throwable);
+    Crashlytics.logException(throwable);
+  }
+
   public LiveData<TransactionBuilder> transactionBuilder() {
     return transactionBuilder;
   }
@@ -66,6 +71,10 @@ public class ConfirmationViewModel extends BaseViewModel {
     transactionHash.postValue(pendingTransaction);
   }
 
+  public void progressFinished() {
+    progress.postValue(false);
+  }
+
   public void send() {
     progress.postValue(true);
     disposable = sendTransactionInteract.send(transactionBuilder.getValue())
@@ -82,10 +91,5 @@ public class ConfirmationViewModel extends BaseViewModel {
     }/* else {
         // TODO: Good idea return to SendActivity
         }*/
-  }
-
-  @Override protected void onError(Throwable throwable) {
-    super.onError(throwable);
-    Crashlytics.logException(throwable);
   }
 }

@@ -15,23 +15,17 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
         .map { it.data.address }
   }
 
-  override fun registerAuthorizationProof(id: String, paymentType: String,
-                                          walletAddress: String,
-                                          walletSignature: String,
-                                          productName: String?,
-                                          packageName: String,
-                                          priceValue: BigDecimal,
-                                          developerWallet: String,
-                                          storeWallet: String,
-                                          origin: String,
-                                          type: String,
-                                          oemWallet: String,
-                                          developerPayload: String?,
-                                          callback: String?,
-                                          orderReference: String?): Single<String> {
+  override fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
+                                          walletSignature: String, productName: String?,
+                                          packageName: String, priceValue: BigDecimal,
+                                          developerWallet: String, storeWallet: String,
+                                          origin: String, type: String, oemWallet: String,
+                                          developerPayload: String?, callback: String?,
+                                          orderReference: String?,
+                                          referrerUrl: String?): Single<String> {
     return remoteRepository.registerAuthorizationProof(origin, type, oemWallet, id, paymentType,
         walletAddress, walletSignature, productName, packageName, priceValue, developerWallet,
-        storeWallet, developerPayload, callback, orderReference)
+        storeWallet, developerPayload, callback, orderReference, referrerUrl)
         .map { it.uid }
   }
 

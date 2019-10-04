@@ -61,14 +61,13 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, BigDecimal channelBudget, String developerPayload,
-      boolean isBds) {
+      String packageName, String productName, String developerPayload, boolean isBds) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-          channelBudget, developerPayload);
+          developerPayload);
     } else {
       return asfInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-          channelBudget, developerPayload);
+          developerPayload);
     }
   }
 

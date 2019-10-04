@@ -121,25 +121,25 @@ class PromotionsPresenter(private val view: PromotionsView,
     return UserRewardsStatus(lastShownLevel, lastShownLevel, status = status)
   }
 
-  private fun showPromotions(promotionsViewModel: PromotionsViewModel) {
+  private fun showPromotions(promotionsModel: PromotionsModel) {
     view.hideLoading()
-    if (promotionsViewModel.showReferrals) {
+    if (promotionsModel.showReferrals) {
       view.showReferralCard()
     }
-    if (promotionsViewModel.showGamification) {
+    if (promotionsModel.showGamification) {
       view.showGamificationCard()
     }
   }
 
-  private fun checkForUpdates(promotionsViewModel: PromotionsViewModel) {
-    disposables.add(promotionsInteractor.hasReferralUpdate(promotionsViewModel.numberOfInvitations,
-        promotionsViewModel.isValidated, ReferralsScreen.INVITE_FRIENDS)
+  private fun checkForUpdates(promotionsModel: PromotionsModel) {
+    disposables.add(promotionsInteractor.hasReferralUpdate(promotionsModel.numberOfInvitations,
+        promotionsModel.isValidated, ReferralsScreen.INVITE_FRIENDS)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.showReferralUpdate(it) }
         .flatMapCompletable {
-          promotionsInteractor.saveReferralInformation(promotionsViewModel.numberOfInvitations,
-              promotionsViewModel.isValidated, ReferralsScreen.PROMOTIONS)
+          promotionsInteractor.saveReferralInformation(promotionsModel.numberOfInvitations,
+              promotionsModel.isValidated, ReferralsScreen.PROMOTIONS)
         }
         .subscribeOn(networkScheduler)
         .subscribe({}, { handleError(it) }))

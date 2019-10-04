@@ -15,8 +15,8 @@ public interface BillingPaymentProofSubmission {
   Single<String> registerAuthorizationProof(String id, String paymentType,
       @Nullable String productName, String packageName, BigDecimal priceValue,
       String developerWallet, String storeWallet, String origin, String type, String oemWallet,
-      @Nullable String developerPayload, @Nullable String callback,
-      @Nullable String orderReference);
+      @Nullable String developerPayload, @Nullable String callback, @Nullable String orderReference,
+      @Nullable String referrerUrl);
 
   void saveTransactionId(String key);
 

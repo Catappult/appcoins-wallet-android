@@ -15,6 +15,7 @@ public class MyAddressRouter {
     }
     Intent intent = new Intent(context, MyAddressActivity.class);
     intent.putExtra(WALLET, wallet);
+    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     context.startActivity(intent);
   }
 }

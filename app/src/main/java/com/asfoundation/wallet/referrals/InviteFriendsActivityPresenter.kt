@@ -33,11 +33,11 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
     )
   }
 
-  private fun handleValidationResult(referral: ReferralResponse) {
+  private fun handleValidationResult(referral: ReferralsModel) {
     if (referral.link != null) {
       activity.navigateToInviteFriends(referral.amount, referral.pendingAmount,
           referral.symbol, referral.link, referral.completed, referral.receivedAmount,
-          referral.maxAmount, referral.available, isRedeemed(referral.userStatus))
+          referral.maxAmount, referral.available, referral.isRedeemed())
       handleInfoButtonVisibility()
     } else {
       activity.navigateToVerificationFragment(referral.amount, referral.symbol)
