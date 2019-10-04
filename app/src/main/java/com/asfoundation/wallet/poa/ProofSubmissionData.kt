@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.poa
 
-data class ProofSubmissionFeeData(val status: RequirementsStatus, val hoursRemaining: Int = 0,
-                                  val minutesRemaining: Int = 0) {
+data class ProofSubmissionData(val status: RequirementsStatus, val hoursRemaining: Int = 0,
+                               val minutesRemaining: Int = 0) {
 
   fun hasReachedPoaLimit(): Boolean {
     return hoursRemaining != 0 || minutesRemaining != 0

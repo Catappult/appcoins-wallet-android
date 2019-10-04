@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
@@ -23,7 +24,7 @@ import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
-import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
+import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver;
@@ -73,12 +74,14 @@ public class WalletPoAService extends Service {
   @Inject PoaAnalytics analytics;
   @Inject PoaAnalyticsController analyticsController;
   @Inject NotificationManager notificationManager;
+  @Inject PackageManager packageManager;
   @Inject @Named("heads_up") NotificationCompat.Builder headsUpNotificationBuilder;
   private Disposable disposable;
   private Disposable timerDisposable;
   private Disposable requirementsDisposable;
   private Disposable startedEventDisposable;
   private Disposable completedEventDisposable;
+  private String appName;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -94,6 +97,13 @@ public class WalletPoAService extends Service {
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
+        try {
+          ApplicationInfo appInfo = packageManager.getApplicationInfo(packageName, 0);
+          appName = packageManager.getApplicationLabel(appInfo)
+              .toString();
+        } catch (PackageManager.NameNotFoundException e) {
+          e.printStackTrace();
+        }
         int versionCode = getVersionCode(packageName);
 
         requirementsDisposable = proofOfAttentionService.handleCreateWallet()
@@ -140,7 +150,7 @@ public class WalletPoAService extends Service {
     stopTimeout();
   }
 
-  private void processWalletState(ProofSubmissionFeeData proof, Intent intent, String packageName) {
+  private void processWalletState(ProofSubmissionData proof, Intent intent, String packageName) {
     switch (proof.getStatus()) {
       case READY:
         // send intent to confirm that we receive the broadcast and we want to finish the handshake
@@ -201,15 +211,20 @@ public class WalletPoAService extends Service {
     }
   }
 
-  private void showNotification(ProofSubmissionFeeData proof) {
+  private void showNotification(ProofSubmissionData proof) {
     String leadingZero = "";
     if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
       leadingZero = "0";
     }
-    notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(
+    String message =
         getString(R.string.test_poa_hours_remaining, String.valueOf(proof.getHoursRemaining()),
-            leadingZero + proof.getMinutesRemaining()))
-        .build());
+            leadingZero + proof.getMinutesRemaining());
+    NotificationCompat.Builder builder =
+        headsUpNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
+    if (appName != null) {
+      builder.setContentTitle(appName);
+    }
+    notificationManager.notify(SERVICE_ID, builder.build());
   }
 
   private void stopTimeout() {
@@ -396,8 +411,12 @@ public class WalletPoAService extends Service {
       builder = new NotificationCompat.Builder(this, channelId);
     }
 
-    return builder.setContentTitle(getString(R.string.app_name))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+    if (appName != null) {
+      builder.setContentTitle(appName);
+    } else {
+      builder.setContentTitle(getString(R.string.app_name));
+    }
+    return builder.setSmallIcon(R.drawable.ic_launcher_foreground)
         .setContentText(notificationText);
   }
 
