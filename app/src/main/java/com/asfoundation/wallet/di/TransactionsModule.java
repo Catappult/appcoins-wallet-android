@@ -38,11 +38,11 @@ import javax.inject.Singleton;
 @Module class TransactionsModule {
 
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
-      DefaultTokenProvider defaultTokenProvider, AppcoinsApps applications,
-      TransactionsAnalytics analytics, TransactionViewNavigator transactionViewNavigator,
+      AppcoinsApps applications, TransactionsAnalytics analytics,
+      TransactionViewNavigator transactionViewNavigator,
       TransactionViewInteract transactionViewInteract) {
-    return new TransactionsViewModelFactory(defaultTokenProvider, applications, analytics,
-        transactionViewNavigator, transactionViewInteract);
+    return new TransactionsViewModelFactory(applications, analytics, transactionViewNavigator,
+        transactionViewInteract);
   }
 
   @Provides TransactionViewNavigator provideTransactionsViewNavigator(SettingsRouter settingsRouter,
