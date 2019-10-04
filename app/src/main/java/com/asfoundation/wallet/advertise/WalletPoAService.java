@@ -180,7 +180,7 @@ public class WalletPoAService extends Service {
       case NOT_ELIGIBLE:
         //No campaign or already rewarded so there is no need to notify the user of anything
         proofOfAttentionService.remove(packageName);
-        if (proof.limitReached()) {
+        if (proof.hasReachedPoaLimit()) {
           String leadingZero = "";
           if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
             leadingZero = "0";
