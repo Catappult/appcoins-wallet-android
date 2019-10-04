@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">PONOVO POŠALJI KOD</string>
   <string name="verification_validating_title">Potvrđujemo kod&#8230;</string>
   <string name="verification_completed_title">Gotovo!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Od sada možete da zaradite AppCoins Credits tako što ćete pozvati prijatelje ili instalirati aplikacije.</string>
   <string name="verification_notification_reward_received_body">Dobili ste nagradu, uživajte! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ovaj broj telefona se već koristio za ovu nagradu 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Broj se već koristi.</string>
@@ -436,14 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Pozovite prijatelje!</string>
   <string name="referral_onboarding_body">Vi i vaši prijatelji možete da zaradite do %s pomoću našeg programa preporuka!</string>
-  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
+  <string name="referral_onboarding_body_no_connection">Vi i vaši prijatelji možete da zaradite AppCoins Credits pomoću našeg programa preporuka!</string>
   <string name="referral_onboarding_redeem_button">Pozvan/a sam</string>
   <string name="referral_verification_title">Potvrdite svoj novčanik</string>
   <string name="referral_verification_body">Da biste učestvovali u programu preporuka, morate da potvrdite novčanik. Kod za potvrdu ćemo vam poslati u SMS poruci.</string>
   <string name="referral_verification_confirmation_title">Vaš poziv je potvrđen!</string>
-  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">Dobićete AppCoins Credits u vrednosti od %1$s za prvu kupovinu u aplikaciji. Iznos prve kupovine mora da bude veći od %2$s i možete da platite bilo kojim načinom plaćanja koji nije AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Izgleda da ovaj broj nije pozvan&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Ali ipak možete da zaradite do %s ako pozovete prijatelje! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s bonusa za preporuku je na čekanju</string>
   <string name="referral_notification_bonus_pending_body">Obavite prvu kupovinu u aplikaciji da biste dobili bonus.</string>
   <string name="referral_view_title">Pozovite prijatelje</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Pozvani prijatelji</string>
   <string name="referral_dropup_menu_requirements_title">Uslovi</string>
   <string name="referral_dropup_menu_requirements_verification">Potvrdite novčanik pomoću broja telefona</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
+  <string name="referral_dropup_menu_requirements_purchase">Obavite jednu kupovinu u aplikaciji ili dopunite iznad %s pomoću bilo kog načina plaćanja koji nije AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Zaradićete AppCoins Credits u vrednosti od %1$s za svakog prijatelja koji ispuni oba uslova (do %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promocije</string>
