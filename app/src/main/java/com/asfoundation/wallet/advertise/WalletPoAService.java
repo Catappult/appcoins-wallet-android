@@ -252,7 +252,8 @@ public class WalletPoAService extends Service {
           completed = buildNoPoaRemainingString(poaInformation);
         }
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(completed)
+        notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
+            new NotificationCompat.BigTextStyle().bigText(completed))
             .setContentIntent(pendingIntent)
             .build());
         break;
