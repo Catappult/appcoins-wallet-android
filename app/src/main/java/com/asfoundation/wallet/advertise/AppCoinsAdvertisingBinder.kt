@@ -2,6 +2,7 @@ package com.asfoundation.wallet.advertise
 
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Bundle
@@ -31,12 +32,12 @@ internal class AppCoinsAdvertisingBinder(
     val pkg = packageManager.getNameForUid(uid)
     val pkgInfo = packageManager.getPackageInfo(pkg, 0)
     return campaignInteract.getCampaign(pkg, pkgInfo.versionCode)
-        .doOnSuccess { if (it.hasReachedPoaLimit()) showNotification(it) }
+        .doOnSuccess { if (it.hasReachedPoaLimit()) showNotification(it, pkgInfo) }
         .map { mapCampaignDetails(it) }
         .blockingGet()
   }
 
-  private fun showNotification(campaign: CampaignDetails) {
+  private fun showNotification(campaign: CampaignDetails, packageInfo: PackageInfo?) {
     var leadingZero = ""
     if (campaign.minutesRemaining in 0..9) {
       leadingZero = "0"
@@ -45,6 +46,9 @@ internal class AppCoinsAdvertisingBinder(
         campaign.hoursRemaining.toString(), leadingZero + campaign.minutesRemaining)
     val notificationBuilder =
         headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle().bigText(message))
+    packageInfo?.let {
+      notificationBuilder.setContentTitle(packageManager.getApplicationLabel(it.applicationInfo))
+    }
     notificationManager.notify(WalletPoAService.SERVICE_ID, notificationBuilder.build())
   }
 

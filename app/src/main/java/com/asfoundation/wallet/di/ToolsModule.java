@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -1174,5 +1175,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides OemIdExtractorService provideOemIdExtractorService(Context context) {
     return new OemIdExtractorService(context);
+  }
+
+  @Singleton @Provides PackageManager providePackageManager(Context context) {
+    return context.getPackageManager();
   }
 }
