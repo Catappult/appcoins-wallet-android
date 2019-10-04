@@ -22,7 +22,7 @@ import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
-import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
+import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver;
@@ -139,7 +139,7 @@ public class WalletPoAService extends Service {
     stopTimeout();
   }
 
-  private void processWalletState(ProofSubmissionFeeData proof, Intent intent, String packageName) {
+  private void processWalletState(ProofSubmissionData proof, Intent intent, String packageName) {
     switch (proof.getStatus()) {
       case READY:
         // send intent to confirm that we receive the broadcast and we want to finish the handshake
@@ -200,7 +200,7 @@ public class WalletPoAService extends Service {
     }
   }
 
-  private void showNotification(ProofSubmissionFeeData proof) {
+  private void showNotification(ProofSubmissionData proof) {
     String leadingZero = "";
     if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
       leadingZero = "0";
