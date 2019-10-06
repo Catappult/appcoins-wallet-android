@@ -436,7 +436,7 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Laden Sie ihre Freunde ein!</string>
   <string name="referral_onboarding_body">Mit unserem Empfehlungsprogramm können Sie und ihre Freunde bis zu %s verdienen!</string>
-  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
+  <string name="referral_onboarding_body_no_connection">Sie und ihre Freunde können mit unserem Referenz-Programm AppCoins verdienen!</string>
   <string name="referral_onboarding_redeem_button">Ich wurde eingeladen</string>
   <string name="referral_verification_title">Verifizieren Sie ihr Wallet</string>
   <string name="referral_verification_body">Um am Empfehlungsprogramm teilnehmen zu können, müssen Sie ihr Wallet verifizieren. Wir werden Ihnen den Verifizierungscode per SMS zusenden.</string>
