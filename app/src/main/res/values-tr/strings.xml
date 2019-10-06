@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">KODU TEKRAR GÖNDER</string>
   <string name="verification_validating_title">Kodunuz doğrulanıyor&#8230;</string>
   <string name="verification_completed_title">Bitti!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Artık arkadaşlarınızı davet ederek veya uygulama yükleyerek AppCoins Credits kazanabilirsiniz.</string>
   <string name="verification_notification_reward_received_body">Ödül alındı, keyfini çıkarın! 👌</string>
   <string name="verification_notification_reward_already_received_body">Bu telefon numarası, bu ödülü almak için zaten kullanılmış 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Numara zaten kullanılıyor.</string>
@@ -436,14 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
-  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
+  <string name="referral_onboarding_body_no_connection">Referans Programımızla siz ve arkadaşlarınız AppCoins Credits kazanabilirsiniz!</string>
   <string name="referral_onboarding_redeem_button">Davet edildim</string>
   <string name="referral_verification_title">Cüzdanınızı Doğrulayın</string>
   <string name="referral_verification_body">Referans Programına katılmak için cüzdanınızı doğrulamanız gerekiyor. Size SMS yoluyla bir doğrulama kodu göndereceğiz.</string>
   <string name="referral_verification_confirmation_title">Davetiniz doğrulandı!</string>
-  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">İlk uygulama içi satın alma işleminizde %1$s değerinde AppCoins Credits kazanırsınız. İlk satın alma işleminizin AppCoins Credits dışında herhangi bir ödeme yöntemiyle %2$s üzerinde olması gerekir.</string>
   <string name="referral_verification_not_invited_title">Bu numara davet edilmemiş gibi görünüyor&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Ama yine de arkadaşlarınızı davet ederek %s\'a kadar kazanabilirsiniz! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Referans Bonusu Beklemede</string>
   <string name="referral_notification_bonus_pending_body">Bonusunuzu almak için ilk uygulama içi satın alma işleminizi gerçekleştirin.</string>
   <string name="referral_view_title">Arkadaşlarınızı Davet Edin</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Davet Edilen Arkadaşlar</string>
   <string name="referral_dropup_menu_requirements_title">Gereklilikler</string>
   <string name="referral_dropup_menu_requirements_verification">Cüzdanınızı telefon numarasıyla doğrulayın</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
+  <string name="referral_dropup_menu_requirements_purchase">AppCoins Credits dışında herhangi bir ödeme yöntemiyle %s üzerinde bir uygulama içi satın alma işlemi gerçekleştirin veya yükleme yapın</string>
   <string name="referral_dropup_menu_requirements_body">Her iki gerekliliği karşılayan her bir arkadaş için %1$s değerinde AppCoins Credits kazanacaksınız (en fazla %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosyonlar</string>
