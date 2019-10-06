@@ -56,7 +56,7 @@
   <string name="yes_continue">بله، ادامه</string>
   <string name="no_repeat">نه، تکرار</string>
   <string name="skip">پرش</string>
-  <string name="skip_with_arrow">Skip &gt;</string>
+  <string name="skip_with_arrow">ردکردن &gt;</string>
   <string name="root_title">امنیت دستگاه به خطر افتاده است</string>
   <string name="root_body">هر اپلیکیشن \'rooted\' می‌تواند به اطلاعات AppCoins Wallet\'s keychain دسترسی داشته باشد و کیف پول شما را بدزدد! فورا این کیف پول را پاک کنید و روی دستگاه امنی بازیابی کنید.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -115,7 +115,7 @@
   <string name="intro_3_body">برای همه خریدهای داخل اپلیکیشن از روش پرداخت مورد علاقه خود استفاده کن.</string>
   <string name="intro_4_title">امن و خصوصی</string>
   <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
-  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
+  <string name="intro_creating_wallet_short">تنظیم کردن کیف پول شما برای شما&#8230;</string>
   <string name="intro_wallet_created_short">کیف پول ساخته شد!</string>
   <string name="intro_agree_terms_and_conditions_body">با کلیک روی دکمه پرش، شما با %1$s و %2$s کیف پول AppCoins موافقت می کنید</string>
   <string name="intro_skip_button">پرش</string>
@@ -383,8 +383,8 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">رد کردن</string>
-  <string name="discover_button">Discover</string>
-  <string name="retry_button">Retry</string>
+  <string name="discover_button">کشف‌کردن</string>
+  <string name="retry_button">تلاش مجدد</string>
   <string name="do_it_later_button">بعدا انجام شود</string>
   <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <!--Onboarding-->
@@ -436,14 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">دوستان خود را دعوت کنید!</string>
   <string name="referral_onboarding_body">شما و دوستان شما می‌توانید از برنامه همکاری ما تا %s کسب درآمد کنید!</string>
-  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
+  <string name="referral_onboarding_body_no_connection">شما و دوستان شما می‌توانید از برنامه همکاری ما، اعتبار AppCoins کسب کنید!</string>
   <string name="referral_onboarding_redeem_button">دعوت شده‌ام</string>
   <string name="referral_verification_title">کیف پول خود را تاییدکنید</string>
   <string name="referral_verification_body">برای مشارکت در برنامه برنامه همکاری باید کیف پول خود را تایید کنید. یک کد تاییدیه از طریق اس‌ام‌اس برای شما ارسال می‌کنیم.</string>
   <string name="referral_verification_confirmation_title">دعوت شما معتبر است!</string>
   <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">به نظر می‌رسد که این شماره دعوت نشده‌است&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">ولی هنوز می‌توانید با دعوت دوستان تا %s کسب درآمد کنید! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s پاداش همکاری به حالت تعلیق</string>
   <string name="referral_notification_bonus_pending_body">اولین خرید داخل اپلیکیشن خود را انجام دهید تا پاداش خود را دریافت کنید.</string>
   <string name="referral_view_title">دوستان را دعوت کنید</string>
