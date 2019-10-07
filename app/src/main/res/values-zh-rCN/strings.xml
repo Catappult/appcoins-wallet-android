@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
   <string name="activity_iab_change_card">更换卡</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
-  <string name="notification_completed_poa">收到奖励，好好享用！</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">向区块链提交请求</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">无网络连接</string>
