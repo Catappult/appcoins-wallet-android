@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="activity_iab_change_card">ИЗМЕНИТЬ КАРТУ</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
-  <string name="notification_completed_poa">Награда получена, наслаждайтесь!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Отправка запроса в блокчейн</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Отсутствует сетевое подключение</string>
