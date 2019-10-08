@@ -509,7 +509,4 @@
   <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
   <string name="promotions_new">NEW</string>
 
-
-  <string name="test_poa_hours_remaining">You reached your daily rewards limit. Come back in %1$sh%2$sm and try again!</string>
-
 </resources>
