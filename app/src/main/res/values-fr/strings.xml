@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">RENVOYER LE CODE</string>
   <string name="verification_validating_title">Validation de votre code&#8230;</string>
   <string name="verification_completed_title">Terminé !</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Vous pouvez maintenant gagner des crédits AppCoins en invitant des amis ou en installant des applications.</string>
   <string name="verification_notification_reward_received_body">Récompense reçue, Profitez-en ! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ce numéro de téléphone a déjà été utilisé pour recevoir cette récompense 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Téléphone déjà utilisé.</string>
@@ -436,13 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invitez vos amis !</string>
   <string name="referral_onboarding_body">Vous et vos amis pouvez gagner jusqu\'à %s avec notre programme de parrainage !</string>
+  <string name="referral_onboarding_body_no_connection">Vous et vos amis pouvez gagner des Crédits AppCoins avec notre programme de parrainage !</string>
   <string name="referral_onboarding_redeem_button">J\'ai été invité</string>
   <string name="referral_verification_title">Vérifier votre portefeuille</string>
   <string name="referral_verification_body">Vous devez vérifier votre portefeuille pour participer au programme de recommandation. Nous vous enverrons un code de vérification par SMS.</string>
   <string name="referral_verification_confirmation_title">Votre invitation a été validée !</string>
-  <string name="referral_verification_confirmation_body">Dès que vous effectuez votre premier achat, vous obtenez %s de crédits AppCoins.</string>
+  <string name="referral_verification_confirmation_body">Vous obtiendrez %1$s de crédits AppCoins lors de votre premier achat en ligne. Votre premier achat doit être supérieur à %2$s avec n\'importe quelle méthode de paiement autre que les crédits AppCoins.</string>
   <string name="referral_verification_not_invited_title">Il semble que ce numéro ne soit pas invité&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Mais vous pouvez toujours gagner jusqu\'à %s en invitant des amis ! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s de Bonus de référence en attente</string>
   <string name="referral_notification_bonus_pending_body">Faites votre premier achat in-app pour obtenir votre bonus.</string>
   <string name="referral_view_title">Invitez des amis</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Amis invités</string>
   <string name="referral_dropup_menu_requirements_title">Exigences</string>
   <string name="referral_dropup_menu_requirements_verification">Vérifier votre portefeuille avec un numéro de téléphone</string>
-  <string name="referral_dropup_menu_requirements_purchase">Effectuez un achat ou une recharge dans l\'application</string>
+  <string name="referral_dropup_menu_requirements_purchase">Effectuez un achat dans l\'application ou rechargez au-dessus de %s avec n\'importe quelle méthode de paiement autre que les crédits AppCoins</string>
   <string name="referral_dropup_menu_requirements_body">Vous gagnerez %1$s en crédits AppCoins pour chaque ami répondant aux exigences (jusqu\'à %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promotions</string>

@@ -210,7 +210,8 @@
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
   <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Processing your reward</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">No network connection</string>
@@ -507,10 +508,5 @@
   <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
   <string name="promotions_new">NEW</string>
-
-  <!--Test (to be removed) -->
-
-  <string name="test_poa_no_poa_remaining">Reward received, enjoy! 👌 \n You\'ll have to wait %1$sh%2$sm to earn more rewards by trying apps!</string>
-  <string name="test_poa_hours_remaining">You reached your daily rewards limit. Come back in %1$sh%2$sm and try again!</string>
 
 </resources>

@@ -42,7 +42,7 @@ internal class AppCoinsAdvertisingBinder(
     if (campaign.minutesRemaining in 0..9) {
       leadingZero = "0"
     }
-    val message = context.getString(R.string.test_poa_hours_remaining,
+    val message = context.getString(R.string.notification_poa_limit_reached,
         campaign.hoursRemaining.toString(), leadingZero + campaign.minutesRemaining)
     val notificationBuilder =
         headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle().bigText(message))
