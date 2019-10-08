@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Convide Seus Amigos!</string>
   <string name="referral_onboarding_body">Você e seus amigos podem ganhar até %s com nosso Programa de Recompensas!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">Você foi convidado</string>
   <string name="referral_verification_title">Verificar Sua Wallet</string>
   <string name="referral_verification_body">Você precisa verificar sua wallet para participar do Programa de Recompensas. Nós enviaremos um código de verificação via SMS.</string>
   <string name="referral_verification_confirmation_title">Seu convite foi validado!</string>
-  <string name="referral_verification_confirmation_body">Assim que tiver feito sua primeira compra, você receberá %s em Créditos AppCoins.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Parece que este número não foi convidado&#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bônus Pendente por Indicações</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Amigos Convidados</string>
   <string name="referral_dropup_menu_requirements_title">Requisitos</string>
   <string name="referral_dropup_menu_requirements_verification">Verifique sua wallet com um número de telefone</string>
-  <string name="referral_dropup_menu_requirements_purchase">Faça uma compra dentro de um aplicativo ou uma recarga</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Você ganhará %1$s em Créditos AppCoins por cada amigo que cumprir os dois requisitos (até %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promoções</string>

@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">ΕΠΑΝΑΠΟΣΤΟΛΗ ΚΩΔΙΚΟΥ</string>
   <string name="verification_validating_title">Επιβεβαίωση του κωδικού σας&#8230;</string>
   <string name="verification_completed_title">Τέλος!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Τώρα μπορείτε να κερδίζετε AppCoins, προσκαλώντας φίλους ή εγκαθιστώντας εφαρμογές.</string>
   <string name="verification_notification_reward_received_body">Η αμοιβή ελήφθη. Καλή απόλαυση! 👌</string>
   <string name="verification_notification_reward_already_received_body">Αυτός ο αριθμός τηλεφώνου έχει ήδη χρησιμοποιηθεί για τη λήψη αυτής της αμοιβής 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Ο αριθμός χρησιμοποιείται ήδη.</string>
@@ -436,13 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Προσκαλέστε τους φίλους σας!</string>
   <string name="referral_onboarding_body">Εσείς και οι φίλοι σας μπορείτε να λάβετε έως %s με το Πρόγραμμα Σύστασης!</string>
+  <string name="referral_onboarding_body_no_connection">Εσείς και οι φίλοι σας μπορείτε να λάβετε AppCoins Credits με το Πρόγραμμα Σύστασης!</string>
   <string name="referral_onboarding_redeem_button">Έχω προσκληθεί</string>
   <string name="referral_verification_title">Επαληθεύστε το Wallet σας</string>
   <string name="referral_verification_body">Για να συμμετάσχετε στο Πρόγραμμα Σύστασης, πρέπει να επαληθεύσετε το wallet σας. Θα σας στείλουμε έναν κωδικό επαλήθευσης μέσω SMS.</string>
   <string name="referral_verification_confirmation_title">Η πρόσκλησή σας επικυρώθηκε!</string>
-  <string name="referral_verification_confirmation_body">Μόλις πραγματοποιήσετε την πρώτη σας αγορά, θα λάβετε AppCoins Credits αξίας %s.</string>
+  <string name="referral_verification_confirmation_body">Θα λάβετε AppCoins Credits αξίας %1$s στην πρώτη σας αγορά εντός εφαρμογών. Η πρώτη σας αγορά πρέπει να είναι πάνω από %2$s με οποιαδήποτε μέθοδο, εκτός από τη χρήση AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Φαίνεται ότι αυτός ο αριθμός δεν έχει λάβει πρόσκληση&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Ωστόσο, μπορείτε ακόμη να λάβετε έως %s, προσκαλώντας φίλους! 💃</string>
   <string name="referral_notification_bonus_pending_title">Bonus Σύστασης %s σε εκκρεμότητα</string>
   <string name="referral_notification_bonus_pending_body">Πραγματοποιήστε την πρώτη σας αγορά εντός εφαρμογών για να λάβετε το bonus σας.</string>
   <string name="referral_view_title">Προσκαλέστε Φίλους</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Προσκεκλημένοι φίλοι</string>
   <string name="referral_dropup_menu_requirements_title">Προϋποθέσεις</string>
   <string name="referral_dropup_menu_requirements_verification">Επαληθεύστε το wallet σας με έναν αριθμό τηλεφώνου</string>
-  <string name="referral_dropup_menu_requirements_purchase">Πραγματοποιήστε μία αγορά εντός εφαρμογών ή φόρτιση</string>
+  <string name="referral_dropup_menu_requirements_purchase">Πραγματοποιήστε μια αγορά εντός εφαρμογών ή φορτίστε πάνω από %s με οποιαδήποτε μέθοδο, εκτός από τη χρήση AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Θα λάβετε AppCoins Credits αξίας %1$s για κάθε φίλο που πληροί και τις δύο προϋποθέσεις (έως %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Προωθήσεις</string>

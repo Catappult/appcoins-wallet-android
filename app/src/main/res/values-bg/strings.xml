@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">ПОВТОРНО ИЗПРАЩАНЕ НА КОД</string>
   <string name="verification_validating_title">Валидиране на твоя код&#8230;</string>
   <string name="verification_completed_title">Готово!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Вече можеш да печелиш AppCoins Credits като каниш приятели или инсталираш приложения.</string>
   <string name="verification_notification_reward_received_body">Наградата е получена, наслади се! 👌</string>
   <string name="verification_notification_reward_already_received_body">Този телефонен номер вече е бил използван за получаване на тази награда😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Номерът вече се използва.</string>
@@ -436,13 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Покани приятелите си!</string>
   <string name="referral_onboarding_body">Ти и приятелите си можете да спечелите до %s с нашата Референтна Програма!</string>
+  <string name="referral_onboarding_body_no_connection">Ти и приятелите ти можете да спечелите AppCoins Credits с нашата Референтна Програма!</string>
   <string name="referral_onboarding_redeem_button">Бях поканен</string>
   <string name="referral_verification_title">Верифицирай портфейла си</string>
   <string name="referral_verification_body">Трябва да верифицираш портфейла си, за да участваш в Референтната Програма. Ще ти изпратим код за потвърждение чрез SMS.</string>
   <string name="referral_verification_confirmation_title">Поканата ти беше валидирана!</string>
-  <string name="referral_verification_confirmation_body">Веднага след като направиш първата си покупка, ще получиш %s като стойност в AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">Ще получиш стойността на %1$s в AppCoins кредити при първата си покупка в приложението. Първата ти покупка трябва да бъде над %2$s с какъвто и да е начин на плащане, различен от AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Изглежда, че този номер не е поканен&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Но все пак можеш да спечелиш до %s като поканиш приятели! 💃</string>
   <string name="referral_notification_bonus_pending_title">В очакване на %s референтен бонус</string>
   <string name="referral_notification_bonus_pending_body">Направи първата си ин-ап покупка, за да получиш бонус.</string>
   <string name="referral_view_title">Покани приятели</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Поканени приятели</string>
   <string name="referral_dropup_menu_requirements_title">Изисквания</string>
   <string name="referral_dropup_menu_requirements_verification">Верифицирай портфейла си с телефонен номер</string>
-  <string name="referral_dropup_menu_requirements_purchase">Направи една ин-ап покупка, за да качиш</string>
+  <string name="referral_dropup_menu_requirements_purchase">Направи една покупка в приложение или допълни над %s с какъвто и да е начин на плащане, различен от AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Ще спечелиш %1$s като стойност в AppCoins Credits за всеки приятел, който отговаря и на двете условия (до %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Промоции</string>

@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">ကုဒ္ကို ထပ္မံေပးပို႔ပါ</string>
   <string name="verification_validating_title">သင့္ကုဒ္ကို အတည္ျပဳေနပါသည္&#8230;</string>
   <string name="verification_completed_title">ၿပီးပါၿပီ။</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">ယခုအခါ သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚျခင္း သို႔မဟုတ္ အက္ပ္မ်ားကို ထည့္သြင္းျခင္းျဖင့္ AppCoins Credits မ်ားကို ရယူနိုင္ပါၿပီ။</string>
   <string name="verification_notification_reward_received_body">ဆုကို ရရွိပါသည္။ ခံစားလိုက္ပါ။ 👌</string>
   <string name="verification_notification_reward_already_received_body">ဤဆုကို ရယူရန္အတြက္ ဤဖုန္းနံပါတ္ကို အသံုးျပဳထားၿပီး ျဖစ္ပါသည္။</string>
   <string name="verification_insert_phone_field_phone_used_already_error">နံပါတ္ကို အသံုးျပဳထားၿပီး ျဖစ္ပါသည္။</string>
@@ -436,13 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">သင့္သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ။</string>
   <string name="referral_onboarding_body">ကၽြႏ္ုပ္တို႔၏ ညႊန္ေပးသည့္ အစီအစဥ္ျဖင့္ သင္ႏွင့္ သင့္သူငယ္ခ်င္းမ်ားသည္ %s အထိ ရရွိႏိုင္ပါသည္။</string>
+  <string name="referral_onboarding_body_no_connection">ကၽြႏ္ုုပ္တို႔၏ ညႊန္ေပးသည့္ အစီအစဥ္ျဖင့္ သင္ႏွင့္သင့္သူငယ္ခ်င္းမ်ားသည္ AppCoins Credit မ်ားကို ရယူႏိုင္ပါသည္။</string>
   <string name="referral_onboarding_redeem_button">ကၽြႏ္ုပ္ကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_verification_title">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳပါ</string>
   <string name="referral_verification_body">ညႊန္ေပးသည့္ အစီအစဥ္တြင္ ပါ၀င္ေဆာင္ရြက္ႏိုင္ရန္အတြက္ သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ လိုအပ္ပါသည္။ အတည္ျပဳရန္ ကုဒ္တစ္ခုကို မက္ေဆ့ဂ်္မွတဆင့္ ေပးပို႔ပါမည္။</string>
   <string name="referral_verification_confirmation_title">သင့္ဖိတ္ေခၚမႈကိုု အတည္ျပဳၿပီးပါၿပီ။</string>
-  <string name="referral_verification_confirmation_body">သင့္ပထမဆံုး ၀ယ္ယူမႈကို ျပဳလုပ္လိုက္သည္ႏွင့္ %s တန္ဖိုးရွိ AppCoins Credits မ်ားကို သင္ရရွိပါမည္။</string>
+  <string name="referral_verification_confirmation_body">သင့္ပထမဆံုး အက္ပ္အတြင္း၀ယ္ယူမႈတြင္ %1$s တန္ဖိုးရွိေသာ AppCoins Credit မ်ားကို ရရွိပါမည္။ သင့္ပထမဆံုး ၀ယ္ယူမႈသည္ %2$s ထက္ ပိုရမည္ျဖစ္ကာ ppCoins Credit မ်ားမွလြဲ၍ အျခားမည္သည့္ ေငြေပးေခ်မႈနည္းလမ္းျဖင့္မဆို ျပဳလုပ္ရပါမည္။</string>
   <string name="referral_verification_not_invited_title">ဤနံပါတ္ကို ဖိတ္ေခၚထားပံုမရပါ&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">သို႔ရာတြင္ သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚျခင္းျဖင့္ %s အထိ သင္ရရွိႏိုင္ပါေသးသည္။ 💃</string>
   <string name="referral_notification_bonus_pending_title">%s ညႊန္ေပးသည့္ေဘာနပ္စ္ကို ေဆာင္ရြက္ေနဆဲ</string>
   <string name="referral_notification_bonus_pending_body">သင့္ေဘာနပ္စ္ကို ရရွိရန္ အက္ပ္အတြင္း ၀ယ္ယူမႈကို ပထမဆံုးအႀကိမ္ ျပဳလုပ္လိုက္ပါ။</string>
   <string name="referral_view_title">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚခဲ့သည္</string>
   <string name="referral_dropup_menu_requirements_title">လိုအပ္ခ်က္မ်ား</string>
   <string name="referral_dropup_menu_requirements_verification">ဖုန္းနံပါတ္တစ္ခုျဖင့္ သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳပါ</string>
-  <string name="referral_dropup_menu_requirements_purchase">အက္ပ္အတြင္း ၀ယ္ယူမႈ သို႔မဟုတ္ ေငြျဖည့္မႈတစ္ခုကို ျပဳလုုပ္လိုက္ပါ</string>
+  <string name="referral_dropup_menu_requirements_purchase">AppCoins Credit မ်ားမွလြဲ၍ အျခားမည္သည့္ ေငြေပးေခ်ရန္ နည္းလမ္းျဖင့္မဆို အက္ပ္အတြင္း၀ယ္ယူမႈတစ္ခု ျပဳလုပ္ပါ သို႔မဟုတ္ %s ထက္ပို၍ ေငြျဖည့္ပါ</string>
   <string name="referral_dropup_menu_requirements_body">ျမႇင့္တင္ရန္ လိုအပ္ခ်က္မ်ားကို ျပည့္မီသည့္ သူငယ္ခ်င္းတစ္ဦးအတြက္ %1$s တန္ဖိုးရွိေသာ AppCoins Credits မ်ားကို (%2$s အထိ) သင္ရရွိပါမည္</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ပ႐ိုမိုးရွင္းမ်ား</string>
