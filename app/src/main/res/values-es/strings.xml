@@ -436,13 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invita a Amigos!</string>
   <string name="referral_onboarding_body">Tanto tú como tus amigos podéis ganar hasta %s con nuestro Progama de Invitaciones.</string>
+  <string name="referral_onboarding_body_no_connection">Tu y tus amigos podéis ganar AppCoins Credits con nuestro Programa de Invitaciones.</string>
   <string name="referral_onboarding_redeem_button">He sido invitado</string>
   <string name="referral_verification_title">Verificar Wallet</string>
   <string name="referral_verification_body">Necesitas verificar tu wallet para participar en el Programa de Invitaciones. Te enviaremos un código por SMS.</string>
   <string name="referral_verification_confirmation_title">¡Tu invitación ha sido validada!</string>
-  <string name="referral_verification_confirmation_body">Recibirás %s en AppCoins Credits cuando hagas tu primera compra.</string>
+  <string name="referral_verification_confirmation_body">Ganarás %1$s en AppCoins Credits con tu primera compra in-app. Esta debe ser de más de %2$s y realizarse con cualquier método de pago menos AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Parece que este número no fue invitado&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">¡Aún así puedes ganar hasta %s invitando amigos! 💃🏽</string>
   <string name="referral_notification_bonus_pending_title">Bonus de %s Pendiente</string>
   <string name="referral_notification_bonus_pending_body">Haz tu primera compra in-app y recibe tu bonus.</string>
   <string name="referral_view_title">Invitar Amigos</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Amigos Invitados</string>
   <string name="referral_dropup_menu_requirements_title">Requisitos</string>
   <string name="referral_dropup_menu_requirements_verification">Verificat tu wallet con un número de teléfono</string>
-  <string name="referral_dropup_menu_requirements_purchase">Hacer una compra in-app o recarga</string>
+  <string name="referral_dropup_menu_requirements_purchase">Haz una compra in-app o recarga de más de %s con cualquier método de pago menos AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Recibirás %1$s en AppCoins Credits por cada amigo que cumpla ambos requisitos (hasta %2$s).</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promociones</string>

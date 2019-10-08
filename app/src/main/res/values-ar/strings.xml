@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">ادعُ أصدقاءك!</string>
   <string name="referral_onboarding_body">يمكنك أن تكسب أنت وأصدقاؤك ما يصل إلى %s مع برنامج الإحالة لدينا!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">لقد دُعيتُ</string>
   <string name="referral_verification_title">وثّق محفظتك</string>
   <string name="referral_verification_body">أنت بحاجة إلى توثيق محفظتك للمشاركة في برنامج الإحالة. سنرسل إليك رمز تحقق من خلال الرسائل القصيرة.</string>
   <string name="referral_verification_confirmation_title">تم التحقق من دعوتك!</string>
-  <string name="referral_verification_confirmation_body">حالما تتم عملة شرائك الأولى ستحصل على ما يساوي %s من رصيد AppCoins.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">يبدو أن هذا الرقم لم يُدعى&#8230;</string>
   <string name="referral_verification_not_invited_body">لكن لا يزال بإمكانك كسب ما يصل إلى %s بدعوة الأصدقاء! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s مكافأة الإحالة بالانتظار</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">الأصدقاء المدعوون</string>
   <string name="referral_dropup_menu_requirements_title">المتطلبات</string>
   <string name="referral_dropup_menu_requirements_verification">وثّق محفظتك برقم الهاتف</string>
-  <string name="referral_dropup_menu_requirements_purchase">أتمَّ عملية شراء واحدة أو اشحن رصيدك</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">ستحصل على ما قيمته %1$s من رصيد AppCoins لكل صديق يتوافق مع المتطلبات (حتى %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ترقيات</string>
