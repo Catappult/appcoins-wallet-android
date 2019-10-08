@@ -336,7 +336,7 @@ public class WalletPoAService extends Service {
       leadingZero = "0";
     }
     minutes = leadingZero + minutes;
-    return getString(R.string.test_poa_no_poa_remaining,
+    return getString(R.string.notification_completed_poa,
         String.valueOf(poaInformation.getRemainingHours()), minutes);
   }
 
