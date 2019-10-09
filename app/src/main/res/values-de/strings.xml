@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">Angaben geprüft \n Erhalte ihren Artikel…</string>
   <string name="activity_iab_change_card">KARTE ÄNDERN</string>
   <string name="notification_ongoing_poa">Verarbeite ihre Belohnung</string>
-  <string name="notification_completed_poa">Belohnung erhalten, viel Spaß!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Reichen Sie ihre Anfrage an die Blockchain weiter</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Keine Netzwerk-Verbindung</string>
@@ -441,9 +442,9 @@
   <string name="referral_verification_title">Verifizieren Sie ihr Wallet</string>
   <string name="referral_verification_body">Um am Empfehlungsprogramm teilnehmen zu können, müssen Sie ihr Wallet verifizieren. Wir werden Ihnen den Verifizierungscode per SMS zusenden.</string>
   <string name="referral_verification_confirmation_title">Ihre Einladung wurde bestätigt!</string>
-  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">Sie erhalten AppCoins Credits im Wert von %1$s bei ihrem ersten In-App Einkauf. Ihr erster Einkauf muss einen Wert von über %2$s haben und mit etwas anderem als mit AppCoins Credits bezahlt werden.</string>
   <string name="referral_verification_not_invited_title">Es scheint diese Nummer wurde nicht eingeladen&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Sie können immer noch bis zu %s verdienen wenn Sie Freunde einladen! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Referral Bonus Wird Verarbeitet</string>
   <string name="referral_notification_bonus_pending_body">Mache Sie ihren ersten In-App Kauf und erhalten Sie ihren Bonus.</string>
   <string name="referral_view_title">Freunde Einladen</string>
@@ -460,7 +461,7 @@
   <string name="referral_dropup_menu_friends_title_1">Freunde Eingeladen</string>
   <string name="referral_dropup_menu_requirements_title">Anforderungen</string>
   <string name="referral_dropup_menu_requirements_verification">Verifizieren Sie ihr Wallet mit einer Telefonnummer</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
+  <string name="referral_dropup_menu_requirements_purchase">Tätigen Sie einen In-App Einkauf oder Füllen Sie ihr Guthaben mit einem Wert von mehr als %s mit einer anderern Bezahlmethode als AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Sie erhalten AppCoins im Wert von %1$s für jeden Freund der beide Anforderungen erfüllt (bis zu %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Aktionen</string>
