@@ -435,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Nessuna commissione e grande rapidità!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Non hai abbastanza APPC Credits, fai una ricarica!</string>
   <string name="purchase_appcoins_credits_default_body">Hai guadagnato abbastanza AppCoins Credits per questo acquisto. Divertiti!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invita i tuoi amici!</string>
   <string name="referral_onboarding_body">Tu e i tuoi amici potete ricevere fino a %s grazie al nostro programma Presenta un amico!</string>
