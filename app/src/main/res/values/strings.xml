@@ -323,6 +323,8 @@
   <string name="action_level">My Level</string>
   <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
   <string name="gamification_purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="gamification_purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="gamification_purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <string name="gamification_how_bonus_received_body">Bonus received</string>
   <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
   <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
