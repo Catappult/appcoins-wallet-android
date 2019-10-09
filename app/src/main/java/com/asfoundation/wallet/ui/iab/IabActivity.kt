@@ -234,6 +234,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     return results
   }
 
+  override fun launchIntent(intent: Intent) {
+    startActivity(intent)
+  }
+
   override fun lockRotation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }

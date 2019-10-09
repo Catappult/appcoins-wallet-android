@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.Intent
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import java.math.BigDecimal
@@ -39,4 +40,5 @@ interface IabView {
   fun lockRotation()
   fun unlockRotation()
   fun showEarnAppcoins()
+  fun launchIntent(intent: Intent)
 }

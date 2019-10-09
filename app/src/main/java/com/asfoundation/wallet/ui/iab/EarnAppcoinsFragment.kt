@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
@@ -65,7 +67,22 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
     return onBackPressSubject!!
   }
 
-  override fun navigateToDeepLink(uri: Uri) {
+  override fun navigateToAptoide() {
+    val intent = Intent(Intent.ACTION_VIEW)
+    val packageManager = context?.packageManager
+    var hasAptoideInstalled = false
+    val appsList = packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+    appsList?.forEach {
+      if (it.activityInfo.packageName == "cm.aptoide.pt") {
+        intent.setPackage(it.activityInfo.packageName)
+        intent.data = Uri.parse(APTOIDE_EARN_APPCOINS_URL)
+        hasAptoideInstalled = true
+      }
+    }
+    if (!hasAptoideInstalled) {
+      intent.data = Uri.parse(NO_APTOIDE_INSTALLED_EARN_APPCOINS_URL)
+    }
+    iabView.launchIntent(intent)
   }
 
   private fun setBackListener(view: View) {
@@ -84,5 +101,13 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
     presenter.destroy()
     onBackPressSubject = null
     super.onDestroyView()
+  }
+
+  companion object {
+    //TODO change this for the correct one
+    const val APTOIDE_EARN_APPCOINS_URL = "https://en.aptoide.com/store/bds-store/group/group-10867"
+    const val NO_APTOIDE_INSTALLED_EARN_APPCOINS_URL =
+        "https://en.aptoide.com/store/bds-store/group/group-10867"
+
   }
 }

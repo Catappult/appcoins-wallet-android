@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.net.Uri
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +15,7 @@ class EarnAppcoinsPresenter(private val view: EarnAppcoinsView,
   private fun handleDiscoverClick() {
     disposables.add(view.discoverButtonClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.navigateToDeepLink(Uri.parse("hghfu")) }
+        .doOnNext { view.navigateToAptoide() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
