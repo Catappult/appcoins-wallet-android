@@ -5,6 +5,5 @@ import io.reactivex.Single;
 public interface ProofWriter {
   Single<String> writeProof(Proof proof);
 
-  Single<ProofSubmissionFeeData> hasWalletPrepared(int chainId, String packageName,
-      int versionCode);
+  Single<ProofSubmissionData> hasWalletPrepared(int chainId, String packageName, int versionCode);
 }

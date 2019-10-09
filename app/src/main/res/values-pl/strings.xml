@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">Szczegóły sprawdzone \nOdbieranie przedmiotu…</string>
   <string name="activity_iab_change_card">ZMIANA KARTY</string>
   <string name="notification_ongoing_poa">Przetwarzanie twojej nagrody</string>
-  <string name="notification_completed_poa">Nagroda odebrana!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Wysyłanie Twojego żądania do blockchainu</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Brak połączenia z siecią</string>
@@ -417,7 +418,7 @@
   <string name="verification_insert_code_resend_button">PONOWNIE WYŚLIJ KOD</string>
   <string name="verification_validating_title">Sprawdzamy Twój kod&#8230;</string>
   <string name="verification_completed_title">Zrobione!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Teraz możesz zarabiać Kredyty AppCoins przez zapraszanie przyjaciół lub instalowanie aplikacji.</string>
   <string name="verification_notification_reward_received_body">Nagroda odebrana! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ten numer telefonu został już użyty do odebrania tej nagrody</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Ten numer jest już w użytku.</string>
@@ -436,13 +437,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Zaproś Swoich Przyjaciół!</string>
   <string name="referral_onboarding_body">Ty i Twoi znajomy mogą zarobić aż %s w naszym Programie Polecającym!</string>
+  <string name="referral_onboarding_body_no_connection">Ty i Twoi znajomi możecie zarabiać Kredyty AppCoins w naszym Programie Polecającym!</string>
   <string name="referral_onboarding_redeem_button">Zostałem zaproszony</string>
   <string name="referral_verification_title">Zweryfikuj Twój Portfel</string>
   <string name="referral_verification_body">Musisz zweryfikować Twój portfel aby brać udział w Programie Polecającym. Wyślemy Ci kod weryfikacyjny przez SMS.</string>
   <string name="referral_verification_confirmation_title">Twoje zaproszenie zostało potwierdzone!</string>
-  <string name="referral_verification_confirmation_body">Jak tylko dokonasz pierwszego zakupu, dostaniesz %s Kredytów AppCoins.</string>
+  <string name="referral_verification_confirmation_body">Otrzymasz równowartość %1$s w Kredytach AppCoins przy Twojej pierwszej transakcji w aplikacji. Twój zakup musi wynosić ponad %2$s z jakąkolwiek metodą płatności inną niż Kredyty AppCoins.</string>
   <string name="referral_verification_not_invited_title">Wygląda na to że ten numer nie został zaproszony &#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Ale nadal możesz zarobić aż %s zapraszając znajomych!</string>
   <string name="referral_notification_bonus_pending_title">%s Oczekujących Bonusów</string>
   <string name="referral_notification_bonus_pending_body">Dokonaj pierwszego zakupu w aplikacji aby otrzymać bonus.</string>
   <string name="referral_view_title">Zaproś Znajomych</string>
@@ -459,7 +461,7 @@
   <string name="referral_dropup_menu_friends_title_1">Zaproszonych Znajomych</string>
   <string name="referral_dropup_menu_requirements_title">Wymagania</string>
   <string name="referral_dropup_menu_requirements_verification">Zweryfikuj swój portfel numerem telefonu</string>
-  <string name="referral_dropup_menu_requirements_purchase">Dokonaj jednego zakupu w aplikacji lub doładowania</string>
+  <string name="referral_dropup_menu_requirements_purchase">Dokonaj jednej transakcji w aplikacji lub doładuj ponad %s przez jakąkolwiek metodę płatności oprócz Kredytów AppCoins</string>
   <string name="referral_dropup_menu_requirements_body">Zarobisz %1$s Kredytów AppCoins za każdego znajomego który spełni wymaga (do %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promocje</string>

@@ -67,7 +67,7 @@
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Buying %s</string>
   <string name="action_buy">Buy</string>
-  <string name="empty"/>
+  <string name="empty" />
   <string name="try_again">Try again</string>
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Create new wallet</string>
@@ -94,6 +94,8 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
+  
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Processing…</string>
@@ -106,7 +108,7 @@
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
-  
+
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
@@ -126,7 +128,7 @@
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
   <string name="intro_skip_button">SKIP</string>
-        
+
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
@@ -210,7 +212,8 @@
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
   <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Processing your reward</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">No network connection</string>
@@ -289,7 +292,7 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>  
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">How to Level Up?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
@@ -366,7 +369,7 @@
   <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
   <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
-  
+
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
@@ -417,11 +420,11 @@
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
-  
+
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
-  
+
   <!--Tokens-->
   <string name="appc_token_name" translatable="false">AppCoins</string>
   <string name="appc_credits_token_name" translatable="false">AppCoins Credits</string>
@@ -467,6 +470,10 @@
   <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
 
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invite Your Friends!</string>
@@ -499,7 +506,7 @@
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
 
 
-<!--Promotions-->
+  <!--Promotions-->
   <string name="bottom_navigation_promotions">Promotions</string>
   <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
   <string name="promotions_title">Promotions</string>

@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">Detalhes verificados \nRecebendo seu item…</string>
   <string name="activity_iab_change_card">ALTERAR CARTÃO</string>
   <string name="notification_ongoing_poa">Processando sua recompensa</string>
-  <string name="notification_completed_poa">Recompensa recebida, aproveite!</string>
+  <string name="notification_completed_poa">Recompensa recebida! 👌 Você terá que esperar %1$sh%2$sm para ganhar mais recompensas ao experimentar apps ⏰!</string>
+  <string name="notification_poa_limit_reached">Você alcançou o seu limite diário de recompensas. ⏰ Volte em %1$sh%2$sm e tente novamente!</string>
   <string name="notification_submitting_poa">Enviando seu pedido para a blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Sem conexão com a rede</string>
@@ -417,7 +418,7 @@
   <string name="verification_insert_code_resend_button">REENVIAR CÓDIGO</string>
   <string name="verification_validating_title">Validando seu código&#8230;</string>
   <string name="verification_completed_title">Pronto!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Você agora pode ganhar Créditos AppCoins ao convidar amigos ou instalar apps.</string>
   <string name="verification_notification_reward_received_body">Recompensa recebida, divirta-se! 👌</string>
   <string name="verification_notification_reward_already_received_body">Este número de telefone já foi utilizado para receber esta recompensa 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Número já utilizado.</string>
@@ -436,13 +437,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Convide Seus Amigos!</string>
   <string name="referral_onboarding_body">Você e seus amigos podem ganhar até %s com nosso Programa de Recompensas!</string>
+  <string name="referral_onboarding_body_no_connection">Você e seus amigos podem ganhar Créditos AppCoins com nosso Programa de Recompensas!</string>
   <string name="referral_onboarding_redeem_button">Você foi convidado</string>
   <string name="referral_verification_title">Verificar Sua Wallet</string>
   <string name="referral_verification_body">Você precisa verificar sua wallet para participar do Programa de Recompensas. Nós enviaremos um código de verificação via SMS.</string>
   <string name="referral_verification_confirmation_title">Seu convite foi validado!</string>
-  <string name="referral_verification_confirmation_body">Assim que tiver feito sua primeira compra, você receberá %s em Créditos AppCoins.</string>
+  <string name="referral_verification_confirmation_body">Você receberá %1$s em Créditos AppCoins na sua primeira compra dentro de um aplicativo. Sua primeira compra precisa ser acima de %2$s com qualquer método de pagamento diferente de Créditos AppCoins.</string>
   <string name="referral_verification_not_invited_title">Parece que este número não foi convidado&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">E você ainda pode ganhar até %s ao convidar amigos! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bônus Pendente por Indicações</string>
   <string name="referral_notification_bonus_pending_body">Faça sua primeira compra dentro do aplicativo para receber seu bônus.</string>
   <string name="referral_view_title">Convidar Amigos</string>
@@ -459,7 +461,7 @@
   <string name="referral_dropup_menu_friends_title_1">Amigos Convidados</string>
   <string name="referral_dropup_menu_requirements_title">Requisitos</string>
   <string name="referral_dropup_menu_requirements_verification">Verifique sua wallet com um número de telefone</string>
-  <string name="referral_dropup_menu_requirements_purchase">Faça uma compra dentro de um aplicativo ou uma recarga</string>
+  <string name="referral_dropup_menu_requirements_purchase">Faça uma compra dentro de um aplicativo ou insira créditos acima de %s com qualquer método de pagamento diferente de Créditos AppCoins</string>
   <string name="referral_dropup_menu_requirements_body">Você ganhará %1$s em Créditos AppCoins por cada amigo que cumprir os dois requisitos (até %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promoções</string>

@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">Rincian sudah diperiksa \nMenerima item Anda…</string>
   <string name="activity_iab_change_card">GANTI KARTU</string>
   <string name="notification_ongoing_poa">Memproses hadiah Anda</string>
-  <string name="notification_completed_poa">Hadiah diterima, nikmatilah!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Mengirimkan permintaan Anda ke blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Tidak ada koneksi jaringan</string>
@@ -417,7 +418,7 @@
   <string name="verification_insert_code_resend_button">KIRIM ULANG KODE</string>
   <string name="verification_validating_title">Memvalidasi kode Anda&#8230;</string>
   <string name="verification_completed_title">Selesai!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Anda sekarang bisa mendapatkan Kredit AppCoins dengan mengajak teman atau memasang aplikasi.</string>
   <string name="verification_notification_reward_received_body">Hadiah diterima, silakan dinikmati! 👌</string>
   <string name="verification_notification_reward_already_received_body">Nomor telepon ini sudah digunakan untuk menerima hadiah ini 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Nomor sudah digunakan.</string>
@@ -436,13 +437,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Undang Teman Anda!</string>
   <string name="referral_onboarding_body">Anda dan teman bisa mendapatkan penghasilan hingga %s dengan Program Referral kami!</string>
+  <string name="referral_onboarding_body_no_connection">Anda dan teman bisa mendapatkan Kredit AppCoins dengan Program Referensi kami!</string>
   <string name="referral_onboarding_redeem_button">Saya sudah diundang</string>
   <string name="referral_verification_title">Verifikasi Dompet Anda</string>
   <string name="referral_verification_body">Anda harus memverifikasi dompet Anda untuk ikut serta di Program Referensi. Kami akan mengirimi Anda kode verifikasi melalui SMS.</string>
   <string name="referral_verification_confirmation_title">Undangan Anda sudah divalidasi!</string>
-  <string name="referral_verification_confirmation_body">Segera setelah Anda melakukan pembelian pertama, Anda akan mendapatkan Kredit AppCoins senilai %s.</string>
+  <string name="referral_verification_confirmation_body">Anda akan mendapatkan Kredit AppCoins senilai %1$s di pembelian in-app pertama. Pembelian pertama Anda nilainya harus lebih dari %2$s dengan metode pembayaran selain Kredit AppCoins.</string>
   <string name="referral_verification_not_invited_title">Sepertinya nomor ini tidak diundang&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Tetapi Anda masih bisa memperoleh hingga %s dengan mengundang teman! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bonus Referral Tertunda</string>
   <string name="referral_notification_bonus_pending_body">Lakukan pembelian in-app pertama Anda untuk mendapatkan bonus.</string>
   <string name="referral_view_title">Undang Teman</string>
@@ -459,7 +461,7 @@
   <string name="referral_dropup_menu_friends_title_1">Teman sudah diundang</string>
   <string name="referral_dropup_menu_requirements_title">Persyaratan</string>
   <string name="referral_dropup_menu_requirements_verification">Verifikasi dompet Anda dengan nomor telepon</string>
-  <string name="referral_dropup_menu_requirements_purchase">Lakukan satu pembelian in-app atau isi ulang</string>
+  <string name="referral_dropup_menu_requirements_purchase">Lakukan satu pembelian in-app atau isi ulang lebih dari %s dengan metode pembayaran selain Kredit AppCoins</string>
   <string name="referral_dropup_menu_requirements_body">Anda akan mendapatkan Kredit AppCoins senilai %1$s untuk setiap teman yang memeuhi persyaratan (hingga %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosi</string>

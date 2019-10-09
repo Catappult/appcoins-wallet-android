@@ -1,13 +1,17 @@
 package com.asfoundation.wallet.di;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -37,6 +41,7 @@ import com.appcoins.wallet.permissions.Permissions;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
@@ -226,6 +231,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
 import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
@@ -789,12 +795,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return PreferenceManager.getDefaultSharedPreferences(context);
   }
 
-  @Singleton @Provides CampaignService providePoASubmissionService(OkHttpClient client,
-      ObjectMapper objectMapper) {
+  @Singleton @Provides CampaignService providePoASubmissionService(OkHttpClient client) {
     String baseUrl = CampaignService.SERVICE_HOST;
     CampaignService.CampaignApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(CampaignService.CampaignApi.class);
@@ -1139,7 +1144,40 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         new AdvertisingThrowableCodeMapper());
   }
 
+  @Singleton @Provides NotificationManager provideNotificationManager(Context context) {
+    return (NotificationManager) context.getApplicationContext()
+        .getSystemService(NOTIFICATION_SERVICE);
+  }
+
+  @Singleton @Provides @Named("heads_up")
+  NotificationCompat.Builder provideHeadsUpNotificationBuilder(Context context,
+      NotificationManager notificationManager) {
+    NotificationCompat.Builder builder;
+    String channelId = "notification_channel_heads_up_id";
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      CharSequence channelName = "Notification channel";
+      int importance = NotificationManager.IMPORTANCE_HIGH;
+      NotificationChannel notificationChannel =
+          new NotificationChannel(channelId, channelName, importance);
+      builder = new NotificationCompat.Builder(context, channelId);
+
+      notificationManager.createNotificationChannel(notificationChannel);
+    } else {
+      builder = new NotificationCompat.Builder(context, channelId);
+      builder.setVibrate(new long[0]);
+    }
+    return builder.setContentTitle(context.getString(R.string.app_name))
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setPriority(NotificationCompat.PRIORITY_MAX)
+        .setAutoCancel(true)
+        .setOngoing(false);
+  }
+
   @Singleton @Provides OemIdExtractorService provideOemIdExtractorService(Context context) {
     return new OemIdExtractorService(context);
+  }
+
+  @Singleton @Provides PackageManager providePackageManager(Context context) {
+    return context.getPackageManager();
   }
 }

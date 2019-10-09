@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
   <string name="activity_iab_change_card">เปลี่ยนบัตร</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
-  <string name="notification_completed_poa">ได้รับรางวัล เพลิดเพลิน!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">การส่งการร้องขอ blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">ไม่มีการเชื่อมต่อเครือข่าย</string>
@@ -436,13 +437,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
+  <string name="referral_onboarding_body_no_connection">คุณและเพื่อนของคุณสามารถรับเครดิต AppCoins ด้วยโปรแกรมการแนะนำเพื่อน!</string>
   <string name="referral_onboarding_redeem_button">ฉันถูกเชิญแล้ว</string>
   <string name="referral_verification_title">ยืนยันกระเป๋าสตางค์ของคุณ</string>
   <string name="referral_verification_body">คุณจำเป็นยืนยันกระเป๋าสตางค์ของคุณเพื่อเข้าร่วมโปรแกรมการแนะนำเพื่อน พวกเราจะส่งรหัสยืนยันไปยัง SMS</string>
   <string name="referral_verification_confirmation_title">คำเชิญของคุณถูกยืนยันแล้ว!</string>
-  <string name="referral_verification_confirmation_body">เมื่อคุณซื้อครั้งแรก คุณจะไดรับ %s ของเครดิต Aptoide</string>
+  <string name="referral_verification_confirmation_body">คุณจะได้รับเครดิต AppCoins มูลค่าสูงสุด %1$s ของการซื้อครั้งแรกที่มากกว่า %2$s ด้วยการชำระเงินอื่นนอกเหนือจากเครดิต AppCoins</string>
   <string name="referral_verification_not_invited_title">ดูเหมือนว่าหมายเลขนี้ไม่ได้เชิญ &#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">แต่คุณยังคงสามารถรับได้สูงสุด %s ด้วยการเชิญเพื่อน</string>
   <string name="referral_notification_bonus_pending_title">โบนัสการแนะนำ %s ที่ค้างอยู่</string>
   <string name="referral_notification_bonus_pending_body">ซื้อแอปครั้งแรกเพื่อรับโบนัสของคุณ</string>
   <string name="referral_view_title">เชิญเพื่อน</string>
@@ -459,8 +461,8 @@
   <string name="referral_dropup_menu_friends_title_1">เพื่อนที่เชิญ</string>
   <string name="referral_dropup_menu_requirements_title">สิ่งจำเป็น</string>
   <string name="referral_dropup_menu_requirements_verification">ยืนยันกระเป๋าสตางค์ของคุณด้วยเบอร์โทรศัพท์</string>
-  <string name="referral_dropup_menu_requirements_purchase">ซื้อหนึ่งแอปหรือเติมเงิน</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_purchase">ซื้อในแอปหรือเติมเงิน %s หนึ่งครั้งด้วยวิธีการชำระเงินอื่นนอกเหนือจากเครดิต AppCoins</string>
+  <string name="referral_dropup_menu_requirements_body">คุณจะได้รับเครดิต AppCoins มูลค่า %1$s สำหรับการพบเพื่อนแต่ละครั้งตามกำหนด (สูงสุด %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">โปรโมชั่น</string>
   <string name="bottom_navigation_promotions_detailed">ค้นพบวิธีการหาเครดิต AppCoins ฟรีด้วยโปรโมชั่นและแคมเปญของเรา</string>

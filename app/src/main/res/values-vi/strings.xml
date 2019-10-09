@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
   <string name="activity_iab_change_card">THAY ĐỔI THẺ</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
-  <string name="notification_completed_poa">Đã nhận phần thưởng, hãy tận hưởng!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Đang gửi yêu cầu của bạn đến blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Không có kết nối mạng</string>
@@ -417,7 +418,7 @@
   <string name="verification_insert_code_resend_button">GỬI LẠI MÃ</string>
   <string name="verification_validating_title">Xác thực mã của bạn&#8230;</string>
   <string name="verification_completed_title">Xong!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Bây giờ, bạn có thể kiếm AppCoins Credits bằng cách mời bạn bè hoặc cài đặt ứng dụng.</string>
   <string name="verification_notification_reward_received_body">Đã nhận phần thưởng, hãy tận hưởng! 👌</string>
   <string name="verification_notification_reward_already_received_body">Số điện thoại này đã được sử dụng để nhận phần thưởng này 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Số điện thoại này đã được sử dụng.</string>
@@ -436,13 +437,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Mời bạn bè của bạn!</string>
   <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
+  <string name="referral_onboarding_body_no_connection">Bạn và bạn bè của mình có thể kiếm AppCoins Credits bằng Chương Trình Giới Thiệu của chúng tôi!</string>
   <string name="referral_onboarding_redeem_button">Tôi đã được mời</string>
   <string name="referral_verification_title">Xác minh Ví của bạn</string>
   <string name="referral_verification_body">Bạn cần xác minh ví của mình để tham gia vào Chương Trình Giới Thiệu. Chúng tôi sẽ gửi bạn mã xác nhận qua tin nhắn SMS.</string>
   <string name="referral_verification_confirmation_title">Lời mời của bạn đã được xác thực!</string>
-  <string name="referral_verification_confirmation_body">Ngay khi bạn thực hiện giao dịch đầu tiên, bạn sẽ nhận được %s bằng AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">Bạn sẽ nhận được %1$s bằng AppCoins Credits trên giao dịch mua trong ứng dụng đầu tiên của mình. Giao dịch mua đầu tiên của bạn phải trên %2$s bằng bất kỳ phương thức thanh toán nào khác ngoài AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Dường như số này không được mời&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Tuy nhiên, bạn vẫn có thể kiếm đến %s bằng cách mời bạn bè! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s tiền thưởng giới thiệu đang chờ xử lý</string>
   <string name="referral_notification_bonus_pending_body">Thực hiện mua hàng trong ứng dụng lần đầu tiên để nhận được phần thưởng.</string>
   <string name="referral_view_title">Mời bạn bè</string>
@@ -459,7 +461,7 @@
   <string name="referral_dropup_menu_friends_title_1">Bạn bè đã mời</string>
   <string name="referral_dropup_menu_requirements_title">Yêu cầu</string>
   <string name="referral_dropup_menu_requirements_verification">Xác nhận ví của bạn bằng số điện thoại</string>
-  <string name="referral_dropup_menu_requirements_purchase">Thực hiện một giao dịch mua hàng trong ứng dụng hoặc nạp tiền</string>
+  <string name="referral_dropup_menu_requirements_purchase">Thực hiện một giao dịch mua trong ứng dụng hoặc nạp tiền điện tử trên %s bằng bất kỳ phương thức thanh toán nào khác ngoài AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Bạn sẽ nhận được %1$s bằng AppCoins Credits cho mỗi người bạn đáp ứng được cả 2 yêu cầu (tối đa %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Khuyến mãi</string>
