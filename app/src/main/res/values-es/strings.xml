@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Procesando…</string>
@@ -434,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">¡Sin tasas y súper rápido!</string>
   <string name="purchase_appcoins_credits_noavailable_body">No tienes suficientes APPC Credits, ¡prueba a hacer una recarga!</string>
   <string name="purchase_appcoins_credits_default_body">Has ganado suficientes AppCoins Credits para esta compra. ¡Disfruta!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invita a Amigos!</string>
   <string name="referral_onboarding_body">Tanto tú como tus amigos podéis ganar hasta %s con nuestro Progama de Invitaciones.</string>
