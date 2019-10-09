@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">المفتاح الخاص</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">خطأ</string>
   <string name="title_dialog_handling">جاري التنفيذ…</string>
@@ -434,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">دون رسوم، وسرعة كالبرق!</string>
   <string name="purchase_appcoins_credits_noavailable_body">لا يتوفر رصيد كافٍ من APPC، جرب إضافة المزيد!</string>
   <string name="purchase_appcoins_credits_default_body">لقد كسبت ما يكفي من رصيد الAppCoins لعملية الشراء هه. استمتع!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">ادعُ أصدقاءك!</string>
   <string name="referral_onboarding_body">يمكنك أن تكسب أنت وأصدقاؤك ما يصل إلى %s مع برنامج الإحالة لدينا!</string>
