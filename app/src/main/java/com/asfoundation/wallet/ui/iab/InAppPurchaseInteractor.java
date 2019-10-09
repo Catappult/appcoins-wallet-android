@@ -227,8 +227,36 @@ public class InAppPurchaseInteractor {
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
-                .toList()))
+                .toList())
+            .map(this::removePaymentMethods))
         .map(this::swapDisabledPositions);
+  }
+
+  private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
+    List<PaymentMethod> clonedList = paymentMethods;
+    if (!hasFunds(clonedList)) {
+      Iterator<PaymentMethod> iterator = clonedList.iterator();
+      while (iterator.hasNext()) {
+        PaymentMethod paymentMethod = iterator.next();
+        if (paymentMethod.getId()
+            .equals("earn_appcoins")) {
+          iterator.remove();
+        }
+      }
+    }
+    return clonedList;
+  }
+
+  private boolean hasFunds(List<PaymentMethod> clonedList) {
+    for (PaymentMethod paymentMethod : clonedList) {
+      if ((paymentMethod.getId()
+          .equals(APPC_ID) && paymentMethod.isEnabled())
+          || paymentMethod.getId()
+          .equals(CREDITS_ID) && paymentMethod.isEnabled()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   List<PaymentMethod> mergeAppcoins(List<PaymentMethod> paymentMethods) {

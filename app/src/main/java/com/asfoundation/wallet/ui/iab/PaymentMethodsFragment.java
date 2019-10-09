@@ -119,6 +119,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView preSelectedNameSingle;
   private TextView preSelectedName;
   private TextView preSelectedDescription;
+  private View noBonusMsg;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, boolean isDonation, String developerPayload, String uri,
@@ -198,6 +199,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     bonusView = view.findViewById(R.id.bonus_layout);
     bonusMsg = view.findViewById(R.id.bonus_msg);
+    noBonusMsg = view.findViewById(R.id.no_bonus_msg);
     bottomSeparator = view.findViewById(R.id.bottom_separator);
 
     bonusValue = view.findViewById(R.id.bonus_value);
@@ -442,14 +444,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         transaction.getType(), selectedPaymentMethod);
   }
 
-  @Override public void hideBonus() {
-    bonusView.setVisibility(View.GONE);
-    bonusMsg.setVisibility(View.GONE);
-    if (bottomSeparator != null) {
-      bottomSeparator.setVisibility(View.INVISIBLE);
-    }
-  }
-
   @NotNull @Override public Observable<String> getPaymentSelection() {
     return Observable.merge(RxRadioGroup.checkedChanges(radioGroup)
             .filter(checkedRadioButtonId -> checkedRadioButtonId >= 0)
@@ -504,14 +498,37 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.lockRotation();
   }
 
+  @Override public void showEarnAppcoins() {
+    iabView.showEarnAppcoins();
+  }
+
+  @Override public void showBonus() {
+    bonusView.setVisibility(View.VISIBLE);
+    bonusMsg.setVisibility(View.VISIBLE);
+    if (noBonusMsg != null) {
+      noBonusMsg.setVisibility(View.INVISIBLE);
+    }
+  }
+
+  @Override public void replaceBonus() {
+    bonusView.setVisibility(View.INVISIBLE);
+    bonusMsg.setVisibility(View.INVISIBLE);
+    if (noBonusMsg != null) {
+      noBonusMsg.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void hideBonus() {
+    bonusView.setVisibility(View.GONE);
+    bonusMsg.setVisibility(View.GONE);
+    if (bottomSeparator != null) {
+      bottomSeparator.setVisibility(View.INVISIBLE);
+    }
+  }
+
   private void setBuyButtonText() {
     int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
-  }
-
-  private void showBonus() {
-    bonusView.setVisibility(View.VISIBLE);
-    bonusMsg.setVisibility(View.VISIBLE);
   }
 
   private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency) {

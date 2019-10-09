@@ -62,15 +62,10 @@ class PaymentMethodsPresenter(
 
   private fun handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
-        .flatMapCompletable { selectedPaymentMethod ->
-          if (selectedPaymentMethod == paymentMethodsMapper.map(
-                  PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
-            return@flatMapCompletable Completable.fromAction { view.showNext() }
-                .subscribeOn(viewScheduler)
-          } else {
-            return@flatMapCompletable Completable.fromAction { view.showBuy() }
-                .subscribeOn(viewScheduler)
-          }
+        .observeOn(viewScheduler)
+        .doOnNext { selectedPaymentMethod ->
+          handleBonusVisibility(selectedPaymentMethod)
+          handlePositiveButtonText(selectedPaymentMethod)
         }
         .subscribe())
   }
@@ -101,6 +96,7 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                 selectedPaymentMethod)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
             else -> return@doOnNext
           }
         }
@@ -366,6 +362,24 @@ class PaymentMethodsPresenter(
       }
     }
     return PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id
+  }
+
+  private fun handleBonusVisibility(selectedPaymentMethod: String) {
+    if (selectedPaymentMethod == paymentMethodsMapper.map(
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
+      view.replaceBonus()
+    } else {
+      view.showBonus()
+    }
+  }
+
+  private fun handlePositiveButtonText(selectedPaymentMethod: String) {
+    if (selectedPaymentMethod == paymentMethodsMapper.map(
+            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
+      view.showNext()
+    } else {
+      view.showBuy()
+    }
   }
 
 }

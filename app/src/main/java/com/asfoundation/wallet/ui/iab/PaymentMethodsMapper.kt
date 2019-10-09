@@ -12,6 +12,7 @@ class PaymentMethodsMapper {
       "appcoins" -> SelectedPaymentMethod.APPC
       "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
       "merged_appcoins" -> SelectedPaymentMethod.MERGED_APPC
+      "earn_appcoins" -> SelectedPaymentMethod.EARN_APPC
       "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
     }
@@ -26,6 +27,7 @@ class PaymentMethodsMapper {
       SelectedPaymentMethod.APPC_CREDITS -> "appcoins_credits"
       SelectedPaymentMethod.MERGED_APPC -> "merged_appcoins"
       SelectedPaymentMethod.LOCAL_PAYMENTS -> "local_payments"
+      SelectedPaymentMethod.EARN_APPC -> "earn_appcoins"
       SelectedPaymentMethod.ERROR -> ""
     }
   }

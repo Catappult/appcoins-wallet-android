@@ -38,4 +38,5 @@ interface IabView {
 
   fun lockRotation()
   fun unlockRotation()
+  fun showEarnAppcoins()
 }
