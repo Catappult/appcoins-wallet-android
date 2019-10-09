@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Ιδιωτικό κλειδί</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Σφάλμα</string>
   <string name="title_dialog_handling">Επεξεργασία…</string>
@@ -434,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Χωρίς χρεώσεις και εξαιρετικά γρήγορα!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετά APPC Credits, δοκιμάστε να κάνετε φόρτιση!</string>
   <string name="purchase_appcoins_credits_default_body">Κερδίσατε αρκετά AppCoins Credits για αυτήν την αγορά. Απολαύστε!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Προσκαλέστε τους φίλους σας!</string>
   <string name="referral_onboarding_body">Εσείς και οι φίλοι σας μπορείτε να λάβετε έως %s με το Πρόγραμμα Σύστασης!</string>
