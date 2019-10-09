@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Anahtar deposu</string>
   <string name="tab_private_key">Özel anahtar</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Hata</string>
   <string name="title_dialog_handling">İşleniyor…</string>
@@ -434,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Ücret yok ve çok hızlı!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Yeterli APPC Krediniz yok, yükleme yapmayı deneyin!</string>
   <string name="purchase_appcoins_credits_default_body">Bu satın alma işlemi için yeterli AppCoins Credits kazandınız. Keyfini çıkarın!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
