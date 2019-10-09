@@ -611,7 +611,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         radioButton = createPaymentRadioButton(paymentMethod, index);
         radioButton.setEnabled(paymentMethod.isEnabled());
         if (paymentMethod.getId()
-            .equals(preSelectedMethod)) {
+            .equals(preSelectedMethod) && paymentMethod.isEnabled()) {
           radioButton.setChecked(true);
         }
         if (paymentMethod instanceof AppCoinsPaymentMethod) {
