@@ -437,7 +437,7 @@
   <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपण पुरेशा अॅपकॉइन्स कमावल्यात. मजा लुटा!</string>
   <string name="purchase_poa_item">Earn funds by trying apps</string>
   <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">आपल्या मित्रांना आमंत्रण द्या!</string>
