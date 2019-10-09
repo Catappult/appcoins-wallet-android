@@ -54,7 +54,7 @@ public class ImportPrivateKeyFragment extends Fragment implements View.OnClickLi
     if (TextUtils.isEmpty(value)) {
       privateKey.setError(getString(R.string.error_field_required));
     } else if (value.length() != 64) {
-      privateKey.setError(getString(R.string.unknown_error));
+      privateKey.setError(getString(R.string.error_invalid_private_key));
     } else {
       onImportPrivateKeyListener.onPrivateKey(privateKey.getText()
           .toString());
