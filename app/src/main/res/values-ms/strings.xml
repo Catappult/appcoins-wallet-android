@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Kunci kedai</string>
   <string name="tab_private_key">Kunci peribadi</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Ralat</string>
   <string name="title_dialog_handling">Memproses…</string>
@@ -434,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Tiada yuran dan pantas!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC anda tidak cukup. Cuba tambah nilai!</string>
   <string name="purchase_appcoins_credits_default_body">Anda telah memperoleh Kredit AppCoins yang cukup untuk pembelian ini. Berseronoklah!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Jemput Rakan Anda!</string>
   <string name="referral_onboarding_body">Anda dan rakan anda boleh dapat sehingga %s dengan Program Rujukan kami!</string>
