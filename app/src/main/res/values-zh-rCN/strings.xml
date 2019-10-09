@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">密钥库</string>
   <string name="tab_private_key">私钥</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">错误</string>
   <string name="title_dialog_handling">正在处理…</string>
@@ -434,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">不收费且速度超快！</string>
   <string name="purchase_appcoins_credits_noavailable_body">你的APPC积金不足，请尝试充值！</string>
   <string name="purchase_appcoins_credits_default_body">你获得了足够的AppCoins积金，可支付此购买。享用吧！</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">邀请好友！</string>
   <string name="referral_onboarding_body">通过推介项目，你和你的好友最多可获取%s！</string>
