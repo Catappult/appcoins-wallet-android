@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">ਕੀਸਟੋਰ</string>
   <string name="tab_private_key">ਪ੍ਰਾਈਵੇਟ ਕੀ</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ਗਲਤੀ</string>
   <string name="title_dialog_handling">ਪ੍ਰੋਸੈਸਿੰਗ…</string>
@@ -434,6 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">ਕੋਈ ਫੀਸ ਨਹੀਂ ਅਤੇ ਬਿਜਲੀ ਵਾਂਗ ਤੇਜ਼!</string>
   <string name="purchase_appcoins_credits_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਕਾਫ਼ੀ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨਹੀਂ ਹਨ, ਐਪ ਸਿੱਕੇ ਭਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="purchase_appcoins_credits_default_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਲਏ| ਆਨੰਦ ਮਾਣੋ!</string>
+  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ!</string>
   <string name="referral_onboarding_body">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ %s ਤੱਕ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
