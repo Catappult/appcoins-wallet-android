@@ -87,7 +87,7 @@ class PaymentMethodsPresenter(
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
           when (paymentMethodsMapper.map(selectedPaymentMethod)) {
-            PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showEarnAppcoins()
+            PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal()
             PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard()
             PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
             PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.showCredits()
