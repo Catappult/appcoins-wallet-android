@@ -437,7 +437,7 @@
   <string name="purchase_appcoins_credits_default_body">Je hebt genoeg AppCoins Credits verdiend voor deze aankoop. Veel plezier!</string>
   <string name="purchase_poa_item">Earn funds by trying apps</string>
   <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds! No Worries</string>
+  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Nodig je vrienden uit!</string>
