@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Anahtar deposu</string>
   <string name="tab_private_key">Özel anahtar</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Hata</string>
   <string name="title_dialog_handling">İşleniyor…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Bilgiler kontrol edildi \nÖğeniz alınıyor…</string>
   <string name="activity_iab_change_card">KARTI DEĞİŞTİR</string>
   <string name="notification_ongoing_poa">Ödülünüz işleniyor</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Ödül alındı!👌 Uygulamaları deneyerek daha fazla ödül kazanmak için %1$s sa%2$s dk beklemen gerekiyor ⏰!</string>
+  <string name="notification_poa_limit_reached">Günlük ödül limitine ulaştın. ⏰ %1$s sa%2$s dk içinde geri dön ve tekrar dene!</string>
   <string name="notification_submitting_poa">İsteğiniz blok zincirine gönderiliyor</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Ağ bağlantısı yok</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Ücret yok ve çok hızlı!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Yeterli APPC Krediniz yok, yükleme yapmayı deneyin!</string>
   <string name="purchase_appcoins_credits_default_body">Bu satın alma işlemi için yeterli AppCoins Credits kazandınız. Keyfini çıkarın!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">Uygulamaları deneyerek fon kazan</string>
+  <string name="purchase_poa_body">Bir uygulamayı 2 dakika dene ve AppCoins Credits kazan!</string>
+  <string name="purchase_poa_view_title">Fon Yoksa Sorun Değil!</string>
+  <string name="purchase_poa_view_body">Bir uygulamayı 2 dakika dene ve satın alma işlemini gerçekleştirmek için AppCoins Credits cinsinden bir ödül al!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
