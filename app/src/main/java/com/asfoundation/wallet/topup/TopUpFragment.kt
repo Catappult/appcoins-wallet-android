@@ -343,13 +343,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun setupDefaultValueChips(values: List<FiatValue>) {
     val formatter = NumberFormatterUtils.create()
     default_chip1.text =
-        values[0].symbol + formatter.formatNumberWithSuffix(values[0].amount.toLong())
+        values[0].symbol + formatter.formatNumberWithSuffix(values[0].amount.toFloat())
     default_chip2.text =
-        values[1].symbol + formatter.formatNumberWithSuffix(values[1].amount.toLong())
+        values[1].symbol + formatter.formatNumberWithSuffix(values[1].amount.toFloat())
     default_chip3.text =
-        values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toLong())
+        values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toFloat())
     default_chip4.text =
-        values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toLong())
+        values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toFloat())
   }
 
   override fun unselectChips() {

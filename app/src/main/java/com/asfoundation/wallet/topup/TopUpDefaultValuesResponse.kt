@@ -6,7 +6,6 @@ data class TopUpDefaultValuesResponse(val items: List<TopUpDefaultValueBody>) {
                                    val price: Price)
 
   data class Price(val fiat: Fiat)
-  data class Fiat(val value: Int, val currency: Currency)
+  data class Fiat(val value: String, val currency: Currency)
   data class Currency(val code: String, val sign: String)
-
 }
