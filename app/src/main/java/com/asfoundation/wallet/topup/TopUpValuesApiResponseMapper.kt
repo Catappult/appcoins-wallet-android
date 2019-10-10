@@ -13,13 +13,13 @@ class TopUpValuesApiResponseMapper {
     })
   }
 
-  fun mapMin(limitValues: TopUpLimitValuesResponse): TopUpLimitValue? {
-    return TopUpLimitValue(FiatValue(BigDecimal(limitValues.values.min), limitValues.currency.code,
-        limitValues.currency.sign))
+  fun mapMin(limitValues: TopUpLimitValuesResponse): FiatValue? {
+    return FiatValue(BigDecimal(limitValues.values.min), limitValues.currency.code,
+        limitValues.currency.sign)
   }
 
-  fun mapMax(limitValues: TopUpLimitValuesResponse): TopUpLimitValue? {
-    return TopUpLimitValue(FiatValue(BigDecimal(limitValues.values.max), limitValues.currency.code,
-        limitValues.currency.sign))
+  fun mapMax(limitValues: TopUpLimitValuesResponse): FiatValue? {
+    return FiatValue(BigDecimal(limitValues.values.max), limitValues.currency.code,
+        limitValues.currency.sign)
   }
 }

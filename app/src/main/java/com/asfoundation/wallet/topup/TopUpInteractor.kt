@@ -53,12 +53,12 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   fun getMinTopUpValue(): Single<FiatValue> {
     return topUpValuesService.getMinimumValue()
-        .map { it.value }
+        .map { it }
   }
 
   fun getMaxTopUpValue(): Single<FiatValue> {
     return topUpValuesService.getMaximumValue()
-        .map { it.value }
+        .map { it }
   }
 
   fun getDefaultValues(): Single<List<FiatValue>> {
