@@ -1022,7 +1022,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         topUpValuesService);
   }
 
-  @Provides TopUpValuesService providesTopUpValuesService(
+  @Singleton @Provides TopUpValuesService providesTopUpValuesService(
       TopUpValuesService.TopUpValuesApi topUpValuesApi,
       TopUpValuesApiResponseMapper responseMapper) {
     return new TopUpValuesService(topUpValuesApi, responseMapper);

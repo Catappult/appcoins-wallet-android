@@ -12,8 +12,7 @@ interface TopUpActivityView {
                         data: TopUpData,
                         selectedCurrency: String, origin: String,
                         transactionType: String, bonusValue: String,
-                        selectedChip: Int, chipValue1: FiatValue, chipValue2: FiatValue,
-                        chipValue3: FiatValue, chipValue4: FiatValue)
+                        selectedChip: Int, chipValues: List<FiatValue>)
 
   fun finish(data: Bundle)
 

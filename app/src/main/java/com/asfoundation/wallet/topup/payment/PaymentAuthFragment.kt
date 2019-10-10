@@ -42,6 +42,7 @@ import kotlinx.android.synthetic.main.default_value_chips_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.Serializable
 import javax.inject.Inject
 
 class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
@@ -133,34 +134,11 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
-  private val chipValue1: FiatValue by lazy {
-    if (arguments!!.containsKey(CHIP_VALUE_1)) {
-      arguments!!.getSerializable(CHIP_VALUE_1) as FiatValue
+  private val chipValues: List<FiatValue> by lazy {
+    if (arguments!!.containsKey(CHIP_VALUES)) {
+      arguments!!.getSerializable(CHIP_VALUES) as List<FiatValue>
     } else {
-      throw IllegalArgumentException("Chip value 1 not found")
-    }
-  }
-
-  private val chipValue2: FiatValue by lazy {
-    if (arguments!!.containsKey(CHIP_VALUE_2)) {
-      arguments!!.getSerializable(CHIP_VALUE_2) as FiatValue
-    } else {
-      throw IllegalArgumentException("Chip value 2 not found")
-    }
-  }
-
-  private val chipValue3: FiatValue by lazy {
-    if (arguments!!.containsKey(CHIP_VALUE_3)) {
-      arguments!!.getSerializable(CHIP_VALUE_3) as FiatValue
-    } else {
-      throw IllegalArgumentException("Chip value 3 not found")
-    }
-  }
-  private val chipValue4: FiatValue by lazy {
-    if (arguments!!.containsKey(CHIP_VALUE_4)) {
-      arguments!!.getSerializable(CHIP_VALUE_4) as FiatValue
-    } else {
-      throw IllegalArgumentException("Chip value 4 not found")
+      throw IllegalArgumentException("Chip values not found")
     }
   }
 
@@ -175,18 +153,14 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     private const val PAYMENT_CURRENT_CURRENCY = "currentCurrency"
     private const val BONUS = "bonus"
     private const val SELECTED_CHIP = "selected_chip"
-    private const val CHIP_VALUE_1 = "chip_value_1"
-    private const val CHIP_VALUE_2 = "chip_value_2"
-    private const val CHIP_VALUE_3 = "chip_value_3"
-    private const val CHIP_VALUE_4 = "chip_value_4"
+    private const val CHIP_VALUES = "chip_values"
 
 
     fun newInstance(paymentType: PaymentType,
                     data: TopUpData, currentCurrency: String,
                     origin: String, transactionType: String,
                     bonusValue: String, selectedChip: Int,
-                    chipValue1: FiatValue, chipValue2: FiatValue, chipValue3: FiatValue,
-                    chipValue4: FiatValue): PaymentAuthFragment {
+                    chipValues: List<FiatValue>): PaymentAuthFragment {
       val bundle = Bundle()
       bundle.putString(PAYMENT_TYPE, paymentType.name)
       bundle.putString(PAYMENT_ORIGIN, origin)
@@ -195,10 +169,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       bundle.putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
       bundle.putString(BONUS, bonusValue)
       bundle.putInt(SELECTED_CHIP, selectedChip)
-      bundle.putSerializable(CHIP_VALUE_1, chipValue1)
-      bundle.putSerializable(CHIP_VALUE_2, chipValue2)
-      bundle.putSerializable(CHIP_VALUE_3, chipValue3)
-      bundle.putSerializable(CHIP_VALUE_4, chipValue4)
+      bundle.putSerializable(CHIP_VALUES, chipValues as Serializable)
       val fragment = PaymentAuthFragment()
       fragment.arguments = bundle
       return fragment
@@ -493,10 +464,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   }
 
   private fun setDisabledChipsValues() {
-    default_chip1.text = chipValue1.symbol + chipValue1.amount
-    default_chip2.text = chipValue2.symbol + chipValue2.amount
-    default_chip3.text = chipValue3.symbol + chipValue3.amount
-    default_chip4.text = chipValue4.symbol + chipValue4.amount
+    default_chip1.text = chipValues[0].symbol + chipValues[0].amount
+    default_chip2.text = chipValues[1].symbol + chipValues[1].amount
+    default_chip3.text = chipValues[2].symbol + chipValues[2].amount
+    default_chip4.text = chipValues[3].symbol + chipValues[3].amount
   }
 
   private fun setDisabledChipsUnclickable() {
