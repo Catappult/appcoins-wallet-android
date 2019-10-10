@@ -3,6 +3,7 @@ package com.appcoins.wallet.billing
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
@@ -49,7 +50,7 @@ class BillingIntentBuilder(val context: Context) {
 
     val value = amount.multiply(BigDecimal.TEN.pow(18))
 
-    val intent = Intent(Intent.ACTION_VIEW)
+    var intent = Intent(Intent.ACTION_VIEW)
     val data = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
         developerAddress, skuId, BuildConfig.NETWORK_ID, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
@@ -60,7 +61,29 @@ class BillingIntentBuilder(val context: Context) {
     intent.putExtra(EXTRA_DEVELOPER_PAYLOAD, payload)
     intent.putExtra(EXTRA_BDS_IAP, bdsIap)
 
+    intent = buildTargetIntent(intent)
     return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+  }
+
+  private fun buildTargetIntent(intent: Intent): Intent {
+    val packageManager = context.packageManager
+    val list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+    var devSuffix = ""
+    if (BuildConfig.BUILD_TYPE == "debug") {
+      devSuffix = ".dev"
+    }
+    for (app in list) {
+      if (app.activityInfo.packageName == "cm.aptoide.pt" + devSuffix) {
+        //If there's aptoide installed always choose Aptoide as default to open url
+        intent.setPackage(app.activityInfo.packageName)
+        break
+      } else if (app.activityInfo.packageName == "com.appcoins.wallet" + devSuffix) {
+        //If Aptoide is not installed and wallet is installed then choose Wallet as default to
+        // open url
+        intent.setPackage(app.activityInfo.packageName)
+      }
+    }
+    return intent
   }
 
   private fun buildUriString(tokenContractAddress: String, iabContractAddress: String,
