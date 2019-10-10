@@ -70,17 +70,12 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
   override fun navigateToAptoide() {
     val intent = Intent(Intent.ACTION_VIEW)
     val packageManager = context?.packageManager
-    var hasAptoideInstalled = false
     intent.data = Uri.parse(APTOIDE_EARN_APPCOINS_DEEPLINK)
     val appsList = packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
     appsList?.forEach {
-      if (it.activityInfo.packageName == "cm.aptoide.pt.dev") {
+      if (it.activityInfo.packageName == "cm.aptoide.pt") {
         intent.setPackage(it.activityInfo.packageName)
-        hasAptoideInstalled = true
       }
-    }
-    if (!hasAptoideInstalled) {
-      intent.data = Uri.parse(NO_APTOIDE_INSTALLED_EARN_APPCOINS_URL)
     }
     iabView.launchIntent(intent)
   }
@@ -105,10 +100,6 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
   }
 
   companion object {
-    //TODO change this for the correct one
     const val APTOIDE_EARN_APPCOINS_DEEPLINK = "aptoide://cm.aptoide.pt/deeplink?name=appcoins_ads"
-    const val NO_APTOIDE_INSTALLED_EARN_APPCOINS_URL =
-        "https://en.aptoide.com/store/bds-store/group/group-10867"
-
   }
 }

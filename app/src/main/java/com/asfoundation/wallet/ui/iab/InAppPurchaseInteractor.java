@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
@@ -39,17 +40,19 @@ public class InAppPurchaseInteractor {
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
+  private PackageManager packageManager;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
-      SharedPreferences sharedPreferences) {
+      SharedPreferences sharedPreferences, PackageManager packageManager) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
+    this.packageManager = packageManager;
   }
 
   Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -233,9 +236,8 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
-    List<PaymentMethod> clonedList = paymentMethods;
-    if (!hasFunds(clonedList)) {
-      Iterator<PaymentMethod> iterator = clonedList.iterator();
+    if (!hasFunds(paymentMethods) || !hasAptoideInstalled()) {
+      Iterator<PaymentMethod> iterator = paymentMethods.iterator();
       while (iterator.hasNext()) {
         PaymentMethod paymentMethod = iterator.next();
         if (paymentMethod.getId()
@@ -244,7 +246,16 @@ public class InAppPurchaseInteractor {
         }
       }
     }
-    return clonedList;
+    return paymentMethods;
+  }
+
+  private boolean hasAptoideInstalled() {
+    try {
+      packageManager.getPackageInfo("cm.aptoide.pt", 0);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   private boolean hasFunds(List<PaymentMethod> clonedList) {
