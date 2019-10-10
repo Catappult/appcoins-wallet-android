@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Privésleutel</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Fout</string>
   <string name="title_dialog_handling">Wordt verwerkt…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
   <string name="activity_iab_change_card">KAART WIJZIGEN</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Beloning ontvangen!👌 Je kunt over %1$s uur en %2$s min meer beloningen verdienen door apps te proberen⏰!</string>
+  <string name="notification_poa_limit_reached">Je hebt je dagelijkse limiet voor beloningen bereikt. ⏰ Kom over %1$s uur en %2$s min terug om het opnieuw te proberen!</string>
   <string name="notification_submitting_poa">Je verzoek wordt naar de blockchain verzonden</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Geen netwerkverbinding</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Geen extra kosten en razendsnel!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Je hebt niet genoeg APPC Credits, maar je kunt opwaarderen!</string>
   <string name="purchase_appcoins_credits_default_body">Je hebt genoeg AppCoins Credits verdiend voor deze aankoop. Veel plezier!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">Verdien geld door apps te proberen</string>
+  <string name="purchase_poa_body">Probeer een app 2 minuten en verdien AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">Geen saldo? Geen probleem!</string>
+  <string name="purchase_poa_view_body">Gebruik een app 2 minuten en ontvang een beloning in AppCoins Credits om je aankoop te kunnen doen!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Nodig je vrienden uit!</string>
   <string name="referral_onboarding_body">Jij en je vrienden kunnen met ons verwijzingsprogramma tot %s verdienen!</string>
