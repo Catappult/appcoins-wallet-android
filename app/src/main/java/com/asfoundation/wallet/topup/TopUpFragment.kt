@@ -9,6 +9,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
+import android.widget.CheckBox
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
@@ -51,6 +52,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var switchingCurrency = false
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
+  private var chipViewList = ArrayList<CheckBox>()
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -116,6 +118,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
+    populateChipViewList()
     setupDefaultValuesChips()
     topUpActivityView?.showToolbar()
     if (savedInstanceState?.containsKey(SELECTED_CHIP) == true) {
@@ -374,67 +377,57 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     selectChip(preselectedChip)
   }
 
+  private fun populateChipViewList() {
+    chipViewList.add(default_chip1)
+    chipViewList.add(default_chip2)
+    chipViewList.add(default_chip3)
+    chipViewList.add(default_chip4)
+  }
+
   private fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
   }
 
   private fun setupDefaultValuesChips() {
-    for (i in 0..NUMBER_OF_CHIPS) {
-      setChipOnClickListener(i)
+    for (index in chipViewList.indices) {
+      setChipOnClickListener(index)
     }
     unselectChips()
   }
 
   private fun setChipsUnchecked() {
-    default_chip1.isChecked = false
-    default_chip2.isChecked = false
-    default_chip3.isChecked = false
-    default_chip4.isChecked = false
+    for (chip in chipViewList) {
+      chip.isChecked = false
+    }
   }
 
   private fun setUnselectedChipsDrawable() {
-    default_chip1.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
-    default_chip2.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
-    default_chip3.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
-    default_chip4.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
+    for (chip in chipViewList) {
+      chip.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
+    }
   }
 
   private fun setUnselectedChipsText() {
-    default_chip1.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
-    default_chip2.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
-    default_chip3.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
-    default_chip4.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
+    context?.let {
+      for (chip in chipViewList) {
+        chip.setTextColor(ContextCompat.getColor(it, R.color.top_up_default_value_chip))
+      }
+    }
   }
 
   private fun setChipChecked(index: Int) {
-    when (index) {
-      0 -> default_chip1.isChecked = true
-      1 -> default_chip2.isChecked = true
-      2 -> default_chip3.isChecked = true
-      3 -> default_chip4.isChecked = true
-    }
+    chipViewList[index].isChecked = true
   }
 
   private fun setSelectedChipDrawable(index: Int) {
-    when (index) {
-      0 -> default_chip1.background =
-          resources.getDrawable(R.drawable.chip_selected_background, null)
-      1 -> default_chip2.background =
-          resources.getDrawable(R.drawable.chip_selected_background, null)
-      2 -> default_chip3.background =
-          resources.getDrawable(R.drawable.chip_selected_background, null)
-      3 -> default_chip4.background =
-          resources.getDrawable(R.drawable.chip_selected_background, null)
-    }
+    chipViewList[index].background =
+        resources.getDrawable(R.drawable.chip_selected_background, null)
   }
 
   private fun setSelectedChipText(index: Int) {
-    when (index) {
-      0 -> default_chip1.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-      1 -> default_chip2.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-      2 -> default_chip3.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-      3 -> default_chip4.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+    context?.let {
+      chipViewList[index].setTextColor(ContextCompat.getColor(it, R.color.white))
     }
   }
 

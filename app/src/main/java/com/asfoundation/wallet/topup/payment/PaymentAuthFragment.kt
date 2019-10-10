@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.adyen.core.models.PaymentMethod
@@ -68,6 +69,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   private lateinit var navigator: PaymentFragmentNavigator
   private var publicKey: String? = null
   private var generationTime: String? = null
+  private var chipViewList = ArrayList<CheckBox>()
   private var disposables = CompositeDisposable()
 
   val appPackage: String by lazy {
@@ -193,6 +195,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     credit_card_info_container.visibility = View.INVISIBLE
 
     button.isEnabled = false
+
+    populateChipViewList()
 
     disableChips(selectedChip)
 
@@ -422,6 +426,13 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
+  private fun populateChipViewList() {
+    chipViewList.add(default_chip1)
+    chipViewList.add(default_chip2)
+    chipViewList.add(default_chip3)
+    chipViewList.add(default_chip4)
+  }
+
   private fun finishSetupView() {
     fragment_braintree_credit_card_form.findViewById<View>(R.id.bt_card_form_card_number_icon)
         .visibility = View.GONE
@@ -464,56 +475,40 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   }
 
   private fun setDisabledChipsValues() {
-    default_chip1.text = chipValues[0].symbol + chipValues[0].amount
-    default_chip2.text = chipValues[1].symbol + chipValues[1].amount
-    default_chip3.text = chipValues[2].symbol + chipValues[2].amount
-    default_chip4.text = chipValues[3].symbol + chipValues[3].amount
-  }
-
-  private fun setDisabledChipsUnclickable() {
-    default_chip1.isClickable = false
-    default_chip2.isClickable = false
-    default_chip3.isClickable = false
-    default_chip4.isClickable = false
-  }
-
-  private fun setUnselectedChipsDisabledText() {
-    default_chip1.setTextColor(ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-    default_chip2.setTextColor(ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-    default_chip3.setTextColor(ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-    default_chip4.setTextColor(ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-  }
-
-  private fun setUnselectedChipsDisabledDrawable() {
-    default_chip1.background =
-        resources.getDrawable(R.drawable.chip_unselected_disabled_background, null)
-    default_chip2.background =
-        resources.getDrawable(R.drawable.chip_unselected_disabled_background, null)
-    default_chip3.background =
-        resources.getDrawable(R.drawable.chip_unselected_disabled_background, null)
-    default_chip4.background =
-        resources.getDrawable(R.drawable.chip_unselected_disabled_background, null)
-  }
-
-  private fun setSelectedChipDisabled(index: Int) {
-    when (index) {
-      0 -> default_chip1.background =
-          resources.getDrawable(R.drawable.chip_selected_disabled_background, null)
-      1 -> default_chip2.background =
-          resources.getDrawable(R.drawable.chip_selected_disabled_background, null)
-      2 -> default_chip3.background =
-          resources.getDrawable(R.drawable.chip_selected_disabled_background, null)
-      3 -> default_chip4.background =
-          resources.getDrawable(R.drawable.chip_selected_disabled_background, null)
+    for (index in chipViewList.indices) {
+      chipViewList[index].text = chipValues[index].symbol + chipValues[index].amount
     }
   }
 
+  private fun setDisabledChipsUnclickable() {
+    for (chip in chipViewList) {
+      chip.isClickable = false
+    }
+  }
+
+  private fun setUnselectedChipsDisabledText() {
+    context?.let {
+      for (chip in chipViewList) {
+        chip.setTextColor(ContextCompat.getColor(it, R.color.btn_disable_snd_color))
+      }
+    }
+  }
+
+  private fun setUnselectedChipsDisabledDrawable() {
+    for (chip in chipViewList) {
+      chip.background =
+          resources.getDrawable(R.drawable.chip_unselected_disabled_background, null)
+    }
+  }
+
+  private fun setSelectedChipDisabled(index: Int) {
+    chipViewList[index].background =
+        resources.getDrawable(R.drawable.chip_selected_disabled_background, null)
+  }
+
   private fun setSelectedChipText(index: Int) {
-    when (index) {
-      0 -> default_chip1.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-      1 -> default_chip2.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-      2 -> default_chip3.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-      3 -> default_chip4.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+    context?.let {
+      chipViewList[index].setTextColor(ContextCompat.getColor(it, R.color.white))
     }
   }
 }
