@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Cheie privată</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Cheie privată nevalidă</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Eroare</string>
   <string name="title_dialog_handling">Se procesează…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
   <string name="activity_iab_change_card">SCHIMBĂ CARD</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Recompensă primită! 👌 Va trebui să aștepți %1$sh%2$sm ca să câștigi mai multe recompense încercând aplicații ⏰!</string>
+  <string name="notification_poa_limit_reached">Ai atins limita zilnică de recompense. ⏰ Revino în %1$sh%2$sm și încearcă din nou!</string>
   <string name="notification_submitting_poa">Se trimite cererea ta la blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Fără conexiune la rețea</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Fără comisioane și fulger!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Nu ai suficiente APPC Credits, încearcă să alimentezi!</string>
   <string name="purchase_appcoins_credits_default_body">Ai câștigat suficiente AppCoins Credits pentru această cumpărătură. Bucură-te de ea!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">Câștigă fonduri încercând aplicații</string>
+  <string name="purchase_poa_body">Încearcă o aplicație timp de 2 minute și câștigă AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">Fără fonduri, fără griji!</string>
+  <string name="purchase_poa_view_body">Încearcă o aplicație timp de 2 minute și primești o recompensă în AppCoins Credits pentru a-ți face cumpărătura!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invită-ți prietenii!</string>
   <string name="referral_onboarding_body">Tu și prietenii tăi puteți câștiga până la %s cu Programul nostru de referință!</string>
