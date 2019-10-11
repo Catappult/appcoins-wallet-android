@@ -191,20 +191,15 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       val value =
           FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
               topUpData.currency.fiatCurrencySymbol)
-      disposables.add(fetchMinAndMaxValues()
+      disposables.add(interactor.getLimitTopUpValue()
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
           .doOnSuccess {
-            showValueWarning(it.first, it.second, value)
-            handleShowBonus(packageName, topUpData, it.first, it.second, value)
+            showValueWarning(it.maxValue, it.minValue, value)
+            handleShowBonus(packageName, topUpData, it.maxValue, it.minValue, value)
           }
           .subscribe())
     }
-  }
-
-  private fun fetchMinAndMaxValues(): Single<Pair<FiatValue, FiatValue>> {
-    return Single.zip(interactor.getMaxTopUpValue(), interactor.getMinTopUpValue(),
-        BiFunction { maxValue: FiatValue, minValue: FiatValue -> Pair(maxValue, minValue) })
   }
 
   private fun handleShowBonus(appPackage: String, topUpData: TopUpData, maxValue: FiatValue,

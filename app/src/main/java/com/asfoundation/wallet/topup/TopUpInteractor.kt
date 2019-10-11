@@ -51,13 +51,8 @@ class TopUpInteractor(private val repository: BdsRepository,
     return gamificationInteractor.getEarningBonus(packageName, amount)
   }
 
-  fun getMinTopUpValue(): Single<FiatValue> {
-    return topUpValuesService.getMinimumValue()
-        .map { it }
-  }
-
-  fun getMaxTopUpValue(): Single<FiatValue> {
-    return topUpValuesService.getMaximumValue()
+  fun getLimitTopUpValue(): Single<TopUpLimitValues> {
+    return topUpValuesService.getLimitValues()
         .map { it }
   }
 

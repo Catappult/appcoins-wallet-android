@@ -14,14 +14,9 @@ class TopUpValuesService(private val api: TopUpValuesApi,
         .map { responseMapper.map(it) }
   }
 
-  fun getMinimumValue(): Single<FiatValue> {
+  fun getLimitValues(): Single<TopUpLimitValues> {
     return api.getInputLimitValues(BuildConfig.APPLICATION_ID)
-        .map { responseMapper.mapMin(it) }
-  }
-
-  fun getMaximumValue(): Single<FiatValue> {
-    return api.getInputLimitValues(BuildConfig.APPLICATION_ID)
-        .map { responseMapper.mapMax(it) }
+        .map { responseMapper.mapValues(it) }
   }
 
   interface TopUpValuesApi {
