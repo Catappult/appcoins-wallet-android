@@ -12,6 +12,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
+import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -20,6 +21,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
+import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.io.IOException
@@ -33,6 +35,7 @@ class PaymentMethodsPresenter(
     private val networkThread: Scheduler,
     private val disposables: CompositeDisposable,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val balanceInteract: BalanceInteract,
     private val billingMessagesMapper: BillingMessagesMapper,
     private val bdsPendingTransactionService: BdsPendingTransactionService,
     private val billing: Billing,
@@ -324,9 +327,18 @@ class PaymentMethodsPresenter(
       inAppPurchaseInteractor.getPaymentMethods(transaction, fiatValue.amount.toString(),
           fiatValue.currency)
           .map { inAppPurchaseInteractor.mergeAppcoins(it) }
+          .doOnSuccess { updateBalanceDao() }
     } else {
       Single.just(listOf(PaymentMethod.APPC))
     }
+  }
+
+  private fun updateBalanceDao() {
+    disposables.add(
+        Observable.zip(balanceInteract.getEthBalance(), balanceInteract.getCreditsBalance(),
+            balanceInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> }).take(1)
+            .subscribeOn(networkThread)
+            .subscribe())
   }
 
   private fun getPreSelectedPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {
