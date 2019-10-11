@@ -59,7 +59,7 @@ class BillingIntentBuilder(val context: Context) {
     intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, skuTitle)
     intent.putExtra(EXTRA_DEVELOPER_PAYLOAD, payload)
     intent.putExtra(EXTRA_BDS_IAP, bdsIap)
-
+    intent.setPackage(context.packageName)
     return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
