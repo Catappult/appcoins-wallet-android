@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
   <androidx.appcompat.widget.AppCompatRadioButton
       android:id="@+id/appcoins_radio_button"
-      style="@style/PaymentMethodsRadioButton"
+      style="@style/PaymentMethodsRadioButtonNoPadding"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:enabled="false"
@@ -19,6 +19,7 @@
       android:id="@+id/icon"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
       android:src="@drawable/ic_appc_token"
       app:layout_constraintBottom_toBottomOf="@id/appcoins_radio_button"
       app:layout_constraintStart_toEndOf="@id/appcoins_radio_button"
@@ -27,7 +28,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
+      android:layout_marginStart="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/icon"
@@ -43,6 +44,119 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/appc_balances_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="appcoins_balance,appc_fiat_balance,appc_text_separator,appc_balance,balance_eth,eth_fiat_balance,eth_text_separator,eth_balance"
+        />
+
+    <TextView
+        android:id="@+id/appcoins_balance"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="6sp"
+        android:text="@string/balance_title"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        />
+    <TextView
+        android:id="@+id/appc_fiat_balance"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:lineSpacingExtra="4sp"
+        app:layout_constraintBottom_toBottomOf="@id/appcoins_balance"
+        app:layout_constraintStart_toEndOf="@id/appcoins_balance"
+        app:layout_constraintTop_toTopOf="@id/appcoins_balance"
+        tools:text="31.90 EUR"
+        />
+    <TextView
+        android:id="@+id/appc_text_separator"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="|"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/appc_fiat_balance"
+        app:layout_constraintEnd_toStartOf="@id/appc_balance"
+        app:layout_constraintStart_toEndOf="@id/appc_fiat_balance"
+        app:layout_constraintTop_toTopOf="@id/appc_fiat_balance"
+        />
+
+    <TextView
+        android:id="@+id/appc_balance"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="4sp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/appc_text_separator"
+        app:layout_constraintStart_toEndOf="@id/appc_fiat_balance"
+        app:layout_constraintTop_toTopOf="@id/appc_text_separator"
+        tools:text="69.90 APPC"
+        />
+
+    <TextView
+        android:id="@+id/balance_eth"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="6sp"
+        android:text="@string/p2p_send_currency_eth"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/appcoins_balance"
+        />
+
+    <TextView
+        android:id="@+id/eth_fiat_balance"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:lineSpacingExtra="4sp"
+        app:layout_constraintBottom_toBottomOf="@id/balance_eth"
+        app:layout_constraintStart_toEndOf="@id/balance_eth"
+        app:layout_constraintTop_toTopOf="@id/balance_eth"
+        tools:text="31.90 EUR"
+        />
+    <TextView
+        android:id="@+id/eth_text_separator"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="|"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/eth_fiat_balance"
+        app:layout_constraintEnd_toStartOf="@id/eth_balance"
+        app:layout_constraintStart_toEndOf="@id/eth_fiat_balance"
+        app:layout_constraintTop_toTopOf="@id/eth_fiat_balance"
+        />
+
+    <TextView
+        android:id="@+id/eth_balance"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="4sp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/eth_text_separator"
+        app:layout_constraintStart_toEndOf="@id/eth_fiat_balance"
+        app:layout_constraintTop_toTopOf="@id/eth_text_separator"
+        tools:text="69.90 ETH"
+        />
     <TextView
         android:id="@+id/message"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
@@ -53,10 +167,12 @@
         android:maxLines="2"
         android:text="@string/purchase_appcoins_available_body"
         android:textColor="#727272"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/title"
         />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

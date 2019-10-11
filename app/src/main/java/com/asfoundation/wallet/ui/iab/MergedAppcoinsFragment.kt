@@ -12,14 +12,19 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.balance.Balance
+import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.util.scaleToString
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.appcoins_radio_button.*
-import kotlinx.android.synthetic.main.appcoins_radio_button.view.*
 import kotlinx.android.synthetic.main.credits_radio_button.*
+import kotlinx.android.synthetic.main.credits_radio_button.view.*
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_icon
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_name
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_description
@@ -32,6 +37,7 @@ import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.*
+import javax.inject.Inject
 
 class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
@@ -77,6 +83,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   private var paymentSelectionSubject: PublishSubject<String>? = null
   private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var iabView: IabView
+  @Inject
+  lateinit var balanceInteract: BalanceInteract
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -161,14 +169,13 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onCreate(savedInstanceState)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
-    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable())
+    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
+        AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is IabView) {
-      throw IllegalStateException("Merged Appcoins fragment must be attached to IAB activity")
-    }
+    check(context is IabView) { "Merged Appcoins fragment must be attached to IAB activity" }
     iabView = context
   }
 
@@ -180,13 +187,19 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHeaderInformation()
+    setBalanceInformation()
     buy_button.text = setBuyButtonText()
     cancel_button.text = getString(R.string.back_button)
     setPaymentInformation()
     setBonus()
     setBackListener(view)
-    payment_methods.visibility = VISIBLE
-    mergedAppcoinsPresenter.present()
+  }
+
+  private fun setBalanceInformation() {
+    val balanceText = getString(R.string.balance_title) + ":"
+    appcoins_balance.text = balanceText
+    credits_balance.text = balanceText
+    balance_eth.text = getString(R.string.p2p_send_currency_eth) + ":"
   }
 
   private fun setBuyButtonText(): String {
@@ -245,6 +258,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       appcoins_radio.message.setTextColor(
           ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
       appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
+      appcoins_radio.message.visibility = VISIBLE
+      appc_balances_group.visibility = INVISIBLE
     }
     if (creditsEnabled) {
       credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
@@ -259,6 +274,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       credits_radio.message.text = getString(R.string.purchase_appcoins_credits_noavailable_body)
       credits_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       credits_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
+      credits_radio.message.visibility = VISIBLE
+      credits_balances_group.visibility = INVISIBLE
     }
   }
 
@@ -304,7 +321,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     return paymentSelectionSubject!!
   }
 
-
   override fun hideBonus() {
     bonus_layout?.visibility = INVISIBLE
     bonus_msg?.visibility = INVISIBLE
@@ -334,8 +350,30 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     iabView.showPaymentMethodsView(preSelectedMethod)
   }
 
-  override fun onDestroyView() {
+  override fun updateBalanceValues(appcBalance: Balance, creditsBalance: Balance,
+                                   ethBalance: Balance) {
+    appc_balance.text = appcBalance.token.amount.scaleToString(2) + " APPC"
+    credits_balance_value.text = creditsBalance.token.amount.scaleToString(2) + " APPC-C"
+    appc_fiat_balance.text =
+        appcBalance.fiat.amount.scaleToString(2) + " " + appcBalance.fiat.currency
+    credits_fiat_balance.text =
+        creditsBalance.fiat.amount.scaleToString(2) + " " + creditsBalance.fiat.currency
+    eth_fiat_balance.text = ethBalance.fiat.amount.scaleToString(2) + " " + ethBalance.fiat.currency
+    eth_balance.text = ethBalance.token.amount.scaleToString(2) + " ETH"
+    payment_methods.visibility = VISIBLE
+  }
+
+  override fun onResume() {
+    super.onResume()
+    mergedAppcoinsPresenter.present()
+  }
+
+  override fun onPause() {
     mergedAppcoinsPresenter.handleStop()
+    super.onPause()
+  }
+
+  override fun onDestroyView() {
     iabView.enableBack()
     appcoins_radio_button.setOnCheckedChangeListener(null)
     appcoins_radio.setOnClickListener(null)

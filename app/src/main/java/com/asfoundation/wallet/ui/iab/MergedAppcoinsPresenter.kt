@@ -2,20 +2,30 @@ package com.asfoundation.wallet.ui.iab
 
 import android.util.Log
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.TokenValue
+import com.asfoundation.wallet.ui.balance.Balance
+import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter
+import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.Function3
 import java.io.IOException
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
-                              private val disposables: CompositeDisposable) {
+                              private val disposables: CompositeDisposable,
+                              private val balanceInteract: BalanceInteract,
+                              private val viewScheduler: Scheduler,
+                              private val networkScheduler: Scheduler) {
 
   companion object {
     private val TAG = MergedAppcoinsFragment::class.java.simpleName
   }
 
   fun present() {
+    fetchBalance()
     handlePaymentSelectionChange()
     handleBuyClick()
     handleBackClick()
@@ -23,6 +33,14 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   fun handleStop() {
     disposables.clear()
+  }
+
+  private fun fetchBalance() {
+    disposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthBalance(),
+        Function3 { appcBalance: Balance, creditsBalance: Balance, ethBalance: Balance ->
+          view.updateBalanceValues(appcBalance, creditsBalance, ethBalance)
+        })
+        .subscribe({ }, { it.printStackTrace() }))
   }
 
   private fun handleBackClick() {
@@ -73,5 +91,44 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
       CREDITS -> view.hideBonus()
       else -> Log.w(TAG, "Error creating PublishSubject")
     }
+  }
+
+  private fun getCreditsBalance(): Observable<Balance> {
+    return balanceInteract.getCreditsBalance()
+        .map { pair ->
+          Balance(
+              TokenValue(pair.first.value,
+                  BalanceFragmentPresenter.APPC_C_CURRENCY,
+                  pair.first.symbol),
+              pair.second)
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+  }
+
+  private fun getAppcBalance(): Observable<Balance> {
+    return balanceInteract.getAppcBalance()
+        .map { pair ->
+          Balance(
+              TokenValue(pair.first.value,
+                  BalanceFragmentPresenter.APPC_CURRENCY,
+                  pair.first.symbol),
+              pair.second)
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+  }
+
+  private fun getEthBalance(): Observable<Balance> {
+    return balanceInteract.getEthBalance()
+        .map { pair ->
+          Balance(
+              TokenValue(pair.first.value,
+                  BalanceFragmentPresenter.ETH_CURRENCY,
+                  pair.first.symbol),
+              pair.second)
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
   }
 }
