@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Privater Schlüssel</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Ungültiger Privater Schlüssel</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Fehler</string>
   <string name="title_dialog_handling">Wird verarbeitet...</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Angaben geprüft \n Erhalte ihren Artikel…</string>
   <string name="activity_iab_change_card">KARTE ÄNDERN</string>
   <string name="notification_ongoing_poa">Verarbeite ihre Belohnung</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Belohnung erhalten!👌 Sie müssen %1$sh%2$sm lang warten, um weitere Belohnungen für das Ausprobieren von Apps zu erhalten ⏰!</string>
+  <string name="notification_poa_limit_reached">Sie haben ihr tägliches Limit erreiche. ⏰ Kommen Sie in %1$sh%2$sm wieder und versuchen Sie es erneut!</string>
   <string name="notification_submitting_poa">Reichen Sie ihre Anfrage an die Blockchain weiter</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Keine Netzwerk-Verbindung</string>
@@ -435,7 +435,7 @@
   <string name="purchase_appcoins_credits_available_body">Keine Gebühren und blitzschnell!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Sie haben zu wenige AppCoins, bitte auffladen!</string>
   <string name="purchase_appcoins_credits_default_body">Sie haben genügend AppCoins verdient, Sie können sich diesen Einkauf leisten. Viel Spaß!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
+  <string name="purchase_poa_item">Guthaben durch das Testen von Apps</string>
   <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
   <string name="purchase_poa_view_title">No Funds, No Worries!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
