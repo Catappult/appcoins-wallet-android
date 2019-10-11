@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Kunci rahasia</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Kunci pribadi tidak valid</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Kesalahan</string>
   <string name="title_dialog_handling">Memproses…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Rincian sudah diperiksa \nMenerima item Anda…</string>
   <string name="activity_iab_change_card">GANTI KARTU</string>
   <string name="notification_ongoing_poa">Memproses hadiah Anda</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Hadiah diterima!👌 Anda harus menunggu %1$sh%2$s menit untuk mendapatkan hadiah lainnya dengan mencoba berbagai aplikasi ⏰!</string>
+  <string name="notification_poa_limit_reached">Batas hadiah harian Anda sudah tercapai. ⏰ Silakan kembali %1$sh%2$sm untuk mencoba lagi!</string>
   <string name="notification_submitting_poa">Mengirimkan permintaan Anda ke blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Tidak ada koneksi jaringan</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Tanpa biaya dan secepat kilat!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC yang Anda miliki tidak cukup, coba isi ulang!</string>
   <string name="purchase_appcoins_credits_default_body">Anda mendapatkan Kredit AppCoins yang cukup untuk pembelian ini. Silakan!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">Hasilkan dana dengan mencoba aplikasi</string>
+  <string name="purchase_poa_body">Coba aplikasi selama 2 menit dan dapatkan Kredit AppCoins!</string>
+  <string name="purchase_poa_view_title">Tidak Ada Dana, Tidak Perlu Khawatir!</string>
+  <string name="purchase_poa_view_body">Coba aplikasi selama 2 menit dan dapatkan hadiah di Kredit AppCoins untuk melakukan pembelian!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Undang Teman Anda!</string>
   <string name="referral_onboarding_body">Anda dan teman bisa mendapatkan penghasilan hingga %s dengan Program Referral kami!</string>
