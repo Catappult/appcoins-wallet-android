@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Skladište ključeva</string>
   <string name="tab_private_key">Privatni ključ</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Neispravan privatni ključ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Greška</string>
   <string name="title_dialog_handling">Obrada…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Detalji su provereni\nPrijem vaše stavke…</string>
   <string name="activity_iab_change_card">PROMENITE KARTICU</string>
   <string name="notification_ongoing_poa">Obrada vaše nagrade</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Dobili ste nagradu!👌 Moraćete da sačekate %1$s č. %2$s min. da biste osvojili još nagrada isprobavanjem aplikacija ⏰!</string>
+  <string name="notification_poa_limit_reached">Dostigli ste dnevno ograničenje za nagrade. ⏰ Vratite se za %1$s č. %2$s min. i pokušajte ponovo!</string>
   <string name="notification_submitting_poa">Slanje vašeg zahteva lancu blokova</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Nema veze sa mrežom</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Bez naknada i brzi kao munja!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Nemate dovoljno APPC Credits, dopunite ih!</string>
   <string name="purchase_appcoins_credits_default_body">Zaradili ste dovoljno AppCoins Credits za ovu kupovinu. Uživajte!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">Zaradite sredstva tako što ćete isprobati aplikacije</string>
+  <string name="purchase_poa_body">Isprobajte aplikaciju 2 minuta i zaradite AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">Nemate love? Ne brinite!</string>
+  <string name="purchase_poa_view_body">Isprobajte aplikaciju 2 minuta i osvojite nagradu u vidu AppCoins Credits da biste obavili kupovinu!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Pozovite prijatelje!</string>
   <string name="referral_onboarding_body">Vi i vaši prijatelji možete da zaradite do %s pomoću našeg programa preporuka!</string>
