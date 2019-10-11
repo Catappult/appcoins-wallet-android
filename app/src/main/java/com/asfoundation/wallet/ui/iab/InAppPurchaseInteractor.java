@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
@@ -34,6 +35,7 @@ public class InAppPurchaseInteractor {
   private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";
+  private static final long EARN_APPCOINS_APTOIDE_VERCODE = 9961;
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
   private final ExternalBillingSerializer billingSerializer;
@@ -236,7 +238,7 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
-    if (!hasFunds(paymentMethods) || !hasAptoideInstalled()) {
+    if (!hasFunds(paymentMethods) || !hasRequiredAptoideVersionstalled()) {
       Iterator<PaymentMethod> iterator = paymentMethods.iterator();
       while (iterator.hasNext()) {
         PaymentMethod paymentMethod = iterator.next();
@@ -249,10 +251,10 @@ public class InAppPurchaseInteractor {
     return paymentMethods;
   }
 
-  private boolean hasAptoideInstalled() {
+  private boolean hasRequiredAptoideVersionstalled() {
     try {
-      packageManager.getPackageInfo("cm.aptoide.pt", 0);
-      return true;
+      PackageInfo packageInfo = packageManager.getPackageInfo("cm.aptoide.pt", 0);
+      return packageInfo.versionCode >= EARN_APPCOINS_APTOIDE_VERCODE;
     } catch (Exception e) {
       return false;
     }
