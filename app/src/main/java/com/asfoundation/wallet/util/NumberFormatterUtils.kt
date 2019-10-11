@@ -21,7 +21,7 @@ class NumberFormatterUtils {
     val divideBy = fetchLowestValueSuffix.key
     val suffix = fetchLowestValueSuffix.value
 
-    val truncatedValue = value / (divideBy!! / 10)
+    val truncatedValue = value / (divideBy / 10)
     val hasDecimal =
         truncatedValue < 100 && truncatedValue / 10.0 != (truncatedValue / 10).toDouble()
     return if (hasDecimal) {

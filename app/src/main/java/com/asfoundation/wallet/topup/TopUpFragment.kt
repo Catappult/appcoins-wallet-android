@@ -62,8 +62,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
     private const val SELECTED_CHIP = "SELECTED_CHIP"
 
-    private const val NUMBER_OF_CHIPS = 4
-
 
     @JvmStatic
     fun newInstance(packageName: String): TopUpFragment {
@@ -322,7 +320,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun getSelectedChip(): Int {
-    var selectedChip: Int = -1
+    var selectedChip = -1
     if (default_chip1.isChecked) {
       selectedChip = 0
     }

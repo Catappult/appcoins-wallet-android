@@ -239,7 +239,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .map { getChipValue(it) }
         .doOnNext {
           if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
-            handleChipFiatInput(it)
+            view.changeMainValueText(it.amount.toString())
           } else {
             handleChipCreditsInput(it)
           }
@@ -247,10 +247,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
         .doOnNext { view.enableSwapCurrencyButton() }
         .subscribe())
-  }
-
-  private fun handleChipFiatInput(value: FiatValue) {
-    view.changeMainValueText(value.amount.toString())
   }
 
   private fun handleChipCreditsInput(value: FiatValue) {
