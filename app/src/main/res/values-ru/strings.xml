@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Хранилище ключей</string>
   <string name="tab_private_key">Закрытый ключ</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Недопустимый приватный ключ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Ошибка</string>
   <string name="title_dialog_handling">Обработка…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="activity_iab_change_card">ИЗМЕНИТЬ КАРТУ</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Награда получена! 👌 Вам нужно подождать %1$sч%2$sм, чтобы получить больше наград, пробуя приложения ⏰!</string>
+  <string name="notification_poa_limit_reached">Вы достигла максимума наград на сегодня. ⏰ Возвращайтесь через %1$sч%2$sм и попробуйте снова!</string>
   <string name="notification_submitting_poa">Отправка запроса в блокчейн</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Отсутствует сетевое подключение</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Никаких издержек и скорость молнии!</string>
   <string name="purchase_appcoins_credits_noavailable_body">У вас недостаточно APPC Credits, попробуйте получить больше бонусов!</string>
   <string name="purchase_appcoins_credits_default_body">Вы заработали достаточно AppCoins Credits для этой покупки. Наслаждайтесь!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">Заработайте средства, пробуя приложения</string>
+  <string name="purchase_poa_body">Проведите в приложении 2 минуты, чтобы заработать AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">Нет средств? Нет проблем!</string>
+  <string name="purchase_poa_view_body">Проведите 2 минуты в приложении и получите награду в AppCoins Credits, чтобы сделать покупку!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Пригласите своих друзей!</string>
   <string name="referral_onboarding_body">Вы и ваши друзья можете заработать до %s с нашей реферальной программой!</string>
