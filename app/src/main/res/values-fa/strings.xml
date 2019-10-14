@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">کلید خصوصی</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">خطا</string>
   <string name="title_dialog_handling">درحال پردازش…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">جزییات بررسی شد\nدرحال دریافت مورد شما…</string>
   <string name="activity_iab_change_card">تغییر کارت</string>
   <string name="notification_ongoing_poa">درحال پردازش جایزه شما</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">پاداش دریافت شد!👌 باید %1$sساعت و %2$sدقیقه منتظر بمانید تا بتوانید پاداش بیشتری با امتحان اپلیکیشن‌ها بدست آورید ⏰!</string>
+  <string name="notification_poa_limit_reached">به حد پاداش روزانه خود رسیده‌اید. ⏰ %1$s ساعت و %2$s دقیقه دیگر بازگردید و دوباره امتحان کنید!</string>
   <string name="notification_submitting_poa">درحال ارسال درخواست شما به blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">اتصال اینترنت قطع شد</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">بدون هزینه و بسرعت!</string>
   <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی اعتبار APPC ندارید، اقدام به افزایش اعتبار کنید!</string>
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی اعتبار AppCoins برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">از طریق امتحان اپلیکیشن‌ها کسب درآمد کنید</string>
+  <string name="purchase_poa_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و اعتبار AppCoins بدست آورید!</string>
+  <string name="purchase_poa_view_title">بدون درآمد، نگران نباشید!</string>
+  <string name="purchase_poa_view_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و پاداشی در اعتبار AppCoins بدست آورید تا بتوانید خرید کنید!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">دوستان خود را دعوت کنید!</string>
   <string name="referral_onboarding_body">شما و دوستان شما می‌توانید از برنامه همکاری ما تا %s کسب درآمد کنید!</string>
