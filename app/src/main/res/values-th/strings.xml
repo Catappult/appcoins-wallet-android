@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">คีย์สโตร์</string>
   <string name="tab_private_key">คีย์ส่วนตัว</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ข้อผิดพลาด</string>
   <string name="title_dialog_handling">กำลังประมวลผล...</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">ไม่มีค่าธรรมเนียม รวดเร็ว!</string>
   <string name="purchase_appcoins_credits_noavailable_body">คุณไม่จำเป็นต้องมีเครดิต APPC ที่เพียงพอ ลองเติมเงินดู!</string>
   <string name="purchase_appcoins_credits_default_body">คุณรับเครดิต AppCoins ที่เพียงพอสำหรับการซื้อนี้ สนุกกัน!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">รับเงินโดยการลองแอป</string>
+  <string name="purchase_poa_body">ลองแอป 2 นาทีและรับ AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">ไม่มีเงิน ไม่ต้องกังวล!</string>
+  <string name="purchase_poa_view_body">ลองแอป 2 นาทีและรับรางวัลใน Apptoide Credits เพื่อซื้อ!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
