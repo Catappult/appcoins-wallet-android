@@ -112,6 +112,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    hideKeyboard()
     if (savedInstanceState?.containsKey(SELECTED_CURRENCY_PARAM) == true) {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
@@ -142,6 +143,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     this@TopUpFragment.localCurrency = localCurrency
     setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
         APPC_C_SYMBOL, DEFAULT_VALUE)
+    hideKeyboard()
     main_value.isEnabled = true
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
