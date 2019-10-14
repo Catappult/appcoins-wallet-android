@@ -46,6 +46,7 @@ internal class AppCoinsAdvertisingBinder(
         campaign.hoursRemaining.toString(), leadingZero + campaign.minutesRemaining)
     val notificationBuilder =
         headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle().bigText(message))
+            .setContentText(message)
     packageInfo?.let {
       notificationBuilder.setContentTitle(packageManager.getApplicationLabel(it.applicationInfo))
     }

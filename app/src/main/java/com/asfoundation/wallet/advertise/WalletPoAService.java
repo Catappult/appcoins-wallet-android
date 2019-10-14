@@ -221,7 +221,8 @@ public class WalletPoAService extends Service {
     NotificationCompat.Builder builder =
         headsUpNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
     if (appName != null) {
-      builder.setContentTitle(appName);
+      builder.setContentTitle(appName)
+          .setContentText(message);
     }
     notificationManager.notify(SERVICE_ID, builder.build());
   }
@@ -268,6 +269,7 @@ public class WalletPoAService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         NotificationCompat.Builder notificationBuilder = headsUpNotificationBuilder.setStyle(
             new NotificationCompat.BigTextStyle().bigText(completed))
+            .setContentText(completed)
             .setContentIntent(pendingIntent);
         if (appName != null) {
           notificationBuilder.setContentTitle(appName);
