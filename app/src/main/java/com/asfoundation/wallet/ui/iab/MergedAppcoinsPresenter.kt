@@ -99,33 +99,24 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun getCreditsBalance(): Observable<Balance> {
     return balanceInteract.getCreditsBalance()
         .map { pair ->
-          Balance(
-              TokenValue(pair.first.value,
-                  BalanceFragmentPresenter.APPC_C_CURRENCY,
-                  pair.first.symbol),
-              pair.second)
+          Balance(TokenValue(pair.first.value, BalanceFragmentPresenter.APPC_C_CURRENCY,
+              pair.first.symbol), pair.second)
         }
   }
 
   private fun getAppcBalance(): Observable<Balance> {
     return balanceInteract.getAppcBalance()
         .map { pair ->
-          Balance(
-              TokenValue(pair.first.value,
-                  BalanceFragmentPresenter.APPC_CURRENCY,
-                  pair.first.symbol),
-              pair.second)
+          Balance(TokenValue(pair.first.value, BalanceFragmentPresenter.APPC_CURRENCY,
+              pair.first.symbol), pair.second)
         }
   }
 
   private fun getEthBalance(): Observable<Balance> {
     return balanceInteract.getEthBalance()
         .map { pair ->
-          Balance(
-              TokenValue(pair.first.value,
-                  BalanceFragmentPresenter.ETH_CURRENCY,
-                  pair.first.symbol),
-              pair.second)
+          Balance(TokenValue(pair.first.value, BalanceFragmentPresenter.ETH_CURRENCY,
+              pair.first.symbol), pair.second)
         }
   }
 }

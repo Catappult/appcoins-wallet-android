@@ -350,14 +350,15 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun updateBalanceValues(appcBalance: Balance, creditsBalance: Balance,
                                    ethBalance: Balance) {
-    appc_balance.text = appcBalance.token.amount.scaleToString(2) + " APPC"
-    credits_balance_value.text = creditsBalance.token.amount.scaleToString(2) + " APPC-C"
+    appc_balance.text = appcBalance.token.amount.scaleToString(2) + " " + appcBalance.token.symbol
+    credits_balance_value.text =
+        creditsBalance.token.amount.scaleToString(2) + " " + creditsBalance.token.symbol
     appc_fiat_balance.text =
         appcBalance.fiat.amount.scaleToString(2) + " " + appcBalance.fiat.currency
     credits_fiat_balance.text =
         creditsBalance.fiat.amount.scaleToString(2) + " " + creditsBalance.fiat.currency
     eth_fiat_balance.text = ethBalance.fiat.amount.scaleToString(2) + " " + ethBalance.fiat.currency
-    eth_balance.text = ethBalance.token.amount.scaleToString(2) + " ETH"
+    eth_balance.text = ethBalance.token.amount.scaleToString(2) + " " + ethBalance.token.symbol
     payment_methods.visibility = VISIBLE
   }
 
