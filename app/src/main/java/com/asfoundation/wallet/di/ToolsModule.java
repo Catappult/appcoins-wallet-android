@@ -213,6 +213,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
@@ -1019,7 +1020,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       LocalCurrencyConversionService conversionService,
       GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService) {
     return new TopUpInteractor(repository, conversionService, gamificationInteractor,
-        topUpValuesService);
+        topUpValuesService, new LinkedHashMap<>());
   }
 
   @Singleton @Provides TopUpValuesService providesTopUpValuesService(

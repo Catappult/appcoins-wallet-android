@@ -21,8 +21,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private val disposables: CompositeDisposable = CompositeDisposable()
 
-  private lateinit var chipValuesList: List<FiatValue>
-
   companion object {
     private const val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
 
@@ -31,7 +29,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   fun present(appPackage: String, initialSetup: Boolean) {
-    chipValuesList = getChipValuesList()
     setupUi(initialSetup)
     handleChangeCurrencyClick()
     handleNextClick()
@@ -75,12 +72,24 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         view.getNextClick()
             .filter {
               it.currency.appcValue != DEFAULT_VALUE && it.currency.fiatValue != DEFAULT_VALUE
-            }.doOnNext {
+            }
+            .doOnNext {
               view.showLoading()
-              val values = getChipValuesList()
-              activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "BDS",
-                  "TOPUP", it.bonusValue, view.getSelectedChip(), values)
-            }.subscribe())
+              showPaymentDetails(it)
+            }
+            .subscribe())
+  }
+
+  private fun showPaymentDetails(topUpData: TopUpData) {
+    disposables.add(interactor.getDefaultValues()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
+              topUpData.selectedCurrency, "BDS",
+              "TOPUP", topUpData.bonusValue, view.getSelectedChip(), it)
+        }
+        .subscribe())
   }
 
   private fun handleManualAmountChange(packageName: String) {
@@ -116,15 +125,30 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handlePreselectedChip() {
-    view.initialInputSetup(PRESELECTED_CHIP, getChipValue(PRESELECTED_CHIP).amount.toString())
+    disposables.add(getChipValue(PRESELECTED_CHIP)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .map {
+          view.initialInputSetup(PRESELECTED_CHIP, it.amount.toString())
+        }
+        .subscribe())
   }
 
   private fun handleManualInputValue(topUpData: TopUpData) {
-    val chipIndex = getChipIndex(topUpData.currency.fiatValue)
-    if (chipIndex != -1) {
-      view.selectChip(chipIndex)
-    } else {
-      view.unselectChips()
+    if (topUpData.currency.fiatValue != "--") {
+      disposables.add(interactor.getChipIndex(
+          FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
+              topUpData.currency.fiatCurrencySymbol))
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .map {
+            if (it != -1) {
+              view.selectChip(it)
+            } else {
+              view.unselectChips()
+            }
+          }
+          .subscribe())
     }
   }
 
@@ -231,7 +255,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.selectChip(index)
           view.disableSwapCurrencyButton()
         }
-        .map { getChipValue(it) }
+        .flatMapSingle {
+          getChipValue(it).subscribeOn(networkScheduler)
+              .observeOn(viewScheduler)
+        }
         .doOnNext {
           if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
             view.changeMainValueText(it.amount.toString())
@@ -265,27 +292,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
-  private fun getChipIndex(inputValue: String): Int {
-    var index = -1
-    if (inputValue != "--") {
-      val value = inputValue.toBigDecimal()
-      for (i in chipValuesList.indices) {
-        if (value == chipValuesList[i].amount) {
-          index = i
-          break
-        }
-      }
-    }
-    return index
-  }
-
-  private fun getChipValuesList(): List<FiatValue> {
+  private fun getChipValue(index: Int): Single<FiatValue> {
     return interactor.getDefaultValues()
         .subscribeOn(networkScheduler)
-        .blockingGet()
-  }
-
-  private fun getChipValue(index: Int): FiatValue {
-    return chipValuesList[index]
+        .map { it[index] }
   }
 }
