@@ -38,8 +38,11 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun fetchBalance() {
     disposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthBalance(),
         Function3 { appcBalance: Balance, creditsBalance: Balance, ethBalance: Balance ->
-          view.updateBalanceValues(appcBalance, creditsBalance, ethBalance)
+          Triple(appcBalance, creditsBalance, ethBalance)
         })
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnNext { view.updateBalanceValues(it.first, it.second, it.third) }
         .subscribe({ }, { it.printStackTrace() }))
   }
 
@@ -102,8 +105,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                   pair.first.symbol),
               pair.second)
         }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
   }
 
   private fun getAppcBalance(): Observable<Balance> {
@@ -115,8 +116,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                   pair.first.symbol),
               pair.second)
         }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
   }
 
   private fun getEthBalance(): Observable<Balance> {
@@ -128,7 +127,5 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                   pair.first.symbol),
               pair.second)
         }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
   }
 }

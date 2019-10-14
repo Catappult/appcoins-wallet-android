@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -187,19 +188,13 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHeaderInformation()
-    setBalanceInformation()
+    balance_eth.text = getString(R.string.p2p_send_currency_eth) + ":"
     buy_button.text = setBuyButtonText()
     cancel_button.text = getString(R.string.back_button)
     setPaymentInformation()
     setBonus()
     setBackListener(view)
-  }
-
-  private fun setBalanceInformation() {
-    val balanceText = getString(R.string.balance_title) + ":"
-    appcoins_balance.text = balanceText
-    credits_balance.text = balanceText
-    balance_eth.text = getString(R.string.p2p_send_currency_eth) + ":"
+    mergedAppcoinsPresenter.present()
   }
 
   private fun setBuyButtonText(): String {
@@ -327,7 +322,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun showBonus() {
+    val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
+    animation.duration = 250
     bonus_layout?.visibility = VISIBLE
+    bonus_layout?.startAnimation(animation)
     bonus_msg?.visibility = VISIBLE
   }
 

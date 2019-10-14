@@ -49,32 +49,18 @@
         android:id="@+id/appc_balances_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="appcoins_balance,appc_fiat_balance,appc_text_separator,appc_balance,balance_eth,eth_fiat_balance,eth_text_separator,eth_balance"
+        app:constraint_referenced_ids="appc_fiat_balance,appc_text_separator,appc_balance,balance_eth,eth_fiat_balance,eth_text_separator,eth_balance"
         />
 
-    <TextView
-        android:id="@+id/appcoins_balance"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:lineSpacingExtra="6sp"
-        android:text="@string/balance_title"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        />
     <TextView
         android:id="@+id/appc_fiat_balance"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="4sp"
-        app:layout_constraintBottom_toBottomOf="@id/appcoins_balance"
-        app:layout_constraintStart_toEndOf="@id/appcoins_balance"
-        app:layout_constraintTop_toTopOf="@id/appcoins_balance"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
         tools:text="31.90 EUR"
         />
     <TextView
@@ -114,7 +100,7 @@
         android:text="@string/p2p_send_currency_eth"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@id/appcoins_balance"
+        app:layout_constraintTop_toBottomOf="@id/appc_fiat_balance"
         />
 
     <TextView
