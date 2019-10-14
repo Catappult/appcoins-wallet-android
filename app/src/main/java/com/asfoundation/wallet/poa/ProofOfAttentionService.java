@@ -354,7 +354,7 @@ public class ProofOfAttentionService {
     }
   }
 
-  public Single<ProofSubmissionFeeData> isWalletReady(int chainId, String packageName,
+  public Single<ProofSubmissionData> isWalletReady(int chainId, String packageName,
       int versionCode) {
     return Single.defer(() -> {
       synchronized (this) {

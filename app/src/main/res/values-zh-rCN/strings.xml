@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
   <string name="activity_iab_change_card">更换卡</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
-  <string name="notification_completed_poa">收到奖励，好好享用！</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">向区块链提交请求</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">无网络连接</string>
@@ -436,13 +437,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">邀请好友！</string>
   <string name="referral_onboarding_body">通过推介项目，你和你的好友最多可获取%s！</string>
+  <string name="referral_onboarding_body_no_connection">通过推介项目，您和您的好友可获得AppCoins积金！</string>
   <string name="referral_onboarding_redeem_button">我已被邀请</string>
   <string name="referral_verification_title">验证钱包</string>
   <string name="referral_verification_body">你需要验证钱包方可参与推荐项目。我们将通过短信向你发送验证码。</string>
   <string name="referral_verification_confirmation_title">你的邀请已通过验证！</string>
-  <string name="referral_verification_confirmation_body">完成首次购买后，你将获得%s的AppCoins积金。</string>
+  <string name="referral_verification_confirmation_body">首次进行应用内购买，您可以获得价值%1$s的AppCoins积金。首次购买必须使用AppCoins积金之外的任何支付方式，且金额必须超过%2$s。</string>
   <string name="referral_verification_not_invited_title">此号码似乎未被邀请&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">但您仍然可通过邀请好友最多获取%s！💃</string>
   <string name="referral_notification_bonus_pending_title">%s推荐奖励待处理</string>
   <string name="referral_notification_bonus_pending_body">完成首次应用内购买，以获取奖励。</string>
   <string name="referral_view_title">邀请好友</string>
@@ -459,8 +461,8 @@
   <string name="referral_dropup_menu_friends_title_1">已邀请好友</string>
   <string name="referral_dropup_menu_requirements_title">要求</string>
   <string name="referral_dropup_menu_requirements_verification">使用电话号码验证钱包</string>
-  <string name="referral_dropup_menu_requirements_purchase">完成一次应用内购买或充值</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_purchase">使用AppCoins积金之外的任何支付方式进行一次应用内购买或充值超过%s</string>
+  <string name="referral_dropup_menu_requirements_body">每位好友满足两个要求后，您将获得价值%1$s的AppCoins积金（最多%2$s）</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">促销</string>
   <string name="bottom_navigation_promotions_detailed">了解通过促销和营销活动，获取免费AppCoins积金的方法！</string>

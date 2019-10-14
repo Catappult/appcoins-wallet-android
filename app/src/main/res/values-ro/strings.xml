@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
   <string name="activity_iab_change_card">SCHIMBĂ CARD</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
-  <string name="notification_completed_poa">Recompensă primită, bucură-te de ea!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Se trimite cererea ta la blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Fără conexiune la rețea</string>
@@ -436,13 +437,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invită-ți prietenii!</string>
   <string name="referral_onboarding_body">Tu și prietenii tăi puteți câștiga până la %s cu Programul nostru de referință!</string>
+  <string name="referral_onboarding_body_no_connection">Tu și prietenii tăi puteți câștiga AppCoins Credits cu Programul nostru de referință!</string>
   <string name="referral_onboarding_redeem_button">Am fost invitat</string>
   <string name="referral_verification_title">Verifică-ți portofelul</string>
   <string name="referral_verification_body">Trebuie să îți verifici portofelul pentru a participa la Programul de referință. Îți vom trimite un cod de verificare prin SMS.</string>
   <string name="referral_verification_confirmation_title">Invitația ta a fost validată!</string>
-  <string name="referral_verification_confirmation_body">Imediat ce vei face prima ta cumpărătură, vei primi AppCoins Credits în valoare de %s.</string>
+  <string name="referral_verification_confirmation_body">Vei primi AppCoins Credits în valoare de %1$s la prima ta cumpărătură in-app. Prima ta cumpărătură trebuie să aibă o valoare peste %2$s cu orice metodă de plată, cu excepția AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Se pare că acest număr nu a fost invitat&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Dar poți continua să câștigi până la %s invitându-ți prietenii! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bonus de referință în așteptare</string>
   <string name="referral_notification_bonus_pending_body">Fă prima ta cumpărătură in-app pentru a-ți primi bonusul.</string>
   <string name="referral_view_title">Invită prieteni</string>
@@ -459,8 +461,8 @@
   <string name="referral_dropup_menu_friends_title_1">Prieteni invitați</string>
   <string name="referral_dropup_menu_requirements_title">Cerințe</string>
   <string name="referral_dropup_menu_requirements_verification">Verifică-ți portofelul cu un număr de telefon</string>
-  <string name="referral_dropup_menu_requirements_purchase">Fă o cumpărătură in-app sau o încărcare</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_purchase">Fă o cumpărătură in-app sau încarcă cu o sumă peste %s cu orice metodă de plată, cu excepția AppCoins Credits</string>
+  <string name="referral_dropup_menu_requirements_body">Vei câștiga AppCoins Credits în valoare de %1$s pentru fiecare prieten care îndeplinește ambele cerințe (până la %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promoții</string>
   <string name="bottom_navigation_promotions_detailed">Descoperă cum poți să câștigi AppCoins Credits gratuite cu promoțiile și campaniile noastre!</string>

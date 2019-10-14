@@ -12,4 +12,11 @@ interface Advertising {
 }
 
 data class CampaignDetails(val responseCode: Advertising.CampaignAvailabilityType,
-                           val campaignId: String? = "")
+                           val campaignId: String? = "", val hoursRemaining: Int = 0,
+                           val minutesRemaining: Int = 0) {
+
+  fun hasReachedPoaLimit(): Boolean {
+    return hoursRemaining != 0 || minutesRemaining != 0
+  }
+}
+
