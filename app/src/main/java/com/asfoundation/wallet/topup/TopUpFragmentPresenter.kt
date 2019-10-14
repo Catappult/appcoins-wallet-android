@@ -96,7 +96,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(view.getEditTextChanges().filter { isNumericOrEmpty(it) }
         .doOnNext {
           view.setNextButtonState(false)
-          handleManualInputValue(it)
+          if (it.currency.fiatValue != "--") {
+            handleManualInputValue(it)
+          }
         }
         .debounce(700, TimeUnit.MILLISECONDS)
         .switchMap { topUpData ->
@@ -118,7 +120,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .filter { it.currency.appcValue != "--" }
               .doOnComplete {
                 view.setConversionValue(topUpData)
-                handleInvalidValueInput(packageName, topUpData)
+                if (topUpData.currency.fiatValue != DEFAULT_VALUE) {
+                  handleInvalidValueInput(packageName, topUpData)
+                }
               }
         }
         .subscribe())
@@ -135,21 +139,20 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleManualInputValue(topUpData: TopUpData) {
-    if (topUpData.currency.fiatValue != "--") {
-      disposables.add(interactor.getChipIndex(
-          FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
-              topUpData.currency.fiatCurrencySymbol))
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-          .map {
-            if (it != -1) {
-              view.selectChip(it)
-            } else {
-              view.unselectChips()
-            }
+    disposables.add(interactor.getChipIndex(
+        FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
+            topUpData.currency.fiatCurrencySymbol))
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .map {
+          if (it != -1) {
+            view.selectChip(it)
+          } else {
+            view.unselectChips()
           }
-          .subscribe())
-    }
+        }
+        .subscribe())
+
   }
 
   private fun isNumericOrEmpty(data: TopUpData): Boolean {
@@ -192,7 +195,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun handlePaymentMethodSelected() {
     disposables.add(
-        view.getPaymentMethodClick().doOnNext { view.paymentMethodsFocusRequest() }.subscribe())
+        view.getPaymentMethodClick()
+            .doOnNext { view.paymentMethodsFocusRequest() }
+            .subscribe())
   }
 
   private fun loadBonusIntoView(appPackage: String, amount: String,
@@ -211,19 +216,18 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleInvalidValueInput(packageName: String, topUpData: TopUpData) {
-    if (topUpData.currency.fiatValue != DEFAULT_VALUE) {
-      val value =
-          FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
-              topUpData.currency.fiatCurrencySymbol)
-      disposables.add(interactor.getLimitTopUpValue()
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-          .doOnSuccess {
-            showValueWarning(it.maxValue, it.minValue, value)
-            handleShowBonus(packageName, topUpData, it.maxValue, it.minValue, value)
-          }
-          .subscribe())
-    }
+    val value =
+        FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
+            topUpData.currency.fiatCurrencySymbol)
+    disposables.add(interactor.getLimitTopUpValue()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          showValueWarning(it.maxValue, it.minValue, value)
+          handleShowBonus(packageName, topUpData, it.maxValue, it.minValue, value)
+        }
+        .subscribe())
+
   }
 
   private fun handleShowBonus(appPackage: String, topUpData: TopUpData, maxValue: FiatValue,
@@ -294,7 +298,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun getChipValue(index: Int): Single<FiatValue> {
     return interactor.getDefaultValues()
-        .subscribeOn(networkScheduler)
         .map { it[index] }
   }
 }

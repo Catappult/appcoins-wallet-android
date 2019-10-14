@@ -55,7 +55,6 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   fun getLimitTopUpValue(): Single<TopUpLimitValues> {
     return topUpValuesService.getLimitValues()
-        .map { it }
   }
 
   fun getDefaultValues(): Single<List<FiatValue>> {
@@ -63,7 +62,6 @@ class TopUpInteractor(private val repository: BdsRepository,
       Single.just(ArrayList(chipValueIndexMap.keys))
     } else {
       topUpValuesService.getDefaultValues()
-          .map { it }
           .doOnSuccess { cacheChipValues(it) }
     }
   }
