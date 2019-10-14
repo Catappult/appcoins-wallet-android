@@ -399,4 +399,14 @@ public class ProofOfAttentionServiceTest {
         .assertNoErrors()
         .assertValue(wrongNetwork);
   }
+
+  @Test public void formatMinutes() {
+    String format2digit = String.format("%02d", 10);
+    String format1digit = String.format("%02d", 5);
+    String formatZero = String.format("%02d", 0);
+    Assert.assertEquals(format1digit, "05");
+    Assert.assertEquals(format2digit, "10");
+    Assert.assertNotEquals(format1digit, "5");
+    Assert.assertEquals(formatZero, "00");
+  }
 }

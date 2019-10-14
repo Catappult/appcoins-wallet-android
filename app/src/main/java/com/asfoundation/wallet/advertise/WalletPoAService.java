@@ -212,12 +212,9 @@ public class WalletPoAService extends Service {
   }
 
   private void showNotification(ProofSubmissionData proof) {
-    String leadingZero = "";
-    if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
-      leadingZero = "0";
-    }
+    String minutes = String.format("%02d", proof.getMinutesRemaining());
     String message = getString(R.string.notification_poa_limit_reached,
-        String.valueOf(proof.getHoursRemaining()), leadingZero + proof.getMinutesRemaining());
+        String.valueOf(proof.getHoursRemaining()), minutes);
     NotificationCompat.Builder builder =
         headsUpNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
     if (appName != null) {
@@ -332,14 +329,9 @@ public class WalletPoAService extends Service {
   }
 
   private String buildNoPoaRemainingString(PoaInformationModel poaInformation) {
-    String minutes = String.valueOf(poaInformation.getRemainingMinutes());
-    String leadingZero = "";
-    if (poaInformation.getRemainingMinutes() >= 0 && poaInformation.getRemainingMinutes() < 10) {
-      leadingZero = "0";
-    }
-    minutes = leadingZero + minutes;
+    String minutesRemaining = String.format("%02d", poaInformation.getRemainingMinutes());
     return getString(R.string.notification_completed_poa,
-        String.valueOf(poaInformation.getRemainingHours()), minutes);
+        String.valueOf(poaInformation.getRemainingHours()), minutesRemaining);
   }
 
   private @IntRange(from = 0, to = 100) int calculateProgress(Proof proof) {
