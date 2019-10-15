@@ -2,14 +2,14 @@ package com.asfoundation.wallet.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.widget.OnImportPrivateKeyListener;
 
@@ -51,12 +51,13 @@ public class ImportPrivateKeyFragment extends Fragment implements View.OnClickLi
     privateKey.setError(null);
     String value = privateKey.getText()
         .toString();
-    if (TextUtils.isEmpty(value) || value.length() != 64) {
+    if (TextUtils.isEmpty(value)) {
       privateKey.setError(getString(R.string.error_field_required));
+    } else if (value.length() != 64) {
+      privateKey.setError(getString(R.string.error_invalid_private_key));
     } else {
       onImportPrivateKeyListener.onPrivateKey(privateKey.getText()
           .toString());
     }
   }
-
 }

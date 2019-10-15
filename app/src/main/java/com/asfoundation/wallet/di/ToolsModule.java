@@ -579,11 +579,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents,
       CountryCodeProvider countryCodeProvider, AddressService addressService,
       CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
+      FindDefaultWalletInteract findDefaultWalletInteract, CampaignInteract campaignInteract) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
         Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(), disposables,
-        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract);
+        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract,
+        campaignInteract);
   }
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
@@ -806,7 +807,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(CampaignService.CampaignApi.class);
-    return new CampaignService(api, BuildConfig.VERSION_CODE);
+    return new CampaignService(api, BuildConfig.VERSION_CODE, Schedulers.io());
   }
 
   @Provides Gamification provideGamification(PromotionsRepository promotionsRepository) {
@@ -1164,9 +1165,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
-      WalletService walletService, CreateWalletInteract createWalletInteract) {
+      WalletService walletService, CreateWalletInteract createWalletInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
-        new AdvertisingThrowableCodeMapper());
+        new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract);
   }
 
   @Singleton @Provides NotificationManager provideNotificationManager(Context context) {

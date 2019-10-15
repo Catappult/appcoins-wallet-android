@@ -3,17 +3,18 @@ package com.asfoundation.wallet.service
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.SubmitPoAException
 import com.asfoundation.wallet.entity.SubmitPoAResponse
+import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofComponent
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import org.jetbrains.annotations.NotNull
 import retrofit2.http.*
 
 class CampaignService(
-    private val campaignApi: @NotNull CampaignApi,
-    private val versionCode: Int) {
+    private val campaignApi: CampaignApi,
+    private val versionCode: Int,
+    private val scheduler: Scheduler) {
 
   companion object {
     const val SERVICE_HOST = BuildConfig.BACKEND_HOST
@@ -24,7 +25,7 @@ class CampaignService(
         SerializedProof(proof.campaignId, proof.packageName, wallet, proof.proofComponentList,
             proof.storeAddress, proof.oemAddress), versionCode)
         .map { response -> handleResponse(response) }
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(scheduler)
         .singleOrError()
   }
 
@@ -32,8 +33,20 @@ class CampaignService(
                   packageVersionCode: Int): Single<Campaign> {
     return campaignApi.getCampaign(address, packageName, packageVersionCode)
         .map { response -> handleResponse(response) }
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(scheduler)
         .singleOrError()
+  }
+
+  fun retrievePoaInformation(address: String): Single<PoaInformationModel> {
+    return campaignApi.getPoaInformation(address)
+        .map { handleResponse(it) }
+        .subscribeOn(scheduler)
+        .singleOrError()
+  }
+
+  private fun handleResponse(response: PoaInformationResponse): PoaInformationModel {
+    return PoaInformationModel(response.remainingPoa, response.hoursRemaining,
+        response.minutesRemaining)
   }
 
   private fun handleResponse(response: SubmitPoAResponse): String {
@@ -58,6 +71,8 @@ class CampaignService(
     fun submitProof(@Body body: SerializedProof?, @Query("version_code")
     versionCode: Int): Observable<SubmitPoAResponse>
 
+    @GET("/campaign/remaining_poa")
+    fun getPoaInformation(@Query("address") address: String): Observable<PoaInformationResponse>
 
     @GET("/campaign/eligible")
     fun getCampaign(@Query("address") address: String,
