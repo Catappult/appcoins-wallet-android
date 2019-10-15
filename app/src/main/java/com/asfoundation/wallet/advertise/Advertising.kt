@@ -22,8 +22,6 @@ data class CampaignDetails(val responseCode: Advertising.CampaignAvailabilityTyp
                            val campaignId: String? = "", val hoursRemaining: Int = 0,
                            val minutesRemaining: Int = 0) {
 
-  fun hasReachedPoaLimit(): Boolean {
-    return hoursRemaining != 0 || minutesRemaining != 0
-  }
+  fun hasReachedPoaLimit() = hoursRemaining != 0 || minutesRemaining != 0
 }
 
