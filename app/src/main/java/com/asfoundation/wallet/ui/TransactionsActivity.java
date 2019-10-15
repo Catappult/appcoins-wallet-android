@@ -69,6 +69,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private CompositeDisposable disposables;
   private View emptyClickableView;
   private View badge;
+  private boolean showScroll = false;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -203,8 +204,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onApplications(List<AppcoinsApplication> appcoinsApplications) {
     adapter.setApps(appcoinsApplications);
-    list.smoothScrollToPosition(0);
     showList();
+    if (showScroll) {
+      list.scrollToPosition(0);
+      showScroll = false;
+    }
   }
 
   private void onNotifications(List<ReferralNotification> referralNotifications) {
@@ -218,6 +222,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onNotificationClick(ReferralNotification referralNotification,
       ReferralNotificationAction referralNotificationAction) {
+    if (referralNotificationAction.equals(ReferralNotificationAction.DISMISS)) {
+      showScroll = true;
+    }
     viewModel.onNotificationClick(referralNotification, referralNotificationAction,
         this.getApplicationContext());
   }
