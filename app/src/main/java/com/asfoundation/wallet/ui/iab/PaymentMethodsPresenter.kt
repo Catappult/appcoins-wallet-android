@@ -375,7 +375,8 @@ class PaymentMethodsPresenter(
 
   private fun handlePositiveButtonText(selectedPaymentMethod: String) {
     if (selectedPaymentMethod == paymentMethodsMapper.map(
-            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
+            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) || selectedPaymentMethod == paymentMethodsMapper.map(
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
       view.showNext()
     } else {
       view.showBuy()

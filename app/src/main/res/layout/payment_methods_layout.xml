@@ -242,7 +242,7 @@
             android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="To be implemented string"
+            android:text="@string/purchase_poa_body"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
             app:layout_constraintStart_toStartOf="parent"
