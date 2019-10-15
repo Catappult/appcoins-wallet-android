@@ -116,6 +116,7 @@
 
   <Button
       android:id="@+id/cancel_button"
+      style="@style/CancelBorderlessButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"
       android:layout_marginEnd="8dp"
