@@ -58,13 +58,14 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleChangeCurrencyClick() {
-    disposables.add(
-        view.getChangeCurrencyClick().doOnNext {
+    disposables.add(view.getChangeCurrencyClick()
+        .doOnNext {
           view.toggleSwitchCurrencyOn()
           view.rotateChangeCurrencyButton()
           view.switchCurrencyData()
           view.toggleSwitchCurrencyOff()
-        }.subscribe())
+        }
+        .subscribe())
   }
 
   private fun handleNextClick() {
@@ -132,7 +133,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(getChipValue(PRESELECTED_CHIP)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .map {
+        .doOnSuccess {
           view.initialInputSetup(PRESELECTED_CHIP, it.amount.toString())
         }
         .subscribe())
@@ -144,7 +145,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             topUpData.currency.fiatCurrencySymbol))
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .map {
+        .doOnSuccess {
           if (it != -1) {
             view.selectChip(it)
           } else {
@@ -248,12 +249,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(interactor.getDefaultValues()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .map { view.setupDefaultValueChips(it) }
+        .doOnSuccess { view.setupDefaultValueChips(it) }
         .subscribe())
   }
 
   private fun handleValueChipsClick() {
     disposables.add(view.getChipsClick()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
         .doOnNext { index ->
           view.unselectChips()
           view.selectChip(index)
@@ -279,7 +281,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(interactor.convertLocal(value.currency, value.amount.toString(), 2)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .map { view.changeMainValueText(it.amount.toString()) }
+        .doOnNext { view.changeMainValueText(it.amount.toString()) }
         .subscribe())
   }
 
