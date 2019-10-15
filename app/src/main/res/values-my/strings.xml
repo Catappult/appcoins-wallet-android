@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">ကီးစတိုး</string>
   <string name="tab_private_key">သီးသန္႔ကီး</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ခ်ိဳ႕ယြင္းခ်က္</string>
   <string name="title_dialog_handling">စီစဥ္ေဆာင္ရြက္ေနပါသည္…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">အေသးစိတ္မ်ားကို စစ္ေဆးၿပီးပါၿပီ \nသင့္ပစၥည္းကို ရယူေနပါသည္…</string>
   <string name="activity_iab_change_card">ကဒ္ကိုေျပာင္းမည္</string>
   <string name="notification_ongoing_poa">သင့္ဆုကို စီစဥ္ေဆာင္ရြက္ေနပါသည္</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">ဆုကိုရရွိပါသည္။👌 အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ဆုမ်ားကိုပိုမိုရရွိႏိုင္ရန္ %1$sh%2$sm ေစာင့္ရပါမည္ ⏰။</string>
+  <string name="notification_poa_limit_reached">သင့္ေန႔စဥ္ဆုကန္႔သတ္ခ်က္သို႔ ေရာက္သြားပါၿပီ။ ⏰ %1$sh%2$sm တြင္ျပန္လာကာ ထပ္ႀကိဳးစားပါ။</string>
   <string name="notification_submitting_poa">သင့္ေတာင္္းဆိုမႈအား blockchain သို႔ ေပးပို႔ေနပါသည္</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">ကြန္ရက္ဆက္သြယ္မႈ မရွိပါ</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">က်သင့္ေငြမရွိသလို အလြန္ပင္ ျမန္ဆန္ပါသည္။</string>
   <string name="purchase_appcoins_credits_noavailable_body">သင့္တြင္ APPC Credit မ်ား လံုေလာက္စြာမရွိပါ။ ေငြျဖည့္ၾကည့္ပါ။</string>
   <string name="purchase_appcoins_credits_default_body">ဤ၀ယ္ယူမႈအတြက္ AppCoins Credit မ်ား သင့္ထံတြင္ လံုေလာက္စြာ ရွိပါသည္။ အသံုးျပဳလိုက္ပါ။</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ေငြေၾကးမ်ားကို ရယူလိုက္ပါ</string>
+  <string name="purchase_poa_body">အက္ပ္တစ္ခုကို ၂ မိနစ္ၾကာေအာင္ စမ္းသံုးၾကည့္ကာ AppCoins Credit မ်ားကို ရယူလိုက္ပါ။</string>
+  <string name="purchase_poa_view_title">ေငြေၾကးမရွိဘူးလား၊ စိတ္မပူပါနဲ႔။</string>
+  <string name="purchase_poa_view_body">သင့္၀ယ္ယူမႈကိုျပဳလုပ္ရန္ အက္ပ္တစ္ခုကို ၂ မိနစ္စမ္းသံုးၾကည့္ကာ AppCoins Credit မ်ားျဖင့္ ဆုတစ္ခုကို ရယူပါ။</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">သင့္သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ။</string>
   <string name="referral_onboarding_body">ကၽြႏ္ုပ္တို႔၏ ညႊန္ေပးသည့္ အစီအစဥ္ျဖင့္ သင္ႏွင့္ သင့္သူငယ္ခ်င္းမ်ားသည္ %s အထိ ရရွိႏိုင္ပါသည္။</string>
