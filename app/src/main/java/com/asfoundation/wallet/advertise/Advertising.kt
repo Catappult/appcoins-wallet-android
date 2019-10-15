@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.advertise
 
+import com.asfoundation.wallet.poa.PoaInformationModel
+import com.asfoundation.wallet.poa.ProofSubmissionData
 import io.reactivex.Single
 
 interface Advertising {
@@ -9,6 +11,11 @@ interface Advertising {
   enum class CampaignAvailabilityType {
     AVAILABLE, UNAVAILABLE, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR, PACKAGE_NAME_NOT_FOUND
   }
+
+  fun hasWalletPrepared(chainId: Int, packageName: String,
+                        versionCode: Int): Single<ProofSubmissionData>
+
+  fun retrievePoaInformation(address: String): Single<PoaInformationModel>
 }
 
 data class CampaignDetails(val responseCode: Advertising.CampaignAvailabilityType,

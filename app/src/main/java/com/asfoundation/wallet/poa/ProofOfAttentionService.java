@@ -2,6 +2,8 @@ package com.asfoundation.wallet.poa;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
+import com.asfoundation.wallet.advertise.Advertising;
+import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
@@ -29,6 +31,7 @@ public class ProofOfAttentionService {
   private final TaggedCompositeDisposable disposables;
   private final CountryCodeProvider countryCodeProvider;
   private final AddressService partnerAddressService;
+  private final Advertising campaignInteract;
   private final CreateWalletInteract walletInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private Subject<Boolean> walletValidated;
@@ -39,7 +42,7 @@ public class ProofOfAttentionService {
       BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
       CountryCodeProvider countryCodeProvider, AddressService partnerAddressService,
       CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
+      FindDefaultWalletInteract findDefaultWalletInteract, CampaignInteract campaignInteract) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
@@ -51,6 +54,7 @@ public class ProofOfAttentionService {
     this.disposables = disposables;
     this.countryCodeProvider = countryCodeProvider;
     this.partnerAddressService = partnerAddressService;
+    this.campaignInteract = campaignInteract;
     this.walletValidated = BehaviorSubject.create();
     this.walletInteract = createWalletInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
@@ -358,7 +362,7 @@ public class ProofOfAttentionService {
       int versionCode) {
     return Single.defer(() -> {
       synchronized (this) {
-        return proofWriter.hasWalletPrepared(chainId, packageName, versionCode);
+        return campaignInteract.hasWalletPrepared(chainId, packageName, versionCode);
       }
     });
   }
@@ -372,6 +376,6 @@ public class ProofOfAttentionService {
 
   public Single<PoaInformationModel> retrievePoaInformation() {
     return findDefaultWalletInteract.find()
-        .flatMap(wallet -> proofWriter.retrievePoaInformation(wallet.address));
+        .flatMap(wallet -> campaignInteract.retrievePoaInformation(wallet.address));
   }
 }
