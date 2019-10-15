@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">ਵੇਰਵੇ ਚੈੱਕ ਕੀਤੇ ਗਏ \nਤੁਹਾਡੀ ਆਈਟਮ ਪ੍ਰਾਪਤ ਹੋ ਰਹੀ ਹੈ…</string>
   <string name="activity_iab_change_card">ਕਾਰਡ ਬਦਲੋ</string>
   <string name="notification_ongoing_poa">ਤੁਹਾਡੇ ਇਨਾਮ ਦੀ ਪ੍ਰੋਸੈਸਿੰਗ ਹੋ ਰਹੀ ਹੈ</string>
-  <string name="notification_completed_poa">ਇਨਾਮ ਪ੍ਰਾਪਤ ਹੋ ਗਿਆ, ਆਨੰਦ ਮਾਣੋ!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">ਬਲਾਕਚੈਨ ਨੂੰ ਤੁਹਾਡੀ ਬੇਨਤੀ ਜਮ੍ਹਾਂ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">ਕੋਈ ਨੈਟਵਰਕ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ</string>

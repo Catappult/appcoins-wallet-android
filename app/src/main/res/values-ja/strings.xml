@@ -203,7 +203,8 @@
   <string name="activity_iab_buying_message">詳細をチェック \nあなたの商品を受け取っています...</string>
   <string name="activity_iab_change_card">カードの変更</string>
   <string name="notification_ongoing_poa">報酬を処理しています</string>
-  <string name="notification_completed_poa">報酬を得ました、楽しんで！</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">リクエストをブロックチェーンに送信する</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">ネットワーク接続がありません</string>

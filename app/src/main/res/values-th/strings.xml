@@ -202,7 +202,8 @@
   <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
   <string name="activity_iab_change_card">เปลี่ยนบัตร</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
-  <string name="notification_completed_poa">ได้รับรางวัล เพลิดเพลิน!</string>
+  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
+  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">การส่งการร้องขอ blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">ไม่มีการเชื่อมต่อเครือข่าย</string>

@@ -4,10 +4,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 
-class DeleteKeyListener(
-    private val inputTexts: Array<EditText>,
-    private val selectedPosition: Int
-) : View.OnKeyListener {
+class DeleteKeyListener(private val inputTexts: Array<EditText>,
+                        private val selectedPosition: Int) : View.OnKeyListener {
 
   override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
     if (event?.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
@@ -19,5 +17,4 @@ class DeleteKeyListener(
     }
     return false
   }
-
 }

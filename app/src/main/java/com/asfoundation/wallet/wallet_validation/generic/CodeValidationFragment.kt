@@ -119,7 +119,6 @@ class CodeValidationFragment : DaggerFragment(),
 
   override fun onResume() {
     super.onResume()
-
     focusAndShowKeyboard(code_1.code)
   }
 
@@ -341,12 +340,8 @@ class CodeValidationFragment : DaggerFragment(),
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-
-    if (context !is WalletValidationView) {
-      throw IllegalStateException(
-          "CodeValidationFragment must be attached to Wallet Validation activity")
-    }
-
+    check(
+        context is WalletValidationView) { "CodeValidationFragment must be attached to Wallet Validation activity" }
     walletValidationView = context
   }
 
@@ -358,7 +353,7 @@ class CodeValidationFragment : DaggerFragment(),
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
-    content.requestFocus()
+    code_6.clearFocus()
   }
 
   companion object {
