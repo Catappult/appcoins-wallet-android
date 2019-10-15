@@ -42,7 +42,7 @@ public class InAppPurchaseInteractor {
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
-  private PackageManager packageManager;
+  private final PackageManager packageManager;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
@@ -198,13 +198,13 @@ public class InAppPurchaseInteractor {
         .map(BalanceUtils::weiToEth);
   }
 
-  public Single<String> getTransactionUid(String uid) {
-    return getCompletedTransaction(uid).map(transaction -> transaction.getHash())
+  Single<String> getTransactionUid(String uid) {
+    return getCompletedTransaction(uid).map(Transaction::getHash)
         .firstOrError();
   }
 
   public Single<Price> getTransactionAmount(String uid) {
-    return getCompletedTransaction(uid).map(transaction -> transaction.getPrice())
+    return getCompletedTransaction(uid).map(Transaction::getPrice)
         .firstOrError();
   }
 

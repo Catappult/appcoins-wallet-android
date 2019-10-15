@@ -528,7 +528,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   private void setBuyButtonText() {
     int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
-    buyButton.setText(getResources().getString(buyButtonText));
+    buyButton.setText(buyButtonText);
   }
 
   private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency) {

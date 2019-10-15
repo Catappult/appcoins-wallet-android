@@ -68,14 +68,15 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
   }
 
   override fun navigateToAptoide() {
-    val intent = Intent(Intent.ACTION_VIEW)
-    val packageManager = context?.packageManager
-    intent.data = Uri.parse(APTOIDE_EARN_APPCOINS_DEEPLINK)
-    val appsList = packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-    appsList?.forEach {
-      if (it.activityInfo.packageName == "cm.aptoide.pt") {
-        intent.setPackage(it.activityInfo.packageName)
-      }
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+      val packageManager = context?.packageManager
+      this.data = Uri.parse(APTOIDE_EARN_APPCOINS_DEEP_LINK)
+      val appsList =
+          packageManager?.queryIntentActivities(this, PackageManager.MATCH_DEFAULT_ONLY)
+      appsList?.first { it.activityInfo.packageName == "cm.aptoide.pt" }
+          ?.let {
+            setPackage(it.activityInfo.packageName)
+          }
     }
     iabView.launchIntent(intent)
   }
@@ -100,6 +101,6 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
   }
 
   companion object {
-    const val APTOIDE_EARN_APPCOINS_DEEPLINK = "aptoide://cm.aptoide.pt/deeplink?name=appcoins_ads"
+    const val APTOIDE_EARN_APPCOINS_DEEP_LINK = "aptoide://cm.aptoide.pt/deeplink?name=appcoins_ads"
   }
 }
