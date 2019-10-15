@@ -238,7 +238,7 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
-    if (!hasFunds(paymentMethods) || !hasRequiredAptoideVersionstalled()) {
+    if (hasFunds(paymentMethods) || !hasRequiredAptoideVersionInstalled()) {
       Iterator<PaymentMethod> iterator = paymentMethods.iterator();
       while (iterator.hasNext()) {
         PaymentMethod paymentMethod = iterator.next();
@@ -251,7 +251,7 @@ public class InAppPurchaseInteractor {
     return paymentMethods;
   }
 
-  private boolean hasRequiredAptoideVersionstalled() {
+  private boolean hasRequiredAptoideVersionInstalled() {
     try {
       PackageInfo packageInfo = packageManager.getPackageInfo("cm.aptoide.pt", 0);
       return packageInfo.versionCode >= EARN_APPCOINS_APTOIDE_VERCODE;
@@ -358,7 +358,7 @@ public class InAppPurchaseInteractor {
       } else if (id.equals(CREDITS_ID) && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
-      } else if ((paymentMethod.getGateway()
+      } else if (paymentMethod.getGateway() != null && (paymentMethod.getGateway()
           .getName() == (Gateway.Name.myappcoins)
           || paymentMethod.getGateway()
           .getName() == (Gateway.Name.adyen)) && isUnavailable(paymentMethod)) {

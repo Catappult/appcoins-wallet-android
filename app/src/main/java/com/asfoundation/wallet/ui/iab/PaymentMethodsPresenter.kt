@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
@@ -19,7 +20,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.io.IOException
@@ -296,7 +296,7 @@ class PaymentMethodsPresenter(
             }
                 .ignoreElements()
           } else {
-            return@flatMapCompletable Completable.fromAction { Action { this.close() } }
+            return@flatMapCompletable Completable.fromAction { view.close(Bundle()) }
           }
         }
         .subscribe({ }, { this.showError(it) }))
