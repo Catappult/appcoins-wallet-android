@@ -94,11 +94,16 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleManualAmountChange(packageName: String) {
-    disposables.add(view.getEditTextChanges().filter { isNumericOrEmpty(it) }
+    disposables.add(view.getEditTextChanges()
+        .filter { isNumericOrEmpty(it) }
         .doOnNext {
           view.setNextButtonState(false)
           if (it.currency.fiatValue != "--") {
-            handleManualInputValue(it)
+            if (it.selectedCurrency == TopUpData.FIAT_CURRENCY) {
+              handleManualInputValue(it)
+            } else {
+              view.unselectChips()
+            }
           }
         }
         .debounce(700, TimeUnit.MILLISECONDS)
@@ -153,7 +158,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           }
         }
         .subscribe())
-
   }
 
   private fun isNumericOrEmpty(data: TopUpData): Boolean {
