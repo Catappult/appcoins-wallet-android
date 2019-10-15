@@ -7,11 +7,9 @@ import android.text.TextWatcher
 import android.widget.EditText
 import org.apache.commons.lang3.StringUtils
 
-class PasteTextWatcher(
-    private val inputTexts: Array<EditText>,
-    private val clipboardManager: ClipboardManager,
-    private val selectedPosition: Int
-) : TextWatcher {
+class PasteTextWatcher(private val inputTexts: Array<EditText>,
+                       private val clipboardManager: ClipboardManager,
+                       private val selectedPosition: Int) : TextWatcher {
 
   private var isPaste = false
   private var isStart = false

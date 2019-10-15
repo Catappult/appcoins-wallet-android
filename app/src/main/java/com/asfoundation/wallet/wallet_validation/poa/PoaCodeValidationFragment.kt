@@ -259,7 +259,7 @@ class PoaCodeValidationFragment : DaggerFragment(),
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
-    title.requestFocus()
+    code_6.clearFocus()
   }
 
   companion object {
