@@ -222,9 +222,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onNotificationClick(ReferralNotification referralNotification,
       ReferralNotificationAction referralNotificationAction) {
-    if (referralNotificationAction.equals(ReferralNotificationAction.DISMISS)) {
-      showScroll = true;
-    }
+    showScroll = referralNotificationAction.equals(ReferralNotificationAction.DISMISS)
+        && adapter.getNotificationsCount() == 1;
     viewModel.onNotificationClick(referralNotification, referralNotificationAction,
         this.getApplicationContext());
   }
