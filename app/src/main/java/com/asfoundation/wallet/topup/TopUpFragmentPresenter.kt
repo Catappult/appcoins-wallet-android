@@ -81,6 +81,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               it.currency.appcValue != DEFAULT_VALUE && it.currency.fiatValue != DEFAULT_VALUE
             }
             .doOnNext {
+              if (view.getSelectedCurrency() == TopUpData.APPC_C_CURRENCY) {
+                view.unselectChips()
+              }
               view.showLoading()
               showPaymentDetails(it)
             }
