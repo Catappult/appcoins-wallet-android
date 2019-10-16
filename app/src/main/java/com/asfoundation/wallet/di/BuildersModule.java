@@ -35,6 +35,7 @@ import com.asfoundation.wallet.ui.gamification.MyLevelFragment;
 import com.asfoundation.wallet.ui.iab.AdyenAuthorizationFragment;
 import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyFragment;
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment;
+import com.asfoundation.wallet.ui.iab.EarnAppcoinsFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.LocalPaymentFragment;
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment;
@@ -184,4 +185,6 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract InviteFriendsFragment inviteFriendsFragment();
 
   @ContributesAndroidInjector() abstract ReferralsFragment referralsFragment();
+
+  @ContributesAndroidInjector() abstract EarnAppcoinsFragment earnAppcoinsFragment();
 }
