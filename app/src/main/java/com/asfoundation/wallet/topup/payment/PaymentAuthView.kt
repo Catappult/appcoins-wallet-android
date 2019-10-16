@@ -40,4 +40,6 @@ interface PaymentAuthView {
   fun onValidFieldStateChange(): Observable<Boolean>?
 
   fun updateTopUpButton(valid: Boolean)
+
+  fun disableChips(index: Int)
 }

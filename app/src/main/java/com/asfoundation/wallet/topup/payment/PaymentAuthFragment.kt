@@ -9,7 +9,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.adyen.core.models.PaymentMethod
 import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails
 import com.adyen.core.models.paymentdetails.PaymentDetails
@@ -24,6 +26,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
+import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.view.rx.RxAlertDialog
@@ -36,9 +39,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.default_value_chips_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.Serializable
 import javax.inject.Inject
 
 class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
@@ -64,6 +69,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   private lateinit var navigator: PaymentFragmentNavigator
   private var publicKey: String? = null
   private var generationTime: String? = null
+  private var chipViewList = ArrayList<CheckBox>()
   private var disposables = CompositeDisposable()
 
   val appPackage: String by lazy {
@@ -122,6 +128,22 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
+  private val selectedChip: Int by lazy {
+    if (arguments!!.containsKey(SELECTED_CHIP)) {
+      arguments!!.getInt(SELECTED_CHIP, -1)
+    } else {
+      throw IllegalArgumentException("Selected chip not found")
+    }
+  }
+
+  private val chipValues: List<FiatValue> by lazy {
+    if (arguments!!.containsKey(CHIP_VALUES)) {
+      arguments!!.getSerializable(CHIP_VALUES) as List<FiatValue>
+    } else {
+      throw IllegalArgumentException("Chip values not found")
+    }
+  }
+
   companion object {
 
     private val TAG = PaymentAuthFragment::class.java.simpleName
@@ -132,11 +154,15 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     private const val PAYMENT_DATA = "data"
     private const val PAYMENT_CURRENT_CURRENCY = "currentCurrency"
     private const val BONUS = "bonus"
+    private const val SELECTED_CHIP = "selected_chip"
+    private const val CHIP_VALUES = "chip_values"
+
 
     fun newInstance(paymentType: PaymentType,
                     data: TopUpData, currentCurrency: String,
                     origin: String, transactionType: String,
-                    bonusValue: String): PaymentAuthFragment {
+                    bonusValue: String, selectedChip: Int,
+                    chipValues: List<FiatValue>): PaymentAuthFragment {
       val bundle = Bundle()
       bundle.putString(PAYMENT_TYPE, paymentType.name)
       bundle.putString(PAYMENT_ORIGIN, origin)
@@ -144,6 +170,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       bundle.putSerializable(PAYMENT_DATA, data)
       bundle.putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
       bundle.putString(BONUS, bonusValue)
+      bundle.putInt(SELECTED_CHIP, selectedChip)
+      bundle.putSerializable(CHIP_VALUES, chipValues as Serializable)
       val fragment = PaymentAuthFragment()
       fragment.arguments = bundle
       return fragment
@@ -167,6 +195,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     credit_card_info_container.visibility = View.INVISIBLE
 
     button.isEnabled = false
+
+    populateChipViewList()
+
+    disableChips(selectedChip)
 
     button.setText(R.string.topup_home_button)
 
@@ -383,6 +415,24 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     button.isEnabled = valid
   }
 
+  override fun disableChips(index: Int) {
+    setUnselectedChipsDisabledDrawable()
+    setUnselectedChipsDisabledText()
+    setDisabledChipsValues()
+    setDisabledChipsUnclickable()
+    if (index != -1) {
+      setSelectedChipDisabled(index)
+      setSelectedChipText(index)
+    }
+  }
+
+  private fun populateChipViewList() {
+    chipViewList.add(default_chip1)
+    chipViewList.add(default_chip2)
+    chipViewList.add(default_chip3)
+    chipViewList.add(default_chip4)
+  }
+
   private fun finishSetupView() {
     fragment_braintree_credit_card_form.findViewById<View>(R.id.bt_card_form_card_number_icon)
         .visibility = View.GONE
@@ -422,5 +472,43 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     creditCardPaymentDetails.fillStoreDetails(remember_card.isChecked)
     return creditCardPaymentDetails
+  }
+
+  private fun setDisabledChipsValues() {
+    for (index in chipViewList.indices) {
+      chipViewList[index].text = chipValues[index].symbol + chipValues[index].amount
+    }
+  }
+
+  private fun setDisabledChipsUnclickable() {
+    for (chip in chipViewList) {
+      chip.isClickable = false
+    }
+  }
+
+  private fun setUnselectedChipsDisabledText() {
+    context?.let {
+      for (chip in chipViewList) {
+        chip.setTextColor(ContextCompat.getColor(it, R.color.btn_disable_snd_color))
+      }
+    }
+  }
+
+  private fun setUnselectedChipsDisabledDrawable() {
+    for (chip in chipViewList) {
+      chip.background =
+          resources.getDrawable(R.drawable.chip_unselected_disabled_background, null)
+    }
+  }
+
+  private fun setSelectedChipDisabled(index: Int) {
+    chipViewList[index].background =
+        resources.getDrawable(R.drawable.chip_selected_disabled_background, null)
+  }
+
+  private fun setSelectedChipText(index: Int) {
+    context?.let {
+      chipViewList[index].setTextColor(ContextCompat.getColor(it, R.color.white))
+    }
   }
 }

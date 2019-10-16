@@ -13,7 +13,10 @@ import java.math.BigDecimal
 
 class TopUpInteractor(private val repository: BdsRepository,
                       private val conversionService: LocalCurrencyConversionService,
-                      private val gamificationInteractor: GamificationInteractor) {
+                      private val gamificationInteractor: GamificationInteractor,
+                      private val topUpValuesService: TopUpValuesService,
+                      private val chipValueIndexMap: LinkedHashMap<FiatValue, Int>) {
+
 
   fun getPaymentMethods(): Single<List<PaymentMethodData>> {
     return repository.getPaymentMethods(type = "fiat")
@@ -39,7 +42,7 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   private fun mapPaymentMethods(
       paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
-    var paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
+    val paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
     paymentMethods.forEach {
       paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id))
     }
@@ -50,4 +53,34 @@ class TopUpInteractor(private val repository: BdsRepository,
     return gamificationInteractor.getEarningBonus(packageName, amount)
   }
 
+  fun getLimitTopUpValue(): Single<TopUpLimitValues> {
+    return topUpValuesService.getLimitValues()
+  }
+
+  fun getDefaultValues(): Single<List<FiatValue>> {
+    return if (chipValueIndexMap.isNotEmpty()) {
+      Single.just(ArrayList(chipValueIndexMap.keys))
+    } else {
+      topUpValuesService.getDefaultValues()
+          .doOnSuccess { cacheChipValues(it) }
+    }
+  }
+
+  fun getChipIndex(value: FiatValue): Single<Int> {
+    return if (chipValueIndexMap.isNotEmpty() && chipValueIndexMap.containsKey(value)) {
+      Single.just(chipValueIndexMap[value])
+    } else {
+      if (chipValueIndexMap.isEmpty()) {
+        topUpValuesService.getDefaultValues()
+            .doOnSuccess { cacheChipValues(it) }
+      }
+      Single.just(-1)
+    }
+  }
+
+  private fun cacheChipValues(chipValues: List<FiatValue>) {
+    for (index in chipValues.indices) {
+      chipValueIndexMap[chipValues[index]] = index
+    }
+  }
 }
