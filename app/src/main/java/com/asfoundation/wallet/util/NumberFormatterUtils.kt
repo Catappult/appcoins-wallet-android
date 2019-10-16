@@ -48,8 +48,8 @@ class NumberFormatterUtils {
         formatString += "#"
       }
     }
-    val decimalFormattter = DecimalFormat(formatString)
-    return decimalFormattter.format(truncatedValue) + suffix
+    val decimalFormatter = DecimalFormat(formatString)
+    return decimalFormatter.format(truncatedValue) + suffix
   }
 
   private fun formatDecimalPlaces(value: Float): String {
