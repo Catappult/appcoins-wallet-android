@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -15,7 +16,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.balance.Balance
 import com.asfoundation.wallet.ui.balance.BalanceInteract
-import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.util.formatWithSuffix
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -348,17 +349,20 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     iabView.showPaymentMethodsView(preSelectedMethod)
   }
 
+  @SuppressLint("SetTextI18n")
   override fun updateBalanceValues(appcBalance: Balance, creditsBalance: Balance,
                                    ethBalance: Balance) {
-    appc_balance.text = appcBalance.token.amount.scaleToString(2) + " " + appcBalance.token.symbol
+    appc_balance.text =
+        appcBalance.token.amount.formatWithSuffix() + " " + appcBalance.token.symbol
     credits_balance_value.text =
-        creditsBalance.token.amount.scaleToString(2) + " " + creditsBalance.token.symbol
+        creditsBalance.token.amount.formatWithSuffix() + " " + creditsBalance.token.symbol
     appc_fiat_balance.text =
-        appcBalance.fiat.amount.scaleToString(2) + " " + appcBalance.fiat.currency
+        appcBalance.fiat.amount.formatWithSuffix() + " " + appcBalance.fiat.currency
     credits_fiat_balance.text =
-        creditsBalance.fiat.amount.scaleToString(2) + " " + creditsBalance.fiat.currency
-    eth_fiat_balance.text = ethBalance.fiat.amount.scaleToString(2) + " " + ethBalance.fiat.currency
-    eth_balance.text = ethBalance.token.amount.scaleToString(2) + " " + ethBalance.token.symbol
+        creditsBalance.fiat.amount.formatWithSuffix() + " " + creditsBalance.fiat.currency
+    eth_fiat_balance.text =
+        ethBalance.fiat.amount.formatWithSuffix() + " " + ethBalance.fiat.currency
+    eth_balance.text = ethBalance.token.amount.formatWithSuffix() + " " + ethBalance.token.symbol
     payment_methods.visibility = VISIBLE
   }
 
