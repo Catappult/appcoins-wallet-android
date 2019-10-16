@@ -438,7 +438,7 @@
   <string name="purchase_poa_item">Guthaben durch das Testen von Apps</string>
   <string name="purchase_poa_body">Testen Sie 2 Minuten lang eine App und erhalten Sie AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Keine Einzahlungen, keine Sorgen!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">Testen Sie 2 Minuten lang eine App und erhalten Sie als Belonhung AppCoins Credits mit denen Sie einen Einkauf bezahlen!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Laden Sie ihre Freunde ein!</string>
   <string name="referral_onboarding_body">Mit unserem Empfehlungsprogramm können Sie und ihre Freunde bis zu %s verdienen!</string>
