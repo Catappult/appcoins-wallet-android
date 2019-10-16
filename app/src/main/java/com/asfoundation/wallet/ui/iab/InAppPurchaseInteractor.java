@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
@@ -33,23 +35,26 @@ public class InAppPurchaseInteractor {
   private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";
+  private static final long EARN_APPCOINS_APTOIDE_VERCODE = 9961;
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
+  private final PackageManager packageManager;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
-      SharedPreferences sharedPreferences) {
+      SharedPreferences sharedPreferences, PackageManager packageManager) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
+    this.packageManager = packageManager;
   }
 
   Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -193,13 +198,13 @@ public class InAppPurchaseInteractor {
         .map(BalanceUtils::weiToEth);
   }
 
-  public Single<String> getTransactionUid(String uid) {
-    return getCompletedTransaction(uid).map(transaction -> transaction.getHash())
+  Single<String> getTransactionUid(String uid) {
+    return getCompletedTransaction(uid).map(Transaction::getHash)
         .firstOrError();
   }
 
   public Single<Price> getTransactionAmount(String uid) {
-    return getCompletedTransaction(uid).map(transaction -> transaction.getPrice())
+    return getCompletedTransaction(uid).map(Transaction::getPrice)
         .firstOrError();
   }
 
@@ -227,8 +232,44 @@ public class InAppPurchaseInteractor {
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
-                .toList()))
+                .toList())
+            .map(this::removePaymentMethods))
         .map(this::swapDisabledPositions);
+  }
+
+  private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
+    if (hasFunds(paymentMethods) || !hasRequiredAptoideVersionInstalled()) {
+      Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+      while (iterator.hasNext()) {
+        PaymentMethod paymentMethod = iterator.next();
+        if (paymentMethod.getId()
+            .equals("earn_appcoins")) {
+          iterator.remove();
+        }
+      }
+    }
+    return paymentMethods;
+  }
+
+  private boolean hasRequiredAptoideVersionInstalled() {
+    try {
+      PackageInfo packageInfo = packageManager.getPackageInfo("cm.aptoide.pt", 0);
+      return packageInfo.versionCode >= EARN_APPCOINS_APTOIDE_VERCODE;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  private boolean hasFunds(List<PaymentMethod> clonedList) {
+    for (PaymentMethod paymentMethod : clonedList) {
+      if ((paymentMethod.getId()
+          .equals(APPC_ID) && paymentMethod.isEnabled())
+          || paymentMethod.getId()
+          .equals(CREDITS_ID) && paymentMethod.isEnabled()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   List<PaymentMethod> mergeAppcoins(List<PaymentMethod> paymentMethods) {
@@ -317,7 +358,7 @@ public class InAppPurchaseInteractor {
       } else if (id.equals(CREDITS_ID) && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
-      } else if ((paymentMethod.getGateway()
+      } else if (paymentMethod.getGateway() != null && (paymentMethod.getGateway()
           .getName() == (Gateway.Name.myappcoins)
           || paymentMethod.getGateway()
           .getName() == (Gateway.Name.adyen)) && isUnavailable(paymentMethod)) {

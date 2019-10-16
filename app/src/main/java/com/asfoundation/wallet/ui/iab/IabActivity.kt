@@ -185,6 +185,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
+  override fun showEarnAppcoins() {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, EarnAppcoinsFragment())
+        .commit()
+  }
+
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
     results!!.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
@@ -226,6 +232,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun uriResults(): Observable<Uri>? {
     return results
+  }
+
+  override fun launchIntent(intent: Intent) {
+    startActivity(intent)
   }
 
   override fun lockRotation() {

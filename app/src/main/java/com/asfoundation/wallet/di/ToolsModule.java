@@ -452,9 +452,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      AppcoinsRewards appcoinsRewards, Billing billing, SharedPreferences sharedPreferences) {
+      AppcoinsRewards appcoinsRewards, Billing billing, SharedPreferences sharedPreferences,
+      PackageManager packageManager) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences);
+        new ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences,
+        packageManager);
   }
 
   @Provides LocalPaymentInteractor provideLocalPaymentInteractor(InAppDeepLinkRepository repository,

@@ -183,7 +183,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Query("wallet.signature") walletSignature: String,
                         @Body data: Consumed): Single<Void>
 
-    @GET("broker/8.20180518/methods")
+    @GET("broker/8.20191014/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
     currency: String? = null, @Query("currency.type")
                           type: String? = null): Single<GetMethodsResponse>

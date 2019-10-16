@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
@@ -19,7 +20,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.io.IOException
@@ -62,15 +62,10 @@ class PaymentMethodsPresenter(
 
   private fun handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
-        .flatMapCompletable { selectedPaymentMethod ->
-          if (selectedPaymentMethod == paymentMethodsMapper.map(
-                  PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
-            return@flatMapCompletable Completable.fromAction { view.showNext() }
-                .subscribeOn(viewScheduler)
-          } else {
-            return@flatMapCompletable Completable.fromAction { view.showBuy() }
-                .subscribeOn(viewScheduler)
-          }
+        .observeOn(viewScheduler)
+        .doOnNext { selectedPaymentMethod ->
+          handleBonusVisibility(selectedPaymentMethod)
+          handlePositiveButtonText(selectedPaymentMethod)
         }
         .subscribe())
   }
@@ -101,6 +96,7 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                 selectedPaymentMethod)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
             else -> return@doOnNext
           }
         }
@@ -300,7 +296,7 @@ class PaymentMethodsPresenter(
             }
                 .ignoreElements()
           } else {
-            return@flatMapCompletable Completable.fromAction { Action { this.close() } }
+            return@flatMapCompletable Completable.fromAction { view.close(Bundle()) }
           }
         }
         .subscribe({ }, { this.showError(it) }))
@@ -366,6 +362,25 @@ class PaymentMethodsPresenter(
       }
     }
     return PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id
+  }
+
+  private fun handleBonusVisibility(selectedPaymentMethod: String) {
+    if (selectedPaymentMethod == paymentMethodsMapper.map(
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
+      view.replaceBonus()
+    } else {
+      view.showBonus()
+    }
+  }
+
+  private fun handlePositiveButtonText(selectedPaymentMethod: String) {
+    if (selectedPaymentMethod == paymentMethodsMapper.map(
+            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) || selectedPaymentMethod == paymentMethodsMapper.map(
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
+      view.showNext()
+    } else {
+      view.showBuy()
+    }
   }
 
 }
