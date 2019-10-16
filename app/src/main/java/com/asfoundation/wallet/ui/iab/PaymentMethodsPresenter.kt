@@ -329,6 +329,7 @@ class PaymentMethodsPresenter(
     }
   }
 
+  //Updates database with the latest balance to take less time loading the merged appcoins view
   private fun updateBalanceDao() {
     disposables.add(
         Observable.zip(balanceInteract.getEthBalance(), balanceInteract.getCreditsBalance(),
