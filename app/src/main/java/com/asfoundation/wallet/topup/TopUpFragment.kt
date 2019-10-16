@@ -9,6 +9,8 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
+import android.widget.CheckBox
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -17,6 +19,8 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
+import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.NumberFormatterUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -24,6 +28,8 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.default_value_chips_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
@@ -40,11 +46,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private lateinit var paymentMethodClick: PublishRelay<String>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethodData>
+  private var chipClickSubject: PublishSubject<Int>? = null
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
+  private var chipViewList = ArrayList<CheckBox>()
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -52,6 +60,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
+    private const val SELECTED_CHIP = "SELECTED_CHIP"
 
 
     @JvmStatic
@@ -89,10 +98,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentMethodClick = PublishRelay.create()
+    chipClickSubject = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
             Schedulers.io())
-
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -103,19 +112,29 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    hideKeyboard()
     if (savedInstanceState?.containsKey(SELECTED_CURRENCY_PARAM) == true) {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
+    populateChipViewList()
+    setupDefaultValuesChips()
     topUpActivityView?.showToolbar()
-    presenter.present(appPackage)
-
+    if (savedInstanceState?.containsKey(SELECTED_CHIP) == true) {
+      if (savedInstanceState.getInt(SELECTED_CHIP) != -1) {
+        selectChip(savedInstanceState.getInt(SELECTED_CHIP))
+      }
+      presenter.present(appPackage, false)
+    } else {
+      presenter.present(appPackage, true)
+    }
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
+    outState.putInt(SELECTED_CHIP, getSelectedChip())
   }
 
   override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
@@ -124,6 +143,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     this@TopUpFragment.localCurrency = localCurrency
     setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
         APPC_C_SYMBOL, DEFAULT_VALUE)
+    hideKeyboard()
     main_value.isEnabled = true
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
@@ -138,12 +158,21 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun onDestroy() {
+    chipClickSubject = null
     presenter.stop()
     super.onDestroy()
   }
 
   override fun getChangeCurrencyClick(): Observable<Any> {
     return RxView.clicks(swap_value_button)
+  }
+
+  override fun disableSwapCurrencyButton() {
+    swap_value_button.isEnabled = false
+  }
+
+  override fun enableSwapCurrencyButton() {
+    swap_value_button.isEnabled = true
   }
 
   override fun getEditTextChanges(): Observable<TopUpData> {
@@ -166,13 +195,16 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
         }
   }
 
+  override fun getChipsClick(): Observable<Int> {
+    return chipClickSubject!!
+  }
+
   override fun setNextButtonState(enabled: Boolean) {
     button.isEnabled = enabled
   }
 
-  override fun hideKeyboard() {
-    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-    imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
+  override fun paymentMethodsFocusRequest() {
+    hideKeyboard()
     payment_methods.requestFocus()
   }
 
@@ -262,6 +294,180 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     buildBonusString(bonus, currency)
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
+  }
+
+  override fun showMaxValueWarning(value: String) {
+    value_warning_text.text = getString(R.string.topup_maximum_value, value)
+    value_warning_icon.visibility = View.VISIBLE
+    value_warning_text.visibility = View.VISIBLE
+  }
+
+  override fun showMinValueWarning(value: String) {
+    value_warning_text.text = getString(R.string.topup_minimum_value, value)
+    value_warning_icon.visibility = View.VISIBLE
+    value_warning_text.visibility = View.VISIBLE
+  }
+
+  override fun hideValueInputWarning() {
+    value_warning_icon.visibility = View.INVISIBLE
+    value_warning_text.visibility = View.INVISIBLE
+  }
+
+  override fun changeMainValueColor(isValid: Boolean) {
+    if (isValid) {
+      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.black))
+    } else {
+      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.color_grey_9e))
+    }
+  }
+
+  override fun getSelectedChip(): Int {
+    var selectedChip = -1
+    if (default_chip1.isChecked) {
+      selectedChip = 0
+    }
+    if (default_chip2.isChecked) {
+      selectedChip = 1
+    }
+    if (default_chip3.isChecked) {
+      selectedChip = 2
+    }
+    if (default_chip4.isChecked) {
+      selectedChip = 3
+    }
+    return selectedChip
+  }
+
+  override fun changeMainValueText(value: String) {
+    main_value.setText(value)
+    main_value.setSelection(value.length)
+  }
+
+  override fun setupDefaultValueChips(values: List<FiatValue>) {
+    val formatter = NumberFormatterUtils.create()
+    default_chip1.text =
+        values[0].symbol + formatter.formatNumberWithSuffix(values[0].amount.toFloat())
+    default_chip2.text =
+        values[1].symbol + formatter.formatNumberWithSuffix(values[1].amount.toFloat())
+    default_chip3.text =
+        values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toFloat())
+    default_chip4.text =
+        values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toFloat())
+  }
+
+  override fun unselectChips() {
+    setChipsUnchecked()
+    setUnselectedChipsBackground()
+  }
+
+  override fun selectChip(index: Int) {
+    setChipChecked(index)
+    if (selectedCurrency == FIAT_CURRENCY) {
+      setSelectedChipDrawable(index)
+      setSelectedChipText(index)
+    }
+  }
+
+  override fun getSelectedCurrency(): String {
+    return selectedCurrency
+  }
+
+  override fun setUnselectedChipsBackground() {
+    setUnselectedChipsDrawable()
+    setUnselectedChipsText()
+  }
+
+  override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String) {
+    hideKeyboard()
+    changeMainValueText(preselectedChipValue)
+    selectChip(preselectedChip)
+  }
+
+  private fun populateChipViewList() {
+    chipViewList.add(default_chip1)
+    chipViewList.add(default_chip2)
+    chipViewList.add(default_chip3)
+    chipViewList.add(default_chip4)
+  }
+
+  private fun hideKeyboard() {
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
+  }
+
+  private fun setupDefaultValuesChips() {
+    for (index in chipViewList.indices) {
+      setChipOnClickListener(index)
+    }
+    unselectChips()
+  }
+
+  private fun setChipsUnchecked() {
+    for (chip in chipViewList) {
+      chip.isChecked = false
+    }
+  }
+
+  private fun setUnselectedChipsDrawable() {
+    for (chip in chipViewList) {
+      chip.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
+    }
+  }
+
+  private fun setUnselectedChipsText() {
+    context?.let {
+      for (chip in chipViewList) {
+        chip.setTextColor(ContextCompat.getColor(it, R.color.top_up_default_value_chip))
+      }
+    }
+  }
+
+  private fun setChipChecked(index: Int) {
+    chipViewList[index].isChecked = true
+  }
+
+  private fun setSelectedChipDrawable(index: Int) {
+    chipViewList[index].background =
+        resources.getDrawable(R.drawable.chip_selected_background, null)
+  }
+
+  private fun setSelectedChipText(index: Int) {
+    context?.let {
+      chipViewList[index].setTextColor(ContextCompat.getColor(it, R.color.white))
+    }
+  }
+
+  private fun setChipOnClickListener(index: Int) {
+    when (index) {
+      0 -> {
+        default_chip1.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
+      1 -> {
+        default_chip2.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
+      2 -> {
+        default_chip3.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
+      3 -> {
+        default_chip4.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
+    }
   }
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {

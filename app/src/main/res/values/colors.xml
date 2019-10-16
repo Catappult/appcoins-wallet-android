@@ -74,6 +74,7 @@
   <color name="top_up_bonus_title">#030303</color>
   <color name="top_up_bonus_text">#727272</color>
   <color name="top_up_payment_details_text">#4a4a4a</color>
+  <color name="top_up_default_value_chip">#00101c</color>
 
   <color name="seekbar_tint">#fe756f</color>
   <color name="seekbar_background_tint">#fe7871</color>

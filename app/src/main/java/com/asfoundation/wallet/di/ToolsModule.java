@@ -159,6 +159,8 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
+import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
+import com.asfoundation.wallet.topup.TopUpValuesService;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
@@ -217,6 +219,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
@@ -576,11 +579,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents,
       CountryCodeProvider countryCodeProvider, AddressService addressService,
       CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
+      FindDefaultWalletInteract findDefaultWalletInteract, CampaignInteract campaignInteract) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
         Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(), disposables,
-        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract);
+        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract,
+        campaignInteract);
   }
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
@@ -803,7 +807,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(CampaignService.CampaignApi.class);
-    return new CampaignService(api, BuildConfig.VERSION_CODE);
+    return new CampaignService(api, BuildConfig.VERSION_CODE, Schedulers.io());
   }
 
   @Provides Gamification provideGamification(PromotionsRepository promotionsRepository) {
@@ -1021,8 +1025,30 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService,
-      GamificationInteractor gamificationInteractor) {
-    return new TopUpInteractor(repository, conversionService, gamificationInteractor);
+      GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService) {
+    return new TopUpInteractor(repository, conversionService, gamificationInteractor,
+        topUpValuesService, new LinkedHashMap<>());
+  }
+
+  @Singleton @Provides TopUpValuesService providesTopUpValuesService(
+      TopUpValuesService.TopUpValuesApi topUpValuesApi,
+      TopUpValuesApiResponseMapper responseMapper) {
+    return new TopUpValuesService(topUpValuesApi, responseMapper);
+  }
+
+  @Singleton @Provides TopUpValuesService.TopUpValuesApi providesTopUpValuesApi(OkHttpClient client,
+      Gson gson) {
+    String baseUrl = BuildConfig.BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TopUpValuesService.TopUpValuesApi.class);
+  }
+
+  @Provides TopUpValuesApiResponseMapper providesTopUpValuesApiResponseMapper() {
+    return new TopUpValuesApiResponseMapper();
   }
 
   @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(
@@ -1139,9 +1165,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
-      WalletService walletService, CreateWalletInteract createWalletInteract) {
+      WalletService walletService, CreateWalletInteract createWalletInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
-        new AdvertisingThrowableCodeMapper());
+        new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract);
   }
 
   @Singleton @Provides NotificationManager provideNotificationManager(Context context) {

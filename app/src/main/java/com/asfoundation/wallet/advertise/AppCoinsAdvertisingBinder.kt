@@ -38,14 +38,13 @@ internal class AppCoinsAdvertisingBinder(
   }
 
   private fun showNotification(campaign: CampaignDetails, packageInfo: PackageInfo?) {
-    var leadingZero = ""
-    if (campaign.minutesRemaining in 0..9) {
-      leadingZero = "0"
-    }
+    val minutesRemaining = "%02d".format(campaign.minutesRemaining)
+
     val message = context.getString(R.string.notification_poa_limit_reached,
-        campaign.hoursRemaining.toString(), leadingZero + campaign.minutesRemaining)
+        campaign.hoursRemaining.toString(), minutesRemaining)
     val notificationBuilder =
         headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle().bigText(message))
+            .setContentText(message)
     packageInfo?.let {
       notificationBuilder.setContentTitle(packageManager.getApplicationLabel(it.applicationInfo))
     }

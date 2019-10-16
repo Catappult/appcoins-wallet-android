@@ -385,6 +385,20 @@
     <item name="android:gravity">start</item>
   </style>
 
+  <style name="TopUpTextStyle.ValueWarning">
+    <item name="android:textColor">@color/share_link_error_text_color</item>
+  </style>
+
+  <style name="TopUpTextStyle.ChipSelected">
+    <item name="android:background">@drawable/chip_selected_background</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="TopUpTextStyle.ChipUnselected">
+    <item name="android:background">@drawable/chip_unselected_background</item>
+    <item name="android:textColor">@color/top_up_default_value_chip</item>
+  </style>
+
   <style name="TransferAddressTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>

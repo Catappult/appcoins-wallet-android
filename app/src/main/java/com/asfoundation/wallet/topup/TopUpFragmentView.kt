@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
+import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -22,8 +23,6 @@ interface TopUpFragmentView {
 
   fun setNextButtonState(enabled: Boolean)
 
-  fun hideKeyboard()
-
   fun showLoading()
 
   fun showPaymentDetailsForm()
@@ -39,4 +38,36 @@ interface TopUpFragmentView {
   fun hideBonus()
 
   fun showBonus(bonus: BigDecimal, currency: String)
+
+  fun showMaxValueWarning(value: String)
+
+  fun showMinValueWarning(value: String)
+
+  fun hideValueInputWarning()
+
+  fun changeMainValueColor(isValid: Boolean)
+
+  fun setupDefaultValueChips(values: List<FiatValue>)
+
+  fun changeMainValueText(value: String)
+
+  fun unselectChips()
+
+  fun selectChip(index: Int)
+
+  fun getChipsClick(): Observable<Int>
+
+  fun getSelectedCurrency(): String
+
+  fun getSelectedChip(): Int
+
+  fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String)
+
+  fun paymentMethodsFocusRequest()
+
+  fun disableSwapCurrencyButton()
+
+  fun enableSwapCurrencyButton()
+
+  fun setUnselectedChipsBackground()
 }

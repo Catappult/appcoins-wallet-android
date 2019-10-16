@@ -20,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
+import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
@@ -211,16 +212,14 @@ public class WalletPoAService extends Service {
   }
 
   private void showNotification(ProofSubmissionData proof) {
-    String leadingZero = "";
-    if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
-      leadingZero = "0";
-    }
+    String minutes = String.format("%02d", proof.getMinutesRemaining());
     String message = getString(R.string.notification_poa_limit_reached,
-        String.valueOf(proof.getHoursRemaining()), leadingZero + proof.getMinutesRemaining());
+        String.valueOf(proof.getHoursRemaining()), minutes);
     NotificationCompat.Builder builder =
         headsUpNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
     if (appName != null) {
-      builder.setContentTitle(appName);
+      builder.setContentTitle(appName)
+          .setContentText(message);
     }
     notificationManager.notify(SERVICE_ID, builder.build());
   }
@@ -256,13 +255,23 @@ public class WalletPoAService extends Service {
         stopTimeout();
         break;
       case COMPLETED:
+        PoaInformationModel poaInformation = proofOfAttentionService.retrievePoaInformation()
+            .blockingGet();
         Intent intent = TransactionsActivity.newIntent(this);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String completed = getString(R.string.verification_notification_reward_received_body);
+        if (!poaInformation.hasRemainingPoa()) {
+          completed = buildNoPoaRemainingString(poaInformation);
+        }
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(
-            getString(R.string.verification_notification_reward_received_body))
-            .setContentIntent(pendingIntent)
-            .build());
+        NotificationCompat.Builder notificationBuilder = headsUpNotificationBuilder.setStyle(
+            new NotificationCompat.BigTextStyle().bigText(completed))
+            .setContentText(completed)
+            .setContentIntent(pendingIntent);
+        if (appName != null) {
+          notificationBuilder.setContentTitle(appName);
+        }
+        notificationManager.notify(SERVICE_ID, notificationBuilder.build());
         break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
@@ -317,6 +326,12 @@ public class WalletPoAService extends Service {
       stopForeground(false);
       stopTimeout();
     }
+  }
+
+  private String buildNoPoaRemainingString(PoaInformationModel poaInformation) {
+    String minutesRemaining = String.format("%02d", poaInformation.getRemainingMinutes());
+    return getString(R.string.notification_completed_poa,
+        String.valueOf(poaInformation.getRemainingHours()), minutesRemaining);
   }
 
   private @IntRange(from = 0, to = 100) int calculateProgress(Proof proof) {
