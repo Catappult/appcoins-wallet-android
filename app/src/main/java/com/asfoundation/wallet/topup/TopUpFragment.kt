@@ -357,18 +357,24 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun unselectChips() {
     setChipsUnchecked()
-    setUnselectedChipsDrawable()
-    setUnselectedChipsText()
+    setUnselectedChipsBackground()
   }
 
   override fun selectChip(index: Int) {
     setChipChecked(index)
-    setSelectedChipDrawable(index)
-    setSelectedChipText(index)
+    if (selectedCurrency == FIAT_CURRENCY) {
+      setSelectedChipDrawable(index)
+      setSelectedChipText(index)
+    }
   }
 
   override fun getSelectedCurrency(): String {
     return selectedCurrency
+  }
+
+  override fun setUnselectedChipsBackground() {
+    setUnselectedChipsDrawable()
+    setUnselectedChipsText()
   }
 
   override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String) {

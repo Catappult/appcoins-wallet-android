@@ -64,6 +64,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.rotateChangeCurrencyButton()
           view.switchCurrencyData()
           view.toggleSwitchCurrencyOff()
+          if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY && view.getSelectedChip() != -1) {
+            view.selectChip(view.getSelectedChip())
+          }
+          if (view.getSelectedCurrency() == TopUpData.APPC_C_CURRENCY) {
+            view.setUnselectedChipsBackground()
+          }
         }
         .subscribe())
   }
