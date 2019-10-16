@@ -2,9 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import android.util.Log
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.TokenValue
-import com.asfoundation.wallet.ui.balance.Balance
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
@@ -37,12 +34,15 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun fetchBalance() {
     disposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthBalance(),
-        Function3 { appcBalance: Balance, creditsBalance: Balance, ethBalance: Balance ->
-          Triple(appcBalance, creditsBalance, ethBalance)
+        Function3 { appcBalance: FiatValue, creditsBalance: FiatValue, ethBalance: FiatValue ->
+          val appcFiatValue =
+              FiatValue(appcBalance.amount.plus(ethBalance.amount), appcBalance.currency,
+                  appcBalance.symbol)
+          MergedAppcoinsBalance(appcFiatValue, creditsBalance)
         })
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext { view.updateBalanceValues(it.first, it.second, it.third) }
+        .doOnNext { view.updateBalanceValues(it.appcFiatValue, it.creditsBalance) }
         .subscribe({ }, { it.printStackTrace() }))
   }
 
@@ -96,27 +96,20 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun getCreditsBalance(): Observable<Balance> {
+  private fun getCreditsBalance(): Observable<FiatValue> {
     return balanceInteract.getCreditsBalance()
-        .map { pair ->
-          Balance(TokenValue(pair.first.value, BalanceFragmentPresenter.APPC_C_CURRENCY,
-              pair.first.symbol), pair.second)
-        }
+        .map { it.second }
   }
 
-  private fun getAppcBalance(): Observable<Balance> {
+  private fun getAppcBalance(): Observable<FiatValue> {
     return balanceInteract.getAppcBalance()
-        .map { pair ->
-          Balance(TokenValue(pair.first.value, BalanceFragmentPresenter.APPC_CURRENCY,
-              pair.first.symbol), pair.second)
-        }
+        .map { it.second }
+
   }
 
-  private fun getEthBalance(): Observable<Balance> {
+  private fun getEthBalance(): Observable<FiatValue> {
     return balanceInteract.getEthBalance()
-        .map { pair ->
-          Balance(TokenValue(pair.first.value, BalanceFragmentPresenter.ETH_CURRENCY,
-              pair.first.symbol), pair.second)
-        }
+        .map { it.second }
+
   }
 }

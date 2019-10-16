@@ -95,7 +95,7 @@
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
   <string name="error_invalid_private_key">Invalid private key</string>
-  
+
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Processing…</string>
@@ -515,4 +515,8 @@
   <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
   <string name="promotions_new">NEW</string>
 
+  <!--Test-->
+
+  <string name="test_appc_fiat">%s in APPC and ETH</string>
+  <string name="test_credits_fiat">%s in AppCoins Credits</string>
 </resources>

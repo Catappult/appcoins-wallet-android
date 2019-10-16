@@ -15,8 +15,8 @@ fun BigDecimal.scaleToString(scale: Int): String {
   return format.format(this.setScale(scale, RoundingMode.FLOOR))
 }
 
-fun BigDecimal.formatWithSuffix(): String {
+fun BigDecimal.formatWithSuffix(scale: Int): String {
   val suffixFormatter = NumberFormatterUtils.create()
-  val scaledNumber = this.setScale(2, RoundingMode.FLOOR)
-  return suffixFormatter.formatNumberWithSuffix(scaledNumber.toFloat(), 2)
+  val scaledNumber = this.setScale(scale, RoundingMode.FLOOR)
+  return suffixFormatter.formatNumberWithSuffix(scaledNumber.toFloat(), scale)
 }

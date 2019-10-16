@@ -14,7 +14,6 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.balance.Balance
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.util.formatWithSuffix
 import com.jakewharton.rxbinding2.view.RxView
@@ -189,7 +188,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHeaderInformation()
-    balance_eth.text = getString(R.string.p2p_send_currency_eth) + ":"
     buy_button.text = setBuyButtonText()
     cancel_button.text = getString(R.string.back_button)
     setPaymentInformation()
@@ -350,19 +348,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   @SuppressLint("SetTextI18n")
-  override fun updateBalanceValues(appcBalance: Balance, creditsBalance: Balance,
-                                   ethBalance: Balance) {
-    appc_balance.text =
-        appcBalance.token.amount.formatWithSuffix() + " " + appcBalance.token.symbol
-    credits_balance_value.text =
-        creditsBalance.token.amount.formatWithSuffix() + " " + creditsBalance.token.symbol
-    appc_fiat_balance.text =
-        appcBalance.fiat.amount.formatWithSuffix() + " " + appcBalance.fiat.currency
-    credits_fiat_balance.text =
-        creditsBalance.fiat.amount.formatWithSuffix() + " " + creditsBalance.fiat.currency
-    eth_fiat_balance.text =
-        ethBalance.fiat.amount.formatWithSuffix() + " " + ethBalance.fiat.currency
-    eth_balance.text = ethBalance.token.amount.formatWithSuffix() + " " + ethBalance.token.symbol
+  override fun updateBalanceValues(appcFiat: FiatValue, creditsFiat: FiatValue) {
+    balance_fiat_appc_eth.text = getString(R.string.test_appc_fiat,
+        appcFiat.amount.formatWithSuffix(2) + " " + appcFiat.currency)
+    credits_fiat_balance.text = getString(R.string.test_credits_fiat,
+        creditsFiat.amount.formatWithSuffix(2) + " " + creditsFiat.currency)
     payment_methods.visibility = VISIBLE
   }
 

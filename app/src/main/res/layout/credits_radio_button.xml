@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -49,48 +48,33 @@
         android:id="@+id/credits_balances_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="credits_fiat_balance,credits_text_separator,credits_balance_value"
+        app:constraint_referenced_ids="credits_balance,credits_fiat_balance"
         />
 
     <TextView
-        android:id="@+id/credits_fiat_balance"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        android:id="@+id/credits_balance"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:lineSpacingExtra="4sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="6dp"
+        android:lineSpacingExtra="6sp"
+        android:text="Current Balance: "
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/title"
-        tools:text="31.90 EUR"
         />
     <TextView
-        android:id="@+id/credits_text_separator"
+        android:id="@+id/credits_fiat_balance"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="|"
+        android:lineSpacingExtra="6sp"
+        android:text="@string/test_credits_fiat"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/credits_fiat_balance"
-        app:layout_constraintEnd_toStartOf="@id/credits_balance_value"
-        app:layout_constraintStart_toEndOf="@id/credits_fiat_balance"
-        app:layout_constraintTop_toTopOf="@id/credits_fiat_balance"
+        app:layout_constraintStart_toStartOf="@id/credits_balance"
+        app:layout_constraintTop_toBottomOf="@id/credits_balance"
         />
 
-    <TextView
-        android:id="@+id/credits_balance_value"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="sans-serif"
-        android:lineSpacingExtra="4sp"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/credits_text_separator"
-        app:layout_constraintStart_toEndOf="@id/credits_fiat_balance"
-        app:layout_constraintTop_toTopOf="@id/credits_text_separator"
-        tools:text="69.90 APPC"
-        />
     <TextView
         android:id="@+id/message"
         android:layout_width="0dp"
