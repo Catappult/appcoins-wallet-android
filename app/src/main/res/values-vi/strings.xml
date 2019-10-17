@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Kho khóa</string>
   <string name="tab_private_key">Khóa cá nhân</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Lỗi</string>
   <string name="title_dialog_handling">Đang xử lý…</string>
@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
   <string name="activity_iab_change_card">THAY ĐỔI THẺ</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Đã nhận phần thưởng!👌 Bạn sẽ phải chờ %1$s giờ %2$s phút để có thể kiếm thêm phần thưởng bằng cách trải nghiệm các ứng dụng ⏰!</string>
+  <string name="notification_poa_limit_reached">Bạn đã đạt đến giới hạn phần thưởng hàng ngày của mình. ⏰ Quay trở lại sau %1$s giờ %2$s phút và thử lại!</string>
   <string name="notification_submitting_poa">Đang gửi yêu cầu của bạn đến blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Không có kết nối mạng</string>
@@ -435,10 +435,10 @@
   <string name="purchase_appcoins_credits_available_body">Không tốn phí và nhanh như chớp!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Bạn không có đủ APPC Credits, hãy thử nạp tiền!</string>
   <string name="purchase_appcoins_credits_default_body">Bạn đã kiếm đủ AppCoins Credits cho giao dịch mua này. Hãy thỏa thích dùng chúng!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_item">Kiếm tiền bằng cách trải nghiệm các ứng dụng</string>
+  <string name="purchase_poa_body">Hãy trải nghiệm ứng dụng trong 2 phút và kiếm AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">Không có tiền, không sao cả!</string>
+  <string name="purchase_poa_view_body">Trải nghiệm ứng dụng trong 2 phút và nhận phần thưởng bằng AppCoins Credits để mua hàng!</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Mời bạn bè của bạn!</string>
   <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
