@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Încearcă o aplicație timp de 2 minute și câștigă AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Fără fonduri, fără griji!</string>
   <string name="purchase_poa_view_body">Încearcă o aplicație timp de 2 minute și primești o recompensă în AppCoins Credits pentru a-ți face cumpărătura!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invită-ți prietenii!</string>
   <string name="referral_onboarding_body">Tu și prietenii tăi puteți câștiga până la %s cu Programul nostru de referință!</string>
