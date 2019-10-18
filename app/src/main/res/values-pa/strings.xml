@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">ਇੱਕ ਐਪ 2 ਮਿੰਟ ਲਈ ਵਰਤੋ ਅਤੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!</string>
   <string name="purchase_poa_view_title">ਕੋਈ ਪੂੰਜੀ ਨਹੀਂ, ਕੋਈ ਚਿੰਤਾ ਨਹੀਂ!</string>
   <string name="purchase_poa_view_body">2 ਮਿੰਟ ਲਈ ਇੱਕ ਐਪ ਵਰਤੋ ਅਤੇ ਆਪਣੀ ਖਰੀਦ ਕਰਨ ਲਈ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ!</string>
   <string name="referral_onboarding_body">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ %s ਤੱਕ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
