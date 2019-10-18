@@ -270,6 +270,7 @@ public class WalletPoAService extends Service {
             getString(R.string.verification_notification_reward_received_body))
             .setContentIntent(pendingIntent)
             .build());
+        campaignInteract.clearSeenPoaNotification();
         break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
