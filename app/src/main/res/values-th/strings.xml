@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">ลองแอป 2 นาทีและรับ AppCoins Credits!</string>
   <string name="purchase_poa_view_title">ไม่มีเงิน ไม่ต้องกังวล!</string>
   <string name="purchase_poa_view_body">ลองแอป 2 นาทีและรับรางวัลใน Apptoide Credits เพื่อซื้อ!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
