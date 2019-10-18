@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Hãy trải nghiệm ứng dụng trong 2 phút và kiếm AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Không có tiền, không sao cả!</string>
   <string name="purchase_poa_view_body">Trải nghiệm ứng dụng trong 2 phút và nhận phần thưởng bằng AppCoins Credits để mua hàng!</string>
+  <string name="purchase_current_balance_body">Số dư hiện tại:</string>
+  <string name="purchase_current_balance_appcc_body">%s bằng AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s bằng ppCoins và Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Mời bạn bè của bạn!</string>
   <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
