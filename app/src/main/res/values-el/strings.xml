@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Δοκιμάστε μια εφαρμογή για 2 λεπτά και κερδίστε AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Δεν έχετε χρήματα; Κανένα πρόβλημα!</string>
   <string name="purchase_poa_view_body">Δοκιμάστε μια εφαρμογή για 2 λεπτά και λάβετε αμοιβή σε AppCoins Credits για να πραγματοποιήσετε την αγορά σας!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Προσκαλέστε τους φίλους σας!</string>
   <string name="referral_onboarding_body">Εσείς και οι φίλοι σας μπορείτε να λάβετε έως %s με το Πρόγραμμα Σύστασης!</string>
