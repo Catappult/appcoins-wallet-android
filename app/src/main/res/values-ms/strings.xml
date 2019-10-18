@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Cuba aplikasi selama 2 minit dan peroleh Kredit AppCoins!</string>
   <string name="purchase_poa_view_title">Tak Ada Dana? Jangan Risau!</string>
   <string name="purchase_poa_view_body">Cuba aplikasi selama 2 minit dan dapatkan ganjaran Kredit AppCoins untuk buat pembelian!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Jemput Rakan Anda!</string>
   <string name="referral_onboarding_body">Anda dan rakan anda boleh dapat sehingga %s dengan Program Rujukan kami!</string>
