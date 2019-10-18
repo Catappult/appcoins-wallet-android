@@ -30,6 +30,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
@@ -74,6 +75,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject Billing billing;
   @Inject GamificationInteractor gamification;
   @Inject PaymentMethodsMapper paymentMethodsMapper;
+  @Inject BalanceInteract balanceInteractor;
   private PaymentMethodsPresenter presenter;
   private List<String> paymentMethodList = new ArrayList<>();
   private ProgressBar loadingView;
@@ -165,7 +167,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     String uri = getArguments().getString(URI);
 
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
-        Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
+        Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
         transactionValue);

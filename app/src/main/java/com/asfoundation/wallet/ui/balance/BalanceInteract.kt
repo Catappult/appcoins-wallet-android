@@ -11,14 +11,17 @@ class BalanceInteract(
     private val balanceRepository: BalanceRepository) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find().flatMapObservable { balanceRepository.getAppcBalance(it) }
+    return walletInteract.find()
+        .flatMapObservable { balanceRepository.getAppcBalance(it) }
   }
 
   fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find().flatMapObservable { balanceRepository.getEthBalance(it) }
+    return walletInteract.find()
+        .flatMapObservable { balanceRepository.getEthBalance(it) }
   }
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find().flatMapObservable { balanceRepository.getCreditsBalance(it) }
+    return walletInteract.find()
+        .flatMapObservable { balanceRepository.getCreditsBalance(it) }
   }
 }

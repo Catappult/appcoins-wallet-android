@@ -24,4 +24,6 @@ interface MergedAppcoinsView {
   fun navigateToCreditsPayment()
 
   fun navigateToPaymentMethods(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod)
+
+  fun updateBalanceValues(appcFiat: FiatValue, creditsFiat: FiatValue)
 }

@@ -29,7 +29,7 @@
     <item name="android:windowContentOverlay">@null</item>
   </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -69,7 +69,7 @@
     <item name="android:windowContentTransitions">true</item>
   </style>
 
-  <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent"/>
+  <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent" />
 
   <style name="Theme.AppCompat.Transparent.FitAppWindow" parent="Theme.AppCompat.Transparent">
     <item name="android:fitsSystemWindows">true</item>
@@ -301,6 +301,12 @@
     <item name="android:paddingBottom">12dp</item>
     <item name="android:drawablePadding">16dp</item>
     <item name="android:paddingStart">12dp</item>
+  </style>
+
+  <style name="PaymentMethodsRadioButtonNoPadding" parent="Theme.AppCompat.Light">
+    <item name="android:buttonTint">@color/radio_button_color</item>
+    <item name="android:textColor">@color/radio_button_text_color</item>
+    <item name="android:textSize">12sp</item>
   </style>
 
   <style name="ShareLinkTextStyle">
