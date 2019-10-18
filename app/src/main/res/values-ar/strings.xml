@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">جرّب تطبيقًا لدقيقتين واربح رصيد AppCoins!</string>
   <string name="purchase_poa_view_title">لا مال لديك، لا تقلق!</string>
   <string name="purchase_poa_view_body">جرّب تطبيقًا لمدة دقيقتين واحصل على مكافأة رصيد AppCoins لمشترياتك!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">ادعُ أصدقاءك!</string>
   <string name="referral_onboarding_body">يمكنك أن تكسب أنت وأصدقاؤك ما يصل إلى %s مع برنامج الإحالة لدينا!</string>
