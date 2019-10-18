@@ -349,9 +349,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   @SuppressLint("SetTextI18n")
   override fun updateBalanceValues(appcFiat: FiatValue, creditsFiat: FiatValue) {
-    balance_fiat_appc_eth.text = getString(R.string.test_appc_fiat,
+    balance_fiat_appc_eth.text = getString(R.string.purchase_current_balance_appc_eth_body,
         appcFiat.amount.formatWithSuffix(2) + " " + appcFiat.currency)
-    credits_fiat_balance.text = getString(R.string.test_credits_fiat,
+    credits_fiat_balance.text = getString(R.string.purchase_current_balance_appcc_body,
         creditsFiat.amount.formatWithSuffix(2) + " " + creditsFiat.currency)
     payment_methods.visibility = VISIBLE
   }

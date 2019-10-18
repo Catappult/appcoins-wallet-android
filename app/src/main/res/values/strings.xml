@@ -519,8 +519,4 @@
   <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
   <string name="promotions_new">NEW</string>
 
-  <!--Test-->
-
-  <string name="test_appc_fiat">%s in APPC and ETH</string>
-  <string name="test_credits_fiat">%s in AppCoins Credits</string>
 </resources>
