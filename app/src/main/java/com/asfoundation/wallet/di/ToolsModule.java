@@ -1139,9 +1139,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
-      WalletService walletService, CreateWalletInteract createWalletInteract) {
+      WalletService walletService, CreateWalletInteract createWalletInteract,
+      PreferenceRepositoryType sharedPreferences) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
-        new AdvertisingThrowableCodeMapper());
+        new AdvertisingThrowableCodeMapper(), sharedPreferences);
   }
 
   @Singleton @Provides NotificationManager provideNotificationManager(Context context) {
