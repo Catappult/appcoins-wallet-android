@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">कोई एप्प 2 मिनट तक परखें और AppCoins Credits अर्जित करें!</string>
   <string name="purchase_poa_view_title">कोई फंड नहीं, कोई चिंता नहीं!</string>
   <string name="purchase_poa_view_body">कोई एप्प 2 मिनट तक परखें और अपनी खरीद के लिए एक इनाम AppCoins Credits में प्राप्त करें!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">अपने मित्रों को आमंत्रित करें!</string>
   <string name="referral_onboarding_body">आप और आपके मित्र हमारे रेफरल प्रोग्राम के साथ %s तक कमा सकते हैं!</string>
