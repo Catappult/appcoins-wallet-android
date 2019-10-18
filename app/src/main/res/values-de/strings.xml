@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Testen Sie 2 Minuten lang eine App und erhalten Sie AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Keine Einzahlungen, keine Sorgen!</string>
   <string name="purchase_poa_view_body">Testen Sie 2 Minuten lang eine App und erhalten Sie als Belonhung AppCoins Credits mit denen Sie einen Einkauf bezahlen!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Laden Sie ihre Freunde ein!</string>
   <string name="referral_onboarding_body">Mit unserem Empfehlungsprogramm können Sie und ihre Freunde bis zu %s verdienen!</string>
