@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">अॅपकॉइन्स क्रेडीटस मिळविण्यासाठी अॅपला २ मिनीटे वापरा!</string>
   <string name="purchase_poa_view_title">निधी नाही, काळजी नाही!</string>
   <string name="purchase_poa_view_body">२ मिनीटांसाठी अॅप वापरुन अॅपकॉइन्सच्या रुपात बक्षिसे मिळवुन आपली खरेदी पूर्ण करा!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">आपल्या मित्रांना आमंत्रण द्या!</string>
   <string name="referral_onboarding_body">आपण आणि आपले मित्र आमच्या संदर्भ कार्यक्रमातुन %s पर्यंत मिळवु शकता!</string>
