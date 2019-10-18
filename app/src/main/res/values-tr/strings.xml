@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Bir uygulamayı 2 dakika dene ve AppCoins Credits kazan!</string>
   <string name="purchase_poa_view_title">Fon Yoksa Sorun Değil!</string>
   <string name="purchase_poa_view_body">Bir uygulamayı 2 dakika dene ve satın alma işlemini gerçekleştirmek için AppCoins Credits cinsinden bir ödül al!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
