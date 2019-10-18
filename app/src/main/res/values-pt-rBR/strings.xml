@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Experimente um app por dois minutos e ganhe Créditos AppCoins!</string>
   <string name="purchase_poa_view_title">Sem Créditos? Sem problemas!</string>
   <string name="purchase_poa_view_body">Experimente um app por dois minutos e ganhe uma recompensa em Créditos AppCoins para fazer sua compra!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Convide Seus Amigos!</string>
   <string name="referral_onboarding_body">Você e seus amigos podem ganhar até %s com nosso Programa de Recompensas!</string>
