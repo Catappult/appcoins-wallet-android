@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Тествай приложение 2 минути и спечели AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Няма средства, няма грижи!</string>
   <string name="purchase_poa_view_body">Тествай приложение 2 минути и вземи награда в AppCoins Credits, за да направиш покупката си!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Покани приятелите си!</string>
   <string name="referral_onboarding_body">Ти и приятелите си можете да спечелите до %s с нашата Референтна Програма!</string>
