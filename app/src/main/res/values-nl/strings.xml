@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Probeer een app 2 minuten en verdien AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Geen saldo? Geen probleem!</string>
   <string name="purchase_poa_view_body">Gebruik een app 2 minuten en ontvang een beloning in AppCoins Credits om je aankoop te kunnen doen!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Nodig je vrienden uit!</string>
   <string name="referral_onboarding_body">Jij en je vrienden kunnen met ons verwijzingsprogramma tot %s verdienen!</string>
