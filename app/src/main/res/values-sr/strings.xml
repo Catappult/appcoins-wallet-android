@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">Isprobajte aplikaciju 2 minuta i zaradite AppCoins Credits!</string>
   <string name="purchase_poa_view_title">Nemate love? Ne brinite!</string>
   <string name="purchase_poa_view_body">Isprobajte aplikaciju 2 minuta i osvojite nagradu u vidu AppCoins Credits da biste obavili kupovinu!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Pozovite prijatelje!</string>
   <string name="referral_onboarding_body">Vi i vaši prijatelji možete da zaradite do %s pomoću našeg programa preporuka!</string>
