@@ -48,11 +48,28 @@ class SharedPreferenceRepository(context: Context) : PreferenceRepositoryType {
         .apply()
   }
 
+  override fun clearPoaNotificationSeenTime() {
+    pref.edit()
+        .remove(POA_LIMIT_SEEN_TIME)
+        .apply()
+  }
+
+  override fun getPoaNotificationSeenTime(): Long {
+    return pref.getLong(POA_LIMIT_SEEN_TIME, -1)
+  }
+
+  override fun setPoaNotificationSeenTime(currentTimeInMillis: Long) {
+    pref.edit()
+        .putLong(POA_LIMIT_SEEN_TIME, currentTimeInMillis)
+        .apply()
+  }
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
     private const val FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY = "first_time_on_transaction_activity"
+    private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
   }
 }

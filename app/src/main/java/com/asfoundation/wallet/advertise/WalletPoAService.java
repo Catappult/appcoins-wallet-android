@@ -74,6 +74,7 @@ public class WalletPoAService extends Service {
   @Inject PoaAnalyticsController analyticsController;
   @Inject NotificationManager notificationManager;
   @Inject PackageManager packageManager;
+  @Inject CampaignInteract campaignInteract;
   @Inject @Named("heads_up") NotificationCompat.Builder headsUpNotificationBuilder;
   private Disposable disposable;
   private Disposable timerDisposable;
@@ -190,9 +191,15 @@ public class WalletPoAService extends Service {
         //No campaign or already rewarded so there is no need to notify the user of anything
         proofOfAttentionService.remove(packageName);
         if (proof.hasReachedPoaLimit()) {
-          showNotification(proof);
-          stopForeground(false);
+          if (campaignInteract.hasSeenPoaNotificationTimePassed()) {
+            showNotification(proof);
+            campaignInteract.saveSeenPoaNotification();
+            stopForeground(false);
+          } else {
+            stopForeground(true);
+          }
         } else {
+          campaignInteract.clearSeenPoaNotification();
           stopForeground(true);
         }
         stopTimeout();
@@ -263,6 +270,7 @@ public class WalletPoAService extends Service {
             getString(R.string.verification_notification_reward_received_body))
             .setContentIntent(pendingIntent)
             .build());
+        campaignInteract.clearSeenPoaNotification();
         break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
