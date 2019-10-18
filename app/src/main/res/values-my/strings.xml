@@ -439,6 +439,9 @@
   <string name="purchase_poa_body">အက္ပ္တစ္ခုကို ၂ မိနစ္ၾကာေအာင္ စမ္းသံုးၾကည့္ကာ AppCoins Credit မ်ားကို ရယူလိုက္ပါ။</string>
   <string name="purchase_poa_view_title">ေငြေၾကးမရွိဘူးလား၊ စိတ္မပူပါနဲ႔။</string>
   <string name="purchase_poa_view_body">သင့္၀ယ္ယူမႈကိုျပဳလုပ္ရန္ အက္ပ္တစ္ခုကို ၂ မိနစ္စမ္းသံုးၾကည့္ကာ AppCoins Credit မ်ားျဖင့္ ဆုတစ္ခုကို ရယူပါ။</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">သင့္သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ။</string>
   <string name="referral_onboarding_body">ကၽြႏ္ုပ္တို႔၏ ညႊန္ေပးသည့္ အစီအစဥ္ျဖင့္ သင္ႏွင့္ သင့္သူငယ္ခ်င္းမ်ားသည္ %s အထိ ရရွိႏိုင္ပါသည္။</string>
