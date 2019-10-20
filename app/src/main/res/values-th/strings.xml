@@ -203,8 +203,8 @@
   <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
   <string name="activity_iab_change_card">เปลี่ยนบัตร</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">รับรางวัล!👌 คุณจะต้องรอ %1$s ชม.%2$s น. เพื่อรับรางวัลโดยการลองแอป⏰!</string>
+  <string name="notification_poa_limit_reached">คุณใช้ครบจำนวนประจำวันที่กำหนด⏰ กลับมาอีกใน %1$s ชม. %2$s น. และลองอีกครั้ง!</string>
   <string name="notification_submitting_poa">การส่งการร้องขอ blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">ไม่มีการเชื่อมต่อเครือข่าย</string>
@@ -439,9 +439,9 @@
   <string name="purchase_poa_body">ลองแอป 2 นาทีและรับ AppCoins Credits!</string>
   <string name="purchase_poa_view_title">ไม่มีเงิน ไม่ต้องกังวล!</string>
   <string name="purchase_poa_view_body">ลองแอป 2 นาทีและรับรางวัลใน Apptoide Credits เพื่อซื้อ!</string>
-  <string name="purchase_current_balance_body">Current balance:</string>
-  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
+  <string name="purchase_current_balance_body">ยอดคงเหลือปัจจุบัน:</string>
+  <string name="purchase_current_balance_appcc_body">%s ในเครดิต AppCoins</string>
+  <string name="purchase_current_balance_appc_eth_body">%ใน AppCoins และ Ether.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
