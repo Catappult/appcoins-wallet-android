@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.partners
 
 import android.content.Context
+import android.content.pm.PackageManager
 import com.aptoide.injectorextractor.Extractor
 import io.reactivex.Single
 import java.io.File
@@ -10,8 +11,8 @@ import java.util.zip.ZipFile
 
 class OemIdExtractorService(context: Context) {
 
-  val extractorV1: OemIdExtractorV1 = OemIdExtractorV1(context)
-  val extractorV2: OemIdExtractorV2 = OemIdExtractorV2(context)
+  private val extractorV1: OemIdExtractorV1 = OemIdExtractorV1(context)
+  private val extractorV2: OemIdExtractorV2 = OemIdExtractorV2(context)
 
   fun extractOemId(packageName: String): Single<String> {
     return extractorV2.extract(packageName)
@@ -26,8 +27,8 @@ class OemIdExtractorV2(private val context: Context,
       getPackageName(context, packageName)
     }
         .flatMap { sourceDir -> Single.fromCallable { extractor.extract(File(sourceDir)) } }
-        .map { t ->
-          t.split(",")[0]
+        .map {
+          it.split(",")[0]
         }
   }
 }
@@ -56,6 +57,7 @@ class OemIdExtractorV1(private val context: Context) : IExtractOemId {
   }
 }
 
+@Throws(PackageManager.NameNotFoundException::class)
 fun getPackageName(context: Context, packageName: String): String {
   return context.packageManager
       .getPackageInfo(packageName, 0)
