@@ -443,7 +443,7 @@
   <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'l\' still be able to make payments and transaction with other methods than APPC Credits.\n\nIf you believe this is a mistake ,contact us at:</string>
+  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'l\' still be able to make payments and transaction with other methods than APPC Credits.\n\nIf you believe this is a mistake, contact us at:</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Покани приятелите си!</string>
   <string name="referral_onboarding_body">Ти и приятелите си можете да спечелите до %s с нашата Референтна Програма!</string>
