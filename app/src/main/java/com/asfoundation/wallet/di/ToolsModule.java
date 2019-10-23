@@ -80,6 +80,9 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.AddTokenInteract;
+import com.asfoundation.wallet.interact.AutoUpdateInteract;
+import com.asfoundation.wallet.interact.AutoUpdateRepository;
+import com.asfoundation.wallet.interact.AutoUpdateService;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
@@ -1208,5 +1211,38 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides PackageManager providePackageManager(Context context) {
     return context.getPackageManager();
+  }
+
+  @Singleton @Provides AutoUpdateService.AutoUpdateApi provideAutoUpdateApi(OkHttpClient client,
+      Gson gson) {
+    String baseUrl = "www.img.aptoide";
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AutoUpdateService.AutoUpdateApi.class);
+  }
+
+  @Provides AutoUpdateService provideAutoUpdateService(
+      AutoUpdateService.AutoUpdateApi autoUpdateApi) {
+    return new AutoUpdateService(autoUpdateApi);
+  }
+
+  @Provides AutoUpdateRepository provideAutoUpdateRepository(AutoUpdateService autoUpdateService) {
+    return new AutoUpdateRepository(autoUpdateService);
+  }
+
+  @Provides int provideLocalVersionCode(Context context, PackageManager packageManager) {
+    try {
+      return packageManager.getPackageInfo(context.getPackageName(), 0).versionCode;
+    } catch (PackageManager.NameNotFoundException e) {
+      return -1;
+    }
+  }
+
+  @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateRepository autoUpdateRepository,
+      int localVersionCode) {
+    return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT);
   }
 }
