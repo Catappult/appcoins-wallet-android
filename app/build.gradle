@@ -58,8 +58,6 @@ android {
         "\"" + project.PAYMENT_GAS_LIMIT + "\""
     buildConfigField 'String', 'FLURRY_APK_KEY',
         "\"" + project.FLURRY_APK_KEY + "\""
-    buildConfigField 'String', 'FLURRY_APK_KEY_DEV',
-        "\"" + project.FLURRY_APK_KEY_DEV + "\""
 
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
 

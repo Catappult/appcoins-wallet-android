@@ -215,6 +215,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -304,8 +305,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AddTokenInteract(walletRepository, tokenRepository);
   }
 
-  @Singleton @Provides PasswordStore passwordStore(Context context) {
-    return new TrustPasswordStore(context);
+  @Singleton @Provides PasswordStore passwordStore(Context context, Logger logger) {
+    return new TrustPasswordStore(context, logger);
   }
 
   @Singleton @Provides Logger provideLogger() {
@@ -747,7 +748,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
+    return new Adyen(context, StandardCharsets.UTF_8, Schedulers.io(), BehaviorRelay.create());
   }
 
   @Singleton @Provides TransactionService provideTransactionService(

@@ -54,10 +54,7 @@ public class App extends MultiDexApplication
         .inject(this);
     setupRxJava();
 
-    if (BuildConfig.DEBUG) {
-      new FlurryAgent.Builder().withLogEnabled(true)
-          .build(this, BuildConfig.FLURRY_APK_KEY_DEV);
-    } else {
+    if (!BuildConfig.DEBUG) {
       new FlurryAgent.Builder().withLogEnabled(false)
           .build(this, BuildConfig.FLURRY_APK_KEY);
     }
