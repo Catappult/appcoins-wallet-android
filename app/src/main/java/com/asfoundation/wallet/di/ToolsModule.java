@@ -45,7 +45,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
-import com.asfoundation.wallet.FabricLogger;
+import com.asfoundation.wallet.FlurryLogger;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper;
 import com.asfoundation.wallet.advertise.CampaignInteract;
@@ -309,7 +309,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Logger provideLogger() {
-    return new FabricLogger();
+    return new FlurryLogger();
   }
 
   @Singleton @Provides RealmManager provideRealmManager() {

@@ -9,7 +9,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.router.GasSettingsRouter;
-import com.crashlytics.android.Crashlytics;
+import com.flurry.android.FlurryAgent;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
@@ -47,7 +47,7 @@ public class ConfirmationViewModel extends BaseViewModel {
 
   @Override protected void onError(Throwable throwable) {
     super.onError(throwable);
-    Crashlytics.logException(throwable);
+    FlurryAgent.onError("ID", throwable.getMessage(), throwable);
   }
 
   public LiveData<TransactionBuilder> transactionBuilder() {

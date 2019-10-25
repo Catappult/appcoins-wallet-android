@@ -196,10 +196,6 @@
         android:label="@string/referral_view_title"
         android:screenOrientation="portrait" />
 
-    <meta-data
-        android:name="io.fabric.ApiKey"
-        android:value="${fabricApiKey}" />
-
     <service
         android:name="com.asfoundation.wallet.advertise.WalletPoAService"
         android:enabled="true"

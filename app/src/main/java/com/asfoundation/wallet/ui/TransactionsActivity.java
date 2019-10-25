@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.NetworkOnMainThreadException;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -258,8 +259,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         break;
       }
       case R.id.top_up_btn: {
-        viewModel.showTopUp(this);
-        break;
+        throw new NetworkOnMainThreadException();
+        //viewModel.showTopUp(this);
+        //break;
       }
       case R.id.empty_clickable_view: {
         viewModel.showTokens(this);
@@ -279,8 +281,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         return true;
       }
       case R.id.action_balance: {
-        viewModel.showTokens(this);
-        return true;
+        throw new NullPointerException("UM ERRO");
+        //viewModel.showTokens(this);
+        //return true;
       }
       case R.id.action_send: {
         viewModel.showSend(this);

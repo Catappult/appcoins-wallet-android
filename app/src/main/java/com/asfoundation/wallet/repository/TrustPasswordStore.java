@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.util.KS;
-import com.crashlytics.android.Crashlytics;
+import com.flurry.android.FlurryAgent;
 import com.wallet.pwd.trustapp.PasswordManager;
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -90,7 +90,7 @@ public class TrustPasswordStore implements PasswordStore {
         try {
           return new String(KS.get(context, defaultAddress));
         } catch (Exception ex) {
-          Crashlytics.logException(ex);
+          FlurryAgent.onError("ID", ex.getMessage(), ex);
           throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
               "Failed to get the password from the store.");
         }
@@ -98,7 +98,7 @@ public class TrustPasswordStore implements PasswordStore {
         try {
           return PasswordManager.getPassword(defaultAddress, context);
         } catch (Exception ex) {
-          Crashlytics.logException(ex);
+          FlurryAgent.onError("ID", ex.getMessage(), ex);
           throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
               "Failed to get the password from the password manager.");
         }
