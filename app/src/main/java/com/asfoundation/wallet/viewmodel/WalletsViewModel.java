@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
@@ -41,16 +39,13 @@ public class WalletsViewModel extends BaseViewModel {
   private final MutableLiveData<String> exportedStore = new MutableLiveData<>();
   private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
   private final MutableLiveData<ErrorEnvelope> deleteWalletError = new MutableLiveData<>();
-  private final AddTokenInteract addTokenInteract;
-  private final DefaultTokenProvider defaultTokenProvider;
 
   WalletsViewModel(CreateWalletInteract createWalletInteract,
       SetDefaultWalletInteract setDefaultWalletInteract, DeleteWalletInteract deleteWalletInteract,
       FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, AddTokenInteract addTokenInteract,
-      DefaultTokenProvider defaultTokenProvider) {
+      TransactionsRouter transactionsRouter) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
     this.deleteWalletInteract = deleteWalletInteract;
@@ -59,8 +54,6 @@ public class WalletsViewModel extends BaseViewModel {
     this.importWalletRouter = importWalletRouter;
     this.exportWalletInteract = exportWalletInteract;
     this.transactionsRouter = transactionsRouter;
-    this.addTokenInteract = addTokenInteract;
-    this.defaultTokenProvider = defaultTokenProvider;
 
     fetchWallets();
   }
@@ -114,16 +107,6 @@ public class WalletsViewModel extends BaseViewModel {
   private void onDefaultWalletChanged(Wallet wallet) {
     progress.postValue(false);
     defaultWallet.postValue(wallet);
-
-    addDefaultToken();
-  }
-
-  private void addDefaultToken() {
-    defaultTokenProvider.getDefaultToken()
-        .flatMapCompletable(
-            defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
-                defaultToken.decimals))
-        .subscribe();
   }
 
   public void fetchWallets() {
