@@ -1,17 +1,10 @@
 import groovy.json.JsonSlurper
 
-buildscript {
-  repositories {}
-}
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
-
-repositories {
-
-}
 
 android {
   compileSdkVersion 28
