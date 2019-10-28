@@ -164,6 +164,7 @@ import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.service.CampaignService.CampaignApi;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
+import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi;
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
