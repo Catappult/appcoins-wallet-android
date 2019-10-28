@@ -102,14 +102,14 @@ public class GetDefaultWalletBalance implements BalanceService {
   private Single<Boolean> hasEnoughForTransfer(BigDecimal cost, boolean isTokenTransfer,
       BigDecimal feeCost, String contractAddress) {
     if (isTokenTransfer) {
-      return getToken(contractAddress).map(
+      return getAppcToken(contractAddress).map(
           token -> normalizeBalance(token.balance, token.tokenInfo).compareTo(cost) >= 0);
     }
     return getBalanceInWei().map(ethBalance -> ethBalance.subtract(feeCost)
         .compareTo(cost) >= 0);
   }
 
-  private Single<Token> getToken(String contractAddress) {
+  private Single<Token> getAppcToken(String contractAddress) {
     return defaultWalletInteract.find()
         .flatMap(this::getAppcToken)
         .flatMap(token -> {
