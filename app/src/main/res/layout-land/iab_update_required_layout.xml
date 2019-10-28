@@ -1,76 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/payment_methods_width"
+    android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
     >
+
   <RelativeLayout
-      android:layout_width="@dimen/payment_methods_width"
+      android:id="@+id/payment_method_main_view"
+      android:layout_width="@dimen/payment_methods_width_landscape"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_card"
-      android:orientation="vertical"
       >
-    <ProgressBar
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/gradient_progress"
-        android:visibility="invisible"
-        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/mid_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.42"
+          />
+
+      <View
+          android:id="@+id/top_separator"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginTop="16dp"
+          android:background="@color/layout_separator_color"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/update_animation"
-          android:layout_width="136dp"
-          android:layout_height="136dp"
-          android:layout_marginTop="24dp"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+          android:layout_width="128dp"
+          android:layout_height="128dp"
+          android:layout_marginTop="40dp"
+          android:layout_marginEnd="56dp"
+          app:layout_constraintRight_toRightOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
           app:lottie_autoPlay="true"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_loop="true"
           app:lottie_rawRes="@raw/update_animation"
           />
-
       <TextView
           android:id="@+id/update_title"
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-          android:layout_width="match_parent"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="27dp"
-          android:layout_marginTop="24dp"
-          android:layout_marginEnd="27dp"
-          android:gravity="center_horizontal"
+          android:layout_marginTop="52dp"
+          android:layout_marginEnd="79dp"
           android:letterSpacing="0.01"
           android:text="You need to update!"
           android:textColor="@color/black_87_alpha"
           android:textSize="20sp"
-          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintLeft_toLeftOf="@id/mid_guideline"
           app:layout_constraintRight_toRightOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/update_animation"
+          app:layout_constraintTop_toTopOf="@id/top_separator"
           />
-
       <TextView
           android:id="@+id/update_description"
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-          android:layout_width="match_parent"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:layout_marginTop="4dp"
+          android:layout_marginTop="8dp"
           android:layout_marginEnd="16dp"
-          android:gravity="center_horizontal"
           android:letterSpacing="0.02"
           android:text="Update the AppCoins Wallet to complete this purchase"
           android:textColor="#99000000"
           android:textSize="14sp"
-          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintLeft_toLeftOf="@id/mid_guideline"
           app:layout_constraintRight_toRightOf="parent"
           app:layout_constraintTop_toBottomOf="@id/update_title"
           />
@@ -78,23 +85,22 @@
           android:id="@+id/buttons_separator"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginTop="28dp"
+          android:layout_marginTop="44dp"
           android:background="@color/layout_separator_color"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/update_description"
+          app:layout_constraintTop_toBottomOf="@id/update_animation"
           />
       <include
           android:id="@+id/dialog_buy_buttons_payment_methods"
           layout="@layout/dialog_buy_buttons_payment_methods"
           android:layout_width="0dp"
-          android:layout_height="wrap_content"
+          android:layout_height="48dp"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/buttons_separator"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
   </RelativeLayout>
 </RelativeLayout>
