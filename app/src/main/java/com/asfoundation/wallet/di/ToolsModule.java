@@ -1171,9 +1171,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
       WalletService walletService, CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
+      AutoUpdateInteract autoUpdateInteract, FindDefaultWalletInteract findDefaultWalletInteract) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
-        new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract);
+        autoUpdateInteract, new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract);
   }
 
   @Singleton @Provides NotificationManager provideNotificationManager(Context context) {
@@ -1215,7 +1215,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides AutoUpdateService.AutoUpdateApi provideAutoUpdateApi(OkHttpClient client,
       Gson gson) {
-    String baseUrl = "www.img.aptoide";
+    String baseUrl = "https://www.img.aptoide";
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -1241,8 +1241,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     }
   }
 
-  @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateRepository autoUpdateRepository,
-      int localVersionCode) {
-    return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT);
+  @Singleton @Provides AutoUpdateInteract provideAutoUpdateInteract(
+      AutoUpdateRepository autoUpdateRepository, int localVersionCode,
+      PackageManager packageManager, Context context) {
+    return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
+        packageManager, context.getPackageName());
   }
 }

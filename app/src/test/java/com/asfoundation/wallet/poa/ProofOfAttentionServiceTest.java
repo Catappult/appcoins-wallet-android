@@ -7,6 +7,8 @@ import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper;
 import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.AutoUpdateInteract;
+import com.asfoundation.wallet.interact.AutoUpdateModel;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
@@ -52,6 +54,7 @@ public class ProofOfAttentionServiceTest {
   @Mock FindDefaultWalletInteract findDefaultWalletInteract;
   @Mock AdvertisingThrowableCodeMapper mapper;
   @Mock WalletService walletService;
+  @Mock AutoUpdateInteract autoUpdateInteract;
   private int chainId;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
@@ -70,8 +73,8 @@ public class ProofOfAttentionServiceTest {
     testScheduler = new TestScheduler();
     ProofWriter proofWriter = new BdsBackEndWriter(defaultWalletInteract, campaignService);
     CampaignInteract campaignInteract =
-        new CampaignInteract(campaignService, walletService, walletInteract, mapper,
-            defaultWalletInteract);
+        new CampaignInteract(campaignService, walletService, walletInteract, autoUpdateInteract,
+            mapper, defaultWalletInteract);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
@@ -98,6 +101,8 @@ public class ProofOfAttentionServiceTest {
     when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
 
     when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
+
+    when(autoUpdateInteract.getAutoUpdateModel()).thenReturn(Single.just(new AutoUpdateModel()));
   }
 
   @Test public void setCampaignId() {

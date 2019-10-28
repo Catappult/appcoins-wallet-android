@@ -6,12 +6,11 @@ class AutoUpdateRepository(private val autoUpdateService: AutoUpdateService) {
 
   private var autoUpdateModel: AutoUpdateModel = AutoUpdateModel()
 
-  fun loadAutoUpdateModel(invalidateCache: Boolean): Single<AutoUpdateModel> {
-    if (autoUpdateModel.isValid() && !invalidateCache) {
+  fun loadAutoUpdateModel(): Single<AutoUpdateModel> {
+    if (autoUpdateModel.isValid()) {
       return Single.just(autoUpdateModel)
     }
     return autoUpdateService.loadAutoUpdateModel()
         .doOnSuccess { if (it.isValid()) autoUpdateModel = it }
   }
-
 }

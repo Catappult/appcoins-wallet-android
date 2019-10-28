@@ -1,4 +1,11 @@
 package com.asfoundation.wallet.interact
 
-data class AutoUpdateResponse(val versionCode: Int, val redirectUrl: String, val minSdk: Int,
-                              val updateStores: List<String>)
+import com.google.gson.annotations.SerializedName
+
+data class AutoUpdateResponse(@SerializedName("soft_update")
+                              val softUpdate: SoftUpdateResponse,
+                              @SerializedName("black_list")
+                              val blackList: List<Int>)
+
+data class SoftUpdateResponse(@SerializedName("version_code") val versionCode: Int,
+                              val minSdk: Int)

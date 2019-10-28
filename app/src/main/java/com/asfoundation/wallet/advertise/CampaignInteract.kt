@@ -2,6 +2,7 @@ package com.asfoundation.wallet.advertise
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.PoaInformationModel
@@ -16,10 +17,14 @@ import java.net.UnknownHostException
 class CampaignInteract(private val campaignService: CampaignService,
                        private val walletService: WalletService,
                        private val createWalletInteract: CreateWalletInteract,
+                       private val autoUpdateInteract: AutoUpdateInteract,
                        private val errorMapper: AdvertisingThrowableCodeMapper,
                        private val defaultWalletInteract: FindDefaultWalletInteract) : Advertising {
 
   override fun getCampaign(packageName: String, versionCode: Int): Single<CampaignDetails> {
+    if (isHardUpdateRequired()) {
+      return Single.just(CampaignDetails(Advertising.CampaignAvailabilityType.UNAVAILABLE))
+    }
     return walletService.getWalletAddress()
         .onErrorResumeNext {
           createWalletInteract.create()
@@ -40,6 +45,10 @@ class CampaignInteract(private val campaignService: CampaignService,
   override fun hasWalletPrepared(chainId: Int,
                                  packageName: String,
                                  versionCode: Int): Single<ProofSubmissionData> {
+    if (isHardUpdateRequired()) {
+      return Single.just(
+          ProofSubmissionData(ProofSubmissionData.RequirementsStatus.NOT_ELIGIBLE))
+    }
     if (!isCorrectNetwork(chainId)) {
       return if (isKnownNetwork(chainId)) {
         Single.just(
@@ -49,7 +58,6 @@ class CampaignInteract(private val campaignService: CampaignService,
             ProofSubmissionData(ProofSubmissionData.RequirementsStatus.UNKNOWN_NETWORK))
       }
     }
-
     return defaultWalletInteract.find()
         .flatMap {
           campaignService.getCampaign(it.address,
@@ -84,6 +92,12 @@ class CampaignInteract(private val campaignService: CampaignService,
 
   private fun isCorrectNetwork(chainId: Int): Boolean {
     return chainId == 3 && BuildConfig.DEBUG || chainId == 1 && !BuildConfig.DEBUG
+  }
+
+  private fun isHardUpdateRequired(): Boolean {
+    val autoUpdateModel = autoUpdateInteract.getAutoUpdateModel()
+        .blockingGet()
+    return autoUpdateInteract.isHardUpdateRequired(autoUpdateModel.blackList)
   }
 
   override fun retrievePoaInformation(address: String): Single<PoaInformationModel> {

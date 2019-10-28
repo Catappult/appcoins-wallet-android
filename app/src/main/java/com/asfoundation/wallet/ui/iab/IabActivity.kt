@@ -10,6 +10,7 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -18,6 +19,8 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -31,8 +34,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  @Inject
+  lateinit var autoUpdateInteract: AutoUpdateInteract
   private var isBackEnable: Boolean = false
-  private var presenter: IabPresenter? = null
+  private lateinit var presenter: IabPresenter
   private var skuDetails: Bundle? = null
   private var transaction: TransactionBuilder? = null
   private var isBds: Boolean = false
@@ -50,14 +55,15 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     uri = intent.getStringExtra(URI)
     transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
     isBackEnable = true
-    presenter = IabPresenter(this)
+    presenter =
+        IabPresenter(this, autoUpdateInteract, Schedulers.io(), AndroidSchedulers.mainThread())
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
         skuDetails = savedInstanceState.getBundle(SKU_DETAILS)
       }
     }
-    presenter!!.present(savedInstanceState)
+    presenter.present(savedInstanceState)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -188,6 +194,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showEarnAppcoins() {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, EarnAppcoinsFragment())
+        .commit()
+  }
+
+  override fun showUpdateRequiredView() {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, IabUpdateRequiredFragment())
         .commit()
   }
 

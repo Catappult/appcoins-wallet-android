@@ -8,8 +8,8 @@ class AutoUpdateService(private val api: AutoUpdateApi) {
   fun loadAutoUpdateModel(): Single<AutoUpdateModel> {
     return api.getAutoUpdateInfo()
         .map {
-          AutoUpdateModel(it.versionCode, it.redirectUrl, it.minSdk,
-              it.updateStores.contains("Aptoide"), it.updateStores.contains("Google Play"))
+          AutoUpdateModel(it.softUpdate.versionCode, it.softUpdate.minSdk,
+              it.blackList)
         }
         .onErrorReturn { AutoUpdateModel() }
   }
@@ -18,6 +18,7 @@ class AutoUpdateService(private val api: AutoUpdateApi) {
 
     @GET("tobe/implemented")
     fun getAutoUpdateInfo(): Single<AutoUpdateResponse>
+
   }
 
 }

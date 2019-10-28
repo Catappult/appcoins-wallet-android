@@ -196,6 +196,11 @@
         android:label="@string/referral_view_title"
         android:screenOrientation="portrait" />
 
+    <activity
+        android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
+        android:label=""
+        android:screenOrientation="portrait" />
+
     <meta-data
         android:name="io.fabric.ApiKey"
         android:value="${fabricApiKey}" />
