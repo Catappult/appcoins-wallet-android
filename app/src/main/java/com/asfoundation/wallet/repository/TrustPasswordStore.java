@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.util.KS;
-import com.crashlytics.android.Crashlytics;
 import com.wallet.pwd.trustapp.PasswordManager;
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -18,10 +18,12 @@ import java.util.Map;
 public class TrustPasswordStore implements PasswordStore {
 
   private final Context context;
+  private final Logger logger;
   private final String defaultAddress = "0x123456789";
 
-  public TrustPasswordStore(Context context) {
+  public TrustPasswordStore(Context context, Logger logger) {
     this.context = context;
+    this.logger = logger;
 
     migrate();
   }
@@ -73,7 +75,7 @@ public class TrustPasswordStore implements PasswordStore {
 
   @Override public Single<String> generatePassword() {
     return Single.fromCallable(() -> {
-      byte bytes[] = new byte[256];
+      byte[] bytes = new byte[256];
       SecureRandom random = new SecureRandom();
       random.nextBytes(bytes);
       return new String(bytes);
@@ -90,7 +92,7 @@ public class TrustPasswordStore implements PasswordStore {
         try {
           return new String(KS.get(context, defaultAddress));
         } catch (Exception ex) {
-          Crashlytics.logException(ex);
+          logger.log(ex);
           throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
               "Failed to get the password from the store.");
         }
@@ -98,7 +100,7 @@ public class TrustPasswordStore implements PasswordStore {
         try {
           return PasswordManager.getPassword(defaultAddress, context);
         } catch (Exception ex) {
-          Crashlytics.logException(ex);
+          logger.log(ex);
           throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
               "Failed to get the password from the password manager.");
         }

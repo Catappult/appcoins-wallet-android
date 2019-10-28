@@ -3,13 +3,13 @@ package com.asfoundation.wallet.viewmodel;
 import android.app.Activity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.router.GasSettingsRouter;
-import com.crashlytics.android.Crashlytics;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
@@ -19,13 +19,16 @@ public class ConfirmationViewModel extends BaseViewModel {
   private final SendTransactionInteract sendTransactionInteract;
   private final GasSettingsRouter gasSettingsRouter;
   private final FetchGasSettingsInteract gasSettingsInteract;
+  private final Logger logger;
   private Disposable subscription;
 
   ConfirmationViewModel(SendTransactionInteract sendTransactionInteract,
-      GasSettingsRouter gasSettingsRouter, FetchGasSettingsInteract gasSettingsInteract) {
+      GasSettingsRouter gasSettingsRouter, FetchGasSettingsInteract gasSettingsInteract,
+      Logger logger) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.gasSettingsRouter = gasSettingsRouter;
     this.gasSettingsInteract = gasSettingsInteract;
+    this.logger = logger;
   }
 
   public void init(TransactionBuilder transactionBuilder) {
@@ -47,7 +50,7 @@ public class ConfirmationViewModel extends BaseViewModel {
 
   @Override protected void onError(Throwable throwable) {
     super.onError(throwable);
-    Crashlytics.logException(throwable);
+    logger.log(throwable);
   }
 
   public LiveData<TransactionBuilder> transactionBuilder() {

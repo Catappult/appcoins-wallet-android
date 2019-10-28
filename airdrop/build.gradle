@@ -1,10 +1,5 @@
 apply plugin: 'java-library'
 
-
-repositories {
-  maven { url 'https://maven.fabric.io/public' }
-}
-
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
