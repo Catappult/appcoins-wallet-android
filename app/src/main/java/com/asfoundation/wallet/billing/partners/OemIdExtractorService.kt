@@ -6,11 +6,8 @@ import io.reactivex.Single
 
 
 class OemIdExtractorService(
-    oemIdExtractorV1: IExtractOemId,
-    oemIdExtractorV2: IExtractOemId) {
-
-  private val extractorV1: IExtractOemId = oemIdExtractorV1
-  private val extractorV2: IExtractOemId = oemIdExtractorV2
+    private val extractorV1: IExtractOemId,
+    private val extractorV2: IExtractOemId) {
 
   fun extractOemId(packageName: String): Single<String> {
     return extractorV2.extract(packageName)
