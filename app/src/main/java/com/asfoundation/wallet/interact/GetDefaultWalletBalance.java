@@ -102,23 +102,22 @@ public class GetDefaultWalletBalance implements BalanceService {
   private Single<Boolean> hasEnoughForTransfer(BigDecimal cost, boolean isTokenTransfer,
       BigDecimal feeCost, String contractAddress) {
     if (isTokenTransfer) {
-      return getAppcToken(contractAddress).map(
-          token -> normalizeBalance(token.balance, token.tokenInfo).compareTo(cost) >= 0);
+      return getAppcToken().flatMap(token -> {
+        if (token.tokenInfo.address.equalsIgnoreCase(contractAddress)) {
+          return Single.just(token);
+        } else {
+          return Single.error(new UnknownTokenException());
+        }
+      })
+          .map(token -> normalizeBalance(token.balance, token.tokenInfo).compareTo(cost) >= 0);
     }
     return getBalanceInWei().map(ethBalance -> ethBalance.subtract(feeCost)
         .compareTo(cost) >= 0);
   }
 
-  private Single<Token> getAppcToken(String contractAddress) {
+  private Single<Token> getAppcToken() {
     return defaultWalletInteract.find()
-        .flatMap(this::getAppcToken)
-        .flatMap(token -> {
-          if (token.tokenInfo.address.equalsIgnoreCase(contractAddress)) {
-            return Single.just(token);
-          } else {
-            return Single.error(new UnknownTokenException());
-          }
-        });
+        .flatMap(this::getAppcToken);
   }
 
   private BigDecimal normalizeBalance(BigDecimal balance, TokenInfo tokenInfo) {
