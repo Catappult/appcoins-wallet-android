@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
@@ -21,10 +22,10 @@ import dagger.Provides;
       DeleteWalletInteract deleteWalletInteract, FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter) {
+      TransactionsRouter transactionsRouter,  Logger logger) {
     return new WalletsViewModelFactory(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter);
+        importWalletRouter, transactionsRouter, logger);
   }
 
   @Provides SetDefaultWalletInteract provideSetDefaultAccountInteract(

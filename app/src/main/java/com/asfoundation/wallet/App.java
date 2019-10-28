@@ -18,6 +18,7 @@ import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.flurry.android.FlurryAgent;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -54,6 +55,11 @@ public class App extends MultiDexApplication
         .inject(this);
     setupRxJava();
 
+    if (!BuildConfig.DEBUG) {
+      new FlurryAgent.Builder().withLogEnabled(false)
+          .build(this, BuildConfig.FLURRY_APK_KEY);
+    }
+
     Fabric.with(this, new Crashlytics.Builder().core(
         new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
             .build())
@@ -68,12 +74,10 @@ public class App extends MultiDexApplication
   private void setupRxJava() {
     RxJavaPlugins.setErrorHandler(throwable -> {
       if (throwable instanceof UndeliverableException) {
-        Crashlytics crashlytics = Crashlytics.getInstance();
-        if (crashlytics != null && crashlytics.getFabric()
-            .isDebuggable()) {
-          Crashlytics.logException(throwable);
-        } else {
+        if (BuildConfig.DEBUG) {
           throwable.printStackTrace();
+        } else {
+          FlurryAgent.onError("ID", throwable.getMessage(), throwable);
         }
       } else {
         throw new RuntimeException(throwable);
