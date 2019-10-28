@@ -113,7 +113,7 @@ public class GetDefaultWalletBalance implements BalanceService {
     return defaultWalletInteract.find()
         .flatMap(this::getAppcToken)
         .flatMap(token -> {
-          if (token.tokenInfo.address.equals(contractAddress)) {
+          if (token.tokenInfo.address.equalsIgnoreCase(contractAddress)) {
             return Single.just(token);
           } else {
             return Single.error(new UnknownTokenException());
