@@ -47,6 +47,7 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   }
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(
+
       PreferenceRepositoryType preferenceRepositoryType,
       AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
     return new WalletRepository(preferenceRepositoryType, accountKeystoreService, web3jProvider);

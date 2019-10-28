@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationCompat.Builder;
 import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -30,6 +33,7 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
@@ -41,9 +45,11 @@ import com.appcoins.wallet.permissions.Permissions;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
-import com.asf.wallet.R;
+import com.asf.wallet.R.drawable;
+import com.asf.wallet.R.string;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
+import com.asfoundation.wallet.AirdropService.Api;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
@@ -70,13 +76,17 @@ import com.asfoundation.wallet.billing.partners.BdsPartnersApi;
 import com.asfoundation.wallet.billing.partners.InstallerService;
 import com.asfoundation.wallet.billing.partners.InstallerSourceService;
 import com.asfoundation.wallet.billing.partners.OemIdExtractorService;
+import com.asfoundation.wallet.billing.partners.OemIdExtractorV1;
+import com.asfoundation.wallet.billing.partners.OemIdExtractorV2;
 import com.asfoundation.wallet.billing.partners.PartnerAddressService;
 import com.asfoundation.wallet.billing.partners.PartnerWalletAddressService;
 import com.asfoundation.wallet.billing.partners.WalletAddressService;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository;
 import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository;
+import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
+import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.BalanceGetter;
@@ -123,9 +133,11 @@ import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
+import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi;
 import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
 import com.asfoundation.wallet.repository.OffChainTransactions;
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
+import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
@@ -150,12 +162,15 @@ import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
 import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.CampaignService;
+import com.asfoundation.wallet.service.CampaignService.CampaignApi;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
+import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
 import com.asfoundation.wallet.topup.TopUpValuesService;
+import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
@@ -173,6 +188,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver.OperationDataSource;
 import com.asfoundation.wallet.ui.iab.ApproveKeyProvider;
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
@@ -252,9 +268,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return "AppCoins_Wallet/"
         + BuildConfig.VERSION_NAME
         + " (Linux; Android "
-        + Build.VERSION.RELEASE.replaceAll(";", " ")
+        + VERSION.RELEASE.replaceAll(";", " ")
         + "; "
-        + android.os.Build.VERSION.SDK_INT
+        + VERSION.SDK_INT
         + "; "
         + Build.MODEL.replaceAll(";", " ")
         + " Build/"
@@ -299,7 +315,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
-      RemoteRepository.BdsApi api, WalletService walletService, BdsApiSecondary bdsApi) {
+      BdsApi api, WalletService walletService, BdsApiSecondary bdsApi) {
     return new BillingPaymentProofSubmissionImpl.Builder().setApi(api)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
@@ -565,18 +581,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
       Gson gson) {
-    IpCountryCodeProvider.IpApi api = new Retrofit.Builder().baseUrl(IpCountryCodeProvider.ENDPOINT)
+    IpApi api = new Retrofit.Builder().baseUrl(IpCountryCodeProvider.ENDPOINT)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(IpCountryCodeProvider.IpApi.class);
+        .create(IpApi.class);
     return new IpCountryCodeProvider(api);
   }
 
   @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(Context context,
-      List<AppcoinsOperationsDataSaver.OperationDataSource> list,
-      AppCoinsOperationRepository appCoinsOperationRepository) {
+      List<OperationDataSource> list, AppCoinsOperationRepository appCoinsOperationRepository) {
     return new AppcoinsOperationsDataSaver(list, appCoinsOperationRepository,
         new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
         Schedulers.io(), new CompositeDisposable());
@@ -597,8 +612,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new OperationSources(inAppPurchaseInteractor, proofOfAttentionService);
   }
 
-  @Provides
-  List<AppcoinsOperationsDataSaver.OperationDataSource> provideAppcoinsOperationListDataSource(
+  @Provides List<OperationDataSource> provideAppcoinsOperationListDataSource(
       OperationSources operationSources) {
     return operationSources.getSources();
   }
@@ -608,12 +622,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {
-    AirdropService.Api api = new Retrofit.Builder().baseUrl(BASE_URL)
+    Api api = new Retrofit.Builder().baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(AirdropService.Api.class);
+        .create(Api.class);
     return new AirdropService(api, gson, Schedulers.io());
   }
 
@@ -639,14 +653,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build());
   }
 
-  @Singleton @Provides RemoteRepository.BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
+  @Singleton @Provides BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(RemoteRepository.BdsApi.class);
+        .create(BdsApi.class);
   }
 
   @Singleton @Provides BdsApiSecondary provideBdsApiSecondary(OkHttpClient client, Gson gson) {
@@ -662,24 +676,24 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides TokenRateService provideTokenRateService(OkHttpClient client,
       ObjectMapper objectMapper) {
     String baseUrl = TokenRateService.CONVERSION_HOST;
-    TokenRateService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+    TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(TokenRateService.TokenToFiatApi.class);
+        .create(TokenToFiatApi.class);
     return new TokenRateService(api);
   }
 
   @Singleton @Provides LocalCurrencyConversionService provideLocalCurrencyConversionService(
       OkHttpClient client, ObjectMapper objectMapper) {
     String baseUrl = LocalCurrencyConversionService.CONVERSION_HOST;
-    LocalCurrencyConversionService.TokenToLocalFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+    TokenToLocalFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(LocalCurrencyConversionService.TokenToLocalFiatApi.class);
+        .create(TokenToLocalFiatApi.class);
     return new LocalCurrencyConversionService(api);
   }
 
@@ -700,7 +714,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BdsBilling(bdsRepository, walletService, new BillingThrowableCodeMapper());
   }
 
-  @Singleton @Provides RemoteRepository provideRemoteRepository(RemoteRepository.BdsApi bdsApi,
+  @Singleton @Provides RemoteRepository provideRemoteRepository(BdsApi bdsApi,
       BdsApiSecondary api) {
     return new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api);
   }
@@ -710,11 +724,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       private static final int NETWORK_ID_ROPSTEN = 3;
       private static final int NETWORK_ID_MAIN = 1;
 
-      @NotNull @Override public Single<String> getAppCoinsAddress(boolean debug) {
+      @Override public @NotNull Single<String> getAppCoinsAddress(boolean debug) {
         return proxySdk.getAppCoinsAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
 
-      @NotNull @Override public Single<String> getIabAddress(boolean debug) {
+      @Override public @NotNull Single<String> getIabAddress(boolean debug) {
         return proxySdk.getIabAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
     };
@@ -751,11 +765,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AppcoinsRewards(
         new BdsAppcoinsRewardsRepository(new CreditsRemoteRepository(backendApi, remoteRepository)),
         new com.appcoins.wallet.appcoins.rewards.repository.WalletService() {
-          @NotNull @Override public Single<String> getWalletAddress() {
+          @Override public @NotNull Single<String> getWalletAddress() {
             return walletService.getWalletAddress();
           }
 
-          @NotNull @Override public Single<String> signContent(@NotNull String content) {
+          @Override public @NotNull Single<String> signContent(@NotNull String content) {
             return walletService.signContent(content);
           }
         }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io(),
@@ -777,12 +791,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides CampaignService providePoASubmissionService(OkHttpClient client) {
     String baseUrl = CampaignService.SERVICE_HOST;
-    CampaignService.CampaignApi api = new Retrofit.Builder().baseUrl(baseUrl)
+    CampaignApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(CampaignService.CampaignApi.class);
+        .create(CampaignApi.class);
     return new CampaignService(api, BuildConfig.VERSION_CODE, Schedulers.io());
   }
 
@@ -817,12 +831,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BalanceGetter provideBalanceGetter(AppcoinsRewards appcoinsRewards) {
     return new BalanceGetter() {
-      @NotNull @Override public Single<BigDecimal> getBalance(@NotNull String address) {
+      @Override public @NotNull Single<BigDecimal> getBalance(@NotNull String address) {
         return appcoinsRewards.getBalance(address)
             .subscribeOn(Schedulers.io());
       }
 
-      @NotNull @Override public Single<BigDecimal> getBalance() {
+      @Override public @NotNull Single<BigDecimal> getBalance() {
         return null;
       }
     };
@@ -967,36 +981,32 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new ShareLinkInteractor(repository, interactor, inAppPurchaseInteractor);
   }
 
-  @Singleton @Provides ShareLinkRepository providesShareLinkRepository(
-      BdsShareLinkRepository.BdsShareLinkApi api) {
+  @Singleton @Provides ShareLinkRepository providesShareLinkRepository(BdsShareLinkApi api) {
     return new BdsShareLinkRepository(api);
   }
 
-  @Singleton @Provides BdsShareLinkRepository.BdsShareLinkApi provideBdsShareLinkApi(
-      OkHttpClient client, Gson gson) {
+  @Singleton @Provides BdsShareLinkApi provideBdsShareLinkApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(BdsShareLinkRepository.BdsShareLinkApi.class);
+        .create(BdsShareLinkApi.class);
   }
 
-  @Singleton @Provides InAppDeepLinkRepository providesDeepLinkRepository(
-      LocalPayementsLinkRepository.DeepLinkApi api) {
+  @Singleton @Provides InAppDeepLinkRepository providesDeepLinkRepository(DeepLinkApi api) {
     return new LocalPayementsLinkRepository(api);
   }
 
-  @Singleton @Provides LocalPayementsLinkRepository.DeepLinkApi provideDeepLinkApi(
-      OkHttpClient client, Gson gson) {
+  @Singleton @Provides DeepLinkApi provideDeepLinkApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(LocalPayementsLinkRepository.DeepLinkApi.class);
+        .create(DeepLinkApi.class);
   }
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
@@ -1006,21 +1016,19 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         topUpValuesService, new LinkedHashMap<>());
   }
 
-  @Singleton @Provides TopUpValuesService providesTopUpValuesService(
-      TopUpValuesService.TopUpValuesApi topUpValuesApi,
+  @Singleton @Provides TopUpValuesService providesTopUpValuesService(TopUpValuesApi topUpValuesApi,
       TopUpValuesApiResponseMapper responseMapper) {
     return new TopUpValuesService(topUpValuesApi, responseMapper);
   }
 
-  @Singleton @Provides TopUpValuesService.TopUpValuesApi providesTopUpValuesApi(OkHttpClient client,
-      Gson gson) {
+  @Singleton @Provides TopUpValuesApi providesTopUpValuesApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(TopUpValuesService.TopUpValuesApi.class);
+        .create(TopUpValuesApi.class);
   }
 
   @Provides TopUpValuesApiResponseMapper providesTopUpValuesApiResponseMapper() {
@@ -1053,8 +1061,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             .baseUrl(com.asf.wallet.BuildConfig.BACKEND_HOST)
             .build();
 
-    return new OffChainTransactionsRepository(
-        retrofit.create(OffChainTransactionsRepository.TransactionsApi.class),
+    return new OffChainTransactionsRepository(retrofit.create(TransactionsApi.class),
         new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US));
   }
 
@@ -1078,7 +1085,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
       OffChainTransactions transactionsNetworkRepository, Context context,
       SharedPreferences sharedPreferences) {
-    final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    Migration MIGRATION_1_2 = new Migration(1, 2) {
       @Override public void migrate(@NonNull SupportSQLiteDatabase database) {
         database.execSQL("CREATE TABLE IF NOT EXISTS TransactionEntityCopy (transactionId TEXT NOT "
             + "NULL, relatedWallet TEXT NOT NULL, approveTransactionId TEXT, type TEXT NOT "
@@ -1152,32 +1159,31 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .getSystemService(NOTIFICATION_SERVICE);
   }
 
-  @Singleton @Provides @Named("heads_up")
-  NotificationCompat.Builder provideHeadsUpNotificationBuilder(Context context,
+  @Singleton @Provides @Named("heads_up") Builder provideHeadsUpNotificationBuilder(Context context,
       NotificationManager notificationManager) {
-    NotificationCompat.Builder builder;
+    Builder builder;
     String channelId = "notification_channel_heads_up_id";
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+    if (VERSION.SDK_INT >= VERSION_CODES.O) {
       CharSequence channelName = "Notification channel";
       int importance = NotificationManager.IMPORTANCE_HIGH;
       NotificationChannel notificationChannel =
           new NotificationChannel(channelId, channelName, importance);
-      builder = new NotificationCompat.Builder(context, channelId);
+      builder = new Builder(context, channelId);
 
       notificationManager.createNotificationChannel(notificationChannel);
     } else {
-      builder = new NotificationCompat.Builder(context, channelId);
+      builder = new Builder(context, channelId);
       builder.setVibrate(new long[0]);
     }
-    return builder.setContentTitle(context.getString(R.string.app_name))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+    return builder.setContentTitle(context.getString(string.app_name))
+        .setSmallIcon(drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setAutoCancel(true)
         .setOngoing(false);
   }
 
   @Singleton @Provides OemIdExtractorService provideOemIdExtractorService(Context context) {
-    return new OemIdExtractorService(context);
+    return new OemIdExtractorService(new OemIdExtractorV1(context), new OemIdExtractorV2(context));
   }
 
   @Singleton @Provides PackageManager providePackageManager(Context context) {
