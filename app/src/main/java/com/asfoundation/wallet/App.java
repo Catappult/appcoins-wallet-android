@@ -16,12 +16,15 @@ import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.flurry.android.FlurryAgent;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import io.fabric.sdk.android.Fabric;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
@@ -58,6 +61,11 @@ public class App extends MultiDexApplication
       new FlurryAgent.Builder().withLogEnabled(false)
           .build(this, BuildConfig.FLURRY_APK_KEY);
     }
+
+    Fabric.with(this, new Crashlytics.Builder().core(
+        new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
+            .build())
+        .build());
 
     inAppPurchaseInteractor.start();
     proofOfAttentionService.start();
