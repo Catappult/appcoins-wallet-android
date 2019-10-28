@@ -31,12 +31,13 @@ public class BuildConfigDefaultTokenProvider implements DefaultTokenProvider {
       default:
         return new TokenInfo(BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS,
             BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_NAME,
-            BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL,
+            BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL.toLowerCase(),
             BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS);
       //  ROPSTEN
       case 3:
         return new TokenInfo(BuildConfig.ROPSTEN_DEFAULT_TOKEN_ADDRESS,
-            BuildConfig.ROPSTEN_DEFAULT_TOKEN_NAME, BuildConfig.ROPSTEN_DEFAULT_TOKEN_SYMBOL,
+            BuildConfig.ROPSTEN_DEFAULT_TOKEN_NAME,
+            BuildConfig.ROPSTEN_DEFAULT_TOKEN_SYMBOL.toLowerCase(),
             BuildConfig.ROPSTEN_DEFAULT_TOKEN_DECIMALS);
     }
   }
