@@ -59,9 +59,9 @@ project.ext {
   jacksonVersion = "2.9.6"
   lottieVersion = "3.0.1"
   cppVersion = "2.3.1"
-  viewPagerVersion = "1.0.0-beta03"
+  viewPagerVersion = "1.0.0-rc01"
   pageIndicatorViewVersion = "1.0.3"
-  preferenceLibVersion = "1.1.0-rc01"
+  preferenceLibVersion = "1.1.0"
 }
 
 task clean(type: Delete) {
