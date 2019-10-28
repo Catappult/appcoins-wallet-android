@@ -18,10 +18,8 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.repository.Web3jService;
 import com.asfoundation.wallet.service.AccountKeystoreService;
-import com.asfoundation.wallet.service.EthplorerTokenService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
 import com.asfoundation.wallet.service.SmsValidationApi;
-import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.service.Web3jKeystoreAccountService;
@@ -99,11 +97,6 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   @Singleton @Provides TokenRepositoryType provideTokenRepository(Web3jProvider web3j,
       DefaultTokenProvider defaultTokenProvider) {
     return new TokenRepository(web3j, defaultTokenProvider);
-  }
-
-  @Singleton @Provides TokenExplorerClientType provideTokenService(OkHttpClient okHttpClient,
-      Gson gson) {
-    return new EthplorerTokenService(okHttpClient, gson);
   }
 
   @Singleton @Provides SmsValidationRepositoryType provideSmsValidationRepository(
