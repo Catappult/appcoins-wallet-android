@@ -27,7 +27,8 @@ class IabPresenter(private val view: IabView, private val autoUpdateInteract: Au
   }
 
   private fun launchInitialView(updateModel: AutoUpdateModel) {
-    if (autoUpdateInteract.isHardUpdateRequired(updateModel.blackList)) {
+    if (autoUpdateInteract.isHardUpdateRequired(updateModel.blackList,
+            updateModel.updateVersionCode, updateModel.updateMinSdk)) {
       view.showUpdateRequiredView()
     } else {
       view.showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD)

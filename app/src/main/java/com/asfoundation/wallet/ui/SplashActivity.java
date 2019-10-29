@@ -40,7 +40,8 @@ public class SplashActivity extends BaseActivity {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(updateModel -> {
-          if (autoUpdateInteract.isHardUpdateRequired(updateModel.getBlackList())) {
+          if (autoUpdateInteract.isHardUpdateRequired(updateModel.getBlackList(),
+              updateModel.getUpdateVersionCode(), updateModel.getUpdateMinSdk())) {
             navigateToAutoUpdate();
           } else {
             firstScreenNavigation();

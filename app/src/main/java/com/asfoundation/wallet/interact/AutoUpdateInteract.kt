@@ -16,8 +16,9 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     return (localVersionCode < updateVersionCode && currentMinSdk >= updatedMinSdk)
   }
 
-  fun isHardUpdateRequired(blackList: List<Int>): Boolean {
-    return blackList.contains(localVersionCode)
+  fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int,
+                           updateMinSdk: Int): Boolean {
+    return blackList.contains(localVersionCode) && hasSoftUpdate(updateVersionCode, updateMinSdk)
   }
 
   fun retrieveRedirectUrl(): Single<String> {
@@ -25,7 +26,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
       isInstalled("cm.aptoide.pt") -> Single.just("https://appcoins-wallet.en.aptoide.com/")
       isInstalled("com.android.vending") -> Single.just(
           "https://play.google.com/store/apps/details?id=$walletPackageName&hl=it")
-      else -> Single.just("Error")
+      else -> Single.just("https://appcoins-wallet.en.aptoide.com/")
     }
   }
 

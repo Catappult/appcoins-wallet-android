@@ -97,7 +97,8 @@ class CampaignInteract(private val campaignService: CampaignService,
   private fun isHardUpdateRequired(): Boolean {
     val autoUpdateModel = autoUpdateInteract.getAutoUpdateModel()
         .blockingGet()
-    return autoUpdateInteract.isHardUpdateRequired(autoUpdateModel.blackList)
+    return autoUpdateInteract.isHardUpdateRequired(autoUpdateModel.blackList,
+        autoUpdateModel.updateVersionCode, autoUpdateModel.updateMinSdk)
   }
 
   override fun retrievePoaInformation(address: String): Single<PoaInformationModel> {

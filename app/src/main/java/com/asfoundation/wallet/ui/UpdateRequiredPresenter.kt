@@ -12,16 +12,9 @@ class UpdateRequiredPresenter(private val activity: UpdateRequiredActivity,
   }
 
   private fun handleUpdateClick() {
-    disposable.add(
-        autoUpdateInteract.retrieveRedirectUrl()
-            .doOnSuccess { url ->
-              if (url != "Error") {
-                activity.navigateToStoreAppView(url)
-              } else {
-                activity.showError()
-              }
-            }
-            .subscribe())
+    disposable.add(autoUpdateInteract.retrieveRedirectUrl()
+        .doOnSuccess { url -> activity.navigateToStoreAppView(url) }
+        .subscribe())
   }
 
   fun stop() {
