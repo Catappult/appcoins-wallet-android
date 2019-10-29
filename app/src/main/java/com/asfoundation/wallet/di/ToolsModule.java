@@ -1051,7 +1051,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpValuesApi providesTopUpValuesApi(OkHttpClient client,
       Gson gson) {
-    String baseUrl = BuildConfig.BASE_HOST;
+    String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
