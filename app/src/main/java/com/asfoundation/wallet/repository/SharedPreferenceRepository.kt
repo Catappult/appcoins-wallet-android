@@ -81,8 +81,7 @@ class SharedPreferenceRepository(context: Context) : PreferenceRepositoryType {
   }
 
   override fun addWalletPreference(address: String?) {
-    pref
-        .edit()
+    pref.edit()
         .putString(PREF_WALLET, address)
         .apply()
   }

@@ -6,7 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
@@ -90,14 +91,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return true
   }
 
-  private fun showWarningToast(): Boolean {
-    context?.let {
-      Toast.makeText(context, R.string.connectoin_error_body, Toast.LENGTH_SHORT)
-          .show()
-    }
-    return true
-  }
-
   override fun setupPreferences() {
     setPermissionPreference()
     setSourceCodePreference()
@@ -131,9 +124,18 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     verifyWalletPreference?.summary =
         getString(
             R.string.verification_settings_no_internet)
-    verifyWalletPreference?.layoutResource = R.layout.preference_with_summary_layout_disabled
     verifyWalletPreference?.shouldDisableView = true
     verifyWalletPreference?.isEnabled = false
+    verifyWalletPreference?.let {
+      val view = listView.getChildAt(it.order)
+
+      view.findViewById<AppCompatTextView>(android.R.id.title)
+          .setTextColor(
+              ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+      view.findViewById<AppCompatTextView>(android.R.id.summary)
+          .setTextColor(
+              ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+    }
     verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
   }
 
