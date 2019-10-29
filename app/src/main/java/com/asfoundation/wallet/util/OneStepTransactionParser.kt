@@ -6,9 +6,7 @@ import com.appcoins.wallet.commons.Repository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.repository.TokenRepositoryType
+import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.service.TokenRateService
 import io.reactivex.Single
 import io.reactivex.functions.Function5
@@ -17,12 +15,12 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 
-class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                               private val tokenRepositoryType: TokenRepositoryType,
-                               private val proxyService: ProxyService,
-                               private val billing: Billing,
-                               private val conversionService: TokenRateService,
-                               private val cache: Repository<String, TransactionBuilder>) {
+class OneStepTransactionParser(
+    private val proxyService: ProxyService,
+    private val billing: Billing,
+    private val conversionService: TokenRateService,
+    private val cache: Repository<String, TransactionBuilder>,
+    private val defaultTokenProvider: DefaultTokenProvider) {
 
   fun buildTransaction(oneStepUri: OneStepUri, referrerUrl: String): Single<TransactionBuilder> {
     return if (cache.getSync(oneStepUri.toString()) != null) {
@@ -93,23 +91,8 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   }
 
   private fun getToken(): Single<Token> {
-    return proxyService.getAppCoinsAddress(BuildConfig.DEBUG)
-        .flatMap { tokenAddress ->
-          findDefaultWalletInteract.find()
-              .flatMap { wallet: Wallet ->
-                tokenRepositoryType.fetchAll(wallet.address)
-                    .flatMapIterable { tokens: Array<Token> -> tokens.toCollection(ArrayList()) }
-                    .filter { token: Token -> token.tokenInfo.address.equals(tokenAddress, true) }
-                    .toList()
-              }
-              .flatMap { tokens ->
-                if (tokens.isEmpty()) {
-                  Single.error(UnknownTokenException())
-                } else {
-                  Single.just(tokens[0])
-                }
-              }
-        }
+    return defaultTokenProvider.defaultToken
+        .map { Token(it, BigDecimal.ZERO) }
   }
 
   private fun getIabContract(): Single<String> {
@@ -167,5 +150,3 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
 class MissingWalletException : RuntimeException()
 
 class MissingProductException : RuntimeException()
-
-class SignatureException : RuntimeException()

@@ -27,7 +27,6 @@ import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
-import io.realm.Realm;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,7 +49,6 @@ public class App extends MultiDexApplication
 
   @Override public void onCreate() {
     super.onCreate();
-    Realm.init(this);
     DaggerAppComponent.builder()
         .application(this)
         .build()

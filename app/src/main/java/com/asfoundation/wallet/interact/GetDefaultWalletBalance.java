@@ -8,6 +8,7 @@ import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Single;
@@ -19,31 +20,28 @@ import static com.asfoundation.wallet.util.BalanceUtils.weiToEth;
 
 public class GetDefaultWalletBalance implements BalanceService {
   private final WalletRepositoryType walletRepository;
-  private final FetchTokensInteract fetchTokensInteract;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchCreditsInteract fetchCreditsInteract;
   private final NetworkInfo defaultNetwork;
+  private final TokenRepositoryType tokenRepositoryType;
 
   public GetDefaultWalletBalance(WalletRepositoryType walletRepository,
-      FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract,
-      FetchCreditsInteract fetchCreditsInteract, NetworkInfo defaultNetwork) {
+      FindDefaultWalletInteract defaultWalletInteract, FetchCreditsInteract fetchCreditsInteract,
+      NetworkInfo defaultNetwork, TokenRepositoryType tokenRepositoryType) {
     this.walletRepository = walletRepository;
-    this.fetchTokensInteract = fetchTokensInteract;
     this.defaultWalletInteract = defaultWalletInteract;
     this.fetchCreditsInteract = fetchCreditsInteract;
     this.defaultNetwork = defaultNetwork;
+    this.tokenRepositoryType = tokenRepositoryType;
   }
 
-  public Single<Balance> getTokens(Wallet wallet) {
-    return fetchTokensInteract.fetchDefaultToken(wallet)
-        .flatMapSingle(token -> {
-          if (wallet.address.equals(token.tokenInfo.address)) {
-            return getEtherBalance(wallet);
-          } else {
-            return getTokenBalance(token);
-          }
-        })
-        .firstOrError();
+  public Single<Balance> getAppcBalance(Wallet wallet) {
+    return tokenRepositoryType.getAppcBalance(wallet)
+        .flatMap(this::getAppcBalance);
+  }
+
+  private Single<Token> getAppcToken(Wallet wallet) {
+    return tokenRepositoryType.getAppcBalance(wallet);
   }
 
   public Single<Balance> getEthereumBalance(Wallet wallet) {
@@ -55,7 +53,7 @@ public class GetDefaultWalletBalance implements BalanceService {
         .flatMap(this::getCreditsBalance);
   }
 
-  private Single<Balance> getTokenBalance(Token token) {
+  private Single<Balance> getAppcBalance(Token token) {
     return Single.just(new Balance(token.tokenInfo.symbol.toUpperCase(),
         weiToEth(token.balance).setScale(4, RoundingMode.FLOOR)));
   }
@@ -104,25 +102,22 @@ public class GetDefaultWalletBalance implements BalanceService {
   private Single<Boolean> hasEnoughForTransfer(BigDecimal cost, boolean isTokenTransfer,
       BigDecimal feeCost, String contractAddress) {
     if (isTokenTransfer) {
-      return getToken(contractAddress).map(
-          token -> normalizeBalance(token.balance, token.tokenInfo).compareTo(cost) >= 0);
+      return getAppcToken().flatMap(token -> {
+        if (token.tokenInfo.address.equalsIgnoreCase(contractAddress)) {
+          return Single.just(token);
+        } else {
+          return Single.error(new UnknownTokenException());
+        }
+      })
+          .map(token -> normalizeBalance(token.balance, token.tokenInfo).compareTo(cost) >= 0);
     }
     return getBalanceInWei().map(ethBalance -> ethBalance.subtract(feeCost)
         .compareTo(cost) >= 0);
   }
 
-  private Single<Token> getToken(String contractAddress) {
+  private Single<Token> getAppcToken() {
     return defaultWalletInteract.find()
-        .flatMapObservable(fetchTokensInteract::fetch)
-        .firstOrError()
-        .flatMap(tokens -> {
-          for (Token token : tokens) {
-            if (token.tokenInfo.address.equalsIgnoreCase(contractAddress)) {
-              return Single.just(token);
-            }
-          }
-          return Single.error(new UnknownTokenException());
-        });
+        .flatMap(this::getAppcToken);
   }
 
   private BigDecimal normalizeBalance(BigDecimal balance, TokenInfo tokenInfo) {

@@ -3,19 +3,19 @@ package com.asfoundation.wallet.util
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.commons.MemoryCache
-import com.asfoundation.wallet.entity.Token
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.TokenRepositoryType
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.ui.iab.FiatValue
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.*
+import org.mockito.ArgumentMatchers.anyBoolean
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import java.math.BigDecimal
@@ -24,6 +24,7 @@ import java.util.*
 class OneStepTransactionParserTest {
   private lateinit var tokenRepositoryType: TokenRepositoryType
   private lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+  private lateinit var defaultTokenProvider: DefaultTokenProvider
   private lateinit var proxyService: ProxyService
   private lateinit var billing: Billing
   private lateinit var conversionService: TokenRateService
@@ -51,16 +52,14 @@ class OneStepTransactionParserTest {
     proxyService = mock<ProxyService>(ProxyService::class.java)
     billing = mock<Billing>(Billing::class.java)
     conversionService = mock<TokenRateService>(TokenRateService::class.java)
+    defaultTokenProvider = mock<DefaultTokenProvider>(DefaultTokenProvider::class.java)
 
     `when`<Single<Wallet>>(findDefaultWalletInteract.find()).thenReturn(
         Single.just(Wallet(contractAddress)))
-    val token = Token(TokenInfo(contractAddress, "AppCoins", "APPC", 18, true, true),
-        BigDecimal(10), 32L)
-    val tokens = arrayOf(token)
+    val tokenInfo = TokenInfo(contractAddress, "AppCoins", "APPC", 18)
 
-    `when`<Observable<Array<Token>>>(tokenRepositoryType.fetchAll(any<String>())).thenReturn(
-        Observable.just<Array<Token>>(tokens))
-
+    `when`(defaultTokenProvider.defaultToken)
+        .thenReturn(Single.just(tokenInfo))
     `when`<Single<String>>(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just(contractAddress))
     `when`<Single<String>>(proxyService.getIabAddress(anyBoolean())).thenReturn(
@@ -71,7 +70,6 @@ class OneStepTransactionParserTest {
 
     `when`<Single<String>>(billing.getWallet(anyString())).thenReturn(
         Single.just(developerAddress))
-
   }
 
   @Test
@@ -79,9 +77,9 @@ class OneStepTransactionParserTest {
   fun parseTransaction() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(findDefaultWalletInteract, tokenRepositoryType, proxyService,
+        OneStepTransactionParser(proxyService,
             billing, conversionService,
-            MemoryCache(BehaviorSubject.create(), HashMap()))
+            MemoryCache(BehaviorSubject.create(), HashMap()), defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
@@ -121,9 +119,9 @@ class OneStepTransactionParserTest {
   fun parseMinimumTransaction() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(findDefaultWalletInteract, tokenRepositoryType, proxyService,
+        OneStepTransactionParser(proxyService,
             billing, conversionService,
-            MemoryCache(BehaviorSubject.create(), HashMap()))
+            MemoryCache(BehaviorSubject.create(), HashMap()), defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
@@ -154,9 +152,9 @@ class OneStepTransactionParserTest {
   fun parseTransactionWithConversion() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(findDefaultWalletInteract, tokenRepositoryType, proxyService,
+        OneStepTransactionParser(proxyService,
             billing, conversionService,
-            MemoryCache(BehaviorSubject.create(), HashMap()))
+            MemoryCache(BehaviorSubject.create(), HashMap()), defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
