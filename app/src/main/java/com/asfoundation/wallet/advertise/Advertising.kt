@@ -7,6 +7,9 @@ import io.reactivex.Single
 interface Advertising {
 
   fun getCampaign(packageName: String, versionCode: Int): Single<CampaignDetails>
+  fun hasSeenPoaNotificationTimePassed(): Boolean
+  fun clearSeenPoaNotification()
+  fun saveSeenPoaNotification()
 
   enum class CampaignAvailabilityType {
     AVAILABLE, UNAVAILABLE, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR, PACKAGE_NAME_NOT_FOUND
