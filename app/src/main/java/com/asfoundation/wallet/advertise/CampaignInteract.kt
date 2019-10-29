@@ -23,7 +23,7 @@ class CampaignInteract(private val campaignService: CampaignService,
 
   override fun getCampaign(packageName: String, versionCode: Int): Single<CampaignDetails> {
     if (isHardUpdateRequired()) {
-      return Single.just(CampaignDetails(Advertising.CampaignAvailabilityType.UNAVAILABLE))
+      return Single.just(CampaignDetails(Advertising.CampaignAvailabilityType.UPDATE_REQUIRED))
     }
     return walletService.getWalletAddress()
         .onErrorResumeNext {
@@ -47,7 +47,7 @@ class CampaignInteract(private val campaignService: CampaignService,
                                  versionCode: Int): Single<ProofSubmissionData> {
     if (isHardUpdateRequired()) {
       return Single.just(
-          ProofSubmissionData(ProofSubmissionData.RequirementsStatus.NOT_ELIGIBLE))
+          ProofSubmissionData(ProofSubmissionData.RequirementsStatus.UPDATE_REQUIRED))
     }
     if (!isCorrectNetwork(chainId)) {
       return if (isKnownNetwork(chainId)) {

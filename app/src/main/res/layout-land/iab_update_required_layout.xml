@@ -57,7 +57,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="52dp"
-          android:layout_marginEnd="79dp"
+          android:layout_marginEnd="16dp"
           android:letterSpacing="0.01"
           android:text="You need to update!"
           android:textColor="@color/black_87_alpha"

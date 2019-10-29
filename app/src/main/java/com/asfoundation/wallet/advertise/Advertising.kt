@@ -9,7 +9,8 @@ interface Advertising {
   fun getCampaign(packageName: String, versionCode: Int): Single<CampaignDetails>
 
   enum class CampaignAvailabilityType {
-    AVAILABLE, UNAVAILABLE, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR, PACKAGE_NAME_NOT_FOUND
+    AVAILABLE, UNAVAILABLE, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR,
+    PACKAGE_NAME_NOT_FOUND, UPDATE_REQUIRED
   }
 
   fun hasWalletPrepared(chainId: Int, packageName: String,

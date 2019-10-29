@@ -191,7 +191,7 @@ public class WalletPoAService extends Service {
         //No campaign or already rewarded so there is no need to notify the user of anything
         proofOfAttentionService.remove(packageName);
         if (proof.hasReachedPoaLimit()) {
-          showNotification(proof);
+          showPoaLimitNotification(proof);
           stopForeground(false);
         } else {
           stopForeground(true);
@@ -205,13 +205,26 @@ public class WalletPoAService extends Service {
         stopTimeout();
         logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
         break;
+      case UPDATE_REQUIRED:
+        showUpdateRequiredNotification();
+        stopForeground(false);
+        stopTimeout();
+        break;
       case UNKNOWN_NETWORK:
         logger.log(new Throwable(new WrongNetworkException("Unknown network")));
         break;
     }
   }
 
-  private void showNotification(ProofSubmissionData proof) {
+  private void showUpdateRequiredNotification() {
+    notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
+        new NotificationCompat.BigTextStyle().setBigContentTitle("Update Required")
+            .bigText("Please update the AppCoins Wallet to receive this reward"))
+        .setContentText("Update to receive rewards")
+        .build());
+  }
+
+  private void showPoaLimitNotification(ProofSubmissionData proof) {
     String minutes = String.format("%02d", proof.getMinutesRemaining());
     String message = getString(R.string.notification_poa_limit_reached,
         String.valueOf(proof.getHoursRemaining()), minutes);
