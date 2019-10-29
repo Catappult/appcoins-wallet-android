@@ -69,7 +69,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                  referrerUrl: String?): Single<Transaction> {
     return api.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
         "APPC", productName, type, null, developerWallet, storeWallet, oemWallet, id,
-        developerPayload, callback, orderReference, walletAddress, walletSignature, referrerUrl)
+        developerPayload, callback, orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -109,8 +109,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              orderReference: String?, referrerUrl: String?): Single<Transaction> {
     return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
         priceCurrency, productName, type, null, walletDeveloper, walletStore, walletOem,
-        token, developerPayload, callback, orderReference, walletAddress, walletSignature,
-        referrerUrl)
+        token, developerPayload, callback, orderReference, referrerUrl, walletAddress,
+        walletSignature)
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
@@ -127,8 +127,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                       amount: BigDecimal): Completable {
     return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
         "APPC", null, type, toWallet, null, null,
-        null, null, null, null, null,
-        walletAddress, signature, null)
+        null, null, null, null, null, null,
+        walletAddress, signature)
         .toCompletable()
 
   }
@@ -220,6 +220,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * complete the purchase
      * @param callback url used in some purchases by the application to complete the purchase
      * @param orderReference reference used in some purchases by the application to
+     * @param referrerUrl url to validate the transaction
      * @param walletAddress address of the user wallet
      * @param walletSignature signature obtained after signing the wallet
      * complete the purchase
@@ -241,9 +242,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,
                           @Field("reference") orderReference: String?,
+                          @Field("referrer_url") referrerUrl: String?,
                           @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String,
-                          @Query("referrer_url") referrerUrl: String?): Single<Transaction>
+                          @Query("wallet.signature") walletSignature: String): Single<Transaction>
   }
 
   data class Consumed(val status: String = "CONSUMED")
