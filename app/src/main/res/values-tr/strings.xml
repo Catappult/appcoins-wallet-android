@@ -427,6 +427,7 @@
   <string name="verification_settings_unverified_title">Cüzdanı Doğrulayın</string>
   <string name="verification_settings_unverified_body">Ödül kazanın ve arkadaşlarınızı davet edin</string>
   <string name="verification_settings_verified_title">Cüzdan Doğrulandı</string>
+  <string name="verification_settings_no_internet">You need to be connected to the internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Bu satın alma işlemi zaten işlenmiş gibi görünüyor. Lütfen işlem tamamlanana kadar bekleyin veya Destek Ekibimizle iletişime geçin.</string>
   <string name="purchase_more_payment_methods_button">DİĞER ÖDEME YÖNTEMLERİ</string>
@@ -443,7 +444,7 @@
   <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'l\' still be able to make payments and transaction with other methods than APPC Credits.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods than APPC Credits.\n\nIf you believe this is a mistake, contact us at:</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
@@ -481,4 +482,13 @@
   <string name="promotions_referral_card_body">Davet bağlantınızı paylaşın ve AppCoins Credits kazanın.</string>
   <string name="promotions_gamification_card_title">Her bir satın alma işleminde %30\'a varan bonus</string>
   <string name="promotions_new">YENİ</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
+  <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
+  <string name="update_wallet_purchase_title">You need to update!</string>
+  <string name="update_wallet_purchase_body">Update the AppCoins Wallet to complete this purchase.</string>
+  <string name="update_wallet_hard_body">It seems you\'re using an old version of the AppCoins Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_soft_title">Don\'t get left behind!</string>
+  <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
+  <string name="update_button">UPDATE</string>
 </resources>
