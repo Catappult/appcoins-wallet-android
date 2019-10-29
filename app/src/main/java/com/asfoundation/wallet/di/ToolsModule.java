@@ -89,14 +89,12 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
-import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
@@ -167,12 +165,9 @@ import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.service.CampaignService.CampaignApi;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi;
-import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.SmsValidationApi;
-import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
-import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
 import com.asfoundation.wallet.topup.TopUpValuesService;
@@ -310,25 +305,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return sharedPreferenceRepository;
   }
 
-  @Singleton @Provides TickerService provideTickerService(OkHttpClient httpClient, Gson gson) {
-    return new TrustWalletTickerService(httpClient, gson);
-  }
-
-  @Provides AddTokenInteract provideAddTokenInteract(TokenRepositoryType tokenRepository,
-      WalletRepositoryType walletRepository) {
-    return new AddTokenInteract(walletRepository, tokenRepository);
-  }
-
   @Singleton @Provides PasswordStore passwordStore(Context context, Logger logger) {
     return new TrustPasswordStore(context, logger);
   }
 
   @Singleton @Provides Logger provideLogger() {
     return new FlurryLogger();
-  }
-
-  @Singleton @Provides RealmManager provideRealmManager() {
-    return new RealmManager();
   }
 
   @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
@@ -448,8 +430,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
-        bdsTransactionService, Schedulers.io());
+        billingMessagesMapper, billing, currencyConversionService, bdsTransactionService,
+        Schedulers.io());
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_INTERACTOR")
@@ -460,8 +442,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
-        bdsTransactionService, Schedulers.io());
+        billingMessagesMapper, billing, currencyConversionService, bdsTransactionService,
+        Schedulers.io());
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
@@ -492,16 +474,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
-      WalletRepositoryType walletRepository, FetchTokensInteract fetchTokensInteract,
-      FindDefaultWalletInteract defaultWalletInteract, FetchCreditsInteract fetchCreditsInteract,
-      NetworkInfo networkInfo) {
-    return new GetDefaultWalletBalance(walletRepository, fetchTokensInteract, defaultWalletInteract,
-        fetchCreditsInteract, networkInfo);
-  }
-
-  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
-      DefaultTokenProvider defaultTokenProvider) {
-    return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
+      WalletRepositoryType walletRepository, FindDefaultWalletInteract defaultWalletInteract,
+      FetchCreditsInteract fetchCreditsInteract, NetworkInfo networkInfo,
+      TokenRepositoryType tokenRepositoryType) {
+    return new GetDefaultWalletBalance(walletRepository, defaultWalletInteract,
+        fetchCreditsInteract, networkInfo, tokenRepositoryType);
   }
 
   @Provides FetchCreditsInteract provideFetchCreditsInteract(BalanceGetter balanceGetter) {
@@ -518,18 +495,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides EIPTransactionParser provideEIPTransferParser(
-      FindDefaultWalletInteract provideFindDefaultWalletInteract,
-      TokenRepositoryType tokenRepositoryType) {
-    return new EIPTransactionParser(provideFindDefaultWalletInteract, tokenRepositoryType);
+      DefaultTokenProvider defaultTokenProvider) {
+    return new EIPTransactionParser(defaultTokenProvider);
   }
 
-  @Provides OneStepTransactionParser provideOneStepTransferParser(
-      FindDefaultWalletInteract provideFindDefaultWalletInteract,
-      TokenRepositoryType tokenRepositoryType, ProxyService proxyService, Billing billing,
-      TokenRateService tokenRateService) {
-    return new OneStepTransactionParser(provideFindDefaultWalletInteract, tokenRepositoryType,
-        proxyService, billing, tokenRateService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+  @Provides OneStepTransactionParser provideOneStepTransferParser(ProxyService proxyService,
+      Billing billing, TokenRateService tokenRateService,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new OneStepTransactionParser(proxyService, billing, tokenRateService,
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), defaultTokenProvider);
   }
 
   @Provides TransferParser provideTransferParser(EIPTransactionParser eipTransactionParser,
@@ -616,8 +590,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(Context context,
-      List<OperationDataSource> list,
-      AppCoinsOperationRepository appCoinsOperationRepository) {
+      List<OperationDataSource> list, AppCoinsOperationRepository appCoinsOperationRepository) {
     return new AppcoinsOperationsDataSaver(list, appCoinsOperationRepository,
         new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
         Schedulers.io(), new CompositeDisposable());
@@ -1011,8 +984,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BdsShareLinkRepository(api);
   }
 
-  @Singleton @Provides BdsShareLinkApi provideBdsShareLinkApi(
-      OkHttpClient client, Gson gson) {
+  @Singleton @Provides BdsShareLinkApi provideBdsShareLinkApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
@@ -1026,8 +998,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new LocalPayementsLinkRepository(api);
   }
 
-  @Singleton @Provides DeepLinkApi provideDeepLinkApi(
-      OkHttpClient client, Gson gson) {
+  @Singleton @Provides DeepLinkApi provideDeepLinkApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)

@@ -33,8 +33,7 @@ import org.mockito.junit.MockitoJUnitRunner;
   @Before public void before() {
     Mockito.when(defaultTokenProvider.getDefaultToken())
         .thenReturn(Single.just(
-            new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "AppCoins", "APPC", 18,
-                true, false)));
+            new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "AppCoins", "APPC", 18)));
     scheduler = new TestScheduler();
   }
 
@@ -208,6 +207,5 @@ import org.mockito.junit.MockitoJUnitRunner;
 
   private final static class ApiClientResponse {
     List<RawTransaction> docs;
-    int pages;
   }
 }
