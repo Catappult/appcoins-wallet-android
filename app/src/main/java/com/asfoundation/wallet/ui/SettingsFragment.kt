@@ -128,7 +128,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     verifyWalletPreference?.summary =
         getString(
             R.string.notification_no_network_poa)//TODO Change here when new string is available
-    verifyWalletPreference?.setOnPreferenceClickListener { showWarningToast() }
+    verifyWalletPreference?.layoutResource = R.layout.preference_without_summary_layout
+    verifyWalletPreference?.shouldDisableView = true
+    verifyWalletPreference?.isEnabled = false
   }
 
   override fun setWalletsPreference(walletAddress: String) {

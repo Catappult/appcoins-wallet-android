@@ -36,8 +36,8 @@ class SettingsPresenter(private val view: SettingsView,
               .doOnSuccess {
                 when (it) {
                   WalletValidationStatus.SUCCESS -> view.setVerifiedWalletPreference()
-                  WalletValidationStatus.NO_NETWORK -> handleValidationCache(wallet)
-                  else -> view.setUnverifiedWalletPreference()
+                  WalletValidationStatus.GENERIC_ERROR -> view.setUnverifiedWalletPreference()
+                  else -> handleValidationCache(wallet)
                 }
               }
         }

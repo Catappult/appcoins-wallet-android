@@ -31,6 +31,10 @@ class SmsValidationInteract(
       defaultSharedPreferences.edit()
           .putBoolean(WALLET_VERIFIED + walletAddress, true)
           .apply()
+    } else if (status == WalletValidationStatus.GENERIC_ERROR) {
+      defaultSharedPreferences.edit()
+          .putBoolean(WALLET_VERIFIED + walletAddress, false)
+          .apply()
     }
   }
 

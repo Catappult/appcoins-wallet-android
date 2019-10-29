@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import android.content.SharedPreferences;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
@@ -37,8 +38,9 @@ import dagger.Provides;
   }
 
   @Provides DeleteWalletInteract provideDeleteAccountInteract(
-      WalletRepositoryType accountRepository, PasswordStore store) {
-    return new DeleteWalletInteract(accountRepository, store);
+      WalletRepositoryType accountRepository, PasswordStore store,
+      SharedPreferences sharedPreferences) {
+    return new DeleteWalletInteract(accountRepository, store, sharedPreferences);
   }
 
   @Provides FetchWalletsInteract provideFetchAccountsInteract(
