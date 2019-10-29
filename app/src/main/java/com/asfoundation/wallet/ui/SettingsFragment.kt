@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
@@ -86,6 +87,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return true
   }
 
+  private fun showWarningToast(): Boolean {
+    context?.let {
+      Toast.makeText(context, R.string.connectoin_error_body, Toast.LENGTH_SHORT)
+          .show()
+    }
+    return true
+  }
+
   override fun setupPreferences() {
     setPermissionPreference()
     setSourceCodePreference()
@@ -112,6 +121,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     verifyWalletPreference?.summary =
         getString(R.string.verification_settings_unverified_body)
     verifyWalletPreference?.setOnPreferenceClickListener { openWalletValidationScreen() }
+  }
+
+  override fun setWalletValidationNoNetwork() {
+    val verifyWalletPreference = findPreference<Preference>("pref_verification")
+    verifyWalletPreference?.summary =
+        getString(
+            R.string.notification_no_network_poa)//TODO Change here when new string is available
+    verifyWalletPreference?.setOnPreferenceClickListener { showWarningToast() }
   }
 
   override fun setWalletsPreference(walletAddress: String) {

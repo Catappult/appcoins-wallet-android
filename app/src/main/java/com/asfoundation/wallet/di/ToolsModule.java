@@ -1157,8 +1157,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
-      SmsValidationRepositoryType smsValidationRepository) {
-    return new SmsValidationInteract(smsValidationRepository);
+      SmsValidationRepositoryType smsValidationRepository, SharedPreferences sharedPreferences) {
+    return new SmsValidationInteract(smsValidationRepository, sharedPreferences);
   }
 
   @Singleton @Provides BalanceInteract provideBalanceInteract(

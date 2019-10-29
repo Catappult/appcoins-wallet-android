@@ -16,7 +16,6 @@ class SettingsPresenter(private val view: SettingsView,
                         private val smsValidationInteract: SmsValidationInteract,
                         private val defaultSharedPreferences: SharedPreferences) {
 
-
   fun present() {
     view.setupPreferences()
     handleVerifyWalletPreferenceSummary()
@@ -30,17 +29,29 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun handleVerifyWalletPreferenceSummary() {
     disposables.add(findDefaultWalletInteract.find()
-        .flatMap { smsValidationInteract.isValid(Wallet(it.address)) }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (it == WalletValidationStatus.SUCCESS) {
-            view.setVerifiedWalletPreference()
-          } else {
-            view.setUnverifiedWalletPreference()
-          }
+        .flatMap { wallet ->
+          smsValidationInteract.isValid(Wallet(wallet.address))
+              .subscribeOn(networkScheduler)
+              .observeOn(viewScheduler)
+              .doOnSuccess {
+                when (it) {
+                  WalletValidationStatus.SUCCESS -> view.setVerifiedWalletPreference()
+                  WalletValidationStatus.NO_NETWORK -> handleValidationCache(wallet)
+                  else -> view.setUnverifiedWalletPreference()
+                }
+              }
         }
         .subscribe())
+  }
+
+  private fun handleValidationCache(wallet: Wallet) {
+    val isVerified =
+        defaultSharedPreferences.getBoolean(WALLET_VERIFIED + wallet.address, false)
+    if (isVerified) {
+      view.setVerifiedWalletPreference()
+    } else {
+      view.setWalletValidationNoNetwork()
+    }
   }
 
   private fun handleWalletsPreferenceSummary() {
@@ -56,7 +67,7 @@ class SettingsPresenter(private val view: SettingsView,
   private fun addWalletPreference(address: String?) {
     defaultSharedPreferences
         .edit()
-        .putString("pref_wallet", address)
+        .putString(PREF_WALLET, address)
         .apply()
   }
 
@@ -65,6 +76,11 @@ class SettingsPresenter(private val view: SettingsView,
         .subscribe { wallet ->
           view.setRedeemCodePreference(wallet.address)
         })
+  }
+
+  private companion object {
+    private const val PREF_WALLET = "pref_wallet"
+    private const val WALLET_VERIFIED = "wallet_verified_"
   }
 }
 
