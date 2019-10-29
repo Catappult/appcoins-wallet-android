@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -29,7 +28,6 @@ import java.util.List;
 
 public class AsfInAppPurchaseInteractor {
   private static final double GAS_PRICE_MULTIPLIER = 1.25;
-  private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
   private final CurrencyConversionService currencyConversionService;
   private final FindDefaultWalletInteract defaultWalletInteract;
@@ -38,7 +36,6 @@ public class AsfInAppPurchaseInteractor {
   private final TransferParser parser;
   private final BillingMessagesMapper billingMessagesMapper;
   private final Billing billing;
-  private final ExternalBillingSerializer billingSerializer;
   private final BdsTransactionService trackTransactionService;
   private final Scheduler scheduler;
 
@@ -46,7 +43,6 @@ public class AsfInAppPurchaseInteractor {
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser,
       BillingMessagesMapper billingMessagesMapper, Billing billing,
-      ExternalBillingSerializer billingSerializer,
       CurrencyConversionService currencyConversionService,
       BdsTransactionService trackTransactionService, Scheduler scheduler) {
     this.inAppPurchaseService = inAppPurchaseService;
@@ -56,13 +52,12 @@ public class AsfInAppPurchaseInteractor {
     this.parser = parser;
     this.billingMessagesMapper = billingMessagesMapper;
     this.billing = billing;
-    this.billingSerializer = billingSerializer;
     this.currencyConversionService = currencyConversionService;
     this.trackTransactionService = trackTransactionService;
     this.scheduler = scheduler;
   }
 
-  public Single<TransactionBuilder> parseTransaction(String uri) {
+  Single<TransactionBuilder> parseTransaction(String uri) {
     return parser.parse(uri);
   }
 
@@ -78,7 +73,7 @@ public class AsfInAppPurchaseInteractor {
         "Transaction type " + transactionType + " not supported"));
   }
 
-  public Completable resume(String uri, TransactionType transactionType, String packageName,
+  Completable resume(String uri, TransactionType transactionType, String packageName,
       String productName, String approveKey, String developerPayload) {
     if (transactionType == TransactionType.NORMAL) {
       return buildPaymentTransaction(uri, packageName, productName,
@@ -115,7 +110,7 @@ public class AsfInAppPurchaseInteractor {
     }
   }
 
-  public Observable<Payment> getTransactionState(String uri) {
+  Observable<Payment> getTransactionState(String uri) {
     return Observable.merge(inAppPurchaseService.getTransactionState(uri)
         .map(this::mapToPayment), trackTransactionService.getTransaction(uri)
         .map(this::map));
@@ -212,7 +207,7 @@ public class AsfInAppPurchaseInteractor {
             .toList());
   }
 
-  public List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
+  List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
     BigDecimal firstValue =
         price.add(new BigDecimal(5).subtract((price.remainder(new BigDecimal(5)))));
     ArrayList<BigDecimal> list = new ArrayList<>();
@@ -229,14 +224,14 @@ public class AsfInAppPurchaseInteractor {
         .map(wallet -> wallet.address);
   }
 
-  public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName,
+  Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName,
       TransactionBuilder transactionBuilder) {
     return Single.zip(
         getTransaction(packageName, transactionBuilder.getSkuId(), transactionBuilder.getType()),
         isAppcoinsPaymentReady(transactionBuilder), this::map);
   }
 
-  public Single<Boolean> isAppcoinsPaymentReady(TransactionBuilder transactionBuilder) {
+  Single<Boolean> isAppcoinsPaymentReady(TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
             new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
@@ -277,12 +272,12 @@ public class AsfInAppPurchaseInteractor {
     }
   }
 
-  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
+  Single<FiatValue> convertToFiat(double appcValue, String currency) {
     return currencyConversionService.getTokenValue(currency)
-        .map(fiatValueConvertion -> calculateValue(fiatValueConvertion, appcValue));
+        .map(fiatValueConversion -> calculateValue(fiatValueConversion, appcValue));
   }
 
-  public Single<FiatValue> convertToLocalFiat(double appcValue) {
+  Single<FiatValue> convertToLocalFiat(double appcValue) {
     return currencyConversionService.getLocalFiatAmount(Double.toString(appcValue));
   }
 
@@ -295,11 +290,7 @@ public class AsfInAppPurchaseInteractor {
     return billingMessagesMapper;
   }
 
-  public ExternalBillingSerializer getBillingSerializer() {
-    return billingSerializer;
-  }
-
-  public Single<Transaction> getTransaction(String packageName, String productName, String type) {
+  private Single<Transaction> getTransaction(String packageName, String productName, String type) {
     return Single.defer(() -> {
       if (TransactionData.TransactionType.INAPP.name()
           .equalsIgnoreCase(type)) {
@@ -310,7 +301,7 @@ public class AsfInAppPurchaseInteractor {
     });
   }
 
-  public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
+  Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return billing.getSkuTransaction(packageName, productName, Schedulers.io())
         .map(Transaction::getStatus)
         .flatMap(transactionStatus -> {

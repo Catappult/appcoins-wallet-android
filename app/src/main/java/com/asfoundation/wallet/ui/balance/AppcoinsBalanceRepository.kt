@@ -48,7 +48,7 @@ class AppcoinsBalanceRepository(
 
   override fun getAppcBalance(wallet: Wallet): Observable<Pair<Balance, FiatValue>> {
     if (appcBalanceDisposable == null || appcBalanceDisposable!!.isDisposed) {
-      balanceGetter.getTokens(wallet)
+      balanceGetter.getAppcBalance(wallet)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
             localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),

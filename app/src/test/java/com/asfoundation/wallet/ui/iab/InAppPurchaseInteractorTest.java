@@ -11,7 +11,6 @@ import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
-import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
@@ -22,7 +21,6 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
-import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
@@ -34,7 +32,6 @@ import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PendingTransactionService;
-import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
@@ -93,7 +90,6 @@ public class InAppPurchaseInteractorTest {
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
-  @Mock TokenRepositoryType tokenRepository;
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
@@ -110,18 +106,13 @@ public class InAppPurchaseInteractorTest {
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
-  private PublishSubject<List<Proof>> proofPublishSubject;
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
-  private DataMapper dataMapper;
-  private EIPTransactionParser eipTransactionParser;
-  private OneStepTransactionParser oneStepTransactionParser;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
     MockitoAnnotations.initMocks(this);
     balance = PublishSubject.create();
-    dataMapper = new DataMapper();
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
 
@@ -135,8 +126,7 @@ public class InAppPurchaseInteractorTest {
         Single.just(BUY_HASH));
 
     TokenInfo tokenInfo =
-        new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18, false,
-            false);
+        new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18);
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
     pendingApproveState = PublishSubject.create();
@@ -148,12 +138,6 @@ public class InAppPurchaseInteractorTest {
         any(BigDecimal.class))).thenReturn(balance.firstOrError());
 
     when(defaultWalletInteract.find()).thenReturn(Single.just(new Wallet("wallet_address")));
-
-    Token token = new Token(new TokenInfo(CONTRACT_ADDRESS, "AppCoins", "APPC", 18, true, true),
-        new BigDecimal(10), 32L);
-    Token[] tokens = new Token[1];
-    tokens[0] = token;
-    when(tokenRepository.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     scheduler = new TestScheduler();
 
@@ -179,11 +163,10 @@ public class InAppPurchaseInteractorTest {
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
-                countryCodeProvider, dataMapper, addressService), balanceService, scheduler,
+                countryCodeProvider, new DataMapper(), addressService), balanceService, scheduler,
             new ErrorMapper());
 
-    proofPublishSubject = PublishSubject.create();
-    when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
+    when(proofOfAttentionService.get()).thenReturn(PublishSubject.create());
 
     when(appInfoProvider.get(anyString(), anyString(), anyString())).thenAnswer(invocation -> {
       Object[] arguments = invocation.getArguments();
@@ -208,17 +191,16 @@ public class InAppPurchaseInteractorTest {
     when(conversionService.getAppcRate(anyString())).thenReturn(
         Single.just(new FiatValue(new BigDecimal(2.0), "EUR", "")));
 
-    eipTransactionParser = new EIPTransactionParser(defaultWalletInteract, tokenRepository);
-    oneStepTransactionParser =
-        new OneStepTransactionParser(defaultWalletInteract, tokenRepository, proxyService, billing,
-            conversionService, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+    EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
+    OneStepTransactionParser oneStepTransactionParser =
+        new OneStepTransactionParser(proxyService, billing, conversionService,
+            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), defaultTokenProvider);
 
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(eipTransactionParser, oneStepTransactionParser),
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
-            new ExternalBillingSerializer(),
             new CurrencyConversionService(Mockito.mock(TokenRateService.class),
                 Mockito.mock(LocalCurrencyConversionService.class)),
             new BdsTransactionService(scheduler,
