@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.interact
 
-import android.content.SharedPreferences
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.repository.PreferenceRepositoryType
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 
 class SmsValidationInteract(
     private val smsValidationRepository: SmsValidationRepositoryType,
-    private val defaultSharedPreferences: SharedPreferences
+    private val preferenceRepositoryType: PreferenceRepositoryType
 ) {
 
   fun isValid(wallet: Wallet): Single<WalletValidationStatus> {
@@ -28,18 +28,10 @@ class SmsValidationInteract(
 
   private fun saveWalletVerifiedStatus(status: WalletValidationStatus, walletAddress: String) {
     if (status == WalletValidationStatus.DOUBLE_SPENT || status == WalletValidationStatus.SUCCESS) {
-      defaultSharedPreferences.edit()
-          .putBoolean(WALLET_VERIFIED + walletAddress, true)
-          .apply()
+      preferenceRepositoryType.setWalletValidationStatus(walletAddress, true)
     } else if (status == WalletValidationStatus.GENERIC_ERROR) {
-      defaultSharedPreferences.edit()
-          .putBoolean(WALLET_VERIFIED + walletAddress, false)
-          .apply()
+      preferenceRepositoryType.setWalletValidationStatus(walletAddress, false)
     }
-  }
-
-  private companion object {
-    private const val WALLET_VERIFIED = "wallet_verified_"
   }
 
 }

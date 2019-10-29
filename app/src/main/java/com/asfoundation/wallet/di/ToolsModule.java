@@ -268,8 +268,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
     return "AppCoins_Wallet/"
         + BuildConfig.VERSION_NAME
-        + " (Linux; Android " + VERSION.RELEASE.replaceAll(";", " ")
-        + "; " + VERSION.SDK_INT
+        + " (Linux; Android "
+        + VERSION.RELEASE.replaceAll(";", " ")
+        + "; "
+        + VERSION.SDK_INT
         + "; "
         + Build.MODEL.replaceAll(";", " ")
         + " Build/"
@@ -1020,8 +1022,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new TopUpValuesService(topUpValuesApi, responseMapper);
   }
 
-  @Singleton @Provides TopUpValuesApi providesTopUpValuesApi(OkHttpClient client,
-      Gson gson) {
+  @Singleton @Provides TopUpValuesApi providesTopUpValuesApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
@@ -1128,8 +1129,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
-      SmsValidationRepositoryType smsValidationRepository, SharedPreferences sharedPreferences) {
-    return new SmsValidationInteract(smsValidationRepository, sharedPreferences);
+      SmsValidationRepositoryType smsValidationRepository,
+      PreferenceRepositoryType preferenceRepositoryType) {
+    return new SmsValidationInteract(smsValidationRepository, preferenceRepositoryType);
   }
 
   @Singleton @Provides BalanceInteract provideBalanceInteract(
@@ -1149,7 +1151,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
       WalletService walletService, CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract, PreferenceRepositoryType sharedPreferences) {
+      FindDefaultWalletInteract findDefaultWalletInteract,
+      PreferenceRepositoryType sharedPreferences) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
         new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, sharedPreferences);
   }

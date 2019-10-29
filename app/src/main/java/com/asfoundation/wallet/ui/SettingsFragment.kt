@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -15,6 +14,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
+import com.asfoundation.wallet.repository.PreferenceRepositoryType
 import com.asfoundation.wallet.router.ManageWalletsRouter
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
@@ -32,6 +32,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   internal lateinit var manageWalletsRouter: ManageWalletsRouter
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+  @Inject
+  lateinit var preferenceRepositoryType: PreferenceRepositoryType
+
   private lateinit var presenter: SettingsPresenter
 
 
@@ -40,7 +43,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     super.onCreate(savedInstanceState)
     presenter = SettingsPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
         CompositeDisposable(), findDefaultWalletInteract, smsValidationInteract,
-        PreferenceManager.getDefaultSharedPreferences(context))
+        preferenceRepositoryType)
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -127,10 +130,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val verifyWalletPreference = findPreference<Preference>("pref_verification")
     verifyWalletPreference?.summary =
         getString(
-            R.string.notification_no_network_poa)//TODO Change here when new string is available
-    verifyWalletPreference?.layoutResource = R.layout.preference_without_summary_layout
+            R.string.verification_settings_no_internet)
+    verifyWalletPreference?.layoutResource = R.layout.preference_with_summary_layout_disabled
     verifyWalletPreference?.shouldDisableView = true
     verifyWalletPreference?.isEnabled = false
+    verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
   }
 
   override fun setWalletsPreference(walletAddress: String) {

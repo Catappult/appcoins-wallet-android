@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.di;
 
-import android.content.SharedPreferences;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
@@ -9,6 +8,7 @@ import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
+import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
@@ -23,7 +23,7 @@ import dagger.Provides;
       DeleteWalletInteract deleteWalletInteract, FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter,  Logger logger) {
+      TransactionsRouter transactionsRouter, Logger logger) {
     return new WalletsViewModelFactory(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
         importWalletRouter, transactionsRouter, logger);
@@ -36,8 +36,8 @@ import dagger.Provides;
 
   @Provides DeleteWalletInteract provideDeleteAccountInteract(
       WalletRepositoryType accountRepository, PasswordStore store,
-      SharedPreferences sharedPreferences) {
-    return new DeleteWalletInteract(accountRepository, store, sharedPreferences);
+      PreferenceRepositoryType preferenceRepositoryType) {
+    return new DeleteWalletInteract(accountRepository, store, preferenceRepositoryType);
   }
 
   @Provides FetchWalletsInteract provideFetchAccountsInteract(

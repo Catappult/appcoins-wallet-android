@@ -13,4 +13,8 @@ interface PreferenceRepositoryType {
   fun getPoaNotificationSeenTime(): Long
   fun clearPoaNotificationSeenTime()
   fun setPoaNotificationSeenTime(currentTimeInMillis: Long)
+  fun setWalletValidationStatus(walletAddress: String, validated: Boolean)
+  fun isWalletValidated(walletAddress: String): Boolean
+  fun removeWalletValidationStatus(walletAddress: String)
+  fun addWalletPreference(address: String?)
 }

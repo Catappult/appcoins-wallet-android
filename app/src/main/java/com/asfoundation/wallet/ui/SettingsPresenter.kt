@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui
 
-import android.content.SharedPreferences
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.repository.PreferenceRepositoryType
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -14,7 +14,7 @@ class SettingsPresenter(private val view: SettingsView,
                         private val disposables: CompositeDisposable,
                         private val findDefaultWalletInteract: FindDefaultWalletInteract,
                         private val smsValidationInteract: SmsValidationInteract,
-                        private val defaultSharedPreferences: SharedPreferences) {
+                        private val preferenceRepositoryType: PreferenceRepositoryType) {
 
   fun present() {
     view.setupPreferences()
@@ -45,8 +45,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun handleValidationCache(wallet: Wallet) {
-    val isVerified =
-        defaultSharedPreferences.getBoolean(WALLET_VERIFIED + wallet.address, false)
+    val isVerified = preferenceRepositoryType.isWalletValidated(wallet.address)
     if (isVerified) {
       view.setVerifiedWalletPreference()
     } else {
@@ -65,10 +64,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun addWalletPreference(address: String?) {
-    defaultSharedPreferences
-        .edit()
-        .putString(PREF_WALLET, address)
-        .apply()
+    preferenceRepositoryType.addWalletPreference(address)
   }
 
   private fun handleRedeemPreferenceSetup() {
@@ -78,9 +74,5 @@ class SettingsPresenter(private val view: SettingsView,
         })
   }
 
-  private companion object {
-    private const val PREF_WALLET = "pref_wallet"
-    private const val WALLET_VERIFIED = "wallet_verified_"
-  }
 }
 
