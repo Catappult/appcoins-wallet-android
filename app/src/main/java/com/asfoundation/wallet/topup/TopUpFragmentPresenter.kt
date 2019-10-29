@@ -39,6 +39,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   fun stop() {
+    cleanCachedValues()
     disposables.dispose()
   }
 
@@ -104,18 +105,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun handleManualAmountChange(packageName: String) {
     disposables.add(view.getEditTextChanges()
-        .filter { isNumericOrEmpty(it) }
+        .throttleLatest(700, TimeUnit.MILLISECONDS, viewScheduler, true)
         .doOnNext {
-          view.setNextButtonState(false)
-          if (it.currency.fiatValue != "--") {
-            if (it.selectedCurrency == TopUpData.FIAT_CURRENCY) {
-              handleManualInputValue(it)
-            } else {
-              view.unselectChips()
-            }
-          }
+          handleInputLayoutChanges(it)
         }
-        .debounce(700, TimeUnit.MILLISECONDS)
         .switchMap { topUpData ->
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler)
@@ -136,11 +129,40 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .doOnComplete {
                 view.setConversionValue(topUpData)
                 if (topUpData.currency.fiatValue != DEFAULT_VALUE) {
-                  handleInvalidValueInput(packageName, topUpData)
+                  handleInsertedValue(packageName, topUpData)
                 }
               }
         }
         .subscribe())
+  }
+
+  private fun handleInvalidFormatInput() {
+    handleEmptyOrDefaultInput()
+    view.hideValueInputWarning()
+    view.changeMainValueColor(false)
+  }
+
+  private fun handleEmptyOrDefaultInput() {
+    view.hideBonus()
+    view.unselectChips()
+    view.setNextButtonState(false)
+  }
+
+  private fun handleInputLayoutChanges(topUpData: TopUpData) {
+    if (isNumericOrEmpty(topUpData)) {
+      view.setNextButtonState(false)
+      if (topUpData.currency.fiatValue != "--") {
+        if (topUpData.selectedCurrency == TopUpData.FIAT_CURRENCY) {
+          handleManualInputValue(topUpData)
+        } else {
+          view.unselectChips()
+        }
+      } else {
+        handleEmptyOrDefaultInput()
+      }
+    } else {
+      handleInvalidFormatInput()
+    }
   }
 
   private fun handlePreselectedChip() {
@@ -177,17 +199,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       data.currency.appcValue == DEFAULT_VALUE || data.currency.appcValue.matches(
           NUMERIC_REGEX.toRegex())
     }
-  }
-
-  private fun hasValidData(data: TopUpData): Boolean {
-    return isValidValue(data.currency.fiatValue) &&
-        isValidValue(data.currency.appcValue)
-        && data.paymentMethod != null
-  }
-
-  private fun isValidValue(amount: String): Boolean {
-    return amount.matches(NUMERIC_REGEX.toRegex())
-        && BigDecimal(amount) > BigDecimal.ZERO
   }
 
   private fun filterPaymentMethods(methods: List<PaymentMethodData>): List<PaymentMethodData> {
@@ -229,19 +240,23 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         }
   }
 
-  private fun handleInvalidValueInput(packageName: String, topUpData: TopUpData) {
-    val value =
-        FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
-            topUpData.currency.fiatCurrencySymbol)
-    disposables.add(interactor.getLimitTopUpValue()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          showValueWarning(it.maxValue, it.minValue, value)
-          handleShowBonus(packageName, topUpData, it.maxValue, it.minValue, value)
-        }
-        .subscribe())
-
+  private fun handleInsertedValue(packageName: String, topUpData: TopUpData) {
+    if (isNumericOrEmpty(topUpData)) {
+      val value =
+          FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
+              topUpData.currency.fiatCurrencySymbol)
+      disposables.add(interactor.getLimitTopUpValues()
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .doOnSuccess {
+            view.setNextButtonState(false)
+            showValueWarning(it.maxValue, it.minValue, value)
+            handleShowBonus(packageName, topUpData, it.maxValue, it.minValue, value)
+          }
+          .subscribe())
+    } else {
+      handleInvalidFormatInput()
+    }
   }
 
   private fun handleShowBonus(appPackage: String, topUpData: TopUpData, maxValue: FiatValue,
@@ -249,11 +264,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     if (value.amount < minValue.amount || value.amount > maxValue.amount) {
       view.hideBonus()
       view.changeMainValueColor(false)
+      view.setNextButtonState(false)
     } else {
       view.changeMainValueColor(true)
+      view.setNextButtonState(true)
       disposables.add(loadBonusIntoView(appPackage, topUpData.currency.fiatValue,
           topUpData.currency.fiatCurrencyCode)
-          .doOnNext { view.setNextButtonState(hasValidData(topUpData)) }
           .subscribe())
     }
   }
@@ -314,5 +330,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun getChipValue(index: Int): Single<FiatValue> {
     return interactor.getDefaultValues()
         .map { it[index] }
+  }
+
+  private fun cleanCachedValues() {
+    interactor.cleanCachedValues()
   }
 }

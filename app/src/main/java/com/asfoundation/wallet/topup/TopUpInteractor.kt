@@ -15,7 +15,8 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private val conversionService: LocalCurrencyConversionService,
                       private val gamificationInteractor: GamificationInteractor,
                       private val topUpValuesService: TopUpValuesService,
-                      private val chipValueIndexMap: LinkedHashMap<FiatValue, Int>) {
+                      private val chipValueIndexMap: LinkedHashMap<FiatValue, Int>,
+                      private var limitValues: TopUpLimitValues) {
 
 
   fun getPaymentMethods(): Single<List<PaymentMethodData>> {
@@ -53,8 +54,13 @@ class TopUpInteractor(private val repository: BdsRepository,
     return gamificationInteractor.getEarningBonus(packageName, amount)
   }
 
-  fun getLimitTopUpValue(): Single<TopUpLimitValues> {
-    return topUpValuesService.getLimitValues()
+  fun getLimitTopUpValues(): Single<TopUpLimitValues> {
+    return if (limitValues.maxValue.currency != "" && limitValues.minValue.currency != "") {
+      Single.just(limitValues)
+    } else {
+      topUpValuesService.getLimitValues()
+          .doOnSuccess { cacheLimitValues(it) }
+    }
   }
 
   fun getDefaultValues(): Single<List<FiatValue>> {
@@ -78,9 +84,26 @@ class TopUpInteractor(private val repository: BdsRepository,
     }
   }
 
+  fun cleanCachedValues() {
+    cleanCachedLimitValues()
+    cleanCachedDefaultValues()
+  }
+
   private fun cacheChipValues(chipValues: List<FiatValue>) {
     for (index in chipValues.indices) {
       chipValueIndexMap[chipValues[index]] = index
     }
+  }
+
+  private fun cacheLimitValues(values: TopUpLimitValues) {
+    limitValues = TopUpLimitValues(values.minValue, values.maxValue)
+  }
+
+  private fun cleanCachedLimitValues() {
+    limitValues = TopUpLimitValues()
+  }
+
+  private fun cleanCachedDefaultValues() {
+    chipValueIndexMap.clear()
   }
 }

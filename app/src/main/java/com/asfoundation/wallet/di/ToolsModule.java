@@ -159,6 +159,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
+import com.asfoundation.wallet.topup.TopUpLimitValues;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
 import com.asfoundation.wallet.topup.TopUpValuesService;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
@@ -1027,9 +1028,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService,
-      GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService) {
+      GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService,
+      TopUpLimitValues topUpLimitValues) {
     return new TopUpInteractor(repository, conversionService, gamificationInteractor,
-        topUpValuesService, new LinkedHashMap<>());
+        topUpValuesService, new LinkedHashMap<>(), topUpLimitValues);
+  }
+
+  @Singleton @Provides TopUpLimitValues providesTopUpLimitValues() {
+    return new TopUpLimitValues();
   }
 
   @Singleton @Provides TopUpValuesService providesTopUpValuesService(
