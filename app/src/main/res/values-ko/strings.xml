@@ -221,12 +221,12 @@
   <string name="transaction_status_pending">대기중</string>
   <string name="transaction_status_failed">실패함</string>
   <string name="transaction_type_iab">앱내 구매</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa_offchain">Reward</string>
   <string name="transaction_type_standard">전송</string>
   <string name="transaction_type_bonus">보너스</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P 전송</string>
+  <string name="transaction_type_p2p">Transfer</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
