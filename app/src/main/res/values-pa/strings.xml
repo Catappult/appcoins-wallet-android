@@ -221,12 +221,12 @@
   <string name="transaction_status_pending">ਬਕਾਇਆ</string>
   <string name="transaction_status_failed">ਅਸਫਲ</string>
   <string name="transaction_type_iab">ਇਨ-ਐਪ ਖਰੀਦ</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa_offchain">Reward</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">ਪੀ2ਪੀ ਟ੍ਰਾਂਸਫਰ</string>
+  <string name="transaction_type_p2p">Transfer</string>
   <string name="transaction_details_brand_txt">ਇਥਿਰਿਅਮ ਦੁਆਰਾ ਸੰਚਾਲਿਤ</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
