@@ -26,13 +26,13 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.referrals.ReferralNotification;
+import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
-import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationAction;
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
@@ -211,8 +211,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void onNotifications(List<ReferralNotification> referralNotifications) {
-    adapter.setNotifications(referralNotifications);
+  private void onNotifications(List<CardNotification> cardNotifications) {
+    adapter.setNotifications(cardNotifications);
     showList();
   }
 
@@ -220,11 +220,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.showDetails(view.getContext(), transaction);
   }
 
-  private void onNotificationClick(ReferralNotification referralNotification,
-      ReferralNotificationAction referralNotificationAction) {
-    showScroll = referralNotificationAction.equals(ReferralNotificationAction.DISMISS)
+  private void onNotificationClick(CardNotification cardNotification,
+      CardNotificationAction cardNotificationAction) {
+    showScroll = cardNotificationAction.equals(CardNotificationAction.DISMISS)
         && adapter.getNotificationsCount() == 1;
-    viewModel.onNotificationClick(referralNotification, referralNotificationAction,
+    viewModel.onNotificationClick(cardNotification, cardNotificationAction,
         this.getApplicationContext());
   }
 

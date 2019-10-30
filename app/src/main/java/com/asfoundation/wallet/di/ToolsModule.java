@@ -84,6 +84,7 @@ import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.AutoUpdateService;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
+import com.asfoundation.wallet.interact.CardNotificationsInteractor;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
@@ -114,6 +115,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
+import com.asfoundation.wallet.repository.AutoUpdateRepository;
 import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
@@ -948,6 +950,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         findDefaultWalletInteract, promotionsRepository);
   }
 
+  @Provides CardNotificationsInteractor provideCardNotificationInteractor(
+      ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
+      SharedPreferenceRepository sharedPreferenceRepository) {
+    return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
+        sharedPreferenceRepository);
+  }
+
   @Singleton @Provides Permissions providesPermissions(Context context) {
     return new Permissions(new PermissionRepository(
         Room.databaseBuilder(context.getApplicationContext(), PermissionsDatabase.class,
@@ -1236,9 +1245,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     }
   }
 
-  @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateService autoUpdateService,
+  @Provides AutoUpdateRepository provideAutoUpdateRepository(AutoUpdateService autoUpdateService) {
+    return new AutoUpdateRepository(autoUpdateService);
+  }
+
+  @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateRepository autoUpdateRepository,
       int localVersionCode, PackageManager packageManager, Context context) {
-    return new AutoUpdateInteract(autoUpdateService, localVersionCode, Build.VERSION.SDK_INT,
+    return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
         packageManager, context.getPackageName());
   }
 }

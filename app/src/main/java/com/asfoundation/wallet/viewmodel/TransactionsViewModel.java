@@ -16,14 +16,14 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
+import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
-import com.asfoundation.wallet.referrals.ReferralNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.iab.FiatValue;
-import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationAction;
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -47,8 +47,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Boolean> showNotification = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
       new MutableLiveData<>();
-  private final MutableLiveData<List<ReferralNotification>> referralNotifications =
-      new MutableLiveData<>();
+  private final MutableLiveData<List<CardNotification>> cardNotifications = new MutableLiveData<>();
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
@@ -152,7 +151,7 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(fetchTransactionsDisposable);
 
     if (shouldShowProgress) {
-      fetchReferralNotifications();
+      fetchCardNotifications();
     }
   }
 
@@ -168,12 +167,12 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(appcoinsApplications::postValue, Throwable::printStackTrace));
   }
 
-  private void fetchReferralNotifications() {
-    disposables.add(transactionViewInteract.getReferralNotifications()
+  private void fetchCardNotifications() {
+    disposables.add(transactionViewInteract.getCardNotifications()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe(disposable1 -> referralNotifications.postValue(Collections.emptyList()))
-        .subscribe(referralNotifications::postValue, Throwable::printStackTrace, this::fetchApps));
+        .doOnSubscribe(disposable1 -> cardNotifications.postValue(Collections.emptyList()))
+        .subscribe(cardNotifications::postValue, Throwable::printStackTrace, this::fetchApps));
   }
 
   private void getGlobalBalance() {
@@ -317,8 +316,8 @@ public class TransactionsViewModel extends BaseViewModel {
     return appcoinsApplications;
   }
 
-  public LiveData<List<ReferralNotification>> notifications() {
-    return referralNotifications;
+  public LiveData<List<CardNotification>> notifications() {
+    return cardNotifications;
   }
 
   public void onAppClick(AppcoinsApplication appcoinsApplication, Context context) {
@@ -352,11 +351,11 @@ public class TransactionsViewModel extends BaseViewModel {
     transactionViewNavigator.openPromotions(context);
   }
 
-  public void onNotificationClick(ReferralNotification referralNotification,
-      ReferralNotificationAction referralNotificationAction, Context context) {
-    switch (referralNotificationAction) {
+  public void onNotificationClick(CardNotification cardNotification,
+      CardNotificationAction cardNotificationAction, Context context) {
+    switch (cardNotificationAction) {
       case DISMISS:
-        dismissNotification(referralNotification);
+        dismissNotification(cardNotification);
         break;
       case DISCOVER:
         transactionViewNavigator.navigateToBrowser(context,
@@ -365,8 +364,8 @@ public class TransactionsViewModel extends BaseViewModel {
     }
   }
 
-  private void dismissNotification(ReferralNotification referralNotification) {
-    disposables.add(transactionViewInteract.dismissNotification(referralNotification)
-        .subscribe(this::fetchReferralNotifications, this::onError));
+  private void dismissNotification(CardNotification cardNotification) {
+    disposables.add(transactionViewInteract.dismissNotification(cardNotification)
+        .subscribe(this::fetchCardNotifications, this::onError));
   }
 }

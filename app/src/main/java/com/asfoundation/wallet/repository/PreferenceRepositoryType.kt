@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.repository
 
+import io.reactivex.Completable
+import io.reactivex.Single
+
 interface PreferenceRepositoryType {
 
   fun hasCompletedOnboarding(): Boolean
@@ -10,5 +13,7 @@ interface PreferenceRepositoryType {
   fun setCurrentWalletAddress(address: String)
   fun isFirstTimeOnTransactionActivity(): Boolean
   fun setFirstTimeOnTransactionActivity()
+  fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
+  fun getAutoUpdateCardDismissedVersion(): Single<Int>
 
 }

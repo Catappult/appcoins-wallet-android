@@ -4,11 +4,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import java.math.BigDecimal
 
-data class ReferralNotification(
-    val id: Int,
-    @StringRes val title: Int,
-    @StringRes val body: Int,
-    @DrawableRes val icon: Int,
-    val pendingAmount: BigDecimal,
-    val symbol: String
-)
+data class ReferralNotification(override val id: Int, @StringRes override val title: Int,
+                                @StringRes override val body: Int,
+                                @DrawableRes override val icon: Int,
+                                val pendingAmount: BigDecimal, val symbol: String) :
+    CardNotification(id, title, body, icon)

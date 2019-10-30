@@ -1,15 +1,16 @@
 package com.asfoundation.wallet.interact
 
 import android.content.pm.PackageManager
+import com.asfoundation.wallet.repository.AutoUpdateRepository
 import io.reactivex.Single
 
-class AutoUpdateInteract(private val autoUpdateService: AutoUpdateService,
+class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
                          private val localVersionCode: Int, private val currentMinSdk: Int,
                          private val packageManager: PackageManager,
                          private val walletPackageName: String) {
 
-  fun getAutoUpdateModel(): Single<AutoUpdateModel> {
-    return autoUpdateService.loadAutoUpdateModel()
+  fun getAutoUpdateModel(invalidateCache: Boolean = true): Single<AutoUpdateModel> {
+    return autoUpdateRepository.loadAutoUpdateModel(invalidateCache)
   }
 
   fun hasSoftUpdate(updateVersionCode: Int, updatedMinSdk: Int): Boolean {

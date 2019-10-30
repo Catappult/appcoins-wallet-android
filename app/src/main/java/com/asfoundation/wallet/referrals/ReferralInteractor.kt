@@ -73,10 +73,6 @@ class ReferralInteractor(
     return newInformation != savedInformation
   }
 
-  override fun getReferralNotifications(): Maybe<List<ReferralNotification>> {
-    return getUnwatchedPendingBonusNotification().map { listOf(it) }
-  }
-
   override fun getPendingBonusNotification(): Maybe<ReferralNotification> {
     return defaultWallet.find()
         .flatMapMaybe { wallet ->
@@ -95,7 +91,7 @@ class ReferralInteractor(
         }
   }
 
-  override fun getUnwatchedPendingBonusNotification(): Maybe<ReferralNotification> {
+  override fun getUnwatchedPendingBonusNotification(): Maybe<CardNotification> {
     return defaultWallet.find()
         .flatMapMaybe { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)

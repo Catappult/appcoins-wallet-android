@@ -36,7 +36,7 @@ public class SplashActivity extends BaseActivity {
   }
 
   private void handleAutoUpdate() {
-    autoUpdateInteract.getAutoUpdateModel()
+    autoUpdateInteract.getAutoUpdateModel(true)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(updateModel -> {

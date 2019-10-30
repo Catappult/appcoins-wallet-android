@@ -17,13 +17,11 @@ interface ReferralInteractorContract {
   fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
                               screen: ReferralsScreen): Completable
 
-  fun getReferralNotifications(): Maybe<List<ReferralNotification>>
-
   fun getPendingBonusNotification(): Maybe<ReferralNotification>
 
-  fun getUnwatchedPendingBonusNotification(): Maybe<ReferralNotification>
+  fun getReferralInfo(): Single<ReferralResponse>
+
+  fun getUnwatchedPendingBonusNotification(): Maybe<CardNotification>
 
   fun dismissNotification(referralNotification: ReferralNotification): Completable
-
-  fun getReferralInfo(): Single<ReferralResponse>
 }

@@ -477,7 +477,7 @@
   <string name="purchase_current_balance_body">Current balance:</string>
   <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
-  
+
 
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invite Your Friends!</string>
@@ -519,4 +519,7 @@
   <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
   <string name="promotions_new">NEW</string>
 
+  <!--Test-->
+  <string name="test_title">A title</string>
+  <string name="test_description">A description</string>
 </resources>
