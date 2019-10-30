@@ -51,9 +51,10 @@ public class SplashActivity extends BaseActivity {
   }
 
   private void navigateToAutoUpdate() {
-    Intent intent = new Intent(this, UpdateRequiredActivity.class);
+    Intent intent = UpdateRequiredActivity.newIntent(this);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
+    finish();
   }
 
   private void firstScreenNavigation() {

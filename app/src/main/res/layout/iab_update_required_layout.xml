@@ -85,7 +85,7 @@
           app:layout_constraintTop_toBottomOf="@id/update_description"
           />
       <include
-          android:id="@+id/dialog_buy_buttons_payment_methods"
+          android:id="@+id/update_dialog_buttons"
           layout="@layout/dialog_buy_buttons_payment_methods"
           android:layout_width="0dp"
           android:layout_height="wrap_content"

@@ -3,13 +3,13 @@ package com.asfoundation.wallet.interact
 import android.content.pm.PackageManager
 import io.reactivex.Single
 
-class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
+class AutoUpdateInteract(private val autoUpdateService: AutoUpdateService,
                          private val localVersionCode: Int, private val currentMinSdk: Int,
                          private val packageManager: PackageManager,
                          private val walletPackageName: String) {
 
   fun getAutoUpdateModel(): Single<AutoUpdateModel> {
-    return autoUpdateRepository.loadAutoUpdateModel()
+    return autoUpdateService.loadAutoUpdateModel()
   }
 
   fun hasSoftUpdate(updateVersionCode: Int, updatedMinSdk: Int): Boolean {
@@ -21,12 +21,11 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     return blackList.contains(localVersionCode) && hasSoftUpdate(updateVersionCode, updateMinSdk)
   }
 
-  fun retrieveRedirectUrl(): Single<String> {
+  fun retrieveRedirectUrl(): String {
     return when {
-      isInstalled("cm.aptoide.pt") -> Single.just("https://appcoins-wallet.en.aptoide.com/")
-      isInstalled("com.android.vending") -> Single.just(
-          "https://play.google.com/store/apps/details?id=$walletPackageName&hl=it")
-      else -> Single.just("https://appcoins-wallet.en.aptoide.com/")
+      isInstalled(APTOIDE_PACKAGE_NAME) -> APTOIDE_APPVIEW_URL
+      isInstalled(PLAY_PACKAGE_NAME) -> PLAY_APPVIEW_URL + walletPackageName
+      else -> APTOIDE_APPVIEW_URL
     }
   }
 
@@ -37,5 +36,12 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     } catch (exception: PackageManager.NameNotFoundException) {
       false
     }
+  }
+
+  companion object {
+    private const val APTOIDE_PACKAGE_NAME = "cm.aptoide.pt"
+    private const val PLAY_PACKAGE_NAME = "com.android.vending"
+    private const val APTOIDE_APPVIEW_URL = "https://appcoins-wallet.en.aptoide.com/"
+    private const val PLAY_APPVIEW_URL = "https://play.google.com/store/apps/details?id="
   }
 }

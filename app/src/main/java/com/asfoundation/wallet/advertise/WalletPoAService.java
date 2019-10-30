@@ -27,6 +27,7 @@ import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
+import com.asfoundation.wallet.ui.UpdateRequiredActivity;
 import com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -217,10 +218,13 @@ public class WalletPoAService extends Service {
   }
 
   private void showUpdateRequiredNotification() {
+    Intent intent = UpdateRequiredActivity.newIntent(this);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
-        new NotificationCompat.BigTextStyle().setBigContentTitle("Update Required")
+        new NotificationCompat.BigTextStyle().setBigContentTitle("Update to receive rewards")
             .bigText("Please update the AppCoins Wallet to receive this reward"))
-        .setContentText("Update to receive rewards")
+        .setContentIntent(pendingIntent)
         .build());
   }
 

@@ -8,7 +8,6 @@
     >
 
   <RelativeLayout
-      android:id="@+id/payment_method_main_view"
       android:layout_width="@dimen/payment_methods_width_landscape"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
@@ -92,7 +91,7 @@
           app:layout_constraintTop_toBottomOf="@id/update_animation"
           />
       <include
-          android:id="@+id/dialog_buy_buttons_payment_methods"
+          android:id="@+id/update_dialog_buttons"
           layout="@layout/dialog_buy_buttons_payment_methods"
           android:layout_width="0dp"
           android:layout_height="48dp"

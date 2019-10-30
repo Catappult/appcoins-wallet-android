@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import io.reactivex.disposables.CompositeDisposable
 
-class UpdateRequiredPresenter(private val activity: UpdateRequiredActivity,
+class UpdateRequiredPresenter(private val activity: UpdateRequiredView,
                               private val disposable: CompositeDisposable,
                               private val autoUpdateInteract: AutoUpdateInteract) {
 
@@ -12,8 +12,8 @@ class UpdateRequiredPresenter(private val activity: UpdateRequiredActivity,
   }
 
   private fun handleUpdateClick() {
-    disposable.add(autoUpdateInteract.retrieveRedirectUrl()
-        .doOnSuccess { url -> activity.navigateToStoreAppView(url) }
+    disposable.add(activity.updateClick()
+        .doOnNext { activity.navigateToStoreAppView(autoUpdateInteract.retrieveRedirectUrl()) }
         .subscribe())
   }
 

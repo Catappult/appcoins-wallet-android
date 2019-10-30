@@ -81,7 +81,6 @@ import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.interact.AutoUpdateRepository;
 import com.asfoundation.wallet.interact.AutoUpdateService;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -1229,10 +1228,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AutoUpdateService(autoUpdateApi);
   }
 
-  @Provides AutoUpdateRepository provideAutoUpdateRepository(AutoUpdateService autoUpdateService) {
-    return new AutoUpdateRepository(autoUpdateService);
-  }
-
   @Provides int provideLocalVersionCode(Context context, PackageManager packageManager) {
     try {
       return packageManager.getPackageInfo(context.getPackageName(), 0).versionCode;
@@ -1241,10 +1236,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     }
   }
 
-  @Singleton @Provides AutoUpdateInteract provideAutoUpdateInteract(
-      AutoUpdateRepository autoUpdateRepository, int localVersionCode,
-      PackageManager packageManager, Context context) {
-    return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
+  @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateService autoUpdateService,
+      int localVersionCode, PackageManager packageManager, Context context) {
+    return new AutoUpdateInteract(autoUpdateService, localVersionCode, Build.VERSION.SDK_INT,
         packageManager, context.getPackageName());
   }
 }

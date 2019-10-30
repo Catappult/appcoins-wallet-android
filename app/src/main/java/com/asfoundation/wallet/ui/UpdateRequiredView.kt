@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui
 
+import io.reactivex.Observable
+
 interface UpdateRequiredView {
   fun navigateToStoreAppView(deepLink: String)
-  fun showError()
+  fun updateClick(): Observable<Any>
 }
