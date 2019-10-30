@@ -221,12 +221,12 @@
   <string name="transaction_status_pending">लंबित</string>
   <string name="transaction_status_failed">विफल</string>
   <string name="transaction_type_iab">इन-एप्प खरीद</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa_offchain">Reward</string>
   <string name="transaction_type_standard">अंतरण करें</string>
   <string name="transaction_type_bonus">बोनस</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P अंतरण</string>
+  <string name="transaction_type_p2p">Transfer</string>
   <string name="transaction_details_brand_txt">इथीरियम द्वारा संचालित</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
