@@ -156,7 +156,7 @@
   <string name="error_invalid_amount">Cantidad no válida</string>
   <string name="error_transaction_failed">Error de transacción</string>
   <string name="error_must_numeric">Debe ser un valor numérico.</string>
-  <string name="transaction_succeeded">Transacción realizada con éxito</string>
+  <string name="transaction_succeeded">Completada</string>
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">No has seleccionado ninguna wallet</string>
   <string name="no_transactions_yet">Obtén APPC test para ver como funcionan los pagos con AppCoins</string>
@@ -217,16 +217,16 @@
   <string name="notification_submit_error_poa">Lo sentimos, hubo un error. ¡Vuelve a intentarlo!</string>
   <string name="notification_wrong_network_poa">Estás usando una versión dev de la AppCoins Wallet. Instala la versión oficial para procesar la recompensa.</string>
   <!-- transaction details -->
-  <string name="transaction_status_success">Transacción realizada con éxito</string>
+  <string name="transaction_status_success">Completada</string>
   <string name="transaction_status_pending">Transacción pendiente</string>
   <string name="transaction_status_failed">Error</string>
   <string name="transaction_type_iab">Compra in-app</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa_offchain">Reward</string>
   <string name="transaction_type_standard">Transferencia</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">Transferencia P2P</string>
+  <string name="transaction_type_p2p">Transfer</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
