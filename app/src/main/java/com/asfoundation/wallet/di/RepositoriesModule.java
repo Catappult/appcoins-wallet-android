@@ -6,7 +6,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.repository.NotTrackTransactionService;
 import com.asfoundation.wallet.repository.PendingTransactionService;
-import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.SmsValidationRepository;
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepository;
@@ -48,9 +48,9 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(
 
-      PreferenceRepositoryType preferenceRepositoryType,
+      PreferencesRepositoryType preferencesRepositoryType,
       AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
-    return new WalletRepository(preferenceRepositoryType, accountKeystoreService, web3jProvider);
+    return new WalletRepository(preferencesRepositoryType, accountKeystoreService, web3jProvider);
   }
 
   @Singleton @Provides Web3jService providesWeb3jService(Web3jProvider web3jProvider) {
