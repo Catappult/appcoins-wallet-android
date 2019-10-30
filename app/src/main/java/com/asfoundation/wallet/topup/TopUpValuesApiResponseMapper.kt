@@ -6,14 +6,14 @@ import java.math.BigDecimal
 
 class TopUpValuesApiResponseMapper {
 
-  fun map(defaultValues: TopUpDefaultValuesResponse): List<FiatValue>? {
+  fun map(defaultValues: TopUpDefaultValuesResponse): List<FiatValue> {
     return ArrayList(defaultValues.items.map {
       FiatValue(BigDecimal(it.price.fiat.value), it.price.fiat.currency.code,
           it.price.fiat.currency.sign)
     })
   }
 
-  fun mapValues(limitValuesResponse: TopUpLimitValuesResponse): TopUpLimitValues? {
+  fun mapValues(limitValuesResponse: TopUpLimitValuesResponse): TopUpLimitValues {
     return TopUpLimitValues(
         FiatValue(BigDecimal(limitValuesResponse.values.min), limitValuesResponse.currency.code,
             limitValuesResponse.currency.sign),

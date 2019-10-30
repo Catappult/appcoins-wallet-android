@@ -70,4 +70,6 @@ interface TopUpFragmentView {
   fun enableSwapCurrencyButton()
 
   fun setUnselectedChipsBackground()
+
+  fun getChipAvailability(): Boolean
 }

@@ -53,6 +53,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
   private var chipViewList = ArrayList<CheckBox>()
+  private var chipsAvailability = false
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -344,15 +345,19 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun setupDefaultValueChips(values: List<FiatValue>) {
-    val formatter = NumberFormatterUtils.create()
-    default_chip1.text =
-        values[0].symbol + formatter.formatNumberWithSuffix(values[0].amount.toFloat())
-    default_chip2.text =
-        values[1].symbol + formatter.formatNumberWithSuffix(values[1].amount.toFloat())
-    default_chip3.text =
-        values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toFloat())
-    default_chip4.text =
-        values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toFloat())
+    if (values[0].symbol != "") {
+      chipsAvailability = true
+      val formatter = NumberFormatterUtils.create()
+      default_chip1.text =
+          values[0].symbol + formatter.formatNumberWithSuffix(values[0].amount.toFloat())
+      default_chip2.text =
+          values[1].symbol + formatter.formatNumberWithSuffix(values[1].amount.toFloat())
+      default_chip3.text =
+          values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toFloat())
+      default_chip4.text =
+          values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toFloat())
+      showChips()
+    }
   }
 
   override fun unselectChips() {
@@ -372,6 +377,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return selectedCurrency
   }
 
+  override fun getChipAvailability(): Boolean {
+    return chipsAvailability
+  }
+
   override fun setUnselectedChipsBackground() {
     setUnselectedChipsDrawable()
     setUnselectedChipsText()
@@ -379,8 +388,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String) {
     hideKeyboard()
-    changeMainValueText(preselectedChipValue)
-    selectChip(preselectedChip)
+    if (preselectedChipValue.toDouble() > 0) {
+      changeMainValueText(preselectedChipValue)
+      selectChip(preselectedChip)
+    }
   }
 
   private fun populateChipViewList() {
@@ -542,5 +553,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
           APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
     }
+  }
+
+  private fun showChips() {
+    chips_layout.visibility = View.VISIBLE
+    chipsAvailability = true
   }
 }

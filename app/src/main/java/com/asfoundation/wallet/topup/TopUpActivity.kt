@@ -88,7 +88,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                                  data: TopUpData,
                                  selectedCurrency: String, origin: String,
                                  transactionType: String, bonusValue: String,
-                                 selectedChip: Int, chipValues: List<FiatValue>) {
+                                 selectedChip: Int, chipValues: List<FiatValue>,
+                                 chipAvailability: Boolean) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PaymentAuthFragment.newInstance(
@@ -96,7 +97,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                 data,
                 selectedCurrency,
                 origin,
-                transactionType, bonusValue, selectedChip, chipValues))
+                transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
         .commit()
   }
 

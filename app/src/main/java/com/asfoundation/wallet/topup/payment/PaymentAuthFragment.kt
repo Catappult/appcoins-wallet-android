@@ -144,6 +144,14 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
+  private val chipAvailability: Boolean by lazy {
+    if (arguments!!.containsKey(CHIP_AVAILABILITY)) {
+      arguments!!.getBoolean(CHIP_AVAILABILITY)
+    } else {
+      throw IllegalArgumentException("Chip availability not found")
+    }
+  }
+
   companion object {
 
     private val TAG = PaymentAuthFragment::class.java.simpleName
@@ -156,13 +164,14 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     private const val BONUS = "bonus"
     private const val SELECTED_CHIP = "selected_chip"
     private const val CHIP_VALUES = "chip_values"
+    private const val CHIP_AVAILABILITY = "chip_availability"
 
 
     fun newInstance(paymentType: PaymentType,
                     data: TopUpData, currentCurrency: String,
                     origin: String, transactionType: String,
                     bonusValue: String, selectedChip: Int,
-                    chipValues: List<FiatValue>): PaymentAuthFragment {
+                    chipValues: List<FiatValue>, chipAvailability: Boolean): PaymentAuthFragment {
       val bundle = Bundle()
       bundle.putString(PAYMENT_TYPE, paymentType.name)
       bundle.putString(PAYMENT_ORIGIN, origin)
@@ -172,6 +181,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       bundle.putString(BONUS, bonusValue)
       bundle.putInt(SELECTED_CHIP, selectedChip)
       bundle.putSerializable(CHIP_VALUES, chipValues as Serializable)
+      bundle.putBoolean(CHIP_AVAILABILITY, chipAvailability)
       val fragment = PaymentAuthFragment()
       fragment.arguments = bundle
       return fragment
@@ -196,9 +206,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     button.isEnabled = false
 
-    populateChipViewList()
-
-    disableChips(selectedChip)
+    setupChips()
 
     button.setText(R.string.topup_home_button)
 
@@ -415,7 +423,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     button.isEnabled = valid
   }
 
-  override fun disableChips(index: Int) {
+  override fun showChipsAsDisabled(index: Int) {
+    chips_layout.visibility = View.VISIBLE
     setUnselectedChipsDisabledDrawable()
     setUnselectedChipsDisabledText()
     setDisabledChipsValues()
@@ -423,6 +432,15 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     if (index != -1) {
       setSelectedChipDisabled(index)
       setSelectedChipText(index)
+    }
+  }
+
+  private fun setupChips() {
+    populateChipViewList()
+    if (chipAvailability) {
+      showChipsAsDisabled(selectedChip)
+    } else {
+      chips_layout.visibility = View.GONE
     }
   }
 

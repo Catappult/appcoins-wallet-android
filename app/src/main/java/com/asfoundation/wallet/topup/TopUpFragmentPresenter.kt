@@ -46,9 +46,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun setupUi(initialSetup: Boolean) {
     disposables.add(Single.zip(
         interactor.getPaymentMethods().subscribeOn(networkScheduler).observeOn(viewScheduler),
-        interactor.getLocalCurrency().subscribeOn(networkScheduler).observeOn(viewScheduler),
-        BiFunction { paymentMethods: List<PaymentMethodData>, currency: LocalCurrency ->
-          view.setupUiElements(filterPaymentMethods(paymentMethods), currency)
+        interactor.getLimitTopUpValues().subscribeOn(networkScheduler).observeOn(viewScheduler),
+        BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
+          view.setupUiElements(filterPaymentMethods(paymentMethods),
+              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
         })
         .doOnSuccess {
           if (initialSetup) {
@@ -98,7 +99,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnSuccess {
           activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
               topUpData.selectedCurrency, "BDS",
-              "TOPUP", topUpData.bonusValue, view.getSelectedChip(), it)
+              "TOPUP", topUpData.bonusValue, view.getSelectedChip(), it, view.getChipAvailability())
         }
         .subscribe())
   }
@@ -106,9 +107,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleManualAmountChange(packageName: String) {
     disposables.add(view.getEditTextChanges()
         .throttleLatest(700, TimeUnit.MILLISECONDS, viewScheduler, true)
-        .doOnNext {
-          handleInputLayoutChanges(it)
-        }
+        .doOnNext { handleInputValue(it) }
         .switchMap { topUpData ->
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler)
@@ -148,7 +147,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     view.setNextButtonState(false)
   }
 
-  private fun handleInputLayoutChanges(topUpData: TopUpData) {
+  private fun handleInputValue(topUpData: TopUpData) {
     if (isNumericOrEmpty(topUpData)) {
       view.setNextButtonState(false)
       if (topUpData.currency.fiatValue != "--") {
