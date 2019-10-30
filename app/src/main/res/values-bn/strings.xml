@@ -221,12 +221,12 @@
   <string name="transaction_status_pending">মুলতুবি</string>
   <string name="transaction_status_failed">ব্যর্থ</string>
   <string name="transaction_type_iab">ইন-অ্যাপ ক্রয়</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa_offchain">Reward</string>
   <string name="transaction_type_standard">স্থানান্তর</string>
   <string name="transaction_type_bonus">বোনাস</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">Transfer</string>
   <string name="transaction_details_brand_txt">ইথারিয়াম দ্বারা পরিচালিত</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
