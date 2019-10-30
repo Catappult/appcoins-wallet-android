@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.repository.PreferenceRepositoryType
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -14,7 +14,7 @@ class SettingsPresenter(private val view: SettingsView,
                         private val disposables: CompositeDisposable,
                         private val findDefaultWalletInteract: FindDefaultWalletInteract,
                         private val smsValidationInteract: SmsValidationInteract,
-                        private val preferenceRepositoryType: PreferenceRepositoryType) {
+                        private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun present() {
     view.setupPreferences()
@@ -45,7 +45,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun handleValidationCache(wallet: Wallet) {
-    val isVerified = preferenceRepositoryType.isWalletValidated(wallet.address)
+    val isVerified = preferencesRepositoryType.isWalletValidated(wallet.address)
     if (isVerified) {
       view.setVerifiedWalletPreference()
     } else {
@@ -64,7 +64,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun addWalletPreference(address: String?) {
-    preferenceRepositoryType.addWalletPreference(address)
+    preferencesRepositoryType.addWalletPreference(address)
   }
 
   private fun handleRedeemPreferenceSetup() {

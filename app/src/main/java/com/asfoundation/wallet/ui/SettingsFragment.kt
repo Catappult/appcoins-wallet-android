@@ -15,7 +15,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
-import com.asfoundation.wallet.repository.PreferenceRepositoryType
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ManageWalletsRouter
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
@@ -34,7 +34,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
   @Inject
-  lateinit var preferenceRepositoryType: PreferenceRepositoryType
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private lateinit var presenter: SettingsPresenter
 
@@ -44,7 +44,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     super.onCreate(savedInstanceState)
     presenter = SettingsPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
         CompositeDisposable(), findDefaultWalletInteract, smsValidationInteract,
-        preferenceRepositoryType)
+        preferencesRepositoryType)
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

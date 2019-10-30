@@ -10,7 +10,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
-import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.service.Campaign;
 import com.asfoundation.wallet.service.CampaignService;
@@ -53,7 +53,7 @@ public class ProofOfAttentionServiceTest {
   @Mock FindDefaultWalletInteract findDefaultWalletInteract;
   @Mock AdvertisingThrowableCodeMapper mapper;
   @Mock WalletService walletService;
-  @Mock PreferenceRepositoryType preferences;
+  @Mock PreferencesRepositoryType preferences;
   private int chainId;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;

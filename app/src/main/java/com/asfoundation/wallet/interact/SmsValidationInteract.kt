@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.interact
 
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.repository.PreferenceRepositoryType
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 
 class SmsValidationInteract(
     private val smsValidationRepository: SmsValidationRepositoryType,
-    private val preferenceRepositoryType: PreferenceRepositoryType
+    private val preferencesRepositoryType: PreferencesRepositoryType
 ) {
 
   fun isValid(wallet: Wallet): Single<WalletValidationStatus> {
@@ -28,9 +28,9 @@ class SmsValidationInteract(
 
   private fun saveWalletVerifiedStatus(status: WalletValidationStatus, walletAddress: String) {
     if (status == WalletValidationStatus.DOUBLE_SPENT || status == WalletValidationStatus.SUCCESS) {
-      preferenceRepositoryType.setWalletValidationStatus(walletAddress, true)
+      preferencesRepositoryType.setWalletValidationStatus(walletAddress, true)
     } else if (status == WalletValidationStatus.GENERIC_ERROR) {
-      preferenceRepositoryType.setWalletValidationStatus(walletAddress, false)
+      preferencesRepositoryType.setWalletValidationStatus(walletAddress, false)
     }
   }
 

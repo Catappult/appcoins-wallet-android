@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
-class SharedPreferenceRepository(context: Context) : PreferenceRepositoryType {
+class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType {
 
   private val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 

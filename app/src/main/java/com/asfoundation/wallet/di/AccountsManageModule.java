@@ -8,7 +8,7 @@ import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
-import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
@@ -36,8 +36,8 @@ import dagger.Provides;
 
   @Provides DeleteWalletInteract provideDeleteAccountInteract(
       WalletRepositoryType accountRepository, PasswordStore store,
-      PreferenceRepositoryType preferenceRepositoryType) {
-    return new DeleteWalletInteract(accountRepository, store, preferenceRepositoryType);
+      PreferencesRepositoryType preferencesRepositoryType) {
+    return new DeleteWalletInteract(accountRepository, store, preferencesRepositoryType);
   }
 
   @Provides FetchWalletsInteract provideFetchAccountsInteract(

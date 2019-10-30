@@ -3,7 +3,7 @@ package com.asfoundation.wallet.advertise
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.CreateWalletInteract
-import com.asfoundation.wallet.repository.PreferenceRepositoryType
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.ProofSubmissionData
@@ -19,7 +19,7 @@ class CampaignInteract(private val campaignService: CampaignService,
                        private val createWalletInteract: CreateWalletInteract,
                        private val errorMapper: AdvertisingThrowableCodeMapper,
                        private val defaultWalletInteract: FindDefaultWalletInteract,
-                       private val sharedPreferenceRepository: PreferenceRepositoryType) :
+                       private val sharedPreferencesRepository: PreferencesRepositoryType) :
     Advertising {
 
 
@@ -38,18 +38,18 @@ class CampaignInteract(private val campaignService: CampaignService,
    * Checks if the user has seen the Poa notification in the last 12h
    **/
   override fun hasSeenPoaNotificationTimePassed(): Boolean {
-    val savedTime = sharedPreferenceRepository.getPoaNotificationSeenTime()
+    val savedTime = sharedPreferencesRepository.getPoaNotificationSeenTime()
     val currentTime = System.currentTimeMillis()
     val timeToShowNextNotificationInMillis = 3600000 * 12
     return currentTime >= savedTime + timeToShowNextNotificationInMillis
   }
 
   override fun clearSeenPoaNotification() {
-    sharedPreferenceRepository.clearPoaNotificationSeenTime()
+    sharedPreferencesRepository.clearPoaNotificationSeenTime()
   }
 
   override fun saveSeenPoaNotification() {
-    sharedPreferenceRepository.setPoaNotificationSeenTime(System.currentTimeMillis())
+    sharedPreferencesRepository.setPoaNotificationSeenTime(System.currentTimeMillis())
   }
 
   private fun map(campaign: Campaign) =

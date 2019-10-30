@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-interface PreferenceRepositoryType {
+interface PreferencesRepositoryType {
 
   fun hasCompletedOnboarding(): Boolean
   fun setOnboardingComplete()
