@@ -221,12 +221,12 @@
   <string name="transaction_status_pending">Pendente</string>
   <string name="transaction_status_failed">Falhou</string>
   <string name="transaction_type_iab">Compra no Aplicativo</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa_offchain">Reward</string>
   <string name="transaction_type_standard">Transferir</string>
   <string name="transaction_type_bonus">Bônus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">Transferência P2P</string>
+  <string name="transaction_type_p2p">Transfer</string>
   <string name="transaction_details_brand_txt">Powered by Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
