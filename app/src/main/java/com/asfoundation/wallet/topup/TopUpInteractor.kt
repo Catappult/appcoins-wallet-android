@@ -48,7 +48,8 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getLimitTopUpValues(): Single<TopUpLimitValues> {
-    return if (limitValues.maxValue.currency != "" && limitValues.minValue.currency != "") {
+    return if (limitValues.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE &&
+        limitValues.minValue != TopUpLimitValues.INITIAL_LIMIT_VALUE) {
       Single.just(limitValues)
     } else {
       topUpValuesService.getLimitValues()
@@ -78,8 +79,8 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun cleanCachedValues() {
-    cleanCachedLimitValues()
-    cleanCachedDefaultValues()
+    limitValues = TopUpLimitValues()
+    chipValueIndexMap.clear()
   }
 
   private fun cacheChipValues(chipValues: List<FiatValue>) {
@@ -90,13 +91,5 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   private fun cacheLimitValues(values: TopUpLimitValues) {
     limitValues = TopUpLimitValues(values.minValue, values.maxValue)
-  }
-
-  private fun cleanCachedLimitValues() {
-    limitValues = TopUpLimitValues()
-  }
-
-  private fun cleanCachedDefaultValues() {
-    chipValueIndexMap.clear()
   }
 }

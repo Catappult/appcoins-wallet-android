@@ -39,7 +39,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   fun stop() {
-    cleanCachedValues()
+    interactor.cleanCachedValues()
     disposables.dispose()
   }
 
@@ -169,7 +169,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.initialInputSetup(PRESELECTED_CHIP, it.amount.toString())
+          view.initialInputSetup(PRESELECTED_CHIP, it.amount)
         }
         .subscribe())
   }
@@ -329,9 +329,5 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun getChipValue(index: Int): Single<FiatValue> {
     return interactor.getDefaultValues()
         .map { it[index] }
-  }
-
-  private fun cleanCachedValues() {
-    interactor.cleanCachedValues()
   }
 }

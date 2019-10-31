@@ -1013,14 +1013,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService,
-      GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService,
-      TopUpLimitValues topUpLimitValues) {
+      GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService) {
     return new TopUpInteractor(repository, conversionService, gamificationInteractor,
-        topUpValuesService, new LinkedHashMap<>(), topUpLimitValues);
-  }
-
-  @Singleton @Provides TopUpLimitValues providesTopUpLimitValues() {
-    return new TopUpLimitValues();
+        topUpValuesService, new LinkedHashMap<>(), new TopUpLimitValues());
   }
 
   @Singleton @Provides TopUpValuesService providesTopUpValuesService(TopUpValuesApi topUpValuesApi,

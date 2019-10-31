@@ -356,7 +356,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
           values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toFloat())
       default_chip4.text =
           values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toFloat())
-      showChips()
+      chips_layout.visibility = View.VISIBLE
     }
   }
 
@@ -386,10 +386,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     setUnselectedChipsText()
   }
 
-  override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String) {
+  override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: BigDecimal) {
     hideKeyboard()
     if (preselectedChipValue.toDouble() > 0) {
-      changeMainValueText(preselectedChipValue)
+      changeMainValueText(preselectedChipValue.toString())
       selectChip(preselectedChip)
     }
   }
@@ -553,10 +553,5 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
           APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
     }
-  }
-
-  private fun showChips() {
-    chips_layout.visibility = View.VISIBLE
-    chipsAvailability = true
   }
 }
