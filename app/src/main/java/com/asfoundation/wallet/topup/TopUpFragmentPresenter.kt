@@ -80,7 +80,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(
         view.getNextClick()
             .filter {
-              it.currency.appcValue != DEFAULT_VALUE && it.currency.fiatValue != DEFAULT_VALUE
+              val limitValues = interactor.getLimitTopUpValues()
+                  .blockingGet()
+              it.currency.appcValue != DEFAULT_VALUE && it.currency.fiatValue != DEFAULT_VALUE &&
+                  limitValues.minValue.amount.toDouble() <= it.currency.fiatValue.toDouble() &&
+                  limitValues.minValue.amount.toDouble() <= it.currency.fiatValue.toDouble()
             }
             .doOnNext {
               if (view.getSelectedCurrency() == TopUpData.APPC_C_CURRENCY) {
