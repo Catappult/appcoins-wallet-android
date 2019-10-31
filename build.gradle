@@ -11,7 +11,6 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:3.3.1'
-    classpath "io.realm:realm-gradle-plugin:5.0.0"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
@@ -59,9 +58,9 @@ project.ext {
   jacksonVersion = "2.9.6"
   lottieVersion = "3.0.1"
   cppVersion = "2.3.1"
-  viewPagerVersion = "1.0.0-beta03"
+  viewPagerVersion = "1.0.0-rc01"
   pageIndicatorViewVersion = "1.0.3"
-  preferenceLibVersion = "1.1.0-rc01"
+  preferenceLibVersion = "1.1.0"
 }
 
 task clean(type: Delete) {

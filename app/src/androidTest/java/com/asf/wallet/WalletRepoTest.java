@@ -2,11 +2,11 @@ package com.asf.wallet;
 
 import android.content.Context;
 import androidx.test..InstrumentationRegistry;
-import androidx.test..runner.AndroidJUnit4;
+.runner.AndroidJUnit4;
 import android.util.Log;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.repository.PreferenceRepositoryType;
-import com.asfoundation.wallet.repository.SharedPreferenceRepository;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
+import com.asfoundation.wallet.repository.SharedPreferencesRepository;
 import com.asfoundation.wallet.repository.WalletRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.service.AccountKeystoreService;
@@ -45,13 +45,13 @@ import static junit.framework.Assert.assertTrue;
 
   @Before public void setUp() {
     Context context = InstrumentationRegistry.getTargetContext();
-    PreferenceRepositoryType preferenceRepositoryType = new SharedPreferenceRepository(context);
+    PreferencesRepositoryType preferencesRepositoryType = new SharedPreferencesRepository(context);
     AccountKeystoreService accountKeystoreService = new Web3jKeystoreAccountService(
         new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
             new ObjectMapper()), Schedulers.io(),
         new ObjectMapper());
     accountRepository =
-        new WalletRepository(null, preferenceRepositoryType, accountKeystoreService, null, null);
+        new WalletRepository(null, preferencesRepositoryType, accountKeystoreService, null, null);
   }
 
   @Test public void testCreateAccount() {

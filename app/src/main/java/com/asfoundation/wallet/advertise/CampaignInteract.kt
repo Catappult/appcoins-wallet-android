@@ -3,6 +3,7 @@ package com.asfoundation.wallet.advertise
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.CreateWalletInteract
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.ProofSubmissionData
@@ -17,7 +18,10 @@ class CampaignInteract(private val campaignService: CampaignService,
                        private val walletService: WalletService,
                        private val createWalletInteract: CreateWalletInteract,
                        private val errorMapper: AdvertisingThrowableCodeMapper,
-                       private val defaultWalletInteract: FindDefaultWalletInteract) : Advertising {
+                       private val defaultWalletInteract: FindDefaultWalletInteract,
+                       private val sharedPreferencesRepository: PreferencesRepositoryType) :
+    Advertising {
+
 
   override fun getCampaign(packageName: String, versionCode: Int): Single<CampaignDetails> {
     return walletService.getWalletAddress()
@@ -28,6 +32,24 @@ class CampaignInteract(private val campaignService: CampaignService,
         .flatMap { campaignService.getCampaign(it, packageName, versionCode) }
         .map { map(it) }
         .onErrorReturn { CampaignDetails(errorMapper.map(it)) }
+  }
+
+  /**
+   * Checks if the user has seen the Poa notification in the last 12h
+   **/
+  override fun hasSeenPoaNotificationTimePassed(): Boolean {
+    val savedTime = sharedPreferencesRepository.getPoaNotificationSeenTime()
+    val currentTime = System.currentTimeMillis()
+    val timeToShowNextNotificationInMillis = 3600000 * 12
+    return currentTime >= savedTime + timeToShowNextNotificationInMillis
+  }
+
+  override fun clearSeenPoaNotification() {
+    sharedPreferencesRepository.clearPoaNotificationSeenTime()
+  }
+
+  override fun saveSeenPoaNotification() {
+    sharedPreferencesRepository.setPoaNotificationSeenTime(System.currentTimeMillis())
   }
 
   private fun map(campaign: Campaign) =

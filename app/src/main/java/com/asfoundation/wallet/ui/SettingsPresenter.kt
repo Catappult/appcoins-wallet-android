@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui
 
-import android.content.SharedPreferences
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -14,8 +14,7 @@ class SettingsPresenter(private val view: SettingsView,
                         private val disposables: CompositeDisposable,
                         private val findDefaultWalletInteract: FindDefaultWalletInteract,
                         private val smsValidationInteract: SmsValidationInteract,
-                        private val defaultSharedPreferences: SharedPreferences) {
-
+                        private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun present() {
     view.setupPreferences()
@@ -30,17 +29,28 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun handleVerifyWalletPreferenceSummary() {
     disposables.add(findDefaultWalletInteract.find()
-        .flatMap { smsValidationInteract.isValid(Wallet(it.address)) }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (it == WalletValidationStatus.SUCCESS) {
-            view.setVerifiedWalletPreference()
-          } else {
-            view.setUnverifiedWalletPreference()
-          }
+        .flatMap { wallet ->
+          smsValidationInteract.isValid(Wallet(wallet.address))
+              .subscribeOn(networkScheduler)
+              .observeOn(viewScheduler)
+              .doOnSuccess {
+                when (it) {
+                  WalletValidationStatus.SUCCESS -> view.setVerifiedWalletPreference()
+                  WalletValidationStatus.GENERIC_ERROR -> view.setUnverifiedWalletPreference()
+                  else -> handleValidationCache(wallet)
+                }
+              }
         }
         .subscribe())
+  }
+
+  private fun handleValidationCache(wallet: Wallet) {
+    val isVerified = preferencesRepositoryType.isWalletValidated(wallet.address)
+    if (isVerified) {
+      view.setVerifiedWalletPreference()
+    } else {
+      view.setWalletValidationNoNetwork()
+    }
   }
 
   private fun handleWalletsPreferenceSummary() {
@@ -54,10 +64,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun addWalletPreference(address: String?) {
-    defaultSharedPreferences
-        .edit()
-        .putString("pref_wallet", address)
-        .apply()
+    preferencesRepositoryType.addWalletPreference(address)
   }
 
   private fun handleRedeemPreferenceSetup() {
@@ -66,5 +73,6 @@ class SettingsPresenter(private val view: SettingsView,
           view.setRedeemCodePreference(wallet.address)
         })
   }
+
 }
 

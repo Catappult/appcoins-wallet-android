@@ -11,13 +11,13 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 
 public class WalletRepository implements WalletRepositoryType {
 
-  private final PreferenceRepositoryType preferenceRepositoryType;
+  private final PreferencesRepositoryType preferencesRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
   private final Web3jProvider web3jProvider;
 
-  public WalletRepository(PreferenceRepositoryType preferenceRepositoryType,
+  public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
       AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
-    this.preferenceRepositoryType = preferenceRepositoryType;
+    this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
     this.web3jProvider = web3jProvider;
   }
@@ -60,12 +60,12 @@ public class WalletRepository implements WalletRepositoryType {
 
   @Override public Completable setDefaultWallet(Wallet wallet) {
     return Completable.fromAction(
-        () -> preferenceRepositoryType.setCurrentWalletAddress(wallet.address));
+        () -> preferencesRepositoryType.setCurrentWalletAddress(wallet.address));
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
     return Single.fromCallable(() -> {
-      String currentWalletAddress = preferenceRepositoryType.getCurrentWalletAddress();
+      String currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress();
       if (currentWalletAddress == null) {
         throw new WalletNotFoundException();
       } else {

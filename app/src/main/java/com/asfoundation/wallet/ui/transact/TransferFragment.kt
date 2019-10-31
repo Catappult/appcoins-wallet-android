@@ -76,7 +76,7 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
   override fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
                                        amount: BigDecimal): Completable {
     return Completable.fromAction {
-      val transaction = TransactionBuilder(TokenInfo(null, "Ethereum", "ETH", 18, true, false))
+      val transaction = TransactionBuilder(TokenInfo(null, "Ethereum", "ETH", 18))
       transaction.amount(amount)
       transaction.toAddress(toWalletAddress)
       transaction.fromAddress(walletAddress)
@@ -191,7 +191,7 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
     return Observable.merge(doneClick, RxView.clicks(send_button))
         .map {
           var amount = BigDecimal.ZERO
-          if (!transact_fragment_amount.text.toString().isEmpty()) {
+          if (transact_fragment_amount.text.toString().isNotEmpty()) {
             amount = transact_fragment_amount.text.toString()
                 .toBigDecimal()
           }

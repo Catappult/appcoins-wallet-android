@@ -14,7 +14,6 @@ apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
 
 repositories {
   maven { url 'https://maven.fabric.io/public' }
@@ -35,8 +34,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 113
-    versionName "1.9.1.0"
+    versionCode 116
+    versionName "1.9.1.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -71,6 +70,8 @@ android {
         "\"" + project.REGISTER_PROOF_GAS_LIMIT + "\""
     buildConfigField 'String', 'PAYMENT_GAS_LIMIT',
         "\"" + project.PAYMENT_GAS_LIMIT + "\""
+    buildConfigField 'String', 'FLURRY_APK_KEY',
+        "\"" + project.FLURRY_APK_KEY + "\""
 
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
 
@@ -223,9 +224,7 @@ dependencies {
   implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
     transitive = true
   }
-  implementation('com.crashlytics.sdk.android:answers:1.4.1@aar') {
-    transitive = true
-  }
+  implementation 'com.flurry.android:analytics:12.0.1@aar'
   // PW
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation project(":tn")

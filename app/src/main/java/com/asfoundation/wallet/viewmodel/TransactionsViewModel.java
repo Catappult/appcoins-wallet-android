@@ -57,7 +57,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
   private final TransactionViewInteract transactionViewInteract;
-  private Handler handler = new Handler();
+  private final Handler handler = new Handler();
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
@@ -177,7 +177,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void getGlobalBalance() {
-    disposables.add(Observable.zip(getTokenBalance(), getCreditsBalance(), getEthereumBalance(),
+    disposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
         this::updateWalletValue)
         .subscribe(globalBalance -> {
           handler.removeCallbacks(startGlobalBalanceTask);
@@ -209,8 +209,8 @@ public class TransactionsViewModel extends BaseViewModel {
     return newGlobalBalance;
   }
 
-  private Observable<Pair<Balance, FiatValue>> getTokenBalance() {
-    return transactionViewInteract.getTokenBalance();
+  private Observable<Pair<Balance, FiatValue>> getAppcBalance() {
+    return transactionViewInteract.getAppcBalance();
   }
 
   private Observable<Pair<Balance, FiatValue>> getEthereumBalance() {

@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.interact.AddTokenInteract;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
@@ -23,11 +23,10 @@ import dagger.Provides;
       DeleteWalletInteract deleteWalletInteract, FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, AddTokenInteract addTokenInteract,
-      DefaultTokenProvider defaultTokenProvider) {
+      TransactionsRouter transactionsRouter, Logger logger) {
     return new WalletsViewModelFactory(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter, addTokenInteract, defaultTokenProvider);
+        importWalletRouter, transactionsRouter, logger);
   }
 
   @Provides SetDefaultWalletInteract provideSetDefaultAccountInteract(
@@ -36,8 +35,9 @@ import dagger.Provides;
   }
 
   @Provides DeleteWalletInteract provideDeleteAccountInteract(
-      WalletRepositoryType accountRepository, PasswordStore store) {
-    return new DeleteWalletInteract(accountRepository, store);
+      WalletRepositoryType accountRepository, PasswordStore store,
+      PreferencesRepositoryType preferencesRepositoryType) {
+    return new DeleteWalletInteract(accountRepository, store, preferencesRepositoryType);
   }
 
   @Provides FetchWalletsInteract provideFetchAccountsInteract(

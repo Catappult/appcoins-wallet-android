@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.router.GasSettingsRouter;
@@ -11,8 +12,8 @@ import dagger.Provides;
 
   @Provides ConfirmationViewModelFactory provideConfirmationViewModelFactory(
       SendTransactionInteract sendTransactionInteract, GasSettingsRouter gasSettingsRouter,
-      FetchGasSettingsInteract gasSettingsInteract) {
+      FetchGasSettingsInteract gasSettingsInteract, Logger logger) {
     return new ConfirmationViewModelFactory(sendTransactionInteract, gasSettingsRouter,
-        gasSettingsInteract);
+        gasSettingsInteract, logger);
   }
 }
