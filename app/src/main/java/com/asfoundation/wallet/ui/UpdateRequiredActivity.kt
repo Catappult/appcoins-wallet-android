@@ -2,11 +2,10 @@ package com.asfoundation.wallet.ui
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.navigator.UpdateNavigator
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -18,34 +17,21 @@ class UpdateRequiredActivity : BaseActivity(), UpdateRequiredView {
 
   private lateinit var presenter: UpdateRequiredPresenter
   @Inject
+  lateinit var updateNavigator: UpdateNavigator
+  @Inject
   lateinit var autoUpdateInteract: AutoUpdateInteract
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     AndroidInjection.inject(this)
     setContentView(R.layout.update_required_main_layout)
-
+    updateNavigator = UpdateNavigator()
     presenter = UpdateRequiredPresenter(this, CompositeDisposable(), autoUpdateInteract)
     presenter.present()
   }
 
   override fun navigateToStoreAppView(deepLink: String) {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(deepLink))
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    val packageManager = packageManager
-    val appsList =
-        packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-    appsList?.let {
-      for (info in it) {
-        if (info.activityInfo.packageName == "cm.aptoide.pt") {
-          intent.setPackage(info.activityInfo.packageName)
-          break
-        }
-        if (info.activityInfo.packageName == "com.android.vending")
-          intent.setPackage(info.activityInfo.packageName)
-      }
-    }
-    this.startActivity(intent)
+    updateNavigator.navigateToStoreAppView(this, deepLink)
   }
 
   override fun updateClick(): Observable<Any> {

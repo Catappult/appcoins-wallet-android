@@ -14,7 +14,6 @@ import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -25,7 +24,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
                               private val gamificationInteractor: GamificationInteractor,
                               private val balanceInteract: BalanceInteract,
                               private val referralInteractor: ReferralInteractorContract,
-                              private val cardNotificationsInteractor: CardNotificationsInteractor) {
+                              private val cardNotificationsInteractor: CardNotificationsInteractor,
+                              private val autoUpdateInteract: AutoUpdateInteract) {
 
   val levels: Single<Levels>
     get() = gamificationInteractor.getLevels()
@@ -39,7 +39,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   val creditsBalance: Observable<Pair<Balance, FiatValue>>
     get() = balanceInteract.getCreditsBalance()
 
-  val cardNotifications: Maybe<List<CardNotification>>
+  val cardNotifications: Single<List<CardNotification>>
     get() = cardNotificationsInteractor.getCardNotifications()
 
   fun findNetwork(): Single<NetworkInfo> {
@@ -71,4 +71,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     return cardNotificationsInteractor.dismissNotification(cardNotification)
   }
 
+  fun retrieveUpdateUrl(): String {
+    return autoUpdateInteract.retrieveRedirectUrl()
+  }
 }

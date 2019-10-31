@@ -3,7 +3,9 @@ package com.asfoundation.wallet.referrals
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asf.wallet.R
+import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.util.scaleToString
 import io.reactivex.Completable
 import io.reactivex.Maybe
@@ -85,29 +87,33 @@ class ReferralInteractor(
                     R.string.referral_notification_bonus_pending_title,
                     R.string.referral_notification_bonus_pending_body,
                     R.drawable.ic_bonus_pending,
+                    R.string.gamification_APPCapps_button,
+                    CardNotificationAction.DISCOVER,
                     it.pendingAmount,
                     it.symbol)
               }
         }
   }
 
-  override fun getUnwatchedPendingBonusNotification(): Maybe<CardNotification> {
+  override fun getUnwatchedPendingBonusNotification(): Single<CardNotification> {
     return defaultWallet.find()
-        .flatMapMaybe { wallet ->
+        .flatMap { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
-              .flatMapMaybe { userStats ->
+              .flatMap { userStats ->
                 preferences.getPendingAmountNotification(wallet.address)
-                    .filter {
+                    .map {
                       userStats.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
                           it != userStats.pendingAmount.scaleToString(2)
                     }
-                    .map {
+                    .map { shouldShow ->
                       ReferralNotification(PENDING_AMOUNT_ID,
                           R.string.referral_notification_bonus_pending_title,
                           R.string.referral_notification_bonus_pending_body,
                           R.drawable.ic_bonus_pending,
+                          R.string.gamification_APPCapps_button,
+                          CardNotificationAction.DISCOVER,
                           userStats.pendingAmount,
-                          userStats.symbol)
+                          userStats.symbol).takeIf { shouldShow } ?: EmptyNotification()
                     }
               }
         }

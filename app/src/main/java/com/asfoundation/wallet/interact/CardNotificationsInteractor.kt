@@ -5,8 +5,9 @@ import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralNotification
 import com.asfoundation.wallet.repository.SharedPreferenceRepository
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Completable
-import io.reactivex.Maybe
+import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
 class CardNotificationsInteractor(private val referralInteractor: ReferralInteractorContract,
@@ -14,11 +15,14 @@ class CardNotificationsInteractor(private val referralInteractor: ReferralIntera
                                   private val sharedPreferenceRepository: SharedPreferenceRepository) {
 
 
-  fun getCardNotifications(): Maybe<List<CardNotification>> {
-    return Maybe.zip(referralInteractor.getUnwatchedPendingBonusNotification(),
+  fun getCardNotifications(): Single<List<CardNotification>> {
+    return Single.zip(referralInteractor.getUnwatchedPendingBonusNotification(),
         getUnwatchedUpdateNotification(),
         BiFunction { referralNotification: CardNotification, updateNotification: CardNotification ->
-          listOf(referralNotification, updateNotification)
+          val list = ArrayList<CardNotification>()
+          if (referralNotification !is EmptyNotification) list.add(referralNotification)
+          if (updateNotification !is EmptyNotification) list.add(updateNotification)
+          list
         })
   }
 
@@ -33,20 +37,21 @@ class CardNotificationsInteractor(private val referralInteractor: ReferralIntera
     }
   }
 
-  private fun getUnwatchedUpdateNotification(): Maybe<CardNotification> {
+  private fun getUnwatchedUpdateNotification(): Single<CardNotification> {
     return autoUpdateInteract.getAutoUpdateModel(false)
-        .flatMapMaybe { updateModel ->
+        .flatMap { updateModel ->
           sharedPreferenceRepository.getAutoUpdateCardDismissedVersion()
-              .filter {
+              .map {
                 autoUpdateInteract.hasSoftUpdate(updateModel.updateVersionCode,
                     updateModel.updateMinSdk) && updateModel.updateVersionCode != it
               }
         }
-        .map {
+        .map { shouldShow ->
           UpdateNotification(AUTO_UPDATE_ID,
               R.string.test_title,
               R.string.test_description,
-              R.raw.update_animation)
+              R.string.test_button, CardNotificationAction.UPDATE,
+              R.raw.update_animation).takeIf { shouldShow } ?: EmptyNotification()
         }
   }
 

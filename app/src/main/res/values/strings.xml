@@ -522,4 +522,5 @@
   <!--Test-->
   <string name="test_title">A title</string>
   <string name="test_description">A description</string>
+  <string name="test_button">UPDATE</string>
 </resources>

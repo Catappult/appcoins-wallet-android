@@ -6,7 +6,6 @@ import com.asfoundation.wallet.interact.UpdateNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralNotification
 import kotlinx.android.synthetic.main.item_card_notification.view.*
-import kotlinx.android.synthetic.main.referral_notification_card.view.notification_apps_games_button
 import kotlinx.android.synthetic.main.referral_notification_card.view.notification_description
 import kotlinx.android.synthetic.main.referral_notification_card.view.notification_dismiss_button
 import kotlinx.android.synthetic.main.referral_notification_card.view.notification_image
@@ -35,12 +34,13 @@ class CardNotificationViewHolder(
     }
 
     itemView.notification_description.setText(cardNotification.body)
+    itemView.notification_positive_button.setText(cardNotification.positiveButtonText)
 
     itemView.notification_dismiss_button.setOnClickListener {
       action.call(cardNotification, CardNotificationAction.DISMISS)
     }
-    itemView.notification_apps_games_button.setOnClickListener {
-      action.call(cardNotification, CardNotificationAction.DISCOVER)
+    itemView.notification_positive_button.setOnClickListener {
+      action.call(cardNotification, cardNotification.positiveAction)
     }
   }
 

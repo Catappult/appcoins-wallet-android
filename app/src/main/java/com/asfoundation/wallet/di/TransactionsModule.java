@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.CardNotificationsInteractor;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
@@ -8,6 +9,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
+import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
@@ -49,9 +51,10 @@ import javax.inject.Singleton;
   @Provides TransactionViewNavigator provideTransactionsViewNavigator(SettingsRouter settingsRouter,
       SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
       MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
-      ExternalBrowserRouter externalBrowserRouter, TopUpRouter topUpRouter) {
+      ExternalBrowserRouter externalBrowserRouter, TopUpRouter topUpRouter,
+      UpdateNavigator updateNavigator) {
     return new TransactionViewNavigator(settingsRouter, sendRouter, transactionDetailRouter,
-        myAddressRouter, balanceRouter, externalBrowserRouter, topUpRouter);
+        myAddressRouter, balanceRouter, externalBrowserRouter, topUpRouter, updateNavigator);
   }
 
   @Provides TransactionViewInteract provideTransactionsViewInteract(
@@ -60,10 +63,11 @@ import javax.inject.Singleton;
       FetchTransactionsInteract fetchTransactionsInteract,
       GamificationInteractor gamificationInteractor, BalanceInteract balanceInteract,
       ReferralInteractorContract referralInteractor,
-      CardNotificationsInteractor cardNotificationsInteractor) {
+      CardNotificationsInteractor cardNotificationsInteractor,
+      AutoUpdateInteract autoUpdateInteract) {
     return new TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteract, referralInteractor,
-        cardNotificationsInteractor);
+        cardNotificationsInteractor, autoUpdateInteract);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(

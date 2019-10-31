@@ -96,6 +96,7 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
+import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase;
@@ -1253,5 +1254,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       int localVersionCode, PackageManager packageManager, Context context) {
     return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
         packageManager, context.getPackageName());
+  }
+
+  @Provides UpdateNavigator provideUpdateNavigator() {
+    return new UpdateNavigator();
   }
 }

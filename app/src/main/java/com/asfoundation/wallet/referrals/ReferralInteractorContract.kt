@@ -21,7 +21,7 @@ interface ReferralInteractorContract {
 
   fun getReferralInfo(): Single<ReferralResponse>
 
-  fun getUnwatchedPendingBonusNotification(): Maybe<CardNotification>
+  fun getUnwatchedPendingBonusNotification(): Single<CardNotification>
 
   fun dismissNotification(referralNotification: ReferralNotification): Completable
 }

@@ -169,10 +169,17 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void fetchCardNotifications() {
     disposables.add(transactionViewInteract.getCardNotifications()
+        .doOnSuccess(notifications -> {
+          cardNotifications.postValue(notifications);
+          if (notifications.isEmpty()) fetchApps();
+        })
+        .doOnError(disposable1 -> {
+          cardNotifications.postValue(Collections.emptyList());
+          fetchApps();
+        })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe(disposable1 -> cardNotifications.postValue(Collections.emptyList()))
-        .subscribe(cardNotifications::postValue, Throwable::printStackTrace, this::fetchApps));
+        .subscribe());
   }
 
   private void getGlobalBalance() {
@@ -360,6 +367,10 @@ public class TransactionsViewModel extends BaseViewModel {
       case DISCOVER:
         transactionViewNavigator.navigateToBrowser(context,
             Uri.parse(InviteFriendsActivity.APTOIDE_TOP_APPS_URL));
+        break;
+      case UPDATE:
+        transactionViewNavigator.openUpdateAppView(context,
+            transactionViewInteract.retrieveUpdateUrl());
         break;
     }
   }
