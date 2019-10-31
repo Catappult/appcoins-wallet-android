@@ -82,9 +82,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             .filter {
               val limitValues = interactor.getLimitTopUpValues()
                   .blockingGet()
-              it.currency.appcValue != DEFAULT_VALUE && it.currency.fiatValue != DEFAULT_VALUE &&
-                  limitValues.minValue.amount.toDouble() <= it.currency.fiatValue.toDouble() &&
-                  limitValues.minValue.amount.toDouble() <= it.currency.fiatValue.toDouble()
+              isCurrencyValid(it.currency) && isValueInRange(limitValues,
+                  it.currency.fiatValue.toDouble())
             }
             .doOnNext {
               if (view.getSelectedCurrency() == TopUpData.APPC_C_CURRENCY) {
@@ -333,5 +332,14 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun getChipValue(index: Int): Single<FiatValue> {
     return interactor.getDefaultValues()
         .map { it[index] }
+  }
+
+  private fun isValueInRange(limitValues: TopUpLimitValues, value: Double): Boolean {
+    return limitValues.minValue.amount.toDouble() <= value &&
+        limitValues.maxValue.amount.toDouble() >= value
+  }
+
+  private fun isCurrencyValid(currencyData: CurrencyData): Boolean {
+    return currencyData.appcValue != DEFAULT_VALUE && currencyData.fiatValue != DEFAULT_VALUE
   }
 }
