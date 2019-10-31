@@ -140,22 +140,24 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
                                localCurrency: LocalCurrency) {
-    this@TopUpFragment.paymentMethods = paymentMethods
-    this@TopUpFragment.localCurrency = localCurrency
-    setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
-        APPC_C_SYMBOL, DEFAULT_VALUE)
-    hideKeyboard()
-    main_value.isEnabled = true
-    main_value.setMinTextSize(
-        resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
+    if (isLocalCurrencyValid(localCurrency)) {
+      this@TopUpFragment.paymentMethods = paymentMethods
+      this@TopUpFragment.localCurrency = localCurrency
+      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
+          APPC_C_SYMBOL, DEFAULT_VALUE)
+      hideKeyboard()
+      main_value.isEnabled = true
+      main_value.setMinTextSize(
+          resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
+      adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
 
-    adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
-    payment_methods.adapter = adapter
-    payment_methods.layoutManager = LinearLayoutManager(context)
-    payment_methods.visibility = View.VISIBLE
-    swap_value_button.isEnabled = true
-    swap_value_button.visibility = View.VISIBLE
-    swap_value_label.visibility = View.VISIBLE
+      payment_methods.adapter = adapter
+      payment_methods.layoutManager = LinearLayoutManager(context)
+      payment_methods.visibility = View.VISIBLE
+      swap_value_button.isEnabled = true
+      swap_value_button.visibility = View.VISIBLE
+      swap_value_label.visibility = View.VISIBLE
+    }
   }
 
   override fun onDestroy() {
@@ -553,5 +555,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
           APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
     }
+  }
+
+  private fun isLocalCurrencyValid(localCurrency: LocalCurrency): Boolean {
+    return localCurrency.symbol != "" && localCurrency.code != ""
   }
 }
