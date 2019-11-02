@@ -22,7 +22,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private val disposables: CompositeDisposable = CompositeDisposable()
 
   companion object {
-    private const val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
+    private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
 
     //Preselects the second chip
     private const val PRESELECTED_CHIP = 1
@@ -111,28 +111,20 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(view.getEditTextChanges()
         .throttleLatest(700, TimeUnit.MILLISECONDS, viewScheduler, true)
         .doOnNext { handleInputValue(it) }
+        .filter { isNumericOrEmpty(it) }
         .switchMap { topUpData ->
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler)
               .map { value ->
-                if (topUpData.selectedCurrency == TopUpData.FIAT_CURRENCY) {
-                  topUpData.currency.appcValue =
-                      if (value.amount == BigDecimal.ZERO) DEFAULT_VALUE else value.amount.toString()
-                } else {
-                  topUpData.currency.fiatValue =
-                      if (value.amount == BigDecimal.ZERO) DEFAULT_VALUE else value.amount.toString()
-                }
-                return@map topUpData
+                return@map updateConversionValue(value.amount, topUpData)
               }
               .doOnError { it.printStackTrace() }
               .onErrorResumeNext(Observable.empty())
               .observeOn(viewScheduler)
-              .filter { it.currency.appcValue != "--" }
+              .filter { isConvertedValueAvailable(it)}
               .doOnComplete {
                 view.setConversionValue(topUpData)
-                if (topUpData.currency.fiatValue != DEFAULT_VALUE) {
-                  handleInsertedValue(packageName, topUpData)
-                }
+                handleInsertedValue(packageName, topUpData)
               }
         }
         .subscribe())
@@ -153,7 +145,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleInputValue(topUpData: TopUpData) {
     if (isNumericOrEmpty(topUpData)) {
       view.setNextButtonState(false)
-      if (topUpData.currency.fiatValue != "--") {
+      if (topUpData.currency.fiatValue != DEFAULT_VALUE) {
         if (topUpData.selectedCurrency == TopUpData.FIAT_CURRENCY) {
           handleManualInputValue(topUpData)
         } else {
@@ -164,6 +156,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       }
     } else {
       handleInvalidFormatInput()
+      updateConversionValue(BigDecimal.ZERO, topUpData)
+      view.setConversionValue(topUpData)
     }
   }
 
@@ -243,7 +237,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleInsertedValue(packageName: String, topUpData: TopUpData) {
-    if (isNumericOrEmpty(topUpData)) {
+    if (isNumericOrEmpty(topUpData) && topUpData.currency.fiatValue != DEFAULT_VALUE) {
       val value =
           FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
               topUpData.currency.fiatCurrencySymbol)
@@ -341,5 +335,24 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun isCurrencyValid(currencyData: CurrencyData): Boolean {
     return currencyData.appcValue != DEFAULT_VALUE && currencyData.fiatValue != DEFAULT_VALUE
+  }
+
+  private fun updateConversionValue(value: BigDecimal, topUpData: TopUpData): TopUpData {
+    if (topUpData.selectedCurrency == TopUpData.FIAT_CURRENCY) {
+      topUpData.currency.appcValue =
+          if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
+    } else {
+      topUpData.currency.fiatValue =
+          if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
+    }
+    return topUpData
+  }
+
+  private fun isConvertedValueAvailable(data: TopUpData): Boolean {
+    return if (data.selectedCurrency == TopUpData.FIAT_CURRENCY) {
+      data.currency.appcValue != DEFAULT_VALUE
+    } else {
+      data.currency.fiatValue != DEFAULT_VALUE
+    }
   }
 }
