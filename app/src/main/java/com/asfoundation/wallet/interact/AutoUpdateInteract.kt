@@ -6,7 +6,7 @@ import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
 
 class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
-                         private val localVersionCode: Int, private val currentMinSdk: Int,
+                         private val walletVersionCode: Int, private val walletCurrentMinSdk: Int,
                          private val packageManager: PackageManager,
                          private val walletPackageName: String) {
 
@@ -15,12 +15,12 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   }
 
   fun hasSoftUpdate(updateVersionCode: Int, updatedMinSdk: Int): Boolean {
-    return (localVersionCode < updateVersionCode && currentMinSdk >= updatedMinSdk)
+    return (walletVersionCode < updateVersionCode && walletCurrentMinSdk >= updatedMinSdk)
   }
 
   fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int,
                            updateMinSdk: Int): Boolean {
-    return blackList.contains(localVersionCode) && hasSoftUpdate(updateVersionCode, updateMinSdk)
+    return blackList.contains(walletVersionCode) && hasSoftUpdate(updateVersionCode, updateMinSdk)
   }
 
   fun retrieveRedirectUrl(): String {
