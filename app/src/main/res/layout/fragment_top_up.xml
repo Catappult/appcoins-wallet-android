@@ -124,17 +124,18 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chips"
+        app:layout_constraintTop_toBottomOf="@+id/chips_layout"
         />
 
     <include
-        android:id="@+id/chips"
+        android:id="@+id/chips_layout"
         layout="@layout/default_value_chips_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="40dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/converted_value"
         />
 

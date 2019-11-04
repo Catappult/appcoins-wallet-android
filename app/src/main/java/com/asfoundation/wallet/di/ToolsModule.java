@@ -169,6 +169,7 @@ import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
 import com.asfoundation.wallet.topup.TopUpInteractor;
+import com.asfoundation.wallet.topup.TopUpLimitValues;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
 import com.asfoundation.wallet.topup.TopUpValuesService;
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi;
@@ -1014,7 +1015,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       LocalCurrencyConversionService conversionService,
       GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService) {
     return new TopUpInteractor(repository, conversionService, gamificationInteractor,
-        topUpValuesService, new LinkedHashMap<>());
+        topUpValuesService, new LinkedHashMap<>(), new TopUpLimitValues());
   }
 
   @Singleton @Provides TopUpValuesService providesTopUpValuesService(TopUpValuesApi topUpValuesApi,
