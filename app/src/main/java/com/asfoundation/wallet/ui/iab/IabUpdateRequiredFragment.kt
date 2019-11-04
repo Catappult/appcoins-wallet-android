@@ -40,7 +40,7 @@ class IabUpdateRequiredFragment : DaggerFragment(), IabUpdateRequiredView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    update_dialog_buttons.buy_button.text = "UPDATE"
+    update_dialog_buttons.buy_button.text = getString(R.string.update_button)
     update_dialog_buttons.cancel_button.text = getString(R.string.cancel_button)
     presenter.present()
   }

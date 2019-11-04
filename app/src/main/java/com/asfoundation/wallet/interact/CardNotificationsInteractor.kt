@@ -48,9 +48,9 @@ class CardNotificationsInteractor(private val referralInteractor: ReferralIntera
         }
         .map { shouldShow ->
           UpdateNotification(AUTO_UPDATE_ID,
-              R.string.test_title,
-              R.string.test_description,
-              R.string.test_button, CardNotificationAction.UPDATE,
+              R.string.update_wallet_soft_title,
+              R.string.update_wallet_soft_body,
+              R.string.update_button, CardNotificationAction.UPDATE,
               R.raw.update_animation).takeIf { shouldShow } ?: EmptyNotification()
         }
   }

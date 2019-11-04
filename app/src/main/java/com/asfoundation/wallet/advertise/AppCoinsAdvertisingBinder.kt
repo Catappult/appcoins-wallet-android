@@ -53,8 +53,9 @@ internal class AppCoinsAdvertisingBinder(
   private fun showUpdateRequiredNotification() {
     notificationManager.notify(WalletPoAService.SERVICE_ID,
         headsUpNotificationBuilder.setStyle(
-            NotificationCompat.BigTextStyle().setBigContentTitle("Update to receive rewards")
-                .bigText("Please update the AppCoins Wallet to receive this reward")).build())
+            NotificationCompat.BigTextStyle().setBigContentTitle(
+                context.getString(R.string.update_wallet_poa_notification_title))
+                .bigText(context.getString(R.string.update_wallet_poa_notification_body))).build())
   }
 
   private fun showNotification(campaign: CampaignDetails, packageInfo: PackageInfo?) {

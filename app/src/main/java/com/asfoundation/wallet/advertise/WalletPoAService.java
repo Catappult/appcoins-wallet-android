@@ -229,8 +229,9 @@ public class WalletPoAService extends Service {
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
-        new NotificationCompat.BigTextStyle().setBigContentTitle("Update to receive rewards")
-            .bigText("Please update the AppCoins Wallet to receive this reward"))
+        new NotificationCompat.BigTextStyle().setBigContentTitle(
+            getString(R.string.update_wallet_poa_notification_title))
+            .bigText(getString(R.string.update_wallet_poa_notification_body)))
         .setContentIntent(pendingIntent)
         .build());
   }
