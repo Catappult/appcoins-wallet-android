@@ -61,7 +61,7 @@ interface TopUpFragmentView {
 
   fun getSelectedChip(): Int
 
-  fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String)
+  fun initialInputSetup(preselectedChip: Int, preselectedChipValue: BigDecimal)
 
   fun paymentMethodsFocusRequest()
 
@@ -70,4 +70,6 @@ interface TopUpFragmentView {
   fun enableSwapCurrencyButton()
 
   fun setUnselectedChipsBackground()
+
+  fun getChipAvailability(): Boolean
 }

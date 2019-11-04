@@ -56,7 +56,7 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
 
   fun getAppcoinsBalance(): Single<BigDecimal> {
     return findDefaultWalletInteract.find()
-        .flatMap { balanceInteractor.getTokens(it) }
+        .flatMap { balanceInteractor.getAppcBalance(it) }
         .map { it.value }
   }
 

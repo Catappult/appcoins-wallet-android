@@ -8,10 +8,10 @@ import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.interact.AutoUpdateModel;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.service.Campaign;
 import com.asfoundation.wallet.service.CampaignService;
@@ -54,6 +54,7 @@ public class ProofOfAttentionServiceTest {
   @Mock FindDefaultWalletInteract findDefaultWalletInteract;
   @Mock AdvertisingThrowableCodeMapper mapper;
   @Mock WalletService walletService;
+  @Mock PreferencesRepositoryType preferences;
   @Mock AutoUpdateInteract autoUpdateInteract;
   private int chainId;
   private ProofOfAttentionService proofOfAttentionService;
@@ -74,7 +75,7 @@ public class ProofOfAttentionServiceTest {
     ProofWriter proofWriter = new BdsBackEndWriter(defaultWalletInteract, campaignService);
     CampaignInteract campaignInteract =
         new CampaignInteract(campaignService, walletService, walletInteract, autoUpdateInteract,
-            mapper, defaultWalletInteract);
+            mapper, defaultWalletInteract, preferences);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,

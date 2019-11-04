@@ -32,15 +32,22 @@ internal class AppCoinsAdvertisingBinder(
     val pkg = packageManager.getNameForUid(uid)
     val pkgInfo = packageManager.getPackageInfo(pkg, 0)
     return campaignInteract.getCampaign(pkg, pkgInfo.versionCode)
-        .doOnSuccess {
-          if (it.responseCode == Advertising.CampaignAvailabilityType.UPDATE_REQUIRED) {
-            showUpdateRequiredNotification()
-          } else if (it.hasReachedPoaLimit()) {
-            showPoaLimitNotification(it, pkgInfo)
-          }
-        }
+        .doOnSuccess { handlePoaLimit(it, pkgInfo) }
         .map { mapCampaignDetails(it) }
         .blockingGet()
+  }
+
+  private fun handlePoaLimit(campaign: CampaignDetails, pkgInfo: PackageInfo) {
+    if (campaign.responseCode == Advertising.CampaignAvailabilityType.UPDATE_REQUIRED) {
+      showUpdateRequiredNotification()
+    } else if (campaign.hasReachedPoaLimit()) {
+      if (campaignInteract.hasSeenPoaNotificationTimePassed()) {
+        showNotification(campaign, pkgInfo)
+        campaignInteract.saveSeenPoaNotification()
+      }
+    } else {
+      campaignInteract.clearSeenPoaNotification()
+    }
   }
 
   private fun showUpdateRequiredNotification() {
@@ -50,7 +57,7 @@ internal class AppCoinsAdvertisingBinder(
                 .bigText("Please update the AppCoins Wallet to receive this reward")).build())
   }
 
-  private fun showPoaLimitNotification(campaign: CampaignDetails, packageInfo: PackageInfo?) {
+  private fun showNotification(campaign: CampaignDetails, packageInfo: PackageInfo?) {
     val minutesRemaining = "%02d".format(campaign.minutesRemaining)
 
     val message = context.getString(R.string.notification_poa_limit_reached,

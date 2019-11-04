@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProviders;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.router.OnboardingRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.viewmodel.SplashViewModel;
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 public class SplashActivity extends BaseActivity {
 
   @Inject SplashViewModelFactory splashViewModelFactory;
-  @Inject PreferenceRepositoryType preferenceRepositoryType;
+  @Inject PreferencesRepositoryType preferencesRepositoryType;
   @Inject AutoUpdateInteract autoUpdateInteract;
   SplashViewModel splashViewModel;
 
@@ -67,6 +67,6 @@ public class SplashActivity extends BaseActivity {
   }
 
   private boolean shouldShowOnboarding() {
-    return !preferenceRepositoryType.hasCompletedOnboarding();
+    return !preferencesRepositoryType.hasCompletedOnboarding();
   }
 }

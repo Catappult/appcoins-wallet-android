@@ -16,19 +16,15 @@ public class Token implements Parcelable {
   };
   public final TokenInfo tokenInfo;
   public final BigDecimal balance;
-  public final long updateBlancaTime;
-  public TokenTicker ticker;
 
-  public Token(TokenInfo tokenInfo, BigDecimal balance, long updateBlancaTime) {
+  public Token(TokenInfo tokenInfo, BigDecimal balance) {
     this.tokenInfo = tokenInfo;
     this.balance = balance;
-    this.updateBlancaTime = updateBlancaTime;
   }
 
   private Token(Parcel in) {
     tokenInfo = in.readParcelable(TokenInfo.class.getClassLoader());
     balance = new BigDecimal(in.readString());
-    updateBlancaTime = in.readLong();
   }
 
   @Override public int describeContents() {
@@ -38,6 +34,5 @@ public class Token implements Parcelable {
   @Override public void writeToParcel(Parcel dest, int flags) {
     dest.writeParcelable(tokenInfo, flags);
     dest.writeString(balance.toString());
-    dest.writeLong(updateBlancaTime);
   }
 }

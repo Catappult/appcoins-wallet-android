@@ -2,13 +2,13 @@ package com.asfoundation.wallet.ui.onboarding
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.interact.CreateWalletInteract
-import com.asfoundation.wallet.repository.PreferenceRepositoryType
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Single
 
 class OnboardingInteract(
     private val walletInteract: CreateWalletInteract,
     private val walletService: WalletService,
-    private val preferenceRepositoryType: PreferenceRepositoryType) {
+    private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun getWalletAddress(): Single<String> {
     return walletService.getWalletAddress()
@@ -20,18 +20,18 @@ class OnboardingInteract(
   }
 
   fun finishOnboarding() {
-    preferenceRepositoryType.setOnboardingComplete()
+    preferencesRepositoryType.setOnboardingComplete()
   }
 
   fun clickSkipOnboarding() {
-    preferenceRepositoryType.setOnboardingSkipClicked()
+    preferencesRepositoryType.setOnboardingSkipClicked()
   }
 
   fun hasClickedSkipOnboarding(): Boolean {
-    return preferenceRepositoryType.hasClickedSkipOnboarding()
+    return preferencesRepositoryType.hasClickedSkipOnboarding()
   }
 
   fun hasOnboardingCompleted(): Boolean {
-    return preferenceRepositoryType.hasCompletedOnboarding()
+    return preferencesRepositoryType.hasCompletedOnboarding()
   }
 }

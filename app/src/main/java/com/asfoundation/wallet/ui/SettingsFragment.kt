@@ -6,7 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceManager
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
@@ -14,6 +15,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ManageWalletsRouter
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +33,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   internal lateinit var manageWalletsRouter: ManageWalletsRouter
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+  @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+
   private lateinit var presenter: SettingsPresenter
 
 
@@ -39,7 +44,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     super.onCreate(savedInstanceState)
     presenter = SettingsPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
         CompositeDisposable(), findDefaultWalletInteract, smsValidationInteract,
-        PreferenceManager.getDefaultSharedPreferences(context))
+        preferencesRepositoryType)
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -112,6 +117,26 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     verifyWalletPreference?.summary =
         getString(R.string.verification_settings_unverified_body)
     verifyWalletPreference?.setOnPreferenceClickListener { openWalletValidationScreen() }
+  }
+
+  override fun setWalletValidationNoNetwork() {
+    val verifyWalletPreference = findPreference<Preference>("pref_verification")
+    verifyWalletPreference?.summary =
+        getString(
+            R.string.verification_settings_no_internet)
+    verifyWalletPreference?.shouldDisableView = true
+    verifyWalletPreference?.isEnabled = false
+    verifyWalletPreference?.let {
+      val view = listView.getChildAt(it.order)
+
+      view.findViewById<AppCompatTextView>(android.R.id.title)
+          .setTextColor(
+              ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+      view.findViewById<AppCompatTextView>(android.R.id.summary)
+          .setTextColor(
+              ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+    }
+    verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
   }
 
   override fun setWalletsPreference(walletAddress: String) {

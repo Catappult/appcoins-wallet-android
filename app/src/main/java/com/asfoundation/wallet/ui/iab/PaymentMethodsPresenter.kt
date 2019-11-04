@@ -192,6 +192,7 @@ class PaymentMethodsPresenter(
         inAppPurchaseInteractor.convertToLocalFiat(transactionValue).subscribeOn(networkThread)
             .flatMapCompletable { fiatValue ->
               getPaymentMethods(fiatValue)
+                  .observeOn(viewScheduler)
                   .flatMapCompletable { paymentMethods ->
                     Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
                   }

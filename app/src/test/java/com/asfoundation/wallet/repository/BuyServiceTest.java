@@ -52,7 +52,6 @@ import static org.mockito.Mockito.when;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
   private BuyService buyService;
-  private Observable<PendingTransaction> pendingTransactionState;
   private String uri;
   private DataMapper dataMapper;
 
@@ -64,8 +63,7 @@ import static org.mockito.Mockito.when;
         scheduler, trackTransactionService);
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
     TokenInfo tokenInfo =
-        new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18, false,
-            false);
+        new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18);
     transactionBuilder =
         new TransactionBuilder("APPC", "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", 3l,
             "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", BigDecimal.ONE, "sku", 18,
@@ -76,8 +74,9 @@ import static org.mockito.Mockito.when;
     when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
     dataMapper = new DataMapper();
 
-    pendingTransactionState = Observable.just(new PendingTransaction("hash", true),
-        new PendingTransaction("hash", false));
+    Observable<PendingTransaction> pendingTransactionState =
+        Observable.just(new PendingTransaction("hash", true),
+            new PendingTransaction("hash", false));
 
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);

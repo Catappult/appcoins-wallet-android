@@ -27,7 +27,8 @@ import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.referrals.CardNotification;
-import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.referrals.ReferralNotification;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
@@ -57,7 +58,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
-  @Inject PreferenceRepositoryType preferenceRepositoryType;
+  @Inject PreferencesRepositoryType preferencesRepositoryType;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
@@ -163,9 +164,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void handlePromotionsOverlayVisibility() {
-    if (!preferenceRepositoryType.isFirstTimeOnTransactionActivity()) {
+    if (!preferencesRepositoryType.isFirstTimeOnTransactionActivity()) {
       showPromotionsOverlay();
-      preferenceRepositoryType.setFirstTimeOnTransactionActivity();
+      preferencesRepositoryType.setFirstTimeOnTransactionActivity();
     }
   }
 

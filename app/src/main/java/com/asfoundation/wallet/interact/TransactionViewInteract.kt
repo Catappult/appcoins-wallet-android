@@ -30,7 +30,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   val levels: Single<Levels>
     get() = gamificationInteractor.getLevels()
 
-  val tokenBalance: Observable<Pair<Balance, FiatValue>>
+  val appcBalance: Observable<Pair<Balance, FiatValue>>
     get() = balanceInteract.getAppcBalance()
 
   val ethereumBalance: Observable<Pair<Balance, FiatValue>>

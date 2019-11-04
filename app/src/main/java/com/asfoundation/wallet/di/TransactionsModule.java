@@ -1,9 +1,8 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.CardNotificationsInteractor;
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -11,11 +10,8 @@ import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.referrals.ReferralInteractorContract;
-import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
-import com.asfoundation.wallet.repository.TransactionLocalSource;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
-import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.BalanceRouter;
@@ -27,8 +23,6 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.service.TickerService;
-import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
@@ -107,12 +101,9 @@ import javax.inject.Singleton;
     return new ExternalBrowserRouter();
   }
 
-  @Singleton @Provides TokenRepository provideTokenRepository(WalletRepositoryType walletRepository,
-      TokenExplorerClientType tokenExplorerClientType, TokenLocalSource tokenLocalSource,
-      TransactionLocalSource inDiskCache, TickerService tickerService, Web3jProvider web3j,
-      NetworkInfo networkInfo, DefaultTokenProvider defaultTokenProvider) {
-    return new TokenRepository(walletRepository, tokenExplorerClientType, tokenLocalSource,
-        inDiskCache, tickerService, web3j, networkInfo, defaultTokenProvider);
+  @Singleton @Provides TokenRepository provideTokenRepository(Web3jProvider web3j,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new TokenRepository(web3j, defaultTokenProvider);
   }
 
   @Provides AirdropRouter provideAirdropRouter() {
