@@ -1223,7 +1223,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AutoUpdateService(autoUpdateApi);
   }
 
-  @Provides int provideLocalVersionCode(Context context, PackageManager packageManager) {
+  @Provides @Named("local_version_code") int provideLocalVersionCode(Context context,
+      PackageManager packageManager) {
     try {
       return packageManager.getPackageInfo(context.getPackageName(), 0).versionCode;
     } catch (PackageManager.NameNotFoundException e) {
@@ -1236,7 +1237,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateRepository autoUpdateRepository,
-      int localVersionCode, PackageManager packageManager, Context context) {
+      @Named("local_version_code") int localVersionCode, PackageManager packageManager,
+      Context context) {
     return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
         packageManager, context.getPackageName());
   }

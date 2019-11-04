@@ -108,7 +108,7 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector abstract OnboardingActivity bindOnboardingModule();
 
   @ActivityScope @ContributesAndroidInjector
-  abstract InviteFriendsActivity bindPromotionsActivity();
+  abstract InviteFriendsActivity bindInviteFriendsActivity();
 
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 
