@@ -70,6 +70,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private View emptyClickableView;
   private View badge;
   private boolean showScroll = false;
+  private int paddingDp;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -114,7 +115,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     disableDisplayHomeAsUp();
     prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
-
+    paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
         this::onNotificationClick);
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
@@ -298,9 +299,17 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void showList() {
     if (adapter.getTransactionsCount() > 0) {
       systemView.setVisibility(View.GONE);
+      if (list.getPaddingBottom() != paddingDp) {
+        //Adds padding when there's transactions
+        list.setPadding(0, 0, 0, paddingDp);
+      }
       list.setVisibility(View.VISIBLE);
     } else if (adapter.getNotificationsCount() > 0) {
       systemView.setVisibility(View.VISIBLE);
+      if (list.getPaddingBottom() != 0) {
+        //Removes padding if the there's no transactions
+        list.setPadding(0, 0, 0, 0);
+      }
       list.setVisibility(View.VISIBLE);
     } else {
       systemView.setVisibility(View.VISIBLE);
