@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.interact.AutoUpdateModel
+import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Scheduler
 
 /**

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact
+package com.asfoundation.wallet.viewmodel
 
 import java.util.*
 

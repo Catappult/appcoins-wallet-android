@@ -2,6 +2,7 @@ package com.asfoundation.wallet.interact
 
 import android.content.pm.PackageManager
 import com.asfoundation.wallet.repository.AutoUpdateRepository
+import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
 
 class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,

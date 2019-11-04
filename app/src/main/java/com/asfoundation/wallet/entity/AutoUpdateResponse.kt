@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact
+package com.asfoundation.wallet.entity
 
 import com.google.gson.annotations.SerializedName
 
