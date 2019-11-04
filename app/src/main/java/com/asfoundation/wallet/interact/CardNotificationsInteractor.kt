@@ -4,7 +4,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralNotification
-import com.asfoundation.wallet.repository.SharedPreferenceRepository
+import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -12,7 +12,7 @@ import io.reactivex.functions.BiFunction
 
 class CardNotificationsInteractor(private val referralInteractor: ReferralInteractorContract,
                                   private val autoUpdateInteract: AutoUpdateInteract,
-                                  private val sharedPreferenceRepository: SharedPreferenceRepository) {
+                                  private val sharedPreferenceRepository: SharedPreferencesRepository) {
 
 
   fun getCardNotifications(): Single<List<CardNotification>> {

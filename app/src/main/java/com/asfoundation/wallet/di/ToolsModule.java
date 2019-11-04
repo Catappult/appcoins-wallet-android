@@ -943,9 +943,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides CardNotificationsInteractor provideCardNotificationInteractor(
       ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
-      SharedPreferenceRepository sharedPreferenceRepository) {
+      SharedPreferencesRepository sharedPreferencesRepository) {
     return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        sharedPreferenceRepository);
+        sharedPreferencesRepository);
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {
@@ -1164,8 +1164,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
       WalletService walletService, CreateWalletInteract createWalletInteract,
-      AutoUpdateInteract autoUpdateInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract,
+      AutoUpdateInteract autoUpdateInteract, FindDefaultWalletInteract findDefaultWalletInteract,
       PreferencesRepositoryType sharedPreferences) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
         autoUpdateInteract, new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract,

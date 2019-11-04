@@ -8,6 +8,7 @@ import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
+import com.asfoundation.wallet.interact.AutoUpdateModel;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
@@ -103,7 +104,8 @@ public class ProofOfAttentionServiceTest {
 
     when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
 
-    when(autoUpdateInteract.getAutoUpdateModel()).thenReturn(Single.just(new AutoUpdateModel()));
+    when(autoUpdateInteract.getAutoUpdateModel(true)).thenReturn(
+        Single.just(new AutoUpdateModel()));
   }
 
   @Test public void setCampaignId() {
