@@ -7,4 +7,5 @@ data class AutoUpdateResponse(@SerializedName("latest_version")
                               @SerializedName("black_list")
                               val blackList: List<Int>)
 
-data class LatestVersionResponse(val versionCode: Int, val minSdk: Int)
+data class LatestVersionResponse(@SerializedName("version_code") val versionCode: Int,
+                                 @SerializedName("min_sdk") val minSdk: Int)
