@@ -22,4 +22,6 @@ interface PreferencesRepositoryType {
   fun addWalletPreference(address: String?)
   fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
   fun getAutoUpdateCardDismissedVersion(): Single<Int>
+  fun getUpdateNotificationSeenTime(): Long
+  fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
 }

@@ -1238,9 +1238,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateRepository autoUpdateRepository,
       @Named("local_version_code") int localVersionCode, PackageManager packageManager,
-      Context context) {
+      PreferencesRepositoryType sharedPreferences, Context context) {
     return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
-        packageManager, context.getPackageName());
+        packageManager, context.getPackageName(), sharedPreferences);
   }
 
   @Provides UpdateNavigator provideUpdateNavigator() {

@@ -20,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
+import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
@@ -27,7 +28,6 @@ import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
-import com.asfoundation.wallet.ui.UpdateRequiredActivity;
 import com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -77,6 +77,7 @@ public class WalletPoAService extends Service {
   @Inject NotificationManager notificationManager;
   @Inject PackageManager packageManager;
   @Inject CampaignInteract campaignInteract;
+  @Inject AutoUpdateInteract autoUpdateInteract;
   @Inject @Named("heads_up") NotificationCompat.Builder headsUpNotificationBuilder;
   private Disposable disposable;
   private Disposable timerDisposable;
@@ -214,7 +215,10 @@ public class WalletPoAService extends Service {
         logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
         break;
       case UPDATE_REQUIRED:
-        showUpdateRequiredNotification();
+        if (autoUpdateInteract.shouldShowNotification()) {
+          showUpdateRequiredNotification();
+          autoUpdateInteract.saveSeenUpdateNotification();
+        }
         stopForeground(false);
         stopTimeout();
         break;
@@ -225,8 +229,7 @@ public class WalletPoAService extends Service {
   }
 
   private void showUpdateRequiredNotification() {
-    Intent intent = UpdateRequiredActivity.newIntent(this);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    Intent intent = autoUpdateInteract.buildUpdateIntent();
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
         new NotificationCompat.BigTextStyle().setBigContentTitle(

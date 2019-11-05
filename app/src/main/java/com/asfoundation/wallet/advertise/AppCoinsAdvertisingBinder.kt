@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.advertise
 
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -9,10 +10,12 @@ import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import com.appcoins.advertising.AppCoinsAdvertising
 import com.asf.wallet.R
+import com.asfoundation.wallet.interact.AutoUpdateInteract
 
 internal class AppCoinsAdvertisingBinder(
     private val packageManager: PackageManager,
     private val campaignInteract: CampaignInteract,
+    private val autoUpdateInteract: AutoUpdateInteract,
     private val notificationManager: NotificationManager,
     private val headsUpNotificationBuilder: NotificationCompat.Builder,
     private val context: Context) :
@@ -39,7 +42,10 @@ internal class AppCoinsAdvertisingBinder(
 
   private fun handleNotificationDisplay(campaign: CampaignDetails, pkgInfo: PackageInfo) {
     if (campaign.responseCode == Advertising.CampaignAvailabilityType.UPDATE_REQUIRED) {
-      showUpdateRequiredNotification()
+      if (autoUpdateInteract.shouldShowNotification()) {
+        showUpdateRequiredNotification()
+        autoUpdateInteract.saveSeenUpdateNotification()
+      }
     } else if (campaign.hasReachedPoaLimit()) {
       if (campaignInteract.hasSeenPoaNotificationTimePassed()) {
         showNotification(campaign, pkgInfo)
@@ -51,11 +57,16 @@ internal class AppCoinsAdvertisingBinder(
   }
 
   private fun showUpdateRequiredNotification() {
+    val intent = autoUpdateInteract.buildUpdateIntent()
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
     notificationManager.notify(WalletPoAService.SERVICE_ID,
         headsUpNotificationBuilder.setStyle(
             NotificationCompat.BigTextStyle().setBigContentTitle(
                 context.getString(R.string.update_wallet_poa_notification_title))
-                .bigText(context.getString(R.string.update_wallet_poa_notification_body))).build())
+                .bigText(context.getString(
+                    R.string.update_wallet_poa_notification_body)))
+            .setContentIntent(pendingIntent)
+            .build())
   }
 
   private fun showNotification(campaign: CampaignDetails, packageInfo: PackageInfo?) {

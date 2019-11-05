@@ -78,6 +78,16 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
+  override fun setUpdateNotificationSeenTime(currentTimeMillis: Long) {
+    pref.edit()
+        .putLong(UPDATE_SEEN_TIME, currentTimeMillis)
+        .apply()
+  }
+
+  override fun getUpdateNotificationSeenTime(): Long {
+    return pref.getLong(UPDATE_SEEN_TIME, -1)
+  }
+
   override fun setWalletValidationStatus(walletAddress: String, validated: Boolean) {
     pref.edit()
         .putBoolean(WALLET_VERIFIED + walletAddress, validated)
@@ -108,6 +118,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY = "first_time_on_transaction_activity"
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
+    private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val PREF_WALLET = "pref_wallet"
   }
