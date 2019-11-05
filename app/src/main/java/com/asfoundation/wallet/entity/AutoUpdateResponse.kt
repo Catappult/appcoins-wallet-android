@@ -7,5 +7,4 @@ data class AutoUpdateResponse(@SerializedName("soft_update")
                               @SerializedName("black_list")
                               val blackList: List<Int>)
 
-data class SoftUpdateResponse(@SerializedName("version_code") val versionCode: Int,
-                              val minSdk: Int)
+data class SoftUpdateResponse(val versionCode: Int, val minSdk: Int)
