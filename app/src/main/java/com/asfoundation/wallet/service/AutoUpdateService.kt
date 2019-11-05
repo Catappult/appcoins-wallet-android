@@ -10,8 +10,8 @@ class AutoUpdateService(private val api: AutoUpdateApi) {
   fun loadAutoUpdateModel(): Single<AutoUpdateModel> {
     return api.getAutoUpdateInfo()
         .map {
-          AutoUpdateModel(it.softUpdate.versionCode,
-              it.softUpdate.minSdk,
+          AutoUpdateModel(it.latestVersion.versionCode,
+              it.latestVersion.minSdk,
               it.blackList)
         }
         .onErrorReturn { AutoUpdateModel() }
@@ -19,7 +19,7 @@ class AutoUpdateService(private val api: AutoUpdateApi) {
 
   interface AutoUpdateApi {
 
-    @GET("tobe/implemented")
+    @GET("appc/wallet_version")
     fun getAutoUpdateInfo(): Single<AutoUpdateResponse>
 
   }
