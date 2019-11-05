@@ -132,7 +132,7 @@ class ReferralInteractor(
   }
 
   companion object {
-    const val PENDING_AMOUNT_ID = 1
+    private const val PENDING_AMOUNT_ID = 1
   }
 
 }

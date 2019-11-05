@@ -15,7 +15,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   }
 
   fun hasSoftUpdate(updateVersionCode: Int, updatedMinSdk: Int): Boolean {
-    return (walletVersionCode < updateVersionCode && walletCurrentMinSdk >= updatedMinSdk)
+    return walletVersionCode < updateVersionCode && walletCurrentMinSdk >= updatedMinSdk
   }
 
   fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int,
@@ -25,9 +25,9 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
 
   fun retrieveRedirectUrl(): String {
     return when {
-      isInstalled(APTOIDE_PACKAGE_NAME) -> APTOIDE_APPVIEW_URL
-      isInstalled(PLAY_PACKAGE_NAME) -> PLAY_APPVIEW_URL + walletPackageName
-      else -> APTOIDE_APPVIEW_URL
+      isInstalled(APTOIDE_PACKAGE_NAME) -> APTOIDE_APP_VIEW_URL
+      isInstalled(PLAY_PACKAGE_NAME) -> PLAY_APP_VIEW_URL + walletPackageName
+      else -> APTOIDE_APP_VIEW_URL
     }
   }
 
@@ -43,7 +43,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   companion object {
     private const val APTOIDE_PACKAGE_NAME = "cm.aptoide.pt"
     private const val PLAY_PACKAGE_NAME = "com.android.vending"
-    private const val APTOIDE_APPVIEW_URL = "https://appcoins-wallet.en.aptoide.com/"
-    private const val PLAY_APPVIEW_URL = "https://play.google.com/store/apps/details?id="
+    private const val APTOIDE_APP_VIEW_URL = "https://appcoins-wallet.en.aptoide.com/"
+    private const val PLAY_APP_VIEW_URL = "https://play.google.com/store/apps/details?id="
   }
 }

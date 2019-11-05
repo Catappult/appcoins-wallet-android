@@ -22,9 +22,9 @@ class AutoUpdateInteractTest {
   private lateinit var autoUpdateInteract: AutoUpdateInteract
 
   companion object {
-    const val WALLET_VERSION_CODE = 116
-    const val WALLET_MIN_SDK = 21
-    const val WALLET_PACKAGE_NAME = "com.appcoins.wallet"
+    private const val WALLET_VERSION_CODE = 116
+    private const val WALLET_MIN_SDK = 21
+    private const val WALLET_PACKAGE_NAME = "com.appcoins.wallet"
   }
 
   @Before

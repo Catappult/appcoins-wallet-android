@@ -56,6 +56,6 @@ class CardNotificationsInteractor(private val referralInteractor: ReferralIntera
   }
 
   companion object {
-    const val AUTO_UPDATE_ID = 2
+    private const val AUTO_UPDATE_ID = 2
   }
 }
