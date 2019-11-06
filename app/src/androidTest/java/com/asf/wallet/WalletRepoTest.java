@@ -1,17 +1,16 @@
 package com.asf.wallet;
 
 import android.content.Context;
-import androidx.test..InstrumentationRegistry;
-.runner.AndroidJUnit4;
 import android.util.Log;
+import androidx.test.InstrumentationRegistry;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferencesRepository;
-import com.asfoundation.wallet.repository.WalletRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
 import com.asfoundation.wallet.service.Web3jKeystoreAccountService;
+import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -27,6 +26,9 @@ import org.junit.runner.RunWith;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+
+.InstrumentationRegistry;
+    .runner.AndroidJUnit4;
 
 @RunWith(AndroidJUnit4.class) public class WalletRepoTest {
 
@@ -48,10 +50,10 @@ import static junit.framework.Assert.assertTrue;
     PreferencesRepositoryType preferencesRepositoryType = new SharedPreferencesRepository(context);
     AccountKeystoreService accountKeystoreService = new Web3jKeystoreAccountService(
         new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
-            new ObjectMapper()), Schedulers.io(),
-        new ObjectMapper());
+            new ObjectMapper()), Schedulers.io(), new ObjectMapper());
     accountRepository =
-        new WalletRepository(null, preferencesRepositoryType, accountKeystoreService, null, null);
+        new WalletStatusRepository(null, preferencesRepositoryType, accountKeystoreService, null,
+            null);
   }
 
   @Test public void testCreateAccount() {

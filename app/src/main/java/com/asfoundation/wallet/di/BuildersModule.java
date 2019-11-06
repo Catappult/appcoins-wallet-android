@@ -46,6 +46,7 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity;
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransferFragment;
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity;
 import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment;
 import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment;
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity;
@@ -187,4 +188,6 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract ReferralsFragment referralsFragment();
 
   @ContributesAndroidInjector() abstract EarnAppcoinsFragment earnAppcoinsFragment();
+
+  @ContributesAndroidInjector() abstract WalletBlockedActivity walletBlockedActivity();
 }

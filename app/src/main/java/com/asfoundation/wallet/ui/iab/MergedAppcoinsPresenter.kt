@@ -5,6 +5,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -15,6 +17,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val disposables: CompositeDisposable,
                               private val balanceInteract: BalanceInteract,
                               private val viewScheduler: Scheduler,
+                              private val walletBlockedInteract: WalletBlockedInteract,
                               private val networkScheduler: Scheduler) {
 
   companion object {
@@ -56,8 +59,29 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleBuyClick() {
     disposables.add(view.buyClick()
-        .doOnNext { handleBuyClickSelection(it) }
-        .subscribe({}, { showError(it) }))
+        .doOnNext { view.showLoading() }
+        .flatMapCompletable { paymentMethod ->
+          walletBlockedInteract.isWalletBlocked()
+              .subscribeOn(networkScheduler)
+              .flatMapCompletable {
+                if (it) {
+                  showBlockedError()
+                } else {
+                  handleBuyClickSelection(paymentMethod)
+                }.subscribeOn(viewScheduler)
+              }
+        }
+        .subscribe({}, {
+          view.hideLoading()
+          showError(it)
+        }))
+  }
+
+  private fun showBlockedError(): Completable {
+    return Completable.fromAction {
+      view.hideLoading()
+      view.showWalletBlocked()
+    }
   }
 
   private fun handlePaymentSelectionChange() {
@@ -65,7 +89,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .doOnNext { handleSelection(it) }
         .subscribe({}, { showError(it) }))
   }
-
 
   private fun showError(t: Throwable) {
     t.printStackTrace()
@@ -80,11 +103,14 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     return throwable is IOException || throwable.cause != null && throwable.cause is IOException
   }
 
-  private fun handleBuyClickSelection(selection: String) {
-    when (selection) {
-      APPC -> view.navigateToAppcPayment()
-      CREDITS -> view.navigateToCreditsPayment()
-      else -> Log.w(TAG, "No appcoins payment method selected")
+  private fun handleBuyClickSelection(selection: String): Completable {
+    return Completable.fromAction {
+      view.hideLoading()
+      when (selection) {
+        APPC -> view.navigateToAppcPayment()
+        CREDITS -> view.navigateToCreditsPayment()
+        else -> Log.w(TAG, "No appcoins payment method selected")
+      }
     }
   }
 

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.util.formatWithSuffix
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -86,6 +87,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   private lateinit var iabView: IabView
   @Inject
   lateinit var balanceInteract: BalanceInteract
+  @Inject
+  lateinit var walletBlockedInteract: WalletBlockedInteract
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -171,7 +174,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
-        AndroidSchedulers.mainThread(), Schedulers.io())
+        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io())
   }
 
   override fun onAttach(context: Context) {
@@ -194,6 +197,16 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     setBonus()
     setBackListener(view)
     mergedAppcoinsPresenter.present()
+  }
+
+  override fun showLoading() {
+    payment_methods?.visibility = INVISIBLE
+    loading_view?.visibility = VISIBLE
+  }
+
+  override fun hideLoading() {
+    loading_view?.visibility = GONE
+    payment_methods?.visibility = VISIBLE
   }
 
   private fun setBuyButtonText(): String {
@@ -318,6 +331,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun hideBonus() {
     bonus_layout?.visibility = INVISIBLE
     bonus_msg?.visibility = INVISIBLE
+  }
+
+  override fun showWalletBlocked() {
+    iabView.showWalletBlocked()
   }
 
   override fun showBonus() {

@@ -15,6 +15,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -189,6 +190,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, EarnAppcoinsFragment())
         .commit()
+  }
+
+  override fun showWalletBlocked() {
+    val newIntent = WalletBlockedActivity.newIntent(this)
+    startActivity(newIntent)
   }
 
   override fun onNewIntent(intent: Intent) {

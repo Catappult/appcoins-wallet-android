@@ -79,4 +79,5 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
       validateData(transactionDataValidator.validateData(walletAddress, amount, it))
     }
   }
+
 }

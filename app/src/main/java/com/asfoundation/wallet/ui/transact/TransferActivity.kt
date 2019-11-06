@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import java.math.BigDecimal
 
 class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator {
@@ -37,23 +38,32 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
 
   override fun showTransactFragment() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, TransferFragment.newInstance()).commit()
+        .replace(R.id.fragment_container, TransferFragment.newInstance())
+        .commit()
   }
 
   override fun showLoading() {
     lockOrientation()
     supportFragmentManager.beginTransaction()
         .add(android.R.id.content, LoadingFragment.newInstance(),
-            LoadingFragment::class.java.name).commit()
+            LoadingFragment::class.java.name)
+        .commit()
   }
 
   override fun hideLoading() {
     val fragment =
         supportFragmentManager.findFragmentByTag(LoadingFragment::class.java.name)
     if (fragment != null) {
-      supportFragmentManager.beginTransaction().remove(fragment).commit()
+      supportFragmentManager.beginTransaction()
+          .remove(fragment)
+          .commit()
     }
     unlockOrientation()
+  }
+
+  override fun showWalletBlocked() {
+    val newIntent = WalletBlockedActivity.newIntent(this)
+    startActivity(newIntent)
   }
 
   private fun lockOrientation() {

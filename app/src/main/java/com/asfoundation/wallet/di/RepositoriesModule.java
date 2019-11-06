@@ -20,9 +20,9 @@ import com.asfoundation.wallet.repository.Web3jService;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
 import com.asfoundation.wallet.service.SmsValidationApi;
-import com.asfoundation.wallet.service.TransactionsNetworkClient;
-import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.service.Web3jKeystoreAccountService;
+import com.asfoundation.wallet.wallet_blocked.WalletStatusApi;
+import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import dagger.Module;
@@ -47,7 +47,6 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   }
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(
-
       PreferencesRepositoryType preferencesRepositoryType,
       AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
     return new WalletRepository(preferencesRepositoryType, accountKeystoreService, web3jProvider);
@@ -90,11 +89,6 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
     return new NotTrackTransactionService();
   }
 
-  @Singleton @Provides TransactionsNetworkClientType provideBlockExplorerClient(
-      OkHttpClient httpClient, Gson gson, NetworkInfo networkInfo) {
-    return new TransactionsNetworkClient(httpClient, gson, networkInfo);
-  }
-
   @Singleton @Provides TokenRepositoryType provideTokenRepository(Web3jProvider web3j,
       DefaultTokenProvider defaultTokenProvider) {
     return new TokenRepository(web3j, defaultTokenProvider);
@@ -103,5 +97,10 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   @Singleton @Provides SmsValidationRepositoryType provideSmsValidationRepository(
       SmsValidationApi smsValidationApi, Gson gson) {
     return new SmsValidationRepository(smsValidationApi, gson);
+  }
+
+  @Singleton @Provides WalletStatusRepository provideWalletStatusRepository(
+      WalletStatusApi walletStatusApi) {
+    return new WalletStatusRepository(walletStatusApi);
   }
 }

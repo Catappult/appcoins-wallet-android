@@ -196,6 +196,12 @@
         android:label="@string/referral_view_title"
         android:screenOrientation="portrait"/>
 
+    <activity
+        android:name="com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity"
+        android:launchMode="singleInstance"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"/>
+
     <meta-data
         android:name="io.fabric.ApiKey"
         android:value="${fabricApiKey}"/>
