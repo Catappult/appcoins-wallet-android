@@ -11,6 +11,7 @@ class OemIdExtractorService(
 
   fun extractOemId(packageName: String): Single<String> {
     return extractorV2.extract(packageName)
+        .doOnSuccess { extracted -> if (extracted.isEmpty()) throw IllegalStateException() }
         .onErrorResumeNext(extractorV1.extract(packageName))
   }
 }
