@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.widget.holder
 
-enum class ReferralNotificationAction {
+enum class CardNotificationAction {
   DISMISS,
-  DISCOVER
+  DISCOVER,
+  UPDATE
 }

@@ -3,6 +3,8 @@ package com.asfoundation.wallet.repository
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import io.reactivex.Completable
+import io.reactivex.Single
 
 class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType {
 
@@ -48,6 +50,18 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
+  override fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable {
+    return Completable.fromCallable {
+      pref.edit()
+          .putInt(AUTO_UPDATE_VERSION, updateVersionCode)
+          .apply()
+    }
+  }
+
+  override fun getAutoUpdateCardDismissedVersion(): Single<Int> {
+    return Single.fromCallable { pref.getInt(AUTO_UPDATE_VERSION, 0) }
+  }
+
   override fun clearPoaNotificationSeenTime() {
     pref.edit()
         .remove(POA_LIMIT_SEEN_TIME)
@@ -62,6 +76,16 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     pref.edit()
         .putLong(POA_LIMIT_SEEN_TIME, currentTimeInMillis)
         .apply()
+  }
+
+  override fun setUpdateNotificationSeenTime(currentTimeMillis: Long) {
+    pref.edit()
+        .putLong(UPDATE_SEEN_TIME, currentTimeMillis)
+        .apply()
+  }
+
+  override fun getUpdateNotificationSeenTime(): Long {
+    return pref.getLong(UPDATE_SEEN_TIME, -1)
   }
 
   override fun setWalletValidationStatus(walletAddress: String, validated: Boolean) {
@@ -92,7 +116,9 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
     private const val FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY = "first_time_on_transaction_activity"
+    private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
+    private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val PREF_WALLET = "pref_wallet"
   }

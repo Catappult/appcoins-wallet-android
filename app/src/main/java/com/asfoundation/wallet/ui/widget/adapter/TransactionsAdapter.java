@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.SortedList;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.referrals.ReferralNotification;
+import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
@@ -17,8 +17,8 @@ import com.asfoundation.wallet.ui.widget.entity.TimestampSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.TransactionSortedItem;
 import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationListViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
-import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationAction;
-import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationsListViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationsListViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
 import java.util.Collections;
@@ -60,15 +60,14 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
       });
   private final OnTransactionClickListener onTransactionClickListener;
   private final Action1<AppcoinsApplication> applicationClickListener;
-  private final Action2<ReferralNotification, ReferralNotificationAction>
-      referralNotificationClickListener;
+  private final Action2<CardNotification, CardNotificationAction> referralNotificationClickListener;
 
   private Wallet wallet;
   private NetworkInfo network;
 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
       Action1<AppcoinsApplication> applicationClickListener,
-      Action2<ReferralNotification, ReferralNotificationAction> referralNotificationClickListener) {
+      Action2<CardNotification, CardNotificationAction> referralNotificationClickListener) {
     this.onTransactionClickListener = onTransactionClickListener;
     this.applicationClickListener = applicationClickListener;
     this.referralNotificationClickListener = referralNotificationClickListener;
@@ -89,9 +88,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
             new AppcoinsApplicationListViewHolder(R.layout.item_appcoins_application_list, parent,
                 applicationClickListener);
         break;
-      case ReferralNotificationsListViewHolder.VIEW_TYPE:
-        holder = new ReferralNotificationsListViewHolder(R.layout.item_referral_notifications_list,
-            parent, referralNotificationClickListener);
+      case CardNotificationsListViewHolder.VIEW_TYPE:
+        holder = new CardNotificationsListViewHolder(R.layout.item_card_notifications_list, parent,
+            referralNotificationClickListener);
         break;
     }
     return holder;
@@ -125,8 +124,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   public int getNotificationsCount() {
     int counter = 0;
     for (int i = 0; i < items.size(); i++) {
-      if (items.get(i) instanceof ReferralNotificationSortedItem) {
-        counter += ((ReferralNotificationSortedItem) items.get(i)).value.size();
+      if (items.get(i) instanceof CardNotificationSortedItem) {
+        counter += ((CardNotificationSortedItem) items.get(i)).value.size();
       }
     }
     return counter;
@@ -166,8 +165,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     items.add(new ApplicationSortedItem(apps, AppcoinsApplicationListViewHolder.VIEW_TYPE));
   }
 
-  public void setNotifications(List<ReferralNotification> notifications) {
-    items.add(new ReferralNotificationSortedItem(notifications,
-        ReferralNotificationsListViewHolder.VIEW_TYPE));
+  public void setNotifications(List<CardNotification> notifications) {
+    items.add(
+        new CardNotificationSortedItem(notifications, CardNotificationsListViewHolder.VIEW_TYPE));
   }
 }

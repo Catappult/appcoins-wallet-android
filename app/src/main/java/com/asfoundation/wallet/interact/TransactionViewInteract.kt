@@ -6,15 +6,14 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
-import com.asfoundation.wallet.referrals.ReferralNotification
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -24,7 +23,9 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
                               private val fetchTransactionsInteract: FetchTransactionsInteract,
                               private val gamificationInteractor: GamificationInteractor,
                               private val balanceInteract: BalanceInteract,
-                              private val referralInteractor: ReferralInteractorContract) {
+                              private val referralInteractor: ReferralInteractorContract,
+                              private val cardNotificationsInteractor: CardNotificationsInteractor,
+                              private val autoUpdateInteract: AutoUpdateInteract) {
 
   val levels: Single<Levels>
     get() = gamificationInteractor.getLevels()
@@ -38,8 +39,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   val creditsBalance: Observable<Pair<Balance, FiatValue>>
     get() = balanceInteract.getCreditsBalance()
 
-  val referralNotifications: Maybe<List<ReferralNotification>>
-    get() = referralInteractor.getReferralNotifications()
+  val cardNotifications: Single<List<CardNotification>>
+    get() = cardNotificationsInteractor.getCardNotifications()
 
   fun findNetwork(): Single<NetworkInfo> {
     return findDefaultNetworkInteract.find()
@@ -66,8 +67,11 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     return findDefaultWalletInteract.find()
   }
 
-  fun dismissNotification(referralNotification: ReferralNotification): Completable {
-    return referralInteractor.dismissNotification(referralNotification)
+  fun dismissNotification(cardNotification: CardNotification): Completable {
+    return cardNotificationsInteractor.dismissNotification(cardNotification)
   }
 
+  fun retrieveUpdateUrl(): String {
+    return autoUpdateInteract.retrieveRedirectUrl()
+  }
 }

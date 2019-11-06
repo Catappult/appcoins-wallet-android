@@ -20,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
+import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
@@ -76,6 +77,7 @@ public class WalletPoAService extends Service {
   @Inject NotificationManager notificationManager;
   @Inject PackageManager packageManager;
   @Inject CampaignInteract campaignInteract;
+  @Inject AutoUpdateInteract autoUpdateInteract;
   @Inject @Named("heads_up") NotificationCompat.Builder headsUpNotificationBuilder;
   private Disposable disposable;
   private Disposable timerDisposable;
@@ -193,7 +195,7 @@ public class WalletPoAService extends Service {
         proofOfAttentionService.remove(packageName);
         if (proof.hasReachedPoaLimit()) {
           if (campaignInteract.hasSeenPoaNotificationTimePassed()) {
-            showNotification(proof);
+            showPoaLimitNotification(proof);
             campaignInteract.saveSeenPoaNotification();
             stopForeground(false);
           } else {
@@ -212,13 +214,32 @@ public class WalletPoAService extends Service {
         stopTimeout();
         logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
         break;
+      case UPDATE_REQUIRED:
+        if (autoUpdateInteract.shouldShowNotification()) {
+          showUpdateRequiredNotification();
+          autoUpdateInteract.saveSeenUpdateNotification();
+        }
+        stopForeground(false);
+        stopTimeout();
+        break;
       case UNKNOWN_NETWORK:
         logger.log(new Throwable(new WrongNetworkException("Unknown network")));
         break;
     }
   }
 
-  private void showNotification(ProofSubmissionData proof) {
+  private void showUpdateRequiredNotification() {
+    Intent intent = autoUpdateInteract.buildUpdateIntent();
+    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
+        new NotificationCompat.BigTextStyle().setBigContentTitle(
+            getString(R.string.update_wallet_poa_notification_title))
+            .bigText(getString(R.string.update_wallet_poa_notification_body)))
+        .setContentIntent(pendingIntent)
+        .build());
+  }
+
+  private void showPoaLimitNotification(ProofSubmissionData proof) {
     String minutes = String.format("%02d", proof.getMinutesRemaining());
     String message = getString(R.string.notification_poa_limit_reached,
         String.valueOf(proof.getHoursRemaining()), minutes);

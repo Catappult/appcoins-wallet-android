@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
-import com.asfoundation.wallet.referrals.ReferralNotification
-import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationAction
-import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationViewHolder
+import com.asfoundation.wallet.referrals.CardNotification
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationViewHolder
 import rx.functions.Action2
 
-class ReferralNotificationsAdapter(
-    var notifications: List<ReferralNotification>,
-    private val listener: Action2<ReferralNotification, ReferralNotificationAction>
-) : RecyclerView.Adapter<ReferralNotificationViewHolder>() {
+class CardNotificationsAdapter(
+    var notifications: List<CardNotification>,
+    private val listener: Action2<CardNotification, CardNotificationAction>
+) : RecyclerView.Adapter<CardNotificationViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup,
-                                  viewType: Int): ReferralNotificationViewHolder {
+                                  viewType: Int): CardNotificationViewHolder {
 
     val item = LayoutInflater.from(parent.context)
-        .inflate(R.layout.item_referral_notification, parent,
+        .inflate(R.layout.item_card_notification, parent,
             false)
 
     val maxWith = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400.toFloat(),
@@ -50,12 +50,12 @@ class ReferralNotificationsAdapter(
       }
     }
 
-    return ReferralNotificationViewHolder(item, listener)
+    return CardNotificationViewHolder(item, listener)
   }
 
   override fun getItemCount() = notifications.size
 
-  override fun onBindViewHolder(holder: ReferralNotificationViewHolder, position: Int) {
+  override fun onBindViewHolder(holder: CardNotificationViewHolder, position: Int) {
     holder.bind(notifications[position])
   }
 
