@@ -33,7 +33,6 @@
             android:inputType="text"
             android:maxLines="1"
             android:paddingEnd="@dimen/large_margin"
-            android:paddingRight="@dimen/large_margin"
             />
       </com.google.android.material.textfield.TextInputLayout>
       <ImageButton

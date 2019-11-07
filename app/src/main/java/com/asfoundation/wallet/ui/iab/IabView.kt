@@ -42,4 +42,5 @@ interface IabView {
   fun unlockRotation()
   fun showEarnAppcoins()
   fun launchIntent(intent: Intent)
+  fun showUpdateRequiredView()
 }

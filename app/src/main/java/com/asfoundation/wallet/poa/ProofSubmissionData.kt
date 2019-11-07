@@ -7,6 +7,7 @@ data class ProofSubmissionData(val status: RequirementsStatus, val hoursRemainin
   fun hasReachedPoaLimit() = hoursRemaining != 0 || minutesRemaining != 0
 
   enum class RequirementsStatus {
-    READY, NO_FUNDS, NO_NETWORK, NO_WALLET, NOT_ELIGIBLE, WRONG_NETWORK, UNKNOWN_NETWORK
+    READY, NO_FUNDS, NO_NETWORK, NO_WALLET, NOT_ELIGIBLE, WRONG_NETWORK, UNKNOWN_NETWORK,
+    UPDATE_REQUIRED
   }
 }

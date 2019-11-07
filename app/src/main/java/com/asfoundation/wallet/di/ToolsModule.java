@@ -89,8 +89,10 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
+import com.asfoundation.wallet.interact.CardNotificationsInteractor;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
@@ -101,6 +103,7 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
+import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase;
@@ -120,6 +123,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
+import com.asfoundation.wallet.repository.AutoUpdateRepository;
 import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
@@ -160,6 +164,7 @@ import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
+import com.asfoundation.wallet.service.AutoUpdateService;
 import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.service.CampaignService.CampaignApi;
@@ -945,6 +950,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         findDefaultWalletInteract, promotionsRepository);
   }
 
+  @Provides CardNotificationsInteractor provideCardNotificationInteractor(
+      ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
+      SharedPreferencesRepository sharedPreferencesRepository) {
+    return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
+        sharedPreferencesRepository);
+  }
+
   @Singleton @Provides Permissions providesPermissions(Context context) {
     return new Permissions(new PermissionRepository(
         Room.databaseBuilder(context.getApplicationContext(), PermissionsDatabase.class,
@@ -1171,10 +1183,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
       WalletService walletService, CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract,
+      AutoUpdateInteract autoUpdateInteract, FindDefaultWalletInteract findDefaultWalletInteract,
       PreferencesRepositoryType sharedPreferences) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
-        new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, sharedPreferences);
+        autoUpdateInteract, new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract,
+        sharedPreferences);
   }
 
   @Singleton @Provides NotificationManager provideNotificationManager(Context context) {
@@ -1211,5 +1224,45 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides PackageManager providePackageManager(Context context) {
     return context.getPackageManager();
+  }
+
+  @Singleton @Provides AutoUpdateService.AutoUpdateApi provideAutoUpdateApi(OkHttpClient client,
+      Gson gson) {
+    String baseUrl = BuildConfig.BACKEND_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AutoUpdateService.AutoUpdateApi.class);
+  }
+
+  @Provides AutoUpdateService provideAutoUpdateService(
+      AutoUpdateService.AutoUpdateApi autoUpdateApi) {
+    return new AutoUpdateService(autoUpdateApi);
+  }
+
+  @Provides @Named("local_version_code") int provideLocalVersionCode(Context context,
+      PackageManager packageManager) {
+    try {
+      return packageManager.getPackageInfo(context.getPackageName(), 0).versionCode;
+    } catch (PackageManager.NameNotFoundException e) {
+      return -1;
+    }
+  }
+
+  @Provides AutoUpdateRepository provideAutoUpdateRepository(AutoUpdateService autoUpdateService) {
+    return new AutoUpdateRepository(autoUpdateService);
+  }
+
+  @Provides AutoUpdateInteract provideAutoUpdateInteract(AutoUpdateRepository autoUpdateRepository,
+      @Named("local_version_code") int localVersionCode, PackageManager packageManager,
+      PreferencesRepositoryType sharedPreferences, Context context) {
+    return new AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
+        packageManager, context.getPackageName(), sharedPreferences);
+  }
+
+  @Provides UpdateNavigator provideUpdateNavigator() {
+    return new UpdateNavigator();
   }
 }

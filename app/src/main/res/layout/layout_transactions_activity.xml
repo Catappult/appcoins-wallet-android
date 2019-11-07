@@ -14,10 +14,9 @@
       app:layout_constraintTop_toTopOf="parent"
       >
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         >
 
       <androidx.recyclerview.widget.RecyclerView
@@ -26,7 +25,8 @@
           android:layout_height="wrap_content"
           android:background="@color/activity_background_color"
           android:clipToPadding="false"
-          android:paddingBottom="@dimen/large_padding"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
       <com.asfoundation.wallet.widget.SystemView
@@ -34,13 +34,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="@color/activity_background_color"
-          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/refresh_layout"
+          app:layout_constraintTop_toBottomOf="@id/list"
           />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

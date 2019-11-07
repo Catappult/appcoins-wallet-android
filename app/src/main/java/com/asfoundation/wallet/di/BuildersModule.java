@@ -15,6 +15,7 @@ import com.asfoundation.wallet.topup.TopUpActivity;
 import com.asfoundation.wallet.topup.TopUpFragment;
 import com.asfoundation.wallet.topup.TopUpSuccessFragment;
 import com.asfoundation.wallet.topup.payment.PaymentAuthFragment;
+import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
 import com.asfoundation.wallet.ui.GasSettingsActivity;
@@ -25,6 +26,7 @@ import com.asfoundation.wallet.ui.SendActivity;
 import com.asfoundation.wallet.ui.SettingsActivity;
 import com.asfoundation.wallet.ui.SplashActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
+import com.asfoundation.wallet.ui.UpdateRequiredActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
@@ -37,6 +39,7 @@ import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyFragment;
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment;
 import com.asfoundation.wallet.ui.iab.EarnAppcoinsFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.asfoundation.wallet.ui.iab.IabUpdateRequiredFragment;
 import com.asfoundation.wallet.ui.iab.LocalPaymentFragment;
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
@@ -58,9 +61,11 @@ import com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
-@Module public abstract class BuildersModule {
+@Module abstract class BuildersModule {
   @ActivityScope @ContributesAndroidInjector(modules = SplashModule.class)
   abstract SplashActivity bindSplashModule();
+
+  @ActivityScope @ContributesAndroidInjector() abstract BaseActivity bindBaseActivityModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract WalletsActivity bindManageWalletsModule();
@@ -103,7 +108,8 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector abstract OnboardingActivity bindOnboardingModule();
 
-  @ActivityScope @ContributesAndroidInjector abstract InviteFriendsActivity promotionsActivity();
+  @ActivityScope @ContributesAndroidInjector
+  abstract InviteFriendsActivity bindInviteFriendsActivity();
 
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 
@@ -156,6 +162,9 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector
   abstract PoaWalletValidationActivity bindPoaWalletValidationActivity();
 
+  @ActivityScope @ContributesAndroidInjector
+  abstract UpdateRequiredActivity bindUpdateRequiredActivity();
+
   @ContributesAndroidInjector()
   abstract PoaPhoneValidationFragment bindPoaPhoneValidationFragment();
 
@@ -178,16 +187,19 @@ import dagger.android.ContributesAndroidInjector;
 
   @ContributesAndroidInjector() abstract CodeValidationFragment bindCodeValidationFragment();
 
-  @ContributesAndroidInjector() abstract PromotionsFragment promotionsFragment();
+  @ContributesAndroidInjector() abstract PromotionsFragment bindPromotionsFragment();
 
   @ContributesAndroidInjector()
-  abstract InviteFriendsVerificationFragment inviteFriendsVerificationFragment();
+  abstract InviteFriendsVerificationFragment bindInviteFriendsVerificationFragment();
 
-  @ContributesAndroidInjector() abstract InviteFriendsFragment inviteFriendsFragment();
+  @ContributesAndroidInjector() abstract InviteFriendsFragment bindInviteFriendsFragment();
 
-  @ContributesAndroidInjector() abstract ReferralsFragment referralsFragment();
+  @ContributesAndroidInjector() abstract ReferralsFragment bindReferralsFragment();
 
-  @ContributesAndroidInjector() abstract EarnAppcoinsFragment earnAppcoinsFragment();
+  @ContributesAndroidInjector() abstract EarnAppcoinsFragment bindEarnAppcoinsFragment();
 
-  @ContributesAndroidInjector() abstract WalletBlockedActivity walletBlockedActivity();
+  @ContributesAndroidInjector() abstract IabUpdateRequiredFragment bindIabUpdateRequiredFragment();
+
+  @ActivityScope @ContributesAndroidInjector()
+  abstract WalletBlockedActivity walletBlockedActivity();
 }

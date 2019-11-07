@@ -197,6 +197,11 @@
         android:screenOrientation="portrait"/>
 
     <activity
+        android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
+        android:label=""
+        android:screenOrientation="portrait" />
+
+    <activity
         android:name="com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity"
         android:launchMode="singleInstance"
         android:screenOrientation="portrait"
