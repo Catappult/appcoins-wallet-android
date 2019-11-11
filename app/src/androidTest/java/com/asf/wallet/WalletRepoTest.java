@@ -3,7 +3,7 @@ package com.asf.wallet;
 import android.content.Context;
 import android.util.Log;
 import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferencesRepository;
