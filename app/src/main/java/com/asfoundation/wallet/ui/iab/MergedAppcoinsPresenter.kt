@@ -63,12 +63,13 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .flatMapCompletable { paymentMethod ->
           walletBlockedInteract.isWalletBlocked()
               .subscribeOn(networkScheduler)
+              .observeOn(viewScheduler)
               .flatMapCompletable {
                 if (it) {
                   showBlockedError()
                 } else {
                   handleBuyClickSelection(paymentMethod)
-                }.observeOn(viewScheduler)
+                }
               }
         }
         .subscribe({}, {
