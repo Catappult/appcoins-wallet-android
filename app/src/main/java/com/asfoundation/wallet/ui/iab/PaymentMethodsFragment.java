@@ -32,6 +32,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
 import com.squareup.picasso.Picasso;
@@ -76,6 +77,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject GamificationInteractor gamification;
   @Inject PaymentMethodsMapper paymentMethodsMapper;
   @Inject BalanceInteract balanceInteractor;
+  @Inject WalletBlockedInteract walletBlockedInteract;
   private PaymentMethodsPresenter presenter;
   private List<String> paymentMethodList = new ArrayList<>();
   private ProgressBar loadingView;
@@ -170,7 +172,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
-        transactionValue);
+        walletBlockedInteract, transactionValue);
   }
 
   @Nullable @Override
@@ -518,6 +520,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     if (noBonusMsg != null) {
       noBonusMsg.setVisibility(View.VISIBLE);
     }
+  }
+
+  @Override public void showWalletBlocked() {
+    iabView.showWalletBlocked();
   }
 
   private void hideBonus() {

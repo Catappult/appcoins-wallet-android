@@ -15,11 +15,11 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
@@ -46,6 +46,7 @@ class PaymentMethodsPresenter(
     private val gamification: GamificationInteractor,
     private val transaction: TransactionBuilder,
     private val paymentMethodsMapper: PaymentMethodsMapper,
+    private val walletBlockedInteract: WalletBlockedInteract,
     private val transactionValue: Double) {
 
   fun present() {
@@ -93,7 +94,7 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal()
             PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard()
             PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
-            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.showCredits()
+            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
             PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
                 selectedPaymentMethod)
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
@@ -104,6 +105,31 @@ class PaymentMethodsPresenter(
           }
         }
         .subscribe())
+  }
+
+  private fun handleWalletBlockStatus() {
+    disposables.add(
+        walletBlockedInteract.isWalletBlocked()
+            .subscribeOn(networkThread)
+            .observeOn(viewScheduler)
+            .flatMapCompletable {
+              if (it) {
+                Completable.fromAction {
+                  view.hideLoading()
+                  view.showWalletBlocked()
+                }
+              } else {
+                Completable.fromAction {
+                  view.hideLoading()
+                  view.showCredits()
+                }
+              }
+            }
+            .andThen { Completable.fromAction { view.hideLoading() } }
+            .doOnSubscribe { view.showLoading() }
+            .doOnError { showError(it) }
+            .subscribe()
+    )
   }
 
   private fun handleOnGoingPurchases() {
@@ -138,7 +164,7 @@ class PaymentMethodsPresenter(
   private fun checkProcessing(skuId: String?): Completable {
     return billing.getSkuTransaction(appPackage, skuId, Schedulers.io())
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
-        .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }
         .doOnSuccess { handleProcessing() }
         .map { it.uid }

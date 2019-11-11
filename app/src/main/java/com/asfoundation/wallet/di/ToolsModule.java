@@ -219,6 +219,9 @@ import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.util.UserAgentInterceptor;
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract;
+import com.asfoundation.wallet.wallet_blocked.WalletStatusApi;
+import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository;
 import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -389,6 +392,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides FindDefaultWalletInteract provideFindDefaultWalletInteract(
       WalletRepositoryType walletRepository) {
     return new FindDefaultWalletInteract(walletRepository);
+  }
+
+  @Provides WalletBlockedInteract provideWalletBlockedInteract(
+      FindDefaultWalletInteract findDefaultWalletInteract,
+      WalletStatusRepository walletStatusRepository) {
+    return new WalletBlockedInteract(findDefaultWalletInteract, walletStatusRepository);
   }
 
   @Provides SendTransactionInteract provideSendTransactionInteract(
@@ -1139,6 +1148,16 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SmsValidationApi.class);
+  }
+
+  @Singleton @Provides WalletStatusApi provideWalletStatusApi(OkHttpClient client, Gson gson) {
+    String baseUrl = BuildConfig.BACKEND_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(WalletStatusApi.class);
   }
 
   @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
