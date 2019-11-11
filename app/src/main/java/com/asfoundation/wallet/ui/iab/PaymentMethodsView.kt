@@ -41,6 +41,7 @@ interface PaymentMethodsView {
   fun showEarnAppcoins()
   fun showBonus()
   fun replaceBonus()
+  fun showWalletBlocked()
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,

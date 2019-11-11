@@ -16,6 +16,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -203,6 +204,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
+  override fun showWalletBlocked() {
+    startActivityForResult(WalletBlockedActivity.newIntent(this), BLOCKED_WARNING_REQUEST_CODE)
+  }
+
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
     results!!.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
@@ -274,6 +279,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val DEVELOPER_PAYLOAD = "developer_payload"
     const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234
+    const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val IS_BDS_EXTRA = "is_bds_extra"
 
     @JvmStatic
@@ -292,11 +298,5 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       return intent
     }
 
-    @JvmStatic
-    fun newIntent(activity: Activity, url: String): Intent {
-      val intent = Intent(activity, IabActivity::class.java)
-      intent.data = Uri.parse(url)
-      return intent
-    }
   }
 }
