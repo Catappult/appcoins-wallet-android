@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
+import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import java.math.BigDecimal
 
@@ -62,7 +63,8 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
   }
 
   override fun showWalletBlocked() {
-    startActivity(WalletBlockedActivity.newIntent(this))
+    startActivityForResult(WalletBlockedActivity.newIntent(this),
+        IabActivity.BLOCKED_WARNING_REQUEST_CODE)
   }
 
   private fun lockOrientation() {

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallet_blocked
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -68,10 +69,8 @@ class WalletBlockedActivity : BaseActivity(),
   }
 
   private fun closeSuccess() {
-    val intent = Intent()
-    setResult(
-        RESULT_OK, intent)
-    finishAndRemoveTask()
+    setResult(Activity.RESULT_OK, Intent())
+    finish()
   }
 
 }

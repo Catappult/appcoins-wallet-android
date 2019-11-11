@@ -205,7 +205,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showWalletBlocked() {
-    startActivity(WalletBlockedActivity.newIntent(this))
+    startActivityForResult(WalletBlockedActivity.newIntent(this), BLOCKED_WARNING_REQUEST_CODE)
   }
 
   override fun onNewIntent(intent: Intent) {
@@ -279,6 +279,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val DEVELOPER_PAYLOAD = "developer_payload"
     const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234
+    const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val IS_BDS_EXTRA = "is_bds_extra"
 
     @JvmStatic
@@ -297,11 +298,5 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       return intent
     }
 
-    @JvmStatic
-    fun newIntent(activity: Activity, url: String): Intent {
-      val intent = Intent(activity, IabActivity::class.java)
-      intent.data = Uri.parse(url)
-      return intent
-    }
   }
 }

@@ -20,7 +20,6 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
@@ -111,6 +110,8 @@ class PaymentMethodsPresenter(
   private fun handleWalletBlockStatus() {
     disposables.add(
         walletBlockedInteract.isWalletBlocked()
+            .subscribeOn(networkThread)
+            .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it) {
                 Completable.fromAction {
@@ -122,12 +123,11 @@ class PaymentMethodsPresenter(
                   view.hideLoading()
                   view.showCredits()
                 }
-              }.subscribeOn(viewScheduler)
+              }
             }
             .andThen { Completable.fromAction { view.hideLoading() } }
             .doOnSubscribe { view.showLoading() }
             .doOnError { showError(it) }
-            .subscribeOn(networkThread)
             .subscribe()
     )
   }
@@ -164,7 +164,7 @@ class PaymentMethodsPresenter(
   private fun checkProcessing(skuId: String?): Completable {
     return billing.getSkuTransaction(appPackage, skuId, Schedulers.io())
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
-        .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }
         .doOnSuccess { handleProcessing() }
         .map { it.uid }
