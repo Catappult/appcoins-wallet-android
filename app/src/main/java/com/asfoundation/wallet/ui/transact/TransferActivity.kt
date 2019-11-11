@@ -62,8 +62,7 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
   }
 
   override fun showWalletBlocked() {
-    val newIntent = WalletBlockedActivity.newIntent(this)
-    startActivity(newIntent)
+    startActivity(WalletBlockedActivity.newIntent(this))
   }
 
   private fun lockOrientation() {

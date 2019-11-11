@@ -205,8 +205,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showWalletBlocked() {
-    val newIntent = WalletBlockedActivity.newIntent(this)
-    startActivity(newIntent)
+    startActivity(WalletBlockedActivity.newIntent(this))
   }
 
   override fun onNewIntent(intent: Intent) {

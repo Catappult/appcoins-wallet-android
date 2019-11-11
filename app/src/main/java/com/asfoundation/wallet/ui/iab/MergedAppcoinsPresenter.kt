@@ -68,7 +68,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                   showBlockedError()
                 } else {
                   handleBuyClickSelection(paymentMethod)
-                }.subscribeOn(viewScheduler)
+                }.observeOn(viewScheduler)
               }
         }
         .subscribe({}, {

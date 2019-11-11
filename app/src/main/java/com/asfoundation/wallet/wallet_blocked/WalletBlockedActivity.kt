@@ -67,7 +67,7 @@ class WalletBlockedActivity : BaseActivity(),
     super.onDestroy()
   }
 
-  fun closeSuccess() {
+  private fun closeSuccess() {
     val intent = Intent()
     setResult(
         RESULT_OK, intent)
