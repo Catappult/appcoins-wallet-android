@@ -214,6 +214,7 @@ dependencies {
   // Tests
   testImplementation "junit:junit:$junitVersion"
   testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
+  androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
   androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0", {
     exclude group: "androidx.test.espresso", module: "support-annotations"
   })
