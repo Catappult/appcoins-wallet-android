@@ -21,26 +21,21 @@ class ReferralInteractor(
   override fun hasReferralUpdate(address: String, friendsInvited: Int, isVerified: Boolean,
                                  screen: ReferralsScreen): Single<Boolean> {
     return getReferralInformation(address, screen)
-        .map {
-          hasDifferentInformation(friendsInvited.toString() + isVerified, it)
-        }
+        .map { hasDifferentInformation(friendsInvited.toString() + isVerified, it) }
   }
 
-  override fun retrieveReferral(): Single<ReferralsModel> {
+  override fun retrieveReferral(): Single<ReferralModel> {
     return defaultWallet.find()
-        .flatMap {
-          promotionsRepository.getReferralUserStatus(it.address)
-        }
+        .flatMap { promotionsRepository.getReferralUserStatus(it.address) }
         .map { map(it) }
   }
 
-  private fun map(referralResponse: ReferralResponse): ReferralsModel {
-    return ReferralsModel(referralResponse.completed, referralResponse.link,
+  private fun map(referralResponse: ReferralResponse): ReferralModel {
+    return ReferralModel(referralResponse.completed, referralResponse.link,
         referralResponse.invited, referralResponse.pendingAmount, referralResponse.amount,
         referralResponse.symbol, referralResponse.maxAmount, referralResponse.minAmount,
         referralResponse.available, referralResponse.receivedAmount,
-        isRedeemed(referralResponse.userStatus),
-        referralResponse.status == ReferralResponse.Status.ACTIVE)
+        isRedeemed(referralResponse.userStatus), isAvailable(referralResponse.status))
   }
 
   override fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
@@ -55,8 +50,7 @@ class ReferralInteractor(
     return preferences.getReferralInformation(address, screen.toString())
   }
 
-  private fun saveReferralInformation(address: String, numberOfFriends: Int,
-                                      isVerified: Boolean,
+  private fun saveReferralInformation(address: String, numberOfFriends: Int, isVerified: Boolean,
                                       screen: ReferralsScreen): Completable {
     return preferences.saveReferralInformation(address, numberOfFriends, isVerified,
         screen.toString())
@@ -70,9 +64,7 @@ class ReferralInteractor(
     return defaultWallet.find()
         .flatMapMaybe { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
-              .filter {
-                it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && isAvailable(it.status)
-              }
+              .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && isAvailable(it.status) }
               .map {
                 ReferralNotification(PENDING_AMOUNT_ID,
                     R.string.referral_notification_bonus_pending_title,
@@ -119,17 +111,17 @@ class ReferralInteractor(
         }
   }
 
-  override fun getReferralInfo(): Single<ReferralsModel> {
+  override fun getReferralInfo(): Single<ReferralModel> {
     return promotionsRepository.getReferralInfo()
         .map {
-          ReferralsModel(it.completed, it.link, it.invited, it.pendingAmount, it.amount, it.symbol,
+          ReferralModel(it.completed, it.link, it.invited, it.pendingAmount, it.amount, it.symbol,
               it.maxAmount, it.minAmount, it.available, it.receivedAmount,
-              isRedeemed(it.userStatus), it.status == ReferralResponse.Status.ACTIVE)
+              isRedeemed(it.userStatus), isAvailable(it.status))
         }
   }
 
   private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
-    return userStatus != null && userStatus == ReferralResponse.UserStatus.REDEEMED
+    return userStatus?.let { it == ReferralResponse.UserStatus.REDEEMED } ?: false
   }
 
   private fun isAvailable(status: ReferralResponse.Status): Boolean {

@@ -9,14 +9,14 @@ interface ReferralInteractorContract {
   fun hasReferralUpdate(address: String, friendsInvited: Int, isVerified: Boolean,
                         screen: ReferralsScreen): Single<Boolean>
 
-  fun retrieveReferral(): Single<ReferralsModel>
+  fun retrieveReferral(): Single<ReferralModel>
 
   fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
                               screen: ReferralsScreen): Completable
 
   fun getPendingBonusNotification(): Maybe<ReferralNotification>
 
-  fun getReferralInfo(): Single<ReferralsModel>
+  fun getReferralInfo(): Single<ReferralModel>
 
   fun getUnwatchedPendingBonusNotification(): Single<CardNotification>
 
