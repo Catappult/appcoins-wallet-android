@@ -67,8 +67,13 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getChipIndex(value: FiatValue): Single<Int> {
-    return if (chipValueIndexMap.isNotEmpty() && chipValueIndexMap.containsKey(value)) {
-      Single.just(chipValueIndexMap[value])
+    return if (chipValueIndexMap.isNotEmpty()) {
+      for (chipValue in chipValueIndexMap.keys) {
+        if (chipValue == value) {
+          return Single.just(chipValueIndexMap[chipValue])
+        }
+      }
+      Single.just(-1)
     } else {
       if (chipValueIndexMap.isEmpty()) {
         topUpValuesService.getDefaultValues()

@@ -77,6 +77,8 @@ android {
 
     buildConfigField 'String', 'PAYMENT_HOST_ROPSTEN_NETWORK',
         "\"" + project.PAYMENT_HOST_DEV + "\""
+    buildConfigField 'String', 'SECOND_PAYMENT_HOST',
+        "\"" + project.SECOND_PAYMENT_HOST + "\""
 
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
 
@@ -110,12 +112,12 @@ android {
           "\"" + project.BDS_BASE_HOST_PROD + "\""
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST}"
+      manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST + "\""
-      manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
-      buildConfigField 'String', 'SECOND_PAYMENT_HOST',
-          "\"" + project.SECOND_PAYMENT_HOST + "\""
       buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_PROD
+      buildConfigField 'String', 'APTOIDE_PKG_NAME',
+          "\"" + project.APTOIDE_PACKAGE_NAME + "\""
     }
     debug {
       minifyEnabled false
@@ -133,6 +135,8 @@ android {
           "\"" + project.BDS_BASE_HOST_DEV + "\""
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
       buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_DEV
+      buildConfigField 'String', 'APTOIDE_PKG_NAME',
+          "\"" + project.APTOIDE_PACKAGE_NAME_DEV + "\""
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST_DEV + "\""

@@ -19,6 +19,7 @@
       android:button="@null"
       android:gravity="center"
       tools:text="5$"
+      android:checked="false"
       />
 
   <CheckBox
@@ -33,6 +34,7 @@
       android:button="@null"
       android:gravity="center"
       tools:text="10$"
+      android:checked="false"
       />
 
   <CheckBox
@@ -47,6 +49,7 @@
       android:button="@null"
       android:gravity="center"
       tools:text="20$"
+      android:checked="false"
       />
 
   <CheckBox
@@ -60,6 +63,7 @@
       android:button="@null"
       android:gravity="center"
       tools:text="50$"
+      android:checked="false"
       />
 
 </LinearLayout>
