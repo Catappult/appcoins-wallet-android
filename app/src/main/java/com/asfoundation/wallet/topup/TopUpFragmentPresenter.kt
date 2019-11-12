@@ -107,9 +107,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleManualAmountChange(packageName: String) {
-    disposables.add(view.getEditTextChanges().doOnNext {
-      resetValues(it)
-    }
+    disposables.add(view.getEditTextChanges()
+        .doOnNext { resetValues(it) }
         .debounce(700, TimeUnit.MILLISECONDS, viewScheduler)
         .doOnNext { handleInputValue(it) }
         .filter { isNumericOrEmpty(it) }
@@ -119,9 +118,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .map { value -> updateConversionValue(value.amount, topUpData) }
               .observeOn(viewScheduler)
               .filter { isConvertedValueAvailable(it) }
-              .doOnComplete {
-                view.setConversionValue(topUpData)
-              }
+              .doOnComplete { view.setConversionValue(topUpData) }
               .flatMap {
                 interactor.getLimitTopUpValues()
                     .toObservable()
