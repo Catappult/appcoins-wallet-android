@@ -50,7 +50,7 @@ class GamificationInteractor(
     val status = getBonusStatus(forecastBonus, referralBonus)
     var bonus = forecastBonus.amount.multiply(fiatValue.amount)
 
-    if ( amount.multiply(fiatValue.amount) > referralsInfo.minAmount) {
+    if (amount.multiply(fiatValue.amount) > referralsInfo.minAmount) {
       bonus = bonus.add(referralBonus.amount)
     }
     return ForecastBonus(status, bonus, fiatValue.symbol)

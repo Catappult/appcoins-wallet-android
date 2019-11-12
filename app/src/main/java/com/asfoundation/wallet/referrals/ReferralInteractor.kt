@@ -26,17 +26,6 @@ class ReferralInteractor(
         }
   }
 
-  override fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {
-    return defaultWallet.find()
-        .flatMap { wallet ->
-          promotionsRepository.getReferralUserStatus(wallet.address)
-              .flatMap {
-                hasReferralUpdate(wallet.address, it.completed,
-                    it.link != null, screen)
-              }
-        }
-  }
-
   override fun retrieveReferral(): Single<ReferralsModel> {
     return defaultWallet.find()
         .flatMap {
