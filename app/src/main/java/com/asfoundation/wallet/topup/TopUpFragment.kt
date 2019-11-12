@@ -452,26 +452,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   private fun setChipOnClickListener(index: Int) {
     when (index) {
-      0 -> {
-        default_chip1.setOnClickListener {
-          chipClickSubject?.onNext(index)
-        }
-      }
-      1 -> {
-        default_chip2.setOnClickListener {
-          chipClickSubject?.onNext(index)
-        }
-      }
-      2 -> {
-        default_chip3.setOnClickListener {
-          chipClickSubject?.onNext(index)
-        }
-      }
-      3 -> {
-        default_chip4.setOnClickListener {
-          chipClickSubject?.onNext(index)
-        }
-      }
+      0 -> default_chip1.setOnClickListener { chipClickSubject?.onNext(index) }
+      1 -> default_chip2.setOnClickListener { chipClickSubject?.onNext(index) }
+      2 -> default_chip3.setOnClickListener { chipClickSubject?.onNext(index) }
+      3 -> default_chip4.setOnClickListener { chipClickSubject?.onNext(index) }
     }
   }
 
