@@ -71,7 +71,7 @@ class ReferralInteractor(
         .flatMapMaybe { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
               .filter {
-                it.pendingAmount.compareTo(BigDecimal.ZERO) != 0
+                it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && isAvailable(it.status)
               }
               .map {
                 ReferralNotification(PENDING_AMOUNT_ID,
@@ -94,7 +94,8 @@ class ReferralInteractor(
                 preferences.getPendingAmountNotification(wallet.address)
                     .map {
                       userStats.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
-                          it != userStats.pendingAmount.scaleToString(2)
+                          it != userStats.pendingAmount.scaleToString(
+                          2) && isAvailable(userStats.status)
                     }
                     .map { shouldShow ->
                       ReferralNotification(PENDING_AMOUNT_ID,
@@ -129,6 +130,10 @@ class ReferralInteractor(
 
   private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
     return userStatus != null && userStatus == ReferralResponse.UserStatus.REDEEMED
+  }
+
+  private fun isAvailable(status: ReferralResponse.Status): Boolean {
+    return status == ReferralResponse.Status.ACTIVE
   }
 
   companion object {
