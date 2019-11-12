@@ -64,7 +64,9 @@ class ReferralInteractor(
     return defaultWallet.find()
         .flatMapMaybe { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
-              .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && isAvailable(it.status) }
+              .map { mapResponse(it) }
+              .onErrorReturn { ReferralModel() }
+              .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && it.isActive }
               .map {
                 ReferralNotification(PENDING_AMOUNT_ID,
                     R.string.referral_notification_bonus_pending_title,
@@ -82,12 +84,14 @@ class ReferralInteractor(
     return defaultWallet.find()
         .flatMap { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
-              .flatMap { userStats ->
+              .map { mapResponse(it) }
+              .onErrorReturn { ReferralModel() }
+              .flatMap { referralModel ->
                 preferences.getPendingAmountNotification(wallet.address)
                     .map {
-                      userStats.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
-                          it != userStats.pendingAmount.scaleToString(
-                          2) && isAvailable(userStats.status)
+                      referralModel.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
+                          it != referralModel.pendingAmount.scaleToString(
+                          2) && referralModel.isActive
                     }
                     .map { shouldShow ->
                       ReferralNotification(PENDING_AMOUNT_ID,
@@ -96,8 +100,8 @@ class ReferralInteractor(
                           R.drawable.ic_bonus_pending,
                           R.string.gamification_APPCapps_button,
                           CardNotificationAction.DISCOVER,
-                          userStats.pendingAmount,
-                          userStats.symbol).takeIf { shouldShow } ?: EmptyNotification()
+                          referralModel.pendingAmount,
+                          referralModel.symbol).takeIf { shouldShow } ?: EmptyNotification()
                     }
               }
         }
@@ -113,11 +117,7 @@ class ReferralInteractor(
 
   override fun getReferralInfo(): Single<ReferralModel> {
     return promotionsRepository.getReferralInfo()
-        .map {
-          ReferralModel(it.completed, it.link, it.invited, it.pendingAmount, it.amount, it.symbol,
-              it.maxAmount, it.minAmount, it.available, it.receivedAmount,
-              isRedeemed(it.userStatus), isAvailable(it.status))
-        }
+        .map { mapResponse(it) }
   }
 
   private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
@@ -126,6 +126,14 @@ class ReferralInteractor(
 
   private fun isAvailable(status: ReferralResponse.Status): Boolean {
     return status == ReferralResponse.Status.ACTIVE
+  }
+
+  private fun mapResponse(referralResponse: ReferralResponse): ReferralModel {
+    return ReferralModel(referralResponse.completed, referralResponse.link,
+        referralResponse.invited, referralResponse.pendingAmount, referralResponse.amount,
+        referralResponse.symbol, referralResponse.maxAmount, referralResponse.minAmount,
+        referralResponse.available, referralResponse.receivedAmount,
+        isRedeemed(referralResponse.userStatus), isAvailable(referralResponse.status))
   }
 
   companion object {
