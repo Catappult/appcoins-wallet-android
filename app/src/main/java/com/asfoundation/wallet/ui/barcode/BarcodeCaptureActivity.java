@@ -207,7 +207,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
       @NonNull int[] grantResults) {
     if (requestCode == RC_HANDLE_CAMERA_PERM) {
-      if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+      if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         Log.d(TAG, "Camera permission granted - initialize the camera source");
         // we have permission, so create the camerasource
         createCameraSource(AUTO_FOCUS, USE_FLASH);
