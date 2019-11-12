@@ -51,12 +51,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.setupUiElements(filterPaymentMethods(paymentMethods),
               LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
         })
-        .doOnSuccess {
+        .subscribe({
           if (initialSetup) {
             handlePreselectedChip()
           }
-        }
-        .subscribe({ }, { throwable -> throwable.printStackTrace() }))
+        }, { throwable -> throwable.printStackTrace() }))
   }
 
   private fun handleChangeCurrencyClick() {
@@ -108,19 +107,16 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleManualAmountChange(packageName: String) {
-    disposables.add(view.getEditTextChanges()
-        .doOnNext {
-          resetValues(it)
-        }
+    disposables.add(view.getEditTextChanges().doOnNext {
+      resetValues(it)
+    }
         .debounce(700, TimeUnit.MILLISECONDS, viewScheduler)
         .doOnNext { handleInputValue(it) }
         .filter { isNumericOrEmpty(it) }
         .switchMap { topUpData ->
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler)
-              .map { value ->
-                return@map updateConversionValue(value.amount, topUpData)
-              }
+              .map { value -> updateConversionValue(value.amount, topUpData) }
               .observeOn(viewScheduler)
               .filter { isConvertedValueAvailable(it) }
               .doOnComplete {
@@ -129,9 +125,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .flatMap {
                 interactor.getLimitTopUpValues()
                     .toObservable()
-                    .flatMap {
-                      handleInsertedValue(packageName, topUpData, it)
-                    }
+                    .flatMap { handleInsertedValue(packageName, topUpData, it) }
               }
               .doOnError { it.printStackTrace() }
               .onErrorResumeNext(Observable.empty())
@@ -178,9 +172,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(getChipValue(PRESELECTED_CHIP)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess {
-          view.initialInputSetup(PRESELECTED_CHIP, it.amount)
-        }
+        .doOnSuccess { view.initialInputSetup(PRESELECTED_CHIP, it.amount) }
         .subscribe())
   }
 
@@ -245,6 +237,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             view.hideBonus()
           } else {
             view.showBonus(it.amount, it.currency)
+            view.setNextButtonState(true)
           }
         }
   }
@@ -271,7 +264,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       Observable.empty()
     } else {
       view.changeMainValueColor(true)
-      view.setNextButtonState(true)
       loadBonusIntoView(appPackage, topUpData.currency.fiatValue,
           topUpData.currency.fiatCurrencyCode)
     }
