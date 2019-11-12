@@ -96,7 +96,7 @@
         />
 
     <Button
-        android:id="@+id/redeem_bonus"
+        android:id="@+id/been_invited_bonus"
         style="@style/ButtonStyle.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/redeem_bonus"
+        app:layout_constraintTop_toBottomOf="@+id/been_invited_bonus"
         />
 
     <LinearLayout
@@ -137,9 +137,9 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/terms_conditions_warning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/terms_conditions_warning"
         >
       <CheckBox
           android:id="@+id/onboarding_checkbox"

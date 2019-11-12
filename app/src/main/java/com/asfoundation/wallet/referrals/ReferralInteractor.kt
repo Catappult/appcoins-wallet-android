@@ -38,7 +38,9 @@ class ReferralInteractor(
     return ReferralsModel(referralResponse.completed, referralResponse.link,
         referralResponse.invited, referralResponse.pendingAmount, referralResponse.amount,
         referralResponse.symbol, referralResponse.maxAmount, referralResponse.minAmount,
-        referralResponse.available, referralResponse.receivedAmount, referralResponse.userStatus)
+        referralResponse.available, referralResponse.receivedAmount,
+        isRedeemed(referralResponse.userStatus),
+        referralResponse.status == ReferralResponse.Status.ACTIVE)
   }
 
   override fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
@@ -116,8 +118,17 @@ class ReferralInteractor(
         }
   }
 
-  override fun getReferralInfo(): Single<ReferralResponse> {
+  override fun getReferralInfo(): Single<ReferralsModel> {
     return promotionsRepository.getReferralInfo()
+        .map {
+          ReferralsModel(it.completed, it.link, it.invited, it.pendingAmount, it.amount, it.symbol,
+              it.maxAmount, it.minAmount, it.available, it.receivedAmount,
+              isRedeemed(it.userStatus), it.status == ReferralResponse.Status.ACTIVE)
+        }
+  }
+
+  private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
+    return userStatus != null && userStatus == ReferralResponse.UserStatus.REDEEMED
   }
 
   companion object {

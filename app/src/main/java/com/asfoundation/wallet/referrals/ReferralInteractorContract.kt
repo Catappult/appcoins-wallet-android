@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.referrals
 
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -17,7 +16,7 @@ interface ReferralInteractorContract {
 
   fun getPendingBonusNotification(): Maybe<ReferralNotification>
 
-  fun getReferralInfo(): Single<ReferralResponse>
+  fun getReferralInfo(): Single<ReferralsModel>
 
   fun getUnwatchedPendingBonusNotification(): Single<CardNotification>
 

@@ -37,6 +37,7 @@ import javax.inject.Inject
 
 class OnboardingActivity : BaseActivity(), OnboardingView {
 
+  private lateinit var listener: OnboardingPageChangeListener
   @Inject
   lateinit var interactor: OnboardingInteract
   @Inject
@@ -94,21 +95,25 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
-    adapter = OnboardingPageAdapter(this, createItemList(""))
+    adapter = OnboardingPageAdapter(this, createDefaultItemList())
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter
-
-    onboarding_viewpager.registerOnPageChangeCallback(
-        OnboardingPageChangeListener(onboarding_content))
+    listener = OnboardingPageChangeListener(onboarding_content)
+    onboarding_viewpager.registerOnPageChangeCallback(listener)
 
     onboarding_content.visibility = View.VISIBLE
     wallet_creation_animation.visibility = View.GONE
     layout_validation_no_internet.visibility = View.GONE
   }
 
-  override fun updateUI(maxAmount: String) {
-    adapter.setPages(createItemList(maxAmount))
+  override fun updateUI(maxAmount: String, isActive: Boolean) {
+    if (isActive) {
+      listener.setIsActiveFlag(isActive)
+      adapter.setPages(createReferralsItemList(maxAmount))
+    } else {
+      adapter.setPages(createDefaultItemList())
+    }
   }
 
   override fun getNextButtonClick(): Observable<Any> {
@@ -116,7 +121,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   }
 
   override fun getRedeemButtonClick(): Observable<Any> {
-    return RxView.clicks(redeem_bonus)
+    return RxView.clicks(been_invited_bonus)
   }
 
   override fun getSkipClicks(): Observable<Any> {
@@ -248,11 +253,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     retry_animation.visibility = View.GONE
   }
 
-  override fun updateUINoInternet() {
-    adapter.setPages(createNoInternetItemList())
-  }
-
-  private fun createItemList(maxAmount: String): List<OnboardingItem> {
+  private fun createReferralsItemList(maxAmount: String): List<OnboardingItem> {
     val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
     val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
     val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
@@ -261,12 +262,12 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     return listOf(item1, item2, item3, item4)
   }
 
-  private fun createNoInternetItemList(): List<OnboardingItem> {
+  private fun createDefaultItemList(): List<OnboardingItem> {
     val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
     val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
     val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
-    val item4 = OnboardingItem(R.string.referral_onboarding_title,
-        this.getString(R.string.referral_onboarding_body_no_connection))
+    val item4 = OnboardingItem(R.string.intro_4_title,
+        this.getString(R.string.intro_4_body))
     return listOf(item1, item2, item3, item4)
   }
 }
