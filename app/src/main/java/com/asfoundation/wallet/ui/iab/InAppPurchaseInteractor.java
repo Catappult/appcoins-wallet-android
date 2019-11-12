@@ -14,6 +14,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Completable;
@@ -253,7 +254,7 @@ public class InAppPurchaseInteractor {
 
   private boolean hasRequiredAptoideVersionInstalled() {
     try {
-      PackageInfo packageInfo = packageManager.getPackageInfo("cm.aptoide.pt", 0);
+      PackageInfo packageInfo = packageManager.getPackageInfo(BuildConfig.APTOIDE_PKG_NAME, 0);
       return packageInfo.versionCode >= EARN_APPCOINS_APTOIDE_VERCODE;
     } catch (Exception e) {
       return false;

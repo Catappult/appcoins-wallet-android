@@ -51,7 +51,7 @@ interface TopUpFragmentView {
 
   fun changeMainValueText(value: String)
 
-  fun unselectChips()
+  fun deselectChips()
 
   fun selectChip(index: Int)
 

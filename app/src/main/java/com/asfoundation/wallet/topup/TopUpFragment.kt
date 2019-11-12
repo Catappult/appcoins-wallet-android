@@ -362,7 +362,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  override fun unselectChips() {
+  override fun deselectChips() {
     setChipsUnchecked()
     setUnselectedChipsBackground()
   }
@@ -412,7 +412,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     for (index in chipViewList.indices) {
       setChipOnClickListener(index)
     }
-    unselectChips()
+    deselectChips()
   }
 
   private fun setChipsUnchecked() {
@@ -453,31 +453,23 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private fun setChipOnClickListener(index: Int) {
     when (index) {
       0 -> {
-        default_chip1.setOnCheckedChangeListener { _, isChecked ->
-          if (isChecked) {
-            chipClickSubject?.onNext(index)
-          }
+        default_chip1.setOnClickListener {
+          chipClickSubject?.onNext(index)
         }
       }
       1 -> {
-        default_chip2.setOnCheckedChangeListener { _, isChecked ->
-          if (isChecked) {
-            chipClickSubject?.onNext(index)
-          }
+        default_chip2.setOnClickListener {
+          chipClickSubject?.onNext(index)
         }
       }
       2 -> {
-        default_chip3.setOnCheckedChangeListener { _, isChecked ->
-          if (isChecked) {
-            chipClickSubject?.onNext(index)
-          }
+        default_chip3.setOnClickListener {
+          chipClickSubject?.onNext(index)
         }
       }
       3 -> {
-        default_chip4.setOnCheckedChangeListener { _, isChecked ->
-          if (isChecked) {
-            chipClickSubject?.onNext(index)
-          }
+        default_chip4.setOnClickListener {
+          chipClickSubject?.onNext(index)
         }
       }
     }

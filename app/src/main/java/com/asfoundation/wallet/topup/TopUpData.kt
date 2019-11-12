@@ -5,7 +5,8 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import java.io.Serializable
 
 data class TopUpData(var currency: CurrencyData,
-                     var selectedCurrency: String, var paymentMethod: PaymentType? = null,
+                     var selectedCurrency: String,
+                     var paymentMethod: PaymentType? = null,
                      var bonusValue: String = "") :
     Serializable {
   companion object {
@@ -15,8 +16,8 @@ data class TopUpData(var currency: CurrencyData,
   }
 }
 
-data class CurrencyData(val fiatCurrencyCode: String = DEFAULT_VALUE,
-                        val fiatCurrencySymbol: String = DEFAULT_VALUE,
-                        var fiatValue: String = DEFAULT_VALUE, val appcCode: String = DEFAULT_VALUE,
-                        val appcSymbol: String = DEFAULT_VALUE,
+data class CurrencyData(var fiatCurrencyCode: String = DEFAULT_VALUE,
+                        var fiatCurrencySymbol: String = DEFAULT_VALUE,
+                        var fiatValue: String = DEFAULT_VALUE, var appcCode: String = DEFAULT_VALUE,
+                        var appcSymbol: String = DEFAULT_VALUE,
                         var appcValue: String = DEFAULT_VALUE) : Serializable
