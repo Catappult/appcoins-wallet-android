@@ -68,9 +68,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun getPoaNotificationSeenTime(): Long {
-    return pref.getLong(POA_LIMIT_SEEN_TIME, -1)
-  }
+  override fun getPoaNotificationSeenTime() = pref.getLong(POA_LIMIT_SEEN_TIME, -1)
 
   override fun setPoaNotificationSeenTime(currentTimeInMillis: Long) {
     pref.edit()
@@ -84,9 +82,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun getUpdateNotificationSeenTime(): Long {
-    return pref.getLong(UPDATE_SEEN_TIME, -1)
-  }
+  override fun getUpdateNotificationSeenTime() = pref.getLong(UPDATE_SEEN_TIME, -1)
 
   override fun setWalletValidationStatus(walletAddress: String, validated: Boolean) {
     pref.edit()
@@ -94,9 +90,9 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun isWalletValidated(walletAddress: String): Boolean {
-    return pref.getBoolean(WALLET_VERIFIED + walletAddress, false)
-  }
+  override fun isWalletValidated(walletAddress: String) =
+      pref.getBoolean(WALLET_VERIFIED + walletAddress, false)
+
 
   override fun removeWalletValidationStatus(walletAddress: String) {
     pref.edit()
@@ -110,6 +106,14 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
+  override fun getBackupNotificationSeenTime() = pref.getLong(BACKUP_SEEN_TIME, -1)
+
+  override fun setBackupNotificationSeenTime(currentTimeMillis: Long) {
+    pref.edit()
+        .putLong(BACKUP_SEEN_TIME, currentTimeMillis)
+        .apply()
+  }
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
@@ -119,6 +123,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
+    private const val BACKUP_SEEN_TIME = "backup_seen_time"
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val PREF_WALLET = "pref_wallet"
   }

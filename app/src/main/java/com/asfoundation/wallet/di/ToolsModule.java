@@ -64,6 +64,8 @@ import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
+import com.asfoundation.wallet.backup.BackupInteract;
+import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.TransactionService;
@@ -235,7 +237,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -751,7 +753,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
+    return new Adyen(context, StandardCharsets.UTF_8, Schedulers.io(), BehaviorRelay.create());
   }
 
   @Singleton @Provides TransactionService provideTransactionService(
@@ -950,11 +952,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         findDefaultWalletInteract, promotionsRepository);
   }
 
+  @Provides BackupInteractContract provideBackupInteractor(
+      PreferencesRepositoryType sharedPreferences) {
+    return new BackupInteract(sharedPreferences);
+  }
+
   @Provides CardNotificationsInteractor provideCardNotificationInteractor(
       ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
-      SharedPreferencesRepository sharedPreferencesRepository) {
-    return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        sharedPreferencesRepository);
+      BackupInteractContract backupInteract) {
+    return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract, backupInteract);
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {

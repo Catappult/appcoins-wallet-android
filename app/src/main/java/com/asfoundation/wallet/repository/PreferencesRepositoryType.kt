@@ -24,4 +24,6 @@ interface PreferencesRepositoryType {
   fun getAutoUpdateCardDismissedVersion(): Single<Int>
   fun getUpdateNotificationSeenTime(): Long
   fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
+  fun getBackupNotificationSeenTime(): Long
+  fun setBackupNotificationSeenTime(currentTimeMillis: Long)
 }

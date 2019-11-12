@@ -372,6 +372,9 @@ public class TransactionsViewModel extends BaseViewModel {
         transactionViewNavigator.openUpdateAppView(context,
             transactionViewInteract.retrieveUpdateUrl());
         dismissNotification(cardNotification);
+      case BACKUP:
+        transactionViewNavigator.navigateToBackup(context);
+        dismissNotification(cardNotification);
         break;
     }
   }
