@@ -271,9 +271,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is TopUpActivityView) {
-      throw IllegalStateException("Payment Auth fragment must be attached to IAB activity")
-    }
+    check(
+        context is TopUpActivityView) { "Payment Auth fragment must be attached to TopUp activity" }
     topUpView = context
     navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, topUpView!!)
 

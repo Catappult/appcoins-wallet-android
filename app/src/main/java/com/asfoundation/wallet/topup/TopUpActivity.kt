@@ -71,13 +71,21 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun onBackPressed() {
-    close()
+    if (supportFragmentManager.backStackEntryCount != 0) {
+      supportFragmentManager.popBackStack()
+    } else {
+      super.onBackPressed()
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       android.R.id.home -> {
-        close()
+        if (supportFragmentManager.backStackEntryCount != 0) {
+          supportFragmentManager.popBackStack()
+        } else {
+          super.onBackPressed()
+        }
         return true
       }
     }
@@ -91,13 +99,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                                  selectedChip: Int, chipValues: List<FiatValue>,
                                  chipAvailability: Boolean) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
+        .add(R.id.fragment_container,
             PaymentAuthFragment.newInstance(
                 paymentType,
                 data,
                 selectedCurrency,
                 origin,
                 transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
+        .addToBackStack(PaymentAuthFragment::class.java.simpleName)
         .commit()
   }
 
