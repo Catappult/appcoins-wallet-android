@@ -4,6 +4,7 @@ import android.net.Uri
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
@@ -13,7 +14,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.subjects.ReplaySubject
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class OnboardingPresenter(private val disposables: CompositeDisposable,
@@ -188,12 +188,9 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handlerError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (isNoNetworkException(throwable)) {
+    if (throwable.isNoNetworkException()) {
       view.updateUINoInternet()
     }
   }
 
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
-  }
 }

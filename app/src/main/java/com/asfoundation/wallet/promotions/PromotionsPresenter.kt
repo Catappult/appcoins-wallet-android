@@ -7,12 +7,12 @@ import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.Status
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
+import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
-import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
@@ -148,14 +148,10 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (isNoNetworkException(throwable)) {
+    if (throwable.isNoNetworkException()) {
       view.hideLoading()
       view.showNetworkErrorView()
     }
-  }
-
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
   }
 
   private fun handleRetryClick() {

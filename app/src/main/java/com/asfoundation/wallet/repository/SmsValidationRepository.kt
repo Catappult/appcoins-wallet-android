@@ -3,12 +3,11 @@ package com.asfoundation.wallet.repository
 import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.entity.WalletValidationException
 import com.asfoundation.wallet.service.SmsValidationApi
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import com.google.gson.Gson
 import io.reactivex.Single
 import retrofit2.HttpException
-import java.io.IOException
-import java.net.UnknownHostException
 
 class SmsValidationRepository(
     private val api: SmsValidationApi,
@@ -60,19 +59,13 @@ class SmsValidationRepository(
         }
       }
       else -> {
-        if (isNoNetworkException(throwable)) {
+        if (throwable.isNoNetworkException()) {
           WalletValidationStatus.NO_NETWORK
         } else {
           WalletValidationStatus.GENERIC_ERROR
         }
       }
     }
-  }
-
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException ||
-        throwable.cause != null && throwable.cause is IOException ||
-        throwable is UnknownHostException
   }
 
 }
