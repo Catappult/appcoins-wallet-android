@@ -42,6 +42,10 @@ import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository;
 import com.appcoins.wallet.gamification.repository.GamificationApi;
 import com.appcoins.wallet.gamification.repository.PromotionsRepository;
 import com.appcoins.wallet.permissions.Permissions;
+import com.aptoide.apk.injector.extractor.data.Extractor;
+import com.aptoide.apk.injector.extractor.data.ExtractorV1;
+import com.aptoide.apk.injector.extractor.data.ExtractorV2;
+import com.aptoide.apk.injector.extractor.domain.IExtract;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -1186,8 +1190,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .setOngoing(false);
   }
 
-  @Singleton @Provides OemIdExtractorService provideOemIdExtractorService(Context context) {
-    return new OemIdExtractorService(new OemIdExtractorV1(context), new OemIdExtractorV2(context));
+  @Singleton @Provides IExtract provideIExtract() {
+    return new Extractor(new ExtractorV1(), new ExtractorV2());
+  }
+
+  @Singleton @Provides OemIdExtractorService provideOemIdExtractorService(Context context,
+      IExtract extractor) {
+    return new OemIdExtractorService(new OemIdExtractorV1(context),
+        new OemIdExtractorV2(context, extractor));
   }
 
   @Singleton @Provides PackageManager providePackageManager(Context context) {
