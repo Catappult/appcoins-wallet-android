@@ -422,6 +422,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     button.isEnabled = valid
   }
 
+  override fun cancelPayment() {
+    topUpView?.cancelPayment()
+  }
+
   override fun showChipsAsDisabled(index: Int) {
     chips_layout.visibility = View.VISIBLE
     setUnselectedChipsDisabledDrawable()
@@ -432,6 +436,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       setSelectedChipDisabled(index)
       setSelectedChipText(index)
     }
+  }
+
+  override fun finishingPurchase() {
+    topUpView?.finishingPurchase()
   }
 
   private fun setupChips() {

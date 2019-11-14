@@ -17,7 +17,7 @@ interface TopUpActivityView {
 
   fun finish(data: Bundle)
 
-  fun close()
+  fun close(navigateToTransactions: Boolean)
 
   fun acceptResult(uri: Uri)
 
@@ -26,4 +26,7 @@ interface TopUpActivityView {
   fun lockOrientation()
 
   fun unlockRotation()
+
+  fun cancelPayment()
+  fun finishingPurchase()
 }
