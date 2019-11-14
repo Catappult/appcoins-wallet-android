@@ -51,9 +51,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleBackClick() {
     disposables.add(Observable.merge(view.backClick(), view.backPressed())
-        .doOnNext {
-          view.navigateToPaymentMethods(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)
-        }
+        .doOnNext { view.navigateToPaymentMethods() }
         .subscribe({}, { showError(it) }))
   }
 

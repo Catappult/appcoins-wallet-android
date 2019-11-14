@@ -496,7 +496,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   @Override public void showMoreMethods() {
     KeyboardUtils.hideKeyboard(mainView);
-    iabView.showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD);
+    iabView.showPaymentMethodsView();
   }
 
   @Override public Observable<Boolean> onValidFieldStateChange() {

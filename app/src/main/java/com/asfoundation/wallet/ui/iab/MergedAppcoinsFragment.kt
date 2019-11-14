@@ -359,9 +359,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     iabView.showAppcoinsCreditsPayment(appcAmount)
   }
 
-  override fun navigateToPaymentMethods(
-      preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod) {
-    iabView.showPaymentMethodsView(preSelectedMethod)
+  override fun navigateToPaymentMethods() {
+    iabView.showPaymentMethodsView()
   }
 
   @SuppressLint("SetTextI18n")

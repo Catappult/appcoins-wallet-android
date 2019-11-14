@@ -59,8 +59,8 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
     return RxView.clicks(buy_button)
   }
 
-  override fun navigateBack(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod) {
-    iabView.showPaymentMethodsView(preSelectedMethod)
+  override fun navigateBack() {
+    iabView.showPaymentMethodsView()
   }
 
   override fun backPressed(): Observable<Any> {

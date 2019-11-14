@@ -28,5 +28,6 @@ interface TopUpActivityView {
   fun unlockRotation()
 
   fun cancelPayment()
+
   fun finishingPurchase()
 }

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -360,6 +361,12 @@ public class AdyenAuthorizationPresenter {
     disposables.add(adyen.getPaymentResult()
         .flatMapCompletable(result -> {
           if (result.isProcessed()) {
+            if (result.getPayment() != null
+                && result.getPayment()
+                .getPaymentStatus() == Payment.PaymentStatus.CANCELLED) {
+              view.showMoreMethods();
+              return Completable.complete();
+            }
             return billingService.authorize(result.getPayment(), result.getPayment()
                 .getPayload());
           }
