@@ -23,10 +23,11 @@ import dagger.Provides;
       DeleteWalletInteract deleteWalletInteract, FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, Logger logger) {
+      TransactionsRouter transactionsRouter, Logger logger,
+      PreferencesRepositoryType preferencesRepositoryType) {
     return new WalletsViewModelFactory(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter, logger);
+        importWalletRouter, transactionsRouter, logger, preferencesRepositoryType);
   }
 
   @Provides SetDefaultWalletInteract provideSetDefaultAccountInteract(

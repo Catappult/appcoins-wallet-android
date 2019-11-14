@@ -10,9 +10,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
 
   private val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-  override fun hasCompletedOnboarding(): Boolean {
-    return pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
-  }
+  override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
 
   override fun setOnboardingComplete() {
     pref.edit()
@@ -20,9 +18,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun hasClickedSkipOnboarding(): Boolean {
-    return pref.getBoolean(ONBOARDING_SKIP_CLICKED_KEY, false)
-  }
+  override fun hasClickedSkipOnboarding() = pref.getBoolean(ONBOARDING_SKIP_CLICKED_KEY, false)
 
   override fun setOnboardingSkipClicked() {
     pref.edit()
@@ -93,7 +89,6 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
   override fun isWalletValidated(walletAddress: String) =
       pref.getBoolean(WALLET_VERIFIED + walletAddress, false)
 
-
   override fun removeWalletValidationStatus(walletAddress: String) {
     pref.edit()
         .remove(WALLET_VERIFIED + walletAddress)
@@ -114,6 +109,21 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
+  override fun isWalletImportBackup(walletAddress: String) =
+      pref.getBoolean(WALLET_IMPORT_BACKUP + walletAddress, false)
+
+  override fun setWalletImportBackup(walletAddress: String) {
+    pref.edit()
+        .putBoolean(WALLET_IMPORT_BACKUP + walletAddress, true)
+        .apply()
+  }
+
+  override fun removeWalletImportBackup(walletAddress: String) {
+    pref.edit()
+        .remove(WALLET_IMPORT_BACKUP + walletAddress)
+        .apply()
+  }
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
@@ -126,5 +136,6 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val BACKUP_SEEN_TIME = "backup_seen_time"
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val PREF_WALLET = "pref_wallet"
+    private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
   }
 }

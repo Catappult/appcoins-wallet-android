@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.backup.BackupInteract;
+import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.CardNotificationsInteractor;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -10,6 +12,7 @@ import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.referrals.ReferralInteractorContract;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
@@ -67,6 +70,20 @@ import javax.inject.Singleton;
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
       TransactionRepositoryType transactionRepository) {
     return new FetchTransactionsInteract(transactionRepository);
+  }
+
+  @Provides BackupInteractContract provideBackupInteractor(
+      PreferencesRepositoryType sharedPreferences, GamificationInteractor gamificationInteractor,
+      FetchTransactionsInteract fetchTransactionsInteract, BalanceInteract balanceInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
+    return new BackupInteract(sharedPreferences, fetchTransactionsInteract, balanceInteract,
+        gamificationInteractor, findDefaultWalletInteract);
+  }
+
+  @Provides CardNotificationsInteractor provideCardNotificationInteractor(
+      ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
+      BackupInteractContract backupInteract) {
+    return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract, backupInteract);
   }
 
   @Provides ManageWalletsRouter provideManageWalletsRouter() {

@@ -64,8 +64,6 @@ import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
-import com.asfoundation.wallet.backup.BackupInteract;
-import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.TransactionService;
@@ -94,7 +92,6 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
-import com.asfoundation.wallet.interact.CardNotificationsInteractor;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
@@ -950,17 +947,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       PromotionsRepository promotionsRepository) {
     return new ReferralInteractor(new SharedPreferencesReferralLocalData(preferences),
         findDefaultWalletInteract, promotionsRepository);
-  }
-
-  @Provides BackupInteractContract provideBackupInteractor(
-      PreferencesRepositoryType sharedPreferences) {
-    return new BackupInteract(sharedPreferences);
-  }
-
-  @Provides CardNotificationsInteractor provideCardNotificationInteractor(
-      ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
-      BackupInteractContract backupInteract) {
-    return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract, backupInteract);
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {

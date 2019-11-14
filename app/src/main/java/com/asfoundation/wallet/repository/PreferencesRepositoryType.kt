@@ -26,4 +26,7 @@ interface PreferencesRepositoryType {
   fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
   fun getBackupNotificationSeenTime(): Long
   fun setBackupNotificationSeenTime(currentTimeMillis: Long)
+  fun isWalletImportBackup(walletAddress: String): Boolean
+  fun setWalletImportBackup(walletAddress: String)
+  fun removeWalletImportBackup(walletAddress: String)
 }
