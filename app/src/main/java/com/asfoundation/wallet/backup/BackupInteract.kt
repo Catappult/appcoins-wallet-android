@@ -52,8 +52,8 @@ class BackupInteract(
           meetsTransactionsCountConditions(walletAddress),
           meetsGamificationConditions(),
           meetsBalanceConditions(),
-          Function4 { dismiss, transactions, gamification, balance ->
-            (transactions || gamification || balance) && dismiss.not()
+          Function4 { dismissPeriodGone, transactions, gamification, balance ->
+            (transactions || gamification || balance) && dismissPeriodGone
           }
       )
     }
