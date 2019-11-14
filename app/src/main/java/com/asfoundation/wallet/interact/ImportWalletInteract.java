@@ -27,7 +27,7 @@ public class ImportWalletInteract {
             newPassword -> walletRepository.importKeystoreToWallet(keystore, password, newPassword)
                 .compose(Operators.savePassword(passwordStore, walletRepository, newPassword)))
         .doOnSuccess(
-            wallet -> preferencesRepositoryType.removeWalletImportBackup(wallet.address))
+            wallet -> preferencesRepositoryType.setWalletImportBackup(wallet.address))
         .observeOn(AndroidSchedulers.mainThread());
   }
 
@@ -36,7 +36,7 @@ public class ImportWalletInteract {
         .flatMap(newPassword -> walletRepository.importPrivateKeyToWallet(privateKey, newPassword)
             .compose(Operators.savePassword(passwordStore, walletRepository, newPassword)))
         .doOnSuccess(
-            wallet -> preferencesRepositoryType.removeWalletImportBackup(wallet.address))
+            wallet -> preferencesRepositoryType.setWalletImportBackup(wallet.address))
         .observeOn(AndroidSchedulers.mainThread());
   }
 }
