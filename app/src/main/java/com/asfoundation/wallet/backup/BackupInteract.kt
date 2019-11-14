@@ -62,18 +62,18 @@ class BackupInteract(
   private fun meetsBalanceConditions(): Single<Boolean> {
     return balanceInteract.requestTokenConversion()
         .firstOrError()
-        .map { it.overallFiat.amount > BigDecimal.TEN }
+        .map { it.overallFiat.amount > BigDecimal(BALANCE_AMOUNT_THRESHOLD) }
   }
 
   private fun meetsGamificationConditions(): Single<Boolean> {
     return gamificationInteractor.getUserStats()
-        .map { it.level >= 2 }
+        .map { it.level >= GAMIFICATION_LEVEL_THRESHOLD }
   }
 
   private fun meetsTransactionsCountConditions(walletAddress: String): Single<Boolean> {
     return fetchTransactionsInteract.fetch(walletAddress)
         .doAfterTerminate { fetchTransactionsInteract.stop() }
-        .map { transactions -> transactions.size >= 10 }
+        .map { transactions -> transactions.size >= TRANSACTION_COUNT_THRESHOLD }
         .firstOrError()
   }
 
@@ -81,9 +81,17 @@ class BackupInteract(
     return Single.create<Boolean> {
       val savedTime = sharedPreferencesRepository.getBackupNotificationSeenTime()
       val currentTime = System.currentTimeMillis()
-      val result = currentTime >= savedTime + TimeUnit.DAYS.toMillis(30)
+      val result = currentTime >= savedTime + TimeUnit.DAYS.toMillis(DISMISS_PERIOD)
       it.onSuccess(result)
     }
+  }
+
+  companion object {
+    private const val DISMISS_PERIOD = 30L
+    private const val TRANSACTION_COUNT_THRESHOLD = 10
+    private const val GAMIFICATION_LEVEL_THRESHOLD = 2
+    private const val BALANCE_AMOUNT_THRESHOLD = 10
+
   }
 
 }
