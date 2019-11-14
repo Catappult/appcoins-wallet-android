@@ -29,7 +29,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
-  private var finishingPurchase = false
+  private var isFinishingPurchase = false
 
   companion object {
     @JvmStatic
@@ -73,7 +73,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun onBackPressed() {
     when {
-      finishingPurchase -> close(true)
+      isFinishingPurchase -> close(true)
       supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
       else -> super.onBackPressed()
     }
@@ -83,7 +83,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     when (item.itemId) {
       android.R.id.home -> {
         when {
-          finishingPurchase -> close(true)
+          isFinishingPurchase -> close(true)
           supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
           else -> super.onBackPressed()
         }
@@ -101,11 +101,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                                  chipAvailability: Boolean) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
-            PaymentAuthFragment.newInstance(
-                paymentType,
-                data,
-                selectedCurrency,
-                origin,
+            PaymentAuthFragment.newInstance(paymentType, data, selectedCurrency, origin,
                 transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
         .addToBackStack(PaymentAuthFragment::class.java.simpleName)
         .commit()
@@ -158,8 +154,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 
-  override fun finishingPurchase() {
-    finishingPurchase = true
+  override fun setFinishingPurchase() {
+    isFinishingPurchase = true
   }
 
   override fun cancelPayment() {

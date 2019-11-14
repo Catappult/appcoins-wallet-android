@@ -276,7 +276,7 @@ public class PaymentAuthPresenter {
           waitingResult = true;
         })
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleErrorDismissEvent() {
@@ -295,7 +295,7 @@ public class PaymentAuthPresenter {
               view.cancelPayment();
               return Completable.complete();
             }
-            view.finishingPurchase();
+            view.setFinishingPurchase();
             return billingService.authorize(result.getPayment(), result.getPayment()
                 .getPayload());
           }

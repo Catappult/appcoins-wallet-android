@@ -438,8 +438,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
-  override fun finishingPurchase() {
-    topUpView?.finishingPurchase()
+  override fun setFinishingPurchase() {
+    topUpView?.setFinishingPurchase()
   }
 
   private fun setupChips() {

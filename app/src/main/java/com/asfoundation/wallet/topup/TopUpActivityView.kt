@@ -29,5 +29,5 @@ interface TopUpActivityView {
 
   fun cancelPayment()
 
-  fun finishingPurchase()
+  fun setFinishingPurchase()
 }

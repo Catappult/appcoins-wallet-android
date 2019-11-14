@@ -45,5 +45,5 @@ interface PaymentAuthView {
 
   fun cancelPayment()
 
-  fun finishingPurchase()
+  fun setFinishingPurchase()
 }
