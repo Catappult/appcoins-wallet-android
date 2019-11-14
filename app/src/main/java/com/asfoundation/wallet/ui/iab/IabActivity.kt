@@ -72,7 +72,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
-        finish()
+        showPaymentMethodsView()
       } else if (resultCode == SUCCESS) {
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
@@ -159,7 +159,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showPaymentMethodsView(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod) {
+  override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
     supportFragmentManager.beginTransaction()

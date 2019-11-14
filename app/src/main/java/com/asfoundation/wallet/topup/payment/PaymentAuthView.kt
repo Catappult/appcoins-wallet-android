@@ -42,4 +42,8 @@ interface PaymentAuthView {
   fun updateTopUpButton(valid: Boolean)
 
   fun showChipsAsDisabled(index: Int)
+
+  fun cancelPayment()
+
+  fun setFinishingPurchase()
 }

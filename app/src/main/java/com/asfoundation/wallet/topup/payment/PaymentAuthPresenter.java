@@ -3,6 +3,7 @@ package com.asfoundation.wallet.topup.payment;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.utils.AmountUtil;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -275,7 +276,7 @@ public class PaymentAuthPresenter {
           waitingResult = true;
         })
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleErrorDismissEvent() {
@@ -288,6 +289,13 @@ public class PaymentAuthPresenter {
     disposables.add(adyen.getPaymentResult()
         .flatMapCompletable(result -> {
           if (result.isProcessed()) {
+            if (result.getPayment() != null
+                && result.getPayment()
+                .getPaymentStatus() == Payment.PaymentStatus.CANCELLED) {
+              view.cancelPayment();
+              return Completable.complete();
+            }
+            view.setFinishingPurchase();
             return billingService.authorize(result.getPayment(), result.getPayment()
                 .getPayload());
           }

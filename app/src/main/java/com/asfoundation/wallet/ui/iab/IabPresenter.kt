@@ -31,7 +31,7 @@ class IabPresenter(private val view: IabView, private val autoUpdateInteract: Au
             updateModel.updateVersionCode, updateModel.updateMinSdk)) {
       view.showUpdateRequiredView()
     } else {
-      view.showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD)
+      view.showPaymentMethodsView()
     }
   }
 }
