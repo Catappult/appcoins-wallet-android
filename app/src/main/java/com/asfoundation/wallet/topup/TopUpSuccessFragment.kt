@@ -114,7 +114,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   override fun close() {
-    topUpActivityView.close()
+    topUpActivityView.close(true)
   }
 
 
