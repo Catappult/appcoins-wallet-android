@@ -119,7 +119,7 @@ public class AdyenAuthorizationPresenter {
 
     handleAdyenPaymentResult();
 
-    handleCancel();
+    handleBack();
 
     handleMorePaymentMethodClicks();
 
@@ -370,10 +370,16 @@ public class AdyenAuthorizationPresenter {
         }, this::showError));
   }
 
-  private void handleCancel() {
-    disposables.add(view.cancelEvent()
+  private void handleBack() {
+    disposables.add(view.backEvent()
         .observeOn(viewScheduler)
-        .doOnNext(__ -> close())
+        .doOnNext(__ -> {
+          if (isPreSelected) {
+            close();
+          } else {
+            view.showMoreMethods();
+          }
+        })
         .subscribe(__ -> {
         }, this::showError));
   }

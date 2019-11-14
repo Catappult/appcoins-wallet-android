@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -233,6 +234,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
       showBonus();
       loadIcon();
+    } else {
+      cancelButton.setText(R.string.back_button);
+      setBackListener(view);
     }
 
     if (isNotBlank(getBonus())) {
@@ -241,7 +245,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     } else {
       lottieTransactionComplete.setAnimation(R.raw.success_animation);
     }
-
     showProduct();
     presenter.present(savedInstanceState);
   }
@@ -253,8 +256,8 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public void onDestroyView() {
+    iabView.enableBack();
     presenter.stop();
-
     validationSubject = null;
     progressBar = null;
     productIcon = null;
@@ -403,7 +406,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     errorMessage.setText(R.string.notification_no_network_poa);
   }
 
-  @NotNull @Override public Observable<Object> cancelEvent() {
+  @NotNull @Override public Observable<Object> backEvent() {
     return RxView.clicks(cancelButton)
         .mergeWith(backButton);
   }
@@ -545,6 +548,19 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         .setPadding(0, 4, 0, 0);
 
     presenter.sendPaymentMethodDetailsEvent(PAYMENT_METHOD_CC);
+  }
+
+  private void setBackListener(View view) {
+    iabView.disableBack();
+    view.setFocusableInTouchMode(true);
+    view.requestFocus();
+    view.setOnKeyListener((view1, i, keyEvent) -> {
+      if (keyEvent.getAction() == KeyEvent.ACTION_DOWN
+          && keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+        backButton.accept(true);
+      }
+      return true;
+    });
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {
