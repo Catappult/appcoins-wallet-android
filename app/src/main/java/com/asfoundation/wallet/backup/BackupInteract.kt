@@ -72,7 +72,7 @@ class BackupInteract(
 
   private fun meetsGamificationConditions(): Single<Boolean> {
     return gamificationInteractor.getUserStats()
-        .map { it.level >= GAMIFICATION_LEVEL_THRESHOLD }
+        .map { it.level + 1 >= GAMIFICATION_LEVEL_THRESHOLD }
         .onErrorReturn { false }
   }
 
