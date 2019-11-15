@@ -124,8 +124,8 @@
   <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
   <string name="intro_4_title">Secure and Private</string>
   <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_4_title">Get Free AppCoins Credits!</string>
-  <string name="intro_4_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
+  <string name="intro_5_title">Get Free AppCoins Credits!</string>
+  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
   <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
@@ -543,5 +543,6 @@
 <!--Backup-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Dropped it in the toilet? Backup your wallet now!</string>
+  <string name="backup_button">BACKUP</string>
 
 </resources>
