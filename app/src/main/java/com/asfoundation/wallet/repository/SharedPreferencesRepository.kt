@@ -101,11 +101,18 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun getBackupNotificationSeenTime() = pref.getLong(BACKUP_SEEN_TIME, -1)
+  override fun getBackupNotificationSeenTime(walletAddress: String) =
+      pref.getLong(BACKUP_SEEN_TIME + walletAddress, -1)
 
-  override fun setBackupNotificationSeenTime(currentTimeMillis: Long) {
+  override fun setBackupNotificationSeenTime(walletAddress: String, currentTimeMillis: Long) {
     pref.edit()
-        .putLong(BACKUP_SEEN_TIME, currentTimeMillis)
+        .putLong(BACKUP_SEEN_TIME + walletAddress, currentTimeMillis)
+        .apply()
+  }
+
+  override fun removeBackupNotificationSeenTime(walletAddress: String) {
+    pref.edit()
+        .remove(BACKUP_SEEN_TIME + walletAddress)
         .apply()
   }
 
@@ -133,7 +140,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
-    private const val BACKUP_SEEN_TIME = "backup_seen_time"
+    private const val BACKUP_SEEN_TIME = "backup_seen_time_"
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val PREF_WALLET = "pref_wallet"
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"

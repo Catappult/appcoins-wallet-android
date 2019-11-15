@@ -30,6 +30,8 @@ public class DeleteWalletInteract {
             () -> preferencesRepositoryType.removeWalletValidationStatus(wallet.address)))
         .andThen(Completable.fromAction(
             () -> preferencesRepositoryType.removeWalletImportBackup(wallet.address)))
+        .andThen(Completable.fromAction(
+            () -> preferencesRepositoryType.removeBackupNotificationSeenTime(wallet.address)))
         .andThen(walletRepository.fetchWallets())
         .observeOn(AndroidSchedulers.mainThread());
   }

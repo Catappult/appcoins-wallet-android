@@ -37,9 +37,13 @@ class BackupInteract(
   }
 
   override fun dismissNotification(): Completable {
-    return Completable.fromAction {
-      sharedPreferencesRepository.setBackupNotificationSeenTime(System.currentTimeMillis())
-    }
+    return findDefaultWalletInteract.find()
+        .flatMapCompletable {
+          Completable.fromAction {
+            sharedPreferencesRepository.setBackupNotificationSeenTime(it.address,
+                System.currentTimeMillis())
+          }
+        }
   }
 
   private fun getBackupThreshold(walletAddress: String): Single<Boolean> {
@@ -48,7 +52,7 @@ class BackupInteract(
       Single.just(false)
     } else {
       Single.zip(
-          meetsLastDismissConditions(),
+          meetsLastDismissConditions(walletAddress),
           meetsTransactionsCountConditions(walletAddress),
           meetsGamificationConditions(),
           meetsBalanceConditions(),
@@ -62,24 +66,27 @@ class BackupInteract(
   private fun meetsBalanceConditions(): Single<Boolean> {
     return balanceInteract.requestTokenConversion()
         .firstOrError()
-        .map { it.overallFiat.amount > BigDecimal(BALANCE_AMOUNT_THRESHOLD) }
+        .map { it.overallFiat.amount >= BigDecimal(BALANCE_AMOUNT_THRESHOLD) }
+        .onErrorReturn { false }
   }
 
   private fun meetsGamificationConditions(): Single<Boolean> {
     return gamificationInteractor.getUserStats()
         .map { it.level >= GAMIFICATION_LEVEL_THRESHOLD }
+        .onErrorReturn { false }
   }
 
   private fun meetsTransactionsCountConditions(walletAddress: String): Single<Boolean> {
     return fetchTransactionsInteract.fetch(walletAddress)
         .doAfterTerminate { fetchTransactionsInteract.stop() }
-        .map { transactions -> transactions.size >= TRANSACTION_COUNT_THRESHOLD }
+        .map { it.size >= TRANSACTION_COUNT_THRESHOLD }
         .firstOrError()
+        .onErrorReturn { false }
   }
 
-  private fun meetsLastDismissConditions(): Single<Boolean> {
+  private fun meetsLastDismissConditions(walletAddress: String): Single<Boolean> {
     return Single.create<Boolean> {
-      val savedTime = sharedPreferencesRepository.getBackupNotificationSeenTime()
+      val savedTime = sharedPreferencesRepository.getBackupNotificationSeenTime(walletAddress)
       val currentTime = System.currentTimeMillis()
       val result = currentTime >= savedTime + TimeUnit.DAYS.toMillis(DISMISS_PERIOD)
       it.onSuccess(result)
