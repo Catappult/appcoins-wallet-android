@@ -16,13 +16,13 @@ import com.asfoundation.wallet.topup.TopUpData;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
+import com.asfoundation.wallet.util.ExtensionFunctionUtilsKt;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -134,7 +134,7 @@ public class PaymentAuthPresenter {
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
 
-    if (throwable instanceof IOException) {
+    if (ExtensionFunctionUtilsKt.isNoNetworkException(throwable)) {
       view.hideLoading();
       view.showNetworkError();
     } else {

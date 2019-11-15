@@ -13,13 +13,13 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.ExtensionFunctionUtilsKt;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -163,16 +163,11 @@ public class AdyenAuthorizationPresenter {
 
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
-    if (isNoNetworkException(throwable)) {
+    if (ExtensionFunctionUtilsKt.isNoNetworkException(throwable)) {
       view.showNetworkError();
     } else {
       view.showGenericError();
     }
-  }
-
-  private boolean isNoNetworkException(Throwable throwable) {
-    return (throwable instanceof IOException) || (throwable.getCause() != null
-        && throwable.getCause() instanceof IOException);
   }
 
   private void onViewCreatedCompletePayment() {

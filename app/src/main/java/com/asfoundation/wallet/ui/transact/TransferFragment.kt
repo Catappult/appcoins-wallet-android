@@ -227,6 +227,11 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
         .show()
   }
 
+  override fun showNoNetworkError() {
+    Snackbar.make(title, R.string.connectoin_error_body, Snackbar.LENGTH_LONG)
+        .show()
+  }
+
   override fun showInvalidAmountError() {
     transact_fragment_recipient_address_layout.error = null
     transact_fragment_amount_layout.error = getString(R.string.p2p_send_error_amount_zero)

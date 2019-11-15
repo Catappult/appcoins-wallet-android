@@ -4,6 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.util.QRUri
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -104,12 +105,19 @@ class TransferPresenter(private val view: TransferFragmentView,
                 }.andThen { view.hideLoading() }
               }
         }
-        .doOnError { error ->
-          error.printStackTrace()
-          view.hideLoading()
-        }
+        .doOnError { handleError(it) }
         .retry()
         .subscribe { })
+  }
+
+  private fun handleError(throwable: Throwable) {
+    view.hideLoading()
+    if (throwable.isNoNetworkException()) {
+      view.showNoNetworkError()
+    } else {
+      throwable.printStackTrace()
+      view.showUnknownError()
+    }
   }
 
   private fun makeTransaction(
