@@ -4,7 +4,6 @@ import android.net.Uri
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
-import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
@@ -187,12 +186,4 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     onboardingInteract.clickSkipOnboarding()
     view.finishOnboarding(walletValidationStatus, showAnimation)
   }
-
-  private fun handlerError(throwable: Throwable) {
-    throwable.printStackTrace()
-    if (throwable.isNoNetworkException()) {
-      view.updateUINoInternet()
-    }
-  }
-
 }
