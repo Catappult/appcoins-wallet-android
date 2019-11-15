@@ -172,8 +172,8 @@ public class WalletsViewModel extends BaseViewModel {
   }
 
   public void saveWalletBackup() {
-    disposable = findDefaultWalletInteract.find()
-        .doOnSuccess(wallet -> preferencesRepositoryType.setWalletImportBackup(wallet.address))
-        .subscribe();
+    Wallet wallet = findDefaultWalletInteract.find()
+        .blockingGet();
+    preferencesRepositoryType.setWalletImportBackup(wallet.address);
   }
 }

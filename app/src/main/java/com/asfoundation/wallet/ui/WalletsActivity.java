@@ -138,6 +138,7 @@ public class WalletsActivity extends BaseActivity
             Snackbar.LENGTH_SHORT)
             .show();
         backupWarning.hide();
+        viewModel.saveWalletBackup();
         showToolbar();
         hideDialog();
         if (adapter.getItemCount() <= 1) {

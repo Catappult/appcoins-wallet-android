@@ -375,7 +375,6 @@ public class TransactionsViewModel extends BaseViewModel {
         break;
       case BACKUP:
         transactionViewNavigator.navigateToBackup(context);
-        dismissNotification(cardNotification);
         break;
     }
   }
