@@ -23,8 +23,8 @@ class CardNotificationsInteractor(
         Function3 { referralNotification: CardNotification, updateNotification: CardNotification, backupNotification: CardNotification ->
           val list = ArrayList<CardNotification>()
           if (referralNotification !is EmptyNotification) list.add(referralNotification)
-          if (updateNotification !is EmptyNotification) list.add(updateNotification)
           if (backupNotification !is EmptyNotification) list.add(backupNotification)
+          if (updateNotification !is EmptyNotification) list.add(updateNotification)
           list
         })
   }
