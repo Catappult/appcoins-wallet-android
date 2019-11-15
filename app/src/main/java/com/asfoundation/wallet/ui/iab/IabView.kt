@@ -40,7 +40,7 @@ interface IabView {
   fun showWalletBlocked()
   fun lockRotation()
   fun unlockRotation()
-  fun showEarnAppcoins()
+  fun showEarnAppcoins(domain: String, skuId: String?, amount: BigDecimal, type: String)
   fun launchIntent(intent: Intent)
   fun showUpdateRequiredView()
 }
