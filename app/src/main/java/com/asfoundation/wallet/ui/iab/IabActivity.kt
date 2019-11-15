@@ -97,9 +97,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun finish(bundle: Bundle) {
-    setResult(Activity.RESULT_OK, Intent().putExtras(bundle))
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
         bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY))
+    bundle.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
+
+    setResult(Activity.RESULT_OK, Intent().putExtras(bundle))
     finish()
   }
 
