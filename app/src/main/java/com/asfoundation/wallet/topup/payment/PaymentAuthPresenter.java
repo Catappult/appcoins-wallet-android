@@ -3,6 +3,7 @@ package com.asfoundation.wallet.topup.payment;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.utils.AmountUtil;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -15,13 +16,13 @@ import com.asfoundation.wallet.topup.TopUpData;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
+import com.asfoundation.wallet.util.ExtensionFunctionUtilsKt;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -133,7 +134,7 @@ public class PaymentAuthPresenter {
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
 
-    if (throwable instanceof IOException) {
+    if (ExtensionFunctionUtilsKt.isNoNetworkException(throwable)) {
       view.hideLoading();
       view.showNetworkError();
     } else {
@@ -275,7 +276,7 @@ public class PaymentAuthPresenter {
           waitingResult = true;
         })
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleErrorDismissEvent() {
@@ -288,6 +289,13 @@ public class PaymentAuthPresenter {
     disposables.add(adyen.getPaymentResult()
         .flatMapCompletable(result -> {
           if (result.isProcessed()) {
+            if (result.getPayment() != null
+                && result.getPayment()
+                .getPaymentStatus() == Payment.PaymentStatus.CANCELLED) {
+              view.cancelPayment();
+              return Completable.complete();
+            }
+            view.setFinishingPurchase();
             return billingService.authorize(result.getPayment(), result.getPayment()
                 .getPayload());
           }

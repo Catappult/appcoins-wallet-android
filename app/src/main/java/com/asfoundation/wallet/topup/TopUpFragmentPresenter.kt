@@ -102,6 +102,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
               topUpData.selectedCurrency, "BDS",
               "TOPUP", topUpData.bonusValue, view.getSelectedChip(), it, view.getChipAvailability())
+          view.hideLoading()
         }
         .subscribe())
   }

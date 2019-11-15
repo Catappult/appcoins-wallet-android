@@ -271,9 +271,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is TopUpActivityView) {
-      throw IllegalStateException("Payment Auth fragment must be attached to IAB activity")
-    }
+    check(
+        context is TopUpActivityView) { "Payment Auth fragment must be attached to TopUp activity" }
     topUpView = context
     navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, topUpView!!)
 
@@ -423,6 +422,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     button.isEnabled = valid
   }
 
+  override fun cancelPayment() {
+    topUpView?.cancelPayment()
+  }
+
   override fun showChipsAsDisabled(index: Int) {
     chips_layout.visibility = View.VISIBLE
     setUnselectedChipsDisabledDrawable()
@@ -433,6 +436,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       setSelectedChipDisabled(index)
       setSelectedChipText(index)
     }
+  }
+
+  override fun setFinishingPurchase() {
+    topUpView?.setFinishingPurchase()
   }
 
   private fun setupChips() {

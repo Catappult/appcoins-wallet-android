@@ -4,6 +4,7 @@ import android.net.Uri
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
@@ -13,7 +14,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.subjects.ReplaySubject
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class OnboardingPresenter(private val disposables: CompositeDisposable,
@@ -76,7 +76,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun isWalletCreated(): Observable<Boolean> {
-    return walletCreated.filter { created -> created }
+    return walletCreated.filter { it }
   }
 
   private fun handleRetryClicks() {
@@ -90,24 +90,29 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleLaterClicks() {
     disposables.add(
         view.getLaterButtonClicks()
-            .doOnNext {
-              handleValidationStatus(WalletValidationStatus.SUCCESS, false)
-            }.subscribe())
+            .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, false) }
+            .subscribe())
   }
 
   private fun handleRedeemButtonClicks() {
     disposables.add(
         view.getRedeemButtonClick()
             .observeOn(viewScheduler)
-            .doOnNext {
-              view.showLoading()
-              handleWalletCreation(skipValidation = false, showAnimation = true)
-            }
+            .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = true) }
             .subscribe()
     )
   }
 
   private fun handleWalletCreation(skipValidation: Boolean, showAnimation: Boolean) {
+    if (walletCreated.hasValue() || !showAnimation) {
+      handleFinishNavigation(skipValidation, false, 0)
+    } else {
+      view.showLoading()
+      handleFinishNavigation(skipValidation, showAnimation, 1)
+    }
+  }
+
+  private fun handleFinishNavigation(skipValidation: Boolean, showAnimation: Boolean, delay: Long) {
     disposables.add(isWalletCreated()
         .flatMapSingle { onboardingInteract.getWalletAddress() }
         .flatMapSingle {
@@ -118,7 +123,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                 .subscribeOn(networkScheduler)
           }
         }
-        .delay(1, TimeUnit.SECONDS)
+        .delay(delay, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
         .doOnNext { handleValidationStatus(it, showAnimation) }
         .subscribe())
@@ -136,10 +141,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleNextButtonClicks() {
     disposables.add(
         view.getNextButtonClick()
-            .doOnNext {
-              view.showLoading()
-              handleWalletCreation(skipValidation = true, showAnimation = true)
-            }
+            .doOnNext { handleWalletCreation(skipValidation = true, showAnimation = true) }
             .subscribe()
     )
   }
@@ -188,12 +190,9 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handlerError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (isNoNetworkException(throwable)) {
+    if (throwable.isNoNetworkException()) {
       view.updateUINoInternet()
     }
   }
 
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
-  }
 }

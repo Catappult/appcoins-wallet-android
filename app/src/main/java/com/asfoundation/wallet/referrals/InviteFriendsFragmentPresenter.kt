@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.referrals
 
+import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
 import java.math.BigDecimal
 
 class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView,
@@ -52,13 +52,9 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
 
   private fun handlerError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (isNoNetworkException(throwable)) {
+    if (throwable.isNoNetworkException()) {
       activity?.showNetworkErrorView()
     }
-  }
-
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
   }
 
   fun stop() {

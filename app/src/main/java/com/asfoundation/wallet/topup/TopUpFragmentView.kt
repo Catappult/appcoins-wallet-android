@@ -25,6 +25,8 @@ interface TopUpFragmentView {
 
   fun showLoading()
 
+  fun hideLoading()
+
   fun showPaymentDetailsForm()
 
   fun showPaymentMethods()

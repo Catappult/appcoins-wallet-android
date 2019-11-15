@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.adyen.core.models.Payment;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -12,13 +13,13 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.ExtensionFunctionUtilsKt;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -119,7 +120,7 @@ public class AdyenAuthorizationPresenter {
 
     handleAdyenPaymentResult();
 
-    handleCancel();
+    handleBack();
 
     handleMorePaymentMethodClicks();
 
@@ -162,16 +163,11 @@ public class AdyenAuthorizationPresenter {
 
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
-    if (isNoNetworkException(throwable)) {
+    if (ExtensionFunctionUtilsKt.isNoNetworkException(throwable)) {
       view.showNetworkError();
     } else {
       view.showGenericError();
     }
-  }
-
-  private boolean isNoNetworkException(Throwable throwable) {
-    return (throwable instanceof IOException) || (throwable.getCause() != null
-        && throwable.getCause() instanceof IOException);
   }
 
   private void onViewCreatedCompletePayment() {
@@ -360,6 +356,12 @@ public class AdyenAuthorizationPresenter {
     disposables.add(adyen.getPaymentResult()
         .flatMapCompletable(result -> {
           if (result.isProcessed()) {
+            if (result.getPayment() != null
+                && result.getPayment()
+                .getPaymentStatus() == Payment.PaymentStatus.CANCELLED) {
+              view.showMoreMethods();
+              return Completable.complete();
+            }
             return billingService.authorize(result.getPayment(), result.getPayment()
                 .getPayload());
           }
@@ -370,10 +372,16 @@ public class AdyenAuthorizationPresenter {
         }, this::showError));
   }
 
-  private void handleCancel() {
-    disposables.add(view.cancelEvent()
+  private void handleBack() {
+    disposables.add(view.backEvent()
         .observeOn(viewScheduler)
-        .doOnNext(__ -> close())
+        .doOnNext(__ -> {
+          if (isPreSelected) {
+            close();
+          } else {
+            view.showMoreMethods();
+          }
+        })
         .subscribe(__ -> {
         }, this::showError));
   }
