@@ -28,10 +28,10 @@ class BackupInteract(
         .flatMap { wallet -> getBackupThreshold(wallet.address) }
         .map { shouldShow ->
           BackupNotification(
-              R.string.referral_notification_bonus_pending_title,
-              R.string.referral_notification_bonus_pending_body,
+              R.string.backup_home_notification_title,
+              R.string.backup_home_notification_body,
               R.drawable.ic_backup_notification,
-              R.string.gamification_APPCapps_button,
+              R.string.backup_button,
               CardNotificationAction.BACKUP).takeIf { shouldShow } ?: EmptyNotification()
         }
   }
