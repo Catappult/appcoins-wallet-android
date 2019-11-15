@@ -543,5 +543,6 @@
 <!--Backup-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Dropped it in the toilet? Backup your wallet now!</string>
+  <string name="backup_button">BACKUP</string>
 
 </resources>
