@@ -17,7 +17,7 @@ interface AdyenAuthorizationView {
   fun paymentMethodDetailsEvent(): Observable<PaymentDetails>
   fun changeCardMethodDetailsEvent(): Observable<PaymentMethod>
   fun showNetworkError()
-  fun cancelEvent(): Observable<Any>
+  fun backEvent(): Observable<Any>
   fun showCvcView(amount: Amount, paymentMethod: PaymentMethod)
   fun showCreditCardView(paymentMethod: PaymentMethod, amount: Amount, cvcStatus: Boolean,
                          allowSave: Boolean, publicKey: String, generationTime: String)

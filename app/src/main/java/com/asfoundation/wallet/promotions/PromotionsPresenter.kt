@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.Status
+import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -119,14 +120,10 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (isNoNetworkException(throwable)) {
+    if (throwable.isNoNetworkException()) {
       view.hideLoading()
       view.showNetworkErrorView()
     }
-  }
-
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
   }
 
   private fun handleRetryClick() {

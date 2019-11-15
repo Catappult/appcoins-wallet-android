@@ -22,7 +22,7 @@ class EarnAppcoinsPresenter(private val view: EarnAppcoinsView,
   private fun handleBackClick() {
     disposables.add(Observable.merge(view.backButtonClick(), view.backPressed())
         .observeOn(viewScheduler)
-        .doOnNext { view.navigateBack(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) }
+        .doOnNext { view.navigateBack() }
         .subscribe({}, { it.printStackTrace() }))
   }
 

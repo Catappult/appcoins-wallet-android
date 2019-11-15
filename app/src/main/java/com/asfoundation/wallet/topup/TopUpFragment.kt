@@ -219,6 +219,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     loading.visibility = View.VISIBLE
   }
 
+  override fun hideLoading() {
+    fragment_braintree_credit_card_form.visibility = View.VISIBLE
+    payment_methods.visibility = View.VISIBLE
+    bonus_layout.visibility = View.VISIBLE
+    bonus_msg.visibility = View.VISIBLE
+    loading.visibility = View.INVISIBLE
+  }
+
   override fun showPaymentDetailsForm() {
     payment_methods.visibility = View.GONE
     loading.visibility = View.GONE

@@ -5,13 +5,13 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
-import java.io.IOException
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val disposables: CompositeDisposable,
@@ -51,9 +51,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleBackClick() {
     disposables.add(Observable.merge(view.backClick(), view.backPressed())
-        .doOnNext {
-          view.navigateToPaymentMethods(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)
-        }
+        .doOnNext { view.navigateToPaymentMethods() }
         .subscribe({}, { showError(it) }))
   }
 
@@ -93,15 +91,11 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun showError(t: Throwable) {
     t.printStackTrace()
-    if (isNoNetworkException(t)) {
+    if (t.isNoNetworkException()) {
       view.showError(R.string.notification_no_network_poa)
     } else {
       view.showError(R.string.activity_iab_error_message)
     }
-  }
-
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
   }
 
   private fun handleBuyClickSelection(selection: String): Completable {

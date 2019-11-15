@@ -15,7 +15,7 @@ class PaymentFragmentNavigator(private val uriNavigator: UriNavigator,
   }
 
   override fun popViewWithError() {
-    topUpView.close()
+    topUpView.close(false)
   }
 
   override fun navigateToUriForResult(redirectUrl: String) {

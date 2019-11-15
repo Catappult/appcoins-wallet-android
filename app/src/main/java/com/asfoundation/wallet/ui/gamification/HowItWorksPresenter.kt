@@ -4,11 +4,11 @@ import android.os.Bundle
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -119,15 +119,10 @@ class HowItWorksPresenter(private val view: HowItWorksView,
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (isNoNetworkException(throwable)) {
+    if (throwable.isNoNetworkException()) {
       activity?.showNetworkErrorView()
     }
   }
-
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
-  }
-
 
   fun stop() {
     disposables.clear()

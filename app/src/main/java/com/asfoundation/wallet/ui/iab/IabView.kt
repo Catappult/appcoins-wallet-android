@@ -28,7 +28,7 @@ interface IabView {
                        type: String, amount: BigDecimal, callbackUrl: String?,
                        orderReference: String?, payload: String?)
 
-  fun showPaymentMethodsView(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod)
+  fun showPaymentMethodsView()
   fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,
                            originalCurrency: String?, amount: BigDecimal, type: String,
                            selectedPaymentMethod: String)

@@ -12,6 +12,7 @@ class WalletBlockedInteract(
   fun isWalletBlocked(): Single<Boolean> {
     return findDefaultWalletInteract.find()
         .flatMap { walletStatusRepository.isWalletBlocked(it.address) }
+        .onErrorReturn { false }
         .delay(1, TimeUnit.SECONDS)
   }
 

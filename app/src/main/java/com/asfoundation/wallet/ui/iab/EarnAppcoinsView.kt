@@ -6,7 +6,7 @@ interface EarnAppcoinsView {
 
   fun backButtonClick(): Observable<Any>
   fun discoverButtonClick(): Observable<Any>
-  fun navigateBack(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod)
+  fun navigateBack()
   fun navigateToAptoide()
   fun backPressed(): Observable<Any>
 }
