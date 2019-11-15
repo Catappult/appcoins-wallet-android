@@ -503,7 +503,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showEarnAppcoins() {
-    iabView.showEarnAppcoins();
+    iabView.showEarnAppcoins(transaction.getDomain(), transaction.getSkuId(), transaction.amount(),
+        transaction.getType());
   }
 
   @Override public void showBonus() {

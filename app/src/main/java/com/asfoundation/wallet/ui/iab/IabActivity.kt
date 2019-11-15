@@ -192,9 +192,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showEarnAppcoins() {
+  override fun showEarnAppcoins(domain: String, skuId: String?, amount: BigDecimal, type: String) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, EarnAppcoinsFragment())
+        .replace(R.id.fragment_container,
+            EarnAppcoinsFragment.newInstance(domain, skuId, amount, type))
         .commit()
   }
 

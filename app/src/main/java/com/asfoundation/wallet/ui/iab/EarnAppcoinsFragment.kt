@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -19,6 +20,8 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.view.*
 import kotlinx.android.synthetic.main.earn_appcoins_layout.*
+import java.math.BigDecimal
+import javax.inject.Inject
 
 class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
 
@@ -26,7 +29,14 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
   private lateinit var iabView: IabView
   private var onBackPressSubject: PublishSubject<Any>? = null
 
+  @Inject
+  lateinit var analytics: BillingAnalytics
+
   override fun onCreate(savedInstanceState: Bundle?) {
+    if (savedInstanceState == null) {
+      analytics.sendPaymentEvent(domain, skuId, amount.toString(),
+          PAYMENT_METHOD_NAME, type)
+    }
     presenter = EarnAppcoinsPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
     onBackPressSubject = PublishSubject.create()
     super.onCreate(savedInstanceState)
@@ -100,7 +110,65 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
     super.onDestroyView()
   }
 
+  val domain: String by lazy {
+    if (arguments!!.containsKey(
+            PARAM_DOMAIN)) {
+      arguments!!.getString(
+          PARAM_DOMAIN)
+    } else {
+      throw IllegalArgumentException("Domain not found")
+    }
+  }
+
+  val skuId: String? by lazy {
+    if (arguments!!.containsKey(
+            PARAM_SKUID)) {
+      val value = arguments!!.getString(
+          PARAM_SKUID) ?: return@lazy null
+      value
+    } else {
+      throw IllegalArgumentException("SkuId not found")
+    }
+  }
+
+  val amount: BigDecimal by lazy {
+    if (arguments!!.containsKey(
+            PARAM_AMOUNT)) {
+      val value = arguments!!.getSerializable(
+          PARAM_AMOUNT) as BigDecimal
+      value
+    } else {
+      throw IllegalArgumentException("amount not found")
+    }
+  }
+
+  val type: String by lazy {
+    if (arguments!!.containsKey(PARAM_TRANSACTION_TYPE)) {
+      arguments!!.getString(PARAM_TRANSACTION_TYPE)
+    } else {
+      throw IllegalArgumentException("type not found")
+    }
+  }
+
   companion object {
-    const val APTOIDE_EARN_APPCOINS_DEEP_LINK = "aptoide://cm.aptoide.pt/deeplink?name=appcoins_ads"
+
+    @JvmStatic
+    fun newInstance(domain: String, skuId: String?, amount: BigDecimal,
+                    type: String): EarnAppcoinsFragment = EarnAppcoinsFragment().apply {
+      arguments = Bundle().apply {
+        putString(PARAM_DOMAIN, domain)
+        putString(PARAM_SKUID, skuId)
+        putString(PARAM_TRANSACTION_TYPE, type)
+        putSerializable(PARAM_AMOUNT, amount)
+      }
+    }
+
+    private const val APTOIDE_EARN_APPCOINS_DEEP_LINK =
+        "aptoide://cm.aptoide.pt/deeplink?name=appcoins_ads"
+    private const val PARAM_DOMAIN = "AMOUNT_DOMAIN"
+    private const val PARAM_SKUID = "AMOUNT_SKUID"
+    private const val PARAM_AMOUNT = "PARAM_AMOUNT"
+    private const val PARAM_TRANSACTION_TYPE = "PARAM_TRANSACTION_TYPE"
+    private const val PAYMENT_METHOD_NAME = "EARN_APPCOINS_BUNDLE"
   }
 }
