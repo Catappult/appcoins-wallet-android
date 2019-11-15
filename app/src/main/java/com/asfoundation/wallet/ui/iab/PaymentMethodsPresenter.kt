@@ -15,6 +15,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -24,7 +25,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
-import java.io.IOException
 import java.math.BigDecimal
 import java.util.*
 
@@ -299,7 +299,7 @@ class PaymentMethodsPresenter(
   private fun showError(t: Throwable) {
     t.printStackTrace()
     when {
-      isNoNetworkException(t) -> view.showError(R.string.notification_no_network_poa)
+      t.isNoNetworkException() -> view.showError(R.string.notification_no_network_poa)
       isItemAlreadyOwnedError(t) -> view.showItemAlreadyOwnedError()
       else -> view.showError(R.string.activity_iab_error_message)
     }
@@ -307,10 +307,6 @@ class PaymentMethodsPresenter(
 
   private fun isItemAlreadyOwnedError(throwable: Throwable): Boolean {
     return throwable is HttpException && throwable.code() == 409
-  }
-
-  private fun isNoNetworkException(throwable: Throwable): Boolean {
-    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
   }
 
   private fun close() {
