@@ -31,6 +31,7 @@ class CardNotificationsListViewHolder(resId: Int, parent: ViewGroup,
       recyclerView.visibility = View.GONE
     } else {
       adapter.notifications = data
+      adapter.notifyDataSetChanged()
       recyclerView.visibility = View.VISIBLE
     }
   }
