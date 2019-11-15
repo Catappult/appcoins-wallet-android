@@ -38,8 +38,9 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = PromotionsPresenter(this, gamification, promotionsInteractor,
-        CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
+    presenter =
+        PromotionsPresenter(this, promotionsInteractor, CompositeDisposable(), Schedulers.io(),
+            AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {

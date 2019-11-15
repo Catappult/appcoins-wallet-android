@@ -11,6 +11,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
+import com.asfoundation.wallet.promotions.PromotionsInteractorContract;
 import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepository;
@@ -59,12 +60,12 @@ import javax.inject.Singleton;
       FindDefaultWalletInteract findDefaultWalletInteract,
       FetchTransactionsInteract fetchTransactionsInteract,
       GamificationInteractor gamificationInteractor, BalanceInteract balanceInteract,
-      ReferralInteractorContract referralInteractor,
+      PromotionsInteractorContract promotionsInteractorContract,
       CardNotificationsInteractor cardNotificationsInteractor,
       AutoUpdateInteract autoUpdateInteract) {
     return new TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
-        fetchTransactionsInteract, gamificationInteractor, balanceInteract, referralInteractor,
-        cardNotificationsInteractor, autoUpdateInteract);
+        fetchTransactionsInteract, gamificationInteractor, balanceInteract,
+        promotionsInteractorContract, cardNotificationsInteractor, autoUpdateInteract);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(

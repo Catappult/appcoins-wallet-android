@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.referrals
 
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
@@ -33,11 +32,11 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
     )
   }
 
-  private fun handleValidationResult(referral: ReferralsModel) {
+  private fun handleValidationResult(referral: ReferralModel) {
     if (referral.link != null) {
       activity.navigateToInviteFriends(referral.amount, referral.pendingAmount,
           referral.symbol, referral.link, referral.completed, referral.receivedAmount,
-          referral.maxAmount, referral.available, referral.isRedeemed())
+          referral.maxAmount, referral.available, referral.isRedeemed)
       handleInfoButtonVisibility()
     } else {
       activity.navigateToVerificationFragment(referral.amount, referral.symbol)
@@ -65,10 +64,6 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         .delay(1, TimeUnit.SECONDS)
         .doOnNext { handleFragmentNavigation() }
         .subscribe({}, { it.printStackTrace() }))
-  }
-
-  private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
-    return userStatus != null && userStatus == ReferralResponse.UserStatus.REDEEMED
   }
 
   fun stop() {

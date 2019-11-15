@@ -936,10 +936,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides PromotionsInteractorContract providePromotionsInteractor(
-      ReferralInteractorContract referralInteractor, PromotionsRepository promotionsRepository,
+      ReferralInteractorContract referralInteractor, GamificationInteractor gamificationInteractor,
+      PromotionsRepository promotionsRepository,
       FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new PromotionsInteractor(referralInteractor, promotionsRepository,
-        findDefaultWalletInteract);
+    return new PromotionsInteractor(referralInteractor, gamificationInteractor,
+        promotionsRepository, findDefaultWalletInteract);
   }
 
   @Provides ReferralInteractorContract provideReferralInteractor(SharedPreferences preferences,

@@ -1,16 +1,14 @@
 package com.asfoundation.wallet.referrals
 
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import java.math.BigDecimal
 
-data class ReferralsModel(
+data class ReferralModel(
     val completed: Int, val link: String?, val invited: Boolean, val pendingAmount: BigDecimal,
     val amount: BigDecimal, val symbol: String, val maxAmount: BigDecimal,
     val minAmount: BigDecimal, val available: Int, val receivedAmount: BigDecimal,
-    val userStatus: ReferralResponse.UserStatus?) {
+    val isRedeemed: Boolean, val isActive: Boolean) {
 
-  fun isRedeemed(): Boolean {
-    return userStatus != null && userStatus == ReferralResponse.UserStatus.REDEEMED
-  }
-
+  constructor() : this(0, "", false, BigDecimal.ZERO, BigDecimal.ZERO,
+      "", BigDecimal.ZERO, BigDecimal.ZERO, 0, BigDecimal.ZERO, false,
+      false)
 }

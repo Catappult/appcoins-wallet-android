@@ -12,7 +12,8 @@ import com.asf.wallet.R
 import com.rd.PageIndicatorView
 
 
-class OnboardingPageChangeListener internal constructor(private val view: View) :
+class OnboardingPageChangeListener internal constructor(private val view: View,
+                                                        private var isActive: Boolean = false) :
     ViewPager2.OnPageChangeCallback() {
 
   companion object {
@@ -23,7 +24,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   private lateinit var lottieView: LottieAnimationView
   private lateinit var skipButton: Button
   private lateinit var nextButton: Button
-  private lateinit var redeemBonus: Button
+  private lateinit var beenInvitedButton: Button
   private lateinit var checkBox: CheckBox
   private lateinit var warningText: TextView
   private lateinit var termsConditionsLayout: LinearLayout
@@ -38,12 +39,16 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     skipButton = view.findViewById(R.id.skip_button)
     nextButton = view.findViewById(R.id.next_button)
     checkBox = view.findViewById(R.id.onboarding_checkbox)
-    redeemBonus = view.findViewById(R.id.redeem_bonus)
+    beenInvitedButton = view.findViewById(R.id.been_invited_bonus)
     warningText = view.findViewById(R.id.terms_conditions_warning)
     termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout)
     pageIndicatorView = view.findViewById(R.id.page_indicator)
     updatePageIndicator(0)
     handleUI(0)
+  }
+
+  fun setIsActiveFlag(isActive: Boolean) {
+    this.isActive = isActive
   }
 
   private fun animateHideWarning(textView: TextView) {
@@ -70,10 +75,10 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   private fun showLastPageLayout() {
     skipButton.visibility = View.GONE
     nextButton.visibility = View.VISIBLE
-    redeemBonus.visibility = View.VISIBLE
+    if (isActive) beenInvitedButton.visibility = View.VISIBLE
     termsConditionsLayout.visibility = View.VISIBLE
     nextButton.isEnabled = checkBox.isChecked
-    redeemBonus.isEnabled = checkBox.isChecked
+    beenInvitedButton.isEnabled = checkBox.isChecked
 
     if (checkBox.isChecked) {
       if (warningText.visibility == View.VISIBLE) {
@@ -86,7 +91,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   private fun showFirstPageLayout() {
     skipButton.visibility = View.VISIBLE
     nextButton.visibility = View.GONE
-    redeemBonus.visibility = View.GONE
+    beenInvitedButton.visibility = View.GONE
     termsConditionsLayout.visibility = View.GONE
 
     if (warningText.visibility == View.VISIBLE) {

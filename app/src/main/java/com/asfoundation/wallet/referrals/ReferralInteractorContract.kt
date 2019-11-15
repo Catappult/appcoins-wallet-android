@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.referrals
 
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -10,16 +9,14 @@ interface ReferralInteractorContract {
   fun hasReferralUpdate(address: String, friendsInvited: Int, isVerified: Boolean,
                         screen: ReferralsScreen): Single<Boolean>
 
-  fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean>
-
-  fun retrieveReferral(): Single<ReferralsModel>
+  fun retrieveReferral(): Single<ReferralModel>
 
   fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
                               screen: ReferralsScreen): Completable
 
   fun getPendingBonusNotification(): Maybe<ReferralNotification>
 
-  fun getReferralInfo(): Single<ReferralResponse>
+  fun getReferralInfo(): Single<ReferralModel>
 
   fun getUnwatchedPendingBonusNotification(): Single<CardNotification>
 

@@ -6,9 +6,7 @@ import io.reactivex.Observable
 
 interface OnboardingView {
 
-  fun updateUI(maxAmount: String)
-
-  fun updateUINoInternet()
+  fun updateUI(maxAmount: String, isActive: Boolean)
 
   fun showLoading()
 
