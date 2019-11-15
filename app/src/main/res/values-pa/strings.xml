@@ -116,6 +116,8 @@
   <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
   <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
+  <string name="intro_5_title">Get Free AppCoins Credits!</string>
+  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
   <string name="intro_creating_wallet_short">ਤੁਹਾਡੇ ਲਈ ਤੁਹਾਡਾ ਬਟੂਆ ਸੈਟ ਅਪ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
   <string name="intro_wallet_created_short">ਬਟੂਆ ਬਣਾਇਆ ਗਿਆ!</string>
   <string name="intro_agree_terms_and_conditions_body">ਛੱਡੋ ਤੇ ਟੈਪ ਕਰਕੇ, ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹੁੰਦੇ ਹੋ</string>
@@ -444,7 +446,11 @@
   <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods than APPC Credits.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods except AppCoins Credits.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_card_error_general">It seems there\'s a problem with your card. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card details are correct? Please try again!</string>
+  <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ!</string>
   <string name="referral_onboarding_body">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ %s ਤੱਕ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
@@ -491,4 +497,8 @@
   <string name="update_wallet_soft_title">Don\'t get left behind!</string>
   <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
   <string name="update_button">UPDATE</string>
+  <!--Backup-->
+  <string name="backup_home_notification_title">Backup Your Wallet</string>
+  <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
+  <string name="backup_button">BACKUP</string>
 </resources>
