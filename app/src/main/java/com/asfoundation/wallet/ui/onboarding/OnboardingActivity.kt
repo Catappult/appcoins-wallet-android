@@ -266,8 +266,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
     val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
     val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
-    val item4 = OnboardingItem(R.string.intro_4_title,
-        this.getString(R.string.intro_4_body))
+    val item4 = OnboardingItem(R.string.intro_5_title,
+        this.getString(R.string.intro_5_body))
     return listOf(item1, item2, item3, item4)
   }
 }
