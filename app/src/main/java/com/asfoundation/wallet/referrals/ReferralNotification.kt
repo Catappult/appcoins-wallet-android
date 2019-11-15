@@ -5,10 +5,10 @@ import androidx.annotation.StringRes
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import java.math.BigDecimal
 
-data class ReferralNotification(override val id: Int, @StringRes override val title: Int,
+data class ReferralNotification(@StringRes override val title: Int,
                                 @StringRes override val body: Int,
                                 @DrawableRes override val icon: Int, @StringRes
                                 override val positiveButtonText: Int,
                                 override val positiveAction: CardNotificationAction,
                                 val pendingAmount: BigDecimal, val symbol: String) :
-    CardNotification(id, title, body, icon, positiveButtonText, positiveAction)
+    CardNotification(title, body, icon, positiveButtonText, positiveAction)

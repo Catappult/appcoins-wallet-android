@@ -98,7 +98,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     (ether_token.token_balance_placeholder as LottieAnimationView).playAnimation()
   }
 
-  override fun updateTokenValue(tokenBalance: Balance) {
+  override fun updateTokenValue(tokenBalance: TokenBalance) {
     if (tokenBalance.token.amount.compareTo(BigDecimal("-1")) == 1) {
       when (tokenBalance.token.currency) {
         APPC_C_CURRENCY -> {

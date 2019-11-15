@@ -15,6 +15,7 @@ import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
+import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
 
@@ -31,6 +32,7 @@ public class WalletsViewModel extends BaseViewModel {
   private final Logger logger;
   private final ImportWalletRouter importWalletRouter;
   private final TransactionsRouter transactionsRouter;
+  private final PreferencesRepositoryType preferencesRepositoryType;
 
   private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -45,7 +47,8 @@ public class WalletsViewModel extends BaseViewModel {
       FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, Logger logger) {
+      TransactionsRouter transactionsRouter, Logger logger,
+      PreferencesRepositoryType preferencesRepositoryType) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
     this.deleteWalletInteract = deleteWalletInteract;
@@ -55,6 +58,7 @@ public class WalletsViewModel extends BaseViewModel {
     this.exportWalletInteract = exportWalletInteract;
     this.transactionsRouter = transactionsRouter;
     this.logger = logger;
+    this.preferencesRepositoryType = preferencesRepositoryType;
 
     fetchWallets();
   }
@@ -165,5 +169,11 @@ public class WalletsViewModel extends BaseViewModel {
 
   public void clearExportedStore() {
     exportedStore.setValue(null);
+  }
+
+  public void saveWalletBackup() {
+    disposable = findDefaultWalletInteract.find()
+        .doOnSuccess(wallet -> preferencesRepositoryType.setWalletImportBackup(wallet.address))
+        .subscribe();
   }
 }

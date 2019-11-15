@@ -146,6 +146,7 @@ public class WalletsActivity extends BaseActivity
       } else {
         dialog = buildDialog().setMessage(R.string.do_manage_make_backup)
             .setPositiveButton(R.string.yes_continue, (dialog, which) -> {
+              viewModel.saveWalletBackup();
               hideDialog();
               backupWarning.hide();
               showToolbar();

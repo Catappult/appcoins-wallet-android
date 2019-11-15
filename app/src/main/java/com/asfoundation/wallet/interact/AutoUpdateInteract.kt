@@ -3,9 +3,13 @@ package com.asfoundation.wallet.interact
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import com.asf.wallet.R
+import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
@@ -53,6 +57,24 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     return intent
   }
 
+  fun getUnwatchedUpdateNotification(): Single<CardNotification> {
+    return getAutoUpdateModel(false)
+        .flatMap { updateModel ->
+          sharedPreferencesRepository.getAutoUpdateCardDismissedVersion()
+              .map {
+                hasSoftUpdate(updateModel.updateVersionCode,
+                    updateModel.updateMinSdk) && updateModel.updateVersionCode != it
+              }
+        }
+        .map { shouldShow ->
+          UpdateNotification(
+              R.string.update_wallet_soft_title,
+              R.string.update_wallet_soft_body,
+              R.string.update_button, CardNotificationAction.UPDATE,
+              R.raw.update_animation).takeIf { shouldShow } ?: EmptyNotification()
+        }
+  }
+
   private fun isInstalled(packageName: String): Boolean {
     return try {
       packageManager.getApplicationInfo(packageName, 0)
@@ -71,6 +93,13 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
 
   fun saveSeenUpdateNotification() {
     sharedPreferencesRepository.setUpdateNotificationSeenTime(System.currentTimeMillis())
+  }
+
+  fun dismissNotification(): Completable {
+    return getAutoUpdateModel(false)
+        .flatMapCompletable {
+          sharedPreferencesRepository.saveAutoUpdateCardDismiss(it.updateVersionCode)
+        }
   }
 
   companion object {

@@ -83,7 +83,7 @@ class ReferralInteractor(
                 it.pendingAmount.compareTo(BigDecimal.ZERO) != 0
               }
               .map {
-                ReferralNotification(PENDING_AMOUNT_ID,
+                ReferralNotification(
                     R.string.referral_notification_bonus_pending_title,
                     R.string.referral_notification_bonus_pending_body,
                     R.drawable.ic_bonus_pending,
@@ -106,7 +106,7 @@ class ReferralInteractor(
                           it != userStats.pendingAmount.scaleToString(2)
                     }
                     .map { shouldShow ->
-                      ReferralNotification(PENDING_AMOUNT_ID,
+                      ReferralNotification(
                           R.string.referral_notification_bonus_pending_title,
                           R.string.referral_notification_bonus_pending_body,
                           R.drawable.ic_bonus_pending,
@@ -129,10 +129,6 @@ class ReferralInteractor(
 
   override fun getReferralInfo(): Single<ReferralResponse> {
     return promotionsRepository.getReferralInfo()
-  }
-
-  companion object {
-    private const val PENDING_AMOUNT_ID = 1
   }
 
 }

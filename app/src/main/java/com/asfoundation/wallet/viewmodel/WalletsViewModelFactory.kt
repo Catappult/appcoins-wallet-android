@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.*
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ImportWalletRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import javax.inject.Inject
@@ -17,12 +18,13 @@ class WalletsViewModelFactory @Inject constructor(
     private val exportWalletInteract: ExportWalletInteract,
     private val importWalletRouter: ImportWalletRouter,
     private val transactionsRouter: TransactionsRouter,
-    private val logger: Logger) : Factory {
+    private val logger: Logger,
+    private val preferencesRepositoryType: PreferencesRepositoryType) : Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     return WalletsViewModel(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter, logger) as T
+        importWalletRouter, transactionsRouter, logger, preferencesRepositoryType) as T
   }
 
 }
