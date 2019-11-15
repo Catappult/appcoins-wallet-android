@@ -8,7 +8,7 @@ interface BalanceFragmentView {
 
   fun setupUI()
 
-  fun updateTokenValue(tokenBalance: Balance)
+  fun updateTokenValue(tokenBalance: TokenBalance)
 
   fun updateOverallBalance(overallBalance: FiatValue)
 

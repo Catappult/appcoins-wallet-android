@@ -68,7 +68,7 @@ class ReferralInteractor(
               .onErrorReturn { ReferralModel() }
               .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && it.isActive }
               .map {
-                ReferralNotification(PENDING_AMOUNT_ID,
+                ReferralNotification(
                     R.string.referral_notification_bonus_pending_title,
                     R.string.referral_notification_bonus_pending_body,
                     R.drawable.ic_bonus_pending,
@@ -94,7 +94,7 @@ class ReferralInteractor(
                           2) && referralModel.isActive
                     }
                     .map { shouldShow ->
-                      ReferralNotification(PENDING_AMOUNT_ID,
+                      ReferralNotification(
                           R.string.referral_notification_bonus_pending_title,
                           R.string.referral_notification_bonus_pending_body,
                           R.drawable.ic_bonus_pending,
@@ -134,10 +134,6 @@ class ReferralInteractor(
         referralResponse.symbol, referralResponse.maxAmount, referralResponse.minAmount,
         referralResponse.available, referralResponse.receivedAmount,
         isRedeemed(referralResponse.userStatus), isAvailable(referralResponse.status))
-  }
-
-  companion object {
-    private const val PENDING_AMOUNT_ID = 1
   }
 
 }

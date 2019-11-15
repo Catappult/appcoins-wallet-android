@@ -92,7 +92,6 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
-import com.asfoundation.wallet.interact.CardNotificationsInteractor;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
@@ -949,13 +948,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       PromotionsRepository promotionsRepository) {
     return new ReferralInteractor(new SharedPreferencesReferralLocalData(preferences),
         findDefaultWalletInteract, promotionsRepository);
-  }
-
-  @Provides CardNotificationsInteractor provideCardNotificationInteractor(
-      ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
-      SharedPreferencesRepository sharedPreferencesRepository) {
-    return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        sharedPreferencesRepository);
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {

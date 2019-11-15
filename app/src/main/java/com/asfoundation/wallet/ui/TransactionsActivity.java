@@ -27,7 +27,6 @@ import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.referrals.CardNotification;
-import com.asfoundation.wallet.referrals.ReferralNotification;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
@@ -226,8 +225,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       CardNotificationAction cardNotificationAction) {
     showScroll = cardNotificationAction.equals(CardNotificationAction.DISMISS)
         && adapter.getNotificationsCount() == 1;
-    viewModel.onNotificationClick(cardNotification, cardNotificationAction,
-        this.getApplicationContext());
+    viewModel.onNotificationClick(cardNotification, cardNotificationAction, this);
   }
 
   @Override protected void onPause() {
