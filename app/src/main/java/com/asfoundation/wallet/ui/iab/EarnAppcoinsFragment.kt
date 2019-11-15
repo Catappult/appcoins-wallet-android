@@ -33,7 +33,7 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
   lateinit var analytics: BillingAnalytics
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
+    if (savedInstanceState == null) {
       analytics.sendPaymentEvent(domain, skuId, amount.toString(),
           PAYMENT_METHOD_NAME, type)
     }
