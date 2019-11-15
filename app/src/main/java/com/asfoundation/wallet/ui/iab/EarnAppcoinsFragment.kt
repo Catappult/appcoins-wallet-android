@@ -155,7 +155,7 @@ class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
     @JvmStatic
     fun newInstance(domain: String, skuId: String?, amount: BigDecimal,
                     type: String): EarnAppcoinsFragment = EarnAppcoinsFragment().apply {
-      arguments = Bundle(2).apply {
+      arguments = Bundle().apply {
         putString(PARAM_DOMAIN, domain)
         putString(PARAM_SKUID, skuId)
         putString(PARAM_TRANSACTION_TYPE, type)
