@@ -90,7 +90,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     check(
-        context is TopUpActivityView) { "Express checkout buy fragment must be attached to IAB activity" }
+        context is TopUpActivityView) { "TopUp fragment must be attached to TopUp activity" }
     topUpActivityView = context
   }
 
