@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup
 
+import android.util.Log
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
@@ -101,7 +102,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnSuccess {
           activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
               topUpData.selectedCurrency, "BDS",
-              "TOPUP", topUpData.bonusValue, view.getSelectedChip(), it, view.getChipAvailability())
+              "TOPUP", topUpData.bonusValue, view.getSelectedChip(), it.values,
+              view.getChipAvailability())
           view.hideLoading()
         }
         .subscribe())
@@ -181,10 +183,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
+          view.deselectChips()
           if (it != -1) {
             view.selectChip(it)
-          } else {
-            view.deselectChips()
           }
         }
         .subscribe())
@@ -271,7 +272,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(interactor.getDefaultValues()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setupDefaultValueChips(it) }
+        .doOnSuccess { view.setupDefaultValueChips(it.values) }
         .subscribe())
   }
 
@@ -310,6 +311,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun showValueWarning(maxValue: FiatValue, minValue: FiatValue, amount: BigDecimal) {
     val localCurrency = " ${maxValue.currency}"
     when {
+      amount == BigDecimal(-1) -> {
+        view.hideValueInputWarning()
+        Log.w("TopUpFragmentPresenter", "Unable to retrieve values")
+      }
       amount > maxValue.amount -> view.showMaxValueWarning(
           maxValue.amount.toPlainString() + localCurrency)
       amount < minValue.amount -> view.showMinValueWarning(
@@ -320,7 +325,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun getChipValue(index: Int): Single<FiatValue> {
     return interactor.getDefaultValues()
-        .map { it[index] }
+        .map { it.values[index] }
   }
 
   private fun isValueInRange(limitValues: TopUpLimitValues, value: Double): Boolean {
