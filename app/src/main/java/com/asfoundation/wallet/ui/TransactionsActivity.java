@@ -117,7 +117,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyTransactionsSubject = PublishSubject.create();
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
-        this::onNotificationClick);
+        this::onNotificationClick, getResources());
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
     systemView = findViewById(R.id.system_view);
     list = findViewById(R.id.list);

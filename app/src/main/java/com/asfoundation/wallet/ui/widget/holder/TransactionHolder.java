@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -38,8 +39,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private Transaction transaction;
   private String defaultAddress;
   private OnTransactionClickListener onTransactionClickListener;
+  private Resources resources;
 
-  public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener) {
+  public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener,
+      Resources resources) {
     super(resId, parent);
 
     srcImage = findViewById(R.id.img);
@@ -52,6 +55,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     onTransactionClickListener = listener;
 
     itemView.setOnClickListener(this);
+    this.resources = resources;
   }
 
   @Override public void bind(@Nullable Transaction data, @NonNull Bundle addition) {
@@ -75,7 +79,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private String extractTo(Transaction transaction) {
-    if (transaction.getOperations() != null && !transaction.getOperations()
+    if (transaction.getOperations() != null
+        && !transaction.getOperations()
         .isEmpty()
         && transaction.getOperations()
         .get(0) != null
@@ -91,7 +96,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private String extractFrom(Transaction transaction) {
-    if (transaction.getOperations() != null && !transaction.getOperations()
+    if (transaction.getOperations() != null
+        && !transaction.getOperations()
         .isEmpty()
         && transaction.getOperations()
         .get(0) != null
@@ -179,12 +185,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     int finalTransactionTypeIcon = transactionTypeIcon;
+    int transactionImageSize = (int) resources.getDimension(R.dimen.transaction_img_size_inside);
     Picasso.with(getContext())
         .load(uri)
         .transform(new CircleTransformation())
         .placeholder(finalTransactionTypeIcon)
         .error(transactionTypeIcon)
-        .fit()
+        .resize(transactionImageSize, transactionImageSize)
         .into(srcImage, new Callback() {
           @Override public void onSuccess() {
             ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
