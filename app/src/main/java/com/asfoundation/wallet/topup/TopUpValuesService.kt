@@ -10,7 +10,7 @@ import java.math.BigDecimal
 class TopUpValuesService(private val api: TopUpValuesApi,
                          private val responseMapper: TopUpValuesApiResponseMapper) {
 
-  fun getDefaultValues(): Single<List<FiatValue>> {
+  fun getDefaultValues(): Single<TopUpValuesModel> {
     return api.getDefaultValues(BuildConfig.APPLICATION_ID)
         .map { responseMapper.map(it) }
         .onErrorReturn { createErrorValuesList() }
@@ -22,11 +22,11 @@ class TopUpValuesService(private val api: TopUpValuesApi,
         .onErrorReturn { TopUpLimitValues() }
   }
 
-  private fun createErrorValuesList(): List<FiatValue> {
-    return listOf(FiatValue(BigDecimal(-1), "", ""),
+  private fun createErrorValuesList(): TopUpValuesModel {
+    return TopUpValuesModel(listOf(FiatValue(BigDecimal(-1), "", ""),
         FiatValue(BigDecimal(-2), "", ""),
         FiatValue(BigDecimal(-3), "", ""),
-        FiatValue(BigDecimal(-4), "", ""))
+        FiatValue(BigDecimal(-4), "", "")), true)
   }
 
   interface TopUpValuesApi {
