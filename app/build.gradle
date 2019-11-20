@@ -72,6 +72,8 @@ android {
         "\"" + project.PAYMENT_GAS_LIMIT + "\""
     buildConfigField 'String', 'FLURRY_APK_KEY',
         "\"" + project.FLURRY_APK_KEY + "\""
+    buildConfigField 'String', 'ADYEN_PUBLIC_KEY',
+        "\"" + project.ADYEN_PUBLIC_KEY_DEV + "\""
 
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
 
@@ -251,9 +253,8 @@ dependencies {
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 
-  //braintreepayments card form dependency
-  implementation "com.braintreepayments:card-form:3.3.0"
-  implementation "com.adyen.checkout:core:1.14.2"
+  //adyen dependency
+  implementation "com.adyen.checkout:card-ui:3.5.1"
 
   // Rx Lifecycle
   implementation "com.trello:rxlifecycle:1.0"

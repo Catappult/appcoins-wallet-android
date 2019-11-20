@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.MaterialComponents"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/payment_method_background"
@@ -35,13 +36,12 @@
       tools:visibility="gone"
       />
 
-  <com.braintreepayments.cardform.view.CardForm
-      android:id="@+id/fragment_braintree_credit_card_form"
+  <com.adyen.checkout.card.CardView
+      android:id="@+id/adyen_card_form_pre_selected"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:theme="@style/AppTheme"
       app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/fragment_credit_card_authorization_pre_authorized_card"
@@ -62,7 +62,7 @@
       android:textSize="11sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
-      app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
+      app:layout_constraintTop_toBottomOf="@id/adyen_card_form_pre_selected"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

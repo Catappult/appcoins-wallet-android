@@ -58,7 +58,7 @@ public class InAppPurchaseInteractor {
     this.packageManager = packageManager;
   }
 
-  Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
+  public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.parseTransaction(uri);
     } else {
@@ -120,7 +120,7 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }
 
-  Single<FiatValue> convertToFiat(double appcValue, String currency) {
+  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
     return asfInAppPurchaseInteractor.convertToFiat(appcValue, currency);
   }
 

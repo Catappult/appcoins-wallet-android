@@ -212,7 +212,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun showLoading() {
-    fragment_braintree_credit_card_form.visibility = View.GONE
+    adyen_card_form.visibility = View.GONE
     payment_methods.visibility = View.INVISIBLE
     bonus_layout.visibility = View.GONE
     bonus_msg.visibility = View.GONE
@@ -220,7 +220,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun hideLoading() {
-    fragment_braintree_credit_card_form.visibility = View.VISIBLE
+    adyen_card_form.visibility = View.VISIBLE
     payment_methods.visibility = View.VISIBLE
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
@@ -230,13 +230,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun showPaymentDetailsForm() {
     payment_methods.visibility = View.GONE
     loading.visibility = View.GONE
-    fragment_braintree_credit_card_form.visibility = View.VISIBLE
+    adyen_card_form.visibility = View.VISIBLE
     bonus_layout.visibility = View.GONE
     bonus_msg.visibility = View.GONE
   }
 
   override fun showPaymentMethods() {
-    fragment_braintree_credit_card_form.visibility = View.GONE
+    adyen_card_form.visibility = View.GONE
     loading.visibility = View.GONE
     payment_methods.visibility = View.VISIBLE
   }

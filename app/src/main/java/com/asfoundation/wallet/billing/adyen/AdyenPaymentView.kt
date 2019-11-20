@@ -1,20 +1,19 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
-import com.adyen.core.models.Amount
-import com.adyen.core.models.PaymentMethod
-import com.adyen.core.models.paymentdetails.PaymentDetails
+import com.adyen.checkout.base.model.payments.Amount
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
+import org.jetbrains.annotations.NotNull
 
-interface AdyenAuthorizationView {
+interface AdyenPaymentView {
 
   fun getAnimationDuration(): Long
   fun showProduct()
   fun showLoading()
-  fun hideLoading()
   fun errorDismisses(): Observable<Any>
-  fun paymentMethodDetailsEvent(): Observable<PaymentDetails>
+  fun buyButtonClicked(): Observable<com.adyen.checkout.base.model.paymentmethods.PaymentMethod>
   fun changeCardMethodDetailsEvent(): Observable<PaymentMethod>
   fun showNetworkError()
   fun backEvent(): Observable<Any>
@@ -22,13 +21,17 @@ interface AdyenAuthorizationView {
   fun showCreditCardView(paymentMethod: PaymentMethod, amount: Amount, cvcStatus: Boolean,
                          allowSave: Boolean, publicKey: String, generationTime: String)
 
-  fun close(bundle: Bundle)
+  fun close(bundle: Bundle?)
   fun showSuccess()
-  fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization)
+  fun showPaymentRefusedError(adyenAuthorization: @NotNull AdyenAuthorization?)
   fun showGenericError()
-  fun getMorePaymentMethodsClicks(): Observable<Any>
+  fun getMorePaymentMethodsClicks(): @NotNull Observable<Any?>?
   fun showMoreMethods()
-  fun onValidFieldStateChange(): Observable<Boolean>
+  fun onValidFieldStateChange(): Observable<Boolean?>?
   fun updateButton(valid: Boolean)
-  fun lockRotation()
+  fun hideLoading()
+  fun finishCardConfiguration(
+      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod)
+
+  fun handleFinalResponse()
 }

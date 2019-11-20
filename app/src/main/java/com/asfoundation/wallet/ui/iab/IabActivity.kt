@@ -8,6 +8,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
@@ -134,7 +135,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                 iconUrl: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AdyenAuthorizationFragment.newInstance(transaction!!.skuId, transaction!!.type,
+            AdyenPaymentFragment.newInstance(transaction!!.skuId, transaction!!.type,
                 getOrigin(isBds), paymentType, transaction!!.domain, intent.dataString,
                 transaction!!.amount(), currency, developerPayload, bonus, isPreselected, iconUrl))
         .commit()
