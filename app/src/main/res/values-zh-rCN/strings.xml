@@ -390,6 +390,7 @@
   <string name="retry_button">重试</string>
   <string name="do_it_later_button"> 稍后重试</string>
   <string name="connectoin_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
+  <string name="common_or">or</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -514,7 +515,7 @@
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
-  <string name="wallets_active_wallet_title">Active wallet</string>
+  <string name="wallets_active_wallet_title">Active Wallet</string>
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="other">Wallets</item>
   </plurals>
