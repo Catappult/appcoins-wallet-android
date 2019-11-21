@@ -1,6 +1,5 @@
 package com.appcoins.wallet.billing.adyen
 
-import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import io.reactivex.Single
 
 class AdyenPaymentInteractor(private val adyenPaymentService: AdyenPaymentService) {
@@ -10,7 +9,12 @@ class AdyenPaymentInteractor(private val adyenPaymentService: AdyenPaymentServic
     return adyenPaymentService.loadPaymentInfo(methods, value, currency)
   }
 
-  fun makePayment(value: String, reference: String, paymentMethod: PaymentMethod, returnUrl: String): Single<PaymentModel>{
-    return adyenPaymentService.makePayment(value, reference, paymentMethod, returnUrl)
+  fun makePayment(value: String, currency: String, reference: String, encryptedCardNumber: String?,
+                  encryptedExpiryMonth: String?, encryptedExpiryYear: String?,
+                  encryptedSecurityCode: String?, holderName: String?, type: String,
+                  returnUrl: String?): Single<PaymentModel> {
+    return adyenPaymentService.makePayment(value, currency, reference, encryptedCardNumber,
+        encryptedExpiryMonth, encryptedExpiryYear, encryptedSecurityCode, holderName, type,
+        returnUrl)
   }
 }

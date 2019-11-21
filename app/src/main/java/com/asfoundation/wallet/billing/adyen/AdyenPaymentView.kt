@@ -13,7 +13,7 @@ interface AdyenPaymentView {
   fun showProduct()
   fun showLoading()
   fun errorDismisses(): Observable<Any>
-  fun buyButtonClicked(): Observable<com.adyen.checkout.base.model.paymentmethods.PaymentMethod>
+  fun buyButtonClicked(): Observable<Any>
   fun changeCardMethodDetailsEvent(): Observable<PaymentMethod>
   fun showNetworkError()
   fun backEvent(): Observable<Any>
@@ -33,5 +33,5 @@ interface AdyenPaymentView {
   fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod)
 
-  fun handleFinalResponse()
+  fun retrievePaymentData(): Observable<PaymentData>
 }

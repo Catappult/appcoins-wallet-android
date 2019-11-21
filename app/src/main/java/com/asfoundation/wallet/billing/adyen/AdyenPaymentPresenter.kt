@@ -58,14 +58,22 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleBuyClick() {
     disposables.add(view.buyButtonClicked()
+        .flatMap { view.retrievePaymentData() }
         .observeOn(networkScheduler)
-        .flatMapSingle { paymentMethod ->
+        .flatMapSingle { paymentData ->
           transactionBuilder
               .flatMap {
-                adyenPaymentInteractor.makePayment(amount.toString(), it.orderReference,
-                    paymentMethod, it.callbackUrl)
+                adyenPaymentInteractor.makePayment(amount.toString(), currency, it.orderReference,
+                    paymentData.encryptedCardNumber, paymentData.encryptedExpiryMonth,
+                    paymentData.encryptedExpiryYear, paymentData.encryptedSecurityCode,
+                    paymentData.holderName, "CREDIT_CARD", it.callbackUrl)
               }
-        }.doOnNext { view.handleFinalResponse() } // to improve
+        }
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (it.error) view.showGenericError()
+          else view.showSuccess()
+        } // to improve
         .subscribe())
   }
 

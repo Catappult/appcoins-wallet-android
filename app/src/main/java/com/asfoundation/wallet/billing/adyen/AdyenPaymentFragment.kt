@@ -35,6 +35,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.adyen_card_form
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_card_authorization_progress_bar
@@ -79,12 +80,14 @@ class AdyenPaymentFragment : DaggerFragment(),
   private var backButton: PublishRelay<Boolean>? = null
   private var keyboardBuyRelay: PublishRelay<Boolean>? = null
   private var validationSubject: PublishSubject<Boolean>? = null
+  private var paymentDataSubject: ReplaySubject<PaymentData>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButton = PublishRelay.create<Boolean>()
     keyboardBuyRelay = PublishRelay.create<Boolean>()
     validationSubject = PublishSubject.create<Boolean>()
+    paymentDataSubject = ReplaySubject.create<PaymentData>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter = AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
@@ -141,19 +144,33 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod) {
-    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
+    cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
     adyen_card_form?.attach(cardComponent, this)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this, androidx.lifecycle.Observer {
-      if (it?.isValid == true) {
+      if (it != null && it.isValid) {
         Log.d("TAG123", "Valid")
+        buy_button.visibility = View.VISIBLE
+        buy_button.isEnabled = true
+        keyboardBuyRelay?.accept(true)
+        view?.let { view -> KeyboardUtils.hideKeyboard(view) }
+        paymentDataSubject?.onNext(
+            PaymentData(
+                it.data.paymentMethod?.encryptedCardNumber,
+                it.data.paymentMethod?.encryptedExpiryMonth,
+                it.data.paymentMethod?.encryptedExpiryYear,
+                it.data.paymentMethod?.encryptedSecurityCode, it.data.paymentMethod?.holderName))
+      } else {
+        Log.d("TAG123", "Not Valid")
+        buy_button.visibility = View.VISIBLE
+        buy_button.isEnabled = false
+        buy_button.isEnabled = false
       }
-      Log.d("TAG123", "Not Valid")
     })
   }
 
-  override fun handleFinalResponse() {
-
+  override fun retrievePaymentData(): Observable<PaymentData> {
+    return paymentDataSubject!!
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -177,7 +194,7 @@ class AdyenPaymentFragment : DaggerFragment(),
       app_icon?.setImageDrawable(context!!.packageManager
           .getApplicationIcon(domain))
       app_name?.text = getApplicationName(domain)
-    } catch (e: PackageManager.NameNotFoundException) {
+    } catch (e: Exception) {
       e.printStackTrace()
     }
     app_sku_description?.text = arguments!!.getString(IabActivity.PRODUCT_NAME)
@@ -218,11 +235,10 @@ class AdyenPaymentFragment : DaggerFragment(),
     return RxView.clicks(activity_iab_error_ok_button)
   }
 
-  override fun buyButtonClicked(): Observable<com.adyen.checkout.base.model.paymentmethods.PaymentMethod> {
+  override fun buyButtonClicked(): Observable<Any> {
     return Observable.merge(keyboardBuyRelay,
         RxView.clicks(buy_button))
         .doOnNext { view?.let { KeyboardUtils.hideKeyboard(view) } }
-        .map { cardComponent.paymentMethod }
   }
 
   override fun changeCardMethodDetailsEvent(): Observable<PaymentMethod> {

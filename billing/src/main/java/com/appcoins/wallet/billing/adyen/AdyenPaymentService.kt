@@ -2,7 +2,6 @@ package com.appcoins.wallet.billing.adyen
 
 import android.util.Log
 import com.adyen.checkout.base.model.PaymentMethodsApiResponse
-import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,15 +18,21 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
   }
 
   private fun map(throwable: Throwable): PaymentInfoModel {
-    Log.d("TAG123", "HERE" + throwable.cause)
     return PaymentInfoModel(null, Error(true, throwable.isNoNetworkException()))
   }
 
-  fun makePayment(value: String, reference: String, paymentMethod: PaymentMethod,
-                  returnUrl: String): Single<PaymentModel> {
-    return adyenApi.makePayment(value, reference, paymentMethod, returnUrl)
-        .map { PaymentModel(it.resultCode, it.pspReference, it.action.type, it.action.url) }
-        .onErrorReturn { PaymentModel() }
+  fun makePayment(value: String, currency: String, reference: String, encryptedCardNumber: String?,
+                  encryptedExpiryMonth: String?, encryptedExpiryYear: String?,
+                  encryptedSecurityCode: String?, holderName: String?, type: String,
+                  returnUrl: String?): Single<PaymentModel> {
+    return adyenApi.makePayment(value, currency, encryptedCardNumber,
+        encryptedExpiryMonth, encryptedExpiryYear, encryptedSecurityCode, holderName, reference,
+        type, returnUrl)
+        .map { PaymentModel(it.resultCode, it.pspReference, it.action?.type, it.action?.url) }
+        .onErrorReturn {
+          Log.d("TAG123", "HERE: " + it.cause)
+          PaymentModel()
+        }
   }
 
   private fun map(response: PaymentMethodsApiResponse,
@@ -49,9 +54,15 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
 
     @POST("adyen/payment")
     fun makePayment(@Query("amount") value: String,
+                    @Query("currency") currency: String,
+                    @Query("encryptedCardNumber") encryptedCardNumber: String?,
+                    @Query("encryptedExpiryMonth") encryptedExpiryMonth: String?,
+                    @Query("encryptedExpiryYear") encryptedExpiryYear: String?,
+                    @Query("encryptedSecurityCode") encryptedSecurityCode: String?,
+                    @Query("holderName") holderName: String?,
                     @Query("reference") reference: String,
-                    @Query("paymentMethod") paymentMethod: PaymentMethod,
-                    @Query("returnUrl") returnUrl: String): Single<MakePaymentResponse>
+                    @Query("type") paymentMethod: String,
+                    @Query("returnUrl") returnUrl: String?): Single<MakePaymentResponse>
   }
 
   enum class Methods(val id: String) {
