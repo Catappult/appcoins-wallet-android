@@ -71,7 +71,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
               R.string.update_wallet_soft_title,
               R.string.update_wallet_soft_body,
               R.string.update_button, CardNotificationAction.UPDATE,
-              R.raw.update_animation).takeIf { shouldShow } ?: EmptyNotification()
+              R.raw.soft_hard_update_animation).takeIf { shouldShow } ?: EmptyNotification()
         }
   }
 
