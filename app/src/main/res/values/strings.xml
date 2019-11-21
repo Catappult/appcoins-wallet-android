@@ -234,11 +234,10 @@
   <string name="transaction_status_failed">Failed</string>
   <string name="transaction_type_iab">In-App Purchase</string>
   <string name="transaction_type_poa">Reward</string>
-  <string name="transaction_type_poa_offchain">Reward</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">Transfer</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -561,13 +560,12 @@
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
   <string name="wallets_active_wallet_title">Active wallet</string>
+
   <plurals name="wallets_bottom_wallets_title">
-    <item quantity="one">%s Wallet</item>
-    <item quantity="two">%s Wallets</item>
-    <item quantity="few">%s Wallets</item>
-    <item quantity="many">%s Wallets</item>
-    <item quantity="other">%s Wallets</item>
+    <item quantity="one">Wallet</item>
+    <item quantity="other">Wallets</item>
   </plurals>
+  
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
   <string name="wallets_imported_body">Wallet successfuly imported</string>
