@@ -390,6 +390,7 @@
   <string name="retry_button">Opnieuw proberen</string>
   <string name="do_it_later_button">Later doen</string>
   <string name="connectoin_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
+  <string name="common_or">or</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -514,7 +515,7 @@
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
-  <string name="wallets_active_wallet_title">Active wallet</string>
+  <string name="wallets_active_wallet_title">Active Wallet</string>
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="one">Wallet</item>
     <item quantity="other">Wallets</item>
