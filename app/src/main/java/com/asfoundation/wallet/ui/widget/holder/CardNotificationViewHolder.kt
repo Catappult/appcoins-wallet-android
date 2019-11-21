@@ -28,9 +28,14 @@ class CardNotificationViewHolder(
 
     if (cardNotification is UpdateNotification) {
       itemView.notification_animation.setAnimation(cardNotification.animation)
+      itemView.notification_image.visibility = View.INVISIBLE
       itemView.notification_animation.visibility = View.VISIBLE
     } else {
-      cardNotification.icon?.let { itemView.notification_image.setImageResource(it) }
+      itemView.notification_animation.visibility = View.INVISIBLE
+      cardNotification.icon?.let {
+        itemView.notification_image.setImageResource(it)
+        itemView.notification_image.visibility = View.VISIBLE
+      }
     }
 
     itemView.notification_description.setText(cardNotification.body)
