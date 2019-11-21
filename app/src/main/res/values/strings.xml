@@ -559,7 +559,7 @@
 <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
-  <string name="wallets_active_wallet_title">Active wallet</string>
+  <string name="wallets_active_wallet_title">Active Wallet</string>
 
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="one">Wallet</item>
