@@ -224,11 +224,10 @@
   <string name="transaction_status_failed">होऊ शकले नाही</string>
   <string name="transaction_type_iab">इन-अॅप खरेदी</string>
   <string name="transaction_type_poa">Reward</string>
-  <string name="transaction_type_poa_offchain">Reward</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">हस्तांतरण</string>
   <string name="transaction_type_bonus">बोनस</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">Transfer</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">एथरियमने पावर्ड</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -497,8 +496,62 @@
   <string name="update_wallet_soft_title">Don\'t get left behind!</string>
   <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
   <string name="update_button">UPDATE</string>
-  <!--Backup-->
+  <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
   <string name="backup_button">BACKUP</string>
+  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_password_title">Encrypt your wallet (optional)</string>
+  <string name="backup_password">Password</string>
+  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s imoprtant to keep your wallet\'s bakcup (keystore) safe.</string>
+  <string name="backup_send_via_title">Send backup via:</string>
+  <string name="import_wallet_title">Import Wallet</string>
+  <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
+  <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
+  <string name="import_wallet_file_button">IMPORT FROM FILE</string>
+  <string name="import_wallet_button">IMPORT WALLET</string>
+  <string name="import_wallet_password_body">This wallet is password protected!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">Wallets</string>
+  <string name="wallets_total_balance_title">Total balance in %s</string>
+  <string name="wallets_active_wallet_title">Active wallet</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="one">Wallet</item>
+    <item quantity="other">Wallets</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">Total value</string>
+  <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
+  <string name="wallets_imported_body">Wallet successfuly imported</string>
+  <string name="wallets_2nd_view_balance_title">Balance:</string>
+  <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
+  <string name="wallets_2nd_view_import_button">IMPORT WALLET</string>
+  <string name="wallets_2nd_view_create_button">CREATE NEW</string>
+  <string name="wallet_view_copy_button">COPY</string>
+  <string name="wallet_view_share_button">SHARE</string>
+  <string name="wallet_view_total_balance_title">Total Balance</string>
+  <string name="wallet_view_remove_button">REMOVE WALLET</string>
+  <string name="wallet_view_backup_button">BACKUP WALLET</string>
+  <string name="wallet_view_activate_button">MAKE THIS WALLET ACTIVE</string>
+  <string name="wallet_view_active_body">This is your active wallet.</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">Remove Wallet</string>
+  <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
+  <string name="remove_wallet_backup_button">BACKUP WALLET</string>
+  <string name="remove_wallet_no_backup_button">PROCEED WITHOUT BACKUP</string>
+  <string name="remove_wallet_confirm_body">Are you sure you want to remove this wallet?</string>
+  <string name="remove_wallet_no_button">NO, GO BACK</string>
+  <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
+  <string name="remove_wallet_removed_body">Wallet removed!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">Transfer</string>
+  <string name="transfer_title">Transfer Funds</string>
+  <string name="transfer_send_tab_title">Send</string>
+  <string name="transfer_receive_tab_title">Receive</string>
+  <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="transfer_send_recipient_title">Wallet Address</string>
+  <string name="transfer_send_token_title">Token:</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_current_balance_title">Current Balance:</string>
+  <string name="transfer_send_button">SEND</string>
+  <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
 </resources>
