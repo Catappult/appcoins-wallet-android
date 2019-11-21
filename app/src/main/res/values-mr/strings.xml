@@ -390,6 +390,7 @@
   <string name="retry_button">पुन्हा प्रयत्न करा</string>
   <string name="do_it_later_button">नंतर करा</string>
   <string name="connectoin_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
+  <string name="common_or">or</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -514,7 +515,7 @@
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
-  <string name="wallets_active_wallet_title">Active wallet</string>
+  <string name="wallets_active_wallet_title">Active Wallet</string>
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="one">Wallet</item>
     <item quantity="other">Wallets</item>
