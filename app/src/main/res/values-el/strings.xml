@@ -390,6 +390,7 @@
   <string name="retry_button">Επανάληψη</string>
   <string name="do_it_later_button">Αργότερα</string>
   <string name="connectoin_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
+  <string name="common_or">or</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -514,7 +515,7 @@
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
-  <string name="wallets_active_wallet_title">Active wallet</string>
+  <string name="wallets_active_wallet_title">Active Wallet</string>
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="one">Wallet</item>
     <item quantity="other">Wallets</item>
