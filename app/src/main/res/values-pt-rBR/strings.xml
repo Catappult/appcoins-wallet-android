@@ -116,8 +116,8 @@
   <string name="intro_3_body">Processe todas as suas compras dentro do aplicativo utilizando seu método de pagamento favorito.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">Suas chaves privadas nunca deixam seu dispositivo, e por isso suas AppCoins estão sempre seguras.</string>
-  <string name="intro_5_title">Get Free AppCoins Credits!</string>
-  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
+  <string name="intro_5_title">Ganhe Créditos AppCoins!</string>
+  <string name="intro_5_body">Você receberá Créditos AppCoins gratuitamente ao experimentar apps e games.</string>
   <string name="intro_creating_wallet_short">Configurando a wallet para você&#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Pular, você concorda com os %1$s e a %2$s da sua Wallet AppCoins</string>
@@ -223,7 +223,7 @@
   <string name="transaction_status_pending">Pendente</string>
   <string name="transaction_status_failed">Falhou</string>
   <string name="transaction_type_iab">Compra no Aplicativo</string>
-  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa">Recompensa</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferir</string>
   <string name="transaction_type_bonus">Bônus</string>
@@ -390,7 +390,7 @@
   <string name="retry_button">Repetir</string>
   <string name="do_it_later_button">Fazer Depois</string>
   <string name="connectoin_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ou</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -429,7 +429,7 @@
   <string name="verification_settings_unverified_title">Verificar Wallet</string>
   <string name="verification_settings_unverified_body">Ganhe recompensas e convide amigos</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
-  <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verification_settings_no_internet">Você precisa estar conectado à Internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Parece que esta compra já está sendo processada. Por favor, aguarde até que a transação seja concluída ou entre em contato com nossa equipe de suporte.</string>
   <string name="purchase_more_payment_methods_button">OUTROS MÉTODOS DE PAGAMENTO</string>
@@ -442,15 +442,15 @@
   <string name="purchase_poa_body">Experimente um app por dois minutos e ganhe Créditos AppCoins!</string>
   <string name="purchase_poa_view_title">Sem Créditos? Sem problemas!</string>
   <string name="purchase_poa_view_body">Experimente um app por dois minutos e ganhe uma recompensa em Créditos AppCoins para fazer sua compra!</string>
-  <string name="purchase_current_balance_body">Current balance:</string>
-  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods except AppCoins Credits.\n\nIf you believe this is a mistake, contact us at:</string>
-  <string name="purchase_card_error_general">It seems there\'s a problem with your card. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card details are correct? Please try again!</string>
-  <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
-  <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
+  <string name="purchase_current_balance_body">Saldo atual:</string>
+  <string name="purchase_current_balance_appcc_body">%s em Créditos AppCoins.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s em AppCoins e Ether.</string>
+  <string name="purchase_wallet_blocked_title">Seu saldo de Créditos AppCoins está bloqueado</string>
+  <string name="purchase_wallet_blocked_body">Devido a um histórico de transações incomuns, seu saldo de créditos da AppCoins foi bloqueado. Você ainda poderá efetuar pagamentos e transações com outros métodos, exceto Créditos AppCoins. \n\n Se você acredita que isso é um erro, entre em contato conosco:</string>
+  <string name="purchase_card_error_general">Parece que há um problema com o seu cartão. Por favor, tente com outro cartão.</string>
+  <string name="purchase_card_error_invalid_details">Tem certeza que as informações do cartão estão corretas? Por favor, tente novamente!</string>
+  <string name="purchase_card_error_bank_rejects">A transação foi negada pelo seu banco. Por favor, tente com um cartão diferente.</string>
+  <string name="purchase_card_error_limits">Parece que existem algumas restrições em seu cartão. Por favor, entre em contato com seu banco ou tente com um cartão diferente.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Convide Seus Amigos!</string>
   <string name="referral_onboarding_body">Você e seus amigos podem ganhar até %s com nosso Programa de Recompensas!</string>
@@ -489,13 +489,13 @@
   <string name="promotions_gamification_card_title">Até 30% de bônus em cada compra</string>
   <string name="promotions_new">NOVO</string>
   <!--Update-->
-  <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
-  <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
-  <string name="update_wallet_purchase_title">You need to update!</string>
-  <string name="update_wallet_purchase_body">Update the AppCoins Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the AppCoins Wallet. Please update it to guarantee the best experience and security.</string>
-  <string name="update_wallet_soft_title">Don\'t get left behind!</string>
-  <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_poa_notification_title">Atualize para receber recompensas</string>
+  <string name="update_wallet_poa_notification_body">Por favor, atualize sua Wallet AppCoins para receber esta recompensa.</string>
+  <string name="update_wallet_purchase_title">Você precisa atualizar!</string>
+  <string name="update_wallet_purchase_body">Atualize sua Wallet AppCoins para completar essa compra.</string>
+  <string name="update_wallet_hard_body">Parece que você está usando uma versão antiga da AppCoins Wallet. Atualize-a para garantir uma melhor experiência e segurança.</string>
+  <string name="update_wallet_soft_title">Não fique de fora!</string>
+  <string name="update_wallet_soft_body">Mantenha sua AppCoins Wallet atualizada para garantir uma melhor experiência.</string>
   <string name="update_button">UPDATE</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
