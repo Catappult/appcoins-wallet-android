@@ -11,7 +11,6 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.topup.payment.PaymentAuthFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -71,6 +70,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .commit()
   }
 
+  override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
+                                 selectedCurrency: String, origin: String, transactionType: String,
+                                 bonusValue: String, selectedChip: Int, chipValues: List<FiatValue>,
+                                 chipAvailability: Boolean) {
+    TODO(
+        "not implemented") //To change body of created functions use File | Settings | File Templates.
+  }
+
   override fun onBackPressed() {
     when {
       isFinishingPurchase -> close(true)
@@ -91,20 +98,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       }
     }
     return super.onOptionsItemSelected(item)
-  }
-
-  override fun navigateToPayment(paymentType: PaymentType,
-                                 data: TopUpData,
-                                 selectedCurrency: String, origin: String,
-                                 transactionType: String, bonusValue: String,
-                                 selectedChip: Int, chipValues: List<FiatValue>,
-                                 chipAvailability: Boolean) {
-    supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container,
-            PaymentAuthFragment.newInstance(paymentType, data, selectedCurrency, origin,
-                transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
-        .addToBackStack(PaymentAuthFragment::class.java.simpleName)
-        .commit()
   }
 
   override fun setupToolbar() {

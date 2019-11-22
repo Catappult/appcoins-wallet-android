@@ -43,6 +43,7 @@ dependencies {
   implementation "com.fasterxml.jackson.core:jackson-annotations:$project.jacksonVersion"
   implementation "com.fasterxml.jackson.core:jackson-databind:$project.jacksonVersion"
   implementation "com.madgag.spongycastle:core:1.58.0.0@jar"
+  implementation "com.adyen.checkout:redirect:3.5.1"
   api project(path: ':bdsbilling')
 }
 repositories {
