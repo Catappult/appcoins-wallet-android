@@ -116,8 +116,8 @@
   <string name="intro_3_body">अपनी पसंदीदा भुगतान विधि का उपयोग कर अपने सभी इन-एप्प खरीद संसाधित करें।</string>
   <string name="intro_4_title">सुरक्षित एवं निजी</string>
   <string name="intro_4_body">आपकी निजी कुंजी आपकी डिवाइस को कभी नहीं छोड़ेगी, इसलिए आपके AppCoins हर समय सुरक्षित हैं।</string>
-  <string name="intro_5_title">Get Free AppCoins Credits!</string>
-  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
+  <string name="intro_5_title">मुफ्त AppCoins Credits प्राप्त करें!</string>
+  <string name="intro_5_body">आप ऐप्स और गेम परख कर मुफ्त AppCoins Credits अर्जित करेंगे।</string>
   <string name="intro_creating_wallet_short">आपके लिए वॉलेट स्थापित कर रहा है&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनाया गया!</string>
   <string name="intro_agree_terms_and_conditions_body">छोड़ें पर टैप करते हुए, आप AppCoins Wallet के %1$s और %2$s से सहमत हैं</string>
@@ -223,7 +223,7 @@
   <string name="transaction_status_pending">लंबित</string>
   <string name="transaction_status_failed">विफल</string>
   <string name="transaction_type_iab">इन-एप्प खरीद</string>
-  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa">इनाम</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">अंतरण करें</string>
   <string name="transaction_type_bonus">बोनस</string>
@@ -390,7 +390,7 @@
   <string name="retry_button">पुनः करें</string>
   <string name="do_it_later_button">इसे बाद में करें</string>
   <string name="connectoin_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">या</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
   <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों तथा गोपनीयता नीति को स्वीकार करें</string>
@@ -429,7 +429,7 @@
   <string name="verification_settings_unverified_title">वॉलेट सत्यापित करें</string>
   <string name="verification_settings_unverified_body">पुरस्कार पाएँ और मित्रों को आमंत्रित करें</string>
   <string name="verification_settings_verified_title">वॉलेट सत्यापित</string>
-  <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verification_settings_no_internet">आपको इंटरनेट से जुड़े रहना चाहिए</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">संभवतः यह खरीद पहले से ही संसाधित की जा रही है। कृपया लेनदेन पूरा होने तक होल्ड करें या हमारी सहायता टीम से संपर्क करें।</string>
   <string name="purchase_more_payment_methods_button">अन्य भुगतान विधि</string>
@@ -442,15 +442,15 @@
   <string name="purchase_poa_body">कोई एप्प 2 मिनट तक परखें और AppCoins Credits अर्जित करें!</string>
   <string name="purchase_poa_view_title">कोई फंड नहीं, कोई चिंता नहीं!</string>
   <string name="purchase_poa_view_body">कोई एप्प 2 मिनट तक परखें और अपनी खरीद के लिए एक इनाम AppCoins Credits में प्राप्त करें!</string>
-  <string name="purchase_current_balance_body">Current balance:</string>
-  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods except AppCoins Credits.\n\nIf you believe this is a mistake, contact us at:</string>
-  <string name="purchase_card_error_general">It seems there\'s a problem with your card. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card details are correct? Please try again!</string>
-  <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
-  <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
+  <string name="purchase_current_balance_body">वर्तमान शेष:</string>
+  <string name="purchase_current_balance_appcc_body">AppCoins Credits में %s।</string>
+  <string name="purchase_current_balance_appc_eth_body">AppCoins और Ether में %s।</string>
+  <string name="purchase_wallet_blocked_title">आपका AppCoins Credits बैलेंस ब्लॉक है</string>
+  <string name="purchase_wallet_blocked_body">एक असामान्य लेन-देन इतिहास के कारण, आपका AppCoins Credits बैलेंस ब्लॉक किया गया था। आप अभी भी AppCoins Credits को छोड़कर अन्य तरीकों से सामान्य भुगतान और लेन-देन कर पाएंगे।\n\nअगर आपको लगता है कि यह एक गलती है, तो हमसे संपर्क करें:</string>
+  <string name="purchase_card_error_general">लगता है कि आपके कार्ड में कोई समस्या है। कृपया किसी अन्य के साथ प्रयास करें।</string>
+  <string name="purchase_card_error_invalid_details">क्या आपके कार्ड के विवरण सही हैं? कृपया पुन: प्रयास करें!</string>
+  <string name="purchase_card_error_bank_rejects">बैंक द्वारा आपके लेनदेन को अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें।</string>
+  <string name="purchase_card_error_limits">शायद आपके कार्ड पर कुछ लगे हुए प्रतिबंध हैं। कृपया अपने बैंक से संपर्क करें या किसी अन्य से प्रयास करें।</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">अपने मित्रों को आमंत्रित करें!</string>
   <string name="referral_onboarding_body">आप और आपके मित्र हमारे रेफरल प्रोग्राम के साथ %s तक कमा सकते हैं!</string>
