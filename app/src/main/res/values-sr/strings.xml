@@ -116,8 +116,8 @@
   <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
   <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
-  <string name="intro_5_title">Get Free AppCoins Credits!</string>
-  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
+  <string name="intro_5_title">Dobijte besplatne AppCoins Credits!</string>
+  <string name="intro_5_body">Zaradićete besplatne AppCoins Credits ako isprobate ove aplikacije i igre.</string>
   <string name="intro_creating_wallet_short">Podešavamo vam novčanik&#8230;</string>
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
   <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
@@ -223,7 +223,7 @@
   <string name="transaction_status_pending">Na čekanju</string>
   <string name="transaction_status_failed">Nije uspelo</string>
   <string name="transaction_type_iab">Kupovina u aplikaciji</string>
-  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa">Nagrada</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Prenos</string>
   <string name="transaction_type_bonus">Bonus</string>
@@ -390,7 +390,7 @@
   <string name="retry_button">Pokušaj ponovo</string>
   <string name="do_it_later_button">Pokušaj kasnije</string>
   <string name="connectoin_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ili</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -429,7 +429,7 @@
   <string name="verification_settings_unverified_title">Potvrdite novčanik</string>
   <string name="verification_settings_unverified_body">Osvojite nagrade i pozovite prijatelje</string>
   <string name="verification_settings_verified_title">Novčanik je potvrđen</string>
-  <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verification_settings_no_internet">Morate da budete povezani na internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
   <string name="purchase_more_payment_methods_button">DRUGI NAČINI PLAĆANJA</string>
