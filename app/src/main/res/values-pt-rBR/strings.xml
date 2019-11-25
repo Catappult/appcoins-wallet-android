@@ -539,20 +539,20 @@
   <string name="remove_wallet_body">É altamente recomendável fazer backup de uma wallet antes de removê-la. Você não poderá acessá-la novamente, a menos que tenha um backup.</string>
   <string name="remove_wallet_backup_button">FAZER BACKUP DA WALLET</string>
   <string name="remove_wallet_no_backup_button">AVANÇAR SEM FAZER BACKUP</string>
-  <string name="remove_wallet_confirm_body">Are you sure you want to remove this wallet?</string>
-  <string name="remove_wallet_no_button">NO, GO BACK</string>
-  <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
-  <string name="remove_wallet_removed_body">Wallet removed!</string>
+  <string name="remove_wallet_confirm_body">Tem certeza que deseja remover esta wallet?</string>
+  <string name="remove_wallet_no_button">NÃO, VOLTAR</string>
+  <string name="remove_wallet_yes_button">SIM, REMOVER A WALLET</string>
+  <string name="remove_wallet_removed_body">Wallet removida!</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Transfer</string>
-  <string name="transfer_title">Transfer Funds</string>
-  <string name="transfer_send_tab_title">Send</string>
-  <string name="transfer_receive_tab_title">Receive</string>
-  <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="transfer_send_recipient_title">Wallet Address</string>
+  <string name="tranfer_bottom_navigation">Transferir</string>
+  <string name="transfer_title">Transferir Fundos</string>
+  <string name="transfer_send_tab_title">Enviar</string>
+  <string name="transfer_receive_tab_title">Receber</string>
+  <string name="transfer_send_body">Escanear ou digitar o endereço da wallet do seu amigo.</string>
+  <string name="transfer_send_recipient_title">Endereço da Wallet</string>
   <string name="transfer_send_token_title">Token:</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_send_current_balance_title">Current Balance:</string>
-  <string name="transfer_send_button">SEND</string>
-  <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
+  <string name="transfer_send_amount_title">Quantia</string>
+  <string name="transfer_send_current_balance_title">Saldo Atual:</string>
+  <string name="transfer_send_button">ENVIAR</string>
+  <string name="transfer_receive_body">Compartilhe o endereço de sua wallet para receber créditos.</string>
 </resources>
