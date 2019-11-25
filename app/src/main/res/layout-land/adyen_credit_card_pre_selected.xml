@@ -99,36 +99,39 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
-
-      <include
-          android:id="@+id/layout_pre_selected"
-          layout="@layout/selected_payment_method_cc"
+      <ScrollView
+          android:id="@+id/payment_scroll"
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
           android:layout_marginEnd="16dp"
+          android:scrollbars="none"
           app:layout_constraintBottom_toTopOf="@id/more_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="@id/top_separator"
           app:layout_constraintVertical_bias="0.3"
-          />
-
+          >
+        <include
+            android:id="@+id/layout_pre_selected"
+            layout="@layout/selected_payment_method_cc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+      </ScrollView>
       <Button
           android:id="@+id/more_payment_methods"
           style="?android:attr/borderlessButtonStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="4dp"
-          android:layout_marginBottom="20dp"
           android:drawableEnd="@drawable/ic_arrow_right"
           android:text="@string/purchase_more_payment_methods_button"
           android:textColor="@color/text_button_color"
           android:textSize="12sp"
           app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
+          app:layout_constraintTop_toBottomOf="@+id/payment_scroll"
           />
 
       <View

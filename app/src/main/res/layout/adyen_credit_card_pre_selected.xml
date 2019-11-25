@@ -53,9 +53,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-        <include
-            android:id="@+id/layout_pre_selected"
-            layout="@layout/selected_payment_method_cc"
+        <ScrollView
+            android:id="@+id/payment_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -64,7 +63,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
-            />
+            >
+          <include
+              android:id="@+id/layout_pre_selected"
+              layout="@layout/selected_payment_method_cc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              />
+        </ScrollView>
 
         <Button
             android:id="@+id/more_payment_methods"
@@ -78,7 +84,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/bonus_layout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
+            app:layout_constraintTop_toBottomOf="@+id/payment_scroll"
             />
 
         <include
