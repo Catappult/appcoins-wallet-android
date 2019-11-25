@@ -62,6 +62,7 @@ project.ext {
   pageIndicatorViewVersion = "1.0.3"
   preferenceLibVersion = "1.1.0"
   testExtJunit = '1.1.0'
+  adyenVersion = '3.5.1'
 }
 
 task clean(type: Delete) {

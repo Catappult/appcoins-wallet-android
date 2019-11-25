@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentService
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -14,8 +13,7 @@ import io.reactivex.Single
 class AdyenPaymentInteractor(
     private val adyenPaymentService: AdyenPaymentService,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-    private val billingMessagesMapper: BillingMessagesMapper,
-    private val billing: Billing) {
+    private val billingMessagesMapper: BillingMessagesMapper) {
 
   fun loadPaymentInfo(methods: AdyenPaymentService.Methods, value: String,
                       currency: String): Single<PaymentInfoModel> {
@@ -29,6 +27,10 @@ class AdyenPaymentInteractor(
     return adyenPaymentService.makePayment(value, currency, reference, encryptedCardNumber,
         encryptedExpiryMonth, encryptedExpiryYear, encryptedSecurityCode, type,
         returnUrl)
+  }
+
+  fun submitRedirect(payload: String?, paymentData: String?): Single<PaymentModel> {
+    return adyenPaymentService.submitRedirect(payload, paymentData)
   }
 
   fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {

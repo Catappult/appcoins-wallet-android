@@ -135,12 +135,7 @@
 
         <data
             android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing2"/>
-        <data
-            android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing"/>
+            android:scheme="adyencheckout"/>
       </intent-filter>
     </activity>
     <activity
@@ -199,7 +194,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
         android:label=""
-        android:screenOrientation="portrait" />
+        android:screenOrientation="portrait"/>
 
     <activity
         android:name="com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity"

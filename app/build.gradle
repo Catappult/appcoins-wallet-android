@@ -254,7 +254,8 @@ dependencies {
   implementation project(path: ':billing')
 
   //adyen dependency
-  implementation "com.adyen.checkout:card-ui:3.5.1"
+  implementation "com.adyen.checkout:card-ui:$project.adyenVersion"
+  implementation "com.adyen.checkout:redirect:$project.adyenVersion"
 
   // Rx Lifecycle
   implementation "com.trello:rxlifecycle:1.0"

@@ -784,10 +784,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AdyenPaymentInteractor provideAdyenPaymentInteractor(
-      AdyenPaymentService adyenPaymentService, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Billing billing) {
+      AdyenPaymentService adyenPaymentService, InAppPurchaseInteractor inAppPurchaseInteractor) {
     return new AdyenPaymentInteractor(adyenPaymentService, inAppPurchaseInteractor,
-        inAppPurchaseInteractor.getBillingMessagesMapper(), billing);
+        inAppPurchaseInteractor.getBillingMessagesMapper());
   }
 
   @Singleton @Provides AdyenPaymentService provideAdyenPaymentService(OkHttpClient client) {

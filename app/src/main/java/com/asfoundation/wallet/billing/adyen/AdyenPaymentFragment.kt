@@ -4,15 +4,19 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
+import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
@@ -49,6 +53,7 @@ import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
+import org.json.JSONObject
 import java.io.IOException
 import java.math.BigDecimal
 import java.util.*
@@ -71,16 +76,21 @@ class AdyenPaymentFragment : DaggerFragment(),
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var cardComponent: CardComponent
+  private lateinit var redirectComponent: RedirectComponent
   private var cvcOnly: Boolean = false
   private var backButton: PublishRelay<Boolean>? = null
   private var validationSubject: PublishSubject<Boolean>? = null
   private var paymentDataSubject: ReplaySubject<PaymentData>? = null
+  private var paymentDetailsSubject: PublishSubject<JSONObject>? = null
+  private var paymentDetailsDataSubject: ReplaySubject<String>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButton = PublishRelay.create<Boolean>()
     validationSubject = PublishSubject.create<Boolean>()
     paymentDataSubject = ReplaySubject.create<PaymentData>()
+    paymentDetailsSubject = PublishSubject.create<JSONObject>()
+    paymentDetailsDataSubject = ReplaySubject.create<String>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter = AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
@@ -108,13 +118,7 @@ class AdyenPaymentFragment : DaggerFragment(),
       buy_button.setText(R.string.action_buy)
     }
 
-    val cardConfigurationBuilder =
-        CardConfiguration.Builder(context!!, BuildConfig.ADYEN_PUBLIC_KEY)
-
-    cardConfiguration = cardConfigurationBuilder.let {
-      it.setEnvironment(Environment.TEST)
-      it.build()
-    }
+    setupCardConfiguration()
 
     if (isPreSelected) {
       showBonus()
@@ -131,6 +135,16 @@ class AdyenPaymentFragment : DaggerFragment(),
     }
     showProduct()
     presenter.present(savedInstanceState)
+  }
+
+  private fun setupCardConfiguration() {
+    val cardConfigurationBuilder =
+        CardConfiguration.Builder(context!!, BuildConfig.ADYEN_PUBLIC_KEY)
+
+    cardConfiguration = cardConfigurationBuilder.let {
+      it.setEnvironment(Environment.TEST)
+      it.build()
+    }
   }
 
   override fun finishCardConfiguration(
@@ -242,15 +256,6 @@ class AdyenPaymentFragment : DaggerFragment(),
         .mergeWith(backButton)
   }
 
-  private fun showCvcView(paymentMethod: PaymentMethod) {
-    cvcOnly = true
-    this.paymentMethod = paymentMethod
-    fragment_credit_card_authorization_pre_authorized_card.visibility = View.VISIBLE
-    fragment_credit_card_authorization_pre_authorized_card.text = paymentMethod.label
-    hideLoading()
-    presenter.sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
-  }
-
   private fun showCreditCardView() {
     cvcOnly = false
     fragment_credit_card_authorization_pre_authorized_card?.visibility = View.GONE
@@ -318,8 +323,29 @@ class AdyenPaymentFragment : DaggerFragment(),
     return validationSubject
   }
 
-  fun lockRotation() {
+  override fun lockRotation() {
     iabView.lockRotation()
+  }
+
+  override fun setRedirectComponent(action: Action, paymentDetailsData: String?) {
+    paymentDetailsData?.let { paymentDetailsDataSubject?.onNext(paymentDetailsData) }
+    redirectComponent = RedirectComponent.PROVIDER.get(this)
+    redirectComponent.handleAction(activity as IabActivity, action)
+    redirectComponent.observe(this, Observer {
+      paymentDetailsSubject?.onNext(it.details!!)
+    })
+  }
+
+  override fun submitUriResult(uri: Uri) {
+    redirectComponent.handleRedirectResponse(uri)
+  }
+
+  override fun getPaymentDetails(): Observable<JSONObject> {
+    return paymentDetailsSubject!!
+  }
+
+  override fun getPaymentDetailsData(): Observable<String?> {
+    return paymentDetailsDataSubject!!
   }
 
   private fun setBackListener(view: View) {
@@ -384,6 +410,22 @@ class AdyenPaymentFragment : DaggerFragment(),
         .doOnNext { payment_method_ic.setImageBitmap(it) }
         .subscribe({ }
         ) { it.printStackTrace() })
+  }
+
+  override fun onDestroyView() {
+    iabView.enableBack()
+    presenter.stop()
+    backButton = null
+    super.onDestroyView()
+  }
+
+  override fun onDestroy() {
+    backButton = null
+    validationSubject = null
+    paymentDataSubject = null
+    paymentDetailsSubject = null
+    paymentDetailsDataSubject = null
+    super.onDestroy()
   }
 
   companion object {

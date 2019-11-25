@@ -279,7 +279,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val TRANSACTION_DATA = "transaction_data"
     const val TRANSACTION_HASH = "transaction_hash"
     const val TRANSACTION_AMOUNT = "transaction_amount"
-    const val TRANSACTION_CURRENCY = "transaction_currency"
     const val DEVELOPER_PAYLOAD = "developer_payload"
     const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234

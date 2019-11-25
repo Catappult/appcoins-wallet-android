@@ -1,6 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
-data class MakePaymentResponse(val resultCode: String, val refusalReason: String?,
-                               val refusalReasonCode: String?, val action: Action?)
+import com.adyen.checkout.base.model.payments.response.RedirectAction
 
-data class Action(val type: String?, val url: String?)
+data class MakePaymentResponse(val resultCode: String, val action: RedirectAction?,
+                               val refusalReason: String?, val refusalReasonCode: String?)

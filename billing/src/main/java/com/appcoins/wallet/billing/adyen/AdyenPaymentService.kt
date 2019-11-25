@@ -1,10 +1,9 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.PaymentMethodsApiResponse
+import com.appcoins.wallet.billing.util.Error
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.io.IOException
 
 class AdyenPaymentService(private val adyenApi: AdyenApi) {
@@ -13,14 +12,10 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
                       currency: String): Single<PaymentInfoModel> {
     return adyenApi.loadPaymentInfo(value, currency)
         .map { map(it, methods) }
-        .onErrorReturn { map(it) }
+        .onErrorReturn { mapInfoModelError(it) }
   }
 
-  private fun map(throwable: Throwable): PaymentInfoModel {
-    return PaymentInfoModel(null, Error(true, throwable.isNoNetworkException()))
-  }
-
-  fun makePayment(value: String, currency: String, reference: String, encryptedCardNumber: String?,
+  fun makePayment(value: String, currency: String, reference: String?, encryptedCardNumber: String?,
                   encryptedExpiryMonth: String?, encryptedExpiryYear: String?,
                   encryptedSecurityCode: String?, type: String,
                   returnUrl: String?): Single<PaymentModel> {
@@ -28,10 +23,15 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
         encryptedExpiryMonth, encryptedExpiryYear, encryptedSecurityCode, null, reference,
         type, returnUrl)
         .map {
-          PaymentModel(it.resultCode, it.refusalReason, it.refusalReasonCode?.toInt(),
-              it.action?.type, it.action?.url)
+          map(it)
         }
-        .onErrorReturn { PaymentModel() }
+        .onErrorReturn { mapModelError(it) }
+  }
+
+  fun submitRedirect(payload: String?, paymentData: String?): Single<PaymentModel> {
+    return adyenApi.submitRedirect(payload, paymentData)
+        .map { map(it) }
+        .onErrorReturn { mapModelError(it) }
   }
 
   private fun map(response: PaymentMethodsApiResponse,
@@ -43,6 +43,20 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
       }
     }
     return PaymentInfoModel(null, Error(true))
+  }
+
+  private fun map(response: MakePaymentResponse): PaymentModel {
+    return PaymentModel(response.resultCode, response.refusalReason,
+        response.refusalReasonCode?.toInt(),
+        response.action, response.action?.url, response.action?.paymentData)
+  }
+
+  private fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
+    return PaymentInfoModel(null, Error(true, throwable.isNoNetworkException()))
+  }
+
+  private fun mapModelError(throwable: Throwable): PaymentModel {
+    return PaymentModel(Error(true, throwable.isNoNetworkException()))
   }
 
   interface AdyenApi {
@@ -59,10 +73,16 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
                     @Query("encrypted_expiry_year") encryptedExpiryYear: String?,
                     @Query("encrypted_security_code") encryptedSecurityCode: String?,
                     @Query("holder_name") holderName: String?,
-                    @Query("reference") reference: String,
+                    @Query("reference") reference: String?,
                     @Query("type") paymentMethod: String,
-                    @Query("return_url") returnUrl: String?): Single<MakePaymentResponse>
+                    @Query("redirect_url") returnUrl: String?): Single<MakePaymentResponse>
+
+    @FormUrlEncoded
+    @POST("adyen/payment/details")
+    fun submitRedirect(@Field("payload") payload: String?,
+                       @Field("payment_data") paymentData: String?): Single<MakePaymentResponse>
   }
+
 
   enum class Methods(val id: String) {
     CREDIT_CARD("Credit Card"), PAYPAL("PayPal")
