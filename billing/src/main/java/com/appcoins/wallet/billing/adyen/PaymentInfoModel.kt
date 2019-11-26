@@ -5,4 +5,5 @@ import com.appcoins.wallet.billing.util.Error
 
 data class PaymentInfoModel(
     val paymentMethodInfo: PaymentMethod?,
+    val isStored: Boolean = false,
     val error: Error = Error())

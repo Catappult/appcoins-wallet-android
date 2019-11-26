@@ -112,12 +112,26 @@
           app:layout_constraintTop_toTopOf="@id/top_separator"
           app:layout_constraintVertical_bias="0.3"
           >
-        <include
-            android:id="@+id/layout_pre_selected"
-            layout="@layout/selected_payment_method_cc"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            >
+          <include
+              android:id="@+id/layout_pre_selected"
+              layout="@layout/selected_payment_method_cc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              />
+          <Button
+              android:id="@+id/forget_card_pre_selected"
+              style="@style/ButtonStyle.Alternative"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/button_height"
+              android:layout_below="@id/layout_pre_selected"
+              android:layout_centerHorizontal="true"
+              android:text="FORGET CARD"
+              />
+        </RelativeLayout>
       </ScrollView>
       <Button
           android:id="@+id/more_payment_methods"

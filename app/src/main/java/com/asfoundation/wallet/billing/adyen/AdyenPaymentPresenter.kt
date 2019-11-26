@@ -43,6 +43,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     handleBack()
     handleErrorDismissEvent()
     handleBuyClick()
+    handleForgetCardClick()
 
     handleRedirectResponse()
     handlePaymentDetails()
@@ -50,9 +51,37 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     if (isPreSelected) handleMorePaymentsClick()
   }
 
+  private fun handleForgetCardClick() {
+    disposables.add(view.forgetCardClick()
+        .observeOn(networkScheduler)
+        .flatMapSingle { adyenPaymentInteractor.disablePayments() }
+        .observeOn(viewScheduler)
+        .doOnNext { success -> if (!success) view.showGenericError() }
+        .filter { it }
+        .doOnNext { view.showLoading() }
+        .observeOn(networkScheduler)
+        .flatMapSingle {
+          adyenPaymentInteractor.loadPaymentInfo(mapPaymentToService(paymentType),
+              amount.toString(), currency)
+              .observeOn(viewScheduler)
+              .doOnSuccess {
+                view.hideLoading()
+                if (it.error.hasError) {
+                  if (it.error.isNetworkError) view.showNetworkError()
+                  else view.showGenericError()
+                } else {
+                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored)
+                }
+              }
+        }
+        .subscribe())
+  }
+
   private fun convertAmount() {
     disposables.add(
         adyenPaymentInteractor.convertToFiat(amount.toDouble(), currency)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
             .doOnSuccess {
               view.showProductPrice(it.amount.setScale(2, RoundingMode.HALF_UP).toPlainString(),
                   it.currency)
@@ -71,21 +100,22 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 if (it.error.isNetworkError) view.showNetworkError()
                 else view.showGenericError()
               } else {
-                if (paymentType == PaymentType.CARD.name) view.finishCardConfiguration(
-                    it.paymentMethodInfo!!)
-                else {
+                if (paymentType == PaymentType.CARD.name) {
+                  sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
+                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored)
+                } else {
                   launchPaypal()
                 }
               }
             }
-            .doOnError { view.showGenericError() }
             .subscribe())
   }
 
   private fun launchPaypal() {
     disposables.add(transactionBuilder.flatMap {
       adyenPaymentInteractor.makePayment(amount.toString(), currency, it.orderReference, null, null,
-          null, null, mapPaymentToService(paymentType).name, RedirectUtil.REDIRECT_RESULT_SCHEME)
+          null, null, mapPaymentToService(paymentType).name, null,
+          RedirectUtil.REDIRECT_RESULT_SCHEME)
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -107,7 +137,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleBuyClick() {
-    disposables.add(Observable.zip(view.buyButtonClicked(), view.retrievePaymentData(),
+    disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
         BiFunction { _: Any, paymentData: PaymentData ->
           paymentData
         })
@@ -116,10 +146,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           transactionBuilder
               .flatMap {
                 adyenPaymentInteractor.makePayment(amount.toString(), currency,
-                    it.orderReference,
-                    paymentData.encryptedCardNumber, paymentData.encryptedExpiryMonth,
-                    paymentData.encryptedExpiryYear, paymentData.encryptedSecurityCode,
-                    mapPaymentToService(paymentType).name, it.callbackUrl)
+                    it.orderReference, paymentData.encryptedCardNumber,
+                    paymentData.encryptedExpiryMonth, paymentData.encryptedExpiryYear,
+                    paymentData.encryptedSecurityCode, mapPaymentToService(paymentType).name,
+                    paymentData.paymentId, it.callbackUrl, paymentData.storeDetails)
               }
         }
         .observeOn(viewScheduler)
@@ -150,7 +180,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handlePaymentDetails() {
-    disposables.add(Observable.zip(view.getPaymentDetails(), view.getPaymentDetailsData(),
+    disposables.add(Observable.combineLatest(view.getPaymentDetails(), view.getPaymentDetailsData(),
         BiFunction { details: JSONObject, paymentData: String? ->
           Pair(extractPayload(details), paymentData)
         })

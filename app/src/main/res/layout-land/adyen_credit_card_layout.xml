@@ -176,12 +176,26 @@
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           tools:visibility="visible"
           >
-        <com.adyen.checkout.card.CardView
-            android:id="@+id/adyen_card_form"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/normal_margin"
-            />
+            >
+          <com.adyen.checkout.card.CardView
+              android:id="@+id/adyen_card_form"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="@dimen/normal_margin"
+              />
+          <Button
+              android:id="@+id/forget_card"
+              style="@style/ButtonStyle.Alternative"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/button_height"
+              android:layout_below="@id/adyen_card_form"
+              android:layout_centerHorizontal="true"
+              android:text="FORGET CARD"
+              />
+        </RelativeLayout>
       </ScrollView>
 
 
@@ -216,7 +230,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/fragment_iab_transaction_completed" />
+    <include layout="@layout/fragment_iab_transaction_completed"/>
   </RelativeLayout>
   <include
       android:id="@+id/fragment_iab_error"

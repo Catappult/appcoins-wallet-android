@@ -77,7 +77,6 @@ class AdyenPaymentFragment : DaggerFragment(),
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var cardComponent: CardComponent
   private lateinit var redirectComponent: RedirectComponent
-  private var cvcOnly: Boolean = false
   private var backButton: PublishRelay<Boolean>? = null
   private var validationSubject: PublishSubject<Boolean>? = null
   private var paymentDataSubject: ReplaySubject<PaymentData>? = null
@@ -118,7 +117,7 @@ class AdyenPaymentFragment : DaggerFragment(),
       buy_button.setText(R.string.action_buy)
     }
 
-    setupCardConfiguration()
+    if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
 
     if (isPreSelected) {
       showBonus()
@@ -148,13 +147,22 @@ class AdyenPaymentFragment : DaggerFragment(),
   }
 
   override fun finishCardConfiguration(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod) {
+      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
+      isStored: Boolean) {
     buy_button.visibility = View.VISIBLE
     cancel_button.visibility = View.VISIBLE
+    if (isStored) {
+      forget_card?.visibility = View.VISIBLE
+      forget_card_pre_selected?.visibility = View.VISIBLE
+    } else {
+      forget_card?.visibility = View.GONE
+      forget_card_pre_selected?.visibility = View.GONE
+    }
     cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
     adyen_card_form?.attach(cardComponent, this)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
-    showCreditCardView()
+    fragment_credit_card_authorization_pre_authorized_card?.visibility = View.GONE
+
     cardComponent.observe(this, androidx.lifecycle.Observer {
       if (it != null && it.isValid) {
         buy_button.isEnabled = true
@@ -164,7 +172,9 @@ class AdyenPaymentFragment : DaggerFragment(),
                 it.data.paymentMethod?.encryptedCardNumber,
                 it.data.paymentMethod?.encryptedExpiryMonth,
                 it.data.paymentMethod?.encryptedExpiryYear,
-                it.data.paymentMethod?.encryptedSecurityCode))
+                it.data.paymentMethod?.encryptedSecurityCode,
+                it.data.paymentMethod?.storedPaymentMethodId,
+                it.data.isStorePaymentMethodEnable))
       } else {
         buy_button.isEnabled = false
       }
@@ -256,11 +266,6 @@ class AdyenPaymentFragment : DaggerFragment(),
         .mergeWith(backButton)
   }
 
-  private fun showCreditCardView() {
-    cvcOnly = false
-    fragment_credit_card_authorization_pre_authorized_card?.visibility = View.GONE
-    presenter.sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
-  }
 
   override fun close(bundle: Bundle?) {
     iabView.close(bundle)
@@ -346,6 +351,11 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   override fun getPaymentDetailsData(): Observable<String?> {
     return paymentDetailsDataSubject!!
+  }
+
+  override fun forgetCardClick(): Observable<Any> {
+    return if (forget_card != null) RxView.clicks(forget_card)
+    else RxView.clicks(forget_card_pre_selected)
   }
 
   private fun setBackListener(view: View) {

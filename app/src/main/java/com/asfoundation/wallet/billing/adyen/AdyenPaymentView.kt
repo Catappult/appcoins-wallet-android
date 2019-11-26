@@ -27,7 +27,8 @@ interface AdyenPaymentView {
   fun onValidFieldStateChange(): Observable<Boolean?>?
   fun hideLoading()
   fun finishCardConfiguration(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod)
+      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
+      isStored: Boolean)
 
   fun retrievePaymentData(): Observable<PaymentData>
   fun showSpecificError(refusalCode: Int)
@@ -37,4 +38,5 @@ interface AdyenPaymentView {
   fun submitUriResult(uri: Uri)
   fun getPaymentDetails(): Observable<JSONObject>
   fun getPaymentDetailsData(): Observable<String?>
+  fun forgetCardClick(): Observable<Any>
 }

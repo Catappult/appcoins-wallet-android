@@ -1,7 +1,9 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.PaymentMethodsApiResponse
+import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.util.Error
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 import java.io.IOException
@@ -9,22 +11,21 @@ import java.io.IOException
 class AdyenPaymentService(private val adyenApi: AdyenApi) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
-                      currency: String): Single<PaymentInfoModel> {
-    return adyenApi.loadPaymentInfo(value, currency)
+                      currency: String, walletAddress: String): Single<PaymentInfoModel> {
+    return adyenApi.loadPaymentInfo(value, currency, walletAddress)
         .map { map(it, methods) }
         .onErrorReturn { mapInfoModelError(it) }
   }
 
   fun makePayment(value: String, currency: String, reference: String?, encryptedCardNumber: String?,
                   encryptedExpiryMonth: String?, encryptedExpiryYear: String?,
-                  encryptedSecurityCode: String?, type: String,
-                  returnUrl: String?): Single<PaymentModel> {
+                  encryptedSecurityCode: String?, paymentId: String?, type: String,
+                  walletAddress: String?, returnUrl: String?,
+                  savedPaymentMethod: Boolean = false): Single<PaymentModel> {
     return adyenApi.makePayment(value, currency, encryptedCardNumber,
         encryptedExpiryMonth, encryptedExpiryYear, encryptedSecurityCode, null, reference,
-        type, returnUrl)
-        .map {
-          map(it)
-        }
+        paymentId, type, walletAddress, returnUrl, savedPaymentMethod)
+        .map { map(it) }
         .onErrorReturn { mapModelError(it) }
   }
 
@@ -34,15 +35,20 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
         .onErrorReturn { mapModelError(it) }
   }
 
+  fun disablePayments(walletAddress: String): Single<Boolean> {
+    return adyenApi.disablePayments(walletAddress)
+        .toSingleDefault(true)
+        .onErrorReturn { false }
+  }
+
   private fun map(response: PaymentMethodsApiResponse,
                   method: Methods): PaymentInfoModel {
-    val paymentMethods = response.paymentMethods
-    paymentMethods?.let {
-      for (paymentMethod in it) {
-        if (paymentMethod.name == method.id) return PaymentInfoModel(paymentMethod)
-      }
+    val storedPaymentModel = findPaymentMethod(response.storedPaymentMethods, method, true)
+    return if (storedPaymentModel.error.hasError) {
+      findPaymentMethod(response.paymentMethods, method, false)
+    } else {
+      storedPaymentModel
     }
-    return PaymentInfoModel(null, Error(true))
   }
 
   private fun map(response: MakePaymentResponse): PaymentModel {
@@ -52,18 +58,30 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
   }
 
   private fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
-    return PaymentInfoModel(null, Error(true, throwable.isNoNetworkException()))
+    return PaymentInfoModel(null, false, Error(true, throwable.isNoNetworkException()))
   }
 
   private fun mapModelError(throwable: Throwable): PaymentModel {
     return PaymentModel(Error(true, throwable.isNoNetworkException()))
   }
 
+  private fun findPaymentMethod(paymentMethods: List<PaymentMethod>?,
+                                method: Methods, isStored: Boolean): PaymentInfoModel {
+    paymentMethods?.let {
+      for (paymentMethod in it) {
+        if (paymentMethod.type == method.type) return PaymentInfoModel(paymentMethod, isStored)
+      }
+    }
+    return PaymentInfoModel(null, false, Error(true))
+  }
+
   interface AdyenApi {
 
     @GET("adyen/methods")
     fun loadPaymentInfo(@Query("value") value: String,
-                        @Query("currency") currency: String): Single<PaymentMethodsApiResponse>
+                        @Query("currency") currency: String,
+                        @Query("wallet.address") walletAddress: String
+    ): Single<PaymentMethodsApiResponse>
 
     @POST("adyen/payment")
     fun makePayment(@Query("value") value: String,
@@ -74,18 +92,24 @@ class AdyenPaymentService(private val adyenApi: AdyenApi) {
                     @Query("encrypted_security_code") encryptedSecurityCode: String?,
                     @Query("holder_name") holderName: String?,
                     @Query("reference") reference: String?,
+                    @Query("token") token: String?,
                     @Query("type") paymentMethod: String,
-                    @Query("redirect_url") returnUrl: String?): Single<MakePaymentResponse>
+                    @Query("wallet.address") walletAddress: String?,
+                    @Query("redirect_url") returnUrl: String?,
+                    @Query("store_details") savePayment: Boolean): Single<MakePaymentResponse>
 
     @FormUrlEncoded
     @POST("adyen/payment/details")
     fun submitRedirect(@Field("payload") payload: String?,
                        @Field("payment_data") paymentData: String?): Single<MakePaymentResponse>
+
+    @POST("adyen/payment/disable")
+    fun disablePayments(@Query("wallet.address") walletAddress: String): Completable
   }
 
 
-  enum class Methods(val id: String) {
-    CREDIT_CARD("Credit Card"), PAYPAL("PayPal")
+  enum class Methods(val type: String) {
+    CREDIT_CARD("scheme"), PAYPAL("paypal")
   }
 
   fun Throwable?.isNoNetworkException(): Boolean {
