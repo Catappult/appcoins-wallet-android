@@ -504,7 +504,7 @@
   <string name="backup_title">پشتیبان‌گیری از کیف‌پول</string>
   <string name="backup_password_title">کدگذاری از کیف پول (اختیاری)</string>
   <string name="backup_password">رمزعبور</string>
-  <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
+  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_send_via_title">ارسال بک‌آپ از طریق:</string>
   <string name="import_wallet_title">واردکردن کیف پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
