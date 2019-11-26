@@ -504,7 +504,7 @@
   <string name="backup_title">Napravite rezervnu kopiju novčanika</string>
   <string name="backup_password_title">Šifrujte novčanik (opcionalno)</string>
   <string name="backup_password">Lozinka</string>
-  <string name="backup_body">Ne čuvamo vaše privatnhe ključeve ni ostale načine pristupa. Važno je da rezervna kopija (skladište ključeva) vašeg novčanika bude na sigurnom.</string>
+  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_send_via_title">Pošaljite rezervnu kopiju preko:</string>
   <string name="import_wallet_title">Uvezite novčanik</string>
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
