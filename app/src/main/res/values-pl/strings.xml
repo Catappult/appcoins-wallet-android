@@ -504,7 +504,7 @@
   <string name="backup_title">Kopia zapasowa portfela</string>
   <string name="backup_password_title">Zakoduj portfel (opcjonalnie)</string>
   <string name="backup_password">Hasło</string>
-  <string name="backup_body">Nie przechowujemy Twoich prywatnych kluczy lub innych metod dostępu. Ważne jest aby kopia zapasowa Twojego portfela była bezpieczna.</string>
+  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_send_via_title">Wyślij kopię zapasową poprzez:</string>
   <string name="import_wallet_title">Importuj portfel</string>
   <string name="import_wallet_body">Wklej kopię zapasową portfela poniżej.</string>
