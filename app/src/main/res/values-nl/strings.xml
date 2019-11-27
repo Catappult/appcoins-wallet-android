@@ -504,7 +504,7 @@
   <string name="backup_title">Back-up van wallet maken</string>
   <string name="backup_password_title">Versleutel je wallet (optioneel)</string>
   <string name="backup_password">Wachtwoord</string>
-  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
   <string name="backup_send_via_title">Back-up verzenden via:</string>
   <string name="import_wallet_title">Wallet importeren</string>
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
