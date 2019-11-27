@@ -504,7 +504,7 @@
   <string name="backup_title">Yedek Cüzdan</string>
   <string name="backup_password_title">Cüzdanınızı şifreleyin (isteğe bağlı)</string>
   <string name="backup_password">Şifre</string>
-  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
   <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
   <string name="import_wallet_title">Cüzdan Aktar</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
