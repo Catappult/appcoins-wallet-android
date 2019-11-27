@@ -169,7 +169,7 @@
 
       <include
           android:id="@+id/dialog_buy_buttons_payment_methods"
-          layout="@layout/dialog_buy_buttons_payment_methods"
+          layout="@layout/dialog_buy_buttons"
           android:layout_width="0dp"
           android:layout_height="48dp"
           app:layout_constraintBottom_toBottomOf="parent"

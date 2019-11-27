@@ -96,7 +96,6 @@
             android:text="@string/purchase_more_payment_methods_button"
             android:textColor="@color/text_button_color"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@id/bonus_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/payment_scroll"
             />
@@ -109,7 +108,6 @@
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/more_payment_methods"
@@ -126,11 +124,9 @@
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginTop="11dp"
             android:layout_marginEnd="@dimen/big_margin"
-            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/gamification_purchase_body"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
             app:layout_constraintVertical_bias="0"
@@ -141,22 +137,23 @@
             android:id="@+id/bottom_separator_buttons"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
             android:background="@color/layout_separator_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/dialog_buy_buttons_payment_methods"
+            app:layout_constraintTop_toBottomOf="@id/bonus_msg"
             />
 
         <include
             android:id="@+id/dialog_buy_buttons_payment_methods"
-            layout="@layout/dialog_buy_buttons_payment_methods"
+            layout="@layout/dialog_buy_buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottom_separator_buttons"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ interface AdyenPaymentView {
   fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean,
-      forgeted: Boolean)
+      forget: Boolean)
 
   fun retrievePaymentData(): Observable<PaymentData>
   fun showSpecificError(refusalCode: Int)

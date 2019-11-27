@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.billing.adyen
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -41,7 +40,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
-import kotlinx.android.synthetic.main.activity_token_details.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.adyen_card_form
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_card_authorization_progress_bar
@@ -142,7 +140,7 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   private fun setupCardConfiguration() {
     val cardConfigurationBuilder =
-        CardConfiguration.Builder(context!!, BuildConfig.ADYEN_PUBLIC_KEY_DEV)
+        CardConfiguration.Builder(context!!, BuildConfig.ADYEN_PUBLIC_KEY)
 
     cardConfiguration = cardConfigurationBuilder.let {
       it.setEnvironment(Environment.TEST)
@@ -150,13 +148,12 @@ class AdyenPaymentFragment : DaggerFragment(),
     }
   }
 
-  @SuppressLint("ResourceType")
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean,
-      forgeted: Boolean) {
+      isStored: Boolean, forget: Boolean) {
     buy_button.visibility = View.VISIBLE
     cancel_button.visibility = View.VISIBLE
+
     if (isStored) {
       forget_card?.visibility = View.VISIBLE
       forget_card_pre_selected?.visibility = View.VISIBLE
@@ -165,20 +162,10 @@ class AdyenPaymentFragment : DaggerFragment(),
       forget_card_pre_selected?.visibility = View.GONE
     }
 
-    if (forgeted) {
-      viewModelStore.clear()
-    }
-
+    if (forget) viewModelStore.clear()
     cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
+    if (forget) clearFields()
 
-    if (forgeted) {
-      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297086).editText?.text = null
-      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297086).editText?.isEnabled = true
-      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297087).editText?.text = null
-      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297087).editText?.isEnabled = true
-      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297088).editText?.text = null
-      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297086).editText?.requestFocus()
-    }
     adyen_card_form?.attach(cardComponent, this)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     fragment_credit_card_authorization_pre_authorized_card?.visibility = View.GONE
@@ -199,6 +186,28 @@ class AdyenPaymentFragment : DaggerFragment(),
         buy_button.isEnabled = false
       }
     })
+  }
+
+  private fun clearFields() {
+    val cardNumberLayout = adyen_card_form_pre_selected?.findViewById<TextInputLayout>(
+        R.id.textInputLayout_cardNumber)?.editText
+        ?: (adyen_card_form as CardView).findViewById<TextInputLayout>(
+            R.id.textInputLayout_cardNumber).editText
+    val expiryDateLayout = adyen_card_form_pre_selected?.findViewById<TextInputLayout>(
+        R.id.textInputLayout_expiryDate)?.editText
+        ?: (adyen_card_form as CardView).findViewById<TextInputLayout>(
+            R.id.textInputLayout_expiryDate).editText
+    val securityCodeLayout = adyen_card_form_pre_selected?.findViewById<TextInputLayout>(
+        R.id.textInputLayout_securityCode)
+        ?: (adyen_card_form as CardView).findViewById(
+            R.id.textInputLayout_securityCode)
+    cardNumberLayout?.text = null
+    cardNumberLayout?.isEnabled = true
+    expiryDateLayout?.text = null
+    expiryDateLayout?.isEnabled = true
+    securityCodeLayout.editText?.text = null
+    cardNumberLayout?.requestFocus()
+    securityCodeLayout.error = null
   }
 
   override fun retrievePaymentData(): Observable<PaymentData> {
