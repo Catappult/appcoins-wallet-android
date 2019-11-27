@@ -504,7 +504,7 @@
   <string name="backup_title">Sauvegarde portefeuille</string>
   <string name="backup_password_title">Crypter votre portefeuille (optionnel)</string>
   <string name="backup_password">Mot de passe</string>
-  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
   <string name="backup_send_via_title">Envoyer la sauvegarde via :</string>
   <string name="import_wallet_title">Importer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
