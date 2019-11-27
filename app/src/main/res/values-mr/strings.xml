@@ -504,7 +504,7 @@
   <string name="backup_title">वॉलेट बॅकअप करा</string>
   <string name="backup_password_title">आपले वॉलेट एनक्रिप्ट करा (पर्यायी)</string>
   <string name="backup_password">पासवर्ड</string>
-  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
   <string name="backup_send_via_title">बॅकअप ह्याद्वारे करा:</string>
   <string name="import_wallet_title">वॉलेट इंपोर्ट करा</string>
   <string name="import_wallet_body">आपल्या वॉलेटचा बॅकअप खाली पेस्ट करा.</string>
