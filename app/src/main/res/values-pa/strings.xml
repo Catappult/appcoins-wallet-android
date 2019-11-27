@@ -504,7 +504,7 @@
   <string name="backup_title">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="backup_password_title">ਆਪਣੇ ਬਟੂਏ ਤੇ ਕੋਡ ਲਗਾਓ| (ਵਿਕਲਪਿਕ)</string>
   <string name="backup_password">ਪਾਸਵਰਡ</string>
-  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_body">ਅਸੀਂ ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਜਾਂ ਕੋਈ ਹੋਰ ਪਹੁੰਚ ਵਿਧੀ ਆਪਣੇ ਕੋਲ ਨਹੀਂ ਰੱਖਦੇ| ਤੁਹਾਡੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ (ਚਾਬੀ ਸਟੋਰ) ਸੁਰੱਖਿਅਤ ਰੱਖਣਾ ਜਰੂਰੀ ਹੈ|</string>
   <string name="backup_send_via_title">ਬੈਕਅਪ ਇਸ ਦੁਆਰਾ ਭੇਜੋ:</string>
   <string name="import_wallet_title">ਬਟੂਆ ਇਮਪੋਰਟ ਕਰੋ</string>
   <string name="import_wallet_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਹੇਠਾਂ ਪਾਓ|</string>
