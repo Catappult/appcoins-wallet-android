@@ -350,6 +350,7 @@ class AdyenPaymentFragment : DaggerFragment(),
   override fun showMoreMethods() {
     main_view?.let { KeyboardUtils.hideKeyboard(it) }
     main_view_pre_selected?.let { KeyboardUtils.hideKeyboard(it) }
+    iabView.unlockRotation()
     iabView.showPaymentMethodsView()
   }
 

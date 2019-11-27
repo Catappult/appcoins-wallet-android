@@ -117,6 +117,7 @@
               android:layout_below="@id/adyen_card_form"
               android:layout_centerHorizontal="true"
               android:text="FORGET CARD"
+              android:visibility="gone"
               />
         </RelativeLayout>
       </ScrollView>
