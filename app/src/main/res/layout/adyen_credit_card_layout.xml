@@ -4,7 +4,7 @@
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:theme="@style/MaterialAppTheme"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
   <LinearLayout
       android:id="@id/main_view"
@@ -92,13 +92,13 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/line_separator"
+          android:background="@drawable/payment_method_background"
           android:overScrollMode="never"
           android:paddingStart="@dimen/big_margin"
           android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
           android:visibility="invisible"
           tools:visibility="visible"
-          android:background="@drawable/payment_method_background"
           >
         <RelativeLayout
             android:layout_width="match_parent"

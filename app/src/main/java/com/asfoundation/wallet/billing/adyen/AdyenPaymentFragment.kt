@@ -9,12 +9,12 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
-import com.adyen.checkout.card.CardView
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
@@ -82,6 +82,7 @@ class AdyenPaymentFragment : DaggerFragment(),
   private var paymentDetailsDataSubject: ReplaySubject<String>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
+  private lateinit var adyenSecurityCodeLayout: TextInputLayout
   private var adyenCardImageLayout: RoundCornerImageView? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,6 +145,12 @@ class AdyenPaymentFragment : DaggerFragment(),
     buy_button.visibility = View.VISIBLE
     cancel_button.visibility = View.VISIBLE
 
+    adyenCardNumberLayout.boxStrokeColor =
+        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
+    adyenExpiryDateLayout.boxStrokeColor =
+        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
+    adyenSecurityCodeLayout.boxStrokeColor =
+        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
     handleLayoutVisibility(isStored)
     prepareCardComponent(paymentMethod, forget)
     setStoredPaymentInformation(isStored)
@@ -351,6 +358,9 @@ class AdyenPaymentFragment : DaggerFragment(),
     adyenExpiryDateLayout =
         adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_expiryDate)
             ?: adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
+    adyenSecurityCodeLayout =
+        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
+            ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
     adyenCardImageLayout = adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView)
         ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView)
   }
@@ -440,33 +450,20 @@ class AdyenPaymentFragment : DaggerFragment(),
           adyenCardNumberLayout.editText?.text
       fragment_credit_card_authorization_pre_authorized_card?.visibility = View.VISIBLE
       payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
-    }
-    else{
+    } else {
       fragment_credit_card_authorization_pre_authorized_card?.visibility = View.GONE
       payment_method_ic?.visibility = View.GONE
     }
   }
 
   private fun clearFields() {
-    val cardNumberLayout = adyen_card_form_pre_selected?.findViewById<TextInputLayout>(
-        R.id.textInputLayout_cardNumber)?.editText
-        ?: (adyen_card_form as CardView).findViewById<TextInputLayout>(
-            R.id.textInputLayout_cardNumber).editText
-    val expiryDateLayout = adyen_card_form_pre_selected?.findViewById<TextInputLayout>(
-        R.id.textInputLayout_expiryDate)?.editText
-        ?: (adyen_card_form as CardView).findViewById<TextInputLayout>(
-            R.id.textInputLayout_expiryDate).editText
-    val securityCodeLayout = adyen_card_form_pre_selected?.findViewById<TextInputLayout>(
-        R.id.textInputLayout_securityCode)
-        ?: (adyen_card_form as CardView).findViewById(
-            R.id.textInputLayout_securityCode)
-    cardNumberLayout?.text = null
-    cardNumberLayout?.isEnabled = true
-    expiryDateLayout?.text = null
-    expiryDateLayout?.isEnabled = true
-    securityCodeLayout.editText?.text = null
-    cardNumberLayout?.requestFocus()
-    securityCodeLayout.error = null
+    adyenCardNumberLayout.editText?.text = null
+    adyenCardNumberLayout.editText?.isEnabled = true
+    adyenExpiryDateLayout.editText?.text = null
+    adyenExpiryDateLayout.editText?.isEnabled = true
+    adyenSecurityCodeLayout.editText?.text = null
+    adyenCardNumberLayout.requestFocus()
+    adyenSecurityCodeLayout.error = null
   }
 
   override fun onDestroyView() {

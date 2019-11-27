@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:maxHeight="300dp"
-    android:theme="@style/MaterialAppTheme"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
 
   <RelativeLayout
