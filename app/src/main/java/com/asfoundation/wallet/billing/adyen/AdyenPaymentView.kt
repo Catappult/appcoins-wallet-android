@@ -3,7 +3,6 @@ package com.asfoundation.wallet.billing.adyen
 import android.net.Uri
 import android.os.Bundle
 import com.adyen.checkout.base.model.payments.response.Action
-import com.asfoundation.wallet.billing.authorization.AdyenAuthorization
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
 import org.json.JSONObject
@@ -20,7 +19,6 @@ interface AdyenPaymentView {
   fun backEvent(): Observable<Any>
   fun close(bundle: Bundle?)
   fun showSuccess()
-  fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization)
   fun showGenericError()
   fun getMorePaymentMethodsClicks(): Observable<Any>
   fun showMoreMethods()

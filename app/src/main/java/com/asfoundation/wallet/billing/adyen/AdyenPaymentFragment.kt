@@ -24,7 +24,6 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.billing.authorization.AdyenAuthorization
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.util.KeyboardUtils
@@ -258,16 +257,6 @@ class AdyenPaymentFragment : DaggerFragment(),
       fragment_iab_error?.visibility = View.GONE
       fragment_iab_error_pre_selected?.visibility = View.GONE
     }
-  }
-
-  override fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization) {
-    main_view?.visibility = View.GONE
-    main_view_pre_selected?.visibility = View.GONE
-    fragment_iab_error?.visibility = View.VISIBLE
-    fragment_iab_error?.activity_iab_error_message?.setText(R.string.notification_payment_refused)
-    fragment_iab_error_pre_selected?.visibility = View.VISIBLE
-    fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
-        R.string.notification_payment_refused)
   }
 
   override fun showGenericError() {
