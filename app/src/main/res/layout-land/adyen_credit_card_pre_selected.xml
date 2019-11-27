@@ -109,8 +109,8 @@
           app:layout_constraintBottom_toTopOf="@id/more_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/top_separator"
-          app:layout_constraintVertical_bias="0.3"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintVertical_bias="1.0"
           >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -124,9 +124,9 @@
               />
           <Button
               android:id="@+id/forget_card_pre_selected"
-              style="@style/ButtonStyle.Alternative"
+              style="?android:attr/borderlessButtonStyle"
               android:layout_width="wrap_content"
-              android:layout_height="@dimen/button_height"
+              android:layout_height="wrap_content"
               android:layout_below="@id/layout_pre_selected"
               android:layout_centerHorizontal="true"
               android:text="FORGET CARD"
@@ -146,7 +146,6 @@
           android:textSize="12sp"
           app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/payment_scroll"
           />
 
       <View

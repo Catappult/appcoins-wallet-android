@@ -5,7 +5,6 @@
     style="@style/Theme.MaterialComponents"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/payment_method_background"
     >
 
   <ImageView
@@ -40,7 +39,7 @@
       android:id="@+id/adyen_card_form_pre_selected"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginStart="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
       app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
       app:layout_constraintEnd_toEndOf="parent"

@@ -98,22 +98,23 @@
           android:scrollbars="none"
           android:visibility="invisible"
           tools:visibility="visible"
+          android:background="@drawable/payment_method_background"
           >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-          <com.adyen.checkout.card.CardView
+          <include
               android:id="@+id/adyen_card_form"
+              layout="@layout/selected_payment_method_cc"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
               />
           <Button
               android:id="@+id/forget_card"
-              style="@style/ButtonStyle.Alternative"
+              style="?android:attr/borderlessButtonStyle"
               android:layout_width="wrap_content"
-              android:layout_height="@dimen/button_height"
+              android:layout_height="wrap_content"
               android:layout_below="@id/adyen_card_form"
               android:layout_centerHorizontal="true"
               android:text="FORGET CARD"
