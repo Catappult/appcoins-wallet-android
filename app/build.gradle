@@ -173,14 +173,13 @@ dependencies {
   // Http client
   implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:adapter-rxjava:2.3.0"
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
   implementation "com.squareup.okhttp3:okhttp:$project.okhttpVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
   implementation "com.squareup.picasso:picasso:$project.picassoVersion"
 
-  implementation "android.arch.lifecycle:runtime:1.1.1"
-  implementation "android.arch.lifecycle:extensions:1.1.1"
+  implementation "android.arch.lifecycle:runtime:$project.lifecycle"
+  implementation "android.arch.lifecycle:extensions:$project.lifecycle"
 
   implementation "androidx.appcompat:appcompat:$project.androidxAppCompatVersion"
   implementation "androidx.vectordrawable:vectordrawable:$project.androidxVectorDrawableVersion"
@@ -193,12 +192,12 @@ dependencies {
 
   implementation "androidx.multidex:multidex:$project.multidexVersion"
   // Bar code scanning
-  implementation "com.google.zxing:core:3.4.0"
-  implementation "com.google.android.gms:play-services-vision:18.0.0"
+  implementation "com.google.zxing:core:$project.zxing"
+  implementation "com.google.android.gms:play-services-vision:$project.play_services"
 
-  implementation "com.github.apl-devs:appintro:v4.2.2"
+  implementation "com.github.apl-devs:appintro:$project.appintro"
   implementation "com.romandanylyk:pageindicatorview:$project.pageIndicatorViewVersion"
-  implementation "com.journeyapps:zxing-android-embedded:3.2.0@aar"
+  implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android"
   // ReactiveX
   implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
@@ -218,22 +217,22 @@ dependencies {
   // Tests
   testImplementation "junit:junit:$junitVersion"
   testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
-  androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
-  androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0", {
+  androidTestImplementation "androidx.test.ext:junit:$project.testExtJunit"
+  androidTestImplementation("androidx.test.espresso:espresso-core:$project.expresso", {
     exclude group: "androidx.test.espresso", module: "support-annotations"
   })
-  androidTestImplementation('tools.fastlane:screengrab:1.1.0', {
+  androidTestImplementation("tools.fastlane:screengrab:$project.screengrab", {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
   // Fabric
-  implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+  implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk") {
     transitive = true
   }
-  implementation 'com.flurry.android:analytics:12.0.1@aar'
+  implementation "com.flurry.android:analytics:$project.flurry"
   // PW
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation project(":tn")
-  implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+  implementation "com.jakewharton.rxbinding2:rxbinding:$project.rxbinding"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "com.asfoundation:ethereumj-android:$project.ethereumjSdkVersion"
 
@@ -242,32 +241,29 @@ dependencies {
   kapt "androidx.room:room-compiler:$project.roomVersion"
   // RxJava support for Room
   implementation "androidx.room:room-rxjava2:$project.roomVersion"
-  // Pincode Lollipin
-  //    compile('com.github.omadahealth:lollipin:2.1.0@aar') {
-  //        transitive = true
-  //    }
+
   implementation project(path: ':airdrop')
-  implementation 'com.asfoundation:applications:6'
+  implementation "com.asfoundation:applications:$project.asf_applications"
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 
   //braintreepayments card form dependency
-  implementation "com.braintreepayments:card-form:3.3.0"
-  implementation "com.adyen.checkout:core:1.14.2"
+  implementation "com.braintreepayments:card-form:$project.card_form"
+  implementation "com.adyen.checkout:core:$project.checkout"
 
   // Rx Lifecycle
-  implementation "com.trello:rxlifecycle:1.0"
+  implementation "com.trello:rxlifecycle:$project.rxlifecycle"
   // If you want pre-written Activities and Fragments you can subclass as providers
-  implementation "com.trello:rxlifecycle-components:1.0"
+  implementation "com.trello:rxlifecycle-components:$project.rxlifecycle"
 
-  implementation "com.facebook.android:facebook-android-sdk:4.39.0"
-  implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
+  implementation "com.facebook.android:facebook-android-sdk:$project.facebook_sdk"
+  implementation "aptoide-client-v8:aptoide-analytics-core:$project.aptoide_analytics"
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
   implementation project(path: ':gamification')
   implementation project(path: ':permissions')
 
-  implementation 'com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.0.0'
+  implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout"
   implementation "com.airbnb.android:lottie:$lottieVersion"
   implementation "com.hbb20:ccp:$cppVersion"
   implementation "androidx.viewpager2:viewpager2:$project.viewPagerVersion"
