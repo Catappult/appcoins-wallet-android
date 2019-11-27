@@ -70,7 +70,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                   if (it.error.isNetworkError) view.showNetworkError()
                   else view.showGenericError()
                 } else {
-                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored)
+                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true)
                 }
               }
         }
@@ -102,7 +102,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               } else {
                 if (paymentType == PaymentType.CARD.name) {
                   sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
-                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored)
+                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false)
                 } else {
                   launchPaypal()
                 }

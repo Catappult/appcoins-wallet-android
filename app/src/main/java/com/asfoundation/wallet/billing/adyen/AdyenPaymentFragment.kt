@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -15,6 +16,7 @@ import androidx.lifecycle.Observer
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.card.CardView
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
@@ -28,6 +30,7 @@ import com.asfoundation.wallet.billing.authorization.AdyenAuthorization
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.util.KeyboardUtils
+import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import com.squareup.picasso.Picasso
@@ -38,6 +41,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
+import kotlinx.android.synthetic.main.activity_token_details.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.adyen_card_form
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_card_authorization_progress_bar
@@ -138,7 +142,7 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   private fun setupCardConfiguration() {
     val cardConfigurationBuilder =
-        CardConfiguration.Builder(context!!, BuildConfig.ADYEN_PUBLIC_KEY)
+        CardConfiguration.Builder(context!!, BuildConfig.ADYEN_PUBLIC_KEY_DEV)
 
     cardConfiguration = cardConfigurationBuilder.let {
       it.setEnvironment(Environment.TEST)
@@ -146,9 +150,11 @@ class AdyenPaymentFragment : DaggerFragment(),
     }
   }
 
+  @SuppressLint("ResourceType")
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean) {
+      isStored: Boolean,
+      forgeted: Boolean) {
     buy_button.visibility = View.VISIBLE
     cancel_button.visibility = View.VISIBLE
     if (isStored) {
@@ -158,7 +164,21 @@ class AdyenPaymentFragment : DaggerFragment(),
       forget_card?.visibility = View.GONE
       forget_card_pre_selected?.visibility = View.GONE
     }
+
+    if (forgeted) {
+      viewModelStore.clear()
+    }
+
     cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
+
+    if (forgeted) {
+      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297086).editText?.text = null
+      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297086).editText?.isEnabled = true
+      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297087).editText?.text = null
+      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297087).editText?.isEnabled = true
+      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297088).editText?.text = null
+      (adyen_card_form_pre_selected as CardView).findViewById<TextInputLayout>(2131297086).editText?.requestFocus()
+    }
     adyen_card_form?.attach(cardComponent, this)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     fragment_credit_card_authorization_pre_authorized_card?.visibility = View.GONE
