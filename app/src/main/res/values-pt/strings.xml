@@ -88,7 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Chave secreta</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">Senha privada inválida</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Erro</string>
   <string name="title_dialog_handling">A processar…</string>
@@ -116,8 +116,8 @@
   <string name="intro_3_body">Processa todas as tuas compras integradas utilizando o teu método de pagamento preferido.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">As tuas private keys nunca deixarão o teu dispositivo, e por isso as tuas AppCoins estão sempre seguras.</string>
-  <string name="intro_5_title">Get Free AppCoins Credits!</string>
-  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
+  <string name="intro_5_title">Recebe Créditos Para AppCoins Grátis!</string>
+  <string name="intro_5_body">Ganhas créditos para AppCoins gratuitas ao experimentar apps e jogos.</string>
   <string name="intro_creating_wallet_short">A configurar a tua wallet &#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Saltar, estará a concordar com os %1$s e com a %2$s da AppCoins Wallet</string>
@@ -205,8 +205,8 @@
   <string name="activity_iab_buying_message">Detalhes verificados \nA receber o teu item…</string>
   <string name="activity_iab_change_card">ALTERAR CARTÃO</string>
   <string name="notification_ongoing_poa">A processar a tua recompensa</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Recompensa recebida!👌Vais ter de esperar %1$sh%2$sm para ganhar mais recompensas ao experimentar as apps ⏰!</string>
+  <string name="notification_poa_limit_reached">Atingiste o teu limite de recompensas diárias. ⏰ Volta em %1$sh%2$sm e tenta outra vez!</string>
   <string name="notification_submitting_poa">A submeter o teu pedido à blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Sem conexão de rede</string>
@@ -223,7 +223,7 @@
   <string name="transaction_status_pending">Pendente</string>
   <string name="transaction_status_failed">Falhou</string>
   <string name="transaction_type_iab">Compras Integradas</string>
-  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa">Recompensa</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferência</string>
   <string name="transaction_type_bonus">Bônus</string>
@@ -390,7 +390,7 @@
   <string name="retry_button">Tentar novamente</string>
   <string name="do_it_later_button">Tentar mais tarde</string>
   <string name="connectoin_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ou</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
@@ -421,7 +421,7 @@
   <string name="verification_insert_code_resend_button">REENVIAR CÓDIGO</string>
   <string name="verification_validating_title">A validar o teu código&#8230;</string>
   <string name="verification_completed_title">Feito!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Agora podes ganhar créditos para AppCoins ao convidares amigos ou instalares apps.</string>
   <string name="verification_notification_reward_received_body">Prémio recebido, aproveita! 👌</string>
   <string name="verification_notification_reward_already_received_body">Este número de telefone já foi utilizado para receber este prémio 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Esse número já está a ser utilizado.</string>
@@ -429,7 +429,7 @@
   <string name="verification_settings_unverified_title">Verificar Wallet</string>
   <string name="verification_settings_unverified_body">Recebe recompensas e convida amigos</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
-  <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verification_settings_no_internet">Tens de estar ligado à internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">A tua compra já está a ser processada. Por favor espera até a transação ter completado ou contacta a nossa Equipa de Suporte.</string>
   <string name="purchase_more_payment_methods_button">OUTROS MÉTODOS DE PAGAMENTO</string>
@@ -438,9 +438,9 @@
   <string name="purchase_appcoins_credits_available_body">Sem taxas e muito rápido!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Não tens APPC Credits suficientes, experimenta carregar!</string>
   <string name="purchase_appcoins_credits_default_body">Ganhaste AppCoins Credits suficientes para esta compra. Aproveita!</string>
-  <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
-  <string name="purchase_poa_view_title">No Funds, No Worries!</string>
+  <string name="purchase_poa_item">Ganha fundos ao experimentares apps</string>
+  <string name="purchase_poa_body">Experimenta uma app durante 2 minutos e ganha Créditos para AppCoins!</string>
+  <string name="purchase_poa_view_title">Sem Fundos, Sem Problemas!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">Current balance:</string>
   <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
