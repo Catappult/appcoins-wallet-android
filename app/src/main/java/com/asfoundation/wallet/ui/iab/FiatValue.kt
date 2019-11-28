@@ -6,8 +6,10 @@ import java.math.BigDecimal
 data class FiatValue(val amount: BigDecimal, val currency: String, val symbol: String = "") :
     Serializable {
 
+  constructor() : this(BigDecimal(-1), "", "")
+
   override fun equals(other: Any?) = other is FiatValue
-        && other.amount.compareTo(this.amount) == 0
-        && other.currency == this.currency
-        && other.symbol == this.symbol
+      && other.amount.compareTo(this.amount) == 0
+      && other.currency == this.currency
+      && other.symbol == this.symbol
 }

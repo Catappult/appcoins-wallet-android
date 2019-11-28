@@ -74,4 +74,10 @@ interface TopUpFragmentView {
   fun setUnselectedChipsBackground()
 
   fun getChipAvailability(): Boolean
+
+  fun hideChips()
+
+  fun showNoNetworkError()
+  fun showRetryAnimation()
+  fun retryClick(): Observable<Any>
 }
