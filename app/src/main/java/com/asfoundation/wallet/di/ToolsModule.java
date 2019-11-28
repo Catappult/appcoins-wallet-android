@@ -791,7 +791,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AdyenPaymentService provideAdyenPaymentService(OkHttpClient client) {
-    AdyenPaymentService.AdyenApi api = new Retrofit.Builder().baseUrl("http://192.168.1.159:8080/")
+    AdyenPaymentService.AdyenApi api = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

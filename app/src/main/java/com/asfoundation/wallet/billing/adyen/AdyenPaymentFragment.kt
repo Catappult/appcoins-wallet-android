@@ -272,10 +272,16 @@ class AdyenPaymentFragment : DaggerFragment(),
   override fun showSpecificError(refusalCode: Int) {
     main_view?.visibility = View.GONE
     main_view_pre_selected?.visibility = View.GONE
+    var message = "Payment Refused"
+
+    when (refusalCode) {
+      8, 24 -> message = "Are you sure your card details are correct? Please try again!"
+    }
+
+    fragment_iab_error?.activity_iab_error_message?.text = message
+    fragment_iab_error_pre_selected?.activity_iab_error_message?.text = message
     fragment_iab_error?.visibility = View.VISIBLE
-    fragment_iab_error?.activity_iab_error_message?.text = "SPECIFIC ERROR"
     fragment_iab_error_pre_selected?.visibility = View.VISIBLE
-    fragment_iab_error_pre_selected?.activity_iab_error_message?.text = "SPECIFIC ERROR"
   }
 
   override fun getMorePaymentMethodsClicks(): Observable<Any> {
