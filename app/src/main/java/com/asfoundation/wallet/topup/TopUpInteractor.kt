@@ -44,7 +44,7 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
-    return Single.just(ForecastBonus(ForecastBonus.Status.INACTIVE))
+    return gamificationInteractor.getEarningBonus(packageName, amount)
   }
 
   fun getLimitTopUpValues(): Single<TopUpLimitValues> {
