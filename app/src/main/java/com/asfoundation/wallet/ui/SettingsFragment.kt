@@ -130,10 +130,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       val view = listView.getChildAt(it.order)
 
       view.findViewById<AppCompatTextView>(android.R.id.title)
-          .setTextColor(
-              ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+          ?.setTextColor(ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
       view.findViewById<AppCompatTextView>(android.R.id.summary)
-          .setTextColor(
+          ?.setTextColor(
               ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
     }
     verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
