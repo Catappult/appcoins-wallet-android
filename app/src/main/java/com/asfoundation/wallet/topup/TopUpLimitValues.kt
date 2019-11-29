@@ -8,8 +8,7 @@ data class TopUpLimitValues(val minValue: FiatValue = INITIAL_LIMIT_VALUE,
                             val maxValue: FiatValue = INITIAL_LIMIT_VALUE,
                             val error: Error = Error()) {
 
-  constructor(isNoNetwork: Boolean) : this(INITIAL_LIMIT_VALUE, INITIAL_LIMIT_VALUE,
-      Error(true, isNoNetwork))
+  constructor(isNoNetwork: Boolean) : this(error = Error(true, isNoNetwork))
 
   companion object {
     val INITIAL_LIMIT_VALUE = FiatValue(BigDecimal(-1), "", "")
