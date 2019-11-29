@@ -10,7 +10,6 @@ import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
@@ -29,10 +28,10 @@ import static org.mockito.Mockito.when;
  * Created by trinkes on 3/16/18.
  */
 public class ApproveServiceTest {
-  public static final String PACKAGE_NAME = "package_name";
-  public static final String PRODUCT_NAME = "product_name";
-  public static final String APPROVE_HASH = "approve_hash";
-  public static final String DEVELOPER_PAYLOAD = "developer_payload";
+  private static final String PACKAGE_NAME = "package_name";
+  private static final String PRODUCT_NAME = "product_name";
+  private static final String APPROVE_HASH = "approve_hash";
+  private static final String DEVELOPER_PAYLOAD = "developer_payload";
   @Mock TrackTransactionService trackTransactionService;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
@@ -41,14 +40,12 @@ public class ApproveServiceTest {
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
-  private BigInteger nonce;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);
     transactionBuilder = new TransactionBuilder("APPC");
 
     pendingTransactionState = PublishSubject.create();
-    nonce = BigInteger.ZERO;
 
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just(APPROVE_HASH));
 

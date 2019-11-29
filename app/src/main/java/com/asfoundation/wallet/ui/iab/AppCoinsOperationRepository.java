@@ -30,7 +30,7 @@ public class AppCoinsOperationRepository implements Repository<String, AppCoinsO
   @Override public Observable<AppCoinsOperation> get(String key) {
     return inAppPurchaseDataDao.getAsFlowable(key)
         .toObservable()
-        .map(appCoinsOperationEntity -> mapper.map(appCoinsOperationEntity));
+        .map(mapper::map);
   }
 
   @Override public Completable remove(String key) {

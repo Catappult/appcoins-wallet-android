@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.onboarding
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
+import kotlin.math.abs
 
 class OnboardingPageTransformer : ViewPager2.PageTransformer {
 
@@ -27,7 +28,7 @@ class OnboardingPageTransformer : ViewPager2.PageTransformer {
         view.translationX = pageWidth * -position
 
         // Scale the page down (between MIN_SCALE and 1)
-        val scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1 - Math.abs(position))
+        val scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1 - abs(position))
         view.scaleX = scaleFactor
         view.scaleY = scaleFactor
       }

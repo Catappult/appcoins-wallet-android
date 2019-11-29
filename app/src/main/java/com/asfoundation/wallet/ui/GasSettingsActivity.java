@@ -116,6 +116,18 @@ public class GasSettingsActivity extends BaseActivity {
         .setValue(gasLimit);
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_save) {
+      Intent intent = new Intent();
+      intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(new BigDecimal(viewModel.gasPrice()
+          .getValue()), new BigDecimal(viewModel.gasLimit()
+          .getValue())));
+      setResult(RESULT_OK, intent);
+      finish();
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   @Override public void onResume() {
 
     super.onResume();
@@ -153,20 +165,5 @@ public class GasSettingsActivity extends BaseActivity {
     getMenuInflater().inflate(R.menu.send_settings_menu, menu);
 
     return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_save: {
-        Intent intent = new Intent();
-        intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(new BigDecimal(viewModel.gasPrice()
-            .getValue()), new BigDecimal(viewModel.gasLimit()
-            .getValue())));
-        setResult(RESULT_OK, intent);
-        finish();
-      }
-      break;
-    }
-    return super.onOptionsItemSelected(item);
   }
 }

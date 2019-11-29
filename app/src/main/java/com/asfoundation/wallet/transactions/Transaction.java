@@ -217,8 +217,6 @@ public class Transaction implements Parcelable {
 
     static TransactionType fromInt(int type) {
       switch (type) {
-        case 0:
-          return STANDARD;
         case 1:
           return IAB;
         case 2:
@@ -244,8 +242,6 @@ public class Transaction implements Parcelable {
 
     static TransactionStatus fromInt(int status) {
       switch (status) {
-        case 0:
-          return SUCCESS;
         case 1:
           return FAILED;
         case 2:

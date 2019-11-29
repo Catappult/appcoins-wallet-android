@@ -309,13 +309,11 @@ public class InAppPurchaseInteractorTest {
     List<Payment> values = testObserver.assertNoErrors()
         .values();
     int index = 0;
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.NO_ETHER));
-    Assert.assertTrue(values.size() == 2);
+    Assert.assertEquals(values.get(index++)
+        .getStatus(), Payment.Status.APPROVING);
+    Assert.assertEquals(values.get(index++)
+        .getStatus(), Payment.Status.NO_ETHER);
+    Assert.assertEquals(2, values.size());
   }
 
   @Test public void sendTransactionNoFunds() {
@@ -355,13 +353,11 @@ public class InAppPurchaseInteractorTest {
     List<Payment> values = testObserver.assertNoErrors()
         .values();
     int index = 0;
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.NO_FUNDS));
-    Assert.assertTrue(values.size() == 2);
+    Assert.assertEquals(values.get(index++)
+        .getStatus(), Payment.Status.APPROVING);
+    Assert.assertEquals(values.get(index++)
+        .getStatus(), Payment.Status.NO_FUNDS);
+    Assert.assertEquals(2, values.size());
   }
 
   @Test public void getTopUpChannelSuggestionValues() {

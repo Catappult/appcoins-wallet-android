@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_balance.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
+import kotlin.math.abs
 
 class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
@@ -68,7 +69,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
     (app_bar as AppBarLayout).addOnOffsetChangedListener(
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-          val percentage = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
+          val percentage = abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
           setAlpha(balance_label, percentage)
           setAlpha(balance_value, percentage)
           setAlpha(balance_label_placeholder, percentage)

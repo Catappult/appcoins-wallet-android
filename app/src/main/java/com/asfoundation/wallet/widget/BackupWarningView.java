@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.widget;
 
 import android.content.Context;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.ui.widget.OnBackupClickListener;
@@ -46,13 +46,10 @@ public class BackupWarningView extends FrameLayout implements View.OnClickListen
   }
 
   @Override public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.backup_action: {
-        if (onPositiveClickListener != null) {
-          onPositiveClickListener.onBackupClick(v, wallet);
-        }
+    if (v.getId() == R.id.backup_action) {
+      if (onPositiveClickListener != null) {
+        onPositiveClickListener.onBackupClick(v, wallet);
       }
-      break;
     }
   }
 
