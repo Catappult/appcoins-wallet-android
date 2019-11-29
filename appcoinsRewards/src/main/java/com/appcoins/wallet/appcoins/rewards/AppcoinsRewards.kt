@@ -74,10 +74,10 @@ class AppcoinsRewards(
                             }
                           }
                     }
-                    .onErrorResumeNext {
-                      it.printStackTrace()
+                    .onErrorResumeNext { t ->
+                      t.printStackTrace()
                       cache.save(getKey(transaction),
-                          Transaction(transaction, errorMapper.map(it)))
+                          Transaction(transaction, errorMapper.map(t)))
                     }
               }
         }
