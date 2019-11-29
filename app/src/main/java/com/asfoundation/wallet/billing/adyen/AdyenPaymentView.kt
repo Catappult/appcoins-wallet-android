@@ -26,8 +26,7 @@ interface AdyenPaymentView {
   fun hideLoading()
   fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean,
-      forget: Boolean)
+      isStored: Boolean, forget: Boolean, savedInstance: Bundle?)
 
   fun retrievePaymentData(): Observable<PaymentData>
   fun showSpecificError(refusalCode: Int)

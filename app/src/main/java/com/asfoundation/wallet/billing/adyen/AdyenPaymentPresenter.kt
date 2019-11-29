@@ -39,7 +39,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let { waitingResult = it.getBoolean(WAITING_RESULT) }
-    loadPaymentMethodInfo()
+    loadPaymentMethodInfo(savedInstanceState)
     handleBack()
     handleErrorDismissEvent()
     handleBuyClick()
@@ -70,7 +70,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                   if (it.error.isNetworkError) view.showNetworkError()
                   else view.showGenericError()
                 } else {
-                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true)
+                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
                 }
               }
         }
@@ -88,7 +88,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             }.subscribe())
   }
 
-  private fun loadPaymentMethodInfo() {
+  private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {
     disposables.add(
         adyenPaymentInteractor.loadPaymentInfo(mapPaymentToService(paymentType), amount.toString(),
             currency)
@@ -102,8 +102,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               } else {
                 if (paymentType == PaymentType.CARD.name) {
                   sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
-                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false)
-                } else {
+                  view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
+                      savedInstanceState)
+                } else if (paymentType == PaymentType.PAYPAL.name) {
                   launchPaypal()
                 }
               }
