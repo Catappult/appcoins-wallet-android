@@ -275,7 +275,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
-  override fun onDestroy() {
+  override fun onPause() {
     presenter.stop()
     super.onDestroy()
   }
