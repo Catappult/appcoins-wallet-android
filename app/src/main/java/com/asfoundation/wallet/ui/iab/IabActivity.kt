@@ -277,7 +277,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun onPause() {
     presenter.stop()
-    super.onDestroy()
+    super.onPause()
   }
 
   companion object {
