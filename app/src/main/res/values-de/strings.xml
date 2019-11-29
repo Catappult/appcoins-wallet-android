@@ -450,7 +450,7 @@
   <string name="purchase_card_error_general">Es scheint ein Problem mit ihrer Karte zu geben. Bitte versuchen Sie es mit einer anderen Karte.</string>
   <string name="purchase_card_error_invalid_details">Sind Sie sicher, dass ihre Kartendaten korrekt sind? Bitte versuchen Sie es erneut!</string>
   <string name="purchase_card_error_bank_rejects">Diese Transaktion wurde durch unsere Bank zurückgewiesen. Bitte versuchen Sie es mit einer anderen Karte.</string>
-  <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
+  <string name="purchase_card_error_limits">Scheinbar unterliegt ihre Karte einigen Einschränkungen. Nehmen Sie bitte Kontakt zu ihrer Bank auf oder verwenden Sie eine andere Karte.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Laden Sie ihre Freunde ein!</string>
   <string name="referral_onboarding_body">Mit unserem Empfehlungsprogramm können Sie und ihre Freunde bis zu %s verdienen!</string>
@@ -491,8 +491,8 @@
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Aktualisieren und Prämien erhalten</string>
   <string name="update_wallet_poa_notification_body">Bitte aktualisieren Sie das AppCoins Wallet, um diese Prämie zu erhalten.</string>
-  <string name="update_wallet_purchase_title">You need to update!</string>
-  <string name="update_wallet_purchase_body">Update the AppCoins Wallet to complete this purchase.</string>
+  <string name="update_wallet_purchase_title">Sie benötigen ein Update!</string>
+  <string name="update_wallet_purchase_body">Aktualisieren Sie das AppCoins Wallet, um den Einkauf abzuschliessen.</string>
   <string name="update_wallet_hard_body">It seems you\'re using an old version of the AppCoins Wallet. Please update it to guarantee the best experience and security.</string>
   <string name="update_wallet_soft_title">Don\'t get left behind!</string>
   <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
