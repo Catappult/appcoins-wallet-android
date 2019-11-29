@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.ui.balance
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.transition.Fade
 import android.view.View
@@ -20,13 +18,6 @@ class BalanceActivity : BaseActivity(),
     BalanceActivityView {
 
   private lateinit var activityPresenter: BalanceActivityPresenter
-
-  companion object {
-    @JvmStatic
-    fun newIntent(context: Context): Intent {
-      return Intent(context, BalanceActivity::class.java)
-    }
-  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
@@ -49,7 +40,8 @@ class BalanceActivity : BaseActivity(),
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             BalanceFragment.newInstance())
-        .addToBackStack(BalanceFragment::class.java.simpleName).commit()
+        .addToBackStack(BalanceFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun showTokenDetailsScreen(

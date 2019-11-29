@@ -352,7 +352,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     return interactor.getDefaultValues()
         .map {
           if (it.error.hasError) it.values[0]
-          else it.values[index]
+          else {
+            if (it.values.size > index) it.values[index]
+            else FiatValue()
+          }
         }
   }
 
