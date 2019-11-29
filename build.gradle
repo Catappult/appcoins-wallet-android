@@ -62,6 +62,24 @@ project.ext {
   pageIndicatorViewVersion = "1.0.3"
   preferenceLibVersion = "1.1.0"
   testExtJunit = '1.1.0'
+  lifecycle = '1.1.1'
+  zxing = '3.4.0'
+  zxing_android = '3.2.0@aar'
+  play_services = '18.0.0'
+  expresso = '3.1.0'
+  screengrab = '1.1.0'
+  rxbinding = '2.1.1'
+  card_form = '3.3.0'
+  checkout = '1.14.2'
+  facebook_sdk = '4.39.0'
+  aptoide_analytics = '1.0.3'
+  collapsingtoolbarlayout = '1.0.0'
+  rxlifecycle = '1.0'
+  appintro = 'v4.2.2'
+  flurry = '12.0.1@aar'
+  asf_applications = '6'
+  crashlytics_sdk = '2.8.0@aar'
+  spongycastle = '1.58.0.0@jar'
 }
 
 task clean(type: Delete) {
