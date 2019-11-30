@@ -26,7 +26,7 @@
   <string name="label_new">ใหม่</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
-  <string name="no_camera_permission">กระเป๋าสตางค์ BDS AppCoins ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
   <string name="title_delete_account">คุณแน่ใจว่าต้องการลบนี้กระเป๋าสตางค์</string>
@@ -58,7 +58,7 @@
   <string name="skip">ข้าม</string>
   <string name="skip_with_arrow">ข้าม&gt;</string>
   <string name="root_title">อุปกรณ์ความปลอดภัยที่สมบูรณ์</string>
-  <string name="root_body">\'รูท\'ของแอปใดๆที่สามารถเข้าถึงข้อมูลกุญแจกระเป๋าสตางค์ของ AppCoins และขโมยกระเป๋าสตางค์ของคุณ ล้างกระเป๋าสตางค์นี้ทันที และกู้คืนบนอุปกรณ์ที่เชื่อถือได้</string>
+  <string name="root_body">\'รูท\'ของแอปใดๆที่สามารถเข้าถึงข้อมูลกุญแจ AppCoins Wallet และขโมยกระเป๋าสตางค์ของคุณ ล้างกระเป๋าสตางค์นี้ทันที และกู้คืนบนอุปกรณ์ที่เชื่อถือได้</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">การซื้อ %s</string>
   <string name="action_buy">ซื้อ</string>
@@ -186,7 +186,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">เราคัดสรรกระเป๋าสตางค์ที่น่าเชื่อถือสำหรับโครงการแอนดรอยด์ไปยังการพัฒนาบูตสแตรปของกระเป๋าสตางค์ AppCoins เราพิจารณาถึงทางเลือกที่ดีที่สุดเกี่ยวกับฟังก์ชันการทำงานที่ดำเนินการอยู่แล้ว เราคัดสรรด้วยความตั้งใจเพื่อให้เอื้อต่อการพร้อมใช้งานและทำงานโดยพิจารณาถึงสิ่งที่เกี่ยวข้องเกี่ยวข้อง</string>
+  <string name="settings_fragment_credits">เราคัดสรรกระเป๋าสตางค์ที่น่าเชื่อถือสำหรับโครงการแอนดรอยด์ไปยังการพัฒนาบูตสแตรปของ AppCoins Wallet เราพิจารณาถึงทางเลือกที่ดีที่สุดเกี่ยวกับฟังก์ชันการทำงานที่ดำเนินการอยู่แล้ว เราคัดสรรด้วยความตั้งใจเพื่อให้เอื้อต่อการพร้อมใช้งานและทำงานโดยพิจารณาถึงสิ่งที่เกี่ยวข้องเกี่ยวข้อง</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">ธุรกรรมกำลังดำเนินการอยู่</string>
   <string name="activity_aib_loading_message">นี้อาจใช้เวลาสักครู่...</string>
@@ -320,7 +320,7 @@
   <string name="gamification_leveled_up_notification_body">ยินดีด้วย คุณจะรับโบนัส %s ในทุกการซื้อขาย!</string>
   <string name="gamification_how_max_level_body">ยินดีด้วย! คุณถึงเลเวลสูงสุดแล้ว!</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">อนุญาตให้ AppCoins กระเป๋าเพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
+  <string name="provide_wallet_body">อนุญาตให้ AppCoins Wallet เพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
   <string name="provide_wallet_body_placeholders">อนุญาตให้ %1$s ที่อยู่กระเป๋าสตางค์ %2$s</string>
   <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
   <string name="provide_wallet_allow_once_button">อนุญาตให้ครั้งเดียว</string>
@@ -329,7 +329,7 @@
   <string name="provide_wallet_create_wallet_button">สร้าง</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="provide_wallet_created_header">ที่อยู่กระเป๋าสตางค์ที่สร้าง!</string>
-  <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้กระเป๋าสตางค์ AppCoins ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
+  <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้ AppCoins Wallet ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
   <string name="provide_wallet_status">อนุญาตให้เข้าถึงที่อยู่กระเป๋าสตางค์</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
@@ -414,7 +414,7 @@
   <string name="verification_insert_phone_field_number">เบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_field_number_error">ไม่มีเบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_security_disclaimer">นี่เป็นเพียงเหตุผลด้านความปลอดภัย เราไม่เก็บข้อมูลส่วนบุคคลใดๆ</string>
-  <string name="verification_notification_code_title">กระเป๋าสตางค์ AppCoins</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">รหัสยืนยันของคุณคือ %s ใช้เพื่อยืนยันที่อยู่กระเป๋าสตางค์ AppCoins ของคุณ</string>
   <string name="verification_insert_code_title">ใส่รหัสยืนยันของคุณ</string>
   <string name="verification_insert_code_error">ไม่มีรหัส</string>
@@ -491,11 +491,11 @@
   <!--Update-->
   <string name="update_wallet_poa_notification_title">อัพเดตเพื่อรับรางวัล</string>
   <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
-  <string name="update_wallet_purchase_title">You need to update!</string>
-  <string name="update_wallet_purchase_body">Update the AppCoins Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the AppCoins Wallet. Please update it to guarantee the best experience and security.</string>
-  <string name="update_wallet_soft_title">Don\'t get left behind!</string>
-  <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_purchase_title">คุณจำเป็นต้องอัพเดต</string>
+  <string name="update_wallet_purchase_body">อัพเดต AppCoins Wallet เพื่อซื้อได้สำเร็จ</string>
+  <string name="update_wallet_hard_body">ดูเหมือนว่าคุณกำลังใช้ AppCoins Wallet เวอร์ชั่นเก่า โปรดอัพเดตรับประกันประสบการณ์ที่ดีที่สุดและความปลอดภัย</string>
+  <string name="update_wallet_soft_title">อย่างทิ้งไว้!</string>
+  <string name="update_wallet_soft_body">คอยอัพเดต AppCoins Wallet เพื่อรับประกันประสบการณ์ที่ดีที่สุด</string>
   <string name="update_button">อัพเดต</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
