@@ -107,8 +107,7 @@ public class PaymentAuthPresenter {
         .filter(paymentRequest -> paymentRequest.getPaymentMethod() != null)
         .map(paymentRequest -> paymentRequest.getPaymentMethod()
             .getType())
-        .distinctUntilChanged(
-            (paymentRequest, paymentRequest2) -> paymentRequest.equals(paymentRequest2))
+        .distinctUntilChanged(String::equals)
         .flatMapMaybe(type -> adyen.getPaymentRequest()
             .firstElement())
         .observeOn(viewScheduler)

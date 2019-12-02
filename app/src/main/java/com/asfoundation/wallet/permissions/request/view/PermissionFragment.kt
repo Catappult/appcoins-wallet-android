@@ -46,7 +46,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     }
   }
 
-  lateinit var appDateProvider: AndroidAppDataProvider
+  private lateinit var appDateProvider: AndroidAppDataProvider
   @Inject
   lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var navigator: PermissionFragmentNavigator
@@ -98,7 +98,8 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
           provide_wallet_always_allow_body.text = spannedMessage
           progress.visibility = View.GONE
           main_view.visibility = View.VISIBLE
-        }.subscribe()
+        }
+        .subscribe()
   }
 
   override fun showWalletAddress(wallet: String) {

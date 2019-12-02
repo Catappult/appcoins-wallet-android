@@ -7,7 +7,6 @@ import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class PromotionsPresenter(private val view: PromotionsView,

@@ -58,11 +58,8 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home: {
-        viewModel.showTransactions(this);
-        break;
-      }
+    if (item.getItemId() == android.R.id.home) {
+      viewModel.showTransactions(this);
     }
     return super.onOptionsItemSelected(item);
   }

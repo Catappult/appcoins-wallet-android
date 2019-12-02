@@ -29,7 +29,7 @@ public class Airdrop {
         .flatMapCompletable(airDropResponse -> {
           switch (airDropResponse.getStatus()) {
             case WRONG_CAPTCHA:
-              return Completable.fromAction(() -> publishCaptchaError());
+              return Completable.fromAction(this::publishCaptchaError);
             default:
             case OK:
               return waitForTransactions(airDropResponse);

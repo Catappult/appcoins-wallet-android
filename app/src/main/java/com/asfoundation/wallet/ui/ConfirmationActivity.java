@@ -75,11 +75,8 @@ public class ConfirmationActivity extends BaseActivity {
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_edit: {
-        viewModel.openGasSettings(ConfirmationActivity.this);
-      }
-      break;
+    if (item.getItemId() == R.id.action_edit) {
+      viewModel.openGasSettings(ConfirmationActivity.this);
     }
     return super.onOptionsItemSelected(item);
   }

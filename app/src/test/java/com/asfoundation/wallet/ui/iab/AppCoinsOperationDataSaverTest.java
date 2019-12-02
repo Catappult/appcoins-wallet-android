@@ -78,6 +78,6 @@ import static org.mockito.Mockito.when;
         new AppcoinsOperationsDataSaver.OperationDataSource.OperationData(ID_1, PACKAGE_NAME,
             PRODUCT_NAME));
     scheduler.triggerActions();
-    Assert.assertEquals(null, cache.getSync(ID_1));
+    Assert.assertNull(cache.getSync(ID_1));
   }
 }
