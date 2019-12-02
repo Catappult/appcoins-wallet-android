@@ -39,8 +39,7 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
       presenter =
           PermissionsActivityPresenter(this, permissionsInteractor, callingPackage,
               getSignature(callingPackage), permissionName, CompositeDisposable(),
-              AndroidSchedulers.mainThread())
-      presenter?.present(savedInstanceState == null)
+              AndroidSchedulers.mainThread(), savedInstanceState == null)
     } catch (e: IllegalArgumentException) {
       closeError(
           "Unknown permission name. \nKnown permissions: " + PermissionName.WALLET_ADDRESS.name)
@@ -51,9 +50,14 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     return createWalletCompleteEvent
   }
 
-  override fun onDestroy() {
+  override fun onResume() {
+    super.onResume()
+    presenter?.present()
+  }
+
+  override fun onPause() {
     presenter?.stop()
-    super.onDestroy()
+    super.onPause()
   }
 
   private fun getSignature(callingPackage: String): String {
@@ -100,7 +104,9 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
   }
 
   private fun showFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, fragment)
+        .commit()
   }
 
   override fun closeSuccess() {
