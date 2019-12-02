@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">KeyStore</string>
   <string name="tab_private_key">Chave privada</string>
+  <string name="error_invalid_private_key">Chave privada inválida</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Erro</string>
   <string name="title_dialog_handling">Processando…</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">Processe todas as suas compras dentro do aplicativo utilizando seu método de pagamento favorito.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">Suas chaves privadas nunca deixam seu dispositivo, e por isso suas AppCoins estão sempre seguras.</string>
+  <string name="intro_5_title">Ganhe Créditos AppCoins!</string>
+  <string name="intro_5_body">Você receberá Créditos AppCoins gratuitamente ao experimentar apps e games.</string>
   <string name="intro_creating_wallet_short">Configurando a wallet para você&#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Pular, você concorda com os %1$s e a %2$s da sua Wallet AppCoins</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">Pendente</string>
   <string name="transaction_status_failed">Falhou</string>
   <string name="transaction_type_iab">Compra no Aplicativo</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Recompensa</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferir</string>
   <string name="transaction_type_bonus">Bônus</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">Transferência P2P</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered by Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -388,6 +390,7 @@
   <string name="retry_button">Repetir</string>
   <string name="do_it_later_button">Fazer Depois</string>
   <string name="connectoin_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
+  <string name="common_or">ou</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">Verificar Wallet</string>
   <string name="verification_settings_unverified_body">Ganhe recompensas e convide amigos</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
+  <string name="verification_settings_no_internet">Você precisa estar conectado à Internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Parece que esta compra já está sendo processada. Por favor, aguarde até que a transação seja concluída ou entre em contato com nossa equipe de suporte.</string>
   <string name="purchase_more_payment_methods_button">OUTROS MÉTODOS DE PAGAMENTO</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">Sem taxas e muito rápido!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Você não tem Créditos APPC suficientes, experimente recarregar!</string>
   <string name="purchase_appcoins_credits_default_body">Você ganhou créditos suficientes da AppCoins para esta compra. Aproveite!</string>
+  <string name="purchase_poa_item">Ganhe créditos ao experimentar apps</string>
+  <string name="purchase_poa_body">Experimente um app por dois minutos e ganhe Créditos AppCoins!</string>
+  <string name="purchase_poa_view_title">Sem Créditos? Sem problemas!</string>
+  <string name="purchase_poa_view_body">Experimente um app por dois minutos e ganhe uma recompensa em Créditos AppCoins para fazer sua compra!</string>
+  <string name="purchase_current_balance_body">Saldo atual:</string>
+  <string name="purchase_current_balance_appcc_body">%s em Créditos AppCoins.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s em AppCoins e Ether.</string>
+  <string name="purchase_wallet_blocked_title">Seu saldo de Créditos AppCoins está bloqueado</string>
+  <string name="purchase_wallet_blocked_body">Devido a um histórico de transações incomuns, seu saldo de créditos da AppCoins foi bloqueado. Você ainda poderá efetuar pagamentos e transações com outros métodos, exceto Créditos AppCoins. \n\n Se você acredita que isso é um erro, entre em contato conosco:</string>
+  <string name="purchase_card_error_general">Parece que há um problema com o seu cartão. Por favor, tente com outro cartão.</string>
+  <string name="purchase_card_error_invalid_details">Tem certeza que as informações do cartão estão corretas? Por favor, tente novamente!</string>
+  <string name="purchase_card_error_bank_rejects">A transação foi negada pelo seu banco. Por favor, tente com um cartão diferente.</string>
+  <string name="purchase_card_error_limits">Parece que existem algumas restrições em seu cartão. Por favor, entre em contato com seu banco ou tente com um cartão diferente.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Convide Seus Amigos!</string>
   <string name="referral_onboarding_body">Você e seus amigos podem ganhar até %s com nosso Programa de Recompensas!</string>
@@ -471,4 +488,71 @@
   <string name="promotions_referral_card_body">Compartilhe seu link de convite e ganhe Créditos AppCoins.</string>
   <string name="promotions_gamification_card_title">Até 30% de bônus em cada compra</string>
   <string name="promotions_new">NOVO</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">Atualize para receber recompensas</string>
+  <string name="update_wallet_poa_notification_body">Por favor, atualize sua Wallet AppCoins para receber esta recompensa.</string>
+  <string name="update_wallet_purchase_title">Você precisa atualizar!</string>
+  <string name="update_wallet_purchase_body">Atualize sua Wallet AppCoins para completar essa compra.</string>
+  <string name="update_wallet_hard_body">Parece que você está usando uma versão antiga da AppCoins Wallet. Atualize-a para garantir uma melhor experiência e segurança.</string>
+  <string name="update_wallet_soft_title">Não fique de fora!</string>
+  <string name="update_wallet_soft_body">Mantenha sua AppCoins Wallet atualizada para garantir uma melhor experiência.</string>
+  <string name="update_button">ATUALIZAR</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">Fazer Backup da Wallet</string>
+  <string name="backup_home_notification_body">Você já perdeu seu telefone? Faça o backup de sua wallet agora!</string>
+  <string name="backup_button">BACKUP</string>
+  <string name="backup_title">Backup da Wallet</string>
+  <string name="backup_password_title">Encriptar sua wallet (opcional)</string>
+  <string name="backup_password">Senha</string>
+  <string name="backup_body">Nós não armazenamos suas chaves privadas ou qualquer outro método de acesso. É importante manter o backup (keystore) de sua wallet seguro.</string>
+  <string name="backup_send_via_title">Enviar backup via:</string>
+  <string name="import_wallet_title">Importar Wallet</string>
+  <string name="import_wallet_body">Colar o backup da sua wallet abaixo.</string>
+  <string name="import_wallet_keystore_private_keys">Keystore ou chaves privadas</string>
+  <string name="import_wallet_file_button">IMPORTAR DO ARQUIVO</string>
+  <string name="import_wallet_button">IMPORTAR WALLET</string>
+  <string name="import_wallet_password_body">Esta wallet está protegida com senha!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">Wallets</string>
+  <string name="wallets_total_balance_title">Saldo total em %s</string>
+  <string name="wallets_active_wallet_title">Wallet Ativa</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="one">Wallet</item>
+    <item quantity="other">Wallets</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">Valor total</string>
+  <string name="wallets_address_copied_body">Endereço da wallet copiado para a área de transferência</string>
+  <string name="wallets_imported_body">Wallet importada com sucesso</string>
+  <string name="wallets_2nd_view_balance_title">Saldo:</string>
+  <string name="wallets_2nd_view_other_wallets_title">Outras Wallets</string>
+  <string name="wallets_2nd_view_import_button">IMPORTAR WALLET</string>
+  <string name="wallets_2nd_view_create_button">CRIAR NOVA</string>
+  <string name="wallet_view_copy_button">COPIAR</string>
+  <string name="wallet_view_share_button">COMPARTILHAR</string>
+  <string name="wallet_view_total_balance_title">Saldo Total</string>
+  <string name="wallet_view_remove_button">REMOVER WALLET</string>
+  <string name="wallet_view_backup_button">FAZER BACKUP DA WALLET</string>
+  <string name="wallet_view_activate_button">TORNAR ESTA WALLET ATIVA</string>
+  <string name="wallet_view_active_body">Esta é sua wallet ativa.</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">Remover Wallet</string>
+  <string name="remove_wallet_body">É altamente recomendável fazer backup de uma wallet antes de removê-la. Você não poderá acessá-la novamente, a menos que tenha um backup.</string>
+  <string name="remove_wallet_backup_button">FAZER BACKUP DA WALLET</string>
+  <string name="remove_wallet_no_backup_button">AVANÇAR SEM FAZER BACKUP</string>
+  <string name="remove_wallet_confirm_body">Tem certeza que deseja remover esta wallet?</string>
+  <string name="remove_wallet_no_button">NÃO, VOLTAR</string>
+  <string name="remove_wallet_yes_button">SIM, REMOVER A WALLET</string>
+  <string name="remove_wallet_removed_body">Wallet removida!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">Transferir</string>
+  <string name="transfer_title">Transferir Fundos</string>
+  <string name="transfer_send_tab_title">Enviar</string>
+  <string name="transfer_receive_tab_title">Receber</string>
+  <string name="transfer_send_body">Escanear ou digitar o endereço da wallet do seu amigo.</string>
+  <string name="transfer_send_recipient_title">Endereço da Wallet</string>
+  <string name="transfer_send_token_title">Token:</string>
+  <string name="transfer_send_amount_title">Quantia</string>
+  <string name="transfer_send_current_balance_title">Saldo Atual:</string>
+  <string name="transfer_send_button">ENVIAR</string>
+  <string name="transfer_receive_body">Compartilhe o endereço de sua wallet para receber créditos.</string>
 </resources>

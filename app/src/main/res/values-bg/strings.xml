@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Хранилище</string>
   <string name="tab_private_key">Личен ключ</string>
+  <string name="error_invalid_private_key">Невалиден частен ключ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Грешка</string>
   <string name="title_dialog_handling">Обработка ...</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">Обработи всичките си покупки в приложението, използвайки любимия си метод за плащане.</string>
   <string name="intro_4_title">Сигурно и Частно</string>
   <string name="intro_4_body">Твоите частни ключове никога няма да напуснат устройството ти, така че твоите AppCoins са в безопасност по всяко време.</string>
+  <string name="intro_5_title">Get Free AppCoins Credits!</string>
+  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
   <string name="intro_creating_wallet_short">Настройка на портфейла ти за теб &#8230;</string>
   <string name="intro_wallet_created_short">Портфейл създаден!</string>
   <string name="intro_agree_terms_and_conditions_body">Кликвайки на Пропусни, ти се съгласяваш с  %1$s и %2$s на AppCoins портфейла</string>
@@ -202,8 +205,8 @@
   <string name="activity_iab_buying_message">Детайли проверени \nПолучаване на твоя елемент…</string>
   <string name="activity_iab_change_card">СМЕНИ КАРТАТА</string>
   <string name="notification_ongoing_poa">Обработка на твоята награда</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Наградата е получена!👌 Ще трябва да почакаш %1$sч%2$sм, за да спечелиш още награди, пробвайки приложения ⏰!</string>
+  <string name="notification_poa_limit_reached">Достигна дневния си лимит за награди. ⏰ Ела пак след %1$sч%2$sм и опитай отново!</string>
   <string name="notification_submitting_poa">Подаване на твоята заявка към блокчейна</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Няма връзка с мрежата</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">В процес на чакане</string>
   <string name="transaction_status_failed">Неуспешно</string>
   <string name="transaction_type_iab">Покупка в приложението</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Трансфер</string>
   <string name="transaction_type_bonus">Бонус</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P прехвърляне</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Осъществено от Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -388,6 +390,7 @@
   <string name="retry_button">Опитай пак</string>
   <string name="do_it_later_button">Направи го по-късно</string>
   <string name="connectoin_error_body">Изглежда, че не си свързан с интернет. Провери връзката си и опитай отново!</string>
+  <string name="common_or">or</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Съгласявам се с %1$s и %2$s на AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Моля, приеми нашите Общи правила и Политика за поверителност, за да продължиш</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">Верифицирай портфейл</string>
   <string name="verification_settings_unverified_body">Получавай награди и кани приятели</string>
   <string name="verification_settings_verified_title">Портфейл верифициран</string>
+  <string name="verification_settings_no_internet">You need to be connected to the internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Изглежда, че тази покупка вече се обработва. Моля, почакай, докато транзакцията не се завърши или се свържи с нашия екип по поддръжка.</string>
   <string name="purchase_more_payment_methods_button">ДРУГИ ПЛАТЕЖНИ МЕТОДИ</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">Без такси и светкавично бързо!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Нямаш достатъчно APPC Credits, опитай се да качиш!</string>
   <string name="purchase_appcoins_credits_default_body">Спечели достатъчно AppCoins кредити за тази покупка. Наслади се!</string>
+  <string name="purchase_poa_item">Печели средства като изпробваш приложения</string>
+  <string name="purchase_poa_body">Тествай приложение 2 минути и спечели AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">Няма средства, няма грижи!</string>
+  <string name="purchase_poa_view_body">Тествай приложение 2 минути и вземи награда в AppCoins Credits, за да направиш покупката си!</string>
+  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
+  <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
+  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods except AppCoins Credits.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_card_error_general">It seems there\'s a problem with your card. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card details are correct? Please try again!</string>
+  <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Покани приятелите си!</string>
   <string name="referral_onboarding_body">Ти и приятелите си можете да спечелите до %s с нашата Референтна Програма!</string>
@@ -471,4 +488,71 @@
   <string name="promotions_referral_card_body">Сподели твоя линк за покана и спечели AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">До 30% бонус за всяка покупка</string>
   <string name="promotions_new">НОВО</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
+  <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
+  <string name="update_wallet_purchase_title">You need to update!</string>
+  <string name="update_wallet_purchase_body">Update the AppCoins Wallet to complete this purchase.</string>
+  <string name="update_wallet_hard_body">It seems you\'re using an old version of the AppCoins Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_soft_title">Don\'t get left behind!</string>
+  <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
+  <string name="update_button">UPDATE</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">Backup Your Wallet</string>
+  <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
+  <string name="backup_button">BACKUP</string>
+  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_password_title">Encrypt your wallet (optional)</string>
+  <string name="backup_password">Password</string>
+  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_send_via_title">Send backup via:</string>
+  <string name="import_wallet_title">Import Wallet</string>
+  <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
+  <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
+  <string name="import_wallet_file_button">IMPORT FROM FILE</string>
+  <string name="import_wallet_button">IMPORT WALLET</string>
+  <string name="import_wallet_password_body">This wallet is password protected!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">Wallets</string>
+  <string name="wallets_total_balance_title">Total balance in %s</string>
+  <string name="wallets_active_wallet_title">Active Wallet</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="one">Wallet</item>
+    <item quantity="other">Wallets</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">Total value</string>
+  <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
+  <string name="wallets_imported_body">Wallet successfuly imported</string>
+  <string name="wallets_2nd_view_balance_title">Balance:</string>
+  <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
+  <string name="wallets_2nd_view_import_button">IMPORT WALLET</string>
+  <string name="wallets_2nd_view_create_button">CREATE NEW</string>
+  <string name="wallet_view_copy_button">COPY</string>
+  <string name="wallet_view_share_button">SHARE</string>
+  <string name="wallet_view_total_balance_title">Total Balance</string>
+  <string name="wallet_view_remove_button">REMOVE WALLET</string>
+  <string name="wallet_view_backup_button">BACKUP WALLET</string>
+  <string name="wallet_view_activate_button">MAKE THIS WALLET ACTIVE</string>
+  <string name="wallet_view_active_body">This is your active wallet.</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">Remove Wallet</string>
+  <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
+  <string name="remove_wallet_backup_button">BACKUP WALLET</string>
+  <string name="remove_wallet_no_backup_button">PROCEED WITHOUT BACKUP</string>
+  <string name="remove_wallet_confirm_body">Are you sure you want to remove this wallet?</string>
+  <string name="remove_wallet_no_button">NO, GO BACK</string>
+  <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
+  <string name="remove_wallet_removed_body">Wallet removed!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">Transfer</string>
+  <string name="transfer_title">Transfer Funds</string>
+  <string name="transfer_send_tab_title">Send</string>
+  <string name="transfer_receive_tab_title">Receive</string>
+  <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="transfer_send_recipient_title">Wallet Address</string>
+  <string name="transfer_send_token_title">Token:</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_current_balance_title">Current Balance:</string>
+  <string name="transfer_send_button">SEND</string>
+  <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
 </resources>
