@@ -131,6 +131,16 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
+  override fun hasShownBackup(walletAddress: String): Boolean {
+    return pref.getBoolean(HAS_SHOWN_BACKUP + walletAddress, false)
+  }
+
+  override fun setHasShownBackup(walletAddress: String, hasShown: Boolean) {
+    pref.edit()
+        .putBoolean(HAS_SHOWN_BACKUP + walletAddress, hasShown)
+        .apply()
+  }
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
@@ -144,5 +154,6 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val PREF_WALLET = "pref_wallet"
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
+    private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
   }
 }
