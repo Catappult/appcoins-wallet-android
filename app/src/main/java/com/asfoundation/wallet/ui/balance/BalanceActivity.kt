@@ -57,7 +57,6 @@ class BalanceActivity : BaseActivity(),
         androidx.core.util.Pair<View, String>(parentView,
             ViewCompat.getTransitionName(parentView)!!))
 
-
     startActivity(intent, options.toBundle())
 
   }
