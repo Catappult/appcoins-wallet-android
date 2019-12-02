@@ -9,7 +9,7 @@ interface BalanceActivityView {
   fun showBalanceScreen()
 
   fun showTokenDetailsScreen(
-      tokenDetailsIdId: TokenDetailsActivity.TokenDetailsId, imgView: ImageView,
+      tokenDetailsId: TokenDetailsActivity.TokenDetailsId, imgView: ImageView,
       textView: TextView, parentView: View)
 
   fun showTopUpScreen()
