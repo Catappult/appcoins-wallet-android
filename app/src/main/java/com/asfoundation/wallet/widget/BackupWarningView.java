@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -31,13 +30,13 @@ public class BackupWarningView extends FrameLayout implements View.OnClickListen
       int defStyleAttr) {
     super(context, attrs, defStyleAttr);
 
-    init(R.layout.layout_dialog_warning_backup);
+    init();
   }
 
-  private void init(@LayoutRes int layoutId) {
+  private void init() {
     setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
     LayoutInflater.from(getContext())
-        .inflate(layoutId, this, true);
+        .inflate(R.layout.layout_dialog_warning_backup, this, true);
     findViewById(R.id.backup_action).setOnClickListener(this);
     findViewById(R.id.skip_button).setOnClickListener(v -> onSkipClickListener.onClick(v));
     /* Disabled due to https://github.com/TrustWallet/trust-wallet-android/issues/107
@@ -46,10 +45,8 @@ public class BackupWarningView extends FrameLayout implements View.OnClickListen
   }
 
   @Override public void onClick(View v) {
-    if (v.getId() == R.id.backup_action) {
-      if (onPositiveClickListener != null) {
-        onPositiveClickListener.onBackupClick(v, wallet);
-      }
+    if (v.getId() == R.id.backup_action && onPositiveClickListener != null) {
+      onPositiveClickListener.onBackupClick(v, wallet);
     }
   }
 
