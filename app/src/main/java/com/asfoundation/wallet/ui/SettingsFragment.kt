@@ -80,7 +80,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun openPermissionScreen(): Boolean {
     context?.let {
       val intent = ManagePermissionsActivity.newIntent(it)
-      intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
       startActivity(intent)
     }
     return true
@@ -91,7 +93,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
           navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = false,
           showToolbar = true)
-      intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
       startActivity(intent)
     }
     return true
@@ -148,7 +152,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val walletPreference = findPreference<Preference>("pref_wallet")
     walletPreference?.summary = walletAddress
     walletPreference?.setOnPreferenceClickListener {
-      context?.let { manageWalletsRouter.open(it) }
+      manageWalletsRouter.open(context)
       false
     }
   }
