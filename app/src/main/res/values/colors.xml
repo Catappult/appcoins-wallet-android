@@ -28,7 +28,7 @@
 
   <color name="appbar_start_gradient_color">#000000</color>
   <color name="appbar_end_gradient_color">#012945</color>
-  <color name="grey_8a_alpha">#8a000000</color>
+  <color name="grey_alpha_active_54">#8a000000</color>
 
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="gray_alpha_61">#61000000</color>
@@ -87,6 +87,8 @@
   <color name="selection_dot_selected">#fe647f</color>
 
   <color name="gamification_how_it_works">#33eaeaea</color>
+
+  <color name="balance_active_wallet_grey">#a6a6a6</color>
 
   <color name="transparent">#00000000</color>
 </resources>

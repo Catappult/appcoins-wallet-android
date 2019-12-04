@@ -43,7 +43,7 @@
           android:background="?android:selectableItemBackground"
           android:contentDescription="@string/scan_qr"
           android:padding="@dimen/big_padding"
-          android:src="@mipmap/qr_code_icon"
+          android:src="@drawable/ic_qr_code"
           />
     </RelativeLayout>
     <com.google.android.material.textfield.TextInputLayout

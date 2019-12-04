@@ -62,7 +62,8 @@
         android:label="@string/title_my_address"/>
     <activity
         android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/balance_title"/>
+        android:label="@string/balance_title"
+        android:screenOrientation="portrait"/>
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
         android:label="@string/balance_title"
@@ -199,6 +200,11 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
+        android:label=""
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.balance.QrCodeActivity"
         android:label=""
         android:screenOrientation="portrait"/>
 

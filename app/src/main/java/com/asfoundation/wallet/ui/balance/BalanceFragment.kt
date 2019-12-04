@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -181,12 +185,37 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     activityView?.showTokenDetailsScreen(tokenId, view.token_icon, view.token_name, view)
   }
 
-  override fun getTopUpClick(): Observable<Any> {
-    return RxView.clicks(top_up_btn)
-  }
-
   override fun showTopUpScreen() {
     activityView?.showTopUpScreen()
+  }
+
+  override fun getCopyClick(): Observable<Any> {
+    return RxView.clicks(copy_address)
+  }
+
+  override fun getQrCodeClick(): Observable<Any> {
+    return RxView.clicks(wallet_qr_code)
+  }
+
+  override fun setWalletAddress(walletAddress: String) {
+    active_wallet_address.text = walletAddress
+  }
+
+  override fun setAddressToClipBoard(walletAddress: String) {
+    val clipboard = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+    val clip = ClipData.newPlainText(
+        MyAddressActivity.KEY_ADDRESS, walletAddress)
+    if (clipboard != null) {
+      clipboard.primaryClip = clip
+    }
+    view?.let {
+      Snackbar.make(it, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
+          .show()
+    }
+  }
+
+  override fun showQrCodeView() {
+    context?.let { startActivityForResult(QrCodeActivity.newIntent(it), 12) }
   }
 
   private fun setAlpha(view: View, alphaPercentage: Float) {

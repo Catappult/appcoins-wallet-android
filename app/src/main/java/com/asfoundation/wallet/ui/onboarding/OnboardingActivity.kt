@@ -206,7 +206,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       }
 
       override fun updateDrawState(ds: TextPaint) {
-        ds.color = resources.getColor(R.color.grey_8a_alpha)
+        ds.color = resources.getColor(R.color.grey_alpha_active_54)
         ds.isUnderlineText = true
       }
     }

@@ -9,6 +9,7 @@ import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APP
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
@@ -40,6 +41,11 @@ class BalanceInteract(
           mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
         }
     )
+  }
+
+  fun requestActiveWalletAddress(): Single<String> {
+    return walletInteract.find()
+        .map { it.address }
   }
 
   private fun mapToBalanceScreenModel(creditsBalance: Pair<Balance, FiatValue>,

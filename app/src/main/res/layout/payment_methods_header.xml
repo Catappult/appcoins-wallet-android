@@ -46,7 +46,7 @@
       android:layout_toEndOf="@id/app_icon"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/grey_8a_alpha"
+      android:textColor="@color/grey_alpha_active_54"
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="@id/app_icon"
       app:layout_constraintStart_toStartOf="@id/app_name"

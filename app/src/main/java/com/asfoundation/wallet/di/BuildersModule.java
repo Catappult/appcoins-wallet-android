@@ -30,6 +30,7 @@ import com.asfoundation.wallet.ui.UpdateRequiredActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
+import com.asfoundation.wallet.ui.balance.QrCodeActivity;
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity;
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.gamification.HowItWorksFragment;
@@ -110,6 +111,8 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector
   abstract InviteFriendsActivity bindInviteFriendsActivity();
+
+  @ActivityScope @ContributesAndroidInjector abstract QrCodeActivity bindActiveWalletActivity();
 
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 

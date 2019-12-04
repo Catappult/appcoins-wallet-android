@@ -22,13 +22,19 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   fun present() {
     view.setupUI()
+    requestActiveWalletAddress()
     requestBalances()
     handleTokenDetailsClick()
-    handleTopUpClick()
+    handleCopyClick()
+    handleQrCodeClick()
+
   }
 
-  fun stop() {
-    disposables.dispose()
+  private fun requestActiveWalletAddress() {
+    disposables.add(
+        balanceInteract.requestActiveWalletAddress()
+            .doOnSuccess { view.setWalletAddress(it) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun requestBalances() {
@@ -56,10 +62,24 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
             TimeUnit.MILLISECONDS).map { view.showTokenDetails(it) }.subscribe())
   }
 
-  private fun handleTopUpClick() {
-    disposables.add(view.getTopUpClick()
-        .doOnNext { view.showTopUpScreen() }
-        .subscribe())
+  private fun handleCopyClick() {
+    disposables.add(
+        view.getCopyClick()
+            .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+            .observeOn(viewScheduler)
+            .doOnNext { view.setAddressToClipBoard(it) }
+            .subscribe())
   }
 
+  private fun handleQrCodeClick() {
+    disposables.add(
+        view.getQrCodeClick()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showQrCodeView() }
+            .subscribe())
+  }
+
+  fun stop() {
+    disposables.dispose()
+  }
 }

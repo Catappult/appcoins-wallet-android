@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,18 +42,18 @@
       android:id="@+id/balance_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
       android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
       app:layout_anchor="@+id/content_container"
       app:layout_anchorGravity="top"
       >
     <TextView
         android:id="@+id/balance_label"
+        style="@style/BalanceTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:gravity="start"
-        style="@style/BalanceTitleStyle"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/balance_value"
         app:layout_constraintEnd_toStartOf="@id/balance_value"
@@ -65,20 +64,20 @@
 
     <TextView
         android:id="@+id/balance_value"
+        style="@style/BalanceTitleStyle.Large"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:gravity="end|center_vertical"
-        style="@style/BalanceTitleStyle.Large"
-        tools:text="$1,000,000,000,000.00"
+        android:maxLines="1"
         android:visibility="invisible"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/balance_label"
         app:layout_constraintTop_toTopOf="parent"
-        app:autoSizeTextType="uniform"
-        android:maxLines="1"
-        app:autoSizeMinTextSize="16sp"
+        tools:text="$1,000,000,000,000.00"
         />
 
     <com.airbnb.lottie.LottieAnimationView
@@ -86,17 +85,17 @@
         android:layout_width="120dp"
         android:layout_height="20dp"
         android:layout_marginBottom="68dp"
+        android:scaleType="fitStart"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/balance_value_placeholder"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1"
-        app:layout_constraintHorizontal_bias="0"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/balance_label_animation"
-        android:scaleType="fitStart"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
         />
 
     <com.airbnb.lottie.LottieAnimationView
@@ -129,70 +128,150 @@
         android:clipToPadding="false"
         android:padding="16dp"
         >
+      <androidx.cardview.widget.CardView
+          android:id="@+id/wallet_details_card"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:background="@drawable/background_card"
+          android:elevation="4dp"
+          app:cardCornerRadius="8dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+          <ImageView
+              android:id="@+id/wallet_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginBottom="16dp"
+              android:src="@drawable/ic_wallet_grey"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+          <TextView
+              android:id="@+id/active_wallet_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginStart="5dp"
+              android:layout_toEndOf="@id/wallet_icon"
+              android:fontFamily="@font/roboto_medium"
+              android:text="@string/wallets_active_wallet_title"
+              android:textColor="@color/balance_active_wallet_grey"
+              android:textSize="9sp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@id/wallet_icon"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+          <TextView
+              android:id="@+id/active_wallet_address"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="28dp"
+              android:layout_marginEnd="6dp"
+              android:ellipsize="end"
+              android:fontFamily="@font/roboto_medium"
+              android:gravity="end"
+              android:maxLines="1"
+              android:text="0x8Eb48d1368bbc7731ac5c9jgoidiubhifhgiuhfiughiufhgiufhgiufiughfiugh"
+              android:textColor="@color/balance_active_wallet_grey"
+              android:textSize="9sp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toStartOf="@id/copy_address"
+              app:layout_constraintStart_toEndOf="@id/active_wallet_text"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+          <ImageView
+              android:id="@+id/copy_address"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/borderless_button_background"
+              android:clickable="true"
+              android:focusable="true"
+              android:padding="8dp"
+              android:src="@drawable/ic_copy_to_clip"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toStartOf="@id/wallet_qr_code"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+          <ImageView
+              android:id="@+id/wallet_qr_code"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="8dp"
+              android:background="@drawable/borderless_button_background"
+              android:clickable="true"
+              android:focusable="true"
+              android:padding="8dp"
+              android:src="@drawable/ic_qr_code"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+      </androidx.cardview.widget.CardView>
       <LinearLayout
           android:id="@+id/tokens_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
           android:background="@drawable/background_card"
           android:elevation="4dp"
           android:orientation="vertical"
-          android:paddingBottom="16dp"
           android:paddingTop="16dp"
+          android:paddingBottom="16dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/wallet_details_card"
           app:layout_constraintVertical_bias="0"
           app:layout_constraintVertical_chainStyle="spread_inside"
           >
         <include
-            layout="@layout/balance_token_item"
             android:id="@+id/appcoins_credits_token"
+            layout="@layout/balance_token_item"
             />
         <include
-            layout="@layout/balance_token_item"
             android:id="@+id/appcoins_token"
+            layout="@layout/balance_token_item"
             />
         <include
-            layout="@layout/balance_token_item"
             android:id="@+id/ether_token"
+            layout="@layout/balance_token_item"
             />
       </LinearLayout>
 
-      <LinearLayout
+      <!-- empty view to add margin due to the bottom sheet and scroll -->
+      <View
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginTop="32dp"
-          android:gravity="center"
-          android:orientation="vertical"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_height="112dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/tokens_container"
-          app:layout_constraintVertical_bias="1"
-          >
-        <Button
-            android:id="@+id/top_up_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="8dp"
-            android:text="@string/topup_home_button"
-            style="@style/ButtonStyle"
-            />
-        <TextView
-            android:id="@+id/top_up_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:gravity="center"
-            android:text="@string/balance_topup_body"
-
-            />
-
-      </LinearLayout>
-
-
+          />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
+  <View
+      android:id="@+id/bottomsheet_shadow"
+      android:layout_width="match_parent"
+      android:layout_height="16dp"
+      android:background="@drawable/bottomsheet_top_shadow"
+      app:layout_anchor="@id/bottom_sheet_fragment_container"
+      />
 
+  <FrameLayout
+      android:id="@+id/bottom_sheet_fragment_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:behavior_hideable="false"
+      app:behavior_peekHeight="96dp"
+      app:layout_behavior="@string/bottom_sheet_behavior"
+      />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
