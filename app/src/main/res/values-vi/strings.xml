@@ -116,8 +116,8 @@
   <string name="intro_3_body">Xử lý tất cả các giao dịch mua trong ứng dụng bằng phương thức thanh toán yêu thích của bạn.</string>
   <string name="intro_4_title">Bảo mật và Riêng tư</string>
   <string name="intro_4_body">Khóa cá nhân sẽ không bao giờ rời khỏi thiết bị của bạn, vì vậy AppCoin của bạn sẽ luôn được an toàn.</string>
-  <string name="intro_5_title">Get Free AppCoins Credits!</string>
-  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
+  <string name="intro_5_title">Nhận AppCoins Credits miễn phí!</string>
+  <string name="intro_5_body">Bạn sẽ kiếm được AppCoins Credits bằng cách trải nghiệm thử ứng dụng và trò chơi.</string>
   <string name="intro_creating_wallet_short">Cài đặt ví của bạn&#8230;</string>
   <string name="intro_wallet_created_short">Đã tạo ví!</string>
   <string name="intro_agree_terms_and_conditions_body">Bằng cách nhấn vào Bỏ qua, bạn đã đồng ý với %1$s và %2$s của AppCoins Wallet</string>
@@ -223,7 +223,7 @@
   <string name="transaction_status_pending">Chờ xử lý</string>
   <string name="transaction_status_failed">Thất bại</string>
   <string name="transaction_type_iab">Mua hàng trong ứng dụng</string>
-  <string name="transaction_type_poa">Reward</string>
+  <string name="transaction_type_poa">Phần thưởng</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Chuyển khoản</string>
   <string name="transaction_type_bonus">Tiền thưởng</string>
@@ -390,7 +390,7 @@
   <string name="retry_button">Thử lại</string>
   <string name="do_it_later_button">Để sau</string>
   <string name="connectoin_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">hoặc</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -429,7 +429,7 @@
   <string name="verification_settings_unverified_title">Xác minh Ví</string>
   <string name="verification_settings_unverified_body">Mời bạn bè và Nhận phần thưởng</string>
   <string name="verification_settings_verified_title">Ví đã được xác minh</string>
-  <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verification_settings_no_internet">Bạn cần kết nối với Internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
@@ -445,7 +445,7 @@
   <string name="purchase_current_balance_body">Số dư hiện tại:</string>
   <string name="purchase_current_balance_appcc_body">%s bằng AppCoins Credits.</string>
   <string name="purchase_current_balance_appc_eth_body">%s bằng ppCoins và Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
+  <string name="purchase_wallet_blocked_title">Số dư AppCoins Credits của bạn đã bị khóa</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods except AppCoins Credits.\n\nIf you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general">It seems there\'s a problem with your card. Please try with a different one.</string>
   <string name="purchase_card_error_invalid_details">Are you sure your card details are correct? Please try again!</string>
