@@ -28,7 +28,6 @@ import javax.inject.Inject;
 
 public class BillingWebViewFragment extends DaggerFragment {
 
-  private static final String ADYEN_SCHEMA = "adyencheckout://";
   private static final String LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/";
   private static final String GO_PAY_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer";
   private static final String URL = "url";
@@ -96,13 +95,7 @@ public class BillingWebViewFragment extends DaggerFragment {
     webView.setWebViewClient(new WebViewClient() {
 
       @Override public boolean shouldOverrideUrlLoading(WebView view, String clickUrl) {
-        if (clickUrl.startsWith(ADYEN_SCHEMA)) {
-          currentUrl = clickUrl;
-          Intent intent = new Intent();
-          intent.setData(Uri.parse(clickUrl));
-          webViewActivity.setResult(WebViewActivity.SUCCESS, intent);
-          webViewActivity.finish();
-        } else if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA)) {
+        if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA)) {
           currentUrl = clickUrl;
           Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));

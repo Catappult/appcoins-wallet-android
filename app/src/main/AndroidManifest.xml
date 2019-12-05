@@ -134,7 +134,7 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data
-            android:host="aptoide.com"
+            android:host="${applicationId}"
             android:scheme="adyencheckout"/>
       </intent-filter>
     </activity>

@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.billing.adyen
 
+import android.content.Context
 import android.os.Bundle
-import com.adyen.checkout.redirect.RedirectUtil
+import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.billing.adyen.AdyenPaymentService
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -22,6 +24,7 @@ import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentPresenter(private val view: AdyenPaymentView,
+                            private val context: Context?,
                             private val disposables: CompositeDisposable,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
@@ -114,9 +117,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun launchPaypal() {
     disposables.add(transactionBuilder.flatMap {
-      adyenPaymentInteractor.makePayment(amount.toString(), currency, it.orderReference, null, null,
-          null, null, mapPaymentToService(paymentType).name, null,
-          RedirectUtil.REDIRECT_RESULT_SCHEME)
+      if (context != null) {
+        adyenPaymentInteractor.makePayment(amount.toString(), currency, it.orderReference, null,
+            null,
+            null, null, mapPaymentToService(paymentType).name, null,
+            RedirectComponent.getReturnUrl(context))
+      } else {
+        Single.just(PaymentModel(Error()))
+      }
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -126,7 +134,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             view.showLoading()
             view.lockRotation()
             view.setRedirectComponent(it.action!!, it.paymentData)
-            navigator.navigateToUriForResult(it.redirectUrl)
             waitingResult = true
             sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
           } else {

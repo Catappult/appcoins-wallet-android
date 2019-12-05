@@ -95,10 +95,11 @@ class AdyenPaymentFragment : DaggerFragment(),
     paymentDetailsDataSubject = ReplaySubject.create<String>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
-    presenter = AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
-        Schedulers.io(), analytics, domain, adyenPaymentInteractor,
-        inAppPurchaseInteractor.parseTransaction(transactionData, true),
-        navigator, paymentType, amount, currency, isPreSelected)
+    presenter =
+        AdyenPaymentPresenter(this, context, compositeDisposable, AndroidSchedulers.mainThread(),
+            Schedulers.io(), analytics, domain, adyenPaymentInteractor,
+            inAppPurchaseInteractor.parseTransaction(transactionData, true),
+            navigator, paymentType, amount, currency, isPreSelected)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -308,6 +309,7 @@ class AdyenPaymentFragment : DaggerFragment(),
   }
 
   override fun setRedirectComponent(action: Action, paymentDetailsData: String?) {
+    action.type = action.type?.toLowerCase()
     paymentDetailsData?.let { paymentDetailsDataSubject?.onNext(paymentDetailsData) }
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.handleAction(activity as IabActivity, action)
