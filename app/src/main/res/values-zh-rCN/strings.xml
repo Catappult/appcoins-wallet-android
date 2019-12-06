@@ -391,6 +391,7 @@
   <string name="do_it_later_button"> 稍后重试</string>
   <string name="connectoin_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
   <string name="common_or">或</string>
+  <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -483,11 +484,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">促销</string>
   <string name="bottom_navigation_promotions_detailed">了解通过促销和营销活动，获取免费AppCoins积金的方法！</string>
-  <string name="promotions_title">促销</string>
+  <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">通过邀请好友最多可获取%s</string>
   <string name="promotions_referral_card_body">分享邀请链接，获取AppCoins积金。</string>
   <string name="promotions_gamification_card_title">每次购买最多可获取30%奖励</string>
   <string name="promotions_new">新</string>
+  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
+  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
+  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">更新以获取奖励</string>
   <string name="update_wallet_poa_notification_body">请更新AppCoins Wallet以获取此奖励。</string>
