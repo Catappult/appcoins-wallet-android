@@ -391,6 +391,7 @@
   <string name="do_it_later_button">Lakukan nanti</string>
   <string name="connectoin_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
   <string name="common_or">atau</string>
+  <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -483,11 +484,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosi</string>
   <string name="bottom_navigation_promotions_detailed">Cari tahu cara mendapatkan Kredit AppCoin gratis dengan promosi dan kampanye kami!</string>
-  <string name="promotions_title">Promosi</string>
+  <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">Dapatkan penghasilan hingga %s dengan mengundang teman</string>
   <string name="promotions_referral_card_body">Bagikan tautan undangan Anda dan dapatkan Kredit AppCoins.</string>
   <string name="promotions_gamification_card_title">Bonus sampai 30% untuk setiap pembelian</string>
   <string name="promotions_new">BARU</string>
+  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
+  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
+  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Perbarui untuk menerima hadiah</string>
   <string name="update_wallet_poa_notification_body">Harap perbarui Dompet AppCoins untuk menerima hadiah ini.</string>
