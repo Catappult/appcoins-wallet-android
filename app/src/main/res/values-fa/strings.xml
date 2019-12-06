@@ -391,6 +391,7 @@
   <string name="do_it_later_button">بعدا انجام شود</string>
   <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <string name="common_or">یا</string>
+  <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -483,11 +484,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">پیشنهادات تشویقی</string>
   <string name="bottom_navigation_promotions_detailed">کشف کنید که چگونه می‌توانید با پیشنهادهای تشویقی ما، اعتبار AppCoins رایگان دریافت کنید!</string>
-  <string name="promotions_title">پیشنهادات تشویقی</string>
+  <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">با دعوت دوستان تا %s کسب درآمد کنید</string>
   <string name="promotions_referral_card_body">لینک دعوت خود را به اشتراک بگذارید و اعتبار AppCoins کسب کنید.</string>
   <string name="promotions_gamification_card_title">برای هر خرید، تا ۳۰% پاداش دریافت کنید</string>
   <string name="promotions_new">جدید</string>
+  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
+  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
+  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">بروزرسانی کنید و پاداش دریافت کنید</string>
   <string name="update_wallet_poa_notification_body">لطفا AppCoins Wallet را بروزرسانی کنید تا این پاداش را دریافت کنید.</string>
