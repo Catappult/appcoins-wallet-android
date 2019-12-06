@@ -391,6 +391,7 @@
   <string name="do_it_later_button">Fazer Depois</string>
   <string name="connectoin_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
   <string name="common_or">ou</string>
+  <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -483,11 +484,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promoções</string>
   <string name="bottom_navigation_promotions_detailed">Descubra como ganhar Créditos AppCoins com nossas promoções e campanhas!</string>
-  <string name="promotions_title">Promoções</string>
+  <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">Ganhe até %s ao convidar amigos</string>
   <string name="promotions_referral_card_body">Compartilhe seu link de convite e ganhe Créditos AppCoins.</string>
   <string name="promotions_gamification_card_title">Até 30% de bônus em cada compra</string>
   <string name="promotions_new">NOVO</string>
+  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
+  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
+  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Atualize para receber recompensas</string>
   <string name="update_wallet_poa_notification_body">Por favor, atualize sua Wallet AppCoins para receber esta recompensa.</string>
