@@ -391,6 +391,7 @@
   <string name="do_it_later_button">ေနာက္မွလုပ္မည္</string>
   <string name="connectoin_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
   <string name="common_or">သို႔မဟုတ္</string>
+  <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -483,11 +484,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="bottom_navigation_promotions_detailed">ကၽြႏ္ုပ္တို႔၏ ပ႐ိုမိုးရွင္းမ်ားႏွင့္ ျမႇင့္တင္ေရး အစီအစဥ္မ်ားျဖင့္ AppCoins Credits မ်ားအား အခမဲ့ရယူပံုကို ေဖာ္ျပပါ။</string>
-  <string name="promotions_title">ပ႐ိုမိုးရွင္းမ်ား</string>
+  <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚျခင္းျဖင့္ %s အထိ ရယူလိုက္ပါ</string>
   <string name="promotions_referral_card_body">ဖိတ္ေခၚသည့္လင့္ခ္ကို မွ်ေ၀ကာ AppCoins Credits မ်ားကို ရယူပါ။</string>
   <string name="promotions_gamification_card_title">၀ယ္ယူမႈတစ္ခုစီအတြက္ ၃၀% အထိ ေဘာနပ္စ္</string>
   <string name="promotions_new">အသစ္</string>
+  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
+  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
+  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ဆုမ်ားကိုရရွိရန္ အပ္ဒိတ္လုပ္ပါ</string>
   <string name="update_wallet_poa_notification_body">ဤဆုကိုရရွိရန္ AppCoins Wallet ကို အပ္ဒိတ္လုပ္ေပးပါ။</string>
