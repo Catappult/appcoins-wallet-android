@@ -9,9 +9,12 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
+import com.asfoundation.wallet.repository.SharedPreferencesRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
+import com.asfoundation.wallet.ui.balance.BalanceInteract;
+import com.asfoundation.wallet.ui.wallets.WalletsInteract;
 import com.asfoundation.wallet.viewmodel.WalletsViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
@@ -57,5 +60,11 @@ import dagger.Provides;
 
   @Provides TransactionsRouter provideTransactionsRouter() {
     return new TransactionsRouter();
+  }
+
+  @Provides WalletsInteract provideWalletsInteract(BalanceInteract balanceInteract,
+      FetchWalletsInteract fetchWalletsInteract,
+      SharedPreferencesRepository sharedPreferencesRepository) {
+    return new WalletsInteract(balanceInteract, fetchWalletsInteract, sharedPreferencesRepository);
   }
 }

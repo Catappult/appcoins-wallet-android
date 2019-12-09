@@ -64,7 +64,7 @@ project.ext {
   testExtJunit = '1.1.0'
   lifecycle = '1.1.1'
   zxing = '3.4.0'
-  zxing_android = '3.2.0@aar'
+  zxing_android = '3.6.0'
   play_services = '18.0.0'
   expresso = '3.1.0'
   screengrab = '1.1.0'

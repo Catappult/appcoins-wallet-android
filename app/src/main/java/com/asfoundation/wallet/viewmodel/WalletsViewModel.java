@@ -18,6 +18,7 @@ import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.asfoundation.wallet.C.IMPORT_REQUEST_CODE;
 
@@ -117,6 +118,7 @@ public class WalletsViewModel extends BaseViewModel {
   public void fetchWallets() {
     progress.postValue(true);
     disposable = fetchWalletsInteract.fetch()
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onFetchWallets, this::onError);
   }
 

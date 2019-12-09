@@ -50,6 +50,8 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity;
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransferFragment;
+import com.asfoundation.wallet.ui.wallets.WalletDetailFragment;
+import com.asfoundation.wallet.ui.wallets.WalletsFragment;
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity;
 import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment;
 import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment;
@@ -202,6 +204,11 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract EarnAppcoinsFragment bindEarnAppcoinsFragment();
 
   @ContributesAndroidInjector() abstract IabUpdateRequiredFragment bindIabUpdateRequiredFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract WalletsFragment bindWalletsFragment();
+
+  @ContributesAndroidInjector abstract WalletDetailFragment bindWalletDetailFragment();
 
   @ActivityScope @ContributesAndroidInjector()
   abstract WalletBlockedActivity walletBlockedActivity();

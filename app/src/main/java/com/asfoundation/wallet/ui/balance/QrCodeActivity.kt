@@ -5,18 +5,15 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.*
 import android.os.Bundle
 import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.MyAddressActivity
+import com.asfoundation.wallet.util.generateQrCode
 import com.google.android.material.snackbar.Snackbar
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
 import com.jakewharton.rxbinding2.view.RxView
-import com.journeyapps.barcodescanner.BarcodeEncoder
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -68,19 +65,9 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
   }
 
   override fun createQrCode(walletAddress: String) {
-    val size = Point()
-    windowManager.defaultDisplay
-        .getSize(size)
-    val imageSize = (size.x * QR_IMAGE_WIDTH_RATIO).toInt()
     try {
-      val bitMatrix =
-          MultiFormatWriter().encode(walletAddress, BarcodeFormat.QR_CODE, imageSize, imageSize,
-              null)
-      val barcodeEncoder = BarcodeEncoder()
-      val bitmapLogo = BitmapFactory.decodeResource(resources, R.drawable.ic_appc_token)
-      val qrCode = barcodeEncoder.createBitmap(bitMatrix)
-      val mergeQrCode = mergeBitmaps(bitmapLogo, qrCode)
-      qr_image.setImageBitmap(mergeQrCode)
+      val mergedQrCode = walletAddress.generateQrCode(resources, windowManager)
+      qr_image.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
       Snackbar.make(main_layout, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
           .show()
@@ -110,24 +97,10 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
     finish()
   }
 
-  private fun mergeBitmaps(logo: Bitmap, qrCode: Bitmap): Bitmap {
-    val combined = Bitmap.createBitmap(qrCode.width, qrCode.height, qrCode.config)
-    val canvas = Canvas(combined)
-    canvas.drawBitmap(qrCode, Matrix(), null)
-
-    val resizeLogo = Bitmap.createScaledBitmap(logo, canvas.width / 5, canvas.height / 5, true)
-    val centreX = (canvas.width - resizeLogo.width) / 2f
-    val centreY = (canvas.height - resizeLogo.height) / 2f
-    canvas.drawBitmap(resizeLogo, centreX, centreY, null)
-    return combined
-  }
-
   companion object {
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, QrCodeActivity::class.java)
     }
-
-    private const val QR_IMAGE_WIDTH_RATIO = 0.9f
   }
 }

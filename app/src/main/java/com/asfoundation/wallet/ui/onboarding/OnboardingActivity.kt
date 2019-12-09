@@ -95,7 +95,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
-    adapter = OnboardingPageAdapter(this, createDefaultItemList())
+    adapter = OnboardingPageAdapter(createDefaultItemList())
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter

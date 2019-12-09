@@ -14,7 +14,9 @@ import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APP
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -24,6 +26,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
+import kotlinx.android.synthetic.main.fragment_balance.bottom_sheet_fragment_container
+import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
@@ -35,6 +39,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   lateinit var balanceInteract: BalanceInteract
 
   private var activityView: BalanceActivityView? = null
+  private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
   private lateinit var presenter: BalanceFragmentPresenter
 
   companion object {
@@ -49,7 +54,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     super.onAttach(context)
     if (context !is BalanceActivityView) {
       throw IllegalStateException(
-          "Express checkout buy fragment must be attached to IAB activity")
+          "Balance Fragment must be attached to Balance Activity")
     }
     activityView = context
   }
@@ -57,17 +62,23 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = BalanceFragmentPresenter(this, balanceInteract,
-        Schedulers.io(),
-        AndroidSchedulers.mainThread(), CompositeDisposable())
+        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+    childFragmentManager.beginTransaction()
+        .replace(R.id.bottom_sheet_fragment_container,
+            WalletsFragment.newInstance())
+        .commit()
     return inflater.inflate(R.layout.fragment_balance, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    walletsBottomSheet =
+        BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    animateBackgroundFade()
     activityView?.setupToolbar()
     presenter.present()
 
@@ -216,6 +227,18 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   override fun showQrCodeView() {
     context?.let { startActivityForResult(QrCodeActivity.newIntent(it), 12) }
+  }
+
+  private fun animateBackgroundFade() {
+    walletsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+      override fun onStateChanged(bottomSheet: View, newState: Int) {
+        if (newState == 3) (app_bar as AppBarLayout).setExpanded(false)
+      }
+
+      override fun onSlide(bottomSheet: View, slideOffset: Float) {
+        background_fade_animation?.progress = slideOffset
+      }
+    }
   }
 
   private fun setAlpha(view: View, alphaPercentage: Float) {

@@ -47,6 +47,7 @@
       app:layout_anchor="@+id/content_container"
       app:layout_anchorGravity="top"
       >
+
     <TextView
         android:id="@+id/balance_label"
         style="@style/BalanceTitleStyle"
@@ -258,20 +259,26 @@
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
-  <View
-      android:id="@+id/bottomsheet_shadow"
-      android:layout_width="match_parent"
-      android:layout_height="16dp"
-      android:background="@drawable/bottomsheet_top_shadow"
-      app:layout_anchor="@id/bottom_sheet_fragment_container"
-      />
-
-  <FrameLayout
-      android:id="@+id/bottom_sheet_fragment_container"
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:behavior_hideable="false"
-      app:behavior_peekHeight="96dp"
-      app:layout_behavior="@string/bottom_sheet_behavior"
-      />
+      android:layout_marginTop="?attr/actionBarSize"
+      >
+    <View
+        android:id="@+id/bottomsheet_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@drawable/bottomsheet_top_shadow"
+        app:layout_anchor="@id/bottom_sheet_fragment_container"
+        />
+
+    <FrameLayout
+        android:id="@+id/bottom_sheet_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="96dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        />
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

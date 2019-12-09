@@ -59,7 +59,7 @@ class SettingsPresenter(private val view: SettingsView,
         .observeOn(viewScheduler)
         .subscribe({ wallet ->
           addWalletPreference(wallet.address)
-          view.setWalletsPreference(wallet.address)
+          view.setManageWalletPreference(wallet.address)
         }, {}))
   }
 

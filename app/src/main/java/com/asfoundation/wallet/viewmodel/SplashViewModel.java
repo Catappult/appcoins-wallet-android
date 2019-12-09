@@ -5,15 +5,15 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SplashViewModel extends ViewModel {
-  private final FetchWalletsInteract fetchWalletsInteract;
   private MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
 
   SplashViewModel(FetchWalletsInteract fetchWalletsInteract) {
-    this.fetchWalletsInteract = fetchWalletsInteract;
 
     fetchWalletsInteract.fetch()
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(wallets::postValue, this::onError);
   }
 
