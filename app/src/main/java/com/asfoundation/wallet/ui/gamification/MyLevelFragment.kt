@@ -105,7 +105,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun animateBackgroundFade() {
-    howItWorksBottomSheet.bottomSheetCallback = object :
+    howItWorksBottomSheet.addBottomSheetCallback(object :
         BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
@@ -113,7 +113,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    }
+    })
   }
 
   private fun setLevelResources(level: Int) {

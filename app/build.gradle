@@ -184,7 +184,7 @@ dependencies {
 
   implementation "androidx.appcompat:appcompat:$project.androidxAppCompatVersion"
   implementation "androidx.vectordrawable:vectordrawable:$project.androidxVectorDrawableVersion"
-  implementation "androidx.recyclerview:recyclerview:$project.androidxViewVersion"
+  implementation "androidx.recyclerview:recyclerview:$project.androidxRecyclerViewVersion"
   implementation "androidx.cardview:cardview:$project.androidxViewVersion"
   implementation "androidx.constraintlayout:constraintlayout:$project.androidxConstraintLayoutVersion"
   implementation "androidx.palette:palette:$project.androidxViewVersion"
