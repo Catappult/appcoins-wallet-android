@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.bottom_sheet_fragment_container
@@ -37,7 +39,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   @Inject
   lateinit var balanceInteract: BalanceInteract
-
+  private var onBackPressedSubject: PublishSubject<Any>? = null
   private var activityView: BalanceActivityView? = null
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
   private lateinit var presenter: BalanceFragmentPresenter
@@ -63,6 +65,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     super.onCreate(savedInstanceState)
     presenter = BalanceFragmentPresenter(this, balanceInteract,
         Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable())
+    onBackPressedSubject = PublishSubject.create()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -76,8 +79,18 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    presenter.stop()
+    presenter = BalanceFragmentPresenter(this, balanceInteract,
+        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable())
+
     walletsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    setBackListener(view)
+    activityView?.let {
+      if (it.shouldExpandBottomSheet()) {
+        walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+      }
+    }
     animateBackgroundFade()
     activityView?.setupToolbar()
     presenter.present()
@@ -93,6 +106,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   }
 
   override fun onDestroyView() {
+    activityView?.enableBack()
     presenter.stop()
     super.onDestroyView()
   }
@@ -229,10 +243,41 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     context?.let { startActivityForResult(QrCodeActivity.newIntent(it), 12) }
   }
 
+  override fun collapseBottomSheet() {
+    walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+  }
+
+  override fun backPressed(): Observable<Any> {
+    return Observable.merge(onBackPressedSubject!!, activityView?.backPressed())
+  }
+
+  override fun handleBackPress() {
+    if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+      walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+    } else {
+      activity?.onBackPressed()
+    }
+  }
+
+  private fun setBackListener(view: View) {
+    activityView?.disableBack()
+    view.isFocusableInTouchMode = true
+    view.requestFocus()
+    view.setOnKeyListener { _, keyCode, keyEvent ->
+      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+        onBackPressedSubject?.onNext("")
+      }
+      true
+    }
+  }
+
+
   private fun animateBackgroundFade() {
     walletsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
-        if (newState == 3) (app_bar as AppBarLayout).setExpanded(false)
+        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+          (app_bar as AppBarLayout).setExpanded(false)
+        }
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {

@@ -56,13 +56,13 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
 
   fun getAppcoinsBalance(): Single<BigDecimal> {
     return findDefaultWalletInteract.find()
-        .flatMap { balanceInteractor.getAppcBalance(it) }
+        .flatMap { balanceInteractor.getAppcBalance(it.address) }
         .map { it.value }
   }
 
   fun getEthBalance(): Single<BigDecimal> {
     return findDefaultWalletInteract.find()
-        .flatMap { balanceInteractor.getEthereumBalance(it) }
+        .flatMap { balanceInteractor.getEthereumBalance(it.address) }
         .map { it.value }
   }
 

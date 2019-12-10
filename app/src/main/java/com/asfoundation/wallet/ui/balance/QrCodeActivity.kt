@@ -18,6 +18,7 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
 import kotlinx.android.synthetic.main.qr_code_layout.*
 import javax.inject.Inject
 

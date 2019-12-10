@@ -52,36 +52,16 @@
           app:layout_constraintTop_toBottomOf="@id/qr_image"
           tools:text="0x8hfhgudhiughfiugiuiughifhgiufhgiuhiguyguyguyguyguygyugyuguyguygugi"
           />
-      <LinearLayout
+
+      <include
           android:id="@+id/button_layout"
+          layout="@layout/copy_share_buttons_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="12dp"
-          android:gravity="center"
-          android:orientation="horizontal"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
-          >
-        <Button
-            android:id="@+id/copy_button"
-            style="@style/ButtonStyle.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:drawableStart="@drawable/ic_copy_to_clip_pink"
-            android:drawablePadding="8dp"
-            android:text="@string/wallet_view_copy_button"
-            />
-        <Button
-            android:id="@+id/share_button"
-            style="@style/ButtonStyle.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginStart="8dp"
-            android:drawableStart="@drawable/ic_share_enabled"
-            android:drawablePadding="8dp"
-            android:text="@string/wallet_view_share_button"
-            />
-      </LinearLayout>
+          />
       <Button
           android:id="@+id/close_btn"
           style="@style/ButtonStyle.Alternative"

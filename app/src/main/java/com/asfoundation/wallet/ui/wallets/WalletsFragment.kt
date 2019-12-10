@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.wallets
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.balance.BalanceActivityView
+import com.asfoundation.wallet.ui.balance.BalanceFragmentView
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.scaleToString
 import com.jakewharton.rxbinding2.view.RxView
@@ -28,14 +31,26 @@ class WalletsFragment : DaggerFragment(),
   @Inject
   lateinit var walletsInteract: WalletsInteract
   private var uiEventListener: PublishSubject<String>? = null
+  private var onBackPressSubject: PublishSubject<Any>? = null
+  private lateinit var activityView: BalanceActivityView
   private lateinit var adapter: NewWalletsAdapter
   private lateinit var presenter: WalletsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     uiEventListener = PublishSubject.create()
+    onBackPressSubject = PublishSubject.create()
     presenter = WalletsPresenter(this, walletsInteract, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io())
+  }
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    if (context !is BalanceActivityView) {
+      throw IllegalStateException(
+          "Wallets Fragment must be attached to Balance Activity")
+    }
+    activityView = context
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,10 +98,12 @@ class WalletsFragment : DaggerFragment(),
   }
 
   override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {
-    fragmentManager?.beginTransaction()
-        ?.replace(R.id.bottom_sheet_fragment_container,
-            WalletDetailFragment.newInstance(walletAddress, isActive))
-        ?.commit()
+    activityView.navigateToWalletDetailView(walletAddress, isActive)
+  }
+
+  override fun collapseBottomSheet() {
+    val parentFragment = this.parentFragment as BalanceFragmentView
+    parentFragment.collapseBottomSheet()
   }
 
   private fun removeCurrentWallet(walletsBalanceList: List<WalletBalance>): List<WalletBalance> {

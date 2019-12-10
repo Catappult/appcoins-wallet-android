@@ -12,7 +12,6 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -35,21 +34,21 @@ public class GetDefaultWalletBalance implements BalanceService {
     this.tokenRepositoryType = tokenRepositoryType;
   }
 
-  public Single<Balance> getAppcBalance(Wallet wallet) {
-    return tokenRepositoryType.getAppcBalance(wallet)
+  public Single<Balance> getAppcBalance(String address) {
+    return tokenRepositoryType.getAppcBalance(address)
         .flatMap(this::getAppcBalance);
   }
 
-  private Single<Token> getAppcToken(Wallet wallet) {
-    return tokenRepositoryType.getAppcBalance(wallet);
+  private Single<Token> getAppcToken(String address) {
+    return tokenRepositoryType.getAppcBalance(address);
   }
 
-  public Single<Balance> getEthereumBalance(Wallet wallet) {
-    return getEtherBalance(wallet);
+  public Single<Balance> getEthereumBalance(String address) {
+    return getEtherBalance(address);
   }
 
-  public Single<Balance> getCredits(Wallet wallet) {
-    return fetchCreditsInteract.getBalance(wallet)
+  public Single<Balance> getCredits(String address) {
+    return fetchCreditsInteract.getBalance(address)
         .flatMap(this::getCreditsBalance);
   }
 
@@ -62,11 +61,10 @@ public class GetDefaultWalletBalance implements BalanceService {
     return Single.just(new Balance("APPC-C", weiToEth(value).setScale(4, RoundingMode.FLOOR)));
   }
 
-  private Single<Balance> getEtherBalance(Wallet wallet) {
-    return walletRepository.balanceInWei(wallet)
+  private Single<Balance> getEtherBalance(String address) {
+    return walletRepository.balanceInWei(address)
         .flatMap(ethBalance -> Single.just(new Balance(defaultNetwork.symbol,
-            weiToEth(ethBalance).setScale(4, RoundingMode.FLOOR))))
-        .observeOn(AndroidSchedulers.mainThread());
+            weiToEth(ethBalance).setScale(4, RoundingMode.FLOOR))));
   }
 
   @Override public Single<BalanceState> hasEnoughBalance(TransactionBuilder transactionBuilder,
@@ -96,7 +94,7 @@ public class GetDefaultWalletBalance implements BalanceService {
 
   private Single<BigDecimal> getBalanceInWei() {
     return defaultWalletInteract.find()
-        .flatMap(walletRepository::balanceInWei);
+        .flatMap((Wallet wallet) -> walletRepository.balanceInWei(wallet.address));
   }
 
   private Single<Boolean> hasEnoughForTransfer(BigDecimal cost, boolean isTokenTransfer,
@@ -117,7 +115,7 @@ public class GetDefaultWalletBalance implements BalanceService {
 
   private Single<Token> getAppcToken() {
     return defaultWalletInteract.find()
-        .flatMap(this::getAppcToken);
+        .flatMap(wallet -> getAppcToken(wallet.address));
   }
 
   private BigDecimal normalizeBalance(BigDecimal balance, TokenInfo tokenInfo) {

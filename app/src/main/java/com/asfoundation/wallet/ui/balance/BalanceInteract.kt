@@ -20,17 +20,28 @@ class BalanceInteract(
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
-        .flatMapObservable { balanceRepository.getAppcBalance(it) }
+        .flatMapObservable { balanceRepository.getAppcBalance(it.address) }
   }
 
   fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
-        .flatMapObservable { balanceRepository.getEthBalance(it) }
+        .flatMapObservable { balanceRepository.getEthBalance(it.address) }
   }
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
-        .flatMapObservable { balanceRepository.getCreditsBalance(it) }
+        .flatMapObservable { balanceRepository.getCreditsBalance(it.address) }
+  }
+
+  fun requestTokenConversion(address: String): Observable<BalanceScreenModel> {
+    return Observable.zip(
+        balanceRepository.getCreditsBalance(address),
+        balanceRepository.getAppcBalance(address),
+        balanceRepository.getEthBalance(address),
+        Function3 { creditsBalance, appcBalance, ethBalance ->
+          mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
+        }
+    )
   }
 
   fun requestTokenConversion(): Observable<BalanceScreenModel> {
@@ -46,9 +57,9 @@ class BalanceInteract(
 
   fun getTotalBalance(wallet: Wallet): Observable<FiatValue> {
     return Observable.zip(
-        balanceRepository.getCreditsBalance(wallet),
-        balanceRepository.getAppcBalance(wallet),
-        balanceRepository.getEthBalance(wallet),
+        balanceRepository.getCreditsBalance(wallet.address),
+        balanceRepository.getAppcBalance(wallet.address),
+        balanceRepository.getEthBalance(wallet.address),
         Function3 { creditsBalance, appcBalance, ethBalance ->
           getOverallBalance(mapToBalance(creditsBalance, APPC_C_CURRENCY),
               mapToBalance(appcBalance, APPC_CURRENCY), mapToBalance(ethBalance, ETH_CURRENCY))

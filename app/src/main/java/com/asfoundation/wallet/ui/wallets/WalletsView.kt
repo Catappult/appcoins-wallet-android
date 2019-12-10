@@ -11,4 +11,5 @@ interface WalletsView {
   fun otherWalletCardClicked(): Observable<String>
   fun activeWalletCardClicked(): Observable<String>
   fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean)
+  fun collapseBottomSheet()
 }

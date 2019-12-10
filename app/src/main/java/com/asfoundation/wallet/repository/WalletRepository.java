@@ -75,10 +75,10 @@ public class WalletRepository implements WalletRepositoryType {
         .flatMap(this::findWallet);
   }
 
-  @Override public Single<BigDecimal> balanceInWei(Wallet wallet) {
+  @Override public Single<BigDecimal> balanceInWei(String address) {
     Web3j web3j = web3jProvider.get();
     return Single.fromCallable(() -> new BigDecimal(
-        web3j.ethGetBalance(wallet.address, DefaultBlockParameterName.LATEST)
+        web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST)
             .send()
             .getBalance()))
         .subscribeOn(Schedulers.io());

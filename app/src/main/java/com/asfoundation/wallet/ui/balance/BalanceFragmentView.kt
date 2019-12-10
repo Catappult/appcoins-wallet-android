@@ -19,4 +19,7 @@ interface BalanceFragmentView {
   fun setWalletAddress(walletAddress: String)
   fun setAddressToClipBoard(walletAddress: String)
   fun showQrCodeView()
+  fun collapseBottomSheet()
+  fun backPressed(): Observable<Any>
+  fun handleBackPress()
 }

@@ -27,7 +27,15 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleTokenDetailsClick()
     handleCopyClick()
     handleQrCodeClick()
+    handleBackPress()
 
+  }
+
+  private fun handleBackPress() {
+    disposables.add(view.backPressed()
+        .observeOn(viewScheduler)
+        .doOnNext { view.handleBackPress() }
+        .subscribe())
   }
 
   private fun requestActiveWalletAddress() {
@@ -43,7 +51,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnNext { updateUI(it) }
-            .doOnError { it?.printStackTrace() }
+            .doOnError { it.printStackTrace() }
             .subscribe()
     )
   }

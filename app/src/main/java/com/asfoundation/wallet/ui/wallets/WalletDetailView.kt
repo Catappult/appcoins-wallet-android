@@ -1,3 +1,7 @@
 package com.asfoundation.wallet.ui.wallets
 
-interface WalletDetailView
+import com.asfoundation.wallet.ui.balance.BalanceScreenModel
+
+interface WalletDetailView {
+  fun populateUi(balanceScreenModel: BalanceScreenModel)
+}
