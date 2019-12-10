@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?attr/selectableItemBackground"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
     >
@@ -12,6 +11,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="?attr/selectableItemBackground"
       >
     <ImageView
         android:id="@+id/ic_active_wallet_address"
