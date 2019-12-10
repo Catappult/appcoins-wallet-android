@@ -42,6 +42,6 @@ class BalanceDetailsMapper {
 
   private fun getBigDecimal(value: String, scale: Int = ETHER_SCALE): BigDecimal {
     return if (value.isNotEmpty()) BigDecimal(value).setScale(scale,
-        RoundingMode.FLOOR) else BigDecimal("-1")
+        RoundingMode.FLOOR) else BigDecimal.ZERO
   }
 }

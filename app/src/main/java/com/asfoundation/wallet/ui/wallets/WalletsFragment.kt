@@ -123,8 +123,8 @@ class WalletsFragment : DaggerFragment(),
   }
 
   override fun onDestroyView() {
-    super.onDestroyView()
     presenter.stop()
+    super.onDestroyView()
   }
 
   companion object {

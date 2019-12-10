@@ -13,6 +13,33 @@ class WalletDetailPresenter(
 
   fun present() {
     populateUi()
+    handleCopyClick()
+    handleShareClick()
+    handleMakeWalletActiveClick()
+  }
+
+  private fun handleMakeWalletActiveClick() {
+    disposable.add(view.makeWalletActiveClick()
+        .flatMapCompletable {
+          interactor.setActiveWallet(walletAddress)
+              .observeOn(viewScheduler)
+              .andThen { view.navigateToBalanceView() }
+        }
+        .subscribe())
+  }
+
+  private fun handleCopyClick() {
+    disposable.add(view.copyClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.setAddressToClipBoard(walletAddress) }
+        .subscribe())
+  }
+
+  private fun handleShareClick() {
+    disposable.add(view.shareClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showShare(walletAddress) }
+        .subscribe())
   }
 
   private fun populateUi() {

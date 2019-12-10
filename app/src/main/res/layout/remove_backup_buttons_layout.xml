@@ -37,6 +37,7 @@
       app:layout_constraintWidth_default="percent"
       app:layout_constraintWidth_percent=".4"
       />
+
   <ImageView
       android:id="@+id/backup_wallet_button"
       android:layout_width="32dp"
@@ -60,7 +61,7 @@
       android:letterSpacing="0.09"
       android:lineSpacingExtra="0sp"
       android:maxLines="2"
-      android:text="@string/wallets_2nd_view_create_button"
+      android:text="@string/wallet_view_backup_button"
       android:textColor="@color/text_button_color"
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="@id/backup_wallet_button"
@@ -75,7 +76,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.16"
+      app:layout_constraintGuide_percent="0.15"
       />
 
   <androidx.constraintlayout.widget.Guideline
@@ -83,7 +84,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.36"
+      app:layout_constraintGuide_percent="0.35"
       />
 
   <androidx.constraintlayout.widget.Guideline

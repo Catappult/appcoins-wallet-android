@@ -1,21 +1,28 @@
 package com.asfoundation.wallet.ui.wallets
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.util.generateQrCode
 import com.asfoundation.wallet.util.scaleToString
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
 import kotlinx.android.synthetic.main.qr_code_layout.*
 import kotlinx.android.synthetic.main.qr_code_layout.qr_image
 import kotlinx.android.synthetic.main.wallet_detail_balance_layout.*
@@ -60,7 +67,56 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
           .show()
     }
     wallet_address.text = walletAddress
+
+    if (isActive) {
+      active_wallet_info.visibility = View.VISIBLE
+      middle_backup_wallet_button.visibility = View.VISIBLE
+      middle_backup_text.visibility = View.VISIBLE
+    } else {
+      remove_backup_buttons.visibility = View.VISIBLE
+      make_this_active_button.visibility = View.VISIBLE
+    }
+
     presenter.present()
+  }
+
+  override fun copyClick(): Observable<Any> {
+    return RxView.clicks(copy_button)
+  }
+
+  override fun shareClick(): Observable<Any> {
+    return RxView.clicks(share_button)
+  }
+
+  override fun makeWalletActiveClick(): Observable<Any> {
+    return RxView.clicks(make_this_active_button)
+  }
+
+  override fun setAddressToClipBoard(walletAddress: String) {
+    activity?.let {
+      val clipboard = it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+      val clip = ClipData.newPlainText(
+          MyAddressActivity.KEY_ADDRESS, walletAddress)
+      if (clipboard != null) {
+        clipboard.primaryClip = clip
+      }
+      view?.let { view ->
+        Snackbar.make(view, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
+            .show()
+      }
+    }
+  }
+
+  override fun showShare(walletAddress: String) {
+    ShareCompat.IntentBuilder.from(activity)
+        .setText(walletAddress)
+        .setType("text/plain")
+        .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
+        .startChooser()
+  }
+
+  override fun navigateToBalanceView() {
+    activityView.showBalanceScreen()
   }
 
   @SuppressLint("SetTextI18n")
@@ -75,9 +131,9 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
     balance_ethereum.text = ethereum.amount.scaleToString(4) + " " + ethereum.symbol
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
+  override fun onDestroyView() {
     presenter.stop()
+    super.onDestroyView()
   }
 
   companion object {

@@ -10,6 +10,7 @@ import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
 class AppcoinsBalanceRepository(
@@ -41,9 +42,9 @@ class AppcoinsBalanceRepository(
           }
           .subscribe({}, { it.printStackTrace() })
     }
-    return Observable.fromCallable { }
+    return Single.fromCallable { }
         .observeOn(networkScheduler)
-        .flatMap { getBalance(address) }
+        .flatMapObservable { getBalance(address) }
         .map { balanceDetailsMapper.mapEthBalance(it) }
   }
 
@@ -62,9 +63,9 @@ class AppcoinsBalanceRepository(
           .onExceptionResumeNext {}
           .subscribe()
     }
-    return Observable.fromCallable { }
+    return Single.fromCallable { }
         .observeOn(networkScheduler)
-        .flatMap { getBalance(address) }
+        .flatMapObservable { getBalance(address) }
         .map { balanceDetailsMapper.mapAppcBalance(it) }
   }
 
@@ -83,9 +84,9 @@ class AppcoinsBalanceRepository(
           .onExceptionResumeNext {}
           .subscribe()
     }
-    return Observable.fromCallable { }
+    return Single.fromCallable { }
         .observeOn(networkScheduler)
-        .flatMap { getBalance(address) }
+        .flatMapObservable { getBalance(address) }
         .map { balanceDetailsMapper.mapCreditsBalance(it) }
   }
 

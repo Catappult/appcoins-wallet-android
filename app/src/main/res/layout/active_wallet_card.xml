@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="@color/white"
+    android:background="?attr/selectableItemBackground"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
     >

@@ -208,7 +208,8 @@ import dagger.android.ContributesAndroidInjector;
   @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract WalletsFragment bindWalletsFragment();
 
-  @ContributesAndroidInjector abstract WalletDetailFragment bindWalletDetailFragment();
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract WalletDetailFragment bindWalletDetailFragment();
 
   @ActivityScope @ContributesAndroidInjector()
   abstract WalletBlockedActivity walletBlockedActivity();

@@ -93,7 +93,8 @@ public class WalletsViewModel extends BaseViewModel {
   }
 
   public void setDefaultWallet(Wallet wallet) {
-    disposable = setDefaultWalletInteract.set(wallet)
+    disposable = setDefaultWalletInteract.set(wallet.address)
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
   }
 

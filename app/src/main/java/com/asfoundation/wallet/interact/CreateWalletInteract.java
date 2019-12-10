@@ -38,6 +38,6 @@ public class CreateWalletInteract {
   }
 
   public Completable setDefaultWallet(Wallet wallet) {
-    return walletRepository.setDefaultWallet(wallet);
+    return walletRepository.setDefaultWallet(wallet.address);
   }
 }

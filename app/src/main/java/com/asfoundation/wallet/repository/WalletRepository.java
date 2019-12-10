@@ -58,9 +58,8 @@ public class WalletRepository implements WalletRepositoryType {
     return accountKeystoreService.deleteAccount(address, password);
   }
 
-  @Override public Completable setDefaultWallet(Wallet wallet) {
-    return Completable.fromAction(
-        () -> preferencesRepositoryType.setCurrentWalletAddress(wallet.address));
+  @Override public Completable setDefaultWallet(String address) {
+    return Completable.fromAction(() -> preferencesRepositoryType.setCurrentWalletAddress(address));
   }
 
   @Override public Single<Wallet> getDefaultWallet() {

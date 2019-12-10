@@ -11,6 +11,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
+import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailFragment
 import io.reactivex.Observable
@@ -51,9 +52,9 @@ class BalanceActivity : BaseActivity(),
   }
 
   override fun showBalanceScreen() {
+    expandBottomSheet = false
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            BalanceFragment.newInstance())
+        .replace(R.id.fragment_container, BalanceFragment.newInstance())
         .commit()
   }
 
@@ -105,5 +106,10 @@ class BalanceActivity : BaseActivity(),
 
   override fun backPressed(): Observable<Any> {
     return onBackPressedSubject!!
+  }
+
+  override fun navigateToTransactions() {
+    TransactionsRouter().open(this, true)
+    finish()
   }
 }

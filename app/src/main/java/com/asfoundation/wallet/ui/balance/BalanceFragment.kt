@@ -97,11 +97,13 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
     (app_bar as AppBarLayout).addOnOffsetChangedListener(
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-          val percentage = abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
-          setAlpha(balance_label, percentage)
-          setAlpha(balance_value, percentage)
-          setAlpha(balance_label_placeholder, percentage)
-          setAlpha(balance_value_placeholder, percentage)
+          if (balance_label != null) {
+            val percentage = abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
+            setAlpha(balance_label, percentage)
+            setAlpha(balance_value, percentage)
+            setAlpha(balance_label_placeholder, percentage)
+            setAlpha(balance_value_placeholder, percentage)
+          }
         })
   }
 
@@ -255,7 +257,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
       walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     } else {
-      activity?.onBackPressed()
+      activityView?.navigateToTransactions()
     }
   }
 

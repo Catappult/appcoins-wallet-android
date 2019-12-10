@@ -14,6 +14,7 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
+import com.asfoundation.wallet.ui.wallets.WalletDetailInteractor;
 import com.asfoundation.wallet.ui.wallets.WalletsInteract;
 import com.asfoundation.wallet.viewmodel.WalletsViewModelFactory;
 import dagger.Module;
@@ -66,5 +67,10 @@ import dagger.Provides;
       FetchWalletsInteract fetchWalletsInteract,
       SharedPreferencesRepository sharedPreferencesRepository) {
     return new WalletsInteract(balanceInteract, fetchWalletsInteract, sharedPreferencesRepository);
+  }
+
+  @Provides WalletDetailInteractor provideWalletDetailInteract(BalanceInteract balanceInteract,
+      SetDefaultWalletInteract setDefaultWalletInteract) {
+    return new WalletDetailInteractor(balanceInteract, setDefaultWalletInteract);
   }
 }

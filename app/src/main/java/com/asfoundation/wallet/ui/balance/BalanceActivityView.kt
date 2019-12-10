@@ -26,4 +26,6 @@ interface BalanceActivityView {
   fun disableBack()
 
   fun backPressed(): Observable<Any>
+
+  fun navigateToTransactions()
 }
