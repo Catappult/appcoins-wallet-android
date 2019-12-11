@@ -390,7 +390,7 @@
   <string name="retry_button">Опитай пак</string>
   <string name="do_it_later_button">Направи го по-късно</string>
   <string name="connectoin_error_body">Изглежда, че не си свързан с интернет. Провери връзката си и опитай отново!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Съгласявам се с %1$s и %2$s на AppCoins Wallet.</string>
