@@ -206,7 +206,8 @@
     <activity
         android:name="com.asfoundation.wallet.ui.balance.QrCodeActivity"
         android:label=""
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.Transparent"/>
 
     <activity
         android:name="com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity"
