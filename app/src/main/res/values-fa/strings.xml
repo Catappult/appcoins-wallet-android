@@ -390,7 +390,7 @@
   <string name="retry_button">تلاش مجدد</string>
   <string name="do_it_later_button">بعدا انجام شود</string>
   <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
-  <string name="common_or">یا</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
