@@ -390,7 +390,7 @@
   <string name="retry_button">Tekrar deneyin</string>
   <string name="do_it_later_button">Daha sonra yapın</string>
   <string name="connectoin_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
-  <string name="common_or">veya</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
