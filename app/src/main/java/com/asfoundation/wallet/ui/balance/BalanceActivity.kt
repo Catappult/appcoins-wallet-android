@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +19,8 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.activity_balance.*
+import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
 
 class BalanceActivity : BaseActivity(),
@@ -44,14 +47,20 @@ class BalanceActivity : BaseActivity(),
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      if (backEnabled) {
-        super.onBackPressed()
-      } else {
-        onBackPressedSubject?.onNext("")
+      if (wallet_creation_animation.visibility != View.VISIBLE) {
+        if (backEnabled) {
+          super.onBackPressed()
+        } else {
+          onBackPressedSubject?.onNext("")
+        }
       }
       return true
     }
     return super.onOptionsItemSelected(item)
+  }
+
+  override fun onBackPressed() {
+    if (wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
   }
 
   override fun showBalanceScreen() {
@@ -98,6 +107,32 @@ class BalanceActivity : BaseActivity(),
 
   override fun navigateToBackupView(walletAddress: String) {
 
+  }
+
+  override fun showCreatingAnimation() {
+    wallet_creation_animation.visibility = View.VISIBLE
+    create_wallet_animation.playAnimation()
+  }
+
+  override fun showWalletCreatedAnimation() {
+    create_wallet_animation.setAnimation(R.raw.success_animation)
+    create_wallet_text.text = getText(R.string.provide_wallet_created_header)
+    create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) {
+      }
+
+      override fun onAnimationEnd(animation: Animator?) {
+        finish()
+      }
+
+      override fun onAnimationCancel(animation: Animator?) {
+      }
+
+      override fun onAnimationStart(animation: Animator?) {
+      }
+    })
+    create_wallet_animation.repeatCount = 0
+    create_wallet_animation.playAnimation()
   }
 
   override fun shouldExpandBottomSheet(): Boolean {

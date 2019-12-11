@@ -34,4 +34,8 @@ interface BalanceActivityView {
                                  ethereumBalance: String)
 
   fun navigateToBackupView(walletAddress: String)
+
+  fun showCreatingAnimation()
+
+  fun showWalletCreatedAnimation()
 }

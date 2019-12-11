@@ -12,6 +12,19 @@ class WalletsPresenter(private val view: WalletsFragment,
     retrieveViewInformation()
     handleActiveWalletCardClick()
     handleOtherWalletCardClick()
+    handleCreateNewWalletClick()
+  }
+
+  private fun handleCreateNewWalletClick() {
+    disposable.add(view.createNewWalletClicked()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showCreatingAnimation() }
+        .flatMapCompletable {
+          walletsInteract.createWallet()
+              .observeOn(viewScheduler)
+              .andThen { view.showWalletCreatedAnimation() }
+        }
+        .subscribe())
   }
 
   private fun handleOtherWalletCardClick() {

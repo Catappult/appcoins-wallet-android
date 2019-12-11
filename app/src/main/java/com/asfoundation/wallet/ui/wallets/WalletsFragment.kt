@@ -22,6 +22,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.active_wallet_card.*
 import kotlinx.android.synthetic.main.active_wallet_card.view.*
+import kotlinx.android.synthetic.main.import_create_buttons_layout.*
 import kotlinx.android.synthetic.main.wallets_layout.*
 import javax.inject.Inject
 
@@ -95,6 +96,18 @@ class WalletsFragment : DaggerFragment(),
   override fun activeWalletCardClicked(): Observable<String> {
     return RxView.clicks(active_wallet_card)
         .map { active_wallet_address.text.toString() }
+  }
+
+  override fun createNewWalletClicked(): Observable<Any> {
+    return Observable.merge(RxView.clicks(create_new_button), RxView.clicks(create_new_wallet_text))
+  }
+
+  override fun showCreatingAnimation() {
+    activityView.showCreatingAnimation()
+  }
+
+  override fun showWalletCreatedAnimation() {
+    activityView.showWalletCreatedAnimation()
   }
 
   override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {

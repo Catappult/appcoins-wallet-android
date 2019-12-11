@@ -12,4 +12,7 @@ interface WalletsView {
   fun activeWalletCardClicked(): Observable<String>
   fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean)
   fun collapseBottomSheet()
+  fun createNewWalletClicked(): Observable<Any>
+  fun showCreatingAnimation()
+  fun showWalletCreatedAnimation()
 }

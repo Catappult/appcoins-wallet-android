@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.wallets
 
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FetchWalletsInteract
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.ui.balance.BalanceInteract
@@ -12,6 +13,7 @@ import java.math.BigDecimal
 
 class WalletsInteract(private val balanceInteract: BalanceInteract,
                       private val fetchWalletsInteract: FetchWalletsInteract,
+                      private val createWalletInteract: CreateWalletInteract,
                       private val preferencesRepository: SharedPreferencesRepository) {
 
   fun retrieveWalletsModel(): Single<WalletsModel> {
@@ -33,6 +35,15 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
         }
         .toSingle {
           WalletsModel(getTotalBalance(walletsBalance), walletsBalance.size, walletsBalance)
+        }
+  }
+
+  fun createWallet(): Completable {
+    return createWalletInteract.create()
+        .flatMapCompletable {
+          Completable.fromAction {
+            createWalletInteract.setDefaultWallet(it.address)
+          }
         }
   }
 

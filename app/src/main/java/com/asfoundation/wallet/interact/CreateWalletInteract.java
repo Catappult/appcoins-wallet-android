@@ -37,7 +37,7 @@ public class CreateWalletInteract {
                 .toSingle(() -> wallet));
   }
 
-  public Completable setDefaultWallet(Wallet wallet) {
-    return walletRepository.setDefaultWallet(wallet.address);
+  public Completable setDefaultWallet(String address) {
+    return walletRepository.setDefaultWallet(address);
   }
 }

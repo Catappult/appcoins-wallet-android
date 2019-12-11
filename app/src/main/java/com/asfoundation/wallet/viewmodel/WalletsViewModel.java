@@ -126,7 +126,7 @@ public class WalletsViewModel extends BaseViewModel {
           createdWallet.postValue(wallet);
           return wallet;
         })
-        .flatMapCompletable(createWalletInteract::setDefaultWallet)
+        .flatMapCompletable(wallet -> createWalletInteract.setDefaultWallet(wallet.address))
         .subscribe(() -> {
         }, this::onCreateWalletError);
   }
@@ -139,13 +139,6 @@ public class WalletsViewModel extends BaseViewModel {
   private void onExportWalletError(Throwable throwable) {
     logger.log(throwable);
     exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN,
-        TextUtils.isEmpty(throwable.getLocalizedMessage()) ? throwable.getMessage()
-            : throwable.getLocalizedMessage()));
-  }
-
-  private void onDeleteWalletError(Throwable throwable) {
-    logger.log(throwable);
-    deleteWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN,
         TextUtils.isEmpty(throwable.getLocalizedMessage()) ? throwable.getMessage()
             : throwable.getLocalizedMessage()));
   }

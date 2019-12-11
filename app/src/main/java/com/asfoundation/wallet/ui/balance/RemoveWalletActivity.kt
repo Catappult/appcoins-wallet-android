@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
 class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
-  private var showingAnimation: Boolean = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -22,14 +21,14 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      if (!showingAnimation) super.onBackPressed()
+      if (wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
       return true
     }
     return super.onOptionsItemSelected(item)
   }
 
   override fun onBackPressed() {
-    if (!showingAnimation) super.onBackPressed()
+    if (wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
   }
 
   private fun navigateToInitialRemoveWalletView() {
@@ -54,7 +53,6 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun showRemoveWalletAnimation() {
-    showingAnimation = true
     wallet_remove_animation.visibility = View.VISIBLE
     remove_wallet_animation.repeatCount = 0
     remove_wallet_animation.playAnimation()

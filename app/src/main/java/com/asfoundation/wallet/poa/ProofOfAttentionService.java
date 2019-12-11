@@ -370,7 +370,7 @@ public class ProofOfAttentionService {
   public Single<Wallet> handleCreateWallet() {
     return findDefaultWalletInteract.find()
         .onErrorResumeNext(walletInteract.create()
-            .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
+            .flatMap(wallet -> walletInteract.setDefaultWallet(wallet.address)
                 .andThen(Single.just(wallet))));
   }
 

@@ -64,9 +64,10 @@ import dagger.Provides;
   }
 
   @Provides WalletsInteract provideWalletsInteract(BalanceInteract balanceInteract,
-      FetchWalletsInteract fetchWalletsInteract,
+      FetchWalletsInteract fetchWalletsInteract, CreateWalletInteract createWalletInteract,
       SharedPreferencesRepository sharedPreferencesRepository) {
-    return new WalletsInteract(balanceInteract, fetchWalletsInteract, sharedPreferencesRepository);
+    return new WalletsInteract(balanceInteract, fetchWalletsInteract, createWalletInteract,
+        sharedPreferencesRepository);
   }
 
   @Provides WalletDetailInteractor provideWalletDetailInteract(BalanceInteract balanceInteract,
