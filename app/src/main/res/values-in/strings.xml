@@ -390,7 +390,7 @@
   <string name="retry_button">Coba lagi</string>
   <string name="do_it_later_button">Lakukan nanti</string>
   <string name="connectoin_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
-  <string name="common_or">atau</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
