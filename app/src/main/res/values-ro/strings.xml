@@ -390,7 +390,7 @@
   <string name="retry_button">Reîncearcă</string>
   <string name="do_it_later_button">Amână</string>
   <string name="connectoin_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
-  <string name="common_or">sau</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
