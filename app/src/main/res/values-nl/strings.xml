@@ -390,7 +390,7 @@
   <string name="retry_button">Opnieuw proberen</string>
   <string name="do_it_later_button">Later doen</string>
   <string name="connectoin_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
-  <string name="common_or">of</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
