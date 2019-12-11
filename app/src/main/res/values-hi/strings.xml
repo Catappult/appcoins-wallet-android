@@ -390,7 +390,7 @@
   <string name="retry_button">पुनः करें</string>
   <string name="do_it_later_button">इसे बाद में करें</string>
   <string name="connectoin_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
-  <string name="common_or">या</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
