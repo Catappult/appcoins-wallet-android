@@ -10,7 +10,7 @@ class ExportWalletInteract(private val walletRepository: WalletRepositoryType,
                            private val passwordStore: PasswordStore) {
 
   fun export(wallet: Wallet, backupPassword: String?): Single<String> {
-    return passwordStore.getPassword(wallet)
+    return passwordStore.getPassword(wallet.address)
         .flatMap { walletRepository.exportWallet(wallet, it, backupPassword) }
         .observeOn(AndroidSchedulers.mainThread())
   }

@@ -25,6 +25,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
 import kotlinx.android.synthetic.main.qr_code_layout.*
 import kotlinx.android.synthetic.main.qr_code_layout.qr_image
+import kotlinx.android.synthetic.main.remove_backup_buttons_layout.*
 import kotlinx.android.synthetic.main.wallet_detail_balance_layout.*
 import kotlinx.android.synthetic.main.wallet_detail_layout.*
 import javax.inject.Inject
@@ -88,6 +89,14 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
     return RxView.clicks(share_button)
   }
 
+  override fun removeWalletClick(): Observable<Any> {
+    return Observable.merge(RxView.clicks(remove_wallet_button), RxView.clicks(remove_text))
+  }
+
+  override fun backupWalletClick(): Observable<Any> {
+    return Observable.merge(RxView.clicks(backup_wallet_button), RxView.clicks(backup_text))
+  }
+
   override fun makeWalletActiveClick(): Observable<Any> {
     return RxView.clicks(make_this_active_button)
   }
@@ -117,6 +126,16 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
 
   override fun navigateToBalanceView() {
     activityView.showBalanceScreen()
+  }
+
+  override fun navigateToBackupView(walletAddress: String) {
+    activityView.navigateToBackupView(walletAddress)
+  }
+
+  override fun navigateToRemoveWalletView(walletAddress: String) {
+    activityView.navigateToRemoveWalletView(walletAddress, total_balance_fiat.text.toString(),
+        balance_appcoins.text.toString(), balance_credits.text.toString(),
+        balance_ethereum.text.toString())
   }
 
   @SuppressLint("SetTextI18n")

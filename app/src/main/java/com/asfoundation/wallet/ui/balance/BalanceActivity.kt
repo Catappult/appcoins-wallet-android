@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.transition.Fade
 import android.view.MenuItem
@@ -34,6 +36,7 @@ class BalanceActivity : BaseActivity(),
 
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_balance)
+    expandBottomSheet = intent.extras!!.getBoolean(EXPAND_BOTTOM_SHEET_KEY, false)
     onBackPressedSubject = PublishSubject.create()
     activityPresenter = BalanceActivityPresenter(this)
     activityPresenter.present(savedInstanceState)
@@ -52,7 +55,6 @@ class BalanceActivity : BaseActivity(),
   }
 
   override fun showBalanceScreen() {
-    expandBottomSheet = false
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, BalanceFragment.newInstance())
         .commit()
@@ -86,6 +88,18 @@ class BalanceActivity : BaseActivity(),
         .commit()
   }
 
+  override fun navigateToRemoveWalletView(walletAddress: String, totalFiatBalance: String,
+                                          appcoinsBalance: String, creditsBalance: String,
+                                          ethereumBalance: String) {
+    startActivity(
+        RemoveWalletActivity.newIntent(this, walletAddress, totalFiatBalance, appcoinsBalance,
+            creditsBalance, ethereumBalance))
+  }
+
+  override fun navigateToBackupView(walletAddress: String) {
+
+  }
+
   override fun shouldExpandBottomSheet(): Boolean {
     val shouldExpand = expandBottomSheet
     expandBottomSheet = false
@@ -111,5 +125,16 @@ class BalanceActivity : BaseActivity(),
   override fun navigateToTransactions() {
     TransactionsRouter().open(this, true)
     finish()
+  }
+
+  companion object {
+    private const val EXPAND_BOTTOM_SHEET_KEY = "expand_bottom_sheet"
+
+    @JvmStatic
+    fun newIntent(context: Context, expandBottomSheet: Boolean = false): Intent {
+      val intent = Intent(context, BalanceActivity::class.java)
+      intent.putExtra(EXPAND_BOTTOM_SHEET_KEY, expandBottomSheet)
+      return intent
+    }
   }
 }

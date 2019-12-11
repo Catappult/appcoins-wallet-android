@@ -90,5 +90,7 @@
 
   <color name="balance_active_wallet_grey">#a6a6a6</color>
 
+  <color name="remove_wallet_red">#e44b46</color>
+
   <color name="transparent">#00000000</color>
 </resources>

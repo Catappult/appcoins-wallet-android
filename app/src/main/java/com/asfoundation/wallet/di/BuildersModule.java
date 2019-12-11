@@ -31,8 +31,10 @@ import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
 import com.asfoundation.wallet.ui.balance.QrCodeActivity;
+import com.asfoundation.wallet.ui.balance.RemoveWalletFragment;
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity;
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity;
+import com.asfoundation.wallet.ui.balance.WalletRemoveConfirmationFragment;
 import com.asfoundation.wallet.ui.gamification.HowItWorksFragment;
 import com.asfoundation.wallet.ui.gamification.MyLevelFragment;
 import com.asfoundation.wallet.ui.iab.AdyenAuthorizationFragment;
@@ -212,5 +214,10 @@ import dagger.android.ContributesAndroidInjector;
   abstract WalletDetailFragment bindWalletDetailFragment();
 
   @ActivityScope @ContributesAndroidInjector()
-  abstract WalletBlockedActivity walletBlockedActivity();
+  abstract WalletBlockedActivity bindWalletBlockedActivity();
+
+  @ContributesAndroidInjector abstract RemoveWalletFragment bindRemoveWalletFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract WalletRemoveConfirmationFragment bindWalletRemoveConfirmationFragment();
 }

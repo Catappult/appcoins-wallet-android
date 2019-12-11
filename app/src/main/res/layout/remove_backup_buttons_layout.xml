@@ -18,7 +18,7 @@
       app:layout_constraintTop_toTopOf="parent"
       />
   <TextView
-      android:id="@+id/import_text"
+      android:id="@+id/remove_text"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="0dp"
       android:layout_height="wrap_content"

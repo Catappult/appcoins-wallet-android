@@ -88,6 +88,6 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   fun stop() {
-    disposables.dispose()
+    disposables.clear()
   }
 }

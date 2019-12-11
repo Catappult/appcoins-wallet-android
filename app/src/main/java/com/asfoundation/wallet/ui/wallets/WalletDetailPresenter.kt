@@ -16,6 +16,22 @@ class WalletDetailPresenter(
     handleCopyClick()
     handleShareClick()
     handleMakeWalletActiveClick()
+    handleBackupClick()
+    handleRemoveWalletClick()
+  }
+
+  private fun handleRemoveWalletClick() {
+    disposable.add(view.removeWalletClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.navigateToRemoveWalletView(walletAddress) }
+        .subscribe())
+  }
+
+  private fun handleBackupClick() {
+    disposable.add(view.backupWalletClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.navigateToBackupView(walletAddress) }
+        .subscribe())
   }
 
   private fun handleMakeWalletActiveClick() {

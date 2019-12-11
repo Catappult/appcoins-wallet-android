@@ -184,7 +184,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginTop="24dp"
-          android:layout_marginBottom="2dp"
+          android:layout_marginBottom="8dp"
           android:background="@drawable/background_card"
           android:elevation="2dp"
           android:overScrollMode="never"

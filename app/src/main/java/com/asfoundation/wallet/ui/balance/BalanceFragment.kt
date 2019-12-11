@@ -79,10 +79,6 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.stop()
-    presenter = BalanceFragmentPresenter(this, balanceInteract,
-        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable())
-
     walletsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
     setBackListener(view)

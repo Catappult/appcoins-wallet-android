@@ -98,11 +98,6 @@ public class WalletsViewModel extends BaseViewModel {
         .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
   }
 
-  public void deleteWallet(Wallet wallet) {
-    disposable = deleteWalletInteract.delete(wallet)
-        .subscribe(this::onFetchWallets, this::onDeleteWalletError);
-  }
-
   private void onFetchWallets(Wallet[] items) {
     progress.postValue(false);
     wallets.postValue(items);

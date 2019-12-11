@@ -28,4 +28,10 @@ interface BalanceActivityView {
   fun backPressed(): Observable<Any>
 
   fun navigateToTransactions()
+
+  fun navigateToRemoveWalletView(walletAddress: String, totalFiatBalance: String,
+                                 appcoinsBalance: String, creditsBalance: String,
+                                 ethereumBalance: String)
+
+  fun navigateToBackupView(walletAddress: String)
 }

@@ -330,7 +330,6 @@ public class WalletsActivity extends BaseActivity
     dialog = buildDialog().setTitle(getString(R.string.title_delete_account))
         .setMessage(getString(R.string.confirm_delete_account))
         .setIcon(R.drawable.ic_warning_black_24dp)
-        .setPositiveButton(android.R.string.yes, (dialog, btn) -> viewModel.deleteWallet(wallet))
         .setNegativeButton(android.R.string.no, null)
         .create();
     dialog.show();

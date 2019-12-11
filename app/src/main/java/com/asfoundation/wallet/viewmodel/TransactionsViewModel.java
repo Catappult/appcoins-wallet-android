@@ -311,7 +311,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
-    transactionViewNavigator.openTokensView(context, defaultWallet.getValue());
+    transactionViewNavigator.openTokensView(context);
   }
 
   public void pause() {
