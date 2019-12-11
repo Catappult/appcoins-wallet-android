@@ -390,7 +390,7 @@
   <string name="retry_button">Попробовать снова</string>
   <string name="do_it_later_button">Позже</string>
   <string name="connectoin_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
-  <string name="common_or">или</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
