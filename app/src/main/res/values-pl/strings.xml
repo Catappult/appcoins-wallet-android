@@ -390,7 +390,7 @@
   <string name="retry_button">Spróbuj ponownie</string>
   <string name="do_it_later_button">Potem</string>
   <string name="connectoin_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
-  <string name="common_or">lub</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
