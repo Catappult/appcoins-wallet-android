@@ -390,7 +390,7 @@
   <string name="retry_button">Επανάληψη</string>
   <string name="do_it_later_button">Αργότερα</string>
   <string name="connectoin_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
-  <string name="common_or">ή</string>
+  <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
