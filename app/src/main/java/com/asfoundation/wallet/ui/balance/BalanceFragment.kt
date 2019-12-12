@@ -41,6 +41,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   lateinit var balanceInteract: BalanceInteract
   private var onBackPressedSubject: PublishSubject<Any>? = null
   private var activityView: BalanceActivityView? = null
+  private var showingAnimation: Boolean = false
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
   private lateinit var presenter: BalanceFragmentPresenter
 
@@ -257,12 +258,22 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     }
   }
 
+  override fun showCreatingAnimation() {
+    showingAnimation = true
+    activityView?.showCreatingAnimation()
+  }
+
+  override fun showWalletCreatedAnimation() {
+    activityView?.showWalletCreatedAnimation()
+  }
+
+
   private fun setBackListener(view: View) {
     activityView?.disableBack()
     view.isFocusableInTouchMode = true
     view.requestFocus()
     view.setOnKeyListener { _, keyCode, keyEvent ->
-      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && !showingAnimation) {
         onBackPressedSubject?.onNext("")
       }
       true

@@ -54,6 +54,7 @@ class WalletsFragment : DaggerFragment(),
     activityView = context
   }
 
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
@@ -103,11 +104,13 @@ class WalletsFragment : DaggerFragment(),
   }
 
   override fun showCreatingAnimation() {
-    activityView.showCreatingAnimation()
+    val parentFragment = provideParentFragment()
+    parentFragment?.showCreatingAnimation()
   }
 
   override fun showWalletCreatedAnimation() {
-    activityView.showWalletCreatedAnimation()
+    val parentFragment = provideParentFragment()
+    parentFragment?.showWalletCreatedAnimation()
   }
 
   override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {
@@ -115,8 +118,8 @@ class WalletsFragment : DaggerFragment(),
   }
 
   override fun collapseBottomSheet() {
-    val parentFragment = this.parentFragment as BalanceFragmentView
-    parentFragment.collapseBottomSheet()
+    val parentFragment = provideParentFragment()
+    parentFragment?.collapseBottomSheet()
   }
 
   private fun removeCurrentWallet(walletsBalanceList: List<WalletBalance>): List<WalletBalance> {
@@ -133,6 +136,13 @@ class WalletsFragment : DaggerFragment(),
       if (walletBalance.isActiveWallet) return walletBalance
     }
     return WalletBalance()
+  }
+
+  private fun provideParentFragment(): BalanceFragmentView? {
+    if (parentFragment !is BalanceFragmentView) {
+      return null
+    }
+    return parentFragment as BalanceFragmentView
   }
 
   override fun onDestroyView() {

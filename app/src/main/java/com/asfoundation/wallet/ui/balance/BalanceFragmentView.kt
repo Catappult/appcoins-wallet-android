@@ -22,4 +22,6 @@ interface BalanceFragmentView {
   fun collapseBottomSheet()
   fun backPressed(): Observable<Any>
   fun handleBackPress()
+  fun showWalletCreatedAnimation()
+  fun showCreatingAnimation()
 }

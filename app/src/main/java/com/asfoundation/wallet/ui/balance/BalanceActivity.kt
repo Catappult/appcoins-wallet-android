@@ -47,7 +47,7 @@ class BalanceActivity : BaseActivity(),
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      if (wallet_creation_animation.visibility != View.VISIBLE) {
+      if (wallet_remove_animation == null || wallet_creation_animation.visibility != View.VISIBLE) {
         if (backEnabled) {
           super.onBackPressed()
         } else {
@@ -60,7 +60,7 @@ class BalanceActivity : BaseActivity(),
   }
 
   override fun onBackPressed() {
-    if (wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+    if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
   }
 
   override fun showBalanceScreen() {
