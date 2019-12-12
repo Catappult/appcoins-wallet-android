@@ -264,6 +264,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   }
 
   override fun showWalletCreatedAnimation() {
+    showingAnimation = false
     activityView?.showWalletCreatedAnimation()
   }
 

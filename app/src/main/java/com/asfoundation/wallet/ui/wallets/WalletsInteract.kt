@@ -41,9 +41,7 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
   fun createWallet(): Completable {
     return createWalletInteract.create()
         .flatMapCompletable {
-          Completable.fromAction {
-            createWalletInteract.setDefaultWallet(it.address)
-          }
+          createWalletInteract.setDefaultWallet(it.address)
         }
   }
 

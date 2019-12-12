@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
 import android.animation.Animator
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.transition.Fade
@@ -39,7 +39,6 @@ class BalanceActivity : BaseActivity(),
 
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_balance)
-    expandBottomSheet = intent.extras!!.getBoolean(EXPAND_BOTTOM_SHEET_KEY, false)
     onBackPressedSubject = PublishSubject.create()
     activityPresenter = BalanceActivityPresenter(this)
     activityPresenter.present(savedInstanceState)
@@ -100,9 +99,9 @@ class BalanceActivity : BaseActivity(),
   override fun navigateToRemoveWalletView(walletAddress: String, totalFiatBalance: String,
                                           appcoinsBalance: String, creditsBalance: String,
                                           ethereumBalance: String) {
-    startActivity(
+    startActivityForResult(
         RemoveWalletActivity.newIntent(this, walletAddress, totalFiatBalance, appcoinsBalance,
-            creditsBalance, ethereumBalance))
+            creditsBalance, ethereumBalance), REQUEST_CODE)
   }
 
   override fun navigateToBackupView(walletAddress: String) {
@@ -122,7 +121,7 @@ class BalanceActivity : BaseActivity(),
       }
 
       override fun onAnimationEnd(animation: Animator?) {
-        finish()
+        navigateToTransactions()
       }
 
       override fun onAnimationCancel(animation: Animator?) {
@@ -162,14 +161,15 @@ class BalanceActivity : BaseActivity(),
     finish()
   }
 
-  companion object {
-    private const val EXPAND_BOTTOM_SHEET_KEY = "expand_bottom_sheet"
-
-    @JvmStatic
-    fun newIntent(context: Context, expandBottomSheet: Boolean = false): Intent {
-      val intent = Intent(context, BalanceActivity::class.java)
-      intent.putExtra(EXPAND_BOTTOM_SHEET_KEY, expandBottomSheet)
-      return intent
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      expandBottomSheet = true
+      showBalanceScreen()
     }
+  }
+
+  companion object {
+    private const val REQUEST_CODE = 123
   }
 }

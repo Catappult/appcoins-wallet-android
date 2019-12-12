@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.wallets
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,6 +110,7 @@ class WalletsFragment : DaggerFragment(),
   }
 
   override fun showWalletCreatedAnimation() {
+    Log.d("TAG123", "HERE3")
     val parentFragment = provideParentFragment()
     parentFragment?.showWalletCreatedAnimation()
   }

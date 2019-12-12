@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -49,7 +50,8 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun navigateToWalletList() {
-    startActivity(BalanceActivity.newIntent(this, true))
+    setResult(Activity.RESULT_OK)
+    finish()
   }
 
   override fun showRemoveWalletAnimation() {
