@@ -6,6 +6,7 @@ import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import retrofit2.http.*
 import java.math.BigDecimal
 
@@ -13,6 +14,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                        private val bdsApiSecondary: BdsApiSecondary) {
   companion object {
     private const val ADYEN_GATEWAY = "adyen"
+    private const val SKUS_DETAILS_REQUEST_LIMIT = 50
   }
 
   internal fun isBillingSupported(packageName: String,
@@ -22,8 +24,23 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   }
 
   internal fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
-    return api.getPackages(packageName, skus.joinToString(separator = ","))
-        .map { responseMapper.map(it) }
+    return requestSkusDetails(packageName, skus).map { responseMapper.map(it) }
+  }
+
+  private fun requestSkusDetails(packageName: String,
+                                 skus: List<String>): Single<DetailsResponseBody> {
+    return if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
+      api.getPackages(packageName,
+          skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ","))
+    } else {
+      Single.zip(
+          api.getPackages(packageName,
+              skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")),
+          requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT)),
+          BiFunction { firstResponse: DetailsResponseBody, secondResponse: DetailsResponseBody ->
+            firstResponse.merge(secondResponse)
+          })
+    }
   }
 
   internal fun getSkuPurchase(packageName: String,
@@ -62,7 +79,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   fun registerAuthorizationProof(origin: String?, type: String, oemWallet: String, id: String?,
                                  gateway: String, walletAddress: String, walletSignature: String,
-                                 productName: String?, packageName: String, priceValue: BigDecimal,
+                                 productName: String?, packageName: String,
+                                 priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?, callback: String?,
                                  orderReference: String?,
