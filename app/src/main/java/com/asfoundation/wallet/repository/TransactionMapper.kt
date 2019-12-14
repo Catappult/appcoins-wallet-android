@@ -65,6 +65,7 @@ class TransactionMapper {
       TransactionEntity.TransactionType.TOP_UP -> Transaction.TransactionType.TOP_UP
       TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN -> Transaction.TransactionType.TRANSFER_OFF_CHAIN
       TransactionEntity.TransactionType.ETHER_TRANSFER -> Transaction.TransactionType.ETHER_TRANSFER
+      TransactionEntity.TransactionType.SUBS -> Transaction.TransactionType.SUBS
     }
   }
 
@@ -125,6 +126,7 @@ class TransactionMapper {
       Transaction.TransactionType.TOP_UP -> TransactionEntity.TransactionType.TOP_UP
       Transaction.TransactionType.TRANSFER_OFF_CHAIN -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
       Transaction.TransactionType.ETHER_TRANSFER -> TransactionEntity.TransactionType.ETHER_TRANSFER
+      Transaction.TransactionType.SUBS -> TransactionEntity.TransactionType.SUBS
     }
   }
 }

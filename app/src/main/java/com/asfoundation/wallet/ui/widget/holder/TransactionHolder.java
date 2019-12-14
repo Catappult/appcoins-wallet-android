@@ -159,6 +159,11 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain;
         currencySymbol = getString(R.string.p2p_send_currency_appc_c);
         break;
+      case SUBS:
+        transactionTypeIcon = R.drawable.ic_transaction_subscription;
+        setTypeIconVisibilityBasedOnDescription(details, uri);
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
       default:
         transactionTypeIcon = R.drawable.ic_transaction_peer;
         setTypeIconVisibilityBasedOnDescription(details, uri);

@@ -193,6 +193,11 @@
         android:screenOrientation="portrait"/>
 
     <activity
+        android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
+        android:label="Subscriptions"
+        android:screenOrientation="portrait"/>
+
+    <activity
         android:name="com.asfoundation.wallet.referrals.InviteFriendsActivity"
         android:label="@string/referral_view_title"
         android:screenOrientation="portrait"/>

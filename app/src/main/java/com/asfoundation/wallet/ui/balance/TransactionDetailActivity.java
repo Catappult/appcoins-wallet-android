@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.ColorRes;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.subscriptions.SubscriptionDetails;
+import com.asfoundation.wallet.subscriptions.SubscriptionStatus;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
@@ -39,19 +42,19 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
 public class TransactionDetailActivity extends BaseActivity {
 
+  private static final int DECIMALS = 18;
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   private TransactionDetailViewModel viewModel;
-
   private Transaction transaction;
   private boolean isSent = false;
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
   private RecyclerView detailsList;
-
   private Dialog dialog;
   private CompositeDisposable disposables;
-
-  private static final int DECIMALS = 18;
+  private View paymentMethodLabel;
+  private View paymentMethod;
+  private Button cancelSubscription;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -76,12 +79,18 @@ public class TransactionDetailActivity extends BaseActivity {
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
 
+    paymentMethodLabel = findViewById(R.id.payment_method_label);
+    paymentMethod = findViewById(R.id.payment_method);
+    cancelSubscription = findViewById(R.id.cancel_button);
+
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
     viewModel.defaultNetwork()
         .observe(this, this::onDefaultNetwork);
     viewModel.defaultWallet()
         .observe(this, this::onDefaultWallet);
+    viewModel.subscriptionDetails()
+        .observe(this, this::onSubscriptionDetails);
 
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
@@ -96,6 +105,26 @@ public class TransactionDetailActivity extends BaseActivity {
     super.onStop();
     disposables.dispose();
     hideDialog();
+  }
+
+  private void onSubscriptionDetails(SubscriptionDetails subscriptionDetails) {
+    paymentMethodLabel.setVisibility(View.VISIBLE);
+    paymentMethod.setVisibility(View.VISIBLE);
+
+    Picasso.with(this)
+        .load(subscriptionDetails.getPaymentMethodUrl())
+        .into((ImageView) findViewById(R.id.payment_method_icon));
+
+    ((TextView) findViewById(R.id.payment_method_value)).setText(
+        subscriptionDetails.getPaymentMethod());
+
+    boolean visible = subscriptionDetails.getStatus() == SubscriptionStatus.ACTIVE;
+
+    if (cancelSubscription != null) {
+      cancelSubscription.setVisibility(visible ? View.VISIBLE : View.GONE);
+      cancelSubscription.setOnClickListener(view -> viewModel.cancelSubscription(view.getContext(),
+          subscriptionDetails.getPackageName()));
+    }
   }
 
   private void onDefaultWallet(Wallet wallet) {
@@ -134,12 +163,14 @@ public class TransactionDetailActivity extends BaseActivity {
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
     View button = findViewById(R.id.more_detail);
+    View manageSubscriptions = findViewById(R.id.manage_subscriptions);
     View categorybackground = findViewById(R.id.category_icon_background);
 
     switch (transaction.getType()) {
       case ADS:
         typeStr = R.string.transaction_type_poa;
         typeIcon = R.drawable.ic_transaction_poa;
+        manageSubscriptions.setVisibility(View.GONE);
         break;
       case ADS_OFFCHAIN:
         typeStr = R.string.transaction_type_poa_offchain;
@@ -147,6 +178,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case IAP_OFFCHAIN:
@@ -156,6 +188,7 @@ public class TransactionDetailActivity extends BaseActivity {
         typeIcon = R.drawable.ic_transaction_iab;
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         break;
       case BONUS:
         button.setVisibility(View.VISIBLE);
@@ -170,6 +203,7 @@ public class TransactionDetailActivity extends BaseActivity {
         }
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case TOP_UP:
@@ -180,6 +214,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case TRANSFER_OFF_CHAIN:
@@ -191,7 +226,22 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
+      case SUBS:
+        typeStr = R.string.transaction_type_subscription;
+        typeIcon = R.drawable.ic_transaction_subscription;
+        categorybackground.setBackground(null);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.VISIBLE);
+        manageSubscriptions.setOnClickListener(
+            view -> viewModel.showManageSubscriptions(view.getContext()));
+        to = transaction.getTo();
+        symbol = getString(R.string.p2p_send_currency_appc_c);
+        viewModel.loadSubscriptionDetails(transaction.getTransactionId());
         break;
     }
 

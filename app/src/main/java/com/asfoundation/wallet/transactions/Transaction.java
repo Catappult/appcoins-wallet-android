@@ -213,7 +213,7 @@ public class Transaction implements Parcelable {
 
   public enum TransactionType {
     STANDARD, IAB, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN,
-    ETHER_TRANSFER;
+    ETHER_TRANSFER, SUBS;
 
     static TransactionType fromInt(int type) {
       switch (type) {
@@ -231,6 +231,8 @@ public class Transaction implements Parcelable {
           return TOP_UP;
         case 7:
           return TRANSFER_OFF_CHAIN;
+        case 9:
+          return SUBS;
         default:
           return STANDARD;
       }

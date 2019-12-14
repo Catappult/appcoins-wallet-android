@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <include
+      android:id="@+id/no_network_retry_only_layout"
+      layout="@layout/no_network_retry_only_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintDimensionRatio="H, 3:4"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHeight_max="0dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/subscription_details_skeleton"
+      app:lottie_scale="1"
+      />
+
+  <ScrollView
+      android:id="@+id/main_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      android:nestedScrollingEnabled="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <ImageView
+          android:id="@+id/app_icon"
+          android:layout_width="96dp"
+          android:layout_height="96dp"
+          android:layout_marginTop="32dp"
+          android:adjustViewBounds="true"
+          android:contentDescription="@string/empty"
+          android:lineSpacingExtra="0.25sp"
+          android:scaleType="centerInside"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:src="@drawable/ic_transaction_peer"
+          />
+
+      <TextView
+          android:id="@+id/app_name"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="@dimen/big_margin"
+          android:textColor="@color/black_87_alpha"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/app_icon"
+          tools:text="Cut the Rope 2"
+          />
+
+      <TextView
+          android:id="@+id/status"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/green"
+          app:layout_constraintEnd_toEndOf="@id/app_name"
+          app:layout_constraintStart_toStartOf="@id/app_name"
+          app:layout_constraintTop_toBottomOf="@id/app_name"
+          tools:text="active"
+          />
+
+      <View
+          android:id="@+id/top_separator"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="32dp"
+          android:layout_marginEnd="32dp"
+          android:background="#f3f3f3"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/status"
+          />
+
+
+      <LinearLayout
+          android:id="@+id/content"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginEnd="32dp"
+          android:orientation="vertical"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          >
+
+        <include
+            android:id="@+id/layout_active_subscription_content"
+            layout="@layout/layout_active_subscription_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <include
+            android:id="@+id/layout_expired_subscription_content"
+            layout="@layout/layout_expired_subscription_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+      </LinearLayout>
+
+      <View
+          android:id="@+id/bottom_separator"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="32dp"
+          android:layout_marginEnd="32dp"
+          android:background="#f3f3f3"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/content"
+          />
+
+      <ImageView
+          android:id="@id/info"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginBottom="33dp"
+          app:layout_constraintBottom_toTopOf="@id/cancel_subscription"
+          app:layout_constraintStart_toStartOf="parent"
+          app:srcCompat="@drawable/ic_info_grey"
+          />
+
+      <TextView
+          android:id="@+id/info_text"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:text="APPC value can be volatile, the value shown may not match  the next  payment"
+          android:textSize="10sp"
+          app:layout_constraintBottom_toBottomOf="@id/info"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/info"
+          app:layout_constraintTop_toTopOf="@id/info"
+          />
+
+      <Button
+          android:id="@+id/cancel_subscription"
+          style="@style/ButtonStyle.Light"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="8dp"
+          android:minWidth="64dp"
+          android:minHeight="36dp"
+          android:text="Cancel Subscription"
+          app:layout_constraintBottom_toTopOf="@id/back_button"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          />
+
+      <Button
+          android:id="@+id/back_button"
+          style="@style/ButtonStyle"
+          android:layout_width="match_parent"
+          android:layout_height="35dp"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="24dp"
+          android:maxWidth="126dp"
+          android:minWidth="80dp"
+          android:text="@string/back_button"
+          android:textColor="@color/white"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/layout_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.68"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
