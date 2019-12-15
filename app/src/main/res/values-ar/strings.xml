@@ -390,8 +390,8 @@
   <string name="retry_button">حاول ثانية</string>
   <string name="do_it_later_button">لاحقًا</string>
   <string name="connectoin_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
-  <string name="common_or">OR</string>
-  <string name="share_via">Share via:</string>
+  <string name="common_or">أو</string>
+  <string name="share_via">مشاركة بواسطة:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -485,15 +485,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ترقيات</string>
   <string name="bottom_navigation_promotions_detailed">اكتشف كيف يمكنك أن تحصل على رصيد AppCoins مجاني مع ترقياتنا وحملاتنا!</string>
-  <string name="promotions_title">Earn AppCoins Credits</string>
+  <string name="promotions_title">اربح رصيد AppCoins</string>
   <string name="promotions_referral_card_title">احصل على ما يصل إلى %s بدعوة الأصدقاء</string>
   <string name="promotions_referral_card_body">شارك رابط الدعوة الخاص بك واحصل على رصيد AppCoins.</string>
   <string name="promotions_gamification_card_title">مكافآت تصل إلى 30% على كل عملية شراء</string>
   <string name="promotions_new">جديد</string>
-  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
-  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
-  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
-  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
+  <string name="promotions_tab_promotions_title">إعلانات</string>
+  <string name="promotions_tab_poa_title">العب &amp; واربح</string>
+  <string name="promotions_empty_promotions_body">لا توجد إعلانات في هذه اللحظة. عُد لاحقًا!</string>
+  <string name="promotions_empty_poa_body">لا توجد تطبيقات بها جوائز في هذه اللحظة. عُد لاحقًا!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">تحديث لاستقبال الجوائز</string>
   <string name="update_wallet_poa_notification_body">يرجى تحديث محفظة AppCoins لاستقبال الجوائز.</string>
