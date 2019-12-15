@@ -7,8 +7,8 @@
   <string name="iab_wallet_not_installed_popup_close_button">ΚΛΕΙΣΙΜΟ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ΕΓΚΑΤΑΣΤΑΣΗ WALLET</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Για αυτήν την αγορά, χρειάζεστε το AppCoins Wallet. Κατεβάστε το μέσω Aptoide ή Play Store και επιστρέψτε για να την ολοκληρώσετε!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">ΤΟ ΚΑΤΑΛΑΒΑ!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">Χρειάζεστε το AppCoins Wallet!</string>
   <string name="poa_wallet_not_installed_notification_body">Για να λάβετε την αμοιβή σας χρειάζεστε το AppCoins Wallet.</string>
