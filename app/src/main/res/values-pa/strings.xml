@@ -517,6 +517,7 @@
   <string name="import_wallet_file_button">ਫਾਈਲ ਤੋਂ ਇੰਪੋਰਟ ਕਰੋ</string>
   <string name="import_wallet_button">ਬਟੂਆ ਇੰਪੋਰਟ ਕਰੋ</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <!--Wallets Management-->
   <string name="wallets_title">ਬਟੂਏ</string>
   <string name="wallets_total_balance_title">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
