@@ -44,10 +44,6 @@
         android:label=""
         android:screenOrientation="portrait"/>
     <activity
-        android:name="com.asfoundation.wallet.ui.ImportWalletActivity"
-        android:label="@string/title_import"
-        android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
-    <activity
         android:name="com.asfoundation.wallet.ui.TransactionsActivity"
         android:label="@string/app_name"
         android:theme="@style/MaterialAppTheme"/>
@@ -212,6 +208,11 @@
     <activity
         android:name="com.asfoundation.wallet.ui.balance.RemoveWalletActivity"
         android:label="@string/remove_wallet_title"
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.balance.ImportWalletActivity"
+        android:label="@string/import_wallet_title"
         android:screenOrientation="portrait"/>
 
     <activity

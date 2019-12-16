@@ -35,6 +35,8 @@ interface BalanceActivityView {
 
   fun navigateToBackupView(walletAddress: String)
 
+  fun navigateToImportView()
+
   fun showCreatingAnimation()
 
   fun showWalletCreatedAnimation()

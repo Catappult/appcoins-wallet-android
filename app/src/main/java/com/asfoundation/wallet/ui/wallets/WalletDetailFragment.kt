@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
@@ -23,8 +24,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
-import kotlinx.android.synthetic.main.qr_code_layout.*
-import kotlinx.android.synthetic.main.qr_code_layout.qr_image
 import kotlinx.android.synthetic.main.remove_backup_buttons_layout.*
 import kotlinx.android.synthetic.main.wallet_detail_balance_layout.*
 import kotlinx.android.synthetic.main.wallet_detail_layout.*
@@ -61,10 +60,11 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
     super.onViewCreated(view, savedInstanceState)
     activityView.setupToolbar()
     try {
-      val mergedQrCode = walletAddress.generateQrCode(resources, activity!!.windowManager)
+      val logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_appc_token, null)
+      val mergedQrCode = walletAddress.generateQrCode(activity!!.windowManager, logo!!)
       qr_image.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
-      Snackbar.make(main_layout, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
+      Snackbar.make(view, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
           .show()
     }
     wallet_address.text = walletAddress

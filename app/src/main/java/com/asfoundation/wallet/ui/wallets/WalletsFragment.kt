@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.wallets
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,8 +99,16 @@ class WalletsFragment : DaggerFragment(),
         .map { active_wallet_address.text.toString() }
   }
 
+  override fun importWalletClicked(): Observable<Any> {
+    return Observable.merge(RxView.clicks(import_button), RxView.clicks(import_text))
+  }
+
   override fun createNewWalletClicked(): Observable<Any> {
     return Observable.merge(RxView.clicks(create_new_button), RxView.clicks(create_new_wallet_text))
+  }
+
+  override fun navigateToImportView() {
+    activityView.navigateToImportView()
   }
 
   override fun showCreatingAnimation() {
@@ -110,7 +117,6 @@ class WalletsFragment : DaggerFragment(),
   }
 
   override fun showWalletCreatedAnimation() {
-    Log.d("TAG123", "HERE3")
     val parentFragment = provideParentFragment()
     parentFragment?.showWalletCreatedAnimation()
   }
@@ -150,11 +156,5 @@ class WalletsFragment : DaggerFragment(),
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-  }
-
-  companion object {
-    fun newInstance(): WalletsFragment {
-      return WalletsFragment()
-    }
   }
 }

@@ -15,4 +15,6 @@ interface WalletsView {
   fun createNewWalletClicked(): Observable<Any>
   fun showCreatingAnimation()
   fun showWalletCreatedAnimation()
+  fun importWalletClicked(): Observable<Any>
+  fun navigateToImportView()
 }

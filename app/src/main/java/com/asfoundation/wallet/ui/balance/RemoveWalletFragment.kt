@@ -12,6 +12,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.remove_wallet_first_layout.*
+import kotlinx.android.synthetic.main.wallet_outlined_card.*
 
 class RemoveWalletFragment : DaggerFragment(), RemoveWalletView {
 

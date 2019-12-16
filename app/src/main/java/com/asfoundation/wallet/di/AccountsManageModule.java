@@ -11,8 +11,6 @@ import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferencesRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
-import com.asfoundation.wallet.router.ImportWalletRouter;
-import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.wallets.WalletDetailInteractor;
 import com.asfoundation.wallet.ui.wallets.WalletsInteract;
@@ -26,12 +24,11 @@ import dagger.Provides;
       CreateWalletInteract createWalletInteract, SetDefaultWalletInteract setDefaultWalletInteract,
       DeleteWalletInteract deleteWalletInteract, FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, Logger logger,
+      ExportWalletInteract exportWalletInteract, Logger logger,
       PreferencesRepositoryType preferencesRepositoryType) {
     return new WalletsViewModelFactory(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter, logger, preferencesRepositoryType);
+        logger, preferencesRepositoryType);
   }
 
   @Provides SetDefaultWalletInteract provideSetDefaultAccountInteract(
@@ -53,14 +50,6 @@ import dagger.Provides;
   @Provides ExportWalletInteract provideExportWalletInteract(WalletRepositoryType walletRepository,
       PasswordStore passwordStore) {
     return new ExportWalletInteract(walletRepository, passwordStore);
-  }
-
-  @Provides ImportWalletRouter provideImportAccountRouter() {
-    return new ImportWalletRouter();
-  }
-
-  @Provides TransactionsRouter provideTransactionsRouter() {
-    return new TransactionsRouter();
   }
 
   @Provides WalletsInteract provideWalletsInteract(BalanceInteract balanceInteract,

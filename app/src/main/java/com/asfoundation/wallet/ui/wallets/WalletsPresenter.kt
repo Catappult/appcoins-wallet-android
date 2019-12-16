@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.wallets
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class WalletsPresenter(private val view: WalletsFragment,
+class WalletsPresenter(private val view: WalletsView,
                        private val walletsInteract: WalletsInteract,
                        private val disposable: CompositeDisposable,
                        private val viewScheduler: Scheduler,
@@ -13,6 +13,14 @@ class WalletsPresenter(private val view: WalletsFragment,
     handleActiveWalletCardClick()
     handleOtherWalletCardClick()
     handleCreateNewWalletClick()
+    handleImportWalletClick()
+  }
+
+  private fun handleImportWalletClick() {
+    disposable.add(view.importWalletClicked()
+        .observeOn(viewScheduler)
+        .doOnNext { view.navigateToImportView() }
+        .subscribe())
   }
 
   private fun handleCreateNewWalletClick() {

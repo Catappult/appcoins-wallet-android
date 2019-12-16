@@ -108,6 +108,11 @@ class BalanceActivity : BaseActivity(),
 
   }
 
+  override fun navigateToImportView() {
+    val intent = Intent(this, ImportWalletActivity::class.java)
+    startActivity(intent)
+  }
+
   override fun showCreatingAnimation() {
     wallet_creation_animation.visibility = View.VISIBLE
     create_wallet_animation.playAnimation()

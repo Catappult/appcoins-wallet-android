@@ -22,14 +22,14 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      if (wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+      if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
       return true
     }
     return super.onOptionsItemSelected(item)
   }
 
   override fun onBackPressed() {
-    if (wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+    if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
   }
 
   private fun navigateToInitialRemoveWalletView() {
@@ -43,8 +43,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             WalletRemoveConfirmationFragment.newInstance(walletAddress, fiatBalance,
-                appcoinsBalance,
-                creditsBalance, ethereumBalance))
+                appcoinsBalance, creditsBalance, ethereumBalance))
         .addToBackStack(WalletRemoveConfirmationFragment::class.java.simpleName)
         .commit()
   }
@@ -58,7 +57,6 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     wallet_remove_animation.visibility = View.VISIBLE
     remove_wallet_animation.repeatCount = 0
     remove_wallet_animation.playAnimation()
-
   }
 
   private val walletAddress: String by lazy {

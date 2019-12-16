@@ -19,7 +19,6 @@ import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
 import com.asfoundation.wallet.ui.GasSettingsActivity;
-import com.asfoundation.wallet.ui.ImportWalletActivity;
 import com.asfoundation.wallet.ui.MyAddressActivity;
 import com.asfoundation.wallet.ui.OneStepPaymentReceiver;
 import com.asfoundation.wallet.ui.SendActivity;
@@ -30,6 +29,7 @@ import com.asfoundation.wallet.ui.UpdateRequiredActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
+import com.asfoundation.wallet.ui.balance.ImportWalletFragment;
 import com.asfoundation.wallet.ui.balance.QrCodeActivity;
 import com.asfoundation.wallet.ui.balance.RemoveWalletFragment;
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity;
@@ -67,15 +67,12 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module abstract class BuildersModule {
-  @ActivityScope @ContributesAndroidInjector(modules = SplashModule.class)
-  abstract SplashActivity bindSplashModule();
+  @ActivityScope @ContributesAndroidInjector abstract SplashActivity bindSplashModule();
 
   @ActivityScope @ContributesAndroidInjector() abstract BaseActivity bindBaseActivityModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract WalletsActivity bindManageWalletsModule();
-
-  @ActivityScope @ContributesAndroidInjector abstract ImportWalletActivity bindImportWalletModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = TransactionsModule.class)
   abstract TransactionsActivity bindTransactionsModule();
@@ -220,4 +217,7 @@ import dagger.android.ContributesAndroidInjector;
 
   @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract WalletRemoveConfirmationFragment bindWalletRemoveConfirmationFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract ImportWalletFragment bindImportWalletFragment();
 }

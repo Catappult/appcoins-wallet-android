@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.viewmodel;
 
-import android.app.Activity;
-import android.content.Context;
 import android.text.TextUtils;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,11 +14,7 @@ import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
-import com.asfoundation.wallet.router.ImportWalletRouter;
-import com.asfoundation.wallet.router.TransactionsRouter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-
-import static com.asfoundation.wallet.C.IMPORT_REQUEST_CODE;
 
 public class WalletsViewModel extends BaseViewModel {
 
@@ -31,8 +25,6 @@ public class WalletsViewModel extends BaseViewModel {
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final ExportWalletInteract exportWalletInteract;
   private final Logger logger;
-  private final ImportWalletRouter importWalletRouter;
-  private final TransactionsRouter transactionsRouter;
   private final PreferencesRepositoryType preferencesRepositoryType;
 
   private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
@@ -47,17 +39,14 @@ public class WalletsViewModel extends BaseViewModel {
       SetDefaultWalletInteract setDefaultWalletInteract, DeleteWalletInteract deleteWalletInteract,
       FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, Logger logger,
+      ExportWalletInteract exportWalletInteract, Logger logger,
       PreferencesRepositoryType preferencesRepositoryType) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
     this.deleteWalletInteract = deleteWalletInteract;
     this.fetchWalletsInteract = fetchWalletsInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
-    this.importWalletRouter = importWalletRouter;
     this.exportWalletInteract = exportWalletInteract;
-    this.transactionsRouter = transactionsRouter;
     this.logger = logger;
     this.preferencesRepositoryType = preferencesRepositoryType;
 
@@ -148,14 +137,6 @@ public class WalletsViewModel extends BaseViewModel {
     logger.log(throwable);
     progress.postValue(false);
     createWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getMessage()));
-  }
-
-  public void importWallet(Activity activity) {
-    importWalletRouter.openForResult(activity, IMPORT_REQUEST_CODE);
-  }
-
-  public void showTransactions(Context context) {
-    transactionsRouter.open(context, true);
   }
 
   public void clearExportedStore() {

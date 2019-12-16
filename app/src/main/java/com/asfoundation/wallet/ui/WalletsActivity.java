@@ -129,9 +129,6 @@ public class WalletsActivity extends BaseActivity
         Snackbar.make(systemView, getString(R.string.toast_message_wallet_imported),
             Snackbar.LENGTH_SHORT)
             .show();
-        if (adapter.getItemCount() <= 1) {
-          viewModel.showTransactions(this);
-        }
       }
     } else if (requestCode == SHARE_REQUEST_CODE) {
       if (resultCode == RESULT_OK) {
@@ -224,7 +221,6 @@ public class WalletsActivity extends BaseActivity
 
   @Override public void onImportWallet(View view) {
     hideDialog();
-    viewModel.importWallet(this);
   }
 
   private void onAddWallet() {
@@ -241,9 +237,7 @@ public class WalletsActivity extends BaseActivity
   }
 
   private void onChangeDefaultWallet(Wallet wallet) {
-    if (isSetDefault) {
-      viewModel.showTransactions(this);
-    } else {
+    if (!isSetDefault) {
       adapter.setDefaultWallet(wallet);
     }
   }

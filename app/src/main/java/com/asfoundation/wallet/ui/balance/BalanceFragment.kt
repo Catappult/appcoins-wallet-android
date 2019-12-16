@@ -72,8 +72,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     childFragmentManager.beginTransaction()
-        .replace(R.id.bottom_sheet_fragment_container,
-            WalletsFragment.newInstance())
+        .replace(R.id.bottom_sheet_fragment_container, WalletsFragment())
         .commit()
     return inflater.inflate(R.layout.fragment_balance, container, false)
   }

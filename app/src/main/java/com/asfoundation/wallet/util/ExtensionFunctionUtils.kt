@@ -1,9 +1,12 @@
 package com.asfoundation.wallet.util
 
-import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Point
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.view.WindowManager
-import com.asf.wallet.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -47,7 +50,7 @@ fun Bitmap.mergeWith(centeredImage: Bitmap): Bitmap {
   return combined
 }
 
-fun String.generateQrCode(resources: Resources, windowManager: WindowManager): Bitmap {
+fun String.generateQrCode(windowManager: WindowManager, logo: Drawable): Bitmap {
   val size = Point()
   windowManager.defaultDisplay
       .getSize(size)
@@ -56,7 +59,18 @@ fun String.generateQrCode(resources: Resources, windowManager: WindowManager): B
       MultiFormatWriter().encode(this, BarcodeFormat.QR_CODE, imageSize, imageSize,
           null)
   val barcodeEncoder = BarcodeEncoder()
-  val bitmapLogo = BitmapFactory.decodeResource(resources, R.drawable.ic_appc_token)
   val qrCode = barcodeEncoder.createBitmap(bitMatrix)
-  return qrCode.mergeWith(bitmapLogo)
+  return qrCode.mergeWith(logo.toBitmap())
+}
+
+fun Drawable.toBitmap(): Bitmap {
+  if (this is BitmapDrawable) {
+    return this.bitmap
+  }
+  val bitmap =
+      Bitmap.createBitmap(this.intrinsicWidth, this.intrinsicHeight, Bitmap.Config.ARGB_8888)
+  val canvas = Canvas(bitmap)
+  this.setBounds(0, 0, canvas.width, canvas.height)
+  this.draw(canvas)
+  return bitmap
 }

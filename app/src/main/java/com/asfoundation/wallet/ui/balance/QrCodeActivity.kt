@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.app.ShareCompat
+import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.BaseActivity
@@ -67,7 +68,8 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
 
   override fun createQrCode(walletAddress: String) {
     try {
-      val mergedQrCode = walletAddress.generateQrCode(resources, windowManager)
+      val logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_appc_token, null)
+      val mergedQrCode = walletAddress.generateQrCode(windowManager, logo!!)
       qr_image.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
       Snackbar.make(main_layout, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
