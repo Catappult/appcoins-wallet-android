@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Klucz prywatny</string>
+  <string name="error_invalid_private_key">Niewłaściwy klucz</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Błąd</string>
   <string name="title_dialog_handling">Przetwarzanie…</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">Zapłać za wszystkie transakcje w aplikacjach używając Twojej ulubionej metody płatności.</string>
   <string name="intro_4_title">Bezpieczeństwo i prywatność</string>
   <string name="intro_4_body">Twoje prywatne klucze nigdy nie opuszczą Twojego urządzenia, więc Twoje AppCoins są zawsze bezpieczne.</string>
+  <string name="intro_5_title">Otrzymaj darmowe Kredyty AppCoins!</string>
+  <string name="intro_5_body">Zarobisz darmowe Kredyty AppCoins przez testowanie aplikacji i gier.</string>
   <string name="intro_creating_wallet_short">Zakładamy dla Ciebie Twój portfel&#8230;</string>
   <string name="intro_wallet_created_short">Stworzono portfel!</string>
   <string name="intro_agree_terms_and_conditions_body">Naciskając na Pomiń, zgadzasz się na %1$s i %2$s portfela AppCoins</string>
@@ -202,8 +205,8 @@
   <string name="activity_iab_buying_message">Szczegóły sprawdzone \nOdbieranie przedmiotu…</string>
   <string name="activity_iab_change_card">ZMIANA KARTY</string>
   <string name="notification_ongoing_poa">Przetwarzanie twojej nagrody</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Otrzymano nagrodę! Musisz zaczekać %1$s godz. %2$s min. aby zdobyć więcej nagród przez wypróbowywanie aplikacji!</string>
+  <string name="notification_poa_limit_reached">Wykorzystałeś Twój dzienny limit nagród. Wróć za %1$s godz. %2$s min. i spróbuj ponownie!</string>
   <string name="notification_submitting_poa">Wysyłanie Twojego żądania do blockchainu</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Brak połączenia z siecią</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">W trakcie</string>
   <string name="transaction_status_failed">Nie udało się</string>
   <string name="transaction_type_iab">Płatności w aplikacji</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Nagroda</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Zasilane przez Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -388,6 +390,7 @@
   <string name="retry_button">Spróbuj ponownie</string>
   <string name="do_it_later_button">Potem</string>
   <string name="connectoin_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
+  <string name="common_or">lub</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">Zweryfikuj portfel</string>
   <string name="verification_settings_unverified_body">Otrzymuj nagrody i zaproś znajomych</string>
   <string name="verification_settings_verified_title">Portfel zweryfikowany</string>
+  <string name="verification_settings_no_internet">Musisz mieć połączenie z internetem</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Wygląda na to, że ten zakup jest już przetwarzany. Poczekaj aż transakcja zostanie zakończone lub skontaktuj się z Zespołem Wsparcia.</string>
   <string name="purchase_more_payment_methods_button">INNE METODY PŁATNOŚCI</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">Bez opłat i w mgnieniu oka!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Nie masz wystarczająco Kredytów APPC, doładuj konto!</string>
   <string name="purchase_appcoins_credits_default_body">Zarobiłeś wystarczająco dużo Kredytów AppCoins dla tego zakupu!</string>
+  <string name="purchase_poa_item">Zarabiaj środki próbując aplikacji</string>
+  <string name="purchase_poa_body">Wypróbuj aplikację przez 2 minuty i zarabiaj Kredyty AppCoins!</string>
+  <string name="purchase_poa_view_title">Brak środków? Bez problemu!</string>
+  <string name="purchase_poa_view_body">Wypróbuj aplikację przez 2 minuty i otrzymaj nagrodę w Kredytach AppCoins aby dokonać Twojego zakupu!</string>
+  <string name="purchase_current_balance_body">Aktualne saldo:</string>
+  <string name="purchase_current_balance_appcc_body">%s Kredytów APPC.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s w AppCoins i Ether.</string>
+  <string name="purchase_wallet_blocked_title">Twoje saldo Kredytów AppCoins jest zablokowane</string>
+  <string name="purchase_wallet_blocked_body">Z powodu podejrzanej historii transakcji, Twoje saldo Kredytów AppCoins zostało zablokowane. Nadal możesz dokonywać płatności i transakcji innymi metodami oprócz Kredytów AppCoins.\n\nJeśli uważasz że to pomyłka, skontaktuj się z nami:</string>
+  <string name="purchase_card_error_general">Wydaje się że jest problem z Twoją kartą. Spróbuj z inną.</string>
+  <string name="purchase_card_error_invalid_details">Czy jesteś pewny że dane Twojej karty są prawidłowe? Spróbuj ponownie!</string>
+  <string name="purchase_card_error_bank_rejects">Transakcja została odrzucona przez Twój bank. Spróbuj z inną kartą.</string>
+  <string name="purchase_card_error_limits">Wydaje się że są jakieś ograniczenia na Twojej karcie. Skontaktuj się z bankiem lub spróbuj z inną kartą.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Zaproś Swoich Przyjaciół!</string>
   <string name="referral_onboarding_body">Ty i Twoi znajomy mogą zarobić aż %s w naszym Programie Polecającym!</string>
@@ -471,4 +488,73 @@
   <string name="promotions_referral_card_body">Udostępnij swój link i zarabiaj Kredyty AppCoins. </string>
   <string name="promotions_gamification_card_title">Aż do 30% ekstra przy każdym zakupie</string>
   <string name="promotions_new">NOWE</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">Zaktualizuj aby otrzymywać nagrody</string>
+  <string name="update_wallet_poa_notification_body">Zaktualizuj portfel AppCoins aby otrzymać tą nagrodę.</string>
+  <string name="update_wallet_purchase_title">Musisz zaktualizować!</string>
+  <string name="update_wallet_purchase_body">Zaktualizuj portfel AppCoins aby dokończyć tego zakupu.</string>
+  <string name="update_wallet_hard_body">Korzystasz ze starej wersji portfela AppCoins. Zaktualizuj ją do najnowszej wersji aby zapewnić bezpieczeństwo i łatwość użytkowania.</string>
+  <string name="update_wallet_soft_title">Nie zostań w tyle!</string>
+  <string name="update_wallet_soft_body">Posiadanie aktualnej wersji portfela AppCoins gwarantuje najlepsze doznania.</string>
+  <string name="update_button">AKTUALIZUJ</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">Utwórz kopię zapasową portfela</string>
+  <string name="backup_home_notification_body">Zgubiłeś/aś kiedyś telefon? Zrób kopię zapasową portfela teraz!</string>
+  <string name="backup_button">KOPIUJ</string>
+  <string name="backup_title">Kopia zapasowa portfela</string>
+  <string name="backup_password_title">Zakoduj portfel (opcjonalnie)</string>
+  <string name="backup_password">Hasło</string>
+  <string name="backup_body">Nie przechowujemy Twoich prywatnych kluczy lub innych metod dostępu. Ważne jest aby kopia zapasowa Twojego portfela była bezpieczna.</string>
+  <string name="backup_send_via_title">Wyślij kopię zapasową poprzez:</string>
+  <string name="import_wallet_title">Importuj portfel</string>
+  <string name="import_wallet_body">Wklej kopię zapasową portfela poniżej.</string>
+  <string name="import_wallet_keystore_private_keys">Prywatne klucze lub keystore</string>
+  <string name="import_wallet_file_button">IMPORTUJ Z PLIKU</string>
+  <string name="import_wallet_button">IMPORTUJ PORTFEL</string>
+  <string name="import_wallet_password_body">Ten portfel jest chroniony hasłem!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">Portfele</string>
+  <string name="wallets_total_balance_title">Saldo w %s</string>
+  <string name="wallets_active_wallet_title">Aktywny portfel</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="one">Portfel</item>
+    <item quantity="few">Portfele</item>
+    <item quantity="many">Portfele</item>
+    <item quantity="other">Portfele</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">Łączna wartość</string>
+  <string name="wallets_address_copied_body">Adres portfela skopiowany do schowka</string>
+  <string name="wallets_imported_body">Portfel zaimportowany pomyślnie</string>
+  <string name="wallets_2nd_view_balance_title">Stan konta:</string>
+  <string name="wallets_2nd_view_other_wallets_title">Inne portfele</string>
+  <string name="wallets_2nd_view_import_button">IMPORTUJ PORTFEL</string>
+  <string name="wallets_2nd_view_create_button">UTWÓRZ NOWY</string>
+  <string name="wallet_view_copy_button">KOPIUJ</string>
+  <string name="wallet_view_share_button">UDOSTĘPNIJ</string>
+  <string name="wallet_view_total_balance_title">Łączne saldo</string>
+  <string name="wallet_view_remove_button">USUŃ PORTFEL</string>
+  <string name="wallet_view_backup_button">UTWÓRZ KOPIĘ ZAPASOWĄ PORTFELA</string>
+  <string name="wallet_view_activate_button">AKTYWUJ TEN PORTFEL</string>
+  <string name="wallet_view_active_body">To Twój aktywny portfel.</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">Usuń portfel</string>
+  <string name="remove_wallet_body">Mocno rekomendujemy stworzenie kopii zapasowej portfela przed usunięciem. Nie uzyskasz już do niego dostępu bez kopii zapasowej.</string>
+  <string name="remove_wallet_backup_button">UTWÓRZ KOPIĘ ZAPASOWĄ PORTFELA</string>
+  <string name="remove_wallet_no_backup_button">KONTYNUUJ BEZ KOPII</string>
+  <string name="remove_wallet_confirm_body">Czy na pewno chcesz usunąć ten portfel?</string>
+  <string name="remove_wallet_no_button">NIE, WRÓĆ</string>
+  <string name="remove_wallet_yes_button">TAK, USUŃ PORTFEL</string>
+  <string name="remove_wallet_removed_body">Usunięto portfel!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">Przelewy</string>
+  <string name="transfer_title">Przelej środki</string>
+  <string name="transfer_send_tab_title">Wyślij</string>
+  <string name="transfer_receive_tab_title">Odbierz</string>
+  <string name="transfer_send_body">Zeskanuj lub wprowadź adres portfela znajomego.</string>
+  <string name="transfer_send_recipient_title">Adres portfela</string>
+  <string name="transfer_send_token_title">Token:</string>
+  <string name="transfer_send_amount_title">Kwota</string>
+  <string name="transfer_send_current_balance_title">Aktualne saldo:</string>
+  <string name="transfer_send_button">WYŚLIJ</string>
+  <string name="transfer_receive_body">Udostępnij adres portfela aby otrzymywać środki.</string>
 </resources>

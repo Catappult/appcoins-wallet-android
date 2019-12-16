@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Kunci kedai</string>
   <string name="tab_private_key">Kunci peribadi</string>
+  <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Ralat</string>
   <string name="title_dialog_handling">Memproses…</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">Proses semua pembelian dalam aplikasi anda dengan menggunakan kaedah pembayaran kegemaran anda.</string>
   <string name="intro_4_title">Selamat dan Terjamin</string>
   <string name="intro_4_body">Kunci peribadi anda tidak sesekali akan meninggalkan peranti anda, jadi AppCoins anda adalah selamat pada setiap masa.</string>
+  <string name="intro_5_title">Dapatkan Kredit AppCoins Percuma!</string>
+  <string name="intro_5_body">Anda akan dapat Kredit AppCoins dengan mencuba aplikasi dan permainan.</string>
   <string name="intro_creating_wallet_short">Menyediakan dompet anda&#8230;</string>
   <string name="intro_wallet_created_short">Dompet dicipta!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetik Langkau, anda bersetuju dengan %1$s dan %2$s Dompet AppCoins</string>
@@ -202,8 +205,8 @@
   <string name="activity_iab_buying_message">Butiran telah disemak \nMenerima item anda…</string>
   <string name="activity_iab_change_card">TUKAR KAD</string>
   <string name="notification_ongoing_poa">Memproses ganjaran anda</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Ganjaran diterima!👌 Anda perlu tunggu selama %1$sj%2$sm lagi untuk peroleh lebih banyak ganjaran dengan mencuba aplikasi ⏰!</string>
+  <string name="notification_poa_limit_reached">Anda sudah capai had ganjaran harian anda. ⏰ Kembali dalam masa %1$sj%2$sm dan cuba lagi!</string>
   <string name="notification_submitting_poa">Menghantar permintaan anda ke blok rantai</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Tiada sambungan rangkaian</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">Belum selesai</string>
   <string name="transaction_status_failed">Gagal</string>
   <string name="transaction_type_iab">Belian Dalam Aplikasi</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Ganjaran</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Pemindahan</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">Pindahan P2P</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Dikuasakan Oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -388,6 +390,7 @@
   <string name="retry_button">Cuba lagi</string>
   <string name="do_it_later_button">Buat nanti</string>
   <string name="connectoin_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
+  <string name="common_or">atau</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">Sahkan Dompet</string>
   <string name="verification_settings_unverified_body">Dapatkan ganjaran dan jemput rakan</string>
   <string name="verification_settings_verified_title">Dompet Disahkan</string>
+  <string name="verification_settings_no_internet">Anda perlu sambungan Internet</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Nampaknya pembelian ini sedang diproses. Sila tunggu sehingga transaksi selesai atau hubungi Pasukan Sokongan kami.</string>
   <string name="purchase_more_payment_methods_button">KAEDAH BAYARAN LAIN</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">Tiada yuran dan pantas!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC anda tidak cukup. Cuba tambah nilai!</string>
   <string name="purchase_appcoins_credits_default_body">Anda telah memperoleh Kredit AppCoins yang cukup untuk pembelian ini. Berseronoklah!</string>
+  <string name="purchase_poa_item">Peroleh dana dengan mencuba aplikasi</string>
+  <string name="purchase_poa_body">Cuba aplikasi selama 2 minit dan peroleh Kredit AppCoins!</string>
+  <string name="purchase_poa_view_title">Tak Ada Dana? Jangan Risau!</string>
+  <string name="purchase_poa_view_body">Cuba aplikasi selama 2 minit dan dapatkan ganjaran Kredit AppCoins untuk buat pembelian!</string>
+  <string name="purchase_current_balance_body">Baki semasa:</string>
+  <string name="purchase_current_balance_appcc_body">%s dalam Kredit AppCoins.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s dalam AppCoins dan Ether.</string>
+  <string name="purchase_wallet_blocked_title">Baki Kredit AppCoins anda disekat</string>
+  <string name="purchase_wallet_blocked_body">Disebabkan sejarah transaksi yang luar biasa, baki Kredit AppCoins anda telah disekat. Anda masih boleh membuat bayaran dan transaksi menggunakan kaedah lain kecuali Kredit AppCoins.\n\nJika anda percaya bahawa ini ialah kesilapan, hubungi kami di:</string>
+  <string name="purchase_card_error_general">Nampaknya ada masalah dengan kad anda. Sila cuba yang lain.</string>
+  <string name="purchase_card_error_invalid_details">Anda pasti butiran kad anda betul? Sila cuba lagi!</string>
+  <string name="purchase_card_error_bank_rejects">Transaksi telah ditolak oleh bank anda. Sila cuba kad yang lain.</string>
+  <string name="purchase_card_error_limits">Nampaknya, ada sekatan terhadap kad anda. Sila hubungi bank anda atau cuba kad yang lain.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Jemput Rakan Anda!</string>
   <string name="referral_onboarding_body">Anda dan rakan anda boleh dapat sehingga %s dengan Program Rujukan kami!</string>
@@ -471,4 +488,70 @@
   <string name="promotions_referral_card_body">Kongsi pautan jemputan anda dan peroleh Kredit AppCoins.</string>
   <string name="promotions_gamification_card_title">Sehingga 30% bonus bagi setiap pembelian</string>
   <string name="promotions_new">BAHARU</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">Kemas kini untuk terima ganjaran</string>
+  <string name="update_wallet_poa_notification_body">Sila kemas kini Dompet AppCoins untuk terima ganjaran ini.</string>
+  <string name="update_wallet_purchase_title">Anda perlu kemas kini!</string>
+  <string name="update_wallet_purchase_body">Kemas kini Dompet AppCoins untuk lengkapkan pembelian ini.</string>
+  <string name="update_wallet_hard_body">Nampaknya, anda menggunakan versi Dompet AppCoins yang lama. Sila kemas kini untuk menikmati pengalaman dan keselamatan terbaik.</string>
+  <string name="update_wallet_soft_title">Jangan ketinggalan!</string>
+  <string name="update_wallet_soft_body">Memastikan Dompet AppCoins sentiasa dikemas kini menjamin pengalaman terbaik.</string>
+  <string name="update_button">KEMAS KINI</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">Sandar Dompet Anda</string>
+  <string name="backup_home_notification_body">Anda pernah hilang telefon? Buat sandaran dompet anda sekarang!</string>
+  <string name="backup_button">SANDARAN</string>
+  <string name="backup_title">Dompet Sandaran</string>
+  <string name="backup_password_title">Sulitkan dompet anda (pilihan)</string>
+  <string name="backup_password">Kata laluan</string>
+  <string name="backup_body">Kami tidak menyimpan kunci peribadi anda atau kaedah akses yang lain. Penting bagi anda untuk memastikan sandaran dompet (kunci gedung) anda selamat.</string>
+  <string name="backup_send_via_title">Hantar sandaran melalui:</string>
+  <string name="import_wallet_title">Import Dompet</string>
+  <string name="import_wallet_body">Tampal sandaran dompet anda di bawah.</string>
+  <string name="import_wallet_keystore_private_keys">Kunci gedung atau kunci peribadi</string>
+  <string name="import_wallet_file_button">IMPORT DARI FAIL</string>
+  <string name="import_wallet_button">IMPORT DOMPET</string>
+  <string name="import_wallet_password_body">Dompet ini dilindungi kata laluan!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">Dompet</string>
+  <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>
+  <string name="wallets_active_wallet_title">Dompet Aktif</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="other">Dompet</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">Jumlah nilai</string>
+  <string name="wallets_address_copied_body">Alamat dompet telah disalin ke papan klip</string>
+  <string name="wallets_imported_body">Dompet berjaya diimport</string>
+  <string name="wallets_2nd_view_balance_title">Baki:</string>
+  <string name="wallets_2nd_view_other_wallets_title">Dompet Lain</string>
+  <string name="wallets_2nd_view_import_button">IMPORT DOMPET</string>
+  <string name="wallets_2nd_view_create_button">CIPTA BAHARU</string>
+  <string name="wallet_view_copy_button">SALIN</string>
+  <string name="wallet_view_share_button">KONGSI</string>
+  <string name="wallet_view_total_balance_title">Jumlah Baki</string>
+  <string name="wallet_view_remove_button">ALIH KELUAR DOMPET</string>
+  <string name="wallet_view_backup_button">SANDAR DOMPET</string>
+  <string name="wallet_view_activate_button">AKTIFKAN DOMPET INI</string>
+  <string name="wallet_view_active_body">Ini dompet aktif anda.</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">Alih Keluar Dompet</string>
+  <string name="remove_wallet_body">Kami amat mengesyorkan supaya anda buat sandaran dompet sebelum mengalih ia keluar. Anda tidak boleh mengaksesnya semula melainkan anda mempunyai sandaran.</string>
+  <string name="remove_wallet_backup_button">SANDAR DOMPET</string>
+  <string name="remove_wallet_no_backup_button">TERUSKAN TANPA SANDARAN</string>
+  <string name="remove_wallet_confirm_body">Anda pasti anda mahu alih keluar dompet ini?</string>
+  <string name="remove_wallet_no_button">TIDAK, KEMBALI</string>
+  <string name="remove_wallet_yes_button">YA, ALIH KELUAR DOMPET</string>
+  <string name="remove_wallet_removed_body">Dompet sudah dialih keluar!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">Pindahan</string>
+  <string name="transfer_title">Pindah Dana</string>
+  <string name="transfer_send_tab_title">Hantar</string>
+  <string name="transfer_receive_tab_title">Terima</string>
+  <string name="transfer_send_body">Imbas atau masukkan alamat dompet rakan anda.</string>
+  <string name="transfer_send_recipient_title">Alamat Dompet</string>
+  <string name="transfer_send_token_title">Token:</string>
+  <string name="transfer_send_amount_title">Amaun</string>
+  <string name="transfer_send_current_balance_title">Baki Semasa:</string>
+  <string name="transfer_send_button">HANTAR</string>
+  <string name="transfer_receive_body">Kongsi alamat dompet anda untuk terima dana.</string>
 </resources>
