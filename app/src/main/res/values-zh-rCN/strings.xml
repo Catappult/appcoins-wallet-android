@@ -517,6 +517,7 @@
   <string name="import_wallet_file_button">从文件导入</string>
   <string name="import_wallet_button">导入钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
