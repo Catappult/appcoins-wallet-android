@@ -86,7 +86,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
     activityView.showWalletImportedAnimation()
   }
 
-  override fun showGenericError(type: ImportErrorType) {
+  override fun showError(type: ImportErrorType) {
     label_input.isErrorEnabled = true
     when (type) {
       ImportErrorType.ALREADY_ADDED -> label_input.error = getString(R.string.error_already_added)

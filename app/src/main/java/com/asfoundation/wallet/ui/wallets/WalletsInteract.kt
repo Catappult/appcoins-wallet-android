@@ -23,7 +23,7 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
         .flatMapCompletable { list ->
           Observable.fromIterable(list)
               .flatMapCompletable { wallet ->
-                balanceInteract.getTotalBalance(wallet)
+                balanceInteract.getTotalBalance(wallet.address)
                     .take(1)
                     .flatMapCompletable { fiatValue ->
                       Completable.fromAction {

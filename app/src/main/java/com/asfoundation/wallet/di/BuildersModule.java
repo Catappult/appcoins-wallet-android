@@ -30,6 +30,7 @@ import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
 import com.asfoundation.wallet.ui.balance.ImportWalletFragment;
+import com.asfoundation.wallet.ui.balance.ImportWalletPasswordFragment;
 import com.asfoundation.wallet.ui.balance.QrCodeActivity;
 import com.asfoundation.wallet.ui.balance.RemoveWalletFragment;
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity;
@@ -220,4 +221,7 @@ import dagger.android.ContributesAndroidInjector;
 
   @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract ImportWalletFragment bindImportWalletFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract ImportWalletPasswordFragment bindImportWalletPasswordFragment();
 }

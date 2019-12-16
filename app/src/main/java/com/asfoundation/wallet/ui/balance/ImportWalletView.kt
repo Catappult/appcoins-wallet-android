@@ -13,7 +13,7 @@ interface ImportWalletView {
 
   fun showWalletImportAnimation()
   fun showWalletImportedAnimation()
-  fun showGenericError(type: ImportErrorType)
+  fun showError(type: ImportErrorType)
   fun fileChosen()
   fun hideAnimation()
 }

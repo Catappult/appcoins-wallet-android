@@ -58,7 +58,7 @@ class ImportWalletPresenter(private val view: ImportWalletView,
     if (walletModel.error.hasError) {
       view.hideAnimation()
       if (walletModel.error.type == ImportErrorType.INVALID_PASS) view.navigateToPasswordView()
-      else view.showGenericError(walletModel.error.type)
+      else view.showError(walletModel.error.type)
     } else {
       setDefaultWallet(walletModel.address)
     }

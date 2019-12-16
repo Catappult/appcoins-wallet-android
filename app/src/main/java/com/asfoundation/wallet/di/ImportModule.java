@@ -5,6 +5,9 @@ import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
+import com.asfoundation.wallet.ui.balance.BalanceInteract;
+import com.asfoundation.wallet.ui.balance.ImportWalletPasswordInteractor;
+import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -16,5 +19,10 @@ import javax.inject.Singleton;
       SetDefaultWalletInteract setDefaultWalletInteract) {
     return new ImportWalletInteract(walletRepository, setDefaultWalletInteract, passwordStore,
         preferencesRepositoryType);
+  }
+
+  @Singleton @Provides ImportWalletPasswordInteractor provideImportWalletInteractor(Gson gson,
+      BalanceInteract balanceInteract, ImportWalletInteract importWalletInteract) {
+    return new ImportWalletPasswordInteractor(gson, balanceInteract, importWalletInteract);
   }
 }

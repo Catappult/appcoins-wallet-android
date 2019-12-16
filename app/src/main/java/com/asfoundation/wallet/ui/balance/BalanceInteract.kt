@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.balance
 
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
-import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
@@ -55,11 +54,11 @@ class BalanceInteract(
     )
   }
 
-  fun getTotalBalance(wallet: Wallet): Observable<FiatValue> {
+  fun getTotalBalance(address: String): Observable<FiatValue> {
     return Observable.zip(
-        balanceRepository.getCreditsBalance(wallet.address),
-        balanceRepository.getAppcBalance(wallet.address),
-        balanceRepository.getEthBalance(wallet.address),
+        balanceRepository.getCreditsBalance(address),
+        balanceRepository.getAppcBalance(address),
+        balanceRepository.getEthBalance(address),
         Function3 { creditsBalance, appcBalance, ethBalance ->
           getOverallBalance(mapToBalance(creditsBalance, APPC_C_CURRENCY),
               mapToBalance(appcBalance, APPC_CURRENCY), mapToBalance(ethBalance, ETH_CURRENCY))
