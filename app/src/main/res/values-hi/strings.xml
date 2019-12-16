@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">कीस्टोर</string>
   <string name="tab_private_key">निजी कुंजी</string>
+  <string name="error_invalid_private_key">अमान्य निजी कुंजी</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">त्रुटि</string>
   <string name="title_dialog_handling">संसाधित कर रहा है...</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">अपनी पसंदीदा भुगतान विधि का उपयोग कर अपने सभी इन-एप्प खरीद संसाधित करें।</string>
   <string name="intro_4_title">सुरक्षित एवं निजी</string>
   <string name="intro_4_body">आपकी निजी कुंजी आपकी डिवाइस को कभी नहीं छोड़ेगी, इसलिए आपके AppCoins हर समय सुरक्षित हैं।</string>
+  <string name="intro_5_title">मुफ्त AppCoins Credits प्राप्त करें!</string>
+  <string name="intro_5_body">आप ऐप्स और गेम परख कर मुफ्त AppCoins Credits अर्जित करेंगे।</string>
   <string name="intro_creating_wallet_short">आपके लिए वॉलेट स्थापित कर रहा है&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनाया गया!</string>
   <string name="intro_agree_terms_and_conditions_body">छोड़ें पर टैप करते हुए, आप AppCoins Wallet के %1$s और %2$s से सहमत हैं</string>
@@ -202,8 +205,8 @@
   <string name="activity_iab_buying_message">विवरण जांचे गए \nआपकी वस्तु प्राप्त कर रहा है…</string>
   <string name="activity_iab_change_card">कार्ड बदलें</string>
   <string name="notification_ongoing_poa">आपका इनाम संसाधित कर रहा है</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">इनाम प्राप्त हुआ!👌 आपको ऐप्स परखते हुए इनाम जीतने के लिए %1$sघं%2$sमि तक प्रतीक्षा करनी होगी ⏰!</string>
+  <string name="notification_poa_limit_reached">आप अपनी दैनिक इनाम सीमा तक पहुँच गए। %1$sघं%2$sमि में वापस आ कर पुनः प्रयास करें!</string>
   <string name="notification_submitting_poa">ब्लॉकचैन को आपका अनुरोध जमा कर रहा है</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">कोई नेटवर्क कनेक्शन नहीं है</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">लंबित</string>
   <string name="transaction_status_failed">विफल</string>
   <string name="transaction_type_iab">इन-एप्प खरीद</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">इनाम</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">अंतरण करें</string>
   <string name="transaction_type_bonus">बोनस</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P अंतरण</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">इथीरियम द्वारा संचालित</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -388,6 +390,7 @@
   <string name="retry_button">पुनः करें</string>
   <string name="do_it_later_button">इसे बाद में करें</string>
   <string name="connectoin_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
+  <string name="common_or">या</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
   <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों तथा गोपनीयता नीति को स्वीकार करें</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">वॉलेट सत्यापित करें</string>
   <string name="verification_settings_unverified_body">पुरस्कार पाएँ और मित्रों को आमंत्रित करें</string>
   <string name="verification_settings_verified_title">वॉलेट सत्यापित</string>
+  <string name="verification_settings_no_internet">आपको इंटरनेट से जुड़े रहना चाहिए</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">संभवतः यह खरीद पहले से ही संसाधित की जा रही है। कृपया लेनदेन पूरा होने तक होल्ड करें या हमारी सहायता टीम से संपर्क करें।</string>
   <string name="purchase_more_payment_methods_button">अन्य भुगतान विधि</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">कोई शुल्क नहीं और बिजली सी तेजी!</string>
   <string name="purchase_appcoins_credits_noavailable_body">आपके पास पर्याप्त APPC Credits नहीं हैं, टॉप अप से प्रयास करें!</string>
   <string name="purchase_appcoins_credits_default_body">आपने इस खरीद के लिए पर्याप्त AppCoins Credits अर्जित किये। आनंद लें!</string>
+  <string name="purchase_poa_item">ऐप्स परखते हुए फंड अर्जित करें</string>
+  <string name="purchase_poa_body">कोई एप्प 2 मिनट तक परखें और AppCoins Credits अर्जित करें!</string>
+  <string name="purchase_poa_view_title">कोई फंड नहीं, कोई चिंता नहीं!</string>
+  <string name="purchase_poa_view_body">कोई एप्प 2 मिनट तक परखें और अपनी खरीद के लिए एक इनाम AppCoins Credits में प्राप्त करें!</string>
+  <string name="purchase_current_balance_body">वर्तमान शेष:</string>
+  <string name="purchase_current_balance_appcc_body">AppCoins Credits में %s।</string>
+  <string name="purchase_current_balance_appc_eth_body">AppCoins और Ether में %s।</string>
+  <string name="purchase_wallet_blocked_title">आपका AppCoins Credits बैलेंस ब्लॉक है</string>
+  <string name="purchase_wallet_blocked_body">एक असामान्य लेन-देन इतिहास के कारण, आपका AppCoins Credits बैलेंस ब्लॉक किया गया था। आप अभी भी AppCoins Credits को छोड़कर अन्य तरीकों से सामान्य भुगतान और लेन-देन कर पाएंगे।\n\nअगर आपको लगता है कि यह एक गलती है, तो हमसे संपर्क करें:</string>
+  <string name="purchase_card_error_general">लगता है कि आपके कार्ड में कोई समस्या है। कृपया किसी अन्य के साथ प्रयास करें।</string>
+  <string name="purchase_card_error_invalid_details">क्या आपके कार्ड के विवरण सही हैं? कृपया पुन: प्रयास करें!</string>
+  <string name="purchase_card_error_bank_rejects">बैंक द्वारा आपके लेनदेन को अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें।</string>
+  <string name="purchase_card_error_limits">शायद आपके कार्ड पर कुछ लगे हुए प्रतिबंध हैं। कृपया अपने बैंक से संपर्क करें या किसी अन्य से प्रयास करें।</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">अपने मित्रों को आमंत्रित करें!</string>
   <string name="referral_onboarding_body">आप और आपके मित्र हमारे रेफरल प्रोग्राम के साथ %s तक कमा सकते हैं!</string>
@@ -471,4 +488,71 @@
   <string name="promotions_referral_card_body">अपना आमंत्रण लिंक साझा करें और AppCoins Credits अर्जित करें।</string>
   <string name="promotions_gamification_card_title">प्रत्येक खरीद पर 30% तक बोनस</string>
   <string name="promotions_new">नया</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">इनाम पाने के लिए अपडेट करें</string>
+  <string name="update_wallet_poa_notification_body">यह इनाम पाने के लिए AppCoins Wallet को अपडेट करें।</string>
+  <string name="update_wallet_purchase_title">आपको अपडेट करने की जरूरत है!</string>
+  <string name="update_wallet_purchase_body">यह खरीद पूर्ण करने के लिए AppCoins Wallet को अपडेट करें।</string>
+  <string name="update_wallet_hard_body">संभवतः आप AppCoins Wallet के पुराने संस्करण का उपयोग कर रहे हैं। सर्वोत्तम अनुभव एवं सुरक्षा की गारंटी देने के लिए कृपया इसे अपडेट करें।</string>
+  <string name="update_wallet_soft_title">पीछे न छूट जाएँ!</string>
+  <string name="update_wallet_soft_body">AppCoins Wallet अपडेट रखने से सर्वोत्तम अनुभव की गारंटी मिलती है।</string>
+  <string name="update_button">अपडेट करें</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">अपने वॉलेट का बैकअप लें</string>
+  <string name="backup_home_notification_body">आपका फोन कभी गुम हुआ है? अभी अपने वॉलेट का बैकअप लें!</string>
+  <string name="backup_button">बैकअप लें</string>
+  <string name="backup_title">वॉलेट का बैकअप लें</string>
+  <string name="backup_password_title">अपना वॉलेट एन्क्रिप्ट करें (वैकल्पिक)</string>
+  <string name="backup_password">पासवर्ड</string>
+  <string name="backup_body">हम आपकी निजी कुंजी या अन्य एक्सेस विधि को स्टोर नहीं करते हैं। अपने वॉलेट बैकअप (कीस्टोर) को सुरक्षित रखना महत्वपूर्ण है।</string>
+  <string name="backup_send_via_title">बैकअप निम्न से भेजें:</string>
+  <string name="import_wallet_title">वॉलेट आयात करें</string>
+  <string name="import_wallet_body">नीचे अपने वॉलेट का बैकअप पेस्ट करें।</string>
+  <string name="import_wallet_keystore_private_keys">कीस्टोर या निजी कुंजी</string>
+  <string name="import_wallet_file_button">फाइल से आयात करें</string>
+  <string name="import_wallet_button">वॉलेट आयात करें</string>
+  <string name="import_wallet_password_body">यह वॉलेट पासवर्ड से संरक्षित है!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">वॉलेट</string>
+  <string name="wallets_total_balance_title">%s में कुल बैलेंस</string>
+  <string name="wallets_active_wallet_title">सक्रिय वॉलेट</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="one">वॉलेट</item>
+    <item quantity="other">वॉलेट</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">कुल मूल्य</string>
+  <string name="wallets_address_copied_body">वॉलेट पता क्लिपबोर्ड पर कॉपी किया गया</string>
+  <string name="wallets_imported_body">वॉलेट सफलतापूर्वक आयात किया गया</string>
+  <string name="wallets_2nd_view_balance_title">बैलेंस:</string>
+  <string name="wallets_2nd_view_other_wallets_title">अन्य वॉलेट</string>
+  <string name="wallets_2nd_view_import_button">वॉलेट आयात करें</string>
+  <string name="wallets_2nd_view_create_button">नया बनाएँ</string>
+  <string name="wallet_view_copy_button">कॉपी</string>
+  <string name="wallet_view_share_button">साझा करें</string>
+  <string name="wallet_view_total_balance_title">कुल बैलेंस</string>
+  <string name="wallet_view_remove_button">वॉलेट हटाएँ</string>
+  <string name="wallet_view_backup_button">वॉलेट का बैकअप लें</string>
+  <string name="wallet_view_activate_button">इस वॉलेट को सक्रिय करें</string>
+  <string name="wallet_view_active_body">यह आपका सक्रिय वॉलेट है।</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">वॉलेट हटाएँ</string>
+  <string name="remove_wallet_body">हम इसे हटाने से पहले वॉलेट का बैकअप लेने की अनुशंसा करते हैं। बैकअप नहीं लिए जाने पर आप इसे फिर से उपयोग नहीं कर पाएंगे।</string>
+  <string name="remove_wallet_backup_button">वॉलेट का बैकअप लें</string>
+  <string name="remove_wallet_no_backup_button">बैकअप के बिना आगे बढ़ें</string>
+  <string name="remove_wallet_confirm_body">आप निश्चित रूप से यह वॉलेट हटाना चाहते हैं?</string>
+  <string name="remove_wallet_no_button">नहीं, पीछे जाएँ</string>
+  <string name="remove_wallet_yes_button">हाँ, वॉलेट हटाएँ</string>
+  <string name="remove_wallet_removed_body">वॉलेट हटाया गया!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">अंतरण करें</string>
+  <string name="transfer_title">फंड अंतरण करें</string>
+  <string name="transfer_send_tab_title">भेजें</string>
+  <string name="transfer_receive_tab_title">प्राप्त करें</string>
+  <string name="transfer_send_body">अपने मित्र का वॉलेट पता स्कैन करें या लिखें।</string>
+  <string name="transfer_send_recipient_title">वॉलेट पता</string>
+  <string name="transfer_send_token_title">टोकन:</string>
+  <string name="transfer_send_amount_title">राशि</string>
+  <string name="transfer_send_current_balance_title">वर्तमान बैलेंस:</string>
+  <string name="transfer_send_button">भेजें</string>
+  <string name="transfer_receive_body">फंड पाने के लिए अपना वॉलेट पता साझा करें।</string>
 </resources>
