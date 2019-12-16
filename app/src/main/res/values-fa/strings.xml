@@ -517,6 +517,7 @@
   <string name="import_wallet_file_button">واردکردن فایل از</string>
   <string name="import_wallet_button">واردکردن کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>
