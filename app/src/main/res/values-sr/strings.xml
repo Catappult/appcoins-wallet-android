@@ -517,6 +517,7 @@
   <string name="import_wallet_file_button">UVEZI IZ DATOTEKE</string>
   <string name="import_wallet_button">UVEZI NOVČANIK</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
