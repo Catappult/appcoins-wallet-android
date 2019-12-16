@@ -284,9 +284,6 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   private fun animateBackgroundFade() {
     walletsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-          (app_bar as AppBarLayout).setExpanded(false)
-        }
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
