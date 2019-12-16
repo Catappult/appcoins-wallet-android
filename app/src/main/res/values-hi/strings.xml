@@ -517,6 +517,7 @@
   <string name="import_wallet_file_button">फाइल से आयात करें</string>
   <string name="import_wallet_button">वॉलेट आयात करें</string>
   <string name="import_wallet_password_body">यह वॉलेट पासवर्ड से संरक्षित है!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट</string>
   <string name="wallets_total_balance_title">%s में कुल बैलेंस</string>
