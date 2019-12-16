@@ -38,6 +38,7 @@
   <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:layout_marginBottom="40dp"
       android:background="@drawable/background_fragment"
       android:fillViewport="true"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -404,20 +405,29 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
 
-  <Button
-      android:id="@+id/cancel_button"
-      style="@style/ButtonStyle"
+
+  <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="35dp"
+      android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/big_margin"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="24dp"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="Cancel Subscription"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      />
+      android:background="@drawable/background_card"
+      >
+
+    <Button
+        android:id="@+id/cancel_button"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="24dp"
+        android:maxWidth="126dp"
+        android:minWidth="80dp"
+        android:text="Cancel Subscription"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        />
+
+  </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
