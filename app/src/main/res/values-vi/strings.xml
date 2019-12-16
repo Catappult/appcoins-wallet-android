@@ -517,6 +517,7 @@
   <string name="import_wallet_file_button">NHẬP TỪ TẬP TIN</string>
   <string name="import_wallet_button">NHẬP VÍ</string>
   <string name="import_wallet_password_body">Ví này được bảo vệ bằng mật khẩu!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
