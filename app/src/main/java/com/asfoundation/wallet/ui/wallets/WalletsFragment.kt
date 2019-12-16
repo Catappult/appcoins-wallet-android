@@ -84,10 +84,16 @@ class WalletsFragment : DaggerFragment(),
 
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
+    val adapterList = removeCurrentWallet(walletsBalanceList)
     adapter =
-        NewWalletsAdapter(context!!, removeCurrentWallet(walletsBalanceList), uiEventListener!!)
+        NewWalletsAdapter(context!!, adapterList, uiEventListener!!)
     other_wallets_cards_recycler.layoutManager = layoutManager
     other_wallets_cards_recycler.adapter = adapter
+    val walletsText =
+        resources.getQuantityString(R.plurals.wallets_bottom_wallets_title, walletsBalanceList.size)
+    wallets_text.text = walletsText
+    if (adapterList.isEmpty()) other_wallets_header.visibility = View.INVISIBLE
+    else other_wallets_header.visibility = View.VISIBLE
   }
 
   override fun otherWalletCardClicked(): Observable<String> {
