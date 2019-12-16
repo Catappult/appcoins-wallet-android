@@ -517,6 +517,7 @@
   <string name="import_wallet_file_button">ΕΙΣΑΓΩΓΗ ΑΠΟ ΑΡΧΕΙΟ</string>
   <string name="import_wallet_button">ΕΙΣΑΓΩΓΗ WALLET</string>
   <string name="import_wallet_password_body">Αυτό το wallet προστατεύεται από κωδικό!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Συνολικό Υπόλοιπο σε %s</string>
