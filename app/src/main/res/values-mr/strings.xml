@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">कीस्टोर</string>
   <string name="tab_private_key">खासगी की *</string>
-  <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">त्रुटी</string>
   <string name="title_dialog_handling">प्रक्रियारत आहे…</string>
@@ -518,6 +517,8 @@
   <string name="import_wallet_button">वॉलेट इंपोर्ट करा</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
