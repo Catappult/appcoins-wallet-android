@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">ကီးစတိုး</string>
   <string name="tab_private_key">သီးသန္႔ကီး</string>
-  <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ခ်ိဳ႕ယြင္းခ်က္</string>
   <string name="title_dialog_handling">စီစဥ္ေဆာင္ရြက္ေနပါသည္…</string>
@@ -518,6 +517,8 @@
   <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_total_balance_title">%s တြင္ စုစုေပါင္းလက္က်န္ေငြ</string>
