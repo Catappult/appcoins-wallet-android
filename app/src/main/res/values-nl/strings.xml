@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Privésleutel</string>
-  <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Fout</string>
   <string name="title_dialog_handling">Wordt verwerkt…</string>
@@ -518,6 +517,8 @@
   <string name="import_wallet_button">WALLET IMPORTEREN</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">Ongeldige privésleutel</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Totale saldo in %s</string>
