@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">คีย์สโตร์</string>
   <string name="tab_private_key">คีย์ส่วนตัว</string>
-  <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ข้อผิดพลาด</string>
   <string name="title_dialog_handling">กำลังประมวลผล...</string>
@@ -518,6 +517,8 @@
   <string name="import_wallet_button">นำเข้ากระเป๋าสตางค์</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
