@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Kunci kedai</string>
   <string name="tab_private_key">Kunci peribadi</string>
-  <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Ralat</string>
   <string name="title_dialog_handling">Memproses…</string>
@@ -518,6 +517,8 @@
   <string name="import_wallet_button">IMPORT DOMPET</string>
   <string name="import_wallet_password_body">Dompet ini dilindungi kata laluan!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>
