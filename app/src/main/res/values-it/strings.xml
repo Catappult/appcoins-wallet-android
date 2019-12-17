@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Chiave privata</string>
-  <string name="error_invalid_private_key">Chiave privata non valida</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Errore</string>
   <string name="title_dialog_handling">In fase di elaborazione...</string>
@@ -518,6 +517,8 @@
   <string name="import_wallet_button">IMPORTA WALLET</string>
   <string name="import_wallet_password_body">Questo wallet è protetto da password!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">Chiave privata non valida</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallet</string>
   <string name="wallets_total_balance_title">Saldo totale in %s</string>
