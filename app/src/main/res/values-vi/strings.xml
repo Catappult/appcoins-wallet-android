@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Kho khóa</string>
   <string name="tab_private_key">Khóa cá nhân</string>
-  <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Lỗi</string>
   <string name="title_dialog_handling">Đang xử lý…</string>
@@ -518,6 +517,8 @@
   <string name="import_wallet_button">NHẬP VÍ</string>
   <string name="import_wallet_password_body">Ví này được bảo vệ bằng mật khẩu!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
