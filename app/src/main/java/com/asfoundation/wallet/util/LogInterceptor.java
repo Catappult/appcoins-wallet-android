@@ -30,8 +30,8 @@ public class LogInterceptor implements Interceptor {
 
   @Override public Response intercept(@NonNull Chain chain) throws IOException {
     StringBuilder logBuilder = new StringBuilder();
+    Request request = chain.request();
     try {
-      Request request = chain.request();
       RequestBody requestBody = request.body();
       logBuilder.append(
           "<---------------------------BEGIN REQUEST---------------------------------->");
@@ -125,9 +125,11 @@ public class LogInterceptor implements Interceptor {
       Log.d(TAG, logBuilder.toString());
       return response;
     } catch (Exception exception) {
-      if (logBuilder.length() > 0) {
-        Log.d(TAG, logBuilder.toString());
-      }
+      logBuilder.append("Failed request url: ")
+          .append(request.method())
+          .append(" ")
+          .append(requestPath(request.url()));
+      Log.e(TAG, logBuilder.toString());
       throw exception;
     }
   }
