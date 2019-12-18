@@ -30,8 +30,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   private fun requestSkusDetails(packageName: String,
                                  skus: List<String>): Single<DetailsResponseBody> {
     return if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
-      api.getPackages(packageName,
-          skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ","))
+      api.getPackages(packageName, skus.joinToString(separator = ","))
     } else {
       Single.zip(
           api.getPackages(packageName,
@@ -79,8 +78,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   fun registerAuthorizationProof(origin: String?, type: String, oemWallet: String, id: String?,
                                  gateway: String, walletAddress: String, walletSignature: String,
-                                 productName: String?, packageName: String,
-                                 priceValue: BigDecimal,
+                                 productName: String?, packageName: String, priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?, callback: String?,
                                  orderReference: String?,
