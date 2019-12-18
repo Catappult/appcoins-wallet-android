@@ -78,15 +78,25 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   private fun openPermissionScreen(): Boolean {
-    context?.let { startActivity(ManagePermissionsActivity.newIntent(it)) }
+    context?.let {
+      val intent = ManagePermissionsActivity.newIntent(it)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
+      startActivity(intent)
+    }
     return true
   }
 
   private fun openWalletValidationScreen(): Boolean {
     context?.let {
-      startActivity(WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
+      val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
           navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = false,
-          showToolbar = true))
+          showToolbar = true)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
+      startActivity(intent)
     }
     return true
   }
@@ -130,10 +140,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       val view = listView.getChildAt(it.order)
 
       view.findViewById<AppCompatTextView>(android.R.id.title)
-          .setTextColor(
-              ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+          ?.setTextColor(ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
       view.findViewById<AppCompatTextView>(android.R.id.summary)
-          .setTextColor(
+          ?.setTextColor(
               ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
     }
     verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
@@ -143,7 +152,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val walletPreference = findPreference<Preference>("pref_wallet")
     walletPreference?.summary = walletAddress
     walletPreference?.setOnPreferenceClickListener {
-      manageWalletsRouter.open(activity, false)
+      manageWalletsRouter.open(context)
       false
     }
   }

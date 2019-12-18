@@ -287,7 +287,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .subscribe(pair -> {
           appNameTv.setText(pair.first);
           appIcon.setImageDrawable(pair.second);
-        }, throwable -> throwable.printStackTrace()));
+        }, Throwable::printStackTrace));
   }
 
   private String getAppPackage() {
@@ -590,10 +590,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     compositeDisposable.add(Observable.fromCallable(() -> {
       try {
         Context context = getContext();
-        Bitmap bitmap = Picasso.with(context)
+        return Picasso.with(context)
             .load(paymentMethod.getIconUrl())
             .get();
-        return bitmap;
       } catch (IOException e) {
         Log.w(TAG, "setupPaymentMethods: Failed to load icons!");
         throw new RuntimeException(e);

@@ -31,6 +31,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.default_value_chips_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -89,10 +90,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is TopUpActivityView) {
-      throw IllegalStateException(
-          "Express checkout buy fragment must be attached to IAB activity")
-    }
+    check(
+        context is TopUpActivityView) { "TopUp fragment must be attached to TopUp activity" }
     topUpActivityView = context
   }
 
@@ -140,24 +139,25 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
                                localCurrency: LocalCurrency) {
+    hideNoNetwork()
     if (isLocalCurrencyValid(localCurrency)) {
-      this@TopUpFragment.paymentMethods = paymentMethods
       this@TopUpFragment.localCurrency = localCurrency
       setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
           APPC_C_SYMBOL, DEFAULT_VALUE)
-      hideKeyboard()
-      main_value.isEnabled = true
-      main_value.setMinTextSize(
-          resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
-      adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
-
-      payment_methods.adapter = adapter
-      payment_methods.layoutManager = LinearLayoutManager(context)
-      payment_methods.visibility = View.VISIBLE
-      swap_value_button.isEnabled = true
-      swap_value_button.visibility = View.VISIBLE
-      swap_value_label.visibility = View.VISIBLE
     }
+    this@TopUpFragment.paymentMethods = paymentMethods
+    hideKeyboard()
+    main_value.isEnabled = true
+    main_value.setMinTextSize(
+        resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
+    adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
+
+    payment_methods.adapter = adapter
+    payment_methods.layoutManager = LinearLayoutManager(context)
+    payment_methods.visibility = View.VISIBLE
+    swap_value_button.isEnabled = true
+    swap_value_button.visibility = View.VISIBLE
+    swap_value_label.visibility = View.VISIBLE
   }
 
   override fun onDestroy() {
@@ -370,6 +370,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
+  override fun hideChips() {
+    chips_layout.visibility = View.INVISIBLE
+  }
+
   override fun deselectChips() {
     setChipsUnchecked()
     setUnselectedChipsBackground()
@@ -402,6 +406,29 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       changeMainValueText(preselectedChipValue.toString())
       selectChip(preselectedChip)
     }
+  }
+
+  override fun showNoNetworkError() {
+    no_network.visibility = View.VISIBLE
+    retry_button.visibility = View.VISIBLE
+    retry_animation.visibility = View.GONE
+    top_up_container.visibility = View.GONE
+  }
+
+  override fun showRetryAnimation() {
+    retry_button.visibility = View.INVISIBLE
+    retry_animation.visibility = View.VISIBLE
+  }
+
+  override fun retryClick(): Observable<Any> {
+    return RxView.clicks(retry_button)
+  }
+
+  private fun hideNoNetwork() {
+    no_network.visibility = View.GONE
+    retry_button.visibility = View.GONE
+    retry_animation.visibility = View.GONE
+    top_up_container.visibility = View.VISIBLE
   }
 
   private fun populateChipViewList() {

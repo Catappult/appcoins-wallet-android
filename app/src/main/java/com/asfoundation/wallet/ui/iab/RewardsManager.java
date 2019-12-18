@@ -30,8 +30,7 @@ public class RewardsManager {
       String origin, String type, String payload, String callbackUrl, String orderReference,
       String referrerUrl) {
     return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
-        partnerAddressService.getOemAddressForPackage(packageName),
-        (storeAddress, oemAddress) -> new Pair<>(storeAddress, oemAddress))
+        partnerAddressService.getOemAddressForPackage(packageName), Pair::new)
         .flatMapCompletable(
             partnersAddresses -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
                 partnersAddresses.first, partnersAddresses.second, packageName, payload,

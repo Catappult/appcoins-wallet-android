@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion 27
+  compileSdkVersion 28
 
   defaultConfig {
     minSdkVersion 15
-    targetSdkVersion 27
+    targetSdkVersion 28
     versionCode 1
     versionName "1.0"
 
@@ -42,7 +42,7 @@ dependencies {
   implementation "com.google.code.gson:gson:$project.gsonVersion"
   implementation "com.fasterxml.jackson.core:jackson-annotations:$project.jacksonVersion"
   implementation "com.fasterxml.jackson.core:jackson-databind:$project.jacksonVersion"
-  implementation "com.madgag.spongycastle:core:1.58.0.0@jar"
+  implementation "com.madgag.spongycastle:core:$project.spongycastle"
   implementation "com.adyen.checkout:redirect:$project.adyenVersion"
   api project(path: ':bdsbilling')
 }

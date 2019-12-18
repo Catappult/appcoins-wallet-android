@@ -53,33 +53,26 @@ class TopUpInteractor(private val repository: BdsRepository,
       Single.just(limitValues)
     } else {
       topUpValuesService.getLimitValues()
-          .doOnSuccess { cacheLimitValues(it) }
+          .doOnSuccess { if (!it.error.hasError) cacheLimitValues(it) }
     }
   }
 
-  fun getDefaultValues(): Single<List<FiatValue>> {
+  fun getDefaultValues(): Single<TopUpValuesModel> {
     return if (chipValueIndexMap.isNotEmpty()) {
-      Single.just(ArrayList(chipValueIndexMap.keys))
+      Single.just(TopUpValuesModel(ArrayList(chipValueIndexMap.keys)))
     } else {
       topUpValuesService.getDefaultValues()
-          .doOnSuccess { cacheChipValues(it) }
+          .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
     }
   }
 
   fun getChipIndex(value: FiatValue): Single<Int> {
     return if (chipValueIndexMap.isNotEmpty()) {
-      for (chipValue in chipValueIndexMap.keys) {
-        if (chipValue == value) {
-          return Single.just(chipValueIndexMap[chipValue])
-        }
-      }
-      Single.just(-1)
+      findChipIndex(ArrayList(chipValueIndexMap.keys), value)
     } else {
-      if (chipValueIndexMap.isEmpty()) {
-        topUpValuesService.getDefaultValues()
-            .doOnSuccess { cacheChipValues(it) }
-      }
-      Single.just(-1)
+      topUpValuesService.getDefaultValues()
+          .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
+          .flatMap { findChipIndex(it.values, value) }
     }
   }
 
@@ -96,5 +89,15 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   private fun cacheLimitValues(values: TopUpLimitValues) {
     limitValues = TopUpLimitValues(values.minValue, values.maxValue)
+  }
+
+  private fun findChipIndex(chipValues: List<FiatValue>,
+                            value: FiatValue): Single<Int> {
+    for (chipValue in chipValues) {
+      if (chipValue == value) {
+        return Single.just(chipValueIndexMap[chipValue])
+      }
+    }
+    return Single.just(-1)
   }
 }

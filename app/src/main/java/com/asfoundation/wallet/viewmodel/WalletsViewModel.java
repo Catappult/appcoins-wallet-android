@@ -171,9 +171,9 @@ public class WalletsViewModel extends BaseViewModel {
     exportedStore.setValue(null);
   }
 
-  public void saveWalletBackup() {
-    Wallet wallet = findDefaultWalletInteract.find()
-        .blockingGet();
-    preferencesRepositoryType.setWalletImportBackup(wallet.address);
+  public void saveWalletBackup(String walletAddress) {
+    if (walletAddress != null) {
+      preferencesRepositoryType.setWalletImportBackup(walletAddress);
+    }
   }
 }

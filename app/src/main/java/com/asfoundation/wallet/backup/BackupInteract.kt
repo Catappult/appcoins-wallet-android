@@ -25,14 +25,19 @@ class BackupInteract(
 
   override fun getUnwatchedBackupNotification(): Single<CardNotification> {
     return findDefaultWalletInteract.find()
-        .flatMap { wallet -> getBackupThreshold(wallet.address) }
-        .map { shouldShow ->
-          BackupNotification(
-              R.string.backup_home_notification_title,
-              R.string.backup_home_notification_body,
-              R.drawable.ic_backup_notification,
-              R.string.backup_button,
-              CardNotificationAction.BACKUP).takeIf { shouldShow } ?: EmptyNotification()
+        .flatMap { wallet ->
+          getBackupThreshold(wallet.address)
+              .doOnSuccess {
+                if (it) sharedPreferencesRepository.setHasShownBackup(wallet.address, it)
+              }
+              .map { shouldShow ->
+                BackupNotification(
+                    R.string.backup_home_notification_title,
+                    R.string.backup_home_notification_body,
+                    R.drawable.ic_backup_notification,
+                    R.string.backup_button,
+                    CardNotificationAction.BACKUP).takeIf { shouldShow } ?: EmptyNotification()
+              }
         }
   }
 
@@ -48,6 +53,7 @@ class BackupInteract(
 
   private fun getBackupThreshold(walletAddress: String): Single<Boolean> {
     val walletImportBackup = sharedPreferencesRepository.isWalletImportBackup(walletAddress)
+    val previouslyShownBackup = sharedPreferencesRepository.hasShownBackup(walletAddress)
     return if (walletImportBackup) {
       Single.just(false)
     } else {
@@ -57,7 +63,7 @@ class BackupInteract(
           meetsGamificationConditions(),
           meetsBalanceConditions(),
           Function4 { dismissPeriodGone, transactions, gamification, balance ->
-            (transactions || gamification || balance) && dismissPeriodGone
+            (previouslyShownBackup || transactions || gamification || balance) && dismissPeriodGone
           }
       )
     }

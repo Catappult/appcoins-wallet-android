@@ -151,7 +151,8 @@
         android:label="@string/title_activity_send"/>
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
-        android:label="@string/topup_title">
+        android:label="@string/topup_title"
+        android:screenOrientation="portrait">
       <intent-filter>
         <data
             android:host="aptoide.com"

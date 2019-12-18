@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Anahtar deposu</string>
   <string name="tab_private_key">Özel anahtar</string>
+  <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Hata</string>
   <string name="title_dialog_handling">İşleniyor…</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">Favori ödeme yönteminizi kullanarak tüm uygulama için satın alımlarınızı işleyin.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
   <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
+  <string name="intro_5_title">Ücretsiz AppCoins Credits edinin!</string>
+  <string name="intro_5_body">Uygulama ve oyun deneyerek ücretsiz AppCoing Credits kazanın.</string>
   <string name="intro_creating_wallet_short">Sizin için cüzdanınız ayarlanıyor&#8230;</string>
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
   <string name="intro_agree_terms_and_conditions_body">Atla\'ya dokunarak AppCoins Cüzdanının %1$s ve %2$s\'nı kabul etmiş olursunuz</string>
@@ -202,8 +205,8 @@
   <string name="activity_iab_buying_message">Bilgiler kontrol edildi \nÖğeniz alınıyor…</string>
   <string name="activity_iab_change_card">KARTI DEĞİŞTİR</string>
   <string name="notification_ongoing_poa">Ödülünüz işleniyor</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Ödül alındı!👌 Uygulamaları deneyerek daha fazla ödül kazanmak için %1$s sa%2$s dk beklemen gerekiyor ⏰!</string>
+  <string name="notification_poa_limit_reached">Günlük ödül limitine ulaştın. ⏰ %1$s sa%2$s dk içinde geri dön ve tekrar dene!</string>
   <string name="notification_submitting_poa">İsteğiniz blok zincirine gönderiliyor</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Ağ bağlantısı yok</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">Beklemede</string>
   <string name="transaction_status_failed">Başarısız</string>
   <string name="transaction_type_iab">Uygulama İçi Satın Alım</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Ödül</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum tarafından sağlanıyor</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -388,6 +390,7 @@
   <string name="retry_button">Tekrar deneyin</string>
   <string name="do_it_later_button">Daha sonra yapın</string>
   <string name="connectoin_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
+  <string name="common_or">veya</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">Cüzdanı Doğrulayın</string>
   <string name="verification_settings_unverified_body">Ödül kazanın ve arkadaşlarınızı davet edin</string>
   <string name="verification_settings_verified_title">Cüzdan Doğrulandı</string>
+  <string name="verification_settings_no_internet">İnternete bağlı olmanız gerekiyor</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Bu satın alma işlemi zaten işlenmiş gibi görünüyor. Lütfen işlem tamamlanana kadar bekleyin veya Destek Ekibimizle iletişime geçin.</string>
   <string name="purchase_more_payment_methods_button">DİĞER ÖDEME YÖNTEMLERİ</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">Ücret yok ve çok hızlı!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Yeterli APPC Krediniz yok, yükleme yapmayı deneyin!</string>
   <string name="purchase_appcoins_credits_default_body">Bu satın alma işlemi için yeterli AppCoins Credits kazandınız. Keyfini çıkarın!</string>
+  <string name="purchase_poa_item">Uygulamaları deneyerek fon kazan</string>
+  <string name="purchase_poa_body">Bir uygulamayı 2 dakika dene ve AppCoins Credits kazan!</string>
+  <string name="purchase_poa_view_title">Fon Yoksa Sorun Değil!</string>
+  <string name="purchase_poa_view_body">Bir uygulamayı 2 dakika dene ve satın alma işlemini gerçekleştirmek için AppCoins Credits cinsinden bir ödül al!</string>
+  <string name="purchase_current_balance_body">Mevcut bakiye:</string>
+  <string name="purchase_current_balance_appcc_body">AppCoins Credits cinsinden %s.</string>
+  <string name="purchase_current_balance_appc_eth_body">AppCoins ve Ether cinsinden %s.</string>
+  <string name="purchase_wallet_blocked_title">AppCoins Credits bakiyeniz engellendi</string>
+  <string name="purchase_wallet_blocked_body">Olağandışı işlem geçmişi nedeniyle, AppCoins Credits bakiyeniz engellendi. AppCoins Credits dışında başka yöntemlerle ödeme ve işlem yapmaya devam edebileceksiniz.\n\nBunun bir hata olduğunu düşünüyorsanız lütfen bizimle iletişime geçin:</string>
+  <string name="purchase_card_error_general">Kartınızla ilgili bir sorun var gibi görünüyor. Lütfen farklı bir kartla deneyin.</string>
+  <string name="purchase_card_error_invalid_details">Kart bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin!</string>
+  <string name="purchase_card_error_bank_rejects">İşlem bankanız tarafından reddedildi. Lütfen farklı bir kartla deneyin.</string>
+  <string name="purchase_card_error_limits">Kartınızda bazı kısıtlamalar var gibi görünüyor. Lütfen bankanızla iletişime geçin veya farklı bir kart deneyin.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
@@ -471,4 +488,71 @@
   <string name="promotions_referral_card_body">Davet bağlantınızı paylaşın ve AppCoins Credits kazanın.</string>
   <string name="promotions_gamification_card_title">Her bir satın alma işleminde %30\'a varan bonus</string>
   <string name="promotions_new">YENİ</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">Ödül almak için güncelleyin</string>
+  <string name="update_wallet_poa_notification_body">Bu ödülü almak için lütfen AppCoins Wallet\'ı güncelleyin.</string>
+  <string name="update_wallet_purchase_title">Güncellemeniz gerekiyor!</string>
+  <string name="update_wallet_purchase_body">Bu satın alma işlemini gerçekleştirmek için AppCoins Cüzdanı güncelleyin.</string>
+  <string name="update_wallet_hard_body">AppCoins Wallet\'ın eski bir versiyonunu kullanıyorsunuz gibi görünüyor. En iyi deneyimi ve güvenliği sağlamak için lütfen güncelleyin.</string>
+  <string name="update_wallet_soft_title">Arkada kalmayın!</string>
+  <string name="update_wallet_soft_body">AppCoins Wallet\'ı güncel tutarak en iyi deneyimi yaşayabilirsiniz.</string>
+  <string name="update_button">GÜNCELLE</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">Cüzdanınızı Yedekleyin</string>
+  <string name="backup_home_notification_body">Hiç telefonunuzu kaybettiniz mi? Cüzdanınızı hemen yedekleyin!</string>
+  <string name="backup_button">YEDEKLE</string>
+  <string name="backup_title">Yedek Cüzdan</string>
+  <string name="backup_password_title">Cüzdanınızı şifreleyin (isteğe bağlı)</string>
+  <string name="backup_password">Şifre</string>
+  <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
+  <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
+  <string name="import_wallet_title">Cüzdan Aktar</string>
+  <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
+  <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
+  <string name="import_wallet_file_button">DOSYADAN AKTAR</string>
+  <string name="import_wallet_button">CÜZDAN AKTAR</string>
+  <string name="import_wallet_password_body">Bu cüzdan şifre korumalıdır!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">Cüzdanlar</string>
+  <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>
+  <string name="wallets_active_wallet_title">Aktif Cüzdan</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="one">Cüzdan</item>
+    <item quantity="other">Cüzdan</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">Toplam değer</string>
+  <string name="wallets_address_copied_body">Cüzdan adresi panoya kopyalandı</string>
+  <string name="wallets_imported_body">Cüzdan başarıyla içe aktarıldı</string>
+  <string name="wallets_2nd_view_balance_title">Bakiye:</string>
+  <string name="wallets_2nd_view_other_wallets_title">Diğer Cüzdanlar</string>
+  <string name="wallets_2nd_view_import_button">CÜZDAN AKTAR</string>
+  <string name="wallets_2nd_view_create_button">YENİ OLUŞTUR</string>
+  <string name="wallet_view_copy_button">KOPYALA</string>
+  <string name="wallet_view_share_button">PAYLAŞ</string>
+  <string name="wallet_view_total_balance_title">Toplam Bakiye</string>
+  <string name="wallet_view_remove_button">CÜZDANI KALDIR</string>
+  <string name="wallet_view_backup_button">CÜZDANI YEDEKLE</string>
+  <string name="wallet_view_activate_button">BU CÜZDANI AKTİFLEŞTİR</string>
+  <string name="wallet_view_active_body">Bu, aktif cüzdanınız.</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">Cüzdanı Kaldır</string>
+  <string name="remove_wallet_body">Cüzdan kaldırmadan önce onu yedeklemenizi ısrarla tavsiye ediyoruz. Yedeği yoksa cüzdana tekrar erişemezsiniz.</string>
+  <string name="remove_wallet_backup_button">CÜZDANI YEDEKLE</string>
+  <string name="remove_wallet_no_backup_button">YEDEKLEME OLMADAN DEVAM ET</string>
+  <string name="remove_wallet_confirm_body">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
+  <string name="remove_wallet_no_button">HAYIR, GERİ GİT</string>
+  <string name="remove_wallet_yes_button">EVET, CÜZDANI KALDIR</string>
+  <string name="remove_wallet_removed_body">Cüzdan kaldırıldı!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">Transfer</string>
+  <string name="transfer_title">Fon Transfer Et</string>
+  <string name="transfer_send_tab_title">Gönder</string>
+  <string name="transfer_receive_tab_title">Al</string>
+  <string name="transfer_send_body">Arkadaşınızın cüzdan adresini tarayın veya girin.</string>
+  <string name="transfer_send_recipient_title">Cüzdan Adresi</string>
+  <string name="transfer_send_token_title">Jeton:</string>
+  <string name="transfer_send_amount_title">Tutar</string>
+  <string name="transfer_send_current_balance_title">Mevcut Bakiye:</string>
+  <string name="transfer_send_button">GÖNDER</string>
+  <string name="transfer_receive_body">Fon almak için cüzdan adresinizi paylaşın.</string>
 </resources>

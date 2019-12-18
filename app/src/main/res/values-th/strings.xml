@@ -26,7 +26,7 @@
   <string name="label_new">ใหม่</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
-  <string name="no_camera_permission">กระเป๋าสตางค์ BDS AppCoins ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
   <string name="title_delete_account">คุณแน่ใจว่าต้องการลบนี้กระเป๋าสตางค์</string>
@@ -58,7 +58,7 @@
   <string name="skip">ข้าม</string>
   <string name="skip_with_arrow">ข้าม&gt;</string>
   <string name="root_title">อุปกรณ์ความปลอดภัยที่สมบูรณ์</string>
-  <string name="root_body">\'รูท\'ของแอปใดๆที่สามารถเข้าถึงข้อมูลกุญแจกระเป๋าสตางค์ของ AppCoins และขโมยกระเป๋าสตางค์ของคุณ ล้างกระเป๋าสตางค์นี้ทันที และกู้คืนบนอุปกรณ์ที่เชื่อถือได้</string>
+  <string name="root_body">\'รูท\'ของแอปใดๆที่สามารถเข้าถึงข้อมูลกุญแจ AppCoins Wallet และขโมยกระเป๋าสตางค์ของคุณ ล้างกระเป๋าสตางค์นี้ทันที และกู้คืนบนอุปกรณ์ที่เชื่อถือได้</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">การซื้อ %s</string>
   <string name="action_buy">ซื้อ</string>
@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">คีย์สโตร์</string>
   <string name="tab_private_key">คีย์ส่วนตัว</string>
+  <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ข้อผิดพลาด</string>
   <string name="title_dialog_handling">กำลังประมวลผล...</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
   <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
+  <string name="intro_5_title">รับเครดิต AppCoins ฟรี!</string>
+  <string name="intro_5_body">คุณจะได้รับเครดิต AppCoins ฟรีโดยการทดลองแอปและเกมส์</string>
   <string name="intro_creating_wallet_short">ตั้งค่ากระเป๋าสตางค์ของคุณสำหรับคุณ &#8230;</string>
   <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
   <string name="intro_agree_terms_and_conditions_body">โดยการแตะที่ข้าม คุณตกลงที่จะใช้กระเป๋าสตางค์ AppCoins %1$s และ %2$s</string>
@@ -183,7 +186,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">เราคัดสรรกระเป๋าสตางค์ที่น่าเชื่อถือสำหรับโครงการแอนดรอยด์ไปยังการพัฒนาบูตสแตรปของกระเป๋าสตางค์ AppCoins เราพิจารณาถึงทางเลือกที่ดีที่สุดเกี่ยวกับฟังก์ชันการทำงานที่ดำเนินการอยู่แล้ว เราคัดสรรด้วยความตั้งใจเพื่อให้เอื้อต่อการพร้อมใช้งานและทำงานโดยพิจารณาถึงสิ่งที่เกี่ยวข้องเกี่ยวข้อง</string>
+  <string name="settings_fragment_credits">เราคัดสรรกระเป๋าสตางค์ที่น่าเชื่อถือสำหรับโครงการแอนดรอยด์ไปยังการพัฒนาบูตสแตรปของ AppCoins Wallet เราพิจารณาถึงทางเลือกที่ดีที่สุดเกี่ยวกับฟังก์ชันการทำงานที่ดำเนินการอยู่แล้ว เราคัดสรรด้วยความตั้งใจเพื่อให้เอื้อต่อการพร้อมใช้งานและทำงานโดยพิจารณาถึงสิ่งที่เกี่ยวข้องเกี่ยวข้อง</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">ธุรกรรมกำลังดำเนินการอยู่</string>
   <string name="activity_aib_loading_message">นี้อาจใช้เวลาสักครู่...</string>
@@ -202,8 +205,8 @@
   <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
   <string name="activity_iab_change_card">เปลี่ยนบัตร</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">รับรางวัล!👌 คุณจะต้องรอ %1$s ชม.%2$s น. เพื่อรับรางวัลโดยการลองแอป⏰!</string>
+  <string name="notification_poa_limit_reached">คุณใช้ครบจำนวนประจำวันที่กำหนด⏰ กลับมาอีกใน %1$s ชม. %2$s น. และลองอีกครั้ง!</string>
   <string name="notification_submitting_poa">การส่งการร้องขอ blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">ไม่มีการเชื่อมต่อเครือข่าย</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">ค้างอยู่</string>
   <string name="transaction_status_failed">ล้มเหลว</string>
   <string name="transaction_type_iab">ซื้อใน App</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">รางวัล</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">การโอน P2P</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">สนับสนุนโดยเอธิเรียม</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -318,7 +320,7 @@
   <string name="gamification_leveled_up_notification_body">ยินดีด้วย คุณจะรับโบนัส %s ในทุกการซื้อขาย!</string>
   <string name="gamification_how_max_level_body">ยินดีด้วย! คุณถึงเลเวลสูงสุดแล้ว!</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">อนุญาตให้ AppCoins กระเป๋าเพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
+  <string name="provide_wallet_body">อนุญาตให้ AppCoins Wallet เพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
   <string name="provide_wallet_body_placeholders">อนุญาตให้ %1$s ที่อยู่กระเป๋าสตางค์ %2$s</string>
   <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
   <string name="provide_wallet_allow_once_button">อนุญาตให้ครั้งเดียว</string>
@@ -327,7 +329,7 @@
   <string name="provide_wallet_create_wallet_button">สร้าง</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="provide_wallet_created_header">ที่อยู่กระเป๋าสตางค์ที่สร้าง!</string>
-  <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้กระเป๋าสตางค์ AppCoins ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
+  <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้ AppCoins Wallet ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
   <string name="provide_wallet_status">อนุญาตให้เข้าถึงที่อยู่กระเป๋าสตางค์</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
@@ -388,6 +390,7 @@
   <string name="retry_button">ลอง</string>
   <string name="do_it_later_button">ทำภายหลัง</string>
   <string name="connectoin_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
+  <string name="common_or">หรือ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -404,14 +407,14 @@
   <string name="local_payments_inprogress_body">เมื่อคุณชำระเงินเสร็จ คุณจะได้รับเครดิต AppCoins ในกระเป๋าสตางค์ของคุณ หลังจากนั้นกลับไปที่เกมเพื่อซื้อ!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">รางวัลพร้อมแล้วแต่จำเป็นต้องมีการตรวจสอบ</string>
-  <string name="verification_notification_verification_needed_body">เพื่อเหตุผลด้านความปลอดภัย เราต้องยืนยันกระเป๋าเงินของคุณด้วยรหัส SMS</string>
+  <string name="verification_notification_verification_needed_body">เพื่อเหตุผลด้านความปลอดภัย เราต้องยืนยันกระเป๋าสตางค์ของคุณด้วยรหัส SMS</string>
   <string name="verification_insert_phone_title">ใส่เบอร์โทรศัพท์ของคุณ</string>
   <string name="verification_insert_phone_body">ยืนยันกระเป๋าสตางค์ของคุณเพื่อรับรางวัล! เราจะส่งรหัสยืนยันให้คุณ</string>
   <string name="verification_insert_phone_field_country">ประเทศ</string>
   <string name="verification_insert_phone_field_number">เบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_field_number_error">ไม่มีเบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_security_disclaimer">นี่เป็นเพียงเหตุผลด้านความปลอดภัย เราไม่เก็บข้อมูลส่วนบุคคลใดๆ</string>
-  <string name="verification_notification_code_title">กระเป๋าสตางค์ AppCoins</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">รหัสยืนยันของคุณคือ %s ใช้เพื่อยืนยันที่อยู่กระเป๋าสตางค์ AppCoins ของคุณ</string>
   <string name="verification_insert_code_title">ใส่รหัสยืนยันของคุณ</string>
   <string name="verification_insert_code_error">ไม่มีรหัส</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">ยืนยันกระเป๋าสตางค์</string>
   <string name="verification_settings_unverified_body">รับรางวัลและเชิญเพื่อน</string>
   <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
+  <string name="verification_settings_no_internet">คุณจำเป็นต้องเชื่อมต่ออินเตอร์เน็ต</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">ไม่มีค่าธรรมเนียม รวดเร็ว!</string>
   <string name="purchase_appcoins_credits_noavailable_body">คุณไม่จำเป็นต้องมีเครดิต APPC ที่เพียงพอ ลองเติมเงินดู!</string>
   <string name="purchase_appcoins_credits_default_body">คุณรับเครดิต AppCoins ที่เพียงพอสำหรับการซื้อนี้ สนุกกัน!</string>
+  <string name="purchase_poa_item">รับเงินโดยการลองแอป</string>
+  <string name="purchase_poa_body">ลองแอป 2 นาทีและรับ AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">ไม่มีเงิน ไม่ต้องกังวล!</string>
+  <string name="purchase_poa_view_body">ลองแอป 2 นาทีและรับรางวัลใน Apptoide Credits เพื่อซื้อ!</string>
+  <string name="purchase_current_balance_body">ยอดคงเหลือปัจจุบัน:</string>
+  <string name="purchase_current_balance_appcc_body">%s ในเครดิต AppCoins</string>
+  <string name="purchase_current_balance_appc_eth_body">%ใน AppCoins และ Ether.</string>
+  <string name="purchase_wallet_blocked_title">เครดิต AppCoinของคุณถูกบล็อก</string>
+  <string name="purchase_wallet_blocked_body">เนื่องจากประวัติการทำธุรกรรมที่ผิดปกติ ยอดคงเหลือ AppCoins Credits ของคุณจึงถูกปิดกั้น คุณจะยังสามารถชำระเงินและทำธุรกรรมด้วยวิธีอื่น ๆ ยกเว้น AppCoins Credits \n\n หากคุณเชื่อว่าสิ่งนี่เป็นข้อผิดพลาดโปรดติดต่อเราที่:</string>
+  <string name="purchase_card_error_general">ดูเหมือนว่ามีปัญหากับการ์ดของคุณ โปรดลองด้วยวิธีอื่น</string>
+  <string name="purchase_card_error_invalid_details">คุณแน่ใจหรือว่ารายละเอียดบัตรของคุณถูกต้อง? กรุณาลองอีกครั้ง!</string>
+  <string name="purchase_card_error_bank_rejects">ธุรกรรมของคุณถูกปฏิเสธโดยธนาคารของคุณ โปรดลองด้วยบัตรใบอื่น</string>
+  <string name="purchase_card_error_limits">ดูเหมือนว่ามีข้อ จำกัด บางประการสำหรับการ์ดของคุณ โปรดติดต่อธนาคารของคุณหรือลองกับธนาคา</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
@@ -471,4 +488,70 @@
   <string name="promotions_referral_card_body">แชร์ลิงค์เชิญของคุณและรับเครดิต AppCoins</string>
   <string name="promotions_gamification_card_title">โบนัสสูงสุด 30% ในทุกการซื้อ</string>
   <string name="promotions_new">ใหม่</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">อัพเดตเพื่อรับรางวัล</string>
+  <string name="update_wallet_poa_notification_body">โปรดอัปเดต AppCoins Wallet เพื่อรับรางวัลนี้</string>
+  <string name="update_wallet_purchase_title">คุณจำเป็นต้องอัพเดต</string>
+  <string name="update_wallet_purchase_body">อัพเดต AppCoins Wallet เพื่อซื้อได้สำเร็จ</string>
+  <string name="update_wallet_hard_body">ดูเหมือนว่าคุณกำลังใช้ AppCoins Wallet เวอร์ชั่นเก่า โปรดอัพเดตรับประกันประสบการณ์ที่ดีที่สุดและความปลอดภัย</string>
+  <string name="update_wallet_soft_title">อย่างทิ้งไว้!</string>
+  <string name="update_wallet_soft_body">คอยอัพเดต AppCoins Wallet เพื่อรับประกันประสบการณ์ที่ดีที่สุด</string>
+  <string name="update_button">อัพเดต</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">สำรองกระเป๋าสตางค์ของคุณ</string>
+  <string name="backup_home_notification_body">คุณเคยทำโทรศัพท์หายหรือไม่? สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
+  <string name="backup_button">สำรอง</string>
+  <string name="backup_title">สำรองกระเป๋าสตางค์</string>
+  <string name="backup_password_title">เข้ารหัสกระเป๋าสตางค์ของคุณ (ไม่จำเป็น)</string>
+  <string name="backup_password">รหัสผ่าน</string>
+  <string name="backup_body">เราไม่เก็บคีย์ส่วนตัวของคุณหรือวิธีการเข้าถึงอื่นๆ การสำรองข้อมูลกระเป๋าสตางค์ของคุณ (คีย์สตอร์) เป็นสิ่งสำคัญ</string>
+  <string name="backup_send_via_title">ส่งข้อมูลสำรองผ่าน:</string>
+  <string name="import_wallet_title">นำเข้ากระเป๋าสตางค์</string>
+  <string name="import_wallet_body">วางข้อมูลสำรองของกระเป๋าสตางค์ของคุณด้านล่าง</string>
+  <string name="import_wallet_keystore_private_keys">Keystore หรือคีย์ส่วนตัว</string>
+  <string name="import_wallet_file_button">นำเข้าจากไฟล์</string>
+  <string name="import_wallet_button">นำเข้ากระเป๋าสตางค์</string>
+  <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">กระเป๋าสตางค์</string>
+  <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
+  <string name="wallets_active_wallet_title">กระเป๋าสตางค์ที่ใช้งานอยู่</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="other">กระเป๋าสตางค์</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">มูลค่าทั้งหมด</string>
+  <string name="wallets_address_copied_body">คัดลอกที่อยู่กระเป๋าสตางค์ไปยังคลิปบอร์ดแล้ว</string>
+  <string name="wallets_imported_body">นำเข้ากระเป๋าสตางค์สำเร็จแล้ว</string>
+  <string name="wallets_2nd_view_balance_title">ยอดคงเหลือ:</string>
+  <string name="wallets_2nd_view_other_wallets_title">กระเป๋าสตางค์อื่นๆ</string>
+  <string name="wallets_2nd_view_import_button">นำเข้ากระเป๋าสตางค์</string>
+  <string name="wallets_2nd_view_create_button">สร้างใหม่</string>
+  <string name="wallet_view_copy_button">คัดลอก</string>
+  <string name="wallet_view_share_button">แชร์</string>
+  <string name="wallet_view_total_balance_title">ยอดทั้งหมด</string>
+  <string name="wallet_view_remove_button">ลบกระเป๋าสตางค์</string>
+  <string name="wallet_view_backup_button">สำรองข้อมูลกระเป๋าสตางค์</string>
+  <string name="wallet_view_activate_button">ใช้งานกระเป๋าสตางค์นี้</string>
+  <string name="wallet_view_active_body">นี่คือกระเป๋าสตางค์ที่คุณใช้งาน</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">ลบกระเป๋าสตางค์</string>
+  <string name="remove_wallet_body">เราขอแนะนำอย่างยิ่งให้สำรองกระเป๋าสตางค์ก่อนที่จะลบออก คุณจะไม่สามารถเข้าถึงได้อีก เว้นแต่ว่าคุณจะได้รับการสำรองข้อมูลไว้</string>
+  <string name="remove_wallet_backup_button">สำรองข้อมูลกระเป๋าสตางค์</string>
+  <string name="remove_wallet_no_backup_button">ดำเนินการสำรองข้อมูลแอป</string>
+  <string name="remove_wallet_confirm_body">คุณแน่ใจหรือไม่ว่าต้องการลบกระเป๋าสตางค์นี้</string>
+  <string name="remove_wallet_no_button">ไม่ ย้อนกลับไป</string>
+  <string name="remove_wallet_yes_button">ใช่ ลบกระเป๋าสตางค์</string>
+  <string name="remove_wallet_removed_body">ลบกระเป๋าสตางค์!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">โอน</string>
+  <string name="transfer_title">โอนเงิน</string>
+  <string name="transfer_send_tab_title">ส่ง</string>
+  <string name="transfer_receive_tab_title">ได้รับ</string>
+  <string name="transfer_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
+  <string name="transfer_send_recipient_title">ที่อยู่กระเป๋าสตางค์</string>
+  <string name="transfer_send_token_title">โทเค่น:</string>
+  <string name="transfer_send_amount_title">จำนวน</string>
+  <string name="transfer_send_current_balance_title">ยอดคงเหลือปัจจุบัน:</string>
+  <string name="transfer_send_button">ส่ง</string>
+  <string name="transfer_receive_body">แบ่งปันที่อยู่กระเป๋าสตางค์ของคุณเพื่อรับเงิน</string>
 </resources>

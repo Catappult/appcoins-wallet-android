@@ -46,6 +46,7 @@ public class WalletsActivity extends BaseActivity
   private BackupWarningView backupWarning;
   private Dialog dialog;
   private boolean isSetDefault;
+  private String walletAddress;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -138,7 +139,7 @@ public class WalletsActivity extends BaseActivity
             Snackbar.LENGTH_SHORT)
             .show();
         backupWarning.hide();
-        viewModel.saveWalletBackup();
+        viewModel.saveWalletBackup(walletAddress);
         showToolbar();
         hideDialog();
         if (adapter.getItemCount() <= 1) {
@@ -147,7 +148,7 @@ public class WalletsActivity extends BaseActivity
       } else {
         dialog = buildDialog().setMessage(R.string.do_manage_make_backup)
             .setPositiveButton(R.string.yes_continue, (dialog, which) -> {
-              viewModel.saveWalletBackup();
+              viewModel.saveWalletBackup(walletAddress);
               hideDialog();
               backupWarning.hide();
               showToolbar();
@@ -267,6 +268,7 @@ public class WalletsActivity extends BaseActivity
     BackupView view = new BackupView(this);
     dialog = buildDialog().setView(view)
         .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+          walletAddress = wallet.address;
           viewModel.exportWallet(wallet, view.getPassword());
           KeyboardUtils.hideKeyboard(view.findViewById(R.id.password));
         })

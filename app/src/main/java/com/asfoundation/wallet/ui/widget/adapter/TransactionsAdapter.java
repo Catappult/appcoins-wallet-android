@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.widget.adapter;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,13 +65,16 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
 
   private Wallet wallet;
   private NetworkInfo network;
+  private Resources resources;
 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
       Action1<AppcoinsApplication> applicationClickListener,
-      Action2<CardNotification, CardNotificationAction> referralNotificationClickListener) {
+      Action2<CardNotification, CardNotificationAction> referralNotificationClickListener,
+      Resources resources) {
     this.onTransactionClickListener = onTransactionClickListener;
     this.applicationClickListener = applicationClickListener;
     this.referralNotificationClickListener = referralNotificationClickListener;
+    this.resources = resources;
   }
 
   @Override public BinderViewHolder<?> onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -78,7 +82,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     switch (viewType) {
       case TransactionHolder.VIEW_TYPE:
         holder =
-            new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener);
+            new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener,
+                resources);
         break;
       case TransactionDateHolder.VIEW_TYPE:
         holder = new TransactionDateHolder(R.layout.item_transactions_date_head, parent);
