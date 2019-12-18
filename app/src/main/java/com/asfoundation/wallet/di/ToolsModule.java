@@ -19,6 +19,7 @@ import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import cm.aptoide.analytics.AnalyticsManager;
+import com.adyen.checkout.core.api.Environment;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
@@ -36,6 +37,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.adyen.AdyenPaymentService;
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.appcoins.wallet.gamification.Gamification;
@@ -785,19 +787,29 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides AdyenPaymentInteractor provideAdyenPaymentInteractor(
       AdyenPaymentService adyenPaymentService, InAppPurchaseInteractor inAppPurchaseInteractor,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
+      FindDefaultWalletInteract findDefaultWalletInteract, AddressService partnerAddressService) {
     return new AdyenPaymentInteractor(adyenPaymentService, inAppPurchaseInteractor,
-        inAppPurchaseInteractor.getBillingMessagesMapper(), findDefaultWalletInteract);
+        inAppPurchaseInteractor.getBillingMessagesMapper(), findDefaultWalletInteract,
+        partnerAddressService);
   }
 
   @Singleton @Provides AdyenPaymentService provideAdyenPaymentService(OkHttpClient client) {
-    AdyenPaymentService.AdyenApi api = new Retrofit.Builder().baseUrl("http://192.168.1.159:8080/")
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(AdyenPaymentService.AdyenApi.class);
-    return new AdyenPaymentService(api);
+    AdyenPaymentService.AdyenApi api =
+        new Retrofit.Builder().baseUrl(BuildConfig.BASE_HOST + "/gateways/adyen_v2/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(AdyenPaymentService.AdyenApi.class);
+    return new AdyenPaymentService(api, new AdyenResponseMapper());
+  }
+
+  @Provides Environment provideAdyenEnvironment() {
+    if (BuildConfig.DEBUG) {
+      return Environment.TEST;
+    } else {
+      return Environment.EUROPE;
+    }
   }
 
   @Singleton @Provides SharedPreferences provideSharedPreferences(Context context) {

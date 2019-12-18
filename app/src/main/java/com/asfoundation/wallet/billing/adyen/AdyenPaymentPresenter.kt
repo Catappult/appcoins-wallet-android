@@ -2,6 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.content.Context
 import android.os.Bundle
+import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.billing.adyen.AdyenPaymentService
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -108,20 +109,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                       savedInstanceState)
                 } else if (paymentType == PaymentType.PAYPAL.name) {
-                  launchPaypal()
+                  launchPaypal(it.paymentMethodInfo!!)
                 }
               }
             }
             .subscribe())
   }
 
-  private fun launchPaypal() {
+  private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
     disposables.add(transactionBuilder.flatMap {
       if (context != null) {
-        adyenPaymentInteractor.makePayment(amount.toString(), currency, it.orderReference, null,
-            null,
-            null, null, mapPaymentToService(paymentType).name, null,
-            RedirectComponent.getReturnUrl(context))
+        adyenPaymentInteractor.makePayment(paymentMethodInfo.toString(), amount.toString(),
+            currency, it.orderReference, mapPaymentToService(paymentType).type,
+            RedirectComponent.getReturnUrl(context), it.origin, domain, it.payload, it.skuId,
+            it.callbackUrl, it.type, it.toAddress(), it.fromAddress())
       } else {
         Single.just(PaymentModel(Error()))
       }
@@ -146,18 +147,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleBuyClick() {
     disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
-        BiFunction { _: Any, paymentData: PaymentData ->
+        BiFunction { _: Any, paymentData: String ->
           paymentData
         })
         .observeOn(networkScheduler)
         .flatMapSingle { paymentData ->
           transactionBuilder
               .flatMap {
-                adyenPaymentInteractor.makePayment(amount.toString(), currency,
-                    it.orderReference, paymentData.encryptedCardNumber,
-                    paymentData.encryptedExpiryMonth, paymentData.encryptedExpiryYear,
-                    paymentData.encryptedSecurityCode, mapPaymentToService(paymentType).name,
-                    paymentData.paymentId, it.callbackUrl, paymentData.storeDetails)
+                adyenPaymentInteractor.makePayment(paymentData, amount.toString(), currency,
+                    it.orderReference, mapPaymentToService(paymentType).type, "", it.origin, domain,
+                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(), it.fromAddress())
               }
         }
         .observeOn(viewScheduler)
@@ -193,9 +192,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           Pair(extractPayload(details), paymentData)
         })
         .observeOn(networkScheduler)
-        .flatMapSingle {
-          adyenPaymentInteractor.submitRedirect(it.first, it.second)
-        }
+        .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.first!!, it.second) }
         .observeOn(viewScheduler)
         .flatMapCompletable { handlePaymentResult(it) }
         .subscribe())
@@ -205,7 +202,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     outState.putBoolean(WAITING_RESULT, waitingResult)
   }
 
-  fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
+  private fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
     disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
       analytics.sendPaymentEvent(domain, transactionBuilder.skuId,
           transactionBuilder.amount()
@@ -299,8 +296,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .blockingGet()
   }
 
-  private fun extractPayload(payload: JSONObject?): String? {
-    return payload?.getString("payload")
+  private fun extractPayload(payload: JSONObject): String? {
+    return payload.getString("payload")
   }
 
   private fun mapPaymentMethodId(bundle: Bundle): Bundle {

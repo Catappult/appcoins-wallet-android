@@ -69,6 +69,8 @@ class AdyenPaymentFragment : DaggerFragment(),
   lateinit var analytics: BillingAnalytics
   @Inject
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
+  @Inject
+  lateinit var adyenEnvironment: Environment
   private lateinit var iabView: IabView
   private lateinit var paymentMethod: PaymentMethod
   private lateinit var presenter: AdyenPaymentPresenter
@@ -77,7 +79,7 @@ class AdyenPaymentFragment : DaggerFragment(),
   private lateinit var redirectComponent: RedirectComponent
   private var backButton: PublishRelay<Boolean>? = null
   private var validationSubject: PublishSubject<Boolean>? = null
-  private var paymentDataSubject: ReplaySubject<PaymentData>? = null
+  private var paymentDataSubject: ReplaySubject<String>? = null
   private var paymentDetailsSubject: PublishSubject<JSONObject>? = null
   private var paymentDetailsDataSubject: ReplaySubject<String>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
@@ -90,7 +92,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     super.onCreate(savedInstanceState)
     backButton = PublishRelay.create<Boolean>()
     validationSubject = PublishSubject.create<Boolean>()
-    paymentDataSubject = ReplaySubject.create<PaymentData>()
+    paymentDataSubject = ReplaySubject.create<String>()
     paymentDetailsSubject = PublishSubject.create<JSONObject>()
     paymentDetailsDataSubject = ReplaySubject.create<String>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
@@ -158,7 +160,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     setStoredPaymentInformation(isStored)
   }
 
-  override fun retrievePaymentData(): Observable<PaymentData> {
+  override fun retrievePaymentData(): Observable<String> {
     return paymentDataSubject!!
   }
 
@@ -374,7 +376,7 @@ class AdyenPaymentFragment : DaggerFragment(),
         CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
 
     cardConfiguration = cardConfigurationBuilder.let {
-      it.setEnvironment(Environment.TEST)
+      it.setEnvironment(adyenEnvironment)
       it.build()
     }
   }
@@ -435,14 +437,10 @@ class AdyenPaymentFragment : DaggerFragment(),
       if (it != null && it.isValid) {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
-        paymentDataSubject?.onNext(
-            PaymentData(
-                it.data.paymentMethod?.encryptedCardNumber,
-                it.data.paymentMethod?.encryptedExpiryMonth,
-                it.data.paymentMethod?.encryptedExpiryYear,
-                it.data.paymentMethod?.encryptedSecurityCode,
-                it.data.paymentMethod?.storedPaymentMethodId,
-                adyenSaveDetailsSwitch?.isChecked ?: false))
+        it.data.paymentMethod?.let { paymentMethod ->
+          paymentDataSubject?.onNext(paymentMethod.toString())
+        }
+            ?: paymentDataSubject?.onNext("")
       } else {
         buy_button?.isEnabled = false
       }

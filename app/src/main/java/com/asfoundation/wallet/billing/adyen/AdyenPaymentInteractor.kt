@@ -5,17 +5,20 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentService
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 
 class AdyenPaymentInteractor(
     private val adyenPaymentService: AdyenPaymentService,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
     private val billingMessagesMapper: BillingMessagesMapper,
-    private val findDefaultWalletInteract: FindDefaultWalletInteract
+    private val findDefaultWalletInteract: FindDefaultWalletInteract,
+    private val partnerAddressService: AddressService
 ) {
 
   fun loadPaymentInfo(methods: AdyenPaymentService.Methods, value: String,
@@ -24,19 +27,28 @@ class AdyenPaymentInteractor(
         .flatMap { adyenPaymentService.loadPaymentInfo(methods, value, currency, it.address) }
   }
 
-  fun makePayment(value: String, currency: String, reference: String, encryptedCardNumber: String?,
-                  encryptedExpiryMonth: String?, encryptedExpiryYear: String?,
-                  encryptedSecurityCode: String?, type: String, paymentId: String?,
-                  returnUrl: String?, savePaymentMethod: Boolean = false): Single<PaymentModel> {
+  fun makePayment(adyenPaymentMethod: String, value: String, currency: String, reference: String,
+                  paymentType: String, returnUrl: String, origin: String?, packageName: String,
+                  metadata: String?, sku: String?, callbackUrl: String?,
+                  transactionType: String, developerWallet: String,
+                  userWallet: String): Single<PaymentModel> {
     return findDefaultWalletInteract.find()
         .flatMap { wallet ->
-          adyenPaymentService.makePayment(value, currency, reference, encryptedCardNumber,
-              encryptedExpiryMonth, encryptedExpiryYear, encryptedSecurityCode, paymentId, type,
-              wallet.address, returnUrl, savePaymentMethod)
+          Single.zip(
+              partnerAddressService.getStoreAddressForPackage(packageName),
+              partnerAddressService.getOemAddressForPackage(packageName),
+              BiFunction { storeAddress: String, oemAddress: String ->
+                Pair(storeAddress, oemAddress)
+              })
+              .flatMap {
+                adyenPaymentService.makePayment(adyenPaymentMethod, value, currency, reference,
+                    paymentType, wallet.address, returnUrl, origin, packageName, metadata, sku,
+                    callbackUrl, transactionType, developerWallet, it.first, it.second, userWallet)
+              }
         }
   }
 
-  fun submitRedirect(payload: String?, paymentData: String?): Single<PaymentModel> {
+  fun submitRedirect(payload: String, paymentData: String?): Single<PaymentModel> {
     return adyenPaymentService.submitRedirect(payload, paymentData)
   }
 

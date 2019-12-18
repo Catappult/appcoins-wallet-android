@@ -28,7 +28,7 @@ interface AdyenPaymentView {
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstance: Bundle?)
 
-  fun retrievePaymentData(): Observable<PaymentData>
+  fun retrievePaymentData(): Observable<String>
   fun showSpecificError(refusalCode: Int)
   fun showProductPrice(amount: String, currencyCode: String)
   fun lockRotation()
