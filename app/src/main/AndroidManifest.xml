@@ -135,7 +135,7 @@
 
         <data
             android:host="${applicationId}"
-            android:scheme="adyencheckout"/>
+            android:scheme="iabadyencheckout"/>
       </intent-filter>
     </activity>
     <activity
@@ -154,14 +154,14 @@
         android:label="@string/topup_title"
         android:screenOrientation="portrait">
       <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
         <data
-            android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing2"/>
-        <data
-            android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing"/>
+            android:host="${applicationId}"
+            android:scheme="topupadyencheckout"/>
       </intent-filter>
     </activity>
     <activity

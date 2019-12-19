@@ -6,8 +6,9 @@ import com.appcoins.wallet.billing.util.Error
 data class PaymentInfoModel(
     val paymentMethodInfo: PaymentMethod?,
     val isStored: Boolean = false,
-    val price: Price,
+    val priceAmount: String,
+    val priceCurrency: String,
     val error: Error = Error()) {
 
-  constructor(error: Error) : this(null, false, Price("0", ""), error)
+  constructor(error: Error) : this(null, false, "0", "", error)
 }

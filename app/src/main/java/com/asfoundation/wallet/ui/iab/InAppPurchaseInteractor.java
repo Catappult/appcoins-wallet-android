@@ -7,8 +7,10 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
+import com.appcoins.wallet.bdsbilling.repository.entity.Price;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
@@ -197,10 +199,25 @@ public class InAppPurchaseInteractor {
         .map(BalanceUtils::weiToEth);
   }
 
+  Single<String> getTransactionUid(String uid) {
+    return getCompletedTransaction(uid).map(Transaction::getHash)
+        .firstOrError();
+  }
+
+  public Single<Price> getTransactionAmount(String uid) {
+    return getCompletedTransaction(uid).map(Transaction::getPrice)
+        .firstOrError();
+  }
+
   private Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
       TransactionBuilder transaction, List<PaymentMethodEntity> paymentMethods) {
     return getFilteredGateways(transaction).map(
         filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
+  }
+
+  private Observable<Transaction> getCompletedTransaction(String uid) {
+    return getTransaction(uid).filter(transaction -> transaction.getStatus()
+        .equals(Status.COMPLETED));
   }
 
   public Observable<Transaction> getTransaction(String uid) {

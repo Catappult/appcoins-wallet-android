@@ -111,13 +111,17 @@
               android:layout_height="wrap_content"
               />
           <Button
-              android:id="@+id/forget_card"
+              android:id="@+id/change_card_button"
               style="?android:attr/borderlessButtonStyle"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_below="@id/adyen_card_form"
               android:layout_centerHorizontal="true"
-              android:text="FORGET CARD"
+              android:fontFamily="sans-serif-medium"
+              android:lineSpacingExtra="5sp"
+              android:text="@string/activity_iab_change_card"
+              android:textColor="@color/grey_8a_alpha"
+              android:textSize="11sp"
               android:visibility="gone"
               />
         </RelativeLayout>

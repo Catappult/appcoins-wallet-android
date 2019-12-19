@@ -1,22 +1,25 @@
 package com.appcoins.wallet.billing.adyen
 
+import com.adyen.checkout.core.model.ModelObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
+import org.json.JSONObject
 import retrofit2.http.*
 
-class AdyenPaymentService(private val adyenApi: AdyenApi,
-                          private val adyenResponseMapper: AdyenResponseMapper) {
+class AdyenPaymentRepository(private val adyenApi: AdyenApi,
+                             private val adyenResponseMapper: AdyenResponseMapper) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {
-    return adyenApi.loadPaymentInfo(walletAddress, value, currency, methods.type)
+    return adyenApi.loadPaymentInfo(walletAddress, value, currency, methods.transactionType)
         .map { adyenResponseMapper.map(it, methods) }
         .onErrorReturn { adyenResponseMapper.mapInfoModelError(it) }
   }
 
-  fun makePayment(adyenPaymentMethod: String, value: String, currency: String, reference: String?,
-                  paymentType: String, walletAddress: String, returnUrl: String,
+  fun makePayment(adyenPaymentMethod: ModelObject, returnUrl: String, value: String,
+                  currency: String,
+                  reference: String?, paymentType: String, walletAddress: String,
                   origin: String?, packageName: String?, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
                   storeWallet: String?, oemWallet: String?,
@@ -26,19 +29,31 @@ class AdyenPaymentService(private val adyenApi: AdyenApi,
             origin, sku, reference, transactionType, currency, value, developerWallet,
             storeWallet, oemWallet, userWallet))
         .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapModelError(it) }
+        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
-  fun submitRedirect(payload: String, paymentData: String?): Single<PaymentModel> {
-    return adyenApi.submitRedirect("uid", "wallet.address", AdyenPayment(payload, paymentData))
+  fun submitRedirect(uid: String, walletAddress: String, details: JSONObject,
+                     paymentData: String?): Single<PaymentModel> {
+    return adyenApi.submitRedirect(uid, walletAddress,
+        AdyenPayment(Payload(details.getString("payload")),
+            paymentData)) //TODO details should be a generic object this only works if the only redirect payment we use is paypal
         .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapModelError(it) }
+        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
   fun disablePayments(walletAddress: String): Single<Boolean> {
     return adyenApi.disablePayments(DisableWallet(walletAddress))
         .toSingleDefault(true)
-        .onErrorReturn { false }
+        .onErrorReturn {
+          it.printStackTrace()
+          false
+        }
+  }
+
+  fun getTransaction(uid: String): Single<PaymentModel> {
+    return adyenApi.getTransaction(uid)
+        .map { adyenResponseMapper.map(it) }
+        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
   interface AdyenApi {
@@ -58,7 +73,6 @@ class AdyenPaymentService(private val adyenApi: AdyenApi,
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Body payment: Payment): Single<AdyenTransactionResponse>
 
-    @FormUrlEncoded
     @PATCH("transactions/{uid}")
     fun submitRedirect(@Path("uid") uid: String,
                        @Query("wallet.address") address: String,
@@ -68,7 +82,7 @@ class AdyenPaymentService(private val adyenApi: AdyenApi,
     fun disablePayments(@Body wallet: DisableWallet): Completable
   }
 
-  data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: String,
+  data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
                      @SerializedName("payment.return_url") val returnUrl: String,
                      @SerializedName("callback_url") val callbackUrl: String?,
                      @SerializedName("domain") val domain: String?,
@@ -85,12 +99,12 @@ class AdyenPaymentService(private val adyenApi: AdyenApi,
                      @SerializedName("wallets.oem") val oem: String?,
                      @SerializedName("wallets.user") val user: String?)
 
-  data class AdyenPayment(@SerializedName("payment.details") val details: String,
+  data class AdyenPayment(@SerializedName("payment.details") val details: Payload,
                           @SerializedName("payment.data") val data: String?)
 
   data class DisableWallet(@SerializedName("wallet.address") val walletAddress: String)
 
-  enum class Methods(val type: String) {
-    CREDIT_CARD("credit_card"), PAYPAL("paypal")
+  enum class Methods(val adyenType: String, val transactionType: String) {
+    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal")
   }
 }

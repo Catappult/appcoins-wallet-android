@@ -15,6 +15,7 @@ import com.asfoundation.wallet.referrals.ReferralsFragment;
 import com.asfoundation.wallet.topup.TopUpActivity;
 import com.asfoundation.wallet.topup.TopUpFragment;
 import com.asfoundation.wallet.topup.TopUpSuccessFragment;
+import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
@@ -194,7 +195,10 @@ import dagger.android.ContributesAndroidInjector;
 
   @ContributesAndroidInjector() abstract IabUpdateRequiredFragment bindIabUpdateRequiredFragment();
 
-  @ContributesAndroidInjector() abstract AdyenPaymentFragment bindAdyenPaymentFragment();
+  @FragmentScope @ContributesAndroidInjector()
+  abstract AdyenPaymentFragment bindAdyenPaymentFragment();
+
+  @FragmentScope @ContributesAndroidInjector() abstract AdyenTopUpFragment bindAdyenTopUpFragment();
 
   @ActivityScope @ContributesAndroidInjector()
   abstract WalletBlockedActivity walletBlockedActivity();

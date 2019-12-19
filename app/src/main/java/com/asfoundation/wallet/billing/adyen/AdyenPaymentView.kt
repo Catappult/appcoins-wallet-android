@@ -2,10 +2,10 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.net.Uri
 import android.os.Bundle
+import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
-import org.json.JSONObject
 
 interface AdyenPaymentView {
 
@@ -22,19 +22,18 @@ interface AdyenPaymentView {
   fun showGenericError()
   fun getMorePaymentMethodsClicks(): Observable<Any>
   fun showMoreMethods()
-  fun onValidFieldStateChange(): Observable<Boolean?>?
   fun hideLoading()
   fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstance: Bundle?)
 
-  fun retrievePaymentData(): Observable<String>
+  fun retrievePaymentData(): Observable<CardPaymentMethod>
   fun showSpecificError(refusalCode: Int)
   fun showProductPrice(amount: String, currencyCode: String)
   fun lockRotation()
-  fun setRedirectComponent(action: Action, paymentDetailsData: String?)
+  fun setRedirectComponent(action: Action, paymentDetailsData: String?, uid: String)
   fun submitUriResult(uri: Uri)
-  fun getPaymentDetails(): Observable<JSONObject>
-  fun getPaymentDetailsData(): Observable<String?>
+  fun getPaymentDetails(): Observable<RedirectComponentModel>
   fun forgetCardClick(): Observable<Any>
+  fun provideReturnUrl(): String
 }

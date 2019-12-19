@@ -2,10 +2,10 @@ package com.asfoundation.wallet.view.rx;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
-import android.view.View;
 import com.jakewharton.rxrelay2.PublishRelay;
 import io.reactivex.Observable;
 
@@ -44,6 +44,10 @@ public class RxAlertDialog implements DialogInterface {
 
   public boolean isShowing() {
     return dialog.isShowing();
+  }
+
+  public void changeMessage(String message) {
+    dialog.setMessage(message);
   }
 
   @Override public void cancel() {

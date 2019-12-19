@@ -6,11 +6,13 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import com.adyen.checkout.redirect.RedirectComponent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
+import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -74,8 +76,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                                  selectedCurrency: String, origin: String, transactionType: String,
                                  bonusValue: String, selectedChip: Int, chipValues: List<FiatValue>,
                                  chipAvailability: Boolean) {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container,
+            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency, origin,
+                transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
+        .commit()
   }
 
   override fun onBackPressed() {
@@ -126,6 +131,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     results.accept(Objects.requireNonNull(uri, "Intent data cannot be null!"))
   }
 
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    results.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
+  }
+
+
   override fun navigateToUri(url: String) {
     startActivityForResult(WebViewActivity.newIntent(this, url),
         WEB_VIEW_REQUEST_CODE)
@@ -157,5 +168,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     } else {
       super.onBackPressed()
     }
+  }
+
+  override fun provideRedirectUrl(): String {
+    return "topup" + RedirectComponent.getReturnUrl(this)
   }
 }

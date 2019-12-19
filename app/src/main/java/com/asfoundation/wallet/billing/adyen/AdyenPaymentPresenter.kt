@@ -3,9 +3,10 @@ package com.asfoundation.wallet.billing.adyen
 import android.content.Context
 import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.redirect.RedirectComponent
-import com.appcoins.wallet.billing.adyen.AdyenPaymentService
+import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -19,7 +20,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import org.json.JSONObject
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
@@ -119,10 +119,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
     disposables.add(transactionBuilder.flatMap {
       if (context != null) {
-        adyenPaymentInteractor.makePayment(paymentMethodInfo.toString(), amount.toString(),
-            currency, it.orderReference, mapPaymentToService(paymentType).type,
-            RedirectComponent.getReturnUrl(context), it.origin, domain, it.payload, it.skuId,
-            it.callbackUrl, it.type, it.toAddress(), it.fromAddress())
+        adyenPaymentInteractor.makePayment(paymentMethodInfo, view.provideReturnUrl(),
+            amount.toString(), currency, it.orderReference,
+            mapPaymentToService(paymentType).transactionType, it.origin, domain, it.payload,
+            it.skuId, it.callbackUrl, it.type, it.toAddress())
       } else {
         Single.just(PaymentModel(Error()))
       }
@@ -130,71 +130,83 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .filter { !waitingResult }
-        .doOnSuccess {
-          if (!it.error.hasError) {
-            view.showLoading()
-            view.lockRotation()
-            view.setRedirectComponent(it.action!!, it.paymentData)
-            waitingResult = true
-            sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
-          } else {
-            if (it.error.isNetworkError) view.showNetworkError()
-            else view.showGenericError()
-          }
-        }
+        .doOnSuccess { handlePaymentModel(it) }
         .subscribe())
+  }
+
+  private fun handlePaymentModel(paymentModel: PaymentModel) {
+    if (!paymentModel.error.hasError) {
+      view.showLoading()
+      view.lockRotation()
+      view.setRedirectComponent(paymentModel.action!!, paymentModel.paymentData, paymentModel.uid)
+      waitingResult = true
+      sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
+    } else {
+      if (paymentModel.error.isNetworkError) view.showNetworkError()
+      else view.showGenericError()
+    }
   }
 
   private fun handleBuyClick() {
     disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
-        BiFunction { _: Any, paymentData: String ->
+        BiFunction { _: Any, paymentData: CardPaymentMethod ->
           paymentData
         })
         .observeOn(networkScheduler)
         .flatMapSingle { paymentData ->
           transactionBuilder
               .flatMap {
-                adyenPaymentInteractor.makePayment(paymentData, amount.toString(), currency,
-                    it.orderReference, mapPaymentToService(paymentType).type, "", it.origin, domain,
-                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(), it.fromAddress())
+                adyenPaymentInteractor.makePayment(paymentData, view.provideReturnUrl(),
+                    amount.toString(), currency, it.orderReference,
+                    mapPaymentToService(paymentType).transactionType, it.origin, domain, it.payload,
+                    it.skuId, it.callbackUrl, it.type, it.toAddress())
               }
         }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it) }
+        .flatMapCompletable {
+          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.error)
+        }
         .subscribe())
   }
 
-  private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
+  private fun handlePaymentResult(uid: String, resultCode: String, refusalCode: Int?,
+                                  refusalReason: String?, error: Error): Completable {
     return when {
-      paymentModel.resultCode == "AUTHORISED" -> {
-        Completable.fromAction {
-          sendPaymentEvent()
-          sendRevenueEvent()
-          view.showSuccess()
-        }
-            .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-            .andThen(Completable.fromAction { navigator.popView(createBundle()) })
+      resultCode == "AUTHORISED" -> {
+        adyenPaymentInteractor.getTransaction(uid)
+            .flatMapCompletable {
+              if (it.status == TransactionResponse.Status.COMPLETED) {
+                Completable.fromAction {
+                  sendPaymentEvent()
+                  sendRevenueEvent()
+                  view.showSuccess()
+                }
+                    .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                    .andThen(Completable.fromAction { navigator.popView(createBundle(it.hash)) })
+              } else {
+                Completable.fromAction { view.showGenericError() }
+              }
+            }
       }
-      paymentModel.error.hasError -> Completable.fromAction {
-        if (paymentModel.error.isNetworkError) view.showNetworkError()
+      error.hasError -> Completable.fromAction {
+        if (error.isNetworkError) view.showNetworkError()
         else view.showGenericError()
       }
-      paymentModel.refusalReason != null -> Completable.fromAction {
-        paymentModel.refusalCode?.let { code -> view.showSpecificError(code) }
+      refusalReason != null -> Completable.fromAction {
+        refusalCode?.let { code -> view.showSpecificError(code) }
       }
       else -> Completable.fromAction { view.showGenericError() }
     }
   }
 
   private fun handlePaymentDetails() {
-    disposables.add(Observable.combineLatest(view.getPaymentDetails(), view.getPaymentDetailsData(),
-        BiFunction { details: JSONObject, paymentData: String? ->
-          Pair(extractPayload(details), paymentData)
-        })
+    disposables.add(view.getPaymentDetails()
         .observeOn(networkScheduler)
-        .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.first!!, it.second) }
+        .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it) }
+        .flatMapCompletable {
+          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.error)
+        }
         .subscribe())
   }
 
@@ -212,6 +224,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleErrorDismissEvent() {
     disposables.add(view.errorDismisses()
+        .observeOn(viewScheduler)
         .doOnNext { navigator.popViewWithError() }
         .subscribe())
   }
@@ -241,7 +254,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .doOnNext { view.submitUriResult(it) }
         .subscribe())
   }
-
 
   private fun showMoreMethods() {
     adyenPaymentInteractor.removePreSelectedPaymentMethod()
@@ -279,25 +291,21 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
-  private fun mapPaymentToService(paymentType: String): AdyenPaymentService.Methods {
+  private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods {
     return if (paymentType == PaymentType.CARD.name) {
-      AdyenPaymentService.Methods.CREDIT_CARD
+      AdyenPaymentRepository.Methods.CREDIT_CARD
     } else {
-      AdyenPaymentService.Methods.PAYPAL
+      AdyenPaymentRepository.Methods.PAYPAL
     }
   }
 
-  private fun createBundle(): Bundle {
+  private fun createBundle(hash: String?): Bundle {
     return transactionBuilder.flatMap {
       adyenPaymentInteractor.getCompletePurchaseBundle(paymentType, domain, it.skuId,
-          it.orderReference, "hash", networkScheduler)
+          it.orderReference, hash, networkScheduler)
     }
         .map { mapPaymentMethodId(it) }
         .blockingGet()
-  }
-
-  private fun extractPayload(payload: JSONObject): String? {
-    return payload.getString("payload")
   }
 
   private fun mapPaymentMethodId(bundle: Bundle): Bundle {

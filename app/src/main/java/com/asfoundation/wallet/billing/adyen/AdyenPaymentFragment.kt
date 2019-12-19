@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
+import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -39,21 +40,15 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
-import kotlinx.android.synthetic.main.adyen_credit_card_layout.adyen_card_form
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_card_authorization_progress_bar
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
-import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.bonus_layout
-import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.bonus_msg
-import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.payment_methods
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.fragment_iab_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
-import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
-import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -78,10 +73,8 @@ class AdyenPaymentFragment : DaggerFragment(),
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
   private var backButton: PublishRelay<Boolean>? = null
-  private var validationSubject: PublishSubject<Boolean>? = null
-  private var paymentDataSubject: ReplaySubject<String>? = null
-  private var paymentDetailsSubject: PublishSubject<JSONObject>? = null
-  private var paymentDetailsDataSubject: ReplaySubject<String>? = null
+  private var paymentDataSubject: ReplaySubject<CardPaymentMethod>? = null
+  private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
@@ -91,10 +84,8 @@ class AdyenPaymentFragment : DaggerFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButton = PublishRelay.create<Boolean>()
-    validationSubject = PublishSubject.create<Boolean>()
-    paymentDataSubject = ReplaySubject.create<String>()
-    paymentDetailsSubject = PublishSubject.create<JSONObject>()
-    paymentDetailsDataSubject = ReplaySubject.create<String>()
+    paymentDataSubject = ReplaySubject.create<CardPaymentMethod>()
+    paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
@@ -160,7 +151,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     setStoredPaymentInformation(isStored)
   }
 
-  override fun retrievePaymentData(): Observable<String> {
+  override fun retrievePaymentData(): Observable<CardPaymentMethod> {
     return paymentDataSubject!!
   }
 
@@ -279,7 +270,7 @@ class AdyenPaymentFragment : DaggerFragment(),
   override fun showSpecificError(refusalCode: Int) {
     main_view?.visibility = View.GONE
     main_view_pre_selected?.visibility = View.GONE
-    var message = "Payment Refused"
+    var message = getString(R.string.notification_payment_refused)
 
     when (refusalCode) {
       8, 24 -> message = "Are you sure your card details are correct? Please try again!"
@@ -302,21 +293,16 @@ class AdyenPaymentFragment : DaggerFragment(),
     iabView.showPaymentMethodsView()
   }
 
-  override fun onValidFieldStateChange(): Observable<Boolean?>? {
-    return validationSubject
-  }
-
   override fun lockRotation() {
     iabView.lockRotation()
   }
 
-  override fun setRedirectComponent(action: Action, paymentDetailsData: String?) {
+  override fun setRedirectComponent(action: Action, paymentDetailsData: String?, uid: String) {
     action.type = action.type?.toLowerCase()
-    paymentDetailsData?.let { paymentDetailsDataSubject?.onNext(paymentDetailsData) }
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.handleAction(activity as IabActivity, action)
     redirectComponent.observe(this, Observer {
-      paymentDetailsSubject?.onNext(it.details!!)
+      paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
     })
   }
 
@@ -324,21 +310,21 @@ class AdyenPaymentFragment : DaggerFragment(),
     redirectComponent.handleRedirectResponse(uri)
   }
 
-  override fun getPaymentDetails(): Observable<JSONObject> {
+  override fun getPaymentDetails(): Observable<RedirectComponentModel> {
     return paymentDetailsSubject!!
   }
 
-  override fun getPaymentDetailsData(): Observable<String?> {
-    return paymentDetailsDataSubject!!
-  }
-
   override fun forgetCardClick(): Observable<Any> {
-    return if (forget_card != null) RxView.clicks(forget_card)
-    else RxView.clicks(forget_card_pre_selected)
+    return if (change_card_button != null) RxView.clicks(change_card_button)
+    else RxView.clicks(change_card_button_pre_selected)
   }
 
   override fun showProductPrice(amount: String, currencyCode: String) {
     fiat_price.text = "$amount $currencyCode"
+  }
+
+  override fun provideReturnUrl(): String {
+    return iabView.provideRedirectUrl()
   }
 
   private fun setBackListener(view: View) {
@@ -413,14 +399,14 @@ class AdyenPaymentFragment : DaggerFragment(),
       adyenCardNumberLayout.visibility = View.GONE
       adyenExpiryDateLayout.visibility = View.GONE
       adyenCardImageLayout?.visibility = View.GONE
-      forget_card?.visibility = View.VISIBLE
-      forget_card_pre_selected?.visibility = View.VISIBLE
+      change_card_button?.visibility = View.VISIBLE
+      change_card_button_pre_selected?.visibility = View.VISIBLE
     } else {
       adyenCardNumberLayout.visibility = View.VISIBLE
       adyenExpiryDateLayout.visibility = View.VISIBLE
       adyenCardImageLayout?.visibility = View.VISIBLE
-      forget_card?.visibility = View.GONE
-      forget_card_pre_selected?.visibility = View.GONE
+      change_card_button?.visibility = View.GONE
+      change_card_button_pre_selected?.visibility = View.GONE
     }
 
   }
@@ -438,9 +424,8 @@ class AdyenPaymentFragment : DaggerFragment(),
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
-          paymentDataSubject?.onNext(paymentMethod.toString())
+          paymentDataSubject?.onNext(paymentMethod)
         }
-            ?: paymentDataSubject?.onNext("")
       } else {
         buy_button?.isEnabled = false
       }
@@ -462,12 +447,12 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
-      fragment_credit_card_authorization_pre_authorized_card?.text =
+      adyen_card_form_pre_selected_number?.text =
           adyenCardNumberLayout.editText?.text
-      fragment_credit_card_authorization_pre_authorized_card?.visibility = View.VISIBLE
+      adyen_card_form_pre_selected_number?.visibility = View.VISIBLE
       payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
     } else {
-      fragment_credit_card_authorization_pre_authorized_card?.visibility = View.GONE
+      adyen_card_form_pre_selected_number?.visibility = View.GONE
       payment_method_ic?.visibility = View.GONE
     }
   }
@@ -490,10 +475,8 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   override fun onDestroy() {
     backButton = null
-    validationSubject = null
     paymentDataSubject = null
     paymentDetailsSubject = null
-    paymentDetailsDataSubject = null
     super.onDestroy()
   }
 

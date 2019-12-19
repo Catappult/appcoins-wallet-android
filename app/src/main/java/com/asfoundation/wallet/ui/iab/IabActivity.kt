@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
@@ -279,6 +280,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onPause() {
     presenter.stop()
     super.onPause()
+  }
+
+  override fun provideRedirectUrl(): String {
+    return "iab" + RedirectComponent.getReturnUrl(this)
   }
 
   companion object {
