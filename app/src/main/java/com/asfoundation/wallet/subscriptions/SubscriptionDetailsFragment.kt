@@ -11,7 +11,6 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -49,14 +48,9 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     presenter.present(packageName)
   }
 
-  override fun getBackClicks(): Observable<Any> {
-    return RxView.clicks(back_button)
-  }
+  override fun getBackClicks() = RxView.clicks(back_button)
 
-  override fun getCancelClicks(): Observable<String> {
-    return RxView.clicks(cancel_subscription)
-        .map { packageName }
-  }
+  override fun getCancelClicks() = RxView.clicks(cancel_subscription)
 
   override fun cancelSubscription() {
     activity.showCancelSubscription(packageName)
@@ -66,11 +60,13 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     activity.navigateBack()
   }
 
-  override fun showActiveDetails(subscriptionDetails: SubscriptionDetails) {
+  override fun showActiveDetails(subscriptionDetails: ActiveSubscriptionDetails) {
     layout_expired_subscription_content.visibility = View.GONE
     cancel_subscription.visibility = View.VISIBLE
     layout_active_subscription_content.visibility = View.VISIBLE
-    status.setTextColor(ContextCompat.getColor(context!!, R.color.green))
+    context?.let {
+      status.setTextColor(ContextCompat.getColor(it, R.color.green))
+    }
 
     Picasso.with(context)
         .load(subscriptionDetails.iconUrl)
@@ -81,25 +77,27 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
         .into(layout_active_subscription_content.payment_method_icon)
 
     app_name.text = subscriptionDetails.appName
-    status.text = subscriptionDetails.status.name
-    total_monthly.text = String.format("%s / month",
+    status.text = "ACTIVE"
+    total_value.text = String.format("%s / %s",
         subscriptionDetails.symbol + subscriptionDetails.amount.setScale(FIAT_SCALE,
-            RoundingMode.FLOOR))
+            RoundingMode.FLOOR), subscriptionDetails.recurrence)
 
-    total_monthly_appc.text = String.format("~%s / APPC",
+    total_value_appc.text = String.format("~%s / APPC",
         subscriptionDetails.appcValue.setScale(FIAT_SCALE, RoundingMode.FLOOR))
 
-    next_payment_value.text = getDateString(subscriptionDetails.nextPayment!!)
+    next_payment_value.text = getDateString(subscriptionDetails.nextPayment)
     layout_active_subscription_content.payment_method_value.text = subscriptionDetails.paymentMethod
   }
 
-  override fun showExpiredDetails(subscriptionDetails: SubscriptionDetails) {
+  override fun showExpiredDetails(subscriptionDetails: ExpiredSubscriptionDetails) {
     layout_active_subscription_content.visibility = View.GONE
     layout_expired_subscription_content.visibility = View.VISIBLE
     info.visibility = View.GONE
     info_text.visibility = View.GONE
-    cancel_subscription.visibility = View.INVISIBLE
-    status.setTextColor(ContextCompat.getColor(context!!, R.color.red))
+    cancel_subscription.visibility = View.GONE
+    context?.let {
+      status.setTextColor(ContextCompat.getColor(it, R.color.red))
+    }
 
     Picasso.with(context)
         .load(subscriptionDetails.iconUrl)
@@ -110,10 +108,10 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
         .into(layout_expired_subscription_content.payment_method_icon)
 
     app_name.text = subscriptionDetails.appName
-    status.text = subscriptionDetails.status.name
+    status.text = "EXPIRED"
 
-    last_bill_value.text = getDateString(subscriptionDetails.lastBill!!)
-    start_date_value.text = getDateString(subscriptionDetails.startDate!!)
+    last_bill_value.text = getDateString(subscriptionDetails.lastBill)
+    start_date_value.text = getDateString(subscriptionDetails.startDate)
     layout_expired_subscription_content.payment_method_value.text =
         subscriptionDetails.paymentMethod
   }

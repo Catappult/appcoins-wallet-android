@@ -18,13 +18,14 @@ import com.asfoundation.wallet.subscriptions.SubscriptionDetails;
 import com.asfoundation.wallet.subscriptions.SubscriptionRepository;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Scheduler;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
   private final SubscriptionRepository subscriptionRepository;
+  private final Scheduler networkScheduler;
+  private final Scheduler viewScheduler;
 
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -32,23 +33,26 @@ public class TransactionDetailViewModel extends BaseViewModel {
 
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter, SubscriptionRepository subscriptionRepository) {
+      ExternalBrowserRouter externalBrowserRouter, SubscriptionRepository subscriptionRepository,
+      Scheduler networkScheduler, Scheduler viewScheduler) {
     this.externalBrowserRouter = externalBrowserRouter;
     this.subscriptionRepository = subscriptionRepository;
+    this.networkScheduler = networkScheduler;
+    this.viewScheduler = viewScheduler;
     findDefaultNetworkInteract.find()
-        .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(viewScheduler)
         .subscribe(defaultNetwork::postValue, t -> {
         });
     disposable = findDefaultWalletInteract.find()
-        .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(viewScheduler)
         .subscribe(defaultWallet::postValue, t -> {
         });
   }
 
   public void loadSubscriptionDetails(String transactionId) {
     disposable = subscriptionRepository.getSubscriptionByTrxId(transactionId)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
         .subscribe(subscriptionDetails::postValue, t -> {
         });
   }

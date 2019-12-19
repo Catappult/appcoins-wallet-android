@@ -71,7 +71,7 @@
       android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="32dp"
       android:gravity="center"
-      android:text="Something went wrong. Please try again"
+      android:text="@string/verification_insert_code_error_common"
       android:textColor="@color/colorAccent"
       android:textSize="10sp"
       android:visibility="gone"

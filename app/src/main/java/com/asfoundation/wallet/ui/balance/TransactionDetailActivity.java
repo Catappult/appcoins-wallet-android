@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.subscriptions.ActiveSubscriptionDetails;
 import com.asfoundation.wallet.subscriptions.SubscriptionDetails;
-import com.asfoundation.wallet.subscriptions.SubscriptionStatus;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
@@ -118,7 +118,7 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.payment_method_value)).setText(
         subscriptionDetails.getPaymentMethod());
 
-    boolean visible = subscriptionDetails.getStatus() == SubscriptionStatus.ACTIVE;
+    boolean visible = subscriptionDetails instanceof ActiveSubscriptionDetails;
 
     if (cancelSubscription != null) {
       cancelSubscription.setVisibility(visible ? View.VISIBLE : View.GONE);
@@ -164,7 +164,7 @@ public class TransactionDetailActivity extends BaseActivity {
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
     View button = findViewById(R.id.more_detail);
     View manageSubscriptions = findViewById(R.id.manage_subscriptions);
-    View categorybackground = findViewById(R.id.category_icon_background);
+    View categoryBackground = findViewById(R.id.category_icon_background);
 
     switch (transaction.getType()) {
       case ADS:
@@ -209,7 +209,7 @@ public class TransactionDetailActivity extends BaseActivity {
       case TOP_UP:
         typeStr = R.string.topup_title;
         id = getString(R.string.topup_title);
-        categorybackground.setBackground(null);
+        categoryBackground.setBackground(null);
         typeIcon = R.drawable.transaction_type_top_up;
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
@@ -221,7 +221,7 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.transaction_type_p2p;
         id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
         typeIcon = R.drawable.transaction_type_transfer_off_chain;
-        categorybackground.setBackground(null);
+        categoryBackground.setBackground(null);
         to = transaction.getTo();
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
@@ -232,7 +232,7 @@ public class TransactionDetailActivity extends BaseActivity {
       case SUBS:
         typeStr = R.string.transaction_type_subscription;
         typeIcon = R.drawable.ic_transaction_subscription;
-        categorybackground.setBackground(null);
+        categoryBackground.setBackground(null);
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));

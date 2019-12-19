@@ -6,10 +6,10 @@ import io.reactivex.Observable
 interface SubscriptionDetailsView {
 
   fun getBackClicks(): Observable<Any>
-  fun getCancelClicks(): Observable<String>
+  fun getCancelClicks(): Observable<Any>
   fun navigateBack()
-  fun showActiveDetails(subscriptionDetails: SubscriptionDetails)
-  fun showExpiredDetails(subscriptionDetails: SubscriptionDetails)
+  fun showActiveDetails(subscriptionDetails: ActiveSubscriptionDetails)
+  fun showExpiredDetails(subscriptionDetails: ExpiredSubscriptionDetails)
   fun showNoNetworkError()
   fun cancelSubscription()
   fun showLoading()

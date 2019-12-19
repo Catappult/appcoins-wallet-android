@@ -5,22 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.asf.wallet.R
+import io.reactivex.subjects.PublishSubject
 
 class SubscriptionAdapter(
-    private val clickCallback: ((SubscriptionItem) -> Unit)?
+    private var clickListener: PublishSubject<String>?
 ) : ListAdapter<SubscriptionItem, SubscriptionViewHolder>(
     object : DiffUtil.ItemCallback<SubscriptionItem>() {
-      override fun areItemsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem): Boolean {
-        return oldItem.appName == newItem.appName
-      }
+      override fun areItemsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem) =
+          oldItem.appName == newItem.appName
 
-      override fun areContentsTheSame(oldItem: SubscriptionItem,
-                                      newItem: SubscriptionItem): Boolean {
-        return oldItem.appName == newItem.appName &&
-            oldItem.amount.compareTo(newItem.amount) != 0 &&
-            oldItem.symbol.compareTo(newItem.symbol) != 0 &&
-            oldItem.iconUrl == newItem.iconUrl
-      }
+      override fun areContentsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem) =
+          oldItem == newItem
     }
 ) {
 
@@ -31,7 +26,7 @@ class SubscriptionAdapter(
   }
 
   override fun onBindViewHolder(holder: SubscriptionViewHolder, position: Int) {
-    holder.bind(getItem(position), clickCallback)
+    holder.bind(getItem(position), clickListener)
   }
 
 }

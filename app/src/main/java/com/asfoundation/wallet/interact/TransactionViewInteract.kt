@@ -53,14 +53,17 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {
     return wallet?.let {
-      fetchTransactionsInteract.fetch(wallet.address)
-          .map { t ->
-            t.add(getActiveMockedTransaction(wallet.address))
-            t.add(getExpiredMockedTransaction(wallet.address))
-            t
-          }
+      fetchTransactionsInteract.fetch(it.address)
+          .map { transactions -> addMockedSubscriptions(transactions, it) }
     } ?: Observable.just(
         emptyList())
+  }
+
+  private fun addMockedSubscriptions(transactions: MutableList<Transaction>,
+                                     it: Wallet): List<Transaction> {
+    transactions.add(getActiveMockedTransaction(it.address))
+    transactions.add(getExpiredMockedTransaction(it.address))
+    return transactions.toList()
   }
 
   private fun getActiveMockedTransaction(address: String): Transaction {

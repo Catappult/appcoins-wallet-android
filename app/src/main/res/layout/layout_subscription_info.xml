@@ -49,7 +49,7 @@
         />
 
     <TextView
-        android:id="@+id/total_monthly"
+        android:id="@+id/total_value"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         />
 
     <TextView
-        android:id="@+id/total_monthly_appc"
+        android:id="@+id/total_value_appc"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
         android:textColor="#828282"
         android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@id/app_icon"
-        app:layout_constraintTop_toBottomOf="@id/total_monthly"
+        app:layout_constraintTop_toBottomOf="@id/total_value"
         tools:text="~69.90 APPC"
         />
 

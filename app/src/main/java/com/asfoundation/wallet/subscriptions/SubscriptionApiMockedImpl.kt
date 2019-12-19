@@ -11,7 +11,7 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
       val subs1 = Subscription("Real Boxing", "com.vividgames.realboxing",
           "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png",
           BigDecimal.TEN, "€", "EUR", true, "PayPal",
-          PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate())
+          PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), "Month")
       it.onSuccess(listOf(subs1))
     }
   }
@@ -21,7 +21,7 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
       val subs1 = Subscription("Creative Destruction", "com.titan.cd.gb",
           "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg",
           BigDecimal.ONE, "€", "EUR", false, "Credit Card",
-          CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate())
+          CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), "Week")
       it.onSuccess(listOf(subs1))
     }
   }
@@ -33,14 +33,14 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
           val subs1 = Subscription("Real Boxing", "com.vividgames.realboxing",
               "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png",
               BigDecimal.TEN, "€", "EUR", true, "PayPal",
-              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate())
+              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), "Month")
           it.onSuccess(subs1)
         }
         "com.titan.cd.gb" -> {
           val subs1 = Subscription("Creative Destruction", "com.titan.cd.gb",
               "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg",
               BigDecimal.ONE, "€", "EUR", false, "Credit Card",
-              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate())
+              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), "Week")
           it.onSuccess(subs1)
         }
         else -> {
@@ -57,14 +57,14 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
           val subs1 = Subscription("Real Boxing", "com.vividgames.realboxing",
               "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png",
               BigDecimal.TEN, "€", "EUR", true, "PayPal",
-              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate())
+              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), "Month")
           it.onSuccess(subs1)
         }
         "0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98" -> {
           val subs1 = Subscription("Creative Destruction", "com.titan.cd.gb",
               "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg",
               BigDecimal.ONE, "€", "EUR", false, "Credit Card",
-              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate())
+              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), "Week")
           it.onSuccess(subs1)
         }
         else -> {

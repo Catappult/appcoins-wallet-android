@@ -5,6 +5,7 @@
     android:id="@+id/item_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:paddingBottom="@dimen/big_margin"
     >
 
@@ -44,7 +45,7 @@
         />
 
     <TextView
-        android:id="@+id/monthly_value"
+        android:id="@+id/recurrence_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"

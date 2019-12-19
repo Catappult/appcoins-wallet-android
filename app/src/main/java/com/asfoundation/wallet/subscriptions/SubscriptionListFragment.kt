@@ -12,6 +12,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_subscription_list.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
@@ -25,12 +26,16 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   private lateinit var activity: SubscriptionView
   private lateinit var activeAdapter: SubscriptionAdapter
   private lateinit var expiredAdapter: SubscriptionAdapter
+  private var clickSubject: PublishSubject<String>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    clickSubject = PublishSubject.create()
+
     presenter =
-        SubscriptionListPresenter(subscriptionInteract, CompositeDisposable(), Schedulers.io(),
-            AndroidSchedulers.mainThread(), this)
+        SubscriptionListPresenter(this, subscriptionInteract, CompositeDisposable(),
+            Schedulers.io(),
+            AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +46,8 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    activeAdapter = SubscriptionAdapter { onSubscriptionClick(it) }
-    expiredAdapter = SubscriptionAdapter { onSubscriptionClick(it) }
+    activeAdapter = SubscriptionAdapter(clickSubject)
+    expiredAdapter = SubscriptionAdapter(clickSubject)
 
     rvActiveSubs.adapter = activeAdapter
     rvExpiredSubs.adapter = expiredAdapter
@@ -50,8 +55,13 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     presenter.present()
   }
 
-  private fun onSubscriptionClick(subscriptionItem: SubscriptionItem) {
-    activity.showSubscriptionDetails(subscriptionItem.packageName)
+
+  override fun subscriptionClicks(): Observable<String> {
+    return clickSubject!!
+  }
+
+  override fun showSubscriptionDetails(packageName: String) {
+    activity.showSubscriptionDetails(packageName)
   }
 
   override fun onActiveSubscriptions(subscriptions: List<SubscriptionItem>) {

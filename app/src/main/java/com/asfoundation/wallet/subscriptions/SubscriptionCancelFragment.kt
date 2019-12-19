@@ -9,7 +9,6 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,8 +28,8 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        SubscriptionCancelPresenter(subscriptionInteract, CompositeDisposable(), Schedulers.io(),
-            AndroidSchedulers.mainThread(), this)
+        SubscriptionCancelPresenter(this, subscriptionInteract, CompositeDisposable(),
+            Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -44,14 +43,9 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     presenter.present(packageName)
   }
 
-  override fun getBackClicks(): Observable<Any> {
-    return RxView.clicks(back_button)
-  }
+  override fun getBackClicks() = RxView.clicks(back_button)
 
-  override fun getCancelClicks(): Observable<String> {
-    return RxView.clicks(cancel_subscription)
-        .map { packageName }
-  }
+  override fun getCancelClicks() = RxView.clicks(cancel_subscription)
 
   override fun showLoading() {
     error.visibility = View.GONE
@@ -74,7 +68,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     activity.navigateBack()
   }
 
-  override fun showSubscriptionDetails(subscriptionDetails: SubscriptionDetails) {
+  override fun showSubscriptionDetails(subscriptionDetails: ActiveSubscriptionDetails) {
     no_network_retry_only_layout.visibility = View.GONE
     error.visibility = View.GONE
     loading_animation.visibility = View.GONE
@@ -86,10 +80,10 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
 
     app_name.text = subscriptionDetails.appName
 
-    total_monthly.text = String.format("%s / month",
+    total_value.text = String.format("%s / %s",
         subscriptionDetails.symbol + subscriptionDetails.amount.setScale(FIAT_SCALE,
-            RoundingMode.FLOOR))
-    total_monthly_appc.text = String.format("~%s / APPC",
+            RoundingMode.FLOOR), subscriptionDetails.recurrence)
+    total_value_appc.text = String.format("~%s / APPC",
         subscriptionDetails.appcValue.setScale(FIAT_SCALE, RoundingMode.FLOOR))
   }
 

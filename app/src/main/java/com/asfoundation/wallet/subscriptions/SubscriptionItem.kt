@@ -7,5 +7,6 @@ data class SubscriptionItem(
     val packageName: String,
     val iconUrl: String,
     val amount: BigDecimal,
-    val symbol: String
+    val symbol: String,
+    val recurrence: String
 )

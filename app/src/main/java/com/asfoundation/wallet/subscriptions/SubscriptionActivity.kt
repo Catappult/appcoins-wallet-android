@@ -28,25 +28,23 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
   }
 
   override fun showSubscriptionList() {
-    toolbar().title = "Manage Subscriptions"
+    toolbar().title = "Manage Subscriptions"//TODO change when strings are available
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
         .addToBackStack(SubscriptionListFragment::class.java.simpleName)
         .commit()
   }
 
-  override fun showSubscriptionDetails(packageName: String?) {
-    toolbar().title = "Subscriptions"
-    packageName?.let {
-      supportFragmentManager.beginTransaction()
-          .replace(R.id.fragment_container, SubscriptionDetailsFragment.newInstance(it))
-          .addToBackStack(SubscriptionDetailsFragment::class.java.simpleName)
-          .commit()
-    }
+  override fun showSubscriptionDetails(packageName: String) {
+    toolbar().title = "Subscriptions"//TODO change when strings are available
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, SubscriptionDetailsFragment.newInstance(packageName))
+        .addToBackStack(SubscriptionDetailsFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun showCancelSubscription(packageName: String) {
-    toolbar().title = "Subscriptions"
+    toolbar().title = "Subscriptions"//TODO change when strings are available
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionCancelFragment.newInstance(packageName))
         .addToBackStack(SubscriptionCancelFragment::class.java.simpleName)
@@ -54,7 +52,7 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
   }
 
   override fun showCancelSuccess() {
-    toolbar().title = "Subscriptions"
+    toolbar().title = "Subscriptions"//TODO change when strings are available
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionCancelSuccessFragment.newInstance())
         .addToBackStack(SubscriptionCancelSuccessFragment::class.java.simpleName)
@@ -83,17 +81,25 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     if (item?.itemId == android.R.id.home) {
-      close()
+      if (supportFragmentManager.backStackEntryCount > 1) {
+        if (supportFragmentManager.fragments.last() is SubscriptionCancelSuccessFragment) {
+          endCancelSubscription()
+        } else {
+          close()
+        }
+      } else {
+        close()
+      }
       return true
     }
     return super.onOptionsItemSelected(item)
   }
 
-  private fun close(toList: Boolean = false) {
+  private fun close(navigateToListFragment: Boolean = false) {
     if (supportFragmentManager.backStackEntryCount == 1) {
       finish()
     } else if (supportFragmentManager.backStackEntryCount > 1) {
-      if (toList) {
+      if (navigateToListFragment) {
         supportFragmentManager.popBackStack(SubscriptionListFragment::class.java.simpleName, 0)
       } else {
         supportFragmentManager.popBackStack()
@@ -105,7 +111,7 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
     intent.getIntExtra(ACTION, 0)
   }
 
-  private val appPackage: String by lazy {
+  private val appPackage: String? by lazy {
     intent.getStringExtra(PACKAGE_NAME)
   }
 

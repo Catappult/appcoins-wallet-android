@@ -21,7 +21,7 @@
       />
 
   <TextView
-      android:id="@+id/total_monthly"
+      android:id="@+id/total_value"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -43,14 +43,14 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       android:orientation="horizontal"
-      app:layout_constraintEnd_toEndOf="@id/total_monthly"
+      app:layout_constraintEnd_toEndOf="@id/total_value"
       app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="@id/total_monthly"
-      app:layout_constraintTop_toBottomOf="@id/total_monthly"
+      app:layout_constraintStart_toStartOf="@id/total_value"
+      app:layout_constraintTop_toBottomOf="@id/total_value"
       >
 
     <TextView
-        android:id="@+id/total_monthly_appc"
+        android:id="@+id/total_value_appc"
         style="@style/TransactionDetailsTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
       style="@style/TransactionDetailsTextStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="@+id/total_monthly"
+      app:layout_constraintEnd_toEndOf="@+id/total_value"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@id/guideline_mid"
       app:layout_constraintTop_toTopOf="@id/next_payment_label"

@@ -6,16 +6,16 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class SubscriptionCancelPresenter(
+    private val view: SubscriptionCancelView,
     private val subscriptionInteract: SubscriptionInteract,
     private val disposables: CompositeDisposable,
     private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler,
-    private val view: SubscriptionCancelView
+    private val viewScheduler: Scheduler
 ) {
 
   fun present(packageName: String) {
     loadSubscriptionDetails(packageName)
-    handleCancelClicks()
+    handleCancelClicks(packageName)
     handleBackClicks()
   }
 
@@ -25,19 +25,11 @@ class SubscriptionCancelPresenter(
             .delay(1, TimeUnit.SECONDS)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSubscribe { onSubscribe() }
-            .doOnSuccess(this::onSubscriptionDetails)
+            .doOnSubscribe { view.showLoading() }
+            .doOnSuccess { if (it is ActiveSubscriptionDetails) view.showSubscriptionDetails(it) }
             .doOnError(this::onError)
             .subscribe()
     )
-  }
-
-  private fun onSubscribe() {
-    view.showLoading()
-  }
-
-  private fun onSubscriptionDetails(subscriptionDetails: SubscriptionDetails) {
-    view.showSubscriptionDetails(subscriptionDetails)
   }
 
   private fun onError(throwable: Throwable) {
@@ -49,14 +41,14 @@ class SubscriptionCancelPresenter(
     }
   }
 
-  private fun handleCancelClicks() {
+  private fun handleCancelClicks(packageName: String) {
     disposables.add(
         view.getCancelClicks()
-            .doOnNext { onSubscribe() }
+            .doOnNext { view.showLoading() }
             .subscribeOn(viewScheduler)
             .observeOn(networkScheduler)
             .flatMapCompletable {
-              subscriptionInteract.cancelSubscription(it)
+              subscriptionInteract.cancelSubscription(packageName)
                   .observeOn(viewScheduler)
                   .doOnComplete {
                     view.showCancelSuccess()
@@ -71,6 +63,7 @@ class SubscriptionCancelPresenter(
   private fun handleBackClicks() {
     disposables.add(
         view.getBackClicks()
+            .observeOn(viewScheduler)
             .doOnNext { view.navigateBack() }
             .doOnError(Throwable::printStackTrace)
             .subscribe()

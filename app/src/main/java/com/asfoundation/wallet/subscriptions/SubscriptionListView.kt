@@ -12,5 +12,7 @@ interface SubscriptionListView {
   fun showLoading()
   fun retryClick(): Observable<Any>
   fun showRetryAnimation()
+  fun subscriptionClicks(): Observable<String>
+  fun showSubscriptionDetails(packageName: String)
 
 }

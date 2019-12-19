@@ -9,6 +9,7 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_subscription_cancel_success.*
 
@@ -20,7 +21,8 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        SubscriptionCancelSuccessPresenter(CompositeDisposable(), this)
+        SubscriptionCancelSuccessPresenter(this, CompositeDisposable(),
+            AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

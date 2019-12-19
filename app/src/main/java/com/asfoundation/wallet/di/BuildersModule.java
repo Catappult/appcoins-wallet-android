@@ -206,10 +206,10 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract IabUpdateRequiredFragment bindIabUpdateRequiredFragment();
 
   @ActivityScope @ContributesAndroidInjector()
-  abstract WalletBlockedActivity walletBlockedActivity();
+  abstract WalletBlockedActivity bindWalletBlockedActivity();
 
   @ActivityScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
-  abstract SubscriptionActivity subscriptionActivity();
+  abstract SubscriptionActivity bindSubscriptionActivity();
 
   @FragmentScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
   abstract SubscriptionListFragment bindSubscriptionListFragment();

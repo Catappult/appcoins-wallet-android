@@ -6,16 +6,17 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class SubscriptionListPresenter(
+    private val view: SubscriptionListView,
     private val subscriptionInteract: SubscriptionInteract,
     private val disposables: CompositeDisposable,
     private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler,
-    private val view: SubscriptionListView
+    private val viewScheduler: Scheduler
 ) {
 
   fun present() {
     loadSubscriptions()
     handleRetryClick()
+    handleItemClicks()
   }
 
   private fun loadSubscriptions() {
@@ -24,11 +25,18 @@ class SubscriptionListPresenter(
             .delay(1, TimeUnit.SECONDS)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSubscribe { onSubscribe() }
+            .doOnSubscribe { view.showLoading() }
             .doOnSuccess(this::onSubscriptions)
             .doOnError(this::onError)
             .subscribe()
     )
+  }
+
+  private fun handleItemClicks() {
+    disposables.add(view.subscriptionClicks()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showSubscriptionDetails(it) }
+        .subscribe())
   }
 
   private fun onSubscriptions(subscriptionModel: SubscriptionModel) {
@@ -46,10 +54,6 @@ class SubscriptionListPresenter(
     if (throwable.isNoNetworkException()) {
       view.showNoNetworkError()
     }
-  }
-
-  private fun onSubscribe() {
-    view.showLoading()
   }
 
   private fun handleRetryClick() {

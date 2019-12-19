@@ -25,7 +25,7 @@ class SubscriptionDetailsPresenter(
             .delay(1, TimeUnit.SECONDS)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSubscribe { onSubscribe() }
+            .doOnSubscribe { view.showLoading() }
             .doOnSuccess(this::onSubscriptionDetails)
             .doOnError(this::onError)
             .subscribe()
@@ -34,9 +34,9 @@ class SubscriptionDetailsPresenter(
 
   private fun onSubscriptionDetails(subscriptionDetails: SubscriptionDetails) {
     view.showDetails()
-    if (subscriptionDetails.status == SubscriptionStatus.ACTIVE) {
+    if (subscriptionDetails is ActiveSubscriptionDetails) {
       view.showActiveDetails(subscriptionDetails)
-    } else {
+    } else if (subscriptionDetails is ExpiredSubscriptionDetails) {
       view.showExpiredDetails(subscriptionDetails)
     }
   }
@@ -48,15 +48,11 @@ class SubscriptionDetailsPresenter(
     }
   }
 
-  private fun onSubscribe() {
-    view.showLoading()
-  }
-
   private fun handleCancelClicks() {
     disposables.add(
         view.getCancelClicks()
+            .observeOn(viewScheduler)
             .doOnNext { view.cancelSubscription() }
-            .subscribeOn(viewScheduler)
             .subscribe()
     )
   }
@@ -64,6 +60,7 @@ class SubscriptionDetailsPresenter(
   private fun handleBackClicks() {
     disposables.add(
         view.getBackClicks()
+            .observeOn(viewScheduler)
             .doOnNext { view.navigateBack() }
             .doOnError(Throwable::printStackTrace)
             .subscribe()

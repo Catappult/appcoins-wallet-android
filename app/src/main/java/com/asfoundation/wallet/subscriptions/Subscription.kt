@@ -15,5 +15,6 @@ data class Subscription(
     val paymentMethodIcon: String,
     val nextPaymentDate: Date?,
     val lastBill: Date?,
-    val startDate: Date
+    val startDate: Date,
+    val recurrence: String
 )

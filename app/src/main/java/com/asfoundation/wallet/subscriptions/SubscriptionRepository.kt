@@ -16,7 +16,7 @@ class SubscriptionRepository(
         .map { subscriptions ->
           subscriptions.map { subscription ->
             SubscriptionItem(subscription.appName, subscription.packageName, subscription.iconUrl,
-                subscription.amount, subscription.symbol)
+                subscription.amount, subscription.symbol, subscription.recurrence)
           }
         }
   }
@@ -27,7 +27,7 @@ class SubscriptionRepository(
         .map { subscriptions ->
           subscriptions.map { subscription ->
             SubscriptionItem(subscription.appName, subscription.packageName, subscription.iconUrl,
-                subscription.amount, subscription.symbol)
+                subscription.amount, subscription.symbol, subscription.recurrence)
           }
         }
   }
@@ -36,48 +36,29 @@ class SubscriptionRepository(
     return findDefaultWalletInteract.find()
         .flatMap { wallet ->
           subscriptionApiMocked.getSubscriptionDetails(packageName, wallet.address)
-              .map { subscription ->
-                SubscriptionDetails(
-                    subscription.appName,
-                    subscription.packageName,
-                    subscription.iconUrl,
-                    subscription.amount,
-                    subscription.symbol,
-                    subscription.currency,
-                    SubscriptionStatus.ACTIVE.takeIf { subscription.active }
-                        ?: SubscriptionStatus.EXPIRED,
-                    BigDecimal.ZERO,
-                    subscription.paymentMethod,
-                    subscription.paymentMethodIcon,
-                    subscription.nextPaymentDate,
-                    subscription.lastBill,
-                    subscription.startDate
-                )
-              }
+              .map { subscription -> mapSubscription(subscription) }
+              .onErrorReturn { EmptySubscriptionDetails() }
         }
   }
 
   fun getSubscriptionByTrxId(transactionId: String): Single<SubscriptionDetails> {
     return subscriptionApiMocked.getSubscriptionByTransactionId(transactionId)
-        .map { subscription ->
-          SubscriptionDetails(
-              subscription.appName,
-              subscription.packageName,
-              subscription.iconUrl,
-              subscription.amount,
-              subscription.symbol,
-              subscription.currency,
-              SubscriptionStatus.ACTIVE.takeIf { subscription.active }
-                  ?: SubscriptionStatus.EXPIRED,
-              BigDecimal.ZERO,
-              subscription.paymentMethod,
-              subscription.paymentMethodIcon,
-              subscription.nextPaymentDate,
-              subscription.lastBill,
-              subscription.startDate
-          )
-        }
+        .map { mapSubscription(it) }
+        .onErrorReturn { EmptySubscriptionDetails() }
+  }
 
+  private fun mapSubscription(subscription: Subscription): SubscriptionDetails {
+    return if (subscription.active) {
+      ActiveSubscriptionDetails(subscription.appName, subscription.packageName,
+          subscription.iconUrl, subscription.amount, subscription.symbol, subscription.currency,
+          subscription.recurrence, BigDecimal.ZERO, subscription.paymentMethod,
+          subscription.paymentMethodIcon, subscription.nextPaymentDate!!)
+    } else {
+      ExpiredSubscriptionDetails(subscription.appName, subscription.packageName,
+          subscription.iconUrl, subscription.amount, subscription.symbol, subscription.currency,
+          subscription.recurrence, BigDecimal.ZERO, subscription.paymentMethod,
+          subscription.paymentMethodIcon, subscription.lastBill!!, subscription.startDate)
+    }
   }
 
 }
