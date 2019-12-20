@@ -63,6 +63,21 @@
           tools:src="@drawable/ic_transaction_peer"
           />
 
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/app_icon_animation"
+          android:layout_width="96dp"
+          android:layout_height="96dp"
+          android:layout_marginTop="32dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/icon_skeleton"
+          app:lottie_scale="1"
+          />
+
       <TextView
           android:id="@+id/app_name"
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
