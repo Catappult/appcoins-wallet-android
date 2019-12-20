@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Weet je zeker dat je kaartgegevens juist zijn? Probeer het opnieuw!</string>
   <string name="purchase_card_error_bank_rejects">De transactie is door je bank geweigerd. Gebruik een andere kaart.</string>
   <string name="purchase_card_error_limits">Het lijkt erop dat er een aantal beperkingen voor je kaart zijn. Neem contact op met je bank of gebruik een andere kaart.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Nodig je vrienden uit!</string>
   <string name="referral_onboarding_body">Jij en je vrienden kunnen met ons verwijzingsprogramma tot %s verdienen!</string>
