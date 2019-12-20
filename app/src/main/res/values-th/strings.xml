@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">คุณแน่ใจหรือว่ารายละเอียดบัตรของคุณถูกต้อง? กรุณาลองอีกครั้ง!</string>
   <string name="purchase_card_error_bank_rejects">ธุรกรรมของคุณถูกปฏิเสธโดยธนาคารของคุณ โปรดลองด้วยบัตรใบอื่น</string>
   <string name="purchase_card_error_limits">ดูเหมือนว่ามีข้อ จำกัด บางประการสำหรับการ์ดของคุณ โปรดติดต่อธนาคารของคุณหรือลองกับธนาคา</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
