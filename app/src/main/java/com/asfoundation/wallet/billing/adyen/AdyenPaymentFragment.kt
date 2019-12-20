@@ -92,7 +92,7 @@ class AdyenPaymentFragment : DaggerFragment(),
         AdyenPaymentPresenter(this, context, compositeDisposable, AndroidSchedulers.mainThread(),
             Schedulers.io(), analytics, domain, adyenPaymentInteractor,
             inAppPurchaseInteractor.parseTransaction(transactionData, true),
-            navigator, paymentType, amount, currency, isPreSelected)
+            navigator, paymentType, transactionType, amount, currency, isPreSelected)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

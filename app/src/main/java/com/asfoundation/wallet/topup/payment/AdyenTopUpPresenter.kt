@@ -148,6 +148,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun handleRedirectResponse() {
     disposables.add(navigator.uriResults()
+        .observeOn(viewScheduler)
         .doOnNext { view.submitUriResult(it) }
         .subscribe())
   }

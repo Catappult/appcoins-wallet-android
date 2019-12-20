@@ -50,8 +50,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         }
   }
 
-  fun getTransaction(uid: String): Single<PaymentModel> {
-    return adyenApi.getTransaction(uid)
+  fun getTransaction(uid: String, walletAddress: String,
+                     signedWalletAddress: String): Single<PaymentModel> {
+    return adyenApi.getTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -66,8 +67,10 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     ): Single<PaymentMethodsResponse>
 
 
-    @GET("transactions({uid}")
-    fun getTransaction(@Path("uid") uid: String): Single<TransactionResponse>
+    @GET("transactions/{uid}")
+    fun getTransaction(@Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
+                       @Query("wallet.signature")
+                       walletSignature: String): Single<TransactionResponse>
 
     @POST("transactions")
     fun makePayment(@Query("wallet.address") walletAddress: String,

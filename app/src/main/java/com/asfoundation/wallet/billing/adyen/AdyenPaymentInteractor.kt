@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.entity.Price
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -10,7 +11,6 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import io.reactivex.Observable
@@ -25,15 +25,15 @@ class AdyenPaymentInteractor(
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
     private val billingMessagesMapper: BillingMessagesMapper,
-    private val findDefaultWalletInteract: FindDefaultWalletInteract,
     private val partnerAddressService: AddressService,
-    private val billing: Billing
+    private val billing: Billing,
+    private val walletService: WalletService
 ) {
 
   fun loadPaymentInfo(methods: AdyenPaymentRepository.Methods, value: String,
                       currency: String): Single<PaymentInfoModel> {
-    return findDefaultWalletInteract.find()
-        .flatMap { adyenPaymentRepository.loadPaymentInfo(methods, value, currency, it.address) }
+    return walletService.getWalletAddress()
+        .flatMap { adyenPaymentRepository.loadPaymentInfo(methods, value, currency, it) }
   }
 
   fun makePayment(adyenPaymentMethod: ModelObject, returnUrl: String, value: String,
@@ -41,8 +41,8 @@ class AdyenPaymentInteractor(
                   reference: String?, paymentType: String, origin: String?, packageName: String,
                   metadata: String?, sku: String?, callbackUrl: String?,
                   transactionType: String, developerWallet: String?): Single<PaymentModel> {
-    return findDefaultWalletInteract.find()
-        .flatMap { wallet ->
+    return walletService.getWalletAddress()
+        .flatMap { address ->
           Single.zip(
               partnerAddressService.getStoreAddressForPackage(packageName),
               partnerAddressService.getOemAddressForPackage(packageName),
@@ -51,9 +51,9 @@ class AdyenPaymentInteractor(
               })
               .flatMap {
                 adyenPaymentRepository.makePayment(adyenPaymentMethod, returnUrl, value, currency,
-                    reference, paymentType, wallet.address, origin, packageName, metadata, sku,
+                    reference, paymentType, address, origin, packageName, metadata, sku,
                     callbackUrl, transactionType, developerWallet, it.first, it.second,
-                    wallet.address)
+                    address)
               }
         }
   }
@@ -61,23 +61,23 @@ class AdyenPaymentInteractor(
   fun makeTopUpPayment(adyenPaymentMethod: ModelObject, returnUrl: String, value: String,
                        currency: String, paymentType: String, transactionType: String,
                        packageName: String): Single<PaymentModel> {
-    return findDefaultWalletInteract.find()
+    return walletService.getWalletAddress()
         .flatMap {
           adyenPaymentRepository.makePayment(adyenPaymentMethod, returnUrl, value, currency, null,
-              paymentType, it.address, null, packageName, null, null, null, transactionType,
+              paymentType, it, null, packageName, null, null, null, transactionType,
               null, null, null, null)
         }
   }
 
   fun submitRedirect(uid: String, details: JSONObject,
                      paymentData: String?): Single<PaymentModel> {
-    return findDefaultWalletInteract.find()
-        .flatMap { adyenPaymentRepository.submitRedirect(uid, it.address, details, paymentData) }
+    return walletService.getWalletAddress()
+        .flatMap { adyenPaymentRepository.submitRedirect(uid, it, details, paymentData) }
   }
 
   fun disablePayments(): Single<Boolean> {
-    return findDefaultWalletInteract.find()
-        .flatMap { adyenPaymentRepository.disablePayments(it.address) }
+    return walletService.getWalletAddress()
+        .flatMap { adyenPaymentRepository.disablePayments(it) }
   }
 
   fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
@@ -112,14 +112,20 @@ class AdyenPaymentInteractor(
   }
 
   fun getTransaction(uid: String): Observable<PaymentModel> {
-    return Observable.interval(0, 5, TimeUnit.SECONDS,
-        Schedulers.io())
-        .timeInterval()
-        .switchMap {
-          adyenPaymentRepository.getTransaction(uid)
-              .toObservable()
+    return walletService.getWalletAddress()
+        .flatMapObservable { address ->
+          walletService.signContent(address)
+              .flatMapObservable { signedWallet ->
+                Observable.interval(0, 5, TimeUnit.SECONDS,
+                    Schedulers.io())
+                    .timeInterval()
+                    .switchMap {
+                      adyenPaymentRepository.getTransaction(uid, address, signedWallet)
+                          .toObservable()
+                    }
+                    .filter { isEndingState(it.status) }
+              }
         }
-        .filter { isEndingState(it.status) }
   }
 
   private fun isEndingState(status: TransactionResponse.Status): Boolean {
@@ -128,11 +134,5 @@ class AdyenPaymentInteractor(
 
   private fun isInApp(type: String): Boolean {
     return type.equals("INAPP", ignoreCase = true)
-  }
-
-  companion object {
-
-    private val TOPUP = "topup"
-    private val IAB = "iab"
   }
 }

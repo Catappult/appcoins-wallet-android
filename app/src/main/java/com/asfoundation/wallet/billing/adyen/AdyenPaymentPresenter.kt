@@ -35,6 +35,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val transactionBuilder: Single<TransactionBuilder>,
                             private val navigator: Navigator,
                             private val paymentType: String,
+                            private val transactionType: String,
                             private val amount: BigDecimal,
                             private val currency: String,
                             private val isPreSelected: Boolean) {
@@ -169,22 +170,30 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribe())
   }
 
-  private fun handlePaymentResult(uid: String, resultCode: String, refusalCode: Int?,
-                                  refusalReason: String?, error: Error): Completable {
+  private fun handlePaymentResult(uid: String, resultCode: String,
+                                  refusalCode: Int?, refusalReason: String?,
+                                  error: Error): Completable {
     return when {
-      resultCode == "AUTHORISED" -> {
+      resultCode.equals("AUTHORISED", true) -> {
         adyenPaymentInteractor.getTransaction(uid)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it.status == TransactionResponse.Status.COMPLETED) {
-                Completable.fromAction {
-                  sendPaymentEvent()
-                  sendRevenueEvent()
-                  view.showSuccess()
-                }
-                    .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                    .andThen(Completable.fromAction { navigator.popView(createBundle(it.hash)) })
+                createBundle(it.hash, it.orderReference).observeOn(viewScheduler)
+                    .flatMapCompletable {
+                      Completable.fromAction {
+                        sendPaymentEvent()
+                        sendRevenueEvent()
+                        view.showSuccess()
+                      }
+                          .andThen(
+                              Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                          .andThen(Completable.fromAction { navigator.popView(it) })
+                    }
               } else {
                 Completable.fromAction { view.showGenericError() }
+                    .subscribeOn(viewScheduler)
               }
             }
       }
@@ -299,13 +308,12 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
-  private fun createBundle(hash: String?): Bundle {
+  private fun createBundle(hash: String?, orderReference: String?): Single<Bundle> {
     return transactionBuilder.flatMap {
-      adyenPaymentInteractor.getCompletePurchaseBundle(paymentType, domain, it.skuId,
-          it.orderReference, hash, networkScheduler)
+      adyenPaymentInteractor.getCompletePurchaseBundle(transactionType, domain, it.skuId,
+          orderReference, hash, networkScheduler)
     }
         .map { mapPaymentMethodId(it) }
-        .blockingGet()
   }
 
   private fun mapPaymentMethodId(bundle: Bundle): Bundle {
