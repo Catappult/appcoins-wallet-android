@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Είστε βέβαιοι ότι οι πληροφορίες της κάρτας σας είναι σωστές; Παρακαλούμε προσπαθήστε ξανά!</string>
   <string name="purchase_card_error_bank_rejects">Η συναλλαγή απορρίφθηκε από την τράπεζά σας. Παρακαλούμε προσπαθήστε με μία διαφορετική κάρτα.</string>
   <string name="purchase_card_error_limits">Φαίνεται πως υπάρχουν κάποιοι περιορισμοί στην κάρτα σας. Παρακαλούμε επικοινωνήστε με την τράπεζά σας ή δοκιμάστε με μία διαφορετική κάρτα.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Προσκαλέστε τους φίλους σας!</string>
   <string name="referral_onboarding_body">Εσείς και οι φίλοι σας μπορείτε να λάβετε έως %s με το Πρόγραμμα Σύστασης!</string>
