@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Bạn có chắc chắn thông tin chi tiết thẻ của mình là đúng không? Vui lòng thử lại!</string>
   <string name="purchase_card_error_bank_rejects">Ngân hàng của bạn đã từ chối giao dịch này. Vui lòng thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_limits">Có vẻ như có một số hạn chế đối với thẻ của bạn. Vui lòng liên hệ với ngân hàng của bạn hoặc thử bằng một thẻ khác.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Mời bạn bè của bạn!</string>
   <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
