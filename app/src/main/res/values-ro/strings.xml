@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Ești sigur că detaliile cardului sunt corecte? Încearcă din nou!</string>
   <string name="purchase_card_error_bank_rejects">Tranzacția a fost refuzată de banca ta. Încearcă cu un alt card.</string>
   <string name="purchase_card_error_limits">Se pare că există anumite restricții pe cardul tău. Te rugăm să contactezi banca ta sau să încerci cu un alt card.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invită-ți prietenii!</string>
   <string name="referral_onboarding_body">Tu și prietenii tăi puteți câștiga până la %s cu Programul nostru de referință!</string>
