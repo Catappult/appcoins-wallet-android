@@ -29,7 +29,7 @@ interface AdyenPaymentView {
 
   fun retrievePaymentData(): Observable<CardPaymentMethod>
   fun showSpecificError(refusalCode: Int)
-  fun showProductPrice(amount: String, currencyCode: String)
+  fun showProductPrice(currencyCode: String)
   fun lockRotation()
   fun setRedirectComponent(action: Action, uid: String)
   fun submitUriResult(uri: Uri)

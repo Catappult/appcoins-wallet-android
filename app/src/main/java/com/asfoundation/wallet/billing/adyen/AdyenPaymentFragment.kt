@@ -184,7 +184,7 @@ class AdyenPaymentFragment : DaggerFragment(),
       e.printStackTrace()
     }
     app_sku_description?.text = arguments!!.getString(IabActivity.PRODUCT_NAME)
-    val appcValue = formatter.format(Locale.getDefault(), "%(,.2f", amount.toDouble())
+    val appcValue = formatter.format(Locale.getDefault(), "%(,.2f", appcAmount.toDouble())
         .toString() + " APPC"
     appc_price.text = appcValue
   }
@@ -319,8 +319,11 @@ class AdyenPaymentFragment : DaggerFragment(),
     else RxView.clicks(change_card_button_pre_selected)
   }
 
-  override fun showProductPrice(amount: String, currencyCode: String) {
-    fiat_price.text = "$amount $currencyCode"
+  override fun showProductPrice(currencyCode: String) {
+    val formatter = Formatter()
+    val fiatPrice = formatter.format(Locale.getDefault(), "%(,.2f", amount.toDouble())
+        .toString() + " APPC"
+    fiat_price.text = "$fiatPrice $currencyCode"
   }
 
   override fun provideReturnUrl(): String {
@@ -482,54 +485,39 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   companion object {
 
-    private const val SKU_ID_KEY = "skuId"
     private const val TRANSACTION_TYPE_KEY = "type"
-    private const val ORIGIN_KEY = "origin"
     private const val PAYMENT_TYPE_KEY = "payment_type"
     private const val DOMAIN_KEY = "domain"
     private const val TRANSACTION_DATA_KEY = "transaction_data"
+    private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val AMOUNT_KEY = "amount"
     private const val CURRENCY_KEY = "currency"
-    private const val PAYLOAD = "PAYLOAD"
     private const val BONUS_KEY = "bonus"
     private const val PRE_SELECTED_KEY = "pre_selected"
-    private const val ICON_URL_KEY = "icon_url"
     private const val CARD_NUMBER_KEY = "card_number"
     private const val EXPIRY_DATE_KEY = "expiry_date"
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
 
     @JvmStatic
-    fun newInstance(skuId: String, transactionType: String, origin: String?,
+    fun newInstance(transactionType: String,
                     paymentType: PaymentType,
-                    domain: String, transactionData: String?, amount: BigDecimal,
-                    currency: String?, payload: String?,
-                    bonus: String?, isPreSelected: Boolean,
-                    iconUrl: String?): AdyenPaymentFragment {
+                    domain: String, transactionData: String?, appcAmount: BigDecimal,
+                    amount: BigDecimal, currency: String?,
+                    bonus: String?, isPreSelected: Boolean): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       val bundle = Bundle()
-      bundle.putString(SKU_ID_KEY, skuId)
       bundle.putString(TRANSACTION_TYPE_KEY, transactionType)
-      bundle.putString(ORIGIN_KEY, origin)
       bundle.putString(PAYMENT_TYPE_KEY, paymentType.name)
       bundle.putString(DOMAIN_KEY, domain)
       bundle.putString(TRANSACTION_DATA_KEY, transactionData)
+      bundle.putSerializable(APPC_AMOUNT_KEY, appcAmount)
       bundle.putSerializable(AMOUNT_KEY, amount)
       bundle.putString(CURRENCY_KEY, currency)
-      bundle.putString(PAYLOAD, payload)
       bundle.putString(BONUS_KEY, bonus)
       bundle.putBoolean(PRE_SELECTED_KEY, isPreSelected)
-      bundle.putString(ICON_URL_KEY, iconUrl)
       fragment.arguments = bundle
       return fragment
-    }
-  }
-
-  private val skuId: String by lazy {
-    if (arguments!!.containsKey(SKU_ID_KEY)) {
-      arguments!!.getString(SKU_ID_KEY)
-    } else {
-      throw IllegalArgumentException("skuId data not found")
     }
   }
 
@@ -538,14 +526,6 @@ class AdyenPaymentFragment : DaggerFragment(),
       arguments!!.getString(TRANSACTION_TYPE_KEY)
     } else {
       throw IllegalArgumentException("transaction type data not found")
-    }
-  }
-
-  private val origin: String by lazy {
-    if (arguments!!.containsKey(ORIGIN_KEY)) {
-      arguments!!.getString(ORIGIN_KEY)
-    } else {
-      throw IllegalArgumentException("origin data not found")
     }
   }
 
@@ -573,6 +553,14 @@ class AdyenPaymentFragment : DaggerFragment(),
     }
   }
 
+  private val appcAmount: BigDecimal by lazy {
+    if (arguments!!.containsKey(APPC_AMOUNT_KEY)) {
+      arguments!!.getSerializable(APPC_AMOUNT_KEY) as BigDecimal
+    } else {
+      throw IllegalArgumentException("appc amount data not found")
+    }
+  }
+
   private val amount: BigDecimal by lazy {
     if (arguments!!.containsKey(AMOUNT_KEY)) {
       arguments!!.getSerializable(AMOUNT_KEY) as BigDecimal
@@ -589,14 +577,6 @@ class AdyenPaymentFragment : DaggerFragment(),
     }
   }
 
-  private val payload: String by lazy {
-    if (arguments!!.containsKey(PAYLOAD)) {
-      arguments!!.getString(PAYLOAD)
-    } else {
-      throw IllegalArgumentException("payload data not found")
-    }
-  }
-
   private val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS_KEY)) {
       arguments!!.getString(BONUS_KEY)
@@ -610,14 +590,6 @@ class AdyenPaymentFragment : DaggerFragment(),
       arguments!!.getBoolean(PRE_SELECTED_KEY)
     } else {
       throw IllegalArgumentException("pre selected data not found")
-    }
-  }
-
-  private val iconUrl: String by lazy {
-    if (arguments!!.containsKey(ICON_URL_KEY)) {
-      arguments!!.getString(ICON_URL_KEY)
-    } else {
-      throw IllegalArgumentException("icon url data not found")
     }
   }
 }

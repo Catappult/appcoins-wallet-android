@@ -21,7 +21,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
-import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentPresenter(private val view: AdyenPaymentView,
@@ -87,10 +86,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         adyenPaymentInteractor.convertToFiat(amount.toDouble(), currency)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.showProductPrice(it.amount.setScale(2, RoundingMode.HALF_UP).toPlainString(),
-                  it.currency)
-            }.subscribe())
+            .doOnSuccess { view.showProductPrice(it.currency) }
+            .subscribe())
   }
 
   private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {

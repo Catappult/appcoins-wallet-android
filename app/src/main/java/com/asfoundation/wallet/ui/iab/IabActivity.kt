@@ -145,9 +145,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                 iconUrl: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AdyenPaymentFragment.newInstance(transaction!!.skuId, transaction!!.type,
-                getOrigin(isBds), paymentType, transaction!!.domain, intent.dataString,
-                transaction!!.amount(), currency, developerPayload, bonus, isPreselected, iconUrl))
+            AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
+                intent.dataString, transaction!!.amount(), amount, currency, bonus, isPreselected))
         .commit()
   }
 
