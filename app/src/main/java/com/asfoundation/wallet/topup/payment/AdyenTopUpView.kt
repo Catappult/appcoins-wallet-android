@@ -4,7 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
-import com.adyen.checkout.base.model.payments.response.RedirectAction
+import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
 import io.reactivex.Observable
 
@@ -39,7 +39,7 @@ interface AdyenTopUpView {
   fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean, forget: Boolean,
                               savedInstanceState: Bundle?)
 
-  fun setRedirectComponent(uid: String, action: RedirectAction)
+  fun setRedirectComponent(uid: String, action: Action)
 
   fun forgetCardClick(): Observable<Any>
 

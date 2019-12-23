@@ -297,7 +297,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     iabView.lockRotation()
   }
 
-  override fun setRedirectComponent(action: Action, paymentDetailsData: String?, uid: String) {
+  override fun setRedirectComponent(action: Action, uid: String) {
     action.type = action.type?.toLowerCase()
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.handleAction(activity as IabActivity, action)

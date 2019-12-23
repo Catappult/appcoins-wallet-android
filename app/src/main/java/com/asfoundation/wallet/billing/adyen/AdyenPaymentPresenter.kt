@@ -139,7 +139,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     if (!paymentModel.error.hasError) {
       view.showLoading()
       view.lockRotation()
-      view.setRedirectComponent(paymentModel.action!!, paymentModel.paymentData, paymentModel.uid)
+      view.setRedirectComponent(paymentModel.action!!, paymentModel.uid)
       waitingResult = true
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
     } else {
@@ -260,6 +260,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleRedirectResponse() {
     disposables.add(navigator.uriResults()
+        .observeOn(viewScheduler)
         .doOnNext { view.submitUriResult(it) }
         .subscribe())
   }

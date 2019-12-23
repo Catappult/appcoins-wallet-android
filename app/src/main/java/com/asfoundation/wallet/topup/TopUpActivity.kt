@@ -38,12 +38,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       return Intent(context, TopUpActivity::class.java)
     }
 
-    fun newIntent(context: Context, url: String): Intent {
-      val intent = Intent(context, TopUpActivity::class.java)
-      intent.data = Uri.parse(url)
-      return intent
-    }
-
     const val WEB_VIEW_REQUEST_CODE = 1234
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
@@ -56,8 +50,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(this)
-    presenter.present(savedInstanceState == null)
     results = PublishRelay.create()
+    presenter.present(savedInstanceState == null)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

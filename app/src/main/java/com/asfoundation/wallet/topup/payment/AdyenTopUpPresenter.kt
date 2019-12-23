@@ -158,14 +158,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(PaymentModel(Error())) }
+        .flatMapCompletable { handlePaymentResult(it) }
         .subscribe())
   }
 
   private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
     return when {
-      paymentModel.resultCode == "AUTHORISED" -> {
+      paymentModel.resultCode.equals("AUTHORISED", ignoreCase = true) -> {
         adyenPaymentInteractor.getTransaction(paymentModel.uid)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it.status == TransactionResponse.Status.COMPLETED) {
                 Completable.fromAction {

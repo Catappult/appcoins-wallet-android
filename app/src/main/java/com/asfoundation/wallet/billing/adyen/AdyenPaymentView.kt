@@ -31,7 +31,7 @@ interface AdyenPaymentView {
   fun showSpecificError(refusalCode: Int)
   fun showProductPrice(amount: String, currencyCode: String)
   fun lockRotation()
-  fun setRedirectComponent(action: Action, paymentDetailsData: String?, uid: String)
+  fun setRedirectComponent(action: Action, uid: String)
   fun submitUriResult(uri: Uri)
   fun getPaymentDetails(): Observable<RedirectComponentModel>
   fun forgetCardClick(): Observable<Any>

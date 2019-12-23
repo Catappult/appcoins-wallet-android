@@ -120,6 +120,8 @@ android {
       buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_PROD
       buildConfigField 'String', 'APTOIDE_PKG_NAME',
           "\"" + project.APTOIDE_PACKAGE_NAME + "\""
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY',
+          "\"" + project.ADYEN_PUBLIC_KEY + "\""
     }
     debug {
       minifyEnabled false
@@ -145,6 +147,8 @@ android {
       manifestPlaceholders.secondPaymentHost = "${project.PAYMENT_HOST_DEV}"
       buildConfigField 'String', 'SECOND_PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST_DEV + "\""
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY',
+          "\"" + project.ADYEN_PUBLIC_KEY + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }

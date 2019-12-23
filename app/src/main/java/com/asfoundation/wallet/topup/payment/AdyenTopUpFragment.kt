@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
-import com.adyen.checkout.base.model.payments.response.RedirectAction
+import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
@@ -34,7 +34,6 @@ import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.view.rx.RxAlertDialog
 import com.google.android.material.textfield.TextInputLayout
@@ -67,7 +66,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   lateinit var adyenEnvironment: Environment
 
   private lateinit var topUpView: TopUpActivityView
-  private lateinit var paymentMethod: PaymentMethod
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
   private var paymentDataSubject: ReplaySubject<CardPaymentMethod>? = null
@@ -96,11 +94,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
 
     presenter =
-        AdyenTopUpPresenter(this, context,
-            appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable(), paymentType, transactionType, data.currency.fiatValue,
-            data.currency.fiatCurrencyCode, data.currency, data.selectedCurrency, navigator,
-            inAppPurchaseInteractor.billingMessagesMapper,
+        AdyenTopUpPresenter(this, context, appPackage, AndroidSchedulers.mainThread(),
+            Schedulers.io(), CompositeDisposable(), paymentType, transactionType,
+            data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
+            data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
             adyenPaymentInteractor, bonusValue)
   }
 
@@ -328,11 +325,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  override fun setRedirectComponent(uid: String, action: RedirectAction) {
+  override fun setRedirectComponent(uid: String, action: Action) {
     action.type = action.type?.toLowerCase()
     redirectComponent = RedirectComponent.PROVIDER.get(this)
-    redirectComponent.handleAction(activity as TopUpActivity,
-        action) //At the moment both IabActivity and TopUpActivity are catching the redirect
+    redirectComponent.handleAction(activity as TopUpActivity, action)
     redirectComponent.observe(this, Observer {
       paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
     })

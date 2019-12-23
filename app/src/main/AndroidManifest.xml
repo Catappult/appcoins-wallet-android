@@ -152,6 +152,7 @@
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:label="@string/topup_title"
+        android:launchMode="singleInstance"
         android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
