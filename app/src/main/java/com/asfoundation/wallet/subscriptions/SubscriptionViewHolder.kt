@@ -21,8 +21,7 @@ class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     Picasso.with(itemView.context)
         .load(item.iconUrl)
-        .error(R.drawable.ic_transaction_peer)//TODO
-        .placeholder(R.drawable.ic_transaction_peer)//TODO
+        .error(R.drawable.ic_transaction_peer)
         .into(itemView.app_icon)
   }
 
