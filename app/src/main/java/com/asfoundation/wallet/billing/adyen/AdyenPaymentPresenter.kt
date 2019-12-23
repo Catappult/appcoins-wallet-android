@@ -177,13 +177,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it.status == TransactionResponse.Status.COMPLETED) {
-                createBundle(it.hash, it.orderReference).observeOn(viewScheduler)
+                createBundle(it.hash, it.orderReference)
+                    .doOnSuccess {
+                      // sendPaymentEvent()
+                      // sendRevenueEvent()
+                    }
+                    .observeOn(viewScheduler)
                     .flatMapCompletable {
-                      Completable.fromAction {
-                        sendPaymentEvent()
-                        sendRevenueEvent()
-                        view.showSuccess()
-                      }
+                      Completable.fromAction { view.showSuccess() }
                           .andThen(
                               Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
                           .andThen(Completable.fromAction { navigator.popView(it) })

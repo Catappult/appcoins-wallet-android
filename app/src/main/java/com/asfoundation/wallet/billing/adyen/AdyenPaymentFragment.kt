@@ -322,7 +322,7 @@ class AdyenPaymentFragment : DaggerFragment(),
   override fun showProductPrice(currencyCode: String) {
     val formatter = Formatter()
     val fiatPrice = formatter.format(Locale.getDefault(), "%(,.2f", amount.toDouble())
-        .toString() + " APPC"
+        .toString()
     fiat_price.text = "$fiatPrice $currencyCode"
   }
 

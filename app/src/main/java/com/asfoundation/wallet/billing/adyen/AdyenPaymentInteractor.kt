@@ -116,7 +116,7 @@ class AdyenPaymentInteractor(
         .flatMapObservable { address ->
           walletService.signContent(address)
               .flatMapObservable { signedWallet ->
-                Observable.interval(0, 5, TimeUnit.SECONDS,
+                Observable.interval(0, 10, TimeUnit.SECONDS,
                     Schedulers.io())
                     .timeInterval()
                     .switchMap {
@@ -124,6 +124,7 @@ class AdyenPaymentInteractor(
                           .toObservable()
                     }
                     .filter { isEndingState(it.status) }
+                    .distinctUntilChanged { transaction -> transaction.status }
               }
         }
   }
