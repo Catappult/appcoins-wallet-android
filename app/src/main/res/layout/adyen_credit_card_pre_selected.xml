@@ -60,7 +60,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="23dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/payment_method_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
@@ -74,19 +73,20 @@
                 layout="@layout/selected_payment_method_cc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="-26dp"
                 />
             <Button
                 android:id="@+id/change_card_button_pre_selected"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/button_height"
                 android:layout_below="@id/layout_pre_selected"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="true"
                 android:fontFamily="sans-serif-medium"
                 android:lineSpacingExtra="5sp"
                 android:text="@string/activity_iab_change_card"
-                android:textColor="@color/grey_8a_alpha"
-                android:textSize="11sp"
+                android:textColor="@color/btn_cancel_text"
+                android:textSize="12sp"
                 android:visibility="gone"
                 />
           </RelativeLayout>

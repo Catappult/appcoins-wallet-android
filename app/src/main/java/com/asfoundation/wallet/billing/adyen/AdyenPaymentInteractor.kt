@@ -13,6 +13,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -126,6 +127,11 @@ class AdyenPaymentInteractor(
                     .filter { isEndingState(it.status) }
               }
         }
+  }
+
+  fun test() {
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
+        PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id)
   }
 
   private fun isEndingState(status: TransactionResponse.Status): Boolean {

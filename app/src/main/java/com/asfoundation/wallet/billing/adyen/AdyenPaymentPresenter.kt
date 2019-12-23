@@ -180,6 +180,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it.status == TransactionResponse.Status.COMPLETED) {
+                adyenPaymentInteractor.test()
                 createBundle(it.hash, it.orderReference).observeOn(viewScheduler)
                     .flatMapCompletable {
                       Completable.fromAction {
