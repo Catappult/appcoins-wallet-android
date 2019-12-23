@@ -30,12 +30,20 @@ class PromotionsPresenter(private val view: PromotionsView,
         promotionsInteractor.retrievePromotions()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.setReferralBonus(it.maxValue, it.currency)
-              view.toggleShareAvailability(it.isValidated)
-              showPromotions(it)
-            }
-            .subscribe({}, { handleError(it) }))
+            .doOnSuccess { onPromotions(it) }
+            .doOnError { handleError(it) }
+            .subscribe())
+  }
+
+  private fun onPromotions(promotionsModel: PromotionsModel) {
+    view.hideLoading()
+    if (promotionsModel.gamificationAvailable && promotionsModel.referralsAvailable) {
+      view.setReferralBonus(promotionsModel.maxValue, promotionsModel.currency)
+      view.toggleShareAvailability(promotionsModel.isValidated)
+      showPromotions(promotionsModel)
+    } else {
+      view.showNoPromotionsScreen()
+    }
   }
 
   private fun handleNewLevel() {
@@ -91,7 +99,6 @@ class PromotionsPresenter(private val view: PromotionsView,
 
 
   private fun showPromotions(promotionsModel: PromotionsModel) {
-    view.hideLoading()
     if (promotionsModel.referralsAvailable) {
       view.showReferralCard()
       checkForReferralsUpdates(promotionsModel)
