@@ -16,7 +16,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_subscription_cancel.*
+import kotlinx.android.synthetic.main.fragment_subscription_cancel.loading_animation
+import kotlinx.android.synthetic.main.fragment_subscription_cancel.no_network_retry_only_layout
+import kotlinx.android.synthetic.main.fragment_subscription_list.*
 import kotlinx.android.synthetic.main.layout_subscription_info.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.math.RoundingMode
 import javax.inject.Inject
 
@@ -111,10 +115,20 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
   }
 
   override fun showNoNetworkError() {
-    loading_animation.visibility = View.GONE
+    main_layout.visibility = View.GONE
+    retry_animation.visibility = View.GONE
     layout_content.visibility = View.GONE
     error.visibility = View.GONE
+    retry_button.visibility = View.VISIBLE
+    loading_animation.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.VISIBLE
+  }
+
+  override fun getRetryNetworkClicks() = RxView.clicks(retry_button)
+
+  override fun showNoNetworkRetryAnimation() {
+    retry_button.visibility = View.INVISIBLE
+    retry_animation.visibility = View.VISIBLE
   }
 
   override fun onAttach(context: Context) {

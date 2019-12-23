@@ -37,8 +37,8 @@ class SubscriptionRepository(
         .flatMap { wallet ->
           subscriptionApiMocked.getSubscriptionDetails(packageName, wallet.address)
               .map { subscription -> mapSubscription(subscription) }
-              .onErrorReturn { EmptySubscriptionDetails() }
         }
+        .onErrorReturn { EmptySubscriptionDetails() }
   }
 
   fun getSubscriptionByTrxId(transactionId: String): Single<SubscriptionDetails> {

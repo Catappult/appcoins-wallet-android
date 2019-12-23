@@ -14,6 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_subscription_list.*
+import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
@@ -74,14 +75,28 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
 
   override fun showNoNetworkError() {
     main_layout.visibility = View.GONE
-    layout_no_subscriptions.visibility = View.GONE
+    retry_animation.visibility = View.GONE
+    retry_button.visibility = View.VISIBLE
+    generic_retry_animation.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
     loading_animation.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.VISIBLE
+  }
+
+  override fun showGenericError() {
+    main_layout.visibility = View.GONE
+    retry_animation.visibility = View.GONE
+    generic_retry_animation.visibility = View.GONE
+    generic_retry_button.visibility = View.VISIBLE
+    loading_animation.visibility = View.GONE
+    no_network_retry_only_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.VISIBLE
   }
 
   override fun showSubscriptions() {
     loading_animation.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
     layout_no_subscriptions.visibility = View.GONE
     main_layout.visibility = View.VISIBLE
   }
@@ -89,6 +104,7 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   override fun showNoSubscriptions() {
     loading_animation.visibility = View.GONE
     main_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.GONE
     layout_no_subscriptions.visibility = View.VISIBLE
   }
@@ -96,6 +112,7 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   override fun showLoading() {
     main_layout.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
     layout_no_subscriptions.visibility = View.GONE
     loading_animation.visibility = View.VISIBLE
   }
@@ -104,9 +121,18 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     return RxView.clicks(retry_button)
   }
 
-  override fun showRetryAnimation() {
+  override fun getRetryGenericClicks() = RxView.clicks(generic_retry_button)
+
+  override fun getRetryNetworkClicks() = RxView.clicks(retry_button)
+
+  override fun showNoNetworkRetryAnimation() {
     retry_button.visibility = View.INVISIBLE
     retry_animation.visibility = View.VISIBLE
+  }
+
+  override fun showGenericRetryAnimation() {
+    generic_retry_button.visibility = View.INVISIBLE
+    generic_retry_animation.visibility = View.VISIBLE
   }
 
   override fun onAttach(context: Context) {

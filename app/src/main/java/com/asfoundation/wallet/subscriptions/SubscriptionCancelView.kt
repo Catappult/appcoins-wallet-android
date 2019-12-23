@@ -12,5 +12,7 @@ interface SubscriptionCancelView {
   fun showCancelSuccess()
   fun showLoading()
   fun showCancelError()
+  fun showNoNetworkRetryAnimation()
+  fun getRetryNetworkClicks(): Observable<Any>
 
 }

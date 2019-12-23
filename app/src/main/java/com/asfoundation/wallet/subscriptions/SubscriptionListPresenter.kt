@@ -2,6 +2,7 @@ package com.asfoundation.wallet.subscriptions
 
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
@@ -15,28 +16,28 @@ class SubscriptionListPresenter(
 
   fun present() {
     loadSubscriptions()
-    handleRetryClick()
+    handleNoNetworkRetryClicks()
+    handleGenericRetryClicks()
     handleItemClicks()
   }
 
   private fun loadSubscriptions() {
     disposables.add(
-        subscriptionInteract.loadSubscriptions()
+        Single.fromCallable { view.showLoading() }.subscribeOn(viewScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { subscriptionInteract.loadSubscriptions() }
             .delay(1, TimeUnit.SECONDS)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSubscribe { view.showLoading() }
             .doOnSuccess(this::onSubscriptions)
-            .doOnError(this::onError)
-            .subscribe()
-    )
+            .subscribe({}, { onError(it) }))
   }
 
   private fun handleItemClicks() {
     disposables.add(view.subscriptionClicks()
         .observeOn(viewScheduler)
         .doOnNext { view.showSubscriptionDetails(it) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun onSubscriptions(subscriptionModel: SubscriptionModel) {
@@ -49,22 +50,34 @@ class SubscriptionListPresenter(
     }
   }
 
+  private fun handleNoNetworkRetryClicks() {
+    disposables.add(
+        view.getRetryNetworkClicks()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showNoNetworkRetryAnimation() }
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(networkScheduler)
+            .doOnNext { loadSubscriptions() }
+            .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleGenericRetryClicks() {
+    disposables.add(
+        view.getRetryGenericClicks()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showGenericRetryAnimation() }
+            .delay(1, TimeUnit.SECONDS)
+            .doOnNext { loadSubscriptions() }
+            .subscribe({}, { it.printStackTrace() }))
+  }
+
   private fun onError(throwable: Throwable) {
     throwable.printStackTrace()
     if (throwable.isNoNetworkException()) {
       view.showNoNetworkError()
+    } else {
+      view.showGenericError()
     }
-  }
-
-  private fun handleRetryClick() {
-    disposables.add(view.retryClick()
-        .observeOn(viewScheduler)
-        .doOnNext { view.showRetryAnimation() }
-        .delay(1, TimeUnit.SECONDS)
-        .doOnNext { loadSubscriptions() }
-        .doOnError(Throwable::printStackTrace)
-        .subscribe()
-    )
   }
 
   fun stop() {

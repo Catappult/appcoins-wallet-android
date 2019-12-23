@@ -2,6 +2,7 @@ package com.asfoundation.wallet.subscriptions
 
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
@@ -17,18 +18,19 @@ class SubscriptionDetailsPresenter(
     loadSubscriptionDetails(packageName)
     handleCancelClicks()
     handleBackClicks()
+    handleNoNetworkRetryClicks(packageName)
+    handleGenericRetryClicks(packageName)
   }
 
   private fun loadSubscriptionDetails(packageName: String) {
     disposables.add(
-        subscriptionInteract.loadSubscriptionDetails(packageName)
+        Single.fromCallable { view.showLoading() }.subscribeOn(viewScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { subscriptionInteract.loadSubscriptionDetails(packageName) }
             .delay(1, TimeUnit.SECONDS)
-            .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSubscribe { view.showLoading() }
             .doOnSuccess(this::onSubscriptionDetails)
-            .doOnError(this::onError)
-            .subscribe()
+            .subscribe({}, { onError(it) })
     )
   }
 
@@ -45,6 +47,8 @@ class SubscriptionDetailsPresenter(
     throwable.printStackTrace()
     if (throwable.isNoNetworkException()) {
       view.showNoNetworkError()
+    } else {
+      view.showGenericError()
     }
   }
 
@@ -53,8 +57,7 @@ class SubscriptionDetailsPresenter(
         view.getCancelClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.cancelSubscription() }
-            .subscribe()
-    )
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleBackClicks() {
@@ -62,9 +65,32 @@ class SubscriptionDetailsPresenter(
         view.getBackClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.navigateBack() }
-            .doOnError(Throwable::printStackTrace)
-            .subscribe()
-    )
+            .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleNoNetworkRetryClicks(packageName: String) {
+    disposables.add(
+        view.getRetryNetworkClicks()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showNoNetworkRetryAnimation() }
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(networkScheduler)
+            .doOnNext {
+              loadSubscriptionDetails(packageName)
+            }
+            .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleGenericRetryClicks(packageName: String) {
+    disposables.add(
+        view.getRetryGenericClicks()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showGenericRetryAnimation() }
+            .delay(1, TimeUnit.SECONDS)
+            .doOnNext {
+              loadSubscriptionDetails(packageName)
+            }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() {

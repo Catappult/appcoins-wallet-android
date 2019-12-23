@@ -17,6 +17,7 @@ class SubscriptionCancelPresenter(
     loadSubscriptionDetails(packageName)
     handleCancelClicks(packageName)
     handleBackClicks()
+    handleNoNetworkRetryClicks(packageName)
   }
 
   private fun loadSubscriptionDetails(packageName: String) {
@@ -27,9 +28,7 @@ class SubscriptionCancelPresenter(
             .observeOn(viewScheduler)
             .doOnSubscribe { view.showLoading() }
             .doOnSuccess { if (it is ActiveSubscriptionDetails) view.showSubscriptionDetails(it) }
-            .doOnError(this::onError)
-            .subscribe()
-    )
+            .subscribe({}, { onError(it) }))
   }
 
   private fun onError(throwable: Throwable) {
@@ -55,9 +54,7 @@ class SubscriptionCancelPresenter(
                   }
             }
             .observeOn(viewScheduler)
-            .doOnError(this::onError)
-            .subscribe()
-    )
+            .subscribe({}, { onError(it) }))
   }
 
   private fun handleBackClicks() {
@@ -65,9 +62,19 @@ class SubscriptionCancelPresenter(
         view.getBackClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.navigateBack() }
-            .doOnError(Throwable::printStackTrace)
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
+  }
+
+  private fun handleNoNetworkRetryClicks(packageName: String) {
+    disposables.add(
+        view.getRetryNetworkClicks()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showNoNetworkRetryAnimation() }
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(networkScheduler)
+            .doOnNext { loadSubscriptionDetails(packageName) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() {

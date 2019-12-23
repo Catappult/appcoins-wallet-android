@@ -18,9 +18,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_subscription_details.*
+import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
 import kotlinx.android.synthetic.main.layout_active_subscription_content.*
 import kotlinx.android.synthetic.main.layout_expired_subscription_content.*
 import kotlinx.android.synthetic.main.layout_expired_subscription_content.view.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.math.RoundingMode
 import java.util.*
 import javax.inject.Inject
@@ -142,20 +144,50 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
   override fun showNoNetworkError() {
     main_layout.visibility = View.GONE
+    retry_animation.visibility = View.GONE
+    retry_button.visibility = View.VISIBLE
+    generic_retry_animation.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
     loading_animation.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.VISIBLE
   }
 
+  override fun showGenericError() {
+    main_layout.visibility = View.GONE
+    retry_animation.visibility = View.GONE
+    generic_retry_animation.visibility = View.GONE
+    generic_retry_button.visibility = View.VISIBLE
+    loading_animation.visibility = View.GONE
+    no_network_retry_only_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.VISIBLE
+  }
+
   override fun showDetails() {
     loading_animation.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.GONE
     main_layout.visibility = View.VISIBLE
   }
 
   override fun showLoading() {
     main_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
     no_network_retry_only_layout.visibility = View.GONE
     loading_animation.visibility = View.VISIBLE
+  }
+
+  override fun getRetryGenericClicks() = RxView.clicks(generic_retry_button)
+
+  override fun getRetryNetworkClicks() = RxView.clicks(retry_button)
+
+  override fun showNoNetworkRetryAnimation() {
+    retry_button.visibility = View.INVISIBLE
+    retry_animation.visibility = View.VISIBLE
+  }
+
+  override fun showGenericRetryAnimation() {
+    generic_retry_button.visibility = View.INVISIBLE
+    generic_retry_animation.visibility = View.VISIBLE
   }
 
   override fun onAttach(context: Context) {

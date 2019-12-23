@@ -11,7 +11,11 @@ interface SubscriptionListView {
   fun showNoNetworkError()
   fun showLoading()
   fun retryClick(): Observable<Any>
-  fun showRetryAnimation()
+  fun showGenericError()
+  fun showNoNetworkRetryAnimation()
+  fun showGenericRetryAnimation()
+  fun getRetryNetworkClicks(): Observable<Any>
+  fun getRetryGenericClicks(): Observable<Any>
   fun subscriptionClicks(): Observable<String>
   fun showSubscriptionDetails(packageName: String)
 
