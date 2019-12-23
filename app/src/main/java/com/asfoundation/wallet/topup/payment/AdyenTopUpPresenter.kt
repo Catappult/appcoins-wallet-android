@@ -69,7 +69,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             else view.showGenericError()
           } else {
             view.showValues(it.priceAmount, it.priceCurrency)
-            if (paymentType == PaymentType.CARD.name) {
+            if (paymentType == PaymentType.CARD.name) { //TODO isStored is returning always true after making a payment even if sending not to store
               view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                   savedInstanceState)
             } else if (paymentType == PaymentType.PAYPAL.name) {
