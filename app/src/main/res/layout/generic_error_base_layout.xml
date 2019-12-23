@@ -15,7 +15,7 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/no_network_animation"
+      app:lottie_rawRes="@raw/generic_error_animation"
       />
 
   <TextView
