@@ -30,11 +30,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     return findWalletInteract.find()
         .flatMap { promotionsRepo.getUserStatus(it.address) }
         .map { map(it) }
-        .map {
-          it.gamificationAvailable = false
-          it.referralsAvailable = false
-          it
-        }
   }
 
   override fun hasAnyPromotionUpdate(referralsScreen: ReferralsScreen,
