@@ -125,10 +125,8 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (throwable.isNoNetworkException()) {
-      view.hideLoading()
-      view.showNetworkErrorView()
-    }
+    view.hideLoading()
+    if (throwable.isNoNetworkException()) view.showNetworkErrorView()
   }
 
   private fun handleRetryClick() {
