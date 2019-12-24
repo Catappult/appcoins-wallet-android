@@ -22,7 +22,7 @@ interface AdyenPaymentView {
   fun showGenericError()
   fun getMorePaymentMethodsClicks(): Observable<Any>
   fun showMoreMethods()
-  fun hideLoading()
+  fun hideLoadingAndShowView()
   fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstance: Bundle?)

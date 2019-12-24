@@ -109,6 +109,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         BiFunction { _: Any, paymentData: CardPaymentMethod ->
           paymentData
         })
+        .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle {
           adyenPaymentInteractor.makeTopUpPayment(it, view.provideReturnUrl(),
@@ -155,6 +156,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun handlePaymentDetails() {
     disposables.add(view.getPaymentDetails()
+        .observeOn(viewScheduler)
+        .doOnNext { view.hideKeyboard() }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)

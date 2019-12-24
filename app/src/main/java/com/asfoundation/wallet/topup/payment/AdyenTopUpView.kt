@@ -52,5 +52,8 @@ interface AdyenTopUpView {
   fun topUpButtonClicked(): Observable<Any>
 
   fun retrievePaymentData(): Observable<CardPaymentMethod>
+
   fun provideReturnUrl(): String
+
+  fun hideKeyboard()
 }

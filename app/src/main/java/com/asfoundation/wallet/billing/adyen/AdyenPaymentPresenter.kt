@@ -69,7 +69,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               amount.toString(), currency)
               .observeOn(viewScheduler)
               .doOnSuccess {
-                view.hideLoading()
+                view.hideLoadingAndShowView()
                 if (it.error.hasError) {
                   if (it.error.isNetworkError) view.showNetworkError()
                   else view.showGenericError()
@@ -91,18 +91,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {
+    view.showLoading()
     disposables.add(
         adyenPaymentInteractor.loadPaymentInfo(mapPaymentToService(paymentType), amount.toString(),
             currency)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              view.hideLoading()
               if (it.error.hasError) {
+                view.hideLoadingAndShowView()
                 if (it.error.isNetworkError) view.showNetworkError()
                 else view.showGenericError()
               } else {
                 if (paymentType == PaymentType.CARD.name) {
+                  view.hideLoadingAndShowView()
                   sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                       savedInstanceState)
@@ -128,7 +130,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .filter { !waitingResult }
-        .doOnSuccess { handlePaymentModel(it) }
+        .doOnSuccess {
+          view.hideLoadingAndShowView()
+          handlePaymentModel(it)
+        }
         .subscribe())
   }
 
@@ -150,6 +155,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         BiFunction { _: Any, paymentData: CardPaymentMethod ->
           paymentData
         })
+        .observeOn(viewScheduler)
+        .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle { paymentData ->
           transactionBuilder
@@ -176,22 +183,30 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              if (it.status == TransactionResponse.Status.COMPLETED) {
-                createBundle(it.hash, it.orderReference)
-                    .doOnSuccess {
-                      // sendPaymentEvent()
-                      // sendRevenueEvent()
-                    }
-                    .observeOn(viewScheduler)
-                    .flatMapCompletable {
-                      Completable.fromAction { view.showSuccess() }
-                          .andThen(
-                              Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                          .andThen(Completable.fromAction { navigator.popView(it) })
-                    }
-              } else {
-                Completable.fromAction { view.showGenericError() }
-                    .subscribeOn(viewScheduler)
+              when {
+                it.status == TransactionResponse.Status.COMPLETED -> {
+                  createBundle(it.hash, it.orderReference)
+                      .doOnSuccess {
+                        // sendPaymentEvent()
+                        // sendRevenueEvent()
+                      }
+                      .observeOn(viewScheduler)
+                      .flatMapCompletable {
+                        Completable.fromAction { view.showSuccess() }
+                            .andThen(
+                                Completable.timer(view.getAnimationDuration(),
+                                    TimeUnit.MILLISECONDS))
+                            .andThen(Completable.fromAction { navigator.popView(it) })
+                      }
+                }
+                paymentFailed(it.status) -> {
+                  Completable.fromAction { view.showGenericError() }
+                      .subscribeOn(viewScheduler)
+                }
+                else -> {
+                  //Non-final state. Chain should restart since getTransaction will emit again
+                  Completable.complete()
+                }
               }
             }
       }
@@ -202,8 +217,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       refusalReason != null -> Completable.fromAction {
         refusalCode?.let { code -> view.showSpecificError(code) }
       }
-      else -> Completable.fromAction { view.showGenericError() }
+      else -> Completable.fromAction {
+        view.showGenericError()
+      }
     }
+  }
+
+  private fun paymentFailed(status: TransactionResponse.Status): Boolean {
+    return status == TransactionResponse.Status.FAILED || status == TransactionResponse.Status.CANCELED || status == TransactionResponse.Status.INVALID_TRANSACTION
   }
 
   private fun handlePaymentDetails() {

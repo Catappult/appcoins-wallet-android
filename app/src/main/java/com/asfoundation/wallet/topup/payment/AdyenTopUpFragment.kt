@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
@@ -225,6 +226,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (!networkErrorDialog.isShowing) {
       topUpView.lockOrientation()
       networkErrorDialog.show()
+      credit_card_info_container.visibility = View.INVISIBLE
     }
   }
 
@@ -232,12 +234,14 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (!errorDialog.isShowing) {
       topUpView.lockOrientation()
       errorDialog.show()
+      credit_card_info_container.visibility = View.INVISIBLE
     }
   }
 
   override fun showSpecificError(refusalCode: Int) {
     if (!paymentRefusedDialog.isShowing) {
       topUpView.lockOrientation()
+      credit_card_info_container.visibility = View.INVISIBLE
       when (refusalCode) {
         8, 24 -> paymentRefusedDialog.changeMessage(
             "Are you sure your card details are correct? Please try again!")
@@ -460,6 +464,11 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     adyenSecurityCodeLayout.editText?.text = null
     adyenCardNumberLayout.requestFocus()
     adyenSecurityCodeLayout.error = null
+  }
+
+  override fun hideKeyboard() {
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    view?.let { imm?.hideSoftInputFromWindow(it.windowToken, 0) }
   }
 
   override fun onDestroyView() {

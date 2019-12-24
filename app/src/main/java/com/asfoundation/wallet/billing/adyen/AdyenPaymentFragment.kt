@@ -196,10 +196,11 @@ class AdyenPaymentFragment : DaggerFragment(),
     } else {
       cc_info_view.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
+      buy_button.visibility = View.INVISIBLE
     }
   }
 
-  override fun hideLoading() {
+  override fun hideLoadingAndShowView() {
     fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
     if (isPreSelected) {
       payment_methods?.visibility = View.VISIBLE
@@ -226,6 +227,7 @@ class AdyenPaymentFragment : DaggerFragment(),
   override fun showNetworkError() {
     main_view?.visibility = View.GONE
     main_view_pre_selected?.visibility = View.GONE
+    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
     fragment_iab_error?.visibility = View.VISIBLE
     fragment_iab_error?.activity_iab_error_message?.setText(R.string.notification_no_network_poa)
     fragment_iab_error_pre_selected?.visibility = View.VISIBLE
@@ -245,6 +247,7 @@ class AdyenPaymentFragment : DaggerFragment(),
 
   override fun showSuccess() {
     iab_activity_transaction_completed.visibility = View.VISIBLE
+    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
     if (isPreSelected) {
       main_view?.visibility = View.GONE
       main_view_pre_selected?.visibility = View.GONE
@@ -261,6 +264,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     main_view?.visibility = View.GONE
     main_view_pre_selected?.visibility = View.GONE
     fragment_iab_error?.visibility = View.VISIBLE
+    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
     fragment_iab_error?.activity_iab_error_message?.setText(R.string.unknown_error)
     fragment_iab_error_pre_selected?.visibility = View.VISIBLE
     fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
@@ -276,6 +280,7 @@ class AdyenPaymentFragment : DaggerFragment(),
       8, 24 -> message = "Are you sure your card details are correct? Please try again!"
     }
 
+    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
     fragment_iab_error?.activity_iab_error_message?.text = message
     fragment_iab_error_pre_selected?.activity_iab_error_message?.text = message
     fragment_iab_error?.visibility = View.VISIBLE
