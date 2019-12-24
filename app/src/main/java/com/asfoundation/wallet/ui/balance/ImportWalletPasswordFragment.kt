@@ -85,7 +85,7 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
       ImportErrorType.ALREADY_ADDED -> label_input.error = getString(R.string.error_already_added)
       ImportErrorType.INVALID_PASS -> label_input.error =
           getString(R.string.import_wallet_wrong_password_body)
-      ImportErrorType.INVALID_KEYSTORE -> label_input.error = "Invalid Keystore" //Needs strings
+      ImportErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
       else -> label_input.error = getString(R.string.error_general)
     }
   }

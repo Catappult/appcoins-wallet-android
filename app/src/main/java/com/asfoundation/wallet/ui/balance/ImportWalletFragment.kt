@@ -88,7 +88,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
     label_input.isErrorEnabled = true
     when (type) {
       ImportErrorType.ALREADY_ADDED -> label_input.error = getString(R.string.error_already_added)
-      ImportErrorType.INVALID_KEYSTORE -> label_input.error = "Invalid Keystore" //Needs strings
+      ImportErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
       else -> label_input.error = getString(R.string.error_general)
     }
   }
