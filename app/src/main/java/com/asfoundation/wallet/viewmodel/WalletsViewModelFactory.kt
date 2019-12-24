@@ -10,7 +10,6 @@ import javax.inject.Inject
 class WalletsViewModelFactory @Inject constructor(
     private val createWalletInteract: CreateWalletInteract,
     private val setDefaultWalletInteract: SetDefaultWalletInteract,
-    private val deleteWalletInteract: DeleteWalletInteract,
     private val fetchWalletsInteract: FetchWalletsInteract,
     private val findDefaultWalletInteract: FindDefaultWalletInteract,
     private val exportWalletInteract: ExportWalletInteract,
@@ -19,7 +18,7 @@ class WalletsViewModelFactory @Inject constructor(
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     return WalletsViewModel(createWalletInteract, setDefaultWalletInteract,
-        deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
+        fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
         logger, preferencesRepositoryType) as T
   }
 

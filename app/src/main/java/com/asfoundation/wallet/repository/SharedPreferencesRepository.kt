@@ -30,10 +30,12 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     return pref.getString(CURRENT_ACCOUNT_ADDRESS_KEY, null)
   }
 
-  override fun setCurrentWalletAddress(address: String) {
-    pref.edit()
-        .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
-        .apply()
+  override fun setCurrentWalletAddress(address: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
+          .apply()
+    }
   }
 
   override fun isFirstTimeOnTransactionActivity(): Boolean {
@@ -89,10 +91,12 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
   override fun isWalletValidated(walletAddress: String) =
       pref.getBoolean(WALLET_VERIFIED + walletAddress, false)
 
-  override fun removeWalletValidationStatus(walletAddress: String) {
-    pref.edit()
-        .remove(WALLET_VERIFIED + walletAddress)
-        .apply()
+  override fun removeWalletValidationStatus(walletAddress: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .remove(WALLET_VERIFIED + walletAddress)
+          .apply()
+    }
   }
 
   override fun addWalletPreference(address: String?) {
@@ -110,10 +114,12 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun removeBackupNotificationSeenTime(walletAddress: String) {
-    pref.edit()
-        .remove(BACKUP_SEEN_TIME + walletAddress)
-        .apply()
+  override fun removeBackupNotificationSeenTime(walletAddress: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .remove(BACKUP_SEEN_TIME + walletAddress)
+          .apply()
+    }
   }
 
   override fun isWalletImportBackup(walletAddress: String) =
@@ -125,10 +131,12 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun removeWalletImportBackup(walletAddress: String) {
-    pref.edit()
-        .remove(WALLET_IMPORT_BACKUP + walletAddress)
-        .apply()
+  override fun removeWalletImportBackup(walletAddress: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .remove(WALLET_IMPORT_BACKUP + walletAddress)
+          .apply()
+    }
   }
 
   override fun hasShownBackup(walletAddress: String): Boolean {

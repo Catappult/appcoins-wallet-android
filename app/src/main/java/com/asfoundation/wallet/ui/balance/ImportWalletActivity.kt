@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -79,22 +78,15 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
 
   override fun launchFileIntent() {
     val intent = Intent(Intent.ACTION_GET_CONTENT)
-    intent.type = "text/*"
-    intent.addCategory(Intent.CATEGORY_OPENABLE)
-
+    intent.apply {
+      type = "text/*"
+      addCategory(Intent.CATEGORY_OPENABLE)
+    }
     try {
       startActivityForResult(Intent.createChooser(intent, ""), 1234)
     } catch (ex: ActivityNotFoundException) { // Potentially direct the user to the Market with a Dialog
       Snackbar.make(main_view, "Please install a File Manager.", Snackbar.LENGTH_SHORT)
           .show()
-    }
-  }
-
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == 1234) {
-      val mData = data?.data
-      Log.d("TAG123", mData.toString())
     }
   }
 

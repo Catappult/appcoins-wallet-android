@@ -58,9 +58,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
         .map { keystore_edit_text.editableText.toString() }
   }
 
-  override fun importFromFileClick(): Observable<Any> {
-    return RxView.clicks(import_from_file_button)
-  }
+  override fun importFromFileClick() = RxView.clicks(import_from_file_button)
 
   override fun launchFileIntent() {
     activityView.launchFileIntent()
@@ -75,7 +73,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
   }
 
   override fun fileImported(): Observable<JsonObject> {
-    return Observable.just(JsonObject())
+    return Observable.just(JsonObject()) //to change in future PRs
   }
 
   override fun showWalletImportAnimation() {

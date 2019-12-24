@@ -121,13 +121,13 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
     private const val KEYSTORE_KEY = "keystore"
 
     fun newInstance(keystore: String): ImportWalletPasswordFragment {
-      val bundle = Bundle()
       val fragment = ImportWalletPasswordFragment()
-      bundle.putString(KEYSTORE_KEY, keystore)
-      fragment.arguments = bundle
+      Bundle().apply {
+        putString(KEYSTORE_KEY, keystore)
+        fragment.arguments = this
+      }
       return fragment
     }
-
   }
 
 }

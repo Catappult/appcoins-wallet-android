@@ -17,7 +17,6 @@ import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailFragment
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
@@ -109,8 +108,7 @@ class BalanceActivity : BaseActivity(),
   }
 
   override fun navigateToImportView() {
-    val intent = Intent(this, ImportWalletActivity::class.java)
-    startActivity(intent)
+    startActivity(Intent(this, ImportWalletActivity::class.java))
   }
 
   override fun showCreatingAnimation() {
@@ -157,9 +155,8 @@ class BalanceActivity : BaseActivity(),
     backEnabled = false
   }
 
-  override fun backPressed(): Observable<Any> {
-    return onBackPressedSubject!!
-  }
+  override fun backPressed() = onBackPressedSubject!!
+
 
   override fun navigateToTransactions() {
     TransactionsRouter().open(this, true)

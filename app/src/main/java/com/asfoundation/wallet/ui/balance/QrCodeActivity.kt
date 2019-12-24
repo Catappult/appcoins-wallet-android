@@ -16,7 +16,6 @@ import com.asfoundation.wallet.util.generateQrCode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
@@ -39,25 +38,18 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
     presenter.present()
   }
 
-  override fun copyClick(): Observable<Any> {
-    return RxView.clicks(copy_button)
-  }
+  override fun copyClick() = RxView.clicks(copy_button)
 
-  override fun shareClick(): Observable<Any> {
-    return RxView.clicks(share_button)
-  }
+  override fun shareClick() = RxView.clicks(share_button)
 
-  override fun closeClick(): Observable<Any> {
-    return RxView.clicks(close_btn)
-  }
+  override fun closeClick() = RxView.clicks(close_btn)
 
   override fun setAddressToClipBoard(walletAddress: String) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
     val clip = ClipData.newPlainText(
         MyAddressActivity.KEY_ADDRESS, walletAddress)
-    if (clipboard != null) {
-      clipboard.primaryClip = clip
-    }
+    clipboard?.let { it.primaryClip = clip }
+
     Snackbar.make(main_layout, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
         .show()
   }

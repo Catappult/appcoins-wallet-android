@@ -22,13 +22,13 @@ import dagger.Provides;
 
   @Provides WalletsViewModelFactory provideAccountsManageViewModelFactory(
       CreateWalletInteract createWalletInteract, SetDefaultWalletInteract setDefaultWalletInteract,
-      DeleteWalletInteract deleteWalletInteract, FetchWalletsInteract fetchWalletsInteract,
+      FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, Logger logger,
       PreferencesRepositoryType preferencesRepositoryType) {
     return new WalletsViewModelFactory(createWalletInteract, setDefaultWalletInteract,
-        deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        logger, preferencesRepositoryType);
+        fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract, logger,
+        preferencesRepositoryType);
   }
 
   @Provides SetDefaultWalletInteract provideSetDefaultAccountInteract(

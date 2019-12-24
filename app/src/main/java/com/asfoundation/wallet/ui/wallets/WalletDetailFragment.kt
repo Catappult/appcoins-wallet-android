@@ -59,35 +59,19 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     activityView.setupToolbar()
-    try {
-      val logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_appc_token, null)
-      val mergedQrCode = walletAddress.generateQrCode(activity!!.windowManager, logo!!)
-      qr_image.setImageBitmap(mergedQrCode)
-    } catch (e: Exception) {
-      Snackbar.make(view, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
-          .show()
-    }
+
+    generateQrCode(view)
+
     wallet_address.text = walletAddress
 
-    if (isActive) {
-      active_wallet_info.visibility = View.VISIBLE
-      middle_backup_wallet_button.visibility = View.VISIBLE
-      middle_backup_text.visibility = View.VISIBLE
-    } else {
-      remove_backup_buttons.visibility = View.VISIBLE
-      make_this_active_button.visibility = View.VISIBLE
-    }
+    handleActiveWalletLayoutVisibility()
 
     presenter.present()
   }
 
-  override fun copyClick(): Observable<Any> {
-    return RxView.clicks(copy_button)
-  }
+  override fun copyClick() = RxView.clicks(copy_button)
 
-  override fun shareClick(): Observable<Any> {
-    return RxView.clicks(share_button)
-  }
+  override fun shareClick() = RxView.clicks(share_button)
 
   override fun removeWalletClick(): Observable<Any> {
     return Observable.merge(RxView.clicks(remove_wallet_button), RxView.clicks(remove_text))
@@ -97,18 +81,14 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
     return Observable.merge(RxView.clicks(backup_wallet_button), RxView.clicks(backup_text))
   }
 
-  override fun makeWalletActiveClick(): Observable<Any> {
-    return RxView.clicks(make_this_active_button)
-  }
+  override fun makeWalletActiveClick() = RxView.clicks(make_this_active_button)
 
   override fun setAddressToClipBoard(walletAddress: String) {
     activity?.let {
       val clipboard = it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
       val clip = ClipData.newPlainText(
           MyAddressActivity.KEY_ADDRESS, walletAddress)
-      if (clipboard != null) {
-        clipboard.primaryClip = clip
-      }
+      clipboard?.let { clipboard.primaryClip = clip }
       view?.let { view ->
         Snackbar.make(view, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
             .show()
@@ -148,6 +128,28 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
     balance_appcoins.text = appc.amount.scaleToString(2) + " " + appc.symbol
     balance_credits.text = credits.amount.scaleToString(2) + " " + credits.symbol
     balance_ethereum.text = ethereum.amount.scaleToString(4) + " " + ethereum.symbol
+  }
+
+  private fun handleActiveWalletLayoutVisibility() {
+    if (isActive) {
+      active_wallet_info.visibility = View.VISIBLE
+      middle_backup_wallet_button.visibility = View.VISIBLE
+      middle_backup_text.visibility = View.VISIBLE
+    } else {
+      remove_backup_buttons.visibility = View.VISIBLE
+      make_this_active_button.visibility = View.VISIBLE
+    }
+  }
+
+  private fun generateQrCode(view: View) {
+    try {
+      val logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_appc_token, null)
+      val mergedQrCode = walletAddress.generateQrCode(activity!!.windowManager, logo!!)
+      qr_image.setImageBitmap(mergedQrCode)
+    } catch (e: Exception) {
+      Snackbar.make(view, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
+          .show()
+    }
   }
 
   override fun onDestroyView() {

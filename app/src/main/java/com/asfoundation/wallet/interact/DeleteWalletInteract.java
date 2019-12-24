@@ -23,11 +23,8 @@ public class DeleteWalletInteract {
   public Completable delete(String address) {
     return passwordStore.getPassword(address)
         .flatMapCompletable(password -> walletRepository.deleteWallet(address, password))
-        .andThen(Completable.fromAction(
-            () -> preferencesRepositoryType.removeWalletValidationStatus(address)))
-        .andThen(Completable.fromAction(
-            () -> preferencesRepositoryType.removeWalletImportBackup(address)))
-        .andThen(Completable.fromAction(
-            () -> preferencesRepositoryType.removeBackupNotificationSeenTime(address)));
+        .andThen(preferencesRepositoryType.removeWalletValidationStatus(address))
+        .andThen(preferencesRepositoryType.removeWalletImportBackup(address))
+        .andThen(preferencesRepositoryType.removeBackupNotificationSeenTime(address));
   }
 }

@@ -12,7 +12,8 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
                                         private val walletAddress: String,
                                         private val deleteWalletInteract: DeleteWalletInteract,
                                         private val disposable: CompositeDisposable,
-                                        private val viewScheduler: Scheduler) {
+                                        private val viewScheduler: Scheduler,
+                                        private val networkScheduler: Scheduler) {
 
   fun present() {
     handleNoButtonClick()
@@ -30,11 +31,13 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
     disposable.add(view.yesButtonClick()
         .observeOn(viewScheduler)
         .doOnNext { view.showRemoveWalletAnimation() }
+        .observeOn(networkScheduler)
         .flatMapSingle {
           Single.zip(deleteWalletInteract.delete(walletAddress).toSingleDefault(""),
               Completable.timer(2, TimeUnit.SECONDS).toSingleDefault(""),
               BiFunction { _: String, _: String -> })
         }
+        .observeOn(viewScheduler)
         .doOnNext { view.finish() }
         .subscribe())
   }

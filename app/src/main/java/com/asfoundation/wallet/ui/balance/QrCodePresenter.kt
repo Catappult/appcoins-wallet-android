@@ -50,6 +50,7 @@ class QrCodePresenter(
   private fun handleCloseClick() {
     disposable.add(
         view.closeClick()
+            .observeOn(viewScheduler)
             .doOnNext { view.closeSuccess() }
             .subscribe())
   }

@@ -8,7 +8,6 @@ import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
-import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -20,7 +19,6 @@ public class WalletsViewModel extends BaseViewModel {
 
   private final CreateWalletInteract createWalletInteract;
   private final SetDefaultWalletInteract setDefaultWalletInteract;
-  private final DeleteWalletInteract deleteWalletInteract;
   private final FetchWalletsInteract fetchWalletsInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final ExportWalletInteract exportWalletInteract;
@@ -36,14 +34,12 @@ public class WalletsViewModel extends BaseViewModel {
   private final MutableLiveData<ErrorEnvelope> deleteWalletError = new MutableLiveData<>();
 
   WalletsViewModel(CreateWalletInteract createWalletInteract,
-      SetDefaultWalletInteract setDefaultWalletInteract, DeleteWalletInteract deleteWalletInteract,
-      FetchWalletsInteract fetchWalletsInteract,
+      SetDefaultWalletInteract setDefaultWalletInteract, FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, Logger logger,
       PreferencesRepositoryType preferencesRepositoryType) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
-    this.deleteWalletInteract = deleteWalletInteract;
     this.fetchWalletsInteract = fetchWalletsInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.exportWalletInteract = exportWalletInteract;

@@ -9,9 +9,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.remove_wallet_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_second_layout.*
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmat
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = WalletRemoveConfirmationPresenter(this, walletAddress, deleteWalletInteract,
-        CompositeDisposable(), AndroidSchedulers.mainThread())
+        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   override fun onAttach(context: Context) {
@@ -45,21 +45,13 @@ class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmat
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    wallet_address.text = walletAddress
-    wallet_balance.text = fiatBalance
-    balance_appcoins.text = appcoinsBalance
-    balance_credits.text = creditsBalance
-    balance_ethereum.text = ethereumBalance
+    setWalletBalance()
     presenter.present()
   }
 
-  override fun noButtonClick(): Observable<Any> {
-    return RxView.clicks(no_remove_wallet_button)
-  }
+  override fun noButtonClick() = RxView.clicks(no_remove_wallet_button)
 
-  override fun yesButtonClick(): Observable<Any> {
-    return RxView.clicks(yes_remove_wallet_button)
-  }
+  override fun yesButtonClick() = RxView.clicks(yes_remove_wallet_button)
 
   override fun navigateBack() {
     activity?.onBackPressed()
@@ -71,6 +63,14 @@ class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmat
 
   override fun finish() {
     activityView.navigateToWalletList()
+  }
+
+  private fun setWalletBalance() {
+    wallet_address.text = walletAddress
+    wallet_balance.text = fiatBalance
+    balance_appcoins.text = appcoinsBalance
+    balance_credits.text = creditsBalance
+    balance_ethereum.text = ethereumBalance
   }
 
   override fun onDestroyView() {
@@ -129,14 +129,15 @@ class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmat
     fun newInstance(walletAddress: String, totalFiatBalance: String,
                     appcoinsBalance: String, creditsBalance: String,
                     ethereumBalance: String): WalletRemoveConfirmationFragment {
-      val bundle = Bundle()
       val fragment = WalletRemoveConfirmationFragment()
-      bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
-      bundle.putString(FIAT_BALANCE_KEY, totalFiatBalance)
-      bundle.putString(APPC_BALANCE_KEY, appcoinsBalance)
-      bundle.putString(CREDITS_BALANCE_KEY, creditsBalance)
-      bundle.putString(ETHEREUM_BALANCE_KEY, ethereumBalance)
-      fragment.arguments = bundle
+      Bundle().apply {
+        putString(WALLET_ADDRESS_KEY, walletAddress)
+        putString(FIAT_BALANCE_KEY, totalFiatBalance)
+        putString(APPC_BALANCE_KEY, appcoinsBalance)
+        putString(CREDITS_BALANCE_KEY, creditsBalance)
+        putString(ETHEREUM_BALANCE_KEY, ethereumBalance)
+        fragment.arguments = this
+      }
       return fragment
     }
   }

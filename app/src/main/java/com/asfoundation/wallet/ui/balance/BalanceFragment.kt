@@ -212,13 +212,9 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     activityView?.showTopUpScreen()
   }
 
-  override fun getCopyClick(): Observable<Any> {
-    return RxView.clicks(copy_address)
-  }
+  override fun getCopyClick() = RxView.clicks(copy_address)
 
-  override fun getQrCodeClick(): Observable<Any> {
-    return RxView.clicks(wallet_qr_code)
-  }
+  override fun getQrCodeClick() = RxView.clicks(wallet_qr_code)
 
   override fun setWalletAddress(walletAddress: String) {
     active_wallet_address.text = walletAddress
@@ -226,11 +222,9 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   override fun setAddressToClipBoard(walletAddress: String) {
     val clipboard = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-    val clip = ClipData.newPlainText(
-        MyAddressActivity.KEY_ADDRESS, walletAddress)
-    if (clipboard != null) {
-      clipboard.primaryClip = clip
-    }
+    val clip = ClipData.newPlainText(MyAddressActivity.KEY_ADDRESS, walletAddress)
+    clipboard?.let { it.primaryClip = clip }
+
     view?.let {
       Snackbar.make(it, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
           .show()
@@ -270,13 +264,15 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   private fun setBackListener(view: View) {
     activityView?.disableBack()
-    view.isFocusableInTouchMode = true
-    view.requestFocus()
-    view.setOnKeyListener { _, keyCode, keyEvent ->
-      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && !showingAnimation) {
-        onBackPressedSubject?.onNext("")
+    view.apply {
+      isFocusableInTouchMode = true
+      requestFocus()
+      setOnKeyListener { _, keyCode, keyEvent ->
+        if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && !showingAnimation) {
+          onBackPressedSubject?.onNext("")
+        }
+        true
       }
-      true
     }
   }
 

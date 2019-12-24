@@ -79,8 +79,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>
 
-
-  <!--GUIDELINES-->
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/left_guideline"
       android:layout_width="wrap_content"

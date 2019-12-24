@@ -7,9 +7,8 @@ import com.asfoundation.wallet.ui.balance.BalanceActivity
 class BalanceRouter {
 
   fun open(context: Context) {
-    val intent = Intent(context, BalanceActivity::class.java)
-    intent.apply {
-      intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+    val intent = Intent(context, BalanceActivity::class.java).apply {
+      flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     }
     context.startActivity(intent)
   }

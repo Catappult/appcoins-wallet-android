@@ -10,7 +10,6 @@ interface ImportWalletView {
   fun launchFileIntent()
   fun fileImported(): Observable<JsonObject>
   fun navigateToPasswordView()
-
   fun showWalletImportAnimation()
   fun showWalletImportedAnimation()
   fun showError(type: ImportErrorType)

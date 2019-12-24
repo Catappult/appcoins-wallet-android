@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.remove_wallet_first_layout.*
@@ -40,18 +39,13 @@ class RemoveWalletFragment : DaggerFragment(), RemoveWalletView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    wallet_address.text = walletAddress
-    wallet_balance.text = fiatBalance
+    setWalletBalance()
     presenter.present()
   }
 
-  override fun backUpWalletClick(): Observable<Any> {
-    return RxView.clicks(backup_button)
-  }
+  override fun backUpWalletClick() = RxView.clicks(backup_button)
 
-  override fun noBackUpWalletClick(): Observable<Any> {
-    return RxView.clicks(no_backup_button)
-  }
+  override fun noBackUpWalletClick() = RxView.clicks(no_backup_button)
 
   override fun navigateToBackUp() {
 
@@ -59,6 +53,11 @@ class RemoveWalletFragment : DaggerFragment(), RemoveWalletView {
 
   override fun proceedWithRemoveWallet() {
     activityView.navigateToWalletRemoveConfirmation()
+  }
+
+  private fun setWalletBalance() {
+    wallet_address.text = walletAddress
+    wallet_balance.text = fiatBalance
   }
 
   override fun onDestroyView() {
@@ -88,11 +87,12 @@ class RemoveWalletFragment : DaggerFragment(), RemoveWalletView {
     private const val FIAT_BALANCE_KEY = "fiat_balance"
 
     fun newInstance(walletAddress: String, totalFiatBalance: String): RemoveWalletFragment {
-      val bundle = Bundle()
       val fragment = RemoveWalletFragment()
-      bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
-      bundle.putString(FIAT_BALANCE_KEY, totalFiatBalance)
-      fragment.arguments = bundle
+      Bundle().apply {
+        putString(WALLET_ADDRESS_KEY, walletAddress)
+        putString(FIAT_BALANCE_KEY, totalFiatBalance)
+        fragment.arguments = this
+      }
       return fragment
     }
   }
