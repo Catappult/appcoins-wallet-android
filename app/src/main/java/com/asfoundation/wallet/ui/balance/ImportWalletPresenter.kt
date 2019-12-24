@@ -15,25 +15,7 @@ class ImportWalletPresenter(private val view: ImportWalletView,
                             private val computationScheduler: Scheduler) {
 
   fun present() {
-    handleImportFromFile()
     handleImportFromString()
-    handleFileSelected()
-  }
-
-  private fun handleFileSelected() {
-    disposable.add(view.fileImported()
-        .observeOn(computationScheduler)
-        .flatMapSingle { importWalletInteract.importKeystore(it.toString()) }
-        .observeOn(viewScheduler)
-        .subscribe()
-    )
-  }
-
-  private fun handleImportFromFile() {
-    disposable.add(view.importFromFileClick()
-        .observeOn(viewScheduler)
-        .doOnNext { view.launchFileIntent() }
-        .subscribe())
   }
 
   private fun handleImportFromString() {

@@ -90,10 +90,6 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
     }
   }
 
-  override fun fileChosen() {
-
-  }
-
   override fun hideAnimation() {
     import_wallet_animation.cancelAnimation()
     import_wallet_animation_group.visibility = View.GONE

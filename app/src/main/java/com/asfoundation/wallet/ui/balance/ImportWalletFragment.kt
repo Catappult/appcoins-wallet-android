@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.ImportWalletInteract
 import com.asfoundation.wallet.util.ImportErrorType
-import com.google.gson.JsonObject
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -58,22 +57,8 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
         .map { keystore_edit_text.editableText.toString() }
   }
 
-  override fun importFromFileClick() = RxView.clicks(import_from_file_button)
-
-  override fun launchFileIntent() {
-    activityView.launchFileIntent()
-  }
-
-  override fun fileChosen() {
-    activityView.fileChosen()
-  }
-
   override fun hideAnimation() {
     activityView.hideAnimation()
-  }
-
-  override fun fileImported(): Observable<JsonObject> {
-    return Observable.just(JsonObject()) //to change in future PRs
   }
 
   override fun showWalletImportAnimation() {

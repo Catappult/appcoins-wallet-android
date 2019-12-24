@@ -5,7 +5,6 @@ interface ImportWalletActivityView {
   fun showWalletImportAnimation()
   fun showWalletImportedAnimation()
   fun launchFileIntent()
-  fun fileChosen()
   fun hideAnimation()
 
 }
