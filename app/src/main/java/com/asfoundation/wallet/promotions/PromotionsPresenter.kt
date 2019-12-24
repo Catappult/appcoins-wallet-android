@@ -31,8 +31,7 @@ class PromotionsPresenter(private val view: PromotionsView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { onPromotions(it) }
-            .doOnError { handleError(it) }
-            .subscribe())
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun onPromotions(promotionsModel: PromotionsModel) {
@@ -51,7 +50,7 @@ class PromotionsPresenter(private val view: PromotionsView,
         promotionsInteractor.hasGamificationNewLevel(GamificationScreen.MY_LEVEL)
             .observeOn(viewScheduler)
             .doOnSuccess { view.showGamificationUpdate(it) }
-            .subscribe({}, { it.printStackTrace() }))
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleShareClick() {
@@ -60,20 +59,20 @@ class PromotionsPresenter(private val view: PromotionsView,
         .flatMapSingle { promotionsInteractor.retrievePromotions() }
         .observeOn(viewScheduler)
         .doOnNext { view.showShare(it.link!!) }
-        .subscribe({}, { it.printStackTrace() }))
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun handleDetailsClick() {
     disposables.add(
         Observable.merge(view.detailsClick(), view.referralCardClick())
             .doOnNext { view.navigateToInviteFriends() }
-            .subscribe({}, { it.printStackTrace() }))
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleGamificationNavigationClicks() {
     disposables.add(Observable.merge(view.seeMoreClick(), view.gamificationCardClick())
         .doOnNext { view.navigateToGamification() }
-        .subscribe({}, { it.printStackTrace() }))
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun handleShowLevels() {
@@ -126,10 +125,8 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (throwable.isNoNetworkException()) {
-      view.hideLoading()
-      view.showNetworkErrorView()
-    }
+    view.hideLoading()
+    if (throwable.isNoNetworkException()) view.showNetworkErrorView()
   }
 
   private fun handleRetryClick() {
@@ -141,7 +138,7 @@ class PromotionsPresenter(private val view: PromotionsView,
           retrievePromotions()
           handleShowLevels()
         }
-        .subscribe({}, { it.printStackTrace() }))
+        .subscribe({}, { handleError(it) }))
   }
 
   fun stop() {
