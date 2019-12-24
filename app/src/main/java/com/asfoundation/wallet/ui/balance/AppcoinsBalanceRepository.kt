@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.balance
 
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDao
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsEntity
@@ -14,7 +14,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
 class AppcoinsBalanceRepository(
-    private val balanceGetter: GetDefaultWalletBalance,
+    private val balanceGetter: GetDefaultWalletBalanceInteract,
     private val localCurrencyConversionService: LocalCurrencyConversionService,
     private val balanceDetailsDao: BalanceDetailsDao,
     private val balanceDetailsMapper: BalanceDetailsMapper,

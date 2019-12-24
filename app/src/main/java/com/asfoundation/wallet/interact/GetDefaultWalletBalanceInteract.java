@@ -17,14 +17,14 @@ import java.math.RoundingMode;
 
 import static com.asfoundation.wallet.util.BalanceUtils.weiToEth;
 
-public class GetDefaultWalletBalance implements BalanceService {
+public class GetDefaultWalletBalanceInteract implements BalanceService {
   private final WalletRepositoryType walletRepository;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchCreditsInteract fetchCreditsInteract;
   private final NetworkInfo defaultNetwork;
   private final TokenRepositoryType tokenRepositoryType;
 
-  public GetDefaultWalletBalance(WalletRepositoryType walletRepository,
+  public GetDefaultWalletBalanceInteract(WalletRepositoryType walletRepository,
       FindDefaultWalletInteract defaultWalletInteract, FetchCreditsInteract fetchCreditsInteract,
       NetworkInfo defaultNetwork, TokenRepositoryType tokenRepositoryType) {
     this.walletRepository = walletRepository;

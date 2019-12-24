@@ -16,7 +16,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.wallets.WalletDetailFragment
+import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
@@ -90,8 +90,9 @@ class BalanceActivity : BaseActivity(),
   override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {
     expandBottomSheet = true
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, WalletDetailFragment.newInstance(walletAddress, isActive))
-        .addToBackStack(WalletDetailFragment::class.java.simpleName)
+        .replace(R.id.fragment_container,
+            WalletDetailsFragment.newInstance(walletAddress, isActive))
+        .addToBackStack(WalletDetailsFragment::class.java.simpleName)
         .commit()
   }
 

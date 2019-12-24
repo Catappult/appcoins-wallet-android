@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.transact
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.Single
@@ -12,7 +12,7 @@ import java.net.UnknownHostException
 
 class TransferInteractor(private val rewardsManager: RewardsManager,
                          private val transactionDataValidator: TransactionDataValidator,
-                         private val balanceInteractor: GetDefaultWalletBalance,
+                         private val balanceInteractor: GetDefaultWalletBalanceInteract,
                          private val findDefaultWalletInteract: FindDefaultWalletInteract) {
 
   fun transferCredits(toWallet: String, amount: BigDecimal,

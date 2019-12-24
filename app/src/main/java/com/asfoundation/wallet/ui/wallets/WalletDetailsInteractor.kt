@@ -6,8 +6,8 @@ import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 
-class WalletDetailInteractor(private val balanceInteract: BalanceInteract,
-                             private val setDefaultWalletInteract: SetDefaultWalletInteract) {
+class WalletDetailsInteractor(private val balanceInteract: BalanceInteract,
+                              private val setDefaultWalletInteract: SetDefaultWalletInteract) {
 
   fun getBalanceModel(address: String): Observable<BalanceScreenModel> {
     return balanceInteract.requestTokenConversion(address)

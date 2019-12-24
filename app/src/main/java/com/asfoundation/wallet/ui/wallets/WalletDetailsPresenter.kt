@@ -3,9 +3,9 @@ package com.asfoundation.wallet.ui.wallets
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class WalletDetailPresenter(
-    private val view: WalletDetailView,
-    private val interactor: WalletDetailInteractor,
+class WalletDetailsPresenter(
+    private val view: WalletDetailsView,
+    private val interactor: WalletDetailsInteractor,
     private val walletAddress: String,
     private val disposable: CompositeDisposable,
     private val viewScheduler: Scheduler,

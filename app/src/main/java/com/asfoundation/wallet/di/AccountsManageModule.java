@@ -12,7 +12,7 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferencesRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
-import com.asfoundation.wallet.ui.wallets.WalletDetailInteractor;
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor;
 import com.asfoundation.wallet.ui.wallets.WalletsInteract;
 import com.asfoundation.wallet.viewmodel.WalletsViewModelFactory;
 import dagger.Module;
@@ -59,8 +59,8 @@ import dagger.Provides;
         sharedPreferencesRepository);
   }
 
-  @Provides WalletDetailInteractor provideWalletDetailInteract(BalanceInteract balanceInteract,
+  @Provides WalletDetailsInteractor provideWalletDetailInteract(BalanceInteract balanceInteract,
       SetDefaultWalletInteract setDefaultWalletInteract) {
-    return new WalletDetailInteractor(balanceInteract, setDefaultWalletInteract);
+    return new WalletDetailsInteractor(balanceInteract, setDefaultWalletInteract);
   }
 }

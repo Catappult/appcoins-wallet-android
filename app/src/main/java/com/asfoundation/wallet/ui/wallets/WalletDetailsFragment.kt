@@ -26,19 +26,19 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
 import kotlinx.android.synthetic.main.remove_backup_buttons_layout.*
 import kotlinx.android.synthetic.main.wallet_detail_balance_layout.*
-import kotlinx.android.synthetic.main.wallet_detail_layout.*
+import kotlinx.android.synthetic.main.wallet_details_layout.*
 import javax.inject.Inject
 
-class WalletDetailFragment : DaggerFragment(), WalletDetailView {
+class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
 
   @Inject
-  lateinit var interactor: WalletDetailInteractor
+  lateinit var interactor: WalletDetailsInteractor
   private lateinit var activityView: BalanceActivityView
-  private lateinit var presenter: WalletDetailPresenter
+  private lateinit var presenter: WalletDetailsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = WalletDetailPresenter(this, interactor, walletAddress, CompositeDisposable(),
+    presenter = WalletDetailsPresenter(this, interactor, walletAddress, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
@@ -53,7 +53,7 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.wallet_detail_layout, container, false)
+    return inflater.inflate(R.layout.wallet_details_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -162,9 +162,9 @@ class WalletDetailFragment : DaggerFragment(), WalletDetailView {
     private const val WALLET_ADDRESS_KEY = "wallet_address"
     private const val IS_ACTIVE_KEY = "is_active"
 
-    fun newInstance(walletAddress: String, isActive: Boolean): WalletDetailFragment {
+    fun newInstance(walletAddress: String, isActive: Boolean): WalletDetailsFragment {
       val bundle = Bundle()
-      val fragment = WalletDetailFragment()
+      val fragment = WalletDetailsFragment()
       bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
       bundle.putBoolean(IS_ACTIVE_KEY, isActive)
       fragment.arguments = bundle

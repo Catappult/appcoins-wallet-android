@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.wallets
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import io.reactivex.Observable
 
-interface WalletDetailView {
+interface WalletDetailsView {
   fun populateUi(balanceScreenModel: BalanceScreenModel)
   fun copyClick(): Observable<Any>
   fun shareClick(): Observable<Any>
