@@ -7,7 +7,7 @@
     android:theme="@style/MaterialAppTheme"
     >
 
-  <ScrollView
+  <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_marginBottom="8dp"
@@ -141,7 +141,7 @@
             />
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-  </ScrollView>
+  </androidx.core.widget.NestedScrollView>
   <Button
       android:id="@+id/import_wallet_button"
       style="@style/ButtonStyle.Alternative"

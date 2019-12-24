@@ -73,8 +73,6 @@
         android:text="@string/appc_token_name"
         android:textColor="@color/grey_alpha_active_54"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         />
 
     <TextView
@@ -106,8 +104,6 @@
         android:text="@string/appc_credits_token_name"
         android:textColor="@color/grey_alpha_active_54"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         />
 
     <TextView
@@ -139,8 +135,6 @@
         android:text="@string/ethereum_token_name"
         android:textColor="@color/grey_alpha_active_54"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         />
 
     <TextView

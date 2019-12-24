@@ -85,7 +85,7 @@
             />
         <include
             android:id="@+id/balance_layout"
-            layout="@layout/wallet_detail_balance_layout"
+            layout="@layout/wallet_details_balance_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"

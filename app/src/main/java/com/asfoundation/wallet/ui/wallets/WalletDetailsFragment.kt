@@ -25,7 +25,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
 import kotlinx.android.synthetic.main.remove_backup_buttons_layout.*
-import kotlinx.android.synthetic.main.wallet_detail_balance_layout.*
+import kotlinx.android.synthetic.main.wallet_details_balance_layout.*
 import kotlinx.android.synthetic.main.wallet_details_layout.*
 import javax.inject.Inject
 
