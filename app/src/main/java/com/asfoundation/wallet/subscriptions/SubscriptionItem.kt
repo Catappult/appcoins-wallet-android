@@ -8,5 +8,5 @@ data class SubscriptionItem(
     val iconUrl: String,
     val amount: BigDecimal,
     val symbol: String,
-    val recurrence: String
+    val periodicity: String
 )

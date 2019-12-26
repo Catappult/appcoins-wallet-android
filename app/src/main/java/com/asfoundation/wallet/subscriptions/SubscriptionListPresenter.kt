@@ -27,7 +27,6 @@ class SubscriptionListPresenter(
             .observeOn(networkScheduler)
             .flatMap { subscriptionInteract.loadSubscriptions() }
             .delay(1, TimeUnit.SECONDS)
-            .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess(this::onSubscriptions)
             .subscribe({}, { onError(it) }))

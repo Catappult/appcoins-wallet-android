@@ -14,7 +14,7 @@ class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     itemView.apply {
       app_name.text = item.appName
       recurrence_value.text = String.format("%s / %s",
-          item.symbol + item.amount.setScale(FIAT_SCALE, RoundingMode.FLOOR), item.recurrence)
+          item.symbol + item.amount.setScale(FIAT_SCALE, RoundingMode.FLOOR), item.periodicity)
       more_button.setOnClickListener { clickCallback?.onNext(item.packageName) }
       item_parent.setOnClickListener { clickCallback?.onNext(item.packageName) }
     }

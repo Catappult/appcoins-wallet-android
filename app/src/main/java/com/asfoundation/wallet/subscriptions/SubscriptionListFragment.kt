@@ -117,9 +117,7 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     loading_animation.visibility = View.VISIBLE
   }
 
-  override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
-  }
+  override fun retryClick() = RxView.clicks(retry_button)
 
   override fun getRetryGenericClicks() = RxView.clicks(generic_retry_button)
 
