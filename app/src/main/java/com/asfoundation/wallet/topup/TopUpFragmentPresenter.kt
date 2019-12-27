@@ -318,7 +318,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext { view.changeMainValueText(it.amount.toString()) }
-        .subscribe())
+        .doOnError { view.showNoNetworkError() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRetryClick() {
