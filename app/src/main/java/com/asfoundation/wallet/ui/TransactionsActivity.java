@@ -69,6 +69,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private CompositeDisposable disposables;
   private View emptyClickableView;
   private View badge;
+  private AppBarLayout appBar;
   private boolean showScroll = false;
   private int paddingDp;
 
@@ -93,22 +94,21 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyClickableView.setVisibility(View.VISIBLE);
     balanceSkeleton.playAnimation();
     subtitleView = findViewById(R.id.toolbar_subtitle);
-    ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
-        (appBarLayout, verticalOffset) -> {
-          float percentage =
-              ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
-          float alpha = 1 - (percentage * 1.20f);
-          findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
-          subtitleView.setAlpha(alpha);
-          balanceSkeleton.setAlpha(alpha);
-          ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
+    appBar = findViewById(R.id.app_bar);
+    appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+      float percentage = ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
+      float alpha = 1 - (percentage * 1.20f);
+      findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
+      subtitleView.setAlpha(alpha);
+      balanceSkeleton.setAlpha(alpha);
+      ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
 
-          if (percentage == 0) {
-            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
-          } else {
-            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
-          }
-        });
+      if (percentage == 0) {
+        ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
+      } else {
+        ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
+      }
+    });
 
     setCollapsingTitle(" ");
     initBottomNavigation();
@@ -207,6 +207,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     adapter.setApps(appcoinsApplications);
     showList();
     if (showScroll) {
+      appBar.setExpanded(true, true);
       list.scrollToPosition(0);
       showScroll = false;
     }
