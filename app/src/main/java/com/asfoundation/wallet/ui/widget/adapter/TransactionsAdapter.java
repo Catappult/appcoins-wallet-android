@@ -77,7 +77,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     this.resources = resources;
   }
 
-  @Override public BinderViewHolder<?> onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+  @NotNull @Override public BinderViewHolder<?> onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
     BinderViewHolder holder = null;
     switch (viewType) {
       case TransactionHolder.VIEW_TYPE:
