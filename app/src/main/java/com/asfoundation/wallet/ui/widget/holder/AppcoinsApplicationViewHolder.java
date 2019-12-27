@@ -9,13 +9,13 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import androidx.palette.graphics.Palette;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.palette.graphics.Palette;
-import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.widget.CardHeaderTransformation;
@@ -64,17 +64,11 @@ public class AppcoinsApplicationViewHolder extends RecyclerView.ViewHolder {
     };
     appIcon.setTag(target);
 
-    Picasso.Builder builder = new Picasso.Builder(itemView.getContext());
-    builder.listener((picasso, uri, exception) -> {
-      exception.printStackTrace();
-    });
-    Picasso picasso = builder.build();
-    picasso.setLoggingEnabled(true);
-    picasso.load(appcoinsApplication.getIcon())
+    Picasso.with(itemView.getContext())
+        .load(appcoinsApplication.getIcon())
         .placeholder(android.R.drawable.progress_indeterminate_horizontal)
         .transform(new CircleTransformation())
-        .into(appIcon);
-
+        .into(target);
     int space = getSizeFromDp(itemView.getContext()
         .getResources()
         .getDisplayMetrics(), 8);
