@@ -8,7 +8,7 @@
   <include
       android:id="@+id/wallet_validation_toolbar"
       layout="@layout/layout_app_bar"
-      android:visibility="invisible"
+      android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
