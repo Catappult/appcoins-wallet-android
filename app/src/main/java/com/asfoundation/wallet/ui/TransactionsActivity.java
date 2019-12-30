@@ -65,11 +65,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private RecyclerView list;
   private TextView subtitleView;
   private LottieAnimationView balanceSkeleton;
+  private LinearLayoutManager linearLayoutManager;
   private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
   private View emptyClickableView;
   private View badge;
   private int paddingDp;
+  private boolean showScroll = false;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -114,13 +116,23 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
+    linearLayoutManager = new LinearLayoutManager(this);
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
         this::onNotificationClick, getResources());
+
+    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override public void onItemRangeInserted(int positionStart, int itemCount) {
+        if (showScroll) {
+          linearLayoutManager.smoothScrollToPosition(list, null, 0);
+          showScroll = false;
+        }
+      }
+    });
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
     systemView = findViewById(R.id.system_view);
     list = findViewById(R.id.list);
-    list.setLayoutManager(new LinearLayoutManager(this));
     list.setAdapter(adapter);
+    list.setLayoutManager(linearLayoutManager);
 
     systemView.attachRecyclerView(list);
     systemView.attachSwipeRefreshLayout(refreshLayout);
@@ -410,7 +422,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void dismissNotification(CardNotification cardNotification) {
-    boolean lastItem = adapter.removeItem(cardNotification);
-    if (lastItem) viewModel.fetchTransactions(false);
+    showScroll = adapter.removeItem(cardNotification);
+    if (showScroll) {
+      viewModel.fetchTransactions(false);
+    }
   }
 }
