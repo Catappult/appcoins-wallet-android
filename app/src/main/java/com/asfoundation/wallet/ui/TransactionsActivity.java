@@ -65,7 +65,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private RecyclerView list;
   private TextView subtitleView;
   private LottieAnimationView balanceSkeleton;
-  private LinearLayoutManager linearLayoutManager;
   private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
   private View emptyClickableView;
@@ -116,7 +115,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
-    linearLayoutManager = new LinearLayoutManager(this);
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
         this::onNotificationClick, getResources());
 
