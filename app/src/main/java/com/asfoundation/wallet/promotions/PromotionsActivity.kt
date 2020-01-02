@@ -22,9 +22,8 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     toolbar()
     transactionsRouter = TransactionsRouter()
     rewardsLevelRouter = RewardsLevelRouter()
-    val promotionsFragment = PromotionsFragment()
     supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container, promotionsFragment)
+        .add(R.id.fragment_container, PromotionsFragment.newInstance())
         .commit()
   }
 
