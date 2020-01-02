@@ -185,9 +185,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
         CardNotificationSortedItem cardNotificationSortedItem =
             (CardNotificationSortedItem) items.get(i);
         List<CardNotification> card = (List<CardNotification>) cardNotificationSortedItem.value;
-        for (int i1 = 0; i1 < card.size(); i1++) {
-          if (Objects.equals(card.get(i1), cardNotification)) {
-            card.remove(i1);
+        for (int j = 0; j < card.size(); j++) {
+          if (Objects.equals(card.get(j), cardNotification)) {
+            card.remove(j);
             this.notifyItemChanged(i);
             return card.size() == 0;
           }
