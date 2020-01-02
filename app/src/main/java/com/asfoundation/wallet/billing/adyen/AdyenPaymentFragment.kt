@@ -88,9 +88,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
-        AdyenPaymentPresenter(this, context, compositeDisposable, AndroidSchedulers.mainThread(),
-            Schedulers.io(), analytics, domain, origin, adyenPaymentInteractor,
-            inAppPurchaseInteractor.parseTransaction(transactionData, true),
+        AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
+            Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
+            adyenPaymentInteractor, inAppPurchaseInteractor.parseTransaction(transactionData, true),
             navigator, paymentType, transactionType, amount, currency, isPreSelected)
   }
 
@@ -303,9 +303,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun setRedirectComponent(action: Action, uid: String) {
-    action.type = action.type?.toLowerCase()
     redirectComponent = RedirectComponent.PROVIDER.get(this)
-    redirectComponent.handleAction(activity as IabActivity, action)
     redirectComponent.observe(this, Observer {
       paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
     })
@@ -329,10 +327,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     val fiatPrice = formatter.format(Locale.getDefault(), "%(,.2f", amount.toDouble())
         .toString()
     fiat_price.text = "$fiatPrice $currencyCode"
-  }
-
-  override fun provideReturnUrl(): String {
-    return iabView.provideRedirectUrl()
   }
 
   private fun setBackListener(view: View) {

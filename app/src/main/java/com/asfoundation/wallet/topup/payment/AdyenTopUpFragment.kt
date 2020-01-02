@@ -29,7 +29,6 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
@@ -95,11 +94,11 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
 
     presenter =
-        AdyenTopUpPresenter(this, context, appPackage, AndroidSchedulers.mainThread(),
-            Schedulers.io(), CompositeDisposable(), paymentType, transactionType,
-            data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
-            data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            adyenPaymentInteractor, bonusValue)
+        AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(),
+            Schedulers.io(), CompositeDisposable(), RedirectComponent.getReturnUrl(context!!),
+            paymentType, transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode,
+            data.currency, data.selectedCurrency, navigator,
+            inAppPurchaseInteractor.billingMessagesMapper, adyenPaymentInteractor, bonusValue)
   }
 
   override fun onAttach(context: Context) {
@@ -330,9 +329,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun setRedirectComponent(uid: String, action: Action) {
-    action.type = action.type?.toLowerCase()
     redirectComponent = RedirectComponent.PROVIDER.get(this)
-    redirectComponent.handleAction(activity as TopUpActivity, action)
     redirectComponent.observe(this, Observer {
       paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
     })
@@ -482,10 +479,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     paymentDataSubject = null
     paymentDetailsSubject = null
     super.onDestroy()
-  }
-
-  override fun provideReturnUrl(): String {
-    return topUpView.provideRedirectUrl()
   }
 
   val appPackage: String by lazy {

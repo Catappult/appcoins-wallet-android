@@ -135,7 +135,7 @@
 
         <data
             android:host="${applicationId}"
-            android:scheme="iabadyencheckout"/>
+            android:scheme="adyencheckout"/>
       </intent-filter>
     </activity>
     <activity
@@ -152,7 +152,6 @@
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:label="@string/topup_title"
-        android:launchMode="singleInstance"
         android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
@@ -162,7 +161,7 @@
 
         <data
             android:host="${applicationId}"
-            android:scheme="topupadyencheckout"/>
+            android:scheme="adyencheckout"/>
       </intent-filter>
     </activity>
     <activity

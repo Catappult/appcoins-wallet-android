@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
-import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
@@ -222,11 +221,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(WalletBlockedActivity.newIntent(this), BLOCKED_WARNING_REQUEST_CODE)
   }
 
-  override fun onNewIntent(intent: Intent) {
-    super.onNewIntent(intent)
-    results!!.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
-  }
-
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
 
@@ -280,10 +274,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onPause() {
     presenter.stop()
     super.onPause()
-  }
-
-  override fun provideRedirectUrl(): String {
-    return "iab" + RedirectComponent.getReturnUrl(this)
   }
 
   companion object {

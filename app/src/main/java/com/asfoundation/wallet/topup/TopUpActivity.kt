@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import com.adyen.checkout.redirect.RedirectComponent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -162,9 +161,5 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     } else {
       super.onBackPressed()
     }
-  }
-
-  override fun provideRedirectUrl(): String {
-    return "topup" + RedirectComponent.getReturnUrl(this)
   }
 }

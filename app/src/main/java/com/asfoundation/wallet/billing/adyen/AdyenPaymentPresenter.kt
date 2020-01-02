@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.billing.adyen
 
-import android.content.Context
 import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
@@ -24,10 +23,10 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentPresenter(private val view: AdyenPaymentView,
-                            private val context: Context?,
                             private val disposables: CompositeDisposable,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
+                            private val returnUrl: String,
                             private val analytics: BillingAnalytics,
                             private val domain: String,
                             private val origin: String?,
@@ -119,14 +118,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
     disposables.add(transactionBuilder.flatMap {
-      if (context != null) {
-        adyenPaymentInteractor.makePayment(paymentMethodInfo, view.provideReturnUrl(),
-            amount.toString(), currency, it.orderReference,
-            mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-            it.skuId, it.callbackUrl, it.type, it.toAddress())
-      } else {
-        Single.just(PaymentModel(Error()))
-      }
+      adyenPaymentInteractor.makePayment(paymentMethodInfo, returnUrl,
+          amount.toString(), currency, it.orderReference,
+          mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
+          it.skuId, it.callbackUrl, it.type, it.toAddress())
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -143,6 +138,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       view.showLoading()
       view.lockRotation()
       view.setRedirectComponent(paymentModel.action!!, paymentModel.uid)
+      navigator.navigateToUriForResult(paymentModel.redirectUrl)
       waitingResult = true
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
     } else {
@@ -162,7 +158,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .flatMapSingle { paymentData ->
           transactionBuilder
               .flatMap {
-                adyenPaymentInteractor.makePayment(paymentData, view.provideReturnUrl(),
+                adyenPaymentInteractor.makePayment(paymentData, returnUrl,
                     amount.toString(), currency, it.orderReference,
                     mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
                     it.skuId, it.callbackUrl, it.type, it.toAddress())

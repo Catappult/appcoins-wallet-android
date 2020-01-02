@@ -30,6 +30,4 @@ interface TopUpActivityView {
   fun cancelPayment()
 
   fun setFinishingPurchase()
-
-  fun provideRedirectUrl(): String
 }

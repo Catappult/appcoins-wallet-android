@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.topup.payment
 
-import android.content.Context
 import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
@@ -8,7 +7,6 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
-import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.CurrencyData
@@ -23,11 +21,11 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 class AdyenTopUpPresenter(private val view: AdyenTopUpView,
-                          private val context: Context?,
                           private val appPackage: String,
                           private val viewScheduler: Scheduler,
                           private val networkScheduler: Scheduler,
                           private val disposables: CompositeDisposable,
+                          private val returnUrl: String,
                           private val paymentType: String,
                           private val transactionType: String,
                           private val amount: String,
@@ -82,13 +80,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
     disposables.add(
-        if (context != null) {
-          adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo, view.provideReturnUrl(),
-              amount, currency, mapPaymentToService(paymentType).transactionType, transactionType,
-              appPackage)
-        } else {
-          Single.just(PaymentModel(Error()))
-        }
+        adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo,
+            returnUrl, amount, currency, mapPaymentToService(paymentType).transactionType,
+            transactionType, appPackage)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .filter { !waitingResult }
@@ -112,8 +106,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.makeTopUpPayment(it, view.provideReturnUrl(),
-              amount, currency, mapPaymentToService(paymentType).transactionType, transactionType,
+          adyenPaymentInteractor.makeTopUpPayment(it, returnUrl, amount, currency,
+              mapPaymentToService(paymentType).transactionType, transactionType,
               appPackage)
         }
         .observeOn(viewScheduler)
@@ -198,6 +192,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     if (!paymentModel.error.hasError) {
       view.showLoading()
       view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
+      navigator.navigateToUriForResult(paymentModel.redirectUrl)
       waitingResult = true
     } else {
       if (paymentModel.error.isNetworkError) view.showNetworkError()
