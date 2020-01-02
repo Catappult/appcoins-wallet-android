@@ -6,10 +6,10 @@ import com.asfoundation.wallet.interact.FetchWalletsInteract
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.sumByBigDecimal
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.math.BigDecimal
 
 class WalletsInteract(private val balanceInteract: BalanceInteract,
                       private val fetchWalletsInteract: FetchWalletsInteract,
@@ -46,8 +46,7 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
   }
 
   private fun getTotalBalance(walletBalance: List<WalletBalance>): FiatValue {
-    var totalBalance = BigDecimal.ZERO
-    for (wallet in walletBalance) totalBalance = totalBalance.add(wallet.balance.amount)
+    val totalBalance = walletBalance.sumByBigDecimal { it.balance.amount }
     return FiatValue(totalBalance, walletBalance[0].balance.currency,
         walletBalance[0].balance.symbol)
   }
