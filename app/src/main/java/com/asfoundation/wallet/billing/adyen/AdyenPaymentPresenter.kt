@@ -46,12 +46,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     loadPaymentMethodInfo(savedInstanceState)
     handleBack()
     handleErrorDismissEvent()
-    handleBuyClick()
     handleForgetCardClick()
 
     handleRedirectResponse()
     handlePaymentDetails()
-    convertAmount()
     if (isPreSelected) handleMorePaymentsClick()
   }
 
@@ -81,15 +79,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribe())
   }
 
-  private fun convertAmount() {
-    disposables.add(
-        adyenPaymentInteractor.convertToFiat(amount.toDouble(), currency)
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess { view.showProductPrice(it.currency) }
-            .subscribe())
-  }
-
   private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {
     view.showLoading()
     disposables.add(
@@ -103,23 +92,26 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 if (it.error.isNetworkError) view.showNetworkError()
                 else view.showGenericError()
               } else {
+                view.showProductPrice(it.priceAmount, it.priceCurrency)
                 if (paymentType == PaymentType.CARD.name) {
                   view.hideLoadingAndShowView()
                   sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                       savedInstanceState)
+                  handleBuyClick(it.priceAmount, it.priceCurrency)
                 } else if (paymentType == PaymentType.PAYPAL.name) {
-                  launchPaypal(it.paymentMethodInfo!!)
+                  launchPaypal(it.paymentMethodInfo!!, it.priceAmount, it.priceCurrency)
                 }
               }
             }
             .subscribe())
   }
 
-  private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
+  private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
+                           priceCurrency: String) {
     disposables.add(transactionBuilder.flatMap {
       adyenPaymentInteractor.makePayment(paymentMethodInfo, returnUrl,
-          amount.toString(), currency, it.orderReference,
+          priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
           it.skuId, it.callbackUrl, it.type, it.toAddress())
     }
@@ -147,11 +139,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
-  private fun handleBuyClick() {
+  private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
     disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
-        BiFunction { _: Any, paymentData: CardPaymentMethod ->
-          paymentData
-        })
+        BiFunction { _: Any, paymentData: CardPaymentMethod -> paymentData })
         .observeOn(viewScheduler)
         .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
@@ -159,7 +149,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           transactionBuilder
               .flatMap {
                 adyenPaymentInteractor.makePayment(paymentData, returnUrl,
-                    amount.toString(), currency, it.orderReference,
+                    priceAmount.toString(), priceCurrency, it.orderReference,
                     mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
                     it.skuId, it.callbackUrl, it.type, it.toAddress())
               }

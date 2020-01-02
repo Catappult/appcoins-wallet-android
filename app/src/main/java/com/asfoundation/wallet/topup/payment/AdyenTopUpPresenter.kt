@@ -45,7 +45,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
     loadPaymentMethodInfo(savedInstanceState)
     handleErrorDismissEvent()
-    handleTopUpClick()
     handleForgetCardClick()
 
     handleRedirectResponse()
@@ -70,18 +69,21 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             if (paymentType == PaymentType.CARD.name) { //TODO isStored is returning always true after making a payment even if sending not to store
               view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                   savedInstanceState)
+              handleTopUpClick(it.priceAmount, it.priceCurrency)
             } else if (paymentType == PaymentType.PAYPAL.name) {
-              launchPaypal(it.paymentMethodInfo!!)
+              launchPaypal(it.paymentMethodInfo!!, it.priceAmount, it.priceCurrency)
             }
           }
         }
         .subscribe())
   }
 
-  private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
+  private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
+                           priceCurrency: String) {
     disposables.add(
         adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo,
-            returnUrl, amount, currency, mapPaymentToService(paymentType).transactionType,
+            returnUrl, priceAmount.toString(), priceCurrency,
+            mapPaymentToService(paymentType).transactionType,
             transactionType, appPackage)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
@@ -98,7 +100,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe())
   }
 
-  private fun handleTopUpClick() {
+  private fun handleTopUpClick(priceAmount: BigDecimal, priceCurrency: String) {
     disposables.add(Observable.combineLatest(view.topUpButtonClicked(), view.retrievePaymentData(),
         BiFunction { _: Any, paymentData: CardPaymentMethod ->
           paymentData
@@ -106,8 +108,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.makeTopUpPayment(it, returnUrl, amount, currency,
-              mapPaymentToService(paymentType).transactionType, transactionType,
+          adyenPaymentInteractor.makeTopUpPayment(it, returnUrl, priceAmount.toString(),
+              priceCurrency, mapPaymentToService(paymentType).transactionType, transactionType,
               appPackage)
         }
         .observeOn(viewScheduler)

@@ -6,6 +6,7 @@ import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
+import java.math.BigDecimal
 
 interface AdyenPaymentView {
 
@@ -29,7 +30,7 @@ interface AdyenPaymentView {
 
   fun retrievePaymentData(): Observable<CardPaymentMethod>
   fun showSpecificError(refusalCode: Int)
-  fun showProductPrice(currencyCode: String)
+  fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String)
   fun lockRotation()
   fun setRedirectComponent(action: Action, uid: String)
   fun submitUriResult(uri: Uri)

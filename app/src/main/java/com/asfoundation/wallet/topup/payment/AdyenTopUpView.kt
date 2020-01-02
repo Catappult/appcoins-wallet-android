@@ -7,10 +7,11 @@ import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
 import io.reactivex.Observable
+import java.math.BigDecimal
 
 interface AdyenTopUpView {
 
-  fun showValues(value: String, currency: String)
+  fun showValues(value: BigDecimal, currency: String)
 
   fun showLoading()
 

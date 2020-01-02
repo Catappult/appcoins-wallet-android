@@ -322,10 +322,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     else RxView.clicks(change_card_button_pre_selected)
   }
 
-  override fun showProductPrice(currencyCode: String) {
-    val formatter = Formatter()
-    val fiatPrice = formatter.format(Locale.getDefault(), "%(,.2f", amount.toDouble())
-        .toString()
+  override fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String) {
+    val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", fiatAmount.toDouble())
     fiat_price.text = "$fiatPrice $currencyCode"
   }
 

@@ -51,7 +51,10 @@ import kotlinx.android.synthetic.main.default_value_chips_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import java.io.Serializable
+import java.math.BigDecimal
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   @Inject
@@ -189,16 +192,17 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
 
-  override fun showValues(value: String, currency: String) {
+  override fun showValues(value: BigDecimal, currency: String) {
     main_value.visibility = View.VISIBLE
+    val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", value.toDouble())
     if (currentCurrency == FIAT_CURRENCY) {
-      main_value.setText(value)
+      main_value.setText(fiatPrice.toString())
       main_currency_code.text = currency
       converted_value.text = "${data.currency.appcValue} ${data.currency.appcSymbol}"
     } else {
       main_value.setText(data.currency.appcValue)
       main_currency_code.text = data.currency.appcCode
-      converted_value.text = "$value $currency"
+      converted_value.text = "$fiatPrice $currency"
     }
   }
 
