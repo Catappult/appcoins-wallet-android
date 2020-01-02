@@ -206,7 +206,7 @@
         android:theme="@style/AppTheme.Transparent"/>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.balance.RemoveWalletActivity"
+        android:name="com.asfoundation.wallet.ui.wallets.RemoveWalletActivity"
         android:label="@string/remove_wallet_title"
         android:screenOrientation="portrait"/>
 

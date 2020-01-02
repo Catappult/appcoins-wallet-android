@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.ui.wallets
 
 import android.content.Context
 import android.os.Bundle
@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.remove_wallet_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_second_layout.*
 import javax.inject.Inject
 
-class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmationView {
+class WalletRemoveConfirmationFragment : DaggerFragment(),
+    WalletRemoveConfirmationView {
 
   @Inject
   lateinit var deleteWalletInteract: DeleteWalletInteract
@@ -25,8 +26,10 @@ class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmat
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = WalletRemoveConfirmationPresenter(this, walletAddress, deleteWalletInteract,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+    presenter =
+        WalletRemoveConfirmationPresenter(
+            this, walletAddress, deleteWalletInteract,
+            CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   override fun onAttach(context: Context) {
@@ -79,40 +82,50 @@ class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmat
   }
 
   private val walletAddress: String by lazy {
-    if (arguments!!.containsKey(WALLET_ADDRESS_KEY)) {
-      arguments!!.getString(WALLET_ADDRESS_KEY)
+    if (arguments!!.containsKey(
+            WALLET_ADDRESS_KEY)) {
+      arguments!!.getString(
+          WALLET_ADDRESS_KEY)
     } else {
       throw IllegalArgumentException("walletAddress not found")
     }
   }
 
   private val fiatBalance: String by lazy {
-    if (arguments!!.containsKey(FIAT_BALANCE_KEY)) {
-      arguments!!.getString(FIAT_BALANCE_KEY)
+    if (arguments!!.containsKey(
+            FIAT_BALANCE_KEY)) {
+      arguments!!.getString(
+          FIAT_BALANCE_KEY)
     } else {
       throw IllegalArgumentException("fiat balance not found")
     }
   }
 
   private val appcoinsBalance: String by lazy {
-    if (arguments!!.containsKey(APPC_BALANCE_KEY)) {
-      arguments!!.getString(APPC_BALANCE_KEY)
+    if (arguments!!.containsKey(
+            APPC_BALANCE_KEY)) {
+      arguments!!.getString(
+          APPC_BALANCE_KEY)
     } else {
       throw IllegalArgumentException("appc balance not found")
     }
   }
 
   private val creditsBalance: String by lazy {
-    if (arguments!!.containsKey(CREDITS_BALANCE_KEY)) {
-      arguments!!.getString(CREDITS_BALANCE_KEY)
+    if (arguments!!.containsKey(
+            CREDITS_BALANCE_KEY)) {
+      arguments!!.getString(
+          CREDITS_BALANCE_KEY)
     } else {
       throw IllegalArgumentException("credits balance not found")
     }
   }
 
   private val ethereumBalance: String by lazy {
-    if (arguments!!.containsKey(ETHEREUM_BALANCE_KEY)) {
-      arguments!!.getString(ETHEREUM_BALANCE_KEY)
+    if (arguments!!.containsKey(
+            ETHEREUM_BALANCE_KEY)) {
+      arguments!!.getString(
+          ETHEREUM_BALANCE_KEY)
     } else {
       throw IllegalArgumentException("ethereum balance not found")
     }
@@ -129,13 +142,19 @@ class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmat
     fun newInstance(walletAddress: String, totalFiatBalance: String,
                     appcoinsBalance: String, creditsBalance: String,
                     ethereumBalance: String): WalletRemoveConfirmationFragment {
-      val fragment = WalletRemoveConfirmationFragment()
+      val fragment =
+          WalletRemoveConfirmationFragment()
       Bundle().apply {
-        putString(WALLET_ADDRESS_KEY, walletAddress)
-        putString(FIAT_BALANCE_KEY, totalFiatBalance)
-        putString(APPC_BALANCE_KEY, appcoinsBalance)
-        putString(CREDITS_BALANCE_KEY, creditsBalance)
-        putString(ETHEREUM_BALANCE_KEY, ethereumBalance)
+        putString(
+            WALLET_ADDRESS_KEY, walletAddress)
+        putString(
+            FIAT_BALANCE_KEY, totalFiatBalance)
+        putString(
+            APPC_BALANCE_KEY, appcoinsBalance)
+        putString(
+            CREDITS_BALANCE_KEY, creditsBalance)
+        putString(
+            ETHEREUM_BALANCE_KEY, ethereumBalance)
         fragment.arguments = this
       }
       return fragment

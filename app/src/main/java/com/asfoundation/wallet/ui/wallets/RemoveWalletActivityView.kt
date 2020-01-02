@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.ui.wallets
 
 interface RemoveWalletActivityView {
   fun navigateToWalletRemoveConfirmation()

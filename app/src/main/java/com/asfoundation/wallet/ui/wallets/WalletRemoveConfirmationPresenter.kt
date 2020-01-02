@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.ui.wallets
 
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import io.reactivex.Completable

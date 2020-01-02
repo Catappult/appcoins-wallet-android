@@ -16,6 +16,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.wallets.RemoveWalletActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_balance.*

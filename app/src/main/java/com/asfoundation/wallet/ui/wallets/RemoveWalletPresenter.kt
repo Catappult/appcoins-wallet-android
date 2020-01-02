@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.ui.wallets
 
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
