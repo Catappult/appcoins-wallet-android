@@ -53,8 +53,7 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
-class AdyenPaymentFragment : DaggerFragment(),
-    AdyenPaymentView {
+class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -90,7 +89,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     compositeDisposable = CompositeDisposable()
     presenter =
         AdyenPaymentPresenter(this, context, compositeDisposable, AndroidSchedulers.mainThread(),
-            Schedulers.io(), analytics, domain, adyenPaymentInteractor,
+            Schedulers.io(), analytics, domain, origin, adyenPaymentInteractor,
             inAppPurchaseInteractor.parseTransaction(transactionData, true),
             navigator, paymentType, transactionType, amount, currency, isPreSelected)
   }
@@ -194,7 +193,8 @@ class AdyenPaymentFragment : DaggerFragment(),
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {
-      cc_info_view.visibility = View.INVISIBLE
+      adyen_card_form.visibility = View.INVISIBLE
+      change_card_button.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
       buy_button.visibility = View.INVISIBLE
     }
@@ -205,7 +205,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     if (isPreSelected) {
       payment_methods?.visibility = View.VISIBLE
     } else {
-      cc_info_view.visibility = View.VISIBLE
+      adyen_card_form.visibility = View.VISIBLE
       cancel_button.visibility = View.VISIBLE
     }
   }
@@ -493,6 +493,7 @@ class AdyenPaymentFragment : DaggerFragment(),
     private const val TRANSACTION_TYPE_KEY = "type"
     private const val PAYMENT_TYPE_KEY = "payment_type"
     private const val DOMAIN_KEY = "domain"
+    private const val ORIGIN_KEY = "origin"
     private const val TRANSACTION_DATA_KEY = "transaction_data"
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val AMOUNT_KEY = "amount"
@@ -507,7 +508,8 @@ class AdyenPaymentFragment : DaggerFragment(),
     @JvmStatic
     fun newInstance(transactionType: String,
                     paymentType: PaymentType,
-                    domain: String, transactionData: String?, appcAmount: BigDecimal,
+                    domain: String, origin: String?, transactionData: String?,
+                    appcAmount: BigDecimal,
                     amount: BigDecimal, currency: String?,
                     bonus: String?, isPreSelected: Boolean): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
@@ -515,6 +517,7 @@ class AdyenPaymentFragment : DaggerFragment(),
       bundle.putString(TRANSACTION_TYPE_KEY, transactionType)
       bundle.putString(PAYMENT_TYPE_KEY, paymentType.name)
       bundle.putString(DOMAIN_KEY, domain)
+      bundle.putString(ORIGIN_KEY, origin)
       bundle.putString(TRANSACTION_DATA_KEY, transactionData)
       bundle.putSerializable(APPC_AMOUNT_KEY, appcAmount)
       bundle.putSerializable(AMOUNT_KEY, amount)
@@ -547,6 +550,14 @@ class AdyenPaymentFragment : DaggerFragment(),
       arguments!!.getString(DOMAIN_KEY)
     } else {
       throw IllegalArgumentException("domain data not found")
+    }
+  }
+
+  private val origin: String? by lazy {
+    if (arguments!!.containsKey(ORIGIN_KEY)) {
+      arguments!!.getString(ORIGIN_KEY)
+    } else {
+      throw IllegalArgumentException("origin not found")
     }
   }
 

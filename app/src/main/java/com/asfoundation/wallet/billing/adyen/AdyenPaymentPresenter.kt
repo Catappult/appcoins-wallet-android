@@ -30,6 +30,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val networkScheduler: Scheduler,
                             private val analytics: BillingAnalytics,
                             private val domain: String,
+                            private val origin: String?,
                             private val adyenPaymentInteractor: AdyenPaymentInteractor,
                             private val transactionBuilder: Single<TransactionBuilder>,
                             private val navigator: Navigator,
@@ -121,7 +122,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       if (context != null) {
         adyenPaymentInteractor.makePayment(paymentMethodInfo, view.provideReturnUrl(),
             amount.toString(), currency, it.orderReference,
-            mapPaymentToService(paymentType).transactionType, it.origin, domain, it.payload,
+            mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
             it.skuId, it.callbackUrl, it.type, it.toAddress())
       } else {
         Single.just(PaymentModel(Error()))
@@ -163,7 +164,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               .flatMap {
                 adyenPaymentInteractor.makePayment(paymentData, view.provideReturnUrl(),
                     amount.toString(), currency, it.orderReference,
-                    mapPaymentToService(paymentType).transactionType, it.origin, domain, it.payload,
+                    mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
                     it.skuId, it.callbackUrl, it.type, it.toAddress())
               }
         }
@@ -187,9 +188,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 it.status == TransactionResponse.Status.COMPLETED -> {
                   createBundle(it.hash, it.orderReference)
                       .doOnSuccess {
-                        // sendPaymentEvent()
-                        // sendRevenueEvent()
+                        sendPaymentEvent()
+                        sendRevenueEvent()
                       }
+                      .subscribeOn(networkScheduler)
                       .observeOn(viewScheduler)
                       .flatMapCompletable {
                         Completable.fromAction { view.showSuccess() }
@@ -293,8 +295,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(transactionBuilder.subscribeOn(networkScheduler).observeOn(
         viewScheduler).subscribe { transactionBuilder: TransactionBuilder ->
       analytics.sendPaymentEvent(domain, transactionBuilder.skuId,
-          transactionBuilder.amount()
-              .toString(), mapPaymentToAnalytics(paymentType), transactionBuilder.type)
+          transactionBuilder.amount().toString(), mapPaymentToAnalytics(paymentType),
+          transactionBuilder.type)
     })
   }
 

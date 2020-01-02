@@ -168,12 +168,10 @@
           android:paddingStart="@dimen/big_margin"
           android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
-          android:visibility="invisible"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
-          tools:visibility="visible"
           >
         <RelativeLayout
             android:layout_width="match_parent"

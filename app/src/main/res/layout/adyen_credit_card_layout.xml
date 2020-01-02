@@ -77,16 +77,6 @@
           android:layerType="software"
           />
 
-
-      <ProgressBar
-          android:id="@+id/fragment_credit_card_authorization_progress_bar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/line_separator"
-          android:layout_centerInParent="true"
-          android:indeterminateDrawable="@drawable/gradient_progress"
-          />
-
       <ScrollView
           android:id="@+id/cc_info_view"
           android:layout_width="match_parent"
@@ -96,8 +86,6 @@
           android:paddingStart="@dimen/big_margin"
           android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
-          android:visibility="invisible"
-          tools:visibility="visible"
           >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -123,6 +111,14 @@
               android:textSize="12sp"
               android:visibility="gone"
               />
+          <ProgressBar
+              android:id="@+id/fragment_credit_card_authorization_progress_bar"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:indeterminateDrawable="@drawable/gradient_progress"
+              />
+
         </RelativeLayout>
       </ScrollView>
       <include
