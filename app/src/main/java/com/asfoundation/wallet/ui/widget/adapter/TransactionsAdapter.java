@@ -149,14 +149,13 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     notifyDataSetChanged();
   }
 
-  public void addTransactions(TransactionsModel transactionsModel) {
+  public void addItems(TransactionsModel transactionsModel) {
     items.beginBatchedUpdates();
 
-    transactionsModel.getNotifications();
-    if (!transactionsModel.getNotifications()
-        .isEmpty()) {
-      items.add(new CardNotificationSortedItem(transactionsModel.getNotifications(),
-          CardNotificationsListViewHolder.VIEW_TYPE));
+    List<CardNotification> notifications = transactionsModel.getNotifications();
+    if (!notifications.isEmpty()) {
+      items.add(
+          new CardNotificationSortedItem(notifications, CardNotificationsListViewHolder.VIEW_TYPE));
     } else {
       transactionsModel.getApplications();
       if (!transactionsModel.getApplications()

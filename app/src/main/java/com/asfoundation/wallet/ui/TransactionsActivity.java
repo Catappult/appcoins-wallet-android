@@ -282,7 +282,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onTransactionsModel(TransactionsModel transactionsModel) {
-    adapter.addTransactions(transactionsModel);
+    adapter.addItems(transactionsModel);
     showList();
   }
 
