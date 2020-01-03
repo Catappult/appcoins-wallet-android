@@ -31,6 +31,7 @@ import com.airbnb.lottie.TextDelegate;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -42,14 +43,12 @@ import com.braintreepayments.cardform.view.CardForm;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
-import com.squareup.picasso.Picasso;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Formatter;
 import java.util.Locale;
@@ -709,15 +708,12 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   private void loadIcon() {
     compositeDisposable.add(Observable.fromCallable(() -> {
-      try {
-        Context context = getContext();
-        return Picasso.with(context)
-            .load(getIconUrl())
-            .get();
-      } catch (IOException e) {
-        Log.w(TAG, "setupPaymentMethods: Failed to load icons!");
-        throw new RuntimeException(e);
-      }
+      Context context = getContext();
+      return GlideApp.with(context)
+          .asBitmap()
+          .load(getIconUrl())
+          .submit()
+          .get();
     })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

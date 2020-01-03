@@ -176,7 +176,8 @@ dependencies {
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
   implementation "com.squareup.okhttp3:okhttp:$project.okhttpVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
-  implementation "com.squareup.picasso:picasso:$project.picassoVersion"
+  implementation "com.github.bumptech.glide:glide:$project.glide"
+  kapt "com.github.bumptech.glide:compiler:$project.glide"
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle"
