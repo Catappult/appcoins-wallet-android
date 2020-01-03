@@ -154,6 +154,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
 
     List<CardNotification> notifications = transactionsModel.getNotifications();
     if (!notifications.isEmpty()) {
+      removeApps();
       items.add(
           new CardNotificationSortedItem(notifications, CardNotificationsListViewHolder.VIEW_TYPE));
     } else {
@@ -177,6 +178,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
 
   public void clear() {
     items.clear();
+  }
+
+  public void removeApps() {
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i) instanceof ApplicationSortedItem) {
+        items.removeItemAt(i);
+        this.notifyItemChanged(i);
+      }
+    }
   }
 
   public boolean removeItem(CardNotification cardNotification) {
