@@ -92,5 +92,7 @@
 
   <color name="remove_wallet_red">#e44b46</color>
 
+  <color name="animation_background">#d9000000</color>
+
   <color name="transparent">#00000000</color>
 </resources>

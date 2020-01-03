@@ -32,7 +32,9 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#d9000000"
+        android:background="@color/animation_background"
+        android:clickable="true"
+        android:focusable="true"
         android:visibility="gone"
         />
     <com.airbnb.lottie.LottieAnimationView
