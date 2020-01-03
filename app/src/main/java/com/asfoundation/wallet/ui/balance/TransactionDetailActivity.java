@@ -114,7 +114,7 @@ public class TransactionDetailActivity extends BaseActivity {
     paymentMethodLabel.setVisibility(View.VISIBLE);
     paymentMethod.setVisibility(View.VISIBLE);
 
-    Picasso.with(this)
+    GlideApp.with(this)
         .load(subscriptionDetails.getPaymentMethodUrl())
         .into((ImageView) findViewById(R.id.payment_method_icon));
 

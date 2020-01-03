@@ -8,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.GlideApp
+import com.bumptech.glide.request.Request
+import com.bumptech.glide.request.target.SizeReadyCallback
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -81,27 +84,56 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     loading_animation.visibility = View.GONE
     layout_content.visibility = View.VISIBLE
 
-    val target = object : Target {
-      override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+    val target = object : Target<Bitmap> {
+
+      override fun onLoadStarted(placeholder: Drawable?) {
         app_icon.visibility = View.GONE
         app_icon_animation.visibility = View.VISIBLE
       }
 
-      override fun onBitmapFailed(errorDrawable: Drawable?) {
+      override fun onLoadFailed(errorDrawable: Drawable?) {
         app_icon.visibility = View.GONE
         app_icon_animation.visibility = View.VISIBLE
         app_icon_animation.repeatCount = 1
         app_icon_animation.playAnimation()
       }
 
-      override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+      override fun getSize(cb: SizeReadyCallback) {
+        cb.onSizeReady(Target.SIZE_ORIGINAL,
+            Target.SIZE_ORIGINAL)
+      }
+
+      override fun getRequest(): Request? {
+        return null
+      }
+
+      override fun setRequest(request: Request?) {
+      }
+
+      override fun removeCallback(cb: SizeReadyCallback) {
+      }
+
+      override fun onLoadCleared(placeholder: Drawable?) {
+      }
+
+      override fun onStart() {
+      }
+
+      override fun onDestroy() {
+      }
+
+      override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         app_icon.visibility = View.VISIBLE
         app_icon_animation.visibility = View.GONE
-        app_icon.setImageBitmap(bitmap)
+        app_icon.setImageBitmap(resource)
+      }
+
+      override fun onStop() {
       }
     }
 
-    Picasso.with(context)
+    GlideApp.with(context!!)
+        .asBitmap()
         .load(subscriptionDetails.iconUrl)
         .into(target)
 

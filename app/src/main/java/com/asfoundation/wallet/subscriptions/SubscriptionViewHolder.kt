@@ -3,7 +3,7 @@ package com.asfoundation.wallet.subscriptions
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
-import com.squareup.picasso.Picasso
+import com.asfoundation.wallet.GlideApp
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.subscription_item.view.*
 import java.math.RoundingMode
@@ -19,7 +19,7 @@ class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
       item_parent.setOnClickListener { clickCallback?.onNext(item.packageName) }
     }
 
-    Picasso.with(itemView.context)
+    GlideApp.with(itemView.context)
         .load(item.iconUrl)
         .error(R.drawable.ic_transaction_peer)
         .into(itemView.app_icon)

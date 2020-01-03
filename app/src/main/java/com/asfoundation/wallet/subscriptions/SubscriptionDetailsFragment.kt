@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.GlideApp
+import com.bumptech.glide.request.Request
+import com.bumptech.glide.request.target.SizeReadyCallback
+import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -73,32 +75,12 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
       status.setTextColor(ContextCompat.getColor(it, R.color.green))
     }
 
-    val target = object : Target {
-      override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-        app_icon.visibility = View.GONE
-        app_icon_animation.visibility = View.VISIBLE
-        app_icon_animation.playAnimation()
-      }
-
-      override fun onBitmapFailed(errorDrawable: Drawable?) {
-        app_icon.visibility = View.GONE
-        app_icon_animation.visibility = View.VISIBLE
-        app_icon_animation.repeatCount = 1
-        app_icon_animation.playAnimation()
-      }
-
-      override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-        app_icon.visibility = View.VISIBLE
-        app_icon_animation.visibility = View.GONE
-        app_icon.setImageBitmap(bitmap)
-      }
-    }
-
-    Picasso.with(context)
+    GlideApp.with(context!!)
+        .asBitmap()
         .load(subscriptionDetails.iconUrl)
         .into(target)
 
-    Picasso.with(context)
+    GlideApp.with(context!!)
         .load(subscriptionDetails.paymentMethodUrl)
         .into(layout_active_subscription_content.payment_method_icon)
 
@@ -125,11 +107,12 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
       status.setTextColor(ContextCompat.getColor(it, R.color.red))
     }
 
-    Picasso.with(context)
+    GlideApp.with(context!!)
+        .asBitmap()
         .load(subscriptionDetails.iconUrl)
-        .into(app_icon)
+        .into(target)
 
-    Picasso.with(context)
+    GlideApp.with(context!!)
         .load(subscriptionDetails.paymentMethodUrl)
         .into(layout_expired_subscription_content.payment_method_icon)
 
@@ -213,6 +196,55 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
   private fun getDateString(date: Date): String {
     return DateFormat.format("dd MMM yyyy", date)
         .toString()
+  }
+
+  private val target = object : com.bumptech.glide.request.target.Target<Bitmap> {
+
+    override fun onLoadStarted(placeholder: Drawable?) {
+      app_icon.visibility = View.GONE
+      app_icon_animation.visibility = View.VISIBLE
+      app_icon_animation.playAnimation()
+    }
+
+    override fun onLoadFailed(errorDrawable: Drawable?) {
+      app_icon.visibility = View.GONE
+      app_icon_animation.visibility = View.VISIBLE
+      app_icon_animation.repeatCount = 1
+      app_icon_animation.playAnimation()
+    }
+
+    override fun getSize(cb: SizeReadyCallback) {
+      cb.onSizeReady(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL,
+          com.bumptech.glide.request.target.Target.SIZE_ORIGINAL)
+    }
+
+    override fun getRequest(): Request? {
+      return null
+    }
+
+    override fun setRequest(request: Request?) {
+    }
+
+    override fun removeCallback(cb: SizeReadyCallback) {
+    }
+
+    override fun onLoadCleared(placeholder: Drawable?) {
+    }
+
+    override fun onStart() {
+    }
+
+    override fun onDestroy() {
+    }
+
+    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+      app_icon.visibility = View.VISIBLE
+      app_icon_animation.visibility = View.GONE
+      app_icon.setImageBitmap(resource)
+    }
+
+    override fun onStop() {
+    }
   }
 
   companion object {

@@ -93,6 +93,7 @@
             android:id="@+id/rvActiveSubs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/subscription_item"
             />
@@ -127,6 +128,7 @@
             android:id="@+id/rvExpiredSubs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/subscription_item"
             />
