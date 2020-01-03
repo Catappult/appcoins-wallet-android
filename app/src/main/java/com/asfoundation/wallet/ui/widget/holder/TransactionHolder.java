@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,12 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
-import com.asfoundation.wallet.widget.CircleTransformation;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -190,23 +195,29 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     int finalTransactionTypeIcon = transactionTypeIcon;
-    int transactionImageSize = (int) resources.getDimension(R.dimen.transaction_img_size_inside);
-    Picasso.with(getContext())
+
+    GlideApp.with(getContext())
         .load(uri)
-        .transform(new CircleTransformation())
-        .placeholder(finalTransactionTypeIcon)
-        .error(transactionTypeIcon)
-        .resize(transactionImageSize, transactionImageSize)
-        .into(srcImage, new Callback() {
-          @Override public void onSuccess() {
-            ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
-                finalTransactionTypeIcon);
+        .apply(RequestOptions.bitmapTransform(new CircleCrop())
+            .placeholder(finalTransactionTypeIcon)
+            .error(transactionTypeIcon))
+        .listener(new RequestListener<Drawable>() {
+
+          @Override public boolean onLoadFailed(@Nullable GlideException e, Object model,
+              Target<Drawable> target, boolean isFirstResource) {
+            typeIcon.setVisibility(View.GONE);
+            return false;
           }
 
-          @Override public void onError() {
-            typeIcon.setVisibility(View.GONE);
+          @Override
+          public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
+              DataSource dataSource, boolean isFirstResource) {
+            ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
+                finalTransactionTypeIcon);
+            return false;
           }
-        });
+        })
+        .into(srcImage);
 
     int statusText = R.string.transaction_status_success;
     int statusColor = R.color.green;
