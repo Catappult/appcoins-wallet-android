@@ -207,7 +207,6 @@
       android:id="@+id/bottom_buttons"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/background_card_grey"
       android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="parent"
       tools:layout_editor_absoluteY="563dp"
