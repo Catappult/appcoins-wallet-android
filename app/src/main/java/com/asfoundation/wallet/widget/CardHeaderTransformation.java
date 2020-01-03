@@ -87,8 +87,7 @@ public class CardHeaderTransformation extends BitmapTransformation {
 
   @NonNull private static Bitmap.Config getAlphaSafeConfig(@NonNull Bitmap inBitmap) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      // Avoid short circuiting the sdk check.
-      if (Bitmap.Config.RGBA_F16.equals(inBitmap.getConfig())) { // NOPMD
+      if (Bitmap.Config.RGBA_F16.equals(inBitmap.getConfig())) {
         return Bitmap.Config.RGBA_F16;
       }
     }
@@ -104,14 +103,10 @@ public class CardHeaderTransformation extends BitmapTransformation {
     }
 
     Bitmap argbBitmap = pool.get(maybeAlphaSafe.getWidth(), maybeAlphaSafe.getHeight(), safeConfig);
-    new Canvas(argbBitmap).drawBitmap(maybeAlphaSafe, 0 /*left*/, 0 /*top*/, null /*paint*/);
-
-    // We now own this Bitmap. It's our responsibility to replace it in the pool outside this method
-    // when we're finished with it.
+    new Canvas(argbBitmap).drawBitmap(maybeAlphaSafe, 0 , 0 , null);
     return argbBitmap;
   }
 
-  // Avoids warnings in M+.
   private static void clear(Canvas canvas) {
     canvas.setBitmap(null);
   }
