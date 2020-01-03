@@ -2,6 +2,7 @@ package com.asfoundation.wallet.subscriptions
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,8 +33,21 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
+    setBackListener(view)
     presenter.present()
+  }
+
+  private fun setBackListener(view: View) {
+    view.apply {
+      isFocusableInTouchMode = true
+      requestFocus()
+      setOnKeyListener { _, keyCode, keyEvent ->
+        if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+          activity.endCancelSubscription()
+        }
+        true
+      }
+    }
   }
 
   override fun getContinueClicks(): Observable<Any> {
