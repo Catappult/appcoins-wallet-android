@@ -49,7 +49,7 @@ class ImportWalletPresenter(private val view: ImportWalletView,
   private fun fetchWalletModel(key: String): Single<WalletModel> {
     return if (importWalletInteract.isKeystore(key)) importWalletInteract.importKeystore(key)
     else {
-      if (key.length != 64) importWalletInteract.importPrivateKey(key)
+      if (key.length == 64) importWalletInteract.importPrivateKey(key)
       else Single.just(WalletModel(ImportError(ImportErrorType.INVALID_PRIVATE_KEY)))
     }
   }
