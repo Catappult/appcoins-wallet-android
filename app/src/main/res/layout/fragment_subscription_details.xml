@@ -193,6 +193,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:text="APPC value can be volatile, the value shown may not match  the next  payment"
           android:textSize="10sp"
+          android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="@id/info"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/info"
