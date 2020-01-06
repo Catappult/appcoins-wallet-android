@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.entity.ServiceErrorException;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.util.KS;
 import com.wallet.pwd.trustapp.PasswordManager;
 import io.reactivex.Completable;
@@ -48,15 +47,15 @@ public class TrustPasswordStore implements PasswordStore {
     }
   }
 
-  @Override public Single<String> getPassword(Wallet wallet) {
+  @Override public Single<String> getPassword(String address) {
     return Single.fromCallable(() -> {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        return new String(KS.get(context, wallet.address));
+        return new String(KS.get(context, address));
       } else {
-        return PasswordManager.getPassword(wallet.address, context);
+        return PasswordManager.getPassword(address, context);
       }
     })
-        .onErrorResumeNext(throwable -> getPasswordFallBack(wallet.address));
+        .onErrorResumeNext(throwable -> getPasswordFallBack(address));
   }
 
   @Override public Completable setPassword(String address, String password) {

@@ -1,12 +1,9 @@
 package com.asfoundation.wallet.interact;
 
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import io.reactivex.Completable;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Delete and fetchTokens wallets
@@ -23,16 +20,11 @@ public class DeleteWalletInteract {
     this.preferencesRepositoryType = preferencesRepositoryType;
   }
 
-  public Single<Wallet[]> delete(Wallet wallet) {
-    return passwordStore.getPassword(wallet)
-        .flatMapCompletable(password -> walletRepository.deleteWallet(wallet.address, password))
-        .andThen(Completable.fromAction(
-            () -> preferencesRepositoryType.removeWalletValidationStatus(wallet.address)))
-        .andThen(Completable.fromAction(
-            () -> preferencesRepositoryType.removeWalletImportBackup(wallet.address)))
-        .andThen(Completable.fromAction(
-            () -> preferencesRepositoryType.removeBackupNotificationSeenTime(wallet.address)))
-        .andThen(walletRepository.fetchWallets())
-        .observeOn(AndroidSchedulers.mainThread());
+  public Completable delete(String address) {
+    return passwordStore.getPassword(address)
+        .flatMapCompletable(password -> walletRepository.deleteWallet(address, password))
+        .andThen(preferencesRepositoryType.removeWalletValidationStatus(address))
+        .andThen(preferencesRepositoryType.removeWalletImportBackup(address))
+        .andThen(preferencesRepositoryType.removeBackupNotificationSeenTime(address));
   }
 }

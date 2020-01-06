@@ -9,6 +9,7 @@ import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APP
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
@@ -18,17 +19,28 @@ class BalanceInteract(
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
-        .flatMapObservable { balanceRepository.getAppcBalance(it) }
+        .flatMapObservable { balanceRepository.getAppcBalance(it.address) }
   }
 
   fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
-        .flatMapObservable { balanceRepository.getEthBalance(it) }
+        .flatMapObservable { balanceRepository.getEthBalance(it.address) }
   }
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
-        .flatMapObservable { balanceRepository.getCreditsBalance(it) }
+        .flatMapObservable { balanceRepository.getCreditsBalance(it.address) }
+  }
+
+  fun requestTokenConversion(address: String): Observable<BalanceScreenModel> {
+    return Observable.zip(
+        balanceRepository.getCreditsBalance(address),
+        balanceRepository.getAppcBalance(address),
+        balanceRepository.getEthBalance(address),
+        Function3 { creditsBalance, appcBalance, ethBalance ->
+          mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
+        }
+    )
   }
 
   fun requestTokenConversion(): Observable<BalanceScreenModel> {
@@ -40,6 +52,22 @@ class BalanceInteract(
           mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
         }
     )
+  }
+
+  fun getTotalBalance(address: String): Observable<FiatValue> {
+    return Observable.zip(
+        balanceRepository.getCreditsBalance(address),
+        balanceRepository.getAppcBalance(address),
+        balanceRepository.getEthBalance(address),
+        Function3 { creditsBalance, appcBalance, ethBalance ->
+          getOverallBalance(mapToBalance(creditsBalance, APPC_C_CURRENCY),
+              mapToBalance(appcBalance, APPC_CURRENCY), mapToBalance(ethBalance, ETH_CURRENCY))
+        })
+  }
+
+  fun requestActiveWalletAddress(): Single<String> {
+    return walletInteract.find()
+        .map { it.address }
   }
 
   private fun mapToBalanceScreenModel(creditsBalance: Pair<Balance, FiatValue>,

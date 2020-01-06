@@ -2,7 +2,6 @@ package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -79,14 +78,14 @@ public class TokenRepository implements TokenRepositoryType {
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
 
-  @Override public Single<Token> getAppcBalance(@NotNull Wallet wallet) {
+  @Override public Single<Token> getAppcBalance(@NotNull String address) {
     return defaultTokenProvider.getDefaultToken()
-        .map(tokenInfo -> new Token(tokenInfo, getBalance(wallet, tokenInfo)));
+        .map(tokenInfo -> new Token(tokenInfo, getBalance(address, tokenInfo)));
   }
 
-  private BigDecimal getBalance(Wallet wallet, TokenInfo tokenInfo) throws Exception {
-    Function function = balanceOf(wallet.address);
-    String responseValue = callSmartContractFunction(function, tokenInfo.address, wallet.address);
+  private BigDecimal getBalance(String address, TokenInfo tokenInfo) throws Exception {
+    Function function = balanceOf(address);
+    String responseValue = callSmartContractFunction(function, tokenInfo.address, address);
 
     List<Type> response =
         FunctionReturnDecoder.decode(responseValue, function.getOutputParameters());

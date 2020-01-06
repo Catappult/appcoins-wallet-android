@@ -44,10 +44,6 @@
         android:label=""
         android:screenOrientation="portrait"/>
     <activity
-        android:name="com.asfoundation.wallet.ui.ImportWalletActivity"
-        android:label="@string/title_import"
-        android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
-    <activity
         android:name="com.asfoundation.wallet.ui.TransactionsActivity"
         android:label="@string/app_name"
         android:theme="@style/MaterialAppTheme"/>
@@ -62,7 +58,8 @@
         android:label="@string/title_my_address"/>
     <activity
         android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/balance_title"/>
+        android:label="@string/wallets_title"
+        android:screenOrientation="portrait"/>
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
         android:label="@string/balance_title"
@@ -200,6 +197,22 @@
     <activity
         android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
         android:label=""
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.balance.QrCodeActivity"
+        android:label=""
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.Transparent"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.wallets.RemoveWalletActivity"
+        android:label="@string/remove_wallet_title"
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.balance.ImportWalletActivity"
+        android:label="@string/import_wallet_title"
         android:screenOrientation="portrait"/>
 
     <activity

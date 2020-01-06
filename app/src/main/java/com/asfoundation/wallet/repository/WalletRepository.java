@@ -58,9 +58,8 @@ public class WalletRepository implements WalletRepositoryType {
     return accountKeystoreService.deleteAccount(address, password);
   }
 
-  @Override public Completable setDefaultWallet(Wallet wallet) {
-    return Completable.fromAction(
-        () -> preferencesRepositoryType.setCurrentWalletAddress(wallet.address));
+  @Override public Completable setDefaultWallet(String address) {
+    return preferencesRepositoryType.setCurrentWalletAddress(address);
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
@@ -75,10 +74,10 @@ public class WalletRepository implements WalletRepositoryType {
         .flatMap(this::findWallet);
   }
 
-  @Override public Single<BigDecimal> balanceInWei(Wallet wallet) {
+  @Override public Single<BigDecimal> balanceInWei(String address) {
     Web3j web3j = web3jProvider.get();
     return Single.fromCallable(() -> new BigDecimal(
-        web3j.ethGetBalance(wallet.address, DefaultBlockParameterName.LATEST)
+        web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST)
             .send()
             .getBalance()))
         .subscribeOn(Schedulers.io());

@@ -148,7 +148,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
   }
 
-  override fun setWalletsPreference(walletAddress: String) {
+  override fun setManageWalletPreference(walletAddress: String) {
     val walletPreference = findPreference<Preference>("pref_wallet")
     walletPreference?.summary = walletAddress
     walletPreference?.setOnPreferenceClickListener {

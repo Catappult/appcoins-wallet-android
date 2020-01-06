@@ -43,7 +43,7 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
     if (stringECKeyPair != null && stringECKeyPair!!.first.equals(wallet.address, true)) {
       return Single.just(stringECKeyPair!!.second)
     }
-    return passwordStore.getPassword(wallet)
+    return passwordStore.getPassword(wallet.address)
         .flatMap { password ->
           accountKeyService.exportAccount(wallet, password, password)
               .map { json ->
