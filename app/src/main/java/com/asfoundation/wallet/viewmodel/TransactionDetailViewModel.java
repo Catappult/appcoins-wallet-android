@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.viewmodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
@@ -12,33 +13,56 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity;
+import com.asfoundation.wallet.subscriptions.SubscriptionDetails;
+import com.asfoundation.wallet.subscriptions.SubscriptionRepository;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Scheduler;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
+  private final SubscriptionRepository subscriptionRepository;
+  private final Scheduler networkScheduler;
+  private final Scheduler viewScheduler;
 
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
+  private final MutableLiveData<SubscriptionDetails> subscriptionDetails = new MutableLiveData<>();
 
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter) {
+      ExternalBrowserRouter externalBrowserRouter, SubscriptionRepository subscriptionRepository,
+      Scheduler networkScheduler, Scheduler viewScheduler) {
     this.externalBrowserRouter = externalBrowserRouter;
+    this.subscriptionRepository = subscriptionRepository;
+    this.networkScheduler = networkScheduler;
+    this.viewScheduler = viewScheduler;
     findDefaultNetworkInteract.find()
-        .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(viewScheduler)
         .subscribe(defaultNetwork::postValue, t -> {
         });
     disposable = findDefaultWalletInteract.find()
-        .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(viewScheduler)
         .subscribe(defaultWallet::postValue, t -> {
+        });
+  }
+
+  public void loadSubscriptionDetails(String transactionId) {
+    disposable = subscriptionRepository.getSubscriptionByTrxId(transactionId)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .subscribe(subscriptionDetails::postValue, t -> {
         });
   }
 
   public LiveData<NetworkInfo> defaultNetwork() {
     return defaultNetwork;
+  }
+
+  public MutableLiveData<SubscriptionDetails> subscriptionDetails() {
+    return subscriptionDetails;
   }
 
   public void showMoreDetails(Context context, Operation transaction) {
@@ -78,5 +102,16 @@ public class TransactionDetailViewModel extends BaseViewModel {
         .buildUpon()
         .appendEncodedPath(transaction.getTransactionId())
         .build();
+  }
+
+  public void showManageSubscriptions(Context context) {
+    Intent intent = SubscriptionActivity.newIntent(context, SubscriptionActivity.ACTION_LIST);
+    context.startActivity(intent);
+  }
+
+  public void cancelSubscription(Context context, String packageName) {
+    Intent intent =
+        SubscriptionActivity.newIntent(context, SubscriptionActivity.ACTION_CANCEL, packageName);
+    context.startActivity(intent);
   }
 }

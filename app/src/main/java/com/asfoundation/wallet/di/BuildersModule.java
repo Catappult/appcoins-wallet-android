@@ -11,6 +11,11 @@ import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.referrals.InviteFriendsFragment;
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment;
 import com.asfoundation.wallet.referrals.ReferralsFragment;
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity;
+import com.asfoundation.wallet.subscriptions.SubscriptionCancelFragment;
+import com.asfoundation.wallet.subscriptions.SubscriptionCancelSuccessFragment;
+import com.asfoundation.wallet.subscriptions.SubscriptionDetailsFragment;
+import com.asfoundation.wallet.subscriptions.SubscriptionListFragment;
 import com.asfoundation.wallet.topup.TopUpActivity;
 import com.asfoundation.wallet.topup.TopUpFragment;
 import com.asfoundation.wallet.topup.TopUpSuccessFragment;
@@ -201,5 +206,20 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract IabUpdateRequiredFragment bindIabUpdateRequiredFragment();
 
   @ActivityScope @ContributesAndroidInjector()
-  abstract WalletBlockedActivity walletBlockedActivity();
+  abstract WalletBlockedActivity bindWalletBlockedActivity();
+
+  @ActivityScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
+  abstract SubscriptionActivity bindSubscriptionActivity();
+
+  @FragmentScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
+  abstract SubscriptionListFragment bindSubscriptionListFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
+  abstract SubscriptionDetailsFragment bindSubscriptionDetailsFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
+  abstract SubscriptionCancelFragment bindSubscriptionCancelFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
+  abstract SubscriptionCancelSuccessFragment bindSubscriptionCancelSuccessFragment();
 }

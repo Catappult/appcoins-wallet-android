@@ -17,6 +17,7 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ManageWalletsRouter
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -88,6 +89,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return true
   }
 
+  private fun openSubscriptionsScreen(): Boolean {
+    context?.let {
+      val intent = SubscriptionActivity.newIntent(it, SubscriptionActivity.ACTION_LIST)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
+      startActivity(intent)
+    }
+    return true
+  }
+
   private fun openWalletValidationScreen(): Boolean {
     context?.let {
       val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
@@ -113,6 +125,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     setTermsConditionsPreference()
     setCreditsPreference()
     setVersionPreference()
+    setManageSubscriptionsPreference()
   }
 
   override fun setVerifiedWalletPreference() {
@@ -171,6 +184,13 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val permissionPreference = findPreference<Preference>("pref_permissions")
     permissionPreference?.setOnPreferenceClickListener {
       openPermissionScreen()
+    }
+  }
+
+  private fun setManageSubscriptionsPreference() {
+    val subscriptionsPreference = findPreference<Preference>("pref_manage_subscriptions")
+    subscriptionsPreference?.setOnPreferenceClickListener {
+      openSubscriptionsScreen()
     }
   }
 
