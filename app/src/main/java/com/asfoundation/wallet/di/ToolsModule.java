@@ -106,6 +106,7 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
+import com.asfoundation.wallet.interact.SupportInteractor;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
@@ -1267,5 +1268,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides UpdateNavigator provideUpdateNavigator() {
     return new UpdateNavigator();
+  }
+
+  @Singleton @Provides SupportInteractor provideSupportInteractor() {
+    return new SupportInteractor();
   }
 }

@@ -68,6 +68,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
   private View emptyClickableView;
+  private MenuItem supportActionView;
   private View badge;
   private boolean showScroll = false;
   private int paddingDp;
@@ -151,6 +152,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onNotifications);
     viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onPromotionsNotification);
+    viewModel.shouldShowSupport()
+        .observe(this, this::showSupport);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
   }
@@ -158,6 +161,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_settings) {
       viewModel.showSettings(this);
+    } else if (item.getItemId() == R.id.action_support) {
+      viewModel.showSupportScreen();
     }
     return super.onOptionsItemSelected(item);
   }
@@ -187,6 +192,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       badge.setVisibility(View.VISIBLE);
     } else {
       badge.setVisibility(View.INVISIBLE);
+    }
+  }
+
+  private void showSupport(Boolean show) {
+    if (supportActionView != null) {
+      supportActionView.setVisible(show);
     }
   }
 
@@ -248,6 +259,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
+    supportActionView = menu.findItem(R.id.action_support);
     return super.onCreateOptionsMenu(menu);
   }
 

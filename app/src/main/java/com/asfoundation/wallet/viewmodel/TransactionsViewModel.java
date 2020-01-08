@@ -4,16 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
+import com.appcoins.wallet.gamification.repository.UserStats;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.SupportInteractor;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.referrals.CardNotification;
@@ -51,11 +54,13 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showSupport = new MutableLiveData<>();
   private final CompositeDisposable disposables;
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
   private final TransactionViewInteract transactionViewInteract;
+  private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
@@ -64,11 +69,12 @@ public class TransactionsViewModel extends BaseViewModel {
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract) {
+      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor) {
     this.applications = applications;
     this.analytics = analytics;
     this.transactionViewNavigator = transactionViewNavigator;
     this.transactionViewInteract = transactionViewInteract;
+    this.supportInteractor = supportInteractor;
     this.disposables = new CompositeDisposable();
   }
 
@@ -105,6 +111,22 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(transactionViewInteract.hasPromotionUpdate()
         .subscribeOn(Schedulers.io())
         .subscribe(showNotification::postValue, this::onError));
+    disposables.add(transactionViewInteract.getUserLevel()
+        .subscribeOn(Schedulers.io())
+        .flatMap(userLevel -> transactionViewInteract.findWallet()
+            .subscribeOn(Schedulers.io())
+            .map(wallet -> {
+              boolean showSupport = userLevel == UserStats.MAX_LEVEL;
+              Log.e("TEST", "SHOW SUPPORT: " + showSupport);
+              if (showSupport) {
+                registerSupportUser(wallet.address);
+              } else {
+                logoutSupportUser();
+              }
+              return showSupport;
+            }))
+
+        .subscribe(showSupport::postValue, this::onError));
   }
 
   private Completable publishMaxBonus() {
@@ -342,6 +364,10 @@ public class TransactionsViewModel extends BaseViewModel {
     return showNotification;
   }
 
+  public MutableLiveData<Boolean> shouldShowSupport() {
+    return showSupport;
+  }
+
   public void showTopUp(Context context) {
     transactionViewNavigator.openTopUp(context);
   }
@@ -382,5 +408,17 @@ public class TransactionsViewModel extends BaseViewModel {
   private void dismissNotification(CardNotification cardNotification) {
     disposables.add(transactionViewInteract.dismissNotification(cardNotification)
         .subscribe(this::fetchCardNotifications, this::onError));
+  }
+
+  public void showSupportScreen() {
+    supportInteractor.displayChatScreen();
+  }
+
+  private void registerSupportUser(String walletAddress) {
+    supportInteractor.registerUser(walletAddress);
+  }
+
+  private void logoutSupportUser() {
+    supportInteractor.logoutUser();
   }
 }
