@@ -88,6 +88,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Хранилище ключей</string>
   <string name="tab_private_key">Закрытый ключ</string>
+  <string name="error_invalid_private_key">Недопустимый приватный ключ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Ошибка</string>
   <string name="title_dialog_handling">Обработка…</string>
@@ -115,6 +116,8 @@
   <string name="intro_3_body">Производите все встроенные покупки с использованием предпочтительного метода оплаты.</string>
   <string name="intro_4_title">Безопасно и конфиденциально</string>
   <string name="intro_4_body">Ваши приватные ключи никогда не покидают устройство, поэтому ваши AppCoins всегда в безопасности.</string>
+  <string name="intro_5_title">Получите бесплатные AppCoins Credits!</string>
+  <string name="intro_5_body">Вы получите бесплатные AppCoins Credits, пробуя приложения и игры.</string>
   <string name="intro_creating_wallet_short">Настраиваем ваш кошелёк&#8230;</string>
   <string name="intro_wallet_created_short">Кошелёк создан!</string>
   <string name="intro_agree_terms_and_conditions_body">Нажимая на Пропустить, вы соглашаетесь с %1$s и %2$s AppCoins Wallet</string>
@@ -202,8 +205,8 @@
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="activity_iab_change_card">ИЗМЕНИТЬ КАРТУ</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
-  <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
-  <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
+  <string name="notification_completed_poa">Награда получена! 👌 Вам нужно подождать %1$sч%2$sм, чтобы получить больше наград, пробуя приложения ⏰!</string>
+  <string name="notification_poa_limit_reached">Вы достигла максимума наград на сегодня. ⏰ Возвращайтесь через %1$sч%2$sм и попробуйте снова!</string>
   <string name="notification_submitting_poa">Отправка запроса в блокчейн</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Отсутствует сетевое подключение</string>
@@ -220,12 +223,11 @@
   <string name="transaction_status_pending">В процессе</string>
   <string name="transaction_status_failed">Не удалось</string>
   <string name="transaction_type_iab">Встроенная покупка</string>
-  <string name="transaction_type_poa">Proof of Attention</string>
-  <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
+  <string name="transaction_type_poa">Награда</string>
+  <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Перевод</string>
   <string name="transaction_type_bonus">Бонус</string>
-  <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">Передача P2P</string>
+  <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Работает на Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -388,6 +390,7 @@
   <string name="retry_button">Попробовать снова</string>
   <string name="do_it_later_button">Позже</string>
   <string name="connectoin_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
+  <string name="common_or">или</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -426,6 +429,7 @@
   <string name="verification_settings_unverified_title">Подтвердить кошелёк</string>
   <string name="verification_settings_unverified_body">Получить награды и пригласить друзей</string>
   <string name="verification_settings_verified_title">Кошелёк подтвержден</string>
+  <string name="verification_settings_no_internet">Вы должны быть подключены к интернету</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Кажется, покупка уже обрабатывается. Пожалуйста, подождите пока транзакция не завершится, или свяжитесь с командой поддержки.</string>
   <string name="purchase_more_payment_methods_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>
@@ -434,6 +438,19 @@
   <string name="purchase_appcoins_credits_available_body">Никаких издержек и скорость молнии!</string>
   <string name="purchase_appcoins_credits_noavailable_body">У вас недостаточно APPC Credits, попробуйте получить больше бонусов!</string>
   <string name="purchase_appcoins_credits_default_body">Вы заработали достаточно AppCoins Credits для этой покупки. Наслаждайтесь!</string>
+  <string name="purchase_poa_item">Заработайте средства, пробуя приложения</string>
+  <string name="purchase_poa_body">Проведите в приложении 2 минуты, чтобы заработать AppCoins Credits!</string>
+  <string name="purchase_poa_view_title">Нет средств? Нет проблем!</string>
+  <string name="purchase_poa_view_body">Проведите 2 минуты в приложении и получите награду в AppCoins Credits, чтобы сделать покупку!</string>
+  <string name="purchase_current_balance_body">Текущий баланс:</string>
+  <string name="purchase_current_balance_appcc_body">%s в AppCoins Credits.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s в AppCoins Credits и эфире.</string>
+  <string name="purchase_wallet_blocked_title">Ваш баланс AppCoins Credits заблокирован</string>
+  <string name="purchase_wallet_blocked_body">В связи со странностями в истории транзакций ваш баланс AppCoins Credits был заблокирован. Вы всё ещё можете производить платежи и переводы при помощи других методов, кроме AppCoins Credits. \n\nIfЕсли вы считаете, что это ошибка – свяжитесь с нами:</string>
+  <string name="purchase_card_error_general">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
+  <string name="purchase_card_error_invalid_details">Вы уверены, что детали карты введены правильно? Пожалуйста, попробуйте снова!</string>
+  <string name="purchase_card_error_bank_rejects">Ваш банк отказал в данной транзакции. Пожалуйста, попробуйте другую карту.</string>
+  <string name="purchase_card_error_limits">Кажется, для вашей карты существуют какие-то ограничения. Пожалуйста, свяжитесь с вашим банком или попробуйте другую карту.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Пригласите своих друзей!</string>
   <string name="referral_onboarding_body">Вы и ваши друзья можете заработать до %s с нашей реферальной программой!</string>
@@ -471,4 +488,73 @@
   <string name="promotions_referral_card_body">Поделитесь ссылкой с приглашением и заработайте AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Бонус до 30% за каждую покупку</string>
   <string name="promotions_new">НОВОЕ</string>
+  <!--Update-->
+  <string name="update_wallet_poa_notification_title">Обновите, чтобы получить награды</string>
+  <string name="update_wallet_poa_notification_body">Пожалуйста, обновите AppCoins Wallet, чтобы получить эту награду.</string>
+  <string name="update_wallet_purchase_title">Вам нужно обновиться!</string>
+  <string name="update_wallet_purchase_body">Обновите AppCoins Wallet, чтобы завершить эту покупку.</string>
+  <string name="update_wallet_hard_body">Кажется, вы используете старую версию AppCoins Wallet. Пожалуйста, обновите её, чтобы гарантировать наилучшую производительность и безопасность.</string>
+  <string name="update_wallet_soft_title">Не отставайте!</string>
+  <string name="update_wallet_soft_body">Поддержание AppCoins Wallet в актуальном состоянии гарантирует наилучший пользовательский опыт.</string>
+  <string name="update_button">ОБНОВИТЬ</string>
+  <!--Backup and Import-->
+  <string name="backup_home_notification_title">Сделайте бэкап кошелька</string>
+  <string name="backup_home_notification_body">Когда-нибудь теряли телефон? Сделайте резервную копию кошелька прямо сейчас!</string>
+  <string name="backup_button">КОПИРОВАТЬ</string>
+  <string name="backup_title">Бэкап кошелька</string>
+  <string name="backup_password_title">Зашифровать кошелёк (необязательно)</string>
+  <string name="backup_password">Пароль</string>
+  <string name="backup_body">Мы не храним ваши закрытые ключи или иные методы доступа. Важно хранить ваш бэкап (хранилище ключей) в безопасности.</string>
+  <string name="backup_send_via_title">Отправить бэкап через:</string>
+  <string name="import_wallet_title">Импортировать кошелёк</string>
+  <string name="import_wallet_body">Вставьте бэкап вашего кошелька ниже.</string>
+  <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>
+  <string name="import_wallet_file_button">ИМПОРТИРОВАТЬ ИЗ ФАЙЛА</string>
+  <string name="import_wallet_button">ИМПОРТИРОВАТЬ КОШЕЛЁК</string>
+  <string name="import_wallet_password_body">Этот кошелёк защищен паролем!</string>
+  <!--Wallets Management-->
+  <string name="wallets_title">Кошельки</string>
+  <string name="wallets_total_balance_title">Общий баланс в %s</string>
+  <string name="wallets_active_wallet_title">Активный кошелёк</string>
+  <plurals name="wallets_bottom_wallets_title">
+    <item quantity="one">Кошелёк</item>
+    <item quantity="few">Кошелька</item>
+    <item quantity="many">Кошельков</item>
+    <item quantity="other">Кошельки</item>
+  </plurals>
+  <string name="wallets_bottom_accumulated_value_title">Общая сумма</string>
+  <string name="wallets_address_copied_body">Адрес кошелька скопирован в буфер</string>
+  <string name="wallets_imported_body">Кошелёк успешно импортирован</string>
+  <string name="wallets_2nd_view_balance_title">Баланс:</string>
+  <string name="wallets_2nd_view_other_wallets_title">Другие кошельки</string>
+  <string name="wallets_2nd_view_import_button">ИМПОРТИРОВАТЬ КОШЕЛЁК</string>
+  <string name="wallets_2nd_view_create_button">СОЗДАТЬ НОВЫЙ</string>
+  <string name="wallet_view_copy_button">КОПИРОВАТЬ</string>
+  <string name="wallet_view_share_button">ПОДЕЛИТЬСЯ</string>
+  <string name="wallet_view_total_balance_title">Общий баланс</string>
+  <string name="wallet_view_remove_button">УДАЛИТЬ КОШЕЛЁК</string>
+  <string name="wallet_view_backup_button">СДЕЛАТЬ БЭКАП</string>
+  <string name="wallet_view_activate_button">СДЕЛАТЬ КОШЕЛЁК АКТИВНЫМ</string>
+  <string name="wallet_view_active_body">Это ваш активный кошелёк.</string>
+  <!--Remove Wallet-->
+  <string name="remove_wallet_title">Удалить кошелёк</string>
+  <string name="remove_wallet_body">Мы настоятельно рекомендуем сделать резервную копию кошелька перед удалением. Вы не сможете снова получить к нему доступ, если у вас нет такой копии.</string>
+  <string name="remove_wallet_backup_button">СДЕЛАТЬ БЭКАП</string>
+  <string name="remove_wallet_no_backup_button">ПРОДОЛЖИТЬ БЕЗ БЭКАПА</string>
+  <string name="remove_wallet_confirm_body">Вы уверены, что хотите удалить этот кошелек?</string>
+  <string name="remove_wallet_no_button">НЕТ, ВЕРНУТЬСЯ</string>
+  <string name="remove_wallet_yes_button">ДА, УДАЛИТЬ КОШЕЛЁК</string>
+  <string name="remove_wallet_removed_body">Кошелёк удалён!</string>
+  <!--Tranfer-->
+  <string name="tranfer_bottom_navigation">Перевод</string>
+  <string name="transfer_title">Перевести средства</string>
+  <string name="transfer_send_tab_title">Отправить</string>
+  <string name="transfer_receive_tab_title">Получить</string>
+  <string name="transfer_send_body">Сканируйте или введите адрес кошелька вашего друга.</string>
+  <string name="transfer_send_recipient_title">Адрес кошелька</string>
+  <string name="transfer_send_token_title">Валюта:</string>
+  <string name="transfer_send_amount_title">Сумма</string>
+  <string name="transfer_send_current_balance_title">Текущий баланс:</string>
+  <string name="transfer_send_button">ОТПРАВИТЬ</string>
+  <string name="transfer_receive_body">Поделитесь адресом своего кошелька, чтобы получить средства.</string>
 </resources>

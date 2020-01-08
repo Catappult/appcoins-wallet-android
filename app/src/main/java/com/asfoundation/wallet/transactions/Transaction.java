@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 public class Transaction implements Parcelable {
@@ -116,8 +117,7 @@ public class Transaction implements Parcelable {
 
     if (timeStamp != that.timeStamp) return false;
     if (!transactionId.equals(that.transactionId)) return false;
-    if (approveTransactionId != null ? !approveTransactionId.equals(that.approveTransactionId)
-        : that.approveTransactionId != null) {
+    if (!Objects.equals(approveTransactionId, that.approveTransactionId)) {
       return false;
     }
     if (type != that.type) return false;
@@ -125,9 +125,9 @@ public class Transaction implements Parcelable {
     if (!value.equals(that.value)) return false;
     if (!from.equals(that.from)) return false;
     if (!to.equals(that.to)) return false;
-    if (details != null ? !details.equals(that.details) : that.details != null) return false;
-    if (currency != null ? !currency.equals(that.currency) : that.currency != null) return false;
-    return operations != null ? operations.equals(that.operations) : that.operations == null;
+    if (!Objects.equals(details, that.details)) return false;
+    if (!Objects.equals(currency, that.currency)) return false;
+    return Objects.equals(operations, that.operations);
   }
 
   @Override public String toString() {
@@ -217,8 +217,6 @@ public class Transaction implements Parcelable {
 
     static TransactionType fromInt(int type) {
       switch (type) {
-        case 0:
-          return STANDARD;
         case 1:
           return IAB;
         case 2:
@@ -244,8 +242,6 @@ public class Transaction implements Parcelable {
 
     static TransactionStatus fromInt(int status) {
       switch (status) {
-        case 0:
-          return SUCCESS;
         case 1:
           return FAILED;
         case 2:

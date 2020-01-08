@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.balance
 
-import android.util.Log
 import io.reactivex.disposables.CompositeDisposable
 
 class TokenDetailsPresenter(private val view: TokenDetailsView,

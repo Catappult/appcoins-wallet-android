@@ -15,17 +15,20 @@ class PermissionsActivityPresenter(
     private val apkSignature: String,
     private val permissionName: PermissionName,
     private val disposables: CompositeDisposable,
-    private val viewScheduler: Scheduler) {
-  fun present(isCreating: Boolean) {
-    setupUi(isCreating)
+    private val viewScheduler: Scheduler,
+    private val isCreating: Boolean) {
+  fun present() {
+    setupUi()
     handleWalletCreationFinishEvent()
   }
 
   private fun handleWalletCreationFinishEvent() {
-    view.getWalletCreatedEvent().flatMapSingle { showPermissionsScreen() }.subscribe()
+    view.getWalletCreatedEvent()
+        .flatMapSingle { showPermissionsScreen() }
+        .subscribe()
   }
 
-  private fun setupUi(isCreating: Boolean) {
+  private fun setupUi() {
     if (isCreating) {
       disposables.add(
           showPermissionsScreen().subscribe({}, {

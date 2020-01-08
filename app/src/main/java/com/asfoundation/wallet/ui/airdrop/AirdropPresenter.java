@@ -60,7 +60,7 @@ public class AirdropPresenter {
     return airdrop.requestCaptcha()
         .observeOn(scheduler)
         .doOnSuccess(view::showCaptcha)
-        .doOnError(throwable -> throwable.printStackTrace());
+        .doOnError(Throwable::printStackTrace);
   }
 
   private void onAirdropStatusChange() {

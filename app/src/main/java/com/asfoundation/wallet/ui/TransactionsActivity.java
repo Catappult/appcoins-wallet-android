@@ -32,6 +32,7 @@ import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
+import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -48,7 +49,6 @@ import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
-import java.util.List;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
@@ -69,8 +69,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private CompositeDisposable disposables;
   private View emptyClickableView;
   private View badge;
-  private boolean showScroll = false;
   private int paddingDp;
+  private boolean showScroll = false;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -93,22 +93,21 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyClickableView.setVisibility(View.VISIBLE);
     balanceSkeleton.playAnimation();
     subtitleView = findViewById(R.id.toolbar_subtitle);
-    ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
-        (appBarLayout, verticalOffset) -> {
-          float percentage =
-              ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
-          float alpha = 1 - (percentage * 1.20f);
-          findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
-          subtitleView.setAlpha(alpha);
-          balanceSkeleton.setAlpha(alpha);
-          ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
+    AppBarLayout appBar = findViewById(R.id.app_bar);
+    appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+      float percentage = ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
+      float alpha = 1 - (percentage * 1.20f);
+      findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
+      subtitleView.setAlpha(alpha);
+      balanceSkeleton.setAlpha(alpha);
+      ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
 
-          if (percentage == 0) {
-            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
-          } else {
-            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
-          }
-        });
+      if (percentage == 0) {
+        ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
+      } else {
+        ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
+      }
+    });
 
     setCollapsingTitle(" ");
     initBottomNavigation();
@@ -116,13 +115,23 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
         this::onNotificationClick, getResources());
+
+    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override public void onItemRangeInserted(int positionStart, int itemCount) {
+        if (showScroll) {
+          linearLayoutManager.smoothScrollToPosition(list, null, 0);
+          showScroll = false;
+        }
+      }
+    });
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
     systemView = findViewById(R.id.system_view);
     list = findViewById(R.id.list);
-    list.setLayoutManager(new LinearLayoutManager(this));
     list.setAdapter(adapter);
+    list.setLayoutManager(linearLayoutManager);
 
     systemView.attachRecyclerView(list);
     systemView.attachSwipeRefreshLayout(refreshLayout);
@@ -141,14 +150,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onBalanceChanged);
     viewModel.defaultWallet()
         .observe(this, this::onDefaultWallet);
-    viewModel.transactions()
-        .observe(this, this::onTransactions);
+    viewModel.transactionsModel()
+        .observe(this, this::onTransactionsModel);
+    viewModel.dismissNotification()
+        .observe(this, this::dismissNotification);
     viewModel.gamificationMaxBonus()
         .observe(this, this::onGamificationMaxBonus);
-    viewModel.applications()
-        .observe(this, this::onApplications);
-    viewModel.notifications()
-        .observe(this, this::onNotifications);
     viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onPromotionsNotification);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -203,28 +210,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.onAppClick(appcoinsApplication, this);
   }
 
-  private void onApplications(List<AppcoinsApplication> appcoinsApplications) {
-    adapter.setApps(appcoinsApplications);
-    showList();
-    if (showScroll) {
-      list.scrollToPosition(0);
-      showScroll = false;
-    }
-  }
-
-  private void onNotifications(List<CardNotification> cardNotifications) {
-    adapter.setNotifications(cardNotifications);
-    showList();
-  }
-
   private void onTransactionClick(View view, Transaction transaction) {
     viewModel.showDetails(view.getContext(), transaction);
   }
 
   private void onNotificationClick(CardNotification cardNotification,
       CardNotificationAction cardNotificationAction) {
-    showScroll = cardNotificationAction.equals(CardNotificationAction.DISMISS)
-        && adapter.getNotificationsCount() == 1;
     viewModel.onNotificationClick(cardNotification, cardNotificationAction, this);
   }
 
@@ -290,8 +281,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return false;
   }
 
-  private void onTransactions(List<Transaction> transaction) {
-    adapter.addTransactions(transaction);
+  private void onTransactionsModel(TransactionsModel transactionsModel) {
+    adapter.addItems(transactionsModel);
     showList();
   }
 
@@ -427,5 +418,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .add(R.id.container, OverlayFragment.newInstance(0))
         .addToBackStack(OverlayFragment.class.getName())
         .commit();
+  }
+
+  private void dismissNotification(CardNotification cardNotification) {
+    showScroll = adapter.removeItem(cardNotification);
+    if (showScroll) {
+      viewModel.fetchTransactions(false);
+    }
   }
 }

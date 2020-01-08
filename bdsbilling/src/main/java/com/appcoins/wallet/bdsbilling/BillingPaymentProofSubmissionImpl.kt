@@ -87,8 +87,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   }
 
   companion object {
-    inline fun build(block: BillingPaymentProofSubmissionImpl.Builder.() -> Unit) =
-        BillingPaymentProofSubmissionImpl.Builder().apply(block).build()
+    inline fun build(block: Builder.() -> Unit) =
+        Builder().apply(block).build()
   }
 
   class Builder {

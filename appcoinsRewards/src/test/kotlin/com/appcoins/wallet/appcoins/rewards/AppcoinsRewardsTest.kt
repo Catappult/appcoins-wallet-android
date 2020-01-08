@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 class AppcoinsRewardsTest {
   companion object {
     private const val USER_ADDRESS: String = "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4"
-    private const val USER_ADDRESS_SIGANTURE: String =
+    private const val USER_ADDRESS_SIGNATURE: String =
         "27c3217155834a21fa8f97df99053f2874727837c03805c2eb1ba56383473b2a07fd865dd5db1359a717dfec9aa14bab6437184b14969ec3551b86e9d29c98d401"
     private const val DEVELOPER_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
     private const val OEM_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
@@ -57,26 +57,26 @@ class AppcoinsRewardsTest {
 
   @Before
   fun setUp() {
-    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE,
+    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(Completable.complete())
     `when`(remoteApi.getBalance(USER_ADDRESS)).thenReturn(
         Single.just(BackendApi.RewardBalanceResponse(BALANCE)))
 
-    `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE, BDS_ORIGIN, SKU, TYPE,
+    `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, BDS_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
-    `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
+    `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
-    `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE, null, SKU, TYPE,
+    `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, null, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
@@ -99,7 +99,7 @@ class AppcoinsRewardsTest {
           }
 
           override fun signContent(content: String): Single<String> {
-            return Single.just(USER_ADDRESS_SIGANTURE)
+            return Single.just(USER_ADDRESS_SIGNATURE)
 
           }
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
@@ -204,7 +204,7 @@ class AppcoinsRewardsTest {
 
   @Test
   fun transferCreditsNetworkError() {
-    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE,
+    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
         Completable.error(HttpException(
             Response.error<AppcoinsRewardsRepository.Status>(400, ResponseBody.create(null, "")))))
@@ -218,7 +218,7 @@ class AppcoinsRewardsTest {
 
   @Test
   fun transferCreditsUnknownError() {
-    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE,
+    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
         Completable.error(NullPointerException()))
     val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME)

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,6 +25,7 @@ import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -35,7 +35,6 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
-import com.squareup.picasso.Picasso;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -44,7 +43,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -287,7 +285,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .subscribe(pair -> {
           appNameTv.setText(pair.first);
           appIcon.setImageDrawable(pair.second);
-        }, throwable -> throwable.printStackTrace()));
+        }, Throwable::printStackTrace));
   }
 
   private String getAppPackage() {
@@ -562,18 +560,15 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
     compositeDisposable.add(Observable.fromCallable(() -> {
-      try {
-        Context context = getContext();
-        Bitmap bitmap = Picasso.with(context)
-            .load(paymentMethod.getIconUrl())
-            .get();
-        BitmapDrawable drawable = new BitmapDrawable(context.getResources(),
-            Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, true));
-        return drawable.getCurrent();
-      } catch (IOException e) {
-        Log.w(TAG, "setupPaymentMethods: Failed to load icons!");
-        throw new RuntimeException(e);
-      }
+      Context context = getContext();
+      Bitmap bitmap = GlideApp.with(context)
+          .asBitmap()
+          .load(paymentMethod.getIconUrl())
+          .submit()
+          .get();
+      BitmapDrawable drawable = new BitmapDrawable(context.getResources(),
+          Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, true));
+      return drawable.getCurrent();
     })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -588,16 +583,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   private void loadIcons(PaymentMethod paymentMethod, ImageView view) {
     compositeDisposable.add(Observable.fromCallable(() -> {
-      try {
-        Context context = getContext();
-        Bitmap bitmap = Picasso.with(context)
-            .load(paymentMethod.getIconUrl())
-            .get();
-        return bitmap;
-      } catch (IOException e) {
-        Log.w(TAG, "setupPaymentMethods: Failed to load icons!");
-        throw new RuntimeException(e);
-      }
+      Context context = getContext();
+      return GlideApp.with(context)
+          .asBitmap()
+          .load(paymentMethod.getIconUrl())
+          .submit()
+          .get();
     })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

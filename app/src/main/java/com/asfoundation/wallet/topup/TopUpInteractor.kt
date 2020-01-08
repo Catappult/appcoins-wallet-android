@@ -53,7 +53,7 @@ class TopUpInteractor(private val repository: BdsRepository,
       Single.just(limitValues)
     } else {
       topUpValuesService.getLimitValues()
-          .doOnSuccess { cacheLimitValues(it) }
+          .doOnSuccess { if (!it.error.hasError) cacheLimitValues(it) }
     }
   }
 
@@ -62,7 +62,7 @@ class TopUpInteractor(private val repository: BdsRepository,
       Single.just(TopUpValuesModel(ArrayList(chipValueIndexMap.keys)))
     } else {
       topUpValuesService.getDefaultValues()
-          .doOnSuccess { if (!it.error) cacheChipValues(it.values) }
+          .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
     }
   }
 
@@ -71,7 +71,7 @@ class TopUpInteractor(private val repository: BdsRepository,
       findChipIndex(ArrayList(chipValueIndexMap.keys), value)
     } else {
       topUpValuesService.getDefaultValues()
-          .doOnSuccess { if (!it.error) cacheChipValues(it.values) }
+          .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
           .flatMap { findChipIndex(it.values, value) }
     }
   }

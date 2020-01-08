@@ -13,7 +13,7 @@ dependencies {
   implementation "com.google.code.gson:gson:$project.gsonVersion"
   implementation "com.fasterxml.jackson.core:jackson-annotations:$project.jacksonVersion"
   implementation "com.fasterxml.jackson.core:jackson-databind:$project.jacksonVersion"
-  implementation "com.madgag.spongycastle:core:1.58.0.0@jar"
+  implementation "com.madgag.spongycastle:core:$project.spongycastle"
   implementation project(path: ':commons')
 }
 
