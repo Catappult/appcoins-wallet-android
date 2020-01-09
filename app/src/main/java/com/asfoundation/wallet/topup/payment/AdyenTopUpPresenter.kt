@@ -2,11 +2,11 @@ package com.asfoundation.wallet.topup.payment
 
 import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
+import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.CurrencyData
@@ -81,7 +81,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
                            priceCurrency: String) {
     disposables.add(
-        adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo,
+        adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo, false,
             returnUrl, priceAmount.toString(), priceCurrency,
             mapPaymentToService(paymentType).transactionType,
             transactionType, appPackage)
@@ -102,15 +102,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun handleTopUpClick(priceAmount: BigDecimal, priceCurrency: String) {
     disposables.add(Observable.combineLatest(view.topUpButtonClicked(), view.retrievePaymentData(),
-        BiFunction { _: Any, paymentData: CardPaymentMethod ->
+        BiFunction { _: Any, paymentData: AdyenCardWrapper ->
           paymentData
         })
         .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.makeTopUpPayment(it, returnUrl, priceAmount.toString(),
-              priceCurrency, mapPaymentToService(paymentType).transactionType, transactionType,
-              appPackage)
+          adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
+              returnUrl, priceAmount.toString(), priceCurrency,
+              mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
         }
         .observeOn(viewScheduler)
         .flatMapCompletable { handlePaymentResult(it) }

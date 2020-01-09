@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.net.Uri
 import android.os.Bundle
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
@@ -28,7 +27,7 @@ interface AdyenPaymentView {
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstance: Bundle?)
 
-  fun retrievePaymentData(): Observable<CardPaymentMethod>
+  fun retrievePaymentData(): Observable<AdyenCardWrapper>
   fun showSpecificError(refusalCode: Int)
   fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String)
   fun lockRotation()

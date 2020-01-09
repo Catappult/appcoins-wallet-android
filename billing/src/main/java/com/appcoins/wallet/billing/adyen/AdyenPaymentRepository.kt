@@ -17,15 +17,15 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .onErrorReturn { adyenResponseMapper.mapInfoModelError(it) }
   }
 
-  fun makePayment(adyenPaymentMethod: ModelObject, returnUrl: String, value: String,
-                  currency: String,
-                  reference: String?, paymentType: String, walletAddress: String,
-                  origin: String?, packageName: String?, metadata: String?, sku: String?,
-                  callbackUrl: String?, transactionType: String, developerWallet: String?,
-                  storeWallet: String?, oemWallet: String?,
+  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, returnUrl: String,
+                  value: String, currency: String, reference: String?, paymentType: String,
+                  walletAddress: String, origin: String?, packageName: String?, metadata: String?,
+                  sku: String?, callbackUrl: String?, transactionType: String,
+                  developerWallet: String?, storeWallet: String?, oemWallet: String?,
                   userWallet: String?): Single<PaymentModel> {
     return adyenApi.makePayment(walletAddress,
-        Payment(adyenPaymentMethod, returnUrl, callbackUrl, packageName, metadata, paymentType,
+        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, callbackUrl, packageName,
+            metadata, paymentType,
             origin, sku, reference, transactionType, currency, value, developerWallet,
             storeWallet, oemWallet, userWallet))
         .map { adyenResponseMapper.map(it) }
@@ -86,6 +86,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
   }
 
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
+                     @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
                      @SerializedName("payment.return_url") val returnUrl: String,
                      @SerializedName("callback_url") val callbackUrl: String?,
                      @SerializedName("domain") val domain: String?,

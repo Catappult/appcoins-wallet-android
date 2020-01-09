@@ -3,8 +3,8 @@ package com.asfoundation.wallet.topup.payment
 import android.net.Uri
 import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
+import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -52,7 +52,7 @@ interface AdyenTopUpView {
 
   fun topUpButtonClicked(): Observable<Any>
 
-  fun retrievePaymentData(): Observable<CardPaymentMethod>
+  fun retrievePaymentData(): Observable<AdyenCardWrapper>
 
   fun hideKeyboard()
 }

@@ -36,11 +36,11 @@ class AdyenPaymentInteractor(
         .flatMap { adyenPaymentRepository.loadPaymentInfo(methods, value, currency, it) }
   }
 
-  fun makePayment(adyenPaymentMethod: ModelObject, returnUrl: String, value: String,
-                  currency: String,
-                  reference: String?, paymentType: String, origin: String?, packageName: String,
-                  metadata: String?, sku: String?, callbackUrl: String?,
-                  transactionType: String, developerWallet: String?): Single<PaymentModel> {
+  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, returnUrl: String,
+                  value: String, currency: String, reference: String?, paymentType: String,
+                  origin: String?, packageName: String, metadata: String?, sku: String?,
+                  callbackUrl: String?, transactionType: String,
+                  developerWallet: String?): Single<PaymentModel> {
     return walletService.getWalletAddress()
         .flatMap { address ->
           Single.zip(
@@ -50,22 +50,23 @@ class AdyenPaymentInteractor(
                 Pair(storeAddress, oemAddress)
               })
               .flatMap {
-                adyenPaymentRepository.makePayment(adyenPaymentMethod, returnUrl, value, currency,
-                    reference, paymentType, address, origin, packageName, metadata, sku,
-                    callbackUrl, transactionType, developerWallet, it.first, it.second,
+                adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl,
+                    value, currency, reference, paymentType, address, origin, packageName, metadata,
+                    sku, callbackUrl, transactionType, developerWallet, it.first, it.second,
                     address)
               }
         }
   }
 
-  fun makeTopUpPayment(adyenPaymentMethod: ModelObject, returnUrl: String, value: String,
+  fun makeTopUpPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                       returnUrl: String, value: String,
                        currency: String, paymentType: String, transactionType: String,
                        packageName: String): Single<PaymentModel> {
     return walletService.getWalletAddress()
         .flatMap {
-          adyenPaymentRepository.makePayment(adyenPaymentMethod, returnUrl, value, currency, null,
-              paymentType, it, null, packageName, null, null, null, transactionType,
-              null, null, null, null)
+          adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl,
+              value, currency, null, paymentType, it, null, packageName, null, null, null,
+              transactionType, null, null, null, null)
         }
   }
 

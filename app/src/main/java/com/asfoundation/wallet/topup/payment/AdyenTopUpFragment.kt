@@ -14,7 +14,6 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -24,6 +23,7 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
@@ -71,7 +71,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
-  private var paymentDataSubject: ReplaySubject<CardPaymentMethod>? = null
+  private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
@@ -93,7 +93,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     super.onCreate(savedInstanceState)
     keyboardTopUpRelay = PublishRelay.create()
     validationSubject = PublishSubject.create()
-    paymentDataSubject = ReplaySubject.create<CardPaymentMethod>()
+    paymentDataSubject = ReplaySubject.create<AdyenCardWrapper>()
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
 
     presenter =
@@ -305,7 +305,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
         button.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
-          paymentDataSubject?.onNext(paymentMethod)
+          paymentDataSubject?.onNext(
+              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false))
         }
       } else {
         button.isEnabled = false
@@ -339,7 +340,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     })
   }
 
-  override fun retrievePaymentData(): Observable<CardPaymentMethod> {
+  override fun retrievePaymentData(): Observable<AdyenCardWrapper> {
     return paymentDataSubject!!
   }
 

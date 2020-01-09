@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -72,7 +71,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
   private var backButton: PublishRelay<Boolean>? = null
-  private var paymentDataSubject: ReplaySubject<CardPaymentMethod>? = null
+  private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
@@ -83,7 +82,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButton = PublishRelay.create<Boolean>()
-    paymentDataSubject = ReplaySubject.create<CardPaymentMethod>()
+    paymentDataSubject = ReplaySubject.create<AdyenCardWrapper>()
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
@@ -150,7 +149,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     setStoredPaymentInformation(isStored)
   }
 
-  override fun retrievePaymentData(): Observable<CardPaymentMethod> {
+  override fun retrievePaymentData(): Observable<AdyenCardWrapper> {
     return paymentDataSubject!!
   }
 
@@ -424,7 +423,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
-          paymentDataSubject?.onNext(paymentMethod)
+          paymentDataSubject?.onNext(
+              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false))
         }
       } else {
         buy_button?.isEnabled = false

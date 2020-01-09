@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
@@ -110,7 +109,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
                            priceCurrency: String) {
     disposables.add(transactionBuilder.flatMap {
-      adyenPaymentInteractor.makePayment(paymentMethodInfo, returnUrl,
+      adyenPaymentInteractor.makePayment(paymentMethodInfo, false, returnUrl,
           priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
           it.skuId, it.callbackUrl, it.type, it.toAddress())
@@ -141,14 +140,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
     disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
-        BiFunction { _: Any, paymentData: CardPaymentMethod -> paymentData })
+        BiFunction { _: Any, adyenCard: AdyenCardWrapper -> adyenCard })
         .observeOn(viewScheduler)
         .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
-        .flatMapSingle { paymentData ->
+        .flatMapSingle { adyenCard ->
           transactionBuilder
               .flatMap {
-                adyenPaymentInteractor.makePayment(paymentData, returnUrl,
+                adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
+                    adyenCard.shouldStoreCard, returnUrl,
                     priceAmount.toString(), priceCurrency, it.orderReference,
                     mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
                     it.skuId, it.callbackUrl, it.type, it.toAddress())
