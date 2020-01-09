@@ -276,7 +276,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     var message = getString(R.string.notification_payment_refused)
 
     when (refusalCode) {
-      8, 24 -> message = "Are you sure your card details are correct? Please try again!"
+      8, 24 -> message =
+          getString(R.string.notification_payment_refused) //To be changed on errors ticket
     }
 
     fragment_credit_card_authorization_progress_bar?.visibility = View.GONE

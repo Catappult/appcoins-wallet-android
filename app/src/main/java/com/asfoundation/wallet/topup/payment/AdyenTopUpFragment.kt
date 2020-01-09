@@ -247,7 +247,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
       credit_card_info_container.visibility = View.INVISIBLE
       when (refusalCode) {
         8, 24 -> paymentRefusedDialog.changeMessage(
-            "Are you sure your card details are correct? Please try again!")
+            getString(R.string.notification_payment_refused)) //To be changed on error ticket
       }
       paymentRefusedDialog.show()
     }
