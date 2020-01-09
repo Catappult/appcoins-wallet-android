@@ -33,9 +33,12 @@ interface IabView {
                            originalCurrency: String?, amount: BigDecimal, type: String,
                            selectedPaymentMethod: String)
 
-  fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                         productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
-                         isBds: Boolean, isDonation: Boolean)
+  fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String,
+                         bonus: String,
+                         productName: String?, appcEnabled: Boolean,
+                         creditsEnabled: Boolean,
+                         isBds: Boolean, isDonation: Boolean,
+                         frequency: String?)
 
   fun showWalletBlocked()
   fun lockRotation()

@@ -54,16 +54,15 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
     private const val IS_BDS_KEY = "is_bds"
     private const val IS_DONATION_KEY = "is_donation"
+    private const val FREQUENCY = "frequency"
     const val APPC = "appcoins"
     const val CREDITS = "credits"
 
     @JvmStatic
-    fun newInstance(fiatAmount: BigDecimal,
-                    currency: String, bonus: String, appName: String,
-                    productName: String?,
-                    appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean,
-                    isDonation: Boolean): Fragment {
+    fun newInstance(fiatAmount: BigDecimal, currency: String, bonus: String, appName: String,
+                    productName: String?, appcAmount: BigDecimal, appcEnabled: Boolean,
+                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean,
+                    frequency: String?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
       bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -76,6 +75,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
       bundle.putBoolean(IS_BDS_KEY, isBds)
       bundle.putBoolean(IS_DONATION_KEY, isDonation)
+      bundle.putString(FREQUENCY, frequency)
       fragment.arguments = bundle
       return fragment
     }
@@ -169,6 +169,14 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+  private val frequency: String? by lazy {
+    if (arguments!!.containsKey(FREQUENCY)) {
+      arguments!!.getString(FREQUENCY)
+    } else {
+      null
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentSelectionSubject = PublishSubject.create()
@@ -210,7 +218,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setBuyButtonText(): String {
-    return if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
+    return if (frequency != null) {
+      "Subscribe"
+    } else {
+      if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
+    }
   }
 
   private fun setBonus() {
@@ -243,9 +255,15 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
     val formatter = Formatter()
     val decimalFormat = DecimalFormat("0.00")
-    val appcText = formatter.format(Locale.getDefault(), "%(,.2f", appcAmount)
+    var appcText = formatter.format(Locale.getDefault(), "%(,.2f", appcAmount)
         .toString() + " APPC"
-    val fiatText = decimalFormat.format(fiatAmount) + ' ' + currency
+    var fiatText = decimalFormat.format(fiatAmount) + ' ' + currency
+
+    if (frequency != null) {
+      fiatText += "/$frequency"
+      appcText = "~$appcText"
+    }
+
     fiat_price.text = fiatText
     appc_price.text = appcText
   }

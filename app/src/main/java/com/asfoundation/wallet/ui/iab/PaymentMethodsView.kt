@@ -6,11 +6,14 @@ import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
-                         currency: String, paymentMethodId: String)
+  fun showPaymentMethods(
+      paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue, currency: String,
+      paymentMethodId: String, frequency: String?)
 
-  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                   isDonation: Boolean, currency: String)
+  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod,
+                                   fiatValue: FiatValue,
+                                   isDonation: Boolean, currency: String,
+                                   frequency: String?)
 
   fun showError(message: Int)
   fun showItemAlreadyOwnedError()
@@ -32,14 +35,17 @@ interface PaymentMethodsView {
   fun getPaymentSelection(): Observable<String>
   fun getMorePaymentMethodsClicks(): Observable<Any>
   fun showLocalPayment(selectedPaymentMethod: String)
-  fun setBonus(bonus: BigDecimal, currency: String)
+  fun setBonusPurchase(bonus: BigDecimal, currency: String)
+  fun setBonusSubscription(bonus: BigDecimal, currency: String)
   fun onBackPressed(): Observable<Boolean>
   fun showNext()
   fun showBuy()
+  fun showSubscribe()
   fun showMergedAppcoins()
   fun lockRotation()
   fun showEarnAppcoins()
   fun showBonus()
+  fun showBonusSubscription()
   fun replaceBonus()
   fun showWalletBlocked()
 

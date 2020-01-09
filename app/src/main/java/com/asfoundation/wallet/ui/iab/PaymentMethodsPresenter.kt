@@ -49,6 +49,8 @@ class PaymentMethodsPresenter(
     private val walletBlockedInteract: WalletBlockedInteract,
     private val transactionValue: Double) {
 
+  val isSubscription = true//TODO replace
+
   fun present() {
 
     handleCancelClick()
@@ -80,7 +82,11 @@ class PaymentMethodsPresenter(
         .observeOn(viewScheduler)
         .doOnSuccess {
           if (it.status == ForecastBonus.Status.ACTIVE && it.amount > BigDecimal.ZERO) {
-            view.setBonus(it.amount, it.currency)
+            if (isSubscription) {
+              view.setBonusSubscription(it.amount, it.currency)
+            } else {
+              view.setBonusPurchase(it.amount, it.currency)
+            }
           }
         }
         .subscribe())
@@ -220,44 +226,49 @@ class PaymentMethodsPresenter(
               getPaymentMethods(fiatValue)
                   .observeOn(viewScheduler)
                   .flatMapCompletable { paymentMethods ->
-                    Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
+                    Completable.fromAction {
+                      selectPaymentMethod(paymentMethods, fiatValue, "month")
+                    }
                   }
             })
         .subscribeOn(networkThread)
         .subscribe({ }, { this.showError(it) }))
   }
 
-  private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
+  private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
+                                  frequency: String?) {
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
       val paymentMethod = getPreSelectedPaymentMethod(paymentMethods)
       if (paymentMethod == null || !paymentMethod.isEnabled) {
         showPaymentMethods(fiatValue, paymentMethods,
-            PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id)
+            PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id, frequency)
       } else {
         when (paymentMethod.id) {
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> view.showAdyen(fiatValue,
               PaymentType.CARD, paymentMethod.iconUrl)
-          else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod)
+          else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, frequency)
         }
       }
     } else {
       val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
-      showPaymentMethods(fiatValue, paymentMethods, paymentMethodId)
+      showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, frequency)
     }
   }
 
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
-                                 paymentMethodId: String) {
+                                 paymentMethodId: String, frequency: String?) {
     view.showPaymentMethods(paymentMethods.toMutableList(), fiatValue,
-        mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId)
+        mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId, frequency)
   }
 
-  private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod) {
+  private fun showPreSelectedPaymentMethod(fiatValue: FiatValue,
+                                           paymentMethod: PaymentMethod,
+                                           frequency: String?) {
     view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
         TransactionData.TransactionType.DONATION.name
             .equals(transaction.type, ignoreCase = true),
-        mapCurrencyCodeToSymbol(fiatValue.currency))
+        mapCurrencyCodeToSymbol(fiatValue.currency), frequency)
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -286,7 +297,7 @@ class PaymentMethodsPresenter(
                 Completable.fromAction {
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   loadBonusIntoView()
-                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId)
+                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, "TODO")
                 }
               }
               .andThen(
@@ -405,7 +416,11 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
       view.replaceBonus()
     } else {
-      view.showBonus()
+      if (isSubscription) {
+        view.showBonusSubscription()
+      } else {
+        view.showBonus()
+      }
     }
   }
 
@@ -415,7 +430,11 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
       view.showNext()
     } else {
-      view.showBuy()
+      if (isSubscription) {
+        view.showSubscribe()
+      } else {
+        view.showBuy()
+      }
     }
   }
 

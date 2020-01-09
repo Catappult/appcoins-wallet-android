@@ -193,13 +193,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                                   productName: String?, appcEnabled: Boolean,
-                                  creditsEnabled: Boolean, isBds: Boolean,
-                                  isDonation: Boolean) {
+                                  creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean,
+                                  frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
                 productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
-                isDonation))
+                isDonation, frequency))
         .commit()
   }
 
