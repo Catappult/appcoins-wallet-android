@@ -4,7 +4,8 @@ import android.os.Bundle
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse
+import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
+import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -159,13 +160,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
         .observeOn(viewScheduler)
         .flatMapCompletable {
-          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.error)
+          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.status,
+              it.error)
         }
         .subscribe())
   }
 
   private fun handlePaymentResult(uid: String, resultCode: String,
                                   refusalCode: Int?, refusalReason: String?,
+                                  status: Status,
                                   error: Error): Completable {
     return when {
       resultCode.equals("AUTHORISED", true) -> {
@@ -174,7 +177,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               when {
-                it.status == TransactionResponse.Status.COMPLETED -> {
+                it.status == COMPLETED -> {
                   createBundle(it.hash, it.orderReference)
                       .doOnSuccess {
                         sendPaymentEvent()
@@ -208,14 +211,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       refusalReason != null -> Completable.fromAction {
         refusalCode?.let { code -> view.showSpecificError(code) }
       }
+      status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
         view.showGenericError()
       }
     }
   }
 
-  private fun paymentFailed(status: TransactionResponse.Status): Boolean {
-    return status == TransactionResponse.Status.FAILED || status == TransactionResponse.Status.CANCELED || status == TransactionResponse.Status.INVALID_TRANSACTION
+  private fun paymentFailed(status: Status): Boolean {
+    return status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
   }
 
   private fun handlePaymentDetails() {
@@ -224,7 +228,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)
         .flatMapCompletable {
-          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.error)
+          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.status,
+              it.error)
         }
         .subscribe())
   }

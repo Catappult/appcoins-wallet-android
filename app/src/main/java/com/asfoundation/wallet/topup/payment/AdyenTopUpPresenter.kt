@@ -5,7 +5,8 @@ import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse
+import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
+import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -105,7 +106,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         BiFunction { _: Any, paymentData: AdyenCardWrapper ->
           paymentData
         })
-        .doOnNext { view.showLoading() }
+        .doOnNext {
+          view.showLoading()
+          view.setFinishingPurchase()
+        }
         .observeOn(networkScheduler)
         .flatMapSingle {
           adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
@@ -154,7 +158,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                                    priceCurrency: String) {
     disposables.add(view.getPaymentDetails()
         .observeOn(viewScheduler)
-        .doOnNext { view.hideKeyboard() }
+        .doOnNext {
+          view.hideKeyboard()
+          view.setFinishingPurchase()
+        }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)
@@ -170,7 +177,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              if (it.status == TransactionResponse.Status.COMPLETED) {
+              if (it.status == Status.COMPLETED) {
                 Completable.fromAction {
                   val bundle = createBundle(priceAmount, priceCurrency)
                   waitingResult = false
@@ -188,6 +195,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       paymentModel.refusalReason != null -> Completable.fromAction {
         paymentModel.refusalCode?.let { code -> view.showSpecificError(code) }
       }
+      paymentModel.status == CANCELED -> Completable.fromAction { view.cancelPayment() }
       else -> Completable.fromAction { view.showGenericError() }
     }
   }

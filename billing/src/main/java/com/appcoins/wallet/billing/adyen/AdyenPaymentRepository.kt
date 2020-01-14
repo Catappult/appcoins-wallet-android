@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
+import android.util.Log
 import com.adyen.checkout.core.model.ModelObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -38,7 +39,10 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         AdyenPayment(Payload(details.getString("payload")),
             paymentData)) //TODO details should be a generic object this only works if the only redirect payment we use is paypal
         .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+        .onErrorReturn {
+          Log.d("TAG123", "here: " + it.message)
+          adyenResponseMapper.mapPaymentModelError(it)
+        }
   }
 
   fun disablePayments(walletAddress: String): Single<Boolean> {

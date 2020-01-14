@@ -18,7 +18,6 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
-import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
 
@@ -70,9 +69,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                                  bonusValue: String, selectedChip: Int, chipValues: List<FiatValue>,
                                  chipAvailability: Boolean) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
+        .add(R.id.fragment_container,
             AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency, origin,
                 transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
+        .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
   }
 
@@ -131,17 +131,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
 
   override fun navigateToUri(url: String) {
-    startActivityForResult(WebViewActivity.newIntent(this, url),
-        WEB_VIEW_REQUEST_CODE)
+    startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
 
-  override fun showToolbar() {
-    setupToolbar()
-  }
+  override fun showToolbar() = setupToolbar()
 
-  override fun uriResults(): Observable<Uri> {
-    return results
-  }
+  override fun uriResults() = results
 
   override fun unlockRotation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
