@@ -444,7 +444,7 @@
   <string name="purchase_poa_view_body">ลองแอป 2 นาทีและรับรางวัลใน Apptoide Credits เพื่อซื้อ!</string>
   <string name="purchase_current_balance_body">ยอดคงเหลือปัจจุบัน:</string>
   <string name="purchase_current_balance_appcc_body">%s ในเครดิต AppCoins</string>
-  <string name="purchase_current_balance_appc_eth_body">%ใน AppCoins และ Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s AppCoins และ Ether.</string>
   <string name="purchase_wallet_blocked_title">เครดิต AppCoinของคุณถูกบล็อก</string>
   <string name="purchase_wallet_blocked_body">เนื่องจากประวัติการทำธุรกรรมที่ผิดปกติ ยอดคงเหลือ AppCoins Credits ของคุณจึงถูกปิดกั้น คุณจะยังสามารถชำระเงินและทำธุรกรรมด้วยวิธีอื่น ๆ ยกเว้น AppCoins Credits \n\n หากคุณเชื่อว่าสิ่งนี่เป็นข้อผิดพลาดโปรดติดต่อเราที่:</string>
   <string name="purchase_card_error_general">ดูเหมือนว่ามีปัญหากับการ์ดของคุณ โปรดลองด้วยวิธีอื่น</string>
