@@ -94,7 +94,7 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+
   
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
@@ -490,6 +490,7 @@
   <string name="purchase_card_error_invalid_details">Are you sure your card details are correct? Please try again!</string>
   <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
   <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
 
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invite Your Friends!</string>
@@ -561,6 +562,8 @@
   <string name="import_wallet_button">IMPORT WALLET</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
 
 
 <!--Wallets Management-->

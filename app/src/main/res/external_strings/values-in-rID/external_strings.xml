@@ -6,6 +6,9 @@
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">TUTUP</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTAL DOMPET</string>
+  <!-- SDK - Purchasing when neither wallet or app store are installed -->
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Anda membutuhkan Dompet AppCoins untuk melakukan pembelian ini. Unduh dompet itu dari Aptoide atau Play Store, lalu kembali untuk menyelesaikan pembelian Anda!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">MENGERTI!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">Anda membutuhkan Dompet AppCoin!</string>
   <string name="poa_wallet_not_installed_notification_body">Untuk mendapatkan hadiah, Anda membutuhkan Dompet AppCoin.</string>
