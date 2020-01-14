@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">क्या आपके कार्ड के विवरण सही हैं? कृपया पुन: प्रयास करें!</string>
   <string name="purchase_card_error_bank_rejects">बैंक द्वारा आपके लेनदेन को अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें।</string>
   <string name="purchase_card_error_limits">शायद आपके कार्ड पर कुछ लगे हुए प्रतिबंध हैं। कृपया अपने बैंक से संपर्क करें या किसी अन्य से प्रयास करें।</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">अपने मित्रों को आमंत्रित करें!</string>
   <string name="referral_onboarding_body">आप और आपके मित्र हमारे रेफरल प्रोग्राम के साथ %s तक कमा सकते हैं!</string>

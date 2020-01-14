@@ -452,6 +452,7 @@
   <string name="purchase_card_error_invalid_details">هل أنت متأكد بأن معلومات بطاقتك صحيحة؟ يرجى المحاولة ثانية!</string>
   <string name="purchase_card_error_bank_rejects">تم رفض التحويل من البنك الذي تتعامل معه. يرجى المحاولة ببطاقة أخرى.</string>
   <string name="purchase_card_error_limits">يبدو أن هناك بعض القيود على بطاقتك. يرجى التواصل مع البنك الي تتعامل معه أو تجربة بطاقة أخرى.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">ادعُ أصدقاءك!</string>
   <string name="referral_onboarding_body">يمكنك أن تكسب أنت وأصدقاؤك ما يصل إلى %s مع برنامج الإحالة لدينا!</string>

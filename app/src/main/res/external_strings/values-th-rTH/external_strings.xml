@@ -7,8 +7,8 @@
   <string name="iab_wallet_not_installed_popup_close_button">ปิด</string>
   <string name="iab_wallet_not_installed_popup_close_install">ติดตั้งกระเป๋าสตางค์</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">คุณต้องใช้ AppCoins Wallet เพื่อทำการสั่งซื้อนี้ ดาวน์โหลดจาก Aptoide หรือ Play Store และกลับมาซื้อให้เสร็จ</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">เข้าใจล่ะ!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">คุณจำเป็นต้องมีกระเป๋าสตางค์ AppCoins</string>
   <string name="poa_wallet_not_installed_notification_body">คุณจำเป็นต้องมีกระเป๋าสตางค์ AppCoins เพื่อรับรางวัลของคุณ</string>

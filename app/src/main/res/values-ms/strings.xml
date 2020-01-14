@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Anda pasti butiran kad anda betul? Sila cuba lagi!</string>
   <string name="purchase_card_error_bank_rejects">Transaksi telah ditolak oleh bank anda. Sila cuba kad yang lain.</string>
   <string name="purchase_card_error_limits">Nampaknya, ada sekatan terhadap kad anda. Sila hubungi bank anda atau cuba kad yang lain.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Jemput Rakan Anda!</string>
   <string name="referral_onboarding_body">Anda dan rakan anda boleh dapat sehingga %s dengan Program Rujukan kami!</string>

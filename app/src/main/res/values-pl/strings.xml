@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Czy jesteś pewny że dane Twojej karty są prawidłowe? Spróbuj ponownie!</string>
   <string name="purchase_card_error_bank_rejects">Transakcja została odrzucona przez Twój bank. Spróbuj z inną kartą.</string>
   <string name="purchase_card_error_limits">Wydaje się że są jakieś ograniczenia na Twojej karcie. Skontaktuj się z bankiem lub spróbuj z inną kartą.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Zaproś Swoich Przyjaciół!</string>
   <string name="referral_onboarding_body">Ty i Twoi znajomy mogą zarobić aż %s w naszym Programie Polecającym!</string>

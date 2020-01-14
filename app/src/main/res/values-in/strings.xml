@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Apakah Anda yakin rincian kartu Anda benar? Silakan coba lagi!</string>
   <string name="purchase_card_error_bank_rejects">Transaksi sudah ditolak oleh bank Anda. Silakan coba dengan kartu yang lain.</string>
   <string name="purchase_card_error_limits">Sepertinya kartu Anda terkena pembatasan. Silakan hubungi bank Anda atau coba kartu yang lain.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Undang Teman Anda!</string>
   <string name="referral_onboarding_body">Anda dan teman bisa mendapatkan penghasilan hingga %s dengan Program Referral kami!</string>

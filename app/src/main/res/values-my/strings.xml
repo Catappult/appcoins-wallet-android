@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">သင့္ကဒ္အေသးစိတ္အခ်က္မ်ား မွန္ကန္သည္မွာ ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
   <string name="purchase_card_error_bank_rejects">ေငြလႊဲေျပာင္းမႈကို သင့္ဘဏ္က ျငင္းဆန္လိုက္ပါသည္။ အျခားတစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ။</string>
   <string name="purchase_card_error_limits">သင့္ကဒ္တြင္ ကန္႔သတ္ခ်က္အခ်ိဳ႕ ရွိပံုရပါသည္။ သင့္ဘဏ္ကိုဆက္သြယ္ေပးပါ သို႔မဟုတ္ အျခားတစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ။</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">သင့္သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ။</string>
   <string name="referral_onboarding_body">ကၽြႏ္ုပ္တို႔၏ ညႊန္ေပးသည့္ အစီအစဥ္ျဖင့္ သင္ႏွင့္ သင့္သူငယ္ခ်င္းမ်ားသည္ %s အထိ ရရွိႏိုင္ပါသည္။</string>

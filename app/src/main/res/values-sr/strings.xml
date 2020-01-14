@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Da li ste sigurni da su podaci sa kartice tačni? Pokušajte ponovo!</string>
   <string name="purchase_card_error_bank_rejects">Vaša banka je odbila transakciju. Pokušajte sa drugom karticom.</string>
   <string name="purchase_card_error_limits">Izgleda da na vašoj kartici postoje neka ograničenja. Obratite se banci ili pokušajte sa drugom karticom.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Pozovite prijatelje!</string>
   <string name="referral_onboarding_body">Vi i vaši prijatelji možete da zaradite do %s pomoću našeg programa preporuka!</string>

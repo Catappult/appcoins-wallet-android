@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">Kart bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin!</string>
   <string name="purchase_card_error_bank_rejects">İşlem bankanız tarafından reddedildi. Lütfen farklı bir kartla deneyin.</string>
   <string name="purchase_card_error_limits">Kartınızda bazı kısıtlamalar var gibi görünüyor. Lütfen bankanızla iletişime geçin veya farklı bir kart deneyin.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
