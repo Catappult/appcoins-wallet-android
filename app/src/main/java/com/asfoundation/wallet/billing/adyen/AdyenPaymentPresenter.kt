@@ -125,16 +125,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
-    if (!paymentModel.error.hasError) {
+    if (paymentModel.error.hasError) {
+      if (paymentModel.error.isNetworkError) view.showNetworkError()
+      else view.showGenericError()
+    } else {
       view.showLoading()
       view.lockRotation()
       view.setRedirectComponent(paymentModel.action!!, paymentModel.uid)
       navigator.navigateToUriForResult(paymentModel.redirectUrl)
       waitingResult = true
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
-    } else {
-      if (paymentModel.error.isNetworkError) view.showNetworkError()
-      else view.showGenericError()
     }
   }
 
@@ -142,7 +142,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
         BiFunction { _: Any, adyenCard: AdyenCardWrapper -> adyenCard })
         .observeOn(viewScheduler)
-        .doOnNext { view.showLoading() }
+        .doOnNext {
+          view.showLoading()
+          view.hideKeyboard()
+        }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenCard ->
           transactionBuilder

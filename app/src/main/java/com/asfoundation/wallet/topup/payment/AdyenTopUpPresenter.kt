@@ -13,12 +13,13 @@ import com.asfoundation.wallet.topup.CurrencyData
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
-import io.reactivex.*
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicInteger
 
 class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val appPackage: String,
@@ -48,7 +49,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     handleForgetCardClick()
 
     handleRedirectResponse()
-    handlePaymentDetails()
   }
 
   private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             else view.showGenericError()
           } else {
             view.showValues(it.priceAmount, it.priceCurrency)
-            if (paymentType == PaymentType.CARD.name) { //TODO isStored is returning always true after making a payment even if sending not to store
+            if (paymentType == PaymentType.CARD.name) {
               view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                   savedInstanceState)
               handleTopUpClick(it.priceAmount, it.priceCurrency)
@@ -88,7 +88,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .filter { !waitingResult }
-            .doOnSuccess { handlePaymentModel(it) }
+            .doOnSuccess { handlePaymentModel(it, priceAmount, priceCurrency) }
             .subscribe())
   }
 
@@ -113,7 +113,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
         }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it) }
+        .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
         .subscribe())
   }
 
@@ -150,18 +150,20 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe())
   }
 
-  private fun handlePaymentDetails() {
+  private fun handlePaymentDetails(priceAmount: BigDecimal,
+                                   priceCurrency: String) {
     disposables.add(view.getPaymentDetails()
         .observeOn(viewScheduler)
         .doOnNext { view.hideKeyboard() }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it) }
+        .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
         .subscribe())
   }
 
-  private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
+  private fun handlePaymentResult(paymentModel: PaymentModel, priceAmount: BigDecimal,
+                                  priceCurrency: String): Completable {
     return when {
       paymentModel.resultCode.equals("AUTHORISED", ignoreCase = true) -> {
         adyenPaymentInteractor.getTransaction(paymentModel.uid)
@@ -170,7 +172,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .flatMapCompletable {
               if (it.status == TransactionResponse.Status.COMPLETED) {
                 Completable.fromAction {
-                  val bundle = createBundle(paymentModel.uid).blockingGet()
+                  val bundle = createBundle(priceAmount, priceCurrency)
                   waitingResult = false
                   navigator.popView(bundle)
                 }
@@ -190,15 +192,18 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
   }
 
-  private fun handlePaymentModel(paymentModel: PaymentModel) {
-    if (!paymentModel.error.hasError) {
-      view.showLoading()
-      view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
-      navigator.navigateToUriForResult(paymentModel.redirectUrl)
-      waitingResult = true
-    } else {
+  private fun handlePaymentModel(paymentModel: PaymentModel,
+                                 priceAmount: BigDecimal, priceCurrency: String) {
+    if (paymentModel.error.hasError) {
       if (paymentModel.error.isNetworkError) view.showNetworkError()
       else view.showGenericError()
+    } else {
+      view.showLoading()
+      view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
+      handlePaymentDetails(priceAmount, priceCurrency)
+      navigator.navigateToUriForResult(paymentModel.redirectUrl)
+      waitingResult = true
+
     }
   }
 
@@ -212,18 +217,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .map(FiatValue::amount)
   }
 
-  private fun createBundle(uid: String)
-      : Single<Bundle> {
-    return adyenPaymentInteractor.getTransactionAmount(
-        uid) //TODO change to use the values sent in the first response
-        .retryWhen { errors ->
-          val counter = AtomicInteger()
-          errors.takeWhile { counter.getAndIncrement() != 3 }
-              .flatMap { Flowable.timer(counter.get().toLong(), TimeUnit.SECONDS) }
-        }
-        .map { price ->
-          billingMessagesMapper.topUpBundle(price.value, price.currency, bonusValue)
-        }
+  private fun createBundle(priceAmount: BigDecimal, priceCurrency: String): Bundle {
+    return billingMessagesMapper.topUpBundle(priceAmount.toPlainString(), priceCurrency, bonusValue)
   }
 
   private fun mapPaymentToService(paymentType: String)

@@ -35,4 +35,5 @@ interface AdyenPaymentView {
   fun submitUriResult(uri: Uri)
   fun getPaymentDetails(): Observable<RedirectComponentModel>
   fun forgetCardClick(): Observable<Any>
+  fun hideKeyboard()
 }

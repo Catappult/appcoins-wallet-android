@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.entity.Price
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -108,17 +107,12 @@ class AdyenPaymentInteractor(
     return inAppPurchaseInteractor.convertToLocalFiat(doubleValue)
   }
 
-  fun getTransactionAmount(uid: String): Single<Price> {
-    return inAppPurchaseInteractor.getTransactionAmount(uid)
-  }
-
   fun getTransaction(uid: String): Observable<PaymentModel> {
     return walletService.getWalletAddress()
         .flatMapObservable { address ->
           walletService.signContent(address)
               .flatMapObservable { signedWallet ->
-                Observable.interval(0, 10, TimeUnit.SECONDS,
-                    Schedulers.io())
+                Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
                     .timeInterval()
                     .switchMap {
                       adyenPaymentRepository.getTransaction(uid, address, signedWallet)

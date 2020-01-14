@@ -105,30 +105,20 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setupUi(view)
+    presenter.present(savedInstanceState)
+  }
+
+  private fun setupUi(view: View) {
     setupAdyenLayouts()
     setupTransactionCompleteAnimation()
-    if (transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true)) {
-      buy_button.setText(R.string.action_donate)
-    } else {
-      buy_button.setText(R.string.action_buy)
-    }
-
+    handleBuyButtonText()
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
 
-    if (isPreSelected) {
-      showBonus()
-    } else {
-      cancel_button.setText(R.string.back_button)
-      setBackListener(view)
-    }
-    if (StringUtils.isNotBlank(bonus)) {
-      lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation)
-      setupTransactionCompleteAnimation()
-    } else {
-      lottie_transaction_success.setAnimation(R.raw.success_animation)
-    }
+    handlePreSelectedView(view)
+    handleBonusAnimation()
+
     showProduct()
-    presenter.present(savedInstanceState)
   }
 
   override fun finishCardConfiguration(
@@ -138,12 +128,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     buy_button.visibility = View.VISIBLE
     cancel_button.visibility = View.VISIBLE
 
-    adyenCardNumberLayout.boxStrokeColor =
-        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
-    adyenExpiryDateLayout.boxStrokeColor =
-        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
-    adyenSecurityCodeLayout.boxStrokeColor =
-        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
+    val color = ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
+    adyenCardNumberLayout.boxStrokeColor = color
+    adyenExpiryDateLayout.boxStrokeColor = color
+    adyenSecurityCodeLayout.boxStrokeColor = color
     handleLayoutVisibility(isStored)
     prepareCardComponent(paymentMethod, forget, savedInstance)
     setStoredPaymentInformation(isStored)
@@ -155,10 +143,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
-    outState.putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
-    outState.putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
-    outState.putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch?.isChecked ?: false)
+    outState.apply {
+      putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
+      putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
+      putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
+      putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch?.isChecked ?: false)
+    }
     presenter.onSaveInstanceState(outState)
   }
 
@@ -168,9 +158,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     iabView = context
   }
 
-  override fun getAnimationDuration(): Long {
-    return lottie_transaction_success.duration
-  }
+  override fun getAnimationDuration() = lottie_transaction_success.duration
 
   override fun showProduct() {
     val formatter = Formatter()
@@ -209,15 +197,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     }
   }
 
-  override fun errorDismisses(): Observable<Any> {
-    return RxView.clicks(activity_iab_error_ok_button)
-  }
-
-  override fun buyButtonClicked(): Observable<Any> {
-    return RxView.clicks(buy_button)
-        .doOnNext { view?.let { KeyboardUtils.hideKeyboard(view) } }
-  }
-
   override fun changeCardMethodDetailsEvent(): Observable<PaymentMethod> {
     return RxView.clicks(change_card_button)
         .map { paymentMethod }
@@ -237,11 +216,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun backEvent(): Observable<Any> {
     return RxView.clicks(cancel_button)
         .mergeWith(backButton)
-  }
-
-
-  override fun close(bundle: Bundle?) {
-    iabView.close(bundle)
   }
 
   override fun showSuccess() {
@@ -287,9 +261,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_iab_error_pre_selected?.visibility = View.VISIBLE
   }
 
-  override fun getMorePaymentMethodsClicks(): Observable<Any> {
-    return RxView.clicks(more_payment_methods)
-  }
+  override fun getMorePaymentMethodsClicks() = RxView.clicks(more_payment_methods)
 
   override fun showMoreMethods() {
     main_view?.let { KeyboardUtils.hideKeyboard(it) }
@@ -298,23 +270,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     iabView.showPaymentMethodsView()
   }
 
-  override fun lockRotation() {
-    iabView.lockRotation()
-  }
-
   override fun setRedirectComponent(action: Action, uid: String) {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.observe(this, Observer {
       paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
     })
-  }
-
-  override fun submitUriResult(uri: Uri) {
-    redirectComponent.handleRedirectResponse(uri)
-  }
-
-  override fun getPaymentDetails(): Observable<RedirectComponentModel> {
-    return paymentDetailsSubject!!
   }
 
   override fun forgetCardClick(): Observable<Any> {
@@ -325,6 +285,22 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String) {
     val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", fiatAmount.toDouble())
     fiat_price.text = "$fiatPrice $currencyCode"
+  }
+
+  override fun errorDismisses() = RxView.clicks(activity_iab_error_ok_button)
+
+  override fun buyButtonClicked() = RxView.clicks(buy_button)
+
+  override fun close(bundle: Bundle?) = iabView.close(bundle)
+
+  override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
+
+  override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
+
+  override fun lockRotation() = iabView.lockRotation()
+
+  override fun hideKeyboard() {
+    view?.let { KeyboardUtils.hideKeyboard(view) }
   }
 
   private fun setBackListener(view: View) {
@@ -468,6 +444,32 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     adyenSecurityCodeLayout.error = null
   }
 
+  private fun handleBonusAnimation() {
+    if (StringUtils.isNotBlank(bonus)) {
+      lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation)
+      setupTransactionCompleteAnimation()
+    } else {
+      lottie_transaction_success.setAnimation(R.raw.success_animation)
+    }
+  }
+
+  private fun handlePreSelectedView(view: View) {
+    if (isPreSelected) {
+      showBonus()
+    } else {
+      cancel_button.setText(R.string.back_button)
+      setBackListener(view)
+    }
+  }
+
+  private fun handleBuyButtonText() {
+    if (transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true)) {
+      buy_button.setText(R.string.action_donate)
+    } else {
+      buy_button.setText(R.string.action_buy)
+    }
+  }
+
   override fun onDestroyView() {
     iabView.enableBack()
     presenter.stop()
@@ -507,17 +509,19 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
                     bonus: String?, isPreSelected: Boolean): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       val bundle = Bundle()
-      bundle.putString(TRANSACTION_TYPE_KEY, transactionType)
-      bundle.putString(PAYMENT_TYPE_KEY, paymentType.name)
-      bundle.putString(DOMAIN_KEY, domain)
-      bundle.putString(ORIGIN_KEY, origin)
-      bundle.putString(TRANSACTION_DATA_KEY, transactionData)
-      bundle.putSerializable(APPC_AMOUNT_KEY, appcAmount)
-      bundle.putSerializable(AMOUNT_KEY, amount)
-      bundle.putString(CURRENCY_KEY, currency)
-      bundle.putString(BONUS_KEY, bonus)
-      bundle.putBoolean(PRE_SELECTED_KEY, isPreSelected)
-      fragment.arguments = bundle
+      bundle.apply {
+        putString(TRANSACTION_TYPE_KEY, transactionType)
+        putString(PAYMENT_TYPE_KEY, paymentType.name)
+        putString(DOMAIN_KEY, domain)
+        putString(ORIGIN_KEY, origin)
+        putString(TRANSACTION_DATA_KEY, transactionData)
+        putSerializable(APPC_AMOUNT_KEY, appcAmount)
+        putSerializable(AMOUNT_KEY, amount)
+        putString(CURRENCY_KEY, currency)
+        putString(BONUS_KEY, bonus)
+        putBoolean(PRE_SELECTED_KEY, isPreSelected)
+        fragment.arguments = this
+      }
       return fragment
     }
   }

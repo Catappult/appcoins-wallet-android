@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
@@ -115,70 +114,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    credit_card_info_container.visibility = View.INVISIBLE
-
-    button.isEnabled = false
-
-    setupChips()
-
-    button.setText(R.string.topup_home_button)
-
-    setupAdyenLayouts()
-
-    if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
-
-    setupDialogs()
-
-    topUpView.showToolbar()
-    main_value.visibility = View.INVISIBLE
-
+    setupUi()
     presenter.present(savedInstanceState)
-  }
-
-  private fun setupCardConfiguration() {
-    val cardConfigurationBuilder =
-        CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-
-    cardConfiguration = cardConfigurationBuilder.let {
-      it.setEnvironment(adyenEnvironment)
-      it.build()
-    }
-  }
-
-  private fun setupAdyenLayouts() {
-    adyenCardNumberLayout =
-        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_cardNumber)
-            ?: adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
-    adyenExpiryDateLayout =
-        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_expiryDate)
-            ?: adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
-    adyenSecurityCodeLayout =
-        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
-            ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
-    adyenCardImageLayout = adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView)
-        ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView)
-    adyenSaveDetailsSwitch =
-        adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
-            ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
-  }
-
-  private fun setupDialogs() {
-    errorDialog = RxAlertDialog.Builder(context)
-        .setMessage(R.string.unknown_error)
-        .setPositiveButton(R.string.ok)
-        .build()
-
-    networkErrorDialog =
-        RxAlertDialog.Builder(context)
-            .setMessage(R.string.notification_no_network_poa)
-            .setPositiveButton(R.string.ok)
-            .build()
-
-    paymentRefusedDialog =
-        RxAlertDialog.Builder(context)
-            .setMessage(R.string.notification_payment_refused)
-            .setPositiveButton(R.string.ok)
-            .build()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -253,9 +190,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  override fun topUpButtonClicked(): Observable<Any> {
-    return RxView.clicks(button)
-  }
+  override fun topUpButtonClicked() = RxView.clicks(button)
 
   override fun errorDismisses(): Observable<Any> {
     return Observable.merge<DialogInterface>(networkErrorDialog.dismisses(),
@@ -281,12 +216,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstanceState: Bundle?) {
-    adyenCardNumberLayout.boxStrokeColor =
-        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
-    adyenExpiryDateLayout.boxStrokeColor =
-        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
-    adyenSecurityCodeLayout.boxStrokeColor =
-        ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
+    val color = ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
+    adyenCardNumberLayout.boxStrokeColor = color
+    adyenExpiryDateLayout.boxStrokeColor = color
+    adyenSecurityCodeLayout.boxStrokeColor = color
     handleLayoutVisibility(isStored)
     prepareCardComponent(paymentMethod, forget, savedInstanceState)
     setStoredPaymentInformation(isStored)
@@ -340,30 +273,22 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     })
   }
 
-  override fun retrievePaymentData(): Observable<AdyenCardWrapper> {
-    return paymentDataSubject!!
-  }
+  override fun retrievePaymentData() = paymentDataSubject!!
 
-  override fun getPaymentDetails(): Observable<RedirectComponentModel> {
-    return paymentDetailsSubject!!
-  }
+  override fun getPaymentDetails() = paymentDetailsSubject!!
 
   override fun forgetCardClick(): Observable<Any> {
     return if (change_card_button != null) RxView.clicks(change_card_button)
     else RxView.clicks(change_card_button_pre_selected)
   }
 
-  override fun submitUriResult(uri: Uri) {
-    redirectComponent.handleRedirectResponse(uri)
-  }
+  override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
 
   override fun updateTopUpButton(valid: Boolean) {
     button.isEnabled = valid
   }
 
-  override fun cancelPayment() {
-    topUpView.cancelPayment()
-  }
+  override fun cancelPayment() = topUpView.cancelPayment()
 
   override fun showChipsAsDisabled(index: Int) {
     chips_layout.visibility = View.VISIBLE
@@ -377,9 +302,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  override fun setFinishingPurchase() {
-    topUpView.setFinishingPurchase()
-  }
+  override fun setFinishingPurchase() = topUpView.setFinishingPurchase()
 
   private fun setupChips() {
     populateChipViewList()
@@ -468,9 +391,68 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     adyenSecurityCodeLayout.error = null
   }
 
+  private fun setupUi() {
+    credit_card_info_container.visibility = View.INVISIBLE
+    button.isEnabled = false
+    setupChips()
+    button.setText(R.string.topup_home_button)
+    setupAdyenLayouts()
+
+    if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
+
+    setupDialogs()
+    topUpView.showToolbar()
+    main_value.visibility = View.INVISIBLE
+  }
+
+  private fun setupCardConfiguration() {
+    val cardConfigurationBuilder =
+        CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+
+    cardConfiguration = cardConfigurationBuilder.let {
+      it.setEnvironment(adyenEnvironment)
+      it.build()
+    }
+  }
+
+  private fun setupAdyenLayouts() {
+    adyenCardNumberLayout =
+        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_cardNumber)
+            ?: adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
+    adyenExpiryDateLayout =
+        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_expiryDate)
+            ?: adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
+    adyenSecurityCodeLayout =
+        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
+            ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
+    adyenCardImageLayout = adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView)
+        ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView)
+    adyenSaveDetailsSwitch =
+        adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
+            ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
+  }
+
+  private fun setupDialogs() {
+    errorDialog = RxAlertDialog.Builder(context)
+        .setMessage(R.string.unknown_error)
+        .setPositiveButton(R.string.ok)
+        .build()
+
+    networkErrorDialog =
+        RxAlertDialog.Builder(context)
+            .setMessage(R.string.notification_no_network_poa)
+            .setPositiveButton(R.string.ok)
+            .build()
+
+    paymentRefusedDialog =
+        RxAlertDialog.Builder(context)
+            .setMessage(R.string.notification_payment_refused)
+            .setPositiveButton(R.string.ok)
+            .build()
+  }
+
   override fun hideKeyboard() {
-    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-    view?.let { imm?.hideSoftInputFromWindow(it.windowToken, 0) }
+    view?.let { KeyboardUtils.hideKeyboard(it) }
   }
 
   override fun onDestroyView() {
@@ -486,7 +468,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     super.onDestroy()
   }
 
-  val appPackage: String by lazy {
+  private val appPackage: String by lazy {
     if (activity != null) {
       activity!!.packageName
     } else {
@@ -494,7 +476,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  val data: TopUpData by lazy {
+  private val data: TopUpData by lazy {
     if (arguments!!.containsKey(PAYMENT_DATA)) {
       arguments!!.getSerializable(PAYMENT_DATA) as TopUpData
     } else {
@@ -502,7 +484,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  val paymentType: String by lazy {
+  private val paymentType: String by lazy {
     if (arguments!!.containsKey(PAYMENT_TYPE)) {
       arguments!!.getString(PAYMENT_TYPE)
     } else {
@@ -510,7 +492,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  val origin: String by lazy {
+  private val origin: String by lazy {
     if (arguments!!.containsKey(PAYMENT_ORIGIN)) {
       arguments!!.getString(PAYMENT_ORIGIN)
     } else {
@@ -588,17 +570,19 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
                     bonusValue: String, selectedChip: Int,
                     chipValues: List<FiatValue>, chipAvailability: Boolean): AdyenTopUpFragment {
       val bundle = Bundle()
-      bundle.putString(PAYMENT_TYPE, paymentType.name)
-      bundle.putString(PAYMENT_ORIGIN, origin)
-      bundle.putString(PAYMENT_TRANSACTION_TYPE, transactionType)
-      bundle.putSerializable(PAYMENT_DATA, data)
-      bundle.putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
-      bundle.putString(BONUS, bonusValue)
-      bundle.putInt(SELECTED_CHIP, selectedChip)
-      bundle.putSerializable(CHIP_VALUES, chipValues as Serializable)
-      bundle.putBoolean(CHIP_AVAILABILITY, chipAvailability)
       val fragment = AdyenTopUpFragment()
-      fragment.arguments = bundle
+      bundle.apply {
+        putString(PAYMENT_TYPE, paymentType.name)
+        putString(PAYMENT_ORIGIN, origin)
+        putString(PAYMENT_TRANSACTION_TYPE, transactionType)
+        putSerializable(PAYMENT_DATA, data)
+        putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
+        putString(BONUS, bonusValue)
+        putInt(SELECTED_CHIP, selectedChip)
+        putSerializable(CHIP_VALUES, chipValues as Serializable)
+        putBoolean(CHIP_AVAILABILITY, chipAvailability)
+        fragment.arguments = this
+      }
       return fragment
     }
   }

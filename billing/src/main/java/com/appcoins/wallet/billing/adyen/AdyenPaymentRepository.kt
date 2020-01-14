@@ -44,10 +44,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
   fun disablePayments(walletAddress: String): Single<Boolean> {
     return adyenApi.disablePayments(DisableWallet(walletAddress))
         .toSingleDefault(true)
-        .onErrorReturn {
-          it.printStackTrace()
-          false
-        }
+        .doOnError { it.printStackTrace() }
+        .onErrorReturn { false }
   }
 
   fun getTransaction(uid: String, walletAddress: String,

@@ -17,7 +17,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   internal fun isBillingSupported(packageName: String,
                                   type: BillingSupportedType): Single<Boolean> {
     return api.getPackage(packageName, type.name.toLowerCase())
-        .map { responseMapper.map() }
+        .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 
   internal fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
@@ -70,7 +70,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                walletSignature: String): Single<Boolean> {
     return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
-        .map { responseMapper.map() }
+        .map { true }
   }
 
   fun registerAuthorizationProof(origin: String?, type: String, oemWallet: String, id: String?,
