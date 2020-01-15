@@ -48,6 +48,7 @@ import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.fragment_iab_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
+import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
@@ -182,6 +183,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       payment_methods?.visibility = View.INVISIBLE
     } else {
       adyen_card_form.visibility = View.INVISIBLE
+      bonus_layout.visibility = View.INVISIBLE
+      bonus_msg.visibility = View.INVISIBLE
       change_card_button.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
       buy_button.visibility = View.INVISIBLE
@@ -193,6 +196,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = View.VISIBLE
     } else {
+      bonus_layout.visibility = View.VISIBLE
+      bonus_msg.visibility = View.VISIBLE
       adyen_card_form.visibility = View.VISIBLE
       cancel_button.visibility = View.VISIBLE
     }
@@ -363,8 +368,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun showBonus() {
-    bonus_layout.visibility = View.VISIBLE
-    bonus_msg.visibility = View.VISIBLE
+    bonus_layout?.visibility = View.VISIBLE
+    bonus_layout_pre_selected?.visibility = View.VISIBLE
+    bonus_msg?.visibility = View.VISIBLE
+    bonus_msg_pre_selected?.visibility = View.VISIBLE
     bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
   }
 
@@ -453,12 +460,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun handlePreSelectedView(view: View) {
-    if (isPreSelected) {
-      showBonus()
-    } else {
+    if (!isPreSelected) {
       cancel_button.setText(R.string.back_button)
       setBackListener(view)
     }
+    showBonus()
   }
 
   private fun handleBuyButtonText() {

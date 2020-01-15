@@ -107,7 +107,7 @@
             />
 
         <include
-            android:id="@+id/bonus_layout"
+            android:id="@+id/bonus_layout_pre_selected"
             layout="@layout/view_purchase_bonus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
             />
 
         <TextView
-            android:id="@+id/bonus_msg"
+            android:id="@+id/bonus_msg_pre_selected"
             style="@style/TopUpTextStyle.Small.BonusText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
             android:text="@string/gamification_purchase_body"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+            app:layout_constraintTop_toBottomOf="@+id/bonus_layout_pre_selected"
             app:layout_constraintVertical_bias="0"
             tools:visibility="visible"
             />
@@ -147,7 +147,7 @@
             android:background="@color/layout_separator_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+            app:layout_constraintTop_toBottomOf="@id/bonus_msg_pre_selected"
             />
 
         <include
@@ -155,7 +155,6 @@
             layout="@layout/dialog_buy_buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

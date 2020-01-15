@@ -60,95 +60,19 @@
           app:layout_constraintTop_toTopOf="parent"
           />
 
-      <ImageView
-          android:id="@+id/app_icon"
-          android:layout_width="42dp"
-          android:layout_height="42dp"
+      <include
+          android:id="@+id/payment_methods_header"
+          layout="@layout/payment_methods_header"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="37dp"
-          android:src="@drawable/ic_appc"
+          android:layout_marginTop="19dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
-      <TextView
-          android:id="@+id/app_name"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="13dp"
-          android:layout_marginEnd="16dp"
-          android:layout_toEndOf="@id/app_icon"
-          android:ellipsize="end"
-          android:maxLines="1"
-          android:textColor="@color/black_87_alpha"
-          android:textSize="16sp"
-          app:layout_constrainedWidth="true"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintHorizontal_bias="0"
-          app:layout_constraintStart_toEndOf="@id/app_icon"
-          app:layout_constraintTop_toTopOf="@id/app_icon"
-          tools:text="Application Name"
-          />
 
-      <TextView
-          android:id="@+id/app_sku_description"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/app_name"
-          android:layout_toEndOf="@id/app_icon"
-          android:ellipsize="end"
-          android:maxLines="1"
-          android:textColor="@color/grey_8a_alpha"
-          android:textSize="12sp"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintHorizontal_bias="0"
-          app:layout_constraintStart_toStartOf="@id/app_name"
-          app:layout_constraintTop_toBottomOf="@id/app_name"
-          tools:text="Item Name"
-          />
-
-      <View
-          android:id="@+id/app_separator"
-          android:layout_width="0dp"
-          android:layout_height="1dp"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="14dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:background="@color/layout_separator_color"
-          app:layout_constraintEnd_toEndOf="@+id/mid_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/app_sku_description"
-          />
-      <TextView
-          android:id="@+id/fiat_price"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="22dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:fontFamily="sans-serif-medium"
-          android:textColor="@color/dialog_buy_fiat_value"
-          android:textSize="15sp"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/app_separator"
-          tools:text="0,99 EUR"
-          />
-
-      <TextView
-          android:id="@+id/appc_price"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:textColor="@color/dialog_secondary_price"
-          android:textSize="12sp"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/fiat_price"
-          tools:text="0,09 APPC"
-          />
 
       <ProgressBar
           android:id="@+id/fragment_credit_card_authorization_progress_bar"
@@ -160,6 +84,37 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
+      <include
+          android:id="@+id/bonus_layout"
+          layout="@layout/view_purchase_bonus"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="19dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
+          tools:visibility="visible"
+          />
+
+      <TextView
+          android:id="@+id/bonus_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="11dp"
+          android:gravity="center_vertical"
+          android:text="@string/gamification_purchase_body"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
       <ScrollView
           android:id="@+id/cc_info_view"

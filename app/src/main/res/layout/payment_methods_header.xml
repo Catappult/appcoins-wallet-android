@@ -77,6 +77,7 @@
       android:layout_height="wrap_content"
       android:textColor="@color/dialog_secondary_price"
       android:textSize="12sp"
+      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
