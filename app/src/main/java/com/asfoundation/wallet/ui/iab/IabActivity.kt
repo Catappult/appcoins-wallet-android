@@ -28,11 +28,6 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
-
-/**
- * Created by franciscocalado on 20/07/2018.
- */
-
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
@@ -141,12 +136,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                                iconUrl: String?) {
+                                iconUrl: String?, frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected))
+                bonus, isPreselected, frequency))
         .commit()
   }
 
@@ -178,7 +173,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
-            intent.dataString))
+            intent.dataString, "Month"))
         .commit()
   }
 

@@ -24,9 +24,9 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     private val TAG = MergedAppcoinsFragment::class.java.simpleName
   }
 
-  fun present() {
+  fun present(frequency: String?) {
     fetchBalance()
-    handlePaymentSelectionChange()
+    handlePaymentSelectionChange(frequency != null)
     handleBuyClick()
     handleBackClick()
   }
@@ -83,9 +83,9 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun handlePaymentSelectionChange() {
+  private fun handlePaymentSelectionChange(isSubscription: Boolean) {
     disposables.add(view.getPaymentSelection()
-        .doOnNext { handleSelection(it) }
+        .doOnNext { handleSelection(it, isSubscription) }
         .subscribe({}, { showError(it) }))
   }
 
@@ -109,10 +109,18 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun handleSelection(selection: String) {
+  private fun handleSelection(selection: String, isSubscription: Boolean) {
     when (selection) {
-      APPC -> view.showBonus()
-      CREDITS -> view.hideBonus()
+      APPC -> {
+        view.hideVolatilityInfo()
+        view.showBonus(isSubscription)
+      }
+      CREDITS -> {
+        view.hideBonus()
+        if (isSubscription) {
+          view.showVolatilityInfo()
+        }
+      }
       else -> Log.w(TAG, "Error creating PublishSubject")
     }
   }

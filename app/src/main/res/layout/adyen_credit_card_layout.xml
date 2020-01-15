@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
@@ -47,9 +48,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:gravity="end"
-            android:lines="1"
+            android:maxLines="1"
             android:textColor="@color/dialog_buy_fiat_value"
-            android:textSize="15sp"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeTextType="uniform"
             tools:text="€ 6.45"
             />
 

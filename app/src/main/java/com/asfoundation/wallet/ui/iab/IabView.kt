@@ -20,7 +20,7 @@ interface IabView {
   fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String)
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                       iconUrl: String?)
+                       iconUrl: String?, frequency: String?)
 
   fun showAppcoinsCreditsPayment(appcAmount: BigDecimal)
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
@@ -33,12 +33,9 @@ interface IabView {
                            originalCurrency: String?, amount: BigDecimal, type: String,
                            selectedPaymentMethod: String)
 
-  fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String,
-                         bonus: String,
-                         productName: String?, appcEnabled: Boolean,
-                         creditsEnabled: Boolean,
-                         isBds: Boolean, isDonation: Boolean,
-                         frequency: String?)
+  fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
+                         productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
+                         isBds: Boolean, isDonation: Boolean, frequency: String?)
 
   fun showWalletBlocked()
   fun lockRotation()

@@ -66,6 +66,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String TRANSACTION = "transaction";
   private static final String ITEM_ALREADY_OWNED = "item_already_owned";
   private static final String IS_DONATION = "is_donation";
+  private static final String FREQUENCY = "frequency";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
@@ -101,6 +102,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
   private boolean isBds;
+  private String frequency;
   private View bonusView;
   private TextView bonusMsg;
   private View bottomSeparator;
@@ -125,7 +127,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, boolean isDonation, String developerPayload, String uri,
-      String transactionData) {
+      String transactionData, String frequency) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -136,6 +138,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putBoolean(IS_BDS, isBds);
     bundle.putBoolean(IS_DONATION, isDonation);
     bundle.putString(TRANSACTION_DATA, transactionData);
+    bundle.putString(FREQUENCY, frequency);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -155,6 +158,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     setupSubject = PublishSubject.create();
     preSelectedPaymentMethod = BehaviorSubject.create();
     isBds = getArguments().getBoolean(IS_BDS);
+    frequency = getArguments().getString(FREQUENCY);
     isDonation = getArguments().getBoolean(IS_DONATION, false);
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
@@ -170,7 +174,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
-        walletBlockedInteract, transactionValue);
+        walletBlockedInteract, transactionValue, frequency);
   }
 
   @Nullable @Override
@@ -315,7 +319,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showPreSelectedPaymentMethod(@NotNull PaymentMethod paymentMethod,
       @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency,
-      @org.jetbrains.annotations.Nullable String frequency) {
+      String frequency) {
     preSelectedPaymentMethod.onNext(paymentMethod.getId());
     updateHeaderInfo(fiatValue, isDonation, currency, frequency);
 
@@ -415,20 +419,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showPaypal() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null);
+        PaymentType.PAYPAL, bonusMessageValue, false, null, frequency);
   }
 
   @Override public void showAdyen(@NotNull FiatValue fiatValue, @NotNull PaymentType paymentType,
       String iconUrl) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds, paymentType,
-          bonusMessageValue, true, iconUrl);
+          bonusMessageValue, true, iconUrl, frequency);
     }
   }
 
   @Override public void showCreditCard() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.CARD, bonusMessageValue, false, null);
+        PaymentType.CARD, bonusMessageValue, false, null, frequency);
   }
 
   @Override public void showAppCoins() {
@@ -511,7 +515,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation, "Month");
+        productName, appcEnabled, creditsEnabled, isBds, isDonation,
+        null);//TODO de onde vem a frequency
   }
 
   @Override public void lockRotation() {
