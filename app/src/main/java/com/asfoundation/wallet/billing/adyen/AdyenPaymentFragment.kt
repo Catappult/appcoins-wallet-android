@@ -98,8 +98,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return if (isPreSelected) {
-      inflater.inflate(R.layout.adyen_credit_card_pre_selected, container,
-          false)
+      inflater.inflate(R.layout.adyen_credit_card_pre_selected, container, false)
     } else {
       inflater.inflate(R.layout.adyen_credit_card_layout, container, false)
     }
@@ -282,6 +281,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String) {
     val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", fiatAmount.toDouble())
     fiat_price.text = "$fiatPrice $currencyCode"
+    fiat_price.visibility = View.VISIBLE
+    appc_price.visibility = View.VISIBLE
   }
 
   override fun errorDismisses() = RxView.clicks(activity_iab_error_ok_button)

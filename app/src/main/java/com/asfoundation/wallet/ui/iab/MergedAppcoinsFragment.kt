@@ -248,6 +248,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     val fiatText = decimalFormat.format(fiatAmount) + ' ' + currency
     fiat_price.text = fiatText
     appc_price.text = appcText
+    fiat_price.visibility = VISIBLE
+    appc_price.visibility = VISIBLE
   }
 
   private fun setPaymentInformation() {

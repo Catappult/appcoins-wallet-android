@@ -50,6 +50,7 @@
             android:lines="1"
             android:textColor="@color/dialog_buy_fiat_value"
             android:textSize="15sp"
+            android:visibility="invisible"
             tools:text="€ 6.45"
             />
 
@@ -62,6 +63,7 @@
             android:textColor="@color/dialog_secondary_price"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:visibility="invisible"
             tools:text="10 APPC"
             />
 
