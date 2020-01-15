@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -34,9 +35,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun submitRedirect(uid: String, walletAddress: String, details: JSONObject,
                      paymentData: String?): Single<PaymentModel> {
-    return adyenApi.submitRedirect(uid, walletAddress,
-        AdyenPayment(Payload(details.getString("payload")),
-            paymentData)) //TODO details should be a generic object this only works if the only redirect payment we use is paypal
+    val json = convertToJson(details)
+    return adyenApi.submitRedirect(uid, walletAddress, AdyenPayment(json, paymentData))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -53,6 +53,18 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     return adyenApi.getTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+  }
+
+  //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter
+  private fun convertToJson(details: JSONObject): JsonObject {
+    val json = JsonObject()
+    val keys = details.keys()
+    while (keys.hasNext()) {
+      val key = keys.next()
+      val value = details.get(key)
+      if (value is String) json.addProperty(key, value)
+    }
+    return json
   }
 
   interface AdyenApi {
@@ -101,7 +113,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                      @SerializedName("wallets.oem") val oem: String?,
                      @SerializedName("wallets.user") val user: String?)
 
-  data class AdyenPayment(@SerializedName("payment.details") val details: Payload,
+  data class AdyenPayment(@SerializedName("payment.details") val details: Any,
                           @SerializedName("payment.data") val data: String?)
 
   data class DisableWallet(@SerializedName("wallet.address") val walletAddress: String)
