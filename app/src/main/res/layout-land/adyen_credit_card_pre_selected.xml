@@ -7,11 +7,11 @@
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
-    android:theme="@style/AppTheme"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
 
   <RelativeLayout
-      android:id="@+id/main_view"
+      android:id="@+id/main_view_pre_selected"
       android:layout_width="@dimen/payment_methods_width_landscape"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
@@ -99,36 +99,61 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
-
-      <include
-          android:id="@+id/layout_pre_selected"
-          layout="@layout/selected_payment_method_cc"
+      <ScrollView
+          android:id="@+id/payment_scroll"
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="16dp"
+          android:overScrollMode="never"
+          android:scrollbars="none"
           app:layout_constraintBottom_toTopOf="@id/more_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/top_separator"
-          app:layout_constraintVertical_bias="0.3"
-          />
-
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            >
+          <include
+              android:id="@+id/layout_pre_selected"
+              layout="@layout/selected_payment_method_cc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="-24dp"
+              />
+          <Button
+              android:id="@+id/change_card_button_pre_selected"
+              style="?android:attr/borderlessButtonStyle"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/button_height"
+              android:layout_below="@id/layout_pre_selected"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="16dp"
+              android:fontFamily="sans-serif-medium"
+              android:lineSpacingExtra="5sp"
+              android:text="@string/activity_iab_change_card"
+              android:textColor="@color/btn_cancel_text"
+              android:textSize="12sp"
+              android:visibility="gone"
+              tools:visibility="visible"
+              />
+        </RelativeLayout>
+      </ScrollView>
       <Button
           android:id="@+id/more_payment_methods"
           style="?android:attr/borderlessButtonStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="4dp"
-          android:layout_marginBottom="20dp"
           android:drawableEnd="@drawable/ic_arrow_right"
           android:text="@string/purchase_more_payment_methods_button"
           android:textColor="@color/text_button_color"
           android:textSize="12sp"
           app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
           />
 
       <View
@@ -152,7 +177,7 @@
 
       <include
           android:id="@+id/dialog_buy_buttons_payment_methods"
-          layout="@layout/dialog_buy_buttons_payment_methods"
+          layout="@layout/dialog_buy_buttons"
           android:layout_width="0dp"
           android:layout_height="48dp"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -172,7 +197,7 @@
       />
 
   <include
-      android:id="@+id/fragment_iab_error"
+      android:id="@+id/fragment_iab_error_pre_selected"
       layout="@layout/fragment_iab_error"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

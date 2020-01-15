@@ -8,6 +8,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
@@ -143,9 +144,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                 iconUrl: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AdyenAuthorizationFragment.newInstance(transaction!!.skuId, transaction!!.type,
-                getOrigin(isBds), paymentType, transaction!!.domain, intent.dataString,
-                transaction!!.amount(), currency, developerPayload, bonus, isPreselected, iconUrl))
+            AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
+                getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
+                bonus, isPreselected))
         .commit()
   }
 
@@ -220,11 +221,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(WalletBlockedActivity.newIntent(this), BLOCKED_WARNING_REQUEST_CODE)
   }
 
-  override fun onNewIntent(intent: Intent) {
-    super.onNewIntent(intent)
-    results!!.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
-  }
-
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
 
@@ -292,7 +288,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val TRANSACTION_DATA = "transaction_data"
     const val TRANSACTION_HASH = "transaction_hash"
     const val TRANSACTION_AMOUNT = "transaction_amount"
-    const val TRANSACTION_CURRENCY = "transaction_currency"
     const val DEVELOPER_PAYLOAD = "developer_payload"
     const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234

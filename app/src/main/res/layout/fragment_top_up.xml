@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
   <ScrollView
       android:id="@+id/top_up_container"
@@ -165,56 +166,34 @@
             app:layout_constraintTop_toTopOf="parent"
             >
 
-          <TextView
-              android:id="@+id/card_details"
+          <RelativeLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginEnd="16dp"
-              android:layout_marginBottom="16dp"
-              android:gravity="end"
-              android:text="****8500"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
-              />
-
-          <com.braintreepayments.cardform.view.CardForm
-              android:id="@+id/fragment_braintree_credit_card_form"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:theme="@style/TopUpTextStyle.PaymentDetails"
-              android:visibility="visible"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/card_details"
-              />
-
-          <CheckBox
-              android:id="@+id/remember_card"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="12dp"
-              android:checked="true"
-              android:text="@string/dialog_credit_card_remember"
-              android:visibility="gone"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
-              />
-
-          <Button
-              android:id="@+id/change_card_button"
-              style="?android:attr/borderlessButtonStyle"
-              android:layout_width="126dp"
-              android:layout_height="@dimen/button_height"
-              android:layout_below="@id/fragment_braintree_credit_card_form"
-              android:gravity="center_vertical"
-              android:paddingStart="7dp"
-              android:text="@string/activity_iab_change_card"
-              android:textColor="@color/dialog_buy_value_text"
-              android:textSize="11sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
-              />
+              >
+            <include
+                android:id="@+id/adyen_card_form"
+                layout="@layout/selected_payment_method_cc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/change_card_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/adyen_card_form"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/activity_iab_change_card"
+                android:textColor="@color/btn_cancel_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+          </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

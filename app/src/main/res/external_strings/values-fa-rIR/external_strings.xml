@@ -3,9 +3,12 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">برای خرید این آیتم، ابتدا باید %s را بگیرید.</string>
-  <string name="appcoins_wallet">کیف پول AppCoins</string>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">بستن</string>
   <string name="iab_wallet_not_installed_popup_close_install">نصب کیف پول</string>
+  <!-- SDK - Purchasing when neither wallet or app store are installed -->
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">برای این خرید نیاز به AppCoins Wallet دارید. آن را از Aptoide یا Play Store دانلود کنید و برای تکمیل خرید خود دوباره بازگردید!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">متوجه شدم!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">نیاز به AppCoins Wallet دارید!</string>
   <string name="poa_wallet_not_installed_notification_body">برای دریافت پاداش خود نیاز به AppCoins Wallet دارید.</string>

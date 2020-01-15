@@ -6,6 +6,9 @@
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">FECHAR</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALAR WALLET</string>
+  <!-- SDK - Purchasing when neither wallet or app store are installed -->
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Você precisa da AppCoins Wallet para fazer esta compra. Faça o download na Aptoide ou na Play Store e retorne para completar sua compra!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">ENTENDI!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">Você precisa da AppCoins Wallet!</string>
   <string name="poa_wallet_not_installed_notification_body">Para receber recompensas, você precisa da AppCoins Wallet.</string>

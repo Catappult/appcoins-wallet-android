@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 public class InAppPurchaseInteractor {
 
-  static final String PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY";
+  public static final String PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY";
   private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";
@@ -58,7 +58,7 @@ public class InAppPurchaseInteractor {
     this.packageManager = packageManager;
   }
 
-  Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
+  public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.parseTransaction(uri);
     } else {
@@ -120,7 +120,7 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }
 
-  Single<FiatValue> convertToFiat(double appcValue, String currency) {
+  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
     return asfInAppPurchaseInteractor.convertToFiat(appcValue, currency);
   }
 
@@ -398,7 +398,7 @@ public class InAppPurchaseInteractor {
     editor.apply();
   }
 
-  void removePreSelectedPaymentMethod() {
+  public void removePreSelectedPaymentMethod() {
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.remove(PRE_SELECTED_PAYMENT_METHOD_KEY);
     editor.apply();

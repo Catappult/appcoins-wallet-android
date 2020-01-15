@@ -232,6 +232,7 @@ class PaymentMethodsPresenter(
                   }
             })
         .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
         .subscribe({ }, { this.showError(it) }))
   }
 

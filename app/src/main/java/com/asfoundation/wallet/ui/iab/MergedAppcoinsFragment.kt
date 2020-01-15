@@ -24,6 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.appcoins_radio_button.*
 import kotlinx.android.synthetic.main.credits_radio_button.*
 import kotlinx.android.synthetic.main.credits_radio_button.view.*
@@ -31,7 +32,6 @@ import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_icon
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_name
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_description
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
-import kotlinx.android.synthetic.main.dialog_credit_card_authorization.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
