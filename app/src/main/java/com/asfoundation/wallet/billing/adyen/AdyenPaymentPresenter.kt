@@ -55,12 +55,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleForgetCardClick() {
     disposables.add(view.forgetCardClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.disablePayments() }
         .observeOn(viewScheduler)
         .doOnNext { success -> if (!success) view.showGenericError() }
         .filter { it }
-        .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle {
           adyenPaymentInteractor.loadPaymentInfo(mapPaymentToService(paymentType),
@@ -146,6 +147,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .doOnNext {
           view.showLoading()
           view.hideKeyboard()
+          view.lockRotation()
         }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenCard ->
@@ -198,8 +200,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       .subscribeOn(viewScheduler)
                 }
                 else -> {
-                  //Non-final state. Chain should restart since getTransaction will emit again
-                  Completable.complete()
+                  Completable.fromAction { view.showGenericError() }
                 }
               }
             }

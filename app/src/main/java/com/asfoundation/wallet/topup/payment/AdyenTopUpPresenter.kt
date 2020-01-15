@@ -123,12 +123,13 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun handleForgetCardClick() {
     disposables.add(view.forgetCardClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.disablePayments() }
         .observeOn(viewScheduler)
         .doOnNext { success -> if (!success) view.showGenericError() }
         .filter { it }
-        .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle {
           adyenPaymentInteractor.loadPaymentInfo(mapPaymentToService(paymentType),

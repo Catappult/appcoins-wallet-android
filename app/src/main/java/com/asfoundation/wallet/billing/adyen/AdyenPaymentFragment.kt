@@ -26,7 +26,10 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.FragmentNavigator
+import com.asfoundation.wallet.ui.iab.IabActivity
+import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
@@ -65,7 +68,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   @Inject
   lateinit var adyenEnvironment: Environment
   private lateinit var iabView: IabView
-  private lateinit var paymentMethod: PaymentMethod
   private lateinit var presenter: AdyenPaymentPresenter
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var compositeDisposable: CompositeDisposable
@@ -195,11 +197,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       adyen_card_form.visibility = View.VISIBLE
       cancel_button.visibility = View.VISIBLE
     }
-  }
-
-  override fun changeCardMethodDetailsEvent(): Observable<PaymentMethod> {
-    return RxView.clicks(change_card_button)
-        .map { paymentMethod }
   }
 
   override fun showNetworkError() {
@@ -377,6 +374,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       adyenCardImageLayout?.visibility = View.GONE
       change_card_button?.visibility = View.VISIBLE
       change_card_button_pre_selected?.visibility = View.VISIBLE
+      view?.let { KeyboardUtils.showKeyboard(it) }
     } else {
       adyenCardNumberLayout.visibility = View.VISIBLE
       adyenExpiryDateLayout.visibility = View.VISIBLE

@@ -365,6 +365,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
           adyenCardNumberLayout.editText?.text
       adyen_card_form_pre_selected_number?.visibility = View.VISIBLE
       payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
+      view?.let { KeyboardUtils.showKeyboard(it) }
     } else {
       adyen_card_form_pre_selected_number?.visibility = View.GONE
       payment_method_ic?.visibility = View.GONE
