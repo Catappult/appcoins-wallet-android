@@ -72,6 +72,8 @@ android {
         "\"" + project.PAYMENT_GAS_LIMIT + "\""
     buildConfigField 'String', 'FLURRY_APK_KEY',
         "\"" + project.FLURRY_APK_KEY + "\""
+    buildConfigField 'String', 'ADYEN_PUBLIC_KEY',
+        "\"" + project.ADYEN_PUBLIC_KEY_DEV + "\""
 
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
 
@@ -118,6 +120,8 @@ android {
       buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_PROD
       buildConfigField 'String', 'APTOIDE_PKG_NAME',
           "\"" + project.APTOIDE_PACKAGE_NAME + "\""
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY',
+          "\"" + project.ADYEN_PUBLIC_KEY + "\""
     }
     debug {
       minifyEnabled false
@@ -143,6 +147,8 @@ android {
       manifestPlaceholders.secondPaymentHost = "${project.PAYMENT_HOST_DEV}"
       buildConfigField 'String', 'SECOND_PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST_DEV + "\""
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY',
+          "\"" + project.ADYEN_PUBLIC_KEY + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
@@ -248,9 +254,9 @@ dependencies {
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 
-  //braintreepayments card form dependency
-  implementation "com.braintreepayments:card-form:$project.card_form"
-  implementation "com.adyen.checkout:core:$project.checkout"
+  //adyen dependency
+  implementation "com.adyen.checkout:card-ui:$project.adyenVersion"
+  implementation "com.adyen.checkout:redirect:$project.adyenVersion"
 
   // Rx Lifecycle
   implementation "com.trello:rxlifecycle:$project.rxlifecycle"
