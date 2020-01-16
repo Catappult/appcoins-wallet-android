@@ -293,7 +293,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       appc_price.text = appcText
     }
 
-
     fiat_price.text = fiatText
   }
 
