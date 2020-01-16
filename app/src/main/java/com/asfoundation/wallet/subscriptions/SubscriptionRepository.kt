@@ -16,7 +16,8 @@ class SubscriptionRepository(
         .map { subscriptions ->
           subscriptions.map { subscription ->
             SubscriptionItem(subscription.appName, subscription.packageName, subscription.iconUrl,
-                subscription.amount, subscription.symbol, subscription.recurrence)
+                subscription.amount, subscription.symbol, subscription.recurrence,
+                subscription.expiresOn)
           }
         }
   }
@@ -27,7 +28,8 @@ class SubscriptionRepository(
         .map { subscriptions ->
           subscriptions.map { subscription ->
             SubscriptionItem(subscription.appName, subscription.packageName, subscription.iconUrl,
-                subscription.amount, subscription.symbol, subscription.recurrence)
+                subscription.amount, subscription.symbol, subscription.recurrence,
+                subscription.expiresOn)
           }
         }
   }
@@ -52,7 +54,7 @@ class SubscriptionRepository(
       ActiveSubscriptionDetails(subscription.appName, subscription.packageName,
           subscription.iconUrl, subscription.amount, subscription.symbol, subscription.currency,
           subscription.recurrence, BigDecimal.ZERO, subscription.paymentMethod,
-          subscription.paymentMethodIcon, subscription.nextPaymentDate!!)
+          subscription.paymentMethodIcon, subscription.nextPaymentDate, subscription.expiresOn)
     } else {
       ExpiredSubscriptionDetails(subscription.appName, subscription.packageName,
           subscription.iconUrl, subscription.amount, subscription.symbol, subscription.currency,

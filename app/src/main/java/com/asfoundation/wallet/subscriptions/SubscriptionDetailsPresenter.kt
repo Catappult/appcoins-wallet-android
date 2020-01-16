@@ -35,12 +35,12 @@ class SubscriptionDetailsPresenter(
   }
 
   private fun onSubscriptionDetails(subscriptionDetails: SubscriptionDetails) {
-    view.showDetails()
     if (subscriptionDetails is ActiveSubscriptionDetails) {
       view.showActiveDetails(subscriptionDetails)
     } else if (subscriptionDetails is ExpiredSubscriptionDetails) {
       view.showExpiredDetails(subscriptionDetails)
     }
+    view.showDetails()
   }
 
   private fun onError(throwable: Throwable) {

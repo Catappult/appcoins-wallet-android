@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.layout_expired_subscription_content.*
 import kotlinx.android.synthetic.main.layout_expired_subscription_content.view.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.math.RoundingMode
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -93,8 +94,27 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     total_value_appc.text = String.format("~%s / APPC",
         subscriptionDetails.appcValue.setScale(FIAT_SCALE, RoundingMode.FLOOR))
 
-    next_payment_value.text = getDateString(subscriptionDetails.nextPayment)
     layout_active_subscription_content.payment_method_value.text = subscriptionDetails.paymentMethod
+
+
+    if (subscriptionDetails.expiresOn != null) {
+      expires_on.visibility = View.VISIBLE
+      cancel_subscription.visibility = View.GONE
+      next_payment_value.text = "Canceled"
+      next_payment_value.setTextColor(resources.getColor(R.color.red))
+
+      val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
+
+      expires_on.text =
+          String.format("Canceled - It expires on %s",
+              dateFormat.format(subscriptionDetails.expiresOn))
+
+      info.visibility = View.GONE
+      info_text.visibility = View.GONE
+
+    } else if (subscriptionDetails.nextPayment != null) {
+      next_payment_value.text = getDateString(subscriptionDetails.nextPayment)
+    }
   }
 
   override fun showExpiredDetails(subscriptionDetails: ExpiredSubscriptionDetails) {

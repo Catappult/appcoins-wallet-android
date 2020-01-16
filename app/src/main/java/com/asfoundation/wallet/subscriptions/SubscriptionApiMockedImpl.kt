@@ -11,8 +11,12 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
       val subs1 = Subscription("Real Boxing", "com.vividgames.realboxing",
           "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png",
           BigDecimal.TEN, "€", "EUR", true, "PayPal",
-          PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), "Month")
-      it.onSuccess(listOf(subs1))
+          PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), null, "Month")
+      val subs2 = Subscription("Cuties", "com.celticspear.blackies",
+          "http://pool.img.aptoide.com/bds-store/d6267357ec641dd583a0ad318fa0741b_icon.png",
+          BigDecimal("3.56"), "€", "EUR", true, "Credit Card",
+          CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), getFutureDate(), "Month")
+      it.onSuccess(listOf(subs1, subs2))
     }
   }
 
@@ -21,7 +25,7 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
       val subs1 = Subscription("Creative Destruction", "com.titan.cd.gb",
           "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg",
           BigDecimal.ONE, "€", "EUR", false, "Credit Card",
-          CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), "Week")
+          CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), null, "Week")
       it.onSuccess(listOf(subs1))
     }
   }
@@ -33,14 +37,21 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
           val subs1 = Subscription("Real Boxing", "com.vividgames.realboxing",
               "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png",
               BigDecimal.TEN, "€", "EUR", true, "PayPal",
-              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), "Month")
+              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), null, "Month")
           it.onSuccess(subs1)
         }
         "com.titan.cd.gb" -> {
           val subs1 = Subscription("Creative Destruction", "com.titan.cd.gb",
               "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg",
               BigDecimal.ONE, "€", "EUR", false, "Credit Card",
-              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), "Week")
+              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), null, "Week")
+          it.onSuccess(subs1)
+        }
+        "com.celticspear.blackies" -> {
+          val subs1 = Subscription("Cuties", "com.celticspear.blackies",
+              "http://pool.img.aptoide.com/bds-store/d6267357ec641dd583a0ad318fa0741b_icon.png",
+              BigDecimal("3.56"), "€", "EUR", true, "Credit Card",
+              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), getFutureDate(), "Week")
           it.onSuccess(subs1)
         }
         else -> {
@@ -57,14 +68,21 @@ class SubscriptionApiMockedImpl : SubscriptionApiMocked {
           val subs1 = Subscription("Real Boxing", "com.vividgames.realboxing",
               "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png",
               BigDecimal.TEN, "€", "EUR", true, "PayPal",
-              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), "Month")
+              PAYPAL_ICON_URL, getFutureDate(), getPastDate(), getPastDate(), null, "Month")
           it.onSuccess(subs1)
         }
         "0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98" -> {
           val subs1 = Subscription("Creative Destruction", "com.titan.cd.gb",
               "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg",
               BigDecimal.ONE, "€", "EUR", false, "Credit Card",
-              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), "Week")
+              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), null, "Week")
+          it.onSuccess(subs1)
+        }
+        "0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9-2" -> {
+          val subs1 = Subscription("Cuties", "com.celticspear.blackies",
+              "http://pool.img.aptoide.com/bds-store/d6267357ec641dd583a0ad318fa0741b_icon.png",
+              BigDecimal("3.56"), "€", "EUR", true, "Credit Card",
+              CREDIT_CARD_ICON_URL, null, getPastDate(), getPastDate(), getFutureDate(), "Week")
           it.onSuccess(subs1)
         }
         else -> {
