@@ -62,6 +62,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   private fun addMockedSubscriptions(transactions: MutableList<Transaction>,
                                      it: Wallet): List<Transaction> {
     transactions.add(getActiveMockedTransaction(it.address))
+    transactions.add(getExpiringMockedTransaction(it.address))
     transactions.add(getExpiredMockedTransaction(it.address))
     return transactions.toList()
   }
@@ -74,6 +75,17 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         TransactionDetails("Real Boxing",
             TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png"),
+            "Subscription"), "EUR", emptyList())
+  }
+
+  private fun getExpiringMockedTransaction(address: String): Transaction {
+    return Transaction("0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9-2",
+        Transaction.TransactionType.SUBS, null, System.currentTimeMillis(),
+        System.currentTimeMillis(), Transaction.TransactionStatus.SUCCESS, "10000000000000000000",
+        address, "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
+        TransactionDetails("Cuties",
+            TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
+                "http://pool.img.aptoide.com/bds-store/d6267357ec641dd583a0ad318fa0741b_icon.png"),
             "Subscription"), "EUR", emptyList())
   }
 
