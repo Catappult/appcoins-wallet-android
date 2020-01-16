@@ -94,8 +94,8 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
 
+  
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Processing…</string>
@@ -108,7 +108,7 @@
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
-
+  
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
@@ -130,7 +130,7 @@
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
   <string name="intro_skip_button">SKIP</string>
-
+        
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
@@ -237,7 +237,6 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_subscription">Subscription</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -294,7 +293,7 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>  
   <string name="gamification_how_header">How to Level Up?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
@@ -371,7 +370,7 @@
   <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
   <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
-
+  
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
@@ -403,6 +402,7 @@
   <string name="p2p_send_currency_appc_c" translatable="false">APPC-C</string>
 
 
+
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
@@ -426,11 +426,11 @@
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
 
-
+  
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
-
+  
   <!--Tokens-->
   <string name="appc_token_name" translatable="false">AppCoins</string>
   <string name="appc_credits_token_name" translatable="false">AppCoins Credits</string>
@@ -490,6 +490,7 @@
   <string name="purchase_card_error_invalid_details">Are you sure your card details are correct? Please try again!</string>
   <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
   <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
 
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invite Your Friends!</string>
@@ -522,7 +523,7 @@
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
 
 
-  <!--Promotions-->
+<!--Promotions-->
   <string name="bottom_navigation_promotions">Promotions</string>
   <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
   <string name="promotions_title">Earn AppCoins Credits</string>
@@ -535,7 +536,7 @@
   <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
   <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
 
-  <!--Update-->
+<!--Update-->
   <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
   <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
   <string name="update_wallet_purchase_title">You need to update!</string>
@@ -545,7 +546,7 @@
   <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
   <string name="update_button">UPDATE</string>
 
-  <!--Backup and Import-->
+<!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
   <string name="backup_button">BACKUP</string>
@@ -561,9 +562,11 @@
   <string name="import_wallet_button">IMPORT WALLET</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
 
 
-  <!--Wallets Management-->
+<!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
   <string name="wallets_active_wallet_title">Active Wallet</string>
@@ -572,7 +575,7 @@
     <item quantity="one">Wallet</item>
     <item quantity="other">Wallets</item>
   </plurals>
-
+  
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
   <string name="wallets_imported_body">Wallet successfuly imported</string>
@@ -588,7 +591,7 @@
   <string name="wallet_view_activate_button">MAKE THIS WALLET ACTIVE</string>
   <string name="wallet_view_active_body">This is your active wallet.</string>
 
-  <!--Remove Wallet-->
+<!--Remove Wallet-->
   <string name="remove_wallet_title">Remove Wallet</string>
   <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
   <string name="remove_wallet_backup_button">BACKUP WALLET</string>
@@ -598,7 +601,7 @@
   <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
   <string name="remove_wallet_removed_body">Wallet removed!</string>
 
-  <!--Tranfer-->
+<!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transfer Funds</string>
   <string name="transfer_send_tab_title">Send</string>
@@ -610,6 +613,8 @@
   <string name="transfer_send_current_balance_title">Current Balance:</string>
   <string name="transfer_send_button">SEND</string>
   <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
+
+
 
 
 </resources>
