@@ -57,7 +57,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
-        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io())
+        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), isSubscription)
   }
 
   override fun onAttach(context: Context) {
@@ -74,7 +74,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupUI(view)
-    mergedAppcoinsPresenter.present(frequency)
+    mergedAppcoinsPresenter.present()
   }
 
   private fun setupUI(view: View) {
@@ -84,7 +84,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     setPaymentInformation()
     setBonus()
     setBackListener(view)
-    if (frequency != null) {
+    if (isSubscription) {
       showVolatilityInfo()
     }
   }
@@ -100,7 +100,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setBuyButtonText(): String {
-    return if (frequency != null) {
+    return if (isSubscription) {
       "Subscribe"
     } else {
       if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
@@ -141,7 +141,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         .toString() + " APPC"
     var fiatText = decimalFormat.format(fiatAmount) + ' ' + currency
 
-    if (frequency != null) {
+    if (isSubscription) {
       fiatText += "/$frequency"
       appcText = "~$appcText"
     }
@@ -291,7 +291,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun onResume() {
     super.onResume()
-    mergedAppcoinsPresenter.present(frequency)
+    mergedAppcoinsPresenter.present()
   }
 
   override fun onPause() {
@@ -393,6 +393,14 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+  private val isSubscription: Boolean by lazy {
+    if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
+      arguments!!.getBoolean(IS_SUBSCRIPTION)
+    } else {
+      throw IllegalArgumentException("is subscriptino data not found")
+    }
+  }
+
   private val frequency: String? by lazy {
     if (arguments!!.containsKey(FREQUENCY)) {
       arguments!!.getString(FREQUENCY)
@@ -412,6 +420,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
     private const val IS_BDS_KEY = "is_bds"
     private const val IS_DONATION_KEY = "is_donation"
+    private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
     const val APPC = "appcoins"
     const val CREDITS = "credits"
@@ -420,7 +429,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     fun newInstance(fiatAmount: BigDecimal, currency: String, bonus: String, appName: String,
                     productName: String?, appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean,
-                    frequency: String?): Fragment {
+                    isSubscription: Boolean, frequency: String?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
       bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -433,6 +442,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
       bundle.putBoolean(IS_BDS_KEY, isBds)
       bundle.putBoolean(IS_DONATION_KEY, isDonation)
+      bundle.putBoolean(IS_SUBSCRIPTION, isSubscription)
       bundle.putString(FREQUENCY, frequency)
       fragment.arguments = bundle
       return fragment

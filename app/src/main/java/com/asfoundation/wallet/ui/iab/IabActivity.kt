@@ -169,11 +169,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
+    val isSubscription = TransactionData.TransactionType.SUBS.name
+        .equals(transaction?.type, ignoreCase = true)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
-            intent.dataString, "Month"))
+            intent.dataString, isSubscription, "Month"))
         .commit()
   }
 
@@ -190,12 +192,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                                   productName: String?, appcEnabled: Boolean,
                                   creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean,
-                                  frequency: String?) {
+                                  isSubscription: Boolean, frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
                 productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
-                isDonation, frequency))
+                isDonation, isSubscription, frequency))
         .commit()
   }
 

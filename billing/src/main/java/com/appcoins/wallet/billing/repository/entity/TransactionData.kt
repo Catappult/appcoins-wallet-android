@@ -28,6 +28,7 @@ class TransactionData @JvmOverloads constructor(@SerializedName("type")
   enum class TransactionType {
     DONATION,
     INAPP,
+    SUBS,
     INAPP_UNMANAGED;
   }
 }

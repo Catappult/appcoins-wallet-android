@@ -18,15 +18,16 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val balanceInteract: BalanceInteract,
                               private val viewScheduler: Scheduler,
                               private val walletBlockedInteract: WalletBlockedInteract,
-                              private val networkScheduler: Scheduler) {
+                              private val networkScheduler: Scheduler,
+                              private val isSubscription: Boolean) {
 
   companion object {
     private val TAG = MergedAppcoinsFragment::class.java.simpleName
   }
 
-  fun present(frequency: String?) {
+  fun present() {
     fetchBalance()
-    handlePaymentSelectionChange(frequency != null)
+    handlePaymentSelectionChange()
     handleBuyClick()
     handleBackClick()
   }
@@ -83,7 +84,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun handlePaymentSelectionChange(isSubscription: Boolean) {
+  private fun handlePaymentSelectionChange() {
     disposables.add(view.getPaymentSelection()
         .doOnNext { handleSelection(it, isSubscription) }
         .subscribe({}, { showError(it) }))

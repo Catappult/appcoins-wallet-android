@@ -48,6 +48,7 @@ class PaymentMethodsPresenter(
     private val paymentMethodsMapper: PaymentMethodsMapper,
     private val walletBlockedInteract: WalletBlockedInteract,
     private val transactionValue: Double,
+    private val isSubscription: Boolean,
     private val frequency: String?) {
 
   fun present() {
@@ -81,7 +82,7 @@ class PaymentMethodsPresenter(
         .observeOn(viewScheduler)
         .doOnSuccess {
           if (it.status == ForecastBonus.Status.ACTIVE && it.amount > BigDecimal.ZERO) {
-            if (frequency != null) {
+            if (isSubscription) {
               view.setBonusSubscription(it.amount, it.currency)
             } else {
               view.setBonusPurchase(it.amount, it.currency)
@@ -416,7 +417,7 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
       view.replaceBonus()
     } else {
-      if (frequency != null) {
+      if (isSubscription) {
         view.showBonusSubscription()
       } else {
         view.showBonus()
@@ -430,7 +431,7 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
       view.showNext()
     } else {
-      if (frequency != null) {
+      if (isSubscription) {
         view.showSubscribe()
       } else {
         view.showBuy()

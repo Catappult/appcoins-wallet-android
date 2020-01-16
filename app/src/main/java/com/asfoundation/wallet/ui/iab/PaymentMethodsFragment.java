@@ -66,6 +66,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String TRANSACTION = "transaction";
   private static final String ITEM_ALREADY_OWNED = "item_already_owned";
   private static final String IS_DONATION = "is_donation";
+  private static final String IS_SUBSCRIPTION = "is_subscription";
   private static final String FREQUENCY = "frequency";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -102,6 +103,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
   private boolean isBds;
+  private boolean isSubscription;
   private String frequency;
   private View bonusView;
   private TextView bonusMsg;
@@ -127,7 +129,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, boolean isDonation, String developerPayload, String uri,
-      String transactionData, String frequency) {
+      String transactionData, boolean isSubscription, String frequency) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -139,6 +141,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putBoolean(IS_DONATION, isDonation);
     bundle.putString(TRANSACTION_DATA, transactionData);
     bundle.putString(FREQUENCY, frequency);
+    bundle.putBoolean(IS_SUBSCRIPTION, isSubscription);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -158,6 +161,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     setupSubject = PublishSubject.create();
     preSelectedPaymentMethod = BehaviorSubject.create();
     isBds = getArguments().getBoolean(IS_BDS);
+    isSubscription = getArguments().getBoolean(IS_SUBSCRIPTION);
     frequency = getArguments().getString(FREQUENCY);
     isDonation = getArguments().getBoolean(IS_DONATION, false);
     transaction = getArguments().getParcelable(TRANSACTION);
@@ -174,7 +178,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
-        walletBlockedInteract, transactionValue, frequency);
+        walletBlockedInteract, transactionValue, isSubscription, frequency);
   }
 
   @Nullable @Override
@@ -515,8 +519,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation,
-        frequency);
+        productName, appcEnabled, creditsEnabled, isBds, isDonation, isSubscription, frequency);
   }
 
   @Override public void lockRotation() {
@@ -581,7 +584,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .toString() + " APPC";
     String fiatText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
 
-    if (frequency != null) {
+    if (isSubscription) {
       fiatText += "/" + frequency;
       appcText = "~" + appcText;
     }

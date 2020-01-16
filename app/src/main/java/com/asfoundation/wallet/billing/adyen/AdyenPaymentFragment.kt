@@ -489,7 +489,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
         buy_button.setText(R.string.action_donate)
       }
-      frequency != null -> {
+      transactionType.equals(TransactionData.TransactionType.SUBS.name, ignoreCase = true) -> {
         buy_button.text = "Subscribe"
       }
       else -> {
