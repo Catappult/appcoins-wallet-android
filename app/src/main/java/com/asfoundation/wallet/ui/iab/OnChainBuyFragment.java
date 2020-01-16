@@ -137,10 +137,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     super.onDestroyView();
   }
 
-  @Override public void onDestroy() {
-    super.onDestroy();
-  }
-
   @Override public void onDetach() {
     super.onDetach();
     iabView = null;

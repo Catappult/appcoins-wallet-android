@@ -266,10 +266,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     super.onDestroyView();
   }
 
-  @Override public void onDestroy() {
-    super.onDestroy();
-  }
-
   @Override public void onDetach() {
     super.onDetach();
     iabView = null;
