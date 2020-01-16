@@ -24,7 +24,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.appcoins_radio_button.*
 import kotlinx.android.synthetic.main.credits_radio_button.*
 import kotlinx.android.synthetic.main.credits_radio_button.view.*
@@ -34,6 +33,7 @@ import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_descrip
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
+import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
@@ -248,6 +248,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     val fiatText = decimalFormat.format(fiatAmount) + ' ' + currency
     fiat_price.text = fiatText
     appc_price.text = appcText
+    fiat_price.visibility = VISIBLE
+    appc_price.visibility = VISIBLE
   }
 
   private fun setPaymentInformation() {

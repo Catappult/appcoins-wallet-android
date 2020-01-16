@@ -547,6 +547,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
     appcPriceTv.setText(valueText);
     fiatPriceTv.setText(priceText);
+    appcPriceTv.setVisibility(View.VISIBLE);
+    fiatPriceTv.setVisibility(View.VISIBLE);
     int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
 
