@@ -511,12 +511,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showSubscribe() {
     buyButton.setText("Subscribe");
-  } //TODO replace with string
+  }
 
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
         productName, appcEnabled, creditsEnabled, isBds, isDonation,
-        null);//TODO de onde vem a frequency
+        frequency);
   }
 
   @Override public void lockRotation() {

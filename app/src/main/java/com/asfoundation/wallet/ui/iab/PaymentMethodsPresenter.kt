@@ -297,7 +297,7 @@ class PaymentMethodsPresenter(
                 Completable.fromAction {
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   loadBonusIntoView()
-                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, "TODO")
+                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, frequency)
                 }
               }
               .andThen(
