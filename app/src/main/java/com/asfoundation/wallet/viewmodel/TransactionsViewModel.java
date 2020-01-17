@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
