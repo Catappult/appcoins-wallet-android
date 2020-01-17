@@ -1,5 +1,4 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,30 +10,23 @@
       android:layout_height="92dp"
       />
 
-  <FrameLayout
-      android:id="@+id/src_img"
+  <ImageView
+      android:id="@+id/img"
       android:layout_width="56dp"
       android:layout_height="56dp"
+      android:layout_gravity="center"
       android:layout_marginStart="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginBottom="@dimen/big_padding"
       android:animateLayoutChanges="true"
       android:background="@drawable/transaction_details_img_background"
+      android:contentDescription="@string/empty"
       android:elevation="@dimen/component_elevation"
+      android:scaleType="fitCenter"
       app:layout_anchor="@+id/app_bar"
       app:layout_anchorGravity="center|bottom"
-      >
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/empty"
-        android:scaleType="centerInside"
-        tools:src="@drawable/ic_transaction_peer"
-        />
-  </FrameLayout>
+      tools:src="@drawable/ic_transaction_peer"
+      />
 
   <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"

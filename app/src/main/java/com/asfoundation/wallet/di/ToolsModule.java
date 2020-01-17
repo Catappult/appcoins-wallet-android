@@ -19,6 +19,7 @@ import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import cm.aptoide.analytics.AnalyticsManager;
+import com.adyen.checkout.core.api.Environment;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
@@ -35,6 +36,8 @@ import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository;
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.appcoins.wallet.gamification.Gamification;
@@ -68,11 +71,8 @@ import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
-import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
-import com.asfoundation.wallet.billing.TransactionService;
-import com.asfoundation.wallet.billing.adyen.Adyen;
-import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.billing.partners.AddressService;
@@ -85,7 +85,6 @@ import com.asfoundation.wallet.billing.partners.OemIdExtractorV2;
 import com.asfoundation.wallet.billing.partners.PartnerAddressService;
 import com.asfoundation.wallet.billing.partners.PartnerWalletAddressService;
 import com.asfoundation.wallet.billing.partners.WalletAddressService;
-import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository;
 import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository;
 import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi;
@@ -230,7 +229,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.jakewharton.rxrelay2.BehaviorRelay;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Single;
@@ -239,7 +237,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -754,22 +751,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     };
   }
 
-  @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
-  }
-
-  @Singleton @Provides TransactionService provideTransactionService(
-      RemoteRepository remoteRepository) {
-    return new BDSTransactionService(remoteRepository);
-  }
-
-  @Singleton @Provides BillingFactory provideCreditCardBillingFactory(
-      TransactionService transactionService, WalletService walletService, Adyen adyen,
-      AddressService addressService) {
-    return merchantName -> new AdyenBillingService(merchantName, transactionService, walletService,
-        adyen, addressService);
-  }
-
   @Singleton @Provides BdsPendingTransactionService provideBdsPendingTransactionService(
       BillingPaymentProofSubmission billingPaymentProofSubmission, Billing billing) {
     return new BdsPendingTransactionService(billing, Schedulers.io(), 5,
@@ -803,6 +784,34 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BillingMessagesMapper provideBillingMessagesMapper() {
     return new BillingMessagesMapper(new ExternalBillingSerializer());
+  }
+
+  @Provides AdyenPaymentInteractor provideAdyenPaymentInteractor(
+      AdyenPaymentRepository adyenPaymentRepository,
+      InAppPurchaseInteractor inAppPurchaseInteractor, AddressService partnerAddressService,
+      Billing billing, WalletService walletService) {
+    return new AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
+        inAppPurchaseInteractor.getBillingMessagesMapper(), partnerAddressService, billing,
+        walletService);
+  }
+
+  @Singleton @Provides AdyenPaymentRepository provideAdyenPaymentRepository(OkHttpClient client) {
+    AdyenPaymentRepository.AdyenApi api = new Retrofit.Builder().baseUrl(
+        BuildConfig.BASE_HOST + "/broker/8.20191202/gateways/adyen_v2/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AdyenPaymentRepository.AdyenApi.class);
+    return new AdyenPaymentRepository(api, new AdyenResponseMapper());
+  }
+
+  @Provides Environment provideAdyenEnvironment() {
+    if (BuildConfig.DEBUG) {
+      return Environment.TEST;
+    } else {
+      return Environment.EUROPE;
+    }
   }
 
   @Singleton @Provides SharedPreferences provideSharedPreferences(Context context) {

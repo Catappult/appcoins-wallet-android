@@ -75,6 +75,8 @@ class WalletValidationActivity : BaseActivity(),
     validation_progress_animation.setMinAndMaxFrame(minFrame, maxFrame)
     validation_progress_animation.repeatCount = loopAnimation
     validation_progress_animation.playAnimation()
+    scrollView.isHorizontalScrollBarEnabled = false
+    scrollView.isVerticalScrollBarEnabled = false
     setupToolbar()
   }
 

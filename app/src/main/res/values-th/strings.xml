@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">คีย์สโตร์</string>
   <string name="tab_private_key">คีย์ส่วนตัว</string>
-  <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ข้อผิดพลาด</string>
   <string name="title_dialog_handling">กำลังประมวลผล...</string>
@@ -390,7 +389,8 @@
   <string name="retry_button">ลอง</string>
   <string name="do_it_later_button">ทำภายหลัง</string>
   <string name="connectoin_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
-  <string name="common_or">หรือ</string>
+  <string name="common_or">OR</string>
+  <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -444,13 +444,14 @@
   <string name="purchase_poa_view_body">ลองแอป 2 นาทีและรับรางวัลใน Apptoide Credits เพื่อซื้อ!</string>
   <string name="purchase_current_balance_body">ยอดคงเหลือปัจจุบัน:</string>
   <string name="purchase_current_balance_appcc_body">%s ในเครดิต AppCoins</string>
-  <string name="purchase_current_balance_appc_eth_body">%ใน AppCoins และ Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s AppCoins และ Ether.</string>
   <string name="purchase_wallet_blocked_title">เครดิต AppCoinของคุณถูกบล็อก</string>
   <string name="purchase_wallet_blocked_body">เนื่องจากประวัติการทำธุรกรรมที่ผิดปกติ ยอดคงเหลือ AppCoins Credits ของคุณจึงถูกปิดกั้น คุณจะยังสามารถชำระเงินและทำธุรกรรมด้วยวิธีอื่น ๆ ยกเว้น AppCoins Credits \n\n หากคุณเชื่อว่าสิ่งนี่เป็นข้อผิดพลาดโปรดติดต่อเราที่:</string>
   <string name="purchase_card_error_general">ดูเหมือนว่ามีปัญหากับการ์ดของคุณ โปรดลองด้วยวิธีอื่น</string>
   <string name="purchase_card_error_invalid_details">คุณแน่ใจหรือว่ารายละเอียดบัตรของคุณถูกต้อง? กรุณาลองอีกครั้ง!</string>
   <string name="purchase_card_error_bank_rejects">ธุรกรรมของคุณถูกปฏิเสธโดยธนาคารของคุณ โปรดลองด้วยบัตรใบอื่น</string>
   <string name="purchase_card_error_limits">ดูเหมือนว่ามีข้อ จำกัด บางประการสำหรับการ์ดของคุณ โปรดติดต่อธนาคารของคุณหรือลองกับธนาคา</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
@@ -483,11 +484,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">โปรโมชั่น</string>
   <string name="bottom_navigation_promotions_detailed">ค้นพบวิธีการหาเครดิต AppCoins ฟรีด้วยโปรโมชั่นและแคมเปญของเรา</string>
-  <string name="promotions_title">โปรโมชั่น</string>
+  <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">รับสูงสุด %s โดยการเชิญเพื่อน</string>
   <string name="promotions_referral_card_body">แชร์ลิงค์เชิญของคุณและรับเครดิต AppCoins</string>
   <string name="promotions_gamification_card_title">โบนัสสูงสุด 30% ในทุกการซื้อ</string>
   <string name="promotions_new">ใหม่</string>
+  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
+  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
+  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">อัพเดตเพื่อรับรางวัล</string>
   <string name="update_wallet_poa_notification_body">โปรดอัปเดต AppCoins Wallet เพื่อรับรางวัลนี้</string>
@@ -512,6 +517,9 @@
   <string name="import_wallet_file_button">นำเข้าจากไฟล์</string>
   <string name="import_wallet_button">นำเข้ากระเป๋าสตางค์</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>

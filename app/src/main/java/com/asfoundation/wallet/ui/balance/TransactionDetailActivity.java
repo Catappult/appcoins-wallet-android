@@ -13,6 +13,7 @@ import androidx.annotation.StringRes;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
@@ -24,9 +25,10 @@ import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
-import com.asfoundation.wallet.widget.CircleTransformation;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.AppBarLayout;
-import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
@@ -39,19 +41,16 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
 public class TransactionDetailActivity extends BaseActivity {
 
+  private static final int DECIMALS = 18;
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   private TransactionDetailViewModel viewModel;
-
   private Transaction transaction;
   private boolean isSent = false;
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
   private RecyclerView detailsList;
-
   private Dialog dialog;
   private CompositeDisposable disposables;
-
-  private static final int DECIMALS = 18;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -87,8 +86,8 @@ public class TransactionDetailActivity extends BaseActivity {
         (appBarLayout, verticalOffset) -> {
           float percentage =
               1 - ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
-          findViewById(R.id.src_img).setScaleX(percentage);
-          findViewById(R.id.src_img).setScaleY(percentage);
+          findViewById(R.id.img).setScaleX(percentage);
+          findViewById(R.id.img).setScaleY(percentage);
         });
   }
 
@@ -260,10 +259,10 @@ public class TransactionDetailActivity extends BaseActivity {
         path = "file:" + icon;
       }
 
-      Picasso.with(this)
+      GlideApp.with(this)
           .load(path)
-          .transform(new CircleTransformation())
-          .fit()
+          .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+          .transition(DrawableTransitionOptions.withCrossFade())
           .into(typeIconImageView);
     } else {
       if (typeIcon != -1) {

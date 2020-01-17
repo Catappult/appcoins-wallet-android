@@ -27,4 +27,5 @@ interface PromotionsView {
   fun toggleShareAvailability(validated: Boolean)
   fun hideLoading()
   fun showLoading()
+  fun showNoPromotionsScreen()
 }

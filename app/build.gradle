@@ -32,8 +32,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 119
-    versionName "1.11.0.1"
+    versionCode 120
+    versionName "1.11.1.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -67,7 +67,8 @@ android {
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST', project.TRANSACTION_DETAILS_HOST
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
-    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
+    buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
+        resValue "string" , "facebook_app_id" , project.FACEBOOK_APP_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
     manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
   }
@@ -97,6 +98,7 @@ android {
       buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST}"
       manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
     }
@@ -117,6 +119,7 @@ android {
       buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
       manifestPlaceholders.secondPaymentHost = "${project.PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
@@ -152,7 +155,8 @@ dependencies {
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
   implementation "com.squareup.okhttp3:okhttp:$project.okhttpVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
-  implementation "com.squareup.picasso:picasso:$project.picassoVersion"
+  implementation "com.github.bumptech.glide:glide:$project.glide"
+  kapt "com.github.bumptech.glide:compiler:$project.glide"
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle"
@@ -223,9 +227,9 @@ dependencies {
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 
-  //braintreepayments card form dependency
-  implementation "com.braintreepayments:card-form:$project.card_form"
-  implementation "com.adyen.checkout:core:$project.checkout"
+  //adyen dependency
+  implementation "com.adyen.checkout:card-ui:$project.adyenVersion"
+  implementation "com.adyen.checkout:redirect:$project.adyenVersion"
 
   // Rx Lifecycle
   implementation "com.trello:rxlifecycle:$project.rxlifecycle"

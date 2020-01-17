@@ -88,7 +88,6 @@
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
-  <string name="error_invalid_private_key">Private key no válida.</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Procesando…</string>
@@ -390,7 +389,8 @@
   <string name="retry_button">Volver a intentar</string>
   <string name="do_it_later_button">Más tarde</string>
   <string name="connectoin_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
-  <string name="common_or">o</string>
+  <string name="common_or">OR</string>
+  <string name="share_via">Share via:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -451,6 +451,7 @@
   <string name="purchase_card_error_invalid_details">¿Estás seguro de que los datos de la tarjeta son correctos? ¡Prueba de nuevo!</string>
   <string name="purchase_card_error_bank_rejects">La transacción ha sido rechazada por tu banco. Prueba con otra tarjeta.</string>
   <string name="purchase_card_error_limits">Parece que tu tarjeta tiene restricciones. Ponte en contacto con tu banco o prueba con otra tarjeta.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invita a Amigos!</string>
   <string name="referral_onboarding_body">Tanto tú como tus amigos podéis ganar hasta %s con nuestro Progama de Invitaciones.</string>
@@ -483,11 +484,15 @@
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promociones</string>
   <string name="bottom_navigation_promotions_detailed">Descubre como ganar AppCoins Credits gratis con nuestras promociones y campañas.</string>
-  <string name="promotions_title">Promociones</string>
+  <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">Gana hasta %s por invitar amigos</string>
   <string name="promotions_referral_card_body">Comparte tu link de invitación y gana AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Hasta 30% de bonus en cada compra</string>
   <string name="promotions_new">NUEVO</string>
+  <string name="promotions_tab_promotions_title">PROMOTIONS</string>
+  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
+  <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Actualiza para recibir recompensas</string>
   <string name="update_wallet_poa_notification_body">Por favor actualiza la AppCoins Wallet para recibir esta recompensa.</string>
@@ -512,6 +517,9 @@
   <string name="import_wallet_file_button">IMPORTAR CON ARCHIVO</string>
   <string name="import_wallet_button">IMPORTAR WALLET</string>
   <string name="import_wallet_password_body">¡La wallet está protegida con contraseña!</string>
+  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="error_invalid_private_key">Private key no válida.</string>
+  <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total en %s</string>

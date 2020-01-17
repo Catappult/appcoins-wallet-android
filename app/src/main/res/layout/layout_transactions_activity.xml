@@ -25,6 +25,7 @@
           android:layout_height="wrap_content"
           android:background="@color/activity_background_color"
           android:clipToPadding="false"
+          android:overScrollMode="never"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />

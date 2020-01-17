@@ -10,7 +10,7 @@ public class KeyboardUtils {
     InputMethodManager inputMethodManager = (InputMethodManager) view.getContext()
         .getSystemService(Context.INPUT_METHOD_SERVICE);
     if (inputMethodManager != null) {
-      inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+      inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
   }
 
