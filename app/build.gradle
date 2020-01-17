@@ -244,7 +244,7 @@ dependencies {
   implementation "com.hbb20:ccp:$cppVersion"
   implementation "androidx.viewpager2:viewpager2:$project.viewPagerVersion"
   // Intercom
-  implementation 'io.intercom.android:intercom-sdk-base:6.0.0'
+  implementation "io.intercom.android:intercom-sdk-base:$project.intercomVersion"
 }
 
 def renameArtifact(defaultConfig) {

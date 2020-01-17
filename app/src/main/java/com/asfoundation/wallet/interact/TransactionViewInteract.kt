@@ -43,7 +43,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     get() = cardNotificationsInteractor.getCardNotifications()
 
   val userLevel: Single<Int>
-    get() = gamificationInteractor.getUserStats().map { stats: UserStats -> stats.level }
+    get() = gamificationInteractor.getUserStats().map { it.level }
 
   fun findNetwork(): Single<NetworkInfo> {
     return findDefaultNetworkInteract.find()

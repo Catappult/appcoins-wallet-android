@@ -116,16 +116,14 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMap(userLevel -> transactionViewInteract.findWallet()
             .subscribeOn(Schedulers.io())
             .map(wallet -> {
-              boolean showSupport = userLevel == UserStats.MAX_LEVEL;
-              Log.e("TEST", "SHOW SUPPORT: " + showSupport);
-              if (showSupport) {
+              if (userLevel == UserStats.MAX_LEVEL) {
                 registerSupportUser(wallet.address);
+                return true;
               } else {
                 logoutSupportUser();
+                return false;
               }
-              return showSupport;
             }))
-
         .subscribe(showSupport::postValue, this::onError));
   }
 

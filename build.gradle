@@ -80,6 +80,7 @@ project.ext {
   asf_applications = '6'
   crashlytics_sdk = '2.8.0@aar'
   spongycastle = '1.58.0.0@jar'
+  intercomVersion='6.0.0'
 }
 
 task clean(type: Delete) {
