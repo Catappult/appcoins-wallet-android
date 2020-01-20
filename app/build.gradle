@@ -99,8 +99,8 @@ android {
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
-      manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST}"
-      manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
+      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
+      manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
     }
     debug {
       minifyEnabled false
@@ -120,8 +120,8 @@ android {
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
-      manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
-      manifestPlaceholders.secondPaymentHost = "${project.PAYMENT_HOST_DEV}"
+      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
+      manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
