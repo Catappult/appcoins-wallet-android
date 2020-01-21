@@ -68,7 +68,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     activity.navigateBack()
   }
 
-  override fun showActiveDetails(subscriptionDetails: ActiveSubscriptionDetails) {
+  override fun setActiveDetails(subscriptionDetails: ActiveSubscriptionDetails) {
     layout_expired_subscription_content.visibility = View.GONE
     cancel_subscription.visibility = View.VISIBLE
     layout_active_subscription_content.visibility = View.VISIBLE
@@ -98,26 +98,31 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
 
     if (subscriptionDetails.expiresOn != null) {
-      expires_on.visibility = View.VISIBLE
-      cancel_subscription.visibility = View.GONE
-      next_payment_value.text = "Canceled"
-      next_payment_value.setTextColor(resources.getColor(R.color.red))
-
-      val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
-
-      expires_on.text =
-          String.format("Canceled - It expires on %s",
-              dateFormat.format(subscriptionDetails.expiresOn))
-
-      info.visibility = View.GONE
-      info_text.visibility = View.GONE
+      setExpireOnDetails(subscriptionDetails)
 
     } else if (subscriptionDetails.nextPayment != null) {
       next_payment_value.text = getDateString(subscriptionDetails.nextPayment)
     }
   }
 
-  override fun showExpiredDetails(subscriptionDetails: ExpiredSubscriptionDetails) {
+  private fun setExpireOnDetails(
+      subscriptionDetails: ActiveSubscriptionDetails) {
+    expires_on.visibility = View.VISIBLE
+    cancel_subscription.visibility = View.GONE
+    next_payment_value.text = "Canceled"
+    next_payment_value.setTextColor(resources.getColor(R.color.red))
+
+    val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
+
+    expires_on.text =
+        String.format("Canceled - It expires on %s",
+            dateFormat.format(subscriptionDetails.expiresOn))
+
+    info.visibility = View.GONE
+    info_text.visibility = View.GONE
+  }
+
+  override fun setExpiredDetails(subscriptionDetails: ExpiredSubscriptionDetails) {
     layout_active_subscription_content.visibility = View.GONE
     layout_expired_subscription_content.visibility = View.VISIBLE
     info.visibility = View.GONE

@@ -36,9 +36,9 @@ class SubscriptionDetailsPresenter(
 
   private fun onSubscriptionDetails(subscriptionDetails: SubscriptionDetails) {
     if (subscriptionDetails is ActiveSubscriptionDetails) {
-      view.showActiveDetails(subscriptionDetails)
+      view.setActiveDetails(subscriptionDetails)
     } else if (subscriptionDetails is ExpiredSubscriptionDetails) {
-      view.showExpiredDetails(subscriptionDetails)
+      view.setExpiredDetails(subscriptionDetails)
     }
     view.showDetails()
   }

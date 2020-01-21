@@ -4,7 +4,7 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.*
 
-class SubscriptionApiMockedImpl : SubscriptionApiMocked {
+class SubscriptionApiMockedImpl : SubscriptionService {
 
   override fun getActiveSubscriptions(walletAddress: String): Single<List<Subscription>> {
     return Single.create<List<Subscription>> {

@@ -126,7 +126,6 @@
           app:layout_constraintStart_toStartOf="@id/status"
           app:layout_constraintTop_toBottomOf="@id/status"
           tools:text="Canceled — It expires on 19 Jan"
-          tools:visibility="visible"
           />
 
       <View
@@ -225,7 +224,6 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="parent"
-      tools:layout_editor_absoluteY="563dp"
       >
 
     <Button
