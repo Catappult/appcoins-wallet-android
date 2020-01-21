@@ -8,6 +8,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.SupportInteractor;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
@@ -41,9 +42,9 @@ import javax.inject.Singleton;
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
       AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract) {
+      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor) {
     return new TransactionsViewModelFactory(applications, analytics, transactionViewNavigator,
-        transactionViewInteract);
+        transactionViewInteract, supportInteractor);
   }
 
   @Provides TransactionViewNavigator provideTransactionsViewNavigator(SettingsRouter settingsRouter,

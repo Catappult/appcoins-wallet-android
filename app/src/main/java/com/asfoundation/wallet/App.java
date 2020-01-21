@@ -25,6 +25,7 @@ import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
+import io.intercom.android.sdk.Intercom;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import javax.inject.Inject;
@@ -69,6 +70,10 @@ public class App extends MultiDexApplication
     proofOfAttentionService.start();
     appcoinsOperationsDataSaver.start();
     appcoinsRewards.start();
+
+    Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID);
+    Intercom.client()
+        .setInAppMessageVisibility(Intercom.Visibility.GONE);
   }
 
   private void setupRxJava() {
