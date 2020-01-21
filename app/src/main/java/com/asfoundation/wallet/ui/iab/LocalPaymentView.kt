@@ -1,17 +1,18 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import io.reactivex.Observable
 
 interface LocalPaymentView {
   fun showProcessingLoading()
   fun hideLoading()
-  fun showPendingUserPayment()
+  fun showPendingUserPayment(paymentMethodIcon: Bitmap)
   fun showCompletedPayment()
   fun showError()
   fun dismissError()
   fun getOkErrorClick(): Observable<Any>
-  fun getOkBuyClick(): Observable<Any>
+  fun getGotItClick(): Observable<Any>
   fun close()
   fun getAnimationDuration(): Long
   fun popView(bundle: Bundle)

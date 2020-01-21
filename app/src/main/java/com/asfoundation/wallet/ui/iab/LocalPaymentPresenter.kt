@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
+import com.asfoundation.wallet.GlideApp
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
@@ -28,8 +32,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val disposables: CompositeDisposable,
                             private val callbackUrl: String?,
                             private val orderReference: String?,
-                            private val payload: String?) {
-
+                            private val payload: String?,
+                            private val context: Context?,
+                            private val paymentMethodIcon: String?) {
 
   private var waitingResult: Boolean = false
 
@@ -43,10 +48,25 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     handleOkBuyButtonClick()
   }
 
-
   fun handleStop() {
     waitingResult = false
     disposables.clear()
+  }
+
+  fun preparePendingUserPayment() {
+    disposables.add(
+        Observable.fromCallable {
+          GlideApp.with(context!!)
+              .asBitmap()
+              .load(paymentMethodIcon)
+              .override(getWidth(), getHeight())
+              .centerCrop()
+              .submit()
+              .get()
+        }
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .subscribe({ view.showPendingUserPayment(it) }, { showError(it) }))
   }
 
   private fun onViewCreatedRequestLink() {
@@ -59,8 +79,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           navigator.navigateToUriForResult(it)
           waitingResult = true
         }.subscribeOn(networkScheduler).observeOn(viewScheduler)
-            .subscribe({ },
-                { showError(it) }))
+            .subscribe({ }, { showError(it) }))
   }
 
   private fun handlePaymentRedirect() {
@@ -82,8 +101,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleOkBuyButtonClick() {
-    disposables.add(view.getOkBuyClick().observeOn(
-        viewScheduler).doOnNext { view.close() }.subscribe())
+    disposables.add(
+        view.getGotItClick()
+            .observeOn(viewScheduler)
+            .doOnNext { view.close() }
+            .subscribe()
+    )
   }
 
   private fun handleTransactionStatus(transaction: Transaction): Completable {
@@ -108,7 +131,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
-        view.showPendingUserPayment()
+        preparePendingUserPayment()
         analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
       }.subscribeOn(viewScheduler)
       else -> Completable.fromAction {
@@ -124,6 +147,18 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   fun onSaveInstanceState(outState: Bundle) {
     outState.putBoolean(WAITING_RESULT, waitingResult)
+  }
+
+  private fun getWidth(): Int {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 184.toFloat(),
+        context?.resources?.displayMetrics)
+        .toInt()
+  }
+
+  private fun getHeight(): Int {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 80.toFloat(),
+        context?.resources?.displayMetrics)
+        .toInt()
   }
 
   companion object {

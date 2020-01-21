@@ -162,12 +162,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?,
                                 currency: String?, bonus: String?, selectedPaymentMethod: String,
                                 developerAddress: String, type: String, amount: BigDecimal,
-                                callbackUrl: String?, orderReference: String?, payload: String?) {
+                                callbackUrl: String?, orderReference: String?, payload: String?,
+                                paymentMethodIcon: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload))
+                payload, paymentMethodIcon))
         .commit()
   }
 
