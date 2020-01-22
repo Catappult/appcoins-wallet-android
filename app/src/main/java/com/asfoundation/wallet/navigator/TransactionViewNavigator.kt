@@ -60,7 +60,6 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     context.startActivity(intent)
   }
-
 }
 
 
