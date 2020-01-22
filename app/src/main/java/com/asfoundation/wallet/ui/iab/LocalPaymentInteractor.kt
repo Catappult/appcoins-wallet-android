@@ -22,9 +22,8 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                              private val billingMessagesMapper: BillingMessagesMapper
 ) {
 
-  fun getPaymentLink(domain: String, skuId: String?,
-                     originalAmount: String?, originalCurrency: String?,
-                     paymentMethod: String, developerAddress: String,
+  fun getPaymentLink(domain: String, skuId: String?, originalAmount: String?,
+                     originalCurrency: String?, paymentMethod: String, developerAddress: String,
                      callbackUrl: String?, orderReference: String?,
                      payload: String?): Single<String> {
 
@@ -72,6 +71,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(paymentMethod)
+  }
+
+  fun saveAsyncLocalPayment(paymentMethod: String) {
+    inAppPurchaseInteractor.saveAsyncLocalPayment(paymentMethod)
   }
 
   private data class DeepLinkInformation(val signature: String, val storeAddress: String,

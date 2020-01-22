@@ -229,6 +229,18 @@ class PaymentMethodsPresenter(
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
+    if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
+      paymentMethods.firstOrNull { paymentMethod -> PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id == paymentMethod.id }
+          ?.let {
+            if (it.isEnabled) {
+              showPreSelectedPaymentMethod(fiatValue, it)
+            }
+            inAppPurchaseInteractor.removeAsyncLocalPayment()
+          }
+
+      return
+    }
+
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
       val paymentMethod = getPreSelectedPaymentMethod(paymentMethods)
       if (paymentMethod == null || !paymentMethod.isEnabled) {
