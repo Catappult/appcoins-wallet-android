@@ -189,12 +189,12 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private var maxFrame = 30
 
   private val appIconWidth: Int
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160.toFloat(),
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160f,
         context?.resources?.displayMetrics)
         .toInt()
 
   private val appIconHeight: Int
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160.toFloat(),
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160f,
         context?.resources?.displayMetrics)
         .toInt()
 

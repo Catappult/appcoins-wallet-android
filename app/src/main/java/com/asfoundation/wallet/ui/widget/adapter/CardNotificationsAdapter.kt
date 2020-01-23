@@ -22,12 +22,12 @@ class CardNotificationsAdapter(
         .inflate(R.layout.item_card_notification, parent,
             false)
 
-    val maxWith = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400.toFloat(),
+    val maxWith = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400f,
         parent.context.resources
             .displayMetrics)
         .toInt()
 
-    val margins = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32.toFloat(),
+    val margins = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32f,
         parent.context.resources
             .displayMetrics)
         .toInt()

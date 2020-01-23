@@ -151,13 +151,13 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun getWidth(): Int {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 184.toFloat(),
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 184f,
         context?.resources?.displayMetrics)
         .toInt()
   }
 
   private fun getHeight(): Int {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 80.toFloat(),
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 80f,
         context?.resources?.displayMetrics)
         .toInt()
   }
