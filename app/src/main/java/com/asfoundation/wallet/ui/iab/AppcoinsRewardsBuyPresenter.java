@@ -93,6 +93,7 @@ public class AppcoinsRewardsBuyPresenter {
               .flatMapCompletable(purchase -> Completable.fromAction(view::showTransactionCompleted)
                   .subscribeOn(scheduler)
                   .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                  .andThen(Completable.fromAction(inAppPurchaseInteractor::removeAsyncLocalPayment))
                   .andThen(Completable.fromAction(
                       () -> view.finish(purchase, transaction.getOrderReference()))))
               .observeOn(scheduler)

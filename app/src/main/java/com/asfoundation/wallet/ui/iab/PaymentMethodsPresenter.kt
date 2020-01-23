@@ -230,15 +230,12 @@ class PaymentMethodsPresenter(
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
     if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
-      paymentMethods.firstOrNull { paymentMethod -> PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id == paymentMethod.id }
-          ?.let {
-            if (it.isEnabled) {
-              showPreSelectedPaymentMethod(fiatValue, it)
-              inAppPurchaseInteractor.removeAsyncLocalPayment()
-              return
-            }
-            inAppPurchaseInteractor.removeAsyncLocalPayment()
-          }
+      getCreditsPaymentMethod(paymentMethods)?.let {
+        if (it.isEnabled) {
+          showPreSelectedPaymentMethod(fiatValue, it)
+          return
+        }
+      }
     }
 
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
@@ -259,6 +256,21 @@ class PaymentMethodsPresenter(
     }
   }
 
+  private fun getCreditsPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {
+    paymentMethods.forEach {
+      if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) {
+        val mergedPaymentMethod = it as AppCoinsPaymentMethod
+        return PaymentMethod(PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id,
+            mergedPaymentMethod.creditsLabel, mergedPaymentMethod.iconUrl,
+            mergedPaymentMethod.isCreditsEnabled)
+      }
+      if (it.id == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id) {
+        return it
+      }
+    }
+
+    return null
+  }
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
                                  paymentMethodId: String) {
@@ -304,6 +316,7 @@ class PaymentMethodsPresenter(
               }
               .andThen(
                   Completable.fromAction { inAppPurchaseInteractor.removePreSelectedPaymentMethod() })
+              .andThen(Completable.fromAction { inAppPurchaseInteractor.removeAsyncLocalPayment() })
               .andThen(Completable.fromAction { view.hideLoading() })
         }
         .subscribe({ }, { this.showError(it) }))
