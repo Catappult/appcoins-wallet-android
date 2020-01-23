@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -35,8 +36,7 @@ interface PaymentMethodsView {
   fun getPaymentSelection(): Observable<String>
   fun getMorePaymentMethodsClicks(): Observable<Any>
   fun showLocalPayment(selectedPaymentMethod: String)
-  fun setBonusPurchase(bonus: BigDecimal, currency: String)
-  fun setBonusSubscription(bonus: BigDecimal, currency: String)
+  fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
   fun onBackPressed(): Observable<Boolean>
   fun showNext()
   fun showBuy()
@@ -44,8 +44,7 @@ interface PaymentMethodsView {
   fun showMergedAppcoins()
   fun lockRotation()
   fun showEarnAppcoins()
-  fun showBonus()
-  fun showBonusSubscription()
+  fun showBonus(@StringRes bonusText: Int)
   fun replaceBonus()
   fun showWalletBlocked()
 

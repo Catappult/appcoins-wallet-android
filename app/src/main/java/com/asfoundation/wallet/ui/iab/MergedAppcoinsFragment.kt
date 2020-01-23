@@ -249,17 +249,13 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     iabView.showWalletBlocked()
   }
 
-  override fun showBonus(isSubscription: Boolean) {
+  override fun showBonus(@StringRes bonusText: Int) {
     val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
     animation.duration = 250
     bonus_layout?.visibility = VISIBLE
     bonus_layout?.startAnimation(animation)
     bonus_msg?.visibility = VISIBLE
-    if (isSubscription) {
-      bonus_msg?.text = "You will receive this bonus for each payment"
-    } else {
-      bonus_msg?.setText(R.string.gamification_purchase_body)
-    }
+    bonus_msg?.text = getText(bonusText)
   }
 
   override fun showError(@StringRes errorMessage: Int) {

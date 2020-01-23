@@ -86,7 +86,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handlePaymentSelectionChange() {
     disposables.add(view.getPaymentSelection()
-        .doOnNext { handleSelection(it, isSubscription) }
+        .doOnNext { handleSelection(it) }
         .subscribe({}, { showError(it) }))
   }
 
@@ -110,11 +110,12 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun handleSelection(selection: String, isSubscription: Boolean) {
+  private fun handleSelection(selection: String) {
     when (selection) {
       APPC -> {
         view.hideVolatilityInfo()
-        view.showBonus(isSubscription)
+        view.showBonus(R.string.subscription_bonus.takeIf { isSubscription }
+            ?: R.string.gamification_purchase_body)
       }
       CREDITS -> {
         view.hideBonus()

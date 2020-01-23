@@ -83,9 +83,9 @@ class PaymentMethodsPresenter(
         .doOnSuccess {
           if (it.status == ForecastBonus.Status.ACTIVE && it.amount > BigDecimal.ZERO) {
             if (isSubscription) {
-              view.setBonusSubscription(it.amount, it.currency)
+              view.setPurchaseBonus(it.amount, it.currency, R.string.subscription_bonus)
             } else {
-              view.setBonusPurchase(it.amount, it.currency)
+              view.setPurchaseBonus(it.amount, it.currency, R.string.gamification_purchase_body)
             }
           }
         }
@@ -418,9 +418,9 @@ class PaymentMethodsPresenter(
       view.replaceBonus()
     } else {
       if (isSubscription) {
-        view.showBonusSubscription()
+        view.showBonus(R.string.subscription_bonus)
       } else {
-        view.showBonus()
+        view.showBonus(R.string.gamification_purchase_body)
       }
     }
   }

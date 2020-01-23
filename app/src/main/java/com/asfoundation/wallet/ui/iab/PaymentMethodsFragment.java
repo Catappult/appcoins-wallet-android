@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
@@ -477,7 +478,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload());
   }
 
-  @Override public void setBonusPurchase(@NotNull BigDecimal bonus, @NotNull String currency) {
+  @Override public void setPurchaseBonus(@NotNull BigDecimal bonus, @NotNull String currency,
+      @StringRes int bonusText) {
     BigDecimal scaledBonus = bonus.stripTrailingZeros()
         .setScale(2, BigDecimal.ROUND_DOWN);
     if (scaledBonus.compareTo(new BigDecimal("0.01")) < 0) {
@@ -486,19 +488,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
     bonusMessageValue = currency + scaledBonus.toPlainString();
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
-    showBonus();
-  }
-
-  @Override public void setBonusSubscription(@NotNull BigDecimal bonus, @NotNull String currency) {
-    BigDecimal scaledBonus = bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_DOWN);
-    if (scaledBonus.compareTo(new BigDecimal("0.01")) < 0) {
-      currency = "~" + currency;
-    }
-    scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
-    bonusMessageValue = currency + scaledBonus.toPlainString();
-    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
-    showBonusSubscription();
+    showBonus(bonusText);
   }
 
   @NotNull @Override public Observable<Boolean> onBackPressed() {
@@ -531,19 +521,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         transaction.getType());
   }
 
-  @Override public void showBonus() {
+  @Override public void showBonus(@StringRes int bonusText) {
     bonusView.setVisibility(View.VISIBLE);
     bonusMsg.setVisibility(View.VISIBLE);
-    bonusMsg.setText(R.string.gamification_purchase_body);
-    if (noBonusMsg != null) {
-      noBonusMsg.setVisibility(View.INVISIBLE);
-    }
-  }
-
-  @Override public void showBonusSubscription() {
-    bonusView.setVisibility(View.VISIBLE);
-    bonusMsg.setVisibility(View.VISIBLE);
-    bonusMsg.setText("You will receive this bonus for each payment");
+    bonusMsg.setText(bonusText);
     if (noBonusMsg != null) {
       noBonusMsg.setVisibility(View.INVISIBLE);
     }
