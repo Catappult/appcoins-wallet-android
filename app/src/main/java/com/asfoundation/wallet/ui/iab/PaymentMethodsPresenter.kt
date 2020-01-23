@@ -234,11 +234,11 @@ class PaymentMethodsPresenter(
           ?.let {
             if (it.isEnabled) {
               showPreSelectedPaymentMethod(fiatValue, it)
+              inAppPurchaseInteractor.removeAsyncLocalPayment()
+              return
             }
             inAppPurchaseInteractor.removeAsyncLocalPayment()
           }
-
-      return
     }
 
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
