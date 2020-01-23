@@ -175,7 +175,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
-            intent.dataString, isSubscription, "Month"))
+            intent.dataString, isSubscription, "Month"))//TODO remove hardcoded frequency
         .commit()
   }
 
