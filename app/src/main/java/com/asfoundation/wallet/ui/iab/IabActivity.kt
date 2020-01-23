@@ -163,12 +163,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                 currency: String?, bonus: String?, selectedPaymentMethod: String,
                                 developerAddress: String, type: String, amount: BigDecimal,
                                 callbackUrl: String?, orderReference: String?, payload: String?,
-                                paymentMethodIcon: String) {
+                                paymentMethodIconUrl: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload, paymentMethodIcon))
+                payload, paymentMethodIconUrl))
         .commit()
   }
 

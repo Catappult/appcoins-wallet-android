@@ -34,7 +34,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val orderReference: String?,
                             private val payload: String?,
                             private val context: Context?,
-                            private val paymentMethodIcon: String?) {
+                            private val paymentMethodIconUrl: String?) {
 
   private var waitingResult: Boolean = false
 
@@ -58,7 +58,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         Observable.fromCallable {
           GlideApp.with(context!!)
               .asBitmap()
-              .load(paymentMethodIcon)
+              .load(paymentMethodIconUrl)
               .override(getWidth(), getHeight())
               .centerCrop()
               .submit()

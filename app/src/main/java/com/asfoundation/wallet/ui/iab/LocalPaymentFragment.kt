@@ -54,7 +54,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
                     bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                     type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
-                    payload: String?, paymentMethodIcon: String): LocalPaymentFragment {
+                    payload: String?, paymentMethodIconUrl: String): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(DOMAIN_KEY, domain)
@@ -69,7 +69,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         putString(CALLBACK_URL, callbackUrl)
         putString(ORDER_REFERENCE, orderReference)
         putString(PAYLOAD, payload)
-        putString(PAYMENT_METHOD_URL, paymentMethodIcon)
+        putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
       }
       return fragment
     }
@@ -169,7 +169,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
-  private val paymentMethodIcon: String? by lazy {
+  private val paymentMethodIconUrl: String? by lazy {
     if (arguments!!.containsKey(PAYMENT_METHOD_URL)) {
       arguments!!.getString(PAYMENT_METHOD_URL)
     } else {
@@ -206,7 +206,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
             paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable(), callbackUrl, orderReference, payload, context, paymentMethodIcon)
+            CompositeDisposable(), callbackUrl, orderReference, payload, context,
+            paymentMethodIconUrl)
   }
 
 
