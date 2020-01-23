@@ -285,7 +285,19 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String) {
     val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", fiatAmount.toDouble())
-    fiat_price.text = "$fiatPrice $currencyCode"
+    var fiatText = "$fiatPrice $currencyCode"
+
+    frequency?.let {
+      fiatText = "$fiatText/$frequency"
+      val oldPrice = appc_price.text.toString()
+
+      val formatter = Formatter()
+      val appcText = formatter.format(Locale.getDefault(), "~%s", oldPrice)
+          .toString()
+      appc_price.text = appcText
+    }
+
+    fiat_price.text = fiatText
     fiat_price.visibility = View.VISIBLE
     appc_price.visibility = View.VISIBLE
   }
@@ -373,6 +385,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     bonus_msg?.visibility = View.VISIBLE
     bonus_msg_pre_selected?.visibility = View.VISIBLE
     bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+
+    frequency?.let {
+      bonus_msg?.text = "You will receive this bonus for each payment"
+      bonus_msg_pre_selected?.text = "You will receive this bonus for each payment"
+    }
   }
 
   private fun handleLayoutVisibility(isStored: Boolean) {
@@ -468,10 +485,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun handleBuyButtonText() {
-    if (transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true)) {
-      buy_button.setText(R.string.action_donate)
-    } else {
-      buy_button.setText(R.string.action_buy)
+    when {
+      transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
+        buy_button.setText(R.string.action_donate)
+      }
+      transactionType.equals(TransactionData.TransactionType.SUBS.name, ignoreCase = true) -> {
+        buy_button.text = "Subscribe"
+      }
+      else -> {
+        buy_button.setText(R.string.action_buy)
+      }
     }
   }
 
@@ -500,18 +523,17 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val CURRENCY_KEY = "currency"
     private const val BONUS_KEY = "bonus"
     private const val PRE_SELECTED_KEY = "pre_selected"
+    private const val FREQUENCY = "frequency"
     private const val CARD_NUMBER_KEY = "card_number"
     private const val EXPIRY_DATE_KEY = "expiry_date"
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
 
     @JvmStatic
-    fun newInstance(transactionType: String,
-                    paymentType: PaymentType,
-                    domain: String, origin: String?, transactionData: String?,
-                    appcAmount: BigDecimal,
-                    amount: BigDecimal, currency: String?,
-                    bonus: String?, isPreSelected: Boolean): AdyenPaymentFragment {
+    fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
+                    origin: String?, transactionData: String?, appcAmount: BigDecimal,
+                    amount: BigDecimal, currency: String?, bonus: String?,
+                    isPreSelected: Boolean, frequency: String?): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       val bundle = Bundle()
       bundle.apply {
@@ -525,6 +547,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         putString(CURRENCY_KEY, currency)
         putString(BONUS_KEY, bonus)
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
+        putString(FREQUENCY, frequency)
         fragment.arguments = this
       }
       return fragment
@@ -608,6 +631,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       arguments!!.getBoolean(PRE_SELECTED_KEY)
     } else {
       throw IllegalArgumentException("pre selected data not found")
+    }
+  }
+
+  private val frequency: String? by lazy {
+    if (arguments!!.containsKey(FREQUENCY)) {
+      arguments!!.getString(FREQUENCY)
+    } else {
+      null
     }
   }
 }

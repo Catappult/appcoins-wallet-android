@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
@@ -66,6 +67,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String TRANSACTION = "transaction";
   private static final String ITEM_ALREADY_OWNED = "item_already_owned";
   private static final String IS_DONATION = "is_donation";
+  private static final String IS_SUBSCRIPTION = "is_subscription";
+  private static final String FREQUENCY = "frequency";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
@@ -101,8 +104,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
   private boolean isBds;
+  private boolean isSubscription;
+  private String frequency;
   private View bonusView;
-  private View bonusMsg;
+  private TextView bonusMsg;
   private View bottomSeparator;
   private TextView bonusValue;
   private boolean itemAlreadyOwnedError;
@@ -125,7 +130,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, boolean isDonation, String developerPayload, String uri,
-      String transactionData) {
+      String transactionData, boolean isSubscription, String frequency) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -136,6 +141,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putBoolean(IS_BDS, isBds);
     bundle.putBoolean(IS_DONATION, isDonation);
     bundle.putString(TRANSACTION_DATA, transactionData);
+    bundle.putString(FREQUENCY, frequency);
+    bundle.putBoolean(IS_SUBSCRIPTION, isSubscription);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -155,6 +162,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     setupSubject = PublishSubject.create();
     preSelectedPaymentMethod = BehaviorSubject.create();
     isBds = getArguments().getBoolean(IS_BDS);
+    isSubscription = getArguments().getBoolean(IS_SUBSCRIPTION);
+    frequency = getArguments().getString(FREQUENCY);
     isDonation = getArguments().getBoolean(IS_DONATION, false);
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
@@ -170,7 +179,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
-        walletBlockedInteract, transactionValue);
+        walletBlockedInteract, transactionValue, isSubscription, frequency);
   }
 
   @Nullable @Override
@@ -303,8 +312,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods,
-      @NotNull FiatValue fiatValue, @NotNull String currency, @NotNull String paymentMethodId) {
-    updateHeaderInfo(fiatValue, isDonation, currency);
+      @NotNull FiatValue fiatValue, @NotNull String currency, @NotNull String paymentMethodId,
+      @Nullable String frequency) {
+    updateHeaderInfo(fiatValue, isDonation, currency, frequency);
     setupPaymentMethods(paymentMethods, paymentMethodId);
 
     presenter.sendPurchaseDetailsEvent();
@@ -313,9 +323,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPreSelectedPaymentMethod(@NotNull PaymentMethod paymentMethod,
-      @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency) {
+      @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency,
+      String frequency) {
     preSelectedPaymentMethod.onNext(paymentMethod.getId());
-    updateHeaderInfo(fiatValue, isDonation, currency);
+    updateHeaderInfo(fiatValue, isDonation, currency, frequency);
 
     setupPaymentMethod(paymentMethod);
 
@@ -413,20 +424,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showPaypal() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null);
+        PaymentType.PAYPAL, bonusMessageValue, false, null, frequency);
   }
 
   @Override public void showAdyen(@NotNull FiatValue fiatValue, @NotNull PaymentType paymentType,
       String iconUrl) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds, paymentType,
-          bonusMessageValue, true, iconUrl);
+          bonusMessageValue, true, iconUrl, frequency);
     }
   }
 
   @Override public void showCreditCard() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.CARD, bonusMessageValue, false, null);
+        PaymentType.CARD, bonusMessageValue, false, null, frequency);
   }
 
   @Override public void showAppCoins() {
@@ -467,19 +478,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload());
   }
 
-  @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
+  @Override public void setPurchaseBonus(@NotNull BigDecimal bonus, @NotNull String currency,
+      @StringRes int bonusText) {
     BigDecimal scaledBonus = bonus.stripTrailingZeros()
         .setScale(2, BigDecimal.ROUND_DOWN);
-    if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
+    if (scaledBonus.compareTo(new BigDecimal("0.01")) < 0) {
       currency = "~" + currency;
     }
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
     bonusMessageValue = currency + scaledBonus.toPlainString();
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
-    showBonus();
+    showBonus(bonusText);
   }
 
-  @Override public Observable<Boolean> onBackPressed() {
+  @NotNull @Override public Observable<Boolean> onBackPressed() {
     return onBackPressSubject;
   }
 
@@ -491,9 +503,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     setBuyButtonText();
   }
 
+  @Override public void showSubscribe() {
+    buyButton.setText("Subscribe");
+  }
+
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation);
+        productName, appcEnabled, creditsEnabled, isBds, isDonation, isSubscription, frequency);
   }
 
   @Override public void lockRotation() {
@@ -505,9 +521,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         transaction.getType());
   }
 
-  @Override public void showBonus() {
+  @Override public void showBonus(@StringRes int bonusText) {
     bonusView.setVisibility(View.VISIBLE);
     bonusMsg.setVisibility(View.VISIBLE);
+    bonusMsg.setText(bonusText);
     if (noBonusMsg != null) {
       noBonusMsg.setVisibility(View.INVISIBLE);
     }
@@ -538,15 +555,22 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     buyButton.setText(buyButtonText);
   }
 
-  private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency) {
+  private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency,
+      String frequency) {
     this.fiatValue = fiatValue;
     Formatter formatter = new Formatter();
-    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
-        .toString() + " APPC";
     DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
-    appcPriceTv.setText(valueText);
-    fiatPriceTv.setText(priceText);
+
+    String appcText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
+        .toString() + " APPC";
+    String fiatText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
+
+    if (isSubscription) {
+      fiatText += "/" + frequency;
+      appcText = "~" + appcText;
+    }
+    appcPriceTv.setText(appcText);
+    fiatPriceTv.setText(fiatText);
     appcPriceTv.setVisibility(View.VISIBLE);
     fiatPriceTv.setVisibility(View.VISIBLE);
     int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;

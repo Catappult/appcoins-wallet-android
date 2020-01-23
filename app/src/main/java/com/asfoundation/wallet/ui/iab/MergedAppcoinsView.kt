@@ -8,7 +8,7 @@ interface MergedAppcoinsView {
   fun showError(@StringRes errorMessage: Int)
   fun getPaymentSelection(): Observable<String>
   fun hideBonus()
-  fun showBonus()
+  fun showBonus(@StringRes bonusText: Int)
   fun buyClick(): Observable<String>
   fun backClick(): Observable<Any>
   fun backPressed(): Observable<Any>
@@ -19,4 +19,6 @@ interface MergedAppcoinsView {
   fun showWalletBlocked()
   fun showLoading()
   fun hideLoading()
+  fun showVolatilityInfo()
+  fun hideVolatilityInfo()
 }

@@ -18,7 +18,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val balanceInteract: BalanceInteract,
                               private val viewScheduler: Scheduler,
                               private val walletBlockedInteract: WalletBlockedInteract,
-                              private val networkScheduler: Scheduler) {
+                              private val networkScheduler: Scheduler,
+                              private val isSubscription: Boolean) {
 
   companion object {
     private val TAG = MergedAppcoinsFragment::class.java.simpleName
@@ -111,8 +112,17 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleSelection(selection: String) {
     when (selection) {
-      APPC -> view.showBonus()
-      CREDITS -> view.hideBonus()
+      APPC -> {
+        view.hideVolatilityInfo()
+        view.showBonus(R.string.subscription_bonus.takeIf { isSubscription }
+            ?: R.string.gamification_purchase_body)
+      }
+      CREDITS -> {
+        view.hideBonus()
+        if (isSubscription) {
+          view.showVolatilityInfo()
+        }
+      }
       else -> Log.w(TAG, "Error creating PublishSubject")
     }
   }

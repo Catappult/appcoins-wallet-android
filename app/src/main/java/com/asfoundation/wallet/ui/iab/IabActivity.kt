@@ -28,11 +28,6 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
-
-/**
- * Created by franciscocalado on 20/07/2018.
- */
-
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
@@ -141,12 +136,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                                iconUrl: String?) {
+                                iconUrl: String?, frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected))
+                bonus, isPreselected, frequency))
         .commit()
   }
 
@@ -174,11 +169,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
+    val isSubscription = TransactionData.TransactionType.SUBS.name
+        .equals(transaction?.type, ignoreCase = true)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
-            intent.dataString))
+            intent.dataString, isSubscription, "Month"))//TODO remove hardcoded frequency
         .commit()
   }
 
@@ -194,13 +191,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                                   productName: String?, appcEnabled: Boolean,
-                                  creditsEnabled: Boolean, isBds: Boolean,
-                                  isDonation: Boolean) {
+                                  creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean,
+                                  isSubscription: Boolean, frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
                 productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
-                isDonation))
+                isDonation, isSubscription, frequency))
         .commit()
   }
 

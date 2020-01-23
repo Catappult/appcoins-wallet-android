@@ -1,16 +1,20 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
-                         currency: String, paymentMethodId: String)
+  fun showPaymentMethods(
+      paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue, currency: String,
+      paymentMethodId: String, frequency: String?)
 
-  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                   isDonation: Boolean, currency: String)
+  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod,
+                                   fiatValue: FiatValue,
+                                   isDonation: Boolean, currency: String,
+                                   frequency: String?)
 
   fun showError(message: Int)
   fun showItemAlreadyOwnedError()
@@ -32,14 +36,15 @@ interface PaymentMethodsView {
   fun getPaymentSelection(): Observable<String>
   fun getMorePaymentMethodsClicks(): Observable<Any>
   fun showLocalPayment(selectedPaymentMethod: String)
-  fun setBonus(bonus: BigDecimal, currency: String)
+  fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
   fun onBackPressed(): Observable<Boolean>
   fun showNext()
   fun showBuy()
+  fun showSubscribe()
   fun showMergedAppcoins()
   fun lockRotation()
   fun showEarnAppcoins()
-  fun showBonus()
+  fun showBonus(@StringRes bonusText: Int)
   fun replaceBonus()
   fun showWalletBlocked()
 
