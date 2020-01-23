@@ -52,6 +52,19 @@
         android:maxLines="1"
         android:textSize="12sp"
         tools:text="$2.99 / month"
+        tools:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/expires_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_border"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        tools:text="It expires on Jan 19"
         />
 
   </LinearLayout>

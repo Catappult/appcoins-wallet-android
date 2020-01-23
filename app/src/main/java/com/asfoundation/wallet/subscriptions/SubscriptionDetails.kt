@@ -27,7 +27,8 @@ data class ActiveSubscriptionDetails(
     override var appcValue: BigDecimal,
     override val paymentMethod: String,
     override val paymentMethodUrl: String,
-    val nextPayment: Date
+    val nextPayment: Date?,
+    val expiresOn: Date?
 ) : SubscriptionDetails(appName, packageName, iconUrl, amount, symbol, currency, recurrence,
     appcValue, paymentMethod, paymentMethodUrl)
 
