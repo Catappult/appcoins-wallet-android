@@ -2,7 +2,10 @@ package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
-import com.asfoundation.wallet.subscriptions.*
+import com.asfoundation.wallet.subscriptions.SubscriptionApiMockedImpl
+import com.asfoundation.wallet.subscriptions.SubscriptionInteract
+import com.asfoundation.wallet.subscriptions.SubscriptionRepository
+import com.asfoundation.wallet.subscriptions.SubscriptionService
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -15,28 +18,27 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SubscriptionModule {
 
   @Provides
-  fun provideSubscriptionApi(client: OkHttpClient, gson: Gson): SubscriptionApi {
+  fun provideSubscriptionService(client: OkHttpClient, gson: Gson): SubscriptionService {
     return Retrofit.Builder()
         .baseUrl("http://google.pt")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(SubscriptionApi::class.java)
+        .create(SubscriptionService::class.java)
   }
 
   @Provides
-  fun provideSubscriptionApiMocked(): SubscriptionApiMocked {
+  fun provideSubscriptionApiMocked(): SubscriptionApiMockedImpl {
     return SubscriptionApiMockedImpl()
   }
 
   @Provides
   fun provideSubscriptionRepository(
-      subscriptionApi: SubscriptionApi,
-      subscriptionApiMocked: SubscriptionApiMocked,
+      subscriptionService: SubscriptionService,
       findDefaultWalletInteract: FindDefaultWalletInteract
   ): SubscriptionRepository {
-    return SubscriptionRepository(subscriptionApi, subscriptionApiMocked, findDefaultWalletInteract)
+    return SubscriptionRepository(subscriptionService, findDefaultWalletInteract)
   }
 
   @Provides

@@ -113,6 +113,21 @@
           tools:text="active"
           />
 
+      <TextView
+          android:id="@+id/expires_on"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/normal_margin"
+          android:background="@drawable/view_border"
+          android:textColor="@color/red"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="@id/status"
+          app:layout_constraintStart_toStartOf="@id/status"
+          app:layout_constraintTop_toBottomOf="@id/status"
+          tools:text="Canceled — It expires on 19 Jan"
+          />
+
       <View
           android:id="@+id/top_separator"
           android:layout_width="match_parent"
@@ -123,7 +138,7 @@
           android:background="#eaeaea"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/status"
+          app:layout_constraintTop_toBottomOf="@id/expires_on"
           />
 
 
@@ -193,7 +208,6 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:text="APPC value can be volatile, the value shown may not match  the next  payment"
           android:textSize="10sp"
-          android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="@id/info"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/info"
@@ -210,7 +224,6 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="parent"
-      tools:layout_editor_absoluteY="563dp"
       >
 
     <Button

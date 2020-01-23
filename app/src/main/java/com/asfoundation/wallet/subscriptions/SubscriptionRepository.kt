@@ -5,29 +5,30 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 class SubscriptionRepository(
-    private val subscriptionApi: SubscriptionApi,//TODO unused until microservices are ready
-    private val subscriptionApiMocked: SubscriptionApiMocked,
+    private val subscriptionApi: SubscriptionService,//TODO unused until microservices are ready
     private val findDefaultWalletInteract: FindDefaultWalletInteract
 ) {
 
   fun getActiveSubscriptions(): Single<List<SubscriptionItem>> {
     return findDefaultWalletInteract.find()
-        .flatMap { subscriptionApiMocked.getActiveSubscriptions(it.address) }
+        .flatMap { subscriptionApi.getActiveSubscriptions(it.address) }
         .map { subscriptions ->
           subscriptions.map { subscription ->
             SubscriptionItem(subscription.appName, subscription.packageName, subscription.iconUrl,
-                subscription.amount, subscription.symbol, subscription.recurrence)
+                subscription.amount, subscription.symbol, subscription.recurrence,
+                subscription.expiresOn)
           }
         }
   }
 
   fun getExpiredSubscriptions(): Single<List<SubscriptionItem>> {
     return findDefaultWalletInteract.find()
-        .flatMap { subscriptionApiMocked.getExpiredSubscriptions(it.address) }
+        .flatMap { subscriptionApi.getExpiredSubscriptions(it.address) }
         .map { subscriptions ->
           subscriptions.map { subscription ->
             SubscriptionItem(subscription.appName, subscription.packageName, subscription.iconUrl,
-                subscription.amount, subscription.symbol, subscription.recurrence)
+                subscription.amount, subscription.symbol, subscription.recurrence,
+                subscription.expiresOn)
           }
         }
   }
@@ -35,14 +36,14 @@ class SubscriptionRepository(
   fun getSubscriptionDetails(packageName: String): Single<SubscriptionDetails> {
     return findDefaultWalletInteract.find()
         .flatMap { wallet ->
-          subscriptionApiMocked.getSubscriptionDetails(packageName, wallet.address)
+          subscriptionApi.getSubscriptionDetails(packageName, wallet.address)
               .map { subscription -> mapSubscription(subscription) }
         }
         .onErrorReturn { EmptySubscriptionDetails() }
   }
 
   fun getSubscriptionByTrxId(transactionId: String): Single<SubscriptionDetails> {
-    return subscriptionApiMocked.getSubscriptionByTransactionId(transactionId)
+    return subscriptionApi.getSubscriptionByTransactionId(transactionId)
         .map { mapSubscription(it) }
         .onErrorReturn { EmptySubscriptionDetails() }
   }
@@ -52,7 +53,7 @@ class SubscriptionRepository(
       ActiveSubscriptionDetails(subscription.appName, subscription.packageName,
           subscription.iconUrl, subscription.amount, subscription.symbol, subscription.currency,
           subscription.recurrence, BigDecimal.ZERO, subscription.paymentMethod,
-          subscription.paymentMethodIcon, subscription.nextPaymentDate!!)
+          subscription.paymentMethodIcon, subscription.nextPaymentDate, subscription.expiresOn)
     } else {
       ExpiredSubscriptionDetails(subscription.appName, subscription.packageName,
           subscription.iconUrl, subscription.amount, subscription.symbol, subscription.currency,
