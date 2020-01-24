@@ -452,6 +452,12 @@
   <string name="purchase_card_error_bank_rejects">İşlem bankanız tarafından reddedildi. Lütfen farklı bir kartla deneyin.</string>
   <string name="purchase_card_error_limits">Kartınızda bazı kısıtlamalar var gibi görünüyor. Lütfen bankanızla iletişime geçin veya farklı bir kart deneyin.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <!--Async Payments-->
+  <string name="async_steps_title">Next Steps</string>
+  <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
+  <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
+  <string name="async_notification_title">Your AppCoins Credits arrived!</string>
+  <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
