@@ -50,6 +50,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val PAYLOAD = "PAYLOAD"
     private const val PAYMENT_METHOD_URL = "payment_method_url"
 
+    private const val ANIMATION_STEP_ONE_START_FRAME = 0
+    private const val ANIMATION_STEP_TWO_START_FRAME = 40
+    private const val ANIMATION_STEP_THREE_START_FRAME = 80
+    private const val MID_ANIMATION_FRAME_INCREMENT = 40
+    private const val LAST_ANIMATION_FRAME_INCREMENT = 30
+    private const val BUTTON_ANIMATION_START_FRAME = 120
+    private const val LAST_ANIMATION_FRAME = 150
+
     @JvmStatic
     fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
                     bonus: String?, selectedPaymentMethod: String, developerAddress: String,
@@ -186,7 +194,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
   private lateinit var status: ViewState
   private var minFrame = 0
-  private var maxFrame = 30
+  private var maxFrame = 40
 
   private val appIconWidth: Int
     get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160f,
@@ -389,17 +397,17 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       }
 
       override fun onAnimationEnd(animation: Animator?) {
-        if (maxFrame == 150) {
+        if (maxFrame == LAST_ANIMATION_FRAME) {
           pending_user_payment_view?.in_progress_animation?.cancelAnimation()
         }
-        if (minFrame == 120) {
-          minFrame += 30
-          maxFrame += 30
+        if (minFrame == BUTTON_ANIMATION_START_FRAME) {
+          minFrame += LAST_ANIMATION_FRAME_INCREMENT
+          maxFrame += LAST_ANIMATION_FRAME_INCREMENT
           pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
           pending_user_payment_view?.in_progress_animation?.playAnimation()
         } else {
-          minFrame += 40
-          maxFrame += 40
+          minFrame += MID_ANIMATION_FRAME_INCREMENT
+          maxFrame += MID_ANIMATION_FRAME_INCREMENT
           pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
           pending_user_payment_view?.in_progress_animation?.playAnimation()
         }
@@ -410,19 +418,19 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
       override fun onAnimationStart(animation: Animator?) {
         when (minFrame) {
-          0 -> {
+          ANIMATION_STEP_ONE_START_FRAME -> {
             animateShow(step_one)
             animateShow(step_one_desc)
           }
-          40 -> {
+          ANIMATION_STEP_TWO_START_FRAME -> {
             animateShow(step_two)
             animateShow(step_two_desc)
           }
-          80 -> {
+          ANIMATION_STEP_THREE_START_FRAME -> {
             animateShow(step_three)
             animateShow(step_three_desc)
           }
-          120 -> animateButton(got_it_button)
+          BUTTON_ANIMATION_START_FRAME -> animateButton(got_it_button)
           else -> return
         }
       }
