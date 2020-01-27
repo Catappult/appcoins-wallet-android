@@ -24,6 +24,7 @@
   <string name="network_label">Mạng lưới</string>
   <string name="credits">Thông tin</string>
   <string name="label_new">Mới</string>
+  <string name="got_it_button">GOT IT</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
