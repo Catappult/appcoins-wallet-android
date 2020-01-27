@@ -246,6 +246,12 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    setupUi()
+
+    localPaymentPresenter.present()
+  }
+
+  private fun setupUi() {
     if (bonus?.isNotBlank() == true) {
       complete_payment_view.lottie_transaction_success.setAnimation(
           R.raw.top_up_bonus_success_animation)
@@ -254,7 +260,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       complete_payment_view.lottie_transaction_success.setAnimation(R.raw.top_up_success_animation)
     }
 
-    localPaymentPresenter.present()
+    iabView.disableBack()
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -453,6 +459,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     view.apply {
       alpha = 0.0f
       visibility = View.VISIBLE
+      lockRotation()
 
       animate()
           .alpha(1f)
@@ -468,7 +475,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
       animate()
           .alpha(1f)
-          .withEndAction { this.isClickable = true }
+          .withEndAction {
+            this.isClickable = true
+            iabView.enableBack()
+          }
           .setDuration(TimeUnit.SECONDS.toMillis(1))
           .setListener(null)
     }
