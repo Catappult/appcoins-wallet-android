@@ -24,6 +24,7 @@
   <string name="network_label">नेटवर्क</string>
   <string name="credits">क्रेडिट</string>
   <string name="label_new">नया</string>
+  <string name="got_it_button">GOT IT</string>
   <string name="low_storage_error">स्टोर करने के लिए पर्याप्त जगह नहीं</string>
   <string name="no_camera_permission_title">कैमरा अनुमति</string>
   <string name="no_camera_permission">क्यूआर कोड स्कैन के लिए AppCoins BDS Wallet को आपका कैमरा उपयोग करने की अनुमति की जरूरत है।</string>
