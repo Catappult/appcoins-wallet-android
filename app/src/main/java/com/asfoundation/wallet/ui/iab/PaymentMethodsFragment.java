@@ -455,7 +455,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override
-  public void showLocalPayment(@NotNull String selectedPaymentMethod, @NotNull String iconUrl) {
+  public void showLocalPayment(@NotNull String selectedPaymentMethod, @NotNull String iconUrl,
+      @NotNull String label) {
     boolean isOneStep = transaction.getType()
         .equalsIgnoreCase("INAPP_UNMANAGED");
     iabView.showLocalPayment(transaction.getDomain(), transaction.getSkuId(),
@@ -463,7 +464,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
         selectedPaymentMethod, transaction.toAddress(), transaction.getType(), transaction.amount(),
         transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload(),
-        iconUrl);
+        iconUrl, label);
   }
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {

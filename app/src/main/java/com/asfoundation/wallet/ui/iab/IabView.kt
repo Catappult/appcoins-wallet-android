@@ -26,7 +26,8 @@ interface IabView {
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                        type: String, amount: BigDecimal, callbackUrl: String?,
-                       orderReference: String?, payload: String?, paymentMethodIconUrl: String)
+                       orderReference: String?, payload: String?, paymentMethodIconUrl: String,
+                       paymentMethodLabel: String)
 
   fun showPaymentMethodsView()
   fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,

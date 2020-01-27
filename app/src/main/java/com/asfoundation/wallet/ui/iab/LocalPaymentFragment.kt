@@ -49,10 +49,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val ORDER_REFERENCE = "ORDER_REFERENCE"
     private const val PAYLOAD = "PAYLOAD"
     private const val PAYMENT_METHOD_URL = "payment_method_url"
+    private const val PAYMENT_METHOD_LABEL = "payment_method_label"
 
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
-    private const val ANIMATION_STEP_TWO_START_FRAME = 40
-    private const val ANIMATION_STEP_THREE_START_FRAME = 80
+    private const val ANIMATION_STEP_TWO_START_FRAME = 80
     private const val MID_ANIMATION_FRAME_INCREMENT = 40
     private const val LAST_ANIMATION_FRAME_INCREMENT = 30
     private const val BUTTON_ANIMATION_START_FRAME = 120
@@ -62,7 +62,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
                     bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                     type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
-                    payload: String?, paymentMethodIconUrl: String): LocalPaymentFragment {
+                    payload: String?, paymentMethodIconUrl: String,
+                    paymentMethodLabel: String): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(DOMAIN_KEY, domain)
@@ -78,6 +79,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         putString(ORDER_REFERENCE, orderReference)
         putString(PAYLOAD, payload)
         putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
+        putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
       }
       return fragment
     }
@@ -181,7 +183,15 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     if (arguments!!.containsKey(PAYMENT_METHOD_URL)) {
       arguments!!.getString(PAYMENT_METHOD_URL)
     } else {
-      throw IllegalArgumentException("payment method not found")
+      throw IllegalArgumentException("payment method icon url not found")
+    }
+  }
+
+  private val paymentMethodIconLabel: String? by lazy {
+    if (arguments!!.containsKey(PAYMENT_METHOD_LABEL)) {
+      arguments!!.getString(PAYMENT_METHOD_LABEL)
+    } else {
+      throw IllegalArgumentException("payment method icon label not found")
     }
   }
 
@@ -332,6 +342,11 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     progress_bar.visibility = View.GONE
     pending_user_payment_view?.visibility = View.VISIBLE
 
+    val placeholder = getString(R.string.async_steps_1)
+    val stepOneText = String.format(placeholder, paymentMethodIconLabel)
+
+    step_one_desc.text = stepOneText
+
     val applicationIcon =
         (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
 
@@ -425,10 +440,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
           ANIMATION_STEP_TWO_START_FRAME -> {
             animateShow(step_two)
             animateShow(step_two_desc)
-          }
-          ANIMATION_STEP_THREE_START_FRAME -> {
-            animateShow(step_three)
-            animateShow(step_three_desc)
           }
           BUTTON_ANIMATION_START_FRAME -> animateButton(got_it_button)
           else -> return

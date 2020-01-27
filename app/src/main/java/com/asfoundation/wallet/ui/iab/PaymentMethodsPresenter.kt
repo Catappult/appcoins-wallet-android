@@ -98,7 +98,8 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
                 selectedPaymentMethod.id)
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
-                selectedPaymentMethod.id, selectedPaymentMethod.iconUrl)
+                selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
+                selectedPaymentMethod.label)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
             else -> return@doOnNext

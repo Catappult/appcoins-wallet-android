@@ -17,13 +17,12 @@
       android:layout_marginTop="@dimen/big_margin"
       android:fontFamily="sans-serif-medium"
       android:gravity="center_horizontal"
-      android:text="Next Steps"
+      android:text="@string/async_steps_title"
       android:textColor="@color/black_87_alpha"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:text="Next Steps"
       />
 
   <com.airbnb.lottie.LottieAnimationView
@@ -64,7 +63,6 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:text="Complete your payment with GO-PAY"
       android:textColor="@color/pending_payment_text_color"
       android:textSize="12sp"
       android:visibility="invisible"
@@ -72,6 +70,7 @@
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/step_one"
       app:layout_constraintTop_toBottomOf="@id/in_progress_animation"
+      tools:text="@string/async_steps_1"
       tools:visibility="visible"
       />
 
@@ -101,7 +100,7 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:text="Once completed, close this dialog, we will notify you when the funds are available."
+      android:text="@string/async_steps_2"
       android:textColor="@color/pending_payment_text_color"
       android:textSize="12sp"
       android:visibility="invisible"
@@ -109,43 +108,6 @@
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/step_two"
       app:layout_constraintTop_toBottomOf="@id/step_one_desc"
-      tools:visibility="visible"
-      />
-
-  <TextView
-      android:id="@+id/step_three"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="top|end"
-      android:layout_marginStart="@dimen/big_margin"
-      android:adjustViewBounds="true"
-      android:background="@drawable/circle_background"
-      android:gravity="center"
-      android:text="3"
-      android:textColor="@color/white"
-      android:textSize="12sp"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="@id/step_three_desc"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/step_three_desc"
-      tools:visibility="visible"
-      />
-
-  <TextView
-      android:id="@+id/step_three_desc"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/big_margin"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:text="After been notified go back to the game, select the item you intend to purchase in the first step and tap “REDEEM”."
-      android:textColor="@color/pending_payment_text_color"
-      android:textSize="12sp"
-      android:visibility="invisible"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0"
-      app:layout_constraintStart_toEndOf="@id/step_three"
-      app:layout_constraintTop_toBottomOf="@id/step_two_desc"
       tools:visibility="visible"
       />
 
@@ -157,7 +119,7 @@
       android:background="@color/layout_separator_color"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/step_three_desc"
+      app:layout_constraintTop_toBottomOf="@id/step_two_desc"
       />
 
   <Button
@@ -172,7 +134,7 @@
       android:alpha="0.2"
       android:maxWidth="126dp"
       android:minWidth="80dp"
-      android:text="Got it"
+      android:text="@string/got_it_button"
       android:textColor="@color/white"
       android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="parent"

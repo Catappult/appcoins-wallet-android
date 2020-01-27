@@ -31,7 +31,7 @@ interface PaymentMethodsView {
   fun showShareLink(selectedPaymentMethod: String)
   fun getPaymentSelection(): Observable<String>
   fun getMorePaymentMethodsClicks(): Observable<Any>
-  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String)
+  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String)
   fun setBonus(bonus: BigDecimal, currency: String)
   fun onBackPressed(): Observable<Boolean>
   fun showNext()
