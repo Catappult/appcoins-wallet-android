@@ -4,9 +4,7 @@ import android.animation.Animator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Typeface
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -206,16 +204,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private var minFrame = 0
   private var maxFrame = 40
 
-  private val appIconWidth: Int
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160f,
-        context?.resources?.displayMetrics)
-        .toInt()
-
-  private val appIconHeight: Int
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160f,
-        context?.resources?.displayMetrics)
-        .toInt()
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     navigator = FragmentNavigator(activity as UriNavigator?, iabView)
@@ -341,7 +329,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     pending_user_payment_view.in_progress_animation.cancelAnimation()
   }
 
-  override fun showPendingUserPayment(paymentMethodIcon: Bitmap) {
+  override fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap) {
     status = PENDING_USER_PAYMENT
     error_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
@@ -353,15 +341,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
     step_one_desc.text = stepOneText
 
-    val applicationIcon =
-        (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
-
-    val resized = Bitmap.createScaledBitmap(applicationIcon, appIconWidth, appIconHeight, true)
-
     pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
       when (it.id) {
         "image_0" -> paymentMethodIcon
-        "image_1" -> resized
+        "image_1" -> applicationIcon
         else -> null
       }
     }

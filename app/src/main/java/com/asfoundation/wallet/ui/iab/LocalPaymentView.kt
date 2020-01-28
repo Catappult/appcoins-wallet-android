@@ -7,7 +7,7 @@ import io.reactivex.Observable
 interface LocalPaymentView {
   fun showProcessingLoading()
   fun hideLoading()
-  fun showPendingUserPayment(paymentMethodIcon: Bitmap)
+  fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap)
   fun showCompletedPayment()
   fun showError()
   fun dismissError()
