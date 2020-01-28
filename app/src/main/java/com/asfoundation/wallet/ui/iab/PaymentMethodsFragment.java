@@ -122,7 +122,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView preSelectedName;
   private TextView preSelectedDescription;
   private View noBonusMsg;
-  private String paymentMethodIconUrl;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, boolean isDonation, String developerPayload, String uri,
