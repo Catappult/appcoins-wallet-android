@@ -48,8 +48,6 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/line_separator"
           android:overScrollMode="never"
-          android:paddingStart="@dimen/big_margin"
-          android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
           >
         <RelativeLayout
