@@ -9,6 +9,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -334,6 +335,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     adyenSaveDetailsSwitch =
         adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
             ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
+
+    adyenCardNumberLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
+    adyenExpiryDateLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
+    adyenSecurityCodeLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
+
   }
 
   private fun setupCardConfiguration() {
