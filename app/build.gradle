@@ -67,8 +67,7 @@ android {
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST', project.TRANSACTION_DETAILS_HOST
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
-    buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
-        resValue "string" , "facebook_app_id" , project.FACEBOOK_APP_KEY
+    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
     manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
   }
@@ -119,7 +118,7 @@ android {
       buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
-      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)

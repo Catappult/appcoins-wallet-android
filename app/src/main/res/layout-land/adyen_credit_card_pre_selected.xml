@@ -115,14 +115,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             >
           <include
               android:id="@+id/layout_pre_selected"
               layout="@layout/selected_payment_method_cc"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="-24dp"
               />
           <Button
               android:id="@+id/change_card_button_pre_selected"
@@ -131,6 +130,7 @@
               android:layout_height="@dimen/button_height"
               android:layout_below="@id/layout_pre_selected"
               android:layout_alignParentEnd="true"
+              android:layout_marginTop="@dimen/normal_margin"
               android:layout_marginEnd="16dp"
               android:fontFamily="sans-serif-medium"
               android:lineSpacingExtra="5sp"
