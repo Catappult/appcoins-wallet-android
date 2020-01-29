@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 public class InAppPurchaseInteractor {
 
   public static final String PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY";
+  public static final String LOCAL_PAYMENT_METHOD_KEY = "LOCAL_PAYMENT_METHOD_KEY";
   private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";
@@ -391,7 +392,17 @@ public class InAppPurchaseInteractor {
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
   }
 
+  boolean hasAsyncLocalPayment() {
+    return sharedPreferences.contains(LOCAL_PAYMENT_METHOD_KEY);
+  }
+
   public void savePreSelectedPaymentMethod(String paymentMethod) {
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString(LOCAL_PAYMENT_METHOD_KEY, paymentMethod);
+    editor.apply();
+  }
+
+  public void saveAsyncLocalPayment(String paymentMethod) {
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.putString(PRE_SELECTED_PAYMENT_METHOD_KEY, paymentMethod);
     editor.putString(LAST_USED_PAYMENT_METHOD_KEY, paymentMethod);
@@ -404,13 +415,19 @@ public class InAppPurchaseInteractor {
     editor.apply();
   }
 
+  public void removeAsyncLocalPayment() {
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.remove(LOCAL_PAYMENT_METHOD_KEY);
+    editor.apply();
+  }
+
   String getLastUsedPaymentMethod() {
     return sharedPreferences.getString(LAST_USED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.CREDIT_CARD.getId());
   }
 
   private boolean isUnavailable(PaymentMethodEntity paymentMethod) {
-    return paymentMethod.getAvailability() != null && paymentMethod.getAvailability()
+    return paymentMethod.getAvailability()
         .equals("UNAVAILABLE");
   }
 }

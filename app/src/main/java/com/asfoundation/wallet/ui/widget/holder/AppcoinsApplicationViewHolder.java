@@ -25,7 +25,6 @@ import com.asfoundation.wallet.widget.CardHeaderTransformation;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SizeReadyCallback;
@@ -86,17 +85,17 @@ public class AppcoinsApplicationViewHolder extends RecyclerView.ViewHolder {
       @Override public void onStart() {
       }
 
-      @Override public void setRequest(@Nullable Request request) {
-      }
-
       @Override public void onStop() {
       }
 
-      @Nullable @Override public Request getRequest() {
-        return null;
+      @Override public void onDestroy() {
+      }      @Override public void setRequest(@Nullable Request request) {
       }
 
-      @Override public void onDestroy() {
+
+
+      @Nullable @Override public Request getRequest() {
+        return null;
       }
     };
     appIcon.setTag(marketBitmap);

@@ -48,6 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_rawRes="@raw/intro_onboarding_animation"
         />
 

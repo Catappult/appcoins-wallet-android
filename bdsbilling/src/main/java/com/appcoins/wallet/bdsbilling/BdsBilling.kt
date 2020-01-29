@@ -31,8 +31,7 @@ class BdsBilling(private val repository: BillingRepository,
     return repository.getSkuDetails(merchantName, skus)
   }
 
-  override fun getAppcoinsTransaction(uid: String,
-                                      scheduler: Scheduler): Single<Transaction> {
+  override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
     return walletService.getWalletAddress()
         .flatMap { address ->
           walletService.signContent(address)
