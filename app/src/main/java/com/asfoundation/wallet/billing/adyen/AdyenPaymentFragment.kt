@@ -2,6 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -346,9 +347,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       textSize = 15f
       text = getString(R.string.dialog_credit_card_remember)
     }
-    adyenCardNumberLayout.minimumHeight = 40
-    adyenExpiryDateLayout.minimumHeight = 40
-    adyenSecurityCodeLayout.minimumHeight = 40
+
+    val height = getMinimumHeightInPx()
+
+    adyenCardNumberLayout.minimumHeight = height
+    adyenExpiryDateLayout.minimumHeight = height
+    adyenSecurityCodeLayout.minimumHeight = height
+  }
+
+  private fun getMinimumHeightInPx(): Int {
+    return (70 * Resources.getSystem().displayMetrics.density).toInt()
   }
 
   private fun setupCardConfiguration() {
