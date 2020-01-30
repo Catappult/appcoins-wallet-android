@@ -82,6 +82,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_below="@id/layout_pre_selected"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/normal_margin"
                 android:fontFamily="sans-serif-medium"
                 android:lineSpacingExtra="5sp"
                 android:text="@string/activity_iab_change_card"

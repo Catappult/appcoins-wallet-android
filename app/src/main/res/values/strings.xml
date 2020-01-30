@@ -26,6 +26,7 @@
   <string name="network_label">Network</string>
   <string name="credits">Credits</string>
   <string name="label_new">New</string>
+  <string name="got_it_button">GOT IT</string>
 
   <string name="low_storage_error">Not enough storage space</string>
   <string name="no_camera_permission_title">Camera Permission</string>
@@ -491,6 +492,15 @@
   <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
   <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+
+  <!--Async Payments-->
+  <string name="async_steps_title">Next Steps</string>
+  <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
+  <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
+  <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
+  <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
+  <string name="async_notification_title">Your AppCoins Credits arrived!</string>
+  <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
 
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invite Your Friends!</string>

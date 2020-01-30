@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing.mappers
+package com.appcoins.wallet.bdsbilling.mappers
 
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.PurchaseSignatureSerializer
@@ -22,11 +22,11 @@ class ExternalBillingSerializer {
     return serializedProducts
   }
 
-  fun mapProduct(product: Product): SKU {
-      return SKU(product.sku, "inapp", getBasePrice(product), getBaseCurrency(product),
-              getBasePriceInMicro(product), getAppcPrice(product), APPC,
-              getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
-              getFiatPriceInMicro(product), product.title, product.description)
+  private fun mapProduct(product: Product): SKU {
+    return SKU(product.sku, "inapp", getBasePrice(product), getBaseCurrency(product),
+        getBasePriceInMicro(product), getAppcPrice(product), APPC,
+        getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
+        getFiatPriceInMicro(product), product.title, product.description)
   }
 
   private fun getBasePrice(product: Product): String {
@@ -69,11 +69,10 @@ class ExternalBillingSerializer {
   }
 
   fun serializeSignatureData(purchase: Purchase): String {
-    val gson =
-        GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())
-            .disableHtmlEscaping()
-            .create()
-    return gson.toJson(purchase)
+    return GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())
+        .disableHtmlEscaping()
+        .create()
+        .toJson(purchase)
   }
 
 }
