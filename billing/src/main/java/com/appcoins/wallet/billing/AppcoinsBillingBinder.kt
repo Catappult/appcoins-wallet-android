@@ -14,9 +14,9 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.billing.repository.entity.Product
+import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.Function4
-import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.util.*
 
@@ -27,7 +27,8 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
                             private val billingFactory: BillingFactory,
                             private val serializer: ExternalBillingSerializer,
                             private val proxyService: ProxyService,
-                            private val intentBuilder: BillingIntentBuilder)
+                            private val intentBuilder: BillingIntentBuilder,
+                            private val networkScheduler: Scheduler)
   : AppcoinsBilling.Stub() {
   companion object {
     internal const val RESULT_OK = 0 // success
@@ -82,7 +83,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       ITEM_TYPE_INAPP -> billing.isInAppSupported()
       ITEM_TYPE_SUBS -> billing.isSubsSupported()
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
-    }.subscribeOn(Schedulers.io())
+    }.subscribeOn(networkScheduler)
         .map { supported -> billingMessagesMapper.mapSupported(supported) }
         .blockingGet()
   }
@@ -111,7 +112,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
             Single.error(billingMessagesMapper.mapException(it))
           }
           .flatMap { Single.just(serializer.serializeProducts(it)) }
-          .subscribeOn(Schedulers.io())
+          .subscribeOn(networkScheduler)
           .blockingGet()
       billingMessagesMapper.mapSkuDetails(serializedProducts)
     } catch (exception: Exception) {
@@ -131,13 +132,13 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     val getTokenContractAddress = proxyService.getAppCoinsAddress(BuildConfig.DEBUG)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
     val getSkuDetails = billing.getProducts(listOf(sku))
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
 
     return Single.zip(getTokenContractAddress, getIabContractAddress, getSkuDetails,
         getDeveloperAddress,
