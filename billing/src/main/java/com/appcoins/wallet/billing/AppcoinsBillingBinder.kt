@@ -14,9 +14,9 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.billing.repository.entity.Product
+import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.Function4
-import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.util.*
 
@@ -27,8 +27,9 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
                             private val billingFactory: BillingFactory,
                             private val serializer: ExternalBillingSerializer,
                             private val proxyService: ProxyService,
-                            private val intentBuilder: BillingIntentBuilder) :
-    AppcoinsBilling.Stub() {
+                            private val intentBuilder: BillingIntentBuilder,
+                            private val networkScheduler: Scheduler)
+  : AppcoinsBilling.Stub() {
   companion object {
     internal const val RESULT_OK = 0 // success
     internal const val RESULT_USER_CANCELED = 1 // user pressed back or canceled a dialog
@@ -40,7 +41,6 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val RESULT_ERROR = 6 // Fatal error during the API action
     internal const val RESULT_ITEM_ALREADY_OWNED =
         7 // Failure to purchase since item is already owned
-    internal const val RESULT_ITEM_NOT_OWNED = 8 // Failure to consume since item is not owned
 
     internal const val RESPONSE_CODE = "RESPONSE_CODE"
     internal const val INAPP_PURCHASE_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST"
@@ -51,7 +51,6 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA"
     internal const val INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE"
     internal const val INAPP_ORDER_REFERENCE = "order_reference"
-    internal const val INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN"
     internal const val INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID"
 
     internal const val ITEM_TYPE_INAPP = "inapp"
@@ -77,18 +76,14 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
   }
 
   override fun isBillingSupported(apiVersion: Int, packageName: String?, type: String?): Int {
-    if (apiVersion != supportedApiVersion || packageName == null || packageName.isBlank() || type == null || type.isBlank()) {
+    if (apiVersion != supportedApiVersion || packageName.isNullOrBlank() || type.isNullOrBlank()) {
       return RESULT_BILLING_UNAVAILABLE
     }
     return when (type) {
-      ITEM_TYPE_INAPP -> {
-        billing.isInAppSupported()
-      }
-      ITEM_TYPE_SUBS -> {
-        billing.isSubsSupported()
-      }
+      ITEM_TYPE_INAPP -> billing.isInAppSupported()
+      ITEM_TYPE_SUBS -> billing.isSubsSupported()
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
-    }.subscribeOn(Schedulers.io())
+    }.subscribeOn(networkScheduler)
         .map { supported -> billingMessagesMapper.mapSupported(supported) }
         .blockingGet()
   }
@@ -105,19 +100,19 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     val skus = skusBundle.getStringArrayList(ITEM_ID_LIST)
 
-    if (skus == null || skus.size <= 0) {
+    if (skus.isNullOrEmpty()) {
       result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
       return result
     }
 
     return try {
-      val serializedProducts: List<String> = billing.getProducts(skus)
+      val serializedProducts = billing.getProducts(skus)
+          .doOnError { it.printStackTrace() }
           .onErrorResumeNext {
-            it.printStackTrace()
             Single.error(billingMessagesMapper.mapException(it))
           }
           .flatMap { Single.just(serializer.serializeProducts(it)) }
-          .subscribeOn(Schedulers.io())
+          .subscribeOn(networkScheduler)
           .blockingGet()
       billingMessagesMapper.mapSkuDetails(serializedProducts)
     } catch (exception: Exception) {
@@ -137,16 +132,16 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     val getTokenContractAddress = proxyService.getAppCoinsAddress(BuildConfig.DEBUG)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
     val getSkuDetails = billing.getProducts(listOf(sku))
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(networkScheduler)
 
-    return Single.zip(getTokenContractAddress,
-        getIabContractAddress, getSkuDetails, getDeveloperAddress,
+    return Single.zip(getTokenContractAddress, getIabContractAddress, getSkuDetails,
+        getDeveloperAddress,
         Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
             intentBuilder.buildBuyIntentBundle(tokenContractAddress, iabContractAddress,
@@ -184,9 +179,8 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     if (type == ITEM_TYPE_INAPP) {
       try {
-        val purchases =
-            billing.getPurchases(BillingSupportedType.INAPP)
-                .blockingGet()
+        val purchases = billing.getPurchases(BillingSupportedType.INAPP)
+            .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
           idsList.add(purchase.uid)
@@ -200,12 +194,14 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     }
 
-    result.putStringArrayList(INAPP_PURCHASE_ID_LIST, idsList)
-    result.putStringArrayList(INAPP_PURCHASE_DATA_LIST, dataList)
-    result.putStringArrayList(INAPP_PURCHASE_ITEM_LIST, skuList)
-    result.putStringArrayList(INAPP_DATA_SIGNATURE_LIST, signatureList)
-    result.putInt(RESPONSE_CODE, RESULT_OK)
-    return result
+    return result.apply {
+      putStringArrayList(INAPP_PURCHASE_ID_LIST, idsList)
+      putStringArrayList(INAPP_PURCHASE_DATA_LIST, dataList)
+      putStringArrayList(INAPP_PURCHASE_ITEM_LIST, skuList)
+      putStringArrayList(INAPP_DATA_SIGNATURE_LIST, signatureList)
+      putInt(RESPONSE_CODE, RESULT_OK)
+    }
+
   }
 
   override fun consumePurchase(apiVersion: Int, packageName: String?, purchaseToken: String): Int {
