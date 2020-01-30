@@ -28,7 +28,7 @@
 <string name="iab_pay_with_wallet_reward_title">Get up to 30% Bonus!</string>
 <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
 <string name="iab_best_deal">BEST DEAL</string>
-<string name="iab_purchase_done_title"></string>
+<string name="iab_purchase_done_title">DONE!</string>
 <string name="iab_purchase_done_reward_title">Next time, get up to 30% Bonus with the AppCoins Wallet!</string>
 <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
 
