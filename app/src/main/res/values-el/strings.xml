@@ -453,6 +453,7 @@
   <string name="purchase_card_error_bank_rejects">Η συναλλαγή απορρίφθηκε από την τράπεζά σας. Παρακαλούμε προσπαθήστε με μία διαφορετική κάρτα.</string>
   <string name="purchase_card_error_limits">Φαίνεται πως υπάρχουν κάποιοι περιορισμοί στην κάρτα σας. Παρακαλούμε επικοινωνήστε με την τράπεζά σας ή δοκιμάστε με μία διαφορετική κάρτα.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
