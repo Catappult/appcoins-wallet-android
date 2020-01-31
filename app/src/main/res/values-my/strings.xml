@@ -453,6 +453,7 @@
   <string name="purchase_card_error_bank_rejects">ေငြလႊဲေျပာင္းမႈကို သင့္ဘဏ္က ျငင္းဆန္လိုက္ပါသည္။ အျခားတစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ။</string>
   <string name="purchase_card_error_limits">သင့္ကဒ္တြင္ ကန္႔သတ္ခ်က္အခ်ိဳ႕ ရွိပံုရပါသည္။ သင့္ဘဏ္ကိုဆက္သြယ္ေပးပါ သို႔မဟုတ္ အျခားတစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ။</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
