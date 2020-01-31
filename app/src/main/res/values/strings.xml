@@ -492,7 +492,7 @@
   <string name="purchase_card_error_bank_rejects">The transaction has been rejected by your bank. Please try with a different card.</string>
   <string name="purchase_card_error_limits">It seems there are some restrictions to your card. Please contact your bank or try with a different one.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</strong>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
 
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
