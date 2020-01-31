@@ -453,6 +453,7 @@
   <string name="purchase_card_error_bank_rejects">交易已被你的银行拒绝。请尝试使用其他信用卡。</string>
   <string name="purchase_card_error_limits">你的信用卡似乎存在一些限制。请联系你的银行，或尝试使用其他信用卡。</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
