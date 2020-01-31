@@ -453,6 +453,7 @@
   <string name="purchase_card_error_bank_rejects">تراکنش از طرف بانک رد شده است. لطفا با کارت دیگری دوباره امتحان کنید.</string>
   <string name="purchase_card_error_limits">به نظر می‌رسد کارت شما محدودیت‌هایی دارید. لطفا با بانک خود تماس بگیرید یا کارت دیگری را امتحان کنید.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
