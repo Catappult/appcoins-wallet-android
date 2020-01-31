@@ -453,6 +453,7 @@
   <string name="purchase_card_error_bank_rejects">Ngân hàng của bạn đã từ chối giao dịch này. Vui lòng thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_limits">Có vẻ như có một số hạn chế đối với thẻ của bạn. Vui lòng liên hệ với ngân hàng của bạn hoặc thử bằng một thẻ khác.</string>
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
