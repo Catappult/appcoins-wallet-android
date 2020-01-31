@@ -2,6 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -334,6 +337,31 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     adyenSaveDetailsSwitch =
         adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
             ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
+
+    adyenCardNumberLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
+    adyenExpiryDateLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
+    adyenSecurityCodeLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
+
+    adyenSaveDetailsSwitch?.run {
+
+      val params: LinearLayout.LayoutParams = this.layoutParams as LinearLayout.LayoutParams
+      params.topMargin = 8
+
+      layoutParams = params
+      isChecked = true
+      textSize = 15f
+      text = getString(R.string.dialog_credit_card_remember)
+    }
+
+    val height = getMinimumHeightInPx()
+
+    adyenCardNumberLayout.minimumHeight = height
+    adyenExpiryDateLayout.minimumHeight = height
+    adyenSecurityCodeLayout.minimumHeight = height
+  }
+
+  private fun getMinimumHeightInPx(): Int {
+    return (70 * Resources.getSystem().displayMetrics.density).toInt()
   }
 
   private fun setupCardConfiguration() {
