@@ -453,6 +453,7 @@
   <string name="purchase_card_error_bank_rejects">Транзакцията е отхвърлена от твоята банка. Моля, опитай с друга карта.</string>
   <string name="purchase_card_error_limits">Изглежда, че на картата ти има някакви ограничения. Моля, свържи се с банката си или опитай с друга карта.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
