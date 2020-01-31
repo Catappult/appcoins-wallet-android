@@ -453,6 +453,7 @@
   <string name="purchase_card_error_bank_rejects">Vaša banka je odbila transakciju. Pokušajte sa drugom karticom.</string>
   <string name="purchase_card_error_limits">Izgleda da na vašoj kartici postoje neka ograničenja. Obratite se banci ili pokušajte sa drugom karticom.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
