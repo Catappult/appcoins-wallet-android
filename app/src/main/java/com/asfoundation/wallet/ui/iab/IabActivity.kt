@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
@@ -17,6 +18,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.util.LogInterceptor.TEMPORARY_TAG
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
@@ -72,7 +74,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-
+    Log.d(TEMPORARY_TAG,
+        "IabActivity.onActivityResult(): requestCode $requestCode, resultCode $resultCode, data: $data")
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
         showPaymentMethodsView()
@@ -107,6 +110,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun finish(bundle: Bundle) {
+    Log.d(TEMPORARY_TAG, "IabActivity.finish()")
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
         bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY))
     bundle.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
@@ -117,6 +121,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showError() {
     setResult(Activity.RESULT_CANCELED)
+    Log.d(TEMPORARY_TAG, "IabActivity.showError()")
     finish()
   }
 
@@ -124,10 +129,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     val intent = Intent()
     bundle?.let { intent.putExtras(bundle) }
     setResult(Activity.RESULT_CANCELED, intent)
+    Log.d(TEMPORARY_TAG, "IabActivity.close(): bundle: $bundle")
     finish()
   }
 
   override fun navigateToWebViewAuthorization(url: String) {
+    Log.d(TEMPORARY_TAG,
+        "IabActivity.navigateToWebViewAuthorization(): Navigation to WebView with $url")
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
 
@@ -164,6 +172,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                 developerAddress: String, type: String, amount: BigDecimal,
                                 callbackUrl: String?, orderReference: String?, payload: String?,
                                 paymentMethodIconUrl: String, paymentMethodLabel: String) {
+    Log.d(TEMPORARY_TAG,
+        "IabActivity.showLocalPayment()\ndomain: $domain\nskuId: $skuId,\noriginalAmount: $originalAmount" +
+            "\ncurrency: $currency\nbonus: $bonus\nselectedPaymentMethod: $selectedPaymentMethod\n" +
+            "developerAddress: $developerAddress\ntype: $type\namount: $amount\ncallbackUrl: $callbackUrl" +
+            "\norderReference: $orderReference\npayload: $payload\npaymentMethodIconUrl: $paymentMethodIconUrl" +
+            "\npaymentMethodLabel: $paymentMethodLabel")
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
@@ -181,6 +195,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
+    val productName = intent.extras!!.getString(PRODUCT_NAME)
+    val transactionData = intent.dataString
+    Log.d(TEMPORARY_TAG, "IabActivity.showPaymentMethodsView(): Payment methods shown\n" +
+        "transaction: $transaction,\nproductName $productName \nisBds $isBds \nisDonation: " +
+        "$isDonation \ndeveloperPayload: $developerPayload \nuri: $uri \ntransactionData: $transactionData")
   }
 
   override fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,

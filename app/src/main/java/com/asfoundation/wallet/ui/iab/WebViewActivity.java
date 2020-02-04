@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.asf.wallet.R;
 import dagger.android.AndroidInjection;
 
+import static com.asfoundation.wallet.util.LogInterceptor.TEMPORARY_TAG;
+
 public class WebViewActivity extends AppCompatActivity {
 
   public static final int SUCCESS = 1;
@@ -32,7 +34,7 @@ public class WebViewActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       String url = getIntent().getStringExtra(URL);
       BillingWebViewFragment billingWebViewFragment = BillingWebViewFragment.newInstance(url);
-
+      Log.d(TEMPORARY_TAG, "WebViewActivity.onCreate(): Navigate to BillingWebViewFragment");
       getSupportFragmentManager().beginTransaction()
           .add(R.id.container, billingWebViewFragment)
           .commit();

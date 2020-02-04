@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
+
+import static com.asfoundation.wallet.util.LogInterceptor.TEMPORARY_TAG;
 
 public class BillingWebViewFragment extends DaggerFragment {
 
@@ -96,15 +99,26 @@ public class BillingWebViewFragment extends DaggerFragment {
     webView.setWebViewClient(new WebViewClient() {
 
       @Override public boolean shouldOverrideUrlLoading(WebView view, String clickUrl) {
+        Log.d(TEMPORARY_TAG,
+            "BillingWebViewFragment.shouldOverrideUrlLoading(): clickUrl " + clickUrl);
         if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA)) {
+          Log.d(TEMPORARY_TAG,
+              "BillingWebViewFragment.shouldOverrideUrlLoading(): clickUrl contains "
+                  + "LOCAL_PAYMENTS_SCHEMA or ADYEN_PAYMENT_SCHEMA");
           currentUrl = clickUrl;
           Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));
           webViewActivity.setResult(WebViewActivity.SUCCESS, intent);
           webViewActivity.finish();
         } else if (clickUrl.contains(GO_PAY_PAYMENTS_SCHEMA)) {
+          Log.d(TEMPORARY_TAG,
+              "BillingWebViewFragment.shouldOverrideUrlLoading(): clickUrl contains "
+                  + "GO_PAY_PAYMENTS_SCHEMA");
           launchActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)));
         } else {
+          Log.d(TEMPORARY_TAG,
+              "BillingWebViewFragment.shouldOverrideUrlLoading(): clickUrl does not contain a "
+                  + "schema");
           currentUrl = clickUrl;
           return false;
         }
@@ -116,8 +130,10 @@ public class BillingWebViewFragment extends DaggerFragment {
       }
 
       @Override public void onPageFinished(WebView view, String url) {
+        Log.d(TEMPORARY_TAG, "BillingWebViewFragment.onPageFinished(): url " + url);
         super.onPageFinished(view, url);
         if (!url.contains("/redirect")) {
+          Log.d(TEMPORARY_TAG, "BillingWebViewFragment.onPageFinished(): url contains redirect");
           ScheduledFuture<?> timeout = timeoutReference.getAndSet(null);
           if (timeout != null) {
             timeout.cancel(false);
