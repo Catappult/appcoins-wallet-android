@@ -78,7 +78,6 @@
           android:id="@+id/fragment_credit_card_authorization_progress_bar"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_below="@id/line_separator"
           android:indeterminateDrawable="@drawable/gradient_progress"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
@@ -116,48 +115,64 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
-      <ScrollView
-          android:id="@+id/cc_info_view"
+
+      <RelativeLayout
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:layout_marginTop="16dp"
-          android:overScrollMode="never"
-          android:paddingStart="@dimen/big_margin"
-          android:paddingEnd="@dimen/big_margin"
-          android:scrollbars="none"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           >
-        <RelativeLayout
+
+        <ScrollView
+            android:id="@+id/cc_info_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:paddingStart="@dimen/big_margin"
+            android:paddingEnd="@dimen/big_margin"
+            android:scrollbars="none"
             >
-          <include
-              android:id="@+id/adyen_card_form"
-              layout="@layout/selected_payment_method_cc"
+          <RelativeLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              />
-          <Button
-              android:id="@+id/change_card_button"
-              style="?android:attr/borderlessButtonStyle"
-              android:layout_width="wrap_content"
-              android:layout_height="@dimen/button_height"
-              android:layout_below="@id/adyen_card_form"
-              android:layout_alignParentEnd="true"
-              android:layout_marginEnd="16dp"
-              android:fontFamily="sans-serif-medium"
-              android:lineSpacingExtra="5sp"
-              android:text="@string/activity_iab_change_card"
-              android:textColor="@color/btn_cancel_text"
-              android:textSize="12sp"
-              android:visibility="gone"
-              />
-        </RelativeLayout>
-      </ScrollView>
+              android:layout_gravity="center"
+              >
+            <include
+                android:id="@+id/adyen_card_form"
+                layout="@layout/selected_payment_method_cc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/change_card_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_below="@id/adyen_card_form"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/activity_iab_change_card"
+                android:textColor="@color/btn_cancel_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+          </RelativeLayout>
+        </ScrollView>
+
+        <include
+            android:id="@+id/fragment_adyen_error"
+            layout="@layout/fragment_adyen_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+      </RelativeLayout>
 
       <View
           android:id="@+id/bottom_separator"
@@ -179,6 +194,7 @@
           />
 
       <include
+          android:id="@+id/dialog_buy_buttons"
           layout="@layout/dialog_buy_buttons"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
@@ -188,10 +204,25 @@
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           />
 
+      <include
+          android:id="@+id/error_buttons"
+          layout="@layout/dialog_buy_buttons_adyen_error"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/fragment_iab_transaction_completed"/>
+
   </RelativeLayout>
+
   <include
       android:id="@+id/fragment_iab_error"
       layout="@layout/fragment_iab_error"
@@ -199,4 +230,5 @@
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       />
+
 </RelativeLayout>

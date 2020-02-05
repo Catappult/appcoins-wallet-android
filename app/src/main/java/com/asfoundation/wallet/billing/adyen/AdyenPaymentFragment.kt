@@ -9,9 +9,11 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -47,7 +49,11 @@ import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_card_authorization_progress_bar
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
+import kotlinx.android.synthetic.main.dialog_buy_buttons.view.*
+import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
+import kotlinx.android.synthetic.main.fragment_adyen_error.*
+import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.fragment_iab_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
@@ -195,7 +201,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun hideLoadingAndShowView() {
-    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
+    fragment_credit_card_authorization_progress_bar?.visibility = GONE
     if (isPreSelected) {
       payment_methods?.visibility = View.VISIBLE
     } else {
@@ -207,9 +213,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showNetworkError() {
-    main_view?.visibility = View.GONE
-    main_view_pre_selected?.visibility = View.GONE
-    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
+    main_view?.visibility = GONE
+    main_view_pre_selected?.visibility = GONE
+    fragment_credit_card_authorization_progress_bar?.visibility = GONE
+    fragment_adyen_error?.visibility = GONE
+    fragment_adyen_error_pre_selected?.visibility = GONE
     fragment_iab_error?.visibility = View.VISIBLE
     fragment_iab_error?.activity_iab_error_message?.setText(R.string.notification_no_network_poa)
     fragment_iab_error_pre_selected?.visibility = View.VISIBLE
@@ -224,45 +232,62 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showSuccess() {
     iab_activity_transaction_completed.visibility = View.VISIBLE
-    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
+    fragment_credit_card_authorization_progress_bar?.visibility = GONE
     if (isPreSelected) {
-      main_view?.visibility = View.GONE
-      main_view_pre_selected?.visibility = View.GONE
+      main_view?.visibility = GONE
+      main_view_pre_selected?.visibility = GONE
     } else {
-      fragment_credit_card_authorization_progress_bar.visibility = View.GONE
-      credit_card_info.visibility = View.GONE
+      fragment_credit_card_authorization_progress_bar.visibility = GONE
+      credit_card_info.visibility = GONE
       lottie_transaction_success.visibility = View.VISIBLE
-      fragment_iab_error?.visibility = View.GONE
-      fragment_iab_error_pre_selected?.visibility = View.GONE
+      fragment_adyen_error?.visibility = GONE
+      fragment_adyen_error_pre_selected?.visibility = GONE
+      fragment_iab_error?.visibility = GONE
+      fragment_iab_error_pre_selected?.visibility = GONE
     }
   }
 
   override fun showGenericError() {
-    main_view?.visibility = View.GONE
-    main_view_pre_selected?.visibility = View.GONE
+    main_view?.visibility = GONE
+    main_view_pre_selected?.visibility = GONE
+    fragment_adyen_error?.visibility = GONE
+    fragment_adyen_error_pre_selected?.visibility = GONE
     fragment_iab_error?.visibility = View.VISIBLE
-    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
+    fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_iab_error?.activity_iab_error_message?.setText(R.string.unknown_error)
     fragment_iab_error_pre_selected?.visibility = View.VISIBLE
     fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
         R.string.unknown_error)
   }
 
-  override fun showSpecificError(refusalCode: Int) {
-    main_view?.visibility = View.GONE
-    main_view_pre_selected?.visibility = View.GONE
-    var message = getString(R.string.notification_payment_refused)
+  override fun showSpecificError(@StringRes stringRes: Int) {
+    fragment_credit_card_authorization_progress_bar?.visibility = GONE
+    fragment_iab_error?.visibility = GONE
+    fragment_iab_error_pre_selected?.visibility = GONE
+    cc_info_view?.visibility = GONE
+    dialog_buy_buttons?.cancel_button?.visibility = GONE
+    dialog_buy_buttons?.buy_button?.visibility = GONE
+    payment_methods?.visibility = View.VISIBLE
+    bonus_layout_pre_selected?.visibility = GONE
+    bonus_msg_pre_selected?.visibility = GONE
+    more_payment_methods?.visibility = GONE
+    layout_pre_selected?.visibility = GONE
+    change_card_button_pre_selected?.visibility = GONE
 
-    when (refusalCode) {
-      8, 24 -> message =
-          getString(R.string.notification_payment_refused) //To be changed on errors ticket
-    }
+    error_buttons?.visibility = View.VISIBLE
+    dialog_buy_buttons_error?.visibility = View.VISIBLE
 
-    fragment_credit_card_authorization_progress_bar?.visibility = View.GONE
-    fragment_iab_error?.activity_iab_error_message?.text = message
-    fragment_iab_error_pre_selected?.activity_iab_error_message?.text = message
-    fragment_iab_error?.visibility = View.VISIBLE
-    fragment_iab_error_pre_selected?.visibility = View.VISIBLE
+    val message = getString(stringRes)
+
+    fragment_adyen_error?.error_message?.text = message
+    fragment_adyen_error_pre_selected?.error_message?.text = message
+    fragment_adyen_error?.visibility = View.VISIBLE
+    fragment_adyen_error_pre_selected?.visibility = View.VISIBLE
+  }
+
+  override fun showCvvError() {
+    hideLoadingAndShowView()
+    adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
   }
 
   override fun getMorePaymentMethodsClicks() = RxView.clicks(more_payment_methods)
@@ -293,6 +318,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     appc_price.visibility = View.VISIBLE
   }
 
+  override fun adyenErrorBackClicks() = RxView.clicks(error_back)
+
+  override fun adyenErrorCancelClicks() = RxView.clicks(error_cancel)
+
   override fun errorDismisses() = RxView.clicks(activity_iab_error_ok_button)
 
   override fun buyButtonClicked() = RxView.clicks(buy_button)
@@ -302,6 +331,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
 
   override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
+
+  override fun getSupportClicks() = RxView.clicks(layout_support)
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -405,9 +436,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private fun handleLayoutVisibility(isStored: Boolean) {
     if (isStored) {
-      adyenCardNumberLayout.visibility = View.GONE
-      adyenExpiryDateLayout.visibility = View.GONE
-      adyenCardImageLayout?.visibility = View.GONE
+      adyenCardNumberLayout.visibility = GONE
+      adyenExpiryDateLayout.visibility = GONE
+      adyenCardImageLayout?.visibility = GONE
       change_card_button?.visibility = View.VISIBLE
       change_card_button_pre_selected?.visibility = View.VISIBLE
       view?.let { KeyboardUtils.showKeyboard(it) }
@@ -415,8 +446,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       adyenCardNumberLayout.visibility = View.VISIBLE
       adyenExpiryDateLayout.visibility = View.VISIBLE
       adyenCardImageLayout?.visibility = View.VISIBLE
-      change_card_button?.visibility = View.GONE
-      change_card_button_pre_selected?.visibility = View.GONE
+      change_card_button?.visibility = GONE
+      change_card_button_pre_selected?.visibility = GONE
     }
 
   }
@@ -463,8 +494,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       adyen_card_form_pre_selected_number?.visibility = View.VISIBLE
       payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
     } else {
-      adyen_card_form_pre_selected_number?.visibility = View.GONE
-      payment_method_ic?.visibility = View.GONE
+      adyen_card_form_pre_selected_number?.visibility = GONE
+      payment_method_ic?.visibility = GONE
     }
   }
 

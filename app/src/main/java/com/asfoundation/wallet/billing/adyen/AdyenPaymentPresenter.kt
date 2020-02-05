@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -50,7 +52,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
     handleRedirectResponse()
     handlePaymentDetails()
+    handleAdyenErrorBack()
+    handleAdyenErrorCancel()
+    handleSupportClicks()
     if (isPreSelected) handleMorePaymentsClick()
+  }
+
+  private fun handleSupportClicks() {
+    disposables.add(
+        view.getSupportClicks()
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .flatMapCompletable { adyenPaymentInteractor.showSupport() }
+            .subscribeOn(viewScheduler)
+            .subscribe()
+    )
   }
 
   private fun handleForgetCardClick() {
@@ -210,12 +225,45 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         else view.showGenericError()
       }
       refusalReason != null -> Completable.fromAction {
-        refusalCode?.let { code -> view.showSpecificError(code) }
+        refusalCode?.let { code ->
+          if (code == 24) {
+            view.showCvvError()
+          } else {
+            val res = mapRefusalCode(code)
+            view.showSpecificError(res)
+          }
+        }
       }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
         view.showGenericError()
       }
+    }
+  }
+
+  @StringRes
+  private fun mapRefusalCode(refusalCode: Int): Int {
+    return when (refusalCode) {
+      2 -> R.string.NA
+      3 -> R.string.NA
+      5 -> R.string.NA
+      4 -> R.string.NA
+      6 -> R.string.NA
+      7 -> R.string.NA
+      8 -> R.string.purchase_card_error_invalid_details
+      9 -> R.string.NA
+      10 -> R.string.NA
+      12 -> R.string.NA
+      17 -> R.string.NA
+      18 -> R.string.NA
+      20 -> R.string.NA
+      22 -> R.string.NA
+      23 -> R.string.NA
+      25 -> R.string.NA
+      26 -> R.string.NA
+      27 -> R.string.NA
+      31 -> R.string.NA
+      else -> R.string.purchase_card_error_invalid_details
     }
   }
 
@@ -342,6 +390,26 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           PaymentMethodsView.PaymentMethodId.PAYPAL.id)
     }
     return bundle
+  }
+
+  private fun handleAdyenErrorBack() {
+    disposables.add(view.adyenErrorBackClicks()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (isPreSelected) {
+            view.close(adyenPaymentInteractor.mapCancellation())
+          } else {
+            view.showMoreMethods()
+          }
+        }.subscribe({}, { view.showGenericError() }))
+  }
+
+  private fun handleAdyenErrorCancel() {
+    disposables.add(view.adyenErrorCancelClicks()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.close(adyenPaymentInteractor.mapCancellation())
+        }.subscribe({}, { view.showGenericError() }))
   }
 
   fun stop() {
