@@ -398,14 +398,14 @@ public class InAppPurchaseInteractor {
 
   public void savePreSelectedPaymentMethod(String paymentMethod) {
     SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.putString(LOCAL_PAYMENT_METHOD_KEY, paymentMethod);
+    editor.putString(PRE_SELECTED_PAYMENT_METHOD_KEY, paymentMethod);
+    editor.putString(LAST_USED_PAYMENT_METHOD_KEY, paymentMethod);
     editor.apply();
   }
 
   public void saveAsyncLocalPayment(String paymentMethod) {
     SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.putString(PRE_SELECTED_PAYMENT_METHOD_KEY, paymentMethod);
-    editor.putString(LAST_USED_PAYMENT_METHOD_KEY, paymentMethod);
+    editor.putString(LOCAL_PAYMENT_METHOD_KEY, paymentMethod);
     editor.apply();
   }
 
