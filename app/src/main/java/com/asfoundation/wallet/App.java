@@ -2,6 +2,7 @@ package com.asfoundation.wallet;
 
 import android.app.Activity;
 import android.app.Service;
+import android.os.Environment;
 import androidx.fragment.app.Fragment;
 import androidx.multidex.MultiDexApplication;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
@@ -28,6 +29,8 @@ import io.fabric.sdk.android.Fabric;
 import io.intercom.android.sdk.Intercom;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
+import java.io.File;
+import java.io.IOException;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,6 +62,24 @@ public class App extends MultiDexApplication
     if (!BuildConfig.DEBUG) {
       new FlurryAgent.Builder().withLogEnabled(false)
           .build(this, BuildConfig.FLURRY_APK_KEY);
+    }
+
+    File logsDir = new File(
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            .getAbsolutePath() + "/AppCoinsLogs");
+    logsDir.mkdirs();
+    try {
+      if (!logsDir.exists()) {
+        logsDir.createNewFile();
+      }
+      String fileName = "walletLogs_" + System.currentTimeMillis() + ".txt";
+      File logs = new File(logsDir, fileName);
+      logs.createNewFile();
+      String cmd = "logcat -f" + logs.getAbsolutePath() + " -v time";
+      Runtime.getRuntime()
+          .exec(cmd);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
     Fabric.with(this, new Crashlytics.Builder().core(

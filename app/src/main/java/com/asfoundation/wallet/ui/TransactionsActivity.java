@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.ui;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -163,6 +166,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::showSupport);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      final String[] permissions = new String[] {
+          Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+      };
+      ActivityCompat.requestPermissions(this, permissions, 0);
+    }
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
