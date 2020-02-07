@@ -12,28 +12,28 @@
   <string name="poa_wallet_not_installed_notification_title">Treba vam AppCoins Wallet!</string>
   <string name="poa_wallet_not_installed_notification_body">Da biste dobili nagradu, treba vam AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
+  <string name="iab_pay_as_guest_title">Platite kao gost</string>
+  <string name="iab_pay_as_guest_credit_card">Kreditna kartica</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
+  <string name="iab_switch_to_paypal">PLATITE POMOĆU APLIKACIJE PAYPAL</string>
+  <string name="iab_switch_to_credit_card">PLATITE POMOĆU KREDITNE KARTICE</string>
+  <string name="iab_card_number">Broj kartice</string>
+  <string name="iab_card_expiry">MM/GG</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">CHANGE CARD</string>
-  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to 30% Bonus!</string>
-  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
-  <string name="iab_best_deal">BEST DEAL</string>
-  <string name="iab_purchase_done_title">DONE!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to 30% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
-  <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
+  <string name="iab_change_card_button">PROMENITE KARTICU</string>
+  <string name="iab_pay_with_wallet_title">Platite pomoću aplikacije AppCoins Wallet</string>
+  <string name="iab_pay_with_wallet_reward_title">Dobijte bonus do 30%!</string>
+  <string name="iab_pay_with_wallet_reward_body">Dobićete %s za ovu kupovinu.</string>
+  <string name="iab_best_deal">NAJBOLJA PONUDA</string>
+  <string name="iab_purchase_done_title">GOTOVO!</string>
+  <string name="iab_purchase_done_reward_title">Sledeći put dobijte bonus do 30% pomoću aplikacije AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_body">Mogli ste da dobijete %s za ovu kupovinu.</string>
+  <string name="iab_purchase_done_title_long">Kupovina je dovršena!</string>
+  <string name="iab_purchase_change_payment_method_button">JOŠ NAČINA PLAĆANJA</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
-  <string name="cancel_button">CANCEL</string>
-  <string name="buy_button">BUY</string>
+  <string name="next_button">SLEDEĆE</string>
+  <string name="cancel_button">OTKAŽI</string>
+  <string name="buy_button">KUPI</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALIRAJ NOVČANIK</string>
 </resources>
