@@ -226,7 +226,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       refusalReason != null -> Completable.fromAction {
         refusalCode?.let { code ->
-          if (code == 24) {
+          if (code != 24) {//TODO change to == after testing
             view.showCvvError()
           } else {
             val res = mapRefusalCode(code)

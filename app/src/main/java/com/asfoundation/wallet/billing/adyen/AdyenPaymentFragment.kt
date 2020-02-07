@@ -384,15 +384,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       text = getString(R.string.dialog_credit_card_remember)
     }
 
-    val height = getMinimumHeightInPx()
+    val height = (70 * Resources.getSystem().displayMetrics.density).toInt()
 
     adyenCardNumberLayout.minimumHeight = height
     adyenExpiryDateLayout.minimumHeight = height
     adyenSecurityCodeLayout.minimumHeight = height
-  }
-
-  private fun getMinimumHeightInPx(): Int {
-    return (70 * Resources.getSystem().displayMetrics.density).toInt()
   }
 
   private fun setupCardConfiguration() {
