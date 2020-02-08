@@ -12,28 +12,28 @@
   <string name="poa_wallet_not_installed_notification_title">AppCoins Wallet ကို သင္လိုအပ္ပါသည္။</string>
   <string name="poa_wallet_not_installed_notification_body">သင့္ဆုကိုရယူရန္ AppCoins Wallet ကို သင္လိုအပ္ပါသည္။</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
+  <string name="iab_pay_as_guest_title">ဧည့္သည္အေနျဖင့္ ေပးေခ်မည္</string>
+  <string name="iab_pay_as_guest_credit_card">ခရက္ဒစ္ကဒ္</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
+  <string name="iab_switch_to_paypal">PAYPAL ျဖင့္ ေပးေခ်မည္</string>
+  <string name="iab_switch_to_credit_card">ခရက္ဒစ္ကဒ္ျဖင့္ ေပးေခ်မည္</string>
+  <string name="iab_card_number">ကဒ္နံပါတ္</string>
+  <string name="iab_card_expiry">လ/ႏွစ္</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">CHANGE CARD</string>
-  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to 30% Bonus!</string>
-  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
-  <string name="iab_best_deal">BEST DEAL</string>
-  <string name="iab_purchase_done_title">DONE!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to 30% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
-  <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
+  <string name="iab_change_card_button">ကဒ္ကိုေျပာင္းမည္</string>
+  <string name="iab_pay_with_wallet_title">AppCoins Wallet ျဖင့္ ေပးေခ်မည္</string>
+  <string name="iab_pay_with_wallet_reward_title">၃၀% အထိ ေဘာနပ္စ္ရယူလိုက္ပါ။</string>
+  <string name="iab_pay_with_wallet_reward_body">ဤ၀ယ္ယူမႈအေပၚ %s သင္ရရွိပါမည္။</string>
+  <string name="iab_best_deal">အေကာင္းဆံုးေစ်းႏႈန္း</string>
+  <string name="iab_purchase_done_title">ၿပီးပါၿပီ။</string>
+  <string name="iab_purchase_done_reward_title">ေနာက္တစ္ႀကိမ္တြင္ AppCoins Wallet ျဖင့္ ၃၀% အထိ ေဘာနပ္စ္ရယူလိုက္ပါ။</string>
+  <string name="iab_purchase_done_reward_body">ဤ၀ယ္ယူမႈအေပၚ %s သင္ရရွိနိုင္ပါသည္။</string>
+  <string name="iab_purchase_done_title_long">၀ယ္ယူမႈ ၿပီးပါၿပီ။</string>
+  <string name="iab_purchase_change_payment_method_button">ေနာက္ထပ္ ေငြေပးေခ်ရန္ နည္းလမ္းမ်ား</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
-  <string name="cancel_button">CANCEL</string>
-  <string name="buy_button">BUY</string>
+  <string name="next_button">ေနာက္ထပ္</string>
+  <string name="cancel_button">ပယ္ဖ်က္မည္</string>
+  <string name="buy_button">၀ယ္မည္</string>
   <string name="iab_wallet_not_installed_popup_close_install">WALLET ကို ထည့္သြင္းမည္</string>
 </resources>
