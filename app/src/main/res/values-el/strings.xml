@@ -24,7 +24,7 @@
   <string name="network_label">Δίκτυο</string>
   <string name="credits">Σχετικά με εμάς</string>
   <string name="label_new">Νέο</string>
-  <string name="got_it_button">GOT IT</string>
+  <string name="got_it_button">ΤΟ ΚΑΤΑΛΑΒΑ</string>
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
   <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
@@ -452,16 +452,16 @@
   <string name="purchase_card_error_invalid_details">Είστε βέβαιοι ότι οι πληροφορίες της κάρτας σας είναι σωστές; Παρακαλούμε προσπαθήστε ξανά!</string>
   <string name="purchase_card_error_bank_rejects">Η συναλλαγή απορρίφθηκε από την τράπεζά σας. Παρακαλούμε προσπαθήστε με μία διαφορετική κάρτα.</string>
   <string name="purchase_card_error_limits">Φαίνεται πως υπάρχουν κάποιοι περιορισμοί στην κάρτα σας. Παρακαλούμε επικοινωνήστε με την τράπεζά σας ή δοκιμάστε με μία διαφορετική κάρτα.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_CVV">Εσφαλμένο CVV/CVC</string>
+  <string name="error_contac_us_body">Εάν το πρόβλημα επιμένει, παρακαλούμε επικοινωνήστε μαζί μας.</string>
   <!--Async Payments-->
-  <string name="async_steps_title">Next Steps</string>
-  <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
-  <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_notification_title">Your AppCoins Credits arrived!</string>
-  <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
+  <string name="async_steps_title">Επόμενα Βήματα</string>
+  <string name="async_steps_1">Ολοκληρώστε την πληρωμή σας με %s. Θα ειδοποιηθείτε μόλις λάβετε τα AppCoins Credits στο wallet σας.</string>
+  <string name="async_steps_2">Επιστρέψτε στο παιχνίδι και πραγματοποιήστε την αγορά, χρησιμοποιώντας τα AppCoins Credits ως μέθοδο πληρωμής.</string>
+  <string name="async_steps_1_no_notification">Ολοκληρώστε την πληρωμή σας με %s.</string>
+  <string name="async_steps_2_no_notification">Μόλις λάβετε τα AppCoins Credits, επιστρέψτε στο παιχνίδι και πραγματοποιήστε την αγορά χρησιμοποιώντας τα AppCoins Credits ως μέθοδο πληρωμής.</string>
+  <string name="async_notification_title">Τα AppCoins Credits σας είναι εδώ!</string>
+  <string name="async_notification_body">Επιστρέψτε στο %s για να πραγματοποιήσετε την αγορά μέσω AppCoins Credits.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Προσκαλέστε τους φίλους σας!</string>
   <string name="referral_onboarding_body">Εσείς και οι φίλοι σας μπορείτε να λάβετε έως %s με το Πρόγραμμα Σύστασης!</string>
@@ -527,9 +527,9 @@
   <string name="import_wallet_file_button">ΕΙΣΑΓΩΓΗ ΑΠΟ ΑΡΧΕΙΟ</string>
   <string name="import_wallet_button">ΕΙΣΑΓΩΓΗ WALLET</string>
   <string name="import_wallet_password_body">Αυτό το wallet προστατεύεται από κωδικό!</string>
-  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="import_wallet_wrong_password_body">Ωχ, λανθασμένος κωδικός πρόσβασης!</string>
   <string name="error_invalid_private_key">Μη έγκυρο ιδιωτικό κλειδί</string>
-  <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="error_invalid_keystore">Μη έγκυρο keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Συνολικό Υπόλοιπο σε %s</string>
