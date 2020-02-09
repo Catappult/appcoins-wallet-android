@@ -24,7 +24,7 @@
   <string name="network_label">Mạng lưới</string>
   <string name="credits">Thông tin</string>
   <string name="label_new">Mới</string>
-  <string name="got_it_button">GOT IT</string>
+  <string name="got_it_button">TÔI HIỂU</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
@@ -453,15 +453,15 @@
   <string name="purchase_card_error_bank_rejects">Ngân hàng của bạn đã từ chối giao dịch này. Vui lòng thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_limits">Có vẻ như có một số hạn chế đối với thẻ của bạn. Vui lòng liên hệ với ngân hàng của bạn hoặc thử bằng một thẻ khác.</string>
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
   <!--Async Payments-->
-  <string name="async_steps_title">Next Steps</string>
-  <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
-  <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_notification_title">Your AppCoins Credits arrived!</string>
-  <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
+  <string name="async_steps_title">Bước kế tiếp</string>
+  <string name="async_steps_1">Hoàn tất thanh toán của bạn bằng %s. Bạn sẽ nhận được thông báo ngay khi nhận được AppCoins Credits vào ví của mình.</string>
+  <string name="async_steps_2">Quay trở lại trò chơi và sử dụng AppCoins Credits để mua hàng như một phương thức thanh toán.</string>
+  <string name="async_steps_1_no_notification">Hoàn tất thanh toán của bạn bằng %s.</string>
+  <string name="async_steps_2_no_notification">Ngay khi bạn nhận được AppCoins Credits, hãy quay lại trò chơi và sử dụng AppCoins Credits để mua hàng như một phương thức thanh toán.</string>
+  <string name="async_notification_title">Đã nhận được AppCoins Credits!</string>
+  <string name="async_notification_body">Quay trở lại %s và sử dụng AppCoins Credits để mua hàng.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Mời bạn bè của bạn!</string>
   <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
