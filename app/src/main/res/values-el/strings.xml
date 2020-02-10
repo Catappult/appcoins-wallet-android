@@ -448,10 +448,14 @@
   <string name="purchase_current_balance_appc_eth_body">%s σε AppCoins και Ether.</string>
   <string name="purchase_wallet_blocked_title">Το υπόλοιπό σας σε AppCoins Credits είναι κλειδωμένο</string>
   <string name="purchase_wallet_blocked_body">Λόγω του ασυνήθιστου ιστορικού συναλλαγών, το υπόλοιπό σας σε AppCoins Credits κλειδώθηκε. Μπορείτε να συνεχίσετε τις πληρωμές και τις συναλλαγές με άλλες μεθόδους, αλλά όχι με AppCoins Credits\n\nΕάν πιστεύετε ότι έχει γίνει λάθος, επικοινωνήστε μαζί μας στο:</string>
-  <string name="purchase_card_error_general">Φαίνεται πως υπάρχει ένα πρόβλημα με την κάρτα σας. Παρακαλούμε προσπαθήστε με μία διαφορετική κάρτα.</string>
-  <string name="purchase_card_error_invalid_details">Είστε βέβαιοι ότι οι πληροφορίες της κάρτας σας είναι σωστές; Παρακαλούμε προσπαθήστε ξανά!</string>
-  <string name="purchase_card_error_bank_rejects">Η συναλλαγή απορρίφθηκε από την τράπεζά σας. Παρακαλούμε προσπαθήστε με μία διαφορετική κάρτα.</string>
-  <string name="purchase_card_error_limits">Φαίνεται πως υπάρχουν κάποιοι περιορισμοί στην κάρτα σας. Παρακαλούμε επικοινωνήστε με την τράπεζά σας ή δοκιμάστε με μία διαφορετική κάρτα.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
   <string name="purchase_card_error_CVV">Εσφαλμένο CVV/CVC</string>
   <string name="error_contac_us_body">Εάν το πρόβλημα επιμένει, παρακαλούμε επικοινωνήστε μαζί μας.</string>
   <!--Async Payments-->
