@@ -18,8 +18,7 @@ import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_validation_success.*
 import javax.inject.Inject
 
-class PoaValidationSuccessFragment : DaggerFragment(),
-    PoaValidationSuccessView {
+class PoaValidationSuccessFragment : DaggerFragment(), PoaValidationSuccessView {
 
   @Inject
   lateinit var proofOfAttentionService: ProofOfAttentionService
@@ -49,8 +48,7 @@ class PoaValidationSuccessFragment : DaggerFragment(),
     animationCompleted = BehaviorSubject.create()
 
     presenter =
-        PoaValidationSuccessPresenter(this,
-            proofOfAttentionService, CompositeDisposable(),
+        PoaValidationSuccessPresenter(this, proofOfAttentionService, CompositeDisposable(),
             walletValidationView)
   }
 
