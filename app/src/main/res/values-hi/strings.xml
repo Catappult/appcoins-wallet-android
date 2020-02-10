@@ -448,10 +448,14 @@
   <string name="purchase_current_balance_appc_eth_body">AppCoins और Ether में %s।</string>
   <string name="purchase_wallet_blocked_title">आपका AppCoins Credits बैलेंस ब्लॉक है</string>
   <string name="purchase_wallet_blocked_body">एक असामान्य लेन-देन इतिहास के कारण, आपका AppCoins Credits बैलेंस ब्लॉक किया गया था। आप अभी भी AppCoins Credits को छोड़कर अन्य तरीकों से सामान्य भुगतान और लेन-देन कर पाएंगे।\n\nअगर आपको लगता है कि यह एक गलती है, तो हमसे संपर्क करें:</string>
-  <string name="purchase_card_error_general">लगता है कि आपके कार्ड में कोई समस्या है। कृपया किसी अन्य के साथ प्रयास करें।</string>
-  <string name="purchase_card_error_invalid_details">क्या आपके कार्ड के विवरण सही हैं? कृपया पुन: प्रयास करें!</string>
-  <string name="purchase_card_error_bank_rejects">बैंक द्वारा आपके लेनदेन को अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें।</string>
-  <string name="purchase_card_error_limits">शायद आपके कार्ड पर कुछ लगे हुए प्रतिबंध हैं। कृपया अपने बैंक से संपर्क करें या किसी अन्य से प्रयास करें।</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
   <string name="purchase_card_error_CVV">गलत सीवीवी/सीवीसी</string>
   <string name="error_contac_us_body">अगर समस्या रहती है तो कृपया हमसे संपर्क करें।</string>
   <!--Async Payments-->
