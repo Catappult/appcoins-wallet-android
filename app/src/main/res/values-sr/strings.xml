@@ -448,10 +448,14 @@
   <string name="purchase_current_balance_appc_eth_body">AppCoins i Ether: %s</string>
   <string name="purchase_wallet_blocked_title">Vaše AppCoins Credits stanje je blokirano</string>
   <string name="purchase_wallet_blocked_body">Zbog neuobičajene istorije transakcija, vaše AppCoins Credits stanje je blokirano. I dalje ćete moći da plaćate i obavljate transakcije pomoću drugih načina koji nisu AppCoins Credits.\n\nAko smatrate da je ovo greška, javite nam se:</string>
-  <string name="purchase_card_error_general">Izgleda da postoji problem sa vašom karticom. Pokušajte sa drugom karticom.</string>
-  <string name="purchase_card_error_invalid_details">Da li ste sigurni da su podaci sa kartice tačni? Pokušajte ponovo!</string>
-  <string name="purchase_card_error_bank_rejects">Vaša banka je odbila transakciju. Pokušajte sa drugom karticom.</string>
-  <string name="purchase_card_error_limits">Izgleda da na vašoj kartici postoje neka ograničenja. Obratite se banci ili pokušajte sa drugom karticom.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
   <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
   <!--Async Payments-->
