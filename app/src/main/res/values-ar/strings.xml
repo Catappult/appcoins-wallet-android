@@ -449,10 +449,14 @@
   <string name="purchase_wallet_blocked_title">لقد تجمدت أرصدتك من AppCoins</string>
   <string name="purchase_wallet_blocked_body">نظرًا لسجل التحويلات غير المعتاد، تم تجميد أرصدة AppCoins لديك. 
 لا يزال بإمكانك الدفع وتبادل الأرصدة من وسائل الدفع الأخرى عدا رصيد AppCoins. \n\n إذا كنت تعتقد بأن هناك خطأ، تواصل معنا على:</string>
-  <string name="purchase_card_error_general">يبدو أن هناك مشكلة في بطاقتك. يرجى تجربة بطاقة أخرى.</string>
-  <string name="purchase_card_error_invalid_details">هل أنت متأكد بأن معلومات بطاقتك صحيحة؟ يرجى المحاولة ثانية!</string>
-  <string name="purchase_card_error_bank_rejects">تم رفض التحويل من البنك الذي تتعامل معه. يرجى المحاولة ببطاقة أخرى.</string>
-  <string name="purchase_card_error_limits">يبدو أن هناك بعض القيود على بطاقتك. يرجى التواصل مع البنك الي تتعامل معه أو تجربة بطاقة أخرى.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
   <!--Async Payments-->
