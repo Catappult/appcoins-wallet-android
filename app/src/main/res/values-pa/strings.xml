@@ -448,10 +448,14 @@
   <string name="purchase_current_balance_appc_eth_body">ਐਪ ਸਿੱਕਿਆਂ ਅਤੇ ਈਥਰ ਵਿੱਚ %s</string>
   <string name="purchase_wallet_blocked_title">ਤੁਹਾਡਾ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬਕਾਇਆ ਰੋਕ ਦਿੱਤਾ ਗਿਆ ਹੈ</string>
   <string name="purchase_wallet_blocked_body">ਇੱਕ ਅਸਾਧਾਰਣ ਲੈਣਦੇਣ ਦੇ ਇਤਿਹਾਸ ਦੇ ਕਾਰਣ, ਤੁਹਾਡਾ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬਕਾਇਆ ਬ੍ਲਾਕ ਕੀਤਾ ਗਿਆ ਸੀ| ਤੁਸੀਂਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, ਅਜੇ ਵੀ ਹੋਰ ਤਰੀਕਿਆਂ ਨਾਲ ਭੁਗਤਾਨ ਕਰਨ ਅਤੇ ਲੈਣ ਦੇਣ ਦੇ ਯੋਗ ਹੋ| \n ਜੇ ਤੁਹਾਨੂੰ ਲਗਦਾ ਹੈ ਕਿ ਇਹ ਕੋਈ ਗਲਤੀ ਹੈ, ਤਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ:</string>
-  <string name="purchase_card_error_general">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਨਾਲ ਕੋਈ ਸਮੱਸਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
-  <string name="purchase_card_error_invalid_details">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਦਾ ਵੇਰਵੇ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ!</string>
-  <string name="purchase_card_error_bank_rejects">ਭੁਗਤਾਨ ਨੂੰ ਤੁਹਾਡੇ ਬੈਂਕ ਦੁਆਰਾ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
-  <string name="purchase_card_error_limits">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਤੇ ਕੁੱਝ ਪਾਬੰਦੀਆਂ ਹਨ| ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਬੈਂਕ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਜਾਂ ਕਿਸੇ ਵੱਖਰੇ ਬੈਂਕ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <!--Async Payments-->
