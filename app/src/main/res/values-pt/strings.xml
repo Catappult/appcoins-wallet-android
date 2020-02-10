@@ -24,7 +24,7 @@
   <string name="network_label">Rede</string>
   <string name="credits">Créditos</string>
   <string name="label_new">Novo</string>
-  <string name="got_it_button">GOT IT</string>
+  <string name="got_it_button">JÁ PERCEBI</string>
   <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
   <string name="no_camera_permission_title">Permitir câmara</string>
   <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder à tua câmera e digitalizar códigos QR.</string>
@@ -448,20 +448,24 @@
   <string name="purchase_current_balance_appc_eth_body">%s em AppCoins e Ether.</string>
   <string name="purchase_wallet_blocked_title">O teu saldo de AppCoins Credits está bloqueado</string>
   <string name="purchase_wallet_blocked_body">Devido a um histórico de transações incomum, o teu saldo de AppCoins Credits foi bloqueado. Ainda podes efetuar pagamentos e transações com outros métodos, exceto AppCoins Credits.\n\nSe achas que isto é um erro, entra em contacto connosco em:</string>
-  <string name="purchase_card_error_general">Parece que há um problema com o teu cartão. Por favor tenta com um diferente.</string>
-  <string name="purchase_card_error_invalid_details">Tens a certeza de que os detalhes do teu cartão estão corretos? Por favor, tenta novamente!</string>
-  <string name="purchase_card_error_bank_rejects">A transferência foi rejeitada pelo teu banco. Por favor, tenta com um cartão diferente.</string>
-  <string name="purchase_card_error_limits">Parece que existem algumas restrições com o teu cartão. Por favor, entra em contacto com o teu banco ou tenta com outro.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
+  <string name="purchase_card_error_CVV">CVV/CVC errado</string>
+  <string name="error_contac_us_body">Se o problema persistir entra em contacto connosco.</string>
   <!--Async Payments-->
-  <string name="async_steps_title">Next Steps</string>
-  <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
-  <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_notification_title">Your AppCoins Credits arrived!</string>
-  <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
+  <string name="async_steps_title">Próximos Passos</string>
+  <string name="async_steps_1">Completa o teu pagamento com %s. Serás notificado assim que receberes os AppCoins Credits na tua wallet.</string>
+  <string name="async_steps_2">Volta ao jogo e faz a compra usando os AppCoins Credits como método de pagamento.</string>
+  <string name="async_steps_1_no_notification">Conclui o teu pagamento com %s.</string>
+  <string name="async_steps_2_no_notification">Quando receberes os AppCoins Credits, volta ao jogo e faz a compra usando AppCoins Credits como método de pagamento.</string>
+  <string name="async_notification_title">Os teus AppCoins Credits chegaram!</string>
+  <string name="async_notification_body">Volta para %s para fazeres a compra usando AppCoins Credits.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Convida os teus amigos!</string>
   <string name="referral_onboarding_body">Tu e os teus amigos podem ganhar até %s com o nosso Programa de Referências!</string>
@@ -527,9 +531,9 @@
   <string name="import_wallet_file_button">IMPORTAR DO FICHEIRO</string>
   <string name="import_wallet_button">IMPORTAR WALLET</string>
   <string name="import_wallet_password_body">Esta wallet está protegida por password!</string>
-  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="import_wallet_wrong_password_body">Ups, password errada!</string>
   <string name="error_invalid_private_key">Senha privada inválida</string>
-  <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="error_invalid_keystore">Keystore inválida</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>
