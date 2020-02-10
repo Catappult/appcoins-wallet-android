@@ -448,10 +448,14 @@
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins ed Ether.</string>
   <string name="purchase_wallet_blocked_title">Il tuo saldo in AppCoins Credits è bloccato</string>
   <string name="purchase_wallet_blocked_body">Il tuo saldo in AppCoins Credits è stato bloccato in seguito a uno storico di transazioni atipico. Potrai effettuare pagamenti e transazioni con altri metodi eccetto gli AppCoins Credits.\n\nSe ritieni che questo sia un errore, contattaci:</string>
-  <string name="purchase_card_error_general">Sembra che si sia verificato un problema con la tua carta. Provane un\'altra.</string>
-  <string name="purchase_card_error_invalid_details">Hai controllato che i dati della tua carta siano corretti? Ritenta!</string>
-  <string name="purchase_card_error_bank_rejects">La transazione è stata rifiutata dalla tua banca. Prova con un\'altra carta.</string>
-  <string name="purchase_card_error_limits">Sembra che siano state applicate delle restrizioni alla tua carta. Contatta la tua banca o prova un\'altra carta.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
