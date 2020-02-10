@@ -448,10 +448,14 @@
   <string name="purchase_current_balance_appc_eth_body">%s bằng ppCoins và Ether.</string>
   <string name="purchase_wallet_blocked_title">Số dư AppCoins Credits của bạn đã bị khóa</string>
   <string name="purchase_wallet_blocked_body">Do lịch sử giao dịch bất thường, số dư AppCoins Credits của bạn đã bị khóa. Bạn vẫn có thể thực hiện thanh toán và giao dịch bằng các phương thức khác ngoại trừ AppCoins Credits.\n\nNếu bạn tin rằng điều này không đúng, vui lòng liên hệ với chúng tôi qua:</string>
-  <string name="purchase_card_error_general">Có vẻ như thẻ của bạn có vấn đề. Vui lòng thử bằng một thẻ khác.</string>
-  <string name="purchase_card_error_invalid_details">Bạn có chắc chắn thông tin chi tiết thẻ của mình là đúng không? Vui lòng thử lại!</string>
-  <string name="purchase_card_error_bank_rejects">Ngân hàng của bạn đã từ chối giao dịch này. Vui lòng thử lại bằng một thẻ khác.</string>
-  <string name="purchase_card_error_limits">Có vẻ như có một số hạn chế đối với thẻ của bạn. Vui lòng liên hệ với ngân hàng của bạn hoặc thử bằng một thẻ khác.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
+  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
   <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
   <!--Async Payments-->
