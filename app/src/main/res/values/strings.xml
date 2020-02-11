@@ -497,7 +497,7 @@
   <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
 
   <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
-  <string name="purchase_card_error_security">Are you sure the security information is corect? Please try again!</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again!</string>
   <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
 
 
