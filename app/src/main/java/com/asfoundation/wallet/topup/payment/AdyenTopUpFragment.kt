@@ -25,10 +25,7 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
+import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
@@ -103,11 +100,11 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
 
     presenter =
-        AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(),
-            Schedulers.io(), CompositeDisposable(), RedirectComponent.getReturnUrl(context!!),
-            paymentType, transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode,
-            data.currency, data.selectedCurrency, navigator,
-            inAppPurchaseInteractor.billingMessagesMapper, adyenPaymentInteractor, bonusValue)
+        AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
+            CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
+            transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
+            data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
+            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper())
   }
 
   override fun onAttach(context: Context) {

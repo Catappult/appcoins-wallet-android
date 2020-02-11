@@ -1,15 +1,14 @@
 package com.asfoundation.wallet.topup.payment
 
 import android.os.Bundle
-import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
-import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.CurrencyData
@@ -40,7 +39,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val navigator: Navigator,
                           private val billingMessagesMapper: BillingMessagesMapper,
                           private val adyenPaymentInteractor: AdyenPaymentInteractor,
-                          private val bonusValue: String) {
+                          private val bonusValue: String,
+                          private val adyenErrorCodeMapper: AdyenErrorCodeMapper) {
 
   private var waitingResult = false
 
@@ -223,39 +223,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           if (code == 24) {
             view.showCvvError()
           } else {
-            val res = mapRefusalCode(code)
-            view.showSpecificError(res)
+            view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
       }
       paymentModel.status == CANCELED -> Completable.fromAction { view.cancelPayment() }
       else -> Completable.fromAction { view.showGenericError() }
-    }
-  }
-
-  @StringRes
-  private fun mapRefusalCode(refusalCode: Int): Int {
-    return when (refusalCode) {
-      2 -> R.string.NA
-      3 -> R.string.NA
-      5 -> R.string.NA
-      4 -> R.string.NA
-      6 -> R.string.NA
-      7 -> R.string.NA
-      8 -> R.string.purchase_card_error_invalid_details
-      9 -> R.string.NA
-      10 -> R.string.NA
-      12 -> R.string.NA
-      17 -> R.string.NA
-      18 -> R.string.NA
-      20 -> R.string.NA
-      22 -> R.string.NA
-      23 -> R.string.NA
-      25 -> R.string.NA
-      26 -> R.string.NA
-      27 -> R.string.NA
-      31 -> R.string.NA
-      else -> R.string.purchase_card_error_invalid_details
     }
   }
 
