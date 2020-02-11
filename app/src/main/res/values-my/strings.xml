@@ -414,6 +414,8 @@
   <string name="verification_insert_phone_field_country">ႏိုင္ငံ</string>
   <string name="verification_insert_phone_field_number">ဖုန္းနံပါတ္</string>
   <string name="verification_insert_phone_field_number_error">ဖုန္းနံပါတ္ မမွန္ကန္ပါ</string>
+  <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
+  <string name="verification_insert_phone_field_landline_error">Landline numbers are not supported.</string>
   <string name="verification_insert_phone_security_disclaimer">လံုၿခံဳေရး အေၾကာင္းရင္းမ်ား အတြက္သာ ျဖစ္ပါသည္။ မည္သည့္ ကိုယ္ေရးအခ်က္အလက္ကိုမွ် ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">သင္အတည္ျပဳရန္ကုဒ္မွာ %s ျဖစ္ပါသည္။ သင့္ AppCoins Wallet လိပ္စာကို အတည္ျပဳရန္ ယင္းကိုအသံုးျပဳပါ။</string>
@@ -448,14 +450,15 @@
   <string name="purchase_current_balance_appc_eth_body">AppCoins ႏွင့္ Ether ျဖင့္ %s။</string>
   <string name="purchase_wallet_blocked_title">သင့္ AppCoins Credits လက္က်န္ေငြကို ပိတ္ပင္ထားပါသည္</string>
   <string name="purchase_wallet_blocked_body">ပံုမွန္မဟုတ္ေသာ ေငြလႊဲေျပာင္းျခင္း မွတ္တမ္းတစ္ခုေၾကာင့္ သင့္ AppCoins Credits လက္က်န္ေငြကို ပိတ္ထားပါသည္။ AppCoins Credits မဟုတ္ေသာ အျခားနည္းလမ္းမ်ားျဖင့္ ေငြေပးေခ်မႈမ်ားႏွင့္ ေငြလႊဲေျပာင္းမႈမ်ားကို သင္ျပဳလုပ္ႏိုင္ပါေသးသည္။\n\nယင္းကို မွားယြင္းမႈတစ္ခုဟု ယံုၾကည္ပါက ေအာက္ပါအတိုင္း ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ပါ -</string>
-  <string name="purchase_card_error_general_1">There was a problem with your purchase. Please try again!</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Try with a different one!</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Try with a different one!</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again!</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one!</string>
-  <string name="purchase_card_error_security">Are you sure your the security information corect? Please try again!</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again!</string>
+  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <!--Async Payments-->
