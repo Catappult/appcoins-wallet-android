@@ -8,6 +8,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
@@ -134,7 +137,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
 
   override fun showValues(value: BigDecimal, currency: String) {
-    main_value.visibility = View.VISIBLE
+    main_value.visibility = VISIBLE
     val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", value.toDouble())
     if (currentCurrency == FIAT_CURRENCY) {
       main_value.setText(fiatPrice.toString())
@@ -148,10 +151,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun showLoading() {
-    loading.visibility = View.VISIBLE
-    credit_card_info_container.visibility = View.INVISIBLE
+    loading.visibility = VISIBLE
+    credit_card_info_container.visibility = INVISIBLE
     button.isEnabled = false
-    change_card_button.visibility = View.INVISIBLE
+    change_card_button.visibility = INVISIBLE
   }
 
   override fun showFinishingLoading() {
@@ -160,9 +163,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun hideLoading() {
-    loading.visibility = View.GONE
+    loading.visibility = GONE
     button.isEnabled = false
-    credit_card_info_container.visibility = View.VISIBLE
+    credit_card_info_container.visibility = VISIBLE
   }
 
 
@@ -170,7 +173,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (!networkErrorDialog.isShowing) {
       topUpView.lockOrientation()
       networkErrorDialog.show()
-      credit_card_info_container.visibility = View.INVISIBLE
+      credit_card_info_container.visibility = INVISIBLE
     }
   }
 
@@ -178,72 +181,72 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (!errorDialog.isShowing) {
       topUpView.lockOrientation()
       errorDialog.show()
-      credit_card_info_container.visibility = View.INVISIBLE
+      credit_card_info_container.visibility = INVISIBLE
     }
   }
 
   override fun hideSpecificError() {
-    main_currency_code.visibility = View.VISIBLE
-    main_value.visibility = View.VISIBLE
-    swap_value_button.visibility = View.VISIBLE
-    swap_value_label.visibility = View.VISIBLE
-    top_separator_topup.visibility = View.VISIBLE
-    bot_separator.visibility = View.VISIBLE
-    chips_layout.visibility = View.VISIBLE
-    converted_value.visibility = View.VISIBLE
-    button.visibility = View.VISIBLE
+    main_currency_code.visibility = VISIBLE
+    main_value.visibility = VISIBLE
+    swap_value_button.visibility = VISIBLE
+    swap_value_label.visibility = VISIBLE
+    top_separator_topup.visibility = VISIBLE
+    bot_separator.visibility = VISIBLE
+    chips_layout.visibility = VISIBLE
+    converted_value.visibility = VISIBLE
+    button.visibility = VISIBLE
 
     if (isStored) {
-      change_card_button.visibility = View.VISIBLE
+      change_card_button.visibility = VISIBLE
     } else {
-      change_card_button.visibility = View.INVISIBLE
+      change_card_button.visibility = INVISIBLE
     }
 
-    payment_container.visibility = View.VISIBLE
-    credit_card_info_container.visibility = View.VISIBLE
-    fragment_adyen_error?.visibility = View.GONE
+    payment_container.visibility = VISIBLE
+    credit_card_info_container.visibility = VISIBLE
+    fragment_adyen_error?.visibility = GONE
 
     topUpView.unlockRotation()
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     topUpView.lockOrientation()
-    loading.visibility = View.GONE
+    loading.visibility = GONE
     if (isStored) {
-      change_card_button.visibility = View.VISIBLE
+      change_card_button.visibility = VISIBLE
     } else {
-      change_card_button.visibility = View.INVISIBLE
+      change_card_button.visibility = INVISIBLE
     }
-    payment_container.visibility = View.INVISIBLE
+    payment_container.visibility = INVISIBLE
 
     //Header
-    main_currency_code.visibility = View.INVISIBLE
-    main_value.visibility = View.INVISIBLE
-    swap_value_button.visibility = View.INVISIBLE
-    swap_value_label.visibility = View.INVISIBLE
-    top_separator_topup.visibility = View.INVISIBLE
-    bot_separator.visibility = View.INVISIBLE
-    chips_layout.visibility = View.INVISIBLE
-    converted_value.visibility = View.INVISIBLE
-    button.visibility = View.GONE
+    main_currency_code.visibility = INVISIBLE
+    main_value.visibility = INVISIBLE
+    swap_value_button.visibility = INVISIBLE
+    swap_value_label.visibility = INVISIBLE
+    top_separator_topup.visibility = INVISIBLE
+    bot_separator.visibility = INVISIBLE
+    chips_layout.visibility = INVISIBLE
+    converted_value.visibility = INVISIBLE
+    button.visibility = GONE
 
 
     val message = getString(stringRes)
     fragment_adyen_error?.error_message?.text = message
-    fragment_adyen_error?.visibility = View.VISIBLE
+    fragment_adyen_error?.visibility = VISIBLE
 
   }
 
   override fun showCvvError() {
     topUpView.lockOrientation()
-    loading.visibility = View.GONE
+    loading.visibility = GONE
     button.isEnabled = false
     if (isStored) {
-      change_card_button.visibility = View.VISIBLE
+      change_card_button.visibility = VISIBLE
     } else {
-      change_card_button.visibility = View.INVISIBLE
+      change_card_button.visibility = INVISIBLE
     }
-    credit_card_info_container.visibility = View.VISIBLE
+    credit_card_info_container.visibility = VISIBLE
 
     adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
   }
@@ -315,17 +318,17 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private fun handleLayoutVisibility(isStored: Boolean) {
     if (isStored) {
-      adyenCardNumberLayout.visibility = View.GONE
-      adyenExpiryDateLayout.visibility = View.GONE
-      adyenCardImageLayout?.visibility = View.GONE
-      change_card_button?.visibility = View.VISIBLE
-      change_card_button_pre_selected?.visibility = View.VISIBLE
+      adyenCardNumberLayout.visibility = GONE
+      adyenExpiryDateLayout.visibility = GONE
+      adyenCardImageLayout?.visibility = GONE
+      change_card_button?.visibility = VISIBLE
+      change_card_button_pre_selected?.visibility = VISIBLE
     } else {
-      adyenCardNumberLayout.visibility = View.VISIBLE
-      adyenExpiryDateLayout.visibility = View.VISIBLE
-      adyenCardImageLayout?.visibility = View.VISIBLE
-      change_card_button?.visibility = View.GONE
-      change_card_button_pre_selected?.visibility = View.GONE
+      adyenCardNumberLayout.visibility = VISIBLE
+      adyenExpiryDateLayout.visibility = VISIBLE
+      adyenCardImageLayout?.visibility = VISIBLE
+      change_card_button?.visibility = GONE
+      change_card_button_pre_selected?.visibility = GONE
     }
   }
 
@@ -354,7 +357,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun cancelPayment() = topUpView.cancelPayment()
 
   override fun showChipsAsDisabled(index: Int) {
-    chips_layout.visibility = View.VISIBLE
+    chips_layout.visibility = VISIBLE
     setUnselectedChipsDisabledDrawable()
     setUnselectedChipsDisabledText()
     setDisabledChipsValues()
@@ -372,7 +375,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (chipAvailability) {
       showChipsAsDisabled(selectedChip)
     } else {
-      chips_layout.visibility = View.GONE
+      chips_layout.visibility = GONE
     }
   }
 
@@ -426,12 +429,12 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (isStored) {
       adyen_card_form_pre_selected_number?.text =
           adyenCardNumberLayout.editText?.text
-      adyen_card_form_pre_selected_number?.visibility = View.VISIBLE
+      adyen_card_form_pre_selected_number?.visibility = VISIBLE
       payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
       view?.let { KeyboardUtils.showKeyboard(it) }
     } else {
-      adyen_card_form_pre_selected_number?.visibility = View.GONE
-      payment_method_ic?.visibility = View.GONE
+      adyen_card_form_pre_selected_number?.visibility = GONE
+      payment_method_ic?.visibility = GONE
     }
   }
 
@@ -456,7 +459,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   private fun setupUi() {
-    credit_card_info_container.visibility = View.INVISIBLE
+    credit_card_info_container.visibility = INVISIBLE
     button.isEnabled = false
     setupChips()
     button.setText(R.string.topup_home_button)
@@ -466,7 +469,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
     setupDialogs()
     topUpView.showToolbar()
-    main_value.visibility = View.INVISIBLE
+    main_value.visibility = INVISIBLE
   }
 
   private fun setupCardConfiguration() {

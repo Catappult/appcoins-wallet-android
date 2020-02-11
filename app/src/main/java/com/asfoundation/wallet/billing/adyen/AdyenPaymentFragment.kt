@@ -10,6 +10,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
@@ -90,6 +91,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
   private var adyenCardImageLayout: RoundCornerImageView? = null
   private var adyenSaveDetailsSwitch: SwitchCompat? = null
+  private var isStored = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -136,9 +138,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstance: Bundle?) {
-
-    buy_button.visibility = View.VISIBLE
-    cancel_button.visibility = View.VISIBLE
+    this.isStored = isStored
+    buy_button.visibility = VISIBLE
+    cancel_button.visibility = VISIBLE
 
     val color = ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
     adyenCardNumberLayout.boxStrokeColor = color
@@ -188,7 +190,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showLoading() {
-    fragment_credit_card_authorization_progress_bar.visibility = View.VISIBLE
+    fragment_credit_card_authorization_progress_bar.visibility = VISIBLE
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {
@@ -204,12 +206,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun hideLoadingAndShowView() {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     if (isPreSelected) {
-      payment_methods?.visibility = View.VISIBLE
+      payment_methods?.visibility = VISIBLE
     } else {
-      bonus_layout.visibility = View.VISIBLE
-      bonus_msg.visibility = View.VISIBLE
-      adyen_card_form.visibility = View.VISIBLE
-      cancel_button.visibility = View.VISIBLE
+      bonus_layout.visibility = VISIBLE
+      bonus_msg.visibility = VISIBLE
+      adyen_card_form.visibility = VISIBLE
+      cancel_button.visibility = VISIBLE
     }
   }
 
@@ -219,9 +221,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_adyen_error?.visibility = GONE
     fragment_adyen_error_pre_selected?.visibility = GONE
-    fragment_iab_error?.visibility = View.VISIBLE
+    fragment_iab_error?.visibility = VISIBLE
     fragment_iab_error?.activity_iab_error_message?.setText(R.string.notification_no_network_poa)
-    fragment_iab_error_pre_selected?.visibility = View.VISIBLE
+    fragment_iab_error_pre_selected?.visibility = VISIBLE
     fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
         R.string.notification_no_network_poa)
   }
@@ -232,7 +234,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showSuccess() {
-    iab_activity_transaction_completed.visibility = View.VISIBLE
+    iab_activity_transaction_completed.visibility = VISIBLE
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     if (isPreSelected) {
       main_view?.visibility = GONE
@@ -240,7 +242,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     } else {
       fragment_credit_card_authorization_progress_bar.visibility = GONE
       credit_card_info.visibility = GONE
-      lottie_transaction_success.visibility = View.VISIBLE
+      lottie_transaction_success.visibility = VISIBLE
       fragment_adyen_error?.visibility = GONE
       fragment_adyen_error_pre_selected?.visibility = GONE
       fragment_iab_error?.visibility = GONE
@@ -253,10 +255,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     main_view_pre_selected?.visibility = GONE
     fragment_adyen_error?.visibility = GONE
     fragment_adyen_error_pre_selected?.visibility = GONE
-    fragment_iab_error?.visibility = View.VISIBLE
+    fragment_iab_error?.visibility = VISIBLE
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_iab_error?.activity_iab_error_message?.setText(R.string.unknown_error)
-    fragment_iab_error_pre_selected?.visibility = View.VISIBLE
+    fragment_iab_error_pre_selected?.visibility = VISIBLE
     fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
         R.string.unknown_error)
   }
@@ -268,26 +270,30 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     cc_info_view?.visibility = GONE
     dialog_buy_buttons?.cancel_button?.visibility = GONE
     dialog_buy_buttons?.buy_button?.visibility = GONE
-    payment_methods?.visibility = View.VISIBLE
+    payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
     bonus_msg_pre_selected?.visibility = GONE
     more_payment_methods?.visibility = GONE
     layout_pre_selected?.visibility = GONE
     change_card_button_pre_selected?.visibility = GONE
 
-    error_buttons?.visibility = View.VISIBLE
-    dialog_buy_buttons_error?.visibility = View.VISIBLE
+    error_buttons?.visibility = VISIBLE
+    dialog_buy_buttons_error?.visibility = VISIBLE
 
     val message = getString(stringRes)
 
     fragment_adyen_error?.error_message?.text = message
     fragment_adyen_error_pre_selected?.error_message?.text = message
-    fragment_adyen_error?.visibility = View.VISIBLE
-    fragment_adyen_error_pre_selected?.visibility = View.VISIBLE
+    fragment_adyen_error?.visibility = VISIBLE
+    fragment_adyen_error_pre_selected?.visibility = VISIBLE
   }
 
   override fun showCvvError() {
     hideLoadingAndShowView()
+    if (isStored) {
+      change_card_button?.visibility = VISIBLE
+      change_card_button_pre_selected?.visibility = VISIBLE
+    }
     adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
   }
 
@@ -315,8 +321,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String) {
     val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", fiatAmount.toDouble())
     fiat_price.text = "$fiatPrice $currencyCode"
-    fiat_price.visibility = View.VISIBLE
-    appc_price.visibility = View.VISIBLE
+    fiat_price.visibility = VISIBLE
+    appc_price.visibility = VISIBLE
   }
 
   override fun adyenErrorBackClicks() = RxView.clicks(error_back)
@@ -424,10 +430,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun showBonus() {
-    bonus_layout?.visibility = View.VISIBLE
-    bonus_layout_pre_selected?.visibility = View.VISIBLE
-    bonus_msg?.visibility = View.VISIBLE
-    bonus_msg_pre_selected?.visibility = View.VISIBLE
+    bonus_layout?.visibility = VISIBLE
+    bonus_layout_pre_selected?.visibility = VISIBLE
+    bonus_msg?.visibility = VISIBLE
+    bonus_msg_pre_selected?.visibility = VISIBLE
     bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
   }
 
@@ -436,13 +442,13 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       adyenCardNumberLayout.visibility = GONE
       adyenExpiryDateLayout.visibility = GONE
       adyenCardImageLayout?.visibility = GONE
-      change_card_button?.visibility = View.VISIBLE
-      change_card_button_pre_selected?.visibility = View.VISIBLE
+      change_card_button?.visibility = VISIBLE
+      change_card_button_pre_selected?.visibility = VISIBLE
       view?.let { KeyboardUtils.showKeyboard(it) }
     } else {
-      adyenCardNumberLayout.visibility = View.VISIBLE
-      adyenExpiryDateLayout.visibility = View.VISIBLE
-      adyenCardImageLayout?.visibility = View.VISIBLE
+      adyenCardNumberLayout.visibility = VISIBLE
+      adyenExpiryDateLayout.visibility = VISIBLE
+      adyenCardImageLayout?.visibility = VISIBLE
       change_card_button?.visibility = GONE
       change_card_button_pre_selected?.visibility = GONE
     }
@@ -488,7 +494,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isStored) {
       adyen_card_form_pre_selected_number?.text =
           adyenCardNumberLayout.editText?.text
-      adyen_card_form_pre_selected_number?.visibility = View.VISIBLE
+      adyen_card_form_pre_selected_number?.visibility = VISIBLE
       payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
     } else {
       adyen_card_form_pre_selected_number?.visibility = GONE
