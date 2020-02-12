@@ -50,7 +50,6 @@ import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_card_authorization_progress_bar
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
-import kotlinx.android.synthetic.main.dialog_buy_buttons.view.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.*
@@ -354,8 +353,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     view.isFocusableInTouchMode = true
     view.requestFocus()
     view.setOnKeyListener { _: View?, _: Int, keyEvent: KeyEvent ->
-      if (keyEvent.action == KeyEvent.ACTION_DOWN
-          && keyEvent.keyCode == KeyEvent.KEYCODE_BACK) {
+      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyEvent.keyCode == KeyEvent.KEYCODE_BACK) {
         backButton?.accept(true)
       }
       true
@@ -413,8 +411,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   @Throws(PackageManager.NameNotFoundException::class)
   private fun getApplicationName(appPackage: String): CharSequence? {
     val packageManager = context!!.packageManager
-    val packageInfo =
-        packageManager.getApplicationInfo(appPackage, 0)
+    val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
   }
 
@@ -461,11 +458,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, forget: Boolean,
       savedInstanceState: Bundle?) {
     if (forget) viewModelStore.clear()
-    val cardComponent =
-        CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
+    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this, Observer {
+      adyenSecurityCodeLayout.error = null
       if (it != null && it.isValid) {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
@@ -494,8 +491,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
-      adyen_card_form_pre_selected_number?.text =
-          adyenCardNumberLayout.editText?.text
+      adyen_card_form_pre_selected_number?.text = adyenCardNumberLayout.editText?.text
       adyen_card_form_pre_selected_number?.visibility = VISIBLE
       payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
     } else {
@@ -570,15 +566,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val SAVE_DETAILS_KEY = "save_details"
 
     @JvmStatic
-    fun newInstance(transactionType: String,
-                    paymentType: PaymentType,
-                    domain: String, origin: String?, transactionData: String?,
-                    appcAmount: BigDecimal,
-                    amount: BigDecimal, currency: String?,
-                    bonus: String?, isPreSelected: Boolean): AdyenPaymentFragment {
+    fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
+                    origin: String?, transactionData: String?, appcAmount: BigDecimal,
+                    amount: BigDecimal, currency: String?, bonus: String?,
+                    isPreSelected: Boolean): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
-      val bundle = Bundle()
-      bundle.apply {
+      fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
         putString(PAYMENT_TYPE_KEY, paymentType.name)
         putString(DOMAIN_KEY, domain)
@@ -589,7 +582,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         putString(CURRENCY_KEY, currency)
         putString(BONUS_KEY, bonus)
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
-        fragment.arguments = this
       }
       return fragment
     }
