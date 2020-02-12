@@ -51,13 +51,15 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleTokenDetailsClick() {
     disposables.add(
-        Observable.merge(view.getCreditClick(), view.getAppcClick(),
-            view.getEthClick()).throttleFirst(500,
-            TimeUnit.MILLISECONDS).map { view.showTokenDetails(it) }.subscribe())
+        Observable.merge(view.getCreditClick(), view.getAppcClick(), view.getEthClick())
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .map { view.showTokenDetails(it) }
+            .subscribe())
   }
 
   private fun handleTopUpClick() {
     disposables.add(view.getTopUpClick()
+        .throttleFirst(1, TimeUnit.SECONDS)
         .doOnNext { view.showTopUpScreen() }
         .subscribe())
   }

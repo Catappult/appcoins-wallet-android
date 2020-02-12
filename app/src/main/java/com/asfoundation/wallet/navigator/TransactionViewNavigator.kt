@@ -47,7 +47,7 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
 
   fun openPromotions(context: Context) {
     val intent = Intent(context, PromotionsActivity::class.java)
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
     context.startActivity(intent)
   }
 
@@ -57,7 +57,7 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
 
   fun navigateToBackup(context: Context) {
     val intent = Intent(context, WalletsActivity::class.java)
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
     context.startActivity(intent)
   }
 }
