@@ -24,6 +24,7 @@
   <string name="network_label">नेटवर्क</string>
   <string name="credits">क्रेडीट्स</string>
   <string name="label_new">नविन</string>
+  <string name="got_it_button">समजल</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
@@ -413,6 +414,8 @@
   <string name="verification_insert_phone_field_country">देश</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
+  <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
+  <string name="verification_insert_phone_field_landline_error">Landline numbers are not supported.</string>
   <string name="verification_insert_phone_security_disclaimer">हे फक्त सुरक्षा कारणांसाठीच आहे, आम्ही आपली वैयक्तीक माहिती साठवत नाही.</string>
   <string name="verification_notification_code_title">अॅपकॉइन्स वॉलेट</string>
   <string name="verification_notification_code_body">आपला व्हेरिफिकेशन कोड आहे %s. हा वापरुन आपल्या अॅपकॉइन्स वॉलेटचा पत्ता व्हेरिफाय करा.</string>
@@ -447,11 +450,25 @@
   <string name="purchase_current_balance_appc_eth_body">%s अॅपकॉइन्स आणि इथर.</string>
   <string name="purchase_wallet_blocked_title">आपला अॅपकॉइन्स क्रेडीटस शिल्लक ब्लॉक केलेली आहे</string>
   <string name="purchase_wallet_blocked_body">वार्षिक व्यवहार इतिहासामुळे, आपली अॅपकॉइन्स क्रेडीटसची शिल्लक ब्लॉक केली गेली आहे. आपण अॅपकॉइन्स क्रेडीटसशिवाय अन्य पद्धती वापरुन पैसे भरु शकता आणि व्यवहार करु सकता. \n\nजर आपणांस ही चूक आहे असे वाटत असेल तर आमच्याशी इथे संपर्क साधा:</string>
-  <string name="purchase_card_error_general">आपल्या कार्डाची काही समस्या आहे असे वाटते. कृपया दूसरे वापरा.</string>
-  <string name="purchase_card_error_invalid_details">आपल्या कार्डाचा तपशील बरोबर असण्याची खात्री आहे ना? कृपया पुन्हा प्रयत्न करा!</string>
-  <string name="purchase_card_error_bank_rejects">आपल्या बँकेने व्यवहार नाकारला आहे. कृपया वेगळ्या कार्डासह प्रयत्न करा.</string>
-  <string name="purchase_card_error_limits">आपल्या कार्डावर काही बंधने आहेत असे दिसते. कृपया आपल्या बँकेशी संपर्क साधा किंवा वेगळ्या कार्डासह प्रयत्न करा.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
+  <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
+  <!--Async Payments-->
+  <string name="async_steps_title">पुढचे चरण</string>
+  <string name="async_steps_1">आपले पेमेंट %s सह पूर्ण करा. आपल्या वॉलेटमध्ये अॅपकॉइन्स क्रेडीट मिळाल्यानंतर आपल्याला कळविण्यात येईल.</string>
+  <string name="async_steps_2">खेळात परत जा आणि अॅपकॉइन्स क्रेडीटसना पेमेंट पद्धत म्हणुन वापरुन खरेदी करा.</string>
+  <string name="async_steps_1_no_notification">%s सह आपले पेमेंट पूर्ण करा.</string>
+  <string name="async_steps_2_no_notification">अॅपकॉइन्स क्रेडीटस मिळाल्यानंतर खेळात परत जा आणि अॅपकॉइन्स क्रेडीटसना पेमेंट पद्धत म्हणुन वापरुन खरेदी करा.</string>
+  <string name="async_notification_title">आपली अॅपकॉइन्स क्रेडीटस आलेली आहेत!</string>
+  <string name="async_notification_body">%s परत जाऊन खरेदीसाठी अॅपकॉइन्स क्रेडीटस वापरा.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">आपल्या मित्रांना आमंत्रण द्या!</string>
   <string name="referral_onboarding_body">आपण आणि आपले मित्र आमच्या संदर्भ कार्यक्रमातुन %s पर्यंत मिळवु शकता!</string>
@@ -517,9 +534,9 @@
   <string name="import_wallet_file_button">फाईलमधुन इंपोर्ट करा</string>
   <string name="import_wallet_button">वॉलेट इंपोर्ट करा</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
-  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
-  <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="error_invalid_keystore">अवैध कीस्ट्रोक</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
