@@ -155,7 +155,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
-    disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
+    disposables.add(Observable.zip(view.buyButtonClicked(), view.retrievePaymentData(),
         BiFunction { _: Any, adyenCard: AdyenCardWrapper -> adyenCard })
         .observeOn(viewScheduler)
         .doOnNext {

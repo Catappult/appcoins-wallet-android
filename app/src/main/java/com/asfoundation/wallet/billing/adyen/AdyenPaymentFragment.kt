@@ -268,8 +268,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_iab_error?.visibility = GONE
     fragment_iab_error_pre_selected?.visibility = GONE
     cc_info_view?.visibility = GONE
-    dialog_buy_buttons?.cancel_button?.visibility = GONE
-    dialog_buy_buttons?.buy_button?.visibility = GONE
+    cancel_button?.visibility = GONE
+    buy_button?.visibility = GONE
     payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
     bonus_msg_pre_selected?.visibility = GONE
@@ -294,6 +294,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       change_card_button?.visibility = VISIBLE
       change_card_button_pre_selected?.visibility = VISIBLE
     }
+    buy_button?.visibility = VISIBLE
+    buy_button?.isEnabled = false
     adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
   }
 
@@ -463,7 +465,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
-    cardComponent.observe(this, androidx.lifecycle.Observer {
+    cardComponent.observe(this, Observer {
       if (it != null && it.isValid) {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
