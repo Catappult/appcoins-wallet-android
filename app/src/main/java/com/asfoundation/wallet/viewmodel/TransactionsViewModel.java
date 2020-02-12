@@ -8,7 +8,6 @@ import android.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
-import com.appcoins.wallet.gamification.repository.UserStats;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -116,16 +115,8 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribeOn(Schedulers.io())
         .flatMap(userLevel -> transactionViewInteract.findWallet()
             .subscribeOn(Schedulers.io())
-            .map(wallet -> {
-              if (userLevel == UserStats.MAX_LEVEL) {
-                registerSupportUser(wallet.address);
-                return true;
-              } else {
-                logoutSupportUser();
-                return false;
-              }
-            }))
-        .subscribe(showSupport::postValue, this::onError));
+            .doOnSuccess(wallet -> registerSupportUser(wallet.address)))
+        .subscribe(wallet -> showSupport.postValue(true), this::onError));
   }
 
   private Completable publishMaxBonus() {
@@ -387,9 +378,5 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void registerSupportUser(String walletAddress) {
     supportInteractor.registerUser(walletAddress);
-  }
-
-  private void logoutSupportUser() {
-    supportInteractor.logoutUser();
   }
 }
