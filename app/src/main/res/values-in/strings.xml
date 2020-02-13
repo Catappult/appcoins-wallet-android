@@ -55,6 +55,7 @@
   <string name="unlock_screen_prompt_android">Silakan buka kunci perangkat Android Anda untuk melanjutkan.</string>
   <string name="do_manage_make_backup">Apakah Anda berhasil membuat cadangan?</string>
   <string name="yes_continue">Ya, lanjutkan</string>
+  <string name="yes_done_button">Yes, done</string>
   <string name="no_repeat">Tidak, ulangi</string>
   <string name="skip">Lewatkan</string>
   <string name="skip_with_arrow">Lewati &gt;</string>
@@ -527,7 +528,12 @@
   <string name="backup_password_title">Enkripsi dompet Anda (opsional)</string>
   <string name="backup_password">Kata Sandi</string>
   <string name="backup_body">Kami tidak menyimpan kunci pribadi Anda atau metode akses lainnya. Penting untuk selalu menjaga keamanan cadangan dompet (keystore) Anda.</string>
+  <string name="backup_confirmation_title">Just one more step</string>
+  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
+  <string name="backup_done_title">Backup done!</string>
+  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Kirim cadangan via:</string>
+  <string name="backup_send_button">SEND BACKUP</string>
   <string name="import_wallet_title">Impor Dompet</string>
   <string name="import_wallet_body">Tempelkan cadangan dompet Anda di bawah ini.</string>
   <string name="import_wallet_keystore_private_keys">Keystore atau kunci pribadi</string>
