@@ -174,9 +174,7 @@ class CodeValidationFragment : DaggerFragment(),
     submit_button.isEnabled = state
   }
 
-  override fun getBackClicks(): Observable<Any> {
-    return RxView.clicks(back_button)
-  }
+  override fun getBackClicks() = RxView.clicks(back_button)
 
   override fun getRetryButtonClicks(): Observable<ValidationInfo> {
     return RxView.clicks(retry_button)
@@ -189,9 +187,7 @@ class CodeValidationFragment : DaggerFragment(),
         }
   }
 
-  override fun getLaterButtonClicks(): Observable<Any> {
-    return RxView.clicks(later_button)
-  }
+  override fun getLaterButtonClicks() = RxView.clicks(later_button)
 
   override fun getSubmitClicks(): Observable<ValidationInfo> {
     return RxView.clicks(submit_button)
@@ -204,13 +200,9 @@ class CodeValidationFragment : DaggerFragment(),
         }
   }
 
-  override fun getOkClicks(): Observable<Any> {
-    return RxView.clicks(ok_button)
-  }
+  override fun getOkClicks() = RxView.clicks(ok_button)
 
-  override fun getResentCodeClicks(): Observable<Any> {
-    return RxView.clicks(resend_code)
-  }
+  override fun getResentCodeClicks() = RxView.clicks(resend_code)
 
   override fun getFirstChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_1.code)
@@ -340,8 +332,10 @@ class CodeValidationFragment : DaggerFragment(),
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(
-        context is WalletValidationView) { "CodeValidationFragment must be attached to Wallet Validation activity" }
+
+    require(
+        context is WalletValidationView) { CodeValidationFragment::class.java.simpleName + " needs to be attached to a " + WalletValidationView::class.java.simpleName }
+
     walletValidationView = context
   }
 
@@ -365,35 +359,27 @@ class CodeValidationFragment : DaggerFragment(),
     @JvmStatic
     fun newInstance(countryCode: String, phoneNumber: String,
                     hasBeenInvitedFlow: Boolean = true): Fragment {
-      val bundle = Bundle()
-      bundle.putString(
-          PhoneValidationFragment.COUNTRY_CODE, countryCode)
-      bundle.putString(
-          PhoneValidationFragment.PHONE_NUMBER, phoneNumber)
-      bundle.putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
+      val bundle = Bundle().apply {
+        putString(PhoneValidationFragment.COUNTRY_CODE, countryCode)
+        putString(PhoneValidationFragment.PHONE_NUMBER, phoneNumber)
+        putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
+      }
 
-      val fragment = CodeValidationFragment()
-      fragment.arguments = bundle
-      return fragment
+      return CodeValidationFragment().apply { arguments = bundle }
     }
 
     @JvmStatic
     fun newInstance(info: ValidationInfo, errorMessage: Int,
                     hasBeenInvitedFlow: Boolean = true): Fragment {
-      val bundle = Bundle()
-      bundle.putString(
-          PhoneValidationFragment.COUNTRY_CODE, info.countryCode)
-      bundle.putString(
-          PhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
-      bundle.putInt(
-          ERROR_MESSAGE, errorMessage)
-      bundle.putSerializable(
-          VALIDATION_INFO, info)
-      bundle.putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
+      val bundle = Bundle().apply {
+        putString(PhoneValidationFragment.COUNTRY_CODE, info.countryCode)
+        putString(PhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
+        putInt(ERROR_MESSAGE, errorMessage)
+        putSerializable(VALIDATION_INFO, info)
+        putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
+      }
 
-      val fragment = CodeValidationFragment()
-      fragment.arguments = bundle
-      return fragment
+      return CodeValidationFragment().apply { arguments = bundle }
     }
   }
 

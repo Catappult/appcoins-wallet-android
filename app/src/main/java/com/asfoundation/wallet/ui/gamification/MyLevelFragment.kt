@@ -39,7 +39,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is GamificationView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + GamificationView::class.java.simpleName }
+        context is GamificationView) { MyLevelFragment::class.java.simpleName + " needs to be attached to a " + GamificationView::class.java.simpleName }
     gamificationView = context
   }
 
