@@ -90,15 +90,16 @@ class PaymentMethodsPresenter(
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
-          when (paymentMethodsMapper.map(selectedPaymentMethod)) {
+          when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
             PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal()
             PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard()
             PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
             PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
             PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
-                selectedPaymentMethod)
+                selectedPaymentMethod.id)
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
-                selectedPaymentMethod)
+                selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
+                selectedPaymentMethod.label)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
             else -> return@doOnNext
@@ -224,10 +225,20 @@ class PaymentMethodsPresenter(
                   }
             })
         .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
         .subscribe({ }, { this.showError(it) }))
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
+    if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
+      getCreditsPaymentMethod(paymentMethods)?.let {
+        if (it.isEnabled) {
+          showPreSelectedPaymentMethod(fiatValue, it)
+          return
+        }
+      }
+    }
+
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
       val paymentMethod = getPreSelectedPaymentMethod(paymentMethods)
       if (paymentMethod == null || !paymentMethod.isEnabled) {
@@ -246,6 +257,21 @@ class PaymentMethodsPresenter(
     }
   }
 
+  private fun getCreditsPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {
+    paymentMethods.forEach {
+      if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) {
+        val mergedPaymentMethod = it as AppCoinsPaymentMethod
+        return PaymentMethod(PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id,
+            mergedPaymentMethod.creditsLabel, mergedPaymentMethod.iconUrl,
+            mergedPaymentMethod.isCreditsEnabled)
+      }
+      if (it.id == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id) {
+        return it
+      }
+    }
+
+    return null
+  }
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
                                  paymentMethodId: String) {
@@ -291,6 +317,7 @@ class PaymentMethodsPresenter(
               }
               .andThen(
                   Completable.fromAction { inAppPurchaseInteractor.removePreSelectedPaymentMethod() })
+              .andThen(Completable.fromAction { inAppPurchaseInteractor.removeAsyncLocalPayment() })
               .andThen(Completable.fromAction { view.hideLoading() })
         }
         .subscribe({ }, { this.showError(it) }))

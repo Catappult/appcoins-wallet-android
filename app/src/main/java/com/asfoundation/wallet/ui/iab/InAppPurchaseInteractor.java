@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Price;
@@ -12,7 +13,6 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -32,7 +32,8 @@ import java.util.concurrent.TimeUnit;
 
 public class InAppPurchaseInteractor {
 
-  static final String PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY";
+  public static final String PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY";
+  public static final String LOCAL_PAYMENT_METHOD_KEY = "LOCAL_PAYMENT_METHOD_KEY";
   private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";
@@ -58,7 +59,7 @@ public class InAppPurchaseInteractor {
     this.packageManager = packageManager;
   }
 
-  Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
+  public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.parseTransaction(uri);
     } else {
@@ -120,7 +121,7 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }
 
-  Single<FiatValue> convertToFiat(double appcValue, String currency) {
+  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
     return asfInAppPurchaseInteractor.convertToFiat(appcValue, currency);
   }
 
@@ -391,6 +392,10 @@ public class InAppPurchaseInteractor {
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
   }
 
+  boolean hasAsyncLocalPayment() {
+    return sharedPreferences.contains(LOCAL_PAYMENT_METHOD_KEY);
+  }
+
   public void savePreSelectedPaymentMethod(String paymentMethod) {
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.putString(PRE_SELECTED_PAYMENT_METHOD_KEY, paymentMethod);
@@ -398,9 +403,21 @@ public class InAppPurchaseInteractor {
     editor.apply();
   }
 
-  void removePreSelectedPaymentMethod() {
+  public void saveAsyncLocalPayment(String paymentMethod) {
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString(LOCAL_PAYMENT_METHOD_KEY, paymentMethod);
+    editor.apply();
+  }
+
+  public void removePreSelectedPaymentMethod() {
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.remove(PRE_SELECTED_PAYMENT_METHOD_KEY);
+    editor.apply();
+  }
+
+  public void removeAsyncLocalPayment() {
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.remove(LOCAL_PAYMENT_METHOD_KEY);
     editor.apply();
   }
 
@@ -410,7 +427,7 @@ public class InAppPurchaseInteractor {
   }
 
   private boolean isUnavailable(PaymentMethodEntity paymentMethod) {
-    return paymentMethod.getAvailability() != null && paymentMethod.getAvailability()
+    return paymentMethod.getAvailability()
         .equals("UNAVAILABLE");
   }
 }

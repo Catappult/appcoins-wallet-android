@@ -114,6 +114,7 @@
         android:background="@color/list_separator_color"
         />
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backup_btn"
         style="@style/MaterialButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

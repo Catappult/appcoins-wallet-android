@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
+import kotlinx.android.synthetic.main.fragment_backup_wallet_layout.*
 import kotlinx.android.synthetic.main.item_wallet_addr.*
 
-class BackupWalletFragment : DaggerFragment() {
+class BackupWalletFragment : BackupWalletFragmentView, DaggerFragment() {
 
   private lateinit var fragmentContainer: ViewGroup
+  private lateinit var presenter: BackupWalletFragmentPresenter
 
   companion object {
     private const val PARAM_WALLET_ADDR = "PARAM_WALLET_ADDR"
@@ -43,5 +47,9 @@ class BackupWalletFragment : DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
     amount.text = "$1.5k"
     address.text = walletAddr
+  }
+
+  override fun getBackupButton(): Observable<String> {
+    return RxView.clicks(backup_btn).map { password.text.toString() }
   }
 }

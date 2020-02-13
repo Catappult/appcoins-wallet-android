@@ -22,7 +22,7 @@ interface PaymentMethodsView {
   fun errorDismisses(): Observable<Boolean>
   fun setupUiCompleted(): Observable<Boolean>
   fun showProcessingLoadingDialog()
-  fun getBuyClick(): Observable<String>
+  fun getBuyClick(): Observable<PaymentMethod>
   fun showPaypal()
   fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?)
   fun showCreditCard()
@@ -31,7 +31,7 @@ interface PaymentMethodsView {
   fun showShareLink(selectedPaymentMethod: String)
   fun getPaymentSelection(): Observable<String>
   fun getMorePaymentMethodsClicks(): Observable<Any>
-  fun showLocalPayment(selectedPaymentMethod: String)
+  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String)
   fun setBonus(bonus: BigDecimal, currency: String)
   fun onBackPressed(): Observable<Boolean>
   fun showNext()

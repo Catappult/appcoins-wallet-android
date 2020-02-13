@@ -6,6 +6,9 @@
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">إغلاق</string>
   <string name="iab_wallet_not_installed_popup_close_install">تثبيت المحفظة</string>
+  <!-- SDK - Purchasing when neither wallet or app store are installed -->
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">أنت بحاجة إلى تطبيق AppCoins Wallet لإتمام الشراء. يمكنك تنزيله من Aptoide أو Play Store والعودة لإتمام الشراء!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">مفهوم!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">أنت بحاجة إلى محفظة AppCoins Wallet!</string>
   <string name="poa_wallet_not_installed_notification_body">للحصول على المكافأة أنت بحاجة إلى محفظة AppCoins Wallet.</string>

@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
-    android:background="@drawable/background_card"
-    android:theme="@style/AppTheme"
+    android:maxHeight="300dp"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
 
   <RelativeLayout
@@ -16,24 +16,17 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
+      android:background="@drawable/background_card"
+      android:maxHeight="300dp"
       >
-    <ProgressBar
-        android:id="@+id/fragment_credit_card_authorization_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/gradient_progress"
-        />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/payment_methods"
+        android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_card"
         android:elevation="2dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
+        android:visibility="visible"
         >
 
       <androidx.constraintlayout.widget.Guideline
@@ -44,13 +37,24 @@
           app:layout_constraintGuide_percent="0.46"
           />
 
+      <ImageView
+          android:id="@+id/mid_separator"
+          android:layout_width="1dp"
+          android:layout_height="0dp"
+          android:layout_marginTop="7dp"
+          android:layout_marginBottom="8dp"
+          android:background="@drawable/dashed_vertical_line"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
+
       <View
           android:id="@+id/top_separator"
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="1dp"
           android:layout_marginTop="@dimen/big_margin"
           android:background="@color/layout_separator_color"
-          app:layout_constraintBottom_toTopOf="@id/payment_methods_header"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -63,11 +67,24 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="19dp"
+          android:layout_marginEnd="@dimen/big_margin"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
 
+
+      <ProgressBar
+          android:id="@+id/fragment_credit_card_authorization_progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/line_separator"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"
@@ -99,37 +116,48 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
-
-      <include
-          android:id="@+id/layout_pre_selected"
-          layout="@layout/selected_payment_method_cc"
+      <ScrollView
+          android:id="@+id/cc_info_view"
           android:layout_width="0dp"
           android:layout_height="0dp"
-          android:layout_marginStart="16dp"
           android:layout_marginTop="16dp"
-          android:layout_marginEnd="16dp"
-          app:layout_constraintBottom_toTopOf="@id/more_payment_methods"
+          android:overScrollMode="never"
+          android:paddingStart="@dimen/big_margin"
+          android:paddingEnd="@dimen/big_margin"
+          android:scrollbars="none"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/top_separator"
-          app:layout_constraintVertical_bias="0.3"
-          />
-
-      <Button
-          android:id="@+id/more_payment_methods"
-          style="?android:attr/borderlessButtonStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="4dp"
-          android:layout_marginBottom="20dp"
-          android:drawableEnd="@drawable/ic_arrow_right"
-          android:text="@string/purchase_more_payment_methods_button"
-          android:textColor="@color/text_button_color"
-          android:textSize="12sp"
-          app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
-          />
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+          <include
+              android:id="@+id/adyen_card_form"
+              layout="@layout/selected_payment_method_cc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              />
+          <Button
+              android:id="@+id/change_card_button"
+              style="?android:attr/borderlessButtonStyle"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/button_height"
+              android:layout_below="@id/adyen_card_form"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="16dp"
+              android:fontFamily="sans-serif-medium"
+              android:lineSpacingExtra="5sp"
+              android:text="@string/activity_iab_change_card"
+              android:textColor="@color/btn_cancel_text"
+              android:textSize="12sp"
+              android:visibility="gone"
+              />
+        </RelativeLayout>
+      </ScrollView>
 
       <View
           android:id="@+id/bottom_separator"
@@ -147,30 +175,23 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.55"
+          app:layout_constraintGuide_percent="0.5"
           />
 
       <include
-          android:id="@+id/dialog_buy_buttons_payment_methods"
-          layout="@layout/dialog_buy_buttons_payment_methods"
+          layout="@layout/dialog_buy_buttons"
           android:layout_width="0dp"
-          android:layout_height="48dp"
+          android:layout_height="wrap_content"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
-
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <include layout="@layout/fragment_iab_transaction_completed"/>
   </RelativeLayout>
-
-  <include
-      layout="@layout/fragment_iab_transaction_completed"
-      tools:visibility="gone"
-      />
-
   <include
       android:id="@+id/fragment_iab_error"
       layout="@layout/fragment_iab_error"
@@ -178,5 +199,4 @@
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       />
-
 </RelativeLayout>

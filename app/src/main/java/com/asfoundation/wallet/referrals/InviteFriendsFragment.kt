@@ -214,19 +214,20 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String, link: String?,
                     completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
                     available: Int, isRedeemed: Boolean): InviteFriendsFragment {
-      val bundle = Bundle()
-      bundle.putSerializable(AMOUNT, amount)
-      bundle.putSerializable(PENDING_AMOUNT, pendingAmount)
-      bundle.putString(CURRENCY, currency)
-      bundle.putString(LINK, link)
-      bundle.putInt(COMPLETED_INVITES, completed)
-      bundle.putSerializable(RECEIVED_AMOUNT, receivedAmount)
-      bundle.putSerializable(MAX_AMOUNT, maxAmount)
-      bundle.putInt(AVAILABLE, available)
-      bundle.putBoolean(IS_REDEEMED, isRedeemed)
-      val fragment = InviteFriendsFragment()
-      fragment.arguments = bundle
-      return fragment
+      val bundle = Bundle().apply {
+        putSerializable(AMOUNT, amount)
+        putSerializable(PENDING_AMOUNT, pendingAmount)
+        putString(CURRENCY, currency)
+        putString(LINK, link)
+        putInt(COMPLETED_INVITES, completed)
+        putSerializable(RECEIVED_AMOUNT, receivedAmount)
+        putSerializable(MAX_AMOUNT, maxAmount)
+        putInt(AVAILABLE, available)
+        putBoolean(IS_REDEEMED, isRedeemed)
+      }
+      return InviteFriendsFragment().apply {
+        arguments = bundle
+      }
     }
   }
 }

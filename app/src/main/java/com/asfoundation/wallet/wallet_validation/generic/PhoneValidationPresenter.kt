@@ -36,14 +36,17 @@ class PhoneValidationPresenter(
   private fun handleNextAndRetryClicks() {
     disposables.add(
         Observable.merge(view.getNextClicks(), view.getRetryButtonClicks())
+            .doOnNext { view.setButtonState(false) }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.first}${it.second}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
+                    view.setButtonState(true)
                     onSuccess(status, it)
                   }
+                  .doOnError { view.setButtonState(true) }
             }
             .retry()
             .subscribe { }

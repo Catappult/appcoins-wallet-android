@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/backup_creation_animation"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:layout_marginTop="58dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/backup_creation_loading"
+      />
+
+  <TextView
+      android:id="@+id/backup_creation_title"
+      style="@style/WalletBackupTextStyle.Title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="56dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginEnd="56dp"
+      android:gravity="center"
+      android:text="Just one more step"
+      app:layout_constraintBottom_toTopOf="@id/backup_creation_description"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/backup_creation_animation"
+      />
+
+  <TextView
+      android:id="@+id/backup_creation_description"
+      style="@style/WalletBackupTextStyle.Big"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="56dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginEnd="56dp"
+      android:gravity="center"
+      android:text="Keep your backup safe! Where do you want to save it?"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/backup_creation_title"
+      />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/cancel_btn"
+      style="@style/MaterialButtonStyle.Light"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="16dp"
+      android:text="@string/backup_button"
+      app:layout_constraintBottom_toTopOf="@id/proceed_btn"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/proceed_btn"
+      style="@style/MaterialButtonStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="16dp"
+      android:text="@string/backup_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

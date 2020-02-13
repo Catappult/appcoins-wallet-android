@@ -26,16 +26,14 @@ android {
 
     def inputFile = new File("appcoins-services.json")
     def json = new JsonSlurper().parseText(inputFile.text)
-    buildConfigField 'String', 'DEFAULT_OEM_ADDRESS',
-        "\"" + json.oems.default_address + "\""
-    buildConfigField 'String', 'DEFAULT_STORE_ADDRESS',
-        "\"" + json.stores.default_address + "\""
+    buildConfigField 'String', 'DEFAULT_OEM_ADDRESS', "\"" + json.oems.default_address + "\""
+    buildConfigField 'String', 'DEFAULT_STORE_ADDRESS', "\"" + json.stores.default_address + "\""
 
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 120
-    versionName "1.11.1.0"
+    versionCode 123
+    versionName "1.11.2.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -48,44 +46,30 @@ android {
 
     buildConfigField 'int', 'DB_VERSION', '5'
     buildConfigField 'int', 'BILLING_SUPPORTED_VERSION', project.BILLING_SUPPORTED_VERSION
-
-    buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_SYMBOL',
-        "\"" + project.ROPSTEN_DEFAULT_TOKEN_SYMBOL + "\""
+    buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_SYMBOL', project.ROPSTEN_DEFAULT_TOKEN_SYMBOL
     buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_ADDRESS',
-        "\"" + project.ROPSTEN_DEFAULT_TOKEN_ADDRESS + "\""
+        project.ROPSTEN_DEFAULT_TOKEN_ADDRESS
     buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_NAME',
-        "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_NAME + "\""
+        project.MAIN_NETWORK_DEFAULT_TOKEN_NAME
     buildConfigField 'int', 'ROPSTEN_DEFAULT_TOKEN_DECIMALS', project.ROPSTEN_DEFAULT_TOKEN_DECIMALS
-    manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
-
     buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL',
-        "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL + "\""
+        project.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL
     buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS',
-        "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS + "\""
-    buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_NAME',
-        "\"" + project.ROPSTEN_DEFAULT_TOKEN_NAME + "\""
+        project.MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS
+    buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_NAME', project.ROPSTEN_DEFAULT_TOKEN_NAME
     buildConfigField 'int', 'MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS',
         project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
-    buildConfigField 'String', 'REGISTER_PROOF_GAS_LIMIT',
-        "\"" + project.REGISTER_PROOF_GAS_LIMIT + "\""
-    buildConfigField 'String', 'PAYMENT_GAS_LIMIT',
-        "\"" + project.PAYMENT_GAS_LIMIT + "\""
-    buildConfigField 'String', 'FLURRY_APK_KEY',
-        "\"" + project.FLURRY_APK_KEY + "\""
-
-    manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
-
-    buildConfigField 'String', 'PAYMENT_HOST_ROPSTEN_NETWORK',
-        "\"" + project.PAYMENT_HOST_DEV + "\""
-    buildConfigField 'String', 'SECOND_PAYMENT_HOST',
-        "\"" + project.SECOND_PAYMENT_HOST + "\""
-
-    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
-
-    buildConfigField 'String', 'TRANSACTION_DETAILS_HOST',
-        "\"" + project.TRANSACTION_DETAILS_HOST + "\""
+    buildConfigField 'String', 'REGISTER_PROOF_GAS_LIMIT', project.REGISTER_PROOF_GAS_LIMIT
+    buildConfigField 'String', 'PAYMENT_GAS_LIMIT', project.PAYMENT_GAS_LIMIT
+    buildConfigField 'String', 'FLURRY_APK_KEY', project.FLURRY_APK_KEY
+    buildConfigField 'String', 'PAYMENT_HOST_ROPSTEN_NETWORK', project.PAYMENT_HOST_DEV
+    buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.SECOND_PAYMENT_HOST
+    buildConfigField 'String', 'TRANSACTION_DETAILS_HOST', project.TRANSACTION_DETAILS_HOST
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
-        "\"" + project.TRANSACTION_DETAILS_HOST_ROPSTEN + "\""
+        project.TRANSACTION_DETAILS_HOST_ROPSTEN
+    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
+    manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
+    manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
   }
 
   signingConfigs {
@@ -99,50 +83,44 @@ android {
 
   buildTypes {
     release {
-      buildConfigField 'int', 'LEADING_ZEROS_ON_PROOF_OF_ATTENTION',
-          project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_RELEASE
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       signingConfig signingConfigs.release
-      buildConfigField 'String', 'BASE_HOST',
-          "\"" + project.BASE_HOST_PROD + "\""
-      buildConfigField 'String', 'BACKEND_HOST',
-          "\"" + project.BACKEND_HOST_PROD + "\""
-      buildConfigField 'String', 'BDS_BASE_HOST',
-          "\"" + project.BDS_BASE_HOST_PROD + "\""
+      buildConfigField 'int', 'LEADING_ZEROS_ON_PROOF_OF_ATTENTION',
+          project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_RELEASE
+      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_PROD
+      buildConfigField 'String', 'BACKEND_HOST', project.BACKEND_HOST_PROD
+      buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_PROD
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST
-      manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST}"
-      manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
-      buildConfigField 'String', 'PAYMENT_HOST',
-          "\"" + project.PAYMENT_HOST + "\""
+      buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST
       buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_PROD
-      buildConfigField 'String', 'APTOIDE_PKG_NAME',
-          "\"" + project.APTOIDE_PACKAGE_NAME + "\""
+      buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME
+      buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY
+      buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
+      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
+      manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
     }
     debug {
       minifyEnabled false
-      buildConfigField 'int', 'LEADING_ZEROS_ON_PROOF_OF_ATTENTION',
-          project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       versionNameSuffix ".dev"
-      buildConfigField 'String', 'BASE_HOST',
-          "\"" + project.BASE_HOST_DEV + "\""
-      buildConfigField 'String', 'BACKEND_HOST',
-          "\"" + project.BACKEND_HOST_DEV + "\""
-
-      buildConfigField 'String', 'BDS_BASE_HOST',
-          "\"" + project.BDS_BASE_HOST_DEV + "\""
+      buildConfigField 'int', 'LEADING_ZEROS_ON_PROOF_OF_ATTENTION',
+          project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG
+      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_DEV
+      buildConfigField 'String', 'BACKEND_HOST', project.BACKEND_HOST_DEV
+      buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_DEV
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
       buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_DEV
-      buildConfigField 'String', 'APTOIDE_PKG_NAME',
-          "\"" + project.APTOIDE_PACKAGE_NAME_DEV + "\""
-      manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
-      buildConfigField 'String', 'PAYMENT_HOST',
-          "\"" + project.PAYMENT_HOST_DEV + "\""
-      manifestPlaceholders.secondPaymentHost = "${project.PAYMENT_HOST_DEV}"
-      buildConfigField 'String', 'SECOND_PAYMENT_HOST',
-          "\"" + project.PAYMENT_HOST_DEV + "\""
+      buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME_DEV
+      buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST_DEV
+      buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.PAYMENT_HOST_DEV
+      buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
+      buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
+      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
+      manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
@@ -248,9 +226,9 @@ dependencies {
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 
-  //braintreepayments card form dependency
-  implementation "com.braintreepayments:card-form:$project.card_form"
-  implementation "com.adyen.checkout:core:$project.checkout"
+  //adyen dependency
+  implementation "com.adyen.checkout:card-ui:$project.adyenVersion"
+  implementation "com.adyen.checkout:redirect:$project.adyenVersion"
 
   // Rx Lifecycle
   implementation "com.trello:rxlifecycle:$project.rxlifecycle"
@@ -268,6 +246,8 @@ dependencies {
   implementation "com.airbnb.android:lottie:$lottieVersion"
   implementation "com.hbb20:ccp:$cppVersion"
   implementation "androidx.viewpager2:viewpager2:$project.viewPagerVersion"
+  // Intercom
+  implementation "io.intercom.android:intercom-sdk-base:$project.intercomVersion"
 }
 
 def renameArtifact(defaultConfig) {

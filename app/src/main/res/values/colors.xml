@@ -90,6 +90,7 @@
   <color name="gamification_how_it_works">#33eaeaea</color>
 
   <color name="transparent">#00000000</color>
+  <color name="pending_payment_text_color">#727272</color>
 
   <color name="edit_text_border">@color/appc_pink</color>
   <color name="edit_text_label">@color/appc_pink</color>

@@ -11,14 +11,13 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.topup.payment.PaymentAuthFragment
+import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
-import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
 
@@ -37,12 +36,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       return Intent(context, TopUpActivity::class.java)
     }
 
-    fun newIntent(context: Context, url: String): Intent {
-      val intent = Intent(context, TopUpActivity::class.java)
-      intent.data = Uri.parse(url)
-      return intent
-    }
-
     const val WEB_VIEW_REQUEST_CODE = 1234
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
@@ -55,8 +48,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(this)
-    presenter.present(savedInstanceState == null)
     results = PublishRelay.create()
+    presenter.present(savedInstanceState == null)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -68,6 +61,18 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     setupToolbar()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
+        .commit()
+  }
+
+  override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
+                                 selectedCurrency: String, origin: String, transactionType: String,
+                                 bonusValue: String, selectedChip: Int, chipValues: List<FiatValue>,
+                                 chipAvailability: Boolean) {
+    supportFragmentManager.beginTransaction()
+        .add(R.id.fragment_container,
+            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency, origin,
+                transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
+        .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
   }
 
@@ -91,20 +96,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       }
     }
     return super.onOptionsItemSelected(item)
-  }
-
-  override fun navigateToPayment(paymentType: PaymentType,
-                                 data: TopUpData,
-                                 selectedCurrency: String, origin: String,
-                                 transactionType: String, bonusValue: String,
-                                 selectedChip: Int, chipValues: List<FiatValue>,
-                                 chipAvailability: Boolean) {
-    supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container,
-            PaymentAuthFragment.newInstance(paymentType, data, selectedCurrency, origin,
-                transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
-        .addToBackStack(PaymentAuthFragment::class.java.simpleName)
-        .commit()
   }
 
   override fun setupToolbar() {
@@ -133,18 +124,19 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     results.accept(Objects.requireNonNull(uri, "Intent data cannot be null!"))
   }
 
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    results.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
+  }
+
+
   override fun navigateToUri(url: String) {
-    startActivityForResult(WebViewActivity.newIntent(this, url),
-        WEB_VIEW_REQUEST_CODE)
+    startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
 
-  override fun showToolbar() {
-    setupToolbar()
-  }
+  override fun showToolbar() = setupToolbar()
 
-  override fun uriResults(): Observable<Uri> {
-    return results
-  }
+  override fun uriResults() = results
 
   override fun unlockRotation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
