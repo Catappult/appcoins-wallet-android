@@ -55,6 +55,7 @@
   <string name="unlock_screen_prompt_android">Veuillez déverrouiller votre appareil Android pour continuer.</string>
   <string name="do_manage_make_backup">Avez-vous réussi à sauvegarder ?</string>
   <string name="yes_continue">Oui, continuer</string>
+  <string name="yes_done_button">Yes, done</string>
   <string name="no_repeat">Non, répéter</string>
   <string name="skip">Passer</string>
   <string name="skip_with_arrow">Passer &gt;</string>
@@ -527,7 +528,12 @@
   <string name="backup_password_title">Crypter votre portefeuille (optionnel)</string>
   <string name="backup_password">Mot de passe</string>
   <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
+  <string name="backup_confirmation_title">Just one more step</string>
+  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
+  <string name="backup_done_title">Backup done!</string>
+  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Envoyer la sauvegarde via :</string>
+  <string name="backup_send_button">SEND BACKUP</string>
   <string name="import_wallet_title">Importer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
