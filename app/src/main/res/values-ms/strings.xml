@@ -55,6 +55,7 @@
   <string name="unlock_screen_prompt_android">Sila buka kunci peranti Android anda untuk teruskan.</string>
   <string name="do_manage_make_backup">Anda berjaya melakukan sandaran?</string>
   <string name="yes_continue">Ya, teruskan</string>
+  <string name="yes_done_button">Yes, done</string>
   <string name="no_repeat">Tidak, ulang</string>
   <string name="skip">Langkau</string>
   <string name="skip_with_arrow">Langkau &gt;</string>
@@ -527,7 +528,12 @@
   <string name="backup_password_title">Sulitkan dompet anda (pilihan)</string>
   <string name="backup_password">Kata laluan</string>
   <string name="backup_body">Kami tidak menyimpan kunci peribadi anda atau kaedah akses yang lain. Penting bagi anda untuk memastikan sandaran dompet (kunci gedung) anda selamat.</string>
+  <string name="backup_confirmation_title">Just one more step</string>
+  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
+  <string name="backup_done_title">Backup done!</string>
+  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Hantar sandaran melalui:</string>
+  <string name="backup_send_button">SEND BACKUP</string>
   <string name="import_wallet_title">Import Dompet</string>
   <string name="import_wallet_body">Tampal sandaran dompet anda di bawah.</string>
   <string name="import_wallet_keystore_private_keys">Kunci gedung atau kunci peribadi</string>
