@@ -89,29 +89,41 @@ class PoaCodeValidationPresenter(
   }
 
   private fun handleCode() {
-    disposables.add(view.getFirstChar().filter { it.isNotBlank() }.doOnNext {
-      view.moveToNextView(1)
-    }.subscribe())
+    disposables.add(view.getFirstChar()
+        .filter { it.isNotBlank() }
+        .doOnNext { view.moveToNextView(1) }
+        .subscribe()
+    )
 
-    disposables.add(view.getSecondChar().filter { it.isNotBlank() }.doOnNext {
-      view.moveToNextView(2)
-    }.subscribe())
+    disposables.add(view.getSecondChar()
+        .filter { it.isNotBlank() }
+        .doOnNext { view.moveToNextView(2) }
+        .subscribe()
+    )
 
-    disposables.add(view.getThirdChar().filter { it.isNotBlank() }.doOnNext {
-      view.moveToNextView(3)
-    }.subscribe())
+    disposables.add(view.getThirdChar()
+        .filter { it.isNotBlank() }
+        .doOnNext { view.moveToNextView(3) }
+        .subscribe()
+    )
 
-    disposables.add(view.getFourthChar().filter { it.isNotBlank() }.doOnNext {
-      view.moveToNextView(4)
-    }.subscribe())
+    disposables.add(view.getFourthChar()
+        .filter { it.isNotBlank() }
+        .doOnNext { view.moveToNextView(4) }
+        .subscribe()
+    )
 
-    disposables.add(view.getFifthChar().filter { it.isNotBlank() }.doOnNext {
-      view.moveToNextView(5)
-    }.subscribe())
+    disposables.add(view.getFifthChar()
+        .filter { it.isNotBlank() }
+        .doOnNext { view.moveToNextView(5) }
+        .subscribe()
+    )
 
-    disposables.add(view.getSixthChar().filter { it.isNotBlank() }.doOnNext {
-      view.hideKeyboard()
-    }.subscribe())
+    disposables.add(view.getSixthChar()
+        .filter { it.isNotBlank() }
+        .doOnNext { view.hideKeyboard() }
+        .subscribe()
+    )
   }
 
   fun stop() {

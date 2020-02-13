@@ -50,20 +50,14 @@ class PoaPhoneValidationFragment : DaggerFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (arguments?.containsKey(
-            COUNTRY_CODE) == true) {
-      countryCode = arguments?.getString(
-          COUNTRY_CODE)
+    if (arguments?.containsKey(COUNTRY_CODE) == true) {
+      countryCode = arguments?.getString(COUNTRY_CODE)
     }
-    if (arguments?.containsKey(
-            PHONE_NUMBER) == true) {
-      phoneNumber = arguments?.getString(
-          PHONE_NUMBER)
+    if (arguments?.containsKey(PHONE_NUMBER) == true) {
+      phoneNumber = arguments?.getString(PHONE_NUMBER)
     }
-    if (arguments?.containsKey(
-            ERROR_MESSAGE) == true) {
-      errorMessage = arguments?.getInt(
-          ERROR_MESSAGE)
+    if (arguments?.containsKey(ERROR_MESSAGE) == true) {
+      errorMessage = arguments?.getInt(ERROR_MESSAGE)
     }
 
     presenter.present()
@@ -95,9 +89,8 @@ class PoaPhoneValidationFragment : DaggerFragment(),
     phone_number_layout.error = null
   }
 
-  override fun getCountryCode(): Observable<String> {
-    return Observable.just(ccp.selectedCountryCodeWithPlus)
-  }
+  override fun getCountryCode() = Observable.just(ccp.selectedCountryCodeWithPlus)
+
 
   override fun getPhoneNumber(): Observable<String> {
     return RxTextView.afterTextChangeEvents(phone_number)
@@ -119,9 +112,7 @@ class PoaPhoneValidationFragment : DaggerFragment(),
         }
   }
 
-  override fun getCancelClicks(): Observable<Any> {
-    return RxView.clicks(cancel_button)
-  }
+  override fun getCancelClicks() = RxView.clicks(cancel_button)
 
   override fun onDestroy() {
     presenter.stop()
@@ -153,20 +144,16 @@ class PoaPhoneValidationFragment : DaggerFragment(),
     @JvmStatic
     fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
                     errorMessage: Int? = null): Fragment {
-      val bundle = Bundle()
-      bundle.putString(
-          COUNTRY_CODE, countryCode)
-      bundle.putString(
-          PHONE_NUMBER, phoneNumber)
-
-      errorMessage?.let {
-        bundle.putInt(
-            ERROR_MESSAGE, errorMessage)
+      val bundle = Bundle().apply {
+        putString(COUNTRY_CODE, countryCode)
+        putString(PHONE_NUMBER, phoneNumber)
       }
 
-      val fragment = PoaPhoneValidationFragment()
-      fragment.arguments = bundle
-      return fragment
+      errorMessage?.let {
+        bundle.putInt(ERROR_MESSAGE, errorMessage)
+      }
+
+      return PoaPhoneValidationFragment().apply { arguments = bundle }
     }
 
   }

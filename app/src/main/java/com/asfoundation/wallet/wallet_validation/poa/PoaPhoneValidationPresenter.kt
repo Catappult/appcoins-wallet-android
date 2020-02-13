@@ -35,14 +35,17 @@ class PoaPhoneValidationPresenter(
   private fun handleSubmit() {
     disposables.add(
         view.getSubmitClicks()
+            .doOnNext { view.setButtonState(false) }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.first}${it.second}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
+                    view.setButtonState(true)
                     onSuccess(status, it)
                   }
+                  .doOnError { view.setButtonState(true) }
             }
             .retry()
             .subscribe { }
