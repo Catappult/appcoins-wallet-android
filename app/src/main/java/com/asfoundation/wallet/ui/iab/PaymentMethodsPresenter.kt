@@ -121,7 +121,6 @@ class PaymentMethodsPresenter(
                 }
               } else {
                 Completable.fromAction {
-                  view.hideLoading()
                   view.showCredits()
                 }
               }
