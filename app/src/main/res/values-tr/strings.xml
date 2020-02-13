@@ -55,6 +55,7 @@
   <string name="unlock_screen_prompt_android">Devam etmek için lütfen Android cihazınızın kilidini açın.</string>
   <string name="do_manage_make_backup">Başarıyla yedeklediniz mi?</string>
   <string name="yes_continue">Evet, devam et</string>
+  <string name="yes_done_button">Yes, done</string>
   <string name="no_repeat">Hayır, tekrarla</string>
   <string name="skip">Atla</string>
   <string name="skip_with_arrow">Atla &gt;</string>
@@ -527,7 +528,12 @@
   <string name="backup_password_title">Cüzdanınızı şifreleyin (isteğe bağlı)</string>
   <string name="backup_password">Şifre</string>
   <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
+  <string name="backup_confirmation_title">Just one more step</string>
+  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
+  <string name="backup_done_title">Backup done!</string>
+  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
+  <string name="backup_send_button">SEND BACKUP</string>
   <string name="import_wallet_title">Cüzdan Aktar</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
