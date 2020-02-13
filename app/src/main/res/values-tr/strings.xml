@@ -24,6 +24,7 @@
   <string name="network_label">Ağ</string>
   <string name="credits">Tanıtım</string>
   <string name="label_new">Yeni</string>
+  <string name="got_it_button">ANLADIM</string>
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
   <string name="no_camera_permission_title">Kamera İzni</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
@@ -413,6 +414,8 @@
   <string name="verification_insert_phone_field_country">Ülke</string>
   <string name="verification_insert_phone_field_number">Telefon Numarası</string>
   <string name="verification_insert_phone_field_number_error">Geçersiz telefon numarası</string>
+  <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
+  <string name="verification_insert_phone_field_landline_error">Landline numbers are not supported.</string>
   <string name="verification_insert_phone_security_disclaimer">Bu sadece güvenlik içindir, herhangi bir kişisel verinizi saklamayız.</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">Doğrulama kodunuz %s. AppCoins Wallet adresinizi doğrulamak için bu kodu kullanın.</string>
@@ -447,11 +450,25 @@
   <string name="purchase_current_balance_appc_eth_body">AppCoins ve Ether cinsinden %s.</string>
   <string name="purchase_wallet_blocked_title">AppCoins Credits bakiyeniz engellendi</string>
   <string name="purchase_wallet_blocked_body">Olağandışı işlem geçmişi nedeniyle, AppCoins Credits bakiyeniz engellendi. AppCoins Credits dışında başka yöntemlerle ödeme ve işlem yapmaya devam edebileceksiniz.\n\nBunun bir hata olduğunu düşünüyorsanız lütfen bizimle iletişime geçin:</string>
-  <string name="purchase_card_error_general">Kartınızla ilgili bir sorun var gibi görünüyor. Lütfen farklı bir kartla deneyin.</string>
-  <string name="purchase_card_error_invalid_details">Kart bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin!</string>
-  <string name="purchase_card_error_bank_rejects">İşlem bankanız tarafından reddedildi. Lütfen farklı bir kartla deneyin.</string>
-  <string name="purchase_card_error_limits">Kartınızda bazı kısıtlamalar var gibi görünüyor. Lütfen bankanızla iletişime geçin veya farklı bir kart deneyin.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_CVV">Yanlış CVV/CVC</string>
+  <string name="error_contac_us_body">Sorun devam ederse lütfen bizimle iletişime geçin.</string>
+  <!--Async Payments-->
+  <string name="async_steps_title">Sonraki Adımlar</string>
+  <string name="async_steps_1">%s ile ödemenizi tamamlayın. AppCoins Credits cüzdanınıza geldiğinde bildirim alacaksınız.</string>
+  <string name="async_steps_2">Oyuna dönün ve satın alma işlemini ödeme yöntemi olarak AppCoins Credits kullanarak gerçekleştirin.</string>
+  <string name="async_steps_1_no_notification">Ödemenizi %s ile tamamlayın.</string>
+  <string name="async_steps_2_no_notification">AppCoins Credits\'i aldıktan sonra oyuna dönün ve satın alma işlemini ödeme yöntemi olarak AppCoins Credits\'i kullanarak gerçekleştirin.</string>
+  <string name="async_notification_title">AppCoins Credits\'iniz geldi!</string>
+  <string name="async_notification_body">%s oyununa dönün ve satın alma işlemini ödeme yöntemi olarak AppCoins Credits kullanarak gerçekleştirin.</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
@@ -519,7 +536,7 @@
   <string name="import_wallet_password_body">Bu cüzdan şifre korumalıdır!</string>
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
   <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
-  <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="error_invalid_keystore">Geçersiz keystore</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>

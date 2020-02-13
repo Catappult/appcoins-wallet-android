@@ -24,6 +24,7 @@
   <string name="network_label">नेटवर्क</string>
   <string name="credits">क्रेडिट</string>
   <string name="label_new">नया</string>
+  <string name="got_it_button">समझ गए</string>
   <string name="low_storage_error">स्टोर करने के लिए पर्याप्त जगह नहीं</string>
   <string name="no_camera_permission_title">कैमरा अनुमति</string>
   <string name="no_camera_permission">क्यूआर कोड स्कैन के लिए AppCoins BDS Wallet को आपका कैमरा उपयोग करने की अनुमति की जरूरत है।</string>
@@ -413,6 +414,8 @@
   <string name="verification_insert_phone_field_country">देश</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अमान्य फोन नंबर</string>
+  <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
+  <string name="verification_insert_phone_field_landline_error">Landline numbers are not supported.</string>
   <string name="verification_insert_phone_security_disclaimer">यह केवल सुरक्षा कारणों के लिए है, हम कोई भी निजी डाटा स्टोर नहीं करते हैं।</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">आपका सत्यापन कोड %s है। अपने AppCoins Wallet पता सत्यापित करने के लिए इसका उपयोग करें।</string>
@@ -447,11 +450,25 @@
   <string name="purchase_current_balance_appc_eth_body">AppCoins और Ether में %s।</string>
   <string name="purchase_wallet_blocked_title">आपका AppCoins Credits बैलेंस ब्लॉक है</string>
   <string name="purchase_wallet_blocked_body">एक असामान्य लेन-देन इतिहास के कारण, आपका AppCoins Credits बैलेंस ब्लॉक किया गया था। आप अभी भी AppCoins Credits को छोड़कर अन्य तरीकों से सामान्य भुगतान और लेन-देन कर पाएंगे।\n\nअगर आपको लगता है कि यह एक गलती है, तो हमसे संपर्क करें:</string>
-  <string name="purchase_card_error_general">लगता है कि आपके कार्ड में कोई समस्या है। कृपया किसी अन्य के साथ प्रयास करें।</string>
-  <string name="purchase_card_error_invalid_details">क्या आपके कार्ड के विवरण सही हैं? कृपया पुन: प्रयास करें!</string>
-  <string name="purchase_card_error_bank_rejects">बैंक द्वारा आपके लेनदेन को अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें।</string>
-  <string name="purchase_card_error_limits">शायद आपके कार्ड पर कुछ लगे हुए प्रतिबंध हैं। कृपया अपने बैंक से संपर्क करें या किसी अन्य से प्रयास करें।</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_CVV">गलत सीवीवी/सीवीसी</string>
+  <string name="error_contac_us_body">अगर समस्या रहती है तो कृपया हमसे संपर्क करें।</string>
+  <!--Async Payments-->
+  <string name="async_steps_title">अगले चरण</string>
+  <string name="async_steps_1">%s के साथ अपना भुगतान पूरा करें। आपके वॉलेट में AppCoins Credits मिलने के बाद आपको सूचित किया जाएगा।</string>
+  <string name="async_steps_2">गेम में वापस जाएँ और AppCoins Credits का उपयोग भुगतान विधि के रूप में करके खरीदारी करें।</string>
+  <string name="async_steps_1_no_notification">%s के साथ अपना भुगतान पूरा करें।</string>
+  <string name="async_steps_2_no_notification">जब आप AppCoins Credits प्राप्त कर लेते हैं, तो गेम में वापस जाएँ और AppCoins Credits का उपयोग भुगतान विधि के रूप में करके खरीदारी करें।</string>
+  <string name="async_notification_title">आपके AppCoins Credits आ गए!</string>
+  <string name="async_notification_body">AppCoins Credits का उपयोग करके खरीदारी करने के लिए %s पर वापस जाएँ।</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">अपने मित्रों को आमंत्रित करें!</string>
   <string name="referral_onboarding_body">आप और आपके मित्र हमारे रेफरल प्रोग्राम के साथ %s तक कमा सकते हैं!</string>
@@ -517,9 +534,9 @@
   <string name="import_wallet_file_button">फाइल से आयात करें</string>
   <string name="import_wallet_button">वॉलेट आयात करें</string>
   <string name="import_wallet_password_body">यह वॉलेट पासवर्ड से संरक्षित है!</string>
-  <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="import_wallet_wrong_password_body">अरे, गलत पासवर्ड!</string>
   <string name="error_invalid_private_key">अमान्य निजी कुंजी</string>
-  <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="error_invalid_keystore">अमान्य कीस्टोर</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट</string>
   <string name="wallets_total_balance_title">%s में कुल बैलेंस</string>
