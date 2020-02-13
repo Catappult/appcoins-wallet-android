@@ -55,6 +55,7 @@
   <string name="unlock_screen_prompt_android">অনুগ্রহপূর্বক সচল রাখার স্বার্থে আপনার এন্ড্রয়েড ডিভাইসটি আনলক করুন।</string>
   <string name="do_manage_make_backup">আপনি কি সফলভাবে একটি ব্যাকআপ প্রস্তুত করেছেন?</string>
   <string name="yes_continue">হ্যাঁ, চলমান রাখুন</string>
+  <string name="yes_done_button">Yes, done</string>
   <string name="no_repeat">না, পুনরায়</string>
   <string name="skip">স্কিপ</string>
   <string name="skip_with_arrow">Skip &gt;</string>
@@ -527,7 +528,12 @@
   <string name="backup_password_title">Encrypt your wallet (optional)</string>
   <string name="backup_password">Password</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_confirmation_title">Just one more step</string>
+  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
+  <string name="backup_done_title">Backup done!</string>
+  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Send backup via:</string>
+  <string name="backup_send_button">SEND BACKUP</string>
   <string name="import_wallet_title">Import Wallet</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
