@@ -50,7 +50,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> showSupport = new MutableLiveData<>();
+  private final MutableLiveData<String> unreadMessages = new MutableLiveData<>();
   private final CompositeDisposable disposables;
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
@@ -111,12 +111,29 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(transactionViewInteract.hasPromotionUpdate()
         .subscribeOn(Schedulers.io())
         .subscribe(showNotification::postValue, this::onError));
-    disposables.add(transactionViewInteract.getUserLevel()
-        .subscribeOn(Schedulers.io())
-        .flatMap(userLevel -> transactionViewInteract.findWallet()
-            .subscribeOn(Schedulers.io())
-            .doOnSuccess(wallet -> registerSupportUser(wallet.address)))
-        .subscribe(wallet -> showSupport.postValue(true), this::onError));
+    disposables.add(transactionViewInteract.findWallet()
+        .doOnSuccess(wallet -> registerSupportUser(wallet.address))
+        .subscribe(wallet -> {
+        }, this::onError));
+  }
+
+  public void handleUnreadConversationCount() {
+    disposables.add(supportInteractor.getUnreadConversationCount()
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .doOnNext(this::updateIntercomAnimation)
+        .subscribe());
+  }
+
+  private void updateIntercomAnimation(Integer count) {
+    String messages = "";
+    if (count == null || count == 0) {
+      messages = "";
+    } else if (count < 10) {
+      messages = String.valueOf(count);
+    } else if (count > 10) {
+      messages = "9+";
+    }
+    unreadMessages.setValue(messages);
   }
 
   private Completable publishMaxBonus() {
@@ -326,10 +343,6 @@ public class TransactionsViewModel extends BaseViewModel {
     return showNotification;
   }
 
-  public MutableLiveData<Boolean> shouldShowSupport() {
-    return showSupport;
-  }
-
   public void showTopUp(Context context) {
     transactionViewNavigator.openTopUp(context);
   }
@@ -340,6 +353,10 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public MutableLiveData<Double> onFetchTransactionsError() {
     return fetchTransactionsError;
+  }
+
+  public MutableLiveData<String> getUnreadMessages() {
+    return unreadMessages;
   }
 
   public void navigateToPromotions(Context context) {

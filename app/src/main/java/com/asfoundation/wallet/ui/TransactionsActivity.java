@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -19,7 +20,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.airbnb.lottie.FontAssetDelegate;
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.TextDelegate;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -159,8 +162,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onGamificationMaxBonus);
     viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onPromotionsNotification);
-    viewModel.shouldShowSupport()
-        .observe(this, this::showSupport);
+    viewModel.getUnreadMessages()
+        .observe(this, this::updateSupportIcon);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
   }
@@ -168,8 +171,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_settings) {
       viewModel.showSettings(this);
-    } else if (item.getItemId() == R.id.action_support) {
-      viewModel.showSupportScreen();
     }
     return super.onOptionsItemSelected(item);
   }
@@ -202,9 +203,33 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void showSupport(Boolean show) {
-    if (supportActionView != null) {
-      supportActionView.setVisible(show);
+  private void updateSupportIcon(String unreadMessages) {
+    if (unreadMessages.isEmpty()) {
+      supportActionView.getActionView()
+          .findViewById(R.id.intercom_animation)
+          .setVisibility(View.GONE);
+      supportActionView.getActionView()
+          .findViewById(R.id.intercom_empty)
+          .setVisibility(View.VISIBLE);
+    } else {
+      supportActionView.getActionView()
+          .findViewById(R.id.intercom_empty)
+          .setVisibility(View.GONE);
+
+      LottieAnimationView view = supportActionView.getActionView()
+          .findViewById(R.id.intercom_animation);
+      TextDelegate textDelegate = new TextDelegate(view);
+      textDelegate.setText("notification_number", unreadMessages);
+      view.setTextDelegate(textDelegate);
+      view.setFontAssetDelegate(new FontAssetDelegate() {
+        @Override public Typeface fetchFont(String fontFamily) {
+          return Typeface.create("sans-serif-medium", Typeface.BOLD);
+        }
+      });
+      view.setOnClickListener(v -> viewModel.showSupportScreen());
+
+      view.setVisibility(View.VISIBLE);
+      view.playAnimation();
     }
   }
 
@@ -251,6 +276,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
     supportActionView = menu.findItem(R.id.action_support);
+    viewModel.handleUnreadConversationCount();
     return super.onCreateOptionsMenu(menu);
   }
 

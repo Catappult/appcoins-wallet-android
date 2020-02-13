@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
       android:id="@+id/action_support"
-      android:icon="@drawable/ic_settings_support"
       android:orderInCategory="1"
       android:title="@string/title_support"
-      app:showAsAction="always"
-      android:visible="false" />
+      app:actionLayout="@layout/intercom_menu_layout"
+      app:showAsAction="always"/>
+
   <item
       android:id="@+id/action_settings"
       android:icon="@drawable/ic_settings_white_24dp"
       android:orderInCategory="2"
       android:title="@string/action_settings"
-      app:showAsAction="always"
-      />
+      app:showAsAction="always"/>
+
 </menu>

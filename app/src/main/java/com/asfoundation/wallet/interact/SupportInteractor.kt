@@ -2,6 +2,7 @@ package com.asfoundation.wallet.interact
 
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.identity.Registration
+import io.reactivex.Observable
 
 class SupportInteractor {
 
@@ -22,8 +23,11 @@ class SupportInteractor {
     currentUser = walletAddress
   }
 
-  fun logoutUser() {
-    Intercom.client()
-        .logout()
+  fun getUnreadConversationCount(): Observable<Int> {
+    return Observable.create<Int> {
+      Intercom.client()
+          .addUnreadConversationCountListener { i: Int -> it.onNext(i) }
+    }
   }
+
 }
