@@ -55,6 +55,7 @@
   <string name="unlock_screen_prompt_android">Zum Weitermachen entsperren Sie bitte ihr Android-Gerät.</string>
   <string name="do_manage_make_backup">Haben Sie ein Backup erfolgreich angelegt?</string>
   <string name="yes_continue">Ja, weiter</string>
+  <string name="yes_done_button">Yes, done</string>
   <string name="no_repeat">Nein, wiederholen</string>
   <string name="skip">Überspringen</string>
   <string name="skip_with_arrow">Überspringen &gt;</string>
@@ -527,7 +528,12 @@
   <string name="backup_password_title">Wallet verschlüsseln (optional)</string>
   <string name="backup_password">Passwort</string>
   <string name="backup_body">Wir speichern weder ihre privaten Schlüssel noch andere Zugriffsmethoden. Es ist wichtig das Sie das Backup ihres Wallets (Keystore) sicher aufbewahren.</string>
+  <string name="backup_confirmation_title">Just one more step</string>
+  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
+  <string name="backup_done_title">Backup done!</string>
+  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Backup versenden über:</string>
+  <string name="backup_send_button">SEND BACKUP</string>
   <string name="import_wallet_title">Wallet importieren</string>
   <string name="import_wallet_body">Fügen Sie das Backup ihres Wallets unten ein.</string>
   <string name="import_wallet_keystore_private_keys">Keystore oder private Schlüssel</string>
