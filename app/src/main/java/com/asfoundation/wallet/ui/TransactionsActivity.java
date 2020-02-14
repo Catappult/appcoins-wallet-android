@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -20,9 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.airbnb.lottie.FontAssetDelegate;
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.TextDelegate;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -203,8 +200,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void updateSupportIcon(String unreadMessages) {
-    if (unreadMessages.isEmpty()) {
+  private void updateSupportIcon(boolean hasMessages) {
+    if (!hasMessages) {
       supportActionView.getActionView()
           .findViewById(R.id.intercom_animation)
           .setVisibility(View.GONE);
@@ -218,14 +215,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
       LottieAnimationView view = supportActionView.getActionView()
           .findViewById(R.id.intercom_animation);
-      TextDelegate textDelegate = new TextDelegate(view);
-      textDelegate.setText("notification_number", unreadMessages);
-      view.setTextDelegate(textDelegate);
-      view.setFontAssetDelegate(new FontAssetDelegate() {
-        @Override public Typeface fetchFont(String fontFamily) {
-          return Typeface.create("sans-serif-medium", Typeface.BOLD);
-        }
-      });
       view.setOnClickListener(v -> viewModel.showSupportScreen());
 
       view.setVisibility(View.VISIBLE);

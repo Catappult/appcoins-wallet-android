@@ -50,7 +50,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
-  private final MutableLiveData<String> unreadMessages = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
   private final CompositeDisposable disposables;
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
@@ -125,15 +125,11 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void updateIntercomAnimation(Integer count) {
-    String messages = "";
     if (count == null || count == 0) {
-      messages = "";
-    } else if (count < 10) {
-      messages = String.valueOf(count);
-    } else if (count > 10) {
-      messages = "9+";
+      unreadMessages.setValue(false);
+    } else {
+      unreadMessages.setValue(true);
     }
-    unreadMessages.setValue(messages);
   }
 
   private Completable publishMaxBonus() {
@@ -355,7 +351,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return fetchTransactionsError;
   }
 
-  public MutableLiveData<String> getUnreadMessages() {
+  public MutableLiveData<Boolean> getUnreadMessages() {
     return unreadMessages;
   }
 
