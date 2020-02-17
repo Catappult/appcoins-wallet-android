@@ -8,6 +8,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -226,7 +227,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       refusalReason != null -> Completable.fromAction {
         refusalCode?.let { code ->
-          if (code == 24) {
+          if (code == CVC_DECLINED) {
             view.showCvvError()
           } else {
             view.showSpecificError(adyenErrorCodeMapper.map(code))

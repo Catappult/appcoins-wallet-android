@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.CurrencyData
@@ -222,7 +223,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
         paymentModel.refusalCode?.let { code ->
-          if (code == 24) {
+          if (code == CVC_DECLINED) {
             view.showCvvError()
           } else {
             view.showSpecificError(adyenErrorCodeMapper.map(code))
