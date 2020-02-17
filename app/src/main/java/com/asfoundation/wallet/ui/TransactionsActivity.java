@@ -215,11 +215,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
       LottieAnimationView view = supportActionView.getActionView()
           .findViewById(R.id.intercom_animation);
-      view.setOnClickListener(v -> viewModel.showSupportScreen());
 
       view.setVisibility(View.VISIBLE);
       view.playAnimation();
     }
+
+    supportActionView.getActionView()
+        .setOnClickListener(v -> viewModel.showSupportScreen());
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
