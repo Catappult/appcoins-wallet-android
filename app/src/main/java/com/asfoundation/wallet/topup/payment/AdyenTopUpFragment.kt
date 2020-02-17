@@ -3,7 +3,6 @@ package com.asfoundation.wallet.topup.payment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -48,7 +47,7 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.default_value_chips_layout.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support
+import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_adyen_error_top_up.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
@@ -251,7 +250,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun getTryAgainClicks() = RxView.clicks(try_again)
 
-  override fun getSupportClicks() = RxView.clicks(layout_support)
+  override fun getSupportClicks(): Observable<Any> {
+    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+  }
 
   override fun topUpButtonClicked() = RxView.clicks(button)
 
@@ -508,7 +509,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
     }
 
-    val height = (70 * Resources.getSystem().displayMetrics.density).toInt()
+    val height = resources.getDimensionPixelSize(R.dimen.adyen_text_input_layout_height)
 
     adyenCardNumberLayout.minimumHeight = height
     adyenExpiryDateLayout.minimumHeight = height

@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -340,7 +339,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
 
-  override fun getSupportClicks() = RxView.clicks(layout_support)
+  override fun getSupportClicks(): Observable<Any> {
+    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+  }
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -391,7 +392,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       text = getString(R.string.dialog_credit_card_remember)
     }
 
-    val height = (70 * Resources.getSystem().displayMetrics.density).toInt()
+    val height = resources.getDimensionPixelSize(R.dimen.adyen_text_input_layout_height)
 
     adyenCardNumberLayout.minimumHeight = height
     adyenExpiryDateLayout.minimumHeight = height
