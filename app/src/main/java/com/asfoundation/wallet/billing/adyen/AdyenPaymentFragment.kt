@@ -104,7 +104,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
             Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
             adyenPaymentInteractor, inAppPurchaseInteractor.parseTransaction(transactionData, true),
             navigator, paymentType, transactionType, amount, currency, isPreSelected,
-            AdyenErrorCodeMapper())
+            AdyenErrorCodeMapper(), gamificationLevel)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -564,12 +564,13 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val EXPIRY_DATE_KEY = "expiry_date"
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
 
     @JvmStatic
     fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
                     origin: String?, transactionData: String?, appcAmount: BigDecimal,
                     amount: BigDecimal, currency: String?, bonus: String?,
-                    isPreSelected: Boolean): AdyenPaymentFragment {
+                    isPreSelected: Boolean, gamificationLevel: Int): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
@@ -582,6 +583,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         putString(CURRENCY_KEY, currency)
         putString(BONUS_KEY, bonus)
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
+        putInt(GAMIFICATION_LEVEL, gamificationLevel)
       }
       return fragment
     }
@@ -664,6 +666,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       arguments!!.getBoolean(PRE_SELECTED_KEY)
     } else {
       throw IllegalArgumentException("pre selected data not found")
+    }
+  }
+
+  private val gamificationLevel: Int by lazy {
+    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
+      arguments!!.getInt(GAMIFICATION_LEVEL)
+    } else {
+      throw IllegalArgumentException("gamification level data not found")
     }
   }
 }

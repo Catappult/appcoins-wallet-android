@@ -40,7 +40,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val billingMessagesMapper: BillingMessagesMapper,
                           private val adyenPaymentInteractor: AdyenPaymentInteractor,
                           private val bonusValue: String,
-                          private val adyenErrorCodeMapper: AdyenErrorCodeMapper) {
+                          private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+                          private val gamificationLevel: Int
+) {
 
   private var waitingResult = false
 
@@ -61,7 +63,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     disposables.add(
         view.getSupportClicks()
             .throttleFirst(50, TimeUnit.MILLISECONDS)
-            .flatMapCompletable { adyenPaymentInteractor.showSupport() }
+            .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
             .subscribeOn(viewScheduler)
             .subscribe()
     )

@@ -49,6 +49,8 @@ class PaymentMethodsPresenter(
     private val walletBlockedInteract: WalletBlockedInteract,
     private val transactionValue: Double) {
 
+  private var gamificationLevel = 0
+
   fun present() {
 
     handleCancelClick()
@@ -82,6 +84,7 @@ class PaymentMethodsPresenter(
           if (it.status == ForecastBonus.Status.ACTIVE && it.amount > BigDecimal.ZERO) {
             view.setBonus(it.amount, it.currency)
           }
+          gamificationLevel = it.level
         }
         .subscribe())
   }
@@ -91,8 +94,8 @@ class PaymentMethodsPresenter(
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-            PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal()
-            PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard()
+            PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
+            PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(gamificationLevel)
             PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
             PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
             PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
@@ -247,7 +250,7 @@ class PaymentMethodsPresenter(
       } else {
         when (paymentMethod.id) {
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> view.showAdyen(fiatValue,
-              PaymentType.CARD, paymentMethod.iconUrl)
+              PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod)
         }
       }

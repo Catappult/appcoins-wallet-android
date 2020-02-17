@@ -8,9 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
@@ -107,7 +105,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
             transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
             data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper())
+            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper(), gamificationLevel)
   }
 
   override fun onAttach(context: Context) {
@@ -633,6 +631,14 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
+  private val gamificationLevel: Int by lazy {
+    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
+      arguments!!.getInt(GAMIFICATION_LEVEL)
+    } else {
+      throw IllegalArgumentException("gamification level data not found")
+    }
+  }
+
   companion object {
 
     private const val PAYMENT_TYPE = "paymentType"
@@ -648,12 +654,14 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     private const val EXPIRY_DATE_KEY = "expiry_date"
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
 
     fun newInstance(paymentType: PaymentType,
                     data: TopUpData, currentCurrency: String,
                     origin: String, transactionType: String,
                     bonusValue: String, selectedChip: Int,
-                    chipValues: List<FiatValue>, chipAvailability: Boolean): AdyenTopUpFragment {
+                    chipValues: List<FiatValue>, chipAvailability: Boolean,
+                    gamificationLevel: Int): AdyenTopUpFragment {
       val bundle = Bundle()
       val fragment = AdyenTopUpFragment()
       bundle.apply {
@@ -666,6 +674,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
         putInt(SELECTED_CHIP, selectedChip)
         putSerializable(CHIP_VALUES, chipValues as Serializable)
         putBoolean(CHIP_AVAILABILITY, chipAvailability)
+        putInt(GAMIFICATION_LEVEL, gamificationLevel)
         fragment.arguments = this
       }
       return fragment

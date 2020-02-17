@@ -32,11 +32,11 @@ class AdyenPaymentInteractor(
     private val supportInteractor: SupportInteractor
 ) {
 
-  fun showSupport(): Completable {
+  fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(it)
+            supportInteractor.registerUser(gamificationLevel, it)
             supportInteractor.displayChatScreen()
           }
         }

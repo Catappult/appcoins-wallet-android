@@ -38,7 +38,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val amount: BigDecimal,
                             private val currency: String,
                             private val isPreSelected: Boolean,
-                            private val adyenErrorCodeMapper: AdyenErrorCodeMapper) {
+                            private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+                            private val gamificationLevel: Int) {
 
   private var waitingResult = false
 
@@ -61,7 +62,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(
         view.getSupportClicks()
             .throttleFirst(50, TimeUnit.MILLISECONDS)
-            .flatMapCompletable { adyenPaymentInteractor.showSupport() }
+            .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
             .subscribeOn(viewScheduler)
             .subscribe()
     )
