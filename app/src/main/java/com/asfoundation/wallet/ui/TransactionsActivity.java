@@ -201,6 +201,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void updateSupportIcon(boolean hasMessages) {
+    if (supportActionView == null) {
+      return;
+    }
     if (!hasMessages) {
       supportActionView.getActionView()
           .findViewById(R.id.intercom_animation)
