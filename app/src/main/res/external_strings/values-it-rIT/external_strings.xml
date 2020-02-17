@@ -21,18 +21,18 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">MODIFICA CARTA</string>
-  <string name="iab_pay_with_wallet_title">Paga con l\'AppCoins wallet</string>
+  <string name="iab_pay_with_wallet_title">Paga con l\'AppCoins Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">Ricevi fino al 30% di bonus!</string>
-  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
-  <string name="iab_best_deal">BEST DEAL</string>
-  <string name="iab_purchase_done_title">DONE!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to 30% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
-  <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
+  <string name="iab_pay_with_wallet_reward_body">Riceverai %s su questo acquisto.</string>
+  <string name="iab_best_deal">OFFERTA MIGLIORE</string>
+  <string name="iab_purchase_done_title">FATTO!</string>
+  <string name="iab_purchase_done_reward_title">La prossima volta ricevi fino al 30% di bonus con l\'AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_body">Avresti potuto ricevere %s su questo acquisto.</string>
+  <string name="iab_purchase_done_title_long">Acquisto completato!</string>
+  <string name="iab_purchase_change_payment_method_button">ALTRI METODI DI PAGAMENTO</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
-  <string name="cancel_button">CANCEL</string>
-  <string name="buy_button">BUY</string>
+  <string name="next_button">AVANTI</string>
+  <string name="cancel_button">ANNULLA</string>
+  <string name="buy_button">ACQUISTA</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALLA IL WALLET</string>
 </resources>
