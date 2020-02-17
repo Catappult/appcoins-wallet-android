@@ -245,8 +245,12 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id)
       } else {
         when (paymentMethod.id) {
-          PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> view.showAdyen(fiatValue,
-              PaymentType.CARD, paymentMethod.iconUrl)
+          PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> {
+            analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
+                .toString(), transaction.type)
+            view.showAdyen(fiatValue,
+                PaymentType.CARD, paymentMethod.iconUrl)
+          }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod)
         }
       }
