@@ -118,7 +118,7 @@ public class TransactionsViewModel extends BaseViewModel {
             .subscribeOn(Schedulers.io())
             .map(wallet -> {
               if (userLevel == UserStats.MAX_LEVEL) {
-                registerSupportUser(wallet.address);
+                registerSupportUser(userLevel, wallet.address);
                 return true;
               } else {
                 logoutSupportUser();
@@ -385,8 +385,8 @@ public class TransactionsViewModel extends BaseViewModel {
     supportInteractor.displayChatScreen();
   }
 
-  private void registerSupportUser(String walletAddress) {
-    supportInteractor.registerUser(walletAddress);
+  private void registerSupportUser(Integer level, String walletAddress) {
+    supportInteractor.registerUser(level, walletAddress);
   }
 
   private void logoutSupportUser() {

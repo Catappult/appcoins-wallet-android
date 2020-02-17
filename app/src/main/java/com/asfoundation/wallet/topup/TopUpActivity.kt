@@ -67,11 +67,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
                                  selectedCurrency: String, origin: String, transactionType: String,
                                  bonusValue: String, selectedChip: Int, chipValues: List<FiatValue>,
-                                 chipAvailability: Boolean) {
+                                 chipAvailability: Boolean, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
             AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency, origin,
-                transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
+                transactionType, bonusValue, selectedChip, chipValues, chipAvailability,
+                gamificationLevel))
         .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
   }

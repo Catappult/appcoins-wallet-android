@@ -10,8 +10,10 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.interact.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -26,8 +28,19 @@ class AdyenPaymentInteractor(
     private val billingMessagesMapper: BillingMessagesMapper,
     private val partnerAddressService: AddressService,
     private val billing: Billing,
-    private val walletService: WalletService
+    private val walletService: WalletService,
+    private val supportInteractor: SupportInteractor
 ) {
+
+  fun showSupport(gamificationLevel: Int): Completable {
+    return walletService.getWalletAddress()
+        .flatMapCompletable {
+          Completable.fromAction {
+            supportInteractor.registerUser(gamificationLevel, it)
+            supportInteractor.displayChatScreen()
+          }
+        }
+  }
 
   fun loadPaymentInfo(methods: AdyenPaymentRepository.Methods, value: String,
                       currency: String): Single<PaymentInfoModel> {
