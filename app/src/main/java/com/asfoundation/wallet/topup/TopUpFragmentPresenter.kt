@@ -22,6 +22,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val networkScheduler: Scheduler) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
+  private var gamificationLevel = 0
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
@@ -105,7 +106,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
               topUpData.selectedCurrency, "BDS",
               "TOPUP", topUpData.bonusValue, view.getSelectedChip(), it.values,
-              view.getChipAvailability())
+              view.getChipAvailability(), gamificationLevel)
           view.hideLoading()
         }
         .subscribe())
@@ -242,7 +243,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             view.showBonus(it.amount, it.currency)
           }
           view.setNextButtonState(true)
+          gamificationLevel = it.level
         }
+        .map { ForecastBonus(it.status, it.amount, it.currency) }
   }
 
   private fun handleInsertedValue(packageName: String, topUpData: TopUpData,

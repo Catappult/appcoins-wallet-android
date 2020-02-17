@@ -111,8 +111,14 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(transactionViewInteract.hasPromotionUpdate()
         .subscribeOn(Schedulers.io())
         .subscribe(showNotification::postValue, this::onError));
-    disposables.add(transactionViewInteract.findWallet()
-        .doOnSuccess(wallet -> registerSupportUser(wallet.address))
+    disposables.add(transactionViewInteract.getUserLevel()
+        .subscribeOn(Schedulers.io())
+        .flatMap(userLevel -> transactionViewInteract.findWallet()
+            .subscribeOn(Schedulers.io())
+            .map(wallet -> {
+              registerSupportUser(userLevel, wallet.address);
+              return true;
+            }))
         .subscribe(wallet -> {
         }, this::onError));
   }
@@ -389,7 +395,7 @@ public class TransactionsViewModel extends BaseViewModel {
     supportInteractor.displayChatScreen();
   }
 
-  private void registerSupportUser(String walletAddress) {
-    supportInteractor.registerUser(walletAddress);
+  private void registerSupportUser(Integer level, String walletAddress) {
+    supportInteractor.registerUser(level, walletAddress);
   }
 }
