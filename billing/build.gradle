@@ -28,6 +28,11 @@ android {
     }
   }
 }
+repositories {
+  mavenCentral()
+  maven { url "https://dl.bintray.com/blockchainds/bds" }
+  jcenter()
+}
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -43,7 +48,5 @@ dependencies {
   implementation "com.madgag.spongycastle:core:$project.spongycastle"
   implementation "com.adyen.checkout:redirect:$project.adyenVersion"
   api project(path: ':bdsbilling')
-}
-repositories {
-  mavenCentral()
+  implementation 'com.blockchainds:communication:0.5.2.39b.dev'
 }
