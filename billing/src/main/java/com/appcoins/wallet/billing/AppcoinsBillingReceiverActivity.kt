@@ -33,7 +33,6 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     private const val BILLING_SKU = "BILLING_SKU"
     private const val DEVELOPER_PAYLOAD = "DEVELOPER_PAYLOAD"
     private const val SUPPORTED_API_VERSION = 3
-
   }
 
   private lateinit var billing: AndroidBilling
