@@ -21,7 +21,7 @@ class SupportInteractor {
     }
 
     val userAttributes = UserAttributes.Builder()
-        .withCustomAttribute("user_level", level)
+        .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level)
         .build()
     val registration: Registration = Registration.create()
         .withUserId(walletAddress)
@@ -37,6 +37,12 @@ class SupportInteractor {
       Intercom.client()
           .addUnreadConversationCountListener { i: Int -> it.onNext(i) }
     }
+  }
+
+  companion object {
+
+    const val USER_LEVEL_ATTRIBUTE = "user_level"
+
   }
 
 }
