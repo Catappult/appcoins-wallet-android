@@ -140,6 +140,13 @@
               android:visibility="gone"
               tools:visibility="visible"
               />
+          <include
+              android:id="@+id/fragment_adyen_error_pre_selected"
+              layout="@layout/fragment_adyen_error"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:visibility="gone"
+              />
         </RelativeLayout>
       </ScrollView>
       <Button
@@ -184,7 +191,18 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
 
+      <include
+          android:id="@+id/dialog_buy_buttons_error"
+          layout="@layout/dialog_buy_buttons_adyen_error"
+          android:layout_width="0dp"
+          android:layout_height="48dp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
