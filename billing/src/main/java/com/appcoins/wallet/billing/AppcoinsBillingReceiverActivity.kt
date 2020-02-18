@@ -3,6 +3,7 @@ package com.appcoins.wallet.billing
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
+import android.view.WindowManager
 import com.appcoins.communication.MessageProcessorActivity
 import com.appcoins.wallet.bdsbilling.BdsBilling
 import com.appcoins.wallet.bdsbilling.Billing
@@ -48,6 +49,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       throw IllegalArgumentException(
           "application must implement ${BillingDependenciesProvider::class.java.simpleName}")
     }
+    window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val bdsBilling = BdsBilling(BdsRepository(
         RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper(),
