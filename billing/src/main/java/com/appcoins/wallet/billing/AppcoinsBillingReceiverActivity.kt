@@ -32,6 +32,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     private const val BILLING_TYPE = "BILLING_TYPE"
     private const val BILLING_SKU = "BILLING_SKU"
     private const val DEVELOPER_PAYLOAD = "DEVELOPER_PAYLOAD"
+    private const val PURCHASE_TOKEN = "PURCHASE_TOKEN"
     private const val SUPPORTED_API_VERSION = 3
   }
 
@@ -81,7 +82,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val billingType = args.getString(BILLING_TYPE)
     val sku = args.getString(BILLING_SKU)
     val developerPayload = args.getString(DEVELOPER_PAYLOAD)
-    val purchaseToken = args.getString("PURCHASE_TOKEN")
+    val purchaseToken = args.getString(PURCHASE_TOKEN)
 
     return when (methodId) {
       0 -> isBillingSupported(packageName, billingType)
@@ -89,7 +90,12 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       2 -> getPurchases(packageName, billingType)
       3 -> getBuyIntent(packageName, sku, billingType, developerPayload)
       4 -> consumePurchase(packageName, purchaseToken)
-      else -> return Bundle()
+      else -> {
+        Log.w(TAG, "Unknown method id for: $methodId")
+        return createReturnBundle(Bundle().apply {
+          putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
+        })
+      }
     }
   }
 
