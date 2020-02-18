@@ -263,7 +263,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
     disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
-      analytics.sendPaymentEvent(domain, transactionBuilder.skuId,
+      analytics.sendPaymentMethodDetailsEvent(domain, transactionBuilder.skuId,
           transactionBuilder.amount()
               .toString(), paymentMethod, transactionBuilder.type)
     })
