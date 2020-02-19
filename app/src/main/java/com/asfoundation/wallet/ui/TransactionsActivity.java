@@ -204,27 +204,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (supportActionView == null) {
       return;
     }
-    if (!hasMessages) {
-      supportActionView.getActionView()
-          .findViewById(R.id.intercom_animation)
-          .setVisibility(View.GONE);
-      supportActionView.getActionView()
-          .findViewById(R.id.intercom_empty)
-          .setVisibility(View.VISIBLE);
+    LottieAnimationView animation = findViewById(R.id.intercom_animation);
+
+    if (hasMessages) {
+      animation.playAnimation();
     } else {
-      supportActionView.getActionView()
-          .findViewById(R.id.intercom_empty)
-          .setVisibility(View.GONE);
-
-      LottieAnimationView view = supportActionView.getActionView()
-          .findViewById(R.id.intercom_animation);
-
-      view.setVisibility(View.VISIBLE);
-      view.playAnimation();
+      animation.cancelAnimation();
+      animation.setProgress(0);
     }
 
-    supportActionView.getActionView()
-        .setOnClickListener(v -> viewModel.showSupportScreen());
+    animation.setOnClickListener(v -> viewModel.showSupportScreen());
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
