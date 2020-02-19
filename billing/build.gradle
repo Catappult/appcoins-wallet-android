@@ -30,7 +30,6 @@ android {
 }
 repositories {
   mavenCentral()
-  maven { url "https://dl.bintray.com/blockchainds/bds" }
   jcenter()
 }
 
