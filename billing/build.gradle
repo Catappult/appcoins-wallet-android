@@ -48,5 +48,5 @@ dependencies {
   implementation "com.madgag.spongycastle:core:$project.spongycastle"
   implementation "com.adyen.checkout:redirect:$project.adyenVersion"
   api project(path: ':bdsbilling')
-  implementation 'com.blockchainds:communication:0.5.2.39b.dev'
+  implementation 'com.blockchainds:communication:0.5.2.37b.dev'
 }
