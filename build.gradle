@@ -79,9 +79,10 @@ project.ext {
   asf_applications = '6'
   crashlytics_sdk = '2.8.0@aar'
   spongycastle = '1.58.0.0@jar'
-  intercomVersion='6.0.0'
+  intercomVersion = '6.0.0'
   adyenVersion = '3.5.1'
   glide = '4.10.0'
+  rakam_version = '2.7.14'
 }
 
 task clean(type: Delete) {

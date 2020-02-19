@@ -69,6 +69,7 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
+import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
@@ -92,6 +93,7 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.identification.IdsRepository;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -905,12 +907,19 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return list;
   }
 
+  @Singleton @Provides @Named("rakam_event_list") List<String> provideRakamEventList() {
+    List<String> list = new ArrayList<>();
+    return list;
+  }
+
   @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
       AnalyticsAPI api, Context context, @Named("bi_event_list") List<String> biEventList,
-      @Named("facebook_event_list") List<String> facebookEventList) {
+      @Named("facebook_event_list") List<String> facebookEventList,
+      @Named("rakam_event_list") List<String> rakamEventList) {
 
     return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), biEventList)
         .addLogger(new FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
+        .addLogger(new RakamEventLogger(), rakamEventList)
         .setAnalyticsNormalizer(new KeysNormalizer())
         .setDebugLogger(new LogcatAnalyticsLogger())
         .setKnockLogger(new HttpClientKnockLogger(okHttpClient))
@@ -1281,5 +1290,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides SupportInteractor provideSupportInteractor() {
     return new SupportInteractor();
+  }
+
+  @Singleton @Provides IdsRepository provideIdsRepository(Context context,
+      SharedPreferencesRepository sharedPreferencesRepository) {
+    return new IdsRepository(context.getContentResolver(), sharedPreferencesRepository);
   }
 }

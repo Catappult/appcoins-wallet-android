@@ -303,7 +303,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     updateHeaderInfo(fiatValue, isDonation, currency);
     setupPaymentMethods(paymentMethods, paymentMethodId);
 
-    presenter.sendPurchaseDetailsEvent();
+    presenter.sendPaymentMethodsEvents();
     //New presenter method(PaymentMethodsAnalytics)
 
     setupSubject.onNext(true);
@@ -316,7 +316,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     setupPaymentMethod(paymentMethod);
 
-    presenter.sendPurchaseDetailsEvent();
+    presenter.sendPreSelectedPaymentMethodsEvents();
     //New presenter method(PreSelectedPaymentsMethods)
 
     setupSubject.onNext(true);

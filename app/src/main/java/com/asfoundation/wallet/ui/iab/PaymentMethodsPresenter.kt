@@ -362,7 +362,12 @@ class PaymentMethodsPresenter(
     view.finish(billingMessagesMapper.mapFinishedPurchase(purchase, itemAlreadyOwned))
   }
 
-  fun sendPurchaseDetailsEvent() {
+  fun sendPaymentMethodsEvents() {
+    analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
+        .toString(), transaction.type)
+  }
+
+  fun sendPreSelectedPaymentMethodsEvents() {
     analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
         .toString(), transaction.type)
   }

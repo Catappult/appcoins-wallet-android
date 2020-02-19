@@ -82,4 +82,10 @@ public class BillingAnalytics implements EventSender {
 
     analytics.logEvent(eventData, REVENUE, AnalyticsManager.Action.IMPRESSION, WALLET);
   }
+
+  @Override
+  public void sendWalletPreSelectedPaymentMethodEvent(String packageName, String skuDetails,
+      String value, String purchaseDetails, String transactionType, String action) {
+
+  }
 }

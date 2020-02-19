@@ -141,6 +141,16 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
+  override fun getAndroidId() =
+      pref.getString(ANDROID_ID, "").orEmpty()
+
+
+  override fun setAndroidId(androidId: String) {
+    pref.edit()
+        .putString(ANDROID_ID, androidId)
+        .apply()
+  }
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
@@ -155,5 +165,6 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val PREF_WALLET = "pref_wallet"
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
+    private const val ANDROID_ID = "android_id"
   }
 }
