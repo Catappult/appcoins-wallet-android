@@ -50,6 +50,7 @@ public class App extends MultiDexApplication
   @Inject AppcoinsRewards appcoinsRewards;
   @Inject BillingMessagesMapper billingMessagesMapper;
   @Inject BdsApiSecondary bdsapiSecondary;
+  boolean logging = false;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -64,23 +65,7 @@ public class App extends MultiDexApplication
           .build(this, BuildConfig.FLURRY_APK_KEY);
     }
 
-    File logsDir = new File(
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .getAbsolutePath() + "/AppCoinsLogs");
-    logsDir.mkdirs();
-    try {
-      if (!logsDir.exists()) {
-        logsDir.createNewFile();
-      }
-      String fileName = "walletLogs_" + System.currentTimeMillis() + ".txt";
-      File logs = new File(logsDir, fileName);
-      logs.createNewFile();
-      String cmd = "logcat -f" + logs.getAbsolutePath() + " -v time";
-      Runtime.getRuntime()
-          .exec(cmd);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    startLogToFile();
 
     Fabric.with(this, new Crashlytics.Builder().core(
         new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
@@ -95,6 +80,7 @@ public class App extends MultiDexApplication
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID);
     Intercom.client()
         .setInAppMessageVisibility(Intercom.Visibility.GONE);
+
   }
 
   private void setupRxJava() {
@@ -145,5 +131,27 @@ public class App extends MultiDexApplication
 
   @NotNull @Override public BdsApiSecondary getBdsApiSecondary() {
     return bdsapiSecondary;
+  }
+
+  public void startLogToFile() {
+    if (!logging) {
+      File logsDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+          .getAbsolutePath() + "/AppCoinsLogs");
+      if (!logsDir.exists()) {
+        logsDir.mkdirs();
+      }
+      try {
+        String fileName = "walletLogs_" + System.currentTimeMillis() + ".txt";
+        File logs = new File(logsDir, fileName);
+        logs.createNewFile();
+        String cmd = "logcat -f" + logs.getAbsolutePath() + " -v time";
+        Runtime.getRuntime()
+            .exec(cmd);
+        logging = true;
+      } catch (IOException e) {
+        logging = false;
+        e.printStackTrace();
+      }
+    }
   }
 }
