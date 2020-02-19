@@ -21,7 +21,8 @@ class SupportInteractor {
     }
 
     val userAttributes = UserAttributes.Builder()
-        .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level)
+        .withCustomAttribute(USER_LEVEL_ATTRIBUTE,
+            level + 1)//we set level + 1 to help with readability for the support team
         .build()
     val registration: Registration = Registration.create()
         .withUserId(walletAddress)
