@@ -36,7 +36,7 @@ class AdyenPaymentInteractor(
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it)
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
             supportInteractor.displayChatScreen()
           }
         }
