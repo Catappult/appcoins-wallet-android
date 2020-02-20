@@ -3,6 +3,7 @@ package com.asfoundation.wallet.interact
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
+import io.reactivex.Observable
 
 class SupportInteractor {
 
@@ -20,7 +21,8 @@ class SupportInteractor {
     }
 
     val userAttributes = UserAttributes.Builder()
-        .withCustomAttribute("user_level", level)
+        .withCustomAttribute(USER_LEVEL_ATTRIBUTE,
+            level + 1)//we set level + 1 to help with readability for the support team
         .build()
     val registration: Registration = Registration.create()
         .withUserId(walletAddress)
@@ -31,8 +33,17 @@ class SupportInteractor {
     currentUser = walletAddress
   }
 
-  fun logoutUser() {
-    Intercom.client()
-        .logout()
+  fun getUnreadConversationCount(): Observable<Int> {
+    return Observable.create<Int> {
+      Intercom.client()
+          .addUnreadConversationCountListener { i: Int -> it.onNext(i) }
+    }
   }
+
+  companion object {
+
+    const val USER_LEVEL_ATTRIBUTE = "user_level"
+
+  }
+
 }
