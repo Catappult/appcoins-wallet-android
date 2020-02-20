@@ -10,7 +10,7 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.interact.SupportInteractor
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import io.reactivex.Completable

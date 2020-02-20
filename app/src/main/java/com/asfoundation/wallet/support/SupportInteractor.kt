@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact
+package com.asfoundation.wallet.support
 
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
@@ -40,10 +40,14 @@ class SupportInteractor {
     }
   }
 
+  fun shouldShowNotification(): Boolean {
+    /*return (Intercom.client()
+        .unreadConversationCount != 0)*/
+    return true
+  }
+
   companion object {
-
     const val USER_LEVEL_ATTRIBUTE = "user_level"
-
   }
 
 }

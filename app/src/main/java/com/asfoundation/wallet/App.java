@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Service;
 import androidx.fragment.app.Fragment;
 import androidx.multidex.MultiDexApplication;
+import androidx.work.Configuration;
+import androidx.work.WorkManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;
@@ -12,6 +14,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.di.AppComponent;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
@@ -50,11 +53,12 @@ public class App extends MultiDexApplication
 
   @Override public void onCreate() {
     super.onCreate();
-    DaggerAppComponent.builder()
+    AppComponent appComponent = DaggerAppComponent.builder()
         .application(this)
-        .build()
-        .inject(this);
+        .build();
+    appComponent.inject(this);
     setupRxJava();
+    setupWorkManager(appComponent);
 
     if (!BuildConfig.DEBUG) {
       new FlurryAgent.Builder().withLogEnabled(false)
@@ -88,6 +92,12 @@ public class App extends MultiDexApplication
         throw new RuntimeException(throwable);
       }
     });
+  }
+
+  private void setupWorkManager(AppComponent appComponent) {
+    WorkManager.initialize(this,
+        new Configuration.Builder().setWorkerFactory(appComponent.daggerWorkerFactory())
+            .build());
   }
 
   @Override public AndroidInjector<Activity> activityInjector() {

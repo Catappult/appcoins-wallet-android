@@ -191,6 +191,8 @@ dependencies {
   annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
   // if you are not using support library, include this instead
   implementation "com.google.dagger:dagger-android:$project.daggerVersion"
+  // WorkManager
+  implementation "androidx.work:work-rxjava2:$project.workManagerVersion"
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681Version"
   // Tests

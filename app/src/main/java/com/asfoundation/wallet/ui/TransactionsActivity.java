@@ -19,6 +19,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
@@ -28,6 +33,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
+import com.asfoundation.wallet.support.SupportNotificationWorker;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
@@ -49,9 +55,13 @@ import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
+import static com.asfoundation.wallet.support.SupportNotificationWorker.NOTIFICATION_PERIOD;
+import static com.asfoundation.wallet.support.SupportNotificationWorker.UNIQUE_WORKER_NAME;
+import static com.asfoundation.wallet.support.SupportNotificationWorker.WORKER_TAG;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
@@ -85,6 +95,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     toolbar();
     enableDisplayHomeAsUp();
+
+    setupSupportNotificationWorker(this);
 
     disposables = new CompositeDisposable();
 
@@ -446,5 +458,19 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (showScroll) {
       viewModel.fetchTransactions(false);
     }
+  }
+
+  public void setupSupportNotificationWorker(Context context) {
+    Constraints workerConstraints =
+        new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+            .build();
+    PeriodicWorkRequest notificationWorkRequest =
+        new PeriodicWorkRequest.Builder(SupportNotificationWorker.class, NOTIFICATION_PERIOD,
+            TimeUnit.MINUTES).addTag(WORKER_TAG)
+            .setConstraints(workerConstraints)
+            .build();
+    WorkManager.getInstance(context)
+        .enqueueUniquePeriodicWork(UNIQUE_WORKER_NAME, ExistingPeriodicWorkPolicy.KEEP,
+            notificationWorkRequest);
   }
 }

@@ -233,6 +233,13 @@
         <action android:name="com.asf.appcoins.service.ACTION_START_HANDSHAKE"/>
       </intent-filter>
     </receiver>
+
+    <provider
+        android:name="androidx.work.impl.WorkManagerInitializer"
+        android:authorities="${applicationId}.workmanager-init"
+        android:exported="false"
+        tools:node="remove" />
+    
   </application>
 
 </manifest>

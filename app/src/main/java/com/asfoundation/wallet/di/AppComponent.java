@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.App;
+import com.asfoundation.wallet.support.DaggerWorkerFactory;
+import com.asfoundation.wallet.support.WorkerSubComponent;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
@@ -12,6 +14,10 @@ import javax.inject.Singleton;
 }) public interface AppComponent {
 
   void inject(App app);
+
+  DaggerWorkerFactory daggerWorkerFactory();
+
+  WorkerSubComponent.Builder workerSubComponentBuilder();
 
   @Component.Builder interface Builder {
     @BindsInstance Builder application(App app);
