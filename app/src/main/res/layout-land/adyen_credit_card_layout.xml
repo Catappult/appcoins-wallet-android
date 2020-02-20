@@ -136,12 +136,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             >
+
           <include
               android:id="@+id/adyen_card_form"
               layout="@layout/selected_payment_method_cc"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               />
+
           <Button
               android:id="@+id/change_card_button"
               style="?android:attr/borderlessButtonStyle"
@@ -157,15 +159,16 @@
               android:textSize="12sp"
               android:visibility="gone"
               />
-        </RelativeLayout>
 
-        <include
-            android:id="@+id/fragment_adyen_error"
-            layout="@layout/fragment_adyen_error"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            />
+          <include
+              android:id="@+id/fragment_adyen_error"
+              layout="@layout/fragment_adyen_error"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:visibility="gone"
+              />
+
+        </RelativeLayout>
 
       </ScrollView>
 
