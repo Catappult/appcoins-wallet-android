@@ -93,14 +93,16 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun onViewCreatedRequestLink() {
     disposables.add(
-        localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency,
-            paymentId, developerAddress, callbackUrl, orderReference,
-            payload).filter { !waitingResult }.observeOn(
-            viewScheduler).doOnSuccess {
-          analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), type, paymentId)
-          navigator.navigateToUriForResult(it)
-          waitingResult = true
-        }.subscribeOn(networkScheduler).observeOn(viewScheduler)
+        localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency, paymentId,
+            developerAddress, callbackUrl, orderReference, payload)
+            .filter { !waitingResult }
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), type,
+                  paymentId)
+              navigator.navigateToUriForResult(it)
+              waitingResult = true
+            }.subscribeOn(networkScheduler).observeOn(viewScheduler)
             .subscribe({ }, { showError(it) }))
   }
 
@@ -118,8 +120,11 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleOkErrorButtonClick() {
-    disposables.add(view.getOkErrorClick().observeOn(
-        viewScheduler).doOnNext { view.dismissError() }.subscribe())
+    disposables.add(
+        view.getOkErrorClick()
+            .observeOn(viewScheduler)
+            .doOnNext { view.dismissError() }
+            .subscribe())
   }
 
   private fun handleOkBuyButtonClick() {

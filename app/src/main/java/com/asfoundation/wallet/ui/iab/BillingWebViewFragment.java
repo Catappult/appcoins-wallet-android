@@ -62,8 +62,8 @@ public class BillingWebViewFragment extends DaggerFragment {
       throw new IllegalStateException("WebView fragment must be attached to WebView Activity");
     }
     webViewActivity = (WebViewActivity) context;
-    androidBug5497Workaround = new AndroidBug5497Workaround(webViewActivity);
-    androidBug5497Workaround.addListener();
+   // androidBug5497Workaround = new AndroidBug5497Workaround(webViewActivity);
+   // androidBug5497Workaround.addListener();
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
