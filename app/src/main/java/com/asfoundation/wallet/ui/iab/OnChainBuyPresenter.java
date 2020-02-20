@@ -111,6 +111,7 @@ public class OnChainBuyPresenter {
                           .subscribeOn(viewScheduler);
                     case PAUSED_CC_PAYMENT:
                     case PAUSED_LOCAL_PAYMENT:
+                    case PAUSED_CREDITS:
                     default:
                       return Completable.error(new UnsupportedOperationException(
                           "Cannot resume from " + currentPaymentStep.name() + " status"));
