@@ -39,7 +39,6 @@ public class BillingWebViewFragment extends DaggerFragment {
   private ProgressBar webviewProgressBar;
   private String currentUrl;
   private ScheduledExecutorService executorService;
-  private AndroidBug5497Workaround androidBug5497Workaround;
   private WebViewActivity webViewActivity;
   private WebView webView;
 
@@ -62,8 +61,6 @@ public class BillingWebViewFragment extends DaggerFragment {
       throw new IllegalStateException("WebView fragment must be attached to WebView Activity");
     }
     webViewActivity = (WebViewActivity) context;
-   // androidBug5497Workaround = new AndroidBug5497Workaround(webViewActivity);
-   // androidBug5497Workaround.addListener();
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -148,7 +145,6 @@ public class BillingWebViewFragment extends DaggerFragment {
   }
 
   @Override public void onDetach() {
-    androidBug5497Workaround.removeListener();
     webViewActivity = null;
     webView.setWebViewClient(null);
     super.onDetach();
