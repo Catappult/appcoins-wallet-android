@@ -266,14 +266,15 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_iab_error?.visibility = GONE
     fragment_iab_error_pre_selected?.visibility = GONE
-    cc_info_view?.visibility = GONE
     cancel_button?.visibility = GONE
     buy_button?.visibility = GONE
     payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
     bonus_msg_pre_selected?.visibility = GONE
     more_payment_methods?.visibility = GONE
+    adyen_card_form?.visibility = GONE
     layout_pre_selected?.visibility = GONE
+    change_card_button?.visibility = GONE
     change_card_button_pre_selected?.visibility = GONE
 
     error_buttons?.visibility = VISIBLE
