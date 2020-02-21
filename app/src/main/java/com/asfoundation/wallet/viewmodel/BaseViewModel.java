@@ -34,7 +34,7 @@ public class BaseViewModel extends ViewModel {
   }
 
   protected void onError(Throwable throwable) {
-    Log.d("TAG", "Err", throwable);
+    Log.e("TAG", "Err", throwable);
     if (TextUtils.isEmpty(throwable.getMessage())) {
       error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null, throwable));
     } else {
