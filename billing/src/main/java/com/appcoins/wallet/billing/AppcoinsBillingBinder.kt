@@ -71,7 +71,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
   @Throws(RemoteException::class)
   override fun onTransact(code: Int, data: Parcel, reply: Parcel, flags: Int): Boolean {
     merchantName = packageManager.getPackagesForUid(Binder.getCallingUid())!![0]
-    billing = AndroidBilling(merchantName, billingFactory.getBilling())
+    billing = AndroidBilling(billingFactory.getBilling())
     return super.onTransact(code, data, reply, flags)
   }
 
@@ -80,8 +80,8 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       return RESULT_BILLING_UNAVAILABLE
     }
     return when (type) {
-      ITEM_TYPE_INAPP -> billing.isInAppSupported()
-      ITEM_TYPE_SUBS -> billing.isSubsSupported()
+      ITEM_TYPE_INAPP -> billing.isInAppSupported(merchantName)
+      ITEM_TYPE_SUBS -> billing.isSubsSupported(merchantName)
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
     }.subscribeOn(networkScheduler)
         .map { supported -> billingMessagesMapper.mapSupported(supported) }
@@ -106,7 +106,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      val serializedProducts = billing.getProducts(skus)
+      val serializedProducts = billing.getProducts(merchantName, skus)
           .doOnError { it.printStackTrace() }
           .onErrorResumeNext {
             Single.error(billingMessagesMapper.mapException(it))
@@ -135,7 +135,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
-    val getSkuDetails = billing.getProducts(listOf(sku))
+    val getSkuDetails = billing.getProducts(merchantName, listOf(sku))
         .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
         .subscribeOn(networkScheduler)
@@ -179,7 +179,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     if (type == ITEM_TYPE_INAPP) {
       try {
-        val purchases = billing.getPurchases(BillingSupportedType.INAPP)
+        val purchases = billing.getPurchases(merchantName, BillingSupportedType.INAPP)
             .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
@@ -210,7 +210,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      billing.consumePurchases(purchaseToken)
+      billing.consumePurchases(purchaseToken, merchantName)
           .map { RESULT_OK }
           .blockingGet()
     } catch (exception: Exception) {
