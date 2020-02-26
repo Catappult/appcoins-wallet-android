@@ -31,7 +31,7 @@
       layout="@layout/pending_user_payment_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:visibility="visible"
+      android:visibility="gone"
       />
 
   <FrameLayout
