@@ -137,6 +137,7 @@ public class OnChainBuyPresenter {
 
   private Completable showPendingTransaction(Payment transaction) {
     Log.d(TAG, "present: " + transaction);
+    sendPaymentErrorEvent(BillingAnalytics.PAYMENT_METHOD_APPC, transaction.getStatus());
     switch (transaction.getStatus()) {
       case COMPLETED:
         view.lockRotation();
@@ -224,5 +225,27 @@ public class OnChainBuyPresenter {
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
+  }
+
+  void sendPaymentSuccessEvent(String purchaseDetails) {
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPaymentSuccessEvent(appPackage,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
+  }
+
+  void sendPaymentErrorEvent(String purchaseDetails, Payment.Status error) {
+    if (error == Payment.Status.ERROR
+        || error == Payment.Status.NO_FUNDS
+        || error == Payment.Status.NONCE_ERROR
+        || error == Payment.Status.NO_ETHER
+        || error == Payment.Status.NO_INTERNET
+        || error == Payment.Status.NO_TOKENS
+        || error == Payment.Status.NETWORK_ERROR) {
+      disposables.add(transactionBuilder.subscribe(
+          transactionBuilder -> analytics.sendPaymentErrorEvent(appPackage,
+              transactionBuilder.getSkuId(), transactionBuilder.amount()
+                  .toString(), purchaseDetails, transactionBuilder.getType(), error.name())));
+    }
   }
 }

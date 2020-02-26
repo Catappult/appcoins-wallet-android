@@ -17,7 +17,7 @@ interface PaymentMethodsView {
   fun finish(bundle: Bundle)
   fun showLoading()
   fun hideLoading()
-  fun getCancelClick(): Observable<Any>
+  fun getCancelClick(): Observable<PaymentMethod>
   fun close(bundle: Bundle)
   fun errorDismisses(): Observable<Boolean>
   fun setupUiCompleted(): Observable<Boolean>
@@ -30,7 +30,7 @@ interface PaymentMethodsView {
   fun showCredits()
   fun showShareLink(selectedPaymentMethod: String)
   fun getPaymentSelection(): Observable<String>
-  fun getMorePaymentMethodsClicks(): Observable<Any>
+  fun getMorePaymentMethodsClicks(): Observable<PaymentMethod>
   fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String)
   fun setBonus(bonus: BigDecimal, currency: String)
   fun onBackPressed(): Observable<Boolean>

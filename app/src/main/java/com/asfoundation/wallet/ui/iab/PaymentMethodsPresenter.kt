@@ -90,6 +90,7 @@ class PaymentMethodsPresenter(
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
+          handleBuyAnalytics(selectedPaymentMethod)
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
             PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal()
             PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard()
@@ -299,12 +300,29 @@ class PaymentMethodsPresenter(
 
   private fun handleCancelClick() {
     disposables.add(view.getCancelClick()
+        .doOnNext { paymentMethod ->
+          if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+            analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+                transaction.amount()
+                    .toString(), paymentMethod.id, transaction.type, "cancel")
+          } else {
+            analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
+                .toString(), paymentMethod.id, transaction.type, "cancel")
+          }
+        }
         .subscribe { close() })
   }
 
   private fun handleMorePaymentMethodClicks() {
     disposables.add(view.getMorePaymentMethodsClicks()
-        .doOnEach { view.showLoading() }
+        .doOnNext { selectedPaymentMethod ->
+          analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+              transaction.amount()
+                  .toString(), selectedPaymentMethod.id, transaction.type, "other_payments")
+        }
+        .doOnEach {
+          view.showLoading()
+        }
         .flatMapSingle {
           inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
               .subscribeOn(networkThread)
@@ -454,4 +472,17 @@ class PaymentMethodsPresenter(
     }
   }
 
+  private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod?) {
+    val action = if (selectedPaymentMethod?.id!!.equals(
+            PaymentMethodsView.SelectedPaymentMethod.APPC) || selectedPaymentMethod.id.equals(
+            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) "next" else "buy"
+    if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+      analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+          transaction.amount()
+              .toString(), selectedPaymentMethod.id, transaction.type, action)
+    } else {
+      analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
+          .toString(), selectedPaymentMethod.id, transaction.type, action)
+    }
+  }
 }

@@ -370,8 +370,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
   }
 
-  @Override public Observable<Object> getCancelClick() {
-    return RxView.clicks(cancelButton);
+  @Override public Observable<PaymentMethod> getCancelClick() {
+    return RxView.clicks(cancelButton)
+        .map(__ -> getSelectedPaymentMethod());
   }
 
   @Override public void close(Bundle data) {
@@ -395,18 +396,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public Observable<PaymentMethod> getBuyClick() {
     return RxView.clicks(buyButton)
-        .map(__ -> {
-          boolean hasPreSelectedPaymentMethod =
-              inAppPurchaseInteractor.hasPreSelectedPaymentMethod();
-
-          if (!paymentMethodList.isEmpty() && radioGroup.getCheckedRadioButtonId() != -1) {
-            return paymentMethodList.get(radioGroup.getCheckedRadioButtonId());
-          } else if (hasPreSelectedPaymentMethod && radioGroup.getCheckedRadioButtonId() == -1) {
-            return preSelectedPaymentMethod.getValue();
-          } else {
-            return null;
-          }
-        });
+        .map(__ -> getSelectedPaymentMethod());
   }
 
   @Override public void showPaypal() {
@@ -451,8 +441,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
             .getId()), preSelectedPaymentMethod.map(paymentMethod -> paymentMethod.getId()));
   }
 
-  @NotNull @Override public Observable<Object> getMorePaymentMethodsClicks() {
-    return RxView.clicks(morePaymentMethods);
+  @Override public @NotNull Observable<PaymentMethod> getMorePaymentMethodsClicks() {
+    return RxView.clicks(morePaymentMethods)
+        .map(__ -> getSelectedPaymentMethod());
   }
 
   @Override
@@ -671,5 +662,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     radioButton.setId(index);
     loadIcons(paymentMethod, radioButton, false);
     return radioButton;
+  }
+
+  private PaymentMethod getSelectedPaymentMethod() {
+    boolean hasPreSelectedPaymentMethod = inAppPurchaseInteractor.hasPreSelectedPaymentMethod();
+
+    if (!paymentMethodList.isEmpty() && radioGroup.getCheckedRadioButtonId() != -1) {
+      return paymentMethodList.get(radioGroup.getCheckedRadioButtonId());
+    } else if (hasPreSelectedPaymentMethod && radioGroup.getCheckedRadioButtonId() == -1) {
+      return preSelectedPaymentMethod.getValue();
+    } else {
+      return null;
+    }
   }
 }

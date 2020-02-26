@@ -153,6 +153,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void finish(Bundle data) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_APPC);
     presenter.sendRevenueEvent();
+    presenter.sendPaymentSuccessEvent(PAYMENT_METHOD_APPC);
     data.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC.getId());
     iabView.finish(data);

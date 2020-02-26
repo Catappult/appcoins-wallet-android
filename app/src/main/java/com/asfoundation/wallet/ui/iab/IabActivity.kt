@@ -10,6 +10,7 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -39,6 +40,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
   @Inject
   lateinit var autoUpdateInteract: AutoUpdateInteract
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
   private var isBackEnable: Boolean = false
   private lateinit var presenter: IabPresenter
   private var skuDetails: Bundle? = null
@@ -47,6 +50,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
   private var uri: String? = null
+  private var firstImpression: Boolean = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -175,6 +179,19 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
+    if (firstImpression) {
+      if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+        billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction!!.domain,
+            transaction!!.skuId,
+            transaction!!.amount().toString(), transaction!!.type,
+            BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
+      } else {
+        billingAnalytics.sendPurchaseStartEvent(transaction!!.domain, transaction!!.skuId,
+            transaction!!.amount().toString(), inAppPurchaseInteractor.preSelectedPaymentMethod,
+            transaction!!.type, BillingAnalytics.RAKAM_PAYMENT_METHOD)
+      }
+      firstImpression = false
+    }
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
@@ -201,7 +218,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
                 productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
-                isDonation))
+                isDonation, transaction!!.skuId, transaction!!.type))
         .commit()
   }
 

@@ -29,4 +29,19 @@ class LocalPaymentAnalytics(private val analytics: BillingAnalytics,
         .subscribe())
   }
 
+  fun sendPaymentConfirmationEvent(domain: String, skuId: String?, amount: String,
+                                   type: String, paymentId: String) {
+    analytics.sendPaymentConfirmationEvent(domain, skuId, amount, type, paymentId, "buy")
+  }
+
+  fun sendPaymentConclusionEvent(domain: String, skuId: String?, amount: String,
+                                 type: String, paymentId: String) {
+    analytics.sendPaymentSuccessEvent(domain, skuId, amount, paymentId, type)
+  }
+
+  fun sendPaymentPendingEvent(domain: String, skuId: String?, amount: String,
+                              type: String, paymentId: String) {
+    analytics.sendPaymentPendingEvent(domain, skuId, amount, paymentId, type)
+  }
+
 }

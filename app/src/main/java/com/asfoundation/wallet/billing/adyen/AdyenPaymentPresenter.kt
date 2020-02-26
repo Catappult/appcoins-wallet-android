@@ -153,6 +153,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .flatMapSingle { adyenCard ->
           transactionBuilder
               .flatMap {
+                handleBuyAnalytics(it)
                 adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
                     adyenCard.shouldStoreCard, returnUrl,
                     priceAmount.toString(), priceCurrency, it.orderReference,
@@ -177,9 +178,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         adyenPaymentInteractor.getTransaction(uid)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
+            .doOnNext {
+              sendPaypalConfirmationEvent(it.status)
+            }
             .flatMapCompletable {
               when {
                 it.status == COMPLETED -> {
+                  sendPaymentSuccessEvent()
                   createBundle(it.hash, it.orderReference)
                       .doOnSuccess {
                         sendPaymentEvent()
@@ -196,7 +201,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       }
                 }
                 paymentFailed(it.status) -> {
-                  Completable.fromAction { view.showGenericError() }
+                  Completable.fromAction {
+                    sendPaymentErrorEvent(it.refusalCode, it.refusalReason)
+                    view.showGenericError()
+                  }
                       .subscribeOn(viewScheduler)
                 }
                 else -> {
@@ -206,14 +214,19 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             }
       }
       error.hasError -> Completable.fromAction {
+        sendPaymentErrorEvent(refusalCode, refusalReason)
         if (error.isNetworkError) view.showNetworkError()
         else view.showGenericError()
       }
       refusalReason != null -> Completable.fromAction {
-        refusalCode?.let { code -> view.showSpecificError(code) }
+        refusalCode?.let { code ->
+          sendPaymentErrorEvent(refusalCode, refusalReason)
+          view.showSpecificError(code)
+        }
       }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
+        sendPaymentErrorEvent(refusalCode, refusalReason)
         view.showGenericError()
       }
     }
@@ -257,10 +270,19 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleBack() {
     disposables.add(view.backEvent()
         .observeOn(viewScheduler)
-        .doOnNext {
+        .flatMapSingle { transactionBuilder }
+        .doOnNext { transaction ->
           if (isPreSelected) {
+            analytics.sendPreSelectedPaymentMethodEvent(domain, transaction.skuId,
+                transaction.amount()
+                    .toString(), mapPaymentToService(paymentType).transactionType, transaction.type,
+                "cancel")
             view.close(adyenPaymentInteractor.mapCancellation())
           } else {
+            analytics.sendPaymentConfirmationEvent(domain, transaction.skuId,
+                transaction.amount()
+                    .toString(), mapPaymentToService(paymentType).transactionType, transaction.type,
+                "back")
             view.showMoreMethods()
           }
         }.subscribe({}, { view.showGenericError() }))
@@ -269,6 +291,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleMorePaymentsClick() {
     disposables.add(
         view.getMorePaymentMethodsClicks()
+            .flatMapSingle { transactionBuilder }
+            .doOnNext { transaction ->
+              analytics.sendPreSelectedPaymentMethodEvent(domain, transaction.skuId,
+                  transaction.amount()
+                      .toString(), mapPaymentToService(paymentType).transactionType,
+                  transaction.type,
+                  "other_payments")
+            }
             .observeOn(viewScheduler)
             .doOnNext { showMoreMethods() }
             .subscribe())
@@ -309,6 +339,46 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     })
   }
 
+  private fun sendPaypalConfirmationEvent(
+      status: Status) {
+    disposables.add(transactionBuilder.subscribe { transaction ->
+      if (mapPaymentToAnalytics(
+              transaction.type) == BillingAnalytics.PAYMENT_METHOD_PAYPAL) {
+        if (status == CANCELED) {
+          analytics.sendPaymentConfirmationEvent(domain, transaction.skuId,
+              transaction.amount()
+                  .toString(), mapPaymentToService(paymentType).transactionType,
+              transaction.type,
+              "cancel")
+        } else {
+          analytics.sendPaymentConfirmationEvent(domain, transaction.skuId,
+              transaction.amount()
+                  .toString(), mapPaymentToService(paymentType).transactionType,
+              transaction.type,
+              "buy")
+        }
+      }
+    })
+  }
+
+  private fun sendPaymentSuccessEvent() {
+    disposables.add(transactionBuilder.subscribe { transaction ->
+
+      analytics.sendPaymentSuccessEvent(domain, transaction.skuId, transaction.amount().toString(),
+          mapPaymentToAnalytics(paymentType),
+          transaction.type)
+    })
+  }
+
+  private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?) {
+    disposables.add(transactionBuilder.subscribe { transaction ->
+      analytics.sendPaymentErrorWithDetailsEvent(domain, transaction.skuId,
+          transaction.amount().toString(),
+          mapPaymentToAnalytics(paymentType),
+          transaction.type, refusalCode.toString(), refusalReason)
+    })
+  }
+
   private fun mapPaymentToAnalytics(paymentType: String): String {
     return if (paymentType == PaymentType.CARD.name) {
       BillingAnalytics.PAYMENT_METHOD_CC
@@ -342,6 +412,22 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           PaymentMethodsView.PaymentMethodId.PAYPAL.id)
     }
     return bundle
+  }
+
+  private fun handleBuyAnalytics(transactionBuilder: TransactionBuilder) {
+    if (isPreSelected) {
+      analytics.sendPreSelectedPaymentMethodEvent(domain, transactionBuilder.skuId,
+          transactionBuilder.amount()
+              .toString(), mapPaymentToService(paymentType).transactionType,
+          transactionBuilder.type,
+          "buy")
+    } else {
+      analytics.sendPaymentConfirmationEvent(domain, transactionBuilder.skuId,
+          transactionBuilder.amount()
+              .toString(), mapPaymentToService(paymentType).transactionType,
+          transactionBuilder.type,
+          "buy")
+    }
   }
 
   fun stop() {

@@ -909,6 +909,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides @Named("rakam_event_list") List<String> provideRakamEventList() {
     List<String> list = new ArrayList<>();
+    list.add(BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_METHOD);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_CONCLUSION);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_START);
     return list;
   }
 

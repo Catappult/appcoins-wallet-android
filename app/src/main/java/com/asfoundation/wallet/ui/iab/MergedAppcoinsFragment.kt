@@ -14,6 +14,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.util.formatWithSuffix
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -54,6 +55,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
     private const val IS_BDS_KEY = "is_bds"
     private const val IS_DONATION_KEY = "is_donation"
+    private const val SKU_ID = "sku_id"
+    private const val TRANSACTION_TYPE = "transaction_type"
     const val APPC = "appcoins"
     const val CREDITS = "credits"
 
@@ -63,7 +66,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     productName: String?,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean,
-                    isDonation: Boolean): Fragment {
+                    isDonation: Boolean, skuId: String, transactionType: String): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
       bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -76,6 +79,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
       bundle.putBoolean(IS_BDS_KEY, isBds)
       bundle.putBoolean(IS_DONATION_KEY, isDonation)
+      bundle.putString(SKU_ID, skuId)
+      bundle.putString(TRANSACTION_TYPE, transactionType)
       fragment.arguments = bundle
       return fragment
     }
@@ -89,6 +94,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   lateinit var balanceInteract: BalanceInteract
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -169,12 +176,28 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+  private val skuId: String by lazy {
+    if (arguments!!.containsKey(SKU_ID)) {
+      arguments!!.getString(SKU_ID)
+    } else {
+      throw IllegalArgumentException("sku id data not found")
+    }
+  }
+
+  private val transactionType: String by lazy {
+    if (arguments!!.containsKey(SKU_ID)) {
+      arguments!!.getString(SKU_ID)
+    } else {
+      throw IllegalArgumentException("sku id data not found")
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
-        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io())
+        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), billingAnalytics)
   }
 
   override fun onAttach(context: Context) {
@@ -316,17 +339,27 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     return selectedPaymentMethod
   }
 
-  override fun buyClick(): Observable<String> {
+  override fun buyClick(): Observable<PaymentInfoWrapper> {
     return RxView.clicks(buy_button)
-        .map { getSelectedPaymentMethod() }
+        .map {
+          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+              transactionType)
+        }
   }
 
-  override fun backClick(): Observable<Any> {
+  override fun backClick(): Observable<PaymentInfoWrapper> {
     return RxView.clicks(cancel_button)
+        .map {
+          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+              transactionType)
+        }
   }
 
-  override fun backPressed(): Observable<Any> {
-    return onBackPressSubject!!
+  override fun backPressed(): Observable<PaymentInfoWrapper> {
+    return onBackPressSubject!!.map {
+      PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+          transactionType)
+    }
   }
 
   override fun getPaymentSelection(): Observable<String> {

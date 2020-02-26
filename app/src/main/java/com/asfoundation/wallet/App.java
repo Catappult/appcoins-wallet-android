@@ -37,6 +37,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class App extends MultiDexApplication
     implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,
@@ -110,12 +112,24 @@ public class App extends MultiDexApplication
       Log.e(TAG, "error: ", e);
     }
 
+    JSONObject superProperties = instance.getSuperProperties();
+    if (superProperties == null) {
+      superProperties = new JSONObject();
+    }
+    try {
+      superProperties.put("aptoide_package", BuildConfig.APPLICATION_ID);
+      superProperties.put("version_code", BuildConfig.VERSION_CODE);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+
     instance.setDeviceId(idsRepository.getAndroidId());
     instance.enableForegroundTracking(this);
     instance.trackSessionEvents(true);
     instance.setLogLevel(Log.VERBOSE);
     instance.setEventUploadPeriodMillis(1);
     instance.setTrackingOptions(options);
+    instance.setSuperProperties(superProperties);
     instance.enableLogging(true);
   }
 
