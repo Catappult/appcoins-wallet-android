@@ -68,7 +68,7 @@ android {
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
     buildConfigField 'String', 'RAKAM_BASE_HOST', project.RAKAM_BASE_HOST
-    buildConfigField 'String', 'RAKAM_API_KEY', "\"" + project.RAKAM_API_KEY_TEST + "\""
+    buildConfigField 'String', 'RAKAM_API_KEY', "\"" + project.RAKAM_API_KEY + "\""
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
     manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
