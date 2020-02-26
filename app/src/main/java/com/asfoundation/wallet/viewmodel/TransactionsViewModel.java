@@ -8,7 +8,6 @@ import android.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
-import com.appcoins.wallet.gamification.repository.UserStats;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -39,8 +38,8 @@ import java.math.RoundingMode;
 import java.util.Collections;
 
 public class TransactionsViewModel extends BaseViewModel {
-  private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
-  private static final long FETCH_TRANSACTIONS_INTERVAL = 12 * DateUtils.SECOND_IN_MILLIS;
+  private static final long GET_BALANCE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
+  private static final long FETCH_TRANSACTIONS_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
   private static final int FIAT_SCALE = 2;
   private static final BigDecimal MINUS_ONE = new BigDecimal("-1");
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
@@ -51,8 +50,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> showSupport = new MutableLiveData<>();
-  private final CompositeDisposable disposables;
+  private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
+  private CompositeDisposable disposables;
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -106,6 +105,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void prepare() {
+    if (disposables.isDisposed()) {
+      disposables = new CompositeDisposable();
+    }
     progress.postValue(true);
     disposables.add(transactionViewInteract.findNetwork()
         .subscribe(this::onDefaultNetwork, this::onError));
@@ -117,15 +119,26 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMap(userLevel -> transactionViewInteract.findWallet()
             .subscribeOn(Schedulers.io())
             .map(wallet -> {
-              if (userLevel == UserStats.MAX_LEVEL) {
-                registerSupportUser(wallet.address);
-                return true;
-              } else {
-                logoutSupportUser();
-                return false;
-              }
+              registerSupportUser(userLevel, wallet.address);
+              return true;
             }))
-        .subscribe(showSupport::postValue, this::onError));
+        .subscribe(wallet -> {
+        }, this::onError));
+  }
+
+  public void handleUnreadConversationCount() {
+    disposables.add(supportInteractor.getUnreadConversationCount()
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .doOnNext(this::updateIntercomAnimation)
+        .subscribe());
+  }
+
+  private void updateIntercomAnimation(Integer count) {
+    if (count == null || count == 0) {
+      unreadMessages.setValue(false);
+    } else {
+      unreadMessages.setValue(true);
+    }
   }
 
   private Completable publishMaxBonus() {
@@ -316,6 +329,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void pause() {
+    if (!disposables.isDisposed()) {
+      disposables.dispose();
+    }
     handler.removeCallbacks(startFetchTransactionsTask);
     handler.removeCallbacks(startGlobalBalanceTask);
   }
@@ -335,10 +351,6 @@ public class TransactionsViewModel extends BaseViewModel {
     return showNotification;
   }
 
-  public MutableLiveData<Boolean> shouldShowSupport() {
-    return showSupport;
-  }
-
   public void showTopUp(Context context) {
     transactionViewNavigator.openTopUp(context);
   }
@@ -349,6 +361,10 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public MutableLiveData<Double> onFetchTransactionsError() {
     return fetchTransactionsError;
+  }
+
+  public MutableLiveData<Boolean> getUnreadMessages() {
+    return unreadMessages;
   }
 
   public void navigateToPromotions(Context context) {
@@ -385,11 +401,7 @@ public class TransactionsViewModel extends BaseViewModel {
     supportInteractor.displayChatScreen();
   }
 
-  private void registerSupportUser(String walletAddress) {
-    supportInteractor.registerUser(walletAddress);
-  }
-
-  private void logoutSupportUser() {
-    supportInteractor.logoutUser();
+  private void registerSupportUser(Integer level, String walletAddress) {
+    supportInteractor.registerUser(level, walletAddress);
   }
 }

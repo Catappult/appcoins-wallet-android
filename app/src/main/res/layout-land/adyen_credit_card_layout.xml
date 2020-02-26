@@ -78,7 +78,6 @@
           android:id="@+id/fragment_credit_card_authorization_progress_bar"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_below="@id/line_separator"
           android:indeterminateDrawable="@drawable/gradient_progress"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
@@ -116,6 +115,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
+
       <ScrollView
           android:id="@+id/cc_info_view"
           android:layout_width="0dp"
@@ -130,17 +130,20 @@
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           >
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             >
+
           <include
               android:id="@+id/adyen_card_form"
               layout="@layout/selected_payment_method_cc"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               />
+
           <Button
               android:id="@+id/change_card_button"
               style="?android:attr/borderlessButtonStyle"
@@ -156,7 +159,18 @@
               android:textSize="12sp"
               android:visibility="gone"
               />
+
+          <include
+              android:id="@+id/fragment_adyen_error"
+              layout="@layout/fragment_adyen_error"
+              android:layout_marginTop="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:visibility="gone"
+              />
+
         </RelativeLayout>
+
       </ScrollView>
 
       <View
@@ -179,6 +193,7 @@
           />
 
       <include
+          android:id="@+id/dialog_buy_buttons"
           layout="@layout/dialog_buy_buttons"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
@@ -188,10 +203,25 @@
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           />
 
+      <include
+          android:id="@+id/error_buttons"
+          layout="@layout/dialog_buy_buttons_adyen_error"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/fragment_iab_transaction_completed"/>
+
   </RelativeLayout>
+
   <include
       android:id="@+id/fragment_iab_error"
       layout="@layout/fragment_iab_error"
@@ -199,4 +229,5 @@
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       />
+
 </RelativeLayout>

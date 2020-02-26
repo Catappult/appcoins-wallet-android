@@ -8,6 +8,8 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.CurrencyData
@@ -21,6 +23,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 
 class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val appPackage: String,
@@ -37,7 +40,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val navigator: Navigator,
                           private val billingMessagesMapper: BillingMessagesMapper,
                           private val adyenPaymentInteractor: AdyenPaymentInteractor,
-                          private val bonusValue: String) {
+                          private val bonusValue: String,
+                          private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+                          private val gamificationLevel: Int
+) {
 
   private var waitingResult = false
 
@@ -50,6 +56,28 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     handleForgetCardClick()
 
     handleRedirectResponse()
+    handleSupportClicks()
+    handleTryAgainClicks()
+  }
+
+  private fun handleSupportClicks() {
+    disposables.add(
+        view.getSupportClicks()
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
+            .subscribeOn(viewScheduler)
+            .subscribe()
+    )
+  }
+
+  private fun handleTryAgainClicks() {
+    disposables.add(
+        view.getTryAgainClicks()
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .doOnNext { view.hideSpecificError() }
+            .subscribeOn(viewScheduler)
+            .subscribe()
+    )
   }
 
   private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {
@@ -194,7 +222,13 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         else view.showGenericError()
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
-        paymentModel.refusalCode?.let { code -> view.showSpecificError(code) }
+        paymentModel.refusalCode?.let { code ->
+          if (code == CVC_DECLINED) {
+            view.showCvvError()
+          } else {
+            view.showSpecificError(adyenErrorCodeMapper.map(code))
+          }
+        }
       }
       paymentModel.status == CANCELED -> Completable.fromAction { view.cancelPayment() }
       else -> Completable.fromAction { view.showGenericError() }

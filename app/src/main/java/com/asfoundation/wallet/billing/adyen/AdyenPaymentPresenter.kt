@@ -8,6 +8,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -37,7 +38,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val transactionType: String,
                             private val amount: BigDecimal,
                             private val currency: String,
-                            private val isPreSelected: Boolean) {
+                            private val isPreSelected: Boolean,
+                            private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+                            private val gamificationLevel: Int) {
 
   private var waitingResult = false
 
@@ -50,7 +53,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
     handleRedirectResponse()
     handlePaymentDetails()
+    handleAdyenErrorBack()
+    handleAdyenErrorCancel()
+    handleSupportClicks()
     if (isPreSelected) handleMorePaymentsClick()
+  }
+
+  private fun handleSupportClicks() {
+    disposables.add(
+        view.getSupportClicks()
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
+            .subscribeOn(viewScheduler)
+            .subscribe()
+    )
   }
 
   private fun handleForgetCardClick() {
@@ -141,7 +157,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
-    disposables.add(Observable.combineLatest(view.buyButtonClicked(), view.retrievePaymentData(),
+    disposables.add(Observable.zip(view.buyButtonClicked(), view.retrievePaymentData(),
         BiFunction { _: Any, adyenCard: AdyenCardWrapper -> adyenCard })
         .observeOn(viewScheduler)
         .doOnNext {
@@ -220,8 +236,12 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       refusalReason != null -> Completable.fromAction {
         refusalCode?.let { code ->
-          sendPaymentErrorEvent(refusalCode, refusalReason)
-          view.showSpecificError(code)
+          if (code == CVC_DECLINED) {
+            sendPaymentErrorEvent(refusalCode, refusalReason)
+            view.showCvvError()
+          } else {
+            view.showSpecificError(adyenErrorCodeMapper.map(code))
+          }
         }
       }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
@@ -428,6 +448,26 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           transactionBuilder.type,
           "buy")
     }
+  }
+
+  private fun handleAdyenErrorBack() {
+    disposables.add(view.adyenErrorBackClicks()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (isPreSelected) {
+            view.close(adyenPaymentInteractor.mapCancellation())
+          } else {
+            view.showMoreMethods()
+          }
+        }.subscribe({}, { view.showGenericError() }))
+  }
+
+  private fun handleAdyenErrorCancel() {
+    disposables.add(view.adyenErrorCancelClicks()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.close(adyenPaymentInteractor.mapCancellation())
+        }.subscribe({}, { view.showGenericError() }))
   }
 
   fun stop() {
