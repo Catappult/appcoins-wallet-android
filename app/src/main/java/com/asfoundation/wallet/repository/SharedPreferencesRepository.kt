@@ -141,8 +141,7 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun getAndroidId() =
-      pref.getString(ANDROID_ID, "").orEmpty()
+  override fun getAndroidId() = pref.getString(ANDROID_ID, "").orEmpty()
 
 
   override fun setAndroidId(androidId: String) {

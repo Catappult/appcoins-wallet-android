@@ -10,7 +10,7 @@ class IdsRepository(private val contentResolver: ContentResolver,
 
   fun getAndroidId(): String {
     var androidId = sharedPreferencesRepository.getAndroidId()
-    if (!TextUtils.isEmpty(androidId)) {
+    if (androidId.isNotEmpty()) {
       return androidId
     }
     androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)

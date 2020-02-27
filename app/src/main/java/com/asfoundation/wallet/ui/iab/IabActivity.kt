@@ -50,7 +50,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
   private var uri: String? = null
-  private var firstImpression: Boolean = true
+  private var firstImpression = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -179,6 +179,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
+    handlePurchaseStartAnalytics()
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
+            intent.extras!!
+                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            intent.dataString))
+        .commit()
+  }
+
+  fun handlePurchaseStartAnalytics() {
     if (firstImpression) {
       if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
         billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction!!.domain,
@@ -192,12 +202,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       }
       firstImpression = false
     }
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            intent.extras!!
-                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
-            intent.dataString))
-        .commit()
   }
 
   override fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,

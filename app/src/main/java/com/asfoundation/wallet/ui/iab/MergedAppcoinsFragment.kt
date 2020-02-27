@@ -68,19 +68,20 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     creditsEnabled: Boolean, isBds: Boolean,
                     isDonation: Boolean, skuId: String, transactionType: String): Fragment {
       val fragment = MergedAppcoinsFragment()
-      val bundle = Bundle()
-      bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
-      bundle.putString(FIAT_CURRENCY_KEY, currency)
-      bundle.putString(BONUS_KEY, bonus)
-      bundle.putString(APP_NAME_KEY, appName)
-      bundle.putString(PRODUCT_NAME_KEY, productName)
-      bundle.putSerializable(APPC_AMOUNT_KEY, appcAmount)
-      bundle.putBoolean(APPC_ENABLED_KEY, appcEnabled)
-      bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
-      bundle.putBoolean(IS_BDS_KEY, isBds)
-      bundle.putBoolean(IS_DONATION_KEY, isDonation)
-      bundle.putString(SKU_ID, skuId)
-      bundle.putString(TRANSACTION_TYPE, transactionType)
+      val bundle = Bundle().apply {
+        putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
+        putString(FIAT_CURRENCY_KEY, currency)
+        putString(BONUS_KEY, bonus)
+        putString(APP_NAME_KEY, appName)
+        putString(PRODUCT_NAME_KEY, productName)
+        putSerializable(APPC_AMOUNT_KEY, appcAmount)
+        putBoolean(APPC_ENABLED_KEY, appcEnabled)
+        putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
+        putBoolean(IS_BDS_KEY, isBds)
+        putBoolean(IS_DONATION_KEY, isDonation)
+        putString(SKU_ID, skuId)
+        putString(TRANSACTION_TYPE, transactionType)
+      }
       fragment.arguments = bundle
       return fragment
     }

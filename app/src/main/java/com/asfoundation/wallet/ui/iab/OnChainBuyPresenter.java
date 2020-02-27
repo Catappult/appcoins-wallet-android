@@ -229,8 +229,8 @@ public class OnChainBuyPresenter {
   }
 
   void sendPaymentSuccessEvent(String purchaseDetails) {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPaymentSuccessEvent(appPackage,
+    disposables.add(transactionBuilder.observeOn(Schedulers.io())
+        .subscribe(transactionBuilder -> analytics.sendPaymentSuccessEvent(appPackage,
             transactionBuilder.getSkuId(), transactionBuilder.amount()
                 .toString(), purchaseDetails, transactionBuilder.getType())));
   }
@@ -243,8 +243,8 @@ public class OnChainBuyPresenter {
         || error == Payment.Status.NO_INTERNET
         || error == Payment.Status.NO_TOKENS
         || error == Payment.Status.NETWORK_ERROR) {
-      disposables.add(transactionBuilder.subscribe(
-          transactionBuilder -> analytics.sendPaymentErrorEvent(appPackage,
+      disposables.add(transactionBuilder.observeOn(Schedulers.io())
+          .subscribe(transactionBuilder -> analytics.sendPaymentErrorEvent(appPackage,
               transactionBuilder.getSkuId(), transactionBuilder.amount()
                   .toString(), purchaseDetails, transactionBuilder.getType(), error.name())));
     }
