@@ -47,8 +47,8 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.default_value_chips_layout.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_logo
 import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_icn
+import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_logo
 import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_adyen_error_top_up.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
@@ -97,7 +97,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     super.onCreate(savedInstanceState)
     keyboardTopUpRelay = PublishRelay.create()
     validationSubject = PublishSubject.create()
-    paymentDataSubject = ReplaySubject.create<AdyenCardWrapper>()
+    paymentDataSubject = ReplaySubject.createWithSize<AdyenCardWrapper>(1)
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
 
     presenter =
