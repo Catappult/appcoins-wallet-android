@@ -2,24 +2,23 @@ package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
+import com.asfoundation.wallet.service.WalletBalanceService;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 
 public class WalletRepository implements WalletRepositoryType {
 
   private final PreferencesRepositoryType preferencesRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
-  private final Web3jProvider web3jProvider;
+  private final WalletBalanceService walletBalanceService;
 
   public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
+      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService) {
     this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
-    this.web3jProvider = web3jProvider;
+    this.walletBalanceService = walletBalanceService;
   }
 
   @Override public Single<Wallet[]> fetchWallets() {
@@ -75,12 +74,15 @@ public class WalletRepository implements WalletRepositoryType {
         .flatMap(this::findWallet);
   }
 
-  @Override public Single<BigDecimal> balanceInWei(Wallet wallet) {
-    Web3j web3j = web3jProvider.get();
-    return Single.fromCallable(() -> new BigDecimal(
-        web3j.ethGetBalance(wallet.address, DefaultBlockParameterName.LATEST)
-            .send()
-            .getBalance()))
+  @Override public Single<BigDecimal> getEthBalanceInWei(Wallet wallet) {
+    return walletBalanceService.getWalletBalance(wallet.address)
+        .map(walletBalance -> new BigDecimal(walletBalance.getEth()))
+        .subscribeOn(Schedulers.io());
+  }
+
+  @Override public Single<BigDecimal> getAppcBalanceInWei(Wallet wallet) {
+    return walletBalanceService.getWalletBalance(wallet.address)
+        .map(walletBalance -> new BigDecimal(walletBalance.getAppc()))
         .subscribeOn(Schedulers.io());
   }
 }

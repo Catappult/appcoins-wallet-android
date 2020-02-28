@@ -194,12 +194,6 @@ dependencies {
   testImplementation "junit:junit:$junitVersion"
   testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
   androidTestImplementation "androidx.test.ext:junit:$project.testExtJunit"
-  androidTestImplementation("androidx.test.espresso:espresso-core:$project.expresso", {
-    exclude group: "androidx.test.espresso", module: "support-annotations"
-  })
-  androidTestImplementation("tools.fastlane:screengrab:$project.screengrab", {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
   // Fabric
   implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk") {
     transitive = true

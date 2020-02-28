@@ -1,5 +1,6 @@
 package com.asfoundation.wallet;
 
+import android.util.Log;
 import androidx.multidex.MultiDexApplication;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.ProxyService;
