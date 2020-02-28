@@ -484,7 +484,7 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod?) {
     val action =
-        if (selectedPaymentMethod?.id!! == PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC.name) "next" else "buy"
+        if (selectedPaymentMethod?.id!! == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
       analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
           transaction.amount()

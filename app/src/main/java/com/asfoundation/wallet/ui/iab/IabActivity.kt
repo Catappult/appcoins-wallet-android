@@ -69,6 +69,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
         skuDetails = savedInstanceState.getBundle(SKU_DETAILS)
       }
+      if (savedInstanceState.containsKey(FIRST_IMPRESSION)) {
+        firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
+      }
     } else {
       showPaymentMethodsView()
     }
@@ -246,6 +249,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onSaveInstanceState(outState)
 
     outState.putBundle(SKU_DETAILS, skuDetails)
+    outState.putBoolean(FIRST_IMPRESSION, firstImpression)
   }
 
   private fun getOrigin(isBds: Boolean): String? {
@@ -303,6 +307,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val RESPONSE_CODE = "RESPONSE_CODE"
     const val RESULT_USER_CANCELED = 1
     const val SKU_DETAILS = "sku_details"
+    const val FIRST_IMPRESSION = "first_impression"
     const val APP_PACKAGE = "app_package"
     const val TRANSACTION_EXTRA = "transaction_extra"
     const val PRODUCT_NAME = "product_name"
