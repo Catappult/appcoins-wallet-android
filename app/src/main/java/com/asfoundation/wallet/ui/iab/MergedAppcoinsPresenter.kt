@@ -13,7 +13,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
-import io.reactivex.schedulers.Schedulers
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val disposables: CompositeDisposable,
@@ -54,7 +53,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleBackClick() {
     disposables.add(Observable.merge(view.backClick(), view.backPressed())
-        .observeOn(Schedulers.io())
+        .observeOn(networkScheduler)
         .doOnNext { paymentMethod ->
           analytics.sendPaymentConfirmationEvent(paymentMethod.packageName,
               paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
@@ -69,7 +68,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleBuyClick() {
     disposables.add(view.buyClick()
-        .observeOn(Schedulers.io())
+        .observeOn(networkScheduler)
         .doOnNext { paymentMethod ->
           analytics.sendPaymentConfirmationEvent(paymentMethod.packageName,
               paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,

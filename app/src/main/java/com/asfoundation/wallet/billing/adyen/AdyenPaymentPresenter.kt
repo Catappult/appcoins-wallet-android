@@ -20,7 +20,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -290,7 +289,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleBack() {
     disposables.add(view.backEvent()
-        .observeOn(Schedulers.io())
+        .observeOn(networkScheduler)
         .flatMapSingle { transactionBuilder }
         .doOnNext { transaction ->
           handlePaymentMethodAnalytics(transaction)
@@ -302,15 +301,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handlePaymentMethodAnalytics(transaction: TransactionBuilder) {
     if (isPreSelected) {
       analytics.sendPreSelectedPaymentMethodEvent(domain, transaction.skuId,
-          transaction.amount()
-              .toString(), mapPaymentToService(paymentType).transactionType, transaction.type,
-          "cancel")
+          transaction.amount().toString(), mapPaymentToService(paymentType).transactionType,
+          transaction.type, "cancel")
       view.close(adyenPaymentInteractor.mapCancellation())
     } else {
       analytics.sendPaymentConfirmationEvent(domain, transaction.skuId,
-          transaction.amount()
-              .toString(), mapPaymentToService(paymentType).transactionType, transaction.type,
-          "back")
+          transaction.amount().toString(), mapPaymentToService(paymentType).transactionType,
+          transaction.type, "back")
       view.showMoreMethods()
     }
   }
@@ -318,7 +315,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleMorePaymentsClick() {
     disposables.add(
         view.getMorePaymentMethodsClicks()
-            .observeOn(Schedulers.io())
+            .observeOn(networkScheduler)
             .flatMapSingle { transactionBuilder }
             .doOnNext { transaction ->
               handleMorePaymentsAnalytics(transaction)
@@ -372,10 +369,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun sendPaypalConfirmationEvent(
       status: Status) {
     disposables.add(transactionBuilder
-        .observeOn(Schedulers.io())
+        .observeOn(networkScheduler)
         .doOnSuccess { transaction ->
-          if (mapPaymentToAnalytics(
-                  transaction.type) == BillingAnalytics.PAYMENT_METHOD_PAYPAL) {
+          if (mapPaymentToAnalytics(transaction.type) == BillingAnalytics.PAYMENT_METHOD_PAYPAL) {
             if (status == CANCELED) {
               analytics.sendPaymentConfirmationEvent(domain, transaction.skuId,
                   transaction.amount().toString(), mapPaymentToService(paymentType).transactionType,
@@ -392,7 +388,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun sendPaymentSuccessEvent() {
     disposables.add(transactionBuilder
-        .observeOn(Schedulers.io())
+        .observeOn(networkScheduler)
         .doOnSuccess { transaction ->
           analytics.sendPaymentSuccessEvent(domain, transaction.skuId,
               transaction.amount().toString(),
@@ -403,7 +399,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?) {
     disposables.add(transactionBuilder
-        .observeOn(Schedulers.io())
+        .observeOn(networkScheduler)
         .doOnSuccess { transaction ->
           analytics.sendPaymentErrorWithDetailsEvent(domain, transaction.skuId,
               transaction.amount().toString(), mapPaymentToAnalytics(paymentType), transaction.type,

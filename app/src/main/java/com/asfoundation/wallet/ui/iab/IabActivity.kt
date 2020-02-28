@@ -188,12 +188,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  fun handlePurchaseStartAnalytics() {
+  private fun handlePurchaseStartAnalytics() {
     if (firstImpression) {
       if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
         billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction!!.domain,
-            transaction!!.skuId,
-            transaction!!.amount().toString(), transaction!!.type,
+            transaction!!.skuId, transaction!!.amount().toString(), transaction!!.type,
             BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
       } else {
         billingAnalytics.sendPurchaseStartEvent(transaction!!.domain, transaction!!.skuId,

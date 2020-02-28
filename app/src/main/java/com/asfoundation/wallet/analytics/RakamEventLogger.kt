@@ -10,12 +10,10 @@ import org.json.JSONObject
 class RakamEventLogger : EventLogger {
 
   companion object {
-    const val TAG = "RakamEventLogger"
+    private const val TAG = "RakamEventLogger"
   }
 
-  override fun setup() {
-
-  }
+  override fun setup() = Unit
 
   override fun log(eventName: String, data: Map<String, Any>?,
                    action: AnalyticsManager.Action, context: String) {
@@ -26,16 +24,9 @@ class RakamEventLogger : EventLogger {
       Rakam.getInstance()
           .logEvent(eventName)
     }
-    Log.d(TAG, "log() called with: "
-        + "eventName = ["
-        + eventName
-        + "], data = ["
-        + data
-        + "], action = ["
-        + action
-        + "], context = ["
-        + context
-        + "]")
+
+    Log.d(TAG,
+        "log() called with: eventName = [$eventName], data = [$data], action = [$action], context = [$context]")
 
   }
 
@@ -44,8 +35,7 @@ class RakamEventLogger : EventLogger {
 
     for (entry in data.entries) {
       try {
-        eventData.put(entry.key, entry.value
-            .toString())
+        eventData.put(entry.key, entry.value.toString())
       } catch (e: JSONException) {
         e.printStackTrace()
       }
