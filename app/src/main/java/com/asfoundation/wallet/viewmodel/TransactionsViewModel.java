@@ -33,9 +33,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
@@ -62,6 +64,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
+  private PublishSubject<Context> topUpClicks = PublishSubject.create();
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
@@ -124,6 +127,7 @@ public class TransactionsViewModel extends BaseViewModel {
             }))
         .subscribe(wallet -> {
         }, this::onError));
+    handleTopUpClicks();
   }
 
   public void handleUnreadConversationCount() {
@@ -359,7 +363,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTopUp(Context context) {
-    transactionViewNavigator.openTopUp(context);
+    topUpClicks.onNext(context);
   }
 
   public MutableLiveData<Double> gamificationMaxBonus() {
@@ -410,5 +414,11 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void registerSupportUser(Integer level, String walletAddress) {
     supportInteractor.registerUser(level, walletAddress);
+  }
+
+  private void handleTopUpClicks() {
+    disposables.add(topUpClicks.throttleFirst(1, TimeUnit.SECONDS)
+        .doOnNext(transactionViewNavigator::openTopUp)
+        .subscribe());
   }
 }

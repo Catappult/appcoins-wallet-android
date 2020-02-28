@@ -254,6 +254,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     list.setVisibility(View.GONE);
     viewModel.prepare();
     viewModel.updateConversationCount();
+    viewModel.handleUnreadConversationCount();
     checkRoot();
   }
 
