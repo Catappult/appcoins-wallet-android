@@ -53,13 +53,13 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
-  private CompositeDisposable disposables;
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
   private final TransactionViewInteract transactionViewInteract;
   private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
+  private CompositeDisposable disposables;
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
@@ -131,6 +131,13 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void handleUnreadConversationCount() {
+    disposables.add(supportInteractor.getUnreadConversationCountListener()
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .doOnNext(this::updateIntercomAnimation)
+        .subscribe());
+  }
+
+  public void updateConversationCount() {
     disposables.add(supportInteractor.getUnreadConversationCount()
         .subscribeOn(AndroidSchedulers.mainThread())
         .doOnNext(this::updateIntercomAnimation)
