@@ -146,6 +146,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Override public void finish(String uid) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
     presenter.sendRevenueEvent();
+    presenter.sendPaymentSuccessEvent(PAYMENT_METHOD_REWARDS);
     Bundle bundle = billingMessagesMapper.successBundle(uid);
     bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
@@ -159,6 +160,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Override public void finish(Purchase purchase, @Nullable String orderReference) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
     presenter.sendRevenueEvent();
+    presenter.sendPaymentSuccessEvent(PAYMENT_METHOD_REWARDS);
     Bundle bundle = billingMessagesMapper.mapPurchase(purchase, orderReference);
     bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());

@@ -9,9 +9,9 @@ interface MergedAppcoinsView {
   fun getPaymentSelection(): Observable<String>
   fun hideBonus()
   fun showBonus()
-  fun buyClick(): Observable<String>
-  fun backClick(): Observable<Any>
-  fun backPressed(): Observable<Any>
+  fun buyClick(): Observable<PaymentInfoWrapper>
+  fun backClick(): Observable<PaymentInfoWrapper>
+  fun backPressed(): Observable<PaymentInfoWrapper>
   fun navigateToAppcPayment()
   fun navigateToCreditsPayment()
   fun navigateToPaymentMethods()

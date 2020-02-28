@@ -100,9 +100,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             .doOnSuccess {
               analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), type,
                   paymentId)
+              analytics.sendPaymentConfirmationEvent(domain, skuId, amount.toString(), type,
+                  paymentId)
               navigator.navigateToUriForResult(it)
               waitingResult = true
-            }.subscribeOn(networkScheduler).observeOn(viewScheduler)
+            }.subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
             .subscribe({ }, { showError(it) }))
   }
 
@@ -144,6 +147,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             transaction.orderReference, transaction.hash, networkScheduler)
             .doOnSuccess {
               analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+              analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
+                  paymentId)
               analytics.sendRevenueEvent(disposables, amount)
             }
             .subscribeOn(networkScheduler)
@@ -161,6 +166,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         localPaymentInteractor.saveAsyncLocalPayment(paymentId)
         preparePendingUserPayment()
         analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+        analytics.sendPaymentPendingEvent(domain, skuId, amount.toString(), type, paymentId)
       }.subscribeOn(viewScheduler)
       else -> Completable.fromAction {
         view.showError()
