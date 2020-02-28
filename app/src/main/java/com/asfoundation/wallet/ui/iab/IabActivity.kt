@@ -16,7 +16,7 @@ import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
-import com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS
+import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.jakewharton.rxrelay2.PublishRelay
@@ -261,13 +261,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   private fun createBundle(amount: BigDecimal): Bundle {
-    val bundle = Bundle()
-    bundle.putSerializable(TRANSACTION_AMOUNT, amount)
-    bundle.putString(APP_PACKAGE, transaction!!.domain)
-    bundle.putString(PRODUCT_NAME, intent.extras!!
-        .getString(PRODUCT_NAME))
-    bundle.putString(TRANSACTION_DATA, intent.dataString)
-    bundle.putString(DEVELOPER_PAYLOAD, transaction!!.payload)
+    val bundle = Bundle().apply {
+      putSerializable(TRANSACTION_AMOUNT, amount)
+      putString(APP_PACKAGE, transaction!!.domain)
+      putString(PRODUCT_NAME, intent.extras!!.getString(PRODUCT_NAME))
+      putString(TRANSACTION_DATA, intent.dataString)
+      putString(DEVELOPER_PAYLOAD, transaction!!.payload)
+    }
     skuDetails = bundle
     return bundle
   }

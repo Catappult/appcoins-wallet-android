@@ -15,11 +15,9 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -157,32 +155,35 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
-    disposables.add(Observable.zip(view.buyButtonClicked(), view.retrievePaymentData(),
-        BiFunction { _: Any, adyenCard: AdyenCardWrapper -> adyenCard })
-        .observeOn(viewScheduler)
-        .doOnNext {
-          view.showLoading()
-          view.hideKeyboard()
-          view.lockRotation()
-        }
-        .observeOn(networkScheduler)
-        .flatMapSingle { adyenCard ->
-          transactionBuilder
-              .flatMap {
-                handleBuyAnalytics(it)
-                adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
-                    adyenCard.shouldStoreCard, returnUrl,
-                    priceAmount.toString(), priceCurrency, it.orderReference,
-                    mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-                    it.skuId, it.callbackUrl, it.type, it.toAddress())
-              }
-        }
-        .observeOn(viewScheduler)
-        .flatMapCompletable {
-          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.status,
-              it.error)
-        }
-        .subscribe())
+    disposables.add(
+        view.buyButtonClicked()
+            .flatMapSingle {
+              view.retrievePaymentData()
+                  .firstOrError()
+            }
+            .observeOn(viewScheduler)
+            .doOnNext {
+              view.showLoading()
+              view.hideKeyboard()
+              view.lockRotation()
+            }
+            .observeOn(networkScheduler)
+            .flatMapSingle { adyenCard ->
+              transactionBuilder
+                  .flatMap {
+                    handleBuyAnalytics(it)
+                    adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
+                        adyenCard.shouldStoreCard, returnUrl, priceAmount.toString(), priceCurrency,
+                        it.orderReference, mapPaymentToService(paymentType).transactionType, origin,
+                        domain, it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress())
+                  }
+            }
+            .observeOn(viewScheduler)
+            .flatMapCompletable {
+              handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.status,
+                  it.error)
+            }
+            .subscribe())
   }
 
   private fun handlePaymentResult(uid: String, resultCode: String,

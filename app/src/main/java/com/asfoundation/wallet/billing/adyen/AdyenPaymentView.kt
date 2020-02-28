@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import com.adyen.checkout.base.model.payments.response.Action
 import io.reactivex.Observable
+import io.reactivex.subjects.ReplaySubject
 import java.math.BigDecimal
 
 interface AdyenPaymentView {
@@ -38,7 +39,7 @@ interface AdyenPaymentView {
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, isStored: Boolean,
       forget: Boolean, savedInstance: Bundle?)
 
-  fun retrievePaymentData(): Observable<AdyenCardWrapper>
+  fun retrievePaymentData(): ReplaySubject<AdyenCardWrapper>
 
   fun showSpecificError(stringRes: Int)
 

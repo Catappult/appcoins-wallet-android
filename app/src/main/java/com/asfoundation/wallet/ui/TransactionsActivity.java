@@ -206,7 +206,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
     LottieAnimationView animation = findViewById(R.id.intercom_animation);
 
-    if (hasMessages) {
+    if (hasMessages && !animation.isAnimating()) {
       animation.playAnimation();
     } else {
       animation.cancelAnimation();
@@ -253,6 +253,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     adapter.clear();
     list.setVisibility(View.GONE);
     viewModel.prepare();
+    viewModel.updateConversationCount();
+    viewModel.handleUnreadConversationCount();
     checkRoot();
   }
 
