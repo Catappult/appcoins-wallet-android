@@ -110,7 +110,7 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
-        android:theme="@style/Theme.AppCompat.Transparent.WebActivity"/>
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"/>
     <activity
         android:name="com.asfoundation.wallet.permissions.request.view.PermissionsActivity"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating">
