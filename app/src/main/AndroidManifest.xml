@@ -9,6 +9,8 @@
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
   <application
       android:name="com.asfoundation.wallet.App"
       android:allowBackup="false"
@@ -108,7 +110,7 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
-        android:theme="@style/Theme.AppCompat.Transparent.WebActivity"/>
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"/>
     <activity
         android:name="com.asfoundation.wallet.permissions.request.view.PermissionsActivity"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating">

@@ -51,8 +51,7 @@ import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_c
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_logo
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_icn
+import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.fragment_iab_error.view.*
@@ -95,7 +94,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButton = PublishRelay.create<Boolean>()
-    paymentDataSubject = ReplaySubject.create<AdyenCardWrapper>()
+    paymentDataSubject = ReplaySubject.createWithSize<AdyenCardWrapper>(1)
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
@@ -150,9 +149,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     setStoredPaymentInformation(isStored)
   }
 
-  override fun retrievePaymentData(): Observable<AdyenCardWrapper> {
-    return paymentDataSubject!!
-  }
+  override fun retrievePaymentData() = paymentDataSubject!!
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
@@ -266,14 +263,15 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_iab_error?.visibility = GONE
     fragment_iab_error_pre_selected?.visibility = GONE
-    cc_info_view?.visibility = GONE
     cancel_button?.visibility = GONE
     buy_button?.visibility = GONE
     payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
     bonus_msg_pre_selected?.visibility = GONE
     more_payment_methods?.visibility = GONE
+    adyen_card_form?.visibility = GONE
     layout_pre_selected?.visibility = GONE
+    change_card_button?.visibility = GONE
     change_card_button_pre_selected?.visibility = GONE
 
     error_buttons?.visibility = VISIBLE

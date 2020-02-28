@@ -29,6 +29,7 @@ public class OnChainBuyPresenter {
   private final OnChainBuyView view;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
+  private final Scheduler networkScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final boolean isBds;
@@ -39,12 +40,13 @@ public class OnChainBuyPresenter {
   private Disposable statusDisposable;
 
   OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Scheduler viewScheduler, CompositeDisposable disposables,
+      Scheduler viewScheduler, Scheduler networkScheduler, CompositeDisposable disposables,
       BillingMessagesMapper billingMessagesMapper, boolean isBds, BillingAnalytics analytics,
       String appPackage, String uriString) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
+    this.networkScheduler = networkScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.isBds = isBds;
@@ -82,7 +84,7 @@ public class OnChainBuyPresenter {
             appPackage, productName, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError)
-            .observeOn(Schedulers.io())
+            .observeOn(networkScheduler)
             .subscribe());
   }
 
@@ -138,6 +140,7 @@ public class OnChainBuyPresenter {
 
   private Completable showPendingTransaction(Payment transaction) {
     Log.d(TAG, "present: " + transaction);
+    sendPaymentErrorEvent(BillingAnalytics.PAYMENT_METHOD_APPC, transaction.getStatus());
     switch (transaction.getStatus()) {
       case COMPLETED:
         view.lockRotation();
@@ -225,5 +228,27 @@ public class OnChainBuyPresenter {
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
+  }
+
+  void sendPaymentSuccessEvent(String purchaseDetails) {
+    disposables.add(transactionBuilder.observeOn(networkScheduler)
+        .subscribe(transactionBuilder -> analytics.sendPaymentSuccessEvent(appPackage,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
+  }
+
+  void sendPaymentErrorEvent(String purchaseDetails, Payment.Status error) {
+    if (error == Payment.Status.ERROR
+        || error == Payment.Status.NO_FUNDS
+        || error == Payment.Status.NONCE_ERROR
+        || error == Payment.Status.NO_ETHER
+        || error == Payment.Status.NO_INTERNET
+        || error == Payment.Status.NO_TOKENS
+        || error == Payment.Status.NETWORK_ERROR) {
+      disposables.add(transactionBuilder.observeOn(networkScheduler)
+          .subscribe(transactionBuilder -> analytics.sendPaymentErrorEvent(appPackage,
+              transactionBuilder.getSkuId(), transactionBuilder.amount()
+                  .toString(), purchaseDetails, transactionBuilder.getType(), error.name())));
+    }
   }
 }

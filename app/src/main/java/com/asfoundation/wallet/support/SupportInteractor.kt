@@ -33,11 +33,15 @@ class SupportInteractor {
     currentUser = walletAddress
   }
 
-  fun getUnreadConversationCount(): Observable<Int> {
+  fun getUnreadConversationCountListener(): Observable<Int> {
     return Observable.create<Int> {
       Intercom.client()
           .addUnreadConversationCountListener { i: Int -> it.onNext(i) }
     }
+  }
+
+  fun getUnreadConversationCount(): Observable<Int> {
+    return Observable.just(Intercom.client().unreadConversationCount)
   }
 
   fun shouldShowNotification(): Boolean {

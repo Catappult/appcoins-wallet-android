@@ -24,6 +24,7 @@ allprojects {
     maven { url 'https://jitpack.io' }
     maven { url "https://dl.bintray.com/asf/asf" }
     maven { url "https://dl.bintray.com/aptoide/Aptoide" }
+    maven { url "https://dl.bintray.com/blockchainds/bds" }
     // needed for pincode Lollipin
     maven {
       url "https://github.com/omadahealth/omada-nexus/raw/master/release"
@@ -83,6 +84,7 @@ project.ext {
   adyenVersion = '3.5.1'
   glide = '4.10.0'
   workManagerVersion = '2.3.1'
+  rakam_version = '2.7.14'
 }
 
 task clean(type: Delete) {

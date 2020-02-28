@@ -23,7 +23,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
-import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.*
@@ -93,9 +92,11 @@ class PaymentMethodsPresenter(
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
+          handleBuyAnalytics(selectedPaymentMethod)
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
             PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
-            PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(gamificationLevel)
+            PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
+                gamificationLevel)
             PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
             PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
             PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
@@ -165,13 +166,13 @@ class PaymentMethodsPresenter(
   }
 
   private fun checkProcessing(skuId: String?): Completable {
-    return billing.getSkuTransaction(appPackage, skuId, Schedulers.io())
+    return billing.getSkuTransaction(appPackage, skuId, networkThread)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }
         .doOnSuccess { handleProcessing() }
         .map { it.uid }
-        .observeOn(Schedulers.io())
+        .observeOn(networkThread)
         .flatMapCompletable { uid ->
           bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
               .ignoreElements()
@@ -191,7 +192,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun finishProcess(skuId: String?): Completable {
-    return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
+    return billing.getSkuPurchase(appPackage, skuId, networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
         .toCompletable()
@@ -204,7 +205,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun getPurchases(sku: String?): Observable<Purchase> {
-    return billing.getPurchases(appPackage, BillingSupportedType.INAPP, Schedulers.io())
+    return billing.getPurchases(appPackage, BillingSupportedType.INAPP, networkThread)
         .flatMapObservable { purchases ->
           for (purchase in purchases) {
             if (purchase.product
@@ -252,7 +253,8 @@ class PaymentMethodsPresenter(
             analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
                 .toString(), transaction.type)
             view.showAdyen(fiatValue,
-              PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)}
+                PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)
+          }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod)
         }
       }
@@ -301,12 +303,36 @@ class PaymentMethodsPresenter(
 
   private fun handleCancelClick() {
     disposables.add(view.getCancelClick()
+        .observeOn(networkThread)
+        .doOnNext { paymentMethod ->
+          handlePaymentMethodAnalytics(paymentMethod)
+        }
         .subscribe { close() })
+  }
+
+  private fun handlePaymentMethodAnalytics(paymentMethod: PaymentMethod) {
+    if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+      analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+          transaction.amount()
+              .toString(), paymentMethod.id, transaction.type, "cancel")
+    } else {
+      analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
+          .toString(), paymentMethod.id, transaction.type, "cancel")
+    }
   }
 
   private fun handleMorePaymentMethodClicks() {
     disposables.add(view.getMorePaymentMethodsClicks()
-        .doOnEach { view.showLoading() }
+        .observeOn(networkThread)
+        .doOnNext { selectedPaymentMethod ->
+          analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+              transaction.amount()
+                  .toString(), selectedPaymentMethod.id, transaction.type, "other_payments")
+        }
+        .observeOn(viewScheduler)
+        .doOnEach {
+          view.showLoading()
+        }
         .flatMapSingle {
           inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
               .subscribeOn(networkThread)
@@ -364,7 +390,12 @@ class PaymentMethodsPresenter(
     view.finish(billingMessagesMapper.mapFinishedPurchase(purchase, itemAlreadyOwned))
   }
 
-  fun sendPurchaseDetailsEvent() {
+  fun sendPaymentMethodsEvents() {
+    analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
+        .toString(), transaction.type)
+  }
+
+  fun sendPreSelectedPaymentMethodsEvents() {
     analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
         .toString(), transaction.type)
   }
@@ -451,4 +482,16 @@ class PaymentMethodsPresenter(
     }
   }
 
+  private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod?) {
+    val action =
+        if (selectedPaymentMethod?.id!! == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+    if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+      analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+          transaction.amount()
+              .toString(), selectedPaymentMethod.id, transaction.type, action)
+    } else {
+      analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
+          .toString(), selectedPaymentMethod.id, transaction.type, action)
+    }
+  }
 }

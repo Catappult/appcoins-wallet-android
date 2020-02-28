@@ -2,6 +2,7 @@ package com.asfoundation.wallet;
 
 import android.app.Activity;
 import android.app.Service;
+import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.multidex.MultiDexApplication;
 import androidx.work.Configuration;
@@ -16,6 +17,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.AppComponent;
 import com.asfoundation.wallet.di.DaggerAppComponent;
+import com.asfoundation.wallet.identification.IdsRepository;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
@@ -29,15 +31,23 @@ import dagger.android.HasServiceInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
 import io.intercom.android.sdk.Intercom;
+import io.rakam.api.Rakam;
+import io.rakam.api.RakamClient;
+import io.rakam.api.TrackingOptions;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
+import java.net.MalformedURLException;
+import java.net.URL;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class App extends MultiDexApplication
     implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,
     BillingDependenciesProvider {
 
+  private static final String TAG = App.class.getName();
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
   @Inject DispatchingAndroidInjector<Service> dispatchingServiceInjector;
   @Inject DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
@@ -50,6 +60,7 @@ public class App extends MultiDexApplication
   @Inject AppcoinsRewards appcoinsRewards;
   @Inject BillingMessagesMapper billingMessagesMapper;
   @Inject BdsApiSecondary bdsapiSecondary;
+  @Inject IdsRepository idsRepository;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -78,6 +89,7 @@ public class App extends MultiDexApplication
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID);
     Intercom.client()
         .setInAppMessageVisibility(Intercom.Visibility.GONE);
+    initializeRakam();
   }
 
   private void setupRxJava() {
@@ -98,6 +110,37 @@ public class App extends MultiDexApplication
     WorkManager.initialize(this,
         new Configuration.Builder().setWorkerFactory(appComponent.daggerWorkerFactory())
             .build());
+  }
+
+  private void initializeRakam() {
+    RakamClient instance = Rakam.getInstance();
+    TrackingOptions options = new TrackingOptions();
+    options.disableAdid();
+    try {
+      instance.initialize(this, new URL(BuildConfig.RAKAM_BASE_HOST), BuildConfig.RAKAM_API_KEY);
+    } catch (MalformedURLException e) {
+      Log.e(TAG, "error: ", e);
+    }
+
+    JSONObject superProperties = instance.getSuperProperties();
+    if (superProperties == null) {
+      superProperties = new JSONObject();
+    }
+    try {
+      superProperties.put("aptoide_package", BuildConfig.APPLICATION_ID);
+      superProperties.put("version_code", BuildConfig.VERSION_CODE);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+
+    instance.setDeviceId(idsRepository.getAndroidId());
+    instance.enableForegroundTracking(this);
+    instance.trackSessionEvents(true);
+    instance.setLogLevel(Log.VERBOSE);
+    instance.setEventUploadPeriodMillis(1);
+    instance.setTrackingOptions(options);
+    instance.setSuperProperties(superProperties);
+    instance.enableLogging(true);
   }
 
   @Override public AndroidInjector<Activity> activityInjector() {
