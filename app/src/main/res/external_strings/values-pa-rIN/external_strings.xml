@@ -22,13 +22,13 @@
   <string name="iab_card_cvv_cvc">ਸੀਵੀਸੀ/ਸੀਵੀਵੀ</string>
   <string name="iab_change_card_button">ਕਾਰਡ ਬਦਲੋ</string>
   <string name="iab_pay_with_wallet_title">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨਾਲ ਭੁਗਤਾਨ ਕਰੋ</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
+  <string name="iab_pay_with_wallet_reward_title">%s%% ਤੱਕ ਦਾ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
   <string name="iab_pay_with_wallet_reward_body">ਤੁਸੀਂ ਇਸ ਖਰੀਦ ਤੇ %s ਤੱਕ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">ਤੁਸੀਂ ਇਸ ਖਰੀਦ ਤੇ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="iab_best_deal">ਵਧੀਆ ਸੌਦਾ</string>
   <string name="iab_purchase_done_title">ਹੋ ਗਿਆ!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_title">ਅਗਲੀ ਵਾਰ, ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨਾਲ %s%% ਤੱਕ ਦਾ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">ਅਗਲੀ ਵਾਰ, ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨਾਲ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
   <string name="iab_purchase_done_reward_body">ਤੁਸੀਂ ਇਸ ਖਰੀਦ ਤੇ %s ਤੱਕ ਪ੍ਰਾਪਤ ਕਰ ਸੱਕਦੇ ਸੀ|</string>
   <string name="iab_purchase_done_title_long">ਖਰੀਦ ਪੂਰੀ ਹੋਈ!</string>
   <string name="iab_purchase_change_payment_method_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
