@@ -22,13 +22,13 @@
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">KARTI DEĞİŞTİR</string>
   <string name="iab_pay_with_wallet_title">AppCoins Wallet\'la öde</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
+  <string name="iab_pay_with_wallet_reward_title">%%%s oranına varan Bonus kazanın!</string>
   <string name="iab_pay_with_wallet_reward_body">Bu satın alma işleminden %s alacaksınız.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">Bu satın alma işleminden Bonus alacaksınız.</string>
   <string name="iab_best_deal">EN İYİ FIRSAT</string>
   <string name="iab_purchase_done_title">BİTTİ!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Bir dahaki sefere, AppCoins Wallet\'la %%%s oranına varan Bonus kazanın!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Bir dahaki sefere, AppCoins Wallet\'la Bonus kazanın!</string>
   <string name="iab_purchase_done_reward_body">Bu satın alma işleminden %s alabilirdiniz.</string>
   <string name="iab_purchase_done_title_long">Satın alma işlemi tamamlandı!</string>
   <string name="iab_purchase_change_payment_method_button">DAHA FAZLA ÖDEME YÖNTEMİ</string>
