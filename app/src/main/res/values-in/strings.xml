@@ -54,7 +54,7 @@
   <string name="unlock_screen_prompt_android">Silakan buka kunci perangkat Android Anda untuk melanjutkan.</string>
   <string name="do_manage_make_backup">Apakah Anda berhasil membuat cadangan?</string>
   <string name="yes_continue">Ya, lanjutkan</string>
-  <string name="yes_done_button">Yes, done</string>
+  <string name="yes_done_button">Ya, selesai</string>
   <string name="no_repeat">Tidak, ulangi</string>
   <string name="skip">Lewatkan</string>
   <string name="skip_with_arrow">Lewati &gt;</string>
@@ -450,7 +450,7 @@
   <string name="purchase_current_balance_appc_eth_body">%s dalam AppCoins dan Ether.</string>
   <string name="purchase_wallet_blocked_title">Saldo Kredit AppCoins Anda diblokir</string>
   <string name="purchase_wallet_blocked_body">Sehubungan dengan riwayat transaksi yang tidak biasa, saldo Kredit AppCoins Anda sudah diblokir. Anda akan tetap bisa melakukan pembayaran dan transaksi dengan metode lain kecuali Kredit AppCoins.\n\nJika Anda yakin ini karena adanya kesalahan, hubungi kami di:</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_title">Ups, ada kesalahan.</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
   <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
   <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
@@ -527,7 +527,7 @@
   <string name="backup_password_title">Enkripsi dompet Anda (opsional)</string>
   <string name="backup_password">Kata Sandi</string>
   <string name="backup_body">Kami tidak menyimpan kunci pribadi Anda atau metode akses lainnya. Penting untuk selalu menjaga keamanan cadangan dompet (keystore) Anda.</string>
-  <string name="backup_confirmation_title">Just one more step</string>
+  <string name="backup_confirmation_title">Tinggal satu langkah lagi</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
   <string name="backup_done_title">Backup done!</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
