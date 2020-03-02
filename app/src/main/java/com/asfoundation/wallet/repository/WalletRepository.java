@@ -4,8 +4,8 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.WalletBalanceService;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 
 public class WalletRepository implements WalletRepositoryType {
@@ -13,12 +13,15 @@ public class WalletRepository implements WalletRepositoryType {
   private final PreferencesRepositoryType preferencesRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
   private final WalletBalanceService walletBalanceService;
+  private final Scheduler networkScheduler;
 
   public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService) {
+      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService,
+      Scheduler networkScheduler) {
     this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
     this.walletBalanceService = walletBalanceService;
+    this.networkScheduler = networkScheduler;
   }
 
   @Override public Single<Wallet[]> fetchWallets() {
@@ -77,12 +80,12 @@ public class WalletRepository implements WalletRepositoryType {
   @Override public Single<BigDecimal> getEthBalanceInWei(Wallet wallet) {
     return walletBalanceService.getWalletBalance(wallet.address)
         .map(walletBalance -> new BigDecimal(walletBalance.getEth()))
-        .subscribeOn(Schedulers.io());
+        .subscribeOn(networkScheduler);
   }
 
   @Override public Single<BigDecimal> getAppcBalanceInWei(Wallet wallet) {
     return walletBalanceService.getWalletBalance(wallet.address)
         .map(walletBalance -> new BigDecimal(walletBalance.getAppc()))
-        .subscribeOn(Schedulers.io());
+        .subscribeOn(networkScheduler);
   }
 }
