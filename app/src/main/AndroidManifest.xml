@@ -26,6 +26,10 @@
         android:enabled="true"
         android:exported="false"/>
 
+    <receiver android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false"/>
+
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/facebook_app_id"/>
@@ -241,7 +245,7 @@
         android:authorities="${applicationId}.workmanager-init"
         android:exported="false"
         tools:node="remove" />
-    
+
   </application>
 
 </manifest>

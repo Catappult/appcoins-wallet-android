@@ -4,14 +4,11 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.work.RxWorker
 import androidx.work.WorkerParameters
 import com.asf.wallet.R
-import com.asfoundation.wallet.advertise.WalletPoAService
-import com.asfoundation.wallet.ui.TransactionsActivity
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -31,7 +28,8 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
   private val channelName: CharSequence = "Support notification channel"
 
   companion object {
-    const val NOTIFICATION_PERIOD: Long = 10
+    const val NOTIFICATION_SERVICE_ID = 77794
+    const val NOTIFICATION_PERIOD: Long = 15
     const val WORKER_TAG = "SupportNotificationWorkerTag"
     const val UNIQUE_WORKER_NAME = "SupportNotificationWorker"
   }
@@ -47,7 +45,7 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
   override fun createWork(): Single<Result> {
     return if (supportInteractor.shouldShowNotification()) {
       Completable.fromAction {
-        notificationManager.notify(WalletPoAService.SERVICE_ID,
+        notificationManager.notify(NOTIFICATION_SERVICE_ID,
             createNotification().build())
       }
           .andThen(Single.just(Result.success()))
@@ -57,9 +55,13 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
   }
 
   private fun createNotification(): NotificationCompat.Builder {
+
+    val okPendingIntent = createNotificationClickIntent()
+    val dismissPendingIntent = createNotificationDismissIntent()
+
     val builder: NotificationCompat.Builder
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val importance = NotificationManager.IMPORTANCE_LOW
+      val importance = NotificationManager.IMPORTANCE_HIGH
       val notificationChannel =
           NotificationChannel(channelId, channelName, importance)
       builder = NotificationCompat.Builder(context, channelId)
@@ -67,17 +69,27 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
     } else {
       builder = NotificationCompat.Builder(context, channelId)
     }
-    builder.setContentTitle("You have new messages")
-    builder.setAutoCancel(true)
-    builder.setContentIntent(createPendingIntent())
-    return builder.setSmallIcon(R.drawable.ic_launcher_foreground)
+    return builder.setContentTitle("You have new messages")
+        .setAutoCancel(true)
+        .setOngoing(true)
+        .setContentIntent(okPendingIntent)
+        .addAction(0, "Dismiss", dismissPendingIntent)
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setContentText("Click to open")
   }
 
-  private fun createPendingIntent(): PendingIntent {
-    val notifyIntent = Intent(context, TransactionsActivity::class.java)
-    notifyIntent.flags = (Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-    return PendingIntent.getActivity(
-        context, 0, notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+  private fun createNotificationClickIntent(): PendingIntent {
+    val intent = SupportNotificationBroadcastReceiver.newIntent(context)
+    intent.putExtra(SupportNotificationBroadcastReceiver.ACTION_KEY,
+        SupportNotificationBroadcastReceiver.ACTION_CHECK_MESSAGES)
+    return PendingIntent.getBroadcast(context, 0, intent, 0)
+  }
+
+  private fun createNotificationDismissIntent(): PendingIntent {
+    val intent = SupportNotificationBroadcastReceiver.newIntent(context)
+    intent.putExtra(SupportNotificationBroadcastReceiver.ACTION_KEY,
+        SupportNotificationBroadcastReceiver.ACTION_DISMISS)
+    return PendingIntent.getBroadcast(context, 1, intent, 0)
   }
 }
+
