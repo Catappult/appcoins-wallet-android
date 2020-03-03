@@ -19,4 +19,5 @@ interface MergedAppcoinsView {
   fun showWalletBlocked()
   fun showLoading()
   fun hideLoading()
+  fun showPaymentMethods()
 }

@@ -79,6 +79,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun showBlockedError(): Completable {
     return Completable.fromAction {
       view.hideLoading()
+      view.showPaymentMethods()
       view.showWalletBlocked()
     }
   }

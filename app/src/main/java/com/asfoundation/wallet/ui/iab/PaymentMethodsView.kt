@@ -23,9 +23,11 @@ interface PaymentMethodsView {
   fun setupUiCompleted(): Observable<Boolean>
   fun showProcessingLoadingDialog()
   fun getBuyClick(): Observable<PaymentMethod>
-  fun showPaypal()
-  fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?)
-  fun showCreditCard()
+  fun showPaypal(gamificationLevel: Int)
+  fun showAdyen(fiatValue: FiatValue,
+                paymentType: PaymentType,
+                iconUrl: String?, gamificationLevel: Int)
+  fun showCreditCard(gamificationLevel: Int)
   fun showAppCoins()
   fun showCredits()
   fun showShareLink(selectedPaymentMethod: String)

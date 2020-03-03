@@ -407,22 +407,22 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         });
   }
 
-  @Override public void showPaypal() {
+  @Override public void showPaypal(int gamificationLevel) {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null);
+        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel);
   }
 
   @Override public void showAdyen(@NotNull FiatValue fiatValue, @NotNull PaymentType paymentType,
-      String iconUrl) {
+      String iconUrl, int gamificationLevel) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds, paymentType,
-          bonusMessageValue, true, iconUrl);
+          bonusMessageValue, true, iconUrl, gamificationLevel);
     }
   }
 
-  @Override public void showCreditCard() {
+  @Override public void showCreditCard(int gamificationLevel) {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.CARD, bonusMessageValue, false, null);
+        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel);
   }
 
   @Override public void showAppCoins() {

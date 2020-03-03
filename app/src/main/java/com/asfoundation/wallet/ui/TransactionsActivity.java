@@ -165,8 +165,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onGamificationMaxBonus);
     viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onPromotionsNotification);
-    viewModel.shouldShowSupport()
-        .observe(this, this::showSupport);
+    viewModel.getUnreadMessages()
+        .observe(this, this::updateSupportIcon);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
 
@@ -195,8 +195,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_settings) {
       viewModel.showSettings(this);
-    } else if (item.getItemId() == R.id.action_support) {
-      viewModel.showSupportScreen();
     }
     return super.onOptionsItemSelected(item);
   }
@@ -229,10 +227,20 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void showSupport(Boolean show) {
-    if (supportActionView != null) {
-      supportActionView.setVisible(show);
+  private void updateSupportIcon(boolean hasMessages) {
+    if (supportActionView == null) {
+      return;
     }
+    LottieAnimationView animation = findViewById(R.id.intercom_animation);
+
+    if (hasMessages) {
+      animation.playAnimation();
+    } else {
+      animation.cancelAnimation();
+      animation.setProgress(0);
+    }
+
+    animation.setOnClickListener(v -> viewModel.showSupportScreen());
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
@@ -278,6 +286,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
     supportActionView = menu.findItem(R.id.action_support);
+    viewModel.handleUnreadConversationCount();
     return super.onCreateOptionsMenu(menu);
   }
 
