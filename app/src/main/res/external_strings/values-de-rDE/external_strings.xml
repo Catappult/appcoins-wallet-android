@@ -22,11 +22,13 @@
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">KARTE ÄNDERN</string>
   <string name="iab_pay_with_wallet_title">Mit AppCoins Wallet bezahlen</string>
-  <string name="iab_pay_with_wallet_reward_title">Erhalten Sie einen Bonus bis zu 30%!</string>
+  <string name="iab_pay_with_wallet_reward_title">Erhalten Sie einen Prämie von bis zu %s%%!</string>
   <string name="iab_pay_with_wallet_reward_body">Sie erhalten %s für diesen Einkauf.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">Für diesen Einkauf erhalten Sie eine Prämie.</string>
   <string name="iab_best_deal">BESTER DEAL</string>
   <string name="iab_purchase_done_title">ERLEDIGT!</string>
-  <string name="iab_purchase_done_reward_title">Beim nächsten Mal erhalten Sie mit dem AppCoins Wallet einen Bonus von bis zu 30%!</string>
+  <string name="iab_purchase_done_reward_title">Das nächste Mal erhalten Sie mit dem AppCoins Wallet einen Bonus von bis zu %s%%!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Das nächste Mal erhalten Sie mit dem AppCoins Wallet einen Bonus!</string>
   <string name="iab_purchase_done_reward_body">Sie hätten einen Bonus von %s auf diesen Einkauf erhalten können.</string>
   <string name="iab_purchase_done_title_long">Einkauf abgeschlossen!</string>
   <string name="iab_purchase_change_payment_method_button">WEITERE BEZAHLMETHODEN</string>

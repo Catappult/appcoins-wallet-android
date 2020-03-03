@@ -22,11 +22,13 @@
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">PROMENITE KARTICU</string>
   <string name="iab_pay_with_wallet_title">Platite pomoću aplikacije AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Dobijte bonus do 30%!</string>
+  <string name="iab_pay_with_wallet_reward_title">Ostvarite do %s%% bonusa!</string>
   <string name="iab_pay_with_wallet_reward_body">Dobićete %s za ovu kupovinu.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">Dobićete bonus za ovu kupovinu.</string>
   <string name="iab_best_deal">NAJBOLJA PONUDA</string>
   <string name="iab_purchase_done_title">GOTOVO!</string>
-  <string name="iab_purchase_done_reward_title">Sledeći put dobijte bonus do 30% pomoću aplikacije AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Sledeći put ostvarite do %s%% bonusa pomoću aplikacije AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Sledeći put ostvarite bonus pomoću aplikacije AppCoins Wallet!</string>
   <string name="iab_purchase_done_reward_body">Mogli ste da dobijete %s za ovu kupovinu.</string>
   <string name="iab_purchase_done_title_long">Kupovina je dovršena!</string>
   <string name="iab_purchase_change_payment_method_button">JOŠ NAČINA PLAĆANJA</string>

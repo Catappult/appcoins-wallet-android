@@ -22,11 +22,13 @@
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">СМЕНИ КАРТАТА</string>
   <string name="iab_pay_with_wallet_title">Плати с AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Вземи до 30% Бонус!</string>
+  <string name="iab_pay_with_wallet_reward_title">Вземи до %s%% бонус!</string>
   <string name="iab_pay_with_wallet_reward_body">Ще получиш %s за тази покупка.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">Ще получиш бонус за тази покупка.</string>
   <string name="iab_best_deal">НАЙ-ДОБРА СДЕЛКА</string>
   <string name="iab_purchase_done_title">ГОТОВО!</string>
-  <string name="iab_purchase_done_reward_title">Следващия път вземи до 30% бонус с AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Следващия път вземи до %s%% бонус с AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Следващия път вземи бонус с AppCoins Wallet!</string>
   <string name="iab_purchase_done_reward_body">Можеше да получиш %s за тази покупка.</string>
   <string name="iab_purchase_done_title_long">Покупката е завършена!</string>
   <string name="iab_purchase_change_payment_method_button">ДРУГИ ПЛАТЕЖНИ МЕТОДИ</string>
