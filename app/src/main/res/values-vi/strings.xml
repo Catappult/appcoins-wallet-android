@@ -453,12 +453,12 @@
   <string name="purchase_card_error_title">Rất tiếc, đã xảy ra lỗi.</string>
   <string name="purchase_card_error_general_1">Đã xảy ra sự cố với thẻ của bạn. Vui lòng thử lại hoặc liên hệ ngay với chúng tôi.</string>
   <string name="purchase_card_error_general_2">Giao dịch đã bị ngân hàng của bạn từ chối. Vui lòng thử với một thẻ khác hoặc liên hệ ngay với chúng tôi.</string>
-  <string name="purchase_card_error_no_funds">Có vẻ như bạn không còn đủ tiền hoặc đã đạt đến hạn mực thẻ của mình. Vui lòng thử lại bằng một thẻ khác.</string>
+  <string name="purchase_card_error_no_funds">Có vẻ như bạn không còn đủ tiền hoặc đã đạt đến hạn mức thẻ của mình. Vui lòng thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_expired">Có vẻ như thẻ của bạn đã hết hạn. Hãy thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_invalid_details">Bạn có chắc rằng số thẻ của mình đúng không? Vui lòng kiểm tra và thử lại lần nữa.</string>
   <string name="purchase_card_error_not_supported">Loại thẻ của bạn chưa được hỗ trợ. Hãy thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_security">Bạn có chắc chắn thông tin bảo mật đúng không? Vui lòng thử lại lần nữa.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
   <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
   <!--Async Payments-->
@@ -527,12 +527,12 @@
   <string name="backup_password_title">Đồng bộ ví của bạn (tùy chọn)</string>
   <string name="backup_password">Mật khẩu</string>
   <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
-  <string name="backup_confirmation_title">Just one more step</string>
-  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
-  <string name="backup_done_title">Backup done!</string>
-  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
+  <string name="backup_confirmation_title">Chỉ một bước nữa thôi</string>
+  <string name="backup_confirmation_body">Giữ bản sao lưu của bạn an toàn! Bạn muốn lưu nó ở đâu?</string>
+  <string name="backup_done_title">Sao lưu hoàn tất!</string>
+  <string name="backup_done_body">Bạn có chắc rằng tập tin sao lưu của bạn đang ở chỗ an toàn không?</string>
   <string name="backup_send_via_title">Gửi bản sao lưu qua:</string>
-  <string name="backup_send_button">SEND BACKUP</string>
+  <string name="backup_send_button">LƯU BẢN SAO LƯU</string>
   <string name="import_wallet_title">Nhập Ví</string>
   <string name="import_wallet_body">Dán sao lưu ví của bạn dưới đây.</string>
   <string name="import_wallet_keystore_private_keys">Kho khóa hoặc khóa cá nhân</string>
