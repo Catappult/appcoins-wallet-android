@@ -2,5 +2,7 @@ package com.asfoundation.wallet.analytics
 
 interface AnalyticsSetUp {
 
-  fun setDefaultWallet(walletAddress: String)
+  fun setUserId(walletAddress: String)
+
+  fun setGamificationLevel(level: Int)
 }

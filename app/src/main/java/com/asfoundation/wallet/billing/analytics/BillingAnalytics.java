@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.analytics;
 
 import cm.aptoide.analytics.AnalyticsManager;
+import com.asfoundation.wallet.analytics.AnalyticsSetUp;
 import io.rakam.api.Rakam;
 import io.rakam.api.RakamClient;
 import java.util.HashMap;
@@ -198,21 +199,6 @@ public class BillingAnalytics implements EventSender {
     eventData.put(EVENT_CONTEXT, context);
 
     analytics.logEvent(eventData, RAKAM_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET);
-  }
-
-  public void setGamificationLevel(int level) {
-    RakamClient instance = Rakam.getInstance();
-
-    JSONObject superProperties = instance.getSuperProperties();
-    if (superProperties == null) {
-      superProperties = new JSONObject();
-    }
-    try {
-      superProperties.put("user_level", level);
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
-    instance.setSuperProperties(superProperties);
   }
 
   private Map<String, Object> createBaseRakamEventMap(String packageName, String skuDetails,

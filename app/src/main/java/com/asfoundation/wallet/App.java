@@ -1,7 +1,5 @@
 package com.asfoundation.wallet;
 
-import android.app.Activity;
-import android.app.Service;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.multidex.MultiDexApplication;
@@ -29,8 +27,10 @@ import io.intercom.android.sdk.Intercom;
 import io.rakam.api.Rakam;
 import io.rakam.api.RakamClient;
 import io.rakam.api.TrackingOptions;
+import io.reactivex.Single;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.schedulers.Schedulers;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.inject.Inject;
@@ -98,6 +98,19 @@ public class App extends MultiDexApplication
   }
 
   private void initializeRakam() {
+    Single.just(idsRepository.getAndroidId())
+        .flatMap(this::startRakam)
+        .flatMap(rakamClient -> idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
+            .flatMap(installerPackage -> Single.just(idsRepository.getGamificationLevel())
+                .flatMap(level -> Single.just(idsRepository.getActiveWalletAddress())
+                    .doOnSuccess(
+                        walletAddress -> setRakamSuperProperties(rakamClient, installerPackage,
+                            level, walletAddress)))))
+        .subscribeOn(Schedulers.newThread())
+        .subscribe();
+  }
+
+  private Single<RakamClient> startRakam(String deviceId) {
     RakamClient instance = Rakam.getInstance();
     TrackingOptions options = new TrackingOptions();
     options.disableAdid();
@@ -106,10 +119,18 @@ public class App extends MultiDexApplication
     } catch (MalformedURLException e) {
       Log.e(TAG, "error: ", e);
     }
+    instance.setTrackingOptions(options);
+    instance.setDeviceId(deviceId);
+    instance.trackSessionEvents(true);
+    instance.setLogLevel(Log.VERBOSE);
+    instance.setEventUploadPeriodMillis(1);
+    instance.enableLogging(true);
 
-    int userLevel = idsRepository.getGamificationLevel();
-    String installerPackage =
-        getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
+    return Single.just(instance);
+  }
+
+  private void setRakamSuperProperties(RakamClient instance, String installerPackage, int userLevel,
+      String userId) {
     if (TextUtils.isEmpty(installerPackage)) installerPackage = "other";
 
     JSONObject superProperties = instance.getSuperProperties();
@@ -120,21 +141,13 @@ public class App extends MultiDexApplication
       superProperties.put("aptoide_package", BuildConfig.APPLICATION_ID);
       superProperties.put("version_code", BuildConfig.VERSION_CODE);
       superProperties.put("entry_point", installerPackage);
-      if (userLevel != -1) superProperties.put("user_level", userLevel);
+      superProperties.put("user_level", userLevel);
     } catch (JSONException e) {
       e.printStackTrace();
     }
-
-    String userId = idsRepository.getActiveWalletAddress();
-    if (!userId.isEmpty()) instance.setUserId(userId);
-    instance.setDeviceId(idsRepository.getAndroidId());
-    instance.enableForegroundTracking(this);
-    instance.trackSessionEvents(true);
-    instance.setLogLevel(Log.VERBOSE);
-    instance.setEventUploadPeriodMillis(1);
-    instance.setTrackingOptions(options);
     instance.setSuperProperties(superProperties);
-    instance.enableLogging(true);
+    if (!userId.isEmpty()) instance.setUserId(userId);
+    instance.enableForegroundTracking(this);
   }
 
   @Override public AndroidInjector<Object> androidInjector() {

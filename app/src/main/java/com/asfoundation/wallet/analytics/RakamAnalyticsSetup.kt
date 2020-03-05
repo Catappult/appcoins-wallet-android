@@ -1,12 +1,27 @@
 package com.asfoundation.wallet.analytics
 
 import io.rakam.api.Rakam
+import org.json.JSONException
+import org.json.JSONObject
 
 class RakamAnalyticsSetup : AnalyticsSetUp {
-
   private val rakamClient = Rakam.getInstance()
 
-  override fun setDefaultWallet(walletAddress: String) {
+  override fun setUserId(walletAddress: String) {
     rakamClient.setUserId(walletAddress)
+  }
+
+  override fun setGamificationLevel(level: Int) {
+    var superProperties: JSONObject? = rakamClient.superProperties
+    if (superProperties == null) {
+      superProperties = JSONObject()
+    }
+    try {
+      superProperties.put("user_level", level)
+    } catch (e: JSONException) {
+      e.printStackTrace()
+    }
+
+    rakamClient.superProperties = superProperties
   }
 }

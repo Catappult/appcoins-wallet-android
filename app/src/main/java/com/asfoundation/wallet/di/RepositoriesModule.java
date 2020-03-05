@@ -53,7 +53,8 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(
       PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService, RakamAnalyticsSetup analyticsSetup) {
+      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService,
+      RakamAnalyticsSetup analyticsSetup) {
     return new WalletRepository(preferencesRepositoryType, accountKeystoreService,
         walletBalanceService, Schedulers.io(), analyticsSetup);
   }

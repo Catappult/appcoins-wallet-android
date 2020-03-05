@@ -839,7 +839,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides PromotionsRepository providePromotionsRepository(GamificationApi api,
-      SharedPreferences preferences, SharedPreferencesRepository sharedPreferencesRepository) {
+      SharedPreferences preferences) {
     return new BdsPromotionsRepository(api, new SharedPreferencesGamificationLocalData(preferences),
         getVersionCode());
   }
@@ -1310,8 +1310,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides IdsRepository provideIdsRepository(Context context,
-      SharedPreferencesRepository sharedPreferencesRepository) {
-    return new IdsRepository(context.getContentResolver(), sharedPreferencesRepository);
+      SharedPreferencesRepository sharedPreferencesRepository, InstallerService installerService) {
+    return new IdsRepository(context.getContentResolver(), sharedPreferencesRepository,
+        installerService);
   }
 
   @Singleton @Provides RakamAnalyticsSetup provideRakamAnalyticsSetup() {
