@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.repository.NotTrackTransactionService;
@@ -48,8 +49,10 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(
       PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
-    return new WalletRepository(preferencesRepositoryType, accountKeystoreService, web3jProvider);
+      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider,
+      RakamAnalyticsSetup analyticsSetup) {
+    return new WalletRepository(preferencesRepositoryType, accountKeystoreService, web3jProvider,
+        analyticsSetup);
   }
 
   @Singleton @Provides Web3jService providesWeb3jService(Web3jProvider web3jProvider) {

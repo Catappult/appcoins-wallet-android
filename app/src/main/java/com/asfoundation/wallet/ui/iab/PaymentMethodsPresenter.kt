@@ -84,6 +84,7 @@ class PaymentMethodsPresenter(
             view.setBonus(it.amount, it.currency)
           }
           gamificationLevel = it.level
+          analytics.setGamificationLevel(it.level)
         }
         .subscribe())
   }

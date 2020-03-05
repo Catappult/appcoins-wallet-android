@@ -2,6 +2,7 @@ package com.asfoundation.wallet;
 
 import android.app.Activity;
 import android.app.Service;
+import android.text.TextUtils;
 import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.multidex.MultiDexApplication;
@@ -112,6 +113,11 @@ public class App extends MultiDexApplication
       Log.e(TAG, "error: ", e);
     }
 
+    int userLevel = idsRepository.getGamificationLevel();
+    String installerPackage =
+        getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
+    if (TextUtils.isEmpty(installerPackage)) installerPackage = "other";
+
     JSONObject superProperties = instance.getSuperProperties();
     if (superProperties == null) {
       superProperties = new JSONObject();
@@ -119,10 +125,14 @@ public class App extends MultiDexApplication
     try {
       superProperties.put("aptoide_package", BuildConfig.APPLICATION_ID);
       superProperties.put("version_code", BuildConfig.VERSION_CODE);
+      superProperties.put("entry_point", installerPackage);
+      if (userLevel != -1) superProperties.put("user_level", userLevel);
     } catch (JSONException e) {
       e.printStackTrace();
     }
 
+    String userId = idsRepository.getActiveWalletAddress();
+    if (!userId.isEmpty()) instance.setUserId(userId);
     instance.setDeviceId(idsRepository.getAndroidId());
     instance.enableForegroundTracking(this);
     instance.trackSessionEvents(true);

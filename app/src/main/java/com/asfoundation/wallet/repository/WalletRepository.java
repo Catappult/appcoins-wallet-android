@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.analytics.AnalyticsSetUp;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import io.reactivex.Completable;
@@ -14,12 +15,15 @@ public class WalletRepository implements WalletRepositoryType {
   private final PreferencesRepositoryType preferencesRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
   private final Web3jProvider web3jProvider;
+  private final AnalyticsSetUp analyticsSetUp;
 
   public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
+      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider,
+      AnalyticsSetUp analyticsSetUp) {
     this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
     this.web3jProvider = web3jProvider;
+    this.analyticsSetUp = analyticsSetUp;
   }
 
   @Override public Single<Wallet[]> fetchWallets() {
@@ -59,8 +63,10 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override public Completable setDefaultWallet(Wallet wallet) {
-    return Completable.fromAction(
-        () -> preferencesRepositoryType.setCurrentWalletAddress(wallet.address));
+    return Completable.fromAction(() -> {
+      preferencesRepositoryType.setCurrentWalletAddress(wallet.address);
+      analyticsSetUp.setDefaultWallet(wallet.address);
+    });
   }
 
   @Override public Single<Wallet> getDefaultWallet() {

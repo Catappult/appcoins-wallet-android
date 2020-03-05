@@ -150,6 +150,8 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
+  override fun getGamificationLevel() = pref.getInt(GAMIFICATION_LEVEL, -1)
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
@@ -165,5 +167,6 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
     private const val ANDROID_ID = "android_id"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
   }
 }
