@@ -21,6 +21,7 @@ import com.asfoundation.wallet.repository.Web3jService;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
 import com.asfoundation.wallet.service.SmsValidationApi;
+import com.asfoundation.wallet.service.WalletBalanceService;
 import com.asfoundation.wallet.service.Web3jKeystoreAccountService;
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi;
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository;
@@ -33,6 +34,9 @@ import java.io.File;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
 import static com.asfoundation.wallet.C.ETH_SYMBOL;
@@ -49,10 +53,9 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(
       PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider,
-      RakamAnalyticsSetup analyticsSetup) {
-    return new WalletRepository(preferencesRepositoryType, accountKeystoreService, web3jProvider,
-        analyticsSetup);
+      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService, RakamAnalyticsSetup analyticsSetup) {
+    return new WalletRepository(preferencesRepositoryType, accountKeystoreService,
+        walletBalanceService, Schedulers.io(), analyticsSetup);
   }
 
   @Singleton @Provides Web3jService providesWeb3jService(Web3jProvider web3jProvider) {
@@ -92,9 +95,9 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
     return new NotTrackTransactionService();
   }
 
-  @Singleton @Provides TokenRepositoryType provideTokenRepository(Web3jProvider web3j,
-      DefaultTokenProvider defaultTokenProvider) {
-    return new TokenRepository(web3j, defaultTokenProvider);
+  @Singleton @Provides TokenRepositoryType provideTokenRepository(
+      DefaultTokenProvider defaultTokenProvider, WalletRepositoryType walletRepositoryType) {
+    return new TokenRepository(defaultTokenProvider, walletRepositoryType);
   }
 
   @Singleton @Provides SmsValidationRepositoryType provideSmsValidationRepository(
@@ -105,5 +108,15 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   @Singleton @Provides WalletStatusRepository provideWalletStatusRepository(
       WalletStatusApi walletStatusApi) {
     return new WalletStatusRepository(walletStatusApi);
+  }
+
+  @Singleton @Provides WalletBalanceService provideWalletBalanceService(OkHttpClient client,
+      Gson gson) {
+    return new Retrofit.Builder().baseUrl(WalletBalanceService.API_BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(WalletBalanceService.class);
   }
 }

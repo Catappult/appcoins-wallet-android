@@ -174,6 +174,7 @@ import com.asfoundation.wallet.service.AutoUpdateService;
 import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.service.CampaignService.CampaignApi;
+import com.asfoundation.wallet.service.GasService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi;
 import com.asfoundation.wallet.service.SmsValidationApi;
@@ -390,7 +391,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides FetchGasSettingsInteract provideFetchGasSettingsInteract(
       GasSettingsRepositoryType gasSettingsRepository) {
-    return new FetchGasSettingsInteract(gasSettingsRepository);
+    return new FetchGasSettingsInteract(gasSettingsRepository, Schedulers.io(),
+        AndroidSchedulers.mainThread());
   }
 
   @Provides FindDefaultWalletInteract provideFindDefaultWalletInteract(
@@ -553,8 +555,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      Web3jProvider web3jProvider) {
-    return new GasSettingsRepository(web3jProvider);
+      GasService gasService) {
+    return new GasSettingsRepository(gasService);
   }
 
   @Singleton @Provides DataMapper provideDataMapper() {
@@ -1170,6 +1172,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SmsValidationApi.class);
+  }
+
+  @Singleton @Provides GasService provideGasService(OkHttpClient client, Gson gson) {
+    return new Retrofit.Builder().baseUrl(GasService.API_BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(GasService.class);
   }
 
   @Singleton @Provides WalletStatusApi provideWalletStatusApi(OkHttpClient client, Gson gson) {
