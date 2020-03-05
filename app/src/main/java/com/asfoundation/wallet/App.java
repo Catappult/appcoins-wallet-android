@@ -1,9 +1,6 @@
 package com.asfoundation.wallet;
 
-import android.app.Activity;
-import android.app.Service;
 import android.util.Log;
-import androidx.fragment.app.Fragment;
 import androidx.multidex.MultiDexApplication;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.ProxyService;
@@ -23,9 +20,7 @@ import com.crashlytics.android.core.CrashlyticsCore;
 import com.flurry.android.FlurryAgent;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
-import dagger.android.HasServiceInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger.android.HasAndroidInjector;
 import io.fabric.sdk.android.Fabric;
 import io.intercom.android.sdk.Intercom;
 import io.rakam.api.Rakam;
@@ -41,13 +36,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class App extends MultiDexApplication
-    implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,
-    BillingDependenciesProvider {
+    implements HasAndroidInjector, BillingDependenciesProvider {
 
   private static final String TAG = App.class.getName();
-  @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
-  @Inject DispatchingAndroidInjector<Service> dispatchingServiceInjector;
-  @Inject DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
+  @Inject DispatchingAndroidInjector<Object> androidInjector;
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
@@ -133,16 +125,8 @@ public class App extends MultiDexApplication
     instance.enableLogging(true);
   }
 
-  @Override public AndroidInjector<Activity> activityInjector() {
-    return dispatchingActivityInjector;
-  }
-
-  @Override public AndroidInjector<Service> serviceInjector() {
-    return dispatchingServiceInjector;
-  }
-
-  @Override public AndroidInjector<Fragment> supportFragmentInjector() {
-    return dispatchingFragmentInjector;
+  @Override public AndroidInjector<Object> androidInjector() {
+    return androidInjector;
   }
 
   @Override public int getSupportedVersion() {

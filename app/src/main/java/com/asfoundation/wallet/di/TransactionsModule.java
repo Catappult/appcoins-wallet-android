@@ -17,7 +17,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
-import com.asfoundation.wallet.repository.Web3jProvider;
+import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
@@ -120,9 +120,9 @@ import javax.inject.Singleton;
     return new ExternalBrowserRouter();
   }
 
-  @Singleton @Provides TokenRepository provideTokenRepository(Web3jProvider web3j,
-      DefaultTokenProvider defaultTokenProvider) {
-    return new TokenRepository(web3j, defaultTokenProvider);
+  @Singleton @Provides TokenRepository provideTokenRepository(
+      DefaultTokenProvider defaultTokenProvider, WalletRepositoryType walletRepositoryType) {
+    return new TokenRepository(defaultTokenProvider, walletRepositoryType);
   }
 
   @Provides AirdropRouter provideAirdropRouter() {
