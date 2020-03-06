@@ -12,10 +12,7 @@ class RakamAnalyticsSetup : AnalyticsSetUp {
   }
 
   override fun setGamificationLevel(level: Int) {
-    var superProperties: JSONObject? = rakamClient.superProperties
-    if (superProperties == null) {
-      superProperties = JSONObject()
-    }
+    val superProperties = rakamClient.superProperties ?: JSONObject()
     try {
       superProperties.put("user_level", level)
     } catch (e: JSONException) {

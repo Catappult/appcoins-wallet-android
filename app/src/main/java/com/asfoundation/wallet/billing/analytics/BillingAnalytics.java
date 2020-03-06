@@ -1,13 +1,8 @@
 package com.asfoundation.wallet.billing.analytics;
 
 import cm.aptoide.analytics.AnalyticsManager;
-import com.asfoundation.wallet.analytics.AnalyticsSetUp;
-import io.rakam.api.Rakam;
-import io.rakam.api.RakamClient;
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class BillingAnalytics implements EventSender {
   public static final String PURCHASE_DETAILS = "PURCHASE_DETAILS";
