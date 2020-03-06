@@ -24,14 +24,15 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
 
   private var notificationManager: NotificationManager =
       context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-  private val channelId = "support_notification_channel_id"
-  private val channelName: CharSequence = "Support notification channel"
 
   companion object {
     const val NOTIFICATION_SERVICE_ID = 77794
     const val NOTIFICATION_PERIOD: Long = 15
     const val WORKER_TAG = "SupportNotificationWorkerTag"
     const val UNIQUE_WORKER_NAME = "SupportNotificationWorker"
+    const val channelId = "support_notification_channel_id"
+    const val channelName = "Support notification channel"
+    const val UNREAD_CONVERSATIONS = "UNREAD_CONVERSATIONS"
   }
 
   @Module
@@ -44,6 +45,7 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
 
   override fun createWork(): Single<Result> {
     return if (supportInteractor.shouldShowNotification()) {
+      supportInteractor.updateUnreadConversations()
       Completable.fromAction {
         notificationManager.notify(NOTIFICATION_SERVICE_ID,
             createNotification().build())
@@ -55,10 +57,8 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
   }
 
   private fun createNotification(): NotificationCompat.Builder {
-
     val okPendingIntent = createNotificationClickIntent()
     val dismissPendingIntent = createNotificationDismissIntent()
-
     val builder: NotificationCompat.Builder
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       val importance = NotificationManager.IMPORTANCE_HIGH

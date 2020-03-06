@@ -130,6 +130,10 @@ public class TransactionsViewModel extends BaseViewModel {
     handleTopUpClicks();
   }
 
+  public void resetUnreadConversations() {
+    supportInteractor.resetUnreadConversations();
+  }
+
   public void handleUnreadConversationCount() {
     disposables.add(supportInteractor.getUnreadConversationCountListener()
         .subscribeOn(AndroidSchedulers.mainThread())

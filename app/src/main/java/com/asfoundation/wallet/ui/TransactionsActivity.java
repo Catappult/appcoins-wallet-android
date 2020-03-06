@@ -187,6 +187,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       boolean supportNotificationClick =
           getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
       if (supportNotificationClick) {
+        overridePendingTransition(0, 0);
+        viewModel.resetUnreadConversations();
         viewModel.showSupportScreen();
       }
     }

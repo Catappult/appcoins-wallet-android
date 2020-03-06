@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.support
 
+import android.content.SharedPreferences
+import com.asfoundation.wallet.support.SupportNotificationWorker.Companion.UNREAD_CONVERSATIONS
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.reactivex.Observable
 
-class SupportInteractor {
+class SupportInteractor(private val sharedPreferences: SharedPreferences) {
 
   private var currentUser = ""
 
@@ -44,14 +46,26 @@ class SupportInteractor {
     return Observable.just(Intercom.client().unreadConversationCount)
   }
 
-  fun shouldShowNotification(): Boolean {
-    /*return (Intercom.client()
-        .unreadConversationCount != 0)*/
-    return true
+  private fun getUnreadConversations(): Int = Intercom.client().unreadConversationCount
+
+  fun shouldShowNotification(): Boolean = getUnreadConversations() > checkSavedUnreadConversations()
+
+  private fun checkSavedUnreadConversations(): Int =
+      sharedPreferences.getInt(UNREAD_CONVERSATIONS, 0)
+
+  fun updateUnreadConversations() {
+    val editor = sharedPreferences.edit()
+    editor.putInt(UNREAD_CONVERSATIONS, getUnreadConversations())
+    editor.apply()
+  }
+
+  fun resetUnreadConversations() {
+    val editor = sharedPreferences.edit()
+    editor.putInt(UNREAD_CONVERSATIONS, 0)
+    editor.apply()
   }
 
   companion object {
     const val USER_LEVEL_ATTRIBUTE = "user_level"
   }
-
 }

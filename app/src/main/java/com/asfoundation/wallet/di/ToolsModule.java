@@ -1304,8 +1304,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new UpdateNavigator();
   }
 
-  @Singleton @Provides SupportInteractor provideSupportInteractor() {
-    return new SupportInteractor();
+  @Singleton @Provides SupportInteractor provideSupportInteractor(SharedPreferences preferences) {
+    return new SupportInteractor(preferences);
   }
 
   @Singleton @Provides IdsRepository provideIdsRepository(Context context,
