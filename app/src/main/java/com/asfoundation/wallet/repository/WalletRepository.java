@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.analytics.AnalyticsSetUp;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.WalletBalanceService;
@@ -14,14 +15,16 @@ public class WalletRepository implements WalletRepositoryType {
   private final AccountKeystoreService accountKeystoreService;
   private final WalletBalanceService walletBalanceService;
   private final Scheduler networkScheduler;
+  private final AnalyticsSetUp analyticsSetUp;
 
   public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
       AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService,
-      Scheduler networkScheduler) {
+      Scheduler networkScheduler, AnalyticsSetUp analyticsSetUp) {
     this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
     this.walletBalanceService = walletBalanceService;
     this.networkScheduler = networkScheduler;
+    this.analyticsSetUp = analyticsSetUp;
   }
 
   @Override public Single<Wallet[]> fetchWallets() {
@@ -61,8 +64,10 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override public Completable setDefaultWallet(Wallet wallet) {
-    return Completable.fromAction(
-        () -> preferencesRepositoryType.setCurrentWalletAddress(wallet.address));
+    return Completable.fromAction(() -> {
+      preferencesRepositoryType.setCurrentWalletAddress(wallet.address);
+      analyticsSetUp.setUserId(wallet.address);
+    });
   }
 
   @Override public Single<Wallet> getDefaultWallet() {

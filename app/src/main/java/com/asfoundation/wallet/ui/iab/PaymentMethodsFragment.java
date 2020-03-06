@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
+import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -70,6 +71,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
+  @Inject RakamAnalyticsSetup analyticsSetup;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject Billing billing;
   @Inject GamificationInteractor gamification;
@@ -169,7 +171,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
+        analytics, analyticsSetup, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
         walletBlockedInteract, transactionValue);
   }
 
