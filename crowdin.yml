@@ -33,5 +33,35 @@ files:
         el: el
         sr-CS: sr
   - source: /app/src/main/res/external_strings/values/external_strings.xml
-    translation: >-
-      /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
+    translation: /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
+    languages_mapping:
+      android_code:
+        ar: ar
+        bn: bn
+        bg: bg
+        es-ES: es
+        hi: hi
+        id: in
+        ms: ms
+        my: my
+        pt-PT: pt
+        de: de
+        fil: fil
+        fr: fr
+        it: it
+        ja: ja
+        ko: ko
+        nl: nl
+        ru: ru
+        th: th
+        uk: uk
+        vi: vi
+        tr: tr
+        ro: ro
+        mr: mr
+        pa-IN: pa
+        pl: pl
+        fa: fa
+        hu: hu
+        el: el
+        sr-CS: sr
