@@ -445,7 +445,7 @@
   <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
   <string name="purchase_poa_view_title">No Funds, No Worries!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
-  <string name="purchase_current_balance_body">Current balance:</string>
+  <string name="purchase_current_balance_body">Aktuális egyenleg:</string>
   <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
@@ -523,9 +523,9 @@
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
   <string name="backup_button">BACKUP</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">Biztonsági mentés készítése</string>
   <string name="backup_password_title">Encrypt your wallet (optional)</string>
-  <string name="backup_password">Password</string>
+  <string name="backup_password">Jelszó</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
@@ -533,7 +533,7 @@
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
-  <string name="import_wallet_title">Import Wallet</string>
+  <string name="import_wallet_title">Tárca importálása</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
   <string name="import_wallet_file_button">IMPORT FROM FILE</string>
@@ -543,17 +543,17 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
-  <string name="wallets_title">Wallets</string>
+  <string name="wallets_title">Tárcák</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
   <string name="wallets_active_wallet_title">Active Wallet</string>
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="one">Wallet</item>
-    <item quantity="other">Wallets</item>
+    <item quantity="other">Tárcák</item>
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
   <string name="wallets_imported_body">Wallet successfuly imported</string>
-  <string name="wallets_2nd_view_balance_title">Balance:</string>
+  <string name="wallets_2nd_view_balance_title">Egyenleg:</string>
   <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
   <string name="wallets_2nd_view_import_button">IMPORT WALLET</string>
   <string name="wallets_2nd_view_create_button">CREATE NEW</string>
@@ -574,14 +574,14 @@
   <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
   <string name="remove_wallet_removed_body">Wallet removed!</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Transfer</string>
+  <string name="tranfer_bottom_navigation">Tranzakció</string>
   <string name="transfer_title">Transfer Funds</string>
-  <string name="transfer_send_tab_title">Send</string>
-  <string name="transfer_receive_tab_title">Receive</string>
-  <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="transfer_send_tab_title">Küldés</string>
+  <string name="transfer_receive_tab_title">Fogadás</string>
+  <string name="transfer_send_body">Olvasd be vagy írd be barátod tárcacímét.</string>
   <string name="transfer_send_recipient_title">Wallet Address</string>
   <string name="transfer_send_token_title">Token:</string>
-  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_amount_title">Összeg</string>
   <string name="transfer_send_current_balance_title">Current Balance:</string>
   <string name="transfer_send_button">SEND</string>
   <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
