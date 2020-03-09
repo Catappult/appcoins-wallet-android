@@ -33,6 +33,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     private const val BILLING_SKU = "BILLING_SKU"
     private const val DEVELOPER_PAYLOAD = "DEVELOPER_PAYLOAD"
     private const val PURCHASE_TOKEN = "PURCHASE_TOKEN"
+    private const val RESULT_VALUE = "RESULT_VALUE"
     private const val SUPPORTED_API_VERSION = 3
   }
 
@@ -103,18 +104,18 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
                               purchaseToken: String?): Parcelable {
     if (apiVersion != SUPPORTED_API_VERSION) {
       val response = Bundle()
-      response.putInt("RESULT_VALUE",
+      response.putInt(RESULT_VALUE,
           AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       return response
     }
 
     val result = Bundle()
     if (purchaseToken.isNullOrBlank()) {
-      result.putInt("RESULT_VALUE",
+      result.putInt(RESULT_VALUE,
           AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
       return result
     }
-    result.putInt("RESULT_VALUE", try {
+    result.putInt(RESULT_VALUE, try {
       billing.consumePurchases(purchaseToken, packageName)
           .map { AppcoinsBillingBinder.RESULT_OK }
           .blockingGet()
@@ -249,18 +250,18 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
 
   private fun createReturnBundle(bundle: Bundle): Bundle {
     val result = Bundle()
-    result.putBundle("RESULT_VALUE", bundle)
+    result.putBundle(RESULT_VALUE, bundle)
     return result
   }
 
   private fun isBillingSupported(apiVersion: Int, packageName: String, type: String?): Parcelable {
     val response = Bundle()
     if (apiVersion != SUPPORTED_API_VERSION) {
-      response.putInt("RESULT_VALUE", AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
+      response.putInt(RESULT_VALUE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       return response
     }
     if (type.isNullOrBlank()) {
-      response.putInt("RESULT_VALUE", AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
+      response.putInt(RESULT_VALUE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       return response
     }
     val isSupported = when (type) {
@@ -270,7 +271,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }.subscribeOn(networkScheduler)
         .map { supported -> billingMessagesMapper.mapSupported(supported) }
         .blockingGet()
-    response.putInt("RESULT_VALUE", isSupported)
+    response.putInt(RESULT_VALUE, isSupported)
     return response
   }
 }
