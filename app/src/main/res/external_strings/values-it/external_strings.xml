@@ -41,15 +41,15 @@
   <string name="install_button">Install</string>
   <!-- Error messages -->
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">Si è verificato un errore.</string>
+  <string name="purchase_card_error_general_1">Sì è verificato un problema con la tua carta. Riprova o contattaci.</string>
+  <string name="purchase_card_error_general_2">La transazione è stata rifiutata dalla tua banca. Prova con un\'altra carta o contattaci.</string>
+  <string name="purchase_card_error_no_funds">Sembra che tu non abbia abbastanza fondi o che ci sia un limite alla tua carta. Provane un\'altra.</string>
+  <string name="purchase_card_error_expired">Sembra che la tua carta sia scaduta. Provane un\'altra.</string>
+  <string name="purchase_card_error_invalid_details">Hai controllato che i dati della tua carta siano corretti? Controlla e ritenta.</string>
+  <string name="purchase_card_error_not_supported">Questo tipo di carta non è supportato. Provane un\'altra.</string>
+  <string name="purchase_card_error_security">Hai controllato che le informazioni di sicurezza siano corrette? Ritenta.</string>
+  <string name="purchase_card_error_wrong_CVV">Il tuo codice CVV/CVC sembra errato. Ritenta.</string>
+  <string name="purchase_card_error_CVV">CVV/CVC errato</string>
+  <string name="error_contac_us_body">Se il problema persiste, contattaci.</string>
 </resources>
