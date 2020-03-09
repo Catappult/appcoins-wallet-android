@@ -40,16 +40,17 @@
   <string name="button_ok">OK</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">Oops, ada sesuatu yang tidak kena.</string>
+  <string name="purchase_card_error_general_1">Ada masalah dengan kad anda. Sila cuba lagi atau hubungi kami.</string>
+  <string name="purchase_card_error_general_2">Transaksi telah ditolak oleh bank anda. Sila cuba kad yang lain atau hubungi kami.</string>
+  <string name="purchase_card_error_no_funds">Nampaknya anda tidak mempunyai dana yang cukup atau ada had pada kad anda. Sila cuba kad yang lain.</string>
+  <string name="purchase_card_error_expired">Nampaknya kad anda telah luput. Sila cuba kad yang lain.</string>
+  <string name="purchase_card_error_invalid_details">Anda pasti nombor kad anda betul? Sila semak dan cuba lagi.</string>
+  <string name="purchase_card_error_not_supported">Jenis kad anda masih belum disokong. Cuba dengan kad lain.</string>
+  <string name="purchase_card_error_security">Anda pasti butiran keselamatan ini betul? Sila cuba lagi.</string>
+  <string name="purchase_card_error_wrong_CVV">Kod CVV/CVC anda mungkin tidak betul. Sila cuba lagi.</string>
+  <string name="purchase_card_error_CVV">Salah CVV/CVC</string>
+  <string name="error_contac_us_body">Jika masalah berlanjutan, sila hubungi kami.</string>
 </resources>
