@@ -37,4 +37,20 @@
   <string name="cancel_button">ยกเลิก</string>
   <string name="buy_button">ซื้อ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ติดตั้งกระเป๋าสตางค์</string>
+  <string name="button_ok">ตกลง</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
+  <string name="purchase_card_error_general_1">บัตรของคุณมีอัญหา โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
+  <string name="purchase_card_error_general_2">การทำธุรกรรมถูกปฏิเสธโดยธนาคารของคุณ โปรดลองบัตรใบอื่นหรือติดต่อเรา</string>
+  <string name="purchase_card_error_no_funds">ดูเหมือนว่าคุณไม่มีเงินเพียงพอหรือบัตรถูกจำกัด โปรดลองบัตรใบอื่น</string>
+  <string name="purchase_card_error_expired">ดูเหมือนว่าบัตรของคุณหมดอายุ โปรดลองบัตรใบอื่น</string>
+  <string name="purchase_card_error_invalid_details">คุณมั่นใจว่าหมายเลขบัตรถูกต้องใช่ไหม? โปรดตรวจสอบและลองใหม่อีกครั้ง</string>
+  <string name="purchase_card_error_not_supported">ประเภทบัตรของคุณยังไม่ได้รับการรับรอง โปรดลองบัตรใบอื่น</string>
+  <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
+  <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
+  <string name="purchase_card_error_CVV">CVV/CVC ไม่ถูกต้อง</string>
+  <string name="error_contac_us_body">โปรดติดต่อเราหากยังคงมีปัญหา</string>
 </resources>

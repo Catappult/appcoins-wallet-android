@@ -37,4 +37,20 @@
   <string name="cancel_button">OTKAŽI</string>
   <string name="buy_button">KUPI</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALIRAJ NOVČANIK</string>
+  <string name="button_ok">U redu</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Ups, došlo je do greške.</string>
+  <string name="purchase_card_error_general_1">Došlo je do problema sa vašom karticom. Pokušajte ponovo ili nam se obratite.</string>
+  <string name="purchase_card_error_general_2">Vaša banka je odbila transakciju. Pokušajte sa drugom karticom ili nam se obratite.</string>
+  <string name="purchase_card_error_no_funds">Izgleda da nemate dovoljno sredstava na kartici ili da postoji limit. Pokušajte sa drugom karticom.</string>
+  <string name="purchase_card_error_expired">Izgleda da je vaša kartica istekla. Pokušajte sa drugom karticom.</string>
+  <string name="purchase_card_error_invalid_details">Da li ste sigurni da je broj kartice tačan? Proverite pa pokušajte ponovo.</string>
+  <string name="purchase_card_error_not_supported">Tip vaše kartice još nije podržan. Pokušajte sa drugom karticom.</string>
+  <string name="purchase_card_error_security">Da li ste sigurni da su bezbednosne informacije tačne? Pokušajte ponovo.</string>
+  <string name="purchase_card_error_wrong_CVV">Izgleda da je CVV/CVC kod pogrešan. Pokušajte ponovo.</string>
+  <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
+  <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
 </resources>

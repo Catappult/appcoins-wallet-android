@@ -37,4 +37,20 @@
   <string name="cancel_button">ANULEAZĂ</string>
   <string name="buy_button">CUMPĂRĂ</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALEAZĂ WALLET</string>
+  <string name="button_ok">OK</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Ups, ceva nu a mers cum trebuie.</string>
+  <string name="purchase_card_error_general_1">A apărut o problemă cu cardul tău. Încearcă din nou sau contactează-ne.</string>
+  <string name="purchase_card_error_general_2">Tranzacția a fost refuzată de banca ta. Încearcă cu un alt card sau contactează-ne.</string>
+  <string name="purchase_card_error_no_funds">Se pare că nu ai fonduri suficiente sau există o limită pentru cardul tău. Încearcă cu un alt card.</string>
+  <string name="purchase_card_error_expired">Se pare că ai folosit un card care a expirat. Încearcă cu un alt card.</string>
+  <string name="purchase_card_error_invalid_details">Ești sigur că numărul cardului este corect? Verifică și încearcă din nou.</string>
+  <string name="purchase_card_error_not_supported">Tipul tău de card nu este încă acceptat. Încearcă cu un alt card.</string>
+  <string name="purchase_card_error_security">Ești sigur că informațiile de securitate sunt corecte? Încearcă din nou.</string>
+  <string name="purchase_card_error_wrong_CVV">Codul tău CVV/CVC pare a fi greșit. Încearcă din nou.</string>
+  <string name="purchase_card_error_CVV">CVV/CVC greșit</string>
+  <string name="error_contac_us_body">Dacă problema continuă, te rugăm să ne contactezi.</string>
 </resources>

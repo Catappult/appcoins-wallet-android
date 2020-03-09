@@ -37,4 +37,20 @@
   <string name="cancel_button">لغو</string>
   <string name="buy_button">خرید</string>
   <string name="iab_wallet_not_installed_popup_close_install">نصب کیف پول</string>
+  <string name="button_ok">اوکی</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">مشکلی پیش آمده است.</string>
+  <string name="purchase_card_error_general_1">مشکلی در ارتباط با کارت شما وجود دارد. لطفا دوباره امتحان کنید یا با ما تماس بگیرید.</string>
+  <string name="purchase_card_error_general_2">تراکنش از طرف بانک شما رد شده است. لطفا با کارت دیگری دوباره امتحان کنید یا با ما تماس بگیرید.</string>
+  <string name="purchase_card_error_no_funds">به نظر می‌رسد موجودی کارت شما کافی نیست و یا محدودیتی در کارت شما وجود دارد. لطفا با کارت دیگری امتحان کنید.</string>
+  <string name="purchase_card_error_expired">به نظر می‌رسد کارت شما منقضی شده است. لطفا کارت دیگری را امتحان کنید.</string>
+  <string name="purchase_card_error_invalid_details">آیا مطمئن هستید که اطلاعات کارت شما صحیح است؟ لطفا بررسی کرده و مجدد امتحان کنید.</string>
+  <string name="purchase_card_error_not_supported">نوع کارت شما پشتیبانی نمی‌شود. با کارت دیگری امتحان کنید.</string>
+  <string name="purchase_card_error_security">آیا مطمئن هستید که اطلاعات امنیتی صحیح است؟ لطفا مجدد امتحان کنید.</string>
+  <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
+  <string name="purchase_card_error_CVV">CVV/CVC اشتباه</string>
+  <string name="error_contac_us_body">اگر مشکل ادامه داشت لطفا با ما تماس بگیرید.</string>
 </resources>

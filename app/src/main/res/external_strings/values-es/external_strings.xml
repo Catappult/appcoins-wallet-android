@@ -37,4 +37,20 @@
   <string name="cancel_button">CANCELAR</string>
   <string name="buy_button">COMPRAR</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALAR WALLET</string>
+  <string name="button_ok">OK</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Ups, algo salió mal.</string>
+  <string name="purchase_card_error_general_1">Hubo un problema con tu tarjeta. Por favor inténtalo de nuevo o ponte en contacto con nosotros.</string>
+  <string name="purchase_card_error_general_2">La transacción ha sido rechazada por tu banco. Prueba con otra tarjeta o ponte en contacto con nosotros.</string>
+  <string name="purchase_card_error_no_funds">Parece que no tienes suficientes fondos o tu tarjeta tiene un límite. Prueba con otra tarjeta.</string>
+  <string name="purchase_card_error_expired">Tu tarjeta ha caducado. Prueba con otra.</string>
+  <string name="purchase_card_error_invalid_details">¿Estás seguro de que el número de la tarjeta es correcto? Compruébalo y prueba de nuevo.</string>
+  <string name="purchase_card_error_not_supported">Todavía no aceptamos este tipo de tarjeta. Prueba con otra.</string>
+  <string name="purchase_card_error_security">¿Estás seguro de que la información de seguridad es correcta? Prueba de nuevo.</string>
+  <string name="purchase_card_error_wrong_CVV">El CVV/CVC no es correcto. Prueba de nuevo.</string>
+  <string name="purchase_card_error_CVV">CVV/CVC no válido</string>
+  <string name="error_contac_us_body">Si el problema continúa, contáctanos:</string>
 </resources>

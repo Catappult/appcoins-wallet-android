@@ -37,4 +37,20 @@
   <string name="cancel_button">BATAL</string>
   <string name="buy_button">BELI</string>
   <string name="iab_wallet_not_installed_popup_close_install">PASANG DOMPET</string>
+  <string name="button_ok">OK</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Oops, ada sesuatu yang tidak kena.</string>
+  <string name="purchase_card_error_general_1">Ada masalah dengan kad anda. Sila cuba lagi atau hubungi kami.</string>
+  <string name="purchase_card_error_general_2">Transaksi telah ditolak oleh bank anda. Sila cuba kad yang lain atau hubungi kami.</string>
+  <string name="purchase_card_error_no_funds">Nampaknya anda tidak mempunyai dana yang cukup atau ada had pada kad anda. Sila cuba kad yang lain.</string>
+  <string name="purchase_card_error_expired">Nampaknya kad anda telah luput. Sila cuba kad yang lain.</string>
+  <string name="purchase_card_error_invalid_details">Anda pasti nombor kad anda betul? Sila semak dan cuba lagi.</string>
+  <string name="purchase_card_error_not_supported">Jenis kad anda masih belum disokong. Cuba dengan kad lain.</string>
+  <string name="purchase_card_error_security">Anda pasti butiran keselamatan ini betul? Sila cuba lagi.</string>
+  <string name="purchase_card_error_wrong_CVV">Kod CVV/CVC anda mungkin tidak betul. Sila cuba lagi.</string>
+  <string name="purchase_card_error_CVV">Salah CVV/CVC</string>
+  <string name="error_contac_us_body">Jika masalah berlanjutan, sila hubungi kami.</string>
 </resources>

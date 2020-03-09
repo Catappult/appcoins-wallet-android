@@ -37,4 +37,20 @@
   <string name="cancel_button">ОТМЕНИТЬ</string>
   <string name="buy_button">КУПИТЬ</string>
   <string name="iab_wallet_not_installed_popup_close_install">УСТАНОВИТЬ КОШЕЛЁК</string>
+  <string name="button_ok">ОК</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Ой, что-то пошло не так.</string>
+  <string name="purchase_card_error_general_1">С вашей картой возникла проблема. Пожалуйста, попробуйте снова, или свяжитесь с нами.</string>
+  <string name="purchase_card_error_general_2">Ваш банк отказал в данной транзакции. Пожалуйста, попробуйте другую карту, или свяжитесь с нами.</string>
+  <string name="purchase_card_error_no_funds">Кажется, у вас недостаточно средств, или для карты установлен лимит. Пожалуйста, попробуйте другую.</string>
+  <string name="purchase_card_error_expired">Кажется ваша карта истекла. Пожалуйста, попробуйте другую.</string>
+  <string name="purchase_card_error_invalid_details">Вы уверены, что правильно ввели номер карты? Пожалуйста, проверьте и попробуйте снова.</string>
+  <string name="purchase_card_error_not_supported">Тип вашей карты пока не поддерживается. Попробуйте другую карту.</string>
+  <string name="purchase_card_error_security">Вы уверены, что правильно ввели атрибуты безопасности? Пожалуйста, попробуйте снова.</string>
+  <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
+  <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
+  <string name="error_contac_us_body">Если проблема не исчезнет – пожалуйста, свяжитесь с нами.</string>
 </resources>

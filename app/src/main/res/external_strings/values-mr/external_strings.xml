@@ -37,4 +37,20 @@
   <string name="cancel_button">रद्द करा</string>
   <string name="buy_button">खरेदी करा</string>
   <string name="iab_wallet_not_installed_popup_close_install">वॉलेट इन्स्टॉल करा</string>
+  <string name="button_ok">ठीक आहे</string>
+  <string name="install_button">Install</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">अरेरे, काहीतरी त्रुटी आली.</string>
+  <string name="purchase_card_error_general_1">आपल्या कार्डात समस्या आली. कृपया पुन्हा प्रयत्न करा किंवा आमच्याशी संपर्क साधा.</string>
+  <string name="purchase_card_error_general_2">आपल्या बँकेने व्यवहार नाकारला आहे. कृपया वेगळ्या कार्डासह प्रयत्न करा किंवा आमच्याशी संपर्क साधा.</string>
+  <string name="purchase_card_error_no_funds">आपल्याकडे पुरेसे पैसे नाहीत किंवा आपल्या कार्डावर सीमा आहे असे दिसतेय. कृपया वेगळ्या कार्डानिशी प्रयत्न करा.</string>
+  <string name="purchase_card_error_expired">आपले कार्ड कालबाह्य झाले आहे असे दिसतेय. कृपया वेगळे वापरुन प्रयत्न करा.</string>
+  <string name="purchase_card_error_invalid_details">आपला कार्ड नंबर बरोबर आहे ह्याची खात्री आहे? कृपया तपासुन पुन्हा प्रयत्न करा.</string>
+  <string name="purchase_card_error_not_supported">आपल्या कार्डाचा प्रकार अजुनतरी समर्थित नाही. वेगळे वापरुन प्रयत्न करा.</string>
+  <string name="purchase_card_error_security">सुरक्षा माहिती बरोबर आहे ह्याची खात्री आहे? कृपया पुन्हा प्रयत्न करा.</string>
+  <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
+  <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
+  <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
 </resources>
