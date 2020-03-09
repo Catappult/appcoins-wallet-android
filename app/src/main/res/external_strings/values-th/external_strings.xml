@@ -37,19 +37,20 @@
   <string name="cancel_button">ยกเลิก</string>
   <string name="buy_button">ซื้อ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ติดตั้งกระเป๋าสตางค์</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">ตกลง</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
+  <string name="purchase_card_error_general_1">บัตรของคุณมีอัญหา โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
+  <string name="purchase_card_error_general_2">การทำธุรกรรมถูกปฏิเสธโดยธนาคารของคุณ โปรดลองบัตรใบอื่นหรือติดต่อเรา</string>
+  <string name="purchase_card_error_no_funds">ดูเหมือนว่าคุณไม่มีเงินเพียงพอหรือบัตรถูกจำกัด โปรดลองบัตรใบอื่น</string>
+  <string name="purchase_card_error_expired">ดูเหมือนว่าบัตรของคุณหมดอายุ โปรดลองบัตรใบอื่น</string>
+  <string name="purchase_card_error_invalid_details">คุณมั่นใจว่าหมายเลขบัตรถูกต้องใช่ไหม? โปรดตรวจสอบและลองใหม่อีกครั้ง</string>
+  <string name="purchase_card_error_not_supported">ประเภทบัตรของคุณยังไม่ได้รับการรับรอง โปรดลองบัตรใบอื่น</string>
+  <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
+  <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
+  <string name="purchase_card_error_CVV">CVV/CVC ไม่ถูกต้อง</string>
+  <string name="error_contac_us_body">โปรดติดต่อเราหากยังคงมีปัญหา</string>
 </resources>
