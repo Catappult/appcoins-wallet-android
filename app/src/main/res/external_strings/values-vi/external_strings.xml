@@ -40,16 +40,17 @@
   <string name="button_ok">OK</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">Rất tiếc, đã xảy ra lỗi.</string>
+  <string name="purchase_card_error_general_1">Đã xảy ra sự cố với thẻ của bạn. Vui lòng thử lại hoặc liên hệ ngay với chúng tôi.</string>
+  <string name="purchase_card_error_general_2">Giao dịch đã bị ngân hàng của bạn từ chối. Vui lòng thử với một thẻ khác hoặc liên hệ ngay với chúng tôi.</string>
+  <string name="purchase_card_error_no_funds">Có vẻ như bạn không còn đủ tiền hoặc đã đạt đến hạn mức thẻ của mình. Vui lòng thử lại bằng một thẻ khác.</string>
+  <string name="purchase_card_error_expired">Có vẻ như thẻ của bạn đã hết hạn. Hãy thử lại bằng một thẻ khác.</string>
+  <string name="purchase_card_error_invalid_details">Bạn có chắc rằng số thẻ của mình đúng không? Vui lòng kiểm tra và thử lại lần nữa.</string>
+  <string name="purchase_card_error_not_supported">Loại thẻ của bạn chưa được hỗ trợ. Hãy thử lại bằng một thẻ khác.</string>
+  <string name="purchase_card_error_security">Bạn có chắc chắn thông tin bảo mật đúng không? Vui lòng thử lại lần nữa.</string>
+  <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
+  <string name="purchase_card_error_CVV">CVV/CVC sai</string>
+  <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
 </resources>
