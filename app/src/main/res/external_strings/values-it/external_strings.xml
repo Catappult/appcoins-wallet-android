@@ -40,6 +40,7 @@
   <string name="button_ok">OK</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
   <string name="purchase_card_error_title">Si è verificato un errore.</string>
   <string name="purchase_card_error_general_1">Sì è verificato un problema con la tua carta. Riprova o contattaci.</string>
