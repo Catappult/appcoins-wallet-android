@@ -37,19 +37,20 @@
   <string name="cancel_button">रद्द करें</string>
   <string name="buy_button">खरीदें</string>
   <string name="iab_wallet_not_installed_popup_close_install">वॉलेट स्थापित करें</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">ठीक</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">अरे, कुछ गलत हो गया है।</string>
+  <string name="purchase_card_error_general_1">आपके कार्ड के साथ कोई समस्या थी। कृपया पुनः प्रयास करें या हमसे संपर्क करें।</string>
+  <string name="purchase_card_error_general_2">बैंक द्वारा आपका लेनदेन अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें या हमसे संपर्क करें।</string>
+  <string name="purchase_card_error_no_funds">शायद आपके पास पर्याप्त फंड नहीं है या आपके कार्ड पर कोई सीमा तय है। कृपया किसी दूसरे के साथ प्रयास करें।</string>
+  <string name="purchase_card_error_expired">शायद आपके कार्ड की अवधि समाप्त हो गई है। कृपया किसी दूसरे के साथ प्रयास करें।</string>
+  <string name="purchase_card_error_invalid_details">क्या आपका कार्ड नंबर बिलकुल सही है? कृपया जाँच करें और पुनः प्रयास करें।</string>
+  <string name="purchase_card_error_not_supported">आपका कार्ड अभी समर्थित नहीं है। कृपया किसी दूसरे के साथ प्रयास करें।</string>
+  <string name="purchase_card_error_security">क्या आपकी सुरक्षा जानकारी बिलकुल सही है? कृपया पुनः प्रयास करें।</string>
+  <string name="purchase_card_error_wrong_CVV">आपका सीवीवी/सीवीसी कोड गलत लग रहा है। कृपया पुनः प्रयास करें।</string>
+  <string name="purchase_card_error_CVV">गलत सीवीवी/सीवीसी</string>
+  <string name="error_contac_us_body">अगर समस्या रहती है तो कृपया हमसे संपर्क करें।</string>
 </resources>
