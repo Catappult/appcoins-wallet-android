@@ -37,19 +37,20 @@
   <string name="cancel_button">ਕੈਂਸਲ</string>
   <string name="buy_button">ਖਰੀਦੋ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ਬਟੂਆ ਭਰੋ</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">ਠੀਕ ਹੈ</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
+  <string name="title_dialog_error">Error</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ|</string>
+  <string name="purchase_card_error_general_1">ਤੁਹਾਡੇ ਕਾਰਡ ਨਾਲ ਕੁੱਝ ਸਮੱਸਿਆ ਸੀ| ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_card_error_general_2">ਭੁਗਤਾਨ ਨੂੰ ਤੁਹਾਡੇ ਬੈਂਕ ਦੁਆਰਾ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_card_error_no_funds">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਪੈਸੇ ਨਹੀਂ ਹਨ ਜਾਂ ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਭੁਗਤਾਨ ਦੀ ਕੋਈ ਸੀਮਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_expired">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_invalid_details">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡਾ ਕਾਰਡ ਨੰਬਰ ਸਹੀ ਹੈ? ਕਿਰਪਾ ਕਰਕੇ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_not_supported">ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਕਿਸਮ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ| ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_security">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਸੁਰੱਖਿਆ ਜਾਣਕਾਰੀ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
+  <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
 </resources>
