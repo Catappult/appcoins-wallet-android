@@ -9,6 +9,10 @@ import io.reactivex.Observable
 
 class SupportInteractor(private val sharedPreferences: SharedPreferences) {
 
+  companion object {
+    private const val USER_LEVEL_ATTRIBUTE = "user_level"
+  }
+
   private var currentUser = ""
 
   fun displayChatScreen() {
@@ -63,9 +67,5 @@ class SupportInteractor(private val sharedPreferences: SharedPreferences) {
     val editor = sharedPreferences.edit()
     editor.putInt(UNREAD_CONVERSATIONS, 0)
     editor.apply()
-  }
-
-  companion object {
-    const val USER_LEVEL_ATTRIBUTE = "user_level"
   }
 }

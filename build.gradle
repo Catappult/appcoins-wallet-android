@@ -81,7 +81,7 @@ project.ext {
   intercomVersion = '6.0.1'
   adyenVersion = '3.5.1'
   glide = '4.10.0'
-  workManagerVersion = '2.3.1'
+  workManagerVersion = '2.3.3'
   rakam_version = '2.7.14'
 }
 
