@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.AnalyticsSetUp
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -39,6 +40,7 @@ class PaymentMethodsPresenter(
     private val bdsPendingTransactionService: BdsPendingTransactionService,
     private val billing: Billing,
     private val analytics: BillingAnalytics,
+    private val analyticsSetUp: AnalyticsSetUp,
     private val isBds: Boolean,
     private val developerPayload: String?,
     private val uri: String?,
@@ -84,6 +86,7 @@ class PaymentMethodsPresenter(
             view.setBonus(it.amount, it.currency)
           }
           gamificationLevel = it.level
+          analyticsSetUp.setGamificationLevel(it.level)
         }
         .subscribe())
   }

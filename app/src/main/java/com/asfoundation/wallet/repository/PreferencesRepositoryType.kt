@@ -34,4 +34,5 @@ interface PreferencesRepositoryType {
   fun setHasShownBackup(walletAddress: String, hasShown: Boolean)
   fun getAndroidId(): String
   fun setAndroidId(androidId: String)
+  fun getGamificationLevel(): Int
 }

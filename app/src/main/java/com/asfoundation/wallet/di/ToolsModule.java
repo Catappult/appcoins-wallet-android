@@ -69,6 +69,7 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
+import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
 import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
@@ -1309,7 +1310,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides IdsRepository provideIdsRepository(Context context,
-      SharedPreferencesRepository sharedPreferencesRepository) {
-    return new IdsRepository(context.getContentResolver(), sharedPreferencesRepository);
+      SharedPreferencesRepository sharedPreferencesRepository, InstallerService installerService) {
+    return new IdsRepository(context.getContentResolver(), sharedPreferencesRepository,
+        installerService);
+  }
+
+  @Singleton @Provides RakamAnalyticsSetup provideRakamAnalyticsSetup() {
+    return new RakamAnalyticsSetup();
   }
 }

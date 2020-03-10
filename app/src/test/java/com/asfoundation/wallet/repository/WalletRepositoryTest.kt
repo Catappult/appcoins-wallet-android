@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository
 
+import com.asfoundation.wallet.analytics.AnalyticsSetUp
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.service.AccountKeystoreService
 import com.asfoundation.wallet.service.WalletBalance
@@ -26,6 +27,8 @@ class WalletRepositoryTest {
   lateinit var accountKeystoreService: AccountKeystoreService
   @Mock
   lateinit var walletBalanceService: WalletBalanceService
+  @Mock
+  lateinit var analyticsSetUp: AnalyticsSetUp
 
   private lateinit var walletAddress: String
   private lateinit var wallet: Wallet
@@ -39,7 +42,7 @@ class WalletRepositoryTest {
     testScheduler = TestScheduler()
     walletRepository =
         WalletRepository(preferencesRepositoryType, accountKeystoreService, walletBalanceService,
-            testScheduler)
+            testScheduler, analyticsSetUp)
   }
 
   @Test
