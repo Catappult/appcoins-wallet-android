@@ -90,7 +90,6 @@ class BdsBilling(private val repository: BillingRepository,
                 repository.consumePurchases(merchantName, purchaseToken, address, signedContent)
               }
         }
-        .onErrorReturn { false }
   }
 
   override fun getPaymentMethods(value: String,
