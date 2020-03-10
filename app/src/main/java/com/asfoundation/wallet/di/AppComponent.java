@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.App;
-import com.asfoundation.wallet.support.DaggerWorkerFactory;
-import com.asfoundation.wallet.support.WorkerSubComponent;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.support
+package com.asfoundation.wallet.di
 
 import android.content.Context
 import androidx.work.ListenableWorker
@@ -19,7 +19,8 @@ constructor(private val workerSubComponent: WorkerSubComponent.Builder) : Worker
       workerParameters: WorkerParameters
   ) = workerSubComponent
       .workerParameters(workerParameters)
-      .build().run {
+      .build()
+      .run {
         createWorker(workerClassName, workers())
       }
 

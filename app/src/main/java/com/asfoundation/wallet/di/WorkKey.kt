@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.support
+package com.asfoundation.wallet.di
 
 import androidx.work.RxWorker
 import dagger.MapKey

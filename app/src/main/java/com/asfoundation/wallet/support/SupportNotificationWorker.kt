@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.work.RxWorker
 import androidx.work.WorkerParameters
 import com.asf.wallet.R
+import com.asfoundation.wallet.di.WorkerKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -47,9 +48,9 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
     return if (supportInteractor.shouldShowNotification()) {
       supportInteractor.updateUnreadConversations()
       Completable.fromAction {
-        notificationManager.notify(NOTIFICATION_SERVICE_ID,
-            createNotification().build())
-      }
+            notificationManager.notify(NOTIFICATION_SERVICE_ID,
+                createNotification().build())
+          }
           .andThen(Single.just(Result.success()))
     } else {
       Single.just(Result.failure())
@@ -69,13 +70,13 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
     } else {
       builder = NotificationCompat.Builder(context, channelId)
     }
-    return builder.setContentTitle("You have new messages")
+    return builder.setContentTitle(context.getString(R.string.support_new_message_title))
         .setAutoCancel(true)
         .setOngoing(true)
         .setContentIntent(okPendingIntent)
-        .addAction(0, "Dismiss", dismissPendingIntent)
+        .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentText("Click to open")
+        .setContentText(context.getString(R.string.support_new_message_button))
   }
 
   private fun createNotificationClickIntent(): PendingIntent {
