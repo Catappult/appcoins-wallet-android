@@ -17,7 +17,7 @@ public class BillingAnalytics implements EventSender {
   public static final String RAKAM_PAYMENT_METHOD = "wallet_payment_method";
   public static final String RAKAM_PAYMENT_CONFIRMATION = "wallet_payment_confirmation";
   public static final String RAKAM_PAYMENT_CONCLUSION = "wallet_payment_conclusion";
-  public static final String RAKAM_PAYMENT_START = "wallet_purchase_start";
+  public static final String RAKAM_PAYMENT_START = "wallet_payment_start";
   private static final String WALLET = "WALLET";
   private static final String EVENT_PACKAGE_NAME = "package_name";
   private static final String EVENT_SKU = "sku";
