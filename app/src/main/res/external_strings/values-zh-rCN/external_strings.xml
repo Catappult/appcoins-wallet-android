@@ -22,11 +22,13 @@
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">更换卡</string>
   <string name="iab_pay_with_wallet_title">使用AppCoins Wallet付款</string>
-  <string name="iab_pay_with_wallet_reward_title">获取高达30%的奖励！</string>
+  <string name="iab_pay_with_wallet_reward_title">获取高达%s%%的奖励！</string>
   <string name="iab_pay_with_wallet_reward_body">你通过此次购买将获得%s。</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">你将通过此次购买获得奖励。</string>
   <string name="iab_best_deal">最佳优惠</string>
   <string name="iab_purchase_done_title">完成！</string>
-  <string name="iab_purchase_done_reward_title">下次使用AppCoins Wallet付款，获取高达30%的奖励！</string>
+  <string name="iab_purchase_done_reward_title">下次使用AppCoins Wallet付款，获取高达%s%%的奖励！</string>
+  <string name="iab_purchase_done_reward_no_connection_title">下次使用AppCoins Wallet付款，可以获得奖励！</string>
   <string name="iab_purchase_done_reward_body">你本可以通过此次购买获得%s。</string>
   <string name="iab_purchase_done_title_long">购买完成！</string>
   <string name="iab_purchase_change_payment_method_button">更多付款方式</string>
