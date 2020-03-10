@@ -585,4 +585,7 @@
   <string name="transfer_send_current_balance_title">Saldo actual:</string>
   <string name="transfer_send_button">ENVIAR</string>
   <string name="transfer_receive_body">Comparte la dirección de tu wallet para recibir fondos.</string>
+  <!--Support Notifications-->
+  <string name="support_new_message_title">You\'ve got a new message!</string>
+  <string name="support_new_message_button">Tap to open</string>
 </resources>

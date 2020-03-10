@@ -525,7 +525,7 @@
   <string name="backup_button">BACKUP</string>
   <string name="backup_title">Backup Wallet</string>
   <string name="backup_password_title">Encrypt your wallet (optional)</string>
-  <string name="backup_password">Password</string>
+  <string name="backup_password">Lozinka</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
@@ -533,7 +533,7 @@
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
-  <string name="import_wallet_title">Import Wallet</string>
+  <string name="import_wallet_title">Unos novčanika</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
   <string name="import_wallet_file_button">IMPORT FROM FILE</string>
@@ -543,13 +543,13 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
   <!--Wallets Management-->
-  <string name="wallets_title">Wallets</string>
+  <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
   <string name="wallets_active_wallet_title">Active Wallet</string>
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="one">Wallet</item>
-    <item quantity="few">Wallets</item>
-    <item quantity="other">Wallets</item>
+    <item quantity="few">Novčanici</item>
+    <item quantity="other">Novčanici</item>
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
@@ -577,8 +577,8 @@
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transfer Funds</string>
-  <string name="transfer_send_tab_title">Send</string>
-  <string name="transfer_receive_tab_title">Receive</string>
+  <string name="transfer_send_tab_title">Slanje</string>
+  <string name="transfer_receive_tab_title">Primanje</string>
   <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="transfer_send_recipient_title">Wallet Address</string>
   <string name="transfer_send_token_title">Token:</string>
@@ -586,4 +586,7 @@
   <string name="transfer_send_current_balance_title">Current Balance:</string>
   <string name="transfer_send_button">SEND</string>
   <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
+  <!--Support Notifications-->
+  <string name="support_new_message_title">You\'ve got a new message!</string>
+  <string name="support_new_message_button">Tap to open</string>
 </resources>

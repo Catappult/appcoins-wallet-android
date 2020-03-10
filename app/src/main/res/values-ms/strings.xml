@@ -584,4 +584,7 @@
   <string name="transfer_send_current_balance_title">Baki Semasa:</string>
   <string name="transfer_send_button">HANTAR</string>
   <string name="transfer_receive_body">Kongsi alamat dompet anda untuk terima dana.</string>
+  <!--Support Notifications-->
+  <string name="support_new_message_title">You\'ve got a new message!</string>
+  <string name="support_new_message_button">Tap to open</string>
 </resources>

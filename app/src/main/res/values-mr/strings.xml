@@ -589,4 +589,7 @@
   <string name="transfer_send_current_balance_title">सद्य शिल्लक:</string>
   <string name="transfer_send_button">पाठवा</string>
   <string name="transfer_receive_body">रक्कम मिळविण्यासाठी आपल्या वॉलेटचा पत्ता सामायिक करा.</string>
+  <!--Support Notifications-->
+  <string name="support_new_message_title">You\'ve got a new message!</string>
+  <string name="support_new_message_button">Tap to open</string>
 </resources>
