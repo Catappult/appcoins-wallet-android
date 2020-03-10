@@ -54,7 +54,7 @@
   <string name="unlock_screen_prompt_android">Моля, отключи своето Android устройство, за да продължиш.</string>
   <string name="do_manage_make_backup">Направи ли успешно бекъп?</string>
   <string name="yes_continue">Да, продължи</string>
-  <string name="yes_done_button">Yes, done</string>
+  <string name="yes_done_button">Да, готово</string>
   <string name="no_repeat">Не, повтори</string>
   <string name="skip">Пропусни</string>
   <string name="skip_with_arrow">Пропусни &gt;</string>
@@ -527,12 +527,12 @@
   <string name="backup_password_title">Криптирай портфейла си (по желание)</string>
   <string name="backup_password">Парола</string>
   <string name="backup_body">Ние не съхраняваме твоите лични ключове или друг метод за достъп. Важно е да запазиш резервното копие (хранилище) на портфейла си.</string>
-  <string name="backup_confirmation_title">Just one more step</string>
-  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
-  <string name="backup_done_title">Backup done!</string>
-  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
+  <string name="backup_confirmation_title">Само още една стъпка</string>
+  <string name="backup_confirmation_body">Пази бекъпа си! Къде искаш да го запазиш?</string>
+  <string name="backup_done_title">Бекъпът приключи!</string>
+  <string name="backup_done_body">Сигурен ли си, че файлът с бекъпа ти е на сигурно място?</string>
   <string name="backup_send_via_title">Изпрати бекъп чрез:</string>
-  <string name="backup_send_button">SEND BACKUP</string>
+  <string name="backup_send_button">ИЗПРАТИ БЕКЪП</string>
   <string name="import_wallet_title">Импортиране на портфейл</string>
   <string name="import_wallet_body">Постави бекъп-а на портфейла си по-долу.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище или лични ключове</string>
