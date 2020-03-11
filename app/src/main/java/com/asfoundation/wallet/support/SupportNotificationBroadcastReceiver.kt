@@ -29,15 +29,10 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
     notificationManager.cancel(SupportNotificationWorker.NOTIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
-    when (intent.getStringExtra(
-        ACTION_KEY)) {
+    when (intent.getStringExtra(ACTION_KEY)) {
       ACTION_CHECK_MESSAGES -> onNotificationClicked(context)
-      ACTION_DISMISS -> onNotificationDismissed()
+      ACTION_DISMISS -> return
     }
-  }
-
-  private fun onNotificationDismissed() {
-    return
   }
 
   private fun onNotificationClicked(context: Context) {

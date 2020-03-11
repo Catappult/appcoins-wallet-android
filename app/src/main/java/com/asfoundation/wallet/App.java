@@ -1,9 +1,14 @@
 package com.asfoundation.wallet;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.multidex.MultiDexApplication;
 import androidx.work.Configuration;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.ProxyService;
@@ -17,6 +22,7 @@ import com.asfoundation.wallet.di.AppComponent;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.identification.IdsRepository;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.support.SupportNotificationWorker;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
@@ -36,6 +42,7 @@ import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -65,6 +72,7 @@ public class App extends MultiDexApplication
     appComponent.inject(this);
     setupRxJava();
     setupWorkManager(appComponent);
+    setupSupportNotificationWorker(this);
 
     if (!BuildConfig.DEBUG) {
       new FlurryAgent.Builder().withLogEnabled(false)
@@ -105,6 +113,21 @@ public class App extends MultiDexApplication
     WorkManager.initialize(this,
         new Configuration.Builder().setWorkerFactory(appComponent.daggerWorkerFactory())
             .build());
+  }
+
+  private void setupSupportNotificationWorker(Context context) {
+    Constraints workerConstraints =
+        new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+            .build();
+    PeriodicWorkRequest notificationWorkRequest =
+        new PeriodicWorkRequest.Builder(SupportNotificationWorker.class,
+            SupportNotificationWorker.NOTIFICATION_PERIOD, TimeUnit.MINUTES).addTag(
+            SupportNotificationWorker.WORKER_TAG)
+            .setConstraints(workerConstraints)
+            .build();
+    WorkManager.getInstance(context)
+        .enqueueUniquePeriodicWork(SupportNotificationWorker.UNIQUE_WORKER_NAME,
+            ExistingPeriodicWorkPolicy.REPLACE, notificationWorkRequest);
   }
 
   private void initializeRakam() {

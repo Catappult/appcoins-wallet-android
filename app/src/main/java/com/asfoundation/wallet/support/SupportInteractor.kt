@@ -58,14 +58,18 @@ class SupportInteractor(private val sharedPreferences: SharedPreferences) {
       sharedPreferences.getInt(UNREAD_CONVERSATIONS, 0)
 
   fun updateUnreadConversations() {
-    val editor = sharedPreferences.edit()
-    editor.putInt(UNREAD_CONVERSATIONS, getUnreadConversations())
-    editor.apply()
+    sharedPreferences.edit()
+        .apply {
+          putInt(UNREAD_CONVERSATIONS, getUnreadConversations())
+          apply()
+        }
   }
 
   fun resetUnreadConversations() {
-    val editor = sharedPreferences.edit()
-    editor.putInt(UNREAD_CONVERSATIONS, 0)
-    editor.apply()
+    sharedPreferences.edit()
+        .apply {
+          putInt(UNREAD_CONVERSATIONS, 0)
+          apply()
+        }
   }
 }
