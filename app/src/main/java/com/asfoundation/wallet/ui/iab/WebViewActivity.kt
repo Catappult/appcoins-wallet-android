@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Surface
@@ -30,17 +31,26 @@ class WebViewActivity : AppCompatActivity() {
 
   private fun lockCurrentPosition() {
     //setRequestedOrientation requires translucent and floating to be false to work in API 26
-    val orientation = windowManager.defaultDisplay
+    val rotation = windowManager.defaultDisplay
         .rotation
-    when (orientation) {
-      Surface.ROTATION_0 -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-      Surface.ROTATION_90 -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-      Surface.ROTATION_180 -> requestedOrientation =
-          ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
-      Surface.ROTATION_270 -> requestedOrientation =
-          ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
-      else -> Log.w("WebView", "Invalid orientation value: $orientation")
+    val orientation = resources.configuration.orientation
+
+    if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
+      if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+      } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+      }
+    } else if (rotation == Surface.ROTATION_180 || rotation == Surface.ROTATION_270) {
+      if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+      } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+      }
+    } else {
+      Log.w("WebView", "Invalid orientation value: $orientation")
     }
+
   }
 
   companion object {
