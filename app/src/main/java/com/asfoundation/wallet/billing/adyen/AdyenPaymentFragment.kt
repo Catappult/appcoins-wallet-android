@@ -51,8 +51,7 @@ import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_c
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_logo
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_icn
+import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.fragment_iab_error.view.*
@@ -95,7 +94,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButton = PublishRelay.create<Boolean>()
-    paymentDataSubject = ReplaySubject.create<AdyenCardWrapper>()
+    paymentDataSubject = ReplaySubject.createWithSize<AdyenCardWrapper>(1)
     paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
@@ -150,9 +149,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     setStoredPaymentInformation(isStored)
   }
 
-  override fun retrievePaymentData(): Observable<AdyenCardWrapper> {
-    return paymentDataSubject!!
-  }
+  override fun retrievePaymentData() = paymentDataSubject!!
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)

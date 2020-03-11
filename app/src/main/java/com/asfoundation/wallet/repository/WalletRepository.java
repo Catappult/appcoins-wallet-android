@@ -1,25 +1,30 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.analytics.AnalyticsSetUp;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
+import com.asfoundation.wallet.service.WalletBalanceService;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 
 public class WalletRepository implements WalletRepositoryType {
 
   private final PreferencesRepositoryType preferencesRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
-  private final Web3jProvider web3jProvider;
+  private final WalletBalanceService walletBalanceService;
+  private final Scheduler networkScheduler;
+  private final AnalyticsSetUp analyticsSetUp;
 
   public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
+      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService,
+      Scheduler networkScheduler, AnalyticsSetUp analyticsSetUp) {
     this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
-    this.web3jProvider = web3jProvider;
+    this.walletBalanceService = walletBalanceService;
+    this.networkScheduler = networkScheduler;
+    this.analyticsSetUp = analyticsSetUp;
   }
 
   @Override public Single<Wallet[]> fetchWallets() {
@@ -59,8 +64,10 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override public Completable setDefaultWallet(Wallet wallet) {
-    return Completable.fromAction(
-        () -> preferencesRepositoryType.setCurrentWalletAddress(wallet.address));
+    return Completable.fromAction(() -> {
+      preferencesRepositoryType.setCurrentWalletAddress(wallet.address);
+      analyticsSetUp.setUserId(wallet.address);
+    });
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
@@ -75,12 +82,15 @@ public class WalletRepository implements WalletRepositoryType {
         .flatMap(this::findWallet);
   }
 
-  @Override public Single<BigDecimal> balanceInWei(Wallet wallet) {
-    Web3j web3j = web3jProvider.get();
-    return Single.fromCallable(() -> new BigDecimal(
-        web3j.ethGetBalance(wallet.address, DefaultBlockParameterName.LATEST)
-            .send()
-            .getBalance()))
-        .subscribeOn(Schedulers.io());
+  @Override public Single<BigDecimal> getEthBalanceInWei(Wallet wallet) {
+    return walletBalanceService.getWalletBalance(wallet.address)
+        .map(walletBalance -> new BigDecimal(walletBalance.getEth()))
+        .subscribeOn(networkScheduler);
+  }
+
+  @Override public Single<BigDecimal> getAppcBalanceInWei(Wallet wallet) {
+    return walletBalanceService.getWalletBalance(wallet.address)
+        .map(walletBalance -> new BigDecimal(walletBalance.getAppc()))
+        .subscribeOn(networkScheduler);
   }
 }

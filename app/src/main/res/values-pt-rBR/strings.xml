@@ -54,7 +54,7 @@
   <string name="unlock_screen_prompt_android">Por favor, desbloqueie seu dispositivo Android para continuar.</string>
   <string name="do_manage_make_backup">Você realizou um backup com êxito?</string>
   <string name="yes_continue">Sim, continuar</string>
-  <string name="yes_done_button">Yes, done</string>
+  <string name="yes_done_button">Sim, feito</string>
   <string name="no_repeat">Não, repetir</string>
   <string name="skip">Pular</string>
   <string name="skip_with_arrow">Pular &gt;</string>
@@ -527,12 +527,12 @@
   <string name="backup_password_title">Encriptar sua wallet (opcional)</string>
   <string name="backup_password">Senha</string>
   <string name="backup_body">Nós não armazenamos suas chaves privadas ou qualquer outro método de acesso. É importante manter o backup (keystore) de sua wallet seguro.</string>
-  <string name="backup_confirmation_title">Just one more step</string>
-  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
-  <string name="backup_done_title">Backup done!</string>
-  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
+  <string name="backup_confirmation_title">Só mais um passo</string>
+  <string name="backup_confirmation_body">Mantenha seu backup seguro! Onde você quer salvá-lo?</string>
+  <string name="backup_done_title">Backup concluído!</string>
+  <string name="backup_done_body">Tem certeza de que seu arquivo de backup está em um local seguro?</string>
   <string name="backup_send_via_title">Enviar backup via:</string>
-  <string name="backup_send_button">SEND BACKUP</string>
+  <string name="backup_send_button">ENVIAR BACKUP</string>
   <string name="import_wallet_title">Importar Wallet</string>
   <string name="import_wallet_body">Colar o backup da sua wallet abaixo.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou chaves privadas</string>

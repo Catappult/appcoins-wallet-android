@@ -14,5 +14,6 @@
       android:layout_margin="8dp"
       android:descendantFocusability="beforeDescendants"
       android:focusableInTouchMode="true"
-      ></FrameLayout>
+      />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,7 +7,6 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
-import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
@@ -21,7 +20,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -130,23 +128,25 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun handleTopUpClick(priceAmount: BigDecimal, priceCurrency: String) {
-    disposables.add(Observable.combineLatest(view.topUpButtonClicked(), view.retrievePaymentData(),
-        BiFunction { _: Any, paymentData: AdyenCardWrapper ->
-          paymentData
-        })
-        .doOnNext {
-          view.showLoading()
-          view.setFinishingPurchase()
-        }
-        .observeOn(networkScheduler)
-        .flatMapSingle {
-          adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
-              returnUrl, priceAmount.toString(), priceCurrency,
-              mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
-        }
-        .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
-        .subscribe())
+    disposables.add(
+        view.topUpButtonClicked()
+            .flatMapSingle {
+              view.retrievePaymentData()
+                  .firstOrError()
+            }
+            .doOnNext {
+              view.showLoading()
+              view.setFinishingPurchase()
+            }
+            .observeOn(networkScheduler)
+            .flatMapSingle {
+              adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
+                  returnUrl, priceAmount.toString(), priceCurrency,
+                  mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
+            }
+            .observeOn(viewScheduler)
+            .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
+            .subscribe())
   }
 
   private fun handleForgetCardClick() {

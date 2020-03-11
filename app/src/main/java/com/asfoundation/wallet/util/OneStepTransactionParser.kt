@@ -32,7 +32,7 @@ class OneStepTransactionParser(
                       tokenContract: String, amount: BigDecimal ->
             TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
                 walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
-                iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(),
+                iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED,
                 null, getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
                 getOrderReference(oneStepUri), referrerUrl).shouldSendToken(true)
           })

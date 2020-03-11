@@ -36,7 +36,7 @@ class ExternalBillingSerializer {
       getFiatPrice(product)
   }
 
-  private fun getBasePriceInMicro(product: Product): Int {
+  private fun getBasePriceInMicro(product: Product): Long {
     return if ((APPC.equals(product.price.base, true)) && product.price.base != null)
       getAppcPriceInMicro(product)
     else
@@ -56,16 +56,16 @@ class ExternalBillingSerializer {
         .amount)
   }
 
-  private fun getFiatPriceInMicro(product: Product): Int {
-    return (product.price.amount * 1000000).toInt()
+  private fun getFiatPriceInMicro(product: Product): Long {
+    return (product.price.amount * 1000000).toLong()
   }
 
   private fun getAppcPrice(product: Product): String {
     return String.format("%s %s", APPC, product.price.appcoinsAmount)
   }
 
-  private fun getAppcPriceInMicro(product: Product): Int {
-    return (product.price.appcoinsAmount * 1000000).toInt()
+  private fun getAppcPriceInMicro(product: Product): Long {
+    return (product.price.appcoinsAmount * 1000000).toLong()
   }
 
   fun serializeSignatureData(purchase: Purchase): String {
