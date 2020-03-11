@@ -1,6 +1,5 @@
 package com.asfoundation.wallet;
 
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.multidex.MultiDexApplication;
@@ -32,8 +31,6 @@ import io.reactivex.Single;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.inject.Inject;
@@ -56,7 +53,6 @@ public class App extends MultiDexApplication
   @Inject BillingMessagesMapper billingMessagesMapper;
   @Inject BdsApiSecondary bdsapiSecondary;
   @Inject IdsRepository idsRepository;
-  boolean logging = false;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -70,8 +66,6 @@ public class App extends MultiDexApplication
       new FlurryAgent.Builder().withLogEnabled(false)
           .build(this, BuildConfig.FLURRY_APK_KEY);
     }
-
-    startLogToFile();
 
     Fabric.with(this, new Crashlytics.Builder().core(
         new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
@@ -182,27 +176,5 @@ public class App extends MultiDexApplication
 
   @NotNull @Override public BdsApiSecondary getBdsApiSecondary() {
     return bdsapiSecondary;
-  }
-
-  public void startLogToFile() {
-    if (!logging) {
-      File logsDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-          .getAbsolutePath() + "/AppCoinsLogs");
-      if (!logsDir.exists()) {
-        logsDir.mkdirs();
-      }
-      try {
-        String fileName = "walletLogs_" + System.currentTimeMillis() + ".txt";
-        File logs = new File(logsDir, fileName);
-        logs.createNewFile();
-        String cmd = "logcat -f" + logs.getAbsolutePath() + " -v time";
-        Runtime.getRuntime()
-            .exec(cmd);
-        logging = true;
-      } catch (IOException e) {
-        logging = false;
-        e.printStackTrace();
-      }
-    }
   }
 }

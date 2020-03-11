@@ -22,7 +22,6 @@ import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
-import static com.asfoundation.wallet.util.LogInterceptor.TEMPORARY_TAG;
 
 public class OneStepPaymentReceiver extends BaseActivity {
 
@@ -75,11 +74,6 @@ public class OneStepPaymentReceiver extends BaseActivity {
   }
 
   private void startOneStepTransfer(TransactionBuilder transaction, boolean isBds) {
-    Log.d(TEMPORARY_TAG, "startOneStepTransfer(): Create IabActivity intent"
-        + "\ntransaction: "
-        + transaction
-        + "\nisBds: "
-        + isBds);
     Intent intent =
         IabActivity.newIntent(this, getIntent(), transaction, isBds, transaction.getPayload());
     intent.putExtra(PRODUCT_NAME, transaction.getSkuId());

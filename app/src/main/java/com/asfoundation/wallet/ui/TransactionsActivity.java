@@ -1,16 +1,12 @@
 package com.asfoundation.wallet.ui;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +14,6 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
@@ -169,27 +163,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::updateSupportIcon);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      final String[] permissions = new String[] {
-          Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
-      };
-      ActivityCompat.requestPermissions(this, permissions, 100);
-    }
-  }
-
-  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
-    if (requestCode == 100) {
-      if (grantResults.length > 0
-          && grantResults[0] == PackageManager.PERMISSION_GRANTED
-          && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-        ((App) getApplication()).startLogToFile();
-        Log.d("TransactionsActivity", "** STARTING LOGGING **");
-      }
-    } else {
-      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {

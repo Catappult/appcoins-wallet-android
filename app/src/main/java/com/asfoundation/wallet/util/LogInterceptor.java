@@ -19,7 +19,6 @@ import okio.Buffer;
 import okio.BufferedSource;
 
 public class LogInterceptor implements Interceptor {
-  public static final String TEMPORARY_TAG = "LOCAL_PAYMENTS_TAG";
   private static final String TAG = "HTTP_TRACE";
   private static final Charset UTF8 = Charset.forName("UTF-8");
 

@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.airbnb.lottie.LottieAnimationView;
@@ -16,8 +15,6 @@ import com.asfoundation.wallet.util.TransferParser;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import javax.inject.Inject;
-
-import static com.asfoundation.wallet.util.LogInterceptor.TEMPORARY_TAG;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -69,13 +66,6 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
     if (getIntent().getData()
         .toString()
         .contains("/buy?")) {
-      Log.d(TEMPORARY_TAG, "startEipTransfer(): Create IabActivity intent\n"
-          + "transaction: "
-          + transaction
-          + "\nisBds: "
-          + isBds
-          + "\ndeveloperPayload: "
-          + developerPayload);
       intent = IabActivity.newIntent(this, getIntent(), transaction, isBds, developerPayload);
     } else {
       intent = SendActivity.newIntent(this, getIntent());

@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
-import com.asfoundation.wallet.util.LogInterceptor
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -332,7 +330,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap) {
-    Log.d(LogInterceptor.TEMPORARY_TAG, "LocalPaymentFragment.showPendingUserPayment()")
     status = PENDING_USER_PAYMENT
     error_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
@@ -372,7 +369,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun close() {
-    Log.d(LogInterceptor.TEMPORARY_TAG, "LocalPaymentFragment.close()")
     status = NONE
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
@@ -398,8 +394,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   private fun playAnimation() {
-    Log.d(LogInterceptor.TEMPORARY_TAG,
-        "LocalPaymentFragment.playAnimation(): Pending user payment animation")
     pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
     pending_user_payment_view?.in_progress_animation?.addAnimatorListener(object :
         Animator.AnimatorListener {
