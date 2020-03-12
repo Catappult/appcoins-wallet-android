@@ -13,6 +13,10 @@ import javax.inject.Singleton;
 
   void inject(App app);
 
+  DaggerWorkerFactory daggerWorkerFactory();
+
+  WorkerSubComponent.Builder workerSubComponentBuilder();
+
   @Component.Builder interface Builder {
     @BindsInstance Builder application(App app);
 

@@ -14,11 +14,11 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.SupportInteractor;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
@@ -128,6 +128,10 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(wallet -> {
         }, this::onError));
     handleTopUpClicks();
+  }
+
+  public void resetUnreadConversations() {
+    supportInteractor.resetUnreadConversations();
   }
 
   public void handleUnreadConversationCount() {

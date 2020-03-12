@@ -108,7 +108,6 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
-import com.asfoundation.wallet.interact.SupportInteractor;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
@@ -180,6 +179,7 @@ import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLoc
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.topup.TopUpLimitValues;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
@@ -1305,8 +1305,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new UpdateNavigator();
   }
 
-  @Singleton @Provides SupportInteractor provideSupportInteractor() {
-    return new SupportInteractor();
+  @Singleton @Provides SupportInteractor provideSupportInteractor(SharedPreferences preferences) {
+    return new SupportInteractor(preferences);
   }
 
   @Singleton @Provides IdsRepository provideIdsRepository(Context context,
