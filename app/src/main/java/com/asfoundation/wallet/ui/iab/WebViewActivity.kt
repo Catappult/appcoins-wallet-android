@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.LogInterceptor
 import dagger.android.AndroidInjection
 
 class WebViewActivity : AppCompatActivity() {

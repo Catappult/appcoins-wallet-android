@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.airbnb.lottie.LottieAnimationView;

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
@@ -189,8 +188,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
-    val productName = intent.extras!!.getString(PRODUCT_NAME)
-    val transactionData = intent.dataString
    }
 
   private fun handlePurchaseStartAnalytics() {
