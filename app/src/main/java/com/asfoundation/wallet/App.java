@@ -1,6 +1,5 @@
 package com.asfoundation.wallet;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.multidex.MultiDexApplication;
@@ -72,7 +71,7 @@ public class App extends MultiDexApplication
     appComponent.inject(this);
     setupRxJava();
     setupWorkManager(appComponent);
-    setupSupportNotificationWorker(this);
+    setupSupportNotificationWorker();
 
     if (!BuildConfig.DEBUG) {
       new FlurryAgent.Builder().withLogEnabled(false)
@@ -115,7 +114,7 @@ public class App extends MultiDexApplication
             .build());
   }
 
-  private void setupSupportNotificationWorker(Context context) {
+  private void setupSupportNotificationWorker() {
     Constraints workerConstraints =
         new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
             .build();
@@ -125,9 +124,9 @@ public class App extends MultiDexApplication
             SupportNotificationWorker.WORKER_TAG)
             .setConstraints(workerConstraints)
             .build();
-    WorkManager.getInstance(context)
+    WorkManager.getInstance(this)
         .enqueueUniquePeriodicWork(SupportNotificationWorker.UNIQUE_WORKER_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE, notificationWorkRequest);
+            ExistingPeriodicWorkPolicy.KEEP, notificationWorkRequest);
   }
 
   private void initializeRakam() {
