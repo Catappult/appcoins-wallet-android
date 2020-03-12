@@ -79,7 +79,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
         showPaymentMethodsView()
@@ -189,7 +188,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
-  }
+   }
 
   private fun handlePurchaseStartAnalytics() {
     if (firstImpression) {

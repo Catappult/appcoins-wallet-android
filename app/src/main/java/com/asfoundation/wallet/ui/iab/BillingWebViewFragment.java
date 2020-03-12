@@ -30,7 +30,8 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   private static final String ADYEN_PAYMENT_SCHEMA = "adyencheckout://";
   private static final String LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/";
-  private static final String GO_PAY_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer";
+  private static final String GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer";
+  private static final String LINE_APP_PAYMENTS_SCHEMA = "android-app://jp.naver.line.android";
   private static final String URL = "url";
   private static final String CURRENT_URL = "currentUrl";
   private final AtomicReference<ScheduledFuture<?>> timeoutReference;
@@ -99,7 +100,8 @@ public class BillingWebViewFragment extends DaggerFragment {
           intent.setData(Uri.parse(clickUrl));
           webViewActivity.setResult(WebViewActivity.SUCCESS, intent);
           webViewActivity.finish();
-        } else if (clickUrl.contains(GO_PAY_PAYMENTS_SCHEMA)) {
+        } else if (clickUrl.contains(GO_PAY_APP_PAYMENTS_SCHEMA)
+            || clickUrl.contains(LINE_APP_PAYMENTS_SCHEMA)) {
           launchActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)));
         } else {
           currentUrl = clickUrl;

@@ -22,7 +22,6 @@ class WebViewActivity : AppCompatActivity() {
     if (savedInstanceState == null) {
       val url = intent.getStringExtra(URL)
       val billingWebViewFragment = BillingWebViewFragment.newInstance(url)
-
       supportFragmentManager.beginTransaction()
           .add(R.id.container, billingWebViewFragment)
           .commit()
