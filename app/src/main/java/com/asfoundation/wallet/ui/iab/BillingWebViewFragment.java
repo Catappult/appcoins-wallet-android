@@ -128,6 +128,8 @@ public class BillingWebViewFragment extends DaggerFragment {
 
     WebSettings webSettings = webView.getSettings();
     webSettings.setJavaScriptEnabled(true);
+    webSettings.setDomStorageEnabled(true);
+    webSettings.setUseWideViewPort(true);
 
     webView.loadUrl(currentUrl);
 
