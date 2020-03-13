@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
+import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -168,6 +170,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onPromotionsNotification);
     viewModel.getUnreadMessages()
         .observe(this, this::updateSupportIcon);
+    viewModel.shareApp()
+        .observe(this, this::shareApp);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
 
@@ -187,6 +191,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       viewModel.showSettings(this);
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  private void shareApp(String url) {
+    ShareCompat.IntentBuilder.from(this)
+        .setText(url)
+        .setType("text/plain")
+        .setChooserTitle(R.string.share_via)
+        .startChooser();
   }
 
   private void handlePromotionsOverlayVisibility() {
@@ -242,8 +254,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void onApplicationClick(AppcoinsApplication appcoinsApplication) {
-    viewModel.onAppClick(appcoinsApplication, this);
+  private void onApplicationClick(AppcoinsApplication appcoinsApplication,
+      ApplicationClickAction applicationClickAction) {
+    viewModel.onAppClick(appcoinsApplication, applicationClickAction, this);
   }
 
   private void onTransactionClick(View view, Transaction transaction) {

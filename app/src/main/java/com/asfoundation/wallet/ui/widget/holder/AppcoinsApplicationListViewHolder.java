@@ -14,7 +14,7 @@ import com.asfoundation.wallet.ui.appcoins.ItemDecorator;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import java.util.ArrayList;
 import java.util.List;
-import rx.functions.Action1;
+import rx.functions.Action2;
 
 public class AppcoinsApplicationListViewHolder extends BinderViewHolder<List<AppcoinsApplication>> {
   public static final int VIEW_TYPE = 1006;
@@ -24,7 +24,7 @@ public class AppcoinsApplicationListViewHolder extends BinderViewHolder<List<App
   private final View icon;
 
   public AppcoinsApplicationListViewHolder(int resId, ViewGroup parent,
-      Action1<AppcoinsApplication> applicationClickListener) {
+      Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener) {
     super(resId, parent);
     recyclerView = findViewById(R.id.recycler_view);
     title = findViewById(R.id.title);

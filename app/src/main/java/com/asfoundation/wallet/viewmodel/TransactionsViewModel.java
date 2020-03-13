@@ -25,6 +25,7 @@ import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
+import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -53,6 +54,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
+  private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -351,10 +353,19 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startGlobalBalanceTask);
   }
 
-  public void onAppClick(AppcoinsApplication appcoinsApplication, Context context) {
-    transactionViewNavigator.navigateToBrowser(context,
-        Uri.parse("https://" + appcoinsApplication.getUniqueName() + ".en.aptoide.com/"));
-    analytics.openApp(appcoinsApplication.getUniqueName(), appcoinsApplication.getPackageName());
+  public void onAppClick(AppcoinsApplication appcoinsApplication,
+      ApplicationClickAction applicationClickAction, Context context) {
+    String url = "https://" + appcoinsApplication.getUniqueName() + ".en.aptoide.com/";
+    switch (applicationClickAction) {
+      case SHARE:
+        shareApp.setValue(url);
+        break;
+      case CLICK:
+      default:
+        transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
+        analytics.openApp(appcoinsApplication.getUniqueName(),
+            appcoinsApplication.getPackageName());
+    }
   }
 
   public void showTopApps(Context context) {
@@ -372,6 +383,10 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public MutableLiveData<Double> gamificationMaxBonus() {
     return gamificationMaxBonus;
+  }
+
+  public MutableLiveData<String> shareApp() {
+    return shareApp;
   }
 
   public MutableLiveData<Double> onFetchTransactionsError() {
