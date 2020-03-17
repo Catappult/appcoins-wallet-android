@@ -38,6 +38,8 @@ interface TopUpFragmentView {
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>
   fun getValuesClicks(): Observable<FiatValue>
-  fun showValuesAdapter(values: List<FiatValue>)
+  fun setValuesAdapter(values: List<FiatValue>)
+  fun showValuesAdapter()
   fun hideValuesAdapter()
+  fun getKeyboardEvents(): Observable<Boolean>
 }

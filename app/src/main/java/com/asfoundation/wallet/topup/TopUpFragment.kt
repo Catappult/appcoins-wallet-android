@@ -2,9 +2,11 @@ package com.asfoundation.wallet.topup
 
 import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
@@ -47,6 +49,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethodData>
   private lateinit var topUpAdapter: TopUpAdapter
+  private lateinit var keyboardEvents: PublishSubject<Boolean>
   private var valueSubject: PublishSubject<FiatValue>? = null
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
@@ -69,6 +72,19 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       }
       return TopUpFragment().apply {
         arguments = bundle
+      }
+    }
+  }
+
+  private val listener = ViewTreeObserver.OnGlobalLayoutListener {
+    val fragmentView = this.view
+    val appBarHeight = getAppBarHeight()
+    fragmentView?.let {
+      val heightDiff: Int = it.rootView.height - it.height - appBarHeight
+      if (heightDiff > 150) {
+        keyboardEvents.onNext(true)
+      } else {
+        keyboardEvents.onNext(false)
       }
     }
   }
@@ -97,6 +113,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     super.onCreate(savedInstanceState)
     paymentMethodClick = PublishRelay.create()
     valueSubject = PublishSubject.create()
+    keyboardEvents = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
             Schedulers.io())
@@ -125,6 +142,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       adapter = topUpAdapter
       addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
     }
+
+    view.viewTreeObserver.addOnGlobalLayoutListener(listener)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -157,16 +176,28 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     swap_value_label.visibility = View.VISIBLE
   }
 
-  override fun showValuesAdapter(values: List<FiatValue>) {
-    rv_default_values.visibility = View.VISIBLE
+  override fun setValuesAdapter(values: List<FiatValue>) {
     topUpAdapter.submitList(values)
   }
 
+  override fun showValuesAdapter() {
+    if (rv_default_values.visibility == View.GONE) {
+      rv_default_values.visibility = View.VISIBLE
+    }
+  }
+
   override fun hideValuesAdapter() {
-    rv_default_values.visibility = View.GONE
+    if (rv_default_values.visibility == View.VISIBLE) {
+      rv_default_values.visibility = View.GONE
+    }
+  }
+
+  override fun getKeyboardEvents(): Observable<Boolean> {
+    return keyboardEvents
   }
 
   override fun onDestroy() {
+    view?.viewTreeObserver?.removeOnGlobalLayoutListener(listener)
     presenter.stop()
     super.onDestroy()
   }
@@ -458,5 +489,16 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   private fun isLocalCurrencyValid(localCurrency: LocalCurrency): Boolean {
     return localCurrency.symbol != "" && localCurrency.code != ""
+  }
+
+  private fun getAppBarHeight(): Int {
+    if (context == null) {
+      return 0
+    }
+    return with(TypedValue().also {
+      context!!.theme.resolveAttribute(android.R.attr.actionBarSize, it, true)
+    }) {
+      TypedValue.complexToDimensionPixelSize(this.data, resources.displayMetrics)
+    }
   }
 }

@@ -333,7 +333,7 @@
       android:layout_marginBottom="8dp"
       android:orientation="horizontal"
       android:overScrollMode="never"
-      android:visibility="visible"
+      android:visibility="gone"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

@@ -23,6 +23,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
+  private var hasDefaultValues = false
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
@@ -37,6 +38,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handlePaymentMethodSelected()
     handleValuesClicks()
     handleValues()
+    handleKeyboardEvents()
   }
 
   fun stop() {
@@ -66,11 +68,25 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnSuccess {
           if (it.error.hasError || it.values.size < 3) {
             view.hideValuesAdapter()
+            hasDefaultValues = false
           } else {
-            view.showValuesAdapter(it.values)
+            view.setValuesAdapter(it.values)
+            hasDefaultValues = true
           }
         }
         .subscribe())
+  }
+
+  private fun handleKeyboardEvents() {
+    disposables.add(
+        view.getKeyboardEvents()
+            .doOnNext {
+              if (it && hasDefaultValues) view.showValuesAdapter()
+              else view.hideValuesAdapter()
+            }
+            .subscribeOn(viewScheduler)
+            .subscribe()
+    )
   }
 
   private fun handleError(throwable: Throwable) {
