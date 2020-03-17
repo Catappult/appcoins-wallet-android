@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AdyenMaterialAppTheme"
@@ -8,9 +9,11 @@
   <ScrollView
       android:id="@+id/top_up_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
       android:descendantFocusability="beforeDescendants"
       android:fillViewport="true"
+      app:layout_constraintBottom_toTopOf="@id/rv_default_values"
+      app:layout_constraintTop_toTopOf="parent"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -126,24 +129,12 @@
           style="@style/TopUpTextStyle.ValueWarning"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
+          android:layout_marginTop="13dp"
           android:text="@string/topup_minimum_value"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/chips_layout"
-          />
-
-      <include
-          android:id="@+id/chips_layout"
-          layout="@layout/default_value_chips_layout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="40dp"
-          android:layout_marginTop="13dp"
-          android:layout_marginEnd="40dp"
-          android:visibility="gone"
-          app:layout_constraintTop_toBottomOf="@id/converted_value"
+          app:layout_constraintTop_toBottomOf="@+id/converted_value"
           />
 
       <androidx.constraintlayout.widget.ConstraintLayout
@@ -322,6 +313,32 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       app:layout_constraintGuide_percent="0.68"
+      />
+
+  <View
+      android:id="@+id/bottom_separator"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginBottom="8dp"
+      android:background="@color/layout_separator_color"
+      app:layout_constraintBottom_toTopOf="@id/rv_default_values"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rv_default_values"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:orientation="horizontal"
+      android:overScrollMode="never"
+      android:visibility="visible"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:listitem="@layout/item_top_value"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

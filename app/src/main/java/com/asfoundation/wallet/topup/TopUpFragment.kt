@@ -9,8 +9,8 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
-import android.widget.CheckBox
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -20,7 +20,6 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.NumberFormatterUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -29,10 +28,10 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.default_value_chips_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
+import rx.functions.Action1
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -47,14 +46,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private lateinit var paymentMethodClick: PublishRelay<String>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethodData>
-  private var chipClickSubject: PublishSubject<Int>? = null
+  private lateinit var topUpAdapter: TopUpAdapter
+  private var valueSubject: PublishSubject<FiatValue>? = null
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
-  private var chipViewList = ArrayList<CheckBox>()
-  private var chipsAvailability = false
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -62,20 +60,20 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
-    private const val SELECTED_CHIP = "SELECTED_CHIP"
 
 
     @JvmStatic
     fun newInstance(packageName: String): TopUpFragment {
-      val bundle = Bundle()
-      bundle.putString(PARAM_APP_PACKAGE, packageName)
-      val fragment = TopUpFragment()
-      fragment.arguments = bundle
-      return fragment
+      val bundle = Bundle().apply {
+        putString(PARAM_APP_PACKAGE, packageName)
+      }
+      return TopUpFragment().apply {
+        arguments = bundle
+      }
     }
   }
 
-  val appPackage: String by lazy {
+  private val appPackage: String by lazy {
     if (arguments!!.containsKey(PARAM_APP_PACKAGE)) {
       arguments!!.getString(PARAM_APP_PACKAGE)
     } else {
@@ -98,7 +96,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentMethodClick = PublishRelay.create()
-    chipClickSubject = PublishSubject.create()
+    valueSubject = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
             Schedulers.io())
@@ -117,16 +115,15 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
-    populateChipViewList()
-    setupDefaultValuesChips()
     topUpActivityView?.showToolbar()
-    if (savedInstanceState?.containsKey(SELECTED_CHIP) == true) {
-      if (savedInstanceState.getInt(SELECTED_CHIP) != -1) {
-        selectChip(savedInstanceState.getInt(SELECTED_CHIP))
-      }
-      presenter.present(appPackage, false)
-    } else {
-      presenter.present(appPackage, true)
+    presenter.present(appPackage)
+
+
+    topUpAdapter = TopUpAdapter(Action1 { valueSubject?.onNext(it) })
+
+    rv_default_values.apply {
+      adapter = topUpAdapter
+      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
     }
   }
 
@@ -134,7 +131,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
-    outState.putInt(SELECTED_CHIP, getSelectedChip())
   }
 
   override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
@@ -149,7 +145,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     hideKeyboard()
     main_value.isEnabled = true
     main_value.setMinTextSize(
-        resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
+        resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
+            .toFloat())
     adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
 
     payment_methods.adapter = adapter
@@ -160,8 +157,16 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     swap_value_label.visibility = View.VISIBLE
   }
 
+  override fun showValuesAdapter(values: List<FiatValue>) {
+    rv_default_values.visibility = View.VISIBLE
+    topUpAdapter.submitList(values)
+  }
+
+  override fun hideValuesAdapter() {
+    rv_default_values.visibility = View.GONE
+  }
+
   override fun onDestroy() {
-    chipClickSubject = null
     presenter.stop()
     super.onDestroy()
   }
@@ -177,6 +182,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun enableSwapCurrencyButton() {
     swap_value_button.isEnabled = true
   }
+
+  override fun getValuesClicks() = valueSubject!!
 
   override fun getEditTextChanges(): Observable<TopUpData> {
     return RxTextView.afterTextChangeEvents(main_value)
@@ -196,10 +203,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
           TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(),
               bonusMessageValue)
         }
-  }
-
-  override fun getChipsClick(): Observable<Int> {
-    return chipClickSubject!!
   }
 
   override fun setNextButtonState(enabled: Boolean) {
@@ -332,79 +335,19 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  override fun getSelectedChip(): Int {
-    var selectedChip = -1
-    if (default_chip1.isChecked) {
-      selectedChip = 0
-    }
-    if (default_chip2.isChecked) {
-      selectedChip = 1
-    }
-    if (default_chip3.isChecked) {
-      selectedChip = 2
-    }
-    if (default_chip4.isChecked) {
-      selectedChip = 3
-    }
-    return selectedChip
-  }
-
   override fun changeMainValueText(value: String) {
     main_value.setText(value)
     main_value.setSelection(value.length)
-  }
-
-  override fun setupDefaultValueChips(values: List<FiatValue>) {
-    if (values[0].symbol != "") {
-      chipsAvailability = true
-      val formatter = NumberFormatterUtils.create()
-      default_chip1.text =
-          values[0].symbol + formatter.formatNumberWithSuffix(values[0].amount.toFloat())
-      default_chip2.text =
-          values[1].symbol + formatter.formatNumberWithSuffix(values[1].amount.toFloat())
-      default_chip3.text =
-          values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toFloat())
-      default_chip4.text =
-          values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toFloat())
-      chips_layout.visibility = View.VISIBLE
-    }
-  }
-
-  override fun hideChips() {
-    chips_layout.visibility = View.INVISIBLE
-  }
-
-  override fun deselectChips() {
-    setChipsUnchecked()
-    setUnselectedChipsBackground()
-  }
-
-  override fun selectChip(index: Int) {
-    setChipChecked(index)
-    if (selectedCurrency == FIAT_CURRENCY) {
-      setSelectedChipDrawable(index)
-      setSelectedChipText(index)
-    }
   }
 
   override fun getSelectedCurrency(): String {
     return selectedCurrency
   }
 
-  override fun getChipAvailability(): Boolean {
-    return chipsAvailability
-  }
-
-  override fun setUnselectedChipsBackground() {
-    setUnselectedChipsDrawable()
-    setUnselectedChipsText()
-  }
-
   override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: BigDecimal) {
     hideKeyboard()
     if (preselectedChipValue.toDouble() > 0) {
       changeMainValueText(preselectedChipValue.toString())
-      selectChip(preselectedChip)
     }
   }
 
@@ -413,6 +356,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     retry_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
     top_up_container.visibility = View.GONE
+    rv_default_values.visibility = View.GONE
   }
 
   override fun showRetryAnimation() {
@@ -431,67 +375,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     top_up_container.visibility = View.VISIBLE
   }
 
-  private fun populateChipViewList() {
-    chipViewList.add(default_chip1)
-    chipViewList.add(default_chip2)
-    chipViewList.add(default_chip3)
-    chipViewList.add(default_chip4)
-  }
-
   private fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
-  }
-
-  private fun setupDefaultValuesChips() {
-    for (index in chipViewList.indices) {
-      setChipOnClickListener(index)
-    }
-    deselectChips()
-  }
-
-  private fun setChipsUnchecked() {
-    for (chip in chipViewList) {
-      chip.isChecked = false
-    }
-  }
-
-  private fun setUnselectedChipsDrawable() {
-    for (chip in chipViewList) {
-      chip.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
-    }
-  }
-
-  private fun setUnselectedChipsText() {
-    context?.let {
-      for (chip in chipViewList) {
-        chip.setTextColor(ContextCompat.getColor(it, R.color.top_up_default_value_chip))
-      }
-    }
-  }
-
-  private fun setChipChecked(index: Int) {
-    chipViewList[index].isChecked = true
-  }
-
-  private fun setSelectedChipDrawable(index: Int) {
-    chipViewList[index].background =
-        resources.getDrawable(R.drawable.chip_selected_background, null)
-  }
-
-  private fun setSelectedChipText(index: Int) {
-    context?.let {
-      chipViewList[index].setTextColor(ContextCompat.getColor(it, R.color.white))
-    }
-  }
-
-  private fun setChipOnClickListener(index: Int) {
-    when (index) {
-      0 -> default_chip1.setOnClickListener { chipClickSubject?.onNext(index) }
-      1 -> default_chip2.setOnClickListener { chipClickSubject?.onNext(index) }
-      2 -> default_chip3.setOnClickListener { chipClickSubject?.onNext(index) }
-      3 -> default_chip4.setOnClickListener { chipClickSubject?.onNext(index) }
-    }
   }
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
@@ -554,7 +440,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
           .replace(APPC_C_SYMBOL, "")
           .replace(" ", "")
       val localCurrencyValue =
-          if (main_value.text.toString().isEmpty()) DEFAULT_VALUE else main_value.text.toString()
+          if (main_value.text.toString()
+                  .isEmpty()) DEFAULT_VALUE else main_value.text.toString()
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
           APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
     } else {
@@ -562,7 +449,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
           .replace(localCurrency.code, "")
           .replace(" ", "")
       val appcValue =
-          if (main_value.text.toString().isEmpty()) DEFAULT_VALUE else main_value.text.toString()
+          if (main_value.text.toString()
+                  .isEmpty()) DEFAULT_VALUE else main_value.text.toString()
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
           APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
     }

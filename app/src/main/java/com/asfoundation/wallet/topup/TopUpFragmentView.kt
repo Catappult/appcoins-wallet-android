@@ -28,21 +28,16 @@ interface TopUpFragmentView {
   fun showMinValueWarning(value: String)
   fun hideValueInputWarning()
   fun changeMainValueColor(isValid: Boolean)
-  fun setupDefaultValueChips(values: List<FiatValue>)
   fun changeMainValueText(value: String)
-  fun deselectChips()
-  fun selectChip(index: Int)
-  fun getChipsClick(): Observable<Int>
   fun getSelectedCurrency(): String
-  fun getSelectedChip(): Int
   fun initialInputSetup(preselectedChip: Int, preselectedChipValue: BigDecimal)
   fun paymentMethodsFocusRequest()
   fun disableSwapCurrencyButton()
   fun enableSwapCurrencyButton()
-  fun setUnselectedChipsBackground()
-  fun getChipAvailability(): Boolean
-  fun hideChips()
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>
+  fun getValuesClicks(): Observable<FiatValue>
+  fun showValuesAdapter(values: List<FiatValue>)
+  fun hideValuesAdapter()
 }
