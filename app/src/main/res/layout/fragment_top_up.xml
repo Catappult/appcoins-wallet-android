@@ -12,7 +12,7 @@
       android:layout_height="0dp"
       android:descendantFocusability="beforeDescendants"
       android:fillViewport="true"
-      app:layout_constraintBottom_toTopOf="@id/rv_default_values"
+      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
       app:layout_constraintTop_toTopOf="parent"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -321,6 +321,7 @@
       android:layout_height="1dp"
       android:layout_marginBottom="8dp"
       android:background="@color/layout_separator_color"
+      android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@id/rv_default_values"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

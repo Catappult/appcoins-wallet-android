@@ -183,12 +183,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun showValuesAdapter() {
     if (rv_default_values.visibility == View.GONE) {
       rv_default_values.visibility = View.VISIBLE
+      bottom_separator.visibility = View.VISIBLE
     }
   }
 
   override fun hideValuesAdapter() {
     if (rv_default_values.visibility == View.VISIBLE) {
       rv_default_values.visibility = View.GONE
+      bottom_separator.visibility = View.GONE
     }
   }
 
