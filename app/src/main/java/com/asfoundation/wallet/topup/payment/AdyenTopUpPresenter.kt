@@ -12,6 +12,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.CurrencyData
+import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
@@ -40,7 +41,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val adyenPaymentInteractor: AdyenPaymentInteractor,
                           private val bonusValue: String,
                           private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
-                          private val gamificationLevel: Int
+                          private val gamificationLevel: Int,
+                          private val topUpAnalytics: TopUpAnalytics
 ) {
 
   private var waitingResult = false
@@ -140,6 +142,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
             .observeOn(networkScheduler)
             .flatMapSingle {
+              topUpAnalytics.sendConfirmationEvent(priceAmount.toDouble(), "top_up",
+                  paymentType)
               adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
                   returnUrl, priceAmount.toString(), priceCurrency,
                   mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
@@ -208,20 +212,35 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .flatMapCompletable {
               if (it.status == Status.COMPLETED) {
                 Completable.fromAction {
+                  topUpAnalytics.sendSuccessEvent(priceAmount.toDouble(), paymentType,
+                      "success")
                   val bundle = createBundle(priceAmount, priceCurrency)
                   waitingResult = false
                   navigator.popView(bundle)
                 }
               } else {
-                Completable.fromAction { view.showGenericError() }
+                Completable.fromAction {
+                  topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
+                      it.refusalCode.toString(), it.refusalReason ?: "")
+                  view.showGenericError()
+                }
               }
             }
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        if (paymentModel.error.isNetworkError) view.showNetworkError()
-        else view.showGenericError()
+        if (paymentModel.error.isNetworkError) {
+          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error", "",
+              "network_error")
+          view.showNetworkError()
+        } else {
+          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
+              paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
+          view.showGenericError()
+        }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
+        topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
+            paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
         paymentModel.refusalCode?.let { code ->
           if (code == CVC_DECLINED) {
             view.showCvvError()
@@ -230,8 +249,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           }
         }
       }
-      paymentModel.status == CANCELED -> Completable.fromAction { view.cancelPayment() }
-      else -> Completable.fromAction { view.showGenericError() }
+      paymentModel.status == CANCELED -> Completable.fromAction {
+        topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error", "",
+            "canceled")
+        view.cancelPayment()
+      }
+      else -> Completable.fromAction {
+        topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
+            paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
+        view.showGenericError()
+      }
     }
   }
 

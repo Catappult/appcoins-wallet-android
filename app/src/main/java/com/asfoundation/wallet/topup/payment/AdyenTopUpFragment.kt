@@ -29,6 +29,7 @@ import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
+import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -70,6 +71,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
   @Inject
   lateinit var adyenEnvironment: Environment
+  @Inject
+  lateinit var topUpAnalytics: TopUpAnalytics
 
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
@@ -105,7 +108,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
             transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
             data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper(), gamificationLevel)
+            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper(), gamificationLevel, topUpAnalytics)
   }
 
   override fun onAttach(context: Context) {

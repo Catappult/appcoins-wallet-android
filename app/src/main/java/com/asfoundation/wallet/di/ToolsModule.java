@@ -180,6 +180,7 @@ import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
 import com.asfoundation.wallet.support.SupportInteractor;
+import com.asfoundation.wallet.topup.TopUpAnalytics;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.topup.TopUpLimitValues;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
@@ -917,6 +918,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION);
     list.add(BillingAnalytics.RAKAM_PAYMENT_CONCLUSION);
     list.add(BillingAnalytics.RAKAM_PAYMENT_START);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_START);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_SELECTION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION);
     return list;
   }
 
@@ -1317,5 +1322,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides RakamAnalyticsSetup provideRakamAnalyticsSetup() {
     return new RakamAnalyticsSetup();
+  }
+
+  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager){
+    return new TopUpAnalytics(analyticsManager);
   }
 }
