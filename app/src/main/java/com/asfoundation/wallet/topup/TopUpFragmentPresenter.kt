@@ -104,8 +104,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          topUpAnalytics.sendSelectionEvent(
-              it.values[view.getSelectedChip()].amount.toDouble(), "next",
+          topUpAnalytics.sendSelectionEvent(topUpData.currency.fiatValue.toDouble(), "next",
               topUpData.paymentMethod!!.name)
           activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
               topUpData.selectedCurrency, "BDS",
