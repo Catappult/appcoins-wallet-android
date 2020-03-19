@@ -388,6 +388,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .show();
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
           .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.transparent, null));
+      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setTextColor(ResourcesCompat.getColor(getResources(), R.color.text_button_color, null));
     }
   }
 
