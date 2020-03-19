@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.asf.wallet.R
@@ -35,6 +34,31 @@ class BillingWebViewFragment : DaggerFragment() {
   private var webViewActivity: WebViewActivity? = null
   private var asyncDetailsShown = false
 
+  companion object {
+    private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
+    private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
+    private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
+    private const val GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer"
+    private const val LINE_APP_PAYMENTS_SCHEMA = "android-app://jp.naver.line.android"
+    private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
+    private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
+        "https://airtime.codapayments.com/epcgw/dlocal/"
+    private const val CODAPAY_BACK_URL =
+        "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
+    private const val URL = "url"
+    private const val CURRENT_URL = "currentUrl"
+    private const val ORDER_ID_PARAMETER = "OrderId"
+
+    fun newInstance(url: String?): BillingWebViewFragment {
+      return BillingWebViewFragment().apply {
+        arguments = Bundle().apply {
+          putString(URL, url)
+        }
+        retainInstance = true
+      }
+    }
+  }
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(context is WebViewActivity) { "WebView fragment must be attached to WebView Activity" }
@@ -44,8 +68,7 @@ class BillingWebViewFragment : DaggerFragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     executorService = Executors.newScheduledThreadPool(0)
-    require(!(arguments == null || !arguments!!.containsKey(
-        URL))) { "Provided url is null!" }
+    require(arguments != null && arguments!!.containsKey(URL)) { "Provided url is null!" }
     currentUrl = if (savedInstanceState == null) {
       arguments!!.getString(URL)
     } else {
@@ -58,34 +81,24 @@ class BillingWebViewFragment : DaggerFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     val view = inflater.inflate(R.layout.webview_fragment, container, false)
+
     view.webview.webViewClient = object : WebViewClient() {
-      override fun shouldOverrideUrlLoading(view: WebView,
-                                            clickUrl: String): Boolean {
-        if (clickUrl.contains(
-                LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(
-                ADYEN_PAYMENT_SCHEMA)) {
+      override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
+        if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA)) {
           currentUrl = clickUrl
           finishWithSuccess(clickUrl)
-        } else if (clickUrl.contains(
-                GO_PAY_APP_PAYMENTS_SCHEMA) || clickUrl.contains(
+        } else if (clickUrl.contains(GO_PAY_APP_PAYMENTS_SCHEMA) || clickUrl.contains(
                 LINE_APP_PAYMENTS_SCHEMA)) {
           launchActivity(Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)))
-        } else if (clickUrl.contains(
-                CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
+        } else if (clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
                 ORDER_ID_PARAMETER)) {
-          val orderId = Uri.parse(clickUrl)
-              .getQueryParameter(ORDER_ID_PARAMETER)
+          val orderId = Uri.parse(clickUrl).getQueryParameter(ORDER_ID_PARAMETER)
           finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
         } else {
           currentUrl = clickUrl
           return false
         }
         return true
-      }
-
-      override fun shouldOverrideUrlLoading(view: WebView,
-                                            request: WebResourceRequest): Boolean {
-        return super.shouldOverrideUrlLoading(view, request)
       }
 
       override fun onPageFinished(view: WebView, url: String) {
@@ -108,7 +121,7 @@ class BillingWebViewFragment : DaggerFragment() {
 
   fun handleBackPressed(): Boolean {
     return if (asyncDetailsShown) {
-      webview.loadUrl("https://pay.dlocal.com/payment_method_connectors/global_pm//back")
+      webview.loadUrl(CODAPAY_BACK_URL)
       asyncDetailsShown = false
       true
     } else {
@@ -151,29 +164,4 @@ class BillingWebViewFragment : DaggerFragment() {
     webViewActivity!!.setResult(WebViewActivity.SUCCESS, intent)
     webViewActivity!!.finish()
   }
-
-  companion object {
-    private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
-    private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
-    private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
-    private const val GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer"
-    private const val LINE_APP_PAYMENTS_SCHEMA = "android-app://jp.naver.line.android"
-    private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
-    private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
-        "https://airtime.codapayments.com/epcgw/dlocal/"
-    private const val CODAPAY_BACK_URL =
-        "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
-    private const val URL = "url"
-    private const val CURRENT_URL = "currentUrl"
-    private const val ORDER_ID_PARAMETER = "OrderId"
-    fun newInstance(url: String?): BillingWebViewFragment {
-      val args = Bundle()
-      args.putString(URL, url)
-      val fragment = BillingWebViewFragment()
-      fragment.arguments = args
-      fragment.retainInstance = true
-      return fragment
-    }
-  }
-
 }
