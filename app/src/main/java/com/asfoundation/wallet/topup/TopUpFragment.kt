@@ -140,7 +140,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
     rv_default_values.apply {
       adapter = topUpAdapter
-      addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
     }
 
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
@@ -177,6 +176,15 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun setValuesAdapter(values: List<FiatValue>) {
+    if (values.size > 4) {
+      rv_default_values.addItemDecoration(
+          DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
+    } else {
+      rv_default_values.addItemDecoration(
+          DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
+      rv_default_values.addItemDecoration(TopUpItemDecorator(values.size))
+    }
+
     topUpAdapter.submitList(values)
   }
 
