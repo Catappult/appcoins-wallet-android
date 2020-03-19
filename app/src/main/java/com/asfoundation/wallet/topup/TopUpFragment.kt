@@ -176,14 +176,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun setValuesAdapter(values: List<FiatValue>) {
-    if (values.size > 4) {
-      rv_default_values.addItemDecoration(
-          DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
-    } else {
-      rv_default_values.addItemDecoration(
-          DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
-      rv_default_values.addItemDecoration(TopUpItemDecorator(values.size))
-    }
+    val addMargin = values.size <= getTopUpValuesSpanCount()
+    rv_default_values.addItemDecoration(
+        DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
+    rv_default_values.addItemDecoration(TopUpItemDecorator(values.size, addMargin))
 
     topUpAdapter.submitList(values)
   }
@@ -510,5 +506,21 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }) {
       TypedValue.complexToDimensionPixelSize(this.data, resources.displayMetrics)
     }
+  }
+
+  private fun getTopUpValuesSpanCount(): Int {
+    val screenWidth =
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+                fragmentContainer.measuredWidth.toFloat(),
+                requireContext().resources
+                    .displayMetrics)
+            .toInt()
+
+    val viewWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80f,
+            requireContext().resources
+                .displayMetrics)
+        .toInt()
+
+    return screenWidth / viewWidth
   }
 }
