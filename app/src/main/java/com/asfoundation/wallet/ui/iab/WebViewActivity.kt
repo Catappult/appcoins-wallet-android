@@ -13,6 +13,8 @@ import dagger.android.AndroidInjection
 
 class WebViewActivity : AppCompatActivity() {
 
+  lateinit var billingWebViewFragment: BillingWebViewFragment
+
   public override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
@@ -21,10 +23,16 @@ class WebViewActivity : AppCompatActivity() {
 
     if (savedInstanceState == null) {
       val url = intent.getStringExtra(URL)
-      val billingWebViewFragment = BillingWebViewFragment.newInstance(url)
+      billingWebViewFragment = BillingWebViewFragment.newInstance(url)
       supportFragmentManager.beginTransaction()
           .add(R.id.container, billingWebViewFragment)
           .commit()
+    }
+  }
+
+  override fun onBackPressed() {
+    if (!billingWebViewFragment.handleBackPressed()) {
+      super.onBackPressed()
     }
   }
 
