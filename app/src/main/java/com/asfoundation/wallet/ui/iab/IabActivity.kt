@@ -188,18 +188,18 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
-   }
+  }
 
   private fun handlePurchaseStartAnalytics() {
     if (firstImpression) {
       if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
-        billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction!!.domain,
-            transaction!!.skuId, transaction!!.amount().toString(), transaction!!.type,
-            BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
+        billingAnalytics.sendPurchaseStartEvent(transaction?.domain, transaction?.skuId,
+            transaction?.amount().toString(), inAppPurchaseInteractor.preSelectedPaymentMethod,
+            transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
       } else {
-        billingAnalytics.sendPurchaseStartEvent(transaction!!.domain, transaction!!.skuId,
-            transaction!!.amount().toString(), inAppPurchaseInteractor.preSelectedPaymentMethod,
-            transaction!!.type, BillingAnalytics.RAKAM_PAYMENT_METHOD)
+        billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction?.domain,
+            transaction?.skuId, transaction?.amount().toString(), transaction?.type,
+            BillingAnalytics.RAKAM_PAYMENT_METHOD)
       }
       firstImpression = false
     }
