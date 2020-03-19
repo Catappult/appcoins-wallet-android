@@ -17,6 +17,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.di.AppComponent;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.identification.IdsRepository;
@@ -170,10 +171,10 @@ public class App extends MultiDexApplication
       superProperties = new JSONObject();
     }
     try {
-      superProperties.put("aptoide_package", BuildConfig.APPLICATION_ID);
-      superProperties.put("version_code", BuildConfig.VERSION_CODE);
-      superProperties.put("entry_point", installerPackage);
-      superProperties.put("user_level", userLevel);
+      superProperties.put(RakamEventLogger.APTOIDE_PACKAGE, BuildConfig.APPLICATION_ID);
+      superProperties.put(RakamEventLogger.VERSION_CODE, BuildConfig.VERSION_CODE);
+      superProperties.put(RakamEventLogger.ENTRY_POINT, installerPackage);
+      superProperties.put(RakamEventLogger.USER_LEVEL, userLevel);
     } catch (JSONException e) {
       e.printStackTrace();
     }
