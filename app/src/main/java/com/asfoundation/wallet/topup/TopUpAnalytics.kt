@@ -2,7 +2,7 @@ package com.asfoundation.wallet.topup
 
 import cm.aptoide.analytics.AnalyticsManager
 
-class TopUpAnalytics(val analyticsManager: AnalyticsManager) {
+class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
 
   fun sendStartEvent() {
     analyticsManager.logEvent(HashMap<String, Any>(), WALLET_TOP_UP_START,
@@ -55,7 +55,6 @@ class TopUpAnalytics(val analyticsManager: AnalyticsManager) {
 
     return map
   }
-
 
   companion object {
     const val WALLET_TOP_UP_START = "wallet_top_up_start"

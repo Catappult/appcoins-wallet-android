@@ -26,13 +26,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
   @Inject
-  lateinit var topupAnalytics: TopUpAnalytics
+  lateinit var topUpAnalytics: TopUpAnalytics
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
   private var firstImpression = true
-
 
   companion object {
     @JvmStatic
@@ -55,10 +54,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     presenter = TopUpActivityPresenter(this)
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
-    if (savedInstanceState != null) {
-      if (savedInstanceState.containsKey(FIRST_IMPRESSION)) {
-        firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
-      }
+    if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
+      firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
 
 
@@ -181,7 +178,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   private fun handleTopUpStartAnalytics() {
     if (firstImpression) {
-      topupAnalytics.sendStartEvent()
+      topUpAnalytics.sendStartEvent()
       firstImpression = false
     }
   }
