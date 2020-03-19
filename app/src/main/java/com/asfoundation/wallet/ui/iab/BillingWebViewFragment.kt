@@ -115,6 +115,8 @@ class BillingWebViewFragment : DaggerFragment() {
       }
     }
     view.webview.settings.javaScriptEnabled = true
+    view.webview.settings.domStorageEnabled = true
+    view.webview.settings.useWideViewPort = true
     view.webview.loadUrl(currentUrl)
     return view
   }
