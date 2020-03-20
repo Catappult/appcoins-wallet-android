@@ -47,7 +47,7 @@ class SmsValidationRepository(
         var walletValidationException = WalletValidationException("")
         if (throwable.code() == 400) {
           walletValidationException = gson.fromJson(throwable.response()
-              .errorBody()!!
+              !!.errorBody()!!
               .charStream(), WalletValidationException::class.java)
         }
         when {
