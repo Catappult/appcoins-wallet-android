@@ -12,7 +12,7 @@
       android:id="@+id/value"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="wrap_content"
-      android:layout_height="48dp"
+      android:layout_height="32dp"
       android:gravity="center"
       android:minWidth="80dp"
       android:textColor="#4a4a4a"
@@ -21,7 +21,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintWidth_min="80dp"
-      tools:text="40 €"
+      tools:text="40€"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
