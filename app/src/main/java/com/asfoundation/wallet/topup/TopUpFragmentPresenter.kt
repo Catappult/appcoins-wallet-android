@@ -24,6 +24,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
   private var hasDefaultValues = false
+  private val keyboardLastValue = false
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"

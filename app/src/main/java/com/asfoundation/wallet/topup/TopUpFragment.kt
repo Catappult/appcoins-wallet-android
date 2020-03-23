@@ -81,11 +81,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     val appBarHeight = getAppBarHeight()
     fragmentView?.let {
       val heightDiff: Int = it.rootView.height - it.height - appBarHeight
-      if (heightDiff > 150) {
-        keyboardEvents.onNext(true)
-      } else {
-        keyboardEvents.onNext(false)
-      }
+
+      val threshold = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150f,
+              requireContext().resources.displayMetrics)
+          .toInt()
+
+      keyboardEvents.onNext(heightDiff > threshold)
     }
   }
 
