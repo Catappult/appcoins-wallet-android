@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Podias ter recebido %s nesta compra.</string>
   <string name="iab_purchase_done_title_long">Compra concluída!</string>
   <string name="iab_purchase_change_payment_method_button">MAIS MÉTODOS DE PAGAMENTO</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">PRÓXIMO</string>
   <string name="cancel_button">CANCELAR</string>
