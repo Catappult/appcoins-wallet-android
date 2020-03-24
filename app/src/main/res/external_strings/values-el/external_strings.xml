@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Θα μπορούσατε να έχετε λάβει %s με αυτήν την αγορά.</string>
   <string name="iab_purchase_done_title_long">Η αγορά ολοκληρώθηκε!</string>
   <string name="iab_purchase_change_payment_method_button">ΠΕΡΙΣΣΟΤΕΡΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">ΕΠΟΜΕΝΟ</string>
   <string name="cancel_button">ΑΚΥΡΟ</string>
