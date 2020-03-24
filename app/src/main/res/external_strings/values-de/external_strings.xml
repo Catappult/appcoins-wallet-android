@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Sie hätten einen Bonus von %s auf diesen Einkauf erhalten können.</string>
   <string name="iab_purchase_done_title_long">Einkauf abgeschlossen!</string>
   <string name="iab_purchase_change_payment_method_button">WEITERE BEZAHLMETHODEN</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">WEITER</string>
   <string name="cancel_button">ABBRECHEN</string>
