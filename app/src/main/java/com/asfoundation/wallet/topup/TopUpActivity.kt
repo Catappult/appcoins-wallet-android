@@ -25,10 +25,13 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  @Inject
+  lateinit var topUpAnalytics: TopUpAnalytics
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
+  private var firstImpression = true
 
   companion object {
     @JvmStatic
@@ -40,6 +43,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
     private const val BONUS = "bonus"
+    private const val FIRST_IMPRESSION = "first_impression"
   }
 
 
@@ -50,6 +54,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     presenter = TopUpActivityPresenter(this)
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
+    if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
+      firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
+    }
+
+
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -59,6 +68,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun showTopUpScreen() {
     setupToolbar()
+    handleTopUpStartAnalytics()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
         .commit()
@@ -156,6 +166,20 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       supportFragmentManager.popBackStack()
     } else {
       super.onBackPressed()
+    }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putBoolean(FIRST_IMPRESSION, firstImpression)
+  }
+
+
+  private fun handleTopUpStartAnalytics() {
+    if (firstImpression) {
+      topUpAnalytics.sendStartEvent()
+      firstImpression = false
     }
   }
 }
