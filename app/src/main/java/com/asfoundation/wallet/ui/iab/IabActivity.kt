@@ -84,7 +84,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         sendPayPalConfirmationEvent("cancel")
         showPaymentMethodsView()
       } else if (resultCode == SUCCESS) {
-        sendPayPalConfirmationEvent("buy")
+        if (data?.scheme?.contains("adyen") == true) {
+          sendPayPalConfirmationEvent("buy")
+        }
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
     }
@@ -303,10 +305,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   private fun sendPayPalConfirmationEvent(action: String) {
-    if (transaction?.type == "paypal")
-      billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
-          transaction?.amount().toString(), "paypal",
-          transaction?.type, action)
+    billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
+        transaction?.amount().toString(), "paypal",
+        transaction?.type, action)
   }
 
 
