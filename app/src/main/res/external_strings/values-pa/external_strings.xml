@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">ਤੁਸੀਂ ਇਸ ਖਰੀਦ ਤੇ %s ਤੱਕ ਪ੍ਰਾਪਤ ਕਰ ਸੱਕਦੇ ਸੀ|</string>
   <string name="iab_purchase_done_title_long">ਖਰੀਦ ਪੂਰੀ ਹੋਈ!</string>
   <string name="iab_purchase_change_payment_method_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">ਅਗਲਾ</string>
   <string name="cancel_button">ਕੈਂਸਲ</string>
