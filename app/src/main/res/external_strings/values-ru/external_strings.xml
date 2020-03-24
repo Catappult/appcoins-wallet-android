@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Вы могли бы получить %s на эту покупку.</string>
   <string name="iab_purchase_done_title_long">Покупка завершена!</string>
   <string name="iab_purchase_change_payment_method_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">ДАЛЕЕ</string>
   <string name="cancel_button">ОТМЕНИТЬ</string>
