@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Anda sebenarnya bisa menerima %s pada pembelian ini.</string>
   <string name="iab_purchase_done_title_long">Pembelian selesai!</string>
   <string name="iab_purchase_change_payment_method_button">METODE PEMBAYARAN LAINNYA</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">SELANJUTNYA</string>
   <string name="cancel_button">BATAL</string>
