@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">در این خرید می‌توانستید %s دریافت کنید.</string>
   <string name="iab_purchase_done_title_long">خرید تکمیل شد!</string>
   <string name="iab_purchase_change_payment_method_button">سایر روش‌های پرداخت</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">بعدی</string>
   <string name="cancel_button">لغو</string>
