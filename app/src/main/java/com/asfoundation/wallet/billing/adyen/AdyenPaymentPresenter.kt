@@ -180,7 +180,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             }
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.status,
+              handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason,
+                  it.status,
                   it.error)
             }
             .subscribe())
@@ -194,9 +195,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       resultCode.equals("AUTHORISED", true) -> {
         adyenPaymentInteractor.getTransaction(uid)
             .subscribeOn(networkScheduler)
-            .doOnNext {
-              sendPaypalConfirmationEvent(it.status)
-            }
             .observeOn(viewScheduler)
             .flatMapCompletable {
               when {
@@ -365,26 +363,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               .setScale(2, BigDecimal.ROUND_UP)
               .toString())
     })
-  }
-
-  private fun sendPaypalConfirmationEvent(
-      status: Status) {
-    disposables.add(transactionBuilder
-        .observeOn(networkScheduler)
-        .doOnSuccess { transaction ->
-          if (mapPaymentToAnalytics(transaction.type) == BillingAnalytics.PAYMENT_METHOD_PAYPAL) {
-            if (status == CANCELED) {
-              analytics.sendPaymentConfirmationEvent(domain, transaction.skuId,
-                  transaction.amount().toString(), mapPaymentToService(paymentType).transactionType,
-                  transaction.type, "cancel")
-            } else {
-              analytics.sendPaymentConfirmationEvent(domain, transaction.skuId,
-                  transaction.amount().toString(), mapPaymentToService(paymentType).transactionType,
-                  transaction.type, "buy")
-            }
-          }
-        }
-        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun sendPaymentSuccessEvent() {

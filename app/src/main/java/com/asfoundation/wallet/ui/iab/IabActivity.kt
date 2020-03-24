@@ -81,8 +81,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
+        sendPayPalConfirmationEvent("cancel")
         showPaymentMethodsView()
       } else if (resultCode == SUCCESS) {
+        sendPayPalConfirmationEvent("buy")
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
     }
@@ -188,7 +190,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
-   }
+  }
 
   private fun handlePurchaseStartAnalytics() {
     if (firstImpression) {
@@ -299,6 +301,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter.stop()
     super.onPause()
   }
+
+  private fun sendPayPalConfirmationEvent(action: String) {
+    if (transaction?.type == "paypal")
+      billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
+          transaction?.amount().toString(), "paypal",
+          transaction?.type, action)
+  }
+
 
   companion object {
 
