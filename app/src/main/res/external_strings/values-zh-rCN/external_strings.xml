@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">你本可以通过此次购买获得%s。</string>
   <string name="iab_purchase_done_title_long">购买完成！</string>
   <string name="iab_purchase_change_payment_method_button">更多付款方式</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">下一步</string>
   <string name="cancel_button">取消</string>
