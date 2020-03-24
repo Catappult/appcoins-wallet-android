@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Mogli ste da dobijete %s za ovu kupovinu.</string>
   <string name="iab_purchase_done_title_long">Kupovina je dovršena!</string>
   <string name="iab_purchase_change_payment_method_button">JOŠ NAČINA PLAĆANJA</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">SLEDEĆE</string>
   <string name="cancel_button">OTKAŽI</string>
