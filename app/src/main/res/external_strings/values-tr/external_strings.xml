@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Bu satın alma işleminden %s alabilirdiniz.</string>
   <string name="iab_purchase_done_title_long">Satın alma işlemi tamamlandı!</string>
   <string name="iab_purchase_change_payment_method_button">DAHA FAZLA ÖDEME YÖNTEMİ</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">İLERİ</string>
   <string name="cancel_button">İPTAL ET</string>
