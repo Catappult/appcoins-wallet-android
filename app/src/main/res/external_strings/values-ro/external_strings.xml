@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Ai fi putut să primești %s pentru această cumpărătură.</string>
   <string name="iab_purchase_done_title_long">Cumpărătură finalizată!</string>
   <string name="iab_purchase_change_payment_method_button">MAI MULTE METODE DE PLATĂ</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">URMĂTORUL</string>
   <string name="cancel_button">ANULEAZĂ</string>
