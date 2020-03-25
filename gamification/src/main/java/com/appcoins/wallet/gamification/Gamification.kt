@@ -14,8 +14,8 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.getUserStats(wallet)
   }
 
-  fun getLevels(): Single<Levels> {
-    return repository.getLevels()
+  fun getLevels(wallet: String): Single<Levels> {
+    return repository.getLevels(wallet)
   }
 
   fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {

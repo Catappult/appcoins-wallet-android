@@ -14,7 +14,7 @@ interface GamificationApi {
   versionCode: String): Single<UserStatusResponse>
 
   @GET("gamification/levels")
-  fun getLevels(): Single<LevelsResponse>
+  fun getLevels(@Query("address") address: String): Single<LevelsResponse>
 
   @GET("gamification/bonus_forecast")
   fun getForecastBonus(@Query("address") wallet: String,

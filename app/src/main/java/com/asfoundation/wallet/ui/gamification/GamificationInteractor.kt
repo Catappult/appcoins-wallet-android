@@ -22,7 +22,8 @@ class GamificationInteractor(
     private val conversionService: LocalCurrencyConversionService) {
 
   fun getLevels(): Single<Levels> {
-    return gamification.getLevels()
+    return defaultWallet.find()
+        .flatMap { gamification.getLevels(it.address) }
   }
 
   fun getUserStats(): Single<UserStats> {
