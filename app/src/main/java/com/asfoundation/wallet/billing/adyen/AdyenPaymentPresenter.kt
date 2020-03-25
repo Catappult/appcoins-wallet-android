@@ -181,8 +181,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason,
-                  it.status,
-                  it.error)
+                  it.status, it.error)
             }
             .subscribe())
   }

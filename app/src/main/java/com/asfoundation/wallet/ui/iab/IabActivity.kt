@@ -310,7 +310,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         transaction?.type, action)
   }
 
-
   companion object {
 
     const val URI = "uri"
