@@ -52,6 +52,7 @@ import io.reactivex.subjects.PublishSubject;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
+import static com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver.SUPPORT_NOTIFICATION_CLICK;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
@@ -75,6 +76,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
+  }
+
+  public static Intent newIntent(Context context, boolean supportNotificationClicked) {
+    Intent intent = new Intent(context, TransactionsActivity.class);
+    intent.putExtra(SUPPORT_NOTIFICATION_CLICK, supportNotificationClicked);
+    return intent;
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -159,17 +166,25 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onGamificationMaxBonus);
     viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onPromotionsNotification);
-    viewModel.shouldShowSupport()
-        .observe(this, this::showSupport);
+    viewModel.getUnreadMessages()
+        .observe(this, this::updateSupportIcon);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
+
+    if (savedInstanceState == null) {
+      boolean supportNotificationClick =
+          getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
+      if (supportNotificationClick) {
+        overridePendingTransition(0, 0);
+        viewModel.resetUnreadConversations();
+        viewModel.showSupportScreen();
+      }
+    }
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_settings) {
       viewModel.showSettings(this);
-    } else if (item.getItemId() == R.id.action_support) {
-      viewModel.showSupportScreen();
     }
     return super.onOptionsItemSelected(item);
   }
@@ -202,10 +217,20 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void showSupport(Boolean show) {
-    if (supportActionView != null) {
-      supportActionView.setVisible(show);
+  private void updateSupportIcon(boolean hasMessages) {
+    if (supportActionView == null) {
+      return;
     }
+    LottieAnimationView animation = findViewById(R.id.intercom_animation);
+
+    if (hasMessages && !animation.isAnimating()) {
+      animation.playAnimation();
+    } else {
+      animation.cancelAnimation();
+      animation.setProgress(0);
+    }
+
+    animation.setOnClickListener(v -> viewModel.showSupportScreen());
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
@@ -238,19 +263,28 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onResume() {
     super.onResume();
-    emptyView = null;
-    if (disposables.isDisposed()) {
-      disposables = new CompositeDisposable();
+    boolean supportNotificationClick =
+        getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
+    if (!supportNotificationClick) {
+      emptyView = null;
+      if (disposables.isDisposed()) {
+        disposables = new CompositeDisposable();
+      }
+      adapter.clear();
+      list.setVisibility(View.GONE);
+      viewModel.prepare();
+      viewModel.updateConversationCount();
+      viewModel.handleUnreadConversationCount();
+      checkRoot();
+    } else {
+      finish();
     }
-    adapter.clear();
-    list.setVisibility(View.GONE);
-    viewModel.prepare();
-    checkRoot();
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
     supportActionView = menu.findItem(R.id.action_support);
+    viewModel.handleUnreadConversationCount();
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -354,6 +388,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .show();
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
           .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.transparent, null));
+      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setTextColor(ResourcesCompat.getColor(getResources(), R.color.text_button_color, null));
     }
   }
 

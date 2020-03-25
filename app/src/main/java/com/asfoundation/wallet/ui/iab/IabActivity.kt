@@ -10,12 +10,13 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
-import com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS
+import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.jakewharton.rxrelay2.PublishRelay
@@ -32,8 +33,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   @Inject
   lateinit var autoUpdateInteract: AutoUpdateInteract
+
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
   private var isBackEnable: Boolean = false
   private lateinit var presenter: IabPresenter
   private var skuDetails: Bundle? = null
@@ -42,6 +47,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
   private var uri: String? = null
+  private var firstImpression = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -60,6 +66,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
         skuDetails = savedInstanceState.getBundle(SKU_DETAILS)
       }
+      if (savedInstanceState.containsKey(FIRST_IMPRESSION)) {
+        firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
+      }
     } else {
       showPaymentMethodsView()
     }
@@ -67,7 +76,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
         showPaymentMethodsView()
@@ -136,12 +144,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                                iconUrl: String?, frequency: String?) {
+                                iconUrl: String?, gamificationLevel: Int, frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, frequency))
+                bonus, isPreselected, gamificationLevel, frequency))
         .commit()
   }
 
@@ -157,12 +165,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?,
                                 currency: String?, bonus: String?, selectedPaymentMethod: String,
                                 developerAddress: String, type: String, amount: BigDecimal,
-                                callbackUrl: String?, orderReference: String?, payload: String?) {
+                                callbackUrl: String?, orderReference: String?, payload: String?,
+                                paymentMethodIconUrl: String, paymentMethodLabel: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload))
+                payload, paymentMethodIconUrl, paymentMethodLabel))
         .commit()
   }
 
@@ -171,12 +180,30 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .equals(transaction?.type, ignoreCase = true)
     val isSubscription = TransactionData.TransactionType.SUBS.name
         .equals(transaction?.type, ignoreCase = true)
+    handlePurchaseStartAnalytics()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
                 .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString, isSubscription, "Month"))//TODO remove hardcoded frequency
         .commit()
+  }
+
+  private fun handlePurchaseStartAnalytics() {
+    if (firstImpression) {
+      if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+        billingAnalytics.sendPurchaseStartEvent(transaction?.domain, transaction?.skuId,
+            transaction?.amount()
+                .toString(), inAppPurchaseInteractor.preSelectedPaymentMethod,
+            transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
+      } else {
+        billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction?.domain,
+            transaction?.skuId, transaction?.amount()
+            .toString(), transaction?.type,
+            BillingAnalytics.RAKAM_PAYMENT_METHOD)
+      }
+      firstImpression = false
+    }
   }
 
   override fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,
@@ -197,7 +224,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
                 productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
-                isDonation, isSubscription, frequency))
+                isDonation, transaction!!.skuId, transaction!!.type, isSubscription, frequency))
         .commit()
   }
 
@@ -222,6 +249,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onSaveInstanceState(outState)
 
     outState.putBundle(SKU_DETAILS, skuDetails)
+    outState.putBoolean(FIRST_IMPRESSION, firstImpression)
   }
 
   private fun getOrigin(isBds: Boolean): String? {
@@ -233,13 +261,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   private fun createBundle(amount: BigDecimal): Bundle {
-    val bundle = Bundle()
-    bundle.putSerializable(TRANSACTION_AMOUNT, amount)
-    bundle.putString(APP_PACKAGE, transaction!!.domain)
-    bundle.putString(PRODUCT_NAME, intent.extras!!
-        .getString(PRODUCT_NAME))
-    bundle.putString(TRANSACTION_DATA, intent.dataString)
-    bundle.putString(DEVELOPER_PAYLOAD, transaction!!.payload)
+    val bundle = Bundle().apply {
+      putSerializable(TRANSACTION_AMOUNT, amount)
+      putString(APP_PACKAGE, transaction!!.domain)
+      putString(PRODUCT_NAME, intent.extras!!.getString(PRODUCT_NAME))
+      putString(TRANSACTION_DATA, intent.dataString)
+      putString(DEVELOPER_PAYLOAD, transaction!!.payload)
+    }
     skuDetails = bundle
     return bundle
   }
@@ -279,6 +307,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val RESPONSE_CODE = "RESPONSE_CODE"
     const val RESULT_USER_CANCELED = 1
     const val SKU_DETAILS = "sku_details"
+    const val FIRST_IMPRESSION = "first_impression"
     const val APP_PACKAGE = "app_package"
     const val TRANSACTION_EXTRA = "transaction_extra"
     const val PRODUCT_NAME = "product_name"

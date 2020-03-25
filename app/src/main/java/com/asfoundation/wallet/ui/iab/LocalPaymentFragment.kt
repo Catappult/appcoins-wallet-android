@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.animation.Animator
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
 import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
@@ -43,30 +46,39 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val CALLBACK_URL = "CALLBACK_URL"
     private const val ORDER_REFERENCE = "ORDER_REFERENCE"
     private const val PAYLOAD = "PAYLOAD"
+    private const val PAYMENT_METHOD_URL = "payment_method_url"
+    private const val PAYMENT_METHOD_LABEL = "payment_method_label"
+
+    private const val ANIMATION_STEP_ONE_START_FRAME = 0
+    private const val ANIMATION_STEP_TWO_START_FRAME = 80
+    private const val MID_ANIMATION_FRAME_INCREMENT = 40
+    private const val LAST_ANIMATION_FRAME_INCREMENT = 30
+    private const val BUTTON_ANIMATION_START_FRAME = 120
+    private const val LAST_ANIMATION_FRAME = 150
 
     @JvmStatic
-    fun newInstance(domain: String, skudId: String?, originalAmount: String?,
-                    currency: String?, bonus: String?,
-                    selectedPaymentMethod: String,
-                    developerAddress: String, type: String,
-                    amount: BigDecimal, callbackUrl: String?,
-                    orderReference: String?,
-                    payload: String?): LocalPaymentFragment {
+    fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
+                    bonus: String?, selectedPaymentMethod: String, developerAddress: String,
+                    type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
+                    payload: String?, paymentMethodIconUrl: String,
+                    paymentMethodLabel: String): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
-      val bundle = Bundle()
-      bundle.putString(DOMAIN_KEY, domain)
-      bundle.putString(SKU_ID_KEY, skudId)
-      bundle.putString(ORIGINAL_AMOUNT_KEY, originalAmount)
-      bundle.putString(CURRENCY_KEY, currency)
-      bundle.putString(BONUS_KEY, bonus)
-      bundle.putString(PAYMENT_KEY, selectedPaymentMethod)
-      bundle.putString(DEV_ADDRESS_KEY, developerAddress)
-      bundle.putString(TYPE_KEY, type)
-      bundle.putSerializable(AMOUNT_KEY, amount)
-      bundle.putString(CALLBACK_URL, callbackUrl)
-      bundle.putString(ORDER_REFERENCE, orderReference)
-      bundle.putString(PAYLOAD, payload)
-      fragment.arguments = bundle
+      fragment.arguments = Bundle().apply {
+        putString(DOMAIN_KEY, domain)
+        putString(SKU_ID_KEY, skudId)
+        putString(ORIGINAL_AMOUNT_KEY, originalAmount)
+        putString(CURRENCY_KEY, currency)
+        putString(BONUS_KEY, bonus)
+        putString(PAYMENT_KEY, selectedPaymentMethod)
+        putString(DEV_ADDRESS_KEY, developerAddress)
+        putString(TYPE_KEY, type)
+        putSerializable(AMOUNT_KEY, amount)
+        putString(CALLBACK_URL, callbackUrl)
+        putString(ORDER_REFERENCE, orderReference)
+        putString(PAYLOAD, payload)
+        putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
+        putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
+      }
       return fragment
     }
   }
@@ -165,6 +177,22 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
+  private val paymentMethodIconUrl: String? by lazy {
+    if (arguments!!.containsKey(PAYMENT_METHOD_URL)) {
+      arguments!!.getString(PAYMENT_METHOD_URL)
+    } else {
+      throw IllegalArgumentException("payment method icon url not found")
+    }
+  }
+
+  private val paymentMethodIconLabel: String? by lazy {
+    if (arguments!!.containsKey(PAYMENT_METHOD_LABEL)) {
+      arguments!!.getString(PAYMENT_METHOD_LABEL)
+    } else {
+      throw IllegalArgumentException("payment method icon label not found")
+    }
+  }
+
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
   @Inject
@@ -173,6 +201,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private lateinit var navigator: FragmentNavigator
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
   private lateinit var status: ViewState
+  private var minFrame = 0
+  private var maxFrame = 40
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -182,7 +212,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
             paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable(), callbackUrl, orderReference, payload)
+            CompositeDisposable(), callbackUrl, orderReference, payload, context,
+            paymentMethodIconUrl)
   }
 
 
@@ -203,6 +234,12 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    setupUi()
+
+    localPaymentPresenter.present()
+  }
+
+  private fun setupUi() {
     if (bonus?.isNotBlank() == true) {
       complete_payment_view.lottie_transaction_success.setAnimation(
           R.raw.top_up_bonus_success_animation)
@@ -211,7 +248,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       complete_payment_view.lottie_transaction_success.setAnimation(R.raw.top_up_success_animation)
     }
 
-    localPaymentPresenter.present()
+    iabView.disableBack()
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -225,7 +262,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private fun setViewState(viewState: ViewState?) {
     when (viewState) {
       COMPLETED -> showCompletedPayment()
-      PENDING_USER_PAYMENT -> showPendingUserPayment()
+      PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
       ERROR -> showError()
       LOADING -> showProcessingLoading()
       else -> {
@@ -235,8 +272,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private fun setAnimationText() {
     val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
-    textDelegate.setText("bonus_value",
-        bonus)
+    textDelegate.setText("bonus_value", bonus)
     textDelegate.setText("bonus_received",
         resources.getString(R.string.gamification_purchase_completed_bonus_received))
     complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
@@ -262,10 +298,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     return RxView.clicks(error_view.activity_iab_error_ok_button)
   }
 
-
-  override fun getOkBuyClick(): Observable<Any> {
-    return RxView.clicks(buy_button)
-  }
+  override fun getGotItClick() = RxView.clicks(got_it_button)
 
   override fun showProcessingLoading() {
     status = LOADING
@@ -296,14 +329,27 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     pending_user_payment_view.in_progress_animation.cancelAnimation()
   }
 
-  override fun showPendingUserPayment() {
+  override fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap) {
     status = PENDING_USER_PAYMENT
-    pending_user_payment_view.visibility = View.VISIBLE
-    complete_payment_view.visibility = View.GONE
-    pending_user_payment_view.in_progress_animation.playAnimation()
-    complete_payment_view.lottie_transaction_success.cancelAnimation()
-    progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
+    complete_payment_view.visibility = View.GONE
+    progress_bar.visibility = View.GONE
+    pending_user_payment_view?.visibility = View.VISIBLE
+
+    val placeholder = getString(R.string.async_steps_1)
+    val stepOneText = String.format(placeholder, paymentMethodIconLabel)
+
+    step_one_desc.text = stepOneText
+
+    pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
+      when (it.id) {
+        "image_0" -> paymentMethodIcon
+        "image_1" -> applicationIcon
+        else -> null
+      }
+    }
+
+    playAnimation()
   }
 
   override fun showError() {
@@ -346,4 +392,79 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun lockRotation() {
     iabView.lockRotation()
   }
+
+  private fun playAnimation() {
+    pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
+    pending_user_payment_view?.in_progress_animation?.addAnimatorListener(object :
+        Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) {
+      }
+
+      override fun onAnimationEnd(animation: Animator?) {
+        if (maxFrame == LAST_ANIMATION_FRAME) {
+          pending_user_payment_view?.in_progress_animation?.cancelAnimation()
+        }
+        if (minFrame == BUTTON_ANIMATION_START_FRAME) {
+          minFrame += LAST_ANIMATION_FRAME_INCREMENT
+          maxFrame += LAST_ANIMATION_FRAME_INCREMENT
+          pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
+          pending_user_payment_view?.in_progress_animation?.playAnimation()
+        } else {
+          minFrame += MID_ANIMATION_FRAME_INCREMENT
+          maxFrame += MID_ANIMATION_FRAME_INCREMENT
+          pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
+          pending_user_payment_view?.in_progress_animation?.playAnimation()
+        }
+      }
+
+      override fun onAnimationCancel(animation: Animator?) {
+      }
+
+      override fun onAnimationStart(animation: Animator?) {
+        when (minFrame) {
+          ANIMATION_STEP_ONE_START_FRAME -> {
+            animateShow(step_one)
+            animateShow(step_one_desc)
+          }
+          ANIMATION_STEP_TWO_START_FRAME -> {
+            animateShow(step_two)
+            animateShow(step_two_desc)
+          }
+          BUTTON_ANIMATION_START_FRAME -> animateButton(got_it_button)
+          else -> return
+        }
+      }
+    })
+    pending_user_payment_view?.in_progress_animation?.playAnimation()
+  }
+
+  private fun animateShow(view: View) {
+    view.apply {
+      alpha = 0.0f
+      visibility = View.VISIBLE
+      lockRotation()
+
+      animate()
+          .alpha(1f)
+          .withEndAction { this.visibility = View.VISIBLE }
+          .setDuration(TimeUnit.SECONDS.toMillis(1))
+          .setListener(null)
+    }
+  }
+
+  private fun animateButton(view: View) {
+    view.apply {
+      alpha = 0.2f
+
+      animate()
+          .alpha(1f)
+          .withEndAction {
+            this.isClickable = true
+            iabView.enableBack()
+          }
+          .setDuration(TimeUnit.SECONDS.toMillis(1))
+          .setListener(null)
+    }
+  }
+
 }

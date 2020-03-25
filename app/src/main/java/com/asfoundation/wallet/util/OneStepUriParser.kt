@@ -16,7 +16,7 @@ class Parameters {
     const val HOST = BuildConfig.PAYMENT_HOST
     const val SECOND_HOST = BuildConfig.SECOND_PAYMENT_HOST
     const val PATH = "/transaction"
-    const val PAYMENT_TYPE_INAPP_UNMANAGED = "inapp_unmanaged"
+    const val PAYMENT_TYPE_INAPP_UNMANAGED = "INAPP_UNMANAGED"
     const val NETWORK_ID_ROPSTEN = 3L
     const val NETWORK_ID_MAIN = 1L
   }

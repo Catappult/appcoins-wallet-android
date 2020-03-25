@@ -14,6 +14,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.util.formatWithSuffix
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -43,6 +44,54 @@ import javax.inject.Inject
 
 class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
+  companion object {
+    private const val FIAT_AMOUNT_KEY = "fiat_amount"
+    private const val FIAT_CURRENCY_KEY = "currency_amount"
+    private const val BONUS_KEY = "bonus"
+    private const val APP_NAME_KEY = "app_name"
+    private const val PRODUCT_NAME_KEY = "product_name"
+    private const val APPC_AMOUNT_KEY = "appc_amount"
+    private const val APPC_ENABLED_KEY = "appc_enabled"
+    private const val CREDITS_ENABLED_KEY = "credits_enabled"
+    private const val IS_BDS_KEY = "is_bds"
+    private const val IS_DONATION_KEY = "is_donation"
+    private const val SKU_ID = "sku_id"
+    private const val TRANSACTION_TYPE = "transaction_type"
+    private const val IS_SUBSCRIPTION = "is_subscription"
+    private const val FREQUENCY = "frequency"
+    const val APPC = "appcoins"
+    const val CREDITS = "credits"
+
+    @JvmStatic
+    fun newInstance(fiatAmount: BigDecimal,
+                    currency: String, bonus: String, appName: String,
+                    productName: String?,
+                    appcAmount: BigDecimal, appcEnabled: Boolean,
+                    creditsEnabled: Boolean, isBds: Boolean,
+                    isDonation: Boolean, skuId: String, transactionType: String,
+                    isSubscription: Boolean, frequency: String?): Fragment {
+      val fragment = MergedAppcoinsFragment()
+      val bundle = Bundle().apply {
+        putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
+        putString(FIAT_CURRENCY_KEY, currency)
+        putString(BONUS_KEY, bonus)
+        putString(APP_NAME_KEY, appName)
+        putString(PRODUCT_NAME_KEY, productName)
+        putSerializable(APPC_AMOUNT_KEY, appcAmount)
+        putBoolean(APPC_ENABLED_KEY, appcEnabled)
+        putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
+        putBoolean(IS_BDS_KEY, isBds)
+        putBoolean(IS_DONATION_KEY, isDonation)
+        putString(SKU_ID, skuId)
+        putString(TRANSACTION_TYPE, transactionType)
+        putBoolean(IS_SUBSCRIPTION, isSubscription)
+        putString(FREQUENCY, frequency)
+      }
+      fragment.arguments = bundle
+      return fragment
+    }
+  }
+
   private lateinit var mergedAppcoinsPresenter: MergedAppcoinsPresenter
   private var paymentSelectionSubject: PublishSubject<String>? = null
   private var onBackPressSubject: PublishSubject<Any>? = null
@@ -51,13 +100,126 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   lateinit var balanceInteract: BalanceInteract
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
+
+  private val fiatAmount: BigDecimal by lazy {
+    if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
+      arguments!!.getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
+    } else {
+      throw IllegalArgumentException("amount data not found")
+    }
+  }
+  private val currency: String by lazy {
+    if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
+      arguments!!.getString(FIAT_CURRENCY_KEY)
+    } else {
+      throw IllegalArgumentException("currency data not found")
+    }
+  }
+
+  private val bonus: String by lazy {
+    if (arguments!!.containsKey(BONUS_KEY)) {
+      arguments!!.getString(BONUS_KEY)
+    } else {
+      throw IllegalArgumentException("bonus data not found")
+    }
+  }
+
+  private val appName: String by lazy {
+    if (arguments!!.containsKey(APP_NAME_KEY)) {
+      arguments!!.getString(APP_NAME_KEY)
+    } else {
+      throw IllegalArgumentException("app name data not found")
+    }
+  }
+
+  private val productName: String? by lazy {
+    if (arguments!!.containsKey(PRODUCT_NAME_KEY)) {
+      arguments!!.getString(PRODUCT_NAME_KEY)
+    } else {
+      throw IllegalArgumentException("product name data not found")
+    }
+  }
+
+  private val appcAmount: BigDecimal by lazy {
+    if (arguments!!.containsKey(APPC_AMOUNT_KEY)) {
+      arguments!!.getSerializable(APPC_AMOUNT_KEY) as BigDecimal
+    } else {
+      throw IllegalArgumentException("appc data not found")
+    }
+  }
+
+  private val appcEnabled: Boolean by lazy {
+    if (arguments!!.containsKey(APPC_ENABLED_KEY)) {
+      arguments!!.getBoolean(APPC_ENABLED_KEY)
+    } else {
+      throw IllegalArgumentException("appc enable data not found")
+    }
+  }
+
+  private val creditsEnabled: Boolean by lazy {
+    if (arguments!!.containsKey(CREDITS_ENABLED_KEY)) {
+      arguments!!.getBoolean(CREDITS_ENABLED_KEY)
+    } else {
+      throw IllegalArgumentException("credits enable data not found")
+    }
+  }
+
+  private val isBds: Boolean by lazy {
+    if (arguments!!.containsKey(IS_BDS_KEY)) {
+      arguments!!.getBoolean(IS_BDS_KEY)
+    } else {
+      throw IllegalArgumentException("is bds data not found")
+    }
+  }
+
+  private val isDonation: Boolean by lazy {
+    if (arguments!!.containsKey(IS_DONATION_KEY)) {
+      arguments!!.getBoolean(IS_DONATION_KEY)
+    } else {
+      throw IllegalArgumentException("is donation data not found")
+    }
+  }
+
+  private val skuId: String by lazy {
+    if (arguments!!.containsKey(SKU_ID)) {
+      arguments!!.getString(SKU_ID)
+    } else {
+      throw IllegalArgumentException("sku id data not found")
+    }
+  }
+
+  private val transactionType: String by lazy {
+    if (arguments!!.containsKey(SKU_ID)) {
+      arguments!!.getString(SKU_ID)
+    } else {
+      throw IllegalArgumentException("sku id data not found")
+    }
+  }
+
+  private val isSubscription: Boolean by lazy {
+    if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
+      arguments!!.getBoolean(IS_SUBSCRIPTION)
+    } else {
+      throw IllegalArgumentException("is subscriptino data not found")
+    }
+  }
+
+  private val frequency: String? by lazy {
+    if (arguments!!.containsKey(FREQUENCY)) {
+      arguments!!.getString(FREQUENCY)
+    } else {
+      null
+    }
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
-        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), isSubscription)
+        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), billingAnalytics, isSubscription)
   }
 
   override fun onAttach(context: Context) {
@@ -96,6 +258,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun hideLoading() {
     loading_view?.visibility = GONE
+  }
+
+  override fun showPaymentMethods() {
     payment_methods?.visibility = VISIBLE
   }
 
@@ -213,17 +378,27 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     return selectedPaymentMethod
   }
 
-  override fun buyClick(): Observable<String> {
+  override fun buyClick(): Observable<PaymentInfoWrapper> {
     return RxView.clicks(buy_button)
-        .map { getSelectedPaymentMethod() }
+        .map {
+          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+              transactionType)
+        }
   }
 
-  override fun backClick(): Observable<Any> {
+  override fun backClick(): Observable<PaymentInfoWrapper> {
     return RxView.clicks(cancel_button)
+        .map {
+          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+              transactionType)
+        }
   }
 
-  override fun backPressed(): Observable<Any> {
-    return onBackPressSubject!!
+  override fun backPressed(): Observable<PaymentInfoWrapper> {
+    return onBackPressSubject!!.map {
+      PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+          transactionType)
+    }
   }
 
   override fun getPaymentSelection(): Observable<String> {
@@ -308,140 +483,5 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onDestroy()
     paymentSelectionSubject = null
     onBackPressSubject = null
-  }
-
-  private val fiatAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
-      arguments!!.getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
-  }
-  private val currency: String by lazy {
-    if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
-      arguments!!.getString(FIAT_CURRENCY_KEY)
-    } else {
-      throw IllegalArgumentException("currency data not found")
-    }
-  }
-
-  private val bonus: String by lazy {
-    if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)
-    } else {
-      throw IllegalArgumentException("bonus data not found")
-    }
-  }
-
-  private val appName: String by lazy {
-    if (arguments!!.containsKey(APP_NAME_KEY)) {
-      arguments!!.getString(APP_NAME_KEY)
-    } else {
-      throw IllegalArgumentException("app name data not found")
-    }
-  }
-
-  private val productName: String? by lazy {
-    if (arguments!!.containsKey(PRODUCT_NAME_KEY)) {
-      arguments!!.getString(PRODUCT_NAME_KEY)
-    } else {
-      throw IllegalArgumentException("product name data not found")
-    }
-  }
-
-  private val appcAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(APPC_AMOUNT_KEY)) {
-      arguments!!.getSerializable(APPC_AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("appc data not found")
-    }
-  }
-
-  private val appcEnabled: Boolean by lazy {
-    if (arguments!!.containsKey(APPC_ENABLED_KEY)) {
-      arguments!!.getBoolean(APPC_ENABLED_KEY)
-    } else {
-      throw IllegalArgumentException("appc enable data not found")
-    }
-  }
-
-  private val creditsEnabled: Boolean by lazy {
-    if (arguments!!.containsKey(CREDITS_ENABLED_KEY)) {
-      arguments!!.getBoolean(CREDITS_ENABLED_KEY)
-    } else {
-      throw IllegalArgumentException("credits enable data not found")
-    }
-  }
-
-  private val isBds: Boolean by lazy {
-    if (arguments!!.containsKey(IS_BDS_KEY)) {
-      arguments!!.getBoolean(IS_BDS_KEY)
-    } else {
-      throw IllegalArgumentException("is bds data not found")
-    }
-  }
-
-  private val isDonation: Boolean by lazy {
-    if (arguments!!.containsKey(IS_DONATION_KEY)) {
-      arguments!!.getBoolean(IS_DONATION_KEY)
-    } else {
-      throw IllegalArgumentException("is donation data not found")
-    }
-  }
-
-  private val isSubscription: Boolean by lazy {
-    if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
-      arguments!!.getBoolean(IS_SUBSCRIPTION)
-    } else {
-      throw IllegalArgumentException("is subscriptino data not found")
-    }
-  }
-
-  private val frequency: String? by lazy {
-    if (arguments!!.containsKey(FREQUENCY)) {
-      arguments!!.getString(FREQUENCY)
-    } else {
-      null
-    }
-  }
-
-  companion object {
-    private const val FIAT_AMOUNT_KEY = "fiat_amount"
-    private const val FIAT_CURRENCY_KEY = "currency_amount"
-    private const val BONUS_KEY = "bonus"
-    private const val APP_NAME_KEY = "app_name"
-    private const val PRODUCT_NAME_KEY = "product_name"
-    private const val APPC_AMOUNT_KEY = "appc_amount"
-    private const val APPC_ENABLED_KEY = "appc_enabled"
-    private const val CREDITS_ENABLED_KEY = "credits_enabled"
-    private const val IS_BDS_KEY = "is_bds"
-    private const val IS_DONATION_KEY = "is_donation"
-    private const val IS_SUBSCRIPTION = "is_subscription"
-    private const val FREQUENCY = "frequency"
-    const val APPC = "appcoins"
-    const val CREDITS = "credits"
-
-    @JvmStatic
-    fun newInstance(fiatAmount: BigDecimal, currency: String, bonus: String, appName: String,
-                    productName: String?, appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean,
-                    isSubscription: Boolean, frequency: String?): Fragment {
-      val fragment = MergedAppcoinsFragment()
-      val bundle = Bundle()
-      bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
-      bundle.putString(FIAT_CURRENCY_KEY, currency)
-      bundle.putString(BONUS_KEY, bonus)
-      bundle.putString(APP_NAME_KEY, appName)
-      bundle.putString(PRODUCT_NAME_KEY, productName)
-      bundle.putSerializable(APPC_AMOUNT_KEY, appcAmount)
-      bundle.putBoolean(APPC_ENABLED_KEY, appcEnabled)
-      bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
-      bundle.putBoolean(IS_BDS_KEY, isBds)
-      bundle.putBoolean(IS_DONATION_KEY, isDonation)
-      bundle.putBoolean(IS_SUBSCRIPTION, isSubscription)
-      bundle.putString(FREQUENCY, frequency)
-      fragment.arguments = bundle
-      return fragment
-    }
   }
 }

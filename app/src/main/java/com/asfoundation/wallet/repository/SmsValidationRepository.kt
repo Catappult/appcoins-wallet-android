@@ -54,6 +54,8 @@ class SmsValidationRepository(
           throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
           throwable.code() == 400 && walletValidationException.status == "INVALID_PHONE" -> WalletValidationStatus.INVALID_PHONE
           throwable.code() == 400 && walletValidationException.status == "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
+          throwable.code() == 400 && walletValidationException.status == "REGION_NOT_SUPPORTED" -> WalletValidationStatus.REGION_NOT_SUPPORTED
+          throwable.code() == 400 && walletValidationException.status == "LANDLINE_NOT_SUPPORTED" -> WalletValidationStatus.LANDLINE_NOT_SUPPORTED
           throwable.code() == 429 -> WalletValidationStatus.DOUBLE_SPENT
           else -> WalletValidationStatus.GENERIC_ERROR
         }

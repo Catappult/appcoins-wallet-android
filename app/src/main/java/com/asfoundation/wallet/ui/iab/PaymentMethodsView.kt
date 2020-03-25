@@ -21,21 +21,23 @@ interface PaymentMethodsView {
   fun finish(bundle: Bundle)
   fun showLoading()
   fun hideLoading()
-  fun getCancelClick(): Observable<Any>
+  fun getCancelClick(): Observable<PaymentMethod>
   fun close(bundle: Bundle)
   fun errorDismisses(): Observable<Boolean>
   fun setupUiCompleted(): Observable<Boolean>
   fun showProcessingLoadingDialog()
-  fun getBuyClick(): Observable<String>
-  fun showPaypal()
-  fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?)
-  fun showCreditCard()
+  fun getBuyClick(): Observable<PaymentMethod>
+  fun showPaypal(gamificationLevel: Int)
+  fun showAdyen(fiatValue: FiatValue,
+                paymentType: PaymentType,
+                iconUrl: String?, gamificationLevel: Int)
+  fun showCreditCard(gamificationLevel: Int)
   fun showAppCoins()
   fun showCredits()
   fun showShareLink(selectedPaymentMethod: String)
   fun getPaymentSelection(): Observable<String>
-  fun getMorePaymentMethodsClicks(): Observable<Any>
-  fun showLocalPayment(selectedPaymentMethod: String)
+  fun getMorePaymentMethodsClicks(): Observable<PaymentMethod>
+  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String)
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
   fun onBackPressed(): Observable<Boolean>
   fun showNext()

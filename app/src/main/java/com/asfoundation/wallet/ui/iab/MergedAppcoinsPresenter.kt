@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.util.Log
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
@@ -19,6 +20,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val viewScheduler: Scheduler,
                               private val walletBlockedInteract: WalletBlockedInteract,
                               private val networkScheduler: Scheduler,
+                              private val analytics: BillingAnalytics,
                               private val isSubscription: Boolean) {
 
   companion object {
@@ -52,13 +54,31 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleBackClick() {
     disposables.add(Observable.merge(view.backClick(), view.backPressed())
-        .doOnNext { view.navigateToPaymentMethods() }
+        .observeOn(networkScheduler)
+        .doOnNext { paymentMethod ->
+          analytics.sendPaymentConfirmationEvent(paymentMethod.packageName,
+              paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
+              paymentMethod.transactionType, "cancel")
+        }
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.navigateToPaymentMethods()
+        }
         .subscribe({}, { showError(it) }))
   }
 
   private fun handleBuyClick() {
     disposables.add(view.buyClick()
-        .doOnNext { view.showLoading() }
+        .observeOn(networkScheduler)
+        .doOnNext { paymentMethod ->
+          analytics.sendPaymentConfirmationEvent(paymentMethod.packageName,
+              paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
+              paymentMethod.transactionType, "buy")
+        }
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.showLoading()
+        }
         .flatMapCompletable { paymentMethod ->
           walletBlockedInteract.isWalletBlocked()
               .subscribeOn(networkScheduler)
@@ -67,7 +87,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                 if (it) {
                   showBlockedError()
                 } else {
-                  handleBuyClickSelection(paymentMethod)
+                  handleBuyClickSelection(paymentMethod.purchaseDetails)
                 }
               }
         }
@@ -80,6 +100,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun showBlockedError(): Completable {
     return Completable.fromAction {
       view.hideLoading()
+      view.showPaymentMethods()
       view.showWalletBlocked()
     }
   }

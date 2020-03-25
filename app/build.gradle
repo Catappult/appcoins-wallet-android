@@ -32,8 +32,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 120
-    versionName "1.11.1.0"
+    versionCode 137
+    versionName "1.12.2.3"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -67,8 +67,9 @@ android {
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST', project.TRANSACTION_DETAILS_HOST
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
-    buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
-        resValue "string" , "facebook_app_id" , project.FACEBOOK_APP_KEY
+    buildConfigField 'String', 'RAKAM_BASE_HOST', project.RAKAM_BASE_HOST
+    buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
+    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
     manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
   }
@@ -119,7 +120,7 @@ android {
       buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
-      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
+      buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
@@ -183,31 +184,22 @@ dependencies {
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
   // Dagger 2
   // Dagger core
-  implementation "com.google.dagger:dagger:$project.daggerVersion"
-  annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
-  kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
-  kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
-  // Dagger Android
-  implementation "com.google.dagger:dagger-android-support:$project.daggerVersion"
-  annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
-  // if you are not using support library, include this instead
-  implementation "com.google.dagger:dagger-android:$project.daggerVersion"
+  implementation "com.google.dagger:dagger:$project.dagger"
+  kapt "com.google.dagger:dagger-android-processor:$project.dagger"
+  kapt "com.google.dagger:dagger-compiler:$project.dagger"
+  implementation "com.google.dagger:dagger-android-support:$project.dagger"
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681Version"
   // Tests
   testImplementation "junit:junit:$junitVersion"
   testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
   androidTestImplementation "androidx.test.ext:junit:$project.testExtJunit"
-  androidTestImplementation("androidx.test.espresso:espresso-core:$project.expresso", {
-    exclude group: "androidx.test.espresso", module: "support-annotations"
-  })
-  androidTestImplementation("tools.fastlane:screengrab:$project.screengrab", {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
   // Fabric
   implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk") {
     transitive = true
   }
+  // WorkManager
+  implementation "androidx.work:work-rxjava2:$project.workManagerVersion"
   implementation "com.flurry.android:analytics:$project.flurry"
   // PW
   implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -216,11 +208,9 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "com.asfoundation:ethereumj-android:$project.ethereumjSdkVersion"
 
-  implementation "androidx.room:room-runtime:$project.roomVersion"
-  annotationProcessor "androidx.room:room-compiler:$project.roomVersion"
-  kapt "androidx.room:room-compiler:$project.roomVersion"
-  // RxJava support for Room
-  implementation "androidx.room:room-rxjava2:$project.roomVersion"
+  implementation "androidx.room:room-runtime:$project.room"
+  kapt "androidx.room:room-compiler:$project.room"
+  implementation "androidx.room:room-rxjava2:$project.room"
 
   implementation project(path: ':airdrop')
   implementation "com.asfoundation:applications:$project.asf_applications"
@@ -249,6 +239,8 @@ dependencies {
   implementation "androidx.viewpager2:viewpager2:$project.viewPagerVersion"
   // Intercom
   implementation "io.intercom.android:intercom-sdk-base:$project.intercomVersion"
+  //Rakam
+  implementation "io.rakam:android-sdk:$project.rakam_version"
 }
 
 def renameArtifact(defaultConfig) {

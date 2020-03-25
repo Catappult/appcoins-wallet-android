@@ -83,6 +83,7 @@ public class AppcoinsRewardsBuyPresenter {
 
   private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku,
       BigDecimal amount) {
+    sendPaymentErrorEvent(BillingAnalytics.PAYMENT_METHOD_REWARDS, transaction);
     switch (transaction.getStatus()) {
       case PROCESSING:
         return Completable.fromAction(view::showLoading);
@@ -93,6 +94,7 @@ public class AppcoinsRewardsBuyPresenter {
               .flatMapCompletable(purchase -> Completable.fromAction(view::showTransactionCompleted)
                   .subscribeOn(scheduler)
                   .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                  .andThen(Completable.fromAction(inAppPurchaseInteractor::removeAsyncLocalPayment))
                   .andThen(Completable.fromAction(
                       () -> view.finish(purchase, transaction.getOrderReference()))))
               .observeOn(scheduler)
@@ -139,5 +141,21 @@ public class AppcoinsRewardsBuyPresenter {
         .getAmount()
         .setScale(2, BigDecimal.ROUND_UP)
         .toString());
+  }
+
+  void sendPaymentSuccessEvent(String purchaseDetails) {
+    analytics.sendPaymentSuccessEvent(packageName, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), purchaseDetails, transactionBuilder.getType());
+  }
+
+  void sendPaymentErrorEvent(String purchaseDetails, RewardsManager.RewardPayment transaction) {
+    if (transaction.getStatus() == RewardsManager.RewardPayment.Status.ERROR
+        || transaction.getStatus() == RewardsManager.RewardPayment.Status.NO_NETWORK) {
+      analytics.sendPaymentErrorEvent(packageName, transactionBuilder.getSkuId(),
+          transactionBuilder.amount()
+              .toString(), purchaseDetails, transactionBuilder.getType(), transaction.getStatus()
+              .toString());
+    }
   }
 }

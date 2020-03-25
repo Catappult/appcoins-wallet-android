@@ -258,6 +258,8 @@ public class AsfInAppPurchaseInteractor {
             }
           case myappcoins:
             return CurrentPaymentStep.PAUSED_LOCAL_PAYMENT;
+          case appcoins_credits:
+            return CurrentPaymentStep.PAUSED_CREDITS;
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
@@ -318,6 +320,6 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public enum CurrentPaymentStep {
-    PAUSED_CC_PAYMENT, PAUSED_ON_CHAIN, NO_FUNDS, PAUSED_LOCAL_PAYMENT, READY
+    PAUSED_CC_PAYMENT, PAUSED_ON_CHAIN, NO_FUNDS, PAUSED_LOCAL_PAYMENT, PAUSED_CREDITS, READY
   }
 }

@@ -48,11 +48,19 @@ interface AdyenTopUpView {
 
   fun getPaymentDetails(): Observable<RedirectComponentModel>
 
-  fun showSpecificError(refusalCode: Int)
+  fun showSpecificError(stringRes: Int)
+
+  fun showCvvError()
 
   fun topUpButtonClicked(): Observable<Any>
 
   fun retrievePaymentData(): Observable<AdyenCardWrapper>
 
   fun hideKeyboard()
+
+  fun getTryAgainClicks(): Observable<Any>
+
+  fun getSupportClicks(): Observable<Any>
+
+  fun hideSpecificError()
 }

@@ -24,6 +24,7 @@ allprojects {
     maven { url 'https://jitpack.io' }
     maven { url "https://dl.bintray.com/asf/asf" }
     maven { url "https://dl.bintray.com/aptoide/Aptoide" }
+    maven { url "https://dl.bintray.com/blockchainds/bds" }
     // needed for pincode Lollipin
     maven {
       url "https://github.com/omadahealth/omada-nexus/raw/master/release"
@@ -34,7 +35,7 @@ allprojects {
 }
 project.ext {
   retrofitVersion = "2.3.0"
-  okhttpVersion = "3.9.0"
+  okhttpVersion = "4.4.0"
   androidxAppCompatVersion = "1.0.2"
   androidxVectorDrawableVersion = "1.0.1"
   androidxViewVersion = "1.0.0"
@@ -46,27 +47,25 @@ project.ext {
   gsonVersion = "2.8.2"
   rxJavaVersion = "2.1.6"
   rxAndroidVersion = "2.1.0"
-  daggerVersion = "2.21"
+  dagger = "2.26"
   erc681Version = "0.36"
   jetbrainsAnnotationsVersion = "15.0"
   junitVersion = "4.12"
-  mockitoCoreVersion = "2.15.0"
-  roomVersion = "2.1.0"
+  mockitoCoreVersion = "2.25.0"
+  room = "2.2.4"
   appcoinsSdkVersion = "0.4.5.19b"
   ethereumjSdkVersion = "0.5.0.0"
   jacksonVersion = "2.9.6"
-  lottieVersion = "3.3.1"
+  lottieVersion = "3.4.0"
   cppVersion = "2.3.1"
-  viewPagerVersion = "1.0.0-rc01"
+  viewPagerVersion = "1.0.0"
   pageIndicatorViewVersion = "1.0.3"
   preferenceLibVersion = "1.1.0"
-  testExtJunit = '1.1.0'
+  testExtJunit = '1.1.1'
   lifecycle = '1.1.1'
   zxing = '3.4.0'
   zxing_android = '3.2.0@aar'
   play_services = '18.0.0'
-  expresso = '3.1.0'
-  screengrab = '1.1.0'
   rxbinding = '2.1.1'
   card_form = '3.3.0'
   checkout = '1.14.2'
@@ -79,9 +78,11 @@ project.ext {
   asf_applications = '6'
   crashlytics_sdk = '2.8.0@aar'
   spongycastle = '1.58.0.0@jar'
-  intercomVersion='6.0.0'
+  intercomVersion = '6.0.1'
   adyenVersion = '3.5.1'
   glide = '4.10.0'
+  workManagerVersion = '2.3.3'
+  rakam_version = '2.7.14'
 }
 
 task clean(type: Delete) {

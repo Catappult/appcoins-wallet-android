@@ -40,40 +40,32 @@ class PoaCodeValidationFragment : DaggerFragment(),
   private lateinit var clipboard: ClipboardManager
 
   val countryCode: String by lazy {
-    if (arguments!!.containsKey(
-            PoaPhoneValidationFragment.COUNTRY_CODE)) {
-      arguments!!.getString(
-          PoaPhoneValidationFragment.COUNTRY_CODE)
+    if (arguments!!.containsKey(PoaPhoneValidationFragment.COUNTRY_CODE)) {
+      arguments!!.getString(PoaPhoneValidationFragment.COUNTRY_CODE)
     } else {
       throw IllegalArgumentException("Country Code not passed")
     }
   }
 
   val phoneNumber: String by lazy {
-    if (arguments!!.containsKey(
-            PoaPhoneValidationFragment.PHONE_NUMBER)) {
-      arguments!!.getString(
-          PoaPhoneValidationFragment.PHONE_NUMBER)
+    if (arguments!!.containsKey(PoaPhoneValidationFragment.PHONE_NUMBER)) {
+      arguments!!.getString(PoaPhoneValidationFragment.PHONE_NUMBER)
     } else {
       throw IllegalArgumentException("Phone Number not passed")
     }
   }
 
   private val errorMessage: Int? by lazy {
-    if (arguments!!.containsKey(
-            ERROR_MESSAGE)) {
-      arguments!!.getInt(
-          ERROR_MESSAGE)
+    if (arguments!!.containsKey(ERROR_MESSAGE)) {
+      arguments!!.getInt(ERROR_MESSAGE)
     } else {
       null
     }
   }
 
   private val validationInfo: ValidationInfo? by lazy {
-    if (arguments!!.containsKey(
-            VALIDATION_INFO)) {
-      arguments!!.getSerializable(
-          VALIDATION_INFO) as ValidationInfo
+    if (arguments!!.containsKey(VALIDATION_INFO)) {
+      arguments!!.getSerializable(VALIDATION_INFO) as ValidationInfo
     } else {
       null
     }
@@ -85,10 +77,9 @@ class PoaCodeValidationFragment : DaggerFragment(),
     clipboard = context!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 
     presenter =
-        PoaCodeValidationPresenter(this,
-            walletValidationView,
-            smsValidationInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
-            phoneNumber, CompositeDisposable())
+        PoaCodeValidationPresenter(this, walletValidationView, smsValidationInteract,
+            AndroidSchedulers.mainThread(), Schedulers.io(), countryCode, phoneNumber,
+            CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -158,9 +149,7 @@ class PoaCodeValidationFragment : DaggerFragment(),
     submit_button.isEnabled = state
   }
 
-  override fun getBackClicks(): Observable<Any> {
-    return RxView.clicks(back_button)
-  }
+  override fun getBackClicks() = RxView.clicks(back_button)
 
   override fun getSubmitClicks(): Observable<ValidationInfo> {
     return RxView.clicks(submit_button)
@@ -173,9 +162,8 @@ class PoaCodeValidationFragment : DaggerFragment(),
         }
   }
 
-  override fun getResentCodeClicks(): Observable<Any> {
-    return RxView.clicks(resend_code)
-  }
+  override fun getResentCodeClicks() = RxView.clicks(resend_code)
+
 
   override fun getFirstChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_1.code)
@@ -269,32 +257,24 @@ class PoaCodeValidationFragment : DaggerFragment(),
 
     @JvmStatic
     fun newInstance(countryCode: String, phoneNumber: String): Fragment {
-      val bundle = Bundle()
-      bundle.putString(
-          PoaPhoneValidationFragment.COUNTRY_CODE, countryCode)
-      bundle.putString(
-          PoaPhoneValidationFragment.PHONE_NUMBER, phoneNumber)
+      val bundle = Bundle().apply {
+        putString(PoaPhoneValidationFragment.COUNTRY_CODE, countryCode)
+        putString(PoaPhoneValidationFragment.PHONE_NUMBER, phoneNumber)
+      }
 
-      val fragment = PoaCodeValidationFragment()
-      fragment.arguments = bundle
-      return fragment
+      return PoaCodeValidationFragment().apply { arguments = bundle }
     }
 
     @JvmStatic
     fun newInstance(info: ValidationInfo, errorMessage: Int): Fragment {
-      val bundle = Bundle()
-      bundle.putString(
-          PoaPhoneValidationFragment.COUNTRY_CODE, info.countryCode)
-      bundle.putString(
-          PoaPhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
-      bundle.putInt(
-          ERROR_MESSAGE, errorMessage)
-      bundle.putSerializable(
-          VALIDATION_INFO, info)
+      val bundle = Bundle().apply {
+        putString(PoaPhoneValidationFragment.COUNTRY_CODE, info.countryCode)
+        putString(PoaPhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
+        putInt(ERROR_MESSAGE, errorMessage)
+        putSerializable(VALIDATION_INFO, info)
+      }
 
-      val fragment = PoaCodeValidationFragment()
-      fragment.arguments = bundle
-      return fragment
+      return PoaCodeValidationFragment().apply { arguments = bundle }
     }
 
   }

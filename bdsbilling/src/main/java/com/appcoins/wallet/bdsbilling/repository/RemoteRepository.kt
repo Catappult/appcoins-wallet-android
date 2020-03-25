@@ -31,7 +31,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     } else {
       Single.zip(
           api.getPackages(packageName,
-              skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")),
+              skus.take(SKUS_DETAILS_REQUEST_LIMIT)
+                  .joinToString(separator = ",")),
           requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT)),
           BiFunction { firstResponse: DetailsResponseBody, secondResponse: DetailsResponseBody ->
             firstResponse.merge(secondResponse)
@@ -60,7 +61,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
     return api.getPurchases(packageName, walletAddress, walletSignature,
-        type.name.toLowerCase())
+            type.name.toLowerCase())
         .map { responseMapper.map(it) }
   }
 
@@ -70,7 +71,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                walletSignature: String): Single<Boolean> {
     return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
-        .map { true }
+        .toSingle { true }
   }
 
   fun registerAuthorizationProof(origin: String?, type: String, oemWallet: String, id: String?,
@@ -116,9 +117,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
     return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
-        "APPC", null, type, toWallet, null, null,
-        null, null, null, null, null, null,
-        walletAddress, signature)
+            "APPC", null, type, toWallet, null, null,
+            null, null, null, null, null, null,
+            walletAddress, signature)
         .toCompletable()
 
   }
@@ -171,9 +172,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Path("purchaseId") purchaseToken: String,
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String,
-                        @Body data: Consumed): Single<Void>
+                        @Body data: Consumed): Completable
 
-    @GET("broker/8.20191014/methods")
+    @GET("broker/8.20200311/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
     currency: String? = null, @Query("currency.type")
                           type: String? = null): Single<GetMethodsResponse>
