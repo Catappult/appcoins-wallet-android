@@ -248,7 +248,7 @@ class PaymentMethodsPresenter(
     if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
       getCreditsPaymentMethod(paymentMethods)?.let {
         if (it.isEnabled) {
-          showPreSelectedPaymentMethod(fiatValue, it)
+          showPreSelectedPaymentMethod(fiatValue, it, frequency)
           return
         }
       }
