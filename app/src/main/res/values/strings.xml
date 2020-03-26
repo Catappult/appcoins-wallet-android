@@ -552,6 +552,7 @@
   <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
   <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">NEW</string>
   <string name="promotions_tab_promotions_title">PROMOTIONS</string>
   <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
