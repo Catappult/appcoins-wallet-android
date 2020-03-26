@@ -586,4 +586,7 @@
   <string name="transfer_send_current_balance_title">Balanță curentă:</string>
   <string name="transfer_send_button">TRIMITE</string>
   <string name="transfer_receive_body">Distribuie adresa portofelului tău pentru a primi fonduri.</string>
+  <!--Support Notifications-->
+  <string name="support_new_message_title">You\'ve got a new message!</string>
+  <string name="support_new_message_button">Tap to open</string>
 </resources>
