@@ -505,6 +505,7 @@
   <string name="promotions_referral_card_title">با دعوت دوستان تا %s کسب درآمد کنید</string>
   <string name="promotions_referral_card_body">لینک دعوت خود را به اشتراک بگذارید و اعتبار AppCoins کسب کنید.</string>
   <string name="promotions_gamification_card_title">برای هر خرید، تا ۳۰% پاداش دریافت کنید</string>
+  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">جدید</string>
   <string name="promotions_tab_promotions_title">پیشنهادات تشویقی</string>
   <string name="promotions_tab_poa_title">بازی و جایزه</string>
@@ -530,7 +531,7 @@
   <string name="backup_confirmation_title">فقط یک قدم دیگر</string>
   <string name="backup_confirmation_body">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">SAVE TO PHONE</string>
+  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
   <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
