@@ -505,6 +505,7 @@
   <string name="promotions_referral_card_title">ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦੇ ਕੇ %s ਤੱਕ ਕਮਾਓ</string>
   <string name="promotions_referral_card_body">ਆਪਣੇ ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ ਅਤੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ|</string>
   <string name="promotions_gamification_card_title">ਹਰ ਖਰੀਦ ਤੇ 30% ਤੱਕ ਦਾ ਬੋਨਸ</string>
+  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">ਨਵਾਂ</string>
   <string name="promotions_tab_promotions_title">ਆਫਰਾਂ</string>
   <string name="promotions_tab_poa_title">ਖੇਲੋ &amp; ਕਮਾਓ</string>
@@ -530,7 +531,7 @@
   <string name="backup_confirmation_title">ਸਿਰਫ ਇਕ ਹੋਰ ਕਦਮ</string>
   <string name="backup_confirmation_body">ਆਪਣਾ ਬੈਕਅਪ ਸੁਰੱਖਿਅਤ ਰੱਖੋ! ਤੁਸੀਂ ਇਸਨੂੰ ਕਿੱਥੇ ਸੇਵ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">SAVE TO PHONE</string>
+  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
   <string name="backup_done_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_done_body">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਇੱਕ ਸੁਰੱਖਿਅਤ ਜਗ੍ਹਾ ਤੇ ਹੈ?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
