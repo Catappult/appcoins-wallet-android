@@ -1,5 +1,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="4dp"
@@ -37,9 +38,9 @@
           android:layout_marginStart="@dimen/normal_margin"
           android:layout_marginTop="14dp"
           android:fontFamily="sans-serif-medium"
-          android:text="@string/promotions_gamification_card_title"
           android:textColor="@color/black"
           android:textSize="14sp"
+          tools:text="@string/promotions_gamification_card_title"
           />
       <com.asfoundation.wallet.promotions.GamificationProgressBarView
           android:id="@+id/gamification_progress_bar"
