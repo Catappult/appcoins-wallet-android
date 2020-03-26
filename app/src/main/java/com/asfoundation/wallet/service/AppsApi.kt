@@ -6,10 +6,11 @@ import retrofit2.http.GET
 
 
 interface AppsApi {
-  companion object{
+  companion object {
     const val API_BASE_URL = "https://ws75.aptoide.com/api/7/"
   }
 
-  @GET("listApps/store_name=bds-store/group_id=10358961/limit=10/order=rand")
+  @GET(
+      "listApps/store_name=catappult/group_id=10358961/limit=10/order=rand/sort=sort:appcoins-top-gross-on-top")
   fun getApplications(): Single<Application>?
 }
