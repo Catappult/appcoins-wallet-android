@@ -505,6 +505,7 @@
   <string name="promotions_referral_card_title">Zarób aż %s zapraszając znajomych</string>
   <string name="promotions_referral_card_body">Udostępnij swój link i zarabiaj Kredyty AppCoins. </string>
   <string name="promotions_gamification_card_title">Aż do 30% ekstra przy każdym zakupie</string>
+  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">NOWE</string>
   <string name="promotions_tab_promotions_title">PROMOTIONS</string>
   <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
@@ -530,7 +531,7 @@
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">SAVE TO PHONE</string>
+  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
   <string name="backup_done_title">Backup done!</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
