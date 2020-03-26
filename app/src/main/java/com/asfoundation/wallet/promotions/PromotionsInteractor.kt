@@ -78,7 +78,9 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   override fun retrieveGamificationRewardStatus(
       screen: GamificationScreen): Single<UserRewardsStatus> {
-    return Single.zip(gamificationInteractor.getLevels(), gamificationInteractor.getUserStats(),
+    return Single.zip(
+        gamificationInteractor.getLevels(),
+        gamificationInteractor.getUserStats(),
         gamificationInteractor.getLastShownLevel(GamificationScreen.PROMOTIONS),
         Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
           mapToUserStatus(levels, userStats, lastShownLevel)
@@ -96,15 +98,18 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
       status = Status.NO_NETWORK
     }
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
-      val list = mutableListOf<Double>()
+      var list = listOf<Double>()
       if (levels.isActive) {
-        for (level in levels.list) {
-          list.add(level.bonus)
-        }
+        list = levels.list.map { it.bonus }
       }
+
+      val maxBonus = list.max()
+          ?.toString() ?: "0.0"
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
-          userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list, status)
+          userStats.totalSpend)
+          ?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
+      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list, status,
+          maxBonus)
     }
     return UserRewardsStatus(lastShownLevel, lastShownLevel, status = status)
   }
