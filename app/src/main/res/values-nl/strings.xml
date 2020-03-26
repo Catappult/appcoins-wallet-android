@@ -505,6 +505,7 @@
   <string name="promotions_referral_card_title">Verdien tot %s door vrienden uit te nodigen</string>
   <string name="promotions_referral_card_body">Deel je link met de uitnodiging en verdien AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Tot 30% bonus bij elke aankoop</string>
+  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">NIEUW</string>
   <string name="promotions_tab_promotions_title">ACTIES</string>
   <string name="promotions_tab_poa_title">SPEEL &amp; VERDIEN</string>
@@ -530,7 +531,7 @@
   <string name="backup_confirmation_title">Nog maar één stap</string>
   <string name="backup_confirmation_body">Zorg voor een veilige back-up! Waar wil je de back-up opslaan?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">SAVE TO PHONE</string>
+  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
   <string name="backup_done_title">Back-up gereed!</string>
   <string name="backup_done_body">Weet je zeker dat je back-upbestand op een veilige plek is opgeslagen?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
