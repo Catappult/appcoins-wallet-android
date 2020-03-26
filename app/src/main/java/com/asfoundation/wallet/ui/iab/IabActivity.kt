@@ -78,8 +78,15 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
+        sendPayPalConfirmationEvent("cancel")
         showPaymentMethodsView()
       } else if (resultCode == SUCCESS) {
+        if (data?.scheme?.contains("adyencheckout") == true) {
+          if (Uri.parse(data.dataString).getQueryParameter("resultCode") == "cancelled")
+            sendPayPalConfirmationEvent("cancel")
+          else
+            sendPayPalConfirmationEvent("buy")
+        }
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
     }
@@ -299,6 +306,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onPause() {
     presenter.stop()
     super.onPause()
+  }
+
+  private fun sendPayPalConfirmationEvent(action: String) {
+    billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
+        transaction?.amount().toString(), "paypal",
+        transaction?.type, action)
   }
 
   companion object {

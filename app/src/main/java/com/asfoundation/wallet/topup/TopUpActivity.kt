@@ -163,7 +163,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun cancelPayment() {
     if (supportFragmentManager.backStackEntryCount != 0) {
-      supportFragmentManager.popBackStack()
+      supportFragmentManager.popBackStackImmediate()
     } else {
       super.onBackPressed()
     }
