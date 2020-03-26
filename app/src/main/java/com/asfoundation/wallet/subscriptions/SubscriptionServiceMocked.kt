@@ -1,9 +1,8 @@
 package com.asfoundation.wallet.subscriptions
 
+import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface SubscriptionServiceMocked {
 
@@ -29,6 +28,11 @@ interface SubscriptionServiceMocked {
 
   @GET("product/8.20200301/inapp/{domain}/subscriptions/purchases/{uid}")
   fun getPurchase(@Path("domain") domain: String,
-                  @Path("uid") uid: String): Single<SubscriptionPurchase>
+                  @Path("uid") uid: String): Single<Purchase>
+
+  @PATCH("product/8.20200301/inapp/{domain}/subscriptions/purchases/{uid}")
+  fun updatePurchase(@Path("domain") domain: String,
+                     @Path("uid") uid: String,
+                     @Body purchaseUpdate: PurchaseUpdate): Completable
 
 }

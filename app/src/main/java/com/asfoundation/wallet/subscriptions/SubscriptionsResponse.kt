@@ -15,14 +15,16 @@ data class AppcPrice(val value: BigDecimal, val micros: Long)
 
 data class Intro(val period: String, val cycles: String, val price: Price)
 
-data class SubscriptionsPurchaseResponse(val items: List<SubscriptionPurchase>)
+data class SubscriptionsPurchaseResponse(val items: List<Purchase>)
 
-data class SubscriptionPurchase(val uid: String, val sku: String, val status: Status,
-                                val orderReference: String, val autoRenewing: Boolean,
-                                val payload: String?, val created: String, val modified: String,
-                                val verification: Verification)
+data class Purchase(val uid: String, val sku: String, val status: Status,
+                    val orderReference: String, val autoRenewing: Boolean,
+                    val payload: String?, val created: String, val modified: String,
+                    val verification: Verification)
 
 data class Verification(val type: String, val data: String, val signature: String)
+
+data class PurchaseUpdate(val status: Status, val autoRenewing: Boolean)
 
 enum class Status {
   PENDING, ACKNOWLEDGED, ACTIVE, PAUSED, EXPIRED, CANCELED, REVOKED
