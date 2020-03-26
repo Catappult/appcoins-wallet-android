@@ -505,6 +505,7 @@
   <string name="promotions_referral_card_title">Gagnez jusqu\'à %s en invitant des amis</string>
   <string name="promotions_referral_card_body">Partagez votre lien d\'invitation et gagnez des crédits AppCoins.</string>
   <string name="promotions_gamification_card_title">Jusqu\'à 30% de bonus sur chaque achat</string>
+  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">NOUVEAU</string>
   <string name="promotions_tab_promotions_title">PROMOTIONS</string>
   <string name="promotions_tab_poa_title">JOUEZ &amp; GAGNEZ</string>
@@ -530,7 +531,7 @@
   <string name="backup_confirmation_title">Encore une étape</string>
   <string name="backup_confirmation_body">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">SAVE TO PHONE</string>
+  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
   <string name="backup_done_title">Sauvegarde effectuée !</string>
   <string name="backup_done_body">Êtes-vous sûr que votre fichier de sauvegarde se trouve dans un endroit sûr ?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
