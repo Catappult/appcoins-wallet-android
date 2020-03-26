@@ -194,11 +194,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void shareApp(String url) {
-    ShareCompat.IntentBuilder.from(this)
-        .setText(url)
-        .setType("text/plain")
-        .setChooserTitle(R.string.share_via)
-        .startChooser();
+    if (url != null) {
+      viewModel.clearShareApp();
+      ShareCompat.IntentBuilder.from(this)
+          .setText(url)
+          .setType("text/plain")
+          .setChooserTitle(R.string.share_via)
+          .startChooser();
+    }
   }
 
   private void handlePromotionsOverlayVisibility() {

@@ -440,4 +440,8 @@ public class TransactionsViewModel extends BaseViewModel {
         .doOnNext(transactionViewNavigator::openTopUp)
         .subscribe());
   }
+
+  public void clearShareApp() {
+    shareApp.setValue(null);
+  }
 }
