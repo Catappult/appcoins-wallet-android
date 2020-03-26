@@ -586,4 +586,7 @@
   <string name="transfer_send_current_balance_title">Trenutno stanje:</string>
   <string name="transfer_send_button">POŠALJI</string>
   <string name="transfer_receive_body">Podelite adresu svog novčanika da biste dobili sredstva.</string>
+  <!--Support Notifications-->
+  <string name="support_new_message_title">You\'ve got a new message!</string>
+  <string name="support_new_message_button">Tap to open</string>
 </resources>
