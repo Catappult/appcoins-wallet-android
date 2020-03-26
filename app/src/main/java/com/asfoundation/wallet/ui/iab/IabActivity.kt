@@ -84,8 +84,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         sendPayPalConfirmationEvent("cancel")
         showPaymentMethodsView()
       } else if (resultCode == SUCCESS) {
-        if (data?.scheme?.contains("adyen") == true) {
-          sendPayPalConfirmationEvent("buy")
+        if (data?.scheme?.contains("adyencheckout") == true) {
+          if (Uri.parse(data.dataString).getQueryParameter("resultCode") == "cancelled")
+            sendPayPalConfirmationEvent("cancel")
+          else
+            sendPayPalConfirmationEvent("buy")
         }
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
