@@ -46,7 +46,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     private const val FIRST_IMPRESSION = "first_impression"
   }
 
-
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
@@ -57,8 +56,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
-
-
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -135,12 +132,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     results.accept(Objects.requireNonNull(uri, "Intent data cannot be null!"))
   }
 
-  override fun onNewIntent(intent: Intent) {
-    super.onNewIntent(intent)
-    results.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
-  }
-
-
   override fun navigateToUri(url: String) {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
@@ -175,11 +166,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     outState.putBoolean(FIRST_IMPRESSION, firstImpression)
   }
 
-
   private fun handleTopUpStartAnalytics() {
     if (firstImpression) {
       topUpAnalytics.sendStartEvent()
       firstImpression = false
     }
   }
+
 }
