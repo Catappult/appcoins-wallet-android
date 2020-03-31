@@ -39,8 +39,13 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return remoteRepository.isBillingSupported(packageName, type)
   }
 
-  override fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
-    return remoteRepository.getSkuDetails(packageName, skus)
+  override fun getSkuDetails(packageName: String, skus: List<String>,
+                             type: String): Single<List<Product>> {
+    return if (type == "inapp") {
+      remoteRepository.getSkuDetails(packageName, skus)
+    } else {
+      remoteRepository.getSkuDetailsSubs(packageName, skus)
+    }
   }
 
   override fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
@@ -62,7 +67,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
 
   override fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
-    return remoteRepository.getPurchases(packageName, walletAddress, walletSignature, type)
+    return if (type == BillingSupportedType.INAPP) {
+      remoteRepository.getPurchases(packageName, walletAddress, walletSignature)
+    } else {
+      remoteRepository.getPurchasesSubs(packageName)
+    }
   }
 
   override fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,

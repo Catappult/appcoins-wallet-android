@@ -23,19 +23,20 @@ import com.adyen.checkout.core.api.Environment;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
+import com.appcoins.wallet.bdsbilling.BdsApi;
 import com.appcoins.wallet.bdsbilling.BdsBilling;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl;
 import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper;
 import com.appcoins.wallet.bdsbilling.ProxyService;
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingService;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository;
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper;
@@ -331,10 +332,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
-      BdsApi api, WalletService walletService, BdsApiSecondary bdsApi) {
+      BdsApi api, WalletService walletService, BdsApiSecondary bdsApi,
+      SubscriptionBillingService subscriptionBillingService) {
     return new BillingPaymentProofSubmissionImpl.Builder().setApi(api)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
+        .setSubscriptionBillingService(subscriptionBillingService)
         .build();
   }
 
@@ -686,6 +689,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsApi.class);
   }
 
+/*  @Singleton @Provides SubscriptionBillingService provideSubscriptionBillingService(
+      OkHttpClient client, Gson gson) {
+    String baseUrl = BuildConfig.BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SubscriptionBillingService.class);
+  }*/
+
   @Singleton @Provides BdsApiSecondary provideBdsApiSecondary(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BDS_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
@@ -737,9 +751,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BdsBilling(bdsRepository, walletService, new BillingThrowableCodeMapper());
   }
 
-  @Singleton @Provides RemoteRepository provideRemoteRepository(BdsApi bdsApi,
-      BdsApiSecondary api) {
-    return new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api);
+  @Singleton @Provides RemoteRepository provideRemoteRepository(BdsApi bdsApi, BdsApiSecondary api,
+      SubscriptionBillingService subscriptionBillingService) {
+    return new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api,
+        subscriptionBillingService);
   }
 
   @Singleton @Provides ProxyService provideProxyService(AppCoinsAddressProxySdk proxySdk) {
@@ -1324,7 +1339,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new RakamAnalyticsSetup();
   }
 
-  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager){
+  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
     return new TopUpAnalytics(analyticsManager);
   }
 }

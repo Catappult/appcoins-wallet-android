@@ -54,7 +54,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val bdsBilling = BdsBilling(BdsRepository(
         RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper(),
-            dependenciesProvider.getBdsApiSecondary())),
+            dependenciesProvider.getBdsApiSecondary(),
+            dependenciesProvider.getSubscriptionBillingService())),
         dependenciesProvider.getWalletService(),
         BillingThrowableCodeMapper())
 
@@ -127,6 +128,9 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
 
   private fun getBuyIntent(apiVersion: Int, packageName: String, sku: String?,
                            billingType: String?, developerPayload: String?): Parcelable {
+
+    //TODO shouldn't we check for if (apiVersion != supportedApiVersion || type == null || type.isBlank() || sku == null) {
+    //like in AppcoinsbillingBinder
     if (apiVersion != SUPPORTED_API_VERSION) {
       val response = Bundle()
       response.putInt(AppcoinsBillingBinder.RESPONSE_CODE,
@@ -145,8 +149,10 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
         .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
-    val getSkuDetails = billing.getProducts(packageName, listOf(sku))
-        .subscribeOn(networkScheduler)
+    val getSkuDetails =
+        billing.getProducts(packageName, listOf(sku),
+            billingType ?: AppcoinsBillingBinder.ITEM_TYPE_INAPP)
+            .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
         .subscribeOn(networkScheduler)
 
@@ -232,7 +238,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
 
     return try {
-      val serializedProducts = billing.getProducts(packageName, skus)
+      val serializedProducts = billing.getProducts(packageName, skus, billingType)
           .doOnError { it.printStackTrace() }
           .onErrorResumeNext {
             Single.error(billingMessagesMapper.mapException(it))

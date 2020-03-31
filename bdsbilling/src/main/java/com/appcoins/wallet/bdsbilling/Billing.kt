@@ -14,7 +14,7 @@ interface Billing {
 
   fun isInAppSupported(merchantName: String): Single<BillingSupportType>
 
-  fun getProducts(merchantName: String, skus: List<String>): Single<List<Product>>
+  fun getProducts(merchantName: String, skus: List<String>, type: String): Single<List<Product>>
 
   fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction>
 
@@ -26,7 +26,7 @@ interface Billing {
   fun consumePurchases(merchantName: String, purchaseToken: String,
                        scheduler: Scheduler): Single<Boolean>
 
-  fun getPaymentMethods(value:String, currency:String): Single<List<PaymentMethodEntity>>
+  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethodEntity>>
 
   enum class BillingSupportType {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR

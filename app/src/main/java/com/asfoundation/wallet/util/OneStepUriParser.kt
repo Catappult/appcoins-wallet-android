@@ -11,6 +11,7 @@ class Parameters {
     const val DOMAIN = "domain"
     const val DATA = "data"
     const val CURRENCY = "currency"
+    const val TYPE = "type"
     const val CALLBACK_URL = "callback_url"
     const val SCHEME = "https"
     const val HOST = BuildConfig.PAYMENT_HOST

@@ -16,12 +16,11 @@ class AndroidBilling(private val billing: Billing) {
     return billing.isSubsSupported(merchantName)
   }
 
-  fun getProducts(merchantName: String, skus: List<String>): Single<List<Product>> {
-    return billing.getProducts(merchantName, skus)
+  fun getProducts(merchantName: String, skus: List<String>, type: String): Single<List<Product>> {
+    return billing.getProducts(merchantName, skus, type)
   }
 
-  fun getPurchases(merchantName: String,
-                   type: BillingSupportedType): Single<List<Purchase>> {
+  fun getPurchases(merchantName: String, type: BillingSupportedType): Single<List<Purchase>> {
     return billing.getPurchases(merchantName, type, Schedulers.io())
   }
 

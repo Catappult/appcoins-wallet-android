@@ -23,7 +23,7 @@ class ExternalBillingSerializer {
   }
 
   private fun mapProduct(product: Product): SKU {
-    return SKU(product.sku, "inapp", getBasePrice(product), getBaseCurrency(product),
+    return SKU(product.sku, product.billingType, getBasePrice(product), getBaseCurrency(product),
         getBasePriceInMicro(product), getAppcPrice(product), APPC,
         getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
         getFiatPriceInMicro(product), product.title, product.description)

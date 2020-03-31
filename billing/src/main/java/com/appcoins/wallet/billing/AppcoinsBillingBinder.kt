@@ -75,11 +75,12 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     return super.onTransact(code, data, reply, flags)
   }
 
-  override fun isBillingSupported(apiVersion: Int, packageName: String?, type: String?): Int {
-    if (apiVersion != supportedApiVersion || packageName.isNullOrBlank() || type.isNullOrBlank()) {
+  override fun isBillingSupported(apiVersion: Int, packageName: String?,
+                                  billingType: String?): Int {
+    if (apiVersion != supportedApiVersion || packageName.isNullOrBlank() || billingType.isNullOrBlank()) {
       return RESULT_BILLING_UNAVAILABLE
     }
-    return when (type) {
+    return when (billingType) {
       ITEM_TYPE_INAPP -> billing.isInAppSupported(merchantName)
       ITEM_TYPE_SUBS -> billing.isSubsSupported(merchantName)
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
@@ -88,12 +89,15 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .blockingGet()
   }
 
-  override fun getSkuDetails(apiVersion: Int, packageName: String?, type: String?,
+  override fun getSkuDetails(apiVersion: Int, packageName: String?, billingType: String?,
                              skusBundle: Bundle?): Bundle {
     val result = Bundle()
 
-    if (skusBundle == null || !skusBundle.containsKey(
-            ITEM_ID_LIST) || apiVersion != supportedApiVersion || type == null || type.isBlank()) {
+    if (skusBundle == null
+        || !skusBundle.containsKey(ITEM_ID_LIST)
+        || apiVersion != supportedApiVersion
+        || billingType == null
+        || billingType.isBlank()) {
       result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
       return result
     }
@@ -106,7 +110,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      val serializedProducts = billing.getProducts(merchantName, skus)
+      val serializedProducts = billing.getProducts(merchantName, skus, billingType)
           .doOnError { it.printStackTrace() }
           .onErrorResumeNext {
             Single.error(billingMessagesMapper.mapException(it))
@@ -121,11 +125,10 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
   }
 
-  override fun getBuyIntent(apiVersion: Int, packageName: String, sku: String?, type: String?,
+  override fun getBuyIntent(apiVersion: Int, packageName: String, sku: String?,
+                            billingType: String?,
                             developerPayload: String?): Bundle {
-
-
-    if (apiVersion != supportedApiVersion || type == null || type.isBlank() || sku == null) {
+    if (apiVersion != supportedApiVersion || billingType == null || billingType.isBlank() || sku == null) {
       val result = Bundle()
       result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
       return result
@@ -135,12 +138,15 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
-    val getSkuDetails = billing.getProducts(merchantName, listOf(sku))
+    val getSkuDetails = billing.getProducts(merchantName, listOf(sku), billingType)
         .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
         .subscribeOn(networkScheduler)
 
-    return Single.zip(getTokenContractAddress, getIabContractAddress, getSkuDetails,
+    return Single.zip(
+        getTokenContractAddress,
+        getIabContractAddress,
+        getSkuDetails,
         getDeveloperAddress,
         Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
@@ -163,7 +169,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .blockingGet()
   }
 
-  override fun getPurchases(apiVersion: Int, packageName: String?, type: String?,
+  override fun getPurchases(apiVersion: Int, packageName: String?, billingType: String?,
                             continuationToken: String?): Bundle {
     val result = Bundle()
 
@@ -177,10 +183,11 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     val signatureList = ArrayList<String>()
     val skuList = ArrayList<String>()
 
-    if (type == ITEM_TYPE_INAPP) {
+    if (billingType == ITEM_TYPE_INAPP || billingType == ITEM_TYPE_SUBS) {
       try {
-        val purchases = billing.getPurchases(merchantName, BillingSupportedType.INAPP)
-            .blockingGet()
+        val purchases =
+            billing.getPurchases(merchantName, BillingSupportedType.valueOf(billingType))
+                .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
           idsList.add(purchase.uid)
@@ -191,7 +198,6 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       } catch (exception: Exception) {
         return billingMessagesMapper.mapPurchasesError(exception)
       }
-
     }
 
     return result.apply {

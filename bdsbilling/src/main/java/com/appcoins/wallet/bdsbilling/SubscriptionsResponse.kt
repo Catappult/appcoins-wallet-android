@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.subscriptions
+package com.appcoins.wallet.bdsbilling
 
 import java.math.BigDecimal
 
@@ -15,7 +15,7 @@ data class AppcPrice(val value: BigDecimal, val micros: Long)
 
 data class Intro(val period: String, val cycles: String, val price: Price)
 
-data class SubscriptionsPurchaseResponse(val items: List<Purchase>)
+data class PurchaseResponse(val items: List<Purchase>)
 
 data class Purchase(val uid: String, val sku: String, val status: Status,
                     val orderReference: String, val autoRenewing: Boolean,
@@ -27,5 +27,16 @@ data class Verification(val type: String, val data: String, val signature: Strin
 data class PurchaseUpdate(val status: Status, val autoRenewing: Boolean)
 
 enum class Status {
-  PENDING, ACKNOWLEDGED, ACTIVE, PAUSED, EXPIRED, CANCELED, REVOKED
+  PENDING, //The subscription purchase is pending acknowledgement from the in-app seller.
+  ACKNOWLEDGED, //The subscription purchase has been acknowledged by the in-app seller, and may now be activated.
+  ACTIVE,//The subscription purchase is currently active.
+  PAUSED,//The subscription purchase is currently paused and will resume at a later time set by the buyer.
+  EXPIRED,//The subscription purchase has expired.
+  CANCELED,//The subscription purchase has been explicitly canceled.
+  REVOKED//The subscription purchase has been explicitly revoked and a refund was issued to the buyer.
+}
+
+fun SubscriptionsResponse.merge(other: SubscriptionsResponse): SubscriptionsResponse {
+  (items as ArrayList).addAll(other.items)
+  return this
 }

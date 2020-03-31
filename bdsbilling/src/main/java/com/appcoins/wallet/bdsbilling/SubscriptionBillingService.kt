@@ -1,16 +1,16 @@
-package com.asfoundation.wallet.subscriptions
+package com.appcoins.wallet.bdsbilling
 
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 
-interface SubscriptionServiceMocked {
+interface SubscriptionBillingService {
 
   @GET("product/8.20200301/inapp/{domain}/subscriptions")
   fun getSubscriptions(@Path("domain") domain: String,
-                       @Query("cursor") cursor: Long?,
-                       @Query("limit") limit: Long?,
-                       @Query("skus") type: List<String>?): Single<SubscriptionsResponse>
+                       @Query("skus") skus: List<String>?,
+                       @Query("cursor") cursor: Long? = null,
+                       @Query("limit") limit: Long? = null): Single<SubscriptionsResponse>
 
   @GET("product/8.20200301/inapp/{domain}/subscriptions/{sku}")
   fun getSkuSubscription(@Path("domain") domain: String,
@@ -23,8 +23,8 @@ interface SubscriptionServiceMocked {
 
   @GET("product/8.20200301/inapp/{domain}/subscriptions/purchases")
   fun getPurchases(@Path("domain") domain: String,
-                   @Query("cursor") cursor: Long?,
-                   @Query("limit") limit: Long?): Single<List<SubscriptionsPurchaseResponse>>
+                   @Query("cursor") cursor: Long? = null,
+                   @Query("limit") limit: Long? = null): Single<PurchaseResponse>
 
   @GET("product/8.20200301/inapp/{domain}/subscriptions/purchases/{uid}")
   fun getPurchase(@Path("domain") domain: String,

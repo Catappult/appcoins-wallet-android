@@ -1,7 +1,8 @@
 package com.appcoins.wallet.billing.repository.entity
 
 class Product(val sku: String, val title: String, val description: String,
-              val price: Price)
+              val price: Price, val billingType: String)
 
-data class Price(val base: String?, val appcoinsAmount: Double, val amount: Double, val currency: String,
+data class Price(val base: String?, val appcoinsAmount: Double, val amount: Double,
+                 val currency: String,
                  val currencySymbol: String)

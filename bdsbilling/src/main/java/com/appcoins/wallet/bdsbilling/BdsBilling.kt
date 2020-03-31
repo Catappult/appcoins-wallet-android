@@ -27,8 +27,9 @@ class BdsBilling(private val repository: BillingRepository,
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getProducts(merchantName: String, skus: List<String>): Single<List<Product>> {
-    return repository.getSkuDetails(merchantName, skus)
+  override fun getProducts(merchantName: String, skus: List<String>,
+                           type: String): Single<List<Product>> {
+    return repository.getSkuDetails(merchantName, skus, type)
   }
 
   override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
@@ -73,11 +74,10 @@ class BdsBilling(private val repository: BillingRepository,
           walletService.signContent(address)
               .observeOn(scheduler)
               .flatMap { signedContent ->
-                repository.getPurchases(merchantName, address, signedContent,
-                    type)
+                repository.getPurchases(merchantName, address, signedContent, type)
               }
         }
-        .onErrorReturn { ArrayList() }
+        .onErrorReturn { emptyList() }
   }
 
   override fun consumePurchases(merchantName: String, purchaseToken: String,

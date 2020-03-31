@@ -38,10 +38,7 @@ class OneStepTransactionParser(
           })
           .map {
             it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
-            var currency = oneStepUri.parameters[Parameters.CURRENCY]
-            if (currency == null) {
-              currency = "APPC"
-            }
+            val currency = oneStepUri.parameters[Parameters.CURRENCY] ?: "APPC"
             it.originalOneStepCurrency = currency
             it
           }
@@ -57,7 +54,7 @@ class OneStepTransactionParser(
   }
 
   private fun getAmount(uri: OneStepUri): Single<BigDecimal> {
-    return getProductValue(getDomain(uri), getSkuId(uri))
+    return getProductValue(getType(uri), getDomain(uri), getSkuId(uri))
         .onErrorResumeNext {
           uri.parameters[Parameters.VALUE]?.let {
             getTransactionValue(uri)
@@ -83,6 +80,10 @@ class OneStepTransactionParser(
 
   private fun getCurrency(uri: OneStepUri): String? {
     return uri.parameters[Parameters.CURRENCY]
+  }
+
+  private fun getType(uri: OneStepUri): String {
+    return uri.parameters[Parameters.TYPE] ?: "inapp"
   }
 
   private fun getChainId(uri: OneStepUri): Long {
@@ -120,9 +121,10 @@ class OneStepTransactionParser(
     }
   }
 
-  private fun getProductValue(packageName: String?, skuId: String?): Single<BigDecimal> {
+  private fun getProductValue(billingType: String, packageName: String?,
+                              skuId: String?): Single<BigDecimal> {
     return if (packageName != null && skuId != null) {
-      billing.getProducts(packageName, listOf(skuId))
+      billing.getProducts(packageName, listOf(skuId), billingType)
           .map { products -> products[0] }
           .map { product -> BigDecimal(product.price.appcoinsAmount) }
     } else {

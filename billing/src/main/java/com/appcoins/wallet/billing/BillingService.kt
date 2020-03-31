@@ -31,9 +31,9 @@ class BillingService : Service() {
           override fun getBilling(): Billing {
             return BdsBilling(BdsRepository(
                 RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper(),
-                    dependenciesProvider.getBdsApiSecondary())),
-                dependenciesProvider.getWalletService(),
-                BillingThrowableCodeMapper())
+                    dependenciesProvider.getBdsApiSecondary(),
+                    dependenciesProvider.getSubscriptionBillingService())),
+                dependenciesProvider.getWalletService(), BillingThrowableCodeMapper())
           }
         }, ExternalBillingSerializer(), dependenciesProvider.getProxyService(),
         BillingIntentBuilder(applicationContext), Schedulers.io())

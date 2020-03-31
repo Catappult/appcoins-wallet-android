@@ -13,7 +13,8 @@ interface BillingRepository {
 
   fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean>
 
-  fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>>
+  fun getSkuDetails(packageName: String, skus: List<String>,
+                    type: String): Single<List<Product>>
 
   fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                      walletSignature: String): Single<Purchase>
