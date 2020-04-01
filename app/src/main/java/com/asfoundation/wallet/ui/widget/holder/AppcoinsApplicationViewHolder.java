@@ -30,23 +30,27 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
-import rx.functions.Action1;
+import rx.functions.Action2;
 
 public class AppcoinsApplicationViewHolder extends RecyclerView.ViewHolder {
 
   private final TextView appName;
-  private final Action1<AppcoinsApplication> applicationClickListener;
+  private final Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener;
   private final ImageView appIcon;
   private final TextView appRating;
   private final ImageView featuredGraphic;
+  private final ImageView shareIcon;
+  private final TextView shareTitle;
 
   public AppcoinsApplicationViewHolder(View itemView,
-      Action1<AppcoinsApplication> applicationClickListener) {
+      Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener) {
     super(itemView);
     appName = itemView.findViewById(R.id.app_name);
     appIcon = itemView.findViewById(R.id.app_icon);
     featuredGraphic = itemView.findViewById(R.id.featured_graphic);
     appRating = itemView.findViewById(R.id.app_rating);
+    shareIcon = itemView.findViewById(R.id.share_icon);
+    shareTitle = itemView.findViewById(R.id.share_title);
     this.applicationClickListener = applicationClickListener;
   }
 
@@ -89,10 +93,10 @@ public class AppcoinsApplicationViewHolder extends RecyclerView.ViewHolder {
       }
 
       @Override public void onDestroy() {
-      }      @Override public void setRequest(@Nullable Request request) {
       }
 
-
+      @Override public void setRequest(@Nullable Request request) {
+      }
 
       @Nullable @Override public Request getRequest() {
         return null;
@@ -116,7 +120,23 @@ public class AppcoinsApplicationViewHolder extends RecyclerView.ViewHolder {
             new MultiTransformation<>(new CenterCrop(), new CardHeaderTransformation(space))))
         .into(featuredGraphic);
     appRating.setText(String.valueOf(appcoinsApplication.getRating()));
-    itemView.setOnClickListener(v -> applicationClickListener.call(appcoinsApplication));
+    setupClickListeners(appcoinsApplication);
+  }
+
+  private void setupClickListeners(AppcoinsApplication appcoinsApplication) {
+    appName.setOnClickListener(
+        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+    appIcon.setOnClickListener(
+        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+    appRating.setOnClickListener(
+        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+    featuredGraphic.setOnClickListener(
+        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+
+    shareIcon.setOnClickListener(
+        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.SHARE));
+    shareTitle.setOnClickListener(
+        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.SHARE));
   }
 
   private void loadDefaultFeaturedGraphic(Bitmap bitmap) {

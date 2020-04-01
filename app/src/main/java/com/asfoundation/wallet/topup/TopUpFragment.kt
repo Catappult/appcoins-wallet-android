@@ -43,6 +43,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var interactor: TopUpInteractor
+  @Inject
+  lateinit var topUpAnalytics: TopUpAnalytics
 
   private lateinit var adapter: TopUpPaymentMethodAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -118,7 +120,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     keyboardEvents = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
-            Schedulers.io())
+            Schedulers.io(), topUpAnalytics)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

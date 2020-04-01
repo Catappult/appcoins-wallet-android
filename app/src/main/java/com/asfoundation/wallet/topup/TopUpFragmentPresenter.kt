@@ -19,7 +19,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val activity: TopUpActivityView?,
                              private val interactor: TopUpInteractor,
                              private val viewScheduler: Scheduler,
-                             private val networkScheduler: Scheduler) {
+                             private val networkScheduler: Scheduler,
+                             private val topUpAnalytics: TopUpAnalytics) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
@@ -116,6 +117,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }
             .doOnNext {
               view.showLoading()
+              topUpAnalytics.sendSelectionEvent(it.currency.appcValue.toDouble(), "next",
+                  it.paymentMethod!!.name)
               activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "TOPUP",
                   it.bonusValue, gamificationLevel)
               view.hideLoading()

@@ -10,6 +10,10 @@ import org.json.JSONObject
 class RakamEventLogger : EventLogger {
 
   companion object {
+    const val APTOIDE_PACKAGE = "aptoide_package"
+    const val VERSION_CODE = "version_code"
+    const val ENTRY_POINT = "entry_point"
+    const val USER_LEVEL = "user_level"
     private const val TAG = "RakamEventLogger"
   }
 
