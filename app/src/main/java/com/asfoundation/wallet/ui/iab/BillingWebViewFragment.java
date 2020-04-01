@@ -30,8 +30,8 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   private static final String ADYEN_PAYMENT_SCHEMA = "adyencheckout://";
   private static final String LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/";
-  private static final String GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer";
-  private static final String LINE_APP_PAYMENTS_SCHEMA = "android-app://jp.naver.line.android";
+  private static final String GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://";
+  private static final String LINE_APP_PAYMENTS_SCHEMA = "intent://";
   private static final String URL = "url";
   private static final String CURRENT_URL = "currentUrl";
   private final AtomicReference<ScheduledFuture<?>> timeoutReference;
