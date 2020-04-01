@@ -116,22 +116,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }
             .doOnNext {
               view.showLoading()
-              showPaymentDetails(it)
+              activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "TOPUP",
+                  it.bonusValue, gamificationLevel)
+              view.hideLoading()
             }
             .subscribe())
-  }
-
-  private fun showPaymentDetails(topUpData: TopUpData) {
-    disposables.add(interactor.getDefaultValues()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
-              topUpData.selectedCurrency, "TOPUP", topUpData.bonusValue, it.values,
-              gamificationLevel)
-          view.hideLoading()
-        }
-        .subscribe())
   }
 
   private fun handleManualAmountChange(packageName: String) {
@@ -328,7 +317,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
             view.changeMainValueText(it.amount.toString())
           } else {
-            handleChipCreditsInput(it.currency, it.amount)
+            convertAndChangeMainValue(it.currency, it.amount)
           }
         }
         .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
@@ -336,7 +325,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribe())
   }
 
-  private fun handleChipCreditsInput(currency: String, amount: BigDecimal) {
+  private fun convertAndChangeMainValue(currency: String, amount: BigDecimal) {
     disposables.add(interactor.convertLocal(currency, amount.toString(), 2)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
