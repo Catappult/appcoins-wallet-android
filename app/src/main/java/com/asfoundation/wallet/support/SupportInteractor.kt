@@ -27,6 +27,7 @@ class SupportInteractor(private val sharedPreferences: SharedPreferences) {
     }
 
     val userAttributes = UserAttributes.Builder()
+        .withName(walletAddress)
         .withCustomAttribute(USER_LEVEL_ATTRIBUTE,
             level + 1)//we set level + 1 to help with readability for the support team
         .build()

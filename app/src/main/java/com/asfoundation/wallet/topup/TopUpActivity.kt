@@ -46,7 +46,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     private const val FIRST_IMPRESSION = "first_impression"
   }
 
-
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
@@ -57,8 +56,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
-
-
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,14 +72,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
-                                 selectedCurrency: String, origin: String, transactionType: String,
-                                 bonusValue: String, selectedChip: Int, chipValues: List<FiatValue>,
-                                 chipAvailability: Boolean, gamificationLevel: Int) {
+                                 selectedCurrency: String, transactionType: String,
+                                 bonusValue: String, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
-            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency, origin,
-                transactionType, bonusValue, selectedChip, chipValues, chipAvailability,
-                gamificationLevel))
+            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency,
+                transactionType, bonusValue, gamificationLevel))
         .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
   }
@@ -135,12 +130,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     results.accept(Objects.requireNonNull(uri, "Intent data cannot be null!"))
   }
 
-  override fun onNewIntent(intent: Intent) {
-    super.onNewIntent(intent)
-    results.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
-  }
-
-
   override fun navigateToUri(url: String) {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
@@ -163,7 +152,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun cancelPayment() {
     if (supportFragmentManager.backStackEntryCount != 0) {
-      supportFragmentManager.popBackStack()
+      supportFragmentManager.popBackStackImmediate()
     } else {
       super.onBackPressed()
     }
@@ -175,11 +164,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     outState.putBoolean(FIRST_IMPRESSION, firstImpression)
   }
 
-
   private fun handleTopUpStartAnalytics() {
     if (firstImpression) {
       topUpAnalytics.sendStartEvent()
       firstImpression = false
     }
   }
+
 }

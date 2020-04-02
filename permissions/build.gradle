@@ -2,12 +2,12 @@ apply plugin: 'java-library'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 
 dependencies {
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  testImplementation "junit:junit:$project.junitVersion"
-  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
   implementation project(path: ':commons')
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
+  testImplementation "junit:junit:$project.junit_version"
+  testImplementation "org.mockito:mockito-core:$project.mockito_version"
 }
 
 sourceCompatibility = 1.8

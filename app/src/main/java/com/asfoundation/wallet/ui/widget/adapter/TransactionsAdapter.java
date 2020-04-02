@@ -18,6 +18,7 @@ import com.asfoundation.wallet.ui.widget.entity.TimestampSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.TransactionSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationListViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationsListViewHolder;
@@ -26,7 +27,6 @@ import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
-import rx.functions.Action1;
 import rx.functions.Action2;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> {
@@ -62,7 +62,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
         }
       });
   private final OnTransactionClickListener onTransactionClickListener;
-  private final Action1<AppcoinsApplication> applicationClickListener;
+  private final Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener;
   private final Action2<CardNotification, CardNotificationAction> referralNotificationClickListener;
 
   private Wallet wallet;
@@ -70,7 +70,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   private Resources resources;
 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
-      Action1<AppcoinsApplication> applicationClickListener,
+      Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener,
       Action2<CardNotification, CardNotificationAction> referralNotificationClickListener,
       Resources resources) {
     this.onTransactionClickListener = onTransactionClickListener;

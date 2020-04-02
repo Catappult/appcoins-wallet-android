@@ -148,99 +148,98 @@ android {
 }
 
 dependencies {
-  // Etherium client
-  implementation "org.web3j:core:$project.web3jVersion"
-  // Http client
-  implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
-  implementation "com.squareup.okhttp3:okhttp:$project.okhttpVersion"
-  implementation "com.google.code.gson:gson:$project.gsonVersion"
-  implementation "com.github.bumptech.glide:glide:$project.glide"
-  kapt "com.github.bumptech.glide:compiler:$project.glide"
-
-  implementation "android.arch.lifecycle:runtime:$project.lifecycle"
-  implementation "android.arch.lifecycle:extensions:$project.lifecycle"
-
-  implementation "androidx.appcompat:appcompat:$project.androidxAppCompatVersion"
-  implementation "androidx.vectordrawable:vectordrawable:$project.androidxVectorDrawableVersion"
-  implementation "androidx.recyclerview:recyclerview:$project.androidxViewVersion"
-  implementation "androidx.cardview:cardview:$project.androidxViewVersion"
-  implementation "androidx.constraintlayout:constraintlayout:$project.androidxConstraintLayoutVersion"
-  implementation "androidx.palette:palette:$project.androidxViewVersion"
-  implementation "com.google.android.material:material:$project.androidxMaterialVersion"
-  implementation "androidx.preference:preference:$project.preferenceLibVersion"
-
-  implementation "androidx.multidex:multidex:$project.multidexVersion"
-  // Bar code scanning
-  implementation "com.google.zxing:core:$project.zxing"
-  implementation "com.google.android.gms:play-services-vision:$project.play_services"
-
-  implementation "com.github.apl-devs:appintro:$project.appintro"
-  implementation "com.romandanylyk:pageindicatorview:$project.pageIndicatorViewVersion"
-  implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android"
-  // ReactiveX
-  implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
-  implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
-  // Dagger 2
-  // Dagger core
-  implementation "com.google.dagger:dagger:$project.dagger"
-  kapt "com.google.dagger:dagger-android-processor:$project.dagger"
-  kapt "com.google.dagger:dagger-compiler:$project.dagger"
-  implementation "com.google.dagger:dagger-android-support:$project.dagger"
-
-  implementation "com.github.walleth.kethereum:erc681:$project.erc681Version"
-  // Tests
-  testImplementation "junit:junit:$junitVersion"
-  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
-  androidTestImplementation "androidx.test.ext:junit:$project.testExtJunit"
-  // Fabric
-  implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk") {
-    transitive = true
-  }
-  // WorkManager
-  implementation "androidx.work:work-rxjava2:$project.workManagerVersion"
-  implementation "com.flurry.android:analytics:$project.flurry"
-  // PW
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation project(":tn")
-  implementation "com.jakewharton.rxbinding2:rxbinding:$project.rxbinding"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation "com.asfoundation:ethereumj-android:$project.ethereumjSdkVersion"
-
-  implementation "androidx.room:room-runtime:$project.room"
-  kapt "androidx.room:room-compiler:$project.room"
-  implementation "androidx.room:room-rxjava2:$project.room"
-
   implementation project(path: ':airdrop')
-  implementation "com.asfoundation:applications:$project.asf_applications"
-  implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
-
-  //adyen dependency
-  implementation "com.adyen.checkout:card-ui:$project.adyenVersion"
-  implementation "com.adyen.checkout:redirect:$project.adyenVersion"
-
-  // Rx Lifecycle
-  implementation "com.trello:rxlifecycle:$project.rxlifecycle"
-  // If you want pre-written Activities and Fragments you can subclass as providers
-  implementation "com.trello:rxlifecycle-components:$project.rxlifecycle"
-
-  implementation "com.facebook.android:facebook-android-sdk:$project.facebook_sdk"
-  implementation "aptoide-client-v8:aptoide-analytics-core:$project.aptoide_analytics"
-  implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
   implementation project(path: ':gamification')
   implementation project(path: ':permissions')
+  implementation project(path: ':appcoinsRewards')
 
-  implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout"
-  implementation "com.airbnb.android:lottie:$lottieVersion"
-  implementation "com.hbb20:ccp:$cppVersion"
-  implementation "androidx.viewpager2:viewpager2:$project.viewPagerVersion"
-  // Intercom
-  implementation "io.intercom.android:intercom-sdk-base:$project.intercomVersion"
-  //Rakam
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+  implementation "androidx.appcompat:appcompat:$project.appcompat_version"
+  implementation "androidx.vectordrawable:vectordrawable:$project.vector_drawable_version"
+  implementation "androidx.recyclerview:recyclerview:$project.recyclerview_version"
+  implementation "androidx.cardview:cardview:$project.cardview_version"
+  implementation "androidx.constraintlayout:constraintlayout:$project.constraintlayout_version"
+  implementation "androidx.palette:palette:$project.palette_version"
+  implementation "androidx.preference:preference:$project.preference_version"
+  implementation "androidx.multidex:multidex:$project.multidex_version"
+  implementation "androidx.work:work-rxjava2:$project.work_version"
+  implementation "androidx.viewpager2:viewpager2:$project.viewpager_version"
+  implementation "androidx.room:room-runtime:$project.room_version"
+  implementation "androidx.room:room-rxjava2:$project.room_version"
+  kapt "androidx.room:room-compiler:$project.room_version"
+
+  implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
+  implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
+
+  implementation "com.squareup.retrofit2:retrofit:$project.retrofit_version"
+  implementation "com.squareup.retrofit2:converter-gson:$project.retrofit_version"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_version"
+  implementation "com.squareup.okhttp3:okhttp:$project.okhttp_version"
+  implementation "com.google.code.gson:gson:$project.gson_version"
+
+  implementation "com.google.android.material:material:$project.material_version"
+  implementation "com.google.android.gms:play-services-vision:$project.play_services_vision_version"
+  implementation "com.google.zxing:core:$project.zxing_version"
+  implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android_version"
+
+  implementation "com.google.dagger:dagger:$project.dagger_version"
+  kapt "com.google.dagger:dagger-android-processor:$project.dagger_version"
+  kapt "com.google.dagger:dagger-compiler:$project.dagger_version"
+  implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
+
+  implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
+  implementation "io.reactivex.rxjava2:rxandroid:$project.rxandroid_version"
+  implementation "com.jakewharton.rxbinding2:rxbinding:$project.rxbinding_version"
+  // Rx Lifecycle
+  implementation "com.trello:rxlifecycle:$project.rxlifecycle_version"
+  // If you want pre-written Activities and Fragments you can subclass as providers
+  implementation "com.trello:rxlifecycle-components:$project.rxlifecycle_version"
+
+  implementation "com.adyen.checkout:card-ui:$project.adyen_version"
+  implementation "com.adyen.checkout:redirect:$project.adyen_version"
+
+  implementation "io.intercom.android:intercom-sdk-base:$project.intercom_version"
+
   implementation "io.rakam:android-sdk:$project.rakam_version"
+
+  implementation "com.github.bumptech.glide:glide:$project.glide_version"
+  kapt "com.github.bumptech.glide:compiler:$project.glide_version"
+
+  implementation "com.flurry.android:analytics:$project.flurry_version"
+
+  implementation "com.facebook.android:facebook-android-sdk:$project.facebook_sdk_version"
+  implementation "aptoide-client-v8:aptoide-analytics-core:$project.aptoide_analytics_version"
+
+  implementation "com.asfoundation:applications:$project.asf_applications_version"
+  implementation "com.asfoundation:appcoins-contract-proxy:$project.asf_sdk_version"
+  implementation "com.asfoundation:ethereumj-android:$project.ethereumj_sdk_version"
+
+  implementation "com.romandanylyk:pageindicatorview:$project.pageindicatorview_version"
+
+  implementation "org.web3j:core:$project.web3j_version"
+
+  implementation "com.github.walleth.kethereum:erc681:$project.erc681_version"
+
+  implementation "com.airbnb.android:lottie:$project.lottie_version"
+
+  implementation "com.hbb20:ccp:$project.cpp_version"
+
+  implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout_version"
+
+  testImplementation "junit:junit:$project.junit_version"
+  testImplementation "org.mockito:mockito-core:$project.mockito_version"
+  androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
+
+  // Fabric
+  implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk_version") {
+    transitive = true
+  }
+
 }
 
 def renameArtifact(defaultConfig) {
