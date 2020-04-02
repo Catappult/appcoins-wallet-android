@@ -30,7 +30,7 @@ class TopUpValuesService(private val api: TopUpValuesApi,
     fun getInputLimitValues(@Path("packageName")
                             packageName: String): Single<TopUpLimitValuesResponse>
 
-    @GET("product/8.20180518/topup/billing/domains/{packageName}/skus")
+    @GET("product/8.20200402/topup/billing/domains/{packageName}/skus")
     fun getDefaultValues(
         @Path("packageName") packageName: String): Single<TopUpDefaultValuesResponse>
   }
