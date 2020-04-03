@@ -2,9 +2,9 @@ package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -14,13 +14,13 @@ interface BillingRepository {
   fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean>
 
   fun getSkuDetails(packageName: String, skus: List<String>,
-                    type: String): Single<List<Product>>
+                    type: BillingSupportedType): Single<List<Product>>
 
   fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
-                     walletSignature: String): Single<Purchase>
+                     walletSignature: String, type: BillingSupportedType): Single<Purchase>
 
   fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
-                        walletSignature: String): Single<Transaction>
+                        walletSignature: String, type: BillingSupportedType): Single<Transaction>
 
   fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                    type: BillingSupportedType): Single<List<Purchase>>

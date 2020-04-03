@@ -689,17 +689,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsApi.class);
   }
 
-/*  @Singleton @Provides SubscriptionBillingService provideSubscriptionBillingService(
-      OkHttpClient client, Gson gson) {
-    String baseUrl = BuildConfig.BASE_HOST;
-    return new Retrofit.Builder().baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(SubscriptionBillingService.class);
-  }*/
-
   @Singleton @Provides BdsApiSecondary provideBdsApiSecondary(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BDS_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)

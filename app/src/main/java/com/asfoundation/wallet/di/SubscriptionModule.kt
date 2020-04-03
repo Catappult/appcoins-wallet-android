@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.di
 
 import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.subscriptions.SubscriptionApiMockedImpl
@@ -32,9 +31,8 @@ class SubscriptionModule {
   @Provides
   fun provideSubscriptionBillingService(client: OkHttpClient,
                                         gson: Gson): SubscriptionBillingService {
-    val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
-        .baseUrl(baseUrl)
+        .baseUrl("http://192.168.2.3:8080/api/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

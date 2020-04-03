@@ -21,16 +21,16 @@ interface SubscriptionBillingService {
                               @Path("sku") sku: String,
                               @Query("currency") currency: String?): Single<String>
 
-  @GET("product/8.20200301/inapp/{domain}/subscriptions/purchases")
+  @GET("product/8.20200301/inapp/{domain}/subscription/purchases")
   fun getPurchases(@Path("domain") domain: String,
                    @Query("cursor") cursor: Long? = null,
                    @Query("limit") limit: Long? = null): Single<PurchaseResponse>
 
-  @GET("product/8.20200301/inapp/{domain}/subscriptions/purchases/{uid}")
+  @GET("product/8.20200301/inapp/{domain}/subscription/purchases/{uid}")
   fun getPurchase(@Path("domain") domain: String,
                   @Path("uid") uid: String): Single<Purchase>
 
-  @PATCH("product/8.20200301/inapp/{domain}/subscriptions/purchases/{uid}")
+  @PATCH("product/8.20200301/inapp/{domain}/subscription/purchases/{uid}")
   fun updatePurchase(@Path("domain") domain: String,
                      @Path("uid") uid: String,
                      @Body purchaseUpdate: PurchaseUpdate): Completable

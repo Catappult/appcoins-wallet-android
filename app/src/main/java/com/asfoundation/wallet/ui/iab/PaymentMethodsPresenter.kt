@@ -152,11 +152,15 @@ class PaymentMethodsPresenter(
           .subscribe())
       return
     }
-    disposables.add(waitForUi(transaction.skuId).observeOn(viewScheduler)
-        .subscribe({ view.hideLoading() }, { throwable: Throwable ->
-          showError(throwable)
-          throwable.printStackTrace()
-        }))
+    disposables.add(waitForUi(transaction.skuId, transaction.type)
+        .observeOn(viewScheduler)
+        .subscribe(
+            { view.hideLoading() },
+            { throwable: Throwable ->
+              showError(throwable)
+              throwable.printStackTrace()
+            }
+        ))
   }
 
   private fun isSetupCompleted(): Completable {
@@ -165,17 +169,21 @@ class PaymentMethodsPresenter(
         .ignoreElements()
   }
 
-  private fun waitForUi(skuId: String?): Completable {
-    return Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
+  private fun waitForUi(skuId: String?, type: String?): Completable {
+    return Completable.mergeArray(checkProcessing(skuId, type),
+        checkAndConsumePrevious(skuId, type),
         isSetupCompleted())
   }
 
-  private fun waitForOngoingPurchase(skuId: String?): Completable {
-    return Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId))
+  private fun waitForOngoingPurchase(skuId: String?, type: String?): Completable {
+    return Completable.mergeArray(checkProcessing(skuId, type),
+        checkAndConsumePrevious(skuId, type))
   }
 
-  private fun checkProcessing(skuId: String?): Completable {
-    return billing.getSkuTransaction(appPackage, skuId, networkThread)
+  private fun checkProcessing(skuId: String?, type: String?): Completable {
+    val billingSupportedType =
+        type?.let { BillingSupportedType.valueOf(it) } ?: BillingSupportedType.INAPP
+    return billing.getSkuTransaction(appPackage, skuId, networkThread, billingSupportedType)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }
@@ -185,7 +193,7 @@ class PaymentMethodsPresenter(
         .flatMapCompletable { uid ->
           bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
               .ignoreElements()
-              .andThen(finishProcess(skuId))
+              .andThen(finishProcess(skuId, billingSupportedType))
         }
   }
 
@@ -195,26 +203,29 @@ class PaymentMethodsPresenter(
         .doOnSuccess {
           view.lockRotation()
           inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-              appPackage, transaction.skuId, developerPayload, isBds)
+              appPackage, transaction.skuId, developerPayload, isBds, transaction.type)
         }
         .subscribe())
   }
 
-  private fun finishProcess(skuId: String?): Completable {
-    return billing.getSkuPurchase(appPackage, skuId, networkThread)
+  private fun finishProcess(skuId: String?, billingType: BillingSupportedType): Completable {
+    return billing.getSkuPurchase(appPackage, skuId, networkThread, billingType)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
         .ignoreElement()
   }
 
-  private fun checkAndConsumePrevious(sku: String?): Completable {
-    return getPurchases(sku).observeOn(viewScheduler)
+  private fun checkAndConsumePrevious(sku: String?, type: String?): Completable {
+    val billingSupportedType =
+        type?.let { BillingSupportedType.valueOf(it) } ?: BillingSupportedType.INAPP
+    return getPurchases(sku, billingSupportedType)
+        .observeOn(viewScheduler)
         .doOnNext { view.showItemAlreadyOwnedError() }
         .ignoreElements()
   }
 
-  private fun getPurchases(sku: String?): Observable<Purchase> {
-    return billing.getPurchases(appPackage, BillingSupportedType.INAPP, networkThread)
+  private fun getPurchases(sku: String?, type: BillingSupportedType): Observable<Purchase> {
+    return billing.getPurchases(appPackage, type, networkThread)
         .flatMapObservable { purchases ->
           for (purchase in purchases) {
             if (purchase.product
@@ -227,7 +238,8 @@ class PaymentMethodsPresenter(
   }
 
   private fun setupUi(transactionValue: Double) {
-    disposables.add(waitForOngoingPurchase(transaction.skuId).subscribeOn(networkThread)
+    disposables.add(waitForOngoingPurchase(transaction.skuId, transaction.type)
+        .subscribeOn(networkThread)
         .andThen(
             inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
                 .subscribeOn(networkThread)
@@ -390,9 +402,11 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.errorDismisses(), view.onBackPressed())
         .flatMapCompletable { itemAlreadyOwned ->
           if (itemAlreadyOwned) {
-            return@flatMapCompletable getPurchases(transaction.skuId).doOnNext {
-              finish(it, true)
-            }
+            val type = BillingSupportedType.valueOf(transaction.type)
+            return@flatMapCompletable getPurchases(transaction.skuId, type)
+                .doOnNext {
+                  finish(it, true)
+                }
                 .ignoreElements()
           } else {
             return@flatMapCompletable Completable.fromAction { view.close(Bundle()) }

@@ -36,7 +36,7 @@ class OneStepTransactionParserTest {
     const val wrongDeveloperAddress = "wrong_developer_address"
     const val productName = "product_name"
     const val packageName = "package_name"
-    const val paymentType = "SUBS"//TODO revert to INAPP_UNMANAGED after subscription integration
+    const val paymentType = "INAPP_UNMANAGED"
     const val developerPayload = "developer_payload"
     const val priceValue = "2.3"
     const val currency = "APPC"

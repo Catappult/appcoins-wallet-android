@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -71,20 +70,16 @@ class RemoteRepository(private val inapApi: BdsApi,
     return inapApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
   }
 
-  internal fun getSkuPurchaseSubs(packageName: String, skuId: String?, walletAddress: String,
-                                  walletSignature: String): Single<Purchase> {
-    return inapApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+  internal fun getSkuPurchaseSubs(packageName: String, skuId: String?): Single<Purchase> {
+    return subsApi.getPurchases(packageName)
+        .map { it.items.filter { purchase -> purchase.sku == skuId } }
+        .map { responseMapper.map(packageName, it.first()) }
   }
 
   internal fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
-                                 walletSignature: String): Single<TransactionsResponse> {
-    return inapApi.getSkuTransaction(walletAddress, walletSignature, 0, TransactionType.INAPP, 1,
-        "latest", false, skuId, packageName)
-  }
-
-  internal fun getSkuTransactionSubs(packageName: String, skuId: String?, walletAddress: String,
-                                     walletSignature: String): Single<TransactionsResponse> {
-    return inapApi.getSkuTransaction(walletAddress, walletSignature, 0, TransactionType.INAPP, 1,
+                                 walletSignature: String,
+                                 type: TransactionType): Single<TransactionsResponse> {
+    return inapApi.getSkuTransaction(walletAddress, walletSignature, 0, type, 1,
         "latest", false, skuId, packageName)
   }
 
@@ -97,7 +92,7 @@ class RemoteRepository(private val inapApi: BdsApi,
 
   internal fun getPurchasesSubs(packageName: String): Single<List<Purchase>> {
     return subsApi.getPurchases(packageName)
-        .map { responseMapper.map(it) }
+        .map { responseMapper.map(packageName, it) }
   }
 
   internal fun consumePurchase(packageName: String, purchaseToken: String, walletAddress: String,

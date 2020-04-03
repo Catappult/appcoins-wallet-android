@@ -2,6 +2,7 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.commons.Repository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
@@ -83,7 +84,7 @@ class OneStepTransactionParser(
   }
 
   private fun getType(uri: OneStepUri): String {
-    return uri.parameters[Parameters.TYPE] ?: "inapp"
+    return uri.parameters[Parameters.TYPE] ?: "INAPP"
   }
 
   private fun getChainId(uri: OneStepUri): Long {
@@ -121,9 +122,10 @@ class OneStepTransactionParser(
     }
   }
 
-  private fun getProductValue(billingType: String, packageName: String?,
+  private fun getProductValue(type: String, packageName: String?,
                               skuId: String?): Single<BigDecimal> {
     return if (packageName != null && skuId != null) {
+      val billingType = BillingSupportedType.valueOf(type)
       billing.getProducts(packageName, listOf(skuId), billingType)
           .map { products -> products[0] }
           .map { product -> BigDecimal(product.price.appcoinsAmount) }

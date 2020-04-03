@@ -2,8 +2,8 @@ package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -16,7 +16,8 @@ class AndroidBilling(private val billing: Billing) {
     return billing.isSubsSupported(merchantName)
   }
 
-  fun getProducts(merchantName: String, skus: List<String>, type: String): Single<List<Product>> {
+  fun getProducts(merchantName: String, skus: List<String>,
+                  type: BillingSupportedType): Single<List<Product>> {
     return billing.getProducts(merchantName, skus, type)
   }
 

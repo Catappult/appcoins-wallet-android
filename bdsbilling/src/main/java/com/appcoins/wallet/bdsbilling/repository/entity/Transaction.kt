@@ -6,7 +6,7 @@ data class Transaction(val uid: String,
                        val gateway: Gateway?,
                        var hash: String?,
                        val orderReference: String?,
-                       val price: Price?,
+                       val price: TransactionPrice?,
                        val type: String) {
 
   companion object {
@@ -23,4 +23,4 @@ data class Transaction(val uid: String,
 
 }
 
-data class Price(val currency: String, val value: String, val appc: String)
+data class TransactionPrice(val currency: String, val value: String, val appc: String)

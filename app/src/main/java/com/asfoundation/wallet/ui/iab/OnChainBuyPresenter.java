@@ -12,7 +12,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
@@ -104,7 +103,7 @@ public class OnChainBuyPresenter {
                     case PAUSED_ON_CHAIN:
                       return inAppPurchaseInteractor.resume(uri,
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
-                          transaction.getSkuId(), developerPayload, isBds);
+                          transaction.getSkuId(), developerPayload, isBds, transaction.getType());
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount))
                           .subscribeOn(AndroidSchedulers.mainThread());

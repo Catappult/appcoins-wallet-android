@@ -387,7 +387,7 @@ public class InAppPurchaseInteractorTest {
 
     TestObserver<Object> submitObserver = new TestObserver<>();
     inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, type)
         .subscribe(submitObserver);
 
     scheduler.triggerActions();

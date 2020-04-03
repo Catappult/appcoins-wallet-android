@@ -2,9 +2,9 @@ package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
@@ -28,7 +28,7 @@ class BdsBilling(private val repository: BillingRepository,
   }
 
   override fun getProducts(merchantName: String, skus: List<String>,
-                           type: String): Single<List<Product>> {
+                           type: BillingSupportedType): Single<List<Product>> {
     return repository.getSkuDetails(merchantName, skus, type)
   }
 
@@ -44,25 +44,26 @@ class BdsBilling(private val repository: BillingRepository,
   }
 
   override fun getSkuTransaction(merchantName: String, sku: String?,
-                                 scheduler: Scheduler): Single<Transaction> {
+                                 scheduler: Scheduler,
+                                 type: BillingSupportedType): Single<Transaction> {
     return walletService.getWalletAddress()
         .flatMap { address ->
           walletService.signContent(address)
               .observeOn(scheduler)
               .flatMap { signedContent ->
-                repository.getSkuTransaction(merchantName, sku, address, signedContent)
+                repository.getSkuTransaction(merchantName, sku, address, signedContent, type)
               }
         }
   }
 
-  override fun getSkuPurchase(merchantName: String, sku: String?,
-                              scheduler: Scheduler): Single<Purchase> {
+  override fun getSkuPurchase(merchantName: String, sku: String?, scheduler: Scheduler,
+                              type: BillingSupportedType): Single<Purchase> {
     return walletService.getWalletAddress()
         .flatMap { address ->
           walletService.signContent(address)
               .observeOn(scheduler)
               .flatMap { signedContent ->
-                repository.getSkuPurchase(merchantName, sku, address, signedContent)
+                repository.getSkuPurchase(merchantName, sku, address, signedContent, type)
               }
         }
   }

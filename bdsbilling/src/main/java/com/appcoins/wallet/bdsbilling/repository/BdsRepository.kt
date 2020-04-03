@@ -2,9 +2,9 @@ package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BillingRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -40,8 +40,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   }
 
   override fun getSkuDetails(packageName: String, skus: List<String>,
-                             type: String): Single<List<Product>> {
-    return if (type == "inapp") {
+                             type: BillingSupportedType): Single<List<Product>> {
+    return if (type == BillingSupportedType.INAPP) {
       remoteRepository.getSkuDetails(packageName, skus)
     } else {
       remoteRepository.getSkuDetailsSubs(packageName, skus)
@@ -49,14 +49,22 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   }
 
   override fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
-                              walletSignature: String): Single<Purchase> {
-    return remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
-
+                              walletSignature: String,
+                              type: BillingSupportedType): Single<Purchase> {
+    return if (type == BillingSupportedType.INAPP) {
+      remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+    } else {
+      remoteRepository.getSkuPurchaseSubs(packageName, skuId)
+    }
   }
 
   override fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
-                                 walletSignature: String): Single<Transaction> {
-    return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
+                                 walletSignature: String,
+                                 type: BillingSupportedType): Single<Transaction> {
+    val transactionType =
+        TransactionType.INAPP.takeIf { type == BillingSupportedType.INAPP } ?: TransactionType.SUBS
+    return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature,
+        transactionType)
         .flatMap {
           if (it.items.isNotEmpty()) {
             return@flatMap Single.just(it.items[0])
