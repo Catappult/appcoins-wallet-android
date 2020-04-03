@@ -3,7 +3,6 @@ package com.appcoins.wallet.bdsbilling
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.Data
 import com.appcoins.wallet.bdsbilling.repository.GetWalletResponse
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
@@ -42,9 +41,13 @@ class BillingPaymentProofSubmissionTest {
   }
 
   @Mock
-  lateinit var api: RemoteRepository.BdsApi
+  lateinit var api: BdsApi
+
+  @Mock
+  lateinit var subscriptionBillingService: SubscriptionBillingService
   lateinit var billing: BillingPaymentProofSubmission
   lateinit var scheduler: TestScheduler
+
   @Before
   fun setUp() {
     scheduler = TestScheduler()
@@ -61,6 +64,7 @@ class BillingPaymentProofSubmissionTest {
             return Single.just(GetWalletResponse(Data("developer_address")))
           }
         })
+        .setSubscriptionBillingService(subscriptionBillingService)
         .build()
 
     `when`(

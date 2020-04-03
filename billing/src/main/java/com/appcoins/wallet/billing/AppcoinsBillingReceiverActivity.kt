@@ -146,7 +146,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val type =
         billingType?.let {
           try {
-            BillingSupportedType.valueOf(billingType)
+            BillingSupportedType.valueOfInsensitive(billingType)
           } catch (e: Exception) {
             return Bundle().apply {
               putInt(
@@ -250,7 +250,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
 
     val type = try {
-      BillingSupportedType.valueOf(billingType)
+      BillingSupportedType.valueOfInsensitive(billingType)
     } catch (e: Exception) {
       with(result) {
         putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)

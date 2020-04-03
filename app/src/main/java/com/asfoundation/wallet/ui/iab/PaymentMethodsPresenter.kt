@@ -182,7 +182,7 @@ class PaymentMethodsPresenter(
 
   private fun checkProcessing(skuId: String?, type: String?): Completable {
     val billingSupportedType =
-        type?.let { BillingSupportedType.valueOf(it) } ?: BillingSupportedType.INAPP
+        type?.let { BillingSupportedType.valueOfInsensitive(it) } ?: BillingSupportedType.INAPP
     return billing.getSkuTransaction(appPackage, skuId, networkThread, billingSupportedType)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(viewScheduler)
@@ -217,7 +217,7 @@ class PaymentMethodsPresenter(
 
   private fun checkAndConsumePrevious(sku: String?, type: String?): Completable {
     val billingSupportedType =
-        type?.let { BillingSupportedType.valueOf(it) } ?: BillingSupportedType.INAPP
+        type?.let { BillingSupportedType.valueOfInsensitive(it) } ?: BillingSupportedType.INAPP
     return getPurchases(sku, billingSupportedType)
         .observeOn(viewScheduler)
         .doOnNext { view.showItemAlreadyOwnedError() }
@@ -402,7 +402,7 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.errorDismisses(), view.onBackPressed())
         .flatMapCompletable { itemAlreadyOwned ->
           if (itemAlreadyOwned) {
-            val type = BillingSupportedType.valueOf(transaction.type)
+            val type = BillingSupportedType.valueOfInsensitive(transaction.type)
             return@flatMapCompletable getPurchases(transaction.skuId, type)
                 .doOnNext {
                   finish(it, true)

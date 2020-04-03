@@ -110,7 +110,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     val type = try {
-      BillingSupportedType.valueOf(billingType)
+      BillingSupportedType.valueOfInsensitive(billingType)
     } catch (e: Exception) {
       with(result) { putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR) }
       return result
@@ -145,7 +145,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     val type = try {
-      BillingSupportedType.valueOf(billingType)
+      BillingSupportedType.valueOfInsensitive(billingType)
     } catch (e: Exception) {
       return Bundle().apply {
         putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
@@ -205,7 +205,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       try {
         val purchases =
             billing.getPurchases(merchantName,
-                BillingSupportedType.valueOf(billingType.toUpperCase(Locale.ROOT)))
+                BillingSupportedType.valueOfInsensitive(billingType))
                 .blockingGet()
 
         purchases.forEach { purchase: Purchase ->

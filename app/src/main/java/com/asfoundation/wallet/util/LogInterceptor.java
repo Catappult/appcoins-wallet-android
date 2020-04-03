@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -17,10 +18,11 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
+import org.jetbrains.annotations.NotNull;
 
 public class LogInterceptor implements Interceptor {
   private static final String TAG = "HTTP_TRACE";
-  private static final Charset UTF8 = Charset.forName("UTF-8");
+  private static final Charset UTF8 = StandardCharsets.UTF_8;
 
   private static String requestPath(HttpUrl url) {
     String path = url.encodedPath();
@@ -28,7 +30,7 @@ public class LogInterceptor implements Interceptor {
     return url.scheme() + "://" + url.host() + (query != null ? (path + '?' + query) : path);
   }
 
-  @Override public Response intercept(@NonNull Chain chain) throws IOException {
+  @NotNull @Override public Response intercept(@NonNull Chain chain) throws IOException {
     StringBuilder logBuilder = new StringBuilder();
     Request request = chain.request();
     try {

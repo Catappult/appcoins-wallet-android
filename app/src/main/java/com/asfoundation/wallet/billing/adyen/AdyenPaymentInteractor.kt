@@ -110,7 +110,7 @@ class AdyenPaymentInteractor(
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
     return if (isInApp(type) && sku != null) {
-      val billingType = BillingSupportedType.valueOf(type)
+      val billingType = BillingSupportedType.valueOfInsensitive(type)
       billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {

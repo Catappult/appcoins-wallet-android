@@ -21,9 +21,13 @@ class RemoteRepository(private val inapApi: BdsApi,
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
   }
 
-  internal fun isBillingSupported(packageName: String,
-                                  type: BillingSupportedType): Single<Boolean> {
-    return inapApi.getPackage(packageName, type.name.toLowerCase(Locale.ROOT))
+  internal fun isBillingSupported(packageName: String): Single<Boolean> {
+    return inapApi.getPackage(packageName, BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
+        .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
+  }
+
+  internal fun isBillingSupportedSubs(packageName: String): Single<Boolean> {
+    return subsApi.getPackage(packageName)
         .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 

@@ -78,7 +78,7 @@ public class AsfInAppPurchaseInteractor {
     if (transactionType == TransactionType.NORMAL) {
       return buildPaymentTransaction(uri, packageName, productName,
           developerPayload).flatMapCompletable(paymentTransaction -> {
-        BillingSupportedType billingType = BillingSupportedType.valueOf(
+        BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(
             paymentTransaction.getTransactionBuilder()
                 .getType());
         return billing.getSkuTransaction(packageName, paymentTransaction.getTransactionBuilder()
@@ -297,13 +297,13 @@ public class AsfInAppPurchaseInteractor {
 
   private Single<Transaction> getTransaction(String packageName, String productName, String type) {
     return Single.defer(() -> {
-      BillingSupportedType billingType = BillingSupportedType.valueOf(type);
+      BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(type);
       return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType);
     });
   }
 
   Single<Purchase> getCompletedPurchase(String packageName, String productName, String type) {
-    BillingSupportedType billingType = BillingSupportedType.valueOf(type);
+    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(type);
     return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType)
         .map(Transaction::getStatus)
         .flatMap(transactionStatus -> {

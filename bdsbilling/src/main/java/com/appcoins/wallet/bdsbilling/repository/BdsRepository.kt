@@ -36,7 +36,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   }
 
   override fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean> {
-    return remoteRepository.isBillingSupported(packageName, type)
+    return if (type == BillingSupportedType.INAPP) {
+      remoteRepository.isBillingSupported(packageName)
+    } else {
+      remoteRepository.isBillingSupportedSubs(packageName)
+    }
   }
 
   override fun getSkuDetails(packageName: String, skus: List<String>,

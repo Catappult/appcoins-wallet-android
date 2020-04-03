@@ -2,6 +2,8 @@ package com.appcoins.wallet.bdsbilling
 
 import java.math.BigDecimal
 
+data class SellerDomain(val domain: String)
+
 data class SubscriptionsResponse(val items: List<SubscriptionResponse>)
 
 data class SubscriptionResponse(val sku: String, val period: String, val trialPeriod: String?,

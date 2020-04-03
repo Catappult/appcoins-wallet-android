@@ -90,7 +90,7 @@ public class AppcoinsRewardsBuyPresenter {
       case COMPLETED:
         if (isBds) {
           BillingSupportedType billingType =
-              BillingSupportedType.valueOf(transactionBuilder.getType());
+              BillingSupportedType.valueOfInsensitive(transactionBuilder.getType());
           return rewardsManager.getPaymentCompleted(packageName, sku, billingType)
               .flatMapCompletable(purchase -> Completable.fromAction(view::showTransactionCompleted)
                   .subscribeOn(scheduler)
