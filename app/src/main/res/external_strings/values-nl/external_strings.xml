@@ -32,7 +32,7 @@
   <string name="iab_purchase_done_reward_body">Je had %s voor deze aankoop kunnen ontvangen.</string>
   <string name="iab_purchase_done_title_long">Aankoop voltooid!</string>
   <string name="iab_purchase_change_payment_method_button">MEER BETALINGSMETHODEN</string>
-  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_1">Hulp nodig?</string>
   <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">VOLGENDE</string>
