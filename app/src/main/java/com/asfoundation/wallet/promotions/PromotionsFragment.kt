@@ -29,6 +29,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   @Inject
   lateinit var gamification: GamificationInteractor
+
   @Inject
   lateinit var promotionsInteractor: PromotionsInteractorContract
   @Inject
@@ -70,6 +71,9 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   }
 
   override fun updateLevel(userStatus: UserRewardsStatus) {
+    gamification_title.text = getString(R.string.promotions_gamification_card_title_variable,
+        userStatus.maxBonus)
+
     if (userStatus.bonus.size != 1) {
       step = 100 / (userStatus.bonus.size - 1)
     }

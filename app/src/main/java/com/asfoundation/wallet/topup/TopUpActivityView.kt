@@ -9,8 +9,7 @@ interface TopUpActivityView {
   fun showTopUpScreen()
 
   fun navigateToPayment(paymentType: PaymentType, data: TopUpData, selectedCurrency: String,
-                        transactionType: String, bonusValue: String, defaultValues: List<FiatValue>,
-                        gamificationLevel: Int)
+                        transactionType: String, bonusValue: String, gamificationLevel: Int)
 
   fun finish(data: Bundle)
 

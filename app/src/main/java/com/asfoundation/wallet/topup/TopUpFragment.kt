@@ -11,6 +11,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -134,14 +135,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    hideKeyboard()
     if (savedInstanceState?.containsKey(SELECTED_CURRENCY_PARAM) == true) {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
-
 
     topUpAdapter = TopUpAdapter(Action1 { valueSubject?.onNext(it) })
 
@@ -167,8 +166,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
           APPC_C_SYMBOL, DEFAULT_VALUE)
     }
     this@TopUpFragment.paymentMethods = paymentMethods
-    hideKeyboard()
     main_value.isEnabled = true
+    focusAndShowKeyboard(main_value)
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
             .toFloat())
@@ -180,6 +179,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
     swap_value_label.visibility = View.VISIBLE
+  }
+
+  private fun focusAndShowKeyboard(view: EditText) {
+    view.post {
+      view.requestFocus()
+      val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+      imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+    }
   }
 
   override fun setValuesAdapter(values: List<FiatValue>) {

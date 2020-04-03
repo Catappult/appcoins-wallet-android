@@ -186,10 +186,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private val transactionType: String by lazy {
-    if (arguments!!.containsKey(SKU_ID)) {
-      arguments!!.getString(SKU_ID)
+    if (arguments!!.containsKey(TRANSACTION_TYPE)) {
+      arguments!!.getString(TRANSACTION_TYPE)
     } else {
-      throw IllegalArgumentException("sku id data not found")
+      throw IllegalArgumentException("transaction type data not found")
     }
   }
 
