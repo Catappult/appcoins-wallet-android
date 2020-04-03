@@ -26,7 +26,8 @@ class ExternalBillingSerializer {
     return SKU(product.sku, product.billingType, getBasePrice(product), getBaseCurrency(product),
         getBasePriceInMicro(product), getAppcPrice(product), APPC,
         getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
-        getFiatPriceInMicro(product), product.title, product.description)
+        getFiatPriceInMicro(product), product.title, product.description,
+        product.subscriptionPeriod, product.trialPeriod)
   }
 
   private fun getBasePrice(product: Product): String {

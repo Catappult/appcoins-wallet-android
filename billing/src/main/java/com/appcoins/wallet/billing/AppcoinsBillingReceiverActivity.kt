@@ -203,20 +203,30 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val signatureList = ArrayList<String>()
     val skuList = ArrayList<String>()
 
-    if (billingType == AppcoinsBillingBinder.ITEM_TYPE_INAPP) {
-      try {
-        val purchases = billing.getPurchases(packageName, BillingSupportedType.INAPP)
-            .blockingGet()
+    val type =
+        billingType?.let {
+          try {
+            BillingSupportedType.valueOfInsensitive(billingType)
+          } catch (e: Exception) {
+            return Bundle().apply {
+              putInt(
+                  AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
+            }
+          }
+        } ?: BillingSupportedType.INAPP
 
-        purchases.forEach { purchase: Purchase ->
-          idsList.add(purchase.uid)
-          dataList.add(serializer.serializeSignatureData(purchase))
-          signatureList.add(purchase.signature.value)
-          skuList.add(purchase.product.name)
-        }
-      } catch (exception: Exception) {
-        return createReturnBundle(billingMessagesMapper.mapPurchasesError(exception))
+    try {
+      val purchases = billing.getPurchases(packageName, type)
+          .blockingGet()
+
+      purchases.forEach { purchase: Purchase ->
+        idsList.add(purchase.uid)
+        dataList.add(serializer.serializeSignatureData(purchase))
+        signatureList.add(purchase.signature.value)
+        skuList.add(purchase.product.name)
       }
+    } catch (exception: Exception) {
+      return createReturnBundle(billingMessagesMapper.mapPurchasesError(exception))
     }
 
     return createReturnBundle(result.apply {

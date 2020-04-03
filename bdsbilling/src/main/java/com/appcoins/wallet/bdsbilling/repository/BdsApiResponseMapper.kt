@@ -3,6 +3,8 @@ package com.appcoins.wallet.bdsbilling.repository
 import com.appcoins.wallet.bdsbilling.PurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BdsApiResponseMapper {
   fun map(productDetails: DetailsResponseBody): List<Product> {
@@ -45,7 +47,15 @@ class BdsApiResponseMapper {
   //TODO this method should be in SubscriptionsResponse mapper
   //TODO This method does nothing. Needs to me implemented
   fun map(packageName: String, purchase: com.appcoins.wallet.bdsbilling.Purchase): Purchase {
-    return Purchase(purchase.uid, RemoteProduct(purchase.sku), purchase.status.name.toString(),
-        Package(packageName), Signature("", DeveloperPurchase()))
+    val developerPurchase = DeveloperPurchase()
+    developerPurchase.packageName = packageName
+    developerPurchase.orderId = purchase.orderReference
+    developerPurchase.productId = purchase.sku
+    developerPurchase.purchaseState = 0
+    developerPurchase.purchaseTime = System.currentTimeMillis()
+    developerPurchase.purchaseToken = UUID.randomUUID()
+        .toString()
+    return Purchase(purchase.uid, RemoteProduct(purchase.sku), purchase.status.name,
+        Package(packageName), Signature(purchase.verification.signature, developerPurchase))
   }
 }
