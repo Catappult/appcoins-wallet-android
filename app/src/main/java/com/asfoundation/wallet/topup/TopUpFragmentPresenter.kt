@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -20,7 +21,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val interactor: TopUpInteractor,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
-                             private val topUpAnalytics: TopUpAnalytics) {
+                             private val topUpAnalytics: TopUpAnalytics,
+                             private val formatter: CurrencyFormatUtils) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
@@ -50,16 +52,16 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun setupUi() {
     disposables.add(Single.zip(
-            interactor.getPaymentMethods()
-                .subscribeOn(networkScheduler)
-                .observeOn(viewScheduler),
-            interactor.getLimitTopUpValues()
-                .subscribeOn(networkScheduler)
-                .observeOn(viewScheduler),
-            BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
-              view.setupUiElements(filterPaymentMethods(paymentMethods),
-                  LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-            })
+        interactor.getPaymentMethods()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler),
+        interactor.getLimitTopUpValues()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler),
+        BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
+          view.setupUiElements(filterPaymentMethods(paymentMethods),
+              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+        })
         .subscribe({}, { handleError(it) }))
   }
 
@@ -233,7 +235,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
             view.hideBonus()
           } else {
-            view.showBonus(it.amount, it.currency)
+            val scaledBonus = formatter.scaleFiat(it.amount)
+            view.showBonus(scaledBonus, it.currency)
           }
           view.setNextButtonState(true)
           gamificationLevel = it.level

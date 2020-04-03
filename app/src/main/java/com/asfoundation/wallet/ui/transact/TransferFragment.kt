@@ -19,6 +19,8 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ConfirmationRouter
 import com.asfoundation.wallet.ui.ActivityResultSharer
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
@@ -57,6 +59,8 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
   lateinit var defaultTokenInfoProvider: DefaultTokenProvider
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   lateinit var navigator: TransactNavigator
   private lateinit var activityResultSharer: ActivityResultSharer
@@ -74,7 +78,7 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
             .subscribe()
     presenter = TransferPresenter(this, CompositeDisposable(), interactor, Schedulers.io(),
         AndroidSchedulers.mainThread(), findDefaultWalletInteract, walletBlockedInteract,
-        context!!.packageName)
+        context!!.packageName, formatter)
   }
 
   override fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
@@ -92,12 +96,12 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
                                         amount: BigDecimal): Completable {
 
     return defaultTokenInfoProvider.defaultToken.doOnSuccess {
-      val transaction = TransactionBuilder(it)
-      transaction.amount(amount)
-      transaction.toAddress(toWalletAddress)
-      transaction.fromAddress(walletAddress)
-      confirmationRouter.open(activity, transaction)
-    }
+          val transaction = TransactionBuilder(it)
+          transaction.amount(amount)
+          transaction.toAddress(toWalletAddress)
+          transaction.fromAddress(walletAddress)
+          confirmationRouter.open(activity, transaction)
+        }
         .ignoreElement()
   }
 
@@ -124,11 +128,10 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
         .map { map(currency_selector.checkedRadioButtonId) }
   }
 
-  override fun showBalance(balance: BigDecimal,
-                           currency: TransferFragmentView.Currency) {
+  override fun showBalance(balance: String,
+                           currency: WalletCurrency) {
     transact_fragment_balance.text =
-        getString(R.string.p2p_send_current_balance_message,
-            balance.stripTrailingZeros().toPlainString(), map(currency))
+        getString(R.string.p2p_send_current_balance_message, balance, currency.symbol)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -199,12 +202,14 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
     return Observable.merge(doneClick, RxView.clicks(send_button))
         .map {
           var amount = BigDecimal.ZERO
-          if (transact_fragment_amount.text.toString().isNotEmpty()) {
+          if (transact_fragment_amount.text.toString()
+                  .isNotEmpty()) {
             amount = transact_fragment_amount.text.toString()
                 .toBigDecimal()
           }
           TransferFragmentView.TransferData(
-              transact_fragment_recipient_address.text.toString().toLowerCase(),
+              transact_fragment_recipient_address.text.toString()
+                  .toLowerCase(),
               map(currency_selector.checkedRadioButtonId), amount)
         }
   }
@@ -269,18 +274,10 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
     }
   }
 
-  private fun map(currency: TransferFragmentView.Currency): String {
-    return getString(when (currency) {
-      TransferFragmentView.Currency.APPC_C -> R.string.p2p_send_currency_appc_c
-      TransferFragmentView.Currency.APPC -> R.string.p2p_send_currency_appc
-      TransferFragmentView.Currency.ETH -> R.string.p2p_send_currency_eth
-    })
-  }
-
   override fun onDestroy() {
     disposable?.takeIf {
-      !it.isDisposed
-    }
+          !it.isDisposed
+        }
         .let { it?.dispose() }
     super.onDestroy()
   }

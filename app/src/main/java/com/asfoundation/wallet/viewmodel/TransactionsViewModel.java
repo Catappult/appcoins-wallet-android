@@ -19,6 +19,7 @@ import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.support.SupportInteractor;
+import com.asfoundation.wallet.topup.TopUpLimitValuesResponse;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
@@ -27,6 +28,8 @@ import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -221,12 +224,12 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private GlobalBalance updateWalletValue(Pair<Balance, FiatValue> tokenBalance,
       Pair<Balance, FiatValue> creditsBalance, Pair<Balance, FiatValue> ethereumBalance) {
+    CurrencyFormatUtils formatter = CurrencyFormatUtils.Companion.create();
     String fiatValue = "";
     BigDecimal sumFiat = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
         ethereumBalance.second.getAmount());
     if (sumFiat.compareTo(MINUS_ONE) > 0) {
-      fiatValue = sumFiat.setScale(FIAT_SCALE, RoundingMode.FLOOR)
-          .toString();
+      fiatValue = formatter.formatCurrency(sumFiat.doubleValue(), WalletCurrency.FIAT);
     }
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =

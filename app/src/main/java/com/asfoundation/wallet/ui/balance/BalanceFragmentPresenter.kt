@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +13,8 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
                                private val balanceInteract: BalanceInteract,
                                private val networkScheduler: Scheduler,
                                private val viewScheduler: Scheduler,
-                               private val disposables: CompositeDisposable) {
+                               private val disposables: CompositeDisposable,
+                               private val formatter: CurrencyFormatUtils) {
 
 
   companion object {
@@ -43,10 +47,10 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun updateUI(balanceScreenModel: BalanceScreenModel) {
-    view.updateTokenValue(balanceScreenModel.creditsBalance)
-    view.updateTokenValue(balanceScreenModel.appcBalance)
-    view.updateTokenValue(balanceScreenModel.ethBalance)
-    view.updateOverallBalance(balanceScreenModel.overallFiat)
+    updateAppcBalance(balanceScreenModel.appcBalance)
+    updateCreditsBalance(balanceScreenModel.creditsBalance)
+    updateEthereumBalance(balanceScreenModel.ethBalance)
+    updateOverallBalance(balanceScreenModel.overallFiat)
   }
 
   private fun handleTokenDetailsClick() {
@@ -64,4 +68,44 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .subscribe())
   }
 
+  private fun updateAppcBalance(balance: TokenBalance) {
+    var tokenBalance = "-1"
+    var fiatBalance = "-1"
+    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
+      tokenBalance =
+          formatter.formatCurrency(balance.token.amount.toDouble(), WalletCurrency.APPCOINS)
+      fiatBalance = formatter.formatCurrency(balance.fiat)
+    }
+    view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.APPCOINS, balance.fiat.symbol)
+  }
+
+  private fun updateCreditsBalance(balance: TokenBalance) {
+    var tokenBalance = "-1"
+    var fiatBalance = "-1"
+    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
+      tokenBalance =
+          formatter.formatCurrency(balance.token.amount.toDouble(), WalletCurrency.CREDITS)
+      fiatBalance = formatter.formatCurrency(balance.fiat)
+    }
+    view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.CREDITS, balance.fiat.symbol)
+  }
+
+  private fun updateEthereumBalance(balance: TokenBalance) {
+    var tokenBalance = "-1"
+    var fiatBalance = "-1"
+    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
+      tokenBalance =
+          formatter.formatCurrency(balance.token.amount.toDouble(), WalletCurrency.ETHEREUM)
+      fiatBalance = formatter.formatCurrency(balance.fiat)
+    }
+    view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.ETHEREUM, balance.fiat.symbol)
+  }
+
+  private fun updateOverallBalance(balance: FiatValue) {
+    var overallBalance = "-1"
+    if (balance.amount.compareTo(BigDecimal("-1")) == 1) {
+      overallBalance = formatter.formatCurrency(balance)
+    }
+    view.updateOverallBalance(overallBalance, balance.currency, balance.symbol)
+  }
 }

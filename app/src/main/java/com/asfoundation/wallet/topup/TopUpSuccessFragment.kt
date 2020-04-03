@@ -12,22 +12,26 @@ import android.view.ViewGroup
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_top_up_success.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import javax.inject.Inject
 
 class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic
-    fun newInstance(amount: String, currency: String, bonus: String): TopUpSuccessFragment {
+    fun newInstance(amount: String, currency: String, bonus: String, currencySymbol: String): TopUpSuccessFragment {
       val fragment = TopUpSuccessFragment()
       val bundle = Bundle()
       bundle.putString(PARAM_AMOUNT, amount)
       bundle.putString(CURRENCY, currency)
+      bundle.putString(CURRENCY_SYMBOL, currencySymbol)
       bundle.putString(BONUS, bonus)
       fragment.arguments = bundle
       return fragment
@@ -35,9 +39,11 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
     private const val PARAM_AMOUNT = "amount"
     private const val CURRENCY = "currency"
+    private const val CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
   }
-
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: TopUpSuccessPresenter
 
   private lateinit var topUpActivityView: TopUpActivityView
@@ -60,6 +66,14 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS)) {
       arguments!!.getString(BONUS)
+    } else {
+      throw IllegalArgumentException("bonus not found")
+    }
+  }
+
+  val currencySymbol: String by lazy {
+    if (arguments!!.containsKey(CURRENCY_SYMBOL)) {
+      arguments!!.getString(CURRENCY_SYMBOL)
     } else {
       throw IllegalArgumentException("bonus not found")
     }
@@ -123,8 +137,9 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   private fun setAnimationText() {
+    val formattedBonus = formatter.formatCurrency(bonus, WalletCurrency.FIAT)
     val textDelegate = TextDelegate(top_up_success_animation)
-    textDelegate.setText("bonus_value", bonus)
+    textDelegate.setText("bonus_value", "$currencySymbol$formattedBonus")
     textDelegate.setText("bonus_received",
         resources.getString(R.string.gamification_purchase_completed_bonus_received))
     top_up_success_animation.setTextDelegate(textDelegate)
@@ -153,7 +168,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   private fun getFormattedTopUpValue(): String {
     val fiatValue =
-        BigDecimal(amount).setScale(2, RoundingMode.FLOOR).toString() + " " + currency
+        formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
     return String.format(resources.getString(R.string.topup_completed_1), fiatValue)
   }
 

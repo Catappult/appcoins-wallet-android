@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup
 
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Observable
 import java.math.BigDecimal
 

@@ -3,7 +3,9 @@ package com.asfoundation.wallet.ui.transact
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -21,7 +23,8 @@ class TransferPresenter(private val view: TransferFragmentView,
                         private val viewScheduler: Scheduler,
                         private val walletInteract: FindDefaultWalletInteract,
                         private val walletBlockedInteract: WalletBlockedInteract,
-                        private val packageName: String) {
+                        private val packageName: String,
+                        private val formatter: CurrencyFormatUtils) {
 
   fun present() {
     handleButtonClick()
@@ -34,10 +37,13 @@ class TransferPresenter(private val view: TransferFragmentView,
     disposables.add(view.getCurrencyChange()
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
-        .switchMapSingle {
-          getBalance(it)
+        .switchMapSingle { currency ->
+          getBalance(currency)
               .observeOn(viewScheduler)
-              .doOnSuccess { balance -> view.showBalance(balance, it) }
+              .doOnSuccess {
+                val walletCurrency = mapToWalletCurrency(currency)
+                view.showBalance(formatter.formatCurrency(it.toDouble(), walletCurrency), walletCurrency)
+              }
         }
         .doOnError { it.printStackTrace() }
         .retry()
@@ -175,6 +181,15 @@ class TransferPresenter(private val view: TransferFragmentView,
     return Single.zip(Single.timer(1, TimeUnit.SECONDS),
         interactor.transferCredits(walletAddress, amount, packageName),
         BiFunction { _: Long, status: AppcoinsRewardsRepository.Status -> status })
+  }
+
+  private fun mapToWalletCurrency(
+      currency: TransferFragmentView.Currency): WalletCurrency {
+    return when (currency) {
+      TransferFragmentView.Currency.APPC -> WalletCurrency.APPCOINS
+      TransferFragmentView.Currency.APPC_C -> WalletCurrency.CREDITS
+      TransferFragmentView.Currency.ETH -> WalletCurrency.ETHEREUM
+    }
   }
 
   fun clear() {

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -16,7 +15,8 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.balance.BalanceInteract
-import com.asfoundation.wallet.util.formatWithSuffix
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -38,8 +38,6 @@ import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
-import java.text.DecimalFormat
-import java.util.*
 import javax.inject.Inject
 
 class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
@@ -97,6 +95,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   lateinit var walletBlockedInteract: WalletBlockedInteract
   @Inject
   lateinit var billingAnalytics: BillingAnalytics
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -198,7 +198,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
-        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), billingAnalytics)
+        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), billingAnalytics, formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -268,11 +268,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
-    val formatter = Formatter()
-    val decimalFormat = DecimalFormat("0.00")
-    val appcText = formatter.format(Locale.getDefault(), "%(,.2f", appcAmount)
-        .toString() + " APPC"
-    val fiatText = decimalFormat.format(fiatAmount) + ' ' + currency
+    val appcText = formatter.formatCurrency(appcAmount.toDouble(),
+        WalletCurrency.APPCOINS)
+        .plus(" " + WalletCurrency.APPCOINS.symbol)
+    val fiatText = formatter.formatCurrency(fiatAmount.toDouble(), WalletCurrency.FIAT)
+        .plus(" $currency")
     fiat_price.text = fiatText
     appc_price.text = appcText
     fiat_price.visibility = VISIBLE
@@ -402,12 +402,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     iabView.showPaymentMethodsView()
   }
 
-  @SuppressLint("SetTextI18n")
-  override fun updateBalanceValues(appcFiat: FiatValue, creditsFiat: FiatValue) {
-    balance_fiat_appc_eth.text = getString(R.string.purchase_current_balance_appc_eth_body,
-        appcFiat.amount.formatWithSuffix(2) + " " + appcFiat.currency)
-    credits_fiat_balance.text = getString(R.string.purchase_current_balance_appcc_body,
-        creditsFiat.amount.formatWithSuffix(2) + " " + creditsFiat.currency)
+  override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
+    balance_fiat_appc_eth.text =
+        getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
+    credits_fiat_balance.text =
+        getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
     payment_methods.visibility = VISIBLE
   }
 

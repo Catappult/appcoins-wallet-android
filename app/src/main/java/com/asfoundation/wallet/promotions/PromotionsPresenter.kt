@@ -3,6 +3,8 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.Status
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -13,7 +15,8 @@ class PromotionsPresenter(private val view: PromotionsView,
                           private val promotionsInteractor: PromotionsInteractorContract,
                           private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
-                          private val viewScheduler: Scheduler) {
+                          private val viewScheduler: Scheduler,
+                          private val formatter: CurrencyFormatUtils) {
 
   fun present() {
     retrievePromotions()
@@ -37,7 +40,9 @@ class PromotionsPresenter(private val view: PromotionsView,
   private fun onPromotions(promotionsModel: PromotionsModel) {
     view.hideLoading()
     if (promotionsModel.gamificationAvailable && promotionsModel.referralsAvailable) {
-      view.setReferralBonus(promotionsModel.maxValue, promotionsModel.currency)
+      view.setReferralBonus(
+          formatter.formatCurrency(promotionsModel.maxValue.toDouble(), WalletCurrency.FIAT),
+          promotionsModel.currency)
       view.toggleShareAvailability(promotionsModel.isValidated)
       showPromotions(promotionsModel)
     } else {

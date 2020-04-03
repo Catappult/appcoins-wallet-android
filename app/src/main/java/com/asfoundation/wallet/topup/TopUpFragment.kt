@@ -22,6 +22,8 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -44,6 +46,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   lateinit var interactor: TopUpInteractor
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var adapter: TopUpPaymentMethodAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -85,7 +89,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       val heightDiff: Int = it.rootView.height - it.height - appBarHeight
 
       val threshold = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150f,
-              requireContext().resources.displayMetrics)
+          requireContext().resources.displayMetrics)
           .toInt()
 
       keyboardEvents.onNext(heightDiff > threshold)
@@ -119,7 +123,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     keyboardEvents = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
-            Schedulers.io(), topUpAnalytics)
+            Schedulers.io(), topUpAnalytics, formatter)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -310,7 +314,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     if (topUpData.selectedCurrency == selectedCurrency) {
       when (selectedCurrency) {
         FIAT_CURRENCY -> {
-          converted_value.text = "${topUpData.currency.appcValue} ${topUpData.currency.appcSymbol}"
+          converted_value.text = "${topUpData.currency.appcValue} ${WalletCurrency.CREDITS.symbol}"
         }
         APPC_C_CURRENCY -> {
           converted_value.text =
@@ -421,18 +425,17 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
-    var scaledBonus = bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_FLOOR)
+    var scaledBonus = bonus
     var currency = bonusCurrency
     if (scaledBonus < BigDecimal(0.01)) {
       currency = "~$currency"
     }
     scaledBonus = scaledBonus.max(BigDecimal("0.01"))
 
-    bonusMessageValue = currency + scaledBonus.toPlainString()
+    bonusMessageValue = scaledBonus.toPlainString()
     bonus_layout.bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
     bonus_layout.bonus_value.text = getString(R.string.topup_bonus_header_part_2,
-        currency + scaledBonus.toPlainString())
+        currency + formatter.formatCurrency(scaledBonus.toDouble(), WalletCurrency.FIAT))
   }
 
   private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatValue: String,
@@ -514,14 +517,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private fun getTopUpValuesSpanCount(): Int {
     val screenWidth =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
-                fragmentContainer.measuredWidth.toFloat(),
-                requireContext().resources
-                    .displayMetrics)
+            fragmentContainer.measuredWidth.toFloat(),
+            requireContext().resources
+                .displayMetrics)
             .toInt()
 
     val viewWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80f,
-            requireContext().resources
-                .displayMetrics)
+        requireContext().resources
+            .displayMetrics)
         .toInt()
 
     return screenWidth / viewWidth

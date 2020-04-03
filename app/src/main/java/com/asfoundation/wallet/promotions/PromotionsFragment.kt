@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
-import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.promotions_fragment_view.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.referrals_card
 import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
-import java.math.BigDecimal
 import javax.inject.Inject
 
 class PromotionsFragment : DaggerFragment(), PromotionsView {
@@ -32,6 +31,8 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   lateinit var gamification: GamificationInteractor
   @Inject
   lateinit var promotionsInteractor: PromotionsInteractorContract
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var activity: PromotionsActivityView
   private var step = 100
   private lateinit var presenter: PromotionsPresenter
@@ -40,7 +41,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     super.onCreate(savedInstanceState)
     presenter =
         PromotionsPresenter(this, promotionsInteractor, CompositeDisposable(), Schedulers.io(),
-            AndroidSchedulers.mainThread())
+            AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -187,9 +188,9 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     retry_animation.visibility = VISIBLE
   }
 
-  override fun setReferralBonus(bonus: BigDecimal, currency: String) {
+  override fun setReferralBonus(bonus: String, currency: String) {
     promotions_title.text = getString(R.string.promotions_referral_card_title,
-        currency + bonus.scaleToString(2))
+        currency + bonus)
   }
 
   override fun toggleShareAvailability(validated: Boolean) {

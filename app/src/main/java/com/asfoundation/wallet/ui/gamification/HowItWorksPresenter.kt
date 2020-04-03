@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -17,7 +19,8 @@ class HowItWorksPresenter(private val view: HowItWorksView,
                           private val gamification: GamificationInteractor,
                           private val analytics: GamificationAnalytics,
                           private val networkScheduler: Scheduler,
-                          private val viewScheduler: Scheduler) {
+                          private val viewScheduler: Scheduler,
+                          private val formatter: CurrencyFormatUtils) {
 
   val disposables = CompositeDisposable()
 
@@ -55,7 +58,11 @@ class HowItWorksPresenter(private val view: HowItWorksView,
           gamification.getAppcToLocalFiat(userStats.totalEarned.toString(), 2)
               .filter { it.amount.toInt() >= 0 }
               .observeOn(viewScheduler)
-              .doOnNext { view.showPeekInformation(userStats, it) }
+              .doOnNext {
+                val totalSpend = formatter.formatCurrency(userStats.totalSpend.toDouble(), WalletCurrency.FIAT)
+                val bonusEarned = formatter.formatCurrency(it.amount.toDouble(), WalletCurrency.FIAT)
+                view.showPeekInformation(totalSpend, bonusEarned, it.symbol)
+              }
         }
         .subscribeOn(networkScheduler)
         .subscribe({}, { handleError(it) }))
