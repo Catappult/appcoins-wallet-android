@@ -505,7 +505,7 @@
   <string name="promotions_referral_card_title">Nhận đến %s bằng cách mời bạn bè</string>
   <string name="promotions_referral_card_body">Chia sẻ liên kết mời của bạn và nhận AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Thưởng tới 30% cho mỗi lần mua</string>
-  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">Thưởng đến %s%% tiền thưởng trên mỗi giao dịch mua</string>
   <string name="promotions_new">MỚI</string>
   <string name="promotions_tab_promotions_title">KHUYẾN MÃI</string>
   <string name="promotions_tab_poa_title">TRẢI NGHIỆM &amp; KIẾM TIỀN</string>
@@ -530,21 +530,21 @@
   <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
   <string name="backup_confirmation_title">Chỉ một bước nữa thôi</string>
   <string name="backup_confirmation_body">Giữ bản sao lưu của bạn an toàn! Bạn muốn lưu nó ở đâu?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_yes">CÓ, HOÀN TẤT</string>
+  <string name="backup_confirmation_no">KHÔNG, LƯU LẠI LẦN NỮA</string>
   <string name="backup_done_title">Sao lưu hoàn tất!</string>
   <string name="backup_done_body">Bạn có chắc rằng tập tin sao lưu của bạn đang ở chỗ an toàn không?</string>
-  <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title">Save backup file</string>
-  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
-  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_no_share_title">Sao lưu hoàn tất!</string>
+  <string name="backup_confirmation_no_share_body">Tập tin sao lưu của bạn nằm trong thư mục Downloads của bạn.</string>
+  <string name="backup_save_dialogue_title">Lưu tập tin sao lưu</string>
+  <string name="backup_save_dialogue_body">Chọn tên cho tập tin sao lưu của bạn.</string>
+  <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
+  <string name="backup_confirmation_tips_1">In và lưu nó ở một nơi an toàn.</string>
+  <string name="backup_confirmation_tips_2">Lưu nó vào ổ USB.</string>
+  <string name="backup_confirmation_tips_3">Sao chép nó vào một lưu trữ đám mây riêng tư và an toàn.</string>
   <string name="backup_send_via_title">Gửi bản sao lưu qua:</string>
   <string name="backup_send_button">LƯU BẢN SAO LƯU</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="backup_save_button">LƯU BẢN SAO LƯU</string>
   <string name="import_wallet_title">Nhập Ví</string>
   <string name="import_wallet_body">Dán sao lưu ví của bạn dưới đây.</string>
   <string name="import_wallet_keystore_private_keys">Kho khóa hoặc khóa cá nhân</string>
@@ -597,6 +597,6 @@
   <string name="transfer_send_button">GỬI</string>
   <string name="transfer_receive_body">Chia sẻ địa chỉ ví của bạn để nhận tiền.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Bạn có một tin nhắn mới!</string>
+  <string name="support_new_message_button">Nhấp để mở</string>
 </resources>
