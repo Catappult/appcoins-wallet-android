@@ -505,7 +505,7 @@
   <string name="promotions_referral_card_title">Gagnez jusqu\'à %s en invitant des amis</string>
   <string name="promotions_referral_card_body">Partagez votre lien d\'invitation et gagnez des crédits AppCoins.</string>
   <string name="promotions_gamification_card_title">Jusqu\'à 30% de bonus sur chaque achat</string>
-  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">Jusqu\'à %s%% de bonus sur chaque achat</string>
   <string name="promotions_new">NOUVEAU</string>
   <string name="promotions_tab_promotions_title">PROMOTIONS</string>
   <string name="promotions_tab_poa_title">JOUEZ &amp; GAGNEZ</string>
@@ -530,21 +530,21 @@
   <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
   <string name="backup_confirmation_title">Encore une étape</string>
   <string name="backup_confirmation_body">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_yes">OUI, TERMINÉ</string>
+  <string name="backup_confirmation_no">NON, SAUVEGARDEZ À NOUVEAU</string>
   <string name="backup_done_title">Sauvegarde effectuée !</string>
   <string name="backup_done_body">Êtes-vous sûr que votre fichier de sauvegarde se trouve dans un endroit sûr ?</string>
-  <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title">Save backup file</string>
-  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
-  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_no_share_title">Sauvegarde effectuée !</string>
+  <string name="backup_confirmation_no_share_body">Votre fichier sauvegardé est dans votre dossier Téléchargements.</string>
+  <string name="backup_save_dialogue_title">Enregistrez le fichier de sauvegarde</string>
+  <string name="backup_save_dialogue_body">Choisissez un nom pour votre fichier de sauvegarde.</string>
+  <string name="backup_confirmation_tips_title">Conservez le fichier en sécurité :</string>
+  <string name="backup_confirmation_tips_1">Imprimez-le et stockez-le dans un endroit sûr.</string>
+  <string name="backup_confirmation_tips_2">Sauvegardez-le sur un disque USB.</string>
+  <string name="backup_confirmation_tips_3">Copiez-le vers un cloud privé et sécurisé.</string>
   <string name="backup_send_via_title">Envoyer la sauvegarde via :</string>
   <string name="backup_send_button">ENVOYER SAUVEGARDE</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="backup_save_button">ENREGISTREZ LA SAUVEGARDE</string>
   <string name="import_wallet_title">Importer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
@@ -598,6 +598,6 @@
   <string name="transfer_send_button">ENVOYER</string>
   <string name="transfer_receive_body">Partagez l\'adresse de votre portefeuille pour recevoir des fonds.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Vous avez un nouveau message !</string>
+  <string name="support_new_message_button">Cliquez pour ouvrir</string>
 </resources>
