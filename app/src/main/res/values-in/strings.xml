@@ -505,7 +505,7 @@
   <string name="promotions_referral_card_title">Dapatkan penghasilan hingga %s dengan mengundang teman</string>
   <string name="promotions_referral_card_body">Bagikan tautan undangan Anda dan dapatkan Kredit AppCoins.</string>
   <string name="promotions_gamification_card_title">Bonus sampai 30% untuk setiap pembelian</string>
-  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">Bonus sampai %s%% untuk setiap pembelian</string>
   <string name="promotions_new">BARU</string>
   <string name="promotions_tab_promotions_title">PROMOSI</string>
   <string name="promotions_tab_poa_title">MAIN &amp; BERPENGHASILAN</string>
@@ -530,21 +530,21 @@
   <string name="backup_body">Kami tidak menyimpan kunci pribadi Anda atau metode akses lainnya. Penting untuk selalu menjaga keamanan cadangan dompet (keystore) Anda.</string>
   <string name="backup_confirmation_title">Tinggal satu langkah lagi</string>
   <string name="backup_confirmation_body">Amankan cadangan Anda! Di mana Anda ingin menyimpan cadangan itu?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_yes">YA, SELESAIKAN</string>
+  <string name="backup_confirmation_no">TIDAK, SIMPAN LAGI</string>
   <string name="backup_done_title">Pencadangan selesai!</string>
   <string name="backup_done_body">Apakah Anda yakin file cadangan Anda ada di tempat yang aman?</string>
-  <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title">Save backup file</string>
-  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
-  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_no_share_title">Pencadangan selesai!</string>
+  <string name="backup_confirmation_no_share_body">File cadangan Anda berada di folder Unduhan.</string>
+  <string name="backup_save_dialogue_title">Simpan file cadangan</string>
+  <string name="backup_save_dialogue_body">Pilih nama untuk file cadangan Anda.</string>
+  <string name="backup_confirmation_tips_title">Amankan file:</string>
+  <string name="backup_confirmation_tips_1">Cetak dan simpan di tempat yang aman.</string>
+  <string name="backup_confirmation_tips_2">Simpan di USB drive.</string>
+  <string name="backup_confirmation_tips_3">Salin ke penyimpanan cloud yang pribadi dan aman.</string>
   <string name="backup_send_via_title">Kirim cadangan via:</string>
   <string name="backup_send_button">KIRIM CADANGAN</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="backup_save_button">SIMPAN CADANGAN</string>
   <string name="import_wallet_title">Impor Dompet</string>
   <string name="import_wallet_body">Tempelkan cadangan dompet Anda di bawah ini.</string>
   <string name="import_wallet_keystore_private_keys">Keystore atau kunci pribadi</string>
@@ -597,6 +597,6 @@
   <string name="transfer_send_button">KIRIM</string>
   <string name="transfer_receive_body">Bagikan alamat dompet Anda untuk menerima dana.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Anda menerima pesan baru!</string>
+  <string name="support_new_message_button">Ketuk untuk membuka</string>
 </resources>
