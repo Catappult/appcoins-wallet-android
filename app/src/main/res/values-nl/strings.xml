@@ -505,7 +505,7 @@
   <string name="promotions_referral_card_title">Verdien tot %s door vrienden uit te nodigen</string>
   <string name="promotions_referral_card_body">Deel je link met de uitnodiging en verdien AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Tot 30% bonus bij elke aankoop</string>
-  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">Tot %s%% bonus bij elke aankoop</string>
   <string name="promotions_new">NIEUW</string>
   <string name="promotions_tab_promotions_title">ACTIES</string>
   <string name="promotions_tab_poa_title">SPEEL &amp; VERDIEN</string>
@@ -530,21 +530,21 @@
   <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
   <string name="backup_confirmation_title">Nog maar één stap</string>
   <string name="backup_confirmation_body">Zorg voor een veilige back-up! Waar wil je de back-up opslaan?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_yes">JA, ZEKER WETEN</string>
+  <string name="backup_confirmation_no">NEE, OPNIEUW OPSLAAN</string>
   <string name="backup_done_title">Back-up gereed!</string>
   <string name="backup_done_body">Weet je zeker dat je back-upbestand op een veilige plek is opgeslagen?</string>
-  <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title">Save backup file</string>
-  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
-  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_no_share_title">Back-up gereed!</string>
+  <string name="backup_confirmation_no_share_body">Je back-upbestand is in de map downloads opgeslagen.</string>
+  <string name="backup_save_dialogue_title">Back-upbestand opslaan</string>
+  <string name="backup_save_dialogue_body">Kies een naam voor je back-upbestand.</string>
+  <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
+  <string name="backup_confirmation_tips_1">Kopieer het bestand en sla het op een veilige plek op.</string>
+  <string name="backup_confirmation_tips_2">Sla het bestand op een USB-stick op.</string>
+  <string name="backup_confirmation_tips_3">Kopieer het naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_send_via_title">Back-up verzenden via:</string>
   <string name="backup_send_button">BACK-UP VERZENDEN</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="backup_save_button">BACK-UP OPSLAAN</string>
   <string name="import_wallet_title">Wallet importeren</string>
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
@@ -598,6 +598,6 @@
   <string name="transfer_send_button">VERZEND</string>
   <string name="transfer_receive_body">Deel je wallet-adres om saldo te ontvangen.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Je hebt een nieuw bericht!</string>
+  <string name="support_new_message_button">Tik om te openen</string>
 </resources>
