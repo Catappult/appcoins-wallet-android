@@ -110,7 +110,7 @@ public class TransactionBuilder implements Parcelable {
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
-    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "inapp",
         null, "", "", "", "", null);
   }
 
@@ -230,6 +230,10 @@ public class TransactionBuilder implements Parcelable {
 
   public String getType() {
     return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public String getOrigin() {
