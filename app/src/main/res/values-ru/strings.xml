@@ -505,7 +505,7 @@
   <string name="promotions_referral_card_title">Заработайте до %s, пригласив друзей</string>
   <string name="promotions_referral_card_body">Поделитесь ссылкой с приглашением и заработайте AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Бонус до 30% за каждую покупку</string>
-  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">Бонус до %s%% за каждую покупку</string>
   <string name="promotions_new">НОВОЕ</string>
   <string name="promotions_tab_promotions_title">АКЦИИ</string>
   <string name="promotions_tab_poa_title">СЫГРАЙ И ЗАРАБОТАЙ</string>
@@ -530,21 +530,21 @@
   <string name="backup_body">Мы не храним ваши закрытые ключи или иные методы доступа. Важно хранить ваш бэкап (хранилище ключей) в безопасности.</string>
   <string name="backup_confirmation_title">Остался всего один шаг</string>
   <string name="backup_confirmation_body">Держите свои резервные копии в безопасном месте! Где вы хотите их сохранить?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_yes">ДА, ЗАКОНЧИТЬ</string>
+  <string name="backup_confirmation_no">НЕТ, СОХРАНИТЬ СНОВА</string>
   <string name="backup_done_title">Резервное копирование сделано!</string>
   <string name="backup_done_body">Вы уверены, что ваш файл с резервной копией в безопасном месте?</string>
-  <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title">Save backup file</string>
-  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
-  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_no_share_title">Резервное копирование сделано!</string>
+  <string name="backup_confirmation_no_share_body">Ваша резервная копия в директории \"Загрузки\".</string>
+  <string name="backup_save_dialogue_title">Сохранить резервную копию</string>
+  <string name="backup_save_dialogue_body">Введите имя для файла резервной копии.</string>
+  <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
+  <string name="backup_confirmation_tips_1">Распечатайте и храните в безопасном месте.</string>
+  <string name="backup_confirmation_tips_2">Сохраните на диск USB.</string>
+  <string name="backup_confirmation_tips_3">Скопируйте в личное безопасное облачное хранилище.</string>
   <string name="backup_send_via_title">Отправить бэкап через:</string>
   <string name="backup_send_button">ОТПРАВИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="backup_save_button">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
   <string name="import_wallet_title">Импортировать кошелёк</string>
   <string name="import_wallet_body">Вставьте бэкап вашего кошелька ниже.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>
@@ -600,6 +600,6 @@
   <string name="transfer_send_button">ОТПРАВИТЬ</string>
   <string name="transfer_receive_body">Поделитесь адресом своего кошелька, чтобы получить средства.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">У вас новое сообщение!</string>
+  <string name="support_new_message_button">Нажмите, чтобы открыть</string>
 </resources>
