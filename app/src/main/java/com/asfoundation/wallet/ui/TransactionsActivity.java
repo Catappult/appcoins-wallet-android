@@ -63,6 +63,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject PreferencesRepositoryType preferencesRepositoryType;
+  @Inject CurrencyFormatUtils formatter;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
@@ -77,7 +78,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private View badge;
   private int paddingDp;
   private boolean showScroll = false;
-  @Inject CurrencyFormatUtils formatter;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -130,7 +130,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
-        this::onNotificationClick, getResources());
+        this::onNotificationClick, getResources(), formatter);
 
     adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -451,14 +451,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .append(bullet);
     }
     if (showAppcoins) {
-      String appcString = formatter.formatCurrency(appcoinsBalance.getValue().doubleValue(),
-          WalletCurrency.APPCOINS) + " " + WalletCurrency.APPCOINS.getSymbol();
+      String appcString = formatter.formatCurrency(appcoinsBalance.getValue()
+          .doubleValue(), WalletCurrency.APPCOINS) + " " + WalletCurrency.APPCOINS.getSymbol();
       stringBuilder.append(appcString)
           .append(bullet);
     }
     if (showEthereum) {
-      String ethString = formatter.formatCurrency(ethereumBalance.getValue().doubleValue(),
-          WalletCurrency.ETHEREUM) + " " + WalletCurrency.ETHEREUM.getSymbol();
+      String ethString = formatter.formatCurrency(ethereumBalance.getValue()
+          .doubleValue(), WalletCurrency.ETHEREUM) + " " + WalletCurrency.ETHEREUM.getSymbol();
       stringBuilder.append(ethString)
           .append(bullet);
     }

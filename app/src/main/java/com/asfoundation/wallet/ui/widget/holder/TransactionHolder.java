@@ -25,7 +25,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static com.asfoundation.wallet.C.ETHER_DECIMALS;
 
@@ -47,9 +46,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private String defaultAddress;
   private OnTransactionClickListener onTransactionClickListener;
   private Resources resources;
+  private CurrencyFormatUtils formatter;
 
   public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener,
-      Resources resources) {
+      Resources resources, CurrencyFormatUtils formatter) {
     super(resId, parent);
 
     srcImage = findViewById(R.id.img);
@@ -60,6 +60,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     currency = findViewById(R.id.currency);
     status = findViewById(R.id.status);
     onTransactionClickListener = listener;
+    this.formatter = formatter;
 
     itemView.setOnClickListener(this);
     this.resources = resources;
@@ -264,7 +265,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
-    CurrencyFormatUtils formatter = CurrencyFormatUtils.Companion.create();
     WalletCurrency walletCurrency = mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
     value = value.divide(new BigDecimal(Math.pow(10, decimals)));
@@ -276,10 +276,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private WalletCurrency mapToWalletCurrency(String currency) {
-     switch (currency) {
-       case "APPC": return WalletCurrency.APPCOINS;
-       case "ETH": return WalletCurrency.ETHEREUM;
-       default: return WalletCurrency.CREDITS;
-     }
+    switch (currency) {
+      case "APPC":
+        return WalletCurrency.APPCOINS;
+      case "ETH":
+        return WalletCurrency.ETHEREUM;
+      default:
+        return WalletCurrency.CREDITS;
+    }
   }
 }
