@@ -505,7 +505,7 @@
   <string name="promotions_referral_card_title">Ricevi fino a %s invitando amici</string>
   <string name="promotions_referral_card_body">Condividi il tuo link d\'invito e ricevi AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Ricevi un bonus fino al 30% su ogni acquisto</string>
-  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">Ricevi un bonus fino al %s%% su ogni acquisto</string>
   <string name="promotions_new">NOVITÀ</string>
   <string name="promotions_tab_promotions_title">PROMOZIONI</string>
   <string name="promotions_tab_poa_title">GIOCA &amp; GUADAGNA</string>
@@ -530,21 +530,21 @@
   <string name="backup_body">Non conserviamo le tue chiavi private o qualsiasi altro metodo di accesso. È importante che il backup del tuo wallet (keystore) sia al sicuro.</string>
   <string name="backup_confirmation_title">Ultimo passaggio</string>
   <string name="backup_confirmation_body">Tieni il backup al sicuro! Dove desideri salvarlo?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_yes">SÌ, CONCLUDI</string>
+  <string name="backup_confirmation_no">NO, SALVA DI NUOVO</string>
   <string name="backup_done_title">Backup completato!</string>
   <string name="backup_done_body">Hai controllato che il file di backup sia al sicuro?</string>
-  <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title">Save backup file</string>
-  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
-  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_no_share_title">Backup completato!</string>
+  <string name="backup_confirmation_no_share_body">Il tuo file di backup è nella cartella dei Download.</string>
+  <string name="backup_save_dialogue_title">Salva file di backup</string>
+  <string name="backup_save_dialogue_body">Scegli un nome per il tuo file di backup.</string>
+  <string name="backup_confirmation_tips_title">Tieni il file al sicuro:</string>
+  <string name="backup_confirmation_tips_1">Stampalo e conservalo in un luogo sicuro.</string>
+  <string name="backup_confirmation_tips_2">Salvalo su una chiavetta USB.</string>
+  <string name="backup_confirmation_tips_3">Copialo su un archivio cloud sicuro.</string>
   <string name="backup_send_via_title">Invia backup tramite:</string>
   <string name="backup_send_button">INVIA BACKUP</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="backup_save_button">SALVA BACKUP</string>
   <string name="import_wallet_title">Importa il wallet</string>
   <string name="import_wallet_body">Incolla il backup del tuo wallet di seguito.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o chiavi private</string>
@@ -598,6 +598,6 @@
   <string name="transfer_send_button">INVIA</string>
   <string name="transfer_receive_body">Condividi l\'indirizzo del tuo wallet per ricevere fondi.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Hai un nuovo messaggio!</string>
+  <string name="support_new_message_button">Premi per aprire</string>
 </resources>
