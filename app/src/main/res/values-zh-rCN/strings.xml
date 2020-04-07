@@ -505,7 +505,7 @@
   <string name="promotions_referral_card_title">通过邀请好友最多可获取%s</string>
   <string name="promotions_referral_card_body">分享邀请链接，获取AppCoins积金。</string>
   <string name="promotions_gamification_card_title">每次购买最多可获取30%奖励</string>
-  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title_variable">每次购买可享高达%s%%的奖励</string>
   <string name="promotions_new">新</string>
   <string name="promotions_tab_promotions_title">促销</string>
   <string name="promotions_tab_poa_title">播放&amp;赚钱</string>
@@ -530,21 +530,21 @@
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_confirmation_title">最后一个步骤</string>
   <string name="backup_confirmation_body">请确保备份安全！你希望将其保存在哪里？</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_yes">是的，完成</string>
+  <string name="backup_confirmation_no">否，再次保存</string>
   <string name="backup_done_title">备份完成！</string>
   <string name="backup_done_body">你确定备份文件存放在安全的位置吗？</string>
-  <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title">Save backup file</string>
-  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
-  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_no_share_title">备份完成！</string>
+  <string name="backup_confirmation_no_share_body">备份文件位于“下载”文件夹中。</string>
+  <string name="backup_save_dialogue_title">保存备份文件</string>
+  <string name="backup_save_dialogue_body">选择备份文件的名称。</string>
+  <string name="backup_confirmation_tips_title">确保文件安全：</string>
+  <string name="backup_confirmation_tips_1">打印并将其存储在安全的地方。</string>
+  <string name="backup_confirmation_tips_2">将其保存在USB驱动器上。</string>
+  <string name="backup_confirmation_tips_3">将其复制到安全的私有云存储中。</string>
   <string name="backup_send_via_title">备份发送方式：</string>
   <string name="backup_send_button">发送备份</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="backup_save_button">保存备份</string>
   <string name="import_wallet_title">导入钱包</string>
   <string name="import_wallet_body">将你的钱包备份粘贴在下方。</string>
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
@@ -597,6 +597,6 @@
   <string name="transfer_send_button">发送</string>
   <string name="transfer_receive_body">分享你的钱包地址以收款。</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">您有新消息！</string>
+  <string name="support_new_message_button">点击打开</string>
 </resources>
