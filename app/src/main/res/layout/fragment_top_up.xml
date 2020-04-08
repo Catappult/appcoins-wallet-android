@@ -256,9 +256,26 @@
           android:layout_marginBottom="21dp"
           android:gravity="center"
           android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
+          android:visibility="visible"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          app:layout_constraintVertical_bias="0"
+          />
+
+      <TextView
+          android:id="@+id/bonus_update_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="4dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="21dp"
+          android:gravity="center"
+          tools:text="Bonus percentages update in 01/04/2020"
+          android:visibility="visible"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_msg"
           app:layout_constraintVertical_bias="0"
           />
 
@@ -274,7 +291,7 @@
           android:enabled="false"
           android:text="@string/action_next"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+          app:layout_constraintTop_toBottomOf="@id/bonus_update_msg"
           app:layout_constraintVertical_bias="1.0"
           />
 
