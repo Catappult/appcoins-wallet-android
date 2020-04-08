@@ -171,8 +171,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, analyticsSetup, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
-        walletBlockedInteract, transactionValue);
+        analytics, analyticsSetup, isBds, developerPayload, uri, gamification, transaction,
+        paymentMethodsMapper, walletBlockedInteract, transactionValue);
   }
 
   @Nullable @Override
@@ -505,6 +505,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
   }
 
+  @Override public void hideBonus() {
+    bonusView.setVisibility(View.INVISIBLE);
+    bonusMsg.setVisibility(View.INVISIBLE);
+  }
+
   @Override public void replaceBonus() {
     bonusView.setVisibility(View.INVISIBLE);
     bonusMsg.setVisibility(View.INVISIBLE);
@@ -517,9 +522,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.showWalletBlocked();
   }
 
-  private void hideBonus() {
-    bonusView.setVisibility(View.GONE);
-    bonusMsg.setVisibility(View.GONE);
+  private void hideBottomSeparator() {
     if (bottomSeparator != null) {
       bottomSeparator.setVisibility(View.INVISIBLE);
     }
@@ -643,6 +646,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       preSelectedDescription.setVisibility(View.VISIBLE);
       preSelectedNameSingle.setVisibility(View.GONE);
       hideBonus();
+      hideBottomSeparator();
     } else {
       preSelectedName.setVisibility(View.VISIBLE);
       preSelectedName.setText(paymentMethod.getLabel());
