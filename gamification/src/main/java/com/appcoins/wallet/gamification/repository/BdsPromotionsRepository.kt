@@ -73,8 +73,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         GamificationResponse.Status.ACTIVE == gamification.status)
   }
 
-  override fun getLevels(): Single<Levels> {
-    return api.getLevels()
+  override fun getLevels(wallet: String): Single<Levels> {
+    return api.getLevels(wallet)
         .map { map(it) }
         .onErrorReturn { mapLevelsError(it) }
   }

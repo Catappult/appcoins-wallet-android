@@ -38,8 +38,8 @@ class BillingWebViewFragment : DaggerFragment() {
     private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
     private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
-    private const val GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer"
-    private const val LINE_APP_PAYMENTS_SCHEMA = "android-app://jp.naver.line.android"
+    private const val GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://"
+    private const val LINE_APP_PAYMENTS_SCHEMA = "intent://"
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
     private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
         "https://airtime.codapayments.com/epcgw/dlocal/"
