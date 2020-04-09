@@ -1,11 +1,10 @@
 package com.asfoundation.wallet.wallet_validation.generic
 
 import androidx.annotation.StringRes
-import cm.aptoide.analytics.AnalyticsManager
 import com.asf.wallet.R
+import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
-import com.crashlytics.android.Crashlytics
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +14,7 @@ class PhoneValidationPresenter(
     private val view: PhoneValidationView,
     private val activity: WalletValidationView?,
     private val smsValidationInteract: SmsValidationInteract,
-    private val analytics: AnalyticsManager,
+    private val logger: Logger,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
     private val disposables: CompositeDisposable
@@ -55,7 +54,7 @@ class PhoneValidationPresenter(
                     view.setButtonState(false)
                     showErrorMessage(R.string.unknown_error)
                     throwable.printStackTrace()
-                    Crashlytics.logException(throwable)
+                    logger.log(throwable)
                   }
             }
             .retry()
@@ -96,8 +95,7 @@ class PhoneValidationPresenter(
   }
 
   private fun logError() {
-    analytics.logEvent(mapOf("error" to "activiy null"), "Validation_Error",
-        AnalyticsManager.Action.CLICK, "WALLET")
+    logger.log("Validation Error: Activity null")
   }
 
   private fun showErrorMessage(@StringRes errorMessage: Int) {

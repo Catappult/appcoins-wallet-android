@@ -1,18 +1,19 @@
 package com.asfoundation.wallet.repository
 
+import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.entity.WalletValidationException
 import com.asfoundation.wallet.service.SmsValidationApi
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
-import com.crashlytics.android.Crashlytics
 import com.google.gson.Gson
 import io.reactivex.Single
 import retrofit2.HttpException
 
 class SmsValidationRepository(
     private val api: SmsValidationApi,
-    private val gson: Gson
+    private val gson: Gson,
+    private val logger: Logger
 ) : SmsValidationRepositoryType {
 
   override fun isValid(walletAddress: String): Single<WalletValidationStatus> {
@@ -52,7 +53,7 @@ class SmsValidationRepository(
               ?.charStream()
               ?.let {
                 walletValidationException = gson.fromJson(it, WalletValidationException::class.java)
-              } ?: Crashlytics.logException(throwable)
+              } ?: logger.log(throwable)
         }
         when {
           throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
