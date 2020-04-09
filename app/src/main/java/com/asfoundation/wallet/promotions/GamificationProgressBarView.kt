@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promotions
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
@@ -8,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.LevelResourcesMapper
 import com.asfoundation.wallet.ui.gamification.ProgressAnimation
@@ -22,6 +24,27 @@ constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 
 
   init {
     View.inflate(context, R.layout.rewards_progress_bar, this)
+  }
+
+  fun setPioneer() {
+    level_1.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_1.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_1_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+    level_2.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_2.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_2_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+    level_3.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_3.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_3_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+    level_4.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_4.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_4_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+    level_5.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_5.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    level_5_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+
+    progress_bar.progressTintList =
+        ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.white, null))
   }
 
   fun showPreviousLevelIcons(level: Int, shouldHideLabel: Boolean) {

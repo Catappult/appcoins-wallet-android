@@ -36,22 +36,24 @@ class MyLevelPresenter(private val view: MyLevelView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              displayInformation(it.status, it.lastShownLevel, it.level, it.bonus, sendEvent)
+              displayInformation(it.status, it.lastShownLevel, it.level, it.bonus, sendEvent,
+                  it.pioneer)
             }
             .flatMapCompletable { gamification.levelShown(it.level, GamificationScreen.MY_LEVEL) }
             .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun displayInformation(status: Status, lastShownLevel: Int, level: Int,
-                                 bonus: List<Double>, sendEvent: Boolean) {
+                                 bonus: List<Double>, sendEvent: Boolean, pioneer: Boolean) {
     if (status == Status.NO_NETWORK) {
       activity?.showNetworkErrorView()
     } else {
       activity?.showMainView()
+      view.showNormalPioneer(pioneer)
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {
-        view.setStaringLevel(lastShownLevel, level, bonus)
+        view.setStaringLevel(lastShownLevel, level, bonus, pioneer)
       }
-      view.updateLevel(lastShownLevel, level, bonus)
+      view.updateLevel(lastShownLevel, level, bonus, pioneer)
       if (sendEvent) {
         analytics.sendMainScreenViewEvent(level + 1)
       }
@@ -77,8 +79,10 @@ class MyLevelPresenter(private val view: MyLevelView,
         }
       }
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
-          userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list, status)
+          userStats.totalSpend)
+          ?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
+      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list, status,
+          pioneer = userStats.isPioneer)
     }
     if (levels.status == Levels.Status.NO_NETWORK || userStats.status == UserStats.Status.NO_NETWORK) {
       status = Status.NO_NETWORK

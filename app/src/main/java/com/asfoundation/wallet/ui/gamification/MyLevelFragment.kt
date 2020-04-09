@@ -14,12 +14,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_my_level.*
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
-import kotlinx.android.synthetic.main.rewards_progress_bar.*
+import kotlinx.android.synthetic.main.rewards_progress_bar.view.*
+import kotlinx.android.synthetic.main.rewards_progress_normal.*
+import kotlinx.android.synthetic.main.rewards_progress_pioneer.*
 import javax.inject.Inject
 
 class MyLevelFragment : DaggerFragment(), MyLevelView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
+
   @Inject
   lateinit var analytics: GamificationAnalytics
 
@@ -63,13 +66,25 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     super.onDestroyView()
   }
 
-  override fun setupLayout() {
-    for (i in 0..4) {
-      gamification_progress_bar.setLevelIcons(i)
+  override fun showNormalPioneer(pioneer: Boolean) {
+    if (pioneer) {
+      gamification_progress_bar_pioneer.setPioneer()
+      rewards_layout_pioneer.visibility = View.VISIBLE
+      rewards_layout_normal.visibility = View.GONE
+    } else {
+      rewards_layout_normal.visibility = View.GONE
+      rewards_layout_pioneer.visibility = View.VISIBLE
     }
   }
 
-  override fun updateLevel(lastShownLevel: Int, level: Int, bonus: List<Double>) {
+  override fun setupLayout() {
+    for (i in 0..4) {
+      gamification_progress_bar_normal?.setLevelIcons(i)
+      gamification_progress_bar_pioneer?.setLevelIcons(i)
+    }
+  }
+
+  override fun updateLevel(lastShownLevel: Int, level: Int, bonus: List<Double>, pioneer: Boolean) {
     if (bonus.size != 1) {
       step = 100 / (bonus.size - 1)
     }
@@ -77,7 +92,11 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
     setLevelResources(level)
 
-    gamification_progress_bar.animateProgress(lastShownLevel, level, step)
+    if (pioneer) {
+      gamification_progress_bar_pioneer.animateProgress(lastShownLevel, level, step)
+    } else {
+      gamification_progress_bar_normal.animateProgress(lastShownLevel, level, step)
+    }
 
     if (level > lastShownLevel) {
       levelUpAnimation(level)
@@ -91,16 +110,33 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       } else {
         R.string.gamification_how_table_b2
       }
-      gamification_progress_bar.setLevelBonus(levelIndex,
-          getString(bonusLabel, gamification_progress_bar.formatLevelInfo(value)))
+
+      if (pioneer) {
+        gamification_progress_bar_pioneer.setLevelBonus(levelIndex,
+            getString(bonusLabel, gamification_progress_bar_pioneer.formatLevelInfo(value)))
+      } else {
+        gamification_progress_bar_normal.setLevelBonus(levelIndex,
+            getString(bonusLabel, gamification_progress_bar_normal.formatLevelInfo(value)))
+      }
     }
   }
 
-  override fun setStaringLevel(lastShownLevel: Int, level: Int, bonus: List<Double>) {
-    progress_bar.progress = lastShownLevel * (100 / (bonus.size - 1))
+  override fun setStaringLevel(lastShownLevel: Int, level: Int, bonus: List<Double>,
+                               pioneer: Boolean) {
+    if (pioneer) {
+      gamification_progress_bar_pioneer.progress_bar.progress =
+          lastShownLevel * (100 / (bonus.size - 1))
+    } else {
+      gamification_progress_bar_normal.progress_bar.progress =
+          lastShownLevel * (100 / (bonus.size - 1))
+    }
     levelUpAnimation(level)
     for (i in 0..lastShownLevel) {
-      gamification_progress_bar.showPreviousLevelIcons(i, i < lastShownLevel)
+      if (pioneer) {
+        gamification_progress_bar_pioneer.showPreviousLevelIcons(i, i < lastShownLevel)
+      } else {
+        gamification_progress_bar_normal.showPreviousLevelIcons(i, i < lastShownLevel)
+      }
     }
   }
 

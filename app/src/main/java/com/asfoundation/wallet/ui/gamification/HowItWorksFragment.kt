@@ -26,6 +26,7 @@ import javax.inject.Inject
 class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
+
   @Inject
   lateinit var analytics: GamificationAnalytics
 
@@ -147,8 +148,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   companion object {
-    private val TAG = HowItWorksFragment::class.java.simpleName
     const val MAX_LEVEL = 4
+
     @JvmStatic
     fun newInstance(): HowItWorksFragment {
       return HowItWorksFragment()
