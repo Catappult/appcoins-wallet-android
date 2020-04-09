@@ -53,7 +53,6 @@ class PhoneValidationPresenter(
                   .doOnError { throwable ->
                     view.setButtonState(false)
                     showErrorMessage(R.string.unknown_error)
-                    throwable.printStackTrace()
                     logger.log(throwable)
                   }
             }
