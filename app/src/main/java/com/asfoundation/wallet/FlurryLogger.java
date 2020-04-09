@@ -13,7 +13,6 @@ public class FlurryLogger implements Logger {
   }
 
   @Override public void log(String message) {
-    Throwable throwable = new Throwable(message);
-    log(throwable);
+    log(new Throwable(message));
   }
 }

@@ -12,8 +12,7 @@ class DebugLogger : Logger {
   }
 
   override fun log(message: String) {
-    val throwable = Throwable(message)
-    log(throwable)
+    log(Throwable(message))
   }
 
 
