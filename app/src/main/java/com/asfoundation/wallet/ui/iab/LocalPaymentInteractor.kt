@@ -52,13 +52,17 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   private fun isEndingState(status: Transaction.Status, type: String): Boolean {
-    return (status == PENDING_USER_PAYMENT && type == "TOPUP") || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
+    return (status == PENDING_USER_PAYMENT && type == "TOPUP")
+        || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED"))
+        || status == FAILED
+        || status == CANCELED
+        || status == INVALID_TRANSACTION
   }
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
+    return if (isValidType(type) && sku != null) {
       val billingType = BillingSupportedType.valueOfInsensitive(type)
       billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
@@ -67,8 +71,8 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     }
   }
 
-  private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
+  private fun isValidType(type: String): Boolean {
+    return type.equals("INAPP", ignoreCase = true) || type.equals("SUBS", ignoreCase = true)
   }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {

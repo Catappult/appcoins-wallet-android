@@ -127,33 +127,22 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   private fun getBuyIntent(apiVersion: Int, packageName: String, sku: String?,
                            billingType: String?, developerPayload: String?): Parcelable {
 
-    //TODO shouldn't we check for if (apiVersion != supportedApiVersion || type == null || type.isBlank() || sku == null) {
-    //like in AppcoinsbillingBinder
-    if (apiVersion != SUPPORTED_API_VERSION) {
+    if (validateGetBuyIntentArgs(apiVersion, billingType, sku)) {
       return Bundle().apply {
         putInt(AppcoinsBillingBinder.RESPONSE_CODE,
             AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       }
     }
+    requireNotNull(billingType!!)
+    requireNotNull(sku!!)
 
-    if (sku.isNullOrBlank()) {
+    val type = try {
+      BillingSupportedType.valueOfInsensitive(billingType)
+    } catch (e: Exception) {
       return Bundle().apply {
-        putInt(AppcoinsBillingBinder.RESPONSE_CODE,
-            AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
+        putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
       }
     }
-
-    val type =
-        billingType?.let {
-          try {
-            BillingSupportedType.valueOfInsensitive(billingType)
-          } catch (e: Exception) {
-            return Bundle().apply {
-              putInt(
-                  AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
-            }
-          }
-        } ?: BillingSupportedType.INAPP
 
     val getTokenContractAddress = proxyService.getAppCoinsAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
@@ -187,6 +176,14 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
                   throwable as Exception)
             }
             .blockingGet())
+  }
+
+  private fun validateGetBuyIntentArgs(apiVersion: Int, billingType: String?,
+                                       sku: String?): Boolean {
+    return (apiVersion != SUPPORTED_API_VERSION
+        || billingType == null
+        || billingType.isBlank()
+        || sku == null)
   }
 
   private fun getPurchases(apiVersion: Int, packageName: String, billingType: String?): Parcelable {

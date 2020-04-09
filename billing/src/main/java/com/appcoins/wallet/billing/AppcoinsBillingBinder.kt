@@ -133,16 +133,14 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
   }
 
   override fun getBuyIntent(apiVersion: Int, packageName: String, sku: String?,
-                            billingType: String?,
-                            developerPayload: String?): Bundle {
-    if (apiVersion != supportedApiVersion
-        || billingType == null
-        || billingType.isBlank()
-        || sku == null) {
+                            billingType: String?, developerPayload: String?): Bundle {
+    if (validateGetBuyIntentArgs(apiVersion, billingType, sku)) {
       return Bundle().apply {
         putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
       }
     }
+    requireNotNull(billingType!!)
+    requireNotNull(sku!!)
 
     val type = try {
       BillingSupportedType.valueOfInsensitive(billingType)
@@ -187,6 +185,14 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .blockingGet()
   }
 
+  private fun validateGetBuyIntentArgs(apiVersion: Int, billingType: String?,
+                                       sku: String?): Boolean {
+    return (apiVersion != supportedApiVersion
+        || billingType == null
+        || billingType.isBlank()
+        || sku == null)
+  }
+
   override fun getPurchases(apiVersion: Int, packageName: String?, billingType: String?,
                             continuationToken: String?): Bundle {
     val result = Bundle()
@@ -201,12 +207,13 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     val signatureList = ArrayList<String>()
     val skuList = ArrayList<String>()
 
-    if (billingType == ITEM_TYPE_INAPP || billingType == ITEM_TYPE_SUBS) {
+    if (isValidType(billingType)) {
       try {
-        val purchases =
-            billing.getPurchases(merchantName,
-                BillingSupportedType.valueOfInsensitive(billingType))
-                .blockingGet()
+        val type =
+            billingType?.let { BillingSupportedType.valueOfInsensitive(it) }
+                ?: BillingSupportedType.INAPP
+        val purchases = billing.getPurchases(merchantName, type)
+            .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
           idsList.add(purchase.uid)
@@ -242,4 +249,6 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       billingMessagesMapper.mapConsumePurchasesError(exception)
     }
   }
+
+  private fun isValidType(type: String?) = type == ITEM_TYPE_INAPP || type == ITEM_TYPE_SUBS
 }

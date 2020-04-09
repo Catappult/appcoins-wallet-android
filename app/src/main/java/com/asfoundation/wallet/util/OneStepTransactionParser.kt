@@ -84,7 +84,7 @@ class OneStepTransactionParser(
   }
 
   private fun getType(uri: OneStepUri): String {
-    return uri.parameters[Parameters.TYPE] ?: "INAPP"
+    return uri.parameters[Parameters.TYPE] ?: "INAPP_UNMANAGED"
   }
 
   private fun getChainId(uri: OneStepUri): Long {

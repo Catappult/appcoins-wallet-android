@@ -88,7 +88,7 @@ public class AppcoinsRewardsBuyPresenter {
       case PROCESSING:
         return Completable.fromAction(view::showLoading);
       case COMPLETED:
-        if (isBds) {
+        if (isBds && isValidPaymentType(transactionBuilder.getType())) {
           BillingSupportedType billingType =
               BillingSupportedType.valueOfInsensitive(transactionBuilder.getType());
           return rewardsManager.getPaymentCompleted(packageName, sku, billingType)
@@ -123,6 +123,10 @@ public class AppcoinsRewardsBuyPresenter {
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported"));
+  }
+
+  private boolean isValidPaymentType(String type) {
+    return type.equals("INAPP") || type.equals("SUBS");
   }
 
   public void stop() {

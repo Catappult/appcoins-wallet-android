@@ -11,7 +11,7 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.util.*
 
-class RemoteRepository(private val inapApi: BdsApi,
+class RemoteRepository(private val inAppApi: BdsApi,
                        private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary,
                        private val subsApi: SubscriptionBillingService
@@ -22,7 +22,8 @@ class RemoteRepository(private val inapApi: BdsApi,
   }
 
   internal fun isBillingSupported(packageName: String): Single<Boolean> {
-    return inapApi.getPackage(packageName, BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
+    return inAppApi.getPackage(packageName,
+        BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
         .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 
@@ -42,10 +43,10 @@ class RemoteRepository(private val inapApi: BdsApi,
   private fun requestSkusDetails(packageName: String,
                                  skus: List<String>): Single<DetailsResponseBody> {
     return if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
-      inapApi.getPackages(packageName, skus.joinToString(separator = ","))
+      inAppApi.getPackages(packageName, skus.joinToString(separator = ","))
     } else {
       Single.zip(
-          inapApi.getPackages(packageName,
+          inAppApi.getPackages(packageName,
               skus.take(SKUS_DETAILS_REQUEST_LIMIT)
                   .joinToString(separator = ",")),
           requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT)),
@@ -71,7 +72,7 @@ class RemoteRepository(private val inapApi: BdsApi,
 
   internal fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
-    return inapApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+    return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
   }
 
   internal fun getSkuPurchaseSubs(packageName: String, skuId: String?): Single<Purchase> {
@@ -83,13 +84,13 @@ class RemoteRepository(private val inapApi: BdsApi,
   internal fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
                                  walletSignature: String,
                                  type: TransactionType): Single<TransactionsResponse> {
-    return inapApi.getSkuTransaction(walletAddress, walletSignature, 0, type, 1,
+    return inAppApi.getSkuTransaction(walletAddress, walletSignature, 0, type, 1,
         "latest", false, skuId, packageName)
   }
 
   internal fun getPurchases(packageName: String, walletAddress: String,
                             walletSignature: String): Single<List<Purchase>> {
-    return inapApi.getPurchases(packageName, walletAddress, walletSignature,
+    return inAppApi.getPurchases(packageName, walletAddress, walletSignature,
         BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
         .map { responseMapper.map(it) }
   }
@@ -101,7 +102,7 @@ class RemoteRepository(private val inapApi: BdsApi,
 
   internal fun consumePurchase(packageName: String, purchaseToken: String, walletAddress: String,
                                walletSignature: String): Single<Boolean> {
-    return inapApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
+    return inAppApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
         .toSingle { true }
   }
@@ -113,31 +114,31 @@ class RemoteRepository(private val inapApi: BdsApi,
                                  developerPayload: String?, callback: String?,
                                  orderReference: String?,
                                  referrerUrl: String?): Single<Transaction> {
-    return inapApi.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
+    return inAppApi.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
         "APPC", productName, type, null, developerWallet, storeWallet, oemWallet, id,
         developerPayload, callback, orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            walletSignature: String, paymentProof: String): Completable {
-    return inapApi.patchTransaction(paymentType, paymentId, walletAddress, walletSignature,
+    return inAppApi.patchTransaction(paymentType, paymentId, walletAddress, walletSignature,
         paymentProof)
   }
 
   internal fun getPaymentMethods(value: String?,
                                  currency: String?): Single<List<PaymentMethodEntity>> {
-    return inapApi.getPaymentMethods(value, currency)
+    return inAppApi.getPaymentMethods(value, currency)
         .map { responseMapper.map(it) }
   }
 
   internal fun getPaymentMethodsForType(type: String): Single<List<PaymentMethodEntity>> {
-    return inapApi.getPaymentMethods(type = type)
+    return inAppApi.getPaymentMethods(type = type)
         .map { responseMapper.map(it) }
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction> {
-    return inapApi.getAppcoinsTransaction(uid, address, signedContent)
+    return inAppApi.getAppcoinsTransaction(uid, address, signedContent)
   }
 
   fun getWallet(packageName: String): Single<GetWalletResponse> {
@@ -147,7 +148,7 @@ class RemoteRepository(private val inapApi: BdsApi,
   fun transferCredits(toWallet: String, origin: String, type: String, gateway: String,
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
-    return inapApi.createTransaction(gateway, origin, packageName, amount.toPlainString(),
+    return inAppApi.createTransaction(gateway, origin, packageName, amount.toPlainString(),
         "APPC", null, type, toWallet, null, null,
         null, null, null, null, null, null,
         walletAddress, signature)

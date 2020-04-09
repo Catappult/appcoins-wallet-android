@@ -11,7 +11,7 @@ class BdsApiResponseMapper {
     return ArrayList(productDetails.items.map {
       Product(it.name, it.label, it.description,
           Price(it.price.base, it.price.appc, it.price.fiat.value, it.price.fiat.currency.code,
-              it.price.fiat.currency.symbol), "inapp", null, null, null)
+              it.price.fiat.currency.symbol), "inapp")
     })
   }
 

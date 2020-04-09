@@ -77,18 +77,22 @@ public class AsfInAppPurchaseInteractor {
       String productName, String approveKey, String developerPayload) {
     if (transactionType == TransactionType.NORMAL) {
       return buildPaymentTransaction(uri, packageName, productName,
-          developerPayload).flatMapCompletable(paymentTransaction -> {
-        BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(
-            paymentTransaction.getTransactionBuilder()
-                .getType());
-        return billing.getSkuTransaction(packageName, paymentTransaction.getTransactionBuilder()
-            .getSkuId(), scheduler, billingType)
-            .flatMapCompletable(
-                transaction -> resumePayment(approveKey, paymentTransaction, transaction));
-      });
+          developerPayload).flatMapCompletable(
+          paymentTransaction -> getSkuTransaction(paymentTransaction, packageName, approveKey));
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction type " + transactionType + " not supported"));
+  }
+
+  private Completable getSkuTransaction(PaymentTransaction paymentTransaction, String packageName,
+      String approveKey) {
+    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(
+        paymentTransaction.getTransactionBuilder()
+            .getType());
+    return billing.getSkuTransaction(packageName, paymentTransaction.getTransactionBuilder()
+        .getSkuId(), scheduler, billingType)
+        .flatMapCompletable(
+            transaction -> resumePayment(approveKey, paymentTransaction, transaction));
   }
 
   private Completable resumePayment(String approveKey, PaymentTransaction paymentTransaction,

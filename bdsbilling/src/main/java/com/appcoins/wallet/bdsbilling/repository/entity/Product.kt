@@ -6,9 +6,9 @@ data class Product(
     val description: String,
     val price: Price,
     val billingType: String,
-    val subscriptionPeriod: String?,
-    val trialPeriod: String?,
-    val introductoryPrice: Price?
+    val subscriptionPeriod: String? = null,
+    val trialPeriod: String? = null,
+    val introductoryPrice: Price? = null
 )
 
 data class Price(val base: String?,
