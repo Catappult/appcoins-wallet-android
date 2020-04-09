@@ -67,7 +67,7 @@ class GamificationTest {
     testObserver.assertValue(
         Levels(Levels.Status.OK,
             listOf(Levels.Level(BigDecimal.ONE, 2.0, 1), Levels.Level(BigDecimal.TEN, 20.0, 2)),
-            true))
+            true, DATE))
   }
 
   @Test
