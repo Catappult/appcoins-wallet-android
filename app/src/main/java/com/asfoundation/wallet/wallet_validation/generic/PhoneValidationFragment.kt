@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -29,6 +30,8 @@ class PhoneValidationFragment : DaggerFragment(),
   @Inject
   lateinit var interactor: SmsValidationInteract
 
+  @Inject
+  lateinit var logger: Logger
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: PhoneValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
@@ -44,7 +47,7 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    presenter = PhoneValidationPresenter(this, walletValidationView, interactor,
+    presenter = PhoneValidationPresenter(this, walletValidationView, interactor, logger,
         AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
   }
 
@@ -112,7 +115,8 @@ class PhoneValidationFragment : DaggerFragment(),
     hideNoInternetView()
 
     countryCode?.let {
-      ccp.setCountryForPhoneCode(it.drop(0).toInt())
+      ccp.setCountryForPhoneCode(it.drop(0)
+          .toInt())
     }
     phoneNumber?.let { phone_number.setText(it) }
 
