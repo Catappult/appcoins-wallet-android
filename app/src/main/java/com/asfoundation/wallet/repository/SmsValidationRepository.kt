@@ -5,6 +5,7 @@ import com.asfoundation.wallet.entity.WalletValidationException
 import com.asfoundation.wallet.service.SmsValidationApi
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.crashlytics.android.Crashlytics
 import com.google.gson.Gson
 import io.reactivex.Single
 import retrofit2.HttpException
@@ -46,9 +47,12 @@ class SmsValidationRepository(
       is HttpException -> {
         var walletValidationException = WalletValidationException("")
         if (throwable.code() == 400) {
-          walletValidationException = gson.fromJson(throwable.response()
-              !!.errorBody()!!
-              .charStream(), WalletValidationException::class.java)
+          throwable.response()
+              ?.errorBody()
+              ?.charStream()
+              ?.let {
+                walletValidationException = gson.fromJson(it, WalletValidationException::class.java)
+              } ?: Crashlytics.logException(throwable)
         }
         when {
           throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
