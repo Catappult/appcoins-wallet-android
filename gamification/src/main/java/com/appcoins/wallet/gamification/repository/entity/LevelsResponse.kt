@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
 data class LevelsResponse(@SerializedName("result") val list: List<Level>,
-                          val status: Status) {
+                          val status: Status,
+                          @SerializedName("update_date") val updateDate: String?) {
   enum class Status {
     ACTIVE, INACTIVE
   }

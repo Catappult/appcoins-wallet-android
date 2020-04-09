@@ -93,7 +93,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     for (level in response.list) {
       list.add(Levels.Level(level.amount, level.bonus, level.level))
     }
-    return Levels(Levels.Status.OK, list.toList(), LevelsResponse.Status.ACTIVE == response.status)
+    return Levels(Levels.Status.OK, list.toList(), LevelsResponse.Status.ACTIVE == response.status,
+        response.updateDate)
   }
 
   override fun getUserStatus(wallet: String): Single<UserStatusResponse> {

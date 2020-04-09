@@ -5,7 +5,9 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 
 
 interface HowItWorksView {
-  fun showLevels(levels: List<ViewLevel>, currentLevel: Int)
+  fun showLevels(levels: List<ViewLevel>,
+                 currentLevel: Int, updateDate: String?)
+
   fun showPeekInformation(userStats: UserStats, bonusEarnedFiat: FiatValue)
   fun showNextLevelFooter(userStatus: UserRewardsStatus)
 }

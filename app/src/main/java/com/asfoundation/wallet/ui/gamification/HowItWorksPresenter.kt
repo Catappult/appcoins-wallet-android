@@ -39,11 +39,11 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              if (it.third == Status.NO_NETWORK) {
+              if (it.status == Status.NO_NETWORK) {
                 activity?.showNetworkErrorView()
               } else {
                 activity?.showMainView()
-                view.showLevels(it.first, it.second)
+                view.showLevels(it.list, it.level, it.updateDate)
               }
             }
             .subscribe({ }, { handleError(it) }))
@@ -80,8 +80,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             .subscribe({ }, { handleError(it) }))
   }
 
-  private fun mapToViewLevels(levels: Levels,
-                              userStats: UserStats): Triple<List<ViewLevel>, Int, Status> {
+  private fun mapToViewLevels(levels: Levels, userStats: UserStats): ViewLevels {
     val list = mutableListOf<ViewLevel>()
     var status = Status.OK
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
@@ -94,14 +93,15 @@ class HowItWorksPresenter(private val view: HowItWorksView,
     if (levels.status == Levels.Status.NO_NETWORK || userStats.status == UserStats.Status.NO_NETWORK) {
       status = Status.NO_NETWORK
     }
-    return Triple(list.toList(), userStats.level, status)
+    return ViewLevels(list.toList(), userStats.level, status, levels.updateDate)
   }
 
   private fun mapToUserStatus(levels: Levels, userStats: UserStats): UserRewardsStatus {
     var status = Status.OK
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
-          userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
+          userStats.totalSpend)
+          ?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
       return UserRewardsStatus(level = userStats.level, toNextLevelAmount = nextLevelAmount,
           status = status)
     }
@@ -112,7 +112,8 @@ class HowItWorksPresenter(private val view: HowItWorksView,
   }
 
   private fun sendEvent() {
-    disposables.add(gamification.getUserStats().subscribeOn(networkScheduler)
+    disposables.add(gamification.getUserStats()
+        .subscribeOn(networkScheduler)
         .doOnSuccess { analytics.sendMoreInfoScreenViewEvent(it.level + 1) }
         .subscribe())
   }

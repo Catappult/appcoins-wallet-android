@@ -20,6 +20,7 @@ class GamificationTest {
     private const val WALLET = "wallet1"
     private const val PACKAGE_NAME = "packageName"
     private const val VERSION_CODE = "version_code"
+    private const val DATE = "a_date"
   }
 
   @Before
@@ -60,7 +61,7 @@ class GamificationTest {
   fun getLevels() {
     api.levelsResponse = Single.just(
         LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2)),
-            LevelsResponse.Status.ACTIVE))
+            LevelsResponse.Status.ACTIVE, DATE))
     val testObserver = gamification.getLevels(WALLET)
         .test()
     testObserver.assertValue(

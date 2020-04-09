@@ -48,7 +48,9 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     gamificationView = context
   }
 
-  override fun showLevels(levels: List<ViewLevel>, currentLevel: Int) {
+  override fun showLevels(
+      levels: List<ViewLevel>,
+      currentLevel: Int, updateDate: String?) {
     fragment_gamification_how_it_works_loading.visibility = View.INVISIBLE
     var view: View?
 
@@ -69,6 +71,12 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       if (level.level == currentLevel) {
         highlightCurrentLevel(levelTextView, spendTextView, bonusTextView)
       }
+    }
+
+    updateDate?.let {
+      bonus_update_icon.visibility = View.VISIBLE
+      bonus_update_info.visibility = View.VISIBLE
+      bonus_update_info.text = String.format("Bonus percentages update in %s", it)
     }
   }
 
