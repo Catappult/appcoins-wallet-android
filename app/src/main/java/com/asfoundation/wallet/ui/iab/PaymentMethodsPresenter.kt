@@ -221,8 +221,9 @@ class PaymentMethodsPresenter(
   }
 
   private fun setupUi(transactionValue: Double) {
-    disposables.add(waitForOngoingPurchase(transaction.skuId).subscribeOn(networkThread).andThen(
-        inAppPurchaseInteractor.convertToLocalFiat(transactionValue).subscribeOn(networkThread)
+    disposables.add(waitForOngoingPurchase(transaction.skuId).subscribeOn(networkThread)
+        .andThen(inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .subscribeOn(networkThread)
             .flatMapCompletable { fiatValue ->
               getPaymentMethods(fiatValue)
                   .observeOn(viewScheduler)
@@ -345,7 +346,10 @@ class PaymentMethodsPresenter(
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
-                  loadBonusIntoView()
+                  if (paymentMethodId != paymentMethodsMapper
+                          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
+                    loadBonusIntoView()
+                  }
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId)
                 }
               }
@@ -422,7 +426,8 @@ class PaymentMethodsPresenter(
   private fun updateBalanceDao() {
     disposables.add(
         Observable.zip(balanceInteract.getEthBalance(), balanceInteract.getCreditsBalance(),
-            balanceInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> }).take(1)
+            balanceInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> })
+            .take(1)
             .subscribeOn(networkThread)
             .subscribe())
   }
@@ -467,11 +472,14 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
-    if (selectedPaymentMethod == paymentMethodsMapper.map(
-            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
-      view.replaceBonus()
-    } else {
-      view.showBonus()
+    when (selectedPaymentMethod) {
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> view.replaceBonus()
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
+      else -> view.showBonus()
     }
   }
 

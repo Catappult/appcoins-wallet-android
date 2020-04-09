@@ -42,6 +42,7 @@ interface PaymentMethodsView {
   fun lockRotation()
   fun showEarnAppcoins()
   fun showBonus()
+  fun hideBonus()
   fun replaceBonus()
   fun showWalletBlocked()
 
