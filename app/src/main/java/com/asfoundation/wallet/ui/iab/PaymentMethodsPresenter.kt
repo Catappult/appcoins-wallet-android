@@ -222,16 +222,15 @@ class PaymentMethodsPresenter(
 
   private fun setupUi(transactionValue: Double) {
     disposables.add(waitForOngoingPurchase(transaction.skuId).subscribeOn(networkThread)
-        .andThen(
-            inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-                .subscribeOn(networkThread)
-                .flatMapCompletable { fiatValue ->
-                  getPaymentMethods(fiatValue)
-                      .observeOn(viewScheduler)
-                      .flatMapCompletable { paymentMethods ->
-                        Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
-                      }
-                })
+        .andThen(inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .subscribeOn(networkThread)
+            .flatMapCompletable { fiatValue ->
+              getPaymentMethods(fiatValue)
+                  .observeOn(viewScheduler)
+                  .flatMapCompletable { paymentMethods ->
+                    Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
+                  }
+            })
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .subscribe({ }, { this.showError(it) }))
@@ -347,7 +346,10 @@ class PaymentMethodsPresenter(
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
-                  loadBonusIntoView()
+                  if (paymentMethodId != paymentMethodsMapper
+                          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
+                    loadBonusIntoView()
+                  }
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId)
                 }
               }
@@ -470,15 +472,14 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
-    if (selectedPaymentMethod == paymentMethodsMapper.map(
-            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
-      view.replaceBonus()
-    }
-    if (selectedPaymentMethod == paymentMethodsMapper.map(
-            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
-      view.hideBonus()
-    } else {
-      view.showBonus()
+    when (selectedPaymentMethod) {
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> view.replaceBonus()
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
+      else -> view.showBonus()
     }
   }
 

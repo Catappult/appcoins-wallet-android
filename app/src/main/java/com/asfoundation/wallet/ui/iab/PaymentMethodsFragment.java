@@ -508,6 +508,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void hideBonus() {
     bonusView.setVisibility(View.INVISIBLE);
     bonusMsg.setVisibility(View.INVISIBLE);
+    hideBottomSeparator();
   }
 
   @Override public void replaceBonus() {
@@ -646,7 +647,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       preSelectedDescription.setVisibility(View.VISIBLE);
       preSelectedNameSingle.setVisibility(View.GONE);
       hideBonus();
-      hideBottomSeparator();
     } else {
       preSelectedName.setVisibility(View.VISIBLE);
       preSelectedName.setText(paymentMethod.getLabel());
