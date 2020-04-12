@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -102,8 +103,8 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   }
 
   @Singleton @Provides SmsValidationRepositoryType provideSmsValidationRepository(
-      SmsValidationApi smsValidationApi, Gson gson) {
-    return new SmsValidationRepository(smsValidationApi, gson);
+      SmsValidationApi smsValidationApi, Gson gson, Logger logger) {
+    return new SmsValidationRepository(smsValidationApi, gson, logger);
   }
 
   @Singleton @Provides WalletStatusRepository provideWalletStatusRepository(
