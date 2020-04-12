@@ -48,8 +48,7 @@ class Erc681ReceiverPresenter {
           })
           .flatMap(transactionBuilder -> inAppPurchaseInteractor.isWalletFromBds(
               transactionBuilder.getDomain(), transactionBuilder.toAddress())
-              .doOnSuccess(isBds -> view.startEipTransfer(transactionBuilder, isBds,
-                  transactionBuilder.getPayload())))
+              .doOnSuccess(isBds -> view.startEipTransfer(transactionBuilder, isBds)))
           .subscribe(transaction -> {
           }, view::startApp);
     }
