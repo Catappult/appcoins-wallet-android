@@ -76,7 +76,9 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     updateDate?.let {
       bonus_update_icon.visibility = View.VISIBLE
       bonus_update_info.visibility = View.VISIBLE
-      bonus_update_info.text = String.format("Bonus percentages update in %s", it)
+      bonus_update_info.text =
+          getString(
+              R.string.pioneer_bonus_updated_body)//TODO this should use the date from backend. Missing string change
     }
   }
 
