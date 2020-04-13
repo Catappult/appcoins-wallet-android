@@ -214,7 +214,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             .andThen(Completable.fromAction { navigator.popView(it) })
                       }
                 }
-                paymentFailed(it.status) -> {
+                isPaymentFailed(it.status) -> {
                   Completable.fromAction {
                     sendPaymentErrorEvent(it.error.code,
                         buildRefusalReason(it.status, it.error.message))
@@ -256,7 +256,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     return message?.let { "$status : $it" } ?: status.toString()
   }
 
-  private fun paymentFailed(status: Status): Boolean {
+  private fun isPaymentFailed(status: Status): Boolean {
     return status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
   }
 
@@ -352,8 +352,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun sendPaymentEvent() {
     disposables.add(transactionBuilder.subscribeOn(networkScheduler)
-        .observeOn(
-            viewScheduler)
+        .observeOn(viewScheduler)
         .subscribe { transactionBuilder: TransactionBuilder ->
           analytics.sendPaymentEvent(domain, transactionBuilder.skuId,
               transactionBuilder.amount()

@@ -34,9 +34,8 @@ class AdyenResponseMapper {
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
     val code = if (throwable is HttpException) throwable.code() else null
-    return PaymentInfoModel(
-        Error(true, throwable.isNoNetworkException(), code,
-            throwable.message))
+    return PaymentInfoModel(Error(true, throwable.isNoNetworkException(), code,
+        throwable.message))
   }
 
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
