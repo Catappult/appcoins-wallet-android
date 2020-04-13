@@ -15,23 +15,18 @@ class BalanceDetailsMapper {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  fun map(walletAddress: String): BalanceDetailsEntity {
-    return BalanceDetailsEntity(walletAddress)
-  }
+  fun map(walletAddress: String): BalanceDetailsEntity = BalanceDetailsEntity(walletAddress)
 
   fun mapEthBalance(balance: BalanceDetailsEntity): Pair<Balance, FiatValue> {
     return Pair(Balance(WalletCurrency.ETHEREUM.symbol, getBigDecimal(balance.ethAmount)),
         FiatValue(getBigDecimal(balance.ethConversion), balance.fiatCurrency, balance.fiatSymbol))
   }
 
-
   fun mapAppcBalance(balance: BalanceDetailsEntity): Pair<Balance, FiatValue> {
-    return Pair(Balance(WalletCurrency.APPCOINS.symbol,
-        getBigDecimal(balance.appcAmount, CurrencyFormatUtils.APPC_SCALE)),
-        FiatValue(getBigDecimal(balance.appcConversion), balance.fiatCurrency,
-            balance.fiatSymbol))
+    return Pair(Balance(WalletCurrency.APPCOINS.symbol, getBigDecimal(balance.appcAmount,
+        CurrencyFormatUtils.APPC_SCALE)), FiatValue(getBigDecimal(balance.appcConversion),
+        balance.fiatCurrency, balance.fiatSymbol))
   }
-
 
   fun mapCreditsBalance(balance: BalanceDetailsEntity): Pair<Balance, FiatValue> {
     return Pair(Balance(WalletCurrency.CREDITS.symbol,
@@ -41,7 +36,7 @@ class BalanceDetailsMapper {
   }
 
   private fun getBigDecimal(value: String, scale: Int = CurrencyFormatUtils.ETH_SCALE): BigDecimal {
-    return if (value.isNotEmpty()) BigDecimal(value).setScale(scale,
-        RoundingMode.FLOOR) else BigDecimal("-1")
+    return if (value.isNotEmpty()) BigDecimal(value).setScale(scale, RoundingMode.FLOOR)
+    else BigDecimal("-1")
   }
 }

@@ -41,8 +41,8 @@ class TransferPresenter(private val view: TransferFragmentView,
           getBalance(currency)
               .observeOn(viewScheduler)
               .doOnSuccess {
-                val walletCurrency = mapToWalletCurrency(currency)
-                view.showBalance(formatter.formatCurrency(it.toDouble(), walletCurrency), walletCurrency)
+                val walletCurrency = WalletCurrency.mapToWalletCurrency(currency)
+                view.showBalance(formatter.formatCurrency(it, walletCurrency), walletCurrency)
               }
         }
         .doOnError { it.printStackTrace() }
@@ -181,15 +181,6 @@ class TransferPresenter(private val view: TransferFragmentView,
     return Single.zip(Single.timer(1, TimeUnit.SECONDS),
         interactor.transferCredits(walletAddress, amount, packageName),
         BiFunction { _: Long, status: AppcoinsRewardsRepository.Status -> status })
-  }
-
-  private fun mapToWalletCurrency(
-      currency: TransferFragmentView.Currency): WalletCurrency {
-    return when (currency) {
-      TransferFragmentView.Currency.APPC -> WalletCurrency.APPCOINS
-      TransferFragmentView.Currency.APPC_C -> WalletCurrency.CREDITS
-      TransferFragmentView.Currency.ETH -> WalletCurrency.ETHEREUM
-    }
   }
 
   fun clear() {

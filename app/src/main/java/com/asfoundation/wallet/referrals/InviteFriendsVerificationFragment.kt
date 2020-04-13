@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.scaleToString
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
@@ -47,10 +46,9 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
   }
 
   private fun setDescriptionText() {
-    val formattedAmount = formatter.formatCurrency(amount.toDouble(), WalletCurrency.FIAT)
-    verification_description.text =
-        getString(R.string.referral_view_unverified_body,
-            currency.plus(formattedAmount))
+    val formattedAmount = formatter.formatCurrency(amount, WalletCurrency.FIAT)
+    verification_description.text = getString(R.string.referral_view_unverified_body,
+        currency.plus(formattedAmount))
   }
 
   override fun verifyButtonClick() = RxView.clicks(verify_button)

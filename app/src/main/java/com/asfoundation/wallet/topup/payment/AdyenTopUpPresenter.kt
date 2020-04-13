@@ -97,8 +97,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             if (it.error.isNetworkError) view.showNetworkError()
             else view.showGenericError()
           } else {
-            val priceAmount =
-                formatter.formatCurrency(it.priceAmount.toDouble(), WalletCurrency.FIAT)
+            val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
             view.showValues(priceAmount, it.priceCurrency)
             if (paymentType == PaymentType.CARD.name) {
               view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
@@ -205,7 +204,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue) }
+        .flatMapCompletable {
+          handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
+        }
         .subscribe())
   }
 

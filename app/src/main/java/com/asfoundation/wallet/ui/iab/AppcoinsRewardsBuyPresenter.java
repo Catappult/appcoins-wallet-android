@@ -5,6 +5,7 @@ import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -135,11 +136,10 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   void sendRevenueEvent() {
-    analytics.sendRevenueEvent(inAppPurchaseInteractor.convertToFiat(transactionBuilder.amount()
-        .doubleValue(), EVENT_REVENUE_CURRENCY)
+    analytics.sendRevenueEvent(CurrencyFormatUtils.scaleFiat(inAppPurchaseInteractor.convertToFiat(
+        transactionBuilder.amount().doubleValue(), EVENT_REVENUE_CURRENCY)
         .blockingGet()
-        .getAmount()
-        .setScale(2, BigDecimal.ROUND_UP)
+        .getAmount())
         .toString());
   }
 

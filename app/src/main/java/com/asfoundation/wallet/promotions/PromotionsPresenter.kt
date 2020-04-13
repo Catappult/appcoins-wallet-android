@@ -41,7 +41,7 @@ class PromotionsPresenter(private val view: PromotionsView,
     view.hideLoading()
     if (promotionsModel.gamificationAvailable && promotionsModel.referralsAvailable) {
       view.setReferralBonus(
-          formatter.formatCurrency(promotionsModel.maxValue.toDouble(), WalletCurrency.FIAT),
+          formatter.formatCurrency(promotionsModel.maxValue, WalletCurrency.FIAT),
           promotionsModel.currency)
       view.toggleShareAvailability(promotionsModel.isValidated)
       showPromotions(promotionsModel)

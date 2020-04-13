@@ -224,10 +224,10 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private String getScaledValue(String valueStr, String currencySymbol) {
-    WalletCurrency walletCurrency = mapToWalletCurrency(currencySymbol);
+    WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
     value = value.divide(new BigDecimal(Math.pow(10, DECIMALS)));
-    return formatter.formatCurrency(value.doubleValue(), walletCurrency);
+    return formatter.formatCurrency(value, walletCurrency);
   }
 
   private String getDate(long timeStampInSec) {
@@ -321,16 +321,5 @@ public class TransactionDetailActivity extends BaseActivity {
       rawValue = getScaledValue(rawValue, currencySymbol);
     }
     return rawValue;
-  }
-
-  private WalletCurrency mapToWalletCurrency(String currency) {
-    switch (currency) {
-      case "APPC":
-        return WalletCurrency.APPCOINS;
-      case "ETH":
-        return WalletCurrency.ETHEREUM;
-      default:
-        return WalletCurrency.CREDITS;
-    }
   }
 }

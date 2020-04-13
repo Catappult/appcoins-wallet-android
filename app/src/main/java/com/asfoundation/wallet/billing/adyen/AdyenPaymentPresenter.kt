@@ -110,8 +110,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 if (it.error.isNetworkError) view.showNetworkError()
                 else view.showGenericError()
               } else {
-                val amount =
-                    formatter.formatCurrency(it.priceAmount.toDouble(), WalletCurrency.FIAT)
+                val amount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
                 view.showProductPrice(amount, it.priceCurrency)
                 if (paymentType == PaymentType.CARD.name) {
                   view.hideLoadingAndShowView()
@@ -351,38 +350,32 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun sendPaymentEvent() {
     disposables.add(transactionBuilder.subscribeOn(networkScheduler)
-        .observeOn(
-            viewScheduler)
+        .observeOn(viewScheduler)
         .subscribe { transactionBuilder: TransactionBuilder ->
           analytics.sendPaymentEvent(domain, transactionBuilder.skuId,
-              transactionBuilder.amount()
-                  .toString(), mapPaymentToAnalytics(paymentType),
+              transactionBuilder.amount().toString(), mapPaymentToAnalytics(paymentType),
               transactionBuilder.type)
         })
   }
 
   private fun sendRevenueEvent() {
     disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
-      analytics.sendRevenueEvent(
-          adyenPaymentInteractor.convertToFiat(transactionBuilder.amount()
-              .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .blockingGet()
-              .amount
-              .setScale(2, BigDecimal.ROUND_UP)
-              .toString())
+      analytics.sendRevenueEvent(adyenPaymentInteractor.convertToFiat(transactionBuilder.amount()
+          .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .blockingGet()
+          .amount
+          .setScale(2, BigDecimal.ROUND_UP)
+          .toString())
     })
   }
 
   private fun sendPaymentSuccessEvent() {
     disposables.add(transactionBuilder
         .observeOn(networkScheduler)
-        .doOnSuccess { transaction ->
-          analytics.sendPaymentSuccessEvent(domain, transaction.skuId,
-              transaction.amount()
-                  .toString(),
-              mapPaymentToAnalytics(paymentType), transaction.type)
+        .doOnSuccess { transaction -> analytics.sendPaymentSuccessEvent(domain, transaction.skuId,
+              transaction.amount().toString(), mapPaymentToAnalytics(paymentType), transaction.type)
         }
         .subscribe({}, { it.printStackTrace() }))
   }

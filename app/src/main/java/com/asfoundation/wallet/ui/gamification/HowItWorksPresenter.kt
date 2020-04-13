@@ -59,8 +59,8 @@ class HowItWorksPresenter(private val view: HowItWorksView,
               .filter { it.amount.toInt() >= 0 }
               .observeOn(viewScheduler)
               .doOnNext {
-                val totalSpend = formatter.formatCurrency(userStats.totalSpend.toDouble(), WalletCurrency.FIAT)
-                val bonusEarned = formatter.formatCurrency(it.amount.toDouble(), WalletCurrency.FIAT)
+                val totalSpend = formatter.formatCurrency(userStats.totalSpend, WalletCurrency.FIAT)
+                val bonusEarned = formatter.formatCurrency(it.amount, WalletCurrency.FIAT)
                 view.showPeekInformation(totalSpend, bonusEarned, it.symbol)
               }
         }

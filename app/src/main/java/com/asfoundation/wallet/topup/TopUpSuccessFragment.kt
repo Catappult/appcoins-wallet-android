@@ -27,14 +27,14 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   companion object {
     @JvmStatic
     fun newInstance(amount: String, currency: String, bonus: String, currencySymbol: String): TopUpSuccessFragment {
-      val fragment = TopUpSuccessFragment()
-      val bundle = Bundle()
-      bundle.putString(PARAM_AMOUNT, amount)
-      bundle.putString(CURRENCY, currency)
-      bundle.putString(CURRENCY_SYMBOL, currencySymbol)
-      bundle.putString(BONUS, bonus)
-      fragment.arguments = bundle
-      return fragment
+      return TopUpSuccessFragment().apply {
+        arguments = Bundle().apply {
+          putString(PARAM_AMOUNT, amount)
+          putString(CURRENCY, currency)
+          putString(CURRENCY_SYMBOL, currencySymbol)
+          putString(BONUS, bonus)
+        }
+      }
     }
 
     private const val PARAM_AMOUNT = "amount"
@@ -71,7 +71,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     }
   }
 
-  val currencySymbol: String by lazy {
+  private val currencySymbol: String by lazy {
     if (arguments!!.containsKey(CURRENCY_SYMBOL)) {
       arguments!!.getString(CURRENCY_SYMBOL)
     } else {

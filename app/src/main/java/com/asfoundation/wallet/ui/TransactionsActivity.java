@@ -445,20 +445,20 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     StringBuilder stringBuilder = new StringBuilder();
     String bullet = "\u00A0\u00A0\u00A0\u2022\u00A0\u00A0\u00A0";
     if (showCredits) {
-      String creditsString = formatter.formatCurrency(creditsBalance.getValue()
-          .doubleValue(), WalletCurrency.CREDITS) + " " + WalletCurrency.CREDITS.getSymbol();
+      String creditsString = formatter.formatCurrency(creditsBalance.getValue(), WalletCurrency.CREDITS)
+          + " " + WalletCurrency.CREDITS.getSymbol();
       stringBuilder.append(creditsString)
           .append(bullet);
     }
     if (showAppcoins) {
-      String appcString = formatter.formatCurrency(appcoinsBalance.getValue()
-          .doubleValue(), WalletCurrency.APPCOINS) + " " + WalletCurrency.APPCOINS.getSymbol();
+      String appcString = formatter.formatCurrency(appcoinsBalance.getValue(), WalletCurrency.APPCOINS)
+          + " " + WalletCurrency.APPCOINS.getSymbol();
       stringBuilder.append(appcString)
           .append(bullet);
     }
     if (showEthereum) {
-      String ethString = formatter.formatCurrency(ethereumBalance.getValue()
-          .doubleValue(), WalletCurrency.ETHEREUM) + " " + WalletCurrency.ETHEREUM.getSymbol();
+      String ethString = formatter.formatCurrency(ethereumBalance.getValue(), WalletCurrency.ETHEREUM)
+          + " " + WalletCurrency.ETHEREUM.getSymbol();
       stringBuilder.append(ethString)
           .append(bullet);
     }

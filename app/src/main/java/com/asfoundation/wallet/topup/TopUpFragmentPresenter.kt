@@ -224,7 +224,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
             view.hideBonus()
           } else {
-            val scaledBonus = formatter.scaleFiat(it.amount)
+            val scaledBonus = CurrencyFormatUtils.scaleFiat(it.amount)
             view.showBonus(scaledBonus, it.currency)
           }
           view.setNextButtonState(true)

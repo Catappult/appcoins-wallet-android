@@ -182,7 +182,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       e.printStackTrace()
     }
     app_sku_description?.text = arguments!!.getString(IabActivity.PRODUCT_NAME)
-    val appcValue = formatter.formatCurrency(appcAmount.toDouble(), WalletCurrency.APPCOINS)
+    val appcValue = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
     appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 

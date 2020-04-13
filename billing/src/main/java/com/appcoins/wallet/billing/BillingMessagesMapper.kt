@@ -135,13 +135,13 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
   }
 
   fun topUpBundle(amount: String, currency: String, bonus: String, fiatCurrencySymbol: String): Bundle {
-    val bundle = Bundle()
-    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-    bundle.putString(TOP_UP_AMOUNT, amount)
-    bundle.putString(TOP_UP_CURRENCY, currency)
-    bundle.putString(BONUS, bonus)
-    bundle.putString(TOP_UP_CURRENCY_SYMBOL, fiatCurrencySymbol)
-    return bundle
+    return Bundle().apply {
+      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+      putString(TOP_UP_AMOUNT, amount)
+      putString(TOP_UP_CURRENCY, currency)
+      putString(BONUS, bonus)
+      putString(TOP_UP_CURRENCY_SYMBOL, fiatCurrencySymbol)
+    }
   }
 
   fun mapFinishedPurchase(purchase: Purchase, itemAlreadyOwned: Boolean): Bundle {

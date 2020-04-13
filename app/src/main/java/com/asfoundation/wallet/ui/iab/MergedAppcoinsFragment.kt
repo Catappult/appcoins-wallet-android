@@ -268,11 +268,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
-    val appcText = formatter.formatCurrency(appcAmount.toDouble(),
-        WalletCurrency.APPCOINS)
+    val appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
         .plus(" " + WalletCurrency.APPCOINS.symbol)
-    val fiatText = formatter.formatCurrency(fiatAmount.toDouble(), WalletCurrency.FIAT)
-        .plus(" $currency")
+    val fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT).plus(" $currency")
     fiat_price.text = fiatText
     appc_price.text = appcText
     fiat_price.visibility = VISIBLE

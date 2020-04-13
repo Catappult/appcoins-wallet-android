@@ -72,8 +72,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     var tokenBalance = "-1"
     var fiatBalance = "-1"
     if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance =
-          formatter.formatCurrency(balance.token.amount.toDouble(), WalletCurrency.APPCOINS)
+      tokenBalance = formatter.formatCurrency(balance.token.amount, WalletCurrency.APPCOINS)
       fiatBalance = formatter.formatCurrency(balance.fiat)
     }
     view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.APPCOINS, balance.fiat.symbol)
@@ -83,8 +82,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     var tokenBalance = "-1"
     var fiatBalance = "-1"
     if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance =
-          formatter.formatCurrency(balance.token.amount.toDouble(), WalletCurrency.CREDITS)
+      tokenBalance = formatter.formatCurrency(balance.token.amount, WalletCurrency.CREDITS)
       fiatBalance = formatter.formatCurrency(balance.fiat)
     }
     view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.CREDITS, balance.fiat.symbol)
@@ -94,8 +92,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     var tokenBalance = "-1"
     var fiatBalance = "-1"
     if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance =
-          formatter.formatCurrency(balance.token.amount.toDouble(), WalletCurrency.ETHEREUM)
+      tokenBalance = formatter.formatCurrency(balance.token.amount, WalletCurrency.ETHEREUM)
       fiatBalance = formatter.formatCurrency(balance.fiat)
     }
     view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.ETHEREUM, balance.fiat.symbol)

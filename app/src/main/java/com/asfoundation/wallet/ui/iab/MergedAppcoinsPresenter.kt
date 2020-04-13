@@ -51,9 +51,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext {
-          val appcFiat = formatter.formatCurrency(it.appcFiatValue.amount.toDouble(),
-              WalletCurrency.APPCOINS)
-          val creditsFiat = formatter.formatCurrency(it.creditsBalance.amount.toDouble(),
+          val appcFiat = formatter.formatCurrency(it.appcFiatValue.amount, WalletCurrency.APPCOINS)
+          val creditsFiat = formatter.formatCurrency(it.creditsBalance.amount,
               WalletCurrency.CREDITS)
           view.updateBalanceValues(appcFiat, creditsFiat, it.creditsBalance.currency)
         }

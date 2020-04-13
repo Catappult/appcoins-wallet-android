@@ -50,8 +50,6 @@ import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_adyen_error_top_up.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
-import java.math.BigDecimal
-import java.util.*
 import javax.inject.Inject
 
 class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
@@ -69,8 +67,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   @Inject
   lateinit var adyenEnvironment: Environment
+
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
@@ -107,7 +107,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
             transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
             data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper(), gamificationLevel, topUpAnalytics, formatter)
+            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper(), gamificationLevel,
+            topUpAnalytics, formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -259,21 +260,21 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun errorDismisses(): Observable<Any> {
     return Observable.merge(networkErrorDialog.dismisses(),
-            paymentRefusedDialog.dismisses(), errorDialog.dismisses())
+        paymentRefusedDialog.dismisses(), errorDialog.dismisses())
         .doOnNext { topUpView.unlockRotation() }
         .map { Any() }
   }
 
   override fun errorCancels(): Observable<Any> {
     return Observable.merge(networkErrorDialog.cancels(),
-            paymentRefusedDialog.cancels(), errorDialog.cancels())
+        paymentRefusedDialog.cancels(), errorDialog.cancels())
         .doOnNext { topUpView.unlockRotation() }
         .map { Any() }
   }
 
   override fun errorPositiveClicks(): Observable<Any> {
     return Observable.merge(networkErrorDialog.positiveClicks(),
-            paymentRefusedDialog.positiveClicks(), errorDialog.positiveClicks())
+        paymentRefusedDialog.positiveClicks(), errorDialog.positiveClicks())
         .doOnNext { topUpView.unlockRotation() }
         .map { Any() }
   }

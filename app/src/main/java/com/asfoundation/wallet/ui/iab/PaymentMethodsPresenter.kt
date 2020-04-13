@@ -241,10 +241,8 @@ class PaymentMethodsPresenter(
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
-    val fiatAmount = formatter.formatCurrency(fiatValue.amount.toDouble(),
-        WalletCurrency.FIAT)
-    val appcAmount = formatter.formatCurrency(transaction.amount()
-        .toDouble(), WalletCurrency.APPCOINS)
+    val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
+    val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
     if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
       getCreditsPaymentMethod(paymentMethods)?.let {
         if (it.isEnabled) {
@@ -354,10 +352,8 @@ class PaymentMethodsPresenter(
           getPaymentMethods(fiatValue).observeOn(viewScheduler)
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
-                  val fiatAmount = formatter.formatCurrency(fiatValue.amount.toDouble(),
-                      WalletCurrency.FIAT)
-                  val appcAmount = formatter.formatCurrency(transaction.amount()
-                      .toDouble(),
+                  val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
+                  val appcAmount = formatter.formatCurrency(transaction.amount(),
                       WalletCurrency.APPCOINS)
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   if (paymentMethodId != paymentMethodsMapper

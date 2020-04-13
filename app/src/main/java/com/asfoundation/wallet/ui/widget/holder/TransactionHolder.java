@@ -265,24 +265,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
-    WalletCurrency walletCurrency = mapToWalletCurrency(currencySymbol);
+    WalletCurrency walletCurrency = WalletCurrency.valueOf(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
     value = value.divide(new BigDecimal(Math.pow(10, decimals)));
-    return formatter.formatCurrency(value.doubleValue(), walletCurrency);
+    return formatter.formatCurrency(value, walletCurrency);
   }
 
   @Override public void onClick(View view) {
     onTransactionClickListener.onTransactionClick(view, transaction);
-  }
-
-  private WalletCurrency mapToWalletCurrency(String currency) {
-    switch (currency) {
-      case "APPC":
-        return WalletCurrency.APPCOINS;
-      case "ETH":
-        return WalletCurrency.ETHEREUM;
-      default:
-        return WalletCurrency.CREDITS;
-    }
   }
 }

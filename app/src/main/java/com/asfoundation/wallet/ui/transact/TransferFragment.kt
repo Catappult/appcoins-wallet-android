@@ -49,16 +49,22 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
   }
 
   private lateinit var presenter: TransferPresenter
+
   @Inject
   lateinit var interactor: TransferInteractor
+
   @Inject
   lateinit var confirmationRouter: ConfirmationRouter
+
   @Inject
   lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+
   @Inject
   lateinit var defaultTokenInfoProvider: DefaultTokenProvider
+
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
@@ -96,12 +102,13 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
                                         amount: BigDecimal): Completable {
 
     return defaultTokenInfoProvider.defaultToken.doOnSuccess {
-          val transaction = TransactionBuilder(it)
-          transaction.amount(amount)
-          transaction.toAddress(toWalletAddress)
-          transaction.fromAddress(walletAddress)
-          confirmationRouter.open(activity, transaction)
-        }
+      with(TransactionBuilder(it)) {
+        amount(amount)
+        toAddress(toWalletAddress)
+        fromAddress(walletAddress)
+        confirmationRouter.open(activity, this)
+      }
+    }
         .ignoreElement()
   }
 
@@ -276,8 +283,8 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
 
   override fun onDestroy() {
     disposable?.takeIf {
-          !it.isDisposed
-        }
+      !it.isDisposed
+    }
         .let { it?.dispose() }
     super.onDestroy()
   }

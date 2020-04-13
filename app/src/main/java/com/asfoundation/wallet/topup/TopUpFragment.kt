@@ -45,8 +45,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var interactor: TopUpInteractor
+
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
@@ -432,17 +434,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
-    var scaledBonus = bonus
-    var currency = bonusCurrency
-    if (scaledBonus < BigDecimal(0.01)) {
-      currency = "~$currency"
-    }
-    scaledBonus = scaledBonus.max(BigDecimal("0.01"))
-
+    val scaledBonus = bonus.max(BigDecimal("0.01"))
+    val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
     bonusMessageValue = scaledBonus.toPlainString()
     bonus_layout.bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
     bonus_layout.bonus_value.text = getString(R.string.topup_bonus_header_part_2,
-        currency + formatter.formatCurrency(scaledBonus.toDouble(), WalletCurrency.FIAT))
+        currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
   }
 
   private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatValue: String,

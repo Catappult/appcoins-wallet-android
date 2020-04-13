@@ -229,7 +229,7 @@ public class TransactionsViewModel extends BaseViewModel {
     BigDecimal sumFiat = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
         ethereumBalance.second.getAmount());
     if (sumFiat.compareTo(MINUS_ONE) > 0) {
-      fiatValue = formatter.formatCurrency(sumFiat.doubleValue(), WalletCurrency.FIAT);
+      fiatValue = formatter.formatCurrency(sumFiat, WalletCurrency.FIAT);
     }
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =

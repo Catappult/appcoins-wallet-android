@@ -2,16 +2,14 @@ package com.asfoundation.wallet.util
 
 import junit.framework.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
+import java.math.BigDecimal
 import java.util.*
 
 
-@RunWith(MockitoJUnitRunner::class)
 class CurrencyFormatUtilsTest {
 
   private val formatter = CurrencyFormatUtils.create()
-  private val value = 123456789.123456
+  private val value = BigDecimal(123456789.123456)
 
   @Test
   fun formatFiat() {

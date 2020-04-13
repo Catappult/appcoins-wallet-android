@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.util
 
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.transact.TransferFragmentView
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.NumberFormat
@@ -8,6 +9,8 @@ import java.text.NumberFormat
 class CurrencyFormatUtils {
 
   companion object {
+    @JvmStatic
+    fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
     fun create(): CurrencyFormatUtils = CurrencyFormatUtils()
     const val FIAT_SCALE = 2
     const val APPC_SCALE = 2
@@ -15,12 +18,12 @@ class CurrencyFormatUtils {
     const val ETH_SCALE = 4
   }
 
-  fun formatCurrency(value: Double, currencyType: WalletCurrency): String {
+  fun formatCurrency(value: BigDecimal, currencyType: WalletCurrency): String {
     return when (currencyType) {
-      WalletCurrency.FIAT -> formatCurrencyFiat(value)
-      WalletCurrency.APPCOINS -> formatCurrencyAppcoins(value)
-      WalletCurrency.CREDITS -> formatCurrencyCredits(value)
-      WalletCurrency.ETHEREUM -> formatCurrencyEth(value)
+      WalletCurrency.FIAT -> formatCurrencyFiat(value.toDouble())
+      WalletCurrency.APPCOINS -> formatCurrencyAppcoins(value.toDouble())
+      WalletCurrency.CREDITS -> formatCurrencyCredits(value.toDouble())
+      WalletCurrency.ETHEREUM -> formatCurrencyEth(value.toDouble())
     }
   }
 
@@ -82,7 +85,8 @@ class CurrencyFormatUtils {
     val scale: Int = when (currencyType) {
       WalletCurrency.APPCOINS -> APPC_SCALE
       WalletCurrency.CREDITS -> CREDITS_SCALE
-      else -> ETH_SCALE
+      WalletCurrency.ETHEREUM -> ETH_SCALE
+      else -> throw IllegalArgumentException()
     }
     val transferFormatter = NumberFormat.getNumberInstance()
         .apply {
@@ -92,15 +96,32 @@ class CurrencyFormatUtils {
         }
     return transferFormatter.format(value)
   }
-
-  fun scaleFiat(value: BigDecimal): BigDecimal {
-    return value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
-  }
 }
 
 enum class WalletCurrency(val symbol: String) {
   FIAT(""),
   APPCOINS("APPC"),
   CREDITS("APPC-C"),
-  ETHEREUM("ETH")
+  ETHEREUM("ETH");
+
+  companion object {
+    @JvmStatic
+    fun mapToWalletCurrency(currencySymbol: String): WalletCurrency {
+      return when (currencySymbol) {
+        "APPC" -> APPCOINS
+        "ETH" -> ETHEREUM
+        "APPC-C" -> CREDITS
+        else -> throw IllegalArgumentException()
+      }
+    }
+
+    @JvmStatic
+    fun mapToWalletCurrency(currency: TransferFragmentView.Currency): WalletCurrency {
+      return when (currency) {
+        TransferFragmentView.Currency.APPC -> APPCOINS
+        TransferFragmentView.Currency.APPC_C -> CREDITS
+        TransferFragmentView.Currency.ETH -> ETHEREUM
+      }
+    }
+  }
 }

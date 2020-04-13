@@ -469,8 +469,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       currency = "~" + currency;
     }
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
-    String formattedBonus =
-        formatter.formatCurrency(scaledBonus.doubleValue(), WalletCurrency.FIAT);
+    String formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT);
     bonusMessageValue = currency + formattedBonus;
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
     showBonus();
