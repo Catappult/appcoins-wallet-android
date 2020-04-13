@@ -922,6 +922,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(TopUpAnalytics.WALLET_TOP_UP_SELECTION);
     list.add(TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION);
     list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION);
+    list.add(PoaAnalytics.RAKAM_POA_EVENT);
     return list;
   }
 
@@ -1324,7 +1325,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new RakamAnalyticsSetup();
   }
 
-  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager){
+  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
     return new TopUpAnalytics(analyticsManager);
   }
 }

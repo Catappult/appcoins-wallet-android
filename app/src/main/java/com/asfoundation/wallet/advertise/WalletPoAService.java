@@ -493,6 +493,13 @@ public class WalletPoAService extends Service {
     if (completedEventDisposable == null || completedEventDisposable.isDisposed()) {
       completedEventDisposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
+          .doOnNext(proof -> {
+            if (proof.getProofStatus()
+                .equals(ProofStatus.PHONE_NOT_VERIFIED)) {
+              analytics.sendRakamProofEvent(proof.getPackageName(), "error", proof.getProofStatus()
+                  .name());
+            }
+          })
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
           .doOnNext(proof -> {
@@ -501,6 +508,12 @@ public class WalletPoAService extends Service {
                 .equals(ProofStatus.COMPLETED)) {
               analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
                   Integer.toString(proof.getChainId()));
+            } else if (!proof.getProofStatus()
+                .equals(ProofStatus.PROCESSING) || !proof.getProofStatus()
+                .equals(ProofStatus.SUBMITTING) || !proof.getProofStatus()
+                .equals(ProofStatus.COMPLETED)) {
+              analytics.sendRakamProofEvent(proof.getPackageName(), "error", proof.getProofStatus()
+                  .name());
             }
           })
           .flatMapSingle(proof -> proofOfAttentionService.get()
