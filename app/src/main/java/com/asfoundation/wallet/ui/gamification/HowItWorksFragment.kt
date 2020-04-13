@@ -21,6 +21,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_how_it_works.*
 import java.math.RoundingMode
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class HowItWorksFragment : DaggerFragment(), HowItWorksView {
@@ -50,7 +53,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
 
   override fun showLevels(
       levels: List<ViewLevel>,
-      currentLevel: Int, updateDate: String?) {
+      currentLevel: Int, updateDate: Date?) {
     fragment_gamification_how_it_works_loading.visibility = View.INVISIBLE
     var view: View?
 
@@ -74,11 +77,11 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     }
 
     updateDate?.let {
+      val df: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+      val date = df.format(it)
       bonus_update_icon.visibility = View.VISIBLE
       bonus_update_info.visibility = View.VISIBLE
-      bonus_update_info.text =
-          getString(
-              R.string.pioneer_bonus_updated_body)//TODO this should use the date from backend. Missing string change
+      bonus_update_info.text = getString(R.string.pioneer_bonus_updated_body, date)
     }
   }
 
