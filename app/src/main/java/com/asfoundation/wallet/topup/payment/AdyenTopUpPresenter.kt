@@ -228,23 +228,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 }
               } else {
                 Completable.fromAction {
-                  topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-                      it.refusalCode.toString(), it.refusalReason ?: "")
+                  topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",
+                      it.status.toString())
                   view.showGenericError()
                 }
               }
             }
-      }
-      paymentModel.error.hasError -> Completable.fromAction {
-        if (paymentModel.error.isNetworkError) {
-          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error", "",
-              "network_error")
-          view.showNetworkError()
-        } else {
-          topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-              paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
-          view.showGenericError()
-        }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
@@ -257,6 +246,17 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           }
         }
       }
+      paymentModel.error.hasError -> Completable.fromAction {
+        if (paymentModel.error.isNetworkError) {
+          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error", "",
+              "network_error")
+          view.showNetworkError()
+        } else {
+          topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
+              paymentModel.error.code.toString(), paymentModel.error.message ?: "")
+          view.showGenericError()
+        }
+      }
       paymentModel.status == CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",
             "canceled")
@@ -264,7 +264,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       }
       else -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-            paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
+            paymentModel.refusalCode.toString(), "Generic Error")
         view.showGenericError()
       }
     }
