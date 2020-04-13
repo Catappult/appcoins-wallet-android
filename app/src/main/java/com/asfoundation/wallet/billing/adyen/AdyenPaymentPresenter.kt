@@ -216,13 +216,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 }
                 paymentFailed(it.status) -> {
                   Completable.fromAction {
-                    sendPaymentErrorEvent(null, it.status.toString())
+                    sendPaymentErrorEvent(it.error.code,
+                        buildRefusalReason(it.status, it.error.message))
                     view.showGenericError()
                   }
                       .subscribeOn(viewScheduler)
                 }
                 else -> {
-                  sendPaymentErrorEvent(null, it.status.toString())
+                  sendPaymentErrorEvent(it.error.code, it.status.toString())
                   Completable.fromAction { view.showGenericError() }
                 }
               }
@@ -245,10 +246,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
-        sendPaymentErrorEvent(null, "Generic Error")
+        sendPaymentErrorEvent(error.code, "Generic Error")
         view.showGenericError()
       }
     }
+  }
+
+  private fun buildRefusalReason(status: Status, message: String?): String {
+    return message?.let { "$status : $it" } ?: status.toString()
   }
 
   private fun paymentFailed(status: Status): Boolean {

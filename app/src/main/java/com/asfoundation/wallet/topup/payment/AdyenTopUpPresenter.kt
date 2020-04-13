@@ -228,8 +228,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 }
               } else {
                 Completable.fromAction {
-                  topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",
-                      it.status.toString())
+                  topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
+                      it.error.code.toString(),
+                      buildRefusalReason(it.status, it.error.message))
                   view.showGenericError()
                 }
               }
@@ -248,7 +249,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (paymentModel.error.isNetworkError) {
-          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error", "",
+          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
+              paymentModel.error.code.toString(),
               "network_error")
           view.showNetworkError()
         } else {
@@ -268,6 +270,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         view.showGenericError()
       }
     }
+  }
+
+  private fun buildRefusalReason(status: Status, message: String?): String {
+    return message?.let { "$status : $it" } ?: status.toString()
   }
 
   private fun handlePaymentModel(paymentModel: PaymentModel,
