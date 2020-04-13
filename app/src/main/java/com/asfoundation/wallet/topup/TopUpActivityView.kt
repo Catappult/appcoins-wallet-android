@@ -3,7 +3,6 @@ package com.asfoundation.wallet.topup
 import android.net.Uri
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.ui.iab.FiatValue
 
 interface TopUpActivityView {
   fun showTopUpScreen()
