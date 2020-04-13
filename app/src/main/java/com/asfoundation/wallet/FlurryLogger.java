@@ -11,4 +11,8 @@ public class FlurryLogger implements Logger {
       FlurryAgent.onError("ID", throwable.getMessage(), throwable);
     }
   }
+
+  @Override public void log(String message) {
+    log(new Throwable(message));
+  }
 }
