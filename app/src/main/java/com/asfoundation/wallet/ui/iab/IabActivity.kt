@@ -82,7 +82,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         showPaymentMethodsView()
       } else if (resultCode == SUCCESS) {
         if (data?.scheme?.contains("adyencheckout") == true) {
-          if (Uri.parse(data.dataString).getQueryParameter("resultCode") == "cancelled")
+          sendPaypalUrlEvent(data)
+          if (getQueryParameter(data, "resultCode") == "cancelled")
             sendPayPalConfirmationEvent("cancel")
           else
             sendPayPalConfirmationEvent("buy")
@@ -310,8 +311,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   private fun sendPayPalConfirmationEvent(action: String) {
     billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
-        transaction?.amount().toString(), "paypal",
+        transaction?.amount()
+            .toString(), "paypal",
         transaction?.type, action)
+  }
+
+  private fun sendPaypalUrlEvent(data: Intent) {
+    val amountString = transaction?.amount()
+        .toString()
+    billingAnalytics.sendPaypalUrlEvent(transaction?.domain, transaction?.skuId,
+        amountString, "PAYPAL", getQueryParameter(data, "type"),
+        getQueryParameter(data, "resultCode"), data.dataString)
+  }
+
+  private fun getQueryParameter(data: Intent, parameter: String): String? {
+    return Uri.parse(data.dataString)
+        .getQueryParameter(parameter)
   }
 
   companion object {

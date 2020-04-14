@@ -242,18 +242,17 @@ class PaymentMethodsPresenter(
             ?: BillingSupportedType.INAPP
     disposables.add(waitForOngoingPurchase(transaction.skuId, billingSupportedType)
         .subscribeOn(networkThread)
-        .andThen(
-            inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-                .subscribeOn(networkThread)
-                .flatMapCompletable { fiatValue ->
-                  getPaymentMethods(fiatValue)
-                      .observeOn(viewScheduler)
-                      .flatMapCompletable { paymentMethods ->
-                        Completable.fromAction {
-                          selectPaymentMethod(paymentMethods, fiatValue, frequency)
-                        }
-                      }
-                })
+        .andThen(inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .subscribeOn(networkThread)
+            .flatMapCompletable { fiatValue ->
+              getPaymentMethods(fiatValue)
+                  .observeOn(viewScheduler)
+                  .flatMapCompletable { paymentMethods ->
+                    Completable.fromAction {
+                      selectPaymentMethod(paymentMethods, fiatValue, frequency)
+                    }
+                  }
+            })
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .subscribe({ }, { this.showError(it) }))
@@ -371,7 +370,10 @@ class PaymentMethodsPresenter(
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
-                  loadBonusIntoView()
+                  if (paymentMethodId != paymentMethodsMapper
+                          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
+                    loadBonusIntoView()
+                  }
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, frequency)
                 }
               }
@@ -496,11 +498,14 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
-    if (selectedPaymentMethod == paymentMethodsMapper.map(
-            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
-      view.replaceBonus()
-    } else {
-      if (isSubscription) {
+    when (selectedPaymentMethod) {
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> view.replaceBonus()
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
+      paymentMethodsMapper
+          .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
+      else -> if (isSubscription) {
         view.showBonus(R.string.subscription_bonus)
       } else {
         view.showBonus(R.string.gamification_purchase_body)

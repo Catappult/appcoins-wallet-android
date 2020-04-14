@@ -149,7 +149,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                   mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
             }
             .observeOn(viewScheduler)
-            .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue) }
+            .flatMapCompletable {
+              handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
+            }
             .subscribe())
   }
 
@@ -182,6 +184,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun handleRedirectResponse() {
     disposables.add(navigator.uriResults()
+        .doOnNext {
+          topUpAnalytics.sendPaypalUrlEvent(currencyData.appcValue.toDouble(), paymentType,
+              it.getQueryParameter("type"), it.getQueryParameter("resultCode"), it.toString())
+        }
         .observeOn(viewScheduler)
         .doOnNext { view.submitUriResult(it) }
         .subscribe())
@@ -198,7 +204,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue) }
+        .flatMapCompletable {
+          handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
+        }
         .subscribe())
   }
 
@@ -221,22 +229,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               } else {
                 Completable.fromAction {
                   topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-                      it.refusalCode.toString(), it.refusalReason ?: "")
+                      it.error.code.toString(),
+                      buildRefusalReason(it.status, it.error.message))
                   view.showGenericError()
                 }
               }
             }
-      }
-      paymentModel.error.hasError -> Completable.fromAction {
-        if (paymentModel.error.isNetworkError) {
-          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error", "",
-              "network_error")
-          view.showNetworkError()
-        } else {
-          topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-              paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
-          view.showGenericError()
-        }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
@@ -249,6 +247,18 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           }
         }
       }
+      paymentModel.error.hasError -> Completable.fromAction {
+        if (paymentModel.error.isNetworkError) {
+          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
+              paymentModel.error.code.toString(),
+              "network_error")
+          view.showNetworkError()
+        } else {
+          topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
+              paymentModel.error.code.toString(), paymentModel.error.message ?: "")
+          view.showGenericError()
+        }
+      }
       paymentModel.status == CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",
             "canceled")
@@ -256,10 +266,14 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       }
       else -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-            paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
+            paymentModel.refusalCode.toString(), "Generic Error")
         view.showGenericError()
       }
     }
+  }
+
+  private fun buildRefusalReason(status: Status, message: String?): String {
+    return message?.let { "$status : $it" } ?: status.toString()
   }
 
   private fun handlePaymentModel(paymentModel: PaymentModel,

@@ -47,6 +47,7 @@ interface PaymentMethodsView {
   fun lockRotation()
   fun showEarnAppcoins()
   fun showBonus(@StringRes bonusText: Int)
+  fun hideBonus()
   fun replaceBonus()
   fun showWalletBlocked()
 
