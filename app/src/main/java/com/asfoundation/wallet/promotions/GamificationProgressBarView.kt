@@ -33,10 +33,10 @@ constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 
   }
 
   fun setupPioneerUi() {
-    setLevelUi(level_1, level_5_text)
-    setLevelUi(level_2, level_5_text)
-    setLevelUi(level_3, level_5_text)
-    setLevelUi(level_4, level_5_text)
+    setLevelUi(level_1, level_1_text)
+    setLevelUi(level_2, level_2_text)
+    setLevelUi(level_3, level_3_text)
+    setLevelUi(level_4, level_4_text)
     setLevelUi(level_5, level_5_text)
 
     progress_bar.progressTintList =
