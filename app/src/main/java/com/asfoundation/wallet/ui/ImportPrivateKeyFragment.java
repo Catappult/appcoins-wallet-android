@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.widget.OnImportPrivateKeyListener;
+import org.jetbrains.annotations.NotNull;
 
 public class ImportPrivateKeyFragment extends Fragment implements View.OnClickListener {
 
@@ -22,7 +23,7 @@ public class ImportPrivateKeyFragment extends Fragment implements View.OnClickLi
     return new ImportPrivateKeyFragment();
   }
 
-  @Override public void onAttach(Context context) {
+  @Override public void onAttach(@NotNull Context context) {
     if (!(context instanceof OnImportPrivateKeyListener)) {
       throw new IllegalArgumentException("this fragment should be attached to an "
           + OnImportPrivateKeyListener.class.getSimpleName()

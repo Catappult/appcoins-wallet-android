@@ -35,6 +35,7 @@ public class EIPTransactionParser {
     TransactionBuilder transactionBuilder = new TransactionBuilder("ETH");
     transactionBuilder.toAddress(payment.getAddress());
     transactionBuilder.amount(getEtherTransferAmount(payment));
+    transactionBuilder.setType("inapp");//TODO pre subscriptions
     return Single.just(transactionBuilder);
   }
 

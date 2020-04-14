@@ -2,6 +2,7 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.commons.Repository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
@@ -38,10 +39,7 @@ class OneStepTransactionParser(
           })
           .map {
             it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
-            var currency = oneStepUri.parameters[Parameters.CURRENCY]
-            if (currency == null) {
-              currency = "APPC"
-            }
+            val currency = oneStepUri.parameters[Parameters.CURRENCY] ?: "APPC"
             it.originalOneStepCurrency = currency
             it
           }
@@ -57,7 +55,7 @@ class OneStepTransactionParser(
   }
 
   private fun getAmount(uri: OneStepUri): Single<BigDecimal> {
-    return getProductValue(getDomain(uri), getSkuId(uri))
+    return getProductValue(getType(uri), getDomain(uri), getSkuId(uri))
         .onErrorResumeNext {
           uri.parameters[Parameters.VALUE]?.let {
             getTransactionValue(uri)
@@ -83,6 +81,10 @@ class OneStepTransactionParser(
 
   private fun getCurrency(uri: OneStepUri): String? {
     return uri.parameters[Parameters.CURRENCY]
+  }
+
+  private fun getType(uri: OneStepUri): String {
+    return uri.parameters[Parameters.TYPE] ?: "INAPP_UNMANAGED"
   }
 
   private fun getChainId(uri: OneStepUri): Long {
@@ -120,9 +122,11 @@ class OneStepTransactionParser(
     }
   }
 
-  private fun getProductValue(packageName: String?, skuId: String?): Single<BigDecimal> {
+  private fun getProductValue(type: String, packageName: String?,
+                              skuId: String?): Single<BigDecimal> {
     return if (packageName != null && skuId != null) {
-      billing.getProducts(packageName, listOf(skuId))
+      val billingType = BillingSupportedType.valueOfInsensitive(type)
+      billing.getProducts(packageName, listOf(skuId), billingType)
           .map { products -> products[0] }
           .map { product -> BigDecimal(product.price.appcoinsAmount) }
     } else {

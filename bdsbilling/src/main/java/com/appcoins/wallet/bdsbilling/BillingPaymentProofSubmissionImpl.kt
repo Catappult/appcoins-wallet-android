@@ -34,7 +34,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         authorizationProof.callback, authorizationProof.orderReference,
         authorizationProof.referrerUrl)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
-        .toCompletable()
+        .ignoreElement()
   }
 
   override fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -52,17 +52,11 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         .andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
   }
 
-  override fun registerAuthorizationProof(id: String, paymentType: String,
-                                          productName: String?,
-                                          packageName: String,
-                                          priceValue: BigDecimal,
-                                          developerWallet: String,
-                                          storeWallet: String,
-                                          origin: String,
-                                          type: String,
-                                          oemWallet: String,
-                                          developerPayload: String?,
-                                          callback: String?,
+  override fun registerAuthorizationProof(id: String, paymentType: String, productName: String?,
+                                          packageName: String, priceValue: BigDecimal,
+                                          developerWallet: String, storeWallet: String,
+                                          origin: String, type: String, oemWallet: String,
+                                          developerPayload: String?, callback: String?,
                                           orderReference: String?,
                                           referrerUrl: String?): Single<String> {
     return walletService.getWalletAddress()
@@ -88,18 +82,23 @@ class BillingPaymentProofSubmissionImpl internal constructor(
 
   companion object {
     inline fun build(block: Builder.() -> Unit) =
-        Builder().apply(block).build()
+        Builder().apply(block)
+            .build()
   }
 
   class Builder {
     private var walletService: WalletService? = null
     private var networkScheduler: Scheduler = Schedulers.io()
-    private var api: RemoteRepository.BdsApi? = null
+    private var api: BdsApi? = null//TODO Rename BdsInAppApi
     private var bdsApiSecondary: BdsApiSecondary? = null
+    private var subscriptionApi: SubscriptionBillingService? = null//TODO Rename BdsSubscriptionApi
 
-    fun setApi(bdsApi: RemoteRepository.BdsApi) = apply { api = bdsApi }
+    fun setApi(bdsApi: BdsApi) = apply { api = bdsApi }
 
     fun setBdsApiSecondary(bdsApi: BdsApiSecondary) = apply { bdsApiSecondary = bdsApi }
+
+    fun setSubscriptionBillingService(subscriptionBillingService: SubscriptionBillingService) =
+        apply { subscriptionApi = subscriptionBillingService }
 
     fun setScheduler(scheduler: Scheduler) = apply { this.networkScheduler = scheduler }
 
@@ -110,11 +109,11 @@ class BillingPaymentProofSubmissionImpl internal constructor(
       return walletService?.let { walletService ->
         api?.let { api ->
           bdsApiSecondary?.let { bdsApiSecondary ->
-            BillingPaymentProofSubmissionImpl(
-                walletService, BdsRepository(
-                RemoteRepository(api, BdsApiResponseMapper(), bdsApiSecondary)), networkScheduler,
-                ConcurrentHashMap(),
-                ConcurrentHashMap())
+            subscriptionApi?.let { subscriptionApi ->
+              BillingPaymentProofSubmissionImpl(walletService, BdsRepository(
+                  RemoteRepository(api, BdsApiResponseMapper(), bdsApiSecondary, subscriptionApi)),
+                  networkScheduler, ConcurrentHashMap(), ConcurrentHashMap())
+            } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
           } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
         } ?: throw IllegalArgumentException("BdsApi not defined")
       } ?: throw IllegalArgumentException("WalletService not defined")

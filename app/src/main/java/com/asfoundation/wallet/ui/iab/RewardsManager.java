@@ -5,6 +5,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import io.reactivex.Completable;
@@ -37,8 +38,9 @@ public class RewardsManager {
                 callbackUrl, orderReference, referrerUrl));
   }
 
-  public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
-    return billing.getSkuPurchase(packageName, sku, Schedulers.io());
+  public Single<Purchase> getPaymentCompleted(String packageName, String sku,
+      BillingSupportedType billingType) {
+    return billing.getSkuPurchase(packageName, sku, Schedulers.io(), billingType);
   }
 
   public Observable<Transaction> getTransaction(String packageName, String sku, BigDecimal amount) {

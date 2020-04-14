@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab;
 
 import androidx.annotation.Nullable;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
-import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.TransferParser;
@@ -88,9 +88,10 @@ public class AppcoinsRewardsBuyPresenter {
       case PROCESSING:
         return Completable.fromAction(view::showLoading);
       case COMPLETED:
-        if (isBds && transactionBuilder.getType()
-            .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
-          return rewardsManager.getPaymentCompleted(packageName, sku)
+        if (isBds && isValidPaymentType(transactionBuilder.getType())) {
+          BillingSupportedType billingType =
+              BillingSupportedType.valueOfInsensitive(transactionBuilder.getType());
+          return rewardsManager.getPaymentCompleted(packageName, sku, billingType)
               .flatMapCompletable(purchase -> Completable.fromAction(view::showTransactionCompleted)
                   .subscribeOn(scheduler)
                   .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
@@ -122,6 +123,10 @@ public class AppcoinsRewardsBuyPresenter {
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported"));
+  }
+
+  private boolean isValidPaymentType(String type) {
+    return type.equals("INAPP") || type.equals("SUBS");
   }
 
   public void stop() {

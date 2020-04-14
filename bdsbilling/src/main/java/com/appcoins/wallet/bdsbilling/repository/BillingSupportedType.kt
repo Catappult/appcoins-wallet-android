@@ -1,5 +1,15 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 enum class BillingSupportedType {
-  INAPP, SUBS
+  INAPP, SUBS;
+
+
+  companion object {
+    @JvmStatic
+    fun valueOfInsensitive(value: String): BillingSupportedType {
+      return values().firstOrNull { it.name.equals(value, true) }
+          ?: throw IllegalArgumentException()
+    }
+  }
+
 }

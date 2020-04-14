@@ -105,7 +105,6 @@ class SubscriptionApiMockedImpl : SubscriptionService {
     return cal.time
   }
 
-
   companion object {
 
     const val PAYPAL_ICON_URL =

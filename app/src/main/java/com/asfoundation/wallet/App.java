@@ -10,10 +10,11 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.bdsbilling.BdsApi;
 import com.appcoins.wallet.bdsbilling.ProxyService;
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingService;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
@@ -56,13 +57,14 @@ public class App extends MultiDexApplication
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
-  @Inject RemoteRepository.BdsApi bdsApi;
+  @Inject BdsApi bdsApi;
   @Inject WalletService walletService;
   @Inject ProxyService proxyService;
   @Inject AppcoinsRewards appcoinsRewards;
   @Inject BillingMessagesMapper billingMessagesMapper;
   @Inject BdsApiSecondary bdsapiSecondary;
   @Inject IdsRepository idsRepository;
+  @Inject SubscriptionBillingService subscriptionBillingService;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -191,7 +193,7 @@ public class App extends MultiDexApplication
     return BuildConfig.BILLING_SUPPORTED_VERSION;
   }
 
-  @NotNull @Override public RemoteRepository.BdsApi getBdsApi() {
+  @NotNull @Override public BdsApi getBdsApi() {
     return bdsApi;
   }
 
@@ -209,5 +211,9 @@ public class App extends MultiDexApplication
 
   @NotNull @Override public BdsApiSecondary getBdsApiSecondary() {
     return bdsapiSecondary;
+  }
+
+  @NotNull @Override public SubscriptionBillingService getSubscriptionBillingService() {
+    return subscriptionBillingService;
   }
 }

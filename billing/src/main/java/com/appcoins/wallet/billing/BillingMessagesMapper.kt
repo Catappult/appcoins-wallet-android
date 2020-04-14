@@ -10,8 +10,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_DATA_SIGNATURE
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_DATA
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_ID
-import com.appcoins.wallet.billing.exceptions.ServiceUnavailableException
-import com.appcoins.wallet.billing.exceptions.UnknownException
+import com.appcoins.wallet.bdsbilling.exceptions.ServiceUnavailableException
+import com.appcoins.wallet.bdsbilling.exceptions.UnknownException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import retrofit2.HttpException

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -51,22 +52,27 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   private fun isEndingState(status: Transaction.Status, type: String): Boolean {
-    return (status == PENDING_USER_PAYMENT && type == "TOPUP") || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
+    return (status == PENDING_USER_PAYMENT && type == "TOPUP")
+        || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED"))
+        || status == FAILED
+        || status == CANCELED
+        || status == INVALID_TRANSACTION
   }
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
+    return if (isValidType(type) && sku != null) {
+      val billingType = BillingSupportedType.valueOfInsensitive(type)
+      billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
     }
   }
 
-  private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
+  private fun isValidType(type: String): Boolean {
+    return type.equals("INAPP", ignoreCase = true) || type.equals("SUBS", ignoreCase = true)
   }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {

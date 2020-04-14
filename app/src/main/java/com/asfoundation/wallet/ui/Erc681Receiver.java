@@ -60,13 +60,13 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
     walletCreationText = null;
   }
 
-  @Override public void startEipTransfer(TransactionBuilder transaction, Boolean isBds,
-      String developerPayload) {
+  @Override public void startEipTransfer(TransactionBuilder transaction, Boolean isBds) {
     Intent intent;
     if (getIntent().getData()
         .toString()
         .contains("/buy?")) {
-      intent = IabActivity.newIntent(this, getIntent(), transaction, isBds, developerPayload);
+      intent =
+          IabActivity.newIntent(this, getIntent(), transaction, isBds, transaction.getPayload());
     } else {
       intent = SendActivity.newIntent(this, getIntent());
     }

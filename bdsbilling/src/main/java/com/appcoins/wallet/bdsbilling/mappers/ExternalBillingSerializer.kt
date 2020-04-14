@@ -1,9 +1,9 @@
 package com.appcoins.wallet.bdsbilling.mappers
 
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.PurchaseSignatureSerializer
 import com.appcoins.wallet.bdsbilling.repository.entity.SKU
-import com.appcoins.wallet.billing.repository.entity.Product
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.*
@@ -23,10 +23,11 @@ class ExternalBillingSerializer {
   }
 
   private fun mapProduct(product: Product): SKU {
-    return SKU(product.sku, "inapp", getBasePrice(product), getBaseCurrency(product),
+    return SKU(product.sku, product.billingType, getBasePrice(product), getBaseCurrency(product),
         getBasePriceInMicro(product), getAppcPrice(product), APPC,
         getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
-        getFiatPriceInMicro(product), product.title, product.description)
+        getFiatPriceInMicro(product), product.title, product.description,
+        product.subscriptionPeriod, product.trialPeriod)
   }
 
   private fun getBasePrice(product: Product): String {

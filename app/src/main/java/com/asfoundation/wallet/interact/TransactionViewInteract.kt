@@ -43,7 +43,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     get() = cardNotificationsInteractor.getCardNotifications()
 
   val userLevel: Single<Int>
-    get() = gamificationInteractor.getUserStats().map { it.level }
+    get() = gamificationInteractor.getUserStats()
+        .map { it.level }
 
   fun findNetwork(): Single<NetworkInfo> {
     return findDefaultNetworkInteract.find()
@@ -55,11 +56,9 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   }
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {
-    return wallet?.let {
-      fetchTransactionsInteract.fetch(it.address)
-          .map { transactions -> addMockedSubscriptions(transactions, it) }
-    } ?: Observable.just(
+    return wallet?.let { fetchTransactionsInteract.fetch(wallet.address) } ?: Observable.just(
         emptyList())
+    //TODO
   }
 
   private fun addMockedSubscriptions(transactions: MutableList<Transaction>,

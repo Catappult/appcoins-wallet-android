@@ -2,7 +2,6 @@ package com.asfoundation.wallet.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.annotations.NonNull;
@@ -11,7 +10,6 @@ import java.util.Arrays;
 
 import static com.asfoundation.wallet.C.ETHER_DECIMALS;
 
-//TODO Remove TransactionData.TransactionType.SUBS.name() after integration with microservices
 public class TransactionBuilder implements Parcelable {
   public static final long NO_CHAIN_ID = -1;
   public static final Creator<TransactionBuilder> CREATOR = new Creator<TransactionBuilder>() {
@@ -106,13 +104,13 @@ public class TransactionBuilder implements Parcelable {
       String iabContract, String type, String origin, String domain, String payload,
       String callbackUrl, String orderReference, String referrerUrl) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
-        TransactionData.TransactionType.SUBS.name(), origin, domain, payload, callbackUrl, orderReference, referrerUrl);
+        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl);
     this.iabContract = iabContract;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
-    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "inapp",
         null, "", "", "", "", null);
   }
 
@@ -232,6 +230,10 @@ public class TransactionBuilder implements Parcelable {
 
   public String getType() {
     return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public String getOrigin() {

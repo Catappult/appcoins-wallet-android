@@ -12,6 +12,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Price;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
+import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.BuildConfig;
@@ -79,10 +80,10 @@ public class InAppPurchaseInteractor {
   }
 
   Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, String developerPayload, boolean isBds) {
+      String packageName, String productName, String developerPayload, boolean isBds, String type) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-          developerPayload);
+          developerPayload, type);
     } else {
       return Completable.error(new UnsupportedOperationException("Asf doesn't support resume."));
     }
@@ -133,16 +134,17 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getBillingMessagesMapper();
   }
 
-  private Single<Purchase> getCompletedPurchase(String packageName, String productName) {
-    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
+  private Single<Purchase> getCompletedPurchase(String packageName, String productName,
+      String type) {
+    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName, type);
   }
 
   Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
     return parseTransaction(transaction.getUri(), isBds).flatMap(transactionBuilder -> {
       if (isBds && transactionBuilder.getType()
           .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
-        return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId()).map(
-            purchase -> mapToBdsPayment(transaction, purchase))
+        return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId(),
+            transactionBuilder.getType()).map(purchase -> mapToBdsPayment(transaction, purchase))
             .observeOn(AndroidSchedulers.mainThread())
             .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
       } else {
@@ -205,7 +207,7 @@ public class InAppPurchaseInteractor {
         .firstOrError();
   }
 
-  public Single<Price> getTransactionAmount(String uid) {
+  public Single<TransactionPrice> getTransactionAmount(String uid) {
     return getCompletedTransaction(uid).map(Transaction::getPrice)
         .firstOrError();
   }

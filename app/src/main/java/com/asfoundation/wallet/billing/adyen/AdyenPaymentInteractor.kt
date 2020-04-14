@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -109,7 +110,8 @@ class AdyenPaymentInteractor(
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
     return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
+      val billingType = BillingSupportedType.valueOfInsensitive(type)
+      billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))

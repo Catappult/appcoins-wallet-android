@@ -1,22 +1,34 @@
 package com.appcoins.wallet.bdsbilling.repository
 
+import com.appcoins.wallet.bdsbilling.BdsApi
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
+import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
+import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import retrofit2.http.*
 import java.math.BigDecimal
+import java.util.*
 
-class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsApiResponseMapper,
-                       private val bdsApiSecondary: BdsApiSecondary) {
+class RemoteRepository(private val inAppApi: BdsApi,
+                       private val responseMapper: BdsApiResponseMapper,
+                       private val bdsApiSecondary: BdsApiSecondary,
+                       private val subsApi: SubscriptionBillingService
+) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
+    private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
   }
 
-  internal fun isBillingSupported(packageName: String,
-                                  type: BillingSupportedType): Single<Boolean> {
-    return api.getPackage(packageName, type.name.toLowerCase())
+  internal fun isBillingSupported(packageName: String): Single<Boolean> {
+    return inAppApi.getPackage(packageName,
+        BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
+        .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
+  }
+
+  internal fun isBillingSupportedSubs(packageName: String): Single<Boolean> {
+    return subsApi.getPackage(packageName)
         .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 
@@ -24,13 +36,17 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     return requestSkusDetails(packageName, skus).map { responseMapper.map(it) }
   }
 
+  internal fun getSkuDetailsSubs(packageName: String, skus: List<String>): Single<List<Product>> {
+    return requestSkusDetailsSubs(packageName, skus).map { responseMapper.map(it) }
+  }
+
   private fun requestSkusDetails(packageName: String,
                                  skus: List<String>): Single<DetailsResponseBody> {
     return if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
-      api.getPackages(packageName, skus.joinToString(separator = ","))
+      inAppApi.getPackages(packageName, skus.joinToString(separator = ","))
     } else {
       Single.zip(
-          api.getPackages(packageName,
+          inAppApi.getPackages(packageName,
               skus.take(SKUS_DETAILS_REQUEST_LIMIT)
                   .joinToString(separator = ",")),
           requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT)),
@@ -40,36 +56,53 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     }
   }
 
-  internal fun getSkuPurchase(packageName: String,
-                              skuId: String?,
-                              walletAddress: String,
+  private fun requestSkusDetailsSubs(packageName: String,
+                                     skus: List<String>): Single<SubscriptionsResponse> {
+    return if (skus.size <= SKUS_SUBS_DETAILS_REQUEST_LIMIT) {
+      subsApi.getSubscriptions(packageName, skus)
+    } else {
+      Single.zip(
+          subsApi.getSubscriptions(packageName, skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
+          requestSkusDetailsSubs(packageName, skus.drop(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
+          BiFunction { firstResponse: SubscriptionsResponse, secondResponse: SubscriptionsResponse ->
+            firstResponse.merge(secondResponse)
+          })
+    }
+  }
+
+  internal fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
-    return api.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+    return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
   }
 
-  internal fun getSkuTransaction(packageName: String,
-                                 skuId: String?,
-                                 walletAddress: String,
-                                 walletSignature: String): Single<TransactionsResponse> {
-    return api.getSkuTransaction(walletAddress, walletSignature, 0, TransactionType.INAPP, 1,
+  internal fun getSkuPurchaseSubs(packageName: String, skuId: String?): Single<Purchase> {
+    return subsApi.getPurchases(packageName)
+        .map { it.items.filter { purchase -> purchase.sku == skuId } }
+        .map { responseMapper.map(packageName, it.first()) }
+  }
+
+  internal fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
+                                 walletSignature: String,
+                                 type: TransactionType): Single<TransactionsResponse> {
+    return inAppApi.getSkuTransaction(walletAddress, walletSignature, 0, type, 1,
         "latest", false, skuId, packageName)
-
   }
 
-  internal fun getPurchases(packageName: String,
-                            walletAddress: String,
-                            walletSignature: String,
-                            type: BillingSupportedType): Single<List<Purchase>> {
-    return api.getPurchases(packageName, walletAddress, walletSignature,
-            type.name.toLowerCase())
+  internal fun getPurchases(packageName: String, walletAddress: String,
+                            walletSignature: String): Single<List<Purchase>> {
+    return inAppApi.getPurchases(packageName, walletAddress, walletSignature,
+        BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
         .map { responseMapper.map(it) }
   }
 
-  internal fun consumePurchase(packageName: String,
-                               purchaseToken: String,
-                               walletAddress: String,
+  internal fun getPurchasesSubs(packageName: String): Single<List<Purchase>> {
+    return subsApi.getPurchases(packageName)
+        .map { responseMapper.map(packageName, it) }
+  }
+
+  internal fun consumePurchase(packageName: String, purchaseToken: String, walletAddress: String,
                                walletSignature: String): Single<Boolean> {
-    return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
+    return inAppApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
         .toSingle { true }
   }
@@ -81,32 +114,31 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                  developerPayload: String?, callback: String?,
                                  orderReference: String?,
                                  referrerUrl: String?): Single<Transaction> {
-    return api.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
+    return inAppApi.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
         "APPC", productName, type, null, developerWallet, storeWallet, oemWallet, id,
         developerPayload, callback, orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
-                           walletSignature: String,
-                           paymentProof: String): Completable {
-    return api.patchTransaction(paymentType, paymentId, walletAddress, walletSignature,
+                           walletSignature: String, paymentProof: String): Completable {
+    return inAppApi.patchTransaction(paymentType, paymentId, walletAddress, walletSignature,
         paymentProof)
   }
 
   internal fun getPaymentMethods(value: String?,
                                  currency: String?): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(value, currency)
+    return inAppApi.getPaymentMethods(value, currency)
         .map { responseMapper.map(it) }
   }
 
   internal fun getPaymentMethodsForType(type: String): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(type = type)
+    return inAppApi.getPaymentMethods(type = type)
         .map { responseMapper.map(it) }
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction> {
-    return api.getAppcoinsTransaction(uid, address, signedContent)
+    return inAppApi.getAppcoinsTransaction(uid, address, signedContent)
   }
 
   fun getWallet(packageName: String): Single<GetWalletResponse> {
@@ -116,121 +148,11 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   fun transferCredits(toWallet: String, origin: String, type: String, gateway: String,
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
-    return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
-            "APPC", null, type, toWallet, null, null,
-            null, null, null, null, null, null,
-            walletAddress, signature)
-        .toCompletable()
-
-  }
-
-  interface BdsApi {
-
-    @GET("inapp/8.20180518/packages/{packageName}")
-    fun getPackage(@Path("packageName") packageName: String, @Query("type")
-    type: String): Single<GetPackageResponse>
-
-    @GET("inapp/8.20180518/packages/{packageName}/products")
-    fun getPackages(@Path("packageName") packageName: String,
-                    @Query("names") names: String): Single<DetailsResponseBody>
-
-    @GET("inapp/8.20180518/packages/{packageName}/products/{skuId}/purchase")
-    fun getSkuPurchase(@Path("packageName") packageName: String,
-                       @Path("skuId") skuId: String?,
-                       @Query("wallet.address") walletAddress: String,
-                       @Query("wallet.signature") walletSignature: String): Single<Purchase>
-
-    @GET("broker/8.20180518/transactions")
-    fun getSkuTransaction(
-        @Query("wallet.address") walletAddress: String,
-        @Query("wallet.signature") walletSignature: String,
-        @Query("cursor") cursor: Long,
-        @Query("type") type: TransactionType,
-        @Query("limit") limit: Long,
-        @Query("sort.name") sort: String,
-        @Query("sort.reverse") isReverse: Boolean,
-        @Query("product") skuId: String?,
-        @Query("domain") packageName: String
-    ): Single<TransactionsResponse>
-
-    @GET("broker/8.20180518/transactions/{uId}")
-    fun getAppcoinsTransaction(@Path("uId") uId: String,
-                               @Query("wallet.address") walletAddress: String,
-                               @Query("wallet.signature")
-                               walletSignature: String): Single<Transaction>
-
-
-    @GET("inapp/8.20180518/packages/{packageName}/purchases")
-    fun getPurchases(@Path("packageName") packageName: String,
-                     @Query("wallet.address") walletAddress: String,
-                     @Query("wallet.signature") walletSignature: String,
-                     @Query("type") type: String): Single<GetPurchasesResponse>
-
-    @Headers("Content-Type: application/json")
-    @PATCH("inapp/8.20180518/packages/{packageName}/purchases/{purchaseId}")
-    fun consumePurchase(@Path("packageName") packageName: String,
-                        @Path("purchaseId") purchaseToken: String,
-                        @Query("wallet.address") walletAddress: String,
-                        @Query("wallet.signature") walletSignature: String,
-                        @Body data: Consumed): Completable
-
-    @GET("broker/8.20200311/methods")
-    fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
-    currency: String? = null, @Query("currency.type")
-                          type: String? = null): Single<GetMethodsResponse>
-
-    @FormUrlEncoded
-    @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")
-    fun patchTransaction(
-        @Path("gateway") gateway: String,
-        @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
-        @Query("wallet.signature") walletSignature: String, @Field("pay_key")
-        paykey: String): Completable
-
-    /**
-     * All optional fields should be passed despite possible being null as these are
-     * required by some applications to complete the purchase flow
-     * @param gateway type of the transaction that is being created;
-     * @see com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
-     * @param origin value from the transaction origin (bds, unity, unknown)
-     * @param domain package name of the application
-     * @param priceValue amount of the transaction. Only needed in one step payments
-     * @param priceCurrency currency of the transaction. Only needed in one step payments
-     * @param product name of the product that is being bought
-     * @param type name of the payment method being used
-     * @param userWallet address of the user wallet
-     * @param walletsDeveloper Wallet address of the apps developer
-     * @param walletsOem Wallet address of the original equipment manufacturer
-     * @param token
-     * @param developerPayload Group of details used in some purchases by the application to
-     * complete the purchase
-     * @param callback url used in some purchases by the application to complete the purchase
-     * @param orderReference reference used in some purchases by the application to
-     * @param referrerUrl url to validate the transaction
-     * @param walletAddress address of the user wallet
-     * @param walletSignature signature obtained after signing the wallet
-     * complete the purchase
-     */
-    @FormUrlEncoded
-    @POST("broker/8.20180518/gateways/{gateway}/transactions")
-    fun createTransaction(@Path("gateway") gateway: String,
-                          @Field("origin") origin: String?,
-                          @Field("domain") domain: String,
-                          @Field("price.value") priceValue: String?,
-                          @Field("price.currency") priceCurrency: String,
-                          @Field("product") product: String?,
-                          @Field("type") type: String,
-                          @Field("wallets.user") userWallet: String?,
-                          @Field("wallets.developer") walletsDeveloper: String?,
-                          @Field("wallets.store") walletsStore: String?,
-                          @Field("wallets.oem") walletsOem: String?,
-                          @Field("token") token: String?,
-                          @Field("metadata") developerPayload: String?,
-                          @Field("callback_url") callback: String?,
-                          @Field("reference") orderReference: String?,
-                          @Field("referrer_url") referrerUrl: String?,
-                          @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String): Single<Transaction>
+    return inAppApi.createTransaction(gateway, origin, packageName, amount.toPlainString(),
+        "APPC", null, type, toWallet, null, null,
+        null, null, null, null, null, null,
+        walletAddress, signature)
+        .ignoreElement()
   }
 
   data class Consumed(val status: String = "CONSUMED")

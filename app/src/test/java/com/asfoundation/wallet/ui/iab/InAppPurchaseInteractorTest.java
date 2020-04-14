@@ -4,6 +4,7 @@ import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -81,6 +82,7 @@ public class InAppPurchaseInteractorTest {
   private static final String ICON_PATH = "icon_path";
   private static final String SKU = "sku";
   private static final String UID = "uid";
+  private static final String TYPE = "inapp";
   private static final String DEVELOPER_PAYLOAD = "developer_payload";
   private static final String STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad";
   private static final String OEM_ADDRESS = "0x0965b2a3e664690315ad20b9e5b0336c19cf172e";
@@ -176,13 +178,14 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")),
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, TYPE)),
         Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, TYPE)));
 
-    when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
-        Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")));
+    when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class),
+        any(BillingSupportedType.class))).thenReturn(Single.just(
+        new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, TYPE)));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
@@ -387,7 +390,7 @@ public class InAppPurchaseInteractorTest {
 
     TestObserver<Object> submitObserver = new TestObserver<>();
     inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, TYPE)
         .subscribe(submitObserver);
 
     scheduler.triggerActions();
