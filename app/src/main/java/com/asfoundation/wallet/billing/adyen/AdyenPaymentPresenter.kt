@@ -218,27 +218,24 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             .andThen(Completable.fromAction { navigator.popView(it) })
                       }
                 }
-                paymentFailed(it.status) -> {
+                isPaymentFailed(it.status) -> {
                   Completable.fromAction {
-                    sendPaymentErrorEvent(it.refusalCode, it.refusalReason)
+                    sendPaymentErrorEvent(it.error.code,
+                        buildRefusalReason(it.status, it.error.message))
                     view.showGenericError()
                   }
                       .subscribeOn(viewScheduler)
                 }
                 else -> {
+                  sendPaymentErrorEvent(it.error.code, it.status.toString())
                   Completable.fromAction { view.showGenericError() }
                 }
               }
             }
       }
-      error.hasError -> Completable.fromAction {
-        sendPaymentErrorEvent(refusalCode, refusalReason)
-        if (error.isNetworkError) view.showNetworkError()
-        else view.showGenericError()
-      }
       refusalReason != null -> Completable.fromAction {
+        sendPaymentErrorEvent(refusalCode, refusalReason)
         refusalCode?.let { code ->
-          sendPaymentErrorEvent(refusalCode, refusalReason)
           if (code == CVC_DECLINED) {
             view.showCvvError()
           } else {
@@ -246,15 +243,24 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           }
         }
       }
+      error.hasError -> Completable.fromAction {
+        sendPaymentErrorEvent(error.code, error.message)
+        if (error.isNetworkError) view.showNetworkError()
+        else view.showGenericError()
+      }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
-        sendPaymentErrorEvent(refusalCode, refusalReason)
+        sendPaymentErrorEvent(error.code, "Generic Error")
         view.showGenericError()
       }
     }
   }
 
-  private fun paymentFailed(status: Status): Boolean {
+  private fun buildRefusalReason(status: Status, message: String?): String {
+    return message?.let { "$status : $it" } ?: status.toString()
+  }
+
+  private fun isPaymentFailed(status: Status): Boolean {
     return status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
   }
 
@@ -353,7 +359,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .observeOn(viewScheduler)
         .subscribe { transactionBuilder: TransactionBuilder ->
           analytics.sendPaymentEvent(domain, transactionBuilder.skuId,
-              transactionBuilder.amount().toString(), mapPaymentToAnalytics(paymentType),
+              transactionBuilder.amount()
+                  .toString(), mapPaymentToAnalytics(paymentType),
               transactionBuilder.type)
         })
   }
@@ -374,8 +381,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun sendPaymentSuccessEvent() {
     disposables.add(transactionBuilder
         .observeOn(networkScheduler)
-        .doOnSuccess { transaction -> analytics.sendPaymentSuccessEvent(domain, transaction.skuId,
-              transaction.amount().toString(), mapPaymentToAnalytics(paymentType), transaction.type)
+        .doOnSuccess { transaction ->
+          analytics.sendPaymentSuccessEvent(domain, transaction.skuId,
+              transaction.amount().toString(),
+              mapPaymentToAnalytics(paymentType), transaction.type)
         }
         .subscribe({}, { it.printStackTrace() }))
   }

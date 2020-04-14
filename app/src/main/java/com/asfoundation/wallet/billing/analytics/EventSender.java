@@ -39,4 +39,7 @@ public interface EventSender {
 
   void sendPurchaseStartWithoutDetailsEvent(String packageName, String skuDetails, String value,
       String transactionType, String context);
+
+  void sendPaypalUrlEvent(String packageName, String skuDetails, String value,
+      String transactionType, String type, String resultCode, String url);
 }
