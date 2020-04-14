@@ -66,15 +66,15 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     super.onDestroyView()
   }
 
-  override fun showNormalPioneer(pioneer: Boolean) {
-    if (pioneer) {
-      gamification_progress_bar_pioneer.setPioneer()
+  override fun showPioneerUser() {
+      gamification_progress_bar_pioneer.setupPioneerUi()
       rewards_layout_pioneer.visibility = View.VISIBLE
       rewards_layout_normal.visibility = View.GONE
-    } else {
+  }
+
+  override fun showNonPioneerUser() {
       rewards_layout_normal.visibility = View.GONE
       rewards_layout_pioneer.visibility = View.VISIBLE
-    }
   }
 
   override fun setupLayout() {

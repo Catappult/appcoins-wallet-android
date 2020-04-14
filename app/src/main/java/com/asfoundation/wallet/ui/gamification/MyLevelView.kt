@@ -14,5 +14,7 @@ interface MyLevelView {
 
   fun animateBackgroundFade()
 
-  fun showNormalPioneer(pioneer: Boolean)
+  fun showPioneerUser()
+
+  fun showNonPioneerUser()
 }

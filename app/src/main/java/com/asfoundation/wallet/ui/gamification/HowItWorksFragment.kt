@@ -76,6 +76,10 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       }
     }
 
+    showBonusUpdatedDate(updateDate)
+  }
+
+  private fun showBonusUpdatedDate(updateDate: Date?) {
     updateDate?.let {
       val df: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
       val date = df.format(it)

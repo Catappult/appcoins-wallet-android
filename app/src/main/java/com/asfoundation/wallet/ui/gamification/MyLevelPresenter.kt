@@ -49,7 +49,10 @@ class MyLevelPresenter(private val view: MyLevelView,
       activity?.showNetworkErrorView()
     } else {
       activity?.showMainView()
-      view.showNormalPioneer(pioneer)
+      if (pioneer)
+        view.showPioneerUser()
+      else
+        view.showNonPioneerUser()
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {
         view.setStaringLevel(lastShownLevel, level, bonus, pioneer)
       }

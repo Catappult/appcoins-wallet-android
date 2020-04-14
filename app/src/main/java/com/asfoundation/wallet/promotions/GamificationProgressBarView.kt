@@ -26,22 +26,18 @@ constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 
     View.inflate(context, R.layout.rewards_progress_bar, this)
   }
 
-  fun setPioneer() {
-    level_1.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_1.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_1_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
-    level_2.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_2.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_2_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
-    level_3.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_3.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_3_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
-    level_4.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_4.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_4_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
-    level_5.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_5.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
-    level_5_text.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+  private fun setLevelUi(view: View, levelText: TextView) {
+    view.level_active_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    view.level_inactive_icon.setBackgroundResource(R.drawable.level_icon_background_border)
+    levelText.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+  }
+
+  fun setupPioneerUi() {
+    setLevelUi(level_1, level_5_text)
+    setLevelUi(level_2, level_5_text)
+    setLevelUi(level_3, level_5_text)
+    setLevelUi(level_4, level_5_text)
+    setLevelUi(level_5, level_5_text)
 
     progress_bar.progressTintList =
         ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.white, null))
