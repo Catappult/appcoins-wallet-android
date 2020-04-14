@@ -8,7 +8,7 @@ enum class BillingSupportedType {
     @JvmStatic
     fun valueOfInsensitive(value: String): BillingSupportedType {
       return values().firstOrNull { it.name.equals(value, true) }
-          ?: INAPP
+          ?: throw IllegalArgumentException()
     }
   }
 
