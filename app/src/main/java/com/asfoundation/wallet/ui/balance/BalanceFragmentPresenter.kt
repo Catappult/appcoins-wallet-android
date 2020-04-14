@@ -47,9 +47,9 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun updateUI(balanceScreenModel: BalanceScreenModel) {
-    updateAppcBalance(balanceScreenModel.appcBalance)
-    updateCreditsBalance(balanceScreenModel.creditsBalance)
-    updateEthereumBalance(balanceScreenModel.ethBalance)
+    updateTokenBalance(balanceScreenModel.appcBalance, WalletCurrency.APPCOINS)
+    updateTokenBalance(balanceScreenModel.creditsBalance, WalletCurrency.CREDITS)
+    updateTokenBalance(balanceScreenModel.ethBalance, WalletCurrency.ETHEREUM)
     updateOverallBalance(balanceScreenModel.overallFiat)
   }
 
@@ -68,34 +68,14 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .subscribe())
   }
 
-  private fun updateAppcBalance(balance: TokenBalance) {
+  private fun updateTokenBalance(balance: TokenBalance, currency: WalletCurrency) {
     var tokenBalance = "-1"
     var fiatBalance = "-1"
     if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance = formatter.formatCurrency(balance.token.amount, WalletCurrency.APPCOINS)
+      tokenBalance = formatter.formatCurrency(balance.token.amount, currency)
       fiatBalance = formatter.formatCurrency(balance.fiat)
     }
-    view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.APPCOINS, balance.fiat.symbol)
-  }
-
-  private fun updateCreditsBalance(balance: TokenBalance) {
-    var tokenBalance = "-1"
-    var fiatBalance = "-1"
-    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance = formatter.formatCurrency(balance.token.amount, WalletCurrency.CREDITS)
-      fiatBalance = formatter.formatCurrency(balance.fiat)
-    }
-    view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.CREDITS, balance.fiat.symbol)
-  }
-
-  private fun updateEthereumBalance(balance: TokenBalance) {
-    var tokenBalance = "-1"
-    var fiatBalance = "-1"
-    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance = formatter.formatCurrency(balance.token.amount, WalletCurrency.ETHEREUM)
-      fiatBalance = formatter.formatCurrency(balance.fiat)
-    }
-    view.updateTokenValue(tokenBalance, fiatBalance, WalletCurrency.ETHEREUM, balance.fiat.symbol)
+    view.updateTokenValue(tokenBalance, fiatBalance, currency, balance.fiat.symbol)
   }
 
   private fun updateOverallBalance(balance: FiatValue) {

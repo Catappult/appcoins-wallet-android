@@ -4,6 +4,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.transact.TransferFragmentView
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.text.NumberFormat
 
 class CurrencyFormatUtils {
@@ -91,10 +92,15 @@ class CurrencyFormatUtils {
     val transferFormatter = NumberFormat.getNumberInstance()
         .apply {
           minimumFractionDigits = scale
-          maximumFractionDigits = 18
+          maximumFractionDigits = 15
           roundingMode = RoundingMode.FLOOR
         }
     return transferFormatter.format(value)
+  }
+
+  fun formatGamificationValues(value: BigDecimal): String {
+    val formatter = DecimalFormat("#,###.##")
+    return formatter.format(value)
   }
 }
 

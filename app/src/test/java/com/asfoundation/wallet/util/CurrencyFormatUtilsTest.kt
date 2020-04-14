@@ -86,4 +86,82 @@ class CurrencyFormatUtilsTest {
     assertEquals(expectedValueFr, formattedValueFr)
     assertEquals(expectedValueBr, formattedValueBr)
   }
+
+  @Test
+  fun formatTransferConfirmation() {
+    val bigValue = value
+    val smallValue = 1.123456789012345678
+    Locale.setDefault(Locale.US)
+    var formattedValueUs =
+        formatter.formatTransferConfirmation(bigValue.toDouble(), WalletCurrency.ETHEREUM)
+    var expectedValueUs = "123,456,789.123456"
+
+    Locale.setDefault(Locale.FRANCE)
+    var formattedValueFr =
+        formatter.formatTransferConfirmation(bigValue.toDouble(), WalletCurrency.ETHEREUM)
+    var expectedValueFr = "123 456 789,123456"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    var formattedValueBr =
+        formatter.formatTransferConfirmation(bigValue.toDouble(), WalletCurrency.ETHEREUM)
+    var expectedValueBr = "123.456.789,123456"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatTransferConfirmation(smallValue, WalletCurrency.ETHEREUM)
+    expectedValueUs = "1.123456789012345"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatTransferConfirmation(smallValue, WalletCurrency.ETHEREUM)
+    expectedValueFr = "1,123456789012345"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatTransferConfirmation(smallValue, WalletCurrency.ETHEREUM)
+    expectedValueBr = "1,123456789012345"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+  }
+
+  @Test
+  fun formatGamificationValues() {
+    val gamificationValueInt = BigDecimal(12345)
+    val gamificationValueDecimal = BigDecimal(12345.123)
+
+    Locale.setDefault(Locale.US)
+    var formattedValueUs = formatter.formatGamificationValues(gamificationValueInt)
+    var expectedValueUs = "12,345"
+
+    Locale.setDefault(Locale.FRANCE)
+    var formattedValueFr = formatter.formatGamificationValues(gamificationValueInt)
+    var expectedValueFr = "12 345"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    var formattedValueBr = formatter.formatGamificationValues(gamificationValueInt)
+    var expectedValueBr = "12.345"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatGamificationValues(gamificationValueDecimal)
+    expectedValueUs = "12,345.12"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatGamificationValues(gamificationValueDecimal)
+    expectedValueFr = "12 345,12"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatGamificationValues(gamificationValueDecimal)
+    expectedValueBr = "12.345,12"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+  }
 }
