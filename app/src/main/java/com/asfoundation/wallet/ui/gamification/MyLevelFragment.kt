@@ -84,7 +84,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun setupLayout() {
     for (i in 0..4) {
       gamificationProgressBarView.setLevelIcons(i)
-      gamification_progress_bar_pioneer?.setLevelIcons(i)
     }
   }
 
@@ -92,7 +91,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     if (bonus.size != 1) {
       step = 100 / (bonus.size - 1)
     }
-    gamification_loading.visibility = View.GONE
 
     setLevelResources(level)
     gamificationProgressBarView.animateProgress(lastShownLevel, level, step)
