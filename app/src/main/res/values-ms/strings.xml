@@ -600,7 +600,7 @@
   <string name="support_new_message_title">Anda ada mesej baharu!</string>
   <string name="support_new_message_button">Ketik untuk buka</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">Peratusan bonus telah dikemas kini pada 1 April 2020.</string>
+  <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
   <string name="pioneer_gamification_title">Anda Perintis</string>
   <string name="pioneer_gamification_body">Perintis ialah penerima guna awal dengan bonus dipertingkat.</string>
 </resources>
