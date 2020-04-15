@@ -78,14 +78,13 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   override fun showNonPioneerUser() {
     gamificationProgressBarView = gamification_progress_bar_normal
-    rewards_layout_normal.visibility = View.GONE
-    rewards_layout_pioneer.visibility = View.VISIBLE
+    rewards_layout_normal.visibility = View.VISIBLE
+    rewards_layout_pioneer.visibility = View.GONE
   }
 
   override fun setupLayout() {
     for (i in 0..4) {
-      gamification_progress_bar_normal?.setLevelIcons(i)
-      gamification_progress_bar_pioneer?.setLevelIcons(i)
+      gamificationProgressBarView.setLevelIcons(i)
     }
   }
 
@@ -126,7 +125,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun animateBackgroundFade() {
-    howItWorksBottomSheet.bottomSheetCallback = object :
+    howItWorksBottomSheet.addBottomSheetCallback(object :
         BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
@@ -134,7 +133,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    }
+    })
   }
 
   private fun setLevelResources(level: Int) {

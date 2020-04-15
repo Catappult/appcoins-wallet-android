@@ -43,7 +43,6 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
         Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
@@ -55,10 +54,9 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       levels: List<ViewLevel>,
       currentLevel: Int, updateDate: Date?) {
     fragment_gamification_how_it_works_loading.visibility = View.INVISIBLE
-    var view: View?
 
     for (level in levels) {
-      view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
+      val view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
           fragment_gamification_how_it_works_levels_layout, false)
       val levelTextView = view.findViewById<TextView>(R.id.level)
       val spendTextView = view.findViewById<TextView>(R.id.message)
@@ -80,11 +78,12 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   private fun showBonusUpdatedDate(updateDate: Date?) {
-    updateDate?.let {
+    if (updateDate == null) {
+      bonus_update_icon.visibility = View.GONE
+      bonus_update_info.visibility = View.GONE
+    } else {
       val df: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-      val date = df.format(it)
-      bonus_update_icon.visibility = View.VISIBLE
-      bonus_update_info.visibility = View.VISIBLE
+      val date = df.format(updateDate)
       bonus_update_info.text = getString(R.string.pioneer_bonus_updated_body, date)
     }
   }
