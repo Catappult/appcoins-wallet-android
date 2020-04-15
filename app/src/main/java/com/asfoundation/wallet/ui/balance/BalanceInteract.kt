@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.util.Log
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -9,6 +10,8 @@ import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APP
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.annotations.Nullable
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
@@ -31,6 +34,24 @@ class BalanceInteract(
         .flatMapObservable { balanceRepository.getCreditsBalance(it) }
   }
 
+  private fun getStoredAppcBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
+    return (if (walletAddress != null) Single.just(
+        walletAddress) else walletInteract.find().map { it.address })
+        .flatMap { balanceRepository.getStoredAppcBalance(it) }
+  }
+
+  private fun getStoredEthBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
+    return (if (walletAddress != null) Single.just(
+        walletAddress) else walletInteract.find().map { it.address })
+        .flatMap { balanceRepository.getStoredEthBalance(it) }
+  }
+
+  private fun getStoredCreditsBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
+    return (if (walletAddress != null) Single.just(
+        walletAddress) else walletInteract.find().map { it.address })
+        .flatMap { balanceRepository.getStoredCreditsBalance(it) }
+  }
+
   fun requestTokenConversion(): Observable<BalanceScreenModel> {
     return Observable.zip(
         getCreditsBalance(),
@@ -40,6 +61,35 @@ class BalanceInteract(
           mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
         }
     )
+  }
+
+  fun getStoredOverallBalance(@Nullable walletAddress: String? = null): Single<FiatValue> {
+    return Single.zip(
+        getStoredAppcBalance(walletAddress),
+        getStoredEthBalance(walletAddress),
+        getStoredCreditsBalance(walletAddress),
+        Function3 { creditsBalance, appcBalance, ethBalance ->
+          Log.e("Test", "getStoredOverallBalance")
+          mapOverallBalance(creditsBalance, appcBalance, ethBalance)
+        }
+    )
+  }
+
+  private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
+                                appcBalance: Pair<Balance, FiatValue>,
+                                ethBalance: Pair<Balance, FiatValue>): FiatValue {
+    var balance = getAddBalanceValue(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE,
+        creditsBalance.first.value)
+    balance = getAddBalanceValue(balance, appcBalance.first.value)
+    balance = getAddBalanceValue(balance, ethBalance.first.value)
+
+    if (balance.compareTo(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE) == 1) {
+      balance.stripTrailingZeros()
+          .setScale(2, BigDecimal.ROUND_DOWN)
+    }
+
+    return FiatValue(balance, appcBalance.second.currency, appcBalance.second.symbol)
+
   }
 
   private fun mapToBalanceScreenModel(creditsBalance: Pair<Balance, FiatValue>,

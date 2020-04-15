@@ -6,6 +6,4 @@ class BackupActivityPresenter(private val view: BackupActivityView) {
       view.showBackupScreen()
     }
   }
-
-
 }

@@ -63,6 +63,7 @@
       app:layout_constraintBottom_toTopOf="@id/proceed_btn"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      android:visibility="gone"
       />
 
   <androidx.appcompat.widget.AppCompatButton

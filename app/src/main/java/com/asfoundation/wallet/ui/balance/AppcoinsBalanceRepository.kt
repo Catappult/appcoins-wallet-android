@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.util.Log
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.Wallet
@@ -11,6 +12,7 @@ import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
 class AppcoinsBalanceRepository(
@@ -95,5 +97,23 @@ class AppcoinsBalanceRepository(
     if (entity == null) {
       balanceDetailsDao.insert(balanceDetailsMapper.map(walletAddress))
     }
+  }
+
+  override fun getStoredEthBalance(walletAddr: String): Single<Pair<Balance, FiatValue>> {
+    return getBalance(walletAddr).map {
+      balanceDetailsMapper.mapEthBalance(it) }
+        .firstOrError()
+  }
+
+  override fun getStoredAppcBalance(walletAddr: String): Single<Pair<Balance, FiatValue>> {
+    return getBalance(walletAddr).map {
+      balanceDetailsMapper.mapAppcBalance(it) }
+        .firstOrError()
+  }
+
+  override fun getStoredCreditsBalance(walletAddr: String): Single<Pair<Balance, FiatValue>> {
+    return getBalance(walletAddr).map {
+      balanceDetailsMapper.mapCreditsBalance(it)
+    }.firstOrError()
   }
 }
