@@ -221,6 +221,7 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -1329,5 +1330,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
     return new TopUpAnalytics(analyticsManager);
+  }
+
+  @Singleton @Provides CurrencyFormatUtils provideCurrencyFormatUtils() {
+    return CurrencyFormatUtils.Companion.create();
   }
 }

@@ -36,7 +36,9 @@ import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.RootUtil;
+import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
@@ -61,6 +63,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject PreferencesRepositoryType preferencesRepositoryType;
+  @Inject CurrencyFormatUtils formatter;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
@@ -127,7 +130,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
-        this::onNotificationClick, getResources());
+        this::onNotificationClick, getResources(), formatter);
 
     adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -442,15 +445,21 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     StringBuilder stringBuilder = new StringBuilder();
     String bullet = "\u00A0\u00A0\u00A0\u2022\u00A0\u00A0\u00A0";
     if (showCredits) {
-      stringBuilder.append(creditsBalance.toString())
+      String creditsString = formatter.formatCurrency(creditsBalance.getValue(), WalletCurrency.CREDITS)
+          + " " + WalletCurrency.CREDITS.getSymbol();
+      stringBuilder.append(creditsString)
           .append(bullet);
     }
     if (showAppcoins) {
-      stringBuilder.append(appcoinsBalance.toString())
+      String appcString = formatter.formatCurrency(appcoinsBalance.getValue(), WalletCurrency.APPCOINS)
+          + " " + WalletCurrency.APPCOINS.getSymbol();
+      stringBuilder.append(appcString)
           .append(bullet);
     }
     if (showEthereum) {
-      stringBuilder.append(ethereumBalance.toString())
+      String ethString = formatter.formatCurrency(ethereumBalance.getValue(), WalletCurrency.ETHEREUM)
+          + " " + WalletCurrency.ETHEREUM.getSymbol();
+      stringBuilder.append(ethString)
           .append(bullet);
     }
     String subtitle = stringBuilder.toString();

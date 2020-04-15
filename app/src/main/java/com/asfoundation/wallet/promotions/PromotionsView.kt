@@ -23,7 +23,7 @@ interface PromotionsView {
   fun showNetworkErrorView()
   fun retryClick(): Observable<Any>
   fun showRetryAnimation()
-  fun setReferralBonus(bonus: BigDecimal, currency: String)
+  fun setReferralBonus(bonus: String, currency: String)
   fun toggleShareAvailability(validated: Boolean)
   fun hideLoading()
   fun showLoading()

@@ -27,6 +27,8 @@ import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -36,7 +38,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
@@ -62,20 +63,23 @@ public class TransactionsViewModel extends BaseViewModel {
   private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
   private CompositeDisposable disposables;
-  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private PublishSubject<Context> topUpClicks = PublishSubject.create();
+  private CurrencyFormatUtils formatter;
+  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor) {
+      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
+      CurrencyFormatUtils formatter) {
     this.applications = applications;
     this.analytics = analytics;
     this.transactionViewNavigator = transactionViewNavigator;
     this.transactionViewInteract = transactionViewInteract;
     this.supportInteractor = supportInteractor;
+    this.formatter = formatter;
     this.disposables = new CompositeDisposable();
   }
 
@@ -225,8 +229,7 @@ public class TransactionsViewModel extends BaseViewModel {
     BigDecimal sumFiat = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
         ethereumBalance.second.getAmount());
     if (sumFiat.compareTo(MINUS_ONE) > 0) {
-      fiatValue = sumFiat.setScale(FIAT_SCALE, RoundingMode.FLOOR)
-          .toString();
+      fiatValue = formatter.formatCurrency(sumFiat, WalletCurrency.FIAT);
     }
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =

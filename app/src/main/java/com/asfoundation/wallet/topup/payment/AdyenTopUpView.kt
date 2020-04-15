@@ -11,7 +11,7 @@ import java.math.BigDecimal
 
 interface AdyenTopUpView {
 
-  fun showValues(value: BigDecimal, currency: String)
+  fun showValues(value: String, currency: String)
 
   fun showLoading()
 

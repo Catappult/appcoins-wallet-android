@@ -14,6 +14,8 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -38,7 +40,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val currency: String,
                             private val isPreSelected: Boolean,
                             private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
-                            private val gamificationLevel: Int) {
+                            private val gamificationLevel: Int,
+                            private val formatter: CurrencyFormatUtils) {
 
   private var waitingResult = false
 
@@ -107,7 +110,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 if (it.error.isNetworkError) view.showNetworkError()
                 else view.showGenericError()
               } else {
-                view.showProductPrice(it.priceAmount, it.priceCurrency)
+                val amount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
+                view.showProductPrice(amount, it.priceCurrency)
                 if (paymentType == PaymentType.CARD.name) {
                   view.hideLoadingAndShowView()
                   sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
@@ -363,15 +367,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun sendRevenueEvent() {
     disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
-      analytics.sendRevenueEvent(
-          adyenPaymentInteractor.convertToFiat(transactionBuilder.amount()
-              .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .blockingGet()
-              .amount
-              .setScale(2, BigDecimal.ROUND_UP)
-              .toString())
+      analytics.sendRevenueEvent(adyenPaymentInteractor.convertToFiat(transactionBuilder.amount()
+          .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .blockingGet()
+          .amount
+          .setScale(2, BigDecimal.ROUND_UP)
+          .toString())
     })
   }
 
@@ -380,8 +383,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .observeOn(networkScheduler)
         .doOnSuccess { transaction ->
           analytics.sendPaymentSuccessEvent(domain, transaction.skuId,
-              transaction.amount()
-                  .toString(),
+              transaction.amount().toString(),
               mapPaymentToAnalytics(paymentType), transaction.type)
         }
         .subscribe({}, { it.printStackTrace() }))

@@ -42,6 +42,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     const val WEB_VIEW_REQUEST_CODE = 1234
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
+    private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
     private const val FIRST_IMPRESSION = "first_impression"
   }
@@ -112,7 +113,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
-                data.getString(TOP_UP_CURRENCY), data.getString(BONUS)),
+                data.getString(TOP_UP_CURRENCY), data.getString(BONUS), data.getString(
+                TOP_UP_CURRENCY_SYMBOL)),
             TopUpSuccessFragment::class.java.simpleName)
         .commit()
     unlockRotation()

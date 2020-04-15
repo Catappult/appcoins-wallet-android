@@ -16,6 +16,8 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -48,7 +50,8 @@ class PaymentMethodsPresenter(
     private val transaction: TransactionBuilder,
     private val paymentMethodsMapper: PaymentMethodsMapper,
     private val walletBlockedInteract: WalletBlockedInteract,
-    private val transactionValue: Double) {
+    private val transactionValue: Double,
+    private val formatter: CurrencyFormatUtils) {
 
   private var gamificationLevel = 0
 
@@ -222,25 +225,28 @@ class PaymentMethodsPresenter(
 
   private fun setupUi(transactionValue: Double) {
     disposables.add(waitForOngoingPurchase(transaction.skuId).subscribeOn(networkThread)
-        .andThen(inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-            .subscribeOn(networkThread)
-            .flatMapCompletable { fiatValue ->
-              getPaymentMethods(fiatValue)
-                  .observeOn(viewScheduler)
-                  .flatMapCompletable { paymentMethods ->
-                    Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
-                  }
-            })
+        .andThen(
+            inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+                .subscribeOn(networkThread)
+                .flatMapCompletable { fiatValue ->
+                  getPaymentMethods(fiatValue)
+                      .observeOn(viewScheduler)
+                      .flatMapCompletable { paymentMethods ->
+                        Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
+                      }
+                })
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .subscribe({ }, { this.showError(it) }))
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
+    val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
+    val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
     if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
       getCreditsPaymentMethod(paymentMethods)?.let {
         if (it.isEnabled) {
-          showPreSelectedPaymentMethod(fiatValue, it)
+          showPreSelectedPaymentMethod(fiatValue, it, fiatAmount, appcAmount)
           return
         }
       }
@@ -250,7 +256,7 @@ class PaymentMethodsPresenter(
       val paymentMethod = getPreSelectedPaymentMethod(paymentMethods)
       if (paymentMethod == null || !paymentMethod.isEnabled) {
         showPaymentMethods(fiatValue, paymentMethods,
-            PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id)
+            PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id, fiatAmount, appcAmount)
       } else {
         when (paymentMethod.id) {
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> {
@@ -259,12 +265,12 @@ class PaymentMethodsPresenter(
             view.showAdyen(fiatValue,
                 PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)
           }
-          else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod)
+          else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount)
         }
       }
     } else {
       val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
-      showPaymentMethods(fiatValue, paymentMethods, paymentMethodId)
+      showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount, appcAmount)
     }
   }
 
@@ -285,16 +291,17 @@ class PaymentMethodsPresenter(
   }
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
-                                 paymentMethodId: String) {
+                                 paymentMethodId: String, fiatAmount: String, appcAmount: String) {
     view.showPaymentMethods(paymentMethods.toMutableList(), fiatValue,
-        mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId)
+        mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId, fiatAmount, appcAmount)
   }
 
-  private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod) {
+  private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,
+                                           fiatAmount: String, appcAmount: String) {
     view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
         TransactionData.TransactionType.DONATION.name
             .equals(transaction.type, ignoreCase = true),
-        mapCurrencyCodeToSymbol(fiatValue.currency))
+        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount)
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -345,12 +352,15 @@ class PaymentMethodsPresenter(
           getPaymentMethods(fiatValue).observeOn(viewScheduler)
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
+                  val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
+                  val appcAmount = formatter.formatCurrency(transaction.amount(),
+                      WalletCurrency.APPCOINS)
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   if (paymentMethodId != paymentMethodsMapper
                           .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
                     loadBonusIntoView()
                   }
-                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId)
+                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount, appcAmount)
                 }
               }
               .andThen(
@@ -426,8 +436,7 @@ class PaymentMethodsPresenter(
   private fun updateBalanceDao() {
     disposables.add(
         Observable.zip(balanceInteract.getEthBalance(), balanceInteract.getCreditsBalance(),
-            balanceInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> })
-            .take(1)
+            balanceInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> }).take(1)
             .subscribeOn(networkThread)
             .subscribe())
   }
