@@ -35,6 +35,21 @@ class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
         WALLET)
   }
 
+  fun sendPaypalUrlEvent(value: Double, paymentMethod: String, type: String?, resultCode: String?,
+                         url: String) {
+    val map = topUpBaseMap(value, paymentMethod)
+
+    type?.let { map[PAYPAL_TYPE] = it }
+    resultCode?.let { map[RESULT_CODE] = it }
+    if (url.length > MAX_CHARACTERS) {
+      map[URL] = url.takeLast(MAX_CHARACTERS)
+    } else {
+      map[URL] = url
+    }
+
+    analyticsManager.logEvent(map, WALLET_TOP_UP_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
+  }
+
   fun sendErrorEvent(value: Double, paymentMethod: String, status: String,
                      errorCode: String, errorDetails: String) {
     val map = topUpBaseMap(value, paymentMethod)
@@ -61,12 +76,17 @@ class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
     const val WALLET_TOP_UP_SELECTION = "wallet_top_up_selection"
     const val WALLET_TOP_UP_CONFIRMATION = "wallet_top_up_confirmation"
     const val WALLET_TOP_UP_CONCLUSION = "wallet_top_up_conclusion"
+    const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
     private const val VALUE = "value"
     private const val ACTION = "action"
     private const val METHOD = "method"
     private const val STATUS = "status"
     private const val ERROR_CODE = "error_code"
     private const val ERROR_DETAILS = "error_details"
+    private const val PAYPAL_TYPE = "type"
+    private const val RESULT_CODE = "result_code"
+    private const val URL = "url"
     private const val WALLET = "wallet"
+    private const val MAX_CHARACTERS = 100
   }
 }

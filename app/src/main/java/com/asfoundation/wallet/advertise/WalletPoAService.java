@@ -118,7 +118,8 @@ public class WalletPoAService extends Service {
                 .doOnSuccess(proof -> processWalletState(proof, intent, packageName)))
             .subscribe(requirementsStatus -> {
             }, throwable -> {
-              logger.log(TAG, throwable.getMessage(), throwable);
+              analytics.sendRakamProofEvent(packageName, "fail", throwable.toString());
+              logger.log(TAG, throwable);
               showGenericErrorNotificationAndStopForeground();
             });
       }
@@ -212,9 +213,7 @@ public class WalletPoAService extends Service {
             getString(R.string.notification_wrong_network_poa)).build());
         stopForeground(false);
         stopTimeout();
-        Throwable throwable =
-            new Throwable(new WrongNetworkException("Not on the correct network"));
-        logger.log(TAG, throwable.getMessage(), throwable);
+        logger.log(TAG, new Throwable(new WrongNetworkException("Not on the correct network")));
         break;
       case UPDATE_REQUIRED:
         if (autoUpdateInteract.shouldShowNotification()) {
@@ -225,8 +224,7 @@ public class WalletPoAService extends Service {
         stopTimeout();
         break;
       case UNKNOWN_NETWORK:
-        throwable = new Throwable(new WrongNetworkException("Unknown network"));
-        logger.log(TAG, throwable.getMessage(), throwable);
+        logger.log(TAG, new Throwable(new WrongNetworkException("Unknown network")));
         break;
     }
   }
@@ -496,21 +494,36 @@ public class WalletPoAService extends Service {
     if (completedEventDisposable == null || completedEventDisposable.isDisposed()) {
       completedEventDisposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
+          .doOnNext(this::handlePoaCompletedAnalytics)
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
           .doOnNext(proof -> {
             analyticsController.cleanStateFor(proof.getPackageName());
-            if (proof.getProofStatus()
-                .equals(ProofStatus.COMPLETED)) {
-              analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
-                  Integer.toString(proof.getChainId()));
-            }
           })
           .flatMapSingle(proof -> proofOfAttentionService.get()
               .firstOrError())
           .filter(List::isEmpty)
           .take(1)
           .subscribe();
+    }
+  }
+
+  private void handlePoaCompletedAnalytics(Proof proof) {
+    if (proof.getProofStatus()
+        .equals(ProofStatus.PHONE_NOT_VERIFIED)) {
+      analytics.sendRakamProofEvent(proof.getPackageName(), "fail", proof.getProofStatus()
+          .name());
+    } else if (proof.getProofStatus()
+        .isTerminate()) {
+      if (proof.getProofStatus()
+          .equals(ProofStatus.COMPLETED)) {
+        analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
+            Integer.toString(proof.getChainId()));
+        analytics.sendRakamProofEvent(proof.getPackageName(), "success", "");
+      } else {
+        analytics.sendRakamProofEvent(proof.getPackageName(), "fail", proof.getProofStatus()
+            .name());
+      }
     }
   }
 
@@ -521,8 +534,7 @@ public class WalletPoAService extends Service {
       packageInfo = getPackageManager().getPackageInfo(packageName, 0);
       versionCode = packageInfo.versionCode;
     } catch (PackageManager.NameNotFoundException e) {
-      Throwable throwable = new Throwable("Package not found exception");
-      logger.log(TAG, throwable.getMessage(), throwable);
+      logger.log(TAG, new Throwable("Package not found exception"));
       e.printStackTrace();
     }
     return versionCode;
