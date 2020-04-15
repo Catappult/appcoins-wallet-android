@@ -15,6 +15,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.TransferParser;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.support.DaggerFragment;
@@ -40,6 +41,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Inject BillingMessagesMapper billingMessagesMapper;
   @Inject BillingAnalytics analytics;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject CurrencyFormatUtils formatter;
   private View loadingView;
   private View transactionCompletedLayout;
   private LottieAnimationView lottieTransactionComplete;
@@ -93,7 +95,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, uri, callerPackageName, transferParser, isBds,
-            analytics, transactionBuilder, inAppPurchaseInteractor);
+            analytics, transactionBuilder, inAppPurchaseInteractor, formatter);
 
     lottieTransactionComplete =
         transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);

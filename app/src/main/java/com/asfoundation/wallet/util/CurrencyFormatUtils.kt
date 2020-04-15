@@ -10,8 +10,6 @@ import java.text.NumberFormat
 class CurrencyFormatUtils {
 
   companion object {
-    @JvmStatic
-    fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
     fun create(): CurrencyFormatUtils = CurrencyFormatUtils()
     const val FIAT_SCALE = 2
     const val APPC_SCALE = 2
@@ -102,7 +100,10 @@ class CurrencyFormatUtils {
     val formatter = DecimalFormat("#,###.##")
     return formatter.format(value)
   }
+
+  fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
 }
+
 
 enum class WalletCurrency(val symbol: String) {
   FIAT(""),
