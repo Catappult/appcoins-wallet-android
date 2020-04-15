@@ -8,7 +8,7 @@ class TopUpRouter {
 
   fun open(context: Context) {
     val intent = TopUpActivity.newIntent(context)
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
     context.startActivity(intent)
   }
 }

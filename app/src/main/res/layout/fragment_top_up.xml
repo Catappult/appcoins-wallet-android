@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
   <ScrollView
       android:id="@+id/top_up_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
       android:descendantFocusability="beforeDescendants"
       android:fillViewport="true"
+      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+      app:layout_constraintTop_toTopOf="parent"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -108,7 +112,7 @@
           />
 
       <View
-          android:id="@+id/top_separator"
+          android:id="@+id/top_separator_topup"
           android:layout_width="match_parent"
           android:layout_height="1dp"
           android:layout_marginStart="32dp"
@@ -125,24 +129,12 @@
           style="@style/TopUpTextStyle.ValueWarning"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
+          android:layout_marginTop="13dp"
           android:text="@string/topup_minimum_value"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/chips_layout"
-          />
-
-      <include
-          android:id="@+id/chips_layout"
-          layout="@layout/default_value_chips_layout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="40dp"
-          android:layout_marginTop="13dp"
-          android:layout_marginEnd="40dp"
-          android:visibility="gone"
-          app:layout_constraintTop_toBottomOf="@id/converted_value"
+          app:layout_constraintTop_toBottomOf="@+id/converted_value"
           />
 
       <androidx.constraintlayout.widget.ConstraintLayout
@@ -152,7 +144,7 @@
           android:layout_marginTop="18dp"
           android:paddingStart="25dp"
           android:paddingEnd="25dp"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toBottomOf="@id/top_separator_topup"
           >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -165,58 +157,36 @@
             app:layout_constraintTop_toTopOf="parent"
             >
 
-          <TextView
-              android:id="@+id/card_details"
+          <RelativeLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginEnd="16dp"
-              android:layout_marginBottom="16dp"
-              android:gravity="end"
-              android:text="****8500"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
-              />
+              >
+            <include
+                android:id="@+id/adyen_card_form"
+                layout="@layout/selected_payment_method_cc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/change_card_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/adyen_card_form"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/activity_iab_change_card"
+                android:textColor="@color/btn_cancel_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+          </RelativeLayout>
 
-          <com.braintreepayments.cardform.view.CardForm
-              android:id="@+id/fragment_braintree_credit_card_form"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:theme="@style/TopUpTextStyle.PaymentDetails"
-              android:visibility="visible"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/card_details"
-              />
-
-          <CheckBox
-              android:id="@+id/remember_card"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="12dp"
-              android:checked="true"
-              android:text="@string/dialog_credit_card_remember"
-              android:visibility="gone"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
-              />
-
-          <Button
-              android:id="@+id/change_card_button"
-              style="?android:attr/borderlessButtonStyle"
-              android:layout_width="126dp"
-              android:layout_height="@dimen/button_height"
-              android:layout_below="@id/fragment_braintree_credit_card_form"
-              android:gravity="center_vertical"
-              android:paddingStart="7dp"
-              android:text="@string/activity_iab_change_card"
-              android:textColor="@color/dialog_buy_value_text"
-              android:textSize="11sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
-              />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/payment_methods"
@@ -308,8 +278,25 @@
           app:layout_constraintVertical_bias="1.0"
           />
 
+      <include
+          android:id="@+id/fragment_adyen_error"
+          layout="@layout/fragment_adyen_error_top_up"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginEnd="32dp"
+          android:layout_marginBottom="76dp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
   </ScrollView>
+
   <include
       android:id="@+id/no_network"
       layout="@layout/no_network_retry_only_layout"
@@ -319,6 +306,7 @@
       app:layout_constraintBottom_toBottomOf="@id/half_guideline"
       app:layout_constraintStart_toStartOf="parent"
       />
+
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/half_guideline"
       android:layout_width="wrap_content"
@@ -326,4 +314,32 @@
       android:orientation="horizontal"
       app:layout_constraintGuide_percent="0.68"
       />
+
+  <View
+      android:id="@+id/bottom_separator"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginBottom="8dp"
+      android:background="@color/layout_separator_color"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/rv_default_values"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rv_default_values"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:orientation="horizontal"
+      android:overScrollMode="never"
+      android:visibility="gone"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:listitem="@layout/item_top_value"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

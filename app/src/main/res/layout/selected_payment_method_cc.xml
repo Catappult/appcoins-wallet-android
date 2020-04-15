@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.MaterialComponents"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/payment_method_background"
     >
 
   <ImageView
@@ -12,8 +12,6 @@
       android:layout_width="40dp"
       android:layout_height="40dp"
       android:layout_marginStart="8dp"
-      android:layout_marginTop="12dp"
-      android:layout_marginBottom="24dp"
       android:scaleType="centerInside"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +20,7 @@
       />
 
   <TextView
-      android:id="@+id/fragment_credit_card_authorization_pre_authorized_card"
+      android:id="@+id/adyen_card_form_pre_selected_number"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -35,34 +33,15 @@
       tools:visibility="gone"
       />
 
-  <com.braintreepayments.cardform.view.CardForm
-      android:id="@+id/fragment_braintree_credit_card_form"
+  <com.adyen.checkout.card.CardView
+      android:id="@+id/adyen_card_form_pre_selected"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:theme="@style/AppTheme"
+      android:inputType="numberDecimal"
       app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/fragment_credit_card_authorization_pre_authorized_card"
+      app:layout_constraintStart_toEndOf="@id/adyen_card_form_pre_selected_number"
       app:layout_constraintTop_toTopOf="@id/payment_method_ic"
-      />
-
-  <CheckBox
-      android:id="@+id/fragment_credit_card_authorization_remember_card_check_box"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/fragment_credit_card_authorization_pre_authorized_card"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="12dp"
-      android:layout_marginBottom="12dp"
-      android:checked="true"
-      android:text="@string/dialog_credit_card_remember"
-      android:textSize="11sp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
-      app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

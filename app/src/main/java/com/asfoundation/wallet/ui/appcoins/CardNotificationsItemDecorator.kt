@@ -35,12 +35,12 @@ class CardNotificationsItemDecorator : RecyclerView.ItemDecoration() {
       outRect.right = 16
       outRect.left = 16
 
-      val maxWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400.toFloat(),
+      val maxWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400f,
           parent.context.resources
               .displayMetrics)
           .toInt()
 
-      val margins = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32.toFloat(),
+      val margins = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32f,
           parent.context.resources
               .displayMetrics)
           .toInt()

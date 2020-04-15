@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +13,8 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
                                private val balanceInteract: BalanceInteract,
                                private val networkScheduler: Scheduler,
                                private val viewScheduler: Scheduler,
-                               private val disposables: CompositeDisposable) {
+                               private val disposables: CompositeDisposable,
+                               private val formatter: CurrencyFormatUtils) {
 
 
   companion object {
@@ -57,17 +61,36 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun updateUI(balanceScreenModel: BalanceScreenModel) {
-    view.updateTokenValue(balanceScreenModel.creditsBalance)
-    view.updateTokenValue(balanceScreenModel.appcBalance)
-    view.updateTokenValue(balanceScreenModel.ethBalance)
-    view.updateOverallBalance(balanceScreenModel.overallFiat)
+    updateTokenBalance(balanceScreenModel.appcBalance, WalletCurrency.APPCOINS)
+    updateTokenBalance(balanceScreenModel.creditsBalance, WalletCurrency.CREDITS)
+    updateTokenBalance(balanceScreenModel.ethBalance, WalletCurrency.ETHEREUM)
+    updateOverallBalance(balanceScreenModel.overallFiat)
   }
 
   private fun handleTokenDetailsClick() {
     disposables.add(
-        Observable.merge(view.getCreditClick(), view.getAppcClick(),
-            view.getEthClick()).throttleFirst(500,
-            TimeUnit.MILLISECONDS).map { view.showTokenDetails(it) }.subscribe())
+        Observable.merge(view.getCreditClick(), view.getAppcClick(), view.getEthClick())
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .map { view.showTokenDetails(it) }
+            .subscribe())
+  }
+
+  private fun updateTokenBalance(balance: TokenBalance, currency: WalletCurrency) {
+    var tokenBalance = "-1"
+    var fiatBalance = "-1"
+    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
+      tokenBalance = formatter.formatCurrency(balance.token.amount, currency)
+      fiatBalance = formatter.formatCurrency(balance.fiat)
+    }
+    view.updateTokenValue(tokenBalance, fiatBalance, currency, balance.fiat.symbol)
+  }
+
+  private fun updateOverallBalance(balance: FiatValue) {
+    var overallBalance = "-1"
+    if (balance.amount.compareTo(BigDecimal("-1")) == 1) {
+      overallBalance = formatter.formatCurrency(balance)
+    }
+    view.updateOverallBalance(overallBalance, balance.currency, balance.symbol)
   }
 
   private fun handleCopyClick() {
@@ -90,4 +113,6 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   fun stop() {
     disposables.clear()
   }
+
+
 }

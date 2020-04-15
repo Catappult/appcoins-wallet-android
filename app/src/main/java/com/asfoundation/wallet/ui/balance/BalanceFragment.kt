@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.balance
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
@@ -16,6 +17,8 @@ import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APP
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
@@ -39,6 +42,9 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   @Inject
   lateinit var balanceInteract: BalanceInteract
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
+
   private var onBackPressedSubject: PublishSubject<Any>? = null
   private var activityView: BalanceActivityView? = null
   private var showingAnimation: Boolean = false
@@ -46,7 +52,6 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   private lateinit var presenter: BalanceFragmentPresenter
 
   companion object {
-    private const val FIAT_SCALE = 2
     @JvmStatic
     fun newInstance(): BalanceFragment {
       return BalanceFragment()
@@ -65,7 +70,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = BalanceFragmentPresenter(this, balanceInteract,
-        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable())
+        Schedulers.io(),
+        AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
     onBackPressedSubject = PublishSubject.create()
   }
 
@@ -126,58 +132,59 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     (ether_token.token_balance_placeholder as LottieAnimationView).playAnimation()
   }
 
-  override fun updateTokenValue(tokenBalance: TokenBalance) {
-    if (tokenBalance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      when (tokenBalance.token.currency) {
-        APPC_C_CURRENCY -> {
+  @SuppressLint("SetTextI18n")
+  override fun updateTokenValue(tokenBalance: String,
+                                fiatBalance: String,
+                                tokenCurrency: WalletCurrency,
+                                fiatCurrency: String) {
+    if (tokenBalance != "-1" && fiatBalance != "-1") {
+      when (tokenCurrency) {
+        WalletCurrency.CREDITS -> {
           appcoins_credits_token.token_balance_placeholder.visibility = View.GONE
           (appcoins_credits_token.token_balance_placeholder as LottieAnimationView).cancelAnimation()
           appcoins_credits_token.token_balance.text =
-              "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
+              "$tokenBalance ${tokenCurrency.symbol}"
           appcoins_credits_token.token_balance.visibility = View.VISIBLE
           appcoins_credits_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(FIAT_SCALE,
-                  RoundingMode.FLOOR)}"
+              "$fiatCurrency$fiatBalance"
           appcoins_credits_token.token_balance_converted.visibility = View.VISIBLE
         }
-        APPC_CURRENCY -> {
+        WalletCurrency.APPCOINS -> {
           appcoins_token.token_balance_placeholder.visibility = View.GONE
           (appcoins_token.token_balance_placeholder as LottieAnimationView).cancelAnimation()
           appcoins_token.token_balance.text =
-              "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
+              "$tokenBalance ${tokenCurrency.symbol}"
           appcoins_token.token_balance.visibility = View.VISIBLE
           appcoins_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(FIAT_SCALE,
-                  RoundingMode.FLOOR)}"
+              "$fiatCurrency$fiatBalance"
           appcoins_token.token_balance_converted.visibility = View.VISIBLE
         }
-        ETH_CURRENCY -> {
+        WalletCurrency.ETHEREUM -> {
           ether_token.token_balance_placeholder.visibility = View.GONE
           (ether_token.token_balance_placeholder as LottieAnimationView).cancelAnimation()
           ether_token.token_balance.text =
-              "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
+              "$tokenBalance ${tokenCurrency.symbol}"
           ether_token.token_balance.visibility = View.VISIBLE
           ether_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(FIAT_SCALE,
-                  RoundingMode.FLOOR)}"
+              "$fiatCurrency$fiatBalance"
           ether_token.token_balance_converted.visibility = View.VISIBLE
         }
+        else -> return
       }
     }
   }
 
-  override fun updateOverallBalance(overallBalance: FiatValue) {
-    if (overallBalance.amount.compareTo(BigDecimal("-1")) == 1) {
+  @SuppressLint("SetTextI18n")
+  override fun updateOverallBalance(overallBalance: String, currency: String, symbol: String) {
+    if (overallBalance != "-1") {
       balance_label_placeholder.visibility = View.GONE
       (balance_label_placeholder as LottieAnimationView).cancelAnimation()
       balance_label.text =
-          String.format(getString(R.string.balance_total_body), overallBalance.currency)
+          String.format(getString(R.string.balance_total_body), currency)
       balance_label.visibility = View.VISIBLE
-
       balance_value_placeholder.visibility = View.GONE
       (balance_value_placeholder as LottieAnimationView).cancelAnimation()
-      balance_value.text =
-          overallBalance.symbol + overallBalance.amount.setScale(FIAT_SCALE, RoundingMode.FLOOR)
+      balance_value.text = symbol + overallBalance
       balance_value.visibility = View.VISIBLE
     }
   }

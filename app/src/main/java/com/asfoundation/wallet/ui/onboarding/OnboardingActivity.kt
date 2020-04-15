@@ -175,6 +175,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
                                 showAnimation: Boolean) {
     if (!showAnimation) {
       navigate(walletValidationStatus)
+      finish()
       return
     }
     create_wallet_animation.setAnimation(R.raw.success_animation)

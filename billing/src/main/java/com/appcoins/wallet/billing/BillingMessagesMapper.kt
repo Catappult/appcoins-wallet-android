@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.exceptions.ApiException
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_DATA_SIGNATURE
@@ -11,7 +12,6 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHAS
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_ID
 import com.appcoins.wallet.billing.exceptions.ServiceUnavailableException
 import com.appcoins.wallet.billing.exceptions.UnknownException
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import retrofit2.HttpException
@@ -23,6 +23,7 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     internal const val TRANSACTION_HASH = "transaction_hash"
     internal const val TOP_UP_AMOUNT = "top_up_amount"
     internal const val TOP_UP_CURRENCY = "currency"
+    internal const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     internal const val BONUS = "bonus"
     internal const val VALID_BONUS = "valid_bonus"
   }
@@ -133,13 +134,14 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun topUpBundle(amount: String, currency: String, bonus: String): Bundle {
-    val bundle = Bundle()
-    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-    bundle.putString(TOP_UP_AMOUNT, amount)
-    bundle.putString(TOP_UP_CURRENCY, currency)
-    bundle.putString(BONUS, bonus)
-    return bundle
+  fun topUpBundle(amount: String, currency: String, bonus: String, fiatCurrencySymbol: String): Bundle {
+    return Bundle().apply {
+      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+      putString(TOP_UP_AMOUNT, amount)
+      putString(TOP_UP_CURRENCY, currency)
+      putString(BONUS, bonus)
+      putString(TOP_UP_CURRENCY_SYMBOL, fiatCurrencySymbol)
+    }
   }
 
   fun mapFinishedPurchase(purchase: Purchase, itemAlreadyOwned: Boolean): Bundle {

@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.wallet_validation.generic
 
+import androidx.annotation.StringRes
 import com.asf.wallet.R
+import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
@@ -12,6 +14,7 @@ class PhoneValidationPresenter(
     private val view: PhoneValidationView,
     private val activity: WalletValidationView?,
     private val smsValidationInteract: SmsValidationInteract,
+    private val logger: Logger,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
     private val disposables: CompositeDisposable
@@ -30,19 +33,27 @@ class PhoneValidationPresenter(
             .doOnNext {
               view.hideKeyboard()
               activity?.finishCancelActivity()
-            }.subscribe())
+            }
+            .subscribe())
   }
 
   private fun handleNextAndRetryClicks() {
     disposables.add(
         Observable.merge(view.getNextClicks(), view.getRetryButtonClicks())
+            .doOnNext { view.setButtonState(false) }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.first}${it.second}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
+                    view.setButtonState(true)
                     onSuccess(status, it)
+                  }
+                  .doOnError { throwable ->
+                    view.setButtonState(false)
+                    showErrorMessage(R.string.unknown_error)
+                    logger.log(throwable)
                   }
             }
             .retry()
@@ -53,7 +64,10 @@ class PhoneValidationPresenter(
   private fun onSuccess(status: WalletValidationStatus, submitInfo: Pair<String, String>) {
     when (status) {
       WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.first,
-          submitInfo.second)
+          submitInfo.second) ?: run {
+        showErrorMessage(R.string.unknown_error)
+        logError()
+      }
       WalletValidationStatus.INVALID_INPUT,
       WalletValidationStatus.INVALID_PHONE -> {
         showErrorMessage(R.string.verification_insert_phone_field_number_error)
@@ -68,10 +82,22 @@ class PhoneValidationPresenter(
         view.hideKeyboard()
         view.showNoInternetView()
       }
+      WalletValidationStatus.LANDLINE_NOT_SUPPORTED -> {
+        showErrorMessage(R.string.verification_insert_phone_field_landline_error)
+        view.setButtonState(false)
+      }
+      WalletValidationStatus.REGION_NOT_SUPPORTED -> {
+        showErrorMessage(R.string.verification_insert_phone_field_region_error)
+        view.setButtonState(false)
+      }
     }
   }
 
-  private fun showErrorMessage(errorMessage: Int) {
+  private fun logError() {
+    logger.log("Validation Error: Activity null")
+  }
+
+  private fun showErrorMessage(@StringRes errorMessage: Int) {
     view.setError(errorMessage)
   }
 
@@ -92,8 +118,7 @@ class PhoneValidationPresenter(
   }
 
   private fun hasValidData(countryCode: String, phoneNumber: String): Boolean {
-    return phoneNumber.isNotBlank() &&
-        countryCode.isNotBlank()
+    return phoneNumber.isNotBlank() && countryCode.isNotBlank()
   }
 
   fun stop() {

@@ -12,4 +12,9 @@ data class UserStats(val status: Status, val level: Int = -1,
   enum class Status {
     OK, NO_NETWORK, UNKNOWN_ERROR
   }
+
+  companion object {
+    // Level values start at 0
+    const val MAX_LEVEL = 4
+  }
 }

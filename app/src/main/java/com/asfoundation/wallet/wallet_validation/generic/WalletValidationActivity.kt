@@ -51,12 +51,12 @@ class WalletValidationActivity : BaseActivity(),
                   navigateToTransactionsOnSuccess: Boolean,
                   navigateToTransactionsOnCancel: Boolean,
                   showToolbar: Boolean): Intent {
-      val intent = Intent(context, WalletValidationActivity::class.java)
-      intent.putExtra(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
-      intent.putExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, navigateToTransactionsOnSuccess)
-      intent.putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, navigateToTransactionsOnCancel)
-      intent.putExtra(SHOW_TOOLBAR, showToolbar)
-      return intent
+      return Intent(context, WalletValidationActivity::class.java).apply {
+        putExtra(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
+        putExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, navigateToTransactionsOnSuccess)
+        putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, navigateToTransactionsOnCancel)
+        putExtra(SHOW_TOOLBAR, showToolbar)
+      }
     }
   }
 
@@ -75,6 +75,8 @@ class WalletValidationActivity : BaseActivity(),
     validation_progress_animation.setMinAndMaxFrame(minFrame, maxFrame)
     validation_progress_animation.repeatCount = loopAnimation
     validation_progress_animation.playAnimation()
+    scrollView.isHorizontalScrollBarEnabled = false
+    scrollView.isVerticalScrollBarEnabled = false
     setupToolbar()
   }
 

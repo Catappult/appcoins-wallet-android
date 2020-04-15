@@ -6,13 +6,14 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BaseNavigationActivity extends BaseActivity
+public abstract class BaseNavigationActivity extends BaseActivity
     implements BottomNavigationView.OnNavigationItemSelectedListener {
 
   protected void initBottomNavigation() {
     BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
     navigation.setOnNavigationItemSelectedListener(this);
   }
+
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     return false;
   }

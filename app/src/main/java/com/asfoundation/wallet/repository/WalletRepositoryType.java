@@ -24,5 +24,7 @@ public interface WalletRepositoryType {
 
   Single<Wallet> getDefaultWallet();
 
-  Single<BigDecimal> balanceInWei(String address);
+  Single<BigDecimal> getEthBalanceInWei(String address);
+
+  Single<BigDecimal> getAppcBalanceInWei(String address);
 }

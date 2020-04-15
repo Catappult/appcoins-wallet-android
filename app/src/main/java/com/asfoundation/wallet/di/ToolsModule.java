@@ -19,6 +19,7 @@ import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import cm.aptoide.analytics.AnalyticsManager;
+import com.adyen.checkout.core.api.Environment;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
@@ -29,13 +30,15 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl;
 import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository;
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.appcoins.wallet.gamification.Gamification;
 import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository;
@@ -66,13 +69,12 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
+import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
+import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
-import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
-import com.asfoundation.wallet.billing.TransactionService;
-import com.asfoundation.wallet.billing.adyen.Adyen;
-import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.billing.partners.AddressService;
@@ -85,7 +87,6 @@ import com.asfoundation.wallet.billing.partners.OemIdExtractorV2;
 import com.asfoundation.wallet.billing.partners.PartnerAddressService;
 import com.asfoundation.wallet.billing.partners.PartnerWalletAddressService;
 import com.asfoundation.wallet.billing.partners.WalletAddressService;
-import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository;
 import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository;
 import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi;
@@ -93,6 +94,7 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.identification.IdsRepository;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -171,11 +173,14 @@ import com.asfoundation.wallet.service.AutoUpdateService;
 import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.service.CampaignService.CampaignApi;
+import com.asfoundation.wallet.service.GasService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi;
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
+import com.asfoundation.wallet.support.SupportInteractor;
+import com.asfoundation.wallet.topup.TopUpAnalytics;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.topup.TopUpLimitValues;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
@@ -216,6 +221,7 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -229,7 +235,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.jakewharton.rxrelay2.BehaviorRelay;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Single;
@@ -238,7 +243,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -389,7 +393,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides FetchGasSettingsInteract provideFetchGasSettingsInteract(
       GasSettingsRepositoryType gasSettingsRepository) {
-    return new FetchGasSettingsInteract(gasSettingsRepository);
+    return new FetchGasSettingsInteract(gasSettingsRepository, Schedulers.io(),
+        AndroidSchedulers.mainThread());
   }
 
   @Provides FindDefaultWalletInteract provideFindDefaultWalletInteract(
@@ -553,8 +558,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      Web3jProvider web3jProvider) {
-    return new GasSettingsRepository(web3jProvider);
+      GasService gasService) {
+    return new GasSettingsRepository(gasService);
   }
 
   @Singleton @Provides DataMapper provideDataMapper() {
@@ -754,22 +759,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     };
   }
 
-  @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
-  }
-
-  @Singleton @Provides TransactionService provideTransactionService(
-      RemoteRepository remoteRepository) {
-    return new BDSTransactionService(remoteRepository);
-  }
-
-  @Singleton @Provides BillingFactory provideCreditCardBillingFactory(
-      TransactionService transactionService, WalletService walletService, Adyen adyen,
-      AddressService addressService) {
-    return merchantName -> new AdyenBillingService(merchantName, transactionService, walletService,
-        adyen, addressService);
-  }
-
   @Singleton @Provides BdsPendingTransactionService provideBdsPendingTransactionService(
       BillingPaymentProofSubmission billingPaymentProofSubmission, Billing billing) {
     return new BdsPendingTransactionService(billing, Schedulers.io(), 5,
@@ -803,6 +792,34 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BillingMessagesMapper provideBillingMessagesMapper() {
     return new BillingMessagesMapper(new ExternalBillingSerializer());
+  }
+
+  @Provides AdyenPaymentInteractor provideAdyenPaymentInteractor(
+      AdyenPaymentRepository adyenPaymentRepository,
+      InAppPurchaseInteractor inAppPurchaseInteractor, AddressService partnerAddressService,
+      Billing billing, WalletService walletService, SupportInteractor supportInteractor) {
+    return new AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
+        inAppPurchaseInteractor.getBillingMessagesMapper(), partnerAddressService, billing,
+        walletService, supportInteractor);
+  }
+
+  @Singleton @Provides AdyenPaymentRepository provideAdyenPaymentRepository(OkHttpClient client) {
+    AdyenPaymentRepository.AdyenApi api = new Retrofit.Builder().baseUrl(
+        BuildConfig.BASE_HOST + "/broker/8.20191202/gateways/adyen_v2/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AdyenPaymentRepository.AdyenApi.class);
+    return new AdyenPaymentRepository(api, new AdyenResponseMapper());
+  }
+
+  @Provides Environment provideAdyenEnvironment() {
+    if (BuildConfig.DEBUG) {
+      return Environment.TEST;
+    } else {
+      return Environment.EUROPE;
+    }
   }
 
   @Singleton @Provides SharedPreferences provideSharedPreferences(Context context) {
@@ -896,12 +913,31 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return list;
   }
 
+  @Singleton @Provides @Named("rakam_event_list") List<String> provideRakamEventList() {
+    List<String> list = new ArrayList<>();
+    list.add(BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_METHOD);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_CONCLUSION);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_START);
+    list.add(BillingAnalytics.RAKAM_PAYPAL_URL);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_START);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_SELECTION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL);
+    list.add(PoaAnalytics.RAKAM_POA_EVENT);
+    return list;
+  }
+
   @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
       AnalyticsAPI api, Context context, @Named("bi_event_list") List<String> biEventList,
-      @Named("facebook_event_list") List<String> facebookEventList) {
+      @Named("facebook_event_list") List<String> facebookEventList,
+      @Named("rakam_event_list") List<String> rakamEventList) {
 
     return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), biEventList)
         .addLogger(new FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
+        .addLogger(new RakamEventLogger(), rakamEventList)
         .setAnalyticsNormalizer(new KeysNormalizer())
         .setDebugLogger(new LogcatAnalyticsLogger())
         .setKnockLogger(new HttpClientKnockLogger(okHttpClient))
@@ -1148,6 +1184,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(SmsValidationApi.class);
   }
 
+  @Singleton @Provides GasService provideGasService(OkHttpClient client, Gson gson) {
+    return new Retrofit.Builder().baseUrl(GasService.API_BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(GasService.class);
+  }
+
   @Singleton @Provides WalletStatusApi provideWalletStatusApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BACKEND_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
@@ -1269,5 +1314,27 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides UpdateNavigator provideUpdateNavigator() {
     return new UpdateNavigator();
+  }
+
+  @Singleton @Provides SupportInteractor provideSupportInteractor(SharedPreferences preferences) {
+    return new SupportInteractor(preferences);
+  }
+
+  @Singleton @Provides IdsRepository provideIdsRepository(Context context,
+      SharedPreferencesRepository sharedPreferencesRepository, InstallerService installerService) {
+    return new IdsRepository(context.getContentResolver(), sharedPreferencesRepository,
+        installerService);
+  }
+
+  @Singleton @Provides RakamAnalyticsSetup provideRakamAnalyticsSetup() {
+    return new RakamAnalyticsSetup();
+  }
+
+  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
+    return new TopUpAnalytics(analyticsManager);
+  }
+
+  @Singleton @Provides CurrencyFormatUtils provideCurrencyFormatUtils() {
+    return CurrencyFormatUtils.Companion.create();
   }
 }

@@ -2,7 +2,7 @@ package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
-import com.appcoins.wallet.gamification.repository.ForecastBonus
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -43,7 +43,7 @@ class TopUpInteractor(private val repository: BdsRepository,
     return paymentMethodsData
   }
 
-  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
+  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
     return gamificationInteractor.getEarningBonus(packageName, amount)
   }
 
@@ -66,16 +66,6 @@ class TopUpInteractor(private val repository: BdsRepository,
     }
   }
 
-  fun getChipIndex(value: FiatValue): Single<Int> {
-    return if (chipValueIndexMap.isNotEmpty()) {
-      findChipIndex(ArrayList(chipValueIndexMap.keys), value)
-    } else {
-      topUpValuesService.getDefaultValues()
-          .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
-          .flatMap { findChipIndex(it.values, value) }
-    }
-  }
-
   fun cleanCachedValues() {
     limitValues = TopUpLimitValues()
     chipValueIndexMap.clear()
@@ -91,13 +81,4 @@ class TopUpInteractor(private val repository: BdsRepository,
     limitValues = TopUpLimitValues(values.minValue, values.maxValue)
   }
 
-  private fun findChipIndex(chipValues: List<FiatValue>,
-                            value: FiatValue): Single<Int> {
-    for (chipValue in chipValues) {
-      if (chipValue == value) {
-        return Single.just(chipValueIndexMap[chipValue])
-      }
-    }
-    return Single.just(-1)
-  }
 }

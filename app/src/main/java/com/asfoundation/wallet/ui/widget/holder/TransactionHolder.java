@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,14 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
-import com.asfoundation.wallet.widget.CircleTransformation;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static com.asfoundation.wallet.C.ETHER_DECIMALS;
 
@@ -40,9 +46,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private String defaultAddress;
   private OnTransactionClickListener onTransactionClickListener;
   private Resources resources;
+  private CurrencyFormatUtils formatter;
 
   public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener,
-      Resources resources) {
+      Resources resources, CurrencyFormatUtils formatter) {
     super(resId, parent);
 
     srcImage = findViewById(R.id.img);
@@ -53,6 +60,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     currency = findViewById(R.id.currency);
     status = findViewById(R.id.status);
     onTransactionClickListener = listener;
+    this.formatter = formatter;
 
     itemView.setOnClickListener(this);
     this.resources = resources;
@@ -142,22 +150,22 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       case ADS_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_poa;
         setTypeIconVisibilityBasedOnDescription(details, uri);
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       case BONUS:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.ic_transaction_peer;
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       case TOP_UP:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.transaction_type_top_up;
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       case TRANSFER_OFF_CHAIN:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain;
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       default:
         transactionTypeIcon = R.drawable.ic_transaction_peer;
@@ -185,23 +193,29 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     int finalTransactionTypeIcon = transactionTypeIcon;
-    int transactionImageSize = (int) resources.getDimension(R.dimen.transaction_img_size_inside);
-    Picasso.with(getContext())
+
+    GlideApp.with(getContext())
         .load(uri)
-        .transform(new CircleTransformation())
-        .placeholder(finalTransactionTypeIcon)
-        .error(transactionTypeIcon)
-        .resize(transactionImageSize, transactionImageSize)
-        .into(srcImage, new Callback() {
-          @Override public void onSuccess() {
-            ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
-                finalTransactionTypeIcon);
+        .apply(RequestOptions.bitmapTransform(new CircleCrop())
+            .placeholder(finalTransactionTypeIcon)
+            .error(transactionTypeIcon))
+        .listener(new RequestListener<Drawable>() {
+
+          @Override public boolean onLoadFailed(@Nullable GlideException e, Object model,
+              Target<Drawable> target, boolean isFirstResource) {
+            typeIcon.setVisibility(View.GONE);
+            return false;
           }
 
-          @Override public void onError() {
-            typeIcon.setVisibility(View.GONE);
+          @Override
+          public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
+              DataSource dataSource, boolean isFirstResource) {
+            ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
+                finalTransactionTypeIcon);
+            return false;
           }
-        });
+        })
+        .into(srcImage);
 
     int statusText = R.string.transaction_status_success;
     int statusColor = R.color.green;
@@ -223,7 +237,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     if (valueStr.equals("0")) {
       valueStr = "0 ";
     } else {
-      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals);
+      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals, currencySymbol);
     }
 
     currency.setText(currencySymbol);
@@ -250,14 +264,11 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
   }
 
-  private String getScaledValue(String valueStr, long decimals) {
-    // Perform decimal conversion
+  private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
+    WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
     value = value.divide(new BigDecimal(Math.pow(10, decimals)));
-    int scale = 4; //SIGNIFICANT_FIGURES - value.precision() + value.scale();
-    return value.setScale(scale, RoundingMode.HALF_UP)
-        .stripTrailingZeros()
-        .toPlainString();
+    return formatter.formatCurrency(value, walletCurrency);
   }
 
   @Override public void onClick(View view) {

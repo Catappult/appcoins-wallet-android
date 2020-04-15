@@ -170,8 +170,8 @@ class CodeValidationPresenter(
             }).subscribe { })
   }
 
-  private fun isValidInput(first: String, second: String, third: String,
-                           fourth: String, fifth: String, sixth: String): Boolean {
+  private fun isValidInput(first: String, second: String, third: String, fourth: String,
+                           fifth: String, sixth: String): Boolean {
     return first.isNotBlank() &&
         second.isNotBlank() &&
         third.isNotBlank() &&

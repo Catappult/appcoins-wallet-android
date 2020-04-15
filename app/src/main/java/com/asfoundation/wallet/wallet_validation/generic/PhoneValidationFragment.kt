@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -29,6 +30,8 @@ class PhoneValidationFragment : DaggerFragment(),
   @Inject
   lateinit var interactor: SmsValidationInteract
 
+  @Inject
+  lateinit var logger: Logger
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: PhoneValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
@@ -44,10 +47,8 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    presenter =
-        PhoneValidationPresenter(this,
-            walletValidationView, interactor,
-            AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
+    presenter = PhoneValidationPresenter(this, walletValidationView, interactor, logger,
+        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -58,20 +59,14 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (arguments?.containsKey(
-            COUNTRY_CODE) == true) {
-      countryCode = arguments?.getString(
-          COUNTRY_CODE)
+    if (arguments?.containsKey(COUNTRY_CODE) == true) {
+      countryCode = arguments?.getString(COUNTRY_CODE)
     }
-    if (arguments?.containsKey(
-            PHONE_NUMBER) == true) {
-      phoneNumber = arguments?.getString(
-          PHONE_NUMBER)
+    if (arguments?.containsKey(PHONE_NUMBER) == true) {
+      phoneNumber = arguments?.getString(PHONE_NUMBER)
     }
-    if (arguments?.containsKey(
-            ERROR_MESSAGE) == true) {
-      errorMessage = arguments?.getInt(
-          ERROR_MESSAGE)
+    if (arguments?.containsKey(ERROR_MESSAGE) == true) {
+      errorMessage = arguments?.getInt(ERROR_MESSAGE)
     }
     setupBodyText()
     presenter.present()
@@ -112,9 +107,7 @@ class PhoneValidationFragment : DaggerFragment(),
         .delay(1, TimeUnit.SECONDS)
   }
 
-  override fun getLaterButtonClicks(): Observable<Any> {
-    return RxView.clicks(later_button)
-  }
+  override fun getLaterButtonClicks() = RxView.clicks(later_button)
 
   override fun setupUI() {
     ccp.registerCarrierNumberEditText(phone_number)
@@ -122,7 +115,8 @@ class PhoneValidationFragment : DaggerFragment(),
     hideNoInternetView()
 
     countryCode?.let {
-      ccp.setCountryForPhoneCode(it.drop(0).toInt())
+      ccp.setCountryForPhoneCode(it.drop(0)
+          .toInt())
     }
     phoneNumber?.let { phone_number.setText(it) }
 
@@ -162,9 +156,7 @@ class PhoneValidationFragment : DaggerFragment(),
         }
   }
 
-  override fun getCancelClicks(): Observable<Any> {
-    return RxView.clicks(cancel_button)
-  }
+  override fun getCancelClicks() = RxView.clicks(cancel_button)
 
   override fun onDestroy() {
     presenter.stop()
@@ -187,10 +179,8 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
-    if (context !is WalletValidationView) {
-      throw IllegalStateException(
-          "PoaPhoneValidationFragment must be attached to Wallet Validation activity")
-    }
+    require(
+        context is WalletValidationView) { PhoneValidationFragment::class.java.simpleName + " needs to be attached to a " + WalletValidationView::class.java.simpleName }
 
     walletValidationView = context
   }
@@ -210,21 +200,14 @@ class PhoneValidationFragment : DaggerFragment(),
     @JvmStatic
     fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
                     errorMessage: Int? = null, hasBeenInvitedFlow: Boolean = true): Fragment {
-      val bundle = Bundle()
-      bundle.putString(
-          COUNTRY_CODE, countryCode)
-      bundle.putString(
-          PHONE_NUMBER, phoneNumber)
-      bundle.putBoolean(
-          HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
-      errorMessage?.let {
-        bundle.putInt(
-            ERROR_MESSAGE, errorMessage)
+      val bundle = Bundle().apply {
+        putString(COUNTRY_CODE, countryCode)
+        putString(PHONE_NUMBER, phoneNumber)
+        putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
       }
+      errorMessage?.let { bundle.putInt(ERROR_MESSAGE, errorMessage) }
 
-      val fragment = PhoneValidationFragment()
-      fragment.arguments = bundle
-      return fragment
+      return PhoneValidationFragment().apply { arguments = bundle }
     }
 
   }

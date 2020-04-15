@@ -17,34 +17,36 @@ android {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      buildConfigField 'String', 'BASE_HOST',
-          "\"" + project.BASE_HOST_PROD + "\""
+      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_PROD
       buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
     }
 
     debug {
       minifyEnabled false
-      buildConfigField 'String', 'BASE_HOST',
-          "\"" + project.BASE_HOST_DEV + "\""
+      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_DEV
       buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_DEV
     }
   }
+}
+repositories {
+  mavenCentral()
+  jcenter()
 }
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
-  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
-  implementation "com.google.code.gson:gson:$project.gsonVersion"
-  implementation "com.fasterxml.jackson.core:jackson-annotations:$project.jacksonVersion"
-  implementation "com.fasterxml.jackson.core:jackson-databind:$project.jacksonVersion"
-  implementation "com.madgag.spongycastle:core:$project.spongycastle"
   api project(path: ':bdsbilling')
-}
-repositories {
-  mavenCentral()
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_version"
+  implementation "com.squareup.retrofit2:converter-gson:$project.retrofit_version"
+  implementation "com.squareup.retrofit2:retrofit:$project.retrofit_version"
+  implementation "com.google.code.gson:gson:$project.gson_version"
+  implementation "com.fasterxml.jackson.core:jackson-annotations:$project.jackson_version"
+  implementation "com.fasterxml.jackson.core:jackson-databind:$project.jackson_version"
+  implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
+  implementation "com.adyen.checkout:redirect:$project.adyen_version"
+  implementation "com.blockchainds:communication:$project.bds_sdk_version"
 }

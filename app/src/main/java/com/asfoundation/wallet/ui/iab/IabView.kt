@@ -20,13 +20,14 @@ interface IabView {
   fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String)
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                       iconUrl: String?)
+                       iconUrl: String?, gamificationLevel: Int)
 
   fun showAppcoinsCreditsPayment(appcAmount: BigDecimal)
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                        type: String, amount: BigDecimal, callbackUrl: String?,
-                       orderReference: String?, payload: String?)
+                       orderReference: String?, payload: String?, paymentMethodIconUrl: String,
+                       paymentMethodLabel: String)
 
   fun showPaymentMethodsView()
   fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,

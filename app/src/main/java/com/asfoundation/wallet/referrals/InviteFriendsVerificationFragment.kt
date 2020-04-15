@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
 import java.math.BigDecimal
+import javax.inject.Inject
 
 class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerificationView {
 
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: InviteFriendsVerificationPresenter
   private lateinit var activity: InviteFriendsActivityView
 
@@ -43,18 +46,14 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
   }
 
   private fun setDescriptionText() {
-    verification_description.text =
-        getString(R.string.referral_view_unverified_body,
-            currency + amount.scaleToString(2))
+    val formattedAmount = formatter.formatCurrency(amount, WalletCurrency.FIAT)
+    verification_description.text = getString(R.string.referral_view_unverified_body,
+        currency.plus(formattedAmount))
   }
 
-  override fun verifyButtonClick(): Observable<Any> {
-    return RxView.clicks(verify_button)
-  }
+  override fun verifyButtonClick() = RxView.clicks(verify_button)
 
-  override fun beenInvitedClick(): Observable<Any> {
-    return RxView.clicks(invited_button)
-  }
+  override fun beenInvitedClick() = RxView.clicks(invited_button)
 
   override fun navigateToWalletValidation(beenInvited: Boolean) {
     activity.navigateToWalletValidation(beenInvited)
@@ -87,12 +86,13 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
     private const val CURRENCY = "currency"
 
     fun newInstance(amount: BigDecimal, currency: String): InviteFriendsVerificationFragment {
-      val bundle = Bundle()
-      bundle.putSerializable(AMOUNT, amount)
-      bundle.putString(CURRENCY, currency)
-      val fragment = InviteFriendsVerificationFragment()
-      fragment.arguments = bundle
-      return fragment
+      val bundle = Bundle().apply {
+        putSerializable(AMOUNT, amount)
+        putString(CURRENCY, currency)
+      }
+      return InviteFriendsVerificationFragment().apply {
+        arguments = bundle
+      }
     }
   }
 }

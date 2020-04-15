@@ -36,6 +36,7 @@ class PoaWalletValidationActivity : BaseActivity(),
     private const val RESULT_CANCELED = 1
     private const val RESULT_FAILED = 2
     private const val WALLET_VALIDATED_KEY = "wallet_validated"
+
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, PoaWalletValidationActivity::class.java)
@@ -47,11 +48,9 @@ class PoaWalletValidationActivity : BaseActivity(),
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_poa_wallet_validation)
     savedInstanceState?.let {
-      walletValidated = it.getBoolean(
-          WALLET_VALIDATED_KEY, false)
+      walletValidated = it.getBoolean(WALLET_VALIDATED_KEY, false)
     }
-    presenter = PoaWalletValidationPresenter(this,
-        smsValidationRepository, walletInteractor,
+    presenter = PoaWalletValidationPresenter(this, smsValidationRepository, walletInteractor,
         createWalletInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
         Schedulers.io())
     presenter.present()
@@ -97,31 +96,26 @@ class PoaWalletValidationActivity : BaseActivity(),
   override fun showCodeValidationView(validationInfo: ValidationInfo, errorMessage: Int) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            PoaCodeValidationFragment.newInstance(
-                validationInfo, errorMessage))
+            PoaCodeValidationFragment.newInstance(validationInfo, errorMessage))
         .commit()
   }
 
   override fun showLoading(it: ValidationInfo) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            PoaValidationLoadingFragment.newInstance(
-                it))
+        .replace(R.id.fragment_container, PoaValidationLoadingFragment.newInstance(it))
         .commit()
   }
 
   override fun showSuccess() {
     walletValidated = true
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            PoaValidationSuccessFragment.newInstance())
+        .replace(R.id.fragment_container, PoaValidationSuccessFragment.newInstance())
         .commit()
   }
 
   override fun closeSuccess() {
     val intent = Intent()
-    setResult(
-        RESULT_OK, intent)
+    setResult(RESULT_OK, intent)
     finishAndRemoveTask()
   }
 
@@ -138,8 +132,7 @@ class PoaWalletValidationActivity : BaseActivity(),
 
   override fun closeError() {
     val intent = Intent()
-    setResult(
-        RESULT_FAILED, intent)
+    setResult(RESULT_FAILED, intent)
     finishAndRemoveTask()
   }
 

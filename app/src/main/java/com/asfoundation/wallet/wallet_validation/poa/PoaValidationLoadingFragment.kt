@@ -22,12 +22,10 @@ class PoaValidationLoadingFragment : DaggerFragment(),
   companion object {
     @JvmStatic
     fun newInstance(validationInfo: ValidationInfo): PoaValidationLoadingFragment {
-      val fragment = PoaValidationLoadingFragment()
-      val bundle = Bundle()
-      bundle.putSerializable(
-          VALIDATION, validationInfo)
-      fragment.arguments = bundle
-      return fragment
+      val bundle = Bundle().apply {
+        putSerializable(VALIDATION, validationInfo)
+      }
+      return PoaValidationLoadingFragment().apply { arguments = bundle }
     }
 
     private const val VALIDATION = "validation"
@@ -44,10 +42,8 @@ class PoaValidationLoadingFragment : DaggerFragment(),
   private lateinit var walletValidationView: PoaWalletValidationView
 
   val data: ValidationInfo by lazy {
-    if (arguments!!.containsKey(
-            VALIDATION)) {
-      arguments!!.getSerializable(
-          VALIDATION) as ValidationInfo
+    if (arguments!!.containsKey(VALIDATION)) {
+      arguments!!.getSerializable(VALIDATION) as ValidationInfo
     } else {
       throw IllegalArgumentException("previous validation info not found")
     }
@@ -66,8 +62,7 @@ class PoaValidationLoadingFragment : DaggerFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        PoaValidationLoadingPresenter(this,
-            walletValidationView, findDefaultWalletInteract,
+        PoaValidationLoadingPresenter(this, walletValidationView, findDefaultWalletInteract,
             smsValidationInteract, data, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable())
   }

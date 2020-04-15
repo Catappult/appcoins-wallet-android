@@ -95,4 +95,5 @@
   <color name="animation_background">#d9000000</color>
 
   <color name="transparent">#00000000</color>
+  <color name="pending_payment_text_color">#727272</color>
 </resources>

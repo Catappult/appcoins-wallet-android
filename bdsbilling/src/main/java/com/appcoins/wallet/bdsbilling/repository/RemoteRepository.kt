@@ -1,10 +1,8 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.bdsbilling.repository.entity.authorization.Authorization
 import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import retrofit2.http.*
@@ -13,14 +11,13 @@ import java.math.BigDecimal
 class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary) {
   companion object {
-    private const val ADYEN_GATEWAY = "adyen"
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
   }
 
   internal fun isBillingSupported(packageName: String,
                                   type: BillingSupportedType): Single<Boolean> {
     return api.getPackage(packageName, type.name.toLowerCase())
-        .map { responseMapper.map(it) }
+        .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 
   internal fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
@@ -34,7 +31,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     } else {
       Single.zip(
           api.getPackages(packageName,
-              skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")),
+              skus.take(SKUS_DETAILS_REQUEST_LIMIT)
+                  .joinToString(separator = ",")),
           requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT)),
           BiFunction { firstResponse: DetailsResponseBody, secondResponse: DetailsResponseBody ->
             firstResponse.merge(secondResponse)
@@ -63,7 +61,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
     return api.getPurchases(packageName, walletAddress, walletSignature,
-        type.name.toLowerCase())
+            type.name.toLowerCase())
         .map { responseMapper.map(it) }
   }
 
@@ -73,7 +71,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                walletSignature: String): Single<Boolean> {
     return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
-        .map { responseMapper.map(it) }
+        .toSingle { true }
   }
 
   fun registerAuthorizationProof(origin: String?, type: String, oemWallet: String, id: String?,
@@ -106,29 +104,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         .map { responseMapper.map(it) }
   }
 
-  fun patchTransaction(uid: String, walletAddress: String, walletSignature: String,
-                       paykey: String): Completable {
-    return api.patchTransaction(ADYEN_GATEWAY, uid, walletAddress, walletSignature, paykey)
-  }
-
-  fun getSessionKey(uid: String, walletAddress: String,
-                    walletSignature: String): Single<Authorization> {
-    return api.getSessionKey(uid, walletAddress, walletSignature)
-        .singleOrError()
-  }
-
-  fun createAdyenTransaction(origin: String?, walletAddress: String, walletSignature: String,
-                             token: String, packageName: String, priceValue: BigDecimal,
-                             priceCurrency: String, productName: String?, type: String,
-                             walletDeveloper: String?, walletStore: String, walletOem: String,
-                             developerPayload: String?, callback: String?,
-                             orderReference: String?, referrerUrl: String?): Single<Transaction> {
-    return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
-        priceCurrency, productName, type, null, walletDeveloper, walletStore, walletOem,
-        token, developerPayload, callback, orderReference, referrerUrl, walletAddress,
-        walletSignature)
-  }
-
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction> {
     return api.getAppcoinsTransaction(uid, address, signedContent)
@@ -142,9 +117,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
     return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
-        "APPC", null, type, toWallet, null, null,
-        null, null, null, null, null, null,
-        walletAddress, signature)
+            "APPC", null, type, toWallet, null, null,
+            null, null, null, null, null, null,
+            walletAddress, signature)
         .toCompletable()
 
   }
@@ -197,9 +172,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Path("purchaseId") purchaseToken: String,
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String,
-                        @Body data: Consumed): Single<Void>
+                        @Body data: Consumed): Completable
 
-    @GET("broker/8.20191014/methods")
+    @GET("broker/8.20200311/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
     currency: String? = null, @Query("currency.type")
                           type: String? = null): Single<GetMethodsResponse>
@@ -211,11 +186,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String, @Field("pay_key")
         paykey: String): Completable
-
-    @GET("broker/8.20180518/gateways/adyen/transactions/{uid}/authorization")
-    fun getSessionKey(
-        @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
-        @Query("wallet.signature") walletSignature: String): Observable<Authorization>
 
     /**
      * All optional fields should be passed despite possible being null as these are

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallet_validation.poa
 
+import androidx.annotation.StringRes
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
@@ -35,14 +36,17 @@ class PoaPhoneValidationPresenter(
   private fun handleSubmit() {
     disposables.add(
         view.getSubmitClicks()
+            .doOnNext { view.setButtonState(false) }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.first}${it.second}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
+                    view.setButtonState(true)
                     onSuccess(status, it)
                   }
+                  .doOnError { view.setButtonState(true) }
             }
             .retry()
             .subscribe { }
@@ -62,11 +66,20 @@ class PoaPhoneValidationPresenter(
         showErrorMessage(R.string.verification_insert_phone_field_phone_used_already_error)
         view.setButtonState(false)
       }
+      WalletValidationStatus.NO_NETWORK,
       WalletValidationStatus.GENERIC_ERROR -> showErrorMessage(R.string.unknown_error)
+      WalletValidationStatus.LANDLINE_NOT_SUPPORTED ->  {
+        showErrorMessage(R.string.verification_insert_phone_field_landline_error)
+        view.setButtonState(false)
+      }
+      WalletValidationStatus.REGION_NOT_SUPPORTED ->  {
+        showErrorMessage(R.string.verification_insert_phone_field_region_error)
+        view.setButtonState(false)
+      }
     }
   }
 
-  private fun showErrorMessage(errorMessage: Int) {
+  private fun showErrorMessage(@StringRes errorMessage: Int) {
     view.setError(errorMessage)
   }
 
@@ -87,8 +100,7 @@ class PoaPhoneValidationPresenter(
   }
 
   private fun hasValidData(countryCode: String, phoneNumber: String): Boolean {
-    return phoneNumber.isNotBlank() &&
-        countryCode.isNotBlank()
+    return phoneNumber.isNotBlank() && countryCode.isNotBlank()
   }
 
   fun stop() {

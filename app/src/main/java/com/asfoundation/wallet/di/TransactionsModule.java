@@ -16,7 +16,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
-import com.asfoundation.wallet.repository.Web3jProvider;
+import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
@@ -27,10 +27,12 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
@@ -41,9 +43,10 @@ import javax.inject.Singleton;
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
       AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract) {
+      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
+      CurrencyFormatUtils formatter) {
     return new TransactionsViewModelFactory(applications, analytics, transactionViewNavigator,
-        transactionViewInteract);
+        transactionViewInteract, supportInteractor, formatter);
   }
 
   @Provides TransactionViewNavigator provideTransactionsViewNavigator(SettingsRouter settingsRouter,
@@ -119,9 +122,9 @@ import javax.inject.Singleton;
     return new ExternalBrowserRouter();
   }
 
-  @Singleton @Provides TokenRepository provideTokenRepository(Web3jProvider web3j,
-      DefaultTokenProvider defaultTokenProvider) {
-    return new TokenRepository(web3j, defaultTokenProvider);
+  @Singleton @Provides TokenRepository provideTokenRepository(
+      DefaultTokenProvider defaultTokenProvider, WalletRepositoryType walletRepositoryType) {
+    return new TokenRepository(defaultTokenProvider, walletRepositoryType);
   }
 
   @Provides AirdropRouter provideAirdropRouter() {
