@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
-import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -33,6 +33,8 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   @Inject
   lateinit var promotionsInteractor: PromotionsInteractorContract
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var activity: PromotionsActivityView
   private var step = 100
   private lateinit var presenter: PromotionsPresenter
@@ -41,7 +43,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     super.onCreate(savedInstanceState)
     presenter =
         PromotionsPresenter(this, promotionsInteractor, CompositeDisposable(), Schedulers.io(),
-            AndroidSchedulers.mainThread())
+            AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -71,7 +73,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun updateLevel(userStatus: UserRewardsStatus) {
     gamification_title.text = getString(R.string.promotions_gamification_card_title_variable,
-        userStatus.maxBonus)
+        formatter.formatGamificationValues(BigDecimal(userStatus.maxBonus)))
 
     if (userStatus.bonus.size != 1) {
       step = 100 / (userStatus.bonus.size - 1)
@@ -191,9 +193,9 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     retry_animation.visibility = VISIBLE
   }
 
-  override fun setReferralBonus(bonus: BigDecimal, currency: String) {
+  override fun setReferralBonus(bonus: String, currency: String) {
     promotions_title.text = getString(R.string.promotions_referral_card_title,
-        currency + bonus.scaleToString(2))
+        currency + bonus)
   }
 
   override fun toggleShareAvailability(validated: Boolean) {

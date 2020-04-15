@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -21,7 +22,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val interactor: TopUpInteractor,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
-                             private val topUpAnalytics: TopUpAnalytics) {
+                             private val topUpAnalytics: TopUpAnalytics,
+                             private val formatter: CurrencyFormatUtils) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
@@ -222,7 +224,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
             view.hideBonus()
           } else {
-            view.showBonus(it.amount, it.currency)
+            val scaledBonus = formatter.scaleFiat(it.amount)
+            view.showBonus(scaledBonus, it.currency)
           }
           view.setNextButtonState(true)
           gamificationLevel = it.level

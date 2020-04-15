@@ -221,6 +221,7 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -922,10 +923,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION);
     list.add(BillingAnalytics.RAKAM_PAYMENT_CONCLUSION);
     list.add(BillingAnalytics.RAKAM_PAYMENT_START);
+    list.add(BillingAnalytics.RAKAM_PAYPAL_URL);
     list.add(TopUpAnalytics.WALLET_TOP_UP_START);
     list.add(TopUpAnalytics.WALLET_TOP_UP_SELECTION);
     list.add(TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION);
     list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL);
+    list.add(PoaAnalytics.RAKAM_POA_EVENT);
     return list;
   }
 
@@ -1330,5 +1334,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
     return new TopUpAnalytics(analyticsManager);
+  }
+
+  @Singleton @Provides CurrencyFormatUtils provideCurrencyFormatUtils() {
+    return CurrencyFormatUtils.Companion.create();
   }
 }

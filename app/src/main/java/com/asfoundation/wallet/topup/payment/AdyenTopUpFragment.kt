@@ -29,7 +29,9 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.view.rx.RxAlertDialog
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
@@ -48,8 +50,6 @@ import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_adyen_error_top_up.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
-import java.math.BigDecimal
-import java.util.*
 import javax.inject.Inject
 
 class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
@@ -67,8 +67,12 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   @Inject
   lateinit var adyenEnvironment: Environment
+
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
@@ -103,7 +107,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
             transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
             data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper(), gamificationLevel, topUpAnalytics)
+            adyenPaymentInteractor, bonusValue, AdyenErrorCodeMapper(), gamificationLevel,
+            topUpAnalytics, formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -132,17 +137,17 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
 
-  override fun showValues(value: BigDecimal, currency: String) {
+  override fun showValues(value: String, currency: String) {
     main_value.visibility = VISIBLE
-    val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", value.toDouble())
+    val formattedValue = formatter.formatCurrency(data.currency.appcValue, WalletCurrency.CREDITS)
     if (currentCurrency == FIAT_CURRENCY) {
-      main_value.setText(fiatPrice.toString())
+      main_value.setText(value)
       main_currency_code.text = currency
-      converted_value.text = "${data.currency.appcValue} ${data.currency.appcSymbol}"
+      converted_value.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
     } else {
-      main_value.setText(data.currency.appcValue)
-      main_currency_code.text = data.currency.appcCode
-      converted_value.text = "$fiatPrice $currency"
+      main_value.setText(formattedValue)
+      main_currency_code.text = WalletCurrency.CREDITS.symbol
+      converted_value.text = "$value $currency"
     }
   }
 
@@ -255,21 +260,21 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun errorDismisses(): Observable<Any> {
     return Observable.merge(networkErrorDialog.dismisses(),
-            paymentRefusedDialog.dismisses(), errorDialog.dismisses())
+        paymentRefusedDialog.dismisses(), errorDialog.dismisses())
         .doOnNext { topUpView.unlockRotation() }
         .map { Any() }
   }
 
   override fun errorCancels(): Observable<Any> {
     return Observable.merge(networkErrorDialog.cancels(),
-            paymentRefusedDialog.cancels(), errorDialog.cancels())
+        paymentRefusedDialog.cancels(), errorDialog.cancels())
         .doOnNext { topUpView.unlockRotation() }
         .map { Any() }
   }
 
   override fun errorPositiveClicks(): Observable<Any> {
     return Observable.merge(networkErrorDialog.positiveClicks(),
-            paymentRefusedDialog.positiveClicks(), errorDialog.positiveClicks())
+        paymentRefusedDialog.positiveClicks(), errorDialog.positiveClicks())
         .doOnNext { topUpView.unlockRotation() }
         .map { Any() }
   }

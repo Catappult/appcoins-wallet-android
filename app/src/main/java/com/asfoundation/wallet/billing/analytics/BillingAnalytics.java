@@ -18,6 +18,7 @@ public class BillingAnalytics implements EventSender {
   public static final String RAKAM_PAYMENT_CONFIRMATION = "wallet_payment_confirmation";
   public static final String RAKAM_PAYMENT_CONCLUSION = "wallet_payment_conclusion";
   public static final String RAKAM_PAYMENT_START = "wallet_payment_start";
+  public static final String RAKAM_PAYPAL_URL = "wallet_payment_conclusion_paypal";
   private static final String WALLET = "WALLET";
   private static final String EVENT_PACKAGE_NAME = "package_name";
   private static final String EVENT_SKU = "sku";
@@ -33,6 +34,10 @@ public class BillingAnalytics implements EventSender {
   private static final String EVENT_SUCCESS = "success";
   private static final String EVENT_FAIL = "fail";
   private static final String EVENT_PENDING = "pending";
+  private static final String EVENT_PAYPAL_TYPE = "type";
+  private static final String EVENT_RESULT_CODE = "result_code";
+  private static final String EVENT_URL = "url";
+  private static final int MAX_CHARACTERS = 100;
   private final AnalyticsManager analytics;
 
   public BillingAnalytics(AnalyticsManager analytics) {
@@ -194,6 +199,25 @@ public class BillingAnalytics implements EventSender {
     eventData.put(EVENT_CONTEXT, context);
 
     analytics.logEvent(eventData, RAKAM_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET);
+  }
+
+  @Override public void sendPaypalUrlEvent(String packageName, String skuDetails, String value,
+      String transactionType, String type, String resultCode, String url) {
+    Map<String, Object> eventData = new HashMap<>();
+
+    eventData.put(EVENT_PACKAGE_NAME, packageName);
+    eventData.put(EVENT_SKU, skuDetails);
+    eventData.put(EVENT_VALUE, value);
+    eventData.put(EVENT_TRANSACTION_TYPE, transactionType);
+    eventData.put(EVENT_PAYPAL_TYPE, type);
+    eventData.put(EVENT_RESULT_CODE, resultCode);
+    if (url.length() > MAX_CHARACTERS) {
+      eventData.put(EVENT_URL, url.substring(url.length() - MAX_CHARACTERS));
+    } else {
+      eventData.put(EVENT_URL, url);
+    }
+
+    analytics.logEvent(eventData, RAKAM_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET);
   }
 
   private Map<String, Object> createBaseRakamEventMap(String packageName, String skuDetails,

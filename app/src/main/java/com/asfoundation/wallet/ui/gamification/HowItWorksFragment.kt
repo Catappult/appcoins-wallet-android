@@ -12,14 +12,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
-import com.appcoins.wallet.gamification.repository.UserStats
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_how_it_works.*
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.math.RoundingMode
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -29,10 +30,10 @@ import javax.inject.Inject
 class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
-
   @Inject
   lateinit var analytics: GamificationAnalytics
-
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: HowItWorksPresenter
   private lateinit var gamificationView: GamificationView
 
@@ -40,7 +41,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = HowItWorksPresenter(this, gamificationView, gamificationInteractor, analytics,
-        Schedulers.io(), AndroidSchedulers.mainThread())
+        Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -62,8 +63,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       val spendTextView = view.findViewById<TextView>(R.id.message)
       val bonusTextView = view.findViewById<TextView>(R.id.bonus)
       levelTextView.text = (level.level + 1).toString()
-      spendTextView.text =
-          getString(R.string.gamification_how_table_a2, formatLevelInfo(level.amount.toDouble()))
+      spendTextView.text = getString(R.string.gamification_how_table_a2,
+          formatter.formatGamificationValues(level.amount))
       bonusTextView.text =
           getString(R.string.gamification_how_table_b2, formatLevelInfo(level.bonus))
       view.findViewById<ImageView>(R.id.ic_level)
@@ -88,12 +89,11 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     }
   }
 
-  override fun showPeekInformation(userStats: UserStats, bonusEarnedFiat: FiatValue) {
-    val totalSpendRounded = userStats.totalSpend.setScale(2, RoundingMode.DOWN)
-    val bonusEarnedRounded = bonusEarnedFiat.amount.setScale(2, RoundingMode.DOWN)
+  override fun showPeekInformation(totalSpend: String, bonusEarned: String,
+                                   currencySymbol: String) {
     bonus_earned.text =
-        getString(R.string.value_fiat, bonusEarnedFiat.symbol, bonusEarnedRounded)
-    total_spend.text = getString(R.string.gamification_how_table_a2, totalSpendRounded)
+        getString(R.string.value_fiat, currencySymbol, bonusEarned)
+    total_spend.text = getString(R.string.gamification_how_table_a2, totalSpend)
 
     bonus_earned_skeleton.visibility = View.INVISIBLE
     total_spend_skeleton.visibility = View.INVISIBLE
@@ -120,19 +120,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   private fun formatLevelInfo(value: Double): String {
-    val splitValue = value.toString()
-        .split(".")
-    return if (splitValue[1] != "0") {
-      value.toString()
-    } else {
-      removeDecimalPlaces(value)
-    }
-  }
-
-  private fun removeDecimalPlaces(value: Double): String {
-    val splitValue = value.toString()
-        .split(".")
-    return splitValue[0]
+    val formatter: NumberFormat = DecimalFormat("##.##")
+    return formatter.format(value)
   }
 
   private fun highlightCurrentLevel(levelTextView: TextView, messageTextView: TextView,
