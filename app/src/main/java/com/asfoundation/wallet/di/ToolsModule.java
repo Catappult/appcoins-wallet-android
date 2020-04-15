@@ -925,6 +925,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION);
     list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION);
     list.add(TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL);
+    list.add(PoaAnalytics.RAKAM_POA_EVENT);
     return list;
   }
 
