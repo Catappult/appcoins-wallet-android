@@ -75,6 +75,7 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun onResume() {
     super.onResume()
 
+    presenter.onResume()
     focusAndShowKeyboard(phone_number)
   }
 
