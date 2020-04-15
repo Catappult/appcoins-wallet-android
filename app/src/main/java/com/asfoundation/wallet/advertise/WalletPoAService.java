@@ -18,9 +18,9 @@ import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
+import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
@@ -118,7 +118,7 @@ public class WalletPoAService extends Service {
                 .doOnSuccess(proof -> processWalletState(proof, intent, packageName)))
             .subscribe(requirementsStatus -> {
             }, throwable -> {
-              logger.log(throwable);
+              logger.log(TAG, throwable.getMessage(), throwable);
               showGenericErrorNotificationAndStopForeground();
             });
       }
@@ -212,7 +212,9 @@ public class WalletPoAService extends Service {
             getString(R.string.notification_wrong_network_poa)).build());
         stopForeground(false);
         stopTimeout();
-        logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
+        Throwable throwable =
+            new Throwable(new WrongNetworkException("Not on the correct network"));
+        logger.log(TAG, throwable.getMessage(), throwable);
         break;
       case UPDATE_REQUIRED:
         if (autoUpdateInteract.shouldShowNotification()) {
@@ -223,7 +225,8 @@ public class WalletPoAService extends Service {
         stopTimeout();
         break;
       case UNKNOWN_NETWORK:
-        logger.log(new Throwable(new WrongNetworkException("Unknown network")));
+        throwable = new Throwable(new WrongNetworkException("Unknown network"));
+        logger.log(TAG, throwable.getMessage(), throwable);
         break;
     }
   }
@@ -518,7 +521,8 @@ public class WalletPoAService extends Service {
       packageInfo = getPackageManager().getPackageInfo(packageName, 0);
       versionCode = packageInfo.versionCode;
     } catch (PackageManager.NameNotFoundException e) {
-      logger.log(new Throwable("Package not found exception"));
+      Throwable throwable = new Throwable("Package not found exception");
+      logger.log(TAG, throwable.getMessage(), throwable);
       e.printStackTrace();
     }
     return versionCode;

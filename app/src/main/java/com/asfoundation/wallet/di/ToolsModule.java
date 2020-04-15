@@ -58,8 +58,6 @@ import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.AirdropService.Api;
 import com.asfoundation.wallet.App;
-import com.asfoundation.wallet.FlurryLogger;
-import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper;
 import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.advertise.PoaAnalyticsController;
@@ -69,7 +67,7 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
-import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
+import com.asfoundation.wallet.analytics.RakamAnalytics;
 import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
@@ -108,6 +106,10 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
+import com.asfoundation.wallet.logging.DebugReceiver;
+import com.asfoundation.wallet.logging.LogReceiver;
+import com.asfoundation.wallet.logging.Logger;
+import com.asfoundation.wallet.logging.WalletLogger;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
@@ -327,7 +329,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Logger provideLogger() {
-    return new FlurryLogger();
+    ArrayList<LogReceiver> receivers = new ArrayList();
+    if (BuildConfig.DEBUG) {
+      receivers.add(new DebugReceiver());
+    }
+    return new WalletLogger(receivers);
   }
 
   @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
@@ -1320,11 +1326,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         installerService);
   }
 
-  @Singleton @Provides RakamAnalyticsSetup provideRakamAnalyticsSetup() {
-    return new RakamAnalyticsSetup();
+  @Singleton @Provides RakamAnalytics provideRakamAnalyticsSetup(Context context,
+      IdsRepository idsRepository, Logger logger) {
+    return new RakamAnalytics(context, idsRepository, logger);
   }
 
-  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager){
+  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
     return new TopUpAnalytics(analyticsManager);
   }
 }

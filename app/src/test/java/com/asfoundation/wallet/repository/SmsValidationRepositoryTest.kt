@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.DebugLogger
+import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.entity.WalletRequestCodeResponse
 import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.service.SmsValidationApi
@@ -32,7 +32,8 @@ class SmsValidationRepositoryTest {
     walletAddress = "0x648234234"
     phoneNumber = "00351912475564"
     code = "0345671"
-    smsValidationRepository = SmsValidationRepository(smsValidationApi, gson, DebugLogger())
+    smsValidationRepository = SmsValidationRepository(smsValidationApi, gson,
+        DebugReceiver())
   }
 
   @Test

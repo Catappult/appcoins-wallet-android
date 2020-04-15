@@ -2,8 +2,8 @@ package com.asfoundation.wallet.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
-import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.*
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ImportWalletRouter
 import com.asfoundation.wallet.router.TransactionsRouter
