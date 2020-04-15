@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.promotions_fragment_view.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.referrals_card
 import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class PromotionsFragment : DaggerFragment(), PromotionsView {
@@ -72,7 +73,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun updateLevel(userStatus: UserRewardsStatus) {
     gamification_title.text = getString(R.string.promotions_gamification_card_title_variable,
-        userStatus.maxBonus)
+        formatter.formatGamificationValues(BigDecimal(userStatus.maxBonus)))
 
     if (userStatus.bonus.size != 1) {
       step = 100 / (userStatus.bonus.size - 1)
