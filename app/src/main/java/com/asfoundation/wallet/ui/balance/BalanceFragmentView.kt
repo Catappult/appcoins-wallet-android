@@ -8,9 +8,12 @@ interface BalanceFragmentView {
 
   fun setupUI()
 
-  fun updateTokenValue(tokenBalance: TokenBalance)
+  fun updateTokenValue(tokenBalance: String,
+                       fiatBalance: String,
+                       tokenCurrency: WalletCurrency,
+                       fiatCurrency: String)
 
-  fun updateOverallBalance(overallBalance: FiatValue)
+  fun updateOverallBalance(overallBalance: String, currency: String, symbol: String)
 
   fun getCreditClick(): Observable<View>
 
@@ -19,8 +22,6 @@ interface BalanceFragmentView {
   fun getEthClick(): Observable<View>
 
   fun showTokenDetails(view: View)
-
-  fun getTopUpClick(): Observable<Any>
 
   fun showTopUpScreen()
 

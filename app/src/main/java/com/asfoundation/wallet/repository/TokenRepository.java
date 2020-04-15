@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.Token;
-import com.asfoundation.wallet.entity.TokenInfo;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -73,28 +71,5 @@ public class TokenRepository implements TokenRepositoryType {
     return defaultTokenProvider.getDefaultToken()
         .flatMap(tokenInfo -> walletRepositoryType.getAppcBalanceInWei(address)
             .map(appcBalance -> new Token(tokenInfo, appcBalance)));
-  }
-
-  private BigDecimal getBalance(String address, TokenInfo tokenInfo) throws Exception {
-    Function function = balanceOf(address);
-    String responseValue = callSmartContractFunction(function, tokenInfo.address, address);
-
-    List<Type> response =
-        FunctionReturnDecoder.decode(responseValue, function.getOutputParameters());
-    if (response.size() == 1) {
-      return new BigDecimal(((Uint256) response.get(0)).getValue());
-    } else {
-      return null;
-    }
-  }
-
-  private String callSmartContractFunction(Function function, String contractAddress,
-      String walletAddress) throws Exception {
-    String encodedFunction = FunctionEncoder.encode(function);
-    org.web3j.protocol.core.methods.request.Transaction transaction =
-        createEthCallTransaction(walletAddress, contractAddress, encodedFunction);
-    return web3j.ethCall(transaction, DefaultBlockParameterName.LATEST)
-        .send()
-        .getValue();
   }
 }

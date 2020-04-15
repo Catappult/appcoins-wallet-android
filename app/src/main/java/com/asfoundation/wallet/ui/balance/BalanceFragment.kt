@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
@@ -12,10 +12,6 @@ import android.view.ViewGroup
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.MyAddressActivity
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -33,8 +29,6 @@ import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.bottom_sheet_fragment_container
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
-import java.math.BigDecimal
-import java.math.RoundingMode
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -42,6 +36,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   @Inject
   lateinit var balanceInteract: BalanceInteract
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
@@ -182,6 +177,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
       balance_label.text =
           String.format(getString(R.string.balance_total_body), currency)
       balance_label.visibility = View.VISIBLE
+
       balance_value_placeholder.visibility = View.GONE
       (balance_value_placeholder as LottieAnimationView).cancelAnimation()
       balance_value.text = symbol + overallBalance
@@ -230,7 +226,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   override fun setAddressToClipBoard(walletAddress: String) {
     val clipboard = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
     val clip = ClipData.newPlainText(MyAddressActivity.KEY_ADDRESS, walletAddress)
-    clipboard?.let { it.primaryClip = clip }
+    clipboard?.setPrimaryClip(clip)
 
     view?.let {
       Snackbar.make(it, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)

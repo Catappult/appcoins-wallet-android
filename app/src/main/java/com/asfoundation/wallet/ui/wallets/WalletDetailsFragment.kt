@@ -88,7 +88,7 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
       val clipboard = it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
       val clip = ClipData.newPlainText(
           MyAddressActivity.KEY_ADDRESS, walletAddress)
-      clipboard?.let { clipboard.primaryClip = clip }
+      clipboard?.setPrimaryClip(clip)
       view?.let { view ->
         Snackbar.make(view, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
             .show()

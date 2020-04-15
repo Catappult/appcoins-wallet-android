@@ -9,6 +9,7 @@
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
   <application
       android:name="com.asfoundation.wallet.App"
       android:allowBackup="false"
@@ -24,9 +25,10 @@
         android:enabled="true"
         android:exported="false" />
 
-    <receiver android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
+    <receiver
+        android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
         android:enabled="true"
-        android:exported="false"/>
+        android:exported="false" />
 
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
@@ -49,7 +51,7 @@
         android:label=""
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.asfoundation.wallet.ui.ImportWalletActivity"
+        android:name="com.asfoundation.wallet.ui.balance.ImportWalletActivity"
         android:label="@string/title_import"
         android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
     <activity
@@ -68,7 +70,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
         android:label="@string/wallets_title"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
         android:label="@string/balance_title"
@@ -201,23 +203,18 @@
     <activity
         android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
         android:label=""
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait" />
 
     <activity
         android:name="com.asfoundation.wallet.ui.balance.QrCodeActivity"
         android:label=""
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.Transparent"/>
+        android:theme="@style/AppTheme.Transparent" />
 
     <activity
         android:name="com.asfoundation.wallet.ui.wallets.RemoveWalletActivity"
         android:label="@string/remove_wallet_title"
-        android:screenOrientation="portrait"/>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.balance.ImportWalletActivity"
-        android:label="@string/import_wallet_title"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait" />
 
     <activity
         android:name="com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity"
