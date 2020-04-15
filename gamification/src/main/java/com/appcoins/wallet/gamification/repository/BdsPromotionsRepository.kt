@@ -70,7 +70,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return UserStats(UserStats.Status.OK, gamification.level,
         gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
         gamification.totalEarned,
-        GamificationResponse.Status.ACTIVE == gamification.status)
+        GamificationResponse.Status.ACTIVE == gamification.status,
+        GamificationResponse.UserType.PIONEER == gamification.userType)
   }
 
   override fun getLevels(wallet: String): Single<Levels> {

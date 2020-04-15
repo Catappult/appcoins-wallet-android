@@ -8,7 +8,7 @@ data class UserStats(val status: Status, val level: Int = -1,
                      val totalSpend: BigDecimal = BigDecimal.ZERO,
                      val totalEarned: BigDecimal = BigDecimal.ZERO,
                      val isActive: Boolean = false,
-                     val isPioneer: Boolean = true//TODO Change after backend ready
+                     val isPioneer: Boolean = false
 ) {
 
   enum class Status {
