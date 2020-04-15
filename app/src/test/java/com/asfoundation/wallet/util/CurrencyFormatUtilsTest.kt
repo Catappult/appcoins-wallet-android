@@ -164,4 +164,12 @@ class CurrencyFormatUtilsTest {
     assertEquals(expectedValueFr, formattedValueFr)
     assertEquals(expectedValueBr, formattedValueBr)
   }
+
+  @Test
+  fun scaleFiat() {
+    val formattedValueUs = formatter.scaleFiat(value).toString()
+    val expectedValueUs = "123456789.12"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+  }
 }
