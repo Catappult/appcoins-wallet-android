@@ -10,16 +10,19 @@ import org.junit.Before
 import org.junit.Test
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import java.util.*
 
 class GamificationTest {
   private lateinit var gamification: Gamification
   private val api = GamificationApiTest()
   private val local = GamificationLocalDataTest()
+  private val date = Date()
 
   companion object {
     private const val WALLET = "wallet1"
     private const val PACKAGE_NAME = "packageName"
     private const val VERSION_CODE = "version_code"
+    private const val DATE = "a_date"
   }
 
   @Before
@@ -32,7 +35,7 @@ class GamificationTest {
   fun getUserStatsTest() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE, true)
+            GamificationResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
@@ -45,7 +48,7 @@ class GamificationTest {
         .test()
     testObserver.assertValue(
         UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO,
-            true))
+            isActive = true, isPioneer = true))
   }
 
   @Test
@@ -60,13 +63,13 @@ class GamificationTest {
   fun getLevels() {
     api.levelsResponse = Single.just(
         LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2)),
-            LevelsResponse.Status.ACTIVE))
+            LevelsResponse.Status.ACTIVE, date))
     val testObserver = gamification.getLevels(WALLET)
         .test()
     testObserver.assertValue(
         Levels(Levels.Status.OK,
             listOf(Levels.Level(BigDecimal.ONE, 2.0, 1), Levels.Level(BigDecimal.TEN, 20.0, 2)),
-            true))
+            true, date))
   }
 
   @Test
@@ -98,7 +101,7 @@ class GamificationTest {
   fun hasNewLevelNoNewLevel() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE, true)
+            GamificationResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
@@ -119,7 +122,7 @@ class GamificationTest {
   fun hasNewLevelNewLevel() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE, true)
+            GamificationResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,

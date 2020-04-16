@@ -19,7 +19,7 @@ class GamificationApiTest : GamificationApi {
     return aux
   }
 
-  override fun getLevels(adress: String): Single<LevelsResponse> {
+  override fun getLevels(address: String): Single<LevelsResponse> {
     val aux = levelsResponse!!
     levelsResponse = null
     return aux

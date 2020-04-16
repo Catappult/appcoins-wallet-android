@@ -61,14 +61,14 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
   private fun animateBackgroundFade() {
-    referralsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+    referralsBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    }
+    })
   }
 
   private fun setTextValues() {
