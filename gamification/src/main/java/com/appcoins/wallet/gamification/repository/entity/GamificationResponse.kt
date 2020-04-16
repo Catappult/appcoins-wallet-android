@@ -13,10 +13,16 @@ data class GamificationResponse(
     @SerializedName("next_level_amount")
     val nextLevelAmount: BigDecimal?,
     val status: Status,
-    val bundle: Boolean) {
+    val bundle: Boolean,
+    @SerializedName("user_type")
+    val userType: UserType) {
 
   enum class Status {
     ACTIVE, INACTIVE
+  }
+
+  enum class UserType {
+    PIONEER, STANDARD
   }
 
 }

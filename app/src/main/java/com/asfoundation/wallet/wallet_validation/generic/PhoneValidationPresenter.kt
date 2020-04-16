@@ -23,11 +23,21 @@ class PhoneValidationPresenter(
     private val TAG = PhoneValidationPresenter::class.java.simpleName
   }
 
+  private var cachedValidationStatus: Pair<WalletValidationStatus, Pair<String, String>>? = null
+
+  fun onResume() {
+    resumePreviousState()
+  }
+
   fun present() {
     view.setupUI()
     handleValuesChange()
     handleNextAndRetryClicks()
     handleCancelAndLaterClicks()
+  }
+
+  private fun resumePreviousState() {
+    cachedValidationStatus?.let { onSuccess(it.first, it.second); cachedValidationStatus = null }
   }
 
   private fun handleCancelAndLaterClicks() {
@@ -50,6 +60,7 @@ class PhoneValidationPresenter(
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
+                    cachedValidationStatus = Pair(status, it)
                     view.setButtonState(true)
                     onSuccess(status, it)
                   }
@@ -58,6 +69,7 @@ class PhoneValidationPresenter(
                     showErrorMessage(R.string.unknown_error)
                     logger.log(TAG, throwable.message, throwable)
                   }
+                  .doOnSuccess { cachedValidationStatus = null }
             }
             .retry()
             .subscribe { }

@@ -33,6 +33,8 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
@@ -45,11 +47,9 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
@@ -78,6 +78,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject PaymentMethodsMapper paymentMethodsMapper;
   @Inject BalanceInteract balanceInteractor;
   @Inject WalletBlockedInteract walletBlockedInteract;
+  @Inject CurrencyFormatUtils formatter;
   private PaymentMethodsPresenter presenter;
   private List<PaymentMethod> paymentMethodList = new ArrayList<>();
   private ProgressBar loadingView;
@@ -172,7 +173,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, analyticsSetup, isBds, developerPayload, uri, gamification, transaction,
-        paymentMethodsMapper, walletBlockedInteract, transactionValue);
+        paymentMethodsMapper, walletBlockedInteract, transactionValue, formatter);
   }
 
   @Nullable @Override
@@ -301,8 +302,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods,
-      @NotNull FiatValue fiatValue, @NotNull String currency, @NotNull String paymentMethodId) {
-    updateHeaderInfo(fiatValue, isDonation, currency);
+      @NotNull FiatValue fiatValue, @NotNull String currency, @NotNull String paymentMethodId,
+      @NonNull String fiatAmount, @Nonnull String appcAmount) {
+    updateHeaderInfo(fiatValue, isDonation, currency, fiatAmount, appcAmount);
     setupPaymentMethods(paymentMethods, paymentMethodId);
 
     presenter.sendPaymentMethodsEvents();
@@ -311,9 +313,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPreSelectedPaymentMethod(@NotNull PaymentMethod paymentMethod,
-      @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency) {
+      @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency,
+      @NonNull String fiatAmount, @Nonnull String appcAmount) {
     preSelectedPaymentMethod.onNext(paymentMethod);
-    updateHeaderInfo(fiatValue, isDonation, currency);
+    updateHeaderInfo(fiatValue, isDonation, currency, fiatAmount, appcAmount);
 
     setupPaymentMethod(paymentMethod);
 
@@ -461,12 +464,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
     BigDecimal scaledBonus = bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_DOWN);
+        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN);
     if (scaledBonus.compareTo(new BigDecimal("0.01")) < 0) {
       currency = "~" + currency;
     }
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
-    bonusMessageValue = currency + scaledBonus.toPlainString();
+    String formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT);
+    bonusMessageValue = currency + formattedBonus;
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
     showBonus();
   }
@@ -534,13 +538,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     buyButton.setText(buyButtonText);
   }
 
-  private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency) {
+  private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency,
+      String fiatAmount, String appcAmount) {
     this.fiatValue = fiatValue;
-    Formatter formatter = new Formatter();
-    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
-        .toString() + " APPC";
-    DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
+    String valueText = appcAmount + " " + WalletCurrency.APPCOINS.getSymbol();
+    String priceText = fiatAmount + ' ' + currency;
     appcPriceTv.setText(valueText);
     fiatPriceTv.setText(priceText);
     appcPriceTv.setVisibility(View.VISIBLE);

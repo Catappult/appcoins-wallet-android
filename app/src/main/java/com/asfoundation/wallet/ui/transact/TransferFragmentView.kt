@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -27,7 +29,7 @@ interface TransferFragmentView {
   fun getQrCodeResult(): Observable<Barcode>
   fun showAddress(address: String)
   fun getCurrencyChange(): Observable<Currency>
-  fun showBalance(balance: BigDecimal, currency: Currency)
+  fun showBalance(balance: String, currency: WalletCurrency)
   fun showWalletBlocked()
   fun showNoNetworkError()
 

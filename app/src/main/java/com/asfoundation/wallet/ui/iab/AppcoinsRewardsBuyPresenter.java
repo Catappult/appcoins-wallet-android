@@ -5,6 +5,7 @@ import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -27,11 +28,13 @@ public class AppcoinsRewardsBuyPresenter {
   private final BillingAnalytics analytics;
   private final TransactionBuilder transactionBuilder;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
+  private final CurrencyFormatUtils formatter;
 
   AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
       Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String uri,
       String packageName, TransferParser transferParser, boolean isBds, BillingAnalytics analytics,
-      TransactionBuilder transactionBuilder, InAppPurchaseInteractor inAppPurchaseInteractor) {
+      TransactionBuilder transactionBuilder, InAppPurchaseInteractor inAppPurchaseInteractor,
+      CurrencyFormatUtils formatter) {
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
@@ -44,6 +47,7 @@ public class AppcoinsRewardsBuyPresenter {
     this.analytics = analytics;
     this.transactionBuilder = transactionBuilder;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
+    this.formatter = formatter;
   }
 
   public void present() {
@@ -135,11 +139,10 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   void sendRevenueEvent() {
-    analytics.sendRevenueEvent(inAppPurchaseInteractor.convertToFiat(transactionBuilder.amount()
-        .doubleValue(), EVENT_REVENUE_CURRENCY)
+    analytics.sendRevenueEvent(formatter.scaleFiat(inAppPurchaseInteractor.convertToFiat(
+        transactionBuilder.amount().doubleValue(), EVENT_REVENUE_CURRENCY)
         .blockingGet()
-        .getAmount()
-        .setScale(2, BigDecimal.ROUND_UP)
+        .getAmount())
         .toString());
   }
 

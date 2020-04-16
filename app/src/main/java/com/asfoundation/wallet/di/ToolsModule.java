@@ -223,6 +223,7 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -236,6 +237,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Single;
@@ -852,10 +854,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides GamificationApi provideGamificationApi(OkHttpClient client) {
+    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm")
+        .create();
+
     String baseUrl = CampaignService.SERVICE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(GamificationApi.class);
@@ -1336,5 +1341,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
     return new TopUpAnalytics(analyticsManager);
+  }
+
+  @Singleton @Provides CurrencyFormatUtils provideCurrencyFormatUtils() {
+    return CurrencyFormatUtils.Companion.create();
   }
 }

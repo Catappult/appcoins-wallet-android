@@ -5,7 +5,9 @@ import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.isNoNetworkException
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -20,12 +22,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val interactor: TopUpInteractor,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
-                             private val topUpAnalytics: TopUpAnalytics) {
+                             private val topUpAnalytics: TopUpAnalytics,
+                             private val formatter: CurrencyFormatUtils) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
   private var hasDefaultValues = false
-  private val keyboardLastValue = false
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
@@ -50,16 +52,16 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun setupUi() {
     disposables.add(Single.zip(
-            interactor.getPaymentMethods()
-                .subscribeOn(networkScheduler)
-                .observeOn(viewScheduler),
-            interactor.getLimitTopUpValues()
-                .subscribeOn(networkScheduler)
-                .observeOn(viewScheduler),
-            BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
-              view.setupUiElements(filterPaymentMethods(paymentMethods),
-                  LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-            })
+        interactor.getPaymentMethods()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler),
+        interactor.getLimitTopUpValues()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler),
+        BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
+          view.setupUiElements(filterPaymentMethods(paymentMethods),
+              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+        })
         .subscribe({}, { handleError(it) }))
   }
 
@@ -132,20 +134,20 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .debounce(700, TimeUnit.MILLISECONDS, viewScheduler)
         .doOnNext { handleInputValue(it) }
         .filter { isNumericOrEmpty(it) }
-        .switchMap { topUpData ->
+        .switchMapCompletable { topUpData ->
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler)
               .map { value -> updateConversionValue(value.amount, topUpData) }
               .observeOn(viewScheduler)
               .filter { isConvertedValueAvailable(it) }
               .doOnComplete { view.setConversionValue(topUpData) }
-              .flatMap {
+              .flatMapCompletable {
                 interactor.getLimitTopUpValues()
                     .toObservable()
-                    .flatMap { handleInsertedValue(packageName, topUpData, it) }
+                    .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
               }
               .doOnError { it.printStackTrace() }
-              .onErrorResumeNext(Observable.empty())
+              .onErrorComplete()
         }
         .subscribe())
   }
@@ -213,7 +215,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun loadBonusIntoView(appPackage: String, amount: String,
-                                currency: String): Observable<ForecastBonus> {
+                                currency: String): Completable{
     return interactor.convertLocal(currency, amount, 18)
         .flatMapSingle { interactor.getEarningBonus(appPackage, it.amount) }
         .subscribeOn(networkScheduler)
@@ -222,16 +224,17 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
             view.hideBonus()
           } else {
-            view.showBonus(it.amount, it.currency)
+            val scaledBonus = formatter.scaleFiat(it.amount)
+            view.showBonus(scaledBonus, it.currency)
           }
           view.setNextButtonState(true)
           gamificationLevel = it.level
         }
-        .map { ForecastBonus(it.status, it.amount, it.currency) }
+        .ignoreElements()
   }
 
   private fun handleInsertedValue(packageName: String, topUpData: TopUpData,
-                                  limitValues: TopUpLimitValues): Observable<ForecastBonus> {
+                                  limitValues: TopUpLimitValues): Completable {
     view.setNextButtonState(false)
     if (topUpData.currency.fiatValue != DEFAULT_VALUE && !limitValues.error.hasError) {
       showValueWarning(limitValues.maxValue, limitValues.minValue,
@@ -244,17 +247,15 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleShowBonus(appPackage: String, topUpData: TopUpData,
-                              limitValues: TopUpLimitValues,
-                              amount: BigDecimal): Observable<ForecastBonus> {
+                              limitValues: TopUpLimitValues, amount: BigDecimal): Completable {
     return if (!limitValues.error.hasError && (amount < limitValues.minValue.amount || amount > limitValues.maxValue.amount)) {
       view.hideBonus()
       view.changeMainValueColor(false)
       view.setNextButtonState(false)
-      Observable.empty()
+      Completable.complete()
     } else {
       view.changeMainValueColor(true)
-      loadBonusIntoView(appPackage, topUpData.currency.fiatValue,
-          topUpData.currency.fiatCurrencyCode)
+      loadBonusIntoView(appPackage, topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode)
     }
   }
 

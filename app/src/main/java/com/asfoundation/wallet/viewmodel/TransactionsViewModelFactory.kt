@@ -7,17 +7,18 @@ import com.asfoundation.wallet.navigator.TransactionViewNavigator
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.AppcoinsApps
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 
 class TransactionsViewModelFactory(private val applications: AppcoinsApps,
                                    private val analytics: TransactionsAnalytics,
                                    private val transactionViewNavigator: TransactionViewNavigator,
                                    private val transactionViewInteract: TransactionViewInteract,
-                                   private val supportInteractor: SupportInteractor) :
+                                   private val supportInteractor: SupportInteractor,
+                                   private val formatter: CurrencyFormatUtils) :
     ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     return TransactionsViewModel(applications, analytics, transactionViewNavigator,
-        transactionViewInteract, supportInteractor) as T
+        transactionViewInteract, supportInteractor, formatter) as T
   }
-
 }

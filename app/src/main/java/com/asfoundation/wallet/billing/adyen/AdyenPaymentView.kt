@@ -45,7 +45,7 @@ interface AdyenPaymentView {
 
   fun showCvvError()
 
-  fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String)
+  fun showProductPrice(amount: String, currencyCode: String)
 
   fun lockRotation()
 

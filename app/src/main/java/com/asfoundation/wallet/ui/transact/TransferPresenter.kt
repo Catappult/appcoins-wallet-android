@@ -3,7 +3,9 @@ package com.asfoundation.wallet.ui.transact
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -21,7 +23,8 @@ class TransferPresenter(private val view: TransferFragmentView,
                         private val viewScheduler: Scheduler,
                         private val walletInteract: FindDefaultWalletInteract,
                         private val walletBlockedInteract: WalletBlockedInteract,
-                        private val packageName: String) {
+                        private val packageName: String,
+                        private val formatter: CurrencyFormatUtils) {
 
   fun present() {
     handleButtonClick()
@@ -34,10 +37,13 @@ class TransferPresenter(private val view: TransferFragmentView,
     disposables.add(view.getCurrencyChange()
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
-        .switchMapSingle {
-          getBalance(it)
+        .switchMapSingle { currency ->
+          getBalance(currency)
               .observeOn(viewScheduler)
-              .doOnSuccess { balance -> view.showBalance(balance, it) }
+              .doOnSuccess {
+                val walletCurrency = WalletCurrency.mapToWalletCurrency(currency)
+                view.showBalance(formatter.formatCurrency(it, walletCurrency), walletCurrency)
+              }
         }
         .doOnError { it.printStackTrace() }
         .retry()

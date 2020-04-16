@@ -54,8 +54,7 @@ class TrustPasswordStore(private val context: Context,
     }
   }
 
-  override fun getPassword(
-      wallet: Wallet): Single<String> {
+  override fun getPassword(wallet: Wallet): Single<String> {
     return Single.fromCallable {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         return@fromCallable String(KS.get(context, wallet.address))
@@ -64,13 +63,12 @@ class TrustPasswordStore(private val context: Context,
       }
     }
         .onErrorResumeNext { throwable: Throwable? ->
-            logError(throwable)
-            getPasswordFallBack(wallet.address)
+          logError(throwable)
+          getPasswordFallBack(wallet.address)
         }
   }
 
-  override fun setPassword(address: String,
-                           password: String): Completable {
+  override fun setPassword(address: String, password: String): Completable {
     return Completable.fromAction {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         KS.put(context, address, password)
@@ -99,8 +97,7 @@ class TrustPasswordStore(private val context: Context,
     return setPassword(DEFAULT_WALLET, masterPassword)
   }
 
-  private fun getPasswordFallBack(
-      walletAddress: String): Single<String> {
+  private fun getPasswordFallBack(walletAddress: String): Single<String> {
     return Single.fromCallable {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         try {

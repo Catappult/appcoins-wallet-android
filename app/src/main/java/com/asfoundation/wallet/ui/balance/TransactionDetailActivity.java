@@ -23,6 +23,8 @@ import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -32,7 +34,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -51,6 +52,7 @@ public class TransactionDetailActivity extends BaseActivity {
   private RecyclerView detailsList;
   private Dialog dialog;
   private CompositeDisposable disposables;
+  @Inject CurrencyFormatUtils formatter;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -208,8 +210,8 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
     }
 
-    setUIContent(transaction.getTimeStamp(), getValue(), symbol, icon, id, description, typeStr,
-        typeIcon, statusStr, statusColor, to, isSent);
+    setUIContent(transaction.getTimeStamp(), getValue(symbol), symbol, icon, id, description,
+        typeStr, typeIcon, statusStr, statusColor, to, isSent);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -218,17 +220,14 @@ public class TransactionDetailActivity extends BaseActivity {
     String symbol =
         transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
             : transaction.getCurrency();
-    formatValue(getValue(), symbol);
+    formatValue(getValue(symbol), symbol);
   }
 
-  private String getScaledValue(String valueStr) {
-    // Perform decimal conversion
+  private String getScaledValue(String valueStr, String currencySymbol) {
+    WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
     value = value.divide(new BigDecimal(Math.pow(10, DECIMALS)));
-    int scale = 3 - value.precision() + value.scale();
-    return value.setScale(scale, RoundingMode.HALF_UP)
-        .stripTrailingZeros()
-        .toPlainString();
+    return formatter.formatCurrency(value, walletCurrency);
   }
 
   private String getDate(long timeStampInSec) {
@@ -312,14 +311,14 @@ public class TransactionDetailActivity extends BaseActivity {
   private void formatValue(String value, String symbol) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
-
-    amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+    String formattedValue = (isSent ? "-" : "+") + value;
+    amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
   }
 
-  private String getValue() {
+  private String getValue(String currencySymbol) {
     String rawValue = transaction.getValue();
     if (!rawValue.equals("0")) {
-      rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue);
+      rawValue = getScaledValue(rawValue, currencySymbol);
     }
     return rawValue;
   }

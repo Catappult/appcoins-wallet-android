@@ -116,11 +116,11 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   override fun showCodeValidationView(countryCode: String, phoneNumber: String) {
-    increaseAnimationFrames()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             CodeValidationFragment.newInstance(countryCode, phoneNumber, hasBeenInvitedFlow))
         .commit()
+    increaseAnimationFrames()
   }
 
   override fun showCodeValidationView(validationInfo: ValidationInfo, errorMessage: Int) {

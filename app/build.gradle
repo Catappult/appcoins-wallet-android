@@ -20,8 +20,7 @@ repositories {
 }
 
 android {
-  compileSdkVersion 28
-  buildToolsVersion '28.0.3'
+  compileSdkVersion 29
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")
@@ -31,9 +30,9 @@ android {
 
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
-    targetSdkVersion 28
-    versionCode 138
-    versionName "1.12.2.4"
+    targetSdkVersion 29
+    versionCode 139
+    versionName "1.13.0.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -235,7 +234,6 @@ dependencies {
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
   androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
 
-  // Fabric
   implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk_version") {
     transitive = true
   }
@@ -250,7 +248,3 @@ def renameArtifact(defaultConfig) {
     }
   }
 }
-
-// execute android tests before realising a new apk
-//(tasks.whenTaskAdded { task -> if (task.name == 'assembleRelease') task.dependsOn('test')
-//})
