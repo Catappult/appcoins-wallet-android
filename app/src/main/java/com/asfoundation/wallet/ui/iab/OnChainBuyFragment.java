@@ -22,6 +22,7 @@ import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,8 +102,9 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-            new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(), isBds,
-            analytics, getAppPackage(), data);
+            Schedulers.io(), new CompositeDisposable(),
+            inAppPurchaseInteractor.getBillingMessagesMapper(), isBds, analytics, getAppPackage(),
+            data);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
@@ -153,6 +155,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void finish(Bundle data) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_APPC);
     presenter.sendRevenueEvent();
+    presenter.sendPaymentSuccessEvent(PAYMENT_METHOD_APPC);
     data.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC.getId());
     iabView.finish(data);

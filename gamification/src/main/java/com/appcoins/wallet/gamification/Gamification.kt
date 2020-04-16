@@ -1,10 +1,7 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.ForecastBonus
-import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.UserStats
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.gamification.repository.*
+import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -17,34 +14,36 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.getUserStats(wallet)
   }
 
-  fun getLevels(): Single<Levels> {
-    return repository.getLevels()
+  fun getLevels(wallet: String): Single<Levels> {
+    return repository.getLevels(wallet)
   }
 
-  fun getNextPurchaseBonus(wallet: String): Single<ForecastBonus> {
-    return repository.getReferralUserStatus(wallet)
+  fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
+    return repository.getUserStatus(wallet)
         .map { map(it) }
         .onErrorReturn { mapReferralError(it) }
   }
 
-  fun getReferralsUserStatus(wallet: String): Single<ReferralResponse> {
-    return repository.getReferralUserStatus(wallet)
-  }
-
-  private fun map(referralResponse: ReferralResponse?): ForecastBonus {
-    if (referralResponse == null || referralResponse.pendingAmount.compareTo(
-            BigDecimal.ZERO) == 0) {
-      return ForecastBonus(ForecastBonus.Status.INACTIVE)
+  private fun map(userStatusResponse: UserStatusResponse): ForecastBonusAndLevel {
+    val gamificationResponse = userStatusResponse.gamification
+    val referralResponse = userStatusResponse.referral
+    if (referralResponse.pendingAmount.compareTo(BigDecimal.ZERO) == 0) {
+      return ForecastBonusAndLevel(status = ForecastBonus.Status.INACTIVE,
+          level = gamificationResponse.level)
     }
-    return ForecastBonus(ForecastBonus.Status.ACTIVE, referralResponse.pendingAmount)
+    return ForecastBonusAndLevel(
+        ForecastBonus.Status.ACTIVE,
+        referralResponse.pendingAmount,
+        minAmount = referralResponse.minAmount,
+        level = gamificationResponse.level)
   }
 
-  private fun mapReferralError(throwable: Throwable): ForecastBonus {
+  private fun mapReferralError(throwable: Throwable): ForecastBonusAndLevel {
     throwable.printStackTrace()
     return when (throwable) {
-      is UnknownHostException -> ForecastBonus(ForecastBonus.Status.NO_NETWORK)
+      is UnknownHostException -> ForecastBonusAndLevel(ForecastBonus.Status.NO_NETWORK)
       else -> {
-        ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR)
+        ForecastBonusAndLevel(ForecastBonus.Status.UNKNOWN_ERROR)
       }
     }
   }

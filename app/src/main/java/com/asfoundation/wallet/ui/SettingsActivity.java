@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 import com.asf.wallet.R;
@@ -8,12 +7,12 @@ import com.asfoundation.wallet.router.TransactionsRouter;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasFragmentInjector;
+import dagger.android.HasAndroidInjector;
 import javax.inject.Inject;
 
-public class SettingsActivity extends BaseActivity implements HasFragmentInjector {
+public class SettingsActivity extends BaseActivity implements HasAndroidInjector {
 
-  @Inject DispatchingAndroidInjector<Fragment> fragmentInjector;
+  @Inject DispatchingAndroidInjector<Object> androidInjector;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -34,7 +33,7 @@ public class SettingsActivity extends BaseActivity implements HasFragmentInjecto
     return super.onOptionsItemSelected(item);
   }
 
-  @Override public AndroidInjector<android.app.Fragment> fragmentInjector() {
-    return fragmentInjector;
+  @Override public AndroidInjector<Object> androidInjector() {
+    return androidInjector;
   }
 }

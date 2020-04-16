@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.util.Error
+import retrofit2.HttpException
 import java.io.IOException
 
 class AdyenResponseMapper {
@@ -32,12 +33,15 @@ class AdyenResponseMapper {
 
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
-    return PaymentInfoModel(Error(true, throwable.isNoNetworkException()))
+    val code = if (throwable is HttpException) throwable.code() else null
+    return PaymentInfoModel(Error(true, throwable.isNoNetworkException(), code,
+        throwable.message))
   }
 
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
-    return PaymentModel(Error(true, throwable.isNoNetworkException()))
+    val code = if (throwable is HttpException) throwable.code() else null
+    return PaymentModel(Error(true, throwable.isNoNetworkException(), code, throwable.message))
   }
 
   private fun findPaymentMethod(paymentMethods: List<PaymentMethod>?,

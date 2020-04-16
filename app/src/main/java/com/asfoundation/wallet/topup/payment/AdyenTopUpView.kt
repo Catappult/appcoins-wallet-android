@@ -11,7 +11,7 @@ import java.math.BigDecimal
 
 interface AdyenTopUpView {
 
-  fun showValues(value: BigDecimal, currency: String)
+  fun showValues(value: String, currency: String)
 
   fun showLoading()
 
@@ -24,8 +24,6 @@ interface AdyenTopUpView {
   fun showGenericError()
 
   fun updateTopUpButton(valid: Boolean)
-
-  fun showChipsAsDisabled(index: Int)
 
   fun cancelPayment()
 
@@ -48,11 +46,19 @@ interface AdyenTopUpView {
 
   fun getPaymentDetails(): Observable<RedirectComponentModel>
 
-  fun showSpecificError(refusalCode: Int)
+  fun showSpecificError(stringRes: Int)
+
+  fun showCvvError()
 
   fun topUpButtonClicked(): Observable<Any>
 
   fun retrievePaymentData(): Observable<AdyenCardWrapper>
 
   fun hideKeyboard()
+
+  fun getTryAgainClicks(): Observable<Any>
+
+  fun getSupportClicks(): Observable<Any>
+
+  fun hideSpecificError()
 }

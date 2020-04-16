@@ -82,12 +82,20 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_below="@id/layout_pre_selected"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/big_margin"
                 android:fontFamily="sans-serif-medium"
                 android:lineSpacingExtra="5sp"
                 android:text="@string/activity_iab_change_card"
                 android:textColor="@color/btn_cancel_text"
                 android:textSize="12sp"
+                android:visibility="gone"
+                />
+
+            <include
+                android:id="@+id/fragment_adyen_error_pre_selected"
+                layout="@layout/fragment_adyen_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:visibility="gone"
                 />
           </RelativeLayout>
@@ -157,6 +165,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottom_separator_buttons"
+            />
+
+        <include
+            android:id="@+id/dialog_buy_buttons_error"
+            layout="@layout/dialog_buy_buttons_adyen_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

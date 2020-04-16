@@ -13,7 +13,6 @@ import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
@@ -26,9 +25,13 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
+  @Inject
+  lateinit var topUpAnalytics: TopUpAnalytics
+
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
+  private var firstImpression = true
 
   companion object {
     @JvmStatic
@@ -39,9 +42,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     const val WEB_VIEW_REQUEST_CODE = 1234
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
+    private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
+    private const val FIRST_IMPRESSION = "first_impression"
   }
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -50,6 +54,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     presenter = TopUpActivityPresenter(this)
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
+    if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
+      firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
+    }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -59,19 +66,19 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun showTopUpScreen() {
     setupToolbar()
+    handleTopUpStartAnalytics()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
         .commit()
   }
 
   override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
-                                 selectedCurrency: String, origin: String, transactionType: String,
-                                 bonusValue: String, selectedChip: Int, chipValues: List<FiatValue>,
-                                 chipAvailability: Boolean) {
+                                 selectedCurrency: String, transactionType: String,
+                                 bonusValue: String, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
-            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency, origin,
-                transactionType, bonusValue, selectedChip, chipValues, chipAvailability))
+            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency,
+                transactionType, bonusValue, gamificationLevel))
         .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
   }
@@ -106,7 +113,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
-                data.getString(TOP_UP_CURRENCY), data.getString(BONUS)),
+                data.getString(TOP_UP_CURRENCY), data.getString(BONUS), data.getString(
+                TOP_UP_CURRENCY_SYMBOL)),
             TopUpSuccessFragment::class.java.simpleName)
         .commit()
     unlockRotation()
@@ -123,12 +131,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun acceptResult(uri: Uri) {
     results.accept(Objects.requireNonNull(uri, "Intent data cannot be null!"))
   }
-
-  override fun onNewIntent(intent: Intent) {
-    super.onNewIntent(intent)
-    results.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
-  }
-
 
   override fun navigateToUri(url: String) {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
@@ -152,9 +154,23 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun cancelPayment() {
     if (supportFragmentManager.backStackEntryCount != 0) {
-      supportFragmentManager.popBackStack()
+      supportFragmentManager.popBackStackImmediate()
     } else {
       super.onBackPressed()
     }
   }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putBoolean(FIRST_IMPRESSION, firstImpression)
+  }
+
+  private fun handleTopUpStartAnalytics() {
+    if (firstImpression) {
+      topUpAnalytics.sendStartEvent()
+      firstImpression = false
+    }
+  }
+
 }

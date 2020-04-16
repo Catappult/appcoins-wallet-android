@@ -9,7 +9,7 @@ import java.math.BigDecimal
 
 interface PromotionsRepository {
   fun getUserStats(wallet: String): Single<UserStats>
-  fun getLevels(): Single<Levels>
+  fun getLevels(wallet: String): Single<Levels>
   fun getForecastBonus(wallet: String, packageName: String,
                        amount: BigDecimal): Single<ForecastBonus>
 

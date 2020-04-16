@@ -49,17 +49,21 @@
           android:layout_below="@id/line_separator"
           android:overScrollMode="never"
           android:scrollbars="none"
+          tools:visibility="visible"
           >
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+
           <include
               android:id="@+id/adyen_card_form"
               layout="@layout/selected_payment_method_cc"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               />
+
           <Button
               android:id="@+id/change_card_button"
               style="?android:attr/borderlessButtonStyle"
@@ -76,6 +80,7 @@
               android:textSize="12sp"
               android:visibility="gone"
               />
+
           <ProgressBar
               android:id="@+id/fragment_credit_card_authorization_progress_bar"
               android:layout_width="wrap_content"
@@ -84,7 +89,17 @@
               android:indeterminateDrawable="@drawable/gradient_progress"
               />
 
+          <include
+              android:id="@+id/fragment_adyen_error"
+              layout="@layout/fragment_adyen_error"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="8dp"
+              android:visibility="gone"
+              />
+
         </RelativeLayout>
+
       </ScrollView>
 
       <include
@@ -115,11 +130,22 @@
           />
 
       <include
+          android:id="@+id/dialog_buy_buttons"
           layout="@layout/dialog_buy_buttons"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/bonus_msg"
           android:layout_marginTop="10dp"
+          />
+
+      <include
+          android:id="@+id/error_buttons"
+          layout="@layout/dialog_buy_buttons_adyen_error"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/cc_info_view"
+          android:layout_marginTop="10dp"
+          android:visibility="gone"
           />
 
     </RelativeLayout>

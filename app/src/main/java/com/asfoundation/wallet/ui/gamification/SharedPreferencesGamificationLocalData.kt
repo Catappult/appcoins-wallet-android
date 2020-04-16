@@ -8,9 +8,11 @@ import io.reactivex.Single
 
 class SharedPreferencesGamificationLocalData(private val preferences: SharedPreferences) :
     GamificationLocalData {
+
   companion object {
     private const val SHOWN_LEVEL = "shown_level"
     private const val SCREEN = "screen_"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
   }
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
@@ -24,6 +26,15 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
           .apply()
     }
   }
+
+  override fun setGamificationLevel(gamificationLevel: Int): Completable {
+    return Completable.fromCallable {
+      preferences.edit()
+          .putInt(GAMIFICATION_LEVEL, gamificationLevel)
+          .apply()
+    }
+  }
+
 
   private fun getKey(wallet: String, screen: String): String {
     return if (screen == GamificationScreen.MY_LEVEL.toString()) {

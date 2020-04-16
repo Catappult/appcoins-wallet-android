@@ -26,12 +26,15 @@ import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
+import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
@@ -44,11 +47,9 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
@@ -70,12 +71,14 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
+  @Inject RakamAnalyticsSetup analyticsSetup;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject Billing billing;
   @Inject GamificationInteractor gamification;
   @Inject PaymentMethodsMapper paymentMethodsMapper;
   @Inject BalanceInteract balanceInteractor;
   @Inject WalletBlockedInteract walletBlockedInteract;
+  @Inject CurrencyFormatUtils formatter;
   private PaymentMethodsPresenter presenter;
   private List<PaymentMethod> paymentMethodList = new ArrayList<>();
   private ProgressBar loadingView;
@@ -169,8 +172,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, developerPayload, uri, gamification, transaction, paymentMethodsMapper,
-        walletBlockedInteract, transactionValue);
+        analytics, analyticsSetup, isBds, developerPayload, uri, gamification, transaction,
+        paymentMethodsMapper, walletBlockedInteract, transactionValue, formatter);
   }
 
   @Nullable @Override
@@ -299,23 +302,25 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods,
-      @NotNull FiatValue fiatValue, @NotNull String currency, @NotNull String paymentMethodId) {
-    updateHeaderInfo(fiatValue, isDonation, currency);
+      @NotNull FiatValue fiatValue, @NotNull String currency, @NotNull String paymentMethodId,
+      @NonNull String fiatAmount, @Nonnull String appcAmount) {
+    updateHeaderInfo(fiatValue, isDonation, currency, fiatAmount, appcAmount);
     setupPaymentMethods(paymentMethods, paymentMethodId);
 
-    presenter.sendPurchaseDetailsEvent();
+    presenter.sendPaymentMethodsEvents();
 
     setupSubject.onNext(true);
   }
 
   @Override public void showPreSelectedPaymentMethod(@NotNull PaymentMethod paymentMethod,
-      @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency) {
+      @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency,
+      @NonNull String fiatAmount, @Nonnull String appcAmount) {
     preSelectedPaymentMethod.onNext(paymentMethod);
-    updateHeaderInfo(fiatValue, isDonation, currency);
+    updateHeaderInfo(fiatValue, isDonation, currency, fiatAmount, appcAmount);
 
     setupPaymentMethod(paymentMethod);
 
-    presenter.sendPurchaseDetailsEvent();
+    presenter.sendPreSelectedPaymentMethodsEvents();
 
     setupSubject.onNext(true);
   }
@@ -368,8 +373,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
   }
 
-  @Override public Observable<Object> getCancelClick() {
-    return RxView.clicks(cancelButton);
+  @Override public Observable<PaymentMethod> getCancelClick() {
+    return RxView.clicks(cancelButton)
+        .map(__ -> getSelectedPaymentMethod());
   }
 
   @Override public void close(Bundle data) {
@@ -393,36 +399,25 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public Observable<PaymentMethod> getBuyClick() {
     return RxView.clicks(buyButton)
-        .map(__ -> {
-          boolean hasPreSelectedPaymentMethod =
-              inAppPurchaseInteractor.hasPreSelectedPaymentMethod();
-
-          if (!paymentMethodList.isEmpty() && radioGroup.getCheckedRadioButtonId() != -1) {
-            return paymentMethodList.get(radioGroup.getCheckedRadioButtonId());
-          } else if (hasPreSelectedPaymentMethod && radioGroup.getCheckedRadioButtonId() == -1) {
-            return preSelectedPaymentMethod.getValue();
-          } else {
-            return null;
-          }
-        });
+        .map(__ -> getSelectedPaymentMethod());
   }
 
-  @Override public void showPaypal() {
+  @Override public void showPaypal(int gamificationLevel) {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null);
+        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel);
   }
 
   @Override public void showAdyen(@NotNull FiatValue fiatValue, @NotNull PaymentType paymentType,
-      String iconUrl) {
+      String iconUrl, int gamificationLevel) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds, paymentType,
-          bonusMessageValue, true, iconUrl);
+          bonusMessageValue, true, iconUrl, gamificationLevel);
     }
   }
 
-  @Override public void showCreditCard() {
+  @Override public void showCreditCard(int gamificationLevel) {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.CARD, bonusMessageValue, false, null);
+        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel);
   }
 
   @Override public void showAppCoins() {
@@ -449,8 +444,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
             .getId()), preSelectedPaymentMethod.map(paymentMethod -> paymentMethod.getId()));
   }
 
-  @NotNull @Override public Observable<Object> getMorePaymentMethodsClicks() {
-    return RxView.clicks(morePaymentMethods);
+  @Override public @NotNull Observable<PaymentMethod> getMorePaymentMethodsClicks() {
+    return RxView.clicks(morePaymentMethods)
+        .map(__ -> getSelectedPaymentMethod());
   }
 
   @Override
@@ -468,12 +464,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
     BigDecimal scaledBonus = bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_DOWN);
+        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN);
     if (scaledBonus.compareTo(new BigDecimal("0.01")) < 0) {
       currency = "~" + currency;
     }
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
-    bonusMessageValue = currency + scaledBonus.toPlainString();
+    String formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT);
+    bonusMessageValue = currency + formattedBonus;
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
     showBonus();
   }
@@ -512,6 +509,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
   }
 
+  @Override public void hideBonus() {
+    bonusView.setVisibility(View.INVISIBLE);
+    bonusMsg.setVisibility(View.INVISIBLE);
+    hideBottomSeparator();
+  }
+
   @Override public void replaceBonus() {
     bonusView.setVisibility(View.INVISIBLE);
     bonusMsg.setVisibility(View.INVISIBLE);
@@ -524,9 +527,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.showWalletBlocked();
   }
 
-  private void hideBonus() {
-    bonusView.setVisibility(View.GONE);
-    bonusMsg.setVisibility(View.GONE);
+  private void hideBottomSeparator() {
     if (bottomSeparator != null) {
       bottomSeparator.setVisibility(View.INVISIBLE);
     }
@@ -537,13 +538,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     buyButton.setText(buyButtonText);
   }
 
-  private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency) {
+  private void updateHeaderInfo(FiatValue fiatValue, boolean isDonation, String currency,
+      String fiatAmount, String appcAmount) {
     this.fiatValue = fiatValue;
-    Formatter formatter = new Formatter();
-    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
-        .toString() + " APPC";
-    DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
+    String valueText = appcAmount + " " + WalletCurrency.APPCOINS.getSymbol();
+    String priceText = fiatAmount + ' ' + currency;
     appcPriceTv.setText(valueText);
     fiatPriceTv.setText(priceText);
     appcPriceTv.setVisibility(View.VISIBLE);
@@ -669,5 +668,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     radioButton.setId(index);
     loadIcons(paymentMethod, radioButton, false);
     return radioButton;
+  }
+
+  private PaymentMethod getSelectedPaymentMethod() {
+    boolean hasPreSelectedPaymentMethod = inAppPurchaseInteractor.hasPreSelectedPaymentMethod();
+
+    if (!paymentMethodList.isEmpty() && radioGroup.getCheckedRadioButtonId() != -1) {
+      return paymentMethodList.get(radioGroup.getCheckedRadioButtonId());
+    } else if (hasPreSelectedPaymentMethod && radioGroup.getCheckedRadioButtonId() == -1) {
+      return preSelectedPaymentMethod.getValue();
+    } else {
+      return null;
+    }
   }
 }

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository
 
+import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.entity.WalletValidationException
 import com.asfoundation.wallet.service.SmsValidationApi
@@ -11,7 +12,8 @@ import retrofit2.HttpException
 
 class SmsValidationRepository(
     private val api: SmsValidationApi,
-    private val gson: Gson
+    private val gson: Gson,
+    private val logger: Logger
 ) : SmsValidationRepositoryType {
 
   override fun isValid(walletAddress: String): Single<WalletValidationStatus> {
@@ -46,14 +48,19 @@ class SmsValidationRepository(
       is HttpException -> {
         var walletValidationException = WalletValidationException("")
         if (throwable.code() == 400) {
-          walletValidationException = gson.fromJson(throwable.response()
-              .errorBody()!!
-              .charStream(), WalletValidationException::class.java)
+          throwable.response()
+              ?.errorBody()
+              ?.charStream()
+              ?.let {
+                walletValidationException = gson.fromJson(it, WalletValidationException::class.java)
+              } ?: logger.log(throwable)
         }
         when {
           throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
           throwable.code() == 400 && walletValidationException.status == "INVALID_PHONE" -> WalletValidationStatus.INVALID_PHONE
           throwable.code() == 400 && walletValidationException.status == "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
+          throwable.code() == 400 && walletValidationException.status == "REGION_NOT_SUPPORTED" -> WalletValidationStatus.REGION_NOT_SUPPORTED
+          throwable.code() == 400 && walletValidationException.status == "LANDLINE_NOT_SUPPORTED" -> WalletValidationStatus.LANDLINE_NOT_SUPPORTED
           throwable.code() == 429 -> WalletValidationStatus.DOUBLE_SPENT
           else -> WalletValidationStatus.GENERIC_ERROR
         }

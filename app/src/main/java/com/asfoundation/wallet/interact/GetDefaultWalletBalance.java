@@ -63,7 +63,7 @@ public class GetDefaultWalletBalance implements BalanceService {
   }
 
   private Single<Balance> getEtherBalance(Wallet wallet) {
-    return walletRepository.balanceInWei(wallet)
+    return walletRepository.getEthBalanceInWei(wallet)
         .flatMap(ethBalance -> Single.just(new Balance(defaultNetwork.symbol,
             weiToEth(ethBalance).setScale(4, RoundingMode.FLOOR))))
         .observeOn(AndroidSchedulers.mainThread());
@@ -96,7 +96,7 @@ public class GetDefaultWalletBalance implements BalanceService {
 
   private Single<BigDecimal> getBalanceInWei() {
     return defaultWalletInteract.find()
-        .flatMap(walletRepository::balanceInWei);
+        .flatMap(walletRepository::getEthBalanceInWei);
   }
 
   private Single<Boolean> hasEnoughForTransfer(BigDecimal cost, boolean isTokenTransfer,

@@ -15,14 +15,17 @@ class GamificationTest {
   private lateinit var gamification: Gamification
   private val api = GamificationApiTest()
   private val local = GamificationLocalDataTest()
-  private val wallet = "wallet1"
-  private val packageName = "packageName"
-  private val versionCode = "version_code"
+
+  companion object {
+    private const val WALLET = "wallet1"
+    private const val PACKAGE_NAME = "packageName"
+    private const val VERSION_CODE = "version_code"
+  }
 
   @Before
   @Throws(Exception::class)
   fun setUp() {
-    gamification = Gamification(BdsPromotionsRepository(api, local, versionCode))
+    gamification = Gamification(BdsPromotionsRepository(api, local, VERSION_CODE))
   }
 
   @Test
@@ -32,12 +35,13 @@ class GamificationTest {
             GamificationResponse.Status.ACTIVE, true)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
+            ReferralResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
         Single.just(UserStatusResponse(userStatsGamification, referralResponse))
-    val testObserver = gamification.getUserStats(wallet)
+    val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(
         UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO,
@@ -47,7 +51,7 @@ class GamificationTest {
   @Test
   fun getUserStatsNoNetworkTest() {
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStats(wallet)
+    val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(UserStats(UserStats.Status.NO_NETWORK))
   }
@@ -57,7 +61,7 @@ class GamificationTest {
     api.levelsResponse = Single.just(
         LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2)),
             LevelsResponse.Status.ACTIVE))
-    val testObserver = gamification.getLevels()
+    val testObserver = gamification.getLevels(WALLET)
         .test()
     testObserver.assertValue(
         Levels(Levels.Status.OK,
@@ -68,7 +72,7 @@ class GamificationTest {
   @Test
   fun getLevelsNoNetwork() {
     api.levelsResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getLevels()
+    val testObserver = gamification.getLevels(WALLET)
         .test()
     testObserver.assertValue(Levels(Levels.Status.NO_NETWORK))
   }
@@ -77,7 +81,7 @@ class GamificationTest {
   fun getBonus() {
     api.bonusResponse = Single.just(
         ForecastBonusResponse(BigDecimal.ONE, 0, ForecastBonusResponse.Status.ACTIVE))
-    val testObserver = gamification.getEarningBonus(wallet, packageName, BigDecimal.ONE)
+    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE)
         .test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.ACTIVE, BigDecimal.ONE))
   }
@@ -85,7 +89,7 @@ class GamificationTest {
   @Test
   fun getBonusNoNetwork() {
     api.bonusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getEarningBonus(wallet, packageName, BigDecimal.ONE)
+    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE)
         .test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.NO_NETWORK))
   }
@@ -97,13 +101,14 @@ class GamificationTest {
             GamificationResponse.Status.ACTIVE, true)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
+            ReferralResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
         Single.just(UserStatusResponse(userStatsGamification, referralResponse))
     local.lastShownLevelResponse = Single.just(0)
-    val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
     test.assertValue(false)
         .assertNoErrors()
@@ -117,13 +122,14 @@ class GamificationTest {
             GamificationResponse.Status.ACTIVE, true)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
+            ReferralResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
         Single.just(UserStatusResponse(userStatsGamification, referralResponse))
     local.lastShownLevelResponse = Single.just(-1)
-    val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
     test.assertValue(true)
         .assertNoErrors()
@@ -134,7 +140,7 @@ class GamificationTest {
   fun hasNewLevelNetworkError() {
     api.userStatusResponse = Single.error(UnknownHostException())
     local.lastShownLevelResponse = Single.just(-1)
-    val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
     test.assertValue(false)
         .assertNoErrors()
@@ -144,12 +150,13 @@ class GamificationTest {
   @Test
   fun levelShown() {
     val shownLevel = 1
-    val test = gamification.levelShown(wallet, shownLevel, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.levelShown(WALLET, shownLevel, GamificationScreen.MY_LEVEL.toString())
         .test()
     test.assertNoErrors()
         .assertComplete()
     local.lastShownLevelResponse!!.test()
         .assertValue(shownLevel)
-    Assert.assertEquals("the updated wallet was not the expected one", wallet, local.getWallet())
+    Assert.assertEquals("the updated wallet was not the expected one", WALLET, local.getWallet())
   }
+
 }

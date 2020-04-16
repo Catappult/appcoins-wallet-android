@@ -54,16 +54,16 @@ public class OneStepPaymentReceiver extends BaseActivity {
     }
   }
 
-  private Single<Wallet> handleWalletCreation(Throwable throwable) {
-    return throwable instanceof WalletNotFoundException ? createWallet() : Single.error(throwable);
-  }
-
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == REQUEST_CODE) {
       setResult(resultCode, data);
       finish();
     }
+  }
+
+  private Single<Wallet> handleWalletCreation(Throwable throwable) {
+    return throwable instanceof WalletNotFoundException ? createWallet() : Single.error(throwable);
   }
 
   private void startApp(Throwable throwable) {

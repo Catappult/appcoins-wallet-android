@@ -69,6 +69,8 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
+import com.asfoundation.wallet.analytics.RakamAnalyticsSetup;
+import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
@@ -92,6 +94,7 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.identification.IdsRepository;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -105,7 +108,6 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
-import com.asfoundation.wallet.interact.SupportInteractor;
 import com.asfoundation.wallet.navigator.UpdateNavigator;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
@@ -171,11 +173,14 @@ import com.asfoundation.wallet.service.AutoUpdateService;
 import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.service.CampaignService.CampaignApi;
+import com.asfoundation.wallet.service.GasService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi;
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
+import com.asfoundation.wallet.support.SupportInteractor;
+import com.asfoundation.wallet.topup.TopUpAnalytics;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.topup.TopUpLimitValues;
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
@@ -216,6 +221,7 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -387,7 +393,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides FetchGasSettingsInteract provideFetchGasSettingsInteract(
       GasSettingsRepositoryType gasSettingsRepository) {
-    return new FetchGasSettingsInteract(gasSettingsRepository);
+    return new FetchGasSettingsInteract(gasSettingsRepository, Schedulers.io(),
+        AndroidSchedulers.mainThread());
   }
 
   @Provides FindDefaultWalletInteract provideFindDefaultWalletInteract(
@@ -550,8 +557,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      Web3jProvider web3jProvider) {
-    return new GasSettingsRepository(web3jProvider);
+      GasService gasService) {
+    return new GasSettingsRepository(gasService);
   }
 
   @Singleton @Provides DataMapper provideDataMapper() {
@@ -789,10 +796,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides AdyenPaymentInteractor provideAdyenPaymentInteractor(
       AdyenPaymentRepository adyenPaymentRepository,
       InAppPurchaseInteractor inAppPurchaseInteractor, AddressService partnerAddressService,
-      Billing billing, WalletService walletService) {
+      Billing billing, WalletService walletService, SupportInteractor supportInteractor) {
     return new AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), partnerAddressService, billing,
-        walletService);
+        walletService, supportInteractor);
   }
 
   @Singleton @Provides AdyenPaymentRepository provideAdyenPaymentRepository(OkHttpClient client) {
@@ -905,12 +912,31 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return list;
   }
 
+  @Singleton @Provides @Named("rakam_event_list") List<String> provideRakamEventList() {
+    List<String> list = new ArrayList<>();
+    list.add(BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_METHOD);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_CONCLUSION);
+    list.add(BillingAnalytics.RAKAM_PAYMENT_START);
+    list.add(BillingAnalytics.RAKAM_PAYPAL_URL);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_START);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_SELECTION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION);
+    list.add(TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL);
+    list.add(PoaAnalytics.RAKAM_POA_EVENT);
+    return list;
+  }
+
   @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
       AnalyticsAPI api, Context context, @Named("bi_event_list") List<String> biEventList,
-      @Named("facebook_event_list") List<String> facebookEventList) {
+      @Named("facebook_event_list") List<String> facebookEventList,
+      @Named("rakam_event_list") List<String> rakamEventList) {
 
     return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), biEventList)
         .addLogger(new FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
+        .addLogger(new RakamEventLogger(), rakamEventList)
         .setAnalyticsNormalizer(new KeysNormalizer())
         .setDebugLogger(new LogcatAnalyticsLogger())
         .setKnockLogger(new HttpClientKnockLogger(okHttpClient))
@@ -1157,6 +1183,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(SmsValidationApi.class);
   }
 
+  @Singleton @Provides GasService provideGasService(OkHttpClient client, Gson gson) {
+    return new Retrofit.Builder().baseUrl(GasService.API_BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(GasService.class);
+  }
+
   @Singleton @Provides WalletStatusApi provideWalletStatusApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BACKEND_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
@@ -1279,7 +1314,25 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new UpdateNavigator();
   }
 
-  @Singleton @Provides SupportInteractor provideSupportInteractor() {
-    return new SupportInteractor();
+  @Singleton @Provides SupportInteractor provideSupportInteractor(SharedPreferences preferences) {
+    return new SupportInteractor(preferences);
+  }
+
+  @Singleton @Provides IdsRepository provideIdsRepository(Context context,
+      SharedPreferencesRepository sharedPreferencesRepository, InstallerService installerService) {
+    return new IdsRepository(context.getContentResolver(), sharedPreferencesRepository,
+        installerService);
+  }
+
+  @Singleton @Provides RakamAnalyticsSetup provideRakamAnalyticsSetup() {
+    return new RakamAnalyticsSetup();
+  }
+
+  @Singleton @Provides TopUpAnalytics provideTopUpAnalytics(AnalyticsManager analyticsManager) {
+    return new TopUpAnalytics(analyticsManager);
+  }
+
+  @Singleton @Provides CurrencyFormatUtils provideCurrencyFormatUtils() {
+    return CurrencyFormatUtils.Companion.create();
   }
 }

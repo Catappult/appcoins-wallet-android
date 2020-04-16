@@ -18,15 +18,16 @@ import com.asfoundation.wallet.ui.widget.entity.TimestampSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.TransactionSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationListViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationsListViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
-import rx.functions.Action1;
 import rx.functions.Action2;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> {
@@ -62,21 +63,23 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
         }
       });
   private final OnTransactionClickListener onTransactionClickListener;
-  private final Action1<AppcoinsApplication> applicationClickListener;
+  private final Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener;
   private final Action2<CardNotification, CardNotificationAction> referralNotificationClickListener;
 
   private Wallet wallet;
   private NetworkInfo network;
   private Resources resources;
+  private CurrencyFormatUtils formatter;
 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
-      Action1<AppcoinsApplication> applicationClickListener,
+      Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener,
       Action2<CardNotification, CardNotificationAction> referralNotificationClickListener,
-      Resources resources) {
+      Resources resources, CurrencyFormatUtils formatter) {
     this.onTransactionClickListener = onTransactionClickListener;
     this.applicationClickListener = applicationClickListener;
     this.referralNotificationClickListener = referralNotificationClickListener;
     this.resources = resources;
+    this.formatter = formatter;
   }
 
   @NotNull @Override
@@ -86,7 +89,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
       case TransactionHolder.VIEW_TYPE:
         holder =
             new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener,
-                resources);
+                resources, formatter);
         break;
       case TransactionDateHolder.VIEW_TYPE:
         holder = new TransactionDateHolder(R.layout.item_transactions_date_head, parent);

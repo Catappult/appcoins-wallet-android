@@ -50,6 +50,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return api.getUserStatus(wallet, versionCode)
         .map { map(it) }
         .onErrorReturn { map(it) }
+        .flatMap {
+          local.setGamificationLevel(it.level)
+              .toSingle { it }
+        }
   }
 
   private fun map(throwable: Throwable): UserStats {
@@ -69,8 +73,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         GamificationResponse.Status.ACTIVE == gamification.status)
   }
 
-  override fun getLevels(): Single<Levels> {
-    return api.getLevels()
+  override fun getLevels(wallet: String): Single<Levels> {
+    return api.getLevels(wallet)
         .map { map(it) }
         .onErrorReturn { mapLevelsError(it) }
   }
@@ -94,15 +98,28 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
     return api.getUserStatus(wallet, versionCode)
+        .flatMap {
+          local.setGamificationLevel(it.gamification.level)
+              .toSingle { it }
+        }
+
   }
 
   override fun getGamificationUserStatus(wallet: String): Single<GamificationResponse> {
     return api.getUserStatus(wallet, versionCode)
+        .flatMap {
+          local.setGamificationLevel(it.gamification.level)
+              .toSingle { it }
+        }
         .map { it.gamification }
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
     return api.getUserStatus(wallet, versionCode)
+        .flatMap {
+          local.setGamificationLevel(it.gamification.level)
+              .toSingle { it }
+        }
         .map { it.referral }
   }
 
