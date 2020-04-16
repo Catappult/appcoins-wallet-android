@@ -15,8 +15,4 @@ data class UserStats(val status: Status, val level: Int = -1,
     OK, NO_NETWORK, UNKNOWN_ERROR
   }
 
-  companion object {
-    // Level values start at 0
-    const val MAX_LEVEL = 4
-  }
 }

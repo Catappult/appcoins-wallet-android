@@ -22,7 +22,6 @@ class GamificationTest {
     private const val WALLET = "wallet1"
     private const val PACKAGE_NAME = "packageName"
     private const val VERSION_CODE = "version_code"
-    private const val DATE = "a_date"
   }
 
   @Before
