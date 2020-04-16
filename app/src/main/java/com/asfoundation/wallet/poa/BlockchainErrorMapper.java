@@ -13,9 +13,9 @@ import java.net.UnknownHostException;
 
 public class BlockchainErrorMapper {
 
-  public static final String INSUFFICIENT_ERROR_MESSAGE =
+  private static final String INSUFFICIENT_ERROR_MESSAGE =
       "insufficient funds for gas * price + value";
-  public static final String NONCE_TOO_LOW_ERROR_MESSAGE = "nonce too low";
+  private static final String NONCE_TOO_LOW_ERROR_MESSAGE = "nonce too low";
 
   public BlockchainError map(Throwable throwable) {
     if (throwable instanceof UnknownHostException) {

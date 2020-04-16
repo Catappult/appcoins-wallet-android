@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class FacebookEventLogger implements EventLogger {
 
-  public static final String TAG = AnalyticsManager.class.getSimpleName();
   public static final String EVENT_REVENUE_CURRENCY = "EUR";
+  private static final String TAG = AnalyticsManager.class.getSimpleName();
   private final AppEventsLogger eventLogger;
 
   public FacebookEventLogger(AppEventsLogger eventLogger) {

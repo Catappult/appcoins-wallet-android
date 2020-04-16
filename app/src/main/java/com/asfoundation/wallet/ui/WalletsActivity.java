@@ -40,7 +40,7 @@ public class WalletsActivity extends BaseActivity
 
   private final Handler handler = new Handler();
   @Inject WalletsViewModelFactory walletsViewModelFactory;
-  WalletsViewModel viewModel;
+  private WalletsViewModel viewModel;
   private WalletsAdapter adapter;
   private SystemView systemView;
   private BackupWarningView backupWarning;

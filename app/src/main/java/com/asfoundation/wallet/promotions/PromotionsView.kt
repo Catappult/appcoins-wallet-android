@@ -2,7 +2,6 @@ package com.asfoundation.wallet.promotions
 
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import io.reactivex.Observable
-import java.math.BigDecimal
 
 interface PromotionsView {
   fun setupLayout()

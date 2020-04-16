@@ -9,9 +9,9 @@ import java.net.UnknownHostException;
 
 public class ErrorMapper {
 
-  public static final String INSUFFICIENT_ERROR_MESSAGE =
+  private static final String INSUFFICIENT_ERROR_MESSAGE =
       "insufficient funds for gas * price + value";
-  public static final String NONCE_TOO_LOW_ERROR_MESSAGE = "nonce too low";
+  private static final String NONCE_TOO_LOW_ERROR_MESSAGE = "nonce too low";
 
   public PaymentTransaction.PaymentState map(Throwable throwable) {
     throwable.printStackTrace();

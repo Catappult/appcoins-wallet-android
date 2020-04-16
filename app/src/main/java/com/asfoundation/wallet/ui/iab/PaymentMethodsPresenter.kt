@@ -360,7 +360,8 @@ class PaymentMethodsPresenter(
                           .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
                     loadBonusIntoView()
                   }
-                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount, appcAmount)
+                  showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount,
+                      appcAmount)
                 }
               }
               .andThen(
@@ -436,7 +437,8 @@ class PaymentMethodsPresenter(
   private fun updateBalanceDao() {
     disposables.add(
         Observable.zip(balanceInteract.getEthBalance(), balanceInteract.getCreditsBalance(),
-            balanceInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> }).take(1)
+            balanceInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> })
+            .take(1)
             .subscribeOn(networkThread)
             .subscribe())
   }

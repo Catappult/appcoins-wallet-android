@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -20,7 +21,7 @@ import okio.BufferedSource;
 
 public class LogInterceptor implements Interceptor {
   private static final String TAG = "HTTP_TRACE";
-  private static final Charset UTF8 = Charset.forName("UTF-8");
+  private static final Charset UTF8 = StandardCharsets.UTF_8;
 
   private static String requestPath(HttpUrl url) {
     String path = url.encodedPath();
@@ -89,7 +90,7 @@ public class LogInterceptor implements Interceptor {
       if (responseBody != null) {
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE); // Buffer the entire body.
-        Buffer buffer = source.buffer();
+        Buffer buffer = source.getBuffer();
 
         Charset charset = null;
         MediaType contentType = responseBody.contentType();

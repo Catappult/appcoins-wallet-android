@@ -65,7 +65,7 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     this.recyclerView = recyclerView;
   }
 
-  public void hide() {
+  private void hide() {
     hideAllComponents();
     setVisibility(GONE);
   }

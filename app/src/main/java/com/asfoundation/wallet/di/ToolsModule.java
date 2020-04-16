@@ -331,7 +331,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Logger provideLogger() {
-    ArrayList<LogReceiver> receivers = new ArrayList();
+    ArrayList<LogReceiver> receivers = new ArrayList<>();
     if (BuildConfig.DEBUG) {
       receivers.add(new DebugReceiver());
     }

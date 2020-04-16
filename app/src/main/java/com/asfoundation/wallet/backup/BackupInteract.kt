@@ -91,7 +91,7 @@ class BackupInteract(
   }
 
   private fun meetsLastDismissConditions(walletAddress: String): Single<Boolean> {
-    return Single.create<Boolean> {
+    return Single.create {
       val savedTime = sharedPreferencesRepository.getBackupNotificationSeenTime(walletAddress)
       val currentTime = System.currentTimeMillis()
       val result = currentTime >= savedTime + TimeUnit.DAYS.toMillis(DISMISS_PERIOD)
