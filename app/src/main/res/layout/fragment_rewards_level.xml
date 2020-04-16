@@ -34,10 +34,12 @@
       android:layout_marginBottom="60dp"
       android:background="@drawable/background_card"
       android:elevation="2dp"
+      android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/level_description"
       app:layout_constraintVertical_chainStyle="packed"
+      tools:visibility="visible"
       >
 
     <include
@@ -54,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         />
 
   </RelativeLayout>
@@ -96,6 +99,18 @@
       app:layout_constraintVertical_chainStyle="packed"
       tools:text="A natural Satellite"
       tools:visibility="visible"
+      />
+
+  <ProgressBar
+      android:id="@+id/gamification_loading"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:elevation="2dp"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <com.airbnb.lottie.LottieAnimationView

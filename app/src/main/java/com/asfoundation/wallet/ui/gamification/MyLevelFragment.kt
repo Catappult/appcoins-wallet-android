@@ -70,6 +70,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun showPioneerUser() {
+    gamification_loading.visibility = View.GONE
+    content.visibility = View.VISIBLE
     gamificationProgressBarView = gamification_progress_bar_pioneer
     gamificationProgressBarView.setupPioneerUi()
     rewards_layout_pioneer.visibility = View.VISIBLE
@@ -77,6 +79,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun showNonPioneerUser() {
+    gamification_loading.visibility = View.GONE
+    content.visibility = View.VISIBLE
     gamificationProgressBarView = gamification_progress_bar_normal
     rewards_layout_normal.visibility = View.VISIBLE
     rewards_layout_pioneer.visibility = View.GONE
@@ -88,7 +92,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  override fun updateLevel(lastShownLevel: Int, level: Int, bonus: List<Double>, pioneer: Boolean) {
+  override fun updateLevel(lastShownLevel: Int, level: Int, bonus: List<Double>) {
     if (bonus.size != 1) {
       step = 100 / (bonus.size - 1)
     }
@@ -114,8 +118,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  override fun setStaringLevel(lastShownLevel: Int, level: Int, bonus: List<Double>,
-                               pioneer: Boolean) {
+  override fun setStaringLevel(lastShownLevel: Int, level: Int, bonus: List<Double>) {
 
     gamificationProgressBarView.progress_bar.progress = lastShownLevel * (100 / (bonus.size - 1))
     levelUpAnimation(level)

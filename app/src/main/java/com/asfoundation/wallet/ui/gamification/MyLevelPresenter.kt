@@ -54,9 +54,9 @@ class MyLevelPresenter(private val view: MyLevelView,
       else
         view.showNonPioneerUser()
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {
-        view.setStaringLevel(lastShownLevel, level, bonus, pioneer)
+        view.setStaringLevel(lastShownLevel, level, bonus)
       }
-      view.updateLevel(lastShownLevel, level, bonus, pioneer)
+      view.updateLevel(lastShownLevel, level, bonus)
       if (sendEvent) {
         analytics.sendMainScreenViewEvent(level + 1)
       }
