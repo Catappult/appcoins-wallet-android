@@ -18,6 +18,8 @@ class PoaPhoneValidationPresenter(
     private val disposables: CompositeDisposable
 ) {
 
+  private var cachedValidationStatus: Pair<WalletValidationStatus, Pair<String, String>>? = null
+
   fun present() {
     view.setupUI()
     handleValuesChange()
@@ -43,10 +45,12 @@ class PoaPhoneValidationPresenter(
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
+                    cachedValidationStatus = Pair(status, it)
                     view.setButtonState(true)
                     onSuccess(status, it)
                   }
                   .doOnError { view.setButtonState(true) }
+                  .doOnSuccess { cachedValidationStatus = null }
             }
             .retry()
             .subscribe { }
@@ -107,4 +111,11 @@ class PoaPhoneValidationPresenter(
     disposables.dispose()
   }
 
+  fun onResume() {
+    resumePreviousState()
+  }
+
+  private fun resumePreviousState() {
+    cachedValidationStatus?.let { onSuccess(it.first, it.second); cachedValidationStatus = null }
+  }
 }
