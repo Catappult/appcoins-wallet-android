@@ -24,7 +24,6 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import com.flurry.android.FlurryAgent
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import io.fabric.sdk.android.Fabric
@@ -62,6 +61,10 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   @Inject
   lateinit var rakamAnalytics: RakamAnalytics
 
+  companion object {
+    private val TAG = App::class.java.name
+  }
+
   override fun onCreate() {
     super.onCreate()
     val appComponent = DaggerAppComponent.builder()
@@ -71,26 +74,14 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     setupRxJava()
     setupWorkManager(appComponent)
     setupSupportNotificationWorker()
-    if (!BuildConfig.DEBUG) {
-      FlurryAgent.Builder()
-          .withLogEnabled(false)
-          .build(this, BuildConfig.FLURRY_APK_KEY)
-      logger.addReceiver(FlurryReceiver())
-    }
-    Fabric.with(this, Crashlytics.Builder().core(
-        CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
-            .build())
-        .build())
-    logger.addReceiver(CrashlyticsReceiver())
+    initiateFlurry()
+    initiateCrashlytics()
     inAppPurchaseInteractor.start()
     proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
-    Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY,
-        BuildConfig.INTERCOM_APP_ID)
-    Intercom.client()
-        .setInAppMessageVisibility(Intercom.Visibility.GONE)
     rakamAnalytics.start()
+    initiateIntercom()
   }
 
   private fun setupRxJava() {
@@ -99,7 +90,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         if (BuildConfig.DEBUG) {
           throwable.printStackTrace()
         } else {
-          FlurryAgent.onError("ID", throwable.message!!, throwable)
+          logger.log(TAG, throwable)
         }
       } else {
         throw RuntimeException(throwable)
@@ -109,19 +100,16 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   private fun setupWorkManager(appComponent: AppComponent) {
     WorkManager.initialize(this,
-        Configuration.Builder().setWorkerFactory(appComponent.daggerWorkerFactory())
-            .build())
+        Configuration.Builder().setWorkerFactory(appComponent.daggerWorkerFactory()).build())
   }
 
   private fun setupSupportNotificationWorker() {
     val workerConstraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
-    val notificationWorkRequest = PeriodicWorkRequest.Builder(
-        SupportNotificationWorker::class.java,
+    val notificationWorkRequest = PeriodicWorkRequest.Builder(SupportNotificationWorker::class.java,
         SupportNotificationWorker.NOTIFICATION_PERIOD, TimeUnit.MINUTES)
-        .addTag(
-            SupportNotificationWorker.WORKER_TAG)
+        .addTag(SupportNotificationWorker.WORKER_TAG)
         .setConstraints(workerConstraints)
         .build()
     WorkManager.getInstance(this)
@@ -129,35 +117,38 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
             ExistingPeriodicWorkPolicy.KEEP, notificationWorkRequest)
   }
 
-  override fun androidInjector(): AndroidInjector<Any> {
-    return androidInjector
+  private fun initiateCrashlytics() {
+    Fabric.with(this, Crashlytics.Builder().core(
+        CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build())
+    logger.addReceiver(CrashlyticsReceiver())
   }
 
-  override fun supportedVersion(): Int {
-    return BuildConfig.BILLING_SUPPORTED_VERSION
+  private fun initiateFlurry() {
+    if (!BuildConfig.DEBUG) {
+      FlurryAgent.Builder()
+          .withLogEnabled(false)
+          .build(this, BuildConfig.FLURRY_APK_KEY)
+      logger.addReceiver(FlurryReceiver())
+    }
   }
 
-  override fun bdsApi(): BdsApi {
-    return bdsApi
+  private fun initiateIntercom() {
+    Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
+    Intercom.client()
+        .setInAppMessageVisibility(Intercom.Visibility.GONE)
   }
 
-  override fun walletService(): WalletService {
-    return walletService
-  }
+  override fun androidInjector() = androidInjector
 
-  override fun proxyService(): ProxyService {
-    return proxyService
-  }
+  override fun supportedVersion() = BuildConfig.BILLING_SUPPORTED_VERSION
 
-  override fun billingMessagesMapper(): BillingMessagesMapper {
-    return billingMessagesMapper
-  }
+  override fun bdsApi() = bdsApi
 
-  override fun bdsApiSecondary(): BdsApiSecondary {
-    return bdsapiSecondary
-  }
+  override fun walletService() = walletService
 
-  companion object {
-    private val TAG = App::class.java.name
-  }
+  override fun proxyService()= proxyService
+
+  override fun billingMessagesMapper()= billingMessagesMapper
+
+  override fun bdsApiSecondary() = bdsapiSecondary
 }

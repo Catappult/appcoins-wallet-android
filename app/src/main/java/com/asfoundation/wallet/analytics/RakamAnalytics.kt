@@ -48,15 +48,12 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
         .flatMap { rakamClient: RakamClient ->
           idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
               .flatMap { installerPackage: String ->
-                Single.just(
-                    idsRepository.getGamificationLevel())
+                Single.just(idsRepository.getGamificationLevel())
                     .flatMap { level: Int ->
-                      Single.just(
-                          idsRepository.getActiveWalletAddress())
+                      Single.just(idsRepository.getActiveWalletAddress())
                           .doOnSuccess { walletAddress: String ->
-                            setRakamSuperProperties(rakamClient,
-                                installerPackage,
-                                level, walletAddress)
+                            setRakamSuperProperties(rakamClient, installerPackage, level,
+                                walletAddress)
                             if (!BuildConfig.DEBUG) {
                               logger.addReceiver(RakamReceiver())
                             }
@@ -64,7 +61,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                     }
               }
         }
-        .subscribeOn(Schedulers.newThread())
+        .subscribeOn(Schedulers.io())
         .subscribe()
   }
 
@@ -90,10 +87,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
   private fun setRakamSuperProperties(instance: RakamClient, installerPackage: String,
                                       userLevel: Int,
                                       userId: String) {
-    var superProperties = instance.superProperties
-    if (superProperties == null) {
-      superProperties = JSONObject()
-    }
+    var superProperties = instance.superProperties?: JSONObject()
     try {
       superProperties.put(RakamEventLogger.APTOIDE_PACKAGE,
           BuildConfig.APPLICATION_ID)
