@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -13,7 +14,7 @@ import dagger.android.AndroidInjection
 
 class WebViewActivity : AppCompatActivity() {
 
-  lateinit var billingWebViewFragment: BillingWebViewFragment
+  private lateinit var billingWebViewFragment: BillingWebViewFragment
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -31,11 +32,12 @@ class WebViewActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    if (!billingWebViewFragment.handleBackPressed()) {
+    if (!((this::billingWebViewFragment.isInitialized) && billingWebViewFragment.handleBackPressed())) {
       super.onBackPressed()
     }
   }
 
+  @SuppressLint("SourceLockedOrientationActivity")
   private fun lockCurrentPosition() {
     //setRequestedOrientation requires translucent and floating to be false to work in API 26
     val rotation = windowManager.defaultDisplay

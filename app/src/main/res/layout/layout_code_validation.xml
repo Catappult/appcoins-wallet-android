@@ -31,7 +31,7 @@
         android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center_horizontal"
         android:text="@string/verification_insert_code_title"
-        android:textColor="#4a4a4a"
+        android:textColor="@color/color_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_guideline"

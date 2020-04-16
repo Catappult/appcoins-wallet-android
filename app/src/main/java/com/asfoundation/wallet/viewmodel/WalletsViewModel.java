@@ -123,7 +123,7 @@ public class WalletsViewModel extends BaseViewModel {
 
   public void newWallet() {
     progress.setValue(true);
-    createWalletInteract.create()
+    disposable = createWalletInteract.create()
         .map(wallet -> {
           fetchWallets();
           createdWallet.postValue(wallet);
@@ -135,7 +135,7 @@ public class WalletsViewModel extends BaseViewModel {
   }
 
   public void exportWallet(Wallet wallet, String storePassword) {
-    exportWalletInteract.export(wallet, storePassword)
+    disposable = exportWalletInteract.export(wallet, storePassword)
         .subscribe(exportedStore::postValue, this::onExportWalletError);
   }
 

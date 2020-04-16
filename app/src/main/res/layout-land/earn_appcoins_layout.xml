@@ -44,7 +44,7 @@
       android:fontFamily="sans-serif"
       android:gravity="start"
       android:text="@string/purchase_poa_view_title"
-      android:textColor="#4a4a4a"
+      android:textColor="@color/color_title"
       android:textSize="16sp"
       android:textStyle="normal"
       app:layout_constraintEnd_toEndOf="parent"

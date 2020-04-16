@@ -91,10 +91,6 @@ public class QRUri {
     return params;
   }
 
-  public String getProtocol() {
-    return protocol;
-  }
-
   public String getAddress() {
     return address;
   }

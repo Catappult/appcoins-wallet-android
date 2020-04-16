@@ -239,7 +239,6 @@ dependencies {
   implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk_version") {
     transitive = true
   }
-
 }
 
 def renameArtifact(defaultConfig) {

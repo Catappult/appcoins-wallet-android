@@ -82,6 +82,7 @@ public class ConfirmationActivity extends BaseActivity {
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    super.onActivityResult(requestCode, resultCode, intent);
     if (requestCode == GasSettingsViewModel.SET_GAS_SETTINGS) {
       if (resultCode == RESULT_OK) {
         viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
@@ -181,7 +182,10 @@ public class ConfirmationActivity extends BaseActivity {
 
   @Override protected void onResume() {
     super.onResume();
-
-    viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
+    TransactionBuilder transactionBuilder =
+        getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER);
+    if (transactionBuilder != null) {
+      viewModel.init(transactionBuilder);
+    }
   }
 }

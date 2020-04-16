@@ -27,7 +27,7 @@ public class ImportWalletViewModel extends BaseViewModel
 
   @Override public void onKeystore(String keystore, String password) {
     progress.postValue(true);
-    importWalletInteract.importKeystore(keystore, password)
+    disposable =importWalletInteract.importKeystore(keystore, password)
         .flatMapCompletable(wallet -> walletRepository.setDefaultWallet(wallet)
             .andThen(Completable.fromAction(() -> onWallet(wallet))))
         .subscribe(() -> {
@@ -36,7 +36,7 @@ public class ImportWalletViewModel extends BaseViewModel
 
   @Override public void onPrivateKey(String key) {
     progress.postValue(true);
-    importWalletInteract.importPrivateKey(key)
+    disposable = importWalletInteract.importPrivateKey(key)
         .flatMapCompletable(wallet -> walletRepository.setDefaultWallet(wallet)
             .andThen(Completable.fromAction(() -> onWallet(wallet))))
         .subscribe(() -> {

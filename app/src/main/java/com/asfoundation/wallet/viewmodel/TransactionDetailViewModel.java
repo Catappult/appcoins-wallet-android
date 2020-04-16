@@ -27,7 +27,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExternalBrowserRouter externalBrowserRouter) {
     this.externalBrowserRouter = externalBrowserRouter;
-    findDefaultNetworkInteract.find()
+    disposable = findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
         });
