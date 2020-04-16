@@ -14,12 +14,12 @@ class RakamReceiver : LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
     Rakam.getInstance()
-        .logEvent(LOG_EVENT_TYPE, map(tag = tag, throwable = throwable))
+        .logEvent(LOG_EVENT_TYPE, map(tag, null, throwable))
   }
 
   override fun log(tag: String?, message: String?) {
     Rakam.getInstance()
-        .logEvent(LOG_EVENT_TYPE, map(tag = tag, message = message))
+        .logEvent(LOG_EVENT_TYPE, map(tag, message, null))
   }
 
   override fun log(tag: String?, message: String?, throwable: Throwable?) {
@@ -27,8 +27,7 @@ class RakamReceiver : LogReceiver {
         .logEvent(LOG_EVENT_TYPE, map(tag, message, throwable))
   }
 
-  private fun map(tag: String? = DEFAULT_TAG, message: String? = DEFAULT_MSG,
-                  throwable: Throwable? = Throwable()): JSONObject {
+  private fun map(tag: String?, message: String?, throwable: Throwable?): JSONObject {
     val properties = JSONObject()
     try {
       properties.put("tag", tag ?: DEFAULT_TAG)

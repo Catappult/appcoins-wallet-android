@@ -17,12 +17,10 @@ class ConfirmationViewModel internal constructor(
     private val sendTransactionInteract: SendTransactionInteract,
     private val gasSettingsRouter: GasSettingsRouter,
     private val gasSettingsInteract: FetchGasSettingsInteract,
-    private val logger: Logger) :
-    BaseViewModel() {
-  private val transactionBuilder =
-      MutableLiveData<TransactionBuilder>()
-  private val transactionHash =
-      MutableLiveData<PendingTransaction>()
+    private val logger: Logger) : BaseViewModel() {
+
+  private val transactionBuilder = MutableLiveData<TransactionBuilder>()
+  private val transactionHash = MutableLiveData<PendingTransaction>()
   private var subscription: Disposable? = null
 
   companion object {
@@ -39,8 +37,10 @@ class ConfirmationViewModel internal constructor(
   }
 
   override fun onCleared() {
-    if (subscription != null && !subscription!!.isDisposed) {
-      subscription!!.dispose()
+    subscription?.let {
+      if (!it.isDisposed)  {
+        it.dispose()
+      }
     }
     super.onCleared()
   }
@@ -60,11 +60,9 @@ class ConfirmationViewModel internal constructor(
 
   fun openGasSettings(context: Activity?) {
     val transactionBuilder = transactionBuilder.value
-    if (transactionBuilder != null) {
-      gasSettingsRouter.open(context, transactionBuilder.gasSettings())
-    } /* else {
-        // TODO: Good idea return to SendActivity
-        }*/
+    transactionBuilder?.let {
+      gasSettingsRouter.open(context, it.gasSettings())
+    }
   }
 
   private fun onCreateTransaction(pendingTransaction: PendingTransaction) {
@@ -88,12 +86,10 @@ class ConfirmationViewModel internal constructor(
 
   fun setGasSettings(gasSettings: GasSettings?) {
     val transactionBuilder = transactionBuilder.value
-    if (transactionBuilder != null) {
-      transactionBuilder.gasSettings(gasSettings)
-      this.transactionBuilder.postValue(transactionBuilder) // refresh view
-    } /* else {
-        // TODO: Good idea return to SendActivity
-        }*/
+    transactionBuilder?.let {
+      it.gasSettings(gasSettings)
+      this.transactionBuilder.postValue(it) // refresh view
+    }
   }
 
 }
