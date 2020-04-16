@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
@@ -173,6 +174,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
             .toFloat())
+    main_value.setOnEditorActionListener { _, actionId, _ ->
+      if (EditorInfo.IME_ACTION_NEXT == actionId) {
+        hideKeyboard()
+        button.performClick()
+      }
+      true
+    }
     adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
 
     payment_methods.adapter = adapter
