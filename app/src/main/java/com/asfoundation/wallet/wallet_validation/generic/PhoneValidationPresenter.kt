@@ -2,8 +2,8 @@ package com.asfoundation.wallet.wallet_validation.generic
 
 import androidx.annotation.StringRes
 import com.asf.wallet.R
-import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -19,6 +19,9 @@ class PhoneValidationPresenter(
     private val networkScheduler: Scheduler,
     private val disposables: CompositeDisposable
 ) {
+  companion object {
+    private val TAG = PhoneValidationPresenter::class.java.simpleName
+  }
 
   private var cachedValidationStatus: Pair<WalletValidationStatus, Pair<String, String>>? = null
 
@@ -64,7 +67,7 @@ class PhoneValidationPresenter(
                   .doOnError { throwable ->
                     view.setButtonState(false)
                     showErrorMessage(R.string.unknown_error)
-                    logger.log(throwable)
+                    logger.log(TAG, throwable.message, throwable)
                   }
                   .doOnSuccess { cachedValidationStatus = null }
             }
@@ -106,7 +109,7 @@ class PhoneValidationPresenter(
   }
 
   private fun logError() {
-    logger.log("Validation Error: Activity null")
+    logger.log(TAG, "Validation Error: Activity null")
   }
 
   private fun showErrorMessage(@StringRes errorMessage: Int) {

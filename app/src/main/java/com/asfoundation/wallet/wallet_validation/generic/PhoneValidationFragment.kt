@@ -9,8 +9,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.Logger
+import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.logging.Logger
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment

@@ -6,15 +6,15 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 
 interface BillingDependenciesProvider {
-  fun getSupportedVersion(): Int
+  fun supportedVersion(): Int
 
-  fun getBdsApi(): RemoteRepository.BdsApi
+  fun bdsApi(): RemoteRepository.BdsApi
 
-  fun getWalletService(): WalletService
+  fun walletService(): WalletService
 
-  fun getProxyService(): ProxyService
+  fun proxyService(): ProxyService
 
-  fun getBillingMessagesMapper(): BillingMessagesMapper
+  fun billingMessagesMapper(): BillingMessagesMapper
 
-  fun getBdsApiSecondary(): BdsApiSecondary
+  fun bdsApiSecondary(): BdsApiSecondary
 }
