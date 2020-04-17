@@ -19,9 +19,8 @@ public class BalanceUtils {
     return Convert.fromWei(new BigDecimal(wei), Convert.Unit.GWEI);
   }
 
-  public static String weiToGwei(BigDecimal wei) {
-    return Convert.fromWei(wei, Convert.Unit.GWEI)
-        .toPlainString();
+  public static BigDecimal weiToGwei(BigDecimal wei) {
+    return Convert.fromWei(wei, Convert.Unit.GWEI);
   }
 
   public static BigInteger gweiToWei(BigDecimal gwei) {
