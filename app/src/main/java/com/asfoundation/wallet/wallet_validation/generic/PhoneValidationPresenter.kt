@@ -17,13 +17,15 @@ class PhoneValidationPresenter(
     private val logger: Logger,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val analytics: WalletValidationAnalytics
 ) {
   companion object {
     private val TAG = PhoneValidationPresenter::class.java.simpleName
   }
 
-  private var cachedValidationStatus: Pair<WalletValidationStatus, Pair<String, String>>? = null
+  private var cachedValidationStatus: Pair<WalletValidationStatus, PhoneValidationFragment.Companion.PhoneValidationClickData>? =
+      null
 
   fun onResume() {
     resumePreviousState()
@@ -44,6 +46,8 @@ class PhoneValidationPresenter(
     disposables.add(
         Observable.merge(view.getCancelClicks(), view.getLaterButtonClicks())
             .doOnNext {
+              handlePhoneValidationAnalytics("close", WalletValidationStatus.SUCCESS,
+                  it.previousContext)
               view.hideKeyboard()
               activity?.finishCancelActivity()
             }
@@ -56,7 +60,7 @@ class PhoneValidationPresenter(
             .doOnNext { view.setButtonState(false) }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
-              smsValidationInteract.requestValidationCode("${it.first}${it.second}")
+              smsValidationInteract.requestValidationCode("${it.countryCode}${it.number}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
@@ -65,6 +69,8 @@ class PhoneValidationPresenter(
                     onSuccess(status, it)
                   }
                   .doOnError { throwable ->
+                    analytics.sendPhoneVerificationEvent("submit", it.previousContext, "error",
+                        "generic_error")
                     view.setButtonState(false)
                     showErrorMessage(R.string.unknown_error)
                     logger.log(TAG, throwable.message, throwable)
@@ -76,10 +82,12 @@ class PhoneValidationPresenter(
     )
   }
 
-  private fun onSuccess(status: WalletValidationStatus, submitInfo: Pair<String, String>) {
+  private fun onSuccess(status: WalletValidationStatus,
+                        submitInfo: PhoneValidationFragment.Companion.PhoneValidationClickData) {
+    handlePhoneValidationAnalytics("submit", status, submitInfo.previousContext)
     when (status) {
-      WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.first,
-          submitInfo.second) ?: run {
+      WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.countryCode,
+          submitInfo.number) ?: run {
         showErrorMessage(R.string.unknown_error)
         logError()
       }
@@ -105,6 +113,15 @@ class PhoneValidationPresenter(
         showErrorMessage(R.string.verification_insert_phone_field_region_error)
         view.setButtonState(false)
       }
+    }
+  }
+
+  private fun handlePhoneValidationAnalytics(action: String, status: WalletValidationStatus,
+                                             previousContext: String) {
+    if (status == WalletValidationStatus.SUCCESS) {
+      analytics.sendPhoneVerificationEvent(action, previousContext, "success", "")
+    } else {
+      analytics.sendPhoneVerificationEvent(action, previousContext, "error", status.name)
     }
   }
 

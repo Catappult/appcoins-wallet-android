@@ -15,6 +15,7 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.DeleteKeyListener
 import com.asfoundation.wallet.wallet_validation.PasteTextWatcher
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -33,6 +34,9 @@ class PoaCodeValidationFragment : DaggerFragment(),
 
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+
+  @Inject
+  lateinit var analytics: WalletValidationAnalytics
 
   private var walletValidationView: PoaWalletValidationView? = null
   private lateinit var presenter: PoaCodeValidationPresenter
@@ -79,7 +83,7 @@ class PoaCodeValidationFragment : DaggerFragment(),
     presenter =
         PoaCodeValidationPresenter(this, walletValidationView, smsValidationInteract,
             AndroidSchedulers.mainThread(), Schedulers.io(), countryCode, phoneNumber,
-            CompositeDisposable())
+            CompositeDisposable(), analytics)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
