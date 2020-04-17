@@ -105,7 +105,7 @@ public class ConfirmationActivity extends BaseActivity {
     BigDecimal gasPrice = transactionBuilder.gasSettings().gasPrice;
     BigDecimal gasLimit = transactionBuilder.gasSettings().gasLimit;
     String formattedGasPrice = getString(R.string.gas_price_value,
-        currencyFormatUtils.formatTransferCurrency(BalanceUtils.weiToGweiBigDecimal(gasPrice),
+        currencyFormatUtils.formatTransferCurrency(BalanceUtils.weiToGwei(gasPrice),
             WalletCurrency.ETHEREUM), GWEI_UNIT);
     gasPriceText.setText(formattedGasPrice);
     gasLimitText.setText(transactionBuilder.gasSettings().gasLimit.toPlainString());

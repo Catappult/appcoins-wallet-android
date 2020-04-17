@@ -146,7 +146,7 @@ public class GasSettingsActivity extends BaseActivity {
   }
 
   private void onGasPrice(BigInteger price) {
-    BigDecimal priceStr = BalanceUtils.weiToGweiBigDecimal(new BigDecimal(price));
+    BigDecimal priceStr = BalanceUtils.weiToGwei(new BigDecimal(price));
     String formattedPrice =
         currencyFormatUtils.formatTransferCurrency(priceStr, WalletCurrency.ETHEREUM)
             + " "
