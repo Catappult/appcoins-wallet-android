@@ -45,6 +45,9 @@ class CodeValidationFragment : DaggerFragment(),
   @Inject
   lateinit var defaultWalletInteract: FindDefaultWalletInteract
 
+  @Inject
+  lateinit var analytics: WalletValidationAnalytics
+
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: CodeValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
@@ -102,7 +105,8 @@ class CodeValidationFragment : DaggerFragment(),
     presenter =
         CodeValidationPresenter(this, walletValidationView, referralInteractor,
             smsValidationInteract, defaultWalletInteract, AndroidSchedulers.mainThread(),
-            Schedulers.io(), countryCode, phoneNumber, CompositeDisposable(), hasBeenInvitedFlow)
+            Schedulers.io(), countryCode, phoneNumber, CompositeDisposable(), hasBeenInvitedFlow,
+            analytics)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

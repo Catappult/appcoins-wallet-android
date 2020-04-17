@@ -92,7 +92,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     context?.let {
       val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
           navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = false,
-          showToolbar = true)
+          showToolbar = true, previousContext = "settings")
           .apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
           }

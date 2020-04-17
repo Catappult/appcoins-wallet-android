@@ -233,6 +233,7 @@ import com.asfoundation.wallet.util.UserAgentInterceptor;
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract;
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi;
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository;
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics;
 import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -936,6 +937,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION);
     list.add(TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL);
     list.add(PoaAnalytics.RAKAM_POA_EVENT);
+    list.add(WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION);
+    list.add(WalletValidationAnalytics.WALLET_CODE_VERIFICATION);
+    list.add(WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION);
     return list;
   }
 
@@ -1345,5 +1349,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides CurrencyFormatUtils provideCurrencyFormatUtils() {
     return CurrencyFormatUtils.Companion.create();
+  }
+
+  @Singleton @Provides WalletValidationAnalytics provideWalletValidationAnalytics(
+      AnalyticsManager analyticsManager) {
+    return new WalletValidationAnalytics(analyticsManager);
   }
 }

@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +16,8 @@ class PoaPhoneValidationPresenter(
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val analytics: WalletValidationAnalytics
 ) {
 
   private var cachedValidationStatus: Pair<WalletValidationStatus, Pair<String, String>>? = null
@@ -58,6 +60,7 @@ class PoaPhoneValidationPresenter(
   }
 
   private fun onSuccess(status: WalletValidationStatus, submitInfo: Pair<String, String>) {
+    handlePhoneValidationAnalytics("submit", status)
     when (status) {
       WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.first,
           submitInfo.second)
@@ -72,14 +75,22 @@ class PoaPhoneValidationPresenter(
       }
       WalletValidationStatus.NO_NETWORK,
       WalletValidationStatus.GENERIC_ERROR -> showErrorMessage(R.string.unknown_error)
-      WalletValidationStatus.LANDLINE_NOT_SUPPORTED ->  {
+      WalletValidationStatus.LANDLINE_NOT_SUPPORTED -> {
         showErrorMessage(R.string.verification_insert_phone_field_landline_error)
         view.setButtonState(false)
       }
-      WalletValidationStatus.REGION_NOT_SUPPORTED ->  {
+      WalletValidationStatus.REGION_NOT_SUPPORTED -> {
         showErrorMessage(R.string.verification_insert_phone_field_region_error)
         view.setButtonState(false)
       }
+    }
+  }
+
+  private fun handlePhoneValidationAnalytics(action: String, status: WalletValidationStatus) {
+    if (status == WalletValidationStatus.SUCCESS) {
+      analytics.sendPhoneVerificationEvent(action, "poa", "success", "")
+    } else {
+      analytics.sendPhoneVerificationEvent(action, "poa", "error", status.name)
     }
   }
 
