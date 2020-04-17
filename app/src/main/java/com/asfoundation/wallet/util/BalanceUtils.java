@@ -36,6 +36,10 @@ public class BalanceUtils {
         .toPlainString();
   }
 
+  public static BigDecimal weiToGweiBigDecimal(BigDecimal wei) {
+    return Convert.fromWei(wei, Convert.Unit.GWEI);
+  }
+
   public static BigInteger gweiToWei(BigDecimal gwei) {
     return Convert.toWei(gwei, Convert.Unit.GWEI)
         .toBigInteger();

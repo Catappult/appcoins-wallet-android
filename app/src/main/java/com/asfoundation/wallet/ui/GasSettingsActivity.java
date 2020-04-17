@@ -13,6 +13,8 @@ import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;
 import dagger.android.AndroidInjection;
@@ -24,7 +26,7 @@ public class GasSettingsActivity extends BaseActivity {
 
   @Inject GasSettingsViewModelFactory viewModelFactory;
   GasSettingsViewModel viewModel;
-
+  private CurrencyFormatUtils currencyFormatUtils;
   private TextView gasPriceText;
   private TextView gasLimitText;
   private TextView networkFeeText;
@@ -39,6 +41,7 @@ public class GasSettingsActivity extends BaseActivity {
     setContentView(R.layout.activity_gas_settings);
     toolbar();
 
+    currencyFormatUtils = new CurrencyFormatUtils();
     SeekBar gasPriceSlider = findViewById(R.id.gas_price_slider);
     SeekBar gasLimitSlider = findViewById(R.id.gas_limit_slider);
     gasPriceText = findViewById(R.id.gas_price_text);
@@ -143,8 +146,12 @@ public class GasSettingsActivity extends BaseActivity {
   }
 
   private void onGasPrice(BigInteger price) {
-    String priceStr = BalanceUtils.weiToGwei(new BigDecimal(price)) + " " + C.GWEI_UNIT;
-    gasPriceText.setText(priceStr);
+    BigDecimal priceStr = BalanceUtils.weiToGweiBigDecimal(new BigDecimal(price));
+    String formattedPrice =
+        currencyFormatUtils.formatTransferCurrency(priceStr, WalletCurrency.ETHEREUM)
+            + " "
+            + C.GWEI_UNIT;
+    gasPriceText.setText(formattedPrice);
 
     updateNetworkFee();
   }
@@ -156,9 +163,11 @@ public class GasSettingsActivity extends BaseActivity {
   }
 
   private void updateNetworkFee() {
-    String fee = BalanceUtils.weiToEth(viewModel.networkFee())
-        .toPlainString() + " " + C.ETH_SYMBOL;
-    networkFeeText.setText(fee);
+    BigDecimal fee = BalanceUtils.weiToEth(viewModel.networkFee());
+    String formattedFee = currencyFormatUtils.formatTransferCurrency(fee, WalletCurrency.ETHEREUM)
+        + " "
+        + C.ETH_SYMBOL;
+    networkFeeText.setText(formattedFee);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
