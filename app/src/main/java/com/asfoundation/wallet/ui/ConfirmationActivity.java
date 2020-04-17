@@ -55,7 +55,7 @@ public class ConfirmationActivity extends BaseActivity {
 
     setContentView(R.layout.activity_confirm);
     toolbar();
-    currencyFormatUtils = new CurrencyFormatUtils();
+    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
     fromAddressText = findViewById(R.id.text_from);
     toAddressText = findViewById(R.id.text_to);
     valueText = findViewById(R.id.text_value);

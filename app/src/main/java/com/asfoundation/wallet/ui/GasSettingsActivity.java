@@ -41,7 +41,7 @@ public class GasSettingsActivity extends BaseActivity {
     setContentView(R.layout.activity_gas_settings);
     toolbar();
 
-    currencyFormatUtils = new CurrencyFormatUtils();
+    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
     SeekBar gasPriceSlider = findViewById(R.id.gas_price_slider);
     SeekBar gasLimitSlider = findViewById(R.id.gas_limit_slider);
     gasPriceText = findViewById(R.id.gas_price_text);
