@@ -42,7 +42,7 @@ class PhoneValidationFragment : DaggerFragment(),
   private var countryCode: String? = null
   private var phoneNumber: String? = null
   private var errorMessage: Int? = null
-  private var previousContext: String? = null
+  private var previousContext: String = ""
 
   private val hasBeenInvitedFlow: Boolean by lazy {
     arguments!!.getBoolean(HAS_BEEN_INVITED_FLOW)
@@ -73,7 +73,7 @@ class PhoneValidationFragment : DaggerFragment(),
       errorMessage = arguments?.getInt(ERROR_MESSAGE)
     }
     if (arguments?.containsKey(PREVIOUS_CONTEXT) == true) {
-      previousContext = arguments?.getString(PREVIOUS_CONTEXT)
+      previousContext = arguments?.getString(PREVIOUS_CONTEXT) ?: ""
     }
 
     setupBodyText()
@@ -110,7 +110,7 @@ class PhoneValidationFragment : DaggerFragment(),
     return RxView.clicks(retry_button)
         .map {
           PhoneValidationClickData(ccp.selectedCountryCodeWithPlus,
-              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext ?: "")
+              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext)
         }
         .doOnNext { playRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
@@ -118,7 +118,7 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun getLaterButtonClicks(): Observable<PhoneValidationClickData> {
     return RxView.clicks(cancel_button)
-        .map { PhoneValidationClickData("", "", previousContext ?: "") }
+        .map { PhoneValidationClickData("", "", previousContext) }
   }
 
   override fun setupUI() {
