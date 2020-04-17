@@ -13,6 +13,7 @@ import com.asfoundation.wallet.analytics.AnalyticsSetUp
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -51,9 +52,14 @@ class PaymentMethodsPresenter(
     private val paymentMethodsMapper: PaymentMethodsMapper,
     private val walletBlockedInteract: WalletBlockedInteract,
     private val transactionValue: Double,
-    private val formatter: CurrencyFormatUtils) {
+    private val formatter: CurrencyFormatUtils,
+    private val logger: Logger) {
 
   private var gamificationLevel = 0
+
+  companion object {
+    private val TAG = PaymentMethodsPresenter::class.java.name
+  }
 
   fun present() {
 
@@ -374,6 +380,7 @@ class PaymentMethodsPresenter(
 
   private fun showError(t: Throwable) {
     t.printStackTrace()
+    logger.log(TAG, t)
     when {
       t.isNoNetworkException() -> view.showError(R.string.notification_no_network_poa)
       isItemAlreadyOwnedError(t) -> view.showItemAlreadyOwnedError()

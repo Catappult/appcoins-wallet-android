@@ -30,6 +30,7 @@ import com.asfoundation.wallet.analytics.RakamAnalytics;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
@@ -80,7 +81,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject WalletBlockedInteract walletBlockedInteract;
   @Inject CurrencyFormatUtils formatter;
   private PaymentMethodsPresenter presenter;
-  private List<PaymentMethod> paymentMethodList = new ArrayList<>();
+  private final List<PaymentMethod> paymentMethodList = new ArrayList<>();
+  @Inject Logger logger;
   private ProgressBar loadingView;
   private View dialog;
   private TextView errorMessage;
@@ -172,7 +174,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor, balanceInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, analyticsSetup, isBds, developerPayload, uri, gamification, transaction,
-        paymentMethodsMapper, walletBlockedInteract, transactionValue, formatter);
+        paymentMethodsMapper, walletBlockedInteract, transactionValue, formatter, logger);
   }
 
   @Nullable @Override
