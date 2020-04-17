@@ -153,8 +153,11 @@ public class ConfirmationActivity extends BaseActivity {
           .setNeutralButton(R.string.copy, (dialog1, id) -> {
             ClipboardManager clipboard =
                 (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("transaction transaction", transaction.getHash());
-            clipboard.setPrimaryClip(clip);
+            if (clipboard != null) {
+              ClipData clip =
+                  ClipData.newPlainText("transaction transaction", transaction.getHash());
+              clipboard.setPrimaryClip(clip);
+            }
             successFinish(transaction.getHash());
           })
           .create();
