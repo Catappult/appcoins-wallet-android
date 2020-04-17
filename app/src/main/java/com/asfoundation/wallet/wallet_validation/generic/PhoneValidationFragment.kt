@@ -73,7 +73,7 @@ class PhoneValidationFragment : DaggerFragment(),
       errorMessage = arguments?.getInt(ERROR_MESSAGE)
     }
     if (arguments?.containsKey(PREVIOUS_CONTEXT) == true) {
-      previousContext = arguments?.getString(PREVIOUS_CONTEXT) ?: ""
+      previousContext = arguments?.getString(PREVIOUS_CONTEXT, "") ?: ""
     }
 
     setupBodyText()
