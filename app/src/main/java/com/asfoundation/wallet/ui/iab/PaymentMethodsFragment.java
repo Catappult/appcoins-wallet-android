@@ -80,9 +80,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject BalanceInteract balanceInteractor;
   @Inject WalletBlockedInteract walletBlockedInteract;
   @Inject CurrencyFormatUtils formatter;
+  @Inject Logger logger;
   private PaymentMethodsPresenter presenter;
   private final List<PaymentMethod> paymentMethodList = new ArrayList<>();
-  @Inject Logger logger;
   private ProgressBar loadingView;
   private View dialog;
   private TextView errorMessage;
