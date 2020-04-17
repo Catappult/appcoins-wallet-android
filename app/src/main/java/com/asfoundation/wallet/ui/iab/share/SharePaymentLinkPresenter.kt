@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.share
 
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -11,7 +12,8 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
                                 private val interactor: ShareLinkInteractor,
                                 private val viewScheduler: Scheduler,
                                 private val networkScheduler: Scheduler,
-                                private val disposables: CompositeDisposable) {
+                                private val disposables: CompositeDisposable,
+                                private val analytics: BillingAnalytics) {
 
 
   fun present() {
@@ -23,6 +25,8 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
     disposables.add(view.getShareButtonClick()
         .doOnNext { view.showFetchingLinkInfo() }
         .flatMapSingle {
+          analytics.sendPaymentConfirmationEvent(it.domain, it.skuId ?: "", it.amount,
+              it.paymentMethod, it.type, "share")
           getLink(it)
         }.observeOn(viewScheduler).doOnNext {
           interactor.savePreSelectedPaymentMethod(PaymentMethodsView.PaymentMethodId.ASK_FRIEND.id)
@@ -35,6 +39,8 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
 
   private fun handleStop() {
     disposables.add(view.getCancelButtonClick().doOnNext {
+      analytics.sendPaymentConfirmationEvent(it.domain, it.skuId ?: "", it.amount,
+          it.paymentMethod, it.type, "close")
       view.close()
     }.subscribe())
   }
