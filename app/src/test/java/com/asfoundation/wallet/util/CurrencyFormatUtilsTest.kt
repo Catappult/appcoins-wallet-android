@@ -127,11 +127,11 @@ class CurrencyFormatUtilsTest {
     //bigDecimalPlaces
     Locale.setDefault(Locale.US)
     formattedValueUs = formatter.formatTransferCurrency(bigDecimalValue, WalletCurrency.ETHEREUM)
-    expectedValueUs = "1.12345678901234"
+    expectedValueUs = "1.123456789012345"
 
     Locale.setDefault(Locale.FRANCE)
     formattedValueFr = formatter.formatTransferCurrency(bigDecimalValue, WalletCurrency.CREDITS)
-    expectedValueFr = "1,12345678901234"
+    expectedValueFr = "1,123456789012345"
 
     assertEquals(expectedValueUs, formattedValueUs)
     assertEquals(expectedValueFr, formattedValueFr)
