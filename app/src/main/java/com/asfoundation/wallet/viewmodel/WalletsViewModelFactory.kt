@@ -7,6 +7,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ImportWalletRouter
 import com.asfoundation.wallet.router.TransactionsRouter
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class WalletsViewModelFactory @Inject constructor(
@@ -19,12 +20,14 @@ class WalletsViewModelFactory @Inject constructor(
     private val importWalletRouter: ImportWalletRouter,
     private val transactionsRouter: TransactionsRouter,
     private val logger: Logger,
-    private val preferencesRepositoryType: PreferencesRepositoryType) : Factory {
+    private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val compositeDisposable: CompositeDisposable) : Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     return WalletsViewModel(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter, logger, preferencesRepositoryType) as T
+        importWalletRouter, transactionsRouter, logger, preferencesRepositoryType,
+        compositeDisposable) as T
   }
 
 }

@@ -51,7 +51,8 @@ public class WalletsViewModel extends BaseViewModel {
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
       TransactionsRouter transactionsRouter, Logger logger,
-      PreferencesRepositoryType preferencesRepositoryType) {
+      PreferencesRepositoryType preferencesRepositoryType,
+      CompositeDisposable compositeDisposable) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
     this.deleteWalletInteract = deleteWalletInteract;
@@ -62,7 +63,7 @@ public class WalletsViewModel extends BaseViewModel {
     this.transactionsRouter = transactionsRouter;
     this.logger = logger;
     this.preferencesRepositoryType = preferencesRepositoryType;
-    this.disposables = new CompositeDisposable();
+    this.disposables = compositeDisposable;
 
     fetchWallets();
   }

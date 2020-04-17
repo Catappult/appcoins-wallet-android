@@ -22,10 +22,10 @@ public class ImportWalletViewModel extends BaseViewModel
   private final CompositeDisposable disposables;
 
   ImportWalletViewModel(ImportWalletInteract importWalletInteract,
-      WalletRepositoryType walletRepository) {
+      WalletRepositoryType walletRepository, CompositeDisposable compositeDisposable) {
     this.importWalletInteract = importWalletInteract;
     this.walletRepository = walletRepository;
-    this.disposables = new CompositeDisposable();
+    this.disposables = compositeDisposable;
   }
 
   @Override public void onKeystore(String keystore, String password) {

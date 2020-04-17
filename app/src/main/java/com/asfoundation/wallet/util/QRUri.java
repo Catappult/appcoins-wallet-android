@@ -26,12 +26,10 @@ import static com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity.ERROR_CO
 public class QRUri {
   private static final int ADDRESS_LENGTH = 42;
 
-  private final String protocol;
   private final String address;
   private final Map<String, String> parameters;
 
-  private QRUri(String protocol, String address, Map<String, String> parameters) {
-    this.protocol = protocol;
+  private QRUri(String address, Map<String, String> parameters) {
     this.address = address;
     this.parameters = Collections.unmodifiableMap(parameters);
   }
@@ -52,14 +50,13 @@ public class QRUri {
 
   public static QRUri parse(String url) {
     String[] parts = url.split(":");
-    QRUri result = new QRUri("", ERROR_CODE, Collections.emptyMap());
+    QRUri result = new QRUri(ERROR_CODE, Collections.emptyMap());
     if (parts.length == 1) {
       String address = extractAddress(parts[0]);
       if (!TextUtils.isEmpty(address)) {
-        result = new QRUri("", address.toLowerCase(), Collections.emptyMap());
+        result = new QRUri(address.toLowerCase(), Collections.emptyMap());
       }
     } else if (parts.length == 2) {
-      String protocol = parts[0];
       String address = extractAddress(parts[1]);
       if (!TextUtils.isEmpty(address)) {
         Map<String, String> params = new HashMap<>();
@@ -69,7 +66,7 @@ public class QRUri {
           List<String> paramParts = Arrays.asList(paramString.split("&"));
           params = parseParamsFromParamParts(paramParts);
         }
-        result = new QRUri(protocol, address, params);
+        result = new QRUri(address, params);
       }
     }
     return result;
