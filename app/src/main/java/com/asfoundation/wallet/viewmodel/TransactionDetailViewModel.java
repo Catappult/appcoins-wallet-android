@@ -15,6 +15,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
@@ -22,19 +23,26 @@ public class TransactionDetailViewModel extends BaseViewModel {
 
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
+  private final CompositeDisposable disposables;
 
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter) {
+      ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable) {
     this.externalBrowserRouter = externalBrowserRouter;
-    findDefaultNetworkInteract.find()
+    this.disposables = compositeDisposable;
+    disposables.add(findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
-        });
-    disposable = findDefaultWalletInteract.find()
+        }));
+    disposables.add(findDefaultWalletInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultWallet::postValue, t -> {
-        });
+        }));
+  }
+
+  @Override protected void onCleared() {
+    disposables.clear();
+    super.onCleared();
   }
 
   public LiveData<NetworkInfo> defaultNetwork() {

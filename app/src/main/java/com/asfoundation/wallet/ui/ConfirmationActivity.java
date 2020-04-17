@@ -82,6 +82,7 @@ public class ConfirmationActivity extends BaseActivity {
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    super.onActivityResult(requestCode, resultCode, intent);
     if (requestCode == GasSettingsViewModel.SET_GAS_SETTINGS) {
       if (resultCode == RESULT_OK) {
         viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
@@ -152,8 +153,11 @@ public class ConfirmationActivity extends BaseActivity {
           .setNeutralButton(R.string.copy, (dialog1, id) -> {
             ClipboardManager clipboard =
                 (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("transaction transaction", transaction.getHash());
-            clipboard.setPrimaryClip(clip);
+            if (clipboard != null) {
+              ClipData clip =
+                  ClipData.newPlainText("transaction transaction", transaction.getHash());
+              clipboard.setPrimaryClip(clip);
+            }
             successFinish(transaction.getHash());
           })
           .create();
@@ -181,7 +185,10 @@ public class ConfirmationActivity extends BaseActivity {
 
   @Override protected void onResume() {
     super.onResume();
-
-    viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
+    TransactionBuilder transactionBuilder =
+        getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER);
+    if (transactionBuilder != null) {
+      viewModel.init(transactionBuilder);
+    }
   }
 }

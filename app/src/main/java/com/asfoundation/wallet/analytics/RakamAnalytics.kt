@@ -87,7 +87,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
   private fun setRakamSuperProperties(instance: RakamClient, installerPackage: String,
                                       userLevel: Int,
                                       userId: String) {
-    var superProperties = instance.superProperties?: JSONObject()
+    val superProperties = instance.superProperties ?: JSONObject()
     try {
       superProperties.put(RakamEventLogger.APTOIDE_PACKAGE,
           BuildConfig.APPLICATION_ID)

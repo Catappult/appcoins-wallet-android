@@ -7,6 +7,7 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.viewmodel.ImportWalletViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Singleton;
 
 @Module(includes = RepositoriesModule.class) class ImportModule {
@@ -18,6 +19,7 @@ import javax.inject.Singleton;
 
   @Singleton @Provides ImportWalletViewModelFactory provideImportWalletViewModelFactory(
       ImportWalletInteract importWalletInteract, WalletRepositoryType walletRepository) {
-    return new ImportWalletViewModelFactory(importWalletInteract, walletRepository);
+    return new ImportWalletViewModelFactory(importWalletInteract, walletRepository,
+        new CompositeDisposable());
   }
 }

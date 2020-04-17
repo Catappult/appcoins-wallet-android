@@ -52,9 +52,9 @@ class BalanceActivity : BaseActivity(),
         tokenDetailsId)
 
     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-        androidx.core.util.Pair<View, String>(imgView, ViewCompat.getTransitionName(imgView)!!),
-        androidx.core.util.Pair<View, String>(textView, ViewCompat.getTransitionName(textView)!!),
-        androidx.core.util.Pair<View, String>(parentView,
+        androidx.core.util.Pair(imgView, ViewCompat.getTransitionName(imgView)!!),
+        androidx.core.util.Pair(textView, ViewCompat.getTransitionName(textView)!!),
+        androidx.core.util.Pair(parentView,
             ViewCompat.getTransitionName(parentView)!!))
 
     startActivity(intent, options.toBundle())

@@ -6,6 +6,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 
 @Module public class TransactionDetailModule {
 
@@ -14,11 +15,10 @@ import dagger.Provides;
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExternalBrowserRouter externalBrowserRouter) {
     return new TransactionDetailViewModelFactory(findDefaultNetworkInteract,
-        findDefaultWalletInteract, externalBrowserRouter);
+        findDefaultWalletInteract, externalBrowserRouter, new CompositeDisposable());
   }
 
   @Provides ExternalBrowserRouter externalBrowserRouter() {
     return new ExternalBrowserRouter();
   }
-
 }

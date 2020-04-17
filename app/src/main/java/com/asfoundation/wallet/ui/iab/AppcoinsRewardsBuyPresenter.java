@@ -87,7 +87,7 @@ public class AppcoinsRewardsBuyPresenter {
 
   private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku,
       BigDecimal amount) {
-    sendPaymentErrorEvent(BillingAnalytics.PAYMENT_METHOD_REWARDS, transaction);
+    sendPaymentErrorEvent(transaction);
     switch (transaction.getStatus()) {
       case PROCESSING:
         return Completable.fromAction(view::showLoading);
@@ -132,32 +132,34 @@ public class AppcoinsRewardsBuyPresenter {
     disposables.clear();
   }
 
-  void sendPaymentEvent(String purchaseDetails) {
+  void sendPaymentEvent() {
     analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), purchaseDetails, transactionBuilder.getType());
+            .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.getType());
   }
 
   void sendRevenueEvent() {
     analytics.sendRevenueEvent(formatter.scaleFiat(inAppPurchaseInteractor.convertToFiat(
-        transactionBuilder.amount().doubleValue(), EVENT_REVENUE_CURRENCY)
+        transactionBuilder.amount()
+            .doubleValue(), EVENT_REVENUE_CURRENCY)
         .blockingGet()
         .getAmount())
         .toString());
   }
 
-  void sendPaymentSuccessEvent(String purchaseDetails) {
+  void sendPaymentSuccessEvent() {
     analytics.sendPaymentSuccessEvent(packageName, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), purchaseDetails, transactionBuilder.getType());
+            .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.getType());
   }
 
-  void sendPaymentErrorEvent(String purchaseDetails, RewardsManager.RewardPayment transaction) {
+  private void sendPaymentErrorEvent(RewardsManager.RewardPayment transaction) {
     if (transaction.getStatus() == RewardsManager.RewardPayment.Status.ERROR
         || transaction.getStatus() == RewardsManager.RewardPayment.Status.NO_NETWORK) {
       analytics.sendPaymentErrorEvent(packageName, transactionBuilder.getSkuId(),
           transactionBuilder.amount()
-              .toString(), purchaseDetails, transactionBuilder.getType(), transaction.getStatus()
+              .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.getType(),
+          transaction.getStatus()
               .toString());
     }
   }

@@ -64,12 +64,6 @@ public class TransactionsMapper {
     return transactionList;
   }
 
-  public Single<List<Transaction>> mapFromWalletHistory(
-      List<WalletHistory.Transaction> transactions) {
-    return Single.just(mapTransactionsFromWalletHistory(transactions))
-        .observeOn(scheduler);
-  }
-
   public List<Transaction> mapTransactionsFromWalletHistory(
       List<WalletHistory.Transaction> transactions) {
     List<Transaction> transactionList = new ArrayList<>(transactions.size());

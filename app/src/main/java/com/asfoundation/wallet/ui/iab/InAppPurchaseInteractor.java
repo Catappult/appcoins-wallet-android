@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 public class InAppPurchaseInteractor {
 
   public static final String PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY";
-  public static final String LOCAL_PAYMENT_METHOD_KEY = "LOCAL_PAYMENT_METHOD_KEY";
+  private static final String LOCAL_PAYMENT_METHOD_KEY = "LOCAL_PAYMENT_METHOD_KEY";
   private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";

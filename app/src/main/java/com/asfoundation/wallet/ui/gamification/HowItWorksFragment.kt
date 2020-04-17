@@ -19,10 +19,9 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_how_it_works.*
+import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.NumberFormat
-import java.math.RoundingMode
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -30,8 +29,10 @@ import javax.inject.Inject
 class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
+
   @Inject
   lateinit var analytics: GamificationAnalytics
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: HowItWorksPresenter
@@ -115,7 +116,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   private fun formatNextLevelFooter(id: Int, nextLevelAmount: String,
                                     nextLevel: String): CharSequence {
     return HtmlCompat.fromHtml(String.format(
-        HtmlCompat.toHtml(SpannedString(getText(id)), HtmlCompat.FROM_HTML_MODE_LEGACY),
+        HtmlCompat.toHtml(SpannedString(getText(id)),
+            HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE),
         nextLevelAmount, nextLevel), HtmlCompat.FROM_HTML_MODE_LEGACY)
   }
 

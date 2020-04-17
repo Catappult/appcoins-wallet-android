@@ -33,7 +33,7 @@ public class SendActivity extends BaseActivity {
 
   private static final int BARCODE_READER_REQUEST_CODE = 1;
   @Inject SendViewModelFactory sendViewModelFactory;
-  SendViewModel viewModel;
+  private SendViewModel viewModel;
   private EditText toAddressText;
   private EditText amountText;
   private TextInputLayout toInputLayout;
@@ -82,24 +82,6 @@ public class SendActivity extends BaseActivity {
     });
   }
 
-  private void onFinishWithResult(Result result) {
-    if (result.isSuccess()) {
-      setResult(Activity.RESULT_OK, result.getData());
-      finish();
-    }
-  }
-
-  private void onAmount(BigDecimal bigDecimal) {
-    amountText.setText(NumberFormat.getInstance()
-        .format(bigDecimal));
-  }
-
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.send_menu, menu);
-
-    return super.onCreateOptionsMenu(menu);
-  }
-
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_next: {
@@ -132,6 +114,24 @@ public class SendActivity extends BaseActivity {
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }
+  }
+
+  private void onFinishWithResult(Result result) {
+    if (result.isSuccess()) {
+      setResult(Activity.RESULT_OK, result.getData());
+      finish();
+    }
+  }
+
+  private void onAmount(BigDecimal bigDecimal) {
+    amountText.setText(NumberFormat.getInstance()
+        .format(bigDecimal));
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.send_menu, menu);
+
+    return super.onCreateOptionsMenu(menu);
   }
 
   private void onNext() {

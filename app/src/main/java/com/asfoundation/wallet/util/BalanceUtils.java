@@ -7,24 +7,12 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import org.web3j.utils.Convert;
 
 public class BalanceUtils {
-  private static String WEI_IN_ETH = "1000000000000000000";
 
   public static BigDecimal weiToEth(BigDecimal wei) {
     return Convert.fromWei(wei, Convert.Unit.ETHER);
-  }
-
-  public static String ethToUsd(String priceUsd, String ethBalance) {
-    BigDecimal usd = new BigDecimal(ethBalance).multiply(new BigDecimal(priceUsd));
-    usd = usd.setScale(2, RoundingMode.FLOOR);
-    return usd.toString();
-  }
-
-  public static BigDecimal EthToWei(String eth) {
-    return new BigDecimal(eth).multiply(new BigDecimal(WEI_IN_ETH));
   }
 
   public static BigDecimal weiToGweiBI(BigInteger wei) {
@@ -51,19 +39,8 @@ public class BalanceUtils {
    * @return amount in subunits
    */
   public static BigDecimal baseToSubunit(BigDecimal baseAmount, int decimals) {
-    assert (decimals >= 0);
+    if ((decimals < 0)) throw new AssertionError();
     return baseAmount.multiply(BigDecimal.valueOf(10)
-        .pow(decimals));
-  }
-
-  /**
-   * @param subunitAmount - amouunt in subunits
-   * @param decimals - decimal places used to convert subunits to base
-   *
-   * @return amount in base units
-   */
-  public static BigDecimal subunitToBase(BigDecimal subunitAmount, int decimals) {
-    return subunitAmount.divide(BigDecimal.valueOf(10)
         .pow(decimals));
   }
 

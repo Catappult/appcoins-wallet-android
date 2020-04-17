@@ -70,12 +70,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          if (it.error.hasError || it.values.size < 3) {
+          hasDefaultValues = if (it.error.hasError || it.values.size < 3) {
             view.hideValuesAdapter()
-            hasDefaultValues = false
+            false
           } else {
             view.setValuesAdapter(it.values)
-            hasDefaultValues = true
+            true
           }
         }
         .subscribe())
@@ -215,7 +215,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun loadBonusIntoView(appPackage: String, amount: String,
-                                currency: String): Completable{
+                                currency: String): Completable {
     return interactor.convertLocal(currency, amount, 18)
         .flatMapSingle { interactor.getEarningBonus(appPackage, it.amount) }
         .subscribeOn(networkScheduler)
@@ -255,7 +255,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       Completable.complete()
     } else {
       view.changeMainValueColor(true)
-      loadBonusIntoView(appPackage, topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode)
+      loadBonusIntoView(appPackage, topUpData.currency.fiatValue,
+          topUpData.currency.fiatCurrencyCode)
     }
   }
 

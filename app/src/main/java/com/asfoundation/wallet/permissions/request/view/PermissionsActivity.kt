@@ -36,10 +36,12 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     createWalletCompleteEvent = BehaviorRelay.create()
     try {
       val permissionName = getPermission()
-      presenter =
-          PermissionsActivityPresenter(this, permissionsInteractor, callingPackage,
-              getSignature(callingPackage), permissionName, CompositeDisposable(),
-              AndroidSchedulers.mainThread(), savedInstanceState == null)
+      callingPackage?.let {
+        presenter =
+            PermissionsActivityPresenter(this, permissionsInteractor, it,
+                getSignature(it), permissionName, CompositeDisposable(),
+                AndroidSchedulers.mainThread(), savedInstanceState == null)
+      } ?: closeError("Null calling package")
     } catch (e: IllegalArgumentException) {
       closeError(
           "Unknown permission name. \nKnown permissions: " + PermissionName.WALLET_ADDRESS.name)
