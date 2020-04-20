@@ -17,8 +17,6 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 
-private val AMOUNT_DEFAULT_VALUE = "10"
-
 class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val activity: TopUpActivityView?,
                              private val interactor: TopUpInteractor,
@@ -33,6 +31,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
+    private const val AMOUNT_DEFAULT_VALUE = "10"
   }
 
   fun present(appPackage: String) {
