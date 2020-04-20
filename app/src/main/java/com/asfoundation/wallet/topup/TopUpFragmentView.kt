@@ -11,7 +11,8 @@ interface TopUpFragmentView {
   fun getEditTextChanges(): Observable<TopUpData>
   fun getPaymentMethodClick(): Observable<String>
   fun getNextClick(): Observable<TopUpData>
-  fun setupUiElements(paymentMethods: List<PaymentMethodData>, localCurrency: LocalCurrency)
+  fun setupUiElements(paymentMethods: List<PaymentMethodData>, localCurrency: LocalCurrency,
+                      defaultValue: String)
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)

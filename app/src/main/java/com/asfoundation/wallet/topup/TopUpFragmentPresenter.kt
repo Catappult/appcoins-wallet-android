@@ -17,6 +17,8 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 
+private val AMOUNT_DEFAULT_VALUE = "10"
+
 class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val activity: TopUpActivityView?,
                              private val interactor: TopUpInteractor,
@@ -60,7 +62,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             .observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
           view.setupUiElements(filterPaymentMethods(paymentMethods),
-              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+              LocalCurrency(values.maxValue.symbol, values.maxValue.currency),
+              AMOUNT_DEFAULT_VALUE)
         })
         .subscribe({}, { handleError(it) }))
   }
