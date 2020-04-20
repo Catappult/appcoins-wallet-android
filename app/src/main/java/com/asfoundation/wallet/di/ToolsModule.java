@@ -182,6 +182,7 @@ import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi;
 import com.asfoundation.wallet.support.SupportInteractor;
+import com.asfoundation.wallet.support.SupportSharedPreferences;
 import com.asfoundation.wallet.topup.TopUpAnalytics;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.topup.TopUpLimitValues;
@@ -1328,8 +1329,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new UpdateNavigator();
   }
 
-  @Singleton @Provides SupportInteractor provideSupportInteractor(SharedPreferences preferences) {
+  @Singleton @Provides SupportInteractor provideSupportInteractor(
+      SupportSharedPreferences preferences) {
     return new SupportInteractor(preferences);
+  }
+
+  @Singleton @Provides SupportSharedPreferences provideSupportSharedPreferences(
+      SharedPreferences preferences) {
+    return new SupportSharedPreferences(preferences);
   }
 
   @Singleton @Provides IdsRepository provideIdsRepository(Context context,
