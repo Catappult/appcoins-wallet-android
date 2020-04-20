@@ -31,6 +31,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
+    private const val AMOUNT_DEFAULT_VALUE = "10"
   }
 
   fun present(appPackage: String) {
@@ -60,7 +61,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             .observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
           view.setupUiElements(filterPaymentMethods(paymentMethods),
-              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+              LocalCurrency(values.maxValue.symbol, values.maxValue.currency),
+              AMOUNT_DEFAULT_VALUE)
         })
         .subscribe({}, { handleError(it) }))
   }

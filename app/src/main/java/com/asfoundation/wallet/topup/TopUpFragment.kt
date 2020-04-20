@@ -160,12 +160,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
 
-  override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
-                               localCurrency: LocalCurrency) {
+  override fun setupUiElements(
+      paymentMethods: List<PaymentMethodData>,
+      localCurrency: LocalCurrency,
+      defaultValue: String) {
     hideNoNetwork()
     if (isLocalCurrencyValid(localCurrency)) {
       this@TopUpFragment.localCurrency = localCurrency
-      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
+      setupCurrencyData(selectedCurrency, localCurrency.code, defaultValue,
           APPC_C_SYMBOL, DEFAULT_VALUE)
     }
     this@TopUpFragment.paymentMethods = paymentMethods
