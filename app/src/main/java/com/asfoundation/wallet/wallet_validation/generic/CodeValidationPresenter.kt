@@ -25,7 +25,8 @@ class CodeValidationPresenter(
     private val countryCode: String,
     private val phoneNumber: String,
     private val disposables: CompositeDisposable,
-    private val hasBeenInvitedFlow: Boolean
+    private val hasBeenInvitedFlow: Boolean,
+    private val analytics: WalletValidationAnalytics
 ) {
 
   fun present() {
@@ -43,6 +44,7 @@ class CodeValidationPresenter(
     disposables.add(
         view.getLaterButtonClicks()
             .doOnNext {
+              analytics.sendCodeVerificationEvent("later")
               activity?.finishCancelActivity()
             }.subscribe())
   }
@@ -68,6 +70,7 @@ class CodeValidationPresenter(
         Observable.merge(view.getSubmitClicks(), view.getRetryButtonClicks())
             .doOnEach { view.hideNoInternetView() }
             .doOnEach { view.showLoading() }
+            .doOnEach { analytics.sendCodeVerificationEvent("next") }
             .flatMapSingle { validationInfo ->
               defaultWalletInteract.find()
                   .delay(2, TimeUnit.SECONDS)
@@ -90,7 +93,10 @@ class CodeValidationPresenter(
   private fun handleBack() {
     disposables.add(
         view.getBackClicks()
-            .doOnNext { activity?.showPhoneValidationView(countryCode, phoneNumber) }
+            .doOnNext {
+              analytics.sendCodeVerificationEvent("back")
+              activity?.showPhoneValidationView(countryCode, phoneNumber)
+            }
             .subscribe()
     )
   }
@@ -131,6 +137,7 @@ class CodeValidationPresenter(
 
   private fun handleNext(status: WalletValidationStatus,
                          validationInfo: ValidationInfo) {
+    handleVerificationAnalytics(status)
     when (status) {
       WalletValidationStatus.SUCCESS -> checkReferralAvailability()
       WalletValidationStatus.INVALID_INPUT -> handleError(
@@ -144,6 +151,14 @@ class CodeValidationPresenter(
         view.hideKeyboard()
         view.showNoInternetView()
       }
+    }
+  }
+
+  private fun handleVerificationAnalytics(status: WalletValidationStatus) {
+    if (status == WalletValidationStatus.SUCCESS) {
+      analytics.sendConfirmationEvent("success", "")
+    } else {
+      analytics.sendConfirmationEvent("error", status.name)
     }
   }
 

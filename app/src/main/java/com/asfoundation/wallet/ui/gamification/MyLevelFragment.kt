@@ -8,18 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.promotions.GamificationProgressBarView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_my_level.*
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
-import kotlinx.android.synthetic.main.rewards_progress_bar.*
+import kotlinx.android.synthetic.main.rewards_progress_bar.view.*
+import kotlinx.android.synthetic.main.rewards_progress_normal.*
+import kotlinx.android.synthetic.main.rewards_progress_pioneer.*
 import javax.inject.Inject
 
 class MyLevelFragment : DaggerFragment(), MyLevelView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
+
   @Inject
   lateinit var analytics: GamificationAnalytics
 
@@ -27,6 +31,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
   private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
+  private lateinit var gamificationProgressBarView: GamificationProgressBarView
   private var step = 100
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +60,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     super.onViewCreated(view, savedInstanceState)
     howItWorksBottomSheet =
         BottomSheetBehavior.from(gamification_fragment_container)
+    gamificationProgressBarView = gamification_progress_bar_normal
     presenter.present(savedInstanceState)
   }
 
@@ -63,9 +69,26 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     super.onDestroyView()
   }
 
+  override fun showPioneerUser() {
+    gamification_loading.visibility = View.GONE
+    content.visibility = View.VISIBLE
+    gamificationProgressBarView = gamification_progress_bar_pioneer
+    gamificationProgressBarView.setupPioneerUi()
+    rewards_layout_pioneer.visibility = View.VISIBLE
+    rewards_layout_normal.visibility = View.GONE
+  }
+
+  override fun showNonPioneerUser() {
+    gamification_loading.visibility = View.GONE
+    content.visibility = View.VISIBLE
+    gamificationProgressBarView = gamification_progress_bar_normal
+    rewards_layout_normal.visibility = View.VISIBLE
+    rewards_layout_pioneer.visibility = View.GONE
+  }
+
   override fun setupLayout() {
     for (i in 0..4) {
-      gamification_progress_bar.setLevelIcons(i)
+      gamificationProgressBarView.setLevelIcons(i)
     }
   }
 
@@ -73,11 +96,9 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     if (bonus.size != 1) {
       step = 100 / (bonus.size - 1)
     }
-    gamification_loading.visibility = View.GONE
 
     setLevelResources(level)
-
-    gamification_progress_bar.animateProgress(lastShownLevel, level, step)
+    gamificationProgressBarView.animateProgress(lastShownLevel, level, step)
 
     if (level > lastShownLevel) {
       levelUpAnimation(level)
@@ -91,21 +112,23 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       } else {
         R.string.gamification_how_table_b2
       }
-      gamification_progress_bar.setLevelBonus(levelIndex,
-          getString(bonusLabel, gamification_progress_bar.formatLevelInfo(value)))
+
+      gamificationProgressBarView.setLevelBonus(levelIndex,
+          getString(bonusLabel, gamificationProgressBarView.formatLevelInfo(value)))
     }
   }
 
   override fun setStaringLevel(lastShownLevel: Int, level: Int, bonus: List<Double>) {
-    progress_bar.progress = lastShownLevel * (100 / (bonus.size - 1))
+
+    gamificationProgressBarView.progress_bar.progress = lastShownLevel * (100 / (bonus.size - 1))
     levelUpAnimation(level)
     for (i in 0..lastShownLevel) {
-      gamification_progress_bar.showPreviousLevelIcons(i, i < lastShownLevel)
+      gamificationProgressBarView.showPreviousLevelIcons(i, i < lastShownLevel)
     }
   }
 
   override fun animateBackgroundFade() {
-    howItWorksBottomSheet.bottomSheetCallback = object :
+    howItWorksBottomSheet.addBottomSheetCallback(object :
         BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
@@ -113,7 +136,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    }
+    })
   }
 
   private fun setLevelResources(level: Int) {

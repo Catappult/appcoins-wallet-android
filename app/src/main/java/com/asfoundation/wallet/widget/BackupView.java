@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.widget;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import androidx.annotation.NonNull;
 import com.asf.wallet.R;
 
 public class BackupView extends FrameLayout {
@@ -27,7 +27,7 @@ public class BackupView extends FrameLayout {
         .toString();
   }
 
-  public void showKeyBoard() {
+  private void showKeyBoard() {
     password.requestFocus();
   }
 

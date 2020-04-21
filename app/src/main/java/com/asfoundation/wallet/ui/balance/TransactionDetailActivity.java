@@ -102,7 +102,7 @@ public class TransactionDetailActivity extends BaseActivity {
   private void onDefaultWallet(Wallet wallet) {
     adapter.setDefaultWallet(wallet);
 
-    if (!transaction.getOperations()
+    if (transaction.getOperations() != null && !transaction.getOperations()
         .isEmpty()) {
       adapter.addOperations(transaction.getOperations());
       detailsList.setVisibility(View.VISIBLE);

@@ -39,23 +39,30 @@ class WalletValidationActivity : BaseActivity(),
     intent.getBooleanExtra(SHOW_TOOLBAR, false)
   }
 
+  private val previousContext: String by lazy {
+    intent.getStringExtra(PREVIOUS_CONTEXT)
+  }
+
+
   companion object {
     const val FRAME_RATE = 30
     const val HAS_BEEN_INVITED_FLOW = "has_been_invited_flow"
     const val NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS = "navigate_to_transactions_on_success"
     const val NAVIGATE_TO_TRANSACTIONS_ON_CANCEL = "navigate_to_transactions_on_cancel"
     const val SHOW_TOOLBAR = "show_toolbar"
+    const val PREVIOUS_CONTEXT = "previous_context"
 
     @JvmStatic
     fun newIntent(context: Context, hasBeenInvitedFlow: Boolean,
                   navigateToTransactionsOnSuccess: Boolean,
                   navigateToTransactionsOnCancel: Boolean,
-                  showToolbar: Boolean): Intent {
+                  showToolbar: Boolean, previousContext: String): Intent {
       return Intent(context, WalletValidationActivity::class.java).apply {
         putExtra(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
         putExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, navigateToTransactionsOnSuccess)
         putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, navigateToTransactionsOnCancel)
         putExtra(SHOW_TOOLBAR, showToolbar)
+        putExtra(PREVIOUS_CONTEXT, previousContext)
       }
     }
   }
@@ -104,7 +111,7 @@ class WalletValidationActivity : BaseActivity(),
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PhoneValidationFragment.newInstance(
-                countryCode, phoneNumber, errorMessage, hasBeenInvitedFlow))
+                countryCode, phoneNumber, errorMessage, hasBeenInvitedFlow, previousContext))
         .commit()
 
     Handler().postDelayed({
@@ -116,11 +123,11 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   override fun showCodeValidationView(countryCode: String, phoneNumber: String) {
-    increaseAnimationFrames()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             CodeValidationFragment.newInstance(countryCode, phoneNumber, hasBeenInvitedFlow))
         .commit()
+    increaseAnimationFrames()
   }
 
   override fun showCodeValidationView(validationInfo: ValidationInfo, errorMessage: Int) {

@@ -7,7 +7,7 @@
       android:orderInCategory="1"
       android:title="@string/title_support"
       app:actionLayout="@layout/intercom_menu_layout"
-      app:showAsAction="always" />
+      app:showAsAction="ifRoom" />
 
   <item
       android:id="@+id/action_support"

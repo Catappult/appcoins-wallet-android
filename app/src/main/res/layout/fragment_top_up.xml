@@ -45,7 +45,7 @@
           android:focusableInTouchMode="true"
           android:gravity="center"
           android:hint="0"
-          android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+          android:imeOptions="flagNoExtractUi|flagNoFullscreen|actionNext"
           android:inputType="numberDecimal"
           android:maxWidth="152dp"
           android:maxLength="152"

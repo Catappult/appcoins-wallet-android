@@ -2,8 +2,8 @@ package com.asfoundation.wallet.wallet_validation.generic
 
 import androidx.annotation.StringRes
 import com.asf.wallet.R
-import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -17,8 +17,19 @@ class PhoneValidationPresenter(
     private val logger: Logger,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val analytics: WalletValidationAnalytics
 ) {
+  companion object {
+    private val TAG = PhoneValidationPresenter::class.java.simpleName
+  }
+
+  private var cachedValidationStatus: Pair<WalletValidationStatus, PhoneValidationFragment.Companion.PhoneValidationClickData>? =
+      null
+
+  fun onResume() {
+    resumePreviousState()
+  }
 
   fun present() {
     view.setupUI()
@@ -27,10 +38,16 @@ class PhoneValidationPresenter(
     handleCancelAndLaterClicks()
   }
 
+  private fun resumePreviousState() {
+    cachedValidationStatus?.let { onSuccess(it.first, it.second); cachedValidationStatus = null }
+  }
+
   private fun handleCancelAndLaterClicks() {
     disposables.add(
         Observable.merge(view.getCancelClicks(), view.getLaterButtonClicks())
             .doOnNext {
+              handlePhoneValidationAnalytics("close", WalletValidationStatus.SUCCESS,
+                  it.previousContext)
               view.hideKeyboard()
               activity?.finishCancelActivity()
             }
@@ -43,28 +60,34 @@ class PhoneValidationPresenter(
             .doOnNext { view.setButtonState(false) }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
-              smsValidationInteract.requestValidationCode("${it.first}${it.second}")
+              smsValidationInteract.requestValidationCode("${it.countryCode}${it.number}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
+                    cachedValidationStatus = Pair(status, it)
                     view.setButtonState(true)
                     onSuccess(status, it)
                   }
                   .doOnError { throwable ->
+                    analytics.sendPhoneVerificationEvent("submit", it.previousContext, "error",
+                        "generic_error")
                     view.setButtonState(false)
                     showErrorMessage(R.string.unknown_error)
-                    logger.log(throwable)
+                    logger.log(TAG, throwable.message, throwable)
                   }
+                  .doOnSuccess { cachedValidationStatus = null }
             }
             .retry()
             .subscribe { }
     )
   }
 
-  private fun onSuccess(status: WalletValidationStatus, submitInfo: Pair<String, String>) {
+  private fun onSuccess(status: WalletValidationStatus,
+                        submitInfo: PhoneValidationFragment.Companion.PhoneValidationClickData) {
+    handlePhoneValidationAnalytics("submit", status, submitInfo.previousContext)
     when (status) {
-      WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.first,
-          submitInfo.second) ?: run {
+      WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.countryCode,
+          submitInfo.number) ?: run {
         showErrorMessage(R.string.unknown_error)
         logError()
       }
@@ -93,8 +116,17 @@ class PhoneValidationPresenter(
     }
   }
 
+  private fun handlePhoneValidationAnalytics(action: String, status: WalletValidationStatus,
+                                             previousContext: String) {
+    if (status == WalletValidationStatus.SUCCESS) {
+      analytics.sendPhoneVerificationEvent(action, previousContext, "success", "")
+    } else {
+      analytics.sendPhoneVerificationEvent(action, previousContext, "error", status.name)
+    }
+  }
+
   private fun logError() {
-    logger.log("Validation Error: Activity null")
+    logger.log(TAG, "Validation Error: Activity null")
   }
 
   private fun showErrorMessage(@StringRes errorMessage: Int) {

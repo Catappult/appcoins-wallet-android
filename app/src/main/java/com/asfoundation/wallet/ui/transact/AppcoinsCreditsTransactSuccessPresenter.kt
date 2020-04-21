@@ -13,7 +13,7 @@ class AppcoinsCreditsTransactSuccessPresenter(private val view: AppcoinsCreditsT
                                               private val formatter: CurrencyFormatUtils) {
   fun present() {
     val walletCurrency = mapToWalletCurrency(currency)
-    val formattedAmount = formatter.formatTransferConfirmation(amount.toDouble(), walletCurrency)
+    val formattedAmount = formatter.formatTransferCurrency(amount, walletCurrency)
     view.setup(formattedAmount, walletCurrency.symbol, toAddress)
     handleOkButtonClick()
   }

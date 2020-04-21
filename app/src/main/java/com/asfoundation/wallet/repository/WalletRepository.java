@@ -8,6 +8,7 @@ import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.math.BigDecimal;
+import org.jetbrains.annotations.NotNull;
 
 public class WalletRepository implements WalletRepositoryType {
 
@@ -82,13 +83,13 @@ public class WalletRepository implements WalletRepositoryType {
         .flatMap(this::findWallet);
   }
 
-  @Override public Single<BigDecimal> getEthBalanceInWei(Wallet wallet) {
+  @NotNull @Override public Single<BigDecimal> getEthBalanceInWei(Wallet wallet) {
     return walletBalanceService.getWalletBalance(wallet.address)
         .map(walletBalance -> new BigDecimal(walletBalance.getEth()))
         .subscribeOn(networkScheduler);
   }
 
-  @Override public Single<BigDecimal> getAppcBalanceInWei(Wallet wallet) {
+  @NotNull @Override public Single<BigDecimal> getAppcBalanceInWei(Wallet wallet) {
     return walletBalanceService.getWalletBalance(wallet.address)
         .map(walletBalance -> new BigDecimal(walletBalance.getAppc()))
         .subscribeOn(networkScheduler);

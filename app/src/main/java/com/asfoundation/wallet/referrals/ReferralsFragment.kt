@@ -19,6 +19,7 @@ import kotlin.math.roundToInt
 class ReferralsFragment : DaggerFragment(), ReferralsView {
 
   private lateinit var presenter: ReferralsPresenter
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
@@ -87,14 +88,6 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     }
   }
 
-  private val maxAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(MAX_AMOUNT)) {
-      arguments!!.getSerializable(MAX_AMOUNT) as BigDecimal
-    } else {
-      throw IllegalArgumentException("Max amount not found")
-    }
-  }
-
   private val amount: BigDecimal by lazy {
     if (arguments!!.containsKey(AMOUNT)) {
       arguments!!.getSerializable(AMOUNT) as BigDecimal
@@ -105,7 +98,7 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
 
   private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY)
+      arguments!!.getString(CURRENCY, "")
     } else {
       throw IllegalArgumentException("Currency not found")
     }

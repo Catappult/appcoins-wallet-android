@@ -134,7 +134,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
     }
     presenter =
         SharePaymentLinkPresenter(this, interactor, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable())
+            CompositeDisposable(), analytics)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -168,14 +168,19 @@ class SharePaymentLinkFragment : DaggerFragment(),
   override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
     return RxView.clicks(share_btn)
         .map {
-          val message = if (note.text.isNotEmpty()) note.text.toString() else null
+          val message = note.text.toString()
           SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
-              originalCurrency, paymentMethod)
+              originalCurrency, paymentMethod, amount.toFloat().toString(), type)
         }
   }
 
-  override fun getCancelButtonClick(): Observable<Any> {
+  override fun getCancelButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
     return RxView.clicks(close_btn)
+        .map {
+          val message = note.text.toString()
+          SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
+              originalCurrency, paymentMethod, amount.toFloat().toString(), type)
+        }
   }
 
   override fun showFetchingLinkInfo() {

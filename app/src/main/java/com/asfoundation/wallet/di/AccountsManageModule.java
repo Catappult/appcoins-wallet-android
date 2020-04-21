@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
+import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
@@ -15,6 +15,7 @@ import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.viewmodel.WalletsViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 
 @Module class AccountsManageModule {
 
@@ -27,7 +28,8 @@ import dagger.Provides;
       PreferencesRepositoryType preferencesRepositoryType) {
     return new WalletsViewModelFactory(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter, logger, preferencesRepositoryType);
+        importWalletRouter, transactionsRouter, logger, preferencesRepositoryType,
+        new CompositeDisposable());
   }
 
   @Provides SetDefaultWalletInteract provideSetDefaultAccountInteract(

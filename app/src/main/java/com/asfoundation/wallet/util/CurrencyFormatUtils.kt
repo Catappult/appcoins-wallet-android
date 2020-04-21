@@ -80,17 +80,18 @@ class CurrencyFormatUtils {
     return ethFormatter.format(value)
   }
 
-  fun formatTransferConfirmation(value: Double, currencyType: WalletCurrency): String {
+  fun formatTransferCurrency(value: BigDecimal, currencyType: WalletCurrency): String {
     val scale: Int = when (currencyType) {
       WalletCurrency.APPCOINS -> APPC_SCALE
       WalletCurrency.CREDITS -> CREDITS_SCALE
       WalletCurrency.ETHEREUM -> ETH_SCALE
       else -> throw IllegalArgumentException()
     }
-    val transferFormatter = NumberFormat.getNumberInstance()
+    val transferFormatter = DecimalFormat("#,##0.00")
         .apply {
           minimumFractionDigits = scale
           maximumFractionDigits = 15
+          isParseBigDecimal = true
           roundingMode = RoundingMode.FLOOR
         }
     return transferFormatter.format(value)

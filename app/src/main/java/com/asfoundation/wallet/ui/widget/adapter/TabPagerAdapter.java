@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.widget.adapter;
 
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.core.util.Pair;
 import java.util.List;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
@@ -11,7 +11,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
   private final List<Pair<String, Fragment>> pages;
 
   public TabPagerAdapter(FragmentManager fm, List<Pair<String, Fragment>> pages) {
-    super(fm);
+    super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
     this.pages = pages;
   }

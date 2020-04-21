@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.entity.WalletValidationException
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.SmsValidationApi
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
@@ -15,6 +15,10 @@ class SmsValidationRepository(
     private val gson: Gson,
     private val logger: Logger
 ) : SmsValidationRepositoryType {
+
+  companion object {
+    private val TAG = SmsValidationRepository::class.java.simpleName
+  }
 
   override fun isValid(walletAddress: String): Single<WalletValidationStatus> {
     return api.isValid(walletAddress)
@@ -53,7 +57,7 @@ class SmsValidationRepository(
               ?.charStream()
               ?.let {
                 walletValidationException = gson.fromJson(it, WalletValidationException::class.java)
-              } ?: logger.log(throwable)
+              } ?: logger.log(TAG, throwable.message(), throwable)
         }
         when {
           throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT

@@ -18,15 +18,14 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_top_up_success.*
-import java.math.BigDecimal
-import java.math.RoundingMode
 import javax.inject.Inject
 
 class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic
-    fun newInstance(amount: String, currency: String, bonus: String, currencySymbol: String): TopUpSuccessFragment {
+    fun newInstance(amount: String, currency: String, bonus: String,
+                    currencySymbol: String): TopUpSuccessFragment {
       return TopUpSuccessFragment().apply {
         arguments = Bundle().apply {
           putString(PARAM_AMOUNT, amount)
@@ -42,6 +41,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     private const val CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
   }
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: TopUpSuccessPresenter
@@ -65,7 +65,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS)) {
-      arguments!!.getString(BONUS)
+      arguments!!.getString(BONUS, "")
     } else {
       throw IllegalArgumentException("bonus not found")
     }
@@ -73,7 +73,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   private val currencySymbol: String by lazy {
     if (arguments!!.containsKey(CURRENCY_SYMBOL)) {
-      arguments!!.getString(CURRENCY_SYMBOL)
+      arguments!!.getString(CURRENCY_SYMBOL, "")
     } else {
       throw IllegalArgumentException("bonus not found")
     }

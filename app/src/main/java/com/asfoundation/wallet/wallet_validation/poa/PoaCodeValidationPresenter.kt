@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.wallet_validation.poa
 
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -14,7 +15,8 @@ class PoaCodeValidationPresenter(
     private val networkScheduler: Scheduler,
     private val countryCode: String,
     private val phoneNumber: String,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val analytics: WalletValidationAnalytics
 ) {
 
   fun present() {
@@ -46,6 +48,7 @@ class PoaCodeValidationPresenter(
     disposables.add(
         view.getSubmitClicks()
             .doOnNext {
+              analytics.sendCodeVerificationEvent("submit")
               activity?.showLoading(it)
             }
             .subscribe()
@@ -55,7 +58,10 @@ class PoaCodeValidationPresenter(
   private fun handleBack() {
     disposables.add(
         view.getBackClicks()
-            .doOnNext { activity?.showPhoneValidationView(countryCode, phoneNumber) }
+            .doOnNext {
+              analytics.sendCodeVerificationEvent("back")
+              activity?.showPhoneValidationView(countryCode, phoneNumber)
+            }
             .subscribe()
     )
   }

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 /**
@@ -128,18 +129,21 @@ public class PaymentTransaction {
     PaymentTransaction that = (PaymentTransaction) o;
 
     if (!uri.equals(that.uri)) return false;
-    if (approveHash != null ? !approveHash.equals(that.approveHash) : that.approveHash != null) {
+    if (!Objects.equals(approveHash, that.approveHash)) {
       return false;
     }
-    if (transactionBuilder != null ? !transactionBuilder.equals(that.transactionBuilder)
-        : that.transactionBuilder != null) {
+    if (!Objects.equals(transactionBuilder, that.transactionBuilder)) {
       return false;
     }
     return state == that.state;
   }
 
   @Override public String toString() {
-    return "PaymentTransaction{" + "uri='" + uri + '\'' + ", approveHash='"
+    return "PaymentTransaction{"
+        + "uri='"
+        + uri
+        + '\''
+        + ", approveHash='"
         + approveHash
         + '\''
         + ", buyHash='"

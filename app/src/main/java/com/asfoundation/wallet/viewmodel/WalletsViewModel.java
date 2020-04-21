@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.asfoundation.wallet.C;
-import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
@@ -15,14 +14,17 @@ import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
+import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
+import io.reactivex.disposables.CompositeDisposable;
 
 import static com.asfoundation.wallet.C.IMPORT_REQUEST_CODE;
 
 public class WalletsViewModel extends BaseViewModel {
 
+  private static final String TAG = WalletsViewModel.class.getSimpleName();
   private final CreateWalletInteract createWalletInteract;
   private final SetDefaultWalletInteract setDefaultWalletInteract;
   private final DeleteWalletInteract deleteWalletInteract;
@@ -41,6 +43,7 @@ public class WalletsViewModel extends BaseViewModel {
   private final MutableLiveData<String> exportedStore = new MutableLiveData<>();
   private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
   private final MutableLiveData<ErrorEnvelope> deleteWalletError = new MutableLiveData<>();
+  private final CompositeDisposable disposables;
 
   WalletsViewModel(CreateWalletInteract createWalletInteract,
       SetDefaultWalletInteract setDefaultWalletInteract, DeleteWalletInteract deleteWalletInteract,
@@ -48,7 +51,8 @@ public class WalletsViewModel extends BaseViewModel {
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
       TransactionsRouter transactionsRouter, Logger logger,
-      PreferencesRepositoryType preferencesRepositoryType) {
+      PreferencesRepositoryType preferencesRepositoryType,
+      CompositeDisposable compositeDisposable) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
     this.deleteWalletInteract = deleteWalletInteract;
@@ -59,6 +63,7 @@ public class WalletsViewModel extends BaseViewModel {
     this.transactionsRouter = transactionsRouter;
     this.logger = logger;
     this.preferencesRepositoryType = preferencesRepositoryType;
+    this.disposables = compositeDisposable;
 
     fetchWallets();
   }
@@ -92,21 +97,21 @@ public class WalletsViewModel extends BaseViewModel {
   }
 
   public void setDefaultWallet(Wallet wallet) {
-    disposable = setDefaultWalletInteract.set(wallet)
-        .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
+    disposables.add(setDefaultWalletInteract.set(wallet)
+        .subscribe(() -> onDefaultWalletChanged(wallet), this::onError));
   }
 
   public void deleteWallet(Wallet wallet) {
-    disposable = deleteWalletInteract.delete(wallet)
-        .subscribe(this::onFetchWallets, this::onDeleteWalletError);
+    disposables.add(deleteWalletInteract.delete(wallet)
+        .subscribe(this::onFetchWallets, this::onDeleteWalletError));
   }
 
   private void onFetchWallets(Wallet[] items) {
     progress.postValue(false);
     wallets.postValue(items);
-    disposable = findDefaultWalletInteract.find()
+    disposables.add(findDefaultWalletInteract.find()
         .subscribe(this::onDefaultWalletChanged, t -> {
-        });
+        }));
   }
 
   private void onDefaultWalletChanged(Wallet wallet) {
@@ -116,13 +121,13 @@ public class WalletsViewModel extends BaseViewModel {
 
   public void fetchWallets() {
     progress.postValue(true);
-    disposable = fetchWalletsInteract.fetch()
-        .subscribe(this::onFetchWallets, this::onError);
+    disposables.add(fetchWalletsInteract.fetch()
+        .subscribe(this::onFetchWallets, this::onError));
   }
 
   public void newWallet() {
     progress.setValue(true);
-    createWalletInteract.create()
+    disposables.add(createWalletInteract.create()
         .map(wallet -> {
           fetchWallets();
           createdWallet.postValue(wallet);
@@ -130,23 +135,28 @@ public class WalletsViewModel extends BaseViewModel {
         })
         .flatMapCompletable(createWalletInteract::setDefaultWallet)
         .subscribe(() -> {
-        }, this::onCreateWalletError);
+        }, this::onCreateWalletError));
   }
 
   public void exportWallet(Wallet wallet, String storePassword) {
-    exportWalletInteract.export(wallet, storePassword)
-        .subscribe(exportedStore::postValue, this::onExportWalletError);
+    disposables.add(exportWalletInteract.export(wallet, storePassword)
+        .subscribe(exportedStore::postValue, this::onExportWalletError));
+  }
+
+  @Override protected void onCleared() {
+    disposables.clear();
+    super.onCleared();
   }
 
   private void onExportWalletError(Throwable throwable) {
-    logger.log(throwable);
+    logger.log(TAG, throwable.getMessage(), throwable);
     exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN,
         TextUtils.isEmpty(throwable.getLocalizedMessage()) ? throwable.getMessage()
             : throwable.getLocalizedMessage()));
   }
 
   private void onDeleteWalletError(Throwable throwable) {
-    logger.log(throwable);
+    logger.log(TAG, throwable.getMessage(), throwable);
     deleteWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN,
         TextUtils.isEmpty(throwable.getLocalizedMessage()) ? throwable.getMessage()
             : throwable.getLocalizedMessage()));
@@ -154,7 +164,7 @@ public class WalletsViewModel extends BaseViewModel {
 
   private void onCreateWalletError(Throwable throwable) {
     throwable.printStackTrace();
-    logger.log(throwable);
+    logger.log(TAG, throwable.getMessage(), throwable);
     progress.postValue(false);
     createWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getMessage()));
   }
