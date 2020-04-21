@@ -4,13 +4,17 @@ import android.content.SharedPreferences
 
 class SupportSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
+  companion object {
+    private const val UNREAD_CONVERSATIONS = "UNREAD_CONVERSATIONS"
+  }
+
   fun checkSavedUnreadConversations(): Int =
-      sharedPreferences.getInt(SupportNotificationWorker.UNREAD_CONVERSATIONS, 0)
+      sharedPreferences.getInt(UNREAD_CONVERSATIONS, 0)
 
   fun updateUnreadConversations(unreadConversations: Int) {
     sharedPreferences.edit()
         .apply {
-          putInt(SupportNotificationWorker.UNREAD_CONVERSATIONS, unreadConversations)
+          putInt(UNREAD_CONVERSATIONS, unreadConversations)
           apply()
         }
   }
@@ -18,7 +22,7 @@ class SupportSharedPreferences(private val sharedPreferences: SharedPreferences)
   fun resetUnreadConversations() {
     sharedPreferences.edit()
         .apply {
-          putInt(SupportNotificationWorker.UNREAD_CONVERSATIONS, 0)
+          putInt(UNREAD_CONVERSATIONS, 0)
           apply()
         }
   }

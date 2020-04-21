@@ -34,7 +34,6 @@ class SupportNotificationWorker @Inject constructor(private val context: Context
     const val NOTIFICATION_PERIOD: Long = 15
     const val WORKER_TAG = "SupportNotificationWorkerTag"
     const val UNIQUE_WORKER_NAME = "SupportNotificationWorker"
-    const val UNREAD_CONVERSATIONS = "UNREAD_CONVERSATIONS"
     private const val CHANNEL_ID = "support_notification_channel_id"
     private const val CHANNEL_NAME = "Support notification channel"
   }
