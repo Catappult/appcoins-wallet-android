@@ -13,21 +13,17 @@ import javax.inject.Singleton
 class DaggerWorkerFactory
 @Inject
 constructor(private val workerSubComponent: WorkerSubComponent.Builder) : WorkerFactory() {
-  override fun createWorker(
-      appContext: Context,
-      workerClassName: String,
-      workerParameters: WorkerParameters
-  ) = workerSubComponent
-      .workerParameters(workerParameters)
-      .build()
-      .run {
-        createWorker(workerClassName, workers())
-      }
+  override fun createWorker(appContext: Context, workerClassName: String,
+                            workerParameters: WorkerParameters): ListenableWorker {
+    return workerSubComponent.workerParameters(workerParameters)
+        .build()
+        .run {
+          createWorker(workerClassName, workers())
+        }
+  }
 
-  private fun createWorker(
-      workerClassName: String,
-      workers: Map<Class<out RxWorker>, Provider<RxWorker>>
-  ): ListenableWorker? = try {
+  private fun createWorker(workerClassName: String,
+                           workers: Map<Class<out RxWorker>, Provider<RxWorker>>): ListenableWorker {
     val workerClass = Class.forName(workerClassName)
         .asSubclass(RxWorker::class.java)
     var provider = workers[workerClass]
@@ -40,8 +36,6 @@ constructor(private val workerSubComponent: WorkerSubComponent.Builder) : Worker
       }
     }
     requireNotNull(provider) { "Missing binding for $workerClassName" }
-    provider.get()
-  } catch (e: Exception) {
-    throw RuntimeException(e)
+    return provider.get()
   }
 }
