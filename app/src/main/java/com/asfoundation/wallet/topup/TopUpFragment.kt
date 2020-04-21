@@ -160,15 +160,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
 
-  override fun setupUiElements(
-      paymentMethods: List<PaymentMethodData>,
-      localCurrency: LocalCurrency,
-      defaultValue: String) {
+  override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
+                               localCurrency: LocalCurrency) {
     hideNoNetwork()
     if (isLocalCurrencyValid(localCurrency)) {
       this@TopUpFragment.localCurrency = localCurrency
-      setupCurrencyData(selectedCurrency, localCurrency.code, defaultValue,
-          APPC_C_SYMBOL, DEFAULT_VALUE)
+      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
+          DEFAULT_VALUE)
     }
     this@TopUpFragment.paymentMethods = paymentMethods
     main_value.isEnabled = true
@@ -199,6 +197,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
       imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
+  }
+
+  override fun setDefaultValue(amount: String) {
+    setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
   override fun setValuesAdapter(values: List<FiatValue>) {

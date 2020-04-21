@@ -61,8 +61,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             .observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
           view.setupUiElements(filterPaymentMethods(paymentMethods),
-              LocalCurrency(values.maxValue.symbol, values.maxValue.currency),
-              AMOUNT_DEFAULT_VALUE)
+              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
         })
         .subscribe({}, { handleError(it) }))
   }
@@ -76,11 +75,18 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             view.hideValuesAdapter()
             false
           } else {
-            view.setValuesAdapter(it.values)
+            updateDefaultValues(it.values)
             true
           }
         }
         .subscribe())
+  }
+
+  private fun updateDefaultValues(values: List<FiatValue>) {
+    val defaultFiatValue = values.drop(1)
+        .first()
+    view.setDefaultValue(defaultFiatValue.amount.toString())
+    view.setValuesAdapter(values)
   }
 
   private fun handleKeyboardEvents() {
