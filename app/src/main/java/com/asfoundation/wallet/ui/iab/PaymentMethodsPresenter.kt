@@ -173,10 +173,6 @@ class PaymentMethodsPresenter(
         isSetupCompleted())
   }
 
-  private fun waitForOngoingPurchase(skuId: String?): Completable {
-    return Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId))
-  }
-
   private fun checkProcessing(skuId: String?): Completable {
     return billing.getSkuTransaction(appPackage, skuId, networkThread)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
@@ -207,7 +203,7 @@ class PaymentMethodsPresenter(
     return billing.getSkuPurchase(appPackage, skuId, networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
-        .toCompletable()
+        .ignoreElement()
   }
 
   private fun checkAndConsumePrevious(sku: String?): Completable {
@@ -230,20 +226,19 @@ class PaymentMethodsPresenter(
   }
 
   private fun setupUi(transactionValue: Double) {
-    disposables.add(waitForOngoingPurchase(transaction.skuId).subscribeOn(networkThread)
-        .andThen(
-            inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-                .subscribeOn(networkThread)
-                .flatMapCompletable { fiatValue ->
-                  getPaymentMethods(fiatValue)
-                      .observeOn(viewScheduler)
-                      .flatMapCompletable { paymentMethods ->
-                        Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
-                      }
-                })
-        .subscribeOn(networkThread)
-        .observeOn(viewScheduler)
-        .subscribe({ }, { this.showError(it) }))
+    disposables.add(
+        inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .subscribeOn(networkThread)
+            .flatMapCompletable { fiatValue ->
+              getPaymentMethods(fiatValue)
+                  .observeOn(viewScheduler)
+                  .flatMapCompletable { paymentMethods ->
+                    Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
+                  }
+            }
+            .subscribeOn(networkThread)
+            .observeOn(viewScheduler)
+            .subscribe({ }, { this.showError(it) }))
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
