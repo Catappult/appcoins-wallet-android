@@ -364,11 +364,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     loading_view.visibility = View.GONE
     buy_button.isEnabled = true
     if (processing_loading.visibility != View.VISIBLE) {
-      payment_methods.setVisibility(View.VISIBLE)
+      payment_methods.visibility = View.VISIBLE
     }
   }
 
-  override fun getCancelClick(): Observable<PaymentMethod> {
+  override fun getCancelClick(): Observable<PaymentMethod?> {
     return RxView.clicks(cancel_button)
         .map { getSelectedPaymentMethod() }
   }
@@ -403,7 +403,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     processing_loading.visibility = View.VISIBLE
   }
 
-  override fun getBuyClick(): Observable<PaymentMethod> {
+  override fun getBuyClick(): Observable<PaymentMethod?> {
     return RxView.clicks(buy_button)
         .map { getSelectedPaymentMethod() }
   }
@@ -452,7 +452,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         PaymentMethod::id))
   }
 
-  override fun getMorePaymentMethodsClicks(): Observable<PaymentMethod> {
+  override fun getMorePaymentMethodsClicks(): Observable<PaymentMethod?> {
     return RxView.clicks(more_payment_methods)
         .map { getSelectedPaymentMethod() }
   }

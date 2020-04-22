@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.service
 
 import android.util.Pair
+import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -30,6 +31,16 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
           getPrivateKey(wallet).map { ecKey ->
             sign(normalizer.normalize(content), ecKey)
           }
+        }
+  }
+
+  override fun signContent(): Single<WalletAddressModel> {
+    return walletInteract.find()
+        .flatMap { wallet ->
+          getPrivateKey(wallet).map { ecKey ->
+            sign(normalizer.normalize(toChecksumAddress(wallet.address)), ecKey)
+          }
+              .map { WalletAddressModel(wallet.address, it) }
         }
   }
 

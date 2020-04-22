@@ -104,21 +104,25 @@ class PaymentMethodsPresenter(
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
-          handleBuyAnalytics(selectedPaymentMethod)
-          when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-            PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
-            PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
-                gamificationLevel)
-            PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
-            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
-            PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
-                selectedPaymentMethod.id)
-            PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
-                selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
-                selectedPaymentMethod.label)
-            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
-            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
-            else -> return@doOnNext
+          if (selectedPaymentMethod != null) {
+            handleBuyAnalytics(selectedPaymentMethod)
+            when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
+              PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
+              PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
+                  gamificationLevel)
+              PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
+              PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
+              PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
+                  selectedPaymentMethod.id)
+              PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
+                  selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
+                  selectedPaymentMethod.label)
+              PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
+              PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
+              else -> return@doOnNext
+            }
+          } else {
+            logger.log(TAG, "Null paymentMethod")
           }
         }
         .subscribe())
@@ -216,8 +220,7 @@ class PaymentMethodsPresenter(
     return billing.getPurchases(appPackage, BillingSupportedType.INAPP, networkThread)
         .flatMapObservable { purchases ->
           for (purchase in purchases) {
-            if (purchase.product
-                    .name == sku) {
+            if (purchase.product.name == sku) {
               return@flatMapObservable Observable.just(purchase)
             }
           }
@@ -316,20 +319,18 @@ class PaymentMethodsPresenter(
   private fun handleCancelClick() {
     disposables.add(view.getCancelClick()
         .observeOn(networkThread)
-        .doOnNext { paymentMethod ->
-          handlePaymentMethodAnalytics(paymentMethod)
-        }
+        .doOnNext { handlePaymentMethodAnalytics(it) }
         .subscribe { close() })
   }
 
-  private fun handlePaymentMethodAnalytics(paymentMethod: PaymentMethod) {
+  private fun handlePaymentMethodAnalytics(paymentMethod: PaymentMethod?) {
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
       analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
           transaction.amount()
-              .toString(), paymentMethod.id, transaction.type, "cancel")
+              .toString(), paymentMethod?.id ?: "", transaction.type, "cancel")
     } else {
       analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
-          .toString(), paymentMethod.id, transaction.type, "cancel")
+          .toString(), paymentMethod?.id ?: "", transaction.type, "cancel")
     }
   }
 
@@ -339,7 +340,7 @@ class PaymentMethodsPresenter(
         .doOnNext { selectedPaymentMethod ->
           analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
               transaction.amount()
-                  .toString(), selectedPaymentMethod.id, transaction.type, "other_payments")
+                  .toString(), selectedPaymentMethod?.id ?: "", transaction.type, "other_payments")
         }
         .observeOn(viewScheduler)
         .doOnEach {

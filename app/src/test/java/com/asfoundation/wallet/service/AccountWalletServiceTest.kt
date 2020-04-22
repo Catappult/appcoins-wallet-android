@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.service
 
+import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PasswordStore
@@ -19,8 +20,10 @@ class AccountWalletServiceTest {
 
   @Mock
   lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+
   @Mock
   lateinit var accountKeyService: AccountKeystoreService
+
   @Mock
   lateinit var passwordStore: PasswordStore
   private lateinit var accountWalletService: AccountWalletService
@@ -53,5 +56,16 @@ class AccountWalletServiceTest {
     testObserver.assertNoErrors()
         .assertValue(
             "c7a5c8192cf90952b0cd492ab2fd0d41d96e2e158c365b92742eb5e1bcbf70885a7947331d92717ccc8b938d9f725e541cae8fb4360424533bb86b20d829dc5b00")
+  }
+
+  @Test
+  fun signContentWithoutAddress() {
+    val testObserver = TestObserver<WalletAddressModel>()
+    accountWalletService.signContent()
+        .subscribe(testObserver)
+    testObserver.assertNoErrors()
+        .assertValue(
+            WalletAddressModel(ADDRESS,
+                "c7a5c8192cf90952b0cd492ab2fd0d41d96e2e158c365b92742eb5e1bcbf70885a7947331d92717ccc8b938d9f725e541cae8fb4360424533bb86b20d829dc5b00"))
   }
 }
