@@ -23,10 +23,13 @@ class PoaWalletValidationActivity : BaseActivity(),
     PoaWalletValidationView {
 
   private lateinit var presenter: PoaWalletValidationPresenter
+
   @Inject
   lateinit var smsValidationRepository: SmsValidationRepositoryType
+
   @Inject
   lateinit var walletInteractor: FindDefaultWalletInteract
+
   @Inject
   lateinit var createWalletInteractor: CreateWalletInteract
   private var walletValidated: Boolean = false
@@ -121,8 +124,7 @@ class PoaWalletValidationActivity : BaseActivity(),
 
   override fun closeCancel(removeTask: Boolean) {
     val intent = Intent()
-    setResult(
-        RESULT_CANCELED, intent)
+    setResult(RESULT_CANCELED, intent)
     if (removeTask) {
       finishAndRemoveTask()
     } else {
