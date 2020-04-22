@@ -34,7 +34,7 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
         }
   }
 
-  override fun signContent(): Single<WalletAddressModel> {
+  override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> {
     return walletInteract.find()
         .flatMap { wallet ->
           getPrivateKey(wallet).map { ecKey ->

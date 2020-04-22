@@ -56,7 +56,7 @@ class BillingPaymentProofSubmissionTest {
         .setWalletService(object : WalletService {
           override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
-          override fun signContent(): Single<WalletAddressModel> =
+          override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
               Single.just(WalletAddressModel(walletAddress, signedContent))
         })
         .setBdsApiSecondary(object : BdsApiSecondary {

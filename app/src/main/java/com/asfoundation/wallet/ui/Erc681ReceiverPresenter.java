@@ -33,7 +33,7 @@ class Erc681ReceiverPresenter {
     this.viewScheduler = viewScheduler;
   }
 
-  public void present(Bundle savedInstanceState) {
+  void present(Bundle savedInstanceState) {
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
           .onErrorResumeNext(this::handleWalletCreation)

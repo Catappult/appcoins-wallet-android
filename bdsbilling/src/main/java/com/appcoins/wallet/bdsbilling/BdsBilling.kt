@@ -32,14 +32,14 @@ class BdsBilling(private val repository: BillingRepository,
   }
 
   override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
-    return walletService.signContent()
+    return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap { repository.getAppcoinsTransaction(uid, it.address, it.signedAddress) }
   }
 
   override fun getSkuTransaction(merchantName: String, sku: String?,
                                  scheduler: Scheduler): Single<Transaction> {
-    return walletService.signContent()
+    return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
           repository.getSkuTransaction(merchantName, sku, it.address, it.signedAddress)
@@ -48,14 +48,14 @@ class BdsBilling(private val repository: BillingRepository,
 
   override fun getSkuPurchase(merchantName: String, sku: String?,
                               scheduler: Scheduler): Single<Purchase> {
-    return walletService.signContent()
+    return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap { repository.getSkuPurchase(merchantName, sku, it.address, it.signedAddress) }
   }
 
   override fun getPurchases(merchantName: String, type: BillingSupportedType,
                             scheduler: Scheduler): Single<List<Purchase>> {
-    return walletService.signContent()
+    return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
           repository.getPurchases(merchantName, it.address, it.signedAddress,
@@ -66,7 +66,7 @@ class BdsBilling(private val repository: BillingRepository,
 
   override fun consumePurchases(merchantName: String, purchaseToken: String,
                                 scheduler: Scheduler): Single<Boolean> {
-    return walletService.signContent()
+    return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
           repository.consumePurchases(merchantName, purchaseToken, it.address, it.signedAddress)

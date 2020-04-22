@@ -61,7 +61,7 @@ class AccountWalletServiceTest {
   @Test
   fun signContentWithoutAddress() {
     val testObserver = TestObserver<WalletAddressModel>()
-    accountWalletService.signContent()
+    accountWalletService.getAndSignCurrentWalletAddress()
         .subscribe(testObserver)
     testObserver.assertNoErrors()
         .assertValue(

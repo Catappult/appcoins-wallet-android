@@ -7,8 +7,7 @@ interface WalletService {
 
   fun getWalletAddress(): Single<String>
 
-  @Deprecated("Use signContent() instead to avoid duplicated code")
   fun signContent(content: String): Single<String>
 
-  fun signContent(): Single<WalletAddressModel>
+  fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel>
 }

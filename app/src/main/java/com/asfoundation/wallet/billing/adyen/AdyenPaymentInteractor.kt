@@ -121,7 +121,7 @@ class AdyenPaymentInteractor(
   }
 
   fun getTransaction(uid: String): Observable<PaymentModel> {
-    return walletService.signContent()
+    return walletService.getAndSignCurrentWalletAddress()
         .flatMapObservable { walletAddressModel ->
           Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
               .timeInterval()
