@@ -63,12 +63,12 @@ class PaymentMethodsPresenter(
 
   fun present() {
 
+    handleOnGoingPurchases()
+    setupUi(transactionValue)
+    loadBonusIntoView()
     handleCancelClick()
     handleErrorDismisses()
     handleMorePaymentMethodClicks()
-    loadBonusIntoView()
-    setupUi(transactionValue)
-    handleOnGoingPurchases()
     handleBuyClick()
     if (isBds) {
       handlePaymentSelection()
