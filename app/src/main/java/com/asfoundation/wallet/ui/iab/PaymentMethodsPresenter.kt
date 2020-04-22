@@ -63,17 +63,16 @@ class PaymentMethodsPresenter(
 
   fun present() {
 
+    handleOnGoingPurchases()
+    setupUi(transactionValue)
+    loadBonusIntoView()
     handleCancelClick()
     handleErrorDismisses()
     handleMorePaymentMethodClicks()
-    loadBonusIntoView()
-    setupUi(transactionValue)
-    handleOnGoingPurchases()
     handleBuyClick()
     if (isBds) {
       handlePaymentSelection()
     }
-
   }
 
   private fun handlePaymentSelection() {
@@ -103,8 +102,8 @@ class PaymentMethodsPresenter(
   private fun handleBuyClick() {
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
+        .doOnNext { handleBuyAnalytics(it) }
         .doOnNext { selectedPaymentMethod ->
-          handleBuyAnalytics(selectedPaymentMethod)
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
             PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
             PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
@@ -173,10 +172,6 @@ class PaymentMethodsPresenter(
         isSetupCompleted())
   }
 
-  private fun waitForOngoingPurchase(skuId: String?): Completable {
-    return Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId))
-  }
-
   private fun checkProcessing(skuId: String?): Completable {
     return billing.getSkuTransaction(appPackage, skuId, networkThread)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
@@ -207,7 +202,7 @@ class PaymentMethodsPresenter(
     return billing.getSkuPurchase(appPackage, skuId, networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
-        .toCompletable()
+        .ignoreElement()
   }
 
   private fun checkAndConsumePrevious(sku: String?): Completable {
@@ -220,8 +215,7 @@ class PaymentMethodsPresenter(
     return billing.getPurchases(appPackage, BillingSupportedType.INAPP, networkThread)
         .flatMapObservable { purchases ->
           for (purchase in purchases) {
-            if (purchase.product
-                    .name == sku) {
+            if (purchase.product.name == sku) {
               return@flatMapObservable Observable.just(purchase)
             }
           }
@@ -230,20 +224,19 @@ class PaymentMethodsPresenter(
   }
 
   private fun setupUi(transactionValue: Double) {
-    disposables.add(waitForOngoingPurchase(transaction.skuId).subscribeOn(networkThread)
-        .andThen(
-            inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-                .subscribeOn(networkThread)
-                .flatMapCompletable { fiatValue ->
-                  getPaymentMethods(fiatValue)
-                      .observeOn(viewScheduler)
-                      .flatMapCompletable { paymentMethods ->
-                        Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
-                      }
-                })
-        .subscribeOn(networkThread)
-        .observeOn(viewScheduler)
-        .subscribe({ }, { this.showError(it) }))
+    disposables.add(
+        inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .subscribeOn(networkThread)
+            .flatMapCompletable { fiatValue ->
+              getPaymentMethods(fiatValue)
+                  .observeOn(viewScheduler)
+                  .flatMapCompletable { paymentMethods ->
+                    Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
+                  }
+            }
+            .subscribeOn(networkThread)
+            .observeOn(viewScheduler)
+            .subscribe({ }, { this.showError(it) }))
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
@@ -321,9 +314,7 @@ class PaymentMethodsPresenter(
   private fun handleCancelClick() {
     disposables.add(view.getCancelClick()
         .observeOn(networkThread)
-        .doOnNext { paymentMethod ->
-          handlePaymentMethodAnalytics(paymentMethod)
-        }
+        .doOnNext { handlePaymentMethodAnalytics(it) }
         .subscribe { close() })
   }
 
@@ -511,9 +502,9 @@ class PaymentMethodsPresenter(
     }
   }
 
-  private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod?) {
+  private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
-        if (selectedPaymentMethod?.id!! == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+        if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
       analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
           transaction.amount()
