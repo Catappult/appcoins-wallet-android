@@ -73,7 +73,6 @@ class PaymentMethodsPresenter(
     if (isBds) {
       handlePaymentSelection()
     }
-
   }
 
   private fun handlePaymentSelection() {
@@ -103,9 +102,9 @@ class PaymentMethodsPresenter(
   private fun handleBuyClick() {
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
+        .doOnNext { handleBuyAnalytics(it) }
         .doOnNext { selectedPaymentMethod ->
           if (selectedPaymentMethod != null) {
-            handleBuyAnalytics(selectedPaymentMethod)
             when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
               PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
               PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
@@ -508,15 +507,17 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod?) {
-    val action =
-        if (selectedPaymentMethod?.id!! == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
-    if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
-      analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
-          transaction.amount()
-              .toString(), selectedPaymentMethod.id, transaction.type, action)
-    } else {
-      analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
-          .toString(), selectedPaymentMethod.id, transaction.type, action)
+    if (selectedPaymentMethod != null) {
+      val action =
+          if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+      if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+        analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+            transaction.amount()
+                .toString(), selectedPaymentMethod.id, transaction.type, action)
+      } else {
+        analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
+            .toString(), selectedPaymentMethod.id, transaction.type, action)
+      }
     }
   }
 }

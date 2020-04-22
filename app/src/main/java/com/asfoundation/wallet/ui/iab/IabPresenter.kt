@@ -1,6 +1,10 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.os.Bundle
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -12,10 +16,33 @@ class IabPresenter(private val view: IabView,
                    private val autoUpdateInteract: AutoUpdateInteract,
                    private val networkScheduler: Scheduler,
                    private val viewScheduler: Scheduler,
-                   private val disposable: CompositeDisposable) {
+                   private val disposable: CompositeDisposable,
+                   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                   private val billingAnalytics: BillingAnalytics,
+                   private var firstImpression: Boolean) {
 
   fun present() {
     handleAutoUpdate()
+  }
+
+  fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
+    disposable.add(Completable.fromAction {
+      if (firstImpression) {
+        if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+          billingAnalytics.sendPurchaseStartEvent(transaction?.domain, transaction?.skuId,
+              transaction?.amount()
+                  .toString(), inAppPurchaseInteractor.preSelectedPaymentMethod,
+              transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
+        } else {
+          billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction?.domain,
+              transaction?.skuId, transaction?.amount()
+              .toString(), transaction?.type,
+              BillingAnalytics.RAKAM_PAYMENT_METHOD)
+        }
+        firstImpression = false
+      }
+    }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleAutoUpdate() {
@@ -32,5 +59,9 @@ class IabPresenter(private val view: IabView,
 
   fun stop() {
     disposable.clear()
+  }
+
+  fun onSaveInstance(outState: Bundle) {
+    outState.putBoolean(IabActivity.FIRST_IMPRESSION, firstImpression)
   }
 }
