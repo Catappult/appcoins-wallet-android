@@ -206,7 +206,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
 
-    ShareCompat.IntentBuilder.from(requireActivity())
+    ShareCompat.IntentBuilder.from(activity)
         .setText(url)
         .setType("text/plain")
         .setChooserTitle(R.string.askafriend_share_popup_title)

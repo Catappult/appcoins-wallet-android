@@ -113,7 +113,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.switchCurrencyData()
           view.toggleSwitchCurrencyOff()
         }
-        .subscribe({}, {it.printStackTrace()}))
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleNextClick() {
