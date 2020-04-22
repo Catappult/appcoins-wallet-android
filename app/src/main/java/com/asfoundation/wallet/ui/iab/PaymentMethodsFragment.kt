@@ -368,21 +368,21 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  override fun getCancelClick(): Observable<PaymentMethod?> {
+  override fun getCancelClick(): Observable<PaymentMethod> {
     return RxView.clicks(cancel_button)
         .map { getSelectedPaymentMethod() }
   }
 
-  private fun getSelectedPaymentMethod(): PaymentMethod? {
+  private fun getSelectedPaymentMethod(): PaymentMethod {
     val hasPreSelectedPaymentMethod =
         inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
     val checkedButtonId = payment_methods_radio_group.checkedRadioButtonId
     return if (paymentMethodList.isNotEmpty() && checkedButtonId != -1) {
       paymentMethodList[checkedButtonId]
     } else if (hasPreSelectedPaymentMethod && checkedButtonId == -1) {
-      preSelectedPaymentMethod?.value
+      preSelectedPaymentMethod?.value ?: PaymentMethod()
     } else {
-      null
+      PaymentMethod()
     }
   }
 
@@ -403,7 +403,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     processing_loading.visibility = View.VISIBLE
   }
 
-  override fun getBuyClick(): Observable<PaymentMethod?> {
+  override fun getBuyClick(): Observable<PaymentMethod> {
     return RxView.clicks(buy_button)
         .map { getSelectedPaymentMethod() }
   }
@@ -452,7 +452,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         PaymentMethod::id))
   }
 
-  override fun getMorePaymentMethodsClicks(): Observable<PaymentMethod?> {
+  override fun getMorePaymentMethodsClicks(): Observable<PaymentMethod> {
     return RxView.clicks(more_payment_methods)
         .map { getSelectedPaymentMethod() }
   }

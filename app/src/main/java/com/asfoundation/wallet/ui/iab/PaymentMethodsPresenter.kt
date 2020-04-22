@@ -104,24 +104,20 @@ class PaymentMethodsPresenter(
         .observeOn(viewScheduler)
         .doOnNext { handleBuyAnalytics(it) }
         .doOnNext { selectedPaymentMethod ->
-          if (selectedPaymentMethod != null) {
-            when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-              PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
-              PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
-                  gamificationLevel)
-              PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
-              PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
-              PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
-                  selectedPaymentMethod.id)
-              PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
-                  selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
-                  selectedPaymentMethod.label)
-              PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
-              PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
-              else -> return@doOnNext
-            }
-          } else {
-            logger.log(TAG, "Null paymentMethod")
+          when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
+            PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
+            PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
+                gamificationLevel)
+            PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins()
+            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
+            PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
+                selectedPaymentMethod.id)
+            PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
+                selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
+                selectedPaymentMethod.label)
+            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
+            else -> return@doOnNext
           }
         }
         .subscribe())
@@ -322,14 +318,14 @@ class PaymentMethodsPresenter(
         .subscribe { close() })
   }
 
-  private fun handlePaymentMethodAnalytics(paymentMethod: PaymentMethod?) {
+  private fun handlePaymentMethodAnalytics(paymentMethod: PaymentMethod) {
     if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
       analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
           transaction.amount()
-              .toString(), paymentMethod?.id ?: "", transaction.type, "cancel")
+              .toString(), paymentMethod.id, transaction.type, "cancel")
     } else {
       analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
-          .toString(), paymentMethod?.id ?: "", transaction.type, "cancel")
+          .toString(), paymentMethod.id, transaction.type, "cancel")
     }
   }
 
@@ -339,7 +335,7 @@ class PaymentMethodsPresenter(
         .doOnNext { selectedPaymentMethod ->
           analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
               transaction.amount()
-                  .toString(), selectedPaymentMethod?.id ?: "", transaction.type, "other_payments")
+                  .toString(), selectedPaymentMethod.id, transaction.type, "other_payments")
         }
         .observeOn(viewScheduler)
         .doOnEach {
@@ -506,18 +502,16 @@ class PaymentMethodsPresenter(
     }
   }
 
-  private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod?) {
-    if (selectedPaymentMethod != null) {
-      val action =
-          if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
-      if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
-        analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
-            transaction.amount()
-                .toString(), selectedPaymentMethod.id, transaction.type, action)
-      } else {
-        analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
-            .toString(), selectedPaymentMethod.id, transaction.type, action)
-      }
+  private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
+    val action =
+        if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+    if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+      analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+          transaction.amount()
+              .toString(), selectedPaymentMethod.id, transaction.type, action)
+    } else {
+      analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
+          .toString(), selectedPaymentMethod.id, transaction.type, action)
     }
   }
 }
