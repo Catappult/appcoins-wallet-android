@@ -23,7 +23,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
                              private val topUpAnalytics: TopUpAnalytics,
-                             private val formatter: CurrencyFormatUtils) {
+                             private val formatter: CurrencyFormatUtils,
+                             private val selectedValue: String?) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
@@ -31,7 +32,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
-    private const val AMOUNT_DEFAULT_VALUE = "10"
   }
 
   fun present(appPackage: String) {
@@ -85,7 +85,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun updateDefaultValues(values: List<FiatValue>) {
     val defaultFiatValue = values.drop(1)
         .first()
-    view.setDefaultValue(defaultFiatValue.amount.toString())
+    view.setAmountValue(selectedValue ?: defaultFiatValue.amount.toString())
     view.setValuesAdapter(values)
   }
 

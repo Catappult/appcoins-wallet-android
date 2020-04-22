@@ -156,8 +156,7 @@
         android:label="@string/title_activity_send" />
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
-        android:label="@string/topup_title"
-        android:screenOrientation="portrait">
+        android:label="@string/topup_title">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
