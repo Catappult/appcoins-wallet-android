@@ -42,6 +42,7 @@ class IabPresenter(private val view: IabView,
         firstImpression = false
       }
     }
+        .subscribeOn(networkScheduler)
         .subscribe({}, { it.printStackTrace() }))
   }
 
