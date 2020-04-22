@@ -57,16 +57,17 @@ class PhoneValidationPresenter(
   private fun handleNextAndRetryClicks() {
     disposables.add(
         Observable.merge(view.getNextClicks(), view.getRetryButtonClicks())
+            .observeOn(viewScheduler)
             .doOnNext { view.setButtonState(false) }
-            .subscribeOn(viewScheduler)
+            .observeOn(networkScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.countryCode}${it.number}")
-                  .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
                     cachedValidationStatus = Pair(status, it)
                     view.setButtonState(true)
                     onSuccess(status, it)
+                    cachedValidationStatus = null
                   }
                   .doOnError { throwable ->
                     analytics.sendPhoneVerificationEvent("submit", it.previousContext, "error",
@@ -75,10 +76,9 @@ class PhoneValidationPresenter(
                     showErrorMessage(R.string.unknown_error)
                     logger.log(TAG, throwable.message, throwable)
                   }
-                  .doOnSuccess { cachedValidationStatus = null }
             }
             .retry()
-            .subscribe { }
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
