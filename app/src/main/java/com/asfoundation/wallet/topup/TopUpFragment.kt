@@ -66,11 +66,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var switchingCurrency = false
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
+  private var selectedPaymentMethod = 0
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
     private const val APPC_C_SYMBOL = "APPC-C"
 
+    private const val SELECTED_VALUE_PARAM = "SELECTED_VALUE"
+    private const val SELECTED_PAYMENT_METHOD_PARAM = "SELECTED_PAYMENT_METHOD"
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
 
@@ -127,7 +130,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     keyboardEvents = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
-            Schedulers.io(), topUpAnalytics, formatter)
+            Schedulers.io(), topUpAnalytics, formatter,
+            savedInstanceState?.getString(SELECTED_VALUE_PARAM))
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -142,6 +146,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
+    savedInstanceState?.run { selectedPaymentMethod = getInt(SELECTED_PAYMENT_METHOD_PARAM) }
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
 
@@ -156,6 +161,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
+    outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
@@ -182,6 +189,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       true
     }
     adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
+    adapter.setSelectedItem(selectedPaymentMethod)
 
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
@@ -199,7 +207,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  override fun setDefaultValue(amount: String) {
+  override fun setAmountValue(amount: String) {
     setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
