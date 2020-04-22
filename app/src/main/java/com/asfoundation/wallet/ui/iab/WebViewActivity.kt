@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.AssetManager
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Surface
@@ -13,6 +15,15 @@ import com.asf.wallet.R
 import dagger.android.AndroidInjection
 
 class WebViewActivity : AppCompatActivity() {
+
+  override fun getAssets(): AssetManager {
+    //Workaround for crash when inflating the webView
+    return if (Build.VERSION.SDK_INT > 22) {
+      resources.assets
+    } else {
+      super.getAssets()
+    }
+  }
 
   private lateinit var billingWebViewFragment: BillingWebViewFragment
 
