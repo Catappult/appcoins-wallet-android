@@ -146,7 +146,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
-    savedInstanceState?.run { selectedPaymentMethod = getInt(SELECTED_PAYMENT_METHOD_PARAM) }
+    savedInstanceState?.let { selectedPaymentMethod = it.getInt(SELECTED_PAYMENT_METHOD_PARAM) }
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
 
