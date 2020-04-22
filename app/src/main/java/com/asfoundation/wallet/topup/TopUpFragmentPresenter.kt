@@ -32,7 +32,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
-    private const val AMOUNT_DEFAULT_VALUE = "10"
   }
 
   fun present(appPackage: String) {
