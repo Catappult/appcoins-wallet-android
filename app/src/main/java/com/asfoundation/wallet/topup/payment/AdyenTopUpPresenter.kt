@@ -108,7 +108,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
           }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,

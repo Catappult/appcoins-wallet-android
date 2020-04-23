@@ -395,10 +395,13 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private fun setupUi() {
     credit_card_info_container.visibility = INVISIBLE
     button.isEnabled = false
-    button.setText(R.string.topup_home_button)
-    setupAdyenLayouts()
 
-    if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
+    if (paymentType == PaymentType.CARD.name) {
+      button.setText(R.string.topup_home_button)
+
+      setupAdyenLayouts()
+      setupCardConfiguration()
+    }
 
     setupDialogs()
     topUpView.showToolbar()
