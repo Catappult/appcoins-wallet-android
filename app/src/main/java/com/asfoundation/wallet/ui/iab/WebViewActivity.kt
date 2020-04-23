@@ -19,9 +19,9 @@ class WebViewActivity : AppCompatActivity() {
   override fun getAssets(): AssetManager {
     //Workaround for crash when inflating the webView
     return if (Build.VERSION.SDK_INT > 22) {
-      resources.assets
-    } else {
       super.getAssets()
+    } else {
+      resources.assets
     }
   }
 
