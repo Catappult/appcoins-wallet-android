@@ -113,10 +113,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         view.getNextClick()
             .filter {
               val limitValues = interactor.getLimitTopUpValues()
+                  //TODO check if we can do this in a flatmap
+                  .subscribeOn(networkScheduler)
                   .blockingGet()
               isCurrencyValid(it.currency) && isValueInRange(limitValues,
                   it.currency.fiatValue.toDouble())
             }
+            .observeOn(viewScheduler)
             .doOnNext {
               view.showLoading()
               topUpAnalytics.sendSelectionEvent(it.currency.appcValue.toDouble(), "next",
@@ -144,6 +147,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .flatMapCompletable {
                 interactor.getLimitTopUpValues()
                     .toObservable()
+                    .subscribeOn(networkScheduler)
+                    .observeOn(viewScheduler)
                     .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
               }
               .doOnError { it.printStackTrace() }
