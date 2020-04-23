@@ -207,7 +207,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  override fun setAmountValue(amount: String) {
+  override fun setDefaultAmountValue(amount: String) {
     setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
@@ -425,6 +425,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun showNoNetworkError() {
+    hideKeyboard()
     no_network.visibility = View.VISIBLE
     retry_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
