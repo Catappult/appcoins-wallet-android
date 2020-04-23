@@ -117,7 +117,7 @@ class PhoneValidationFragment : DaggerFragment(),
   }
 
   override fun getLaterButtonClicks(): Observable<PhoneValidationClickData> {
-    return RxView.clicks(cancel_button)
+    return RxView.clicks(later_button)
         .map { PhoneValidationClickData("", "", previousContext) }
   }
 
