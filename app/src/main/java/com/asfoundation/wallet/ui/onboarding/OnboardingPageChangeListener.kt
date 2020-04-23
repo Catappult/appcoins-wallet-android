@@ -29,6 +29,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
   private lateinit var warningText: TextView
   private lateinit var termsConditionsLayout: LinearLayout
   private lateinit var pageIndicatorView: PageIndicatorView
+  private var currentPage = 0
 
   init {
     init()
@@ -49,6 +50,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
 
   fun setIsActiveFlag(isActive: Boolean) {
     this.isActive = isActive
+    if (isActive && currentPage == 3) beenInvitedButton.visibility = View.VISIBLE
   }
 
   private fun animateHideWarning(textView: TextView) {
@@ -61,6 +63,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
         position * (1f / ANIMATION_TRANSITIONS) + positionOffset * (1f / ANIMATION_TRANSITIONS)
     checkBox.setOnClickListener { handleUI(position) }
     updatePageIndicator(position)
+    currentPage = position
     handleUI(position)
   }
 
