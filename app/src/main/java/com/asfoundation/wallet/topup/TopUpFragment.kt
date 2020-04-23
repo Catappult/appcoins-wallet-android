@@ -162,12 +162,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
-    val selectedItem = if (::adapter.isInitialized) {
-      adapter.getSelectedItem()
-    } else {
-      0
+    if (::adapter.isInitialized) {
+      outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
     }
-    outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, selectedItem)
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
