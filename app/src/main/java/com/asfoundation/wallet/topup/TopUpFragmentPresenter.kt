@@ -113,18 +113,21 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.switchCurrencyData()
           view.toggleSwitchCurrencyOff()
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleNextClick() {
     disposables.add(
         view.getNextClick()
             .filter {
-              val limitValues = interactor.getLimitTopUpValues()
-                  .blockingGet()
+              val limitValues =
+                  interactor.getLimitTopUpValues()//TODO check if we can do this in a flatmap
+                      .subscribeOn(networkScheduler)
+                      .blockingGet()
               isCurrencyValid(it.currency) && isValueInRange(limitValues,
                   it.currency.fiatValue.toDouble())
             }
+            .observeOn(viewScheduler)
             .doOnNext {
               view.showLoading()
               topUpAnalytics.sendSelectionEvent(it.currency.appcValue.toDouble(), "next",
@@ -146,12 +149,14 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler)
               .map { value -> updateConversionValue(value.amount, topUpData) }
-              .observeOn(viewScheduler)
               .filter { isConvertedValueAvailable(it) }
+              .observeOn(viewScheduler)
               .doOnComplete { view.setConversionValue(topUpData) }
               .flatMapCompletable {
                 interactor.getLimitTopUpValues()
                     .toObservable()
+                    .subscribeOn(networkScheduler)
+                    .observeOn(viewScheduler)
                     .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
               }
               .doOnError { it.printStackTrace() }
