@@ -107,6 +107,7 @@ class CodeValidationFragment : DaggerFragment(),
     outState.putString(CODE_4, code_4.code.text.toString())
     outState.putString(CODE_5, code_5.code.text.toString())
     outState.putString(CODE_6, code_6.code.text.toString())
+    outState.putBoolean(LAST_STEP, content.visibility == View.GONE)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,12 +131,15 @@ class CodeValidationFragment : DaggerFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupBodyText()
-    presenter.present()
 
+    var lastStep = false
     savedInstanceState?.let {
+      lastStep = it.getBoolean(LAST_STEP)
       code = Code(it.getString(CODE_1), it.getString(CODE_2), it.getString(CODE_3),
           it.getString(CODE_4), it.getString(CODE_5), it.getString(CODE_6))
     }
+
+    presenter.present(lastStep)
   }
 
   override fun onResume() {
@@ -392,6 +396,7 @@ class CodeValidationFragment : DaggerFragment(),
     internal const val CODE_4 = "code4"
     internal const val CODE_5 = "code5"
     internal const val CODE_6 = "code6"
+    internal const val LAST_STEP = "lastStep"
 
     @JvmStatic
     fun newInstance(countryCode: String, phoneNumber: String,

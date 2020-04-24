@@ -29,7 +29,7 @@ class CodeValidationPresenter(
     private val analytics: WalletValidationAnalytics
 ) {
 
-  fun present() {
+  fun present(lastStep: Boolean) {
     view.setupUI()
     handleBack()
     handleCode()
@@ -38,6 +38,10 @@ class CodeValidationPresenter(
     handleSubmitAndRetryClicks()
     handleOkClicks()
     handleLaterClicks()
+
+    if (lastStep) {
+      checkReferralAvailability()
+    }
   }
 
   private fun handleLaterClicks() {
