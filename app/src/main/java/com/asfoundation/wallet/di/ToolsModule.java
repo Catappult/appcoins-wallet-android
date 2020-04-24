@@ -1271,8 +1271,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return builder.setContentTitle(context.getString(string.app_name))
         .setSmallIcon(drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
-        .setAutoCancel(true)
-        .setOngoing(false);
+        .setAutoCancel(true);
   }
 
   @Singleton @Provides IExtract provideIExtract() {
