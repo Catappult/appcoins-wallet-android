@@ -75,7 +75,7 @@ class WalletValidationActivity : BaseActivity(),
 
     setupUI()
 
-    presenter.present()
+    presenter.present(savedInstanceState != null)
   }
 
   private fun setupUI() {
@@ -104,22 +104,23 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
-                                       errorMessage: Int?) {
-    if (countryCode != null && phoneNumber != null) {
-      reverseAnimation(30, 60, 0)
-    }
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            PhoneValidationFragment.newInstance(
-                countryCode, phoneNumber, errorMessage, hasBeenInvitedFlow, previousContext))
-        .commit()
-
-    Handler().postDelayed({
+                                       errorMessage: Int?, isSavedInstance: Boolean) {
+    if (!isSavedInstance) {
       if (countryCode != null && phoneNumber != null) {
-        reverseAnimation(0, 30, -1)
+        reverseAnimation(30, 60, 0)
       }
-    }, 1000)
+      supportFragmentManager.beginTransaction()
+          .replace(R.id.fragment_container,
+              PhoneValidationFragment.newInstance(
+                  countryCode, phoneNumber, errorMessage, hasBeenInvitedFlow, previousContext))
+          .commit()
 
+      Handler().postDelayed({
+        if (countryCode != null && phoneNumber != null) {
+          reverseAnimation(0, 30, -1)
+        }
+      }, 1000)
+    }
   }
 
   override fun showCodeValidationView(countryCode: String, phoneNumber: String) {

@@ -95,7 +95,7 @@ class CodeValidationPresenter(
         view.getBackClicks()
             .doOnNext {
               analytics.sendCodeVerificationEvent("back")
-              activity?.showPhoneValidationView(countryCode, phoneNumber)
+              activity?.showPhoneValidationView(countryCode, phoneNumber, isSavedInstance = false)
             }
             .subscribe()
     )
@@ -144,7 +144,7 @@ class CodeValidationPresenter(
           R.string.verification_insert_code_error, validationInfo)
       WalletValidationStatus.INVALID_PHONE ->
         activity?.showPhoneValidationView(validationInfo.countryCode, validationInfo.phoneNumber,
-            R.string.verification_insert_code_error_common)
+            R.string.verification_insert_code_error_common, isSavedInstance = false)
       WalletValidationStatus.DOUBLE_SPENT -> checkReferralAvailability()
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error, validationInfo)
       WalletValidationStatus.NO_NETWORK -> {

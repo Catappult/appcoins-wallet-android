@@ -5,7 +5,7 @@ import com.asfoundation.wallet.wallet_validation.ValidationInfo
 interface WalletValidationView {
 
   fun showPhoneValidationView(countryCode: String? = null, phoneNumber: String? = null,
-                              errorMessage: Int? = null)
+                              errorMessage: Int? = null, isSavedInstance: Boolean)
 
   fun showCodeValidationView(countryCode: String, phoneNumber: String)
 

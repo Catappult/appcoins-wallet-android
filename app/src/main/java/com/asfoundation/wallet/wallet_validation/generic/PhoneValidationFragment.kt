@@ -76,14 +76,30 @@ class PhoneValidationFragment : DaggerFragment(),
       previousContext = arguments?.getString(PREVIOUS_CONTEXT, "") ?: ""
     }
 
+    if (savedInstanceState != null) {
+      if (savedInstanceState.containsKey(COUNTRY_CODE)) {
+        countryCode = savedInstanceState.getString(COUNTRY_CODE)
+      }
+      if (savedInstanceState.containsKey(ERROR_MESSAGE)) {
+        errorMessage = savedInstanceState.getInt(ERROR_MESSAGE)
+      }
+    }
+
     setupBodyText()
     presenter.present()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putString(COUNTRY_CODE, ccp.selectedCountryCode)
+    errorMessage?.let { outState.putInt(ERROR_MESSAGE, it) }
   }
 
   override fun onResume() {
     super.onResume()
 
-    presenter.onResume()
+    presenter.onResume(errorMessage)
     focusAndShowKeyboard(phone_number)
   }
 
@@ -137,6 +153,7 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun setError(message: Int) {
     phone_number_layout.error = getString(message)
+    errorMessage = message
     hideNoInternetView()
   }
 

@@ -182,8 +182,7 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity"
-        android:label=""
-        android:screenOrientation="portrait" />
+        android:label="" />
 
     <activity
         android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
