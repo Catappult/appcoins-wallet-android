@@ -52,6 +52,7 @@ class CodeValidationFragment : DaggerFragment(),
   private lateinit var presenter: CodeValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var clipboard: ClipboardManager
+  private var code: Code? = null
 
   private val hasBeenInvitedFlow: Boolean by lazy {
     arguments!!.getBoolean(HAS_BEEN_INVITED_FLOW)
@@ -97,6 +98,17 @@ class CodeValidationFragment : DaggerFragment(),
     }
   }
 
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putString(CODE_1, code_1.code.text.toString())
+    outState.putString(CODE_2, code_2.code.text.toString())
+    outState.putString(CODE_3, code_3.code.text.toString())
+    outState.putString(CODE_4, code_4.code.text.toString())
+    outState.putString(CODE_5, code_5.code.text.toString())
+    outState.putString(CODE_6, code_6.code.text.toString())
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -119,11 +131,17 @@ class CodeValidationFragment : DaggerFragment(),
     super.onViewCreated(view, savedInstanceState)
     setupBodyText()
     presenter.present()
+
+    savedInstanceState?.let {
+      code = Code(it.getString(CODE_1), it.getString(CODE_2), it.getString(CODE_3),
+          it.getString(CODE_4), it.getString(CODE_5), it.getString(CODE_6))
+    }
   }
 
   override fun onResume() {
     super.onResume()
     focusAndShowKeyboard(code_1.code)
+    presenter.onResume(code)
   }
 
   override fun setupUI() {
@@ -309,6 +327,15 @@ class CodeValidationFragment : DaggerFragment(),
     referral_status_animation.playAnimation()
   }
 
+  override fun setCode(code: Code) {
+    code.code1?.let { code_1.code.setText(it) }
+    code.code2?.let { code_2.code.setText(it) }
+    code.code3?.let { code_3.code.setText(it) }
+    code.code4?.let { code_4.code.setText(it) }
+    code.code5?.let { code_5.code.setText(it) }
+    code.code6?.let { code_6.code.setText(it) }
+  }
+
   override fun showNoInternetView() {
     walletValidationView?.hideProgressAnimation()
     stopRetryAnimation()
@@ -359,6 +386,12 @@ class CodeValidationFragment : DaggerFragment(),
     internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
     internal const val VALIDATION_INFO = "VALIDATION_INFO"
     internal const val HAS_BEEN_INVITED_FLOW = "HAS_BEEN_INVITED_FLOW"
+    internal const val CODE_1 = "code1"
+    internal const val CODE_2 = "code2"
+    internal const val CODE_3 = "code3"
+    internal const val CODE_4 = "code4"
+    internal const val CODE_5 = "code5"
+    internal const val CODE_6 = "code6"
 
     @JvmStatic
     fun newInstance(countryCode: String, phoneNumber: String,

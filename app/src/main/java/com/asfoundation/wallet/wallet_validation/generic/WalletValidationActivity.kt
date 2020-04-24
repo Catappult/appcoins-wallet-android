@@ -51,6 +51,9 @@ class WalletValidationActivity : BaseActivity(),
     const val NAVIGATE_TO_TRANSACTIONS_ON_CANCEL = "navigate_to_transactions_on_cancel"
     const val SHOW_TOOLBAR = "show_toolbar"
     const val PREVIOUS_CONTEXT = "previous_context"
+    const val MIN_FRAME = "minFrame"
+    const val MAX_FRAME = "maxFrame"
+    const val LOOP_ANIMATION = "loopAnimation"
 
     @JvmStatic
     fun newIntent(context: Context, hasBeenInvitedFlow: Boolean,
@@ -67,11 +70,24 @@ class WalletValidationActivity : BaseActivity(),
     }
   }
 
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putInt(MIN_FRAME, minFrame)
+    outState.putInt(MAX_FRAME, maxFrame)
+    outState.putInt(LOOP_ANIMATION, loopAnimation)
+  }
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_validation)
     presenter = WalletValidationPresenter(this)
+
+    savedInstanceState?.let {
+      minFrame = it.getInt(MIN_FRAME)
+      maxFrame = it.getInt(MAX_FRAME)
+      loopAnimation = it.getInt(LOOP_ANIMATION)
+    }
 
     setupUI()
 

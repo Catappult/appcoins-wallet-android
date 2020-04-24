@@ -236,4 +236,8 @@ class CodeValidationPresenter(
   fun stop() {
     disposables.dispose()
   }
+
+  fun onResume(code: Code?) {
+    code?.let { view.setCode(code) }
+  }
 }
