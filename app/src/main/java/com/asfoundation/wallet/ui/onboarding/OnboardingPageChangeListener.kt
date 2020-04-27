@@ -50,6 +50,9 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
 
   fun setIsActiveFlag(isActive: Boolean) {
     this.isActive = isActive
+  }
+
+  fun updateUI() {
     if (isActive && currentPage == 3) beenInvitedButton.visibility = View.VISIBLE
   }
 
