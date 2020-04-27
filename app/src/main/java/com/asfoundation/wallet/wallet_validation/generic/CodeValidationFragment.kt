@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -53,6 +52,7 @@ class CodeValidationFragment : DaggerFragment(),
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var clipboard: ClipboardManager
   private var code: Code? = null
+  private var currentPosition = 0
 
   private val hasBeenInvitedFlow: Boolean by lazy {
     arguments!!.getBoolean(HAS_BEEN_INVITED_FLOW)
@@ -144,7 +144,6 @@ class CodeValidationFragment : DaggerFragment(),
 
   override fun onResume() {
     super.onResume()
-    focusAndShowKeyboard(code_1.code)
     presenter.onResume(code)
   }
 
@@ -279,6 +278,7 @@ class CodeValidationFragment : DaggerFragment(),
   }
 
   override fun moveToNextView(current: Int) {
+    currentPosition = current
     when (current) {
       1 -> code_2.requestFocus()
       2 -> code_3.requestFocus()
@@ -425,11 +425,24 @@ class CodeValidationFragment : DaggerFragment(),
     }
   }
 
-  private fun focusAndShowKeyboard(view: EditText) {
-    view.post {
+  override fun focusAndShowKeyboard() {
+    val view = getViewToFocus()
+    view?.post {
       view.requestFocus()
       val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
       imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+    }
+  }
+
+  private fun getViewToFocus(): View? {
+    return when (currentPosition) {
+      0 -> code_1.code
+      1 -> code_2.code
+      2 -> code_3.code
+      3 -> code_4.code
+      4 -> code_5.code
+      5 -> code_6.code
+      else -> null
     }
   }
 

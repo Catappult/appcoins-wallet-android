@@ -53,7 +53,8 @@ class CodeValidationPresenter(
             .doOnNext {
               analytics.sendCodeVerificationEvent("later")
               activity?.finishCancelActivity()
-            }.subscribe())
+            }
+            .subscribe())
   }
 
   private fun handleResendCode() {
@@ -191,7 +192,8 @@ class CodeValidationPresenter(
               } else {
                 view.setButtonState(false)
               }
-            }).subscribe { })
+            })
+            .subscribe { })
   }
 
   private fun isValidInput(first: String, second: String, third: String, fourth: String,
@@ -209,37 +211,43 @@ class CodeValidationPresenter(
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(1)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getSecondChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(2)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getThirdChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(3)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getFourthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(4)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getFifthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(5)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getSixthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.hideKeyboard()
-        }.subscribe())
+        }
+        .subscribe())
   }
 
   fun stop() {
@@ -247,6 +255,9 @@ class CodeValidationPresenter(
   }
 
   fun onResume(code: Code?) {
-    code?.let { view.setCode(code) }
+    if (!isLastStep) {
+      code?.let { view.setCode(code) }
+      view.focusAndShowKeyboard()
+    }
   }
 }

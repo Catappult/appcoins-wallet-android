@@ -52,4 +52,6 @@ interface CodeValidationView {
   fun showGenericValidationComplete()
 
   fun setCode(code: Code)
+
+  fun focusAndShowKeyboard()
 }
