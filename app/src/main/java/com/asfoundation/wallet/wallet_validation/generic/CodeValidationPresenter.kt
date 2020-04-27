@@ -102,7 +102,7 @@ class CodeValidationPresenter(
         view.getBackClicks()
             .doOnNext {
               analytics.sendCodeVerificationEvent("back")
-              activity?.showPhoneValidationView(countryCode, phoneNumber, isSavedInstance = false)
+              activity?.showPhoneValidationView(countryCode, phoneNumber)
             }
             .subscribe()
     )
