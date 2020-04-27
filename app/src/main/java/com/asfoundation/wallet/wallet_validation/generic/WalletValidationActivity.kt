@@ -83,15 +83,25 @@ class WalletValidationActivity : BaseActivity(),
     setContentView(R.layout.activity_wallet_validation)
     presenter = WalletValidationPresenter(this)
 
-    savedInstanceState?.let {
-      minFrame = it.getInt(MIN_FRAME)
-      maxFrame = it.getInt(MAX_FRAME)
-      loopAnimation = it.getInt(LOOP_ANIMATION)
-    }
+    handleSavedInstance(savedInstanceState)
 
     setupUI()
 
     presenter.present(savedInstanceState != null)
+  }
+
+  private fun handleSavedInstance(savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      if (savedInstanceState.containsKey(MIN_FRAME)) {
+        minFrame = it.getInt(MIN_FRAME)
+      }
+      if (savedInstanceState.containsKey(MAX_FRAME)) {
+        maxFrame = it.getInt(MAX_FRAME)
+      }
+      if (savedInstanceState.containsKey(LOOP_ANIMATION)) {
+        loopAnimation = it.getInt(LOOP_ANIMATION)
+      }
+    }
   }
 
   private fun setupUI() {
