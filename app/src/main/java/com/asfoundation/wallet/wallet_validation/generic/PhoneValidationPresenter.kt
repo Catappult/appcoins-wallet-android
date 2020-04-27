@@ -27,8 +27,8 @@ class PhoneValidationPresenter(
   private var cachedValidationStatus: Pair<WalletValidationStatus, PhoneValidationFragment.Companion.PhoneValidationClickData>? =
       null
 
-  fun onResume() {
-    resumePreviousState()
+  fun onResume(errorMessage: Int?) {
+    resumePreviousState(errorMessage)
   }
 
   fun present() {
@@ -38,8 +38,12 @@ class PhoneValidationPresenter(
     handleCancelAndLaterClicks()
   }
 
-  private fun resumePreviousState() {
+  private fun resumePreviousState(errorMessage: Int?) {
     cachedValidationStatus?.let { onSuccess(it.first, it.second); cachedValidationStatus = null }
+    errorMessage?.let {
+      view.setError(it)
+      view.setButtonState(false)
+    }
   }
 
   private fun handleCancelAndLaterClicks() {

@@ -114,6 +114,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     } else {
       adapter.setPages(createDefaultItemList())
     }
+    listener.updateUI()
   }
 
   override fun getNextButtonClick(): Observable<Any> {

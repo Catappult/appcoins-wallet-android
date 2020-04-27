@@ -29,7 +29,9 @@ class CodeValidationPresenter(
     private val analytics: WalletValidationAnalytics
 ) {
 
-  fun present() {
+  var isLastStep = false
+
+  fun present(lastStep: Boolean) {
     view.setupUI()
     handleBack()
     handleCode()
@@ -38,6 +40,11 @@ class CodeValidationPresenter(
     handleSubmitAndRetryClicks()
     handleOkClicks()
     handleLaterClicks()
+
+    isLastStep = lastStep
+    if (lastStep) {
+      checkReferralAvailability()
+    }
   }
 
   private fun handleLaterClicks() {
@@ -112,6 +119,7 @@ class CodeValidationPresenter(
   private fun checkReferralAvailability() {
     if (!hasBeenInvitedFlow) {
       view.showGenericValidationComplete()
+      isLastStep = true
     } else {
       disposables.add(referralInteractor.retrieveReferral()
           .subscribeOn(networkScheduler)
@@ -119,6 +127,7 @@ class CodeValidationPresenter(
           .doOnSuccess {
             handleReferralStatus(it.invited, it.symbol, it.maxAmount, it.pendingAmount,
                 it.minAmount)
+            isLastStep = true
           }
           .subscribe()
       )
@@ -235,5 +244,9 @@ class CodeValidationPresenter(
 
   fun stop() {
     disposables.dispose()
+  }
+
+  fun onResume(code: Code?) {
+    code?.let { view.setCode(code) }
   }
 }

@@ -50,4 +50,6 @@ interface CodeValidationView {
   fun getLaterButtonClicks(): Observable<Any>
 
   fun showGenericValidationComplete()
+
+  fun setCode(code: Code)
 }
