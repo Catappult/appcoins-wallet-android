@@ -40,7 +40,10 @@ class PhoneValidationPresenter(
 
   private fun resumePreviousState(errorMessage: Int?) {
     cachedValidationStatus?.let { onSuccess(it.first, it.second); cachedValidationStatus = null }
-    errorMessage?.let { view.setError(it) }
+    errorMessage?.let {
+      view.setError(it)
+      view.setButtonState(false)
+    }
   }
 
   private fun handleCancelAndLaterClicks() {
