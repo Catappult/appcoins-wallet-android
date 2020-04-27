@@ -159,6 +159,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
   }
 
+  override fun onResume() {
+    focusAndShowKeyboard(main_value)
+    super.onResume()
+  }
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
@@ -179,7 +184,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
     this@TopUpFragment.paymentMethods = paymentMethods
     main_value.isEnabled = true
-    focusAndShowKeyboard(main_value)
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
             .toFloat())
@@ -238,6 +242,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getKeyboardEvents(): Observable<Boolean> {
     return keyboardEvents
+  }
+
+  override fun onPause() {
+    hideKeyboard()
+    super.onPause()
   }
 
   override fun onDestroy() {
