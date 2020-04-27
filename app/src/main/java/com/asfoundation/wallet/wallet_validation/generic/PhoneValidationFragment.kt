@@ -76,6 +76,13 @@ class PhoneValidationFragment : DaggerFragment(),
       previousContext = arguments?.getString(PREVIOUS_CONTEXT, "") ?: ""
     }
 
+    handleOnSavedInstance(savedInstanceState)
+
+    setupBodyText()
+    presenter.present()
+  }
+
+  private fun handleOnSavedInstance(savedInstanceState: Bundle?) {
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(COUNTRY_CODE)) {
         countryCode = savedInstanceState.getString(COUNTRY_CODE)
@@ -84,9 +91,6 @@ class PhoneValidationFragment : DaggerFragment(),
         errorMessage = savedInstanceState.getInt(ERROR_MESSAGE)
       }
     }
-
-    setupBodyText()
-    presenter.present()
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
