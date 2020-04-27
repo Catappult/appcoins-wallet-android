@@ -148,7 +148,7 @@ class CodeValidationPresenter(
           R.string.verification_insert_code_error, validationInfo)
       WalletValidationStatus.INVALID_PHONE ->
         activity?.showPhoneValidationView(validationInfo.countryCode, validationInfo.phoneNumber,
-            R.string.verification_insert_code_error_common, isSavedInstance = false)
+            R.string.verification_insert_code_error_common)
       WalletValidationStatus.DOUBLE_SPENT -> checkReferralAvailability()
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error, validationInfo)
       WalletValidationStatus.NO_NETWORK -> {
