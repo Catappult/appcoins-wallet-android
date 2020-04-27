@@ -28,21 +28,26 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
           analytics.sendPaymentConfirmationEvent(it.domain, it.skuId ?: "", it.amount,
               it.paymentMethod, it.type, "share")
           getLink(it)
-        }.observeOn(viewScheduler).doOnNext {
+        }
+        .observeOn(viewScheduler)
+        .doOnNext {
           interactor.savePreSelectedPaymentMethod(PaymentMethodsView.PaymentMethodId.ASK_FRIEND.id)
           view.shareLink(it)
-        }.subscribe({}, {
+        }
+        .subscribe({}, {
           it.printStackTrace()
           view.showErrorInfo()
         }))
   }
 
   private fun handleStop() {
-    disposables.add(view.getCancelButtonClick().doOnNext {
-      analytics.sendPaymentConfirmationEvent(it.domain, it.skuId ?: "", it.amount,
-          it.paymentMethod, it.type, "close")
-      view.close()
-    }.subscribe())
+    disposables.add(view.getCancelButtonClick()
+        .doOnNext {
+          analytics.sendPaymentConfirmationEvent(it.domain, it.skuId ?: "", it.amount,
+              it.paymentMethod, it.type, "close")
+          view.close()
+        }
+        .subscribe())
   }
 
   fun stop() {
@@ -50,10 +55,12 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
   }
 
   private fun getLink(data: SharePaymentLinkFragmentView.SharePaymentData): Single<String> {
-    return Single.zip(Single.timer(1, TimeUnit.SECONDS),
+    return Single.zip(
+        Single.timer(1, TimeUnit.SECONDS),
         interactor.getLinkToShare(data.domain, data.skuId, data.message, data.originalAmount,
-            data.originalCurrency, data.paymentMethod).subscribeOn(
-            networkScheduler), BiFunction { _: Long, url: String -> url })
+            data.originalCurrency, data.paymentMethod)
+            .subscribeOn(networkScheduler),
+        BiFunction { _: Long, url: String -> url })
   }
 
 }
