@@ -42,5 +42,5 @@ interface TopUpFragmentView {
   fun showValuesAdapter()
   fun hideValuesAdapter()
   fun getKeyboardEvents(): Observable<Boolean>
-  fun setAmountValue(amount: String)
+  fun setDefaultAmountValue(amount: String)
 }

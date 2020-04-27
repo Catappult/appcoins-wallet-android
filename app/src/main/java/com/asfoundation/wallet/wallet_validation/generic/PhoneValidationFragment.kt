@@ -163,6 +163,10 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun clearError() {
     phone_number_layout.error = null
+    // This check is needed because this method is always called when restoring the view state and we only want to clear the error when it is the user triggering the changes.
+    if (isResumed) {
+      errorMessage = null
+    }
   }
 
   override fun getCountryCode(): Observable<String> {

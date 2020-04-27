@@ -159,10 +159,17 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
   }
 
+  override fun onResume() {
+    focusAndShowKeyboard(main_value)
+    super.onResume()
+  }
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
-    outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
+    if (::adapter.isInitialized) {
+      outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
+    }
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
@@ -177,7 +184,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
     this@TopUpFragment.paymentMethods = paymentMethods
     main_value.isEnabled = true
-    focusAndShowKeyboard(main_value)
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
             .toFloat())
@@ -207,7 +213,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  override fun setAmountValue(amount: String) {
+  override fun setDefaultAmountValue(amount: String) {
     setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
@@ -236,6 +242,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getKeyboardEvents(): Observable<Boolean> {
     return keyboardEvents
+  }
+
+  override fun onPause() {
+    hideKeyboard()
+    super.onPause()
   }
 
   override fun onDestroy() {
@@ -425,6 +436,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun showNoNetworkError() {
+    hideKeyboard()
     no_network.visibility = View.VISIBLE
     retry_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE

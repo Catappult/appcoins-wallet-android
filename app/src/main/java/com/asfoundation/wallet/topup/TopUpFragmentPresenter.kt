@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -42,7 +42,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handleManualAmountChange(appPackage)
     handlePaymentMethodSelected()
     handleValuesClicks()
-    handleValues()
     handleKeyboardEvents()
   }
 
@@ -59,34 +58,28 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getLimitTopUpValues()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
-        BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
+        interactor.getDefaultValues()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler),
+        Function3 { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
           view.setupUiElements(filterPaymentMethods(paymentMethods),
               LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+          updateDefaultValues(defaultValues)
         })
         .subscribe({}, { handleError(it) }))
   }
 
-  private fun handleValues() {
-    disposables.add(interactor.getDefaultValues()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          hasDefaultValues = if (it.error.hasError || it.values.size < 3) {
-            view.hideValuesAdapter()
-            false
-          } else {
-            updateDefaultValues(it.values)
-            true
-          }
-        }
-        .subscribe())
-  }
-
-  private fun updateDefaultValues(values: List<FiatValue>) {
-    val defaultFiatValue = values.drop(1)
-        .first()
-    view.setAmountValue(selectedValue ?: defaultFiatValue.amount.toString())
-    view.setValuesAdapter(values)
+  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel) {
+    hasDefaultValues = topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
+    if (hasDefaultValues) {
+      val defaultValues = topUpValuesModel.values
+      val defaultFiatValue = defaultValues.drop(1)
+          .first()
+      view.setDefaultAmountValue(selectedValue ?: defaultFiatValue.amount.toString())
+      view.setValuesAdapter(defaultValues)
+    } else {
+      view.hideValuesAdapter()
+    }
   }
 
   private fun handleKeyboardEvents() {
@@ -120,10 +113,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(
         view.getNextClick()
             .filter {
-              val limitValues =
-                  interactor.getLimitTopUpValues()//TODO check if we can do this in a flatmap
-                      .subscribeOn(networkScheduler)
-                      .blockingGet()
+              val limitValues = interactor.getLimitTopUpValues()
+                  //TODO check if we can do this in a flatmap
+                  .subscribeOn(networkScheduler)
+                  .blockingGet()
               isCurrencyValid(it.currency) && isValueInRange(limitValues,
                   it.currency.fiatValue.toDouble())
             }

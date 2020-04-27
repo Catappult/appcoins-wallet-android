@@ -32,8 +32,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 139
-    versionName "1.13.0.0"
+    versionCode 142
+    versionName "1.13.1.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -105,6 +105,7 @@ android {
     }
     debug {
       minifyEnabled false
+      ext.enableCrashlytics = false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       versionNameSuffix ".dev"
