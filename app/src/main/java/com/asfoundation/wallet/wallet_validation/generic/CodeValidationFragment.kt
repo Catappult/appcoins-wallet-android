@@ -52,7 +52,6 @@ class CodeValidationFragment : DaggerFragment(),
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var clipboard: ClipboardManager
   private var code: Code? = null
-  private var currentPosition = 0
 
   private val hasBeenInvitedFlow: Boolean by lazy {
     arguments!!.getBoolean(HAS_BEEN_INVITED_FLOW)
@@ -231,38 +230,43 @@ class CodeValidationFragment : DaggerFragment(),
 
   override fun getFirstChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_1.code)
+        .filter { it.editable() != null }
         .map {
           it.editable()
-              ?.toString()
+              .toString()
         }
   }
 
   override fun getSecondChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_2.code)
+        .filter { it.editable() != null }
         .map {
           it.editable()
-              ?.toString()
+              .toString()
         }
   }
 
   override fun getThirdChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_3.code)
+        .filter { it.editable() != null }
         .map {
           it.editable()
-              ?.toString()
+              .toString()
         }
   }
 
   override fun getFourthChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_4.code)
+        .filter { it.editable() != null }
         .map {
           it.editable()
-              ?.toString()
+              .toString()
         }
   }
 
   override fun getFifthChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_5.code)
+        .filter { it.editable() != null }
         .map {
           it.editable()
               ?.toString()
@@ -271,14 +275,14 @@ class CodeValidationFragment : DaggerFragment(),
 
   override fun getSixthChar(): Observable<String> {
     return RxTextView.afterTextChangeEvents(code_6.code)
+        .filter { it.editable() != null }
         .map {
           it.editable()
-              ?.toString()
+              .toString()
         }
   }
 
   override fun moveToNextView(current: Int) {
-    currentPosition = current
     when (current) {
       1 -> code_2.requestFocus()
       2 -> code_3.requestFocus()
@@ -338,6 +342,7 @@ class CodeValidationFragment : DaggerFragment(),
     code.code4?.let { code_4.code.setText(it) }
     code.code5?.let { code_5.code.setText(it) }
     code.code6?.let { code_6.code.setText(it) }
+    this.code = null
   }
 
   override fun showNoInternetView() {
@@ -435,13 +440,13 @@ class CodeValidationFragment : DaggerFragment(),
   }
 
   private fun getViewToFocus(): View? {
-    return when (currentPosition) {
-      0 -> code_1.code
-      1 -> code_2.code
-      2 -> code_3.code
-      3 -> code_4.code
-      4 -> code_5.code
-      5 -> code_6.code
+    return when {
+      code_1.code.text.isBlank() -> code_1.code
+      code_2.code.text.isBlank() -> code_2.code
+      code_3.code.text.isBlank() -> code_3.code
+      code_4.code.text.isBlank() -> code_4.code
+      code_5.code.text.isBlank() -> code_5.code
+      code_6.code.text.isBlank() -> code_6.code
       else -> null
     }
   }
