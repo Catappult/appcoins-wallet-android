@@ -107,7 +107,7 @@ class CodeValidationFragment : DaggerFragment(),
     outState.putString(CODE_4, code_4.code.text.toString())
     outState.putString(CODE_5, code_5.code.text.toString())
     outState.putString(CODE_6, code_6.code.text.toString())
-    outState.putBoolean(IS_LAST_STEP, content.visibility == View.GONE)
+    outState.putBoolean(IS_LAST_STEP, presenter.isLastStep)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
