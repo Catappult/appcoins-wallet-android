@@ -32,7 +32,6 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.view.rx.RxAlertDialog
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -49,6 +48,7 @@ import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_logo
 import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_adyen_error_top_up.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
 
@@ -68,6 +68,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   @Inject
   lateinit var adyenEnvironment: Environment
 
+
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
 
@@ -77,20 +78,16 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
-  private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
-  private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
-  private var adyenCardImageLayout: RoundCornerImageView? = null
-  private var adyenSaveDetailsSwitch: SwitchCompat? = null
-
   private lateinit var navigator: PaymentFragmentNavigator
-  private lateinit var errorDialog: RxAlertDialog
-  private lateinit var networkErrorDialog: RxAlertDialog
-  private lateinit var paymentRefusedDialog: RxAlertDialog
   private lateinit var presenter: AdyenTopUpPresenter
 
+  private var adyenCardImageLayout: RoundCornerImageView? = null
+  private var adyenSaveDetailsSwitch: SwitchCompat? = null
+  private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
+  private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
   private var keyboardTopUpRelay: PublishRelay<Boolean>? = null
   private var validationSubject: PublishSubject<Boolean>? = null
   private var isStored = false
@@ -169,21 +166,46 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     credit_card_info_container.visibility = VISIBLE
   }
 
-
   override fun showNetworkError() {
-    if (!networkErrorDialog.isShowing) {
-      topUpView.lockOrientation()
-      networkErrorDialog.show()
-      credit_card_info_container.visibility = INVISIBLE
-    }
+    topUpView.lockOrientation()
+    loading.visibility = GONE
+    no_network.visibility = VISIBLE
+    retry_button.visibility = VISIBLE
+    retry_animation.visibility = GONE
+    top_up_container.visibility = GONE
+    rv_default_values.visibility = GONE
+    payment_container.visibility = INVISIBLE
   }
 
-  override fun showGenericError() {
-    if (!errorDialog.isShowing) {
-      topUpView.lockOrientation()
-      errorDialog.show()
-      credit_card_info_container.visibility = INVISIBLE
+  override fun showRetryAnimation() {
+    retry_button.visibility = INVISIBLE
+    retry_animation.visibility = VISIBLE
+  }
+
+  override fun hideNoNetworkError() {
+    no_network.visibility = GONE
+    top_up_container.visibility = VISIBLE
+    payment_container.visibility = VISIBLE
+    main_currency_code.visibility = VISIBLE
+    main_value.visibility = VISIBLE
+    swap_value_button.visibility = VISIBLE
+    swap_value_label.visibility = VISIBLE
+    top_separator_topup.visibility = VISIBLE
+    bot_separator.visibility = VISIBLE
+    converted_value.visibility = VISIBLE
+    button.visibility = VISIBLE
+
+    if (isStored) {
+      change_card_button.visibility = VISIBLE
+    } else {
+      change_card_button.visibility = INVISIBLE
     }
+
+    payment_container.visibility = VISIBLE
+    credit_card_info_container.visibility = VISIBLE
+    fragment_adyen_error?.visibility = GONE
+
+    topUpView.unlockRotation()
   }
 
   override fun hideSpecificError() {
@@ -250,6 +272,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
   }
 
+  override fun retryClick() = RxView.clicks(retry_button)
+
   override fun getTryAgainClicks() = RxView.clicks(try_again)
 
   override fun getSupportClicks(): Observable<Any> {
@@ -257,27 +281,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun topUpButtonClicked() = RxView.clicks(button)
-
-  override fun errorDismisses(): Observable<Any> {
-    return Observable.merge(networkErrorDialog.dismisses(),
-        paymentRefusedDialog.dismisses(), errorDialog.dismisses())
-        .doOnNext { topUpView.unlockRotation() }
-        .map { Any() }
-  }
-
-  override fun errorCancels(): Observable<Any> {
-    return Observable.merge(networkErrorDialog.cancels(),
-        paymentRefusedDialog.cancels(), errorDialog.cancels())
-        .doOnNext { topUpView.unlockRotation() }
-        .map { Any() }
-  }
-
-  override fun errorPositiveClicks(): Observable<Any> {
-    return Observable.merge(networkErrorDialog.positiveClicks(),
-        paymentRefusedDialog.positiveClicks(), errorDialog.positiveClicks())
-        .doOnNext { topUpView.unlockRotation() }
-        .map { Any() }
-  }
 
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
@@ -403,7 +406,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
       setupCardConfiguration()
     }
 
-    setupDialogs()
     topUpView.showToolbar()
     main_value.visibility = INVISIBLE
   }
@@ -453,25 +455,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     adyenSecurityCodeLayout.minimumHeight = height
   }
 
-  private fun setupDialogs() {
-    errorDialog = RxAlertDialog.Builder(context)
-        .setMessage(R.string.unknown_error)
-        .setPositiveButton(R.string.ok)
-        .build()
-
-    networkErrorDialog =
-        RxAlertDialog.Builder(context)
-            .setMessage(R.string.notification_no_network_poa)
-            .setPositiveButton(R.string.ok)
-            .build()
-
-    paymentRefusedDialog =
-        RxAlertDialog.Builder(context)
-            .setMessage(R.string.notification_payment_refused)
-            .setPositiveButton(R.string.ok)
-            .build()
-  }
-
   override fun hideKeyboard() {
     view?.let { KeyboardUtils.hideKeyboard(it) }
   }
@@ -482,6 +465,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun onDestroy() {
+    hideKeyboard()
     validationSubject = null
     keyboardTopUpRelay = null
     paymentDataSubject = null
