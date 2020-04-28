@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -23,7 +23,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
                              private val topUpAnalytics: TopUpAnalytics,
-                             private val formatter: CurrencyFormatUtils) {
+                             private val formatter: CurrencyFormatUtils,
+                             private val selectedValue: String?) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
@@ -31,7 +32,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   companion object {
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
-    private const val AMOUNT_DEFAULT_VALUE = "10"
   }
 
   fun present(appPackage: String) {
@@ -42,7 +42,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handleManualAmountChange(appPackage)
     handlePaymentMethodSelected()
     handleValuesClicks()
-    handleValues()
     handleKeyboardEvents()
   }
 
@@ -59,28 +58,28 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getLimitTopUpValues()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
-        BiFunction { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues ->
+        interactor.getDefaultValues()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler),
+        Function3 { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
           view.setupUiElements(filterPaymentMethods(paymentMethods),
-              LocalCurrency(values.maxValue.symbol, values.maxValue.currency),
-              AMOUNT_DEFAULT_VALUE)
+              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+          updateDefaultValues(defaultValues)
         })
         .subscribe({}, { handleError(it) }))
   }
 
-  private fun handleValues() {
-    disposables.add(interactor.getDefaultValues()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          hasDefaultValues = if (it.error.hasError || it.values.size < 3) {
-            view.hideValuesAdapter()
-            false
-          } else {
-            view.setValuesAdapter(it.values)
-            true
-          }
-        }
-        .subscribe())
+  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel) {
+    hasDefaultValues = topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
+    if (hasDefaultValues) {
+      val defaultValues = topUpValuesModel.values
+      val defaultFiatValue = defaultValues.drop(1)
+          .first()
+      view.setDefaultAmountValue(selectedValue ?: defaultFiatValue.amount.toString())
+      view.setValuesAdapter(defaultValues)
+    } else {
+      view.hideValuesAdapter()
+    }
   }
 
   private fun handleKeyboardEvents() {
@@ -107,25 +106,31 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.switchCurrencyData()
           view.toggleSwitchCurrencyOff()
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleNextClick() {
     disposables.add(
         view.getNextClick()
-            .filter {
-              val limitValues = interactor.getLimitTopUpValues()
-                  .blockingGet()
-              isCurrencyValid(it.currency) && isValueInRange(limitValues,
-                  it.currency.fiatValue.toDouble())
-            }
-            .doOnNext {
-              view.showLoading()
-              topUpAnalytics.sendSelectionEvent(it.currency.appcValue.toDouble(), "next",
-                  it.paymentMethod!!.name)
-              activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "TOPUP",
-                  it.bonusValue, gamificationLevel)
-              view.hideLoading()
+            .flatMap { topUpData ->
+              interactor.getLimitTopUpValues()
+                  .toObservable()
+                  .filter {
+                    isCurrencyValid(topUpData.currency) && isValueInRange(it,
+                        topUpData.currency.fiatValue.toDouble())
+                  }
+                  .subscribeOn(networkScheduler)
+                  .observeOn(viewScheduler)
+                  .doOnNext {
+                    view.showLoading()
+                    topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
+                        "next",
+                        topUpData.paymentMethod!!.name)
+                    activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
+                        topUpData.selectedCurrency, "TOPUP",
+                        topUpData.bonusValue, gamificationLevel)
+                    view.hideLoading()
+                  }
             }
             .subscribe())
   }
@@ -140,12 +145,14 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler)
               .map { value -> updateConversionValue(value.amount, topUpData) }
-              .observeOn(viewScheduler)
               .filter { isConvertedValueAvailable(it) }
+              .observeOn(viewScheduler)
               .doOnComplete { view.setConversionValue(topUpData) }
               .flatMapCompletable {
                 interactor.getLimitTopUpValues()
                     .toObservable()
+                    .subscribeOn(networkScheduler)
+                    .observeOn(viewScheduler)
                     .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
               }
               .doOnError { it.printStackTrace() }

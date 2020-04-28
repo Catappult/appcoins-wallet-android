@@ -33,15 +33,36 @@ class AdyenResponseMapper {
 
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
-    val code = if (throwable is HttpException) throwable.code() else null
-    return PaymentInfoModel(Error(true, throwable.isNoNetworkException(), code,
-        throwable.message))
+    val codeAndMessage = getErrorCodeAndMessageFromThrowable(throwable)
+    return PaymentInfoModel(
+        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
   }
 
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
-    val code = if (throwable is HttpException) throwable.code() else null
-    return PaymentModel(Error(true, throwable.isNoNetworkException(), code, throwable.message))
+    val codeAndMessage = getErrorCodeAndMessageFromThrowable(throwable)
+    return PaymentModel(
+        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
+  }
+
+  private fun getErrorCodeAndMessageFromThrowable(throwable: Throwable): Pair<Int?, String?> {
+    val code: Int?
+    val message: String?
+    if (throwable is HttpException) {
+      code = throwable.code()
+      val retrofitMessage = throwable.response()
+          ?.errorBody()
+          ?.string()
+      if (retrofitMessage.isNullOrBlank()) {
+        message = throwable.message
+      } else {
+        message = retrofitMessage
+      }
+    } else {
+      code = null
+      message = throwable.message
+    }
+    return Pair(code, message)
   }
 
   private fun findPaymentMethod(paymentMethods: List<PaymentMethod>?,

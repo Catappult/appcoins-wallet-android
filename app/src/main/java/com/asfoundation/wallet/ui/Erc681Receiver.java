@@ -63,7 +63,7 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
   @Override public void startEipTransfer(TransactionBuilder transaction, Boolean isBds,
       String developerPayload) {
     Intent intent;
-    if (getIntent().getData()
+    if (getIntent().getData() != null && getIntent().getData()
         .toString()
         .contains("/buy?")) {
       intent = IabActivity.newIntent(this, getIntent(), transaction, isBds, developerPayload);

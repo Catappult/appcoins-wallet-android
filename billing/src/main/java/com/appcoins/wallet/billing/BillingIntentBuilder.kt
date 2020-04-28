@@ -24,21 +24,27 @@ class BillingIntentBuilder(val context: Context) {
                            developerAddress: String?, skuId: String, appcAmount: BigDecimal,
                            skuTitle: String): Bundle {
 
+    val intent = buildPaymentIntent(appcAmount, tokenContractAddress, iabContractAddress,
+        developerAddress,
+        skuId, packageName, payload, skuTitle, bdsIap)
     return Bundle().apply {
-      val intent =
-          buildPaymentIntent(tokenContractAddress, iabContractAddress, payload, bdsIap, packageName,
-              developerAddress, skuId, appcAmount, skuTitle)
+      val pendingIntent = buildPaymentPendingIntent(intent)
 
       putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-      putParcelable(AppcoinsBillingBinder.BUY_INTENT, intent)
+      putParcelable(AppcoinsBillingBinder.BUY_INTENT, pendingIntent)
+      putParcelable(AppcoinsBillingBinder.BUY_INTENT_RAW, intent)
     }
   }
 
-  private fun buildPaymentIntent(tokenContractAddress: String, iabContractAddress: String,
-                                 payload: String?, bdsIap: Boolean, packageName: String,
-                                 developerAddress: String?, skuId: String, amount: BigDecimal,
-                                 skuTitle: String): PendingIntent {
+  private fun buildPaymentPendingIntent(intent: Intent): PendingIntent {
+    return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+  }
 
+  private fun buildPaymentIntent(amount: BigDecimal, tokenContractAddress: String,
+                                 iabContractAddress: String, developerAddress: String?,
+                                 skuId: String, packageName: String,
+                                 payload: String?, skuTitle: String,
+                                 bdsIap: Boolean): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
 
     val uri = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
@@ -54,8 +60,7 @@ class BillingIntentBuilder(val context: Context) {
       putExtra(EXTRA_BDS_IAP, bdsIap)
       setPackage(context.packageName)
     }
-
-    return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    return intent
   }
 
   private fun buildUriString(tokenContractAddress: String, iabContractAddress: String,
@@ -81,6 +86,7 @@ class BillingIntentBuilder(val context: Context) {
     return "0x" + Hex.toHexString(
         Gson().toJson(
             TransactionData("INAPP", packageName, skuId, developerPayload,
-                orderReference, origin)).toByteArray(charset("UTF-8")))
+                orderReference, origin))
+            .toByteArray(charset("UTF-8")))
   }
 }

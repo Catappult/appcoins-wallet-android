@@ -168,7 +168,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
   override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
     return RxView.clicks(share_btn)
         .map {
-          val message = note.text.toString()
+          val message = if (note.text.isNotEmpty()) note.text.toString() else null
           SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
               originalCurrency, paymentMethod, amount.toFloat().toString(), type)
         }
@@ -177,7 +177,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
   override fun getCancelButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
     return RxView.clicks(close_btn)
         .map {
-          val message = note.text.toString()
+          val message = if (note.text.isNotEmpty()) note.text.toString() else null
           SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
               originalCurrency, paymentMethod, amount.toFloat().toString(), type)
         }

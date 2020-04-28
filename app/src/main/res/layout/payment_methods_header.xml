@@ -48,7 +48,6 @@
       android:maxLines="1"
       android:textColor="@color/grey_8a_alpha"
       android:textSize="12sp"
-      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="@id/app_icon"
       app:layout_constraintStart_toStartOf="@id/app_name"
       app:layout_constraintTop_toBottomOf="@id/app_name"

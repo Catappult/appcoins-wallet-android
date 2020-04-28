@@ -8,12 +8,12 @@
     >
 
   <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/validation_success_animation"
+      android:id="@+id/adyen_error_animation"
       android:layout_width="66dp"
       android:layout_height="66dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/guideline4"
+      app:layout_constraintTop_toTopOf="@+id/guideline_top"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/adyen_error_animation"
@@ -35,7 +35,7 @@
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/validation_success_animation"
+      app:layout_constraintTop_toBottomOf="@+id/adyen_error_animation"
       tools:visibility="visible"
       />
 
@@ -107,7 +107,7 @@
       />
 
   <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline4"
+      android:id="@+id/guideline_top"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"

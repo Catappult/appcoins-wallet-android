@@ -76,14 +76,34 @@ class PhoneValidationFragment : DaggerFragment(),
       previousContext = arguments?.getString(PREVIOUS_CONTEXT, "") ?: ""
     }
 
+    handleOnSavedInstance(savedInstanceState)
+
     setupBodyText()
     presenter.present()
+  }
+
+  private fun handleOnSavedInstance(savedInstanceState: Bundle?) {
+    if (savedInstanceState != null) {
+      if (savedInstanceState.containsKey(COUNTRY_CODE)) {
+        countryCode = savedInstanceState.getString(COUNTRY_CODE)
+      }
+      if (savedInstanceState.containsKey(ERROR_MESSAGE)) {
+        errorMessage = savedInstanceState.getInt(ERROR_MESSAGE)
+      }
+    }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putString(COUNTRY_CODE, ccp.selectedCountryCode)
+    errorMessage?.let { outState.putInt(ERROR_MESSAGE, it) }
   }
 
   override fun onResume() {
     super.onResume()
 
-    presenter.onResume()
+    presenter.onResume(errorMessage)
     focusAndShowKeyboard(phone_number)
   }
 
@@ -117,7 +137,7 @@ class PhoneValidationFragment : DaggerFragment(),
   }
 
   override fun getLaterButtonClicks(): Observable<PhoneValidationClickData> {
-    return RxView.clicks(cancel_button)
+    return RxView.clicks(later_button)
         .map { PhoneValidationClickData("", "", previousContext) }
   }
 
@@ -137,11 +157,16 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun setError(message: Int) {
     phone_number_layout.error = getString(message)
+    errorMessage = message
     hideNoInternetView()
   }
 
   override fun clearError() {
     phone_number_layout.error = null
+    // This check is needed because this method is always called when restoring the view state and we only want to clear the error when it is the user triggering the changes.
+    if (isResumed) {
+      errorMessage = null
+    }
   }
 
   override fun getCountryCode(): Observable<String> {
