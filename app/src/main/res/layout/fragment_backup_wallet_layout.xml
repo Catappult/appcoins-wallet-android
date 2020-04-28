@@ -11,9 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:orientation="vertical"
         >
 
       <include
@@ -33,14 +33,14 @@
           android:layout_width="18dp"
           android:layout_height="18dp"
           android:layout_marginTop="26dp"
+          android:layout_marginEnd="4dp"
           android:src="@drawable/ic_password_locket"
           app:layout_constraintBottom_toTopOf="@id/password_container"
           app:layout_constraintEnd_toStartOf="@id/password_label"
+          app:layout_constraintHorizontal_bias="0"
+          app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/wallet_info"
-          android:layout_marginEnd="4dp"
-          app:layout_constraintHorizontal_chainStyle="packed"
-          app:layout_constraintHorizontal_bias="0"
           />
 
       <TextView
@@ -48,12 +48,12 @@
           style="@style/WalletBackupTextStyle.Big"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:lineHeight="24sp"
           android:text="@string/backup_password_title"
+          app:layout_constraintBottom_toBottomOf="@id/password_label_ic"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/password_label_ic"
           app:layout_constraintTop_toTopOf="@id/password_label_ic"
-          app:layout_constraintBottom_toBottomOf="@id/password_label_ic"
-          android:lineHeight="24sp"
           />
 
       <com.google.android.material.textfield.TextInputLayout
@@ -61,18 +61,17 @@
           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="15dp"
           android:hint="@string/backup_password"
           android:textColorHint="#727272"
           app:boxStrokeColor="@color/box_stroke_color"
           app:boxStrokeWidth="2dp"
           app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
           app:hintTextColor="@color/edit_text_label"
-          app:layout_constraintBottom_toTopOf="@id/description"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/password_label_ic"
           app:passwordToggleEnabled="true"
-          android:layout_marginTop="15dp"
           >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
@@ -85,18 +84,42 @@
             />
       </com.google.android.material.textfield.TextInputLayout>
 
-      <TextView
-          android:id="@+id/description"
+      <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="21dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/password_container"
-          android:text="@string/backup_body"
-          style="@style/WalletBackupTextStyle"
-          android:lineHeight="20sp"
-          />
+          >
+        <TextView
+            android:id="@+id/description"
+            style="@style/WalletBackupTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/item_curved_border"
+            android:lineHeight="20sp"
+            android:paddingHorizontal="14dp"
+            android:paddingTop="22dp"
+            android:paddingBottom="18dp"
+            android:text="@string/backup_body"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_info_white_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 
@@ -119,9 +142,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/backup_button"
         />
 

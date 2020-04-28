@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="@drawable/item_wallet_border"
+    android:background="@drawable/item_curved_border"
     android:orientation="horizontal"
     android:padding="16dp"
     tools:showIn="@layout/fragment_backup_wallet_layout"

@@ -40,12 +40,13 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
   override fun onResume() {
     super.onResume()
     Log.e("BackupCreationFragment", "onResume")
+    presenter.onResume()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.presenter()
-    backup_creation_animation.playAnimation()
+    animation.playAnimation()
   }
 
   override fun shareFile(uri: String) {
@@ -56,7 +57,24 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
         .startChooser()
   }
 
-  override fun getBackupClick(): Observable<Any> {
+  override fun getPositiveButtonClick(): Observable<Any> {
     return RxView.clicks(proceed_btn)
   }
+
+  override fun getNegativeButtonClick(): Observable<Any> {
+    return RxView.clicks(done_btn)
+  }
+
+  override fun showConfirmation() {
+    animation.cancelAnimation()
+    animation.visibility = View.INVISIBLE
+    img.setImageResource(R.drawable.ic_bkp_confirm)
+    img.visibility =  View.VISIBLE
+    title.setText(R.string.backup_done_title)
+    description.setText(R.string.backup_done_body)
+    done_btn.visibility = View.VISIBLE
+    proceed_btn.text = getText(R.string.backup_confirmation_yes)
+  }
+
+
 }

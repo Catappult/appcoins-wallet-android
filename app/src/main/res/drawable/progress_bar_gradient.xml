@@ -13,6 +13,7 @@
       <shape>
         <corners android:radius="8dp" />
         <gradient
+            android:angle="0"
             android:endColor="@color/btn_start_gradient_color"
             android:startColor="@color/btn_end_gradient_color" />
       </shape>

@@ -6,6 +6,10 @@ interface BackupCreationView {
 
   fun shareFile(uri: String)
 
-  fun getBackupClick(): Observable<Any>
+  fun getPositiveButtonClick(): Observable<Any>
+
+  fun getNegativeButtonClick(): Observable<Any>
+
+  fun showConfirmation()
 
 }

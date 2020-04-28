@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.backup
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +40,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   private val walletAddr: String by lazy {
     if (arguments!!.containsKey(PARAM_WALLET_ADDR)) {
-      arguments!!.getString(PARAM_WALLET_ADDR)
+      arguments!!.getString(PARAM_WALLET_ADDR)!!
     } else {
       throw IllegalArgumentException("Wallet address not available")
     }
@@ -72,9 +71,8 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   override fun showBalance(value: FiatValue) {
-    Log.e("Test", "showBalance")
     address.text = walletAddr
-    amount.text = "${value.symbol}${value.amount}"
+    amount.text = getString(R.string.value_fiat, value.symbol, value.amount)
 
   }
 

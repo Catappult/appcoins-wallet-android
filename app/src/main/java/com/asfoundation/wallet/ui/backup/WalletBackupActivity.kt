@@ -59,11 +59,6 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
         .commit()
   }
 
-  override fun showConfirmationScreen() {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
-
   override fun startWalletBackup() {
     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         == PackageManager.PERMISSION_GRANTED) {

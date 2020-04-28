@@ -6,8 +6,6 @@ interface BackupActivityView {
 
   fun showBackupCreationScreen()
 
-  fun showConfirmationScreen()
-
   fun startWalletBackup()
 
 }
