@@ -12,6 +12,8 @@ interface TopUpActivityView {
 
   fun finish(data: Bundle)
 
+  fun navigateBack()
+
   fun close(navigateToTransactions: Boolean)
 
   fun acceptResult(uri: Uri)

@@ -112,22 +112,25 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleNextClick() {
     disposables.add(
         view.getNextClick()
-            .filter {
-              val limitValues = interactor.getLimitTopUpValues()
-                  //TODO check if we can do this in a flatmap
+            .flatMap { topUpData ->
+              interactor.getLimitTopUpValues()
+                  .toObservable()
+                  .filter {
+                    isCurrencyValid(topUpData.currency) && isValueInRange(it,
+                        topUpData.currency.fiatValue.toDouble())
+                  }
                   .subscribeOn(networkScheduler)
-                  .blockingGet()
-              isCurrencyValid(it.currency) && isValueInRange(limitValues,
-                  it.currency.fiatValue.toDouble())
-            }
-            .observeOn(viewScheduler)
-            .doOnNext {
-              view.showLoading()
-              topUpAnalytics.sendSelectionEvent(it.currency.appcValue.toDouble(), "next",
-                  it.paymentMethod!!.name)
-              activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "TOPUP",
-                  it.bonusValue, gamificationLevel)
-              view.hideLoading()
+                  .observeOn(viewScheduler)
+                  .doOnNext {
+                    view.showLoading()
+                    topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
+                        "next",
+                        topUpData.paymentMethod!!.name)
+                    activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
+                        topUpData.selectedCurrency, "TOPUP",
+                        topUpData.bonusValue, gamificationLevel)
+                    view.hideLoading()
+                  }
             }
             .subscribe())
   }
