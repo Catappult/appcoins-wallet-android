@@ -8,6 +8,8 @@ public interface Navigator {
 
   void popView(Bundle bundle);
 
+  void popViewWithError();
+
   void navigateToUriForResult(String redirectUrl);
 
   Observable<Uri> uriResults();

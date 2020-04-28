@@ -49,6 +49,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     savedInstanceState?.let { waitingResult = it.getBoolean(WAITING_RESULT) }
     loadPaymentMethodInfo(savedInstanceState)
     handleBack()
+    handleErrorDismissEvent()
     handleForgetCardClick()
 
     handleRedirectResponse()
@@ -285,6 +286,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           transactionBuilder.amount()
               .toString(), paymentMethod, transactionBuilder.type)
     })
+  }
+
+  private fun handleErrorDismissEvent() {
+    disposables.add(view.errorDismisses()
+        .observeOn(viewScheduler)
+        .doOnNext { navigator.popViewWithError() }
+        .subscribe())
   }
 
   private fun handleBack() {

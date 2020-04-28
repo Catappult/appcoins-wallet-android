@@ -19,6 +19,10 @@ public class FragmentNavigator implements Navigator {
     iabView.finish(bundle);
   }
 
+  @Override public void popViewWithError() {
+    iabView.close(new Bundle());
+  }
+
   @Override public void navigateToUriForResult(String redirectUrl) {
     uriNavigator.navigateToUri(redirectUrl);
   }
