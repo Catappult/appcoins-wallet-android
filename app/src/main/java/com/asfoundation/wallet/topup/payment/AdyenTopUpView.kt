@@ -58,4 +58,6 @@ interface AdyenTopUpView {
   fun hideNoNetworkError()
 
   fun showRetryAnimation()
+
+  fun navigateToPaymentSelection()
 }

@@ -282,6 +282,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun topUpButtonClicked() = RxView.clicks(button)
 
+  override fun navigateToPaymentSelection() {
+    topUpView.navigateBack()
+  }
+
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstanceState: Bundle?) {

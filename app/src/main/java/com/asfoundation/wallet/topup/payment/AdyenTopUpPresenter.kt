@@ -68,7 +68,13 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
-        .doOnNext { loadPaymentMethodInfo(savedInstanceState) }
+        .doOnNext {
+          if (waitingResult) {
+            view.navigateToPaymentSelection()
+          } else {
+            loadPaymentMethodInfo(savedInstanceState)
+          }
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
