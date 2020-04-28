@@ -133,6 +133,12 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    outState.apply {
+      putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
+      putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
+      putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
+      putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch?.isChecked ?: false)
+    }
     presenter.onSaveInstanceState(outState)
   }
 
