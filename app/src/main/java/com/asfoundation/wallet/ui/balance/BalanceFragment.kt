@@ -281,14 +281,14 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
 
   private fun animateBackgroundFade() {
-    walletsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+    walletsBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    }
+    })
   }
 
   private fun setAlpha(view: View, alphaPercentage: Float) {
