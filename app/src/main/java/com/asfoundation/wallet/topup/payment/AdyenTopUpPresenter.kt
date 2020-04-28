@@ -49,6 +49,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 ) {
 
   private var waitingResult = false
+  private var paymentMethod = PaymentType.CARD.name
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState != null) {
@@ -92,7 +93,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     disposables.add(
         view.getTryAgainClicks()
             .throttleFirst(50, TimeUnit.MILLISECONDS)
-            .doOnNext { view.hideSpecificError() }
+            .doOnNext {
+              if (paymentMethod == PaymentType.CARD.name) view.hideSpecificError()
+              else view.navigateToPaymentSelection()
+            }
             .subscribeOn(viewScheduler)
             .subscribe()
     )
@@ -115,6 +119,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           } else {
             val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
             view.showValues(priceAmount, it.priceCurrency)
+            paymentMethod = paymentType
             if (paymentType == PaymentType.CARD.name) {
               view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                   savedInstanceState)
