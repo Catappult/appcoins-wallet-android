@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class BackendEventLogger implements EventLogger {
 
-  public static final String TAG = AnalyticsManager.class.getSimpleName();
+  private static final String TAG = AnalyticsManager.class.getSimpleName();
   private final AnalyticsAPI api;
 
   public BackendEventLogger(AnalyticsAPI api) {
@@ -29,10 +29,10 @@ public class BackendEventLogger implements EventLogger {
         + context
         + "]");
 
-    api.registerEvent(action, eventName, new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
+    api.registerEvent(action, eventName,
+        new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
         .subscribeOn(Schedulers.io())
         .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);
-
   }
 
   @Override public void setup() {

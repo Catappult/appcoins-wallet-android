@@ -19,15 +19,20 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_how_it_works.*
+import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
+
   @Inject
   lateinit var analytics: GamificationAnalytics
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: HowItWorksPresenter
@@ -40,7 +45,6 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
         Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
@@ -48,12 +52,13 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     gamificationView = context
   }
 
-  override fun showLevels(levels: List<ViewLevel>, currentLevel: Int) {
+  override fun showLevels(
+      levels: List<ViewLevel>,
+      currentLevel: Int, updateDate: Date?) {
     fragment_gamification_how_it_works_loading.visibility = View.INVISIBLE
-    var view: View?
 
     for (level in levels) {
-      view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
+      val view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
           fragment_gamification_how_it_works_levels_layout, false)
       val levelTextView = view.findViewById<TextView>(R.id.level)
       val spendTextView = view.findViewById<TextView>(R.id.message)
@@ -69,6 +74,19 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       if (level.level == currentLevel) {
         highlightCurrentLevel(levelTextView, spendTextView, bonusTextView)
       }
+    }
+
+    showBonusUpdatedDate(updateDate)
+  }
+
+  private fun showBonusUpdatedDate(updateDate: Date?) {
+    if (updateDate == null) {
+      bonus_update_icon.visibility = View.GONE
+      bonus_update_info.visibility = View.GONE
+    } else {
+      val df: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+      val date = df.format(updateDate)
+      bonus_update_info.text = getString(R.string.pioneer_bonus_updated_body, date)
     }
   }
 
@@ -98,7 +116,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   private fun formatNextLevelFooter(id: Int, nextLevelAmount: String,
                                     nextLevel: String): CharSequence {
     return HtmlCompat.fromHtml(String.format(
-        HtmlCompat.toHtml(SpannedString(getText(id)), HtmlCompat.FROM_HTML_MODE_LEGACY),
+        HtmlCompat.toHtml(SpannedString(getText(id)),
+            HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE),
         nextLevelAmount, nextLevel), HtmlCompat.FROM_HTML_MODE_LEGACY)
   }
 
@@ -136,7 +155,6 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   companion object {
-    private val TAG = HowItWorksFragment::class.java.simpleName
     const val MAX_LEVEL = 4
 
     @JvmStatic

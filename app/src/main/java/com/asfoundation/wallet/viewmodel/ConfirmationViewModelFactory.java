@@ -3,9 +3,9 @@ package com.asfoundation.wallet.viewmodel;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 
 public class ConfirmationViewModelFactory implements ViewModelProvider.Factory {

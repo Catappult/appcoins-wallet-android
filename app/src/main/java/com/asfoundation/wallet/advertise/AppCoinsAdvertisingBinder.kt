@@ -34,7 +34,7 @@ internal class AppCoinsAdvertisingBinder(
     val uid = Binder.getCallingUid()
     val pkg = packageManager.getNameForUid(uid)
     val pkgInfo = packageManager.getPackageInfo(pkg, 0)
-    return campaignInteract.getCampaign(pkg, pkgInfo.versionCode)
+    return campaignInteract.getCampaign(pkg?:"", pkgInfo.versionCode)
         .doOnSuccess { handleNotificationDisplay(it, pkgInfo) }
         .map { mapCampaignDetails(it) }
         .blockingGet()

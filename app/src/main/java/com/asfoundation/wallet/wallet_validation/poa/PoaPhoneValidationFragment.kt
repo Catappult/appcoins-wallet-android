@@ -10,6 +10,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -27,6 +28,9 @@ class PoaPhoneValidationFragment : DaggerFragment(),
   @Inject
   lateinit var interactor: SmsValidationInteract
 
+  @Inject
+  lateinit var analytics: WalletValidationAnalytics
+
   private var walletValidationView: PoaWalletValidationView? = null
   private lateinit var presenter: PoaPhoneValidationPresenter
 
@@ -40,7 +44,7 @@ class PoaPhoneValidationFragment : DaggerFragment(),
     presenter =
         PoaPhoneValidationPresenter(this,
             walletValidationView, interactor,
-            AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
+            AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), analytics)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +70,7 @@ class PoaPhoneValidationFragment : DaggerFragment(),
   override fun onResume() {
     super.onResume()
 
+    presenter.onResume()
     focusAndShowKeyboard(phone_number)
   }
 

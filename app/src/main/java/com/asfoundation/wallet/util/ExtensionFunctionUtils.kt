@@ -26,12 +26,6 @@ fun BigDecimal.scaleToString(scale: Int): String {
   return format.format(this.setScale(scale, RoundingMode.FLOOR))
 }
 
-fun BigDecimal.formatWithSuffix(scale: Int): String {
-  val suffixFormatter = NumberFormatterUtils.create()
-  val scaledNumber = this.setScale(scale, RoundingMode.FLOOR)
-  return suffixFormatter.formatNumberWithSuffix(scaledNumber.toFloat(), scale)
-}
-
 fun Throwable?.isNoNetworkException(): Boolean {
   return this != null && (this is IOException || this.cause != null && this.cause is IOException)
 }

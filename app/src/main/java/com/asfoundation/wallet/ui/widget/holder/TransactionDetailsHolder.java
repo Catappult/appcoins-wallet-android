@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.ui.widget.OnMoreClickListener;
@@ -22,7 +22,7 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
 
   public static final int VIEW_TYPE = 1007;
   /** Tag used to obtain wallet address in used */
-  public static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
+  private static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   /** The transaction operation item view */
   private final View itemView;
   /** The operation transaction id */
@@ -60,7 +60,6 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
 
     String currency = addition.getString(DEFAULT_SYMBOL_ADDITIONAL);
 
-
     String peer = operation.getFrom();
     int peerLabel = R.string.label_from;
     // Check if the from matches the current wallet address, ifo so then we change a label to "To"
@@ -72,7 +71,8 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
 
     more.setOnClickListener(this);
 
-    fill(operation.getTransactionId(), peerLabel, peer, operation.getFee() + " " + currency.toUpperCase());
+    fill(operation.getTransactionId(), peerLabel, peer,
+        operation.getFee() + " " + currency.toUpperCase());
   }
 
   private void fill(String transactionId, @StringRes int peerLabel, String peerAddress,

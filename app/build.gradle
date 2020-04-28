@@ -20,6 +20,7 @@ repositories {
 }
 
 android {
+  buildToolsVersion '29.0.3'
   compileSdkVersion 29
   defaultConfig {
 
@@ -31,8 +32,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 138
-    versionName "1.12.2.4"
+    versionCode 142
+    versionName "1.13.1.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -104,6 +105,7 @@ android {
     }
     debug {
       minifyEnabled false
+      ext.enableCrashlytics = false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       versionNameSuffix ".dev"
@@ -237,7 +239,6 @@ dependencies {
   implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk_version") {
     transitive = true
   }
-
 }
 
 def renameArtifact(defaultConfig) {

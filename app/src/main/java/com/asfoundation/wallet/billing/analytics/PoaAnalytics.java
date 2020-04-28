@@ -41,7 +41,6 @@ public class PoaAnalytics implements PoaEventSender {
     eventData.put(EVENT_CAMPAIGN_ID, campaignId);
     eventData.put(EVENT_NETWORK_ID, networkId);
 
-    sendRakamProofEvent(packageName, "success", "");
     analytics.logEvent(eventData, POA_COMPLETED, AnalyticsManager.Action.AUTO, WALLET);
   }
 

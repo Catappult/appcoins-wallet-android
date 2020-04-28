@@ -9,8 +9,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.Logger
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.logging.Logger
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -32,6 +32,9 @@ class PhoneValidationFragment : DaggerFragment(),
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var analytics: WalletValidationAnalytics
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: PhoneValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
@@ -39,6 +42,7 @@ class PhoneValidationFragment : DaggerFragment(),
   private var countryCode: String? = null
   private var phoneNumber: String? = null
   private var errorMessage: Int? = null
+  private var previousContext: String = ""
 
   private val hasBeenInvitedFlow: Boolean by lazy {
     arguments!!.getBoolean(HAS_BEEN_INVITED_FLOW)
@@ -48,7 +52,7 @@ class PhoneValidationFragment : DaggerFragment(),
     super.onCreate(savedInstanceState)
 
     presenter = PhoneValidationPresenter(this, walletValidationView, interactor, logger,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
+        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), analytics)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -68,13 +72,38 @@ class PhoneValidationFragment : DaggerFragment(),
     if (arguments?.containsKey(ERROR_MESSAGE) == true) {
       errorMessage = arguments?.getInt(ERROR_MESSAGE)
     }
+    if (arguments?.containsKey(PREVIOUS_CONTEXT) == true) {
+      previousContext = arguments?.getString(PREVIOUS_CONTEXT, "") ?: ""
+    }
+
+    handleOnSavedInstance(savedInstanceState)
+
     setupBodyText()
     presenter.present()
+  }
+
+  private fun handleOnSavedInstance(savedInstanceState: Bundle?) {
+    if (savedInstanceState != null) {
+      if (savedInstanceState.containsKey(COUNTRY_CODE)) {
+        countryCode = savedInstanceState.getString(COUNTRY_CODE)
+      }
+      if (savedInstanceState.containsKey(ERROR_MESSAGE)) {
+        errorMessage = savedInstanceState.getInt(ERROR_MESSAGE)
+      }
+    }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putString(COUNTRY_CODE, ccp.selectedCountryCode)
+    errorMessage?.let { outState.putInt(ERROR_MESSAGE, it) }
   }
 
   override fun onResume() {
     super.onResume()
 
+    presenter.onResume(errorMessage)
     focusAndShowKeyboard(phone_number)
   }
 
@@ -97,17 +126,20 @@ class PhoneValidationFragment : DaggerFragment(),
     layout_validation_no_internet.visibility = View.GONE
   }
 
-  override fun getRetryButtonClicks(): Observable<Pair<String, String>> {
+  override fun getRetryButtonClicks(): Observable<PhoneValidationClickData> {
     return RxView.clicks(retry_button)
         .map {
-          Pair(ccp.selectedCountryCodeWithPlus,
-              ccp.fullNumber.substringAfter(ccp.selectedCountryCode))
+          PhoneValidationClickData(ccp.selectedCountryCodeWithPlus,
+              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext)
         }
         .doOnNext { playRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
   }
 
-  override fun getLaterButtonClicks() = RxView.clicks(later_button)
+  override fun getLaterButtonClicks(): Observable<PhoneValidationClickData> {
+    return RxView.clicks(later_button)
+        .map { PhoneValidationClickData("", "", previousContext) }
+  }
 
   override fun setupUI() {
     ccp.registerCarrierNumberEditText(phone_number)
@@ -125,11 +157,16 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun setError(message: Int) {
     phone_number_layout.error = getString(message)
+    errorMessage = message
     hideNoInternetView()
   }
 
   override fun clearError() {
     phone_number_layout.error = null
+    // This check is needed because this method is always called when restoring the view state and we only want to clear the error when it is the user triggering the changes.
+    if (isResumed) {
+      errorMessage = null
+    }
   }
 
   override fun getCountryCode(): Observable<String> {
@@ -148,15 +185,18 @@ class PhoneValidationFragment : DaggerFragment(),
     next_button.isEnabled = state
   }
 
-  override fun getNextClicks(): Observable<Pair<String, String>> {
+  override fun getNextClicks(): Observable<PhoneValidationClickData> {
     return RxView.clicks(next_button)
         .map {
-          Pair(ccp.selectedCountryCodeWithPlus,
-              ccp.fullNumber.substringAfter(ccp.selectedCountryCode))
+          PhoneValidationClickData(ccp.selectedCountryCodeWithPlus,
+              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext ?: "")
         }
   }
 
-  override fun getCancelClicks() = RxView.clicks(cancel_button)
+  override fun getCancelClicks(): Observable<PhoneValidationClickData> {
+    return RxView.clicks(cancel_button)
+        .map { PhoneValidationClickData("", "", previousContext ?: "") }
+  }
 
   override fun onDestroy() {
     presenter.stop()
@@ -197,19 +237,25 @@ class PhoneValidationFragment : DaggerFragment(),
     internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
     internal const val HAS_BEEN_INVITED_FLOW = "HAS_BEEN_INVITED_FLOW"
 
+    private const val PREVIOUS_CONTEXT = "PREVIOUS_CONTEXT"
+
     @JvmStatic
     fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
-                    errorMessage: Int? = null, hasBeenInvitedFlow: Boolean = true): Fragment {
+                    errorMessage: Int? = null, hasBeenInvitedFlow: Boolean = true,
+                    previousContext: String? = ""): Fragment {
       val bundle = Bundle().apply {
         putString(COUNTRY_CODE, countryCode)
         putString(PHONE_NUMBER, phoneNumber)
         putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
+        putString(PREVIOUS_CONTEXT, previousContext)
       }
       errorMessage?.let { bundle.putInt(ERROR_MESSAGE, errorMessage) }
 
       return PhoneValidationFragment().apply { arguments = bundle }
     }
 
+    data class PhoneValidationClickData(val countryCode: String, val number: String,
+                                        val previousContext: String)
   }
 
   private fun focusAndShowKeyboard(view: EditText) {

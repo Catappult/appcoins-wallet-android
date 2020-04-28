@@ -25,10 +25,12 @@ data class ReferralResponse(
     val status: Status,
     val amount: BigDecimal) {
 
+  @Suppress("unused")
   enum class UserStatus {
     RESERVED, VERIFIED, REDEEMED
   }
 
+  @Suppress("unused")
   enum class Status {
     ACTIVE, INACTIVE
   }

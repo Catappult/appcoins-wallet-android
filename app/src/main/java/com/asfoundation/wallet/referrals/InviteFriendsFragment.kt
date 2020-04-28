@@ -61,14 +61,14 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
   private fun animateBackgroundFade() {
-    referralsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+    referralsBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    }
+    })
   }
 
   private fun setTextValues() {
@@ -161,7 +161,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY)
+      arguments!!.getString(CURRENCY, "")
     } else {
       throw IllegalArgumentException("Currency not found")
     }
@@ -169,7 +169,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private val link: String by lazy {
     if (arguments!!.containsKey(LINK)) {
-      arguments!!.getString(LINK)
+      arguments!!.getString(LINK, "")
     } else {
       throw IllegalArgumentException("link not found")
     }

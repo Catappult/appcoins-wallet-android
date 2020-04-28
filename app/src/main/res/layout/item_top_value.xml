@@ -15,7 +15,7 @@
       android:layout_height="32dp"
       android:gravity="center"
       android:minWidth="80dp"
-      android:textColor="#4a4a4a"
+      android:textColor="@color/color_title"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

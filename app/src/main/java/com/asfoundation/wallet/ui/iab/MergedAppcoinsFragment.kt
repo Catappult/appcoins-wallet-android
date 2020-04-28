@@ -64,7 +64,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     productName: String?,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean,
-                    isDonation: Boolean, skuId: String, transactionType: String): Fragment {
+                    isDonation: Boolean, skuId: String?, transactionType: String): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
         putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -89,12 +89,16 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   private var paymentSelectionSubject: PublishSubject<String>? = null
   private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var iabView: IabView
+
   @Inject
   lateinit var balanceInteract: BalanceInteract
+
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
+
   @Inject
   lateinit var billingAnalytics: BillingAnalytics
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
@@ -177,12 +181,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
-  private val skuId: String by lazy {
-    if (arguments!!.containsKey(SKU_ID)) {
-      arguments!!.getString(SKU_ID)
-    } else {
-      throw IllegalArgumentException("sku id data not found")
-    }
+  private val skuId: String? by lazy {
+    arguments!!.getString(SKU_ID)
   }
 
   private val transactionType: String by lazy {
@@ -198,7 +198,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
-        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), billingAnalytics, formatter)
+        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), billingAnalytics,
+        formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -270,7 +271,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
     val appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
         .plus(" " + WalletCurrency.APPCOINS.symbol)
-    val fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT).plus(" $currency")
+    val fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
+        .plus(" $currency")
     fiat_price.text = fiatText
     appc_price.text = appcText
     fiat_price.visibility = VISIBLE

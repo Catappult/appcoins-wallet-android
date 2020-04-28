@@ -2,6 +2,7 @@ package com.asfoundation.wallet.poa;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 public class Proof {
@@ -109,20 +110,19 @@ public class Proof {
     if (!walletPackage.equals(proof.walletPackage)) return false;
     if (!proofComponentList.equals(proof.proofComponentList)) return false;
     if (proofStatus != proof.proofStatus) return false;
-    if (countryCode != null ? !countryCode.equals(proof.countryCode) : proof.countryCode != null) {
+    if (!Objects.equals(countryCode, proof.countryCode)) {
       return false;
     }
-    if (campaignId != null ? !campaignId.equals(proof.campaignId) : proof.campaignId != null) {
+    if (!Objects.equals(campaignId, proof.campaignId)) {
       return false;
     }
-    if (oemAddress != null ? !oemAddress.equals(proof.oemAddress) : proof.oemAddress != null) {
+    if (!Objects.equals(oemAddress, proof.oemAddress)) {
       return false;
     }
-    if (storeAddress != null ? !storeAddress.equals(proof.storeAddress)
-        : proof.storeAddress != null) {
+    if (!Objects.equals(storeAddress, proof.storeAddress)) {
       return false;
     }
-    return hash != null ? hash.equals(proof.hash) : proof.hash == null;
+    return Objects.equals(hash, proof.hash);
   }
 
   @Override public String toString() {

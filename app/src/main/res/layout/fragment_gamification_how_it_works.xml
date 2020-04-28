@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet"
@@ -256,11 +255,39 @@
       android:layout_marginEnd="32dp"
       android:gravity="center"
       android:textSize="12sp"
-      app:layout_constraintBottom_toBottomOf="@id/how_it_works_background"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
       tools:text="@string/gamification_how_to_next_level_body"
+      />
+
+  <ImageView
+      android:id="@+id/bonus_update_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="23dp"
+      android:src="@drawable/ic_gamification_level_stats"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/next_level_footer"
+      />
+
+  <TextView
+      android:id="@+id/bonus_update_info"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="32dp"
+      android:gravity="center"
+      android:textColor="#000000"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@id/how_it_works_background"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/bonus_update_icon"
+      tools:text="Bonus percentages update in 01/04/2020"
       />
 
   <View
@@ -268,7 +295,7 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:background="@color/gamification_how_it_works"
-      app:layout_constraintBottom_toBottomOf="@id/next_level_footer"
+      app:layout_constraintBottom_toBottomOf="@id/bonus_update_info"
       app:layout_constraintTop_toTopOf="@id/horizontal_guideline1"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

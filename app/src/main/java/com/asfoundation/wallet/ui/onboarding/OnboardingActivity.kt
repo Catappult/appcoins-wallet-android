@@ -114,6 +114,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     } else {
       adapter.setPages(createDefaultItemList())
     }
+    listener.updateUI()
   }
 
   override fun getNextButtonClick(): Observable<Any> {
@@ -164,7 +165,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     } else {
       val intent = WalletValidationActivity.newIntent(this, hasBeenInvitedFlow = true,
           navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = true,
-          showToolbar = false)
+          showToolbar = false, previousContext = "onboarding")
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
       startActivity(intent)
     }

@@ -12,7 +12,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
@@ -36,7 +35,7 @@ public class OnChainBuyPresenter {
   private final String appPackage;
   private final String uriString;
   private final Single<TransactionBuilder> transactionBuilder;
-  private BillingAnalytics analytics;
+  private final BillingAnalytics analytics;
   private Disposable statusDisposable;
 
   OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
@@ -140,7 +139,7 @@ public class OnChainBuyPresenter {
 
   private Completable showPendingTransaction(Payment transaction) {
     Log.d(TAG, "present: " + transaction);
-    sendPaymentErrorEvent(BillingAnalytics.PAYMENT_METHOD_APPC, transaction.getStatus());
+    sendPaymentErrorEvent(transaction.getStatus());
     switch (transaction.getStatus()) {
       case COMPLETED:
         view.lockRotation();
@@ -206,11 +205,11 @@ public class OnChainBuyPresenter {
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 
-  void sendPaymentEvent(String purchaseDetails) {
+  void sendPaymentEvent() {
     disposables.add(transactionBuilder.subscribe(
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
             transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
+                .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.getType())));
   }
 
   void resume() {
@@ -230,14 +229,14 @@ public class OnChainBuyPresenter {
         }, Throwable::printStackTrace));
   }
 
-  void sendPaymentSuccessEvent(String purchaseDetails) {
+  void sendPaymentSuccessEvent() {
     disposables.add(transactionBuilder.observeOn(networkScheduler)
         .subscribe(transactionBuilder -> analytics.sendPaymentSuccessEvent(appPackage,
             transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
+                .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.getType())));
   }
 
-  void sendPaymentErrorEvent(String purchaseDetails, Payment.Status error) {
+  private void sendPaymentErrorEvent(Payment.Status error) {
     if (error == Payment.Status.ERROR
         || error == Payment.Status.NO_FUNDS
         || error == Payment.Status.NONCE_ERROR
@@ -248,7 +247,8 @@ public class OnChainBuyPresenter {
       disposables.add(transactionBuilder.observeOn(networkScheduler)
           .subscribe(transactionBuilder -> analytics.sendPaymentErrorEvent(appPackage,
               transactionBuilder.getSkuId(), transactionBuilder.amount()
-                  .toString(), purchaseDetails, transactionBuilder.getType(), error.name())));
+                  .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.getType(),
+              error.name())));
     }
   }
 }

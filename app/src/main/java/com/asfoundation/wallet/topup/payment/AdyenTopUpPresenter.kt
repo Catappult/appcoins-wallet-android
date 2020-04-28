@@ -108,7 +108,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
           }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
@@ -156,7 +156,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .flatMapCompletable {
               handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
             }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleForgetCardClick() {

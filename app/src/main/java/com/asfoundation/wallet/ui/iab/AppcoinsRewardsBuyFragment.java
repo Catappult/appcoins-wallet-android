@@ -25,12 +25,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_REWARDS;
 import static com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY;
 
 public class AppcoinsRewardsBuyFragment extends DaggerFragment implements AppcoinsRewardsBuyView {
 
-  public static final String PRODUCT_NAME = "product_name";
+  private static final String PRODUCT_NAME = "product_name";
   private static final String AMOUNT_KEY = "amount";
   private static final String URI_KEY = "uri_key";
   private static final String IS_BDS = "is_bds";
@@ -146,9 +145,9 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void finish(String uid) {
-    presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendPaymentEvent();
     presenter.sendRevenueEvent();
-    presenter.sendPaymentSuccessEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendPaymentSuccessEvent();
     Bundle bundle = billingMessagesMapper.successBundle(uid);
     bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
@@ -160,9 +159,9 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void finish(Purchase purchase, @Nullable String orderReference) {
-    presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendPaymentEvent();
     presenter.sendRevenueEvent();
-    presenter.sendPaymentSuccessEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendPaymentSuccessEvent();
     Bundle bundle = billingMessagesMapper.mapPurchase(purchase, orderReference);
     bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());

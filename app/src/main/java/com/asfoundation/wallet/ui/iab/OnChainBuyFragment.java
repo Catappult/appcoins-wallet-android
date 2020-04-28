@@ -30,7 +30,6 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_APPC;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
@@ -153,9 +152,9 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   }
 
   @Override public void finish(Bundle data) {
-    presenter.sendPaymentEvent(PAYMENT_METHOD_APPC);
+    presenter.sendPaymentEvent();
     presenter.sendRevenueEvent();
-    presenter.sendPaymentSuccessEvent(PAYMENT_METHOD_APPC);
+    presenter.sendPaymentSuccessEvent();
     data.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC.getId());
     iabView.finish(data);
@@ -235,7 +234,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     loadingView.setOnTouchListener((v, event) -> true);
   }
 
-  public void showError(int error_message) {
+  private void showError(int error_message) {
     loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.VISIBLE);
     transactionCompletedLayout.setVisibility(View.GONE);

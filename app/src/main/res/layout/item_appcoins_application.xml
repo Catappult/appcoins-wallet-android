@@ -13,6 +13,7 @@
       android:id="@+id/featured_graphic"
       android:layout_width="match_parent"
       android:layout_height="16dp"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <ImageView

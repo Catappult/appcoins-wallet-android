@@ -13,8 +13,6 @@
   <color name="statusBarColor">#154868</color>
   <color name="activity_background_color">#fafafa</color>
 
-  <color name="secondary_text">#40000000</color>
-
   <color name="bottom_dialog_title">#89000000</color>
   <color name="bottom_dialog_item">#dd000000</color>
 
@@ -34,7 +32,6 @@
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="gray_alpha_61">#61000000</color>
   <color name="grey_alpha_6b">#6b000000</color>
-  <color name="appbar_subtitle_color">#b8ffffff</color>
 
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
@@ -55,7 +52,6 @@
   <color name="btn_light_disable_color">#42000000</color>
 
   <color name="dialog_buy_value_text">#4e4e4e</color>
-  <color name="dialog_buy_total_value">#fe677b</color>
   <color name="dialog_buy_fiat_value">#000000</color>
   <color name="dialog_fiat_price">#828282</color>
   <color name="dialog_secondary_price">#828282</color>
@@ -74,8 +70,7 @@
   <color name="color_grey_9e">#9e9e9e</color>
   <color name="top_up_bonus_title">#030303</color>
   <color name="top_up_bonus_text">#727272</color>
-  <color name="top_up_payment_details_text">#4a4a4a</color>
-  <color name="top_up_default_value_chip">#00101c</color>
+  <color name="color_title">#4a4a4a</color>
 
   <color name="seekbar_tint">#fe756f</color>
   <color name="seekbar_background_tint">#fe7871</color>

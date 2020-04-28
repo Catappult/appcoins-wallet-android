@@ -25,10 +25,13 @@ class CodeValidationPresenter(
     private val countryCode: String,
     private val phoneNumber: String,
     private val disposables: CompositeDisposable,
-    private val hasBeenInvitedFlow: Boolean
+    private val hasBeenInvitedFlow: Boolean,
+    private val analytics: WalletValidationAnalytics
 ) {
 
-  fun present() {
+  var isLastStep = false
+
+  fun present(lastStep: Boolean) {
     view.setupUI()
     handleBack()
     handleCode()
@@ -37,14 +40,21 @@ class CodeValidationPresenter(
     handleSubmitAndRetryClicks()
     handleOkClicks()
     handleLaterClicks()
+
+    isLastStep = lastStep
+    if (lastStep) {
+      checkReferralAvailability()
+    }
   }
 
   private fun handleLaterClicks() {
     disposables.add(
         view.getLaterButtonClicks()
             .doOnNext {
+              analytics.sendCodeVerificationEvent("later")
               activity?.finishCancelActivity()
-            }.subscribe())
+            }
+            .subscribe())
   }
 
   private fun handleResendCode() {
@@ -68,6 +78,7 @@ class CodeValidationPresenter(
         Observable.merge(view.getSubmitClicks(), view.getRetryButtonClicks())
             .doOnEach { view.hideNoInternetView() }
             .doOnEach { view.showLoading() }
+            .doOnEach { analytics.sendCodeVerificationEvent("next") }
             .flatMapSingle { validationInfo ->
               defaultWalletInteract.find()
                   .delay(2, TimeUnit.SECONDS)
@@ -90,7 +101,10 @@ class CodeValidationPresenter(
   private fun handleBack() {
     disposables.add(
         view.getBackClicks()
-            .doOnNext { activity?.showPhoneValidationView(countryCode, phoneNumber) }
+            .doOnNext {
+              analytics.sendCodeVerificationEvent("back")
+              activity?.showPhoneValidationView(countryCode, phoneNumber)
+            }
             .subscribe()
     )
   }
@@ -106,6 +120,7 @@ class CodeValidationPresenter(
   private fun checkReferralAvailability() {
     if (!hasBeenInvitedFlow) {
       view.showGenericValidationComplete()
+      isLastStep = true
     } else {
       disposables.add(referralInteractor.retrieveReferral()
           .subscribeOn(networkScheduler)
@@ -113,6 +128,7 @@ class CodeValidationPresenter(
           .doOnSuccess {
             handleReferralStatus(it.invited, it.symbol, it.maxAmount, it.pendingAmount,
                 it.minAmount)
+            isLastStep = true
           }
           .subscribe()
       )
@@ -131,6 +147,7 @@ class CodeValidationPresenter(
 
   private fun handleNext(status: WalletValidationStatus,
                          validationInfo: ValidationInfo) {
+    handleVerificationAnalytics(status)
     when (status) {
       WalletValidationStatus.SUCCESS -> checkReferralAvailability()
       WalletValidationStatus.INVALID_INPUT -> handleError(
@@ -144,6 +161,14 @@ class CodeValidationPresenter(
         view.hideKeyboard()
         view.showNoInternetView()
       }
+    }
+  }
+
+  private fun handleVerificationAnalytics(status: WalletValidationStatus) {
+    if (status == WalletValidationStatus.SUCCESS) {
+      analytics.sendConfirmationEvent("success", "")
+    } else {
+      analytics.sendConfirmationEvent("error", status.name)
     }
   }
 
@@ -167,7 +192,8 @@ class CodeValidationPresenter(
               } else {
                 view.setButtonState(false)
               }
-            }).subscribe { })
+            })
+            .subscribe { })
   }
 
   private fun isValidInput(first: String, second: String, third: String, fourth: String,
@@ -185,40 +211,53 @@ class CodeValidationPresenter(
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(1)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getSecondChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(2)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getThirdChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(3)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getFourthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(4)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getFifthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(5)
-        }.subscribe())
+        }
+        .subscribe())
 
     disposables.add(view.getSixthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.hideKeyboard()
-        }.subscribe())
+        }
+        .subscribe())
   }
 
   fun stop() {
     disposables.dispose()
+  }
+
+  fun onResume(code: Code?) {
+    if (!isLastStep) {
+      code?.let { view.setCode(code) }
+      view.focusAndShowKeyboard()
+    }
   }
 }

@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
@@ -65,11 +66,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var switchingCurrency = false
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
+  private var selectedPaymentMethod = 0
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
     private const val APPC_C_SYMBOL = "APPC-C"
 
+    private const val SELECTED_VALUE_PARAM = "SELECTED_VALUE"
+    private const val SELECTED_PAYMENT_METHOD_PARAM = "SELECTED_PAYMENT_METHOD"
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
 
@@ -126,7 +130,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     keyboardEvents = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
-            Schedulers.io(), topUpAnalytics, formatter)
+            Schedulers.io(), topUpAnalytics, formatter,
+            savedInstanceState?.getString(SELECTED_VALUE_PARAM))
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -141,6 +146,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
+    savedInstanceState?.let { selectedPaymentMethod = it.getInt(SELECTED_PAYMENT_METHOD_PARAM) }
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
 
@@ -153,8 +159,17 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
   }
 
+  override fun onResume() {
+    focusAndShowKeyboard(main_value)
+    super.onResume()
+  }
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
+    if (::adapter.isInitialized) {
+      outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
+    }
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
@@ -164,16 +179,23 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     hideNoNetwork()
     if (isLocalCurrencyValid(localCurrency)) {
       this@TopUpFragment.localCurrency = localCurrency
-      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
-          APPC_C_SYMBOL, DEFAULT_VALUE)
+      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
+          DEFAULT_VALUE)
     }
     this@TopUpFragment.paymentMethods = paymentMethods
     main_value.isEnabled = true
-    focusAndShowKeyboard(main_value)
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
             .toFloat())
+    main_value.setOnEditorActionListener { _, actionId, _ ->
+      if (EditorInfo.IME_ACTION_NEXT == actionId) {
+        hideKeyboard()
+        button.performClick()
+      }
+      true
+    }
     adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
+    adapter.setSelectedItem(selectedPaymentMethod)
 
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
@@ -189,6 +211,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
       imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
+  }
+
+  override fun setDefaultAmountValue(amount: String) {
+    setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
   override fun setValuesAdapter(values: List<FiatValue>) {
@@ -216,6 +242,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getKeyboardEvents(): Observable<Boolean> {
     return keyboardEvents
+  }
+
+  override fun onPause() {
+    hideKeyboard()
+    super.onPause()
   }
 
   override fun onDestroy() {
@@ -405,6 +436,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun showNoNetworkError() {
+    hideKeyboard()
     no_network.visibility = View.VISIBLE
     retry_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE

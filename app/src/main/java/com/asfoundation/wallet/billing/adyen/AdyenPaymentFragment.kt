@@ -69,14 +69,19 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   @Inject
   lateinit var billing: Billing
+
   @Inject
   lateinit var analytics: BillingAnalytics
+
   @Inject
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
+
   @Inject
   lateinit var adyenEnvironment: Environment
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var iabView: IabView
@@ -96,9 +101,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    backButton = PublishRelay.create<Boolean>()
-    paymentDataSubject = ReplaySubject.createWithSize<AdyenCardWrapper>(1)
-    paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
+    backButton = PublishRelay.create()
+    paymentDataSubject = ReplaySubject.createWithSize(1)
+    paymentDetailsSubject = PublishSubject.create()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
@@ -591,7 +596,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val transactionType: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_TYPE_KEY)) {
-      arguments!!.getString(TRANSACTION_TYPE_KEY)
+      arguments!!.getString(TRANSACTION_TYPE_KEY, "")
     } else {
       throw IllegalArgumentException("transaction type data not found")
     }
@@ -599,7 +604,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val paymentType: String by lazy {
     if (arguments!!.containsKey(PAYMENT_TYPE_KEY)) {
-      arguments!!.getString(PAYMENT_TYPE_KEY)
+      arguments!!.getString(PAYMENT_TYPE_KEY, "")
     } else {
       throw IllegalArgumentException("payment type data not found")
     }
@@ -607,7 +612,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val domain: String by lazy {
     if (arguments!!.containsKey(DOMAIN_KEY)) {
-      arguments!!.getString(DOMAIN_KEY)
+      arguments!!.getString(DOMAIN_KEY, "")
     } else {
       throw IllegalArgumentException("domain data not found")
     }
@@ -623,7 +628,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val transactionData: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_DATA_KEY)) {
-      arguments!!.getString(TRANSACTION_DATA_KEY)
+      arguments!!.getString(TRANSACTION_DATA_KEY, "")
     } else {
       throw IllegalArgumentException("transaction data not found")
     }
@@ -647,7 +652,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY_KEY)) {
-      arguments!!.getString(CURRENCY_KEY)
+      arguments!!.getString(CURRENCY_KEY, "")
     } else {
       throw IllegalArgumentException("currency data not found")
     }
@@ -655,7 +660,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)
+      arguments!!.getString(BONUS_KEY, "")
     } else {
       throw IllegalArgumentException("bonus data not found")
     }

@@ -5,6 +5,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
@@ -17,7 +18,8 @@ class PoaValidationLoadingPresenter(
     private val validationInfo: ValidationInfo,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val analytics: WalletValidationAnalytics
 ) {
 
   fun present() {
@@ -45,6 +47,7 @@ class PoaValidationLoadingPresenter(
   }
 
   private fun handleNext(status: WalletValidationStatus) {
+    handleVerificationAnalytics(status)
     when (status) {
       WalletValidationStatus.SUCCESS -> activity?.showSuccess()
       WalletValidationStatus.INVALID_INPUT -> handleError(
@@ -55,6 +58,14 @@ class PoaValidationLoadingPresenter(
       WalletValidationStatus.DOUBLE_SPENT ->
         activity?.showSuccess()
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
+    }
+  }
+
+  private fun handleVerificationAnalytics(status: WalletValidationStatus) {
+    if (status == WalletValidationStatus.SUCCESS) {
+      analytics.sendConfirmationEvent("success", "")
+    } else {
+      analytics.sendConfirmationEvent("error", status.name)
     }
   }
 
