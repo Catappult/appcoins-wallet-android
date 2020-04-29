@@ -84,6 +84,7 @@ project.ext {
   work_version = '2.3.4'
   zxing_android_version = '3.2.0@aar'
   zxing_version = '3.4.0'
+  sentry_version = '1.7.30'
 }
 
 task clean(type: Delete) {
