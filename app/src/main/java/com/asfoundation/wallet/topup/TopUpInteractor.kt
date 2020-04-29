@@ -71,6 +71,14 @@ class TopUpInteractor(private val repository: BdsRepository,
     chipValueIndexMap.clear()
   }
 
+  fun isBonusValidAndActive(): Boolean {
+    return gamificationInteractor.isBonusActiveAndValid()
+  }
+
+  fun isBonusValidAndActive(forecastBonusAndLevel: ForecastBonusAndLevel): Boolean {
+    return gamificationInteractor.isBonusActiveAndValid(forecastBonusAndLevel)
+  }
+
   private fun cacheChipValues(chipValues: List<FiatValue>) {
     for (index in chipValues.indices) {
       chipValueIndexMap[chipValues[index]] = index

@@ -24,6 +24,7 @@ interface TopUpFragmentView {
   fun toggleSwitchCurrencyOff()
   fun hideBonus()
   fun showBonus(bonus: BigDecimal, currency: String)
+  fun showBonus()
   fun showMaxValueWarning(value: String)
   fun showMinValueWarning(value: String)
   fun hideValueInputWarning()

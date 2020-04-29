@@ -301,20 +301,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun showLoading() {
     credit_card_info_container.visibility = View.GONE
     payment_methods.visibility = View.INVISIBLE
-    if (bonus_layout.visibility != View.GONE) {
-      bonus_layout.visibility = View.INVISIBLE
-      bonus_msg.visibility = View.INVISIBLE
-    }
     loading.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
     credit_card_info_container.visibility = View.VISIBLE
     payment_methods.visibility = View.VISIBLE
-    if (bonus_layout.visibility != View.GONE) {
-      bonus_layout.visibility = View.VISIBLE
-      bonus_msg.visibility = View.VISIBLE
-    }
     loading.visibility = View.INVISIBLE
   }
 
@@ -399,6 +391,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
+    bonus_layout.visibility = View.VISIBLE
+    bonus_msg.visibility = View.VISIBLE
+  }
+
+  override fun showBonus() {
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
   }

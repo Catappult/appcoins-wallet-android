@@ -21,6 +21,8 @@ class GamificationInteractor(
     private val defaultWallet: FindDefaultWalletInteract,
     private val conversionService: LocalCurrencyConversionService) {
 
+  private var isBonusActiveAndValid: Boolean = false
+
   fun getLevels(): Single<Levels> {
     return defaultWallet.find()
         .flatMap { gamification.getLevels(it.address) }
@@ -42,7 +44,9 @@ class GamificationInteractor(
                 map(appcBonusValue, localCurrency, userBonusAndLevel, amount)
               })
         }
+        .doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
   }
+
 
   private fun map(forecastBonus: ForecastBonus, fiatValue: FiatValue,
                   forecastBonusAndLevel: ForecastBonusAndLevel,
@@ -84,5 +88,13 @@ class GamificationInteractor(
   fun getAppcToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale)
         .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
+  }
+
+  fun isBonusActiveAndValid(): Boolean {
+    return isBonusActiveAndValid
+  }
+
+  fun isBonusActiveAndValid(forecastBonus: ForecastBonusAndLevel): Boolean {
+    return forecastBonus.status == ForecastBonus.Status.ACTIVE && forecastBonus.amount > BigDecimal.ZERO
   }
 }
