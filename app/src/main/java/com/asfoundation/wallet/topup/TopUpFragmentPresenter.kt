@@ -231,7 +231,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .observeOn(viewScheduler)
         .doOnNext {
           if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
-            view.hideBonus()
+            view.removeBonus()
           } else {
             val scaledBonus = formatter.scaleFiat(it.amount)
             view.showBonus(scaledBonus, it.currency)
