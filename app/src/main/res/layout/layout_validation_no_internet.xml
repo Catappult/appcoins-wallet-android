@@ -10,14 +10,6 @@
       android:layout_height="wrap_content"
       >
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/top_guideline"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1"
-        />
-
     <include
         android:id="@+id/no_network_base_layout"
         layout="@layout/no_network_base_layout"
@@ -25,7 +17,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_guideline"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <Button
