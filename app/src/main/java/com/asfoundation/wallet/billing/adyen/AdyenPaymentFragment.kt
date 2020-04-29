@@ -196,7 +196,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {
-      if(bonus_layout.visibility != GONE){
+      if(bonus.isNotEmpty()){
         bonus_layout.visibility = View.INVISIBLE
         bonus_msg.visibility = View.INVISIBLE
       }
@@ -435,7 +435,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun showBonus() {
-    if (bonus.isNotBlank()) {
+    if (bonus.isNotEmpty()) {
       bonus_layout?.visibility = VISIBLE
       bonus_layout_pre_selected?.visibility = VISIBLE
       bonus_msg?.visibility = VISIBLE

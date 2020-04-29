@@ -242,7 +242,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setBonus() {
-    if (bonus.isNotBlank()) {
+    if (bonus.isNotEmpty()) {
       //Build string for both landscape (header) and portrait (radio button) bonus layout
       appcoins_radio?.bonus_value?.text =
           getString(R.string.gamification_purchase_header_part_2, bonus)
@@ -254,8 +254,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         bonus_msg?.visibility = VISIBLE
       }
       appcoins_bonus_layout?.visibility = VISIBLE
-    }
-    else{
+    } else {
       appcoins_bonus_layout?.visibility = GONE
     }
   }
@@ -382,7 +381,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun showBonus() {
-    if (bonus.isNotBlank()) {
+    if (bonus.isNotEmpty()) {
       val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
       animation.duration = 250
       bonus_layout?.visibility = VISIBLE
