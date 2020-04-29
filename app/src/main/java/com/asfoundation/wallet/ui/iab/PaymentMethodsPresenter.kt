@@ -7,7 +7,6 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.repository.entity.TransactionData
-import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.AnalyticsSetUp
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -28,7 +27,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
-import java.math.BigDecimal
 import java.util.*
 
 class PaymentMethodsPresenter(
@@ -79,7 +77,7 @@ class PaymentMethodsPresenter(
     disposables.add(view.getPaymentSelection()
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
-          handleBonusVisibility(selectedPaymentMethod)
+          if (gamification.isBonusActiveAndValid()) handleBonusVisibility(selectedPaymentMethod)
           handlePositiveButtonText(selectedPaymentMethod)
         }
         .subscribe())
@@ -90,8 +88,10 @@ class PaymentMethodsPresenter(
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          if (it.status == ForecastBonus.Status.ACTIVE && it.amount > BigDecimal.ZERO) {
+          if (gamification.isBonusActiveAndValid(it)) {
             view.setBonus(it.amount, it.currency)
+          } else {
+            view.removeBonus()
           }
           gamificationLevel = it.level
           analyticsSetUp.setGamificationLevel(it.level)
@@ -231,7 +231,10 @@ class PaymentMethodsPresenter(
               getPaymentMethods(fiatValue)
                   .observeOn(viewScheduler)
                   .flatMapCompletable { paymentMethods ->
-                    Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
+                    Completable.fromAction {
+                      selectPaymentMethod(paymentMethods, fiatValue,
+                          gamification.isBonusActiveAndValid())
+                    }
                   }
             }
             .subscribeOn(networkThread)
@@ -239,13 +242,14 @@ class PaymentMethodsPresenter(
             .subscribe({ }, { this.showError(it) }))
   }
 
-  private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue) {
+  private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
+                                  isBonusActive: Boolean) {
     val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
     val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
     if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
       getCreditsPaymentMethod(paymentMethods)?.let {
         if (it.isEnabled) {
-          showPreSelectedPaymentMethod(fiatValue, it, fiatAmount, appcAmount)
+          showPreSelectedPaymentMethod(fiatValue, it, fiatAmount, appcAmount, isBonusActive)
           return
         }
       }
@@ -264,7 +268,8 @@ class PaymentMethodsPresenter(
             view.showAdyen(fiatValue,
                 PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)
           }
-          else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount)
+          else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
+              isBonusActive)
         }
       }
     } else {
@@ -296,11 +301,12 @@ class PaymentMethodsPresenter(
   }
 
   private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,
-                                           fiatAmount: String, appcAmount: String) {
+                                           fiatAmount: String, appcAmount: String,
+                                           isBonusActive: Boolean) {
     view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
         TransactionData.TransactionType.DONATION.name
             .equals(transaction.type, ignoreCase = true),
-        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount)
+        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive)
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -488,7 +494,6 @@ class PaymentMethodsPresenter(
           .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper
           .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
-      else -> view.showBonus()
     }
   }
 

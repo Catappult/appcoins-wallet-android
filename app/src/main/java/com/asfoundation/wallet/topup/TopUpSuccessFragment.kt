@@ -110,7 +110,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    if (bonus.isNotBlank()) {
+    if (bonus.isNotEmpty()) {
       top_up_success_animation.setAnimation(R.raw.top_up_bonus_success_animation)
       setAnimationText()
       formatBonusSuccessMessage()
