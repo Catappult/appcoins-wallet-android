@@ -100,6 +100,7 @@ android {
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
+      buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
     }
@@ -122,6 +123,7 @@ android {
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
+      buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
@@ -231,6 +233,8 @@ dependencies {
   implementation "com.hbb20:ccp:$project.cpp_version"
 
   implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout_version"
+
+  implementation "io.sentry:sentry-android:$project.sentry_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
