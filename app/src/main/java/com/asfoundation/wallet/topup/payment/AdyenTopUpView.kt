@@ -60,4 +60,6 @@ interface AdyenTopUpView {
   fun getSupportClicks(): Observable<Any>
 
   fun hideSpecificError()
+
+  fun lockRotation()
 }

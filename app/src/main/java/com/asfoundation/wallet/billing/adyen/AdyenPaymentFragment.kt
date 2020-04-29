@@ -266,6 +266,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
+    iabView.unlockRotation()
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_iab_error?.visibility = GONE
     fragment_iab_error_pre_selected?.visibility = GONE
@@ -292,6 +293,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showCvvError() {
+    iabView.unlockRotation()
     hideLoadingAndShowView()
     if (isStored) {
       change_card_button?.visibility = VISIBLE

@@ -142,6 +142,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
             .doOnNext {
               view.showLoading()
+              view.lockRotation()
               view.setFinishingPurchase()
             }
             .observeOn(networkScheduler)
@@ -288,6 +289,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       else view.showGenericError()
     } else {
       view.showLoading()
+      view.lockRotation()
       view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
       handlePaymentDetails(priceAmount, priceCurrency)
       navigator.navigateToUriForResult(paymentModel.redirectUrl)
