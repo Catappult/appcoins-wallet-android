@@ -160,7 +160,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun onResume() {
-    focusAndShowKeyboard(main_value)
+    //added since this fragment continues active after navigating to AdyenToUpFragment
+    if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(main_value)
     super.onResume()
   }
 
