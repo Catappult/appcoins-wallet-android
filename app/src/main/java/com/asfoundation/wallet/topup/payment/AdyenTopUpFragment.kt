@@ -170,6 +170,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun showNetworkError() {
+    topUpView.unlockRotation()
     loading.visibility = GONE
     no_network.visibility = VISIBLE
     retry_button.visibility = VISIBLE
@@ -234,6 +235,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
+    topUpView.unlockRotation()
     loading.visibility = GONE
     if (isStored) {
       change_card_button.visibility = VISIBLE
