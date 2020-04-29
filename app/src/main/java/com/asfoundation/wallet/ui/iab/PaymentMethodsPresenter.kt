@@ -92,6 +92,8 @@ class PaymentMethodsPresenter(
         .doOnSuccess {
           if (it.status == ForecastBonus.Status.ACTIVE && it.amount > BigDecimal.ZERO) {
             view.setBonus(it.amount, it.currency)
+          } else {
+            view.removeBonus()
           }
           gamificationLevel = it.level
           analyticsSetUp.setGamificationLevel(it.level)
@@ -488,7 +490,6 @@ class PaymentMethodsPresenter(
           .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper
           .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
-      else -> view.showBonus()
     }
   }
 

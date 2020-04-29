@@ -186,7 +186,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                   paymentMethodId: String) {
     pre_selected_payment_method_group.visibility = View.GONE
     payment_methods_list_group.visibility = View.VISIBLE
-    bottom_separator?.visibility = View.VISIBLE
 
     var radioButton: AppCompatRadioButton
     if (isBds) {
@@ -509,18 +508,30 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
     no_bonus_msg?.visibility = View.INVISIBLE
+    bottom_separator?.visibility = View.VISIBLE
+  }
+
+  override fun removeBonus() {
+    bonus_layout.visibility = View.GONE
+    bonus_msg.visibility = View.GONE
+    no_bonus_msg?.visibility = View.GONE
+    bottom_separator?.visibility = View.GONE
   }
 
   override fun hideBonus() {
-    bonus_layout.visibility = View.INVISIBLE
-    bonus_msg.visibility = View.INVISIBLE
-    bottom_separator?.visibility = View.INVISIBLE
+    if (bonus_layout.visibility != View.GONE) {
+      bonus_layout.visibility = View.INVISIBLE
+      bonus_msg.visibility = View.INVISIBLE
+      bottom_separator?.visibility = View.INVISIBLE
+    }
   }
 
   override fun replaceBonus() {
-    bonus_layout.visibility = View.INVISIBLE
-    bonus_msg.visibility = View.INVISIBLE
-    no_bonus_msg?.visibility = View.VISIBLE
+    if (bonus_layout.visibility != View.GONE) {
+      bonus_layout.visibility = View.INVISIBLE
+      bonus_msg.visibility = View.INVISIBLE
+      no_bonus_msg?.visibility = View.VISIBLE
+    }
   }
 
   override fun showWalletBlocked() = iabView.showWalletBlocked()

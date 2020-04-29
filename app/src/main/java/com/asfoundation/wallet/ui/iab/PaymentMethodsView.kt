@@ -63,4 +63,5 @@ interface PaymentMethodsView {
     ASK_FRIEND("ask_friend")
   }
 
+  fun removeBonus()
 }
