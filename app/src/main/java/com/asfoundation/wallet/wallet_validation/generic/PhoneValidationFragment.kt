@@ -118,6 +118,7 @@ class PhoneValidationFragment : DaggerFragment(),
     stopRetryAnimation()
     content_main.visibility = View.GONE
     layout_validation_no_internet.visibility = View.VISIBLE
+    if(!hasBeenInvitedFlow) later_button.visibility = View.GONE
   }
 
   override fun hideNoInternetView() {
@@ -205,7 +206,7 @@ class PhoneValidationFragment : DaggerFragment(),
 
   private fun stopRetryAnimation() {
     retry_button.visibility = View.VISIBLE
-    later_button.visibility = View.VISIBLE
+    if(!hasBeenInvitedFlow) later_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
   }
 
