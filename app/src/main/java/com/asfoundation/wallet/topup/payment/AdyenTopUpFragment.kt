@@ -133,6 +133,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     presenter.onSaveInstanceState(outState)
   }
 
+  override fun onResume() {
+    super.onResume()
+    hideKeyboard()
+  }
 
   override fun showValues(value: String, currency: String) {
     main_value.visibility = VISIBLE
