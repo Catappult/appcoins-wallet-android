@@ -130,6 +130,14 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    if (this::adyenCardNumberLayout.isInitialized) {
+      outState.apply {
+        putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
+        putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
+        putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
+        putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch?.isChecked ?: false)
+      }
+    }
     presenter.onSaveInstanceState(outState)
   }
 
@@ -159,11 +167,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     change_card_button.visibility = INVISIBLE
   }
 
-  override fun showFinishingLoading() {
-    topUpView.lockOrientation()
-    showLoading()
-  }
-
   override fun hideLoading() {
     loading.visibility = GONE
     button.isEnabled = false
@@ -171,7 +174,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun showNetworkError() {
-    topUpView.lockOrientation()
+    topUpView.unlockRotation()
     loading.visibility = GONE
     no_network.visibility = VISIBLE
     retry_button.visibility = VISIBLE
@@ -236,7 +239,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
-    topUpView.lockOrientation()
+    topUpView.unlockRotation()
     loading.visibility = GONE
     if (isStored) {
       change_card_button.visibility = VISIBLE
@@ -263,7 +266,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun showCvvError() {
-    topUpView.lockOrientation()
+    topUpView.unlockRotation()
     loading.visibility = GONE
     button.isEnabled = false
     if (isStored) {
@@ -301,6 +304,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     handleLayoutVisibility(isStored)
     prepareCardComponent(paymentMethod, forget, savedInstanceState)
     setStoredPaymentInformation(isStored)
+  }
+
+  override fun lockRotation() {
+    topUpView.lockOrientation()
   }
 
   private fun prepareCardComponent(

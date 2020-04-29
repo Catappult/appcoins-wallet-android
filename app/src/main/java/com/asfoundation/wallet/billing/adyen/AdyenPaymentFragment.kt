@@ -292,6 +292,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showCvvError() {
+    iabView.unlockRotation()
     hideLoadingAndShowView()
     if (isStored) {
       change_card_button?.visibility = VISIBLE
