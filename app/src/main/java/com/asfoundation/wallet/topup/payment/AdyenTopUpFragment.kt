@@ -163,11 +163,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     change_card_button.visibility = INVISIBLE
   }
 
-  override fun showFinishingLoading() {
-    topUpView.lockOrientation()
-    showLoading()
-  }
-
   override fun hideLoading() {
     loading.visibility = GONE
     button.isEnabled = false
@@ -175,7 +170,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun showNetworkError() {
-    topUpView.lockOrientation()
     loading.visibility = GONE
     no_network.visibility = VISIBLE
     retry_button.visibility = VISIBLE

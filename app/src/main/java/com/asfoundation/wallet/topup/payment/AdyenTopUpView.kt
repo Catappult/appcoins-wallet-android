@@ -14,8 +14,6 @@ interface AdyenTopUpView {
 
   fun showLoading()
 
-  fun showFinishingLoading()
-
   fun hideLoading()
 
   fun showNetworkError()
