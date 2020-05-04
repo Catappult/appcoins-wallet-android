@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     >
 
-  <include layout="@layout/fragment_rewards_level" />
+  <include
+      layout="@layout/fragment_rewards_level"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="100dp"
+      />
 
   <View
       android:id="@+id/bottomsheet_shadow"
