@@ -14,7 +14,6 @@ import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.di.AppComponent
 import com.asfoundation.wallet.di.DaggerAppComponent
 import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.logging.CrashlyticsReceiver
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.SentryReceiver
@@ -22,12 +21,9 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.support.SupportNotificationWorker
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.core.CrashlyticsCore
 import com.flurry.android.FlurryAgent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import io.fabric.sdk.android.Fabric
 import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
@@ -39,28 +35,40 @@ import javax.inject.Inject
 class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvider {
   @Inject
   lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
   @Inject
   lateinit var proofOfAttentionService: ProofOfAttentionService
+
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   @Inject
   lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
+
   @Inject
   lateinit var bdsApi: BdsApi
+
   @Inject
   lateinit var walletService: WalletService
+
   @Inject
   lateinit var proxyService: ProxyService
+
   @Inject
   lateinit var appcoinsRewards: AppcoinsRewards
+
   @Inject
   lateinit var billingMessagesMapper: BillingMessagesMapper
+
   @Inject
   lateinit var bdsapiSecondary: BdsApiSecondary
+
   @Inject
   lateinit var idsRepository: IdsRepository
+
   @Inject
   lateinit var logger: Logger
+
   @Inject
   lateinit var rakamAnalytics: RakamAnalytics
 
@@ -78,7 +86,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     setupWorkManager(appComponent)
     setupSupportNotificationWorker()
     initiateFlurry()
-    initiateCrashlytics()
     inAppPurchaseInteractor.start()
     proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
@@ -104,7 +111,9 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   private fun setupWorkManager(appComponent: AppComponent) {
     WorkManager.initialize(this,
-        Configuration.Builder().setWorkerFactory(appComponent.daggerWorkerFactory()).build())
+        Configuration.Builder()
+            .setWorkerFactory(appComponent.daggerWorkerFactory())
+            .build())
   }
 
   private fun setupSupportNotificationWorker() {
@@ -119,12 +128,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     WorkManager.getInstance(this)
         .enqueueUniquePeriodicWork(SupportNotificationWorker.UNIQUE_WORKER_NAME,
             ExistingPeriodicWorkPolicy.KEEP, notificationWorkRequest)
-  }
-
-  private fun initiateCrashlytics() {
-    Fabric.with(this, Crashlytics.Builder().core(
-        CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build())
-    logger.addReceiver(CrashlyticsReceiver())
   }
 
   private fun initiateFlurry() {
@@ -155,9 +158,9 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   override fun walletService() = walletService
 
-  override fun proxyService()= proxyService
+  override fun proxyService() = proxyService
 
-  override fun billingMessagesMapper()= billingMessagesMapper
+  override fun billingMessagesMapper() = billingMessagesMapper
 
   override fun bdsApiSecondary() = bdsapiSecondary
 }

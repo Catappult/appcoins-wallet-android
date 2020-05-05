@@ -1,23 +1,9 @@
 import groovy.json.JsonSlurper
 
-buildscript {
-  repositories {
-    maven { url 'https://maven.fabric.io/public' }
-  }
-
-  dependencies {
-    classpath 'io.fabric.tools:gradle:1.25.4'
-  }
-}
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
-repositories {
-  maven { url 'https://maven.fabric.io/public' }
-}
 
 android {
   buildToolsVersion '29.0.3'
@@ -71,7 +57,6 @@ android {
     buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
-    manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
   }
 
   signingConfigs {
@@ -106,7 +91,6 @@ android {
     }
     debug {
       minifyEnabled false
-      ext.enableCrashlytics = false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       versionNameSuffix ".dev"
@@ -239,10 +223,6 @@ dependencies {
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
   androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
-
-  implementation("com.crashlytics.sdk.android:crashlytics:$project.crashlytics_sdk_version") {
-    transitive = true
-  }
 }
 
 def renameArtifact(defaultConfig) {
