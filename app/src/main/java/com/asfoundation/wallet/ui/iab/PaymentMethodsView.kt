@@ -12,7 +12,7 @@ interface PaymentMethodsView {
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                    isDonation: Boolean, currency: String, fiatAmount: String,
-                                   appcAmount: String)
+                                   appcAmount: String, isBonusActive: Boolean)
 
   fun showError(message: Int)
   fun showItemAlreadyOwnedError()
@@ -63,4 +63,5 @@ interface PaymentMethodsView {
     ASK_FRIEND("ask_friend")
   }
 
+  fun removeBonus()
 }

@@ -45,8 +45,8 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: TopUpSuccessPresenter
-
   private lateinit var topUpActivityView: TopUpActivityView
+
   val amount: String? by lazy {
     if (arguments!!.containsKey(PARAM_AMOUNT)) {
       arguments!!.getString(PARAM_AMOUNT)
@@ -110,7 +110,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    if (bonus.isNotBlank()) {
+    if (bonus.isNotEmpty()) {
       top_up_success_animation.setAnimation(R.raw.top_up_bonus_success_animation)
       setAnimationText()
       formatBonusSuccessMessage()
@@ -130,7 +130,6 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   override fun close() {
     topUpActivityView.close(true)
   }
-
 
   override fun getOKClicks(): Observable<Any> {
     return RxView.clicks(button)

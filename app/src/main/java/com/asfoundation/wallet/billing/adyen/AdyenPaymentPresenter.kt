@@ -383,7 +383,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .observeOn(networkScheduler)
         .doOnSuccess { transaction ->
           analytics.sendPaymentSuccessEvent(domain, transaction.skuId,
-              transaction.amount().toString(),
+              transaction.amount()
+                  .toString(),
               mapPaymentToAnalytics(paymentType), transaction.type)
         }
         .subscribe({}, { it.printStackTrace() }))

@@ -105,6 +105,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     return super.onOptionsItemSelected(item)
   }
 
+  override fun navigateBack() {
+    if (supportFragmentManager.backStackEntryCount != 0) {
+      supportFragmentManager.popBackStack()
+    } else {
+      close(true)
+    }
+  }
+
   override fun setupToolbar() {
     toolbar()
   }

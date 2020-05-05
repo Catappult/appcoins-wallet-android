@@ -14,25 +14,15 @@ interface AdyenTopUpView {
 
   fun showLoading()
 
-  fun showFinishingLoading()
-
   fun hideLoading()
 
   fun showNetworkError()
-
-  fun showGenericError()
 
   fun updateTopUpButton(valid: Boolean)
 
   fun cancelPayment()
 
   fun setFinishingPurchase()
-
-  fun errorDismisses(): Observable<Any>
-
-  fun errorCancels(): Observable<Any>
-
-  fun errorPositiveClicks(): Observable<Any>
 
   fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean, forget: Boolean,
                               savedInstanceState: Bundle?)
@@ -60,4 +50,14 @@ interface AdyenTopUpView {
   fun getSupportClicks(): Observable<Any>
 
   fun hideSpecificError()
+
+  fun lockRotation()
+
+  fun retryClick(): Observable<Any>
+
+  fun hideNoNetworkError()
+
+  fun showRetryAnimation()
+
+  fun navigateToPaymentSelection()
 }

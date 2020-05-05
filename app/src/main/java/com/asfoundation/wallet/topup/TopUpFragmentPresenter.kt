@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.topup
 
 import android.util.Log
-import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -112,22 +111,28 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleNextClick() {
     disposables.add(
         view.getNextClick()
-            .filter {
-              val limitValues = interactor.getLimitTopUpValues()
-                  //TODO check if we can do this in a flatmap
+            .flatMap { topUpData ->
+              interactor.getLimitTopUpValues()
+                  .toObservable()
+                  .filter {
+                    isCurrencyValid(topUpData.currency) && isValueInRange(it,
+                        topUpData.currency.fiatValue.toDouble())
+                  }
                   .subscribeOn(networkScheduler)
-                  .blockingGet()
-              isCurrencyValid(it.currency) && isValueInRange(limitValues,
-                  it.currency.fiatValue.toDouble())
-            }
-            .observeOn(viewScheduler)
-            .doOnNext {
-              view.showLoading()
-              topUpAnalytics.sendSelectionEvent(it.currency.appcValue.toDouble(), "next",
-                  it.paymentMethod!!.name)
-              activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "TOPUP",
-                  it.bonusValue, gamificationLevel)
-              view.hideLoading()
+                  .observeOn(viewScheduler)
+                  .doOnNext {
+                    val isValidBonus = interactor.isBonusValidAndActive()
+                    view.showLoading()
+                    if (isValidBonus) view.hideBonus()
+                    topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
+                        "next",
+                        topUpData.paymentMethod!!.name)
+                    activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
+                        topUpData.selectedCurrency, "TOPUP",
+                        topUpData.bonusValue, gamificationLevel)
+                    view.hideLoading()
+                    if (isValidBonus) view.showBonus()
+                  }
             }
             .subscribe())
   }
@@ -227,11 +232,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext {
-          if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
-            view.hideBonus()
-          } else {
+          if (interactor.isBonusValidAndActive(it)) {
             val scaledBonus = formatter.scaleFiat(it.amount)
             view.showBonus(scaledBonus, it.currency)
+          } else {
+            view.removeBonus()
           }
           view.setNextButtonState(true)
           gamificationLevel = it.level
