@@ -17,6 +17,7 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ManageWalletsRouter
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -29,13 +30,18 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   internal lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+
   @Inject
   internal lateinit var manageWalletsRouter: ManageWalletsRouter
+
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+
   @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
+  @Inject
+  lateinit var supportInteractor: SupportInteractor
   private lateinit var presenter: SettingsPresenter
 
 
@@ -105,6 +111,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     setPermissionPreference()
     setSourceCodePreference()
     setBugReportPreference()
+    setIssueReportPreference()
     setTwitterPreference()
     setTelegramPreference()
     setFacebookPreference()
@@ -187,6 +194,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     bugReportPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
           Uri.parse("https://github.com/Aptoide/appcoins-wallet-android/issues/new"), false)
+      false
+    }
+  }
+
+  private fun setIssueReportPreference() {
+    val bugReportPreference = findPreference<Preference>("pref_report_issue")
+    bugReportPreference?.setOnPreferenceClickListener {
+      supportInteractor.displayChatScreen()
       false
     }
   }

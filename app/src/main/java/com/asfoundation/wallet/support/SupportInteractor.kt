@@ -14,6 +14,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
   private var currentUser = ""
 
   fun displayChatScreen() {
+    resetUnreadConversations()
     Intercom.client()
         .displayMessenger()
   }
@@ -54,7 +55,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
 
   fun updateUnreadConversations() = preferences.updateUnreadConversations(getUnreadConversations())
 
-  fun resetUnreadConversations() = preferences.resetUnreadConversations()
+  private fun resetUnreadConversations() = preferences.resetUnreadConversations()
 
   private fun getUnreadConversations(): Int = Intercom.client().unreadConversationCount
 
