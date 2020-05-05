@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.backup
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
 
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var presenter: BackupCreationPresenter
+  private lateinit var activityView: BackupActivityView
 
   companion object {
     private const val PARAM_WALLET_ADDR = "PARAM_WALLET_ADDR"
@@ -28,7 +30,7 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BackupCreationPresenter(this)
+    presenter = BackupCreationPresenter(activityView,this)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +49,13 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
     presenter.presenter()
     animation.playAnimation()
+  }
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(
+        context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
+    activityView = context
   }
 
   override fun shareFile(uri: String) {

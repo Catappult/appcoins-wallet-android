@@ -1,19 +1,37 @@
 package com.asfoundation.wallet.ui.backup
 
-class BackupCreationPresenter(private val view: BackupCreationView) {
+import io.reactivex.disposables.CompositeDisposable
 
+class BackupCreationPresenter(private val activityView: BackupActivityView,
+                              private val view: BackupCreationView) {
+
+  private val disposables = CompositeDisposable()
   private var fileShared = false
+
   fun presenter() {
     handleBackupClick()
+    handleCloseBtnClick()
   }
 
   private fun handleBackupClick() {
-    view.getPositiveButtonClick()
-        .map {
-          view.shareFile("")
-          fileShared = true
+    disposables.add(view.getPositiveButtonClick()
+        .doOnNext {
+          if (fileShared) {
+            activityView.closeScreen()
+          } else {
+            view.shareFile("")
+            fileShared = true
+          }
         }
-        .subscribe()
+        .subscribe())
+  }
+
+  private fun handleCloseBtnClick() {
+    disposables.add(view.getNegativeButtonClick()
+        .doOnNext {
+          activityView.showSuccessScreen()
+        }
+        .subscribe())
   }
 
   fun onResume() {
@@ -21,6 +39,4 @@ class BackupCreationPresenter(private val view: BackupCreationView) {
       view.showConfirmation()
     }
   }
-
-
 }

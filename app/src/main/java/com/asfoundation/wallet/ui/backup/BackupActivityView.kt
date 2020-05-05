@@ -8,4 +8,8 @@ interface BackupActivityView {
 
   fun startWalletBackup()
 
+  fun showSuccessScreen()
+
+  fun closeScreen()
+
 }

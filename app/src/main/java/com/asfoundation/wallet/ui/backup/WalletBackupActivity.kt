@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
+import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
 
@@ -32,7 +33,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   private val walletAddr: String by lazy {
     if (intent.extras!!.containsKey(WALLET_ADDRESS)) {
-      intent.extras!!.getString(WALLET_ADDRESS)
+      intent.extras!!.getString(WALLET_ADDRESS)!!
     } else {
       throw IllegalArgumentException("application package name data not found")
     }
@@ -66,6 +67,16 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     } else {
       requestStorageWritePermission()
     }
+  }
+
+  override fun showSuccessScreen() {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, BackupSuccessFragment.newInstance())
+        .commit()
+  }
+
+  override fun closeScreen() {
+    TransactionsRouter().open(this, true)
   }
 
   private fun requestStorageWritePermission() {
