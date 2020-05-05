@@ -46,7 +46,7 @@
         android:title="@string/title_report_bug" />
 
     <Preference
-        android:icon="@drawable/ic_settings_bugreport"
+        android:icon="@drawable/ic_issue_report"
         android:key="pref_report_issue"
         android:layout="@layout/preference_without_summary_layout"
         android:title="Report an issue" />
