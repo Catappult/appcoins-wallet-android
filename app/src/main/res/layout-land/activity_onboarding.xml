@@ -41,7 +41,7 @@
       >
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_onboarding"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="H, 32:7"
@@ -86,21 +86,29 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.70"
+        app:layout_constraintGuide_percent="0.71"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.78"
         />
 
     <Button
         android:id="@+id/been_invited_bonus"
         style="@style/ButtonStyle.Light"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
         android:clickable="true"
         android:focusable="true"
-        android:minWidth="64dp"
-        android:minHeight="36dp"
+        android:maxHeight="40dp"
         android:text="@string/referral_onboarding_redeem_button"
-        android:visibility="gone"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/button_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
