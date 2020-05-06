@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_backup_creation_layout.*
 
 class BackupCreationFragment: BackupCreationView, DaggerFragment() {
 
-  private lateinit var fragmentContainer: ViewGroup
   private lateinit var presenter: BackupCreationPresenter
   private lateinit var activityView: BackupActivityView
 
@@ -35,7 +34,6 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    fragmentContainer = container!!
     return inflater.inflate(R.layout.fragment_backup_creation_layout, container, false)
   }
 

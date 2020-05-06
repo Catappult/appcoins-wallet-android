@@ -24,7 +24,6 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   lateinit var balanceInteract: BalanceInteract
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
-  private lateinit var fragmentContainer: ViewGroup
   private lateinit var presenter: BackupWalletFragmentPresenter
   private lateinit var activityView: BackupActivityView
 
@@ -57,7 +56,6 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    fragmentContainer = container!!
     return inflater.inflate(R.layout.fragment_backup_wallet_layout, container, false)
   }
 
