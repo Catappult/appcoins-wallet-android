@@ -46,17 +46,15 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
     }
   }
 
-  fun getUnreadConversationCount(): Observable<Int> {
-    return Observable.just(Intercom.client().unreadConversationCount)
-  }
+  fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
 
-  fun shouldShowNotification(): Boolean =
+  fun shouldShowNotification() =
       getUnreadConversations() > preferences.checkSavedUnreadConversations()
 
   fun updateUnreadConversations() = preferences.updateUnreadConversations(getUnreadConversations())
 
   private fun resetUnreadConversations() = preferences.resetUnreadConversations()
 
-  private fun getUnreadConversations(): Int = Intercom.client().unreadConversationCount
+  private fun getUnreadConversations() = Intercom.client().unreadConversationCount
 
 }

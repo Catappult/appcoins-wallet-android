@@ -70,9 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun startBrowserActivity(uri: Uri, newTaskFlag: Boolean) {
     try {
       val intent = Intent(Intent.ACTION_VIEW, uri)
-      if (newTaskFlag) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
+      if (newTaskFlag) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       startActivity(intent)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
@@ -288,8 +286,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun getVersion(): String? {
     var version: String? = "N/A"
     try {
-      val pInfo = activity?.packageManager?.getPackageInfo(activity?.packageName, 0)
-      version = pInfo?.versionName
+      activity?.let {
+        val pInfo = it.packageManager?.getPackageInfo(it.packageName, 0)
+        version = pInfo?.versionName
+      }
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
