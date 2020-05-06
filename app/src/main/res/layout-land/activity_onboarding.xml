@@ -41,10 +41,10 @@
       >
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_onboarding"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/animation_guideline"
+        app:layout_constraintDimensionRatio="H, 32:7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +56,7 @@
         android:id="@+id/page_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lottie_onboarding"
@@ -81,13 +81,6 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/animation_guideline"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40"
-        />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/text_guideline"
         android:layout_width="match_parent"
@@ -120,7 +113,6 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/terms_conditions_warning"
         app:layout_constraintEnd_toStartOf="@+id/next_button"
