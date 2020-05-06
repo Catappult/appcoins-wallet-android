@@ -9,6 +9,7 @@
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
   <application
       android:name="com.asfoundation.wallet.App"
       android:allowBackup="false"
@@ -24,9 +25,10 @@
         android:enabled="true"
         android:exported="false" />
 
-    <receiver android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
+    <receiver
+        android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
         android:enabled="true"
-        android:exported="false"/>
+        android:exported="false" />
 
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
@@ -205,9 +207,6 @@
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
 
-    <meta-data
-        android:name="io.fabric.ApiKey"
-        android:value="${fabricApiKey}" />
 
     <service
         android:name="com.asfoundation.wallet.advertise.WalletPoAService"
