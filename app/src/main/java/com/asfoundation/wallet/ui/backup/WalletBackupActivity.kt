@@ -64,6 +64,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         == PackageManager.PERMISSION_GRANTED) {
       Toast.makeText(this, "backup wallet in file", Toast.LENGTH_LONG)
+          .show()
     } else {
       requestStorageWritePermission()
     }
@@ -75,9 +76,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
         .commit()
   }
 
-  override fun closeScreen() {
-    TransactionsRouter().open(this, true)
-  }
+  override fun closeScreen() = TransactionsRouter().open(this, true)
 
   private fun requestStorageWritePermission() {
     Log.e("TEST", "Requesting file system write permission")
@@ -101,11 +100,11 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
             + grantResults[0])
       }
     } else {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
   }
-}
 
-override fun setupToolbar() {
-  toolbar()
-}
+  override fun setupToolbar() {
+    toolbar()
+  }
 }

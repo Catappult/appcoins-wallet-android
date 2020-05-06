@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.animation
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 
@@ -19,23 +19,17 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
   companion object {
     @JvmStatic
-    fun newInstance(): BackupSuccessFragment {
-      return BackupSuccessFragment()
-    }
+    fun newInstance() = BackupSuccessFragment()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BackupSuccessFragmentPresenter(this, activityView)
+    presenter = BackupSuccessFragmentPresenter(this, activityView, CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_backup_success_layout, container, false)
-  }
-
-  override fun onResume() {
-    super.onResume()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,14 +45,14 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(
-        context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
+    check(context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
     activityView = context
   }
 
-  override fun getCloseButtonClick(): Observable<Any> {
-    return RxView.clicks(close_btn)
+  override fun getCloseButtonClick() = RxView.clicks(close_btn)
+
+  override fun onDestroy() {
+    presenter.stop()
+    super.onDestroy()
   }
-
-
 }

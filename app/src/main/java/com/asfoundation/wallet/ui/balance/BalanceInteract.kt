@@ -45,20 +45,20 @@ class BalanceInteract(
   }
 
   private fun getStoredAppcBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (if (walletAddress != null) Single.just(
-        walletAddress) else walletInteract.find().map { it.address })
+    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+        .map { it.address })
         .flatMap { balanceRepository.getStoredAppcBalance(it) }
   }
 
   private fun getStoredEthBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (if (walletAddress != null) Single.just(
-        walletAddress) else walletInteract.find().map { it.address })
+    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+        .map { it.address })
         .flatMap { balanceRepository.getStoredEthBalance(it) }
   }
 
   private fun getStoredCreditsBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (if (walletAddress != null) Single.just(
-        walletAddress) else walletInteract.find().map { it.address })
+    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+        .map { it.address })
         .flatMap { balanceRepository.getStoredCreditsBalance(it) }
   }
 

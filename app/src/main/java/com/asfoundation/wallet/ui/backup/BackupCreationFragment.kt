@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.backup
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,26 +9,21 @@ import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.*
 
-class BackupCreationFragment: BackupCreationView, DaggerFragment() {
+class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   private lateinit var presenter: BackupCreationPresenter
   private lateinit var activityView: BackupActivityView
 
   companion object {
-    private const val PARAM_WALLET_ADDR = "PARAM_WALLET_ADDR"
-
     @JvmStatic
-    fun newInstance(): BackupCreationFragment {
-      return BackupCreationFragment()
-    }
+    fun newInstance() = BackupCreationFragment()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BackupCreationPresenter(activityView,this)
+    presenter = BackupCreationPresenter(activityView, this)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +33,6 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
 
   override fun onResume() {
     super.onResume()
-    Log.e("BackupCreationFragment", "onResume")
     presenter.onResume()
   }
 
@@ -51,8 +44,7 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(
-        context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
+    check(context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
     activityView = context
   }
 
@@ -64,24 +56,18 @@ class BackupCreationFragment: BackupCreationView, DaggerFragment() {
         .startChooser()
   }
 
-  override fun getPositiveButtonClick(): Observable<Any> {
-    return RxView.clicks(proceed_btn)
-  }
+  override fun getPositiveButtonClick() = RxView.clicks(proceed_btn)
 
-  override fun getNegativeButtonClick(): Observable<Any> {
-    return RxView.clicks(done_btn)
-  }
+  override fun getNegativeButtonClick() = RxView.clicks(done_btn)
 
   override fun showConfirmation() {
     animation.cancelAnimation()
     animation.visibility = View.INVISIBLE
-    img.setImageResource(R.drawable.ic_bkp_confirm)
-    img.visibility =  View.VISIBLE
+    backup_confirmation_image.setImageResource(R.drawable.ic_backup_confirm)
+    backup_confirmation_image.visibility = View.VISIBLE
     title.setText(R.string.backup_done_title)
     description.setText(R.string.backup_done_body)
     done_btn.visibility = View.VISIBLE
     proceed_btn.text = getText(R.string.backup_confirmation_yes)
   }
-
-
 }

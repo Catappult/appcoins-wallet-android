@@ -26,8 +26,7 @@ import kotlinx.android.synthetic.main.import_create_buttons_layout.*
 import kotlinx.android.synthetic.main.wallets_layout.*
 import javax.inject.Inject
 
-class WalletsFragment : DaggerFragment(),
-    WalletsView {
+class WalletsFragment : DaggerFragment(), WalletsView {
 
   @Inject
   lateinit var walletsInteract: WalletsInteract
@@ -96,26 +95,18 @@ class WalletsFragment : DaggerFragment(),
     else other_wallets_header.visibility = View.VISIBLE
   }
 
-  override fun otherWalletCardClicked(): Observable<String> {
-    return uiEventListener!!
-  }
+  override fun otherWalletCardClicked() = uiEventListener!!
 
-  override fun activeWalletCardClicked(): Observable<String> {
-    return RxView.clicks(active_wallet_card)
-        .map { active_wallet_address.text.toString() }
-  }
+  override fun activeWalletCardClicked(): Observable<String> = RxView.clicks(active_wallet_card)
+      .map { active_wallet_address.text.toString() }
 
-  override fun importWalletClicked(): Observable<Any> {
-    return Observable.merge(RxView.clicks(import_button), RxView.clicks(import_text))
-  }
+  override fun importWalletClicked(): Observable<Any> =
+      Observable.merge(RxView.clicks(import_button), RxView.clicks(import_text))
 
-  override fun createNewWalletClicked(): Observable<Any> {
-    return Observable.merge(RxView.clicks(create_new_button), RxView.clicks(create_new_wallet_text))
-  }
+  override fun createNewWalletClicked(): Observable<Any> =
+      Observable.merge(RxView.clicks(create_new_button), RxView.clicks(create_new_wallet_text))
 
-  override fun navigateToImportView() {
-    activityView.navigateToImportView()
-  }
+  override fun navigateToImportView() = activityView.navigateToImportView()
 
   override fun showCreatingAnimation() {
     val parentFragment = provideParentFragment()
@@ -127,9 +118,8 @@ class WalletsFragment : DaggerFragment(),
     parentFragment?.showWalletCreatedAnimation()
   }
 
-  override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {
-    activityView.navigateToWalletDetailView(walletAddress, isActive)
-  }
+  override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) =
+      activityView.navigateToWalletDetailView(walletAddress, isActive)
 
   override fun collapseBottomSheet() {
     val parentFragment = provideParentFragment()

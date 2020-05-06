@@ -174,7 +174,7 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
 
   private val walletAddress: String by lazy {
     if (arguments!!.containsKey(WALLET_ADDRESS_KEY)) {
-      arguments!!.getString(WALLET_ADDRESS_KEY)
+      arguments!!.getString(WALLET_ADDRESS_KEY)!!
     } else {
       throw IllegalArgumentException("walletAddress not found")
     }

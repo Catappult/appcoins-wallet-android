@@ -16,6 +16,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.backup.WalletBackupActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.wallets.RemoveWalletActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import io.reactivex.subjects.PublishSubject
@@ -106,7 +107,7 @@ class BalanceActivity : BaseActivity(),
   }
 
   override fun navigateToBackupView(walletAddress: String) {
-
+    startActivity(newIntent(this, walletAddress))
   }
 
   override fun navigateToImportView() {

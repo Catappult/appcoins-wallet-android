@@ -13,9 +13,9 @@ interface BalanceRepository {
 
   fun getCreditsBalance(address: String): Observable<Pair<Balance, FiatValue>>
 
-  fun getStoredEthBalance(address: String): Single<Pair<Balance, FiatValue>>
+  fun getStoredEthBalance(walletAddress: String): Single<Pair<Balance, FiatValue>>
 
-  fun getStoredAppcBalance(address: String): Single<Pair<Balance, FiatValue>>
+  fun getStoredAppcBalance(walletAddress: String): Single<Pair<Balance, FiatValue>>
 
-  fun getStoredCreditsBalance(address: String): Single<Pair<Balance, FiatValue>>
+  fun getStoredCreditsBalance(walletAddress: String): Single<Pair<Balance, FiatValue>>
 }

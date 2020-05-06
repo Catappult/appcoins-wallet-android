@@ -28,15 +28,11 @@ class BackupCreationPresenter(private val activityView: BackupActivityView,
 
   private fun handleCloseBtnClick() {
     disposables.add(view.getNegativeButtonClick()
-        .doOnNext {
-          activityView.showSuccessScreen()
-        }
+        .doOnNext { activityView.showSuccessScreen() }
         .subscribe())
   }
 
   fun onResume() {
-    if (fileShared) {
-      view.showConfirmation()
-    }
+    if (fileShared) view.showConfirmation()
   }
 }
