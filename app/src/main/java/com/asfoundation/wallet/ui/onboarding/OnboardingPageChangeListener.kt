@@ -17,8 +17,8 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     ViewPager2.OnPageChangeCallback() {
 
   companion object {
-    var ANIMATION_TRANSITIONS = 3
-    var pageCount = 4
+    private const val ANIMATION_TRANSITIONS = 3
+    private const val PAGE_COUNT = 4
   }
 
   private lateinit var lottieView: LottieAnimationView
@@ -112,16 +112,12 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     pos = if (config.layoutDirection == View.LAYOUT_DIRECTION_LTR) {
       position
     } else {
-      pageCount - position - 1
+      PAGE_COUNT - position - 1
     }
     pageIndicatorView.setSelected(pos)
   }
 
-  override fun onPageSelected(position: Int) {
+  override fun onPageSelected(position: Int) = Unit
 
-  }
-
-  override fun onPageScrollStateChanged(state: Int) {
-
-  }
+  override fun onPageScrollStateChanged(state: Int) = Unit
 }

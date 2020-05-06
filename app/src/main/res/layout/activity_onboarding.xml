@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_rawRes="@raw/intro_onboarding_animation"
+        app:lottie_rawRes="@raw/onboarding_portrait"
         />
 
     <com.rd.PageIndicatorView
@@ -199,8 +199,8 @@
       layout="@layout/layout_validation_no_internet"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="8dp"
       android:layout_centerInParent="true"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
       />
 </RelativeLayout>
