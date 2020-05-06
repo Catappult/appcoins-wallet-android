@@ -55,7 +55,7 @@ class WalletRepositoryTest {
 
     val observer = TestObserver<BigDecimal>()
 
-    walletRepository.getEthBalanceInWei(wallet)
+    walletRepository.getEthBalanceInWei(wallet.address)
         .subscribe(observer)
 
     testScheduler.triggerActions()
@@ -75,7 +75,7 @@ class WalletRepositoryTest {
 
     val observer = TestObserver<BigDecimal>()
 
-    walletRepository.getAppcBalanceInWei(wallet)
+    walletRepository.getAppcBalanceInWei(wallet.address)
         .subscribe(observer)
 
     testScheduler.triggerActions()

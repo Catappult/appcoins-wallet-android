@@ -5,6 +5,7 @@
   <color name="orange">#ef6c00</color>
   <color name="white">#FFFFFFFF</color>
   <color name="black">#313849</color>
+  <color name="appc_pink">#fe7073</color>
 
   <color name="colorPrimary">#fc9d48</color>
   <color name="colorPrimaryDark">#e44b46</color>
@@ -75,7 +76,7 @@
   <color name="seekbar_tint">#fe756f</color>
   <color name="seekbar_background_tint">#fe7871</color>
 
-  <color name="text_button_color">#fe7073</color>
+  <color name="text_button_color">@color/appc_pink</color>
   <color name="purchase_bonus_background_color">#001727</color>
   <color name="layout_separator_color">#eaeaea</color>
 
@@ -92,4 +93,7 @@
 
   <color name="transparent">#00000000</color>
   <color name="pending_payment_text_color">#727272</color>
+
+  <color name="edit_text_border">@color/appc_pink</color>
+  <color name="edit_text_label">@color/appc_pink</color>
 </resources>

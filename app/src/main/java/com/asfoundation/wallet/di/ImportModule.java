@@ -10,7 +10,6 @@ import com.asfoundation.wallet.ui.balance.ImportWalletPasswordInteractor;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
-import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Singleton;
 
 @Module(includes = { RepositoriesModule.class, AccountsManageModule.class }) class ImportModule {

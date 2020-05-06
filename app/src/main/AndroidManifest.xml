@@ -219,6 +219,10 @@
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
 
+    <activity android:name="com.asfoundation.wallet.ui.backup.WalletBackupActivity"
+        android:label="@string/backup_title"
+        android:theme="@style/MaterialAppTheme"/>
+
     <meta-data
         android:name="io.fabric.ApiKey"
         android:value="${fabricApiKey}" />

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.util.Log
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
@@ -101,5 +102,23 @@ class AppcoinsBalanceRepository(
     if (entity == null) {
       balanceDetailsDao.insert(balanceDetailsMapper.map(walletAddress))
     }
+  }
+
+  override fun getStoredEthBalance(walletAddr: String): Single<Pair<Balance, FiatValue>> {
+    return getBalance(walletAddr).map {
+      balanceDetailsMapper.mapEthBalance(it) }
+        .firstOrError()
+  }
+
+  override fun getStoredAppcBalance(walletAddr: String): Single<Pair<Balance, FiatValue>> {
+    return getBalance(walletAddr).map {
+      balanceDetailsMapper.mapAppcBalance(it) }
+        .firstOrError()
+  }
+
+  override fun getStoredCreditsBalance(walletAddr: String): Single<Pair<Balance, FiatValue>> {
+    return getBalance(walletAddr).map {
+      balanceDetailsMapper.mapCreditsBalance(it)
+    }.firstOrError()
   }
 }

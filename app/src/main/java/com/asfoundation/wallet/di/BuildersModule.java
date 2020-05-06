@@ -29,6 +29,10 @@ import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.UpdateRequiredActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
+import com.asfoundation.wallet.ui.backup.BackupCreationFragment;
+import com.asfoundation.wallet.ui.backup.BackupSuccessFragment;
+import com.asfoundation.wallet.ui.backup.BackupWalletFragment;
+import com.asfoundation.wallet.ui.backup.WalletBackupActivity;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
 import com.asfoundation.wallet.ui.balance.ImportWalletFragment;
 import com.asfoundation.wallet.ui.balance.ImportWalletPasswordFragment;
@@ -224,4 +228,16 @@ import dagger.android.ContributesAndroidInjector;
 
   @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract ImportWalletPasswordFragment bindImportWalletPasswordFragment();
+
+  @ActivityScope @ContributesAndroidInjector
+  abstract WalletBackupActivity bindWalletBackupActivity();
+
+  @FragmentScope @ContributesAndroidInjector()
+  abstract BackupWalletFragment bindBackupWalletFragment();
+
+  @FragmentScope @ContributesAndroidInjector()
+  abstract BackupCreationFragment bindBackupCreationFragment();
+
+  @FragmentScope @ContributesAndroidInjector()
+  abstract BackupSuccessFragment bindBackupSuccessFragment();
 }
