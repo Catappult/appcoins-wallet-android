@@ -95,7 +95,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
-    adapter = OnboardingPageAdapter(this, createDefaultItemList())
+    adapter = OnboardingPageAdapter(createDefaultItemList())
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter
@@ -208,7 +208,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       }
 
       override fun updateDrawState(ds: TextPaint) {
-        ds.color = resources.getColor(R.color.grey_8a_alpha)
+        ds.color = resources.getColor(R.color.grey_alpha_active_54)
         ds.isUnderlineText = true
       }
     }

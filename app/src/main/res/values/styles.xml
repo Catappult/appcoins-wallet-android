@@ -11,7 +11,7 @@
 
   <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimary">@color/text_button_color</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
     <item name="android:statusBarColor">@color/statusBarColor</item>
@@ -33,9 +33,9 @@
     <item name="android:windowContentOverlay">@null</item>
   </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
   <!-- Splash Screen theme. -->
 
@@ -404,7 +404,7 @@
   </style>
 
   <style name="TopUpTextStyle.PaymentOptionText">
-    <item name="android:textColor">@color/grey_8a_alpha</item>
+    <item name="android:textColor">@color/grey_alpha_active_54</item>
   </style>
 
   <style name="TopUpTextStyle.PaymentDetails">
@@ -425,7 +425,7 @@
 
   <style name="GasSettingsTextStyle">
     <item name="android:fontFamily">sans-serif</item>
-    <item name="android:textColor">@color/grey_8a_alpha</item>
+    <item name="android:textColor">@color/grey_alpha_active_54</item>
     <item name="android:textSize">16sp</item>
   </style>
 
@@ -475,6 +475,21 @@
     <item name="colorControlHighlight">@color/colorAccent</item>
   </style>
 
+  <style name="TextInputLayoutAppearanceOutlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <!-- reference our hint & error styles -->
+    <item name="hintTextAppearance">@style/HintText</item>
+    <item name="errorTextAppearance">@style/ErrorText</item>
+    <item name="android:textColor">#000000</item>
+    <item name="android:textColorHint">#727272</item>
+    <item name="colorControlNormal">#727272</item>
+    <item name="boxStrokeColor">@color/text_button_color</item>
+    <item name="hintTextColor">@color/text_button_color</item>
+    <item name="android:textCursorDrawable">@drawable/text_cursor</item>
+    <item name="colorControlActivated">@color/text_button_color</item>
+    <item name="colorControlHighlight">@color/text_button_color</item>
+  </style>
+
+
   <style name="ErrorText" parent="TextAppearance.AppCompat">
     <item name="android:textColor">@color/colorAccent</item>
     <item name="android:textSize">12sp</item>
@@ -512,7 +527,7 @@
   <style name="SettingsTextStyle.Summary">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">12sp</item>
-    <item name="android:textColor">@color/grey_8a_alpha</item>
+    <item name="android:textColor">@color/grey_alpha_active_54</item>
   </style>
 
   <style name="SettingsTextStyle.Category">

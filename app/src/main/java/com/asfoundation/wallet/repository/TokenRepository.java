@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.Token;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -68,9 +67,9 @@ public class TokenRepository implements TokenRepositoryType {
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
 
-  @NotNull @Override public Single<Token> getAppcBalance(@NotNull Wallet wallet) {
+  @NotNull @Override public Single<Token> getAppcBalance(@NotNull String address) {
     return defaultTokenProvider.getDefaultToken()
-        .flatMap(tokenInfo -> walletRepositoryType.getAppcBalanceInWei(wallet)
+        .flatMap(tokenInfo -> walletRepositoryType.getAppcBalanceInWei(address)
             .map(appcBalance -> new Token(tokenInfo, appcBalance)));
   }
 }

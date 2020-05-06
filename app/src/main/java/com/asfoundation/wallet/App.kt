@@ -17,6 +17,7 @@ import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.CrashlyticsReceiver
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.support.SupportNotificationWorker
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -30,6 +31,8 @@ import io.fabric.sdk.android.Fabric
 import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
+import io.sentry.Sentry
+import io.sentry.android.AndroidSentryClientFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -82,6 +85,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     appcoinsRewards.start()
     rakamAnalytics.start()
     initiateIntercom()
+    initiateSentry()
   }
 
   private fun setupRxJava() {
@@ -130,6 +134,11 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
           .build(this, BuildConfig.FLURRY_APK_KEY)
       logger.addReceiver(FlurryReceiver())
     }
+  }
+
+  private fun initiateSentry() {
+    Sentry.init(BuildConfig.SENTRY_DSN_KEY, AndroidSentryClientFactory(this))
+    logger.addReceiver(SentryReceiver())
   }
 
   private fun initiateIntercom() {

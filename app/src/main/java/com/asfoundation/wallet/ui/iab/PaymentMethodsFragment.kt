@@ -186,7 +186,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                   paymentMethodId: String) {
     pre_selected_payment_method_group.visibility = View.GONE
     payment_methods_list_group.visibility = View.VISIBLE
-    bottom_separator?.visibility = View.VISIBLE
 
     var radioButton: AppCompatRadioButton
     if (isBds) {
@@ -272,18 +271,20 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                             isDonation: Boolean, currency: String,
-                                            fiatAmount: String, appcAmount: String) {
+                                            fiatAmount: String, appcAmount: String,
+                                            isBonusActive: Boolean) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
     updateHeaderInfo(fiatValue, isDonation, currency, fiatAmount, appcAmount)
 
-    setupPaymentMethod(paymentMethod)
+    setupPaymentMethod(paymentMethod, isBonusActive)
 
     presenter.sendPreSelectedPaymentMethodsEvents()
 
     setupSubject!!.onNext(true)
   }
 
-  private fun setupPaymentMethod(paymentMethod: PaymentMethod) {
+  private fun setupPaymentMethod(paymentMethod: PaymentMethod,
+                                 isBonusActive: Boolean) {
     pre_selected_payment_method_group.visibility = View.VISIBLE
     payment_methods_list_group.visibility = View.GONE
     bottom_separator?.visibility = View.INVISIBLE
@@ -292,7 +293,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_description.text = paymentMethod.label
       payment_method_secondary.visibility = View.VISIBLE
       payment_method_description_single.visibility = View.GONE
-      hideBonus()
+      if (isBonusActive) hideBonus()
     } else {
       payment_method_description.visibility = View.VISIBLE
       payment_method_description.text = paymentMethod.label
@@ -509,6 +510,14 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
     no_bonus_msg?.visibility = View.INVISIBLE
+    bottom_separator?.visibility = View.VISIBLE
+  }
+
+  override fun removeBonus() {
+    bonus_layout.visibility = View.GONE
+    bonus_msg.visibility = View.GONE
+    no_bonus_msg?.visibility = View.GONE
+    bottom_separator?.visibility = View.GONE
   }
 
   override fun hideBonus() {

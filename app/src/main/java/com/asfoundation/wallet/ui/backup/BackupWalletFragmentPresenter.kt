@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.ui.backup
 
 import com.asfoundation.wallet.ui.balance.BalanceInteract
-import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.math.RoundingMode
 
 class BackupWalletFragmentPresenter(private var balanceInteract: BalanceInteract,
                                     private var view: BackupWalletFragmentView,
@@ -20,8 +18,7 @@ class BackupWalletFragmentPresenter(private var balanceInteract: BalanceInteract
         .subscribeOn(dbScheduler)
         .observeOn(viewScheduler)
         .map {
-          view.showBalance(
-              FiatValue(it.amount.setScale(2, RoundingMode.DOWN), it.currency, it.symbol))
+          view.showBalance(it)
         }
         .subscribe())
   }

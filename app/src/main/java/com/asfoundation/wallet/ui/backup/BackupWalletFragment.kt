@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -21,6 +22,8 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   @Inject
   lateinit var balanceInteract: BalanceInteract
+  @Inject
+  lateinit var currencyFormatter: CurrencyFormatUtils
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var presenter: BackupWalletFragmentPresenter
   private lateinit var activityView: BackupActivityView
@@ -72,11 +75,13 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   override fun showBalance(value: FiatValue) {
     address.text = walletAddr
-    amount.text = getString(R.string.value_fiat, value.symbol, value.amount)
+    amount.text =
+        getString(R.string.value_fiat, value.symbol, currencyFormatter.formatCurrency(value))
 
   }
 
   override fun getBackupClick(): Observable<String> {
-    return RxView.clicks(backup_btn).map { password.text.toString() }
+    return RxView.clicks(backup_btn)
+        .map { password.text.toString() }
   }
 }

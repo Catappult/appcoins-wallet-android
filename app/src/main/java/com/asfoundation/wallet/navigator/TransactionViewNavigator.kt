@@ -33,8 +33,8 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
     myAddressRouter.open(context, value)
   }
 
-  fun openTokensView(context: Context, value: Wallet?) {
-    balanceRouter.open(context, value)
+  fun openTokensView(context: Context) {
+    balanceRouter.open(context)
   }
 
   fun navigateToBrowser(context: Context, uri: Uri) {

@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.animation
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 
-class BackupSuccessFragment: DaggerFragment(), BackupSuccessFragmentView {
+class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var presenter: BackupSuccessFragmentPresenter
@@ -44,6 +44,11 @@ class BackupSuccessFragment: DaggerFragment(), BackupSuccessFragmentView {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
     animation.playAnimation()
+    val text = "${getString(R.string.backup_confirmation_tips_title)}\n\n• ${getString(
+        R.string.backup_confirmation_tips_1)}\n• ${getString(
+        R.string.backup_confirmation_tips_2)}\n• ${getString(
+        R.string.backup_confirmation_tips_3)}"
+    information.text = text
   }
 
   override fun onAttach(context: Context) {

@@ -14,8 +14,6 @@ interface AdyenTopUpView {
 
   fun showLoading()
 
-  fun showFinishingLoading()
-
   fun hideLoading()
 
   fun showNetworkError()
@@ -52,6 +50,8 @@ interface AdyenTopUpView {
   fun getSupportClicks(): Observable<Any>
 
   fun hideSpecificError()
+
+  fun lockRotation()
 
   fun retryClick(): Observable<Any>
 

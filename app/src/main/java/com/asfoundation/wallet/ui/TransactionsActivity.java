@@ -333,7 +333,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.showMyAddress(this);
         return true;
       }
-      case R.id.action_balance: {
+      case R.id.action_wallets: {
         viewModel.showTokens(this);
         return true;
       }

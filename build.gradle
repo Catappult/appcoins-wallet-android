@@ -82,8 +82,9 @@ project.ext {
   viewpager_version = '1.0.0'
   web3j_version = "3.3.1-android"
   work_version = '2.3.4'
-  zxing_android_version = '3.2.0@aar'
+  zxing_android_version = '3.6.0'
   zxing_version = '3.4.0'
+  sentry_version = '1.7.30'
 }
 
 task clean(type: Delete) {

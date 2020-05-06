@@ -29,7 +29,7 @@
       android:gravity="center"
       android:lineSpacingExtra="4sp"
       android:text="@string/promotions_empty_promotions_body"
-      android:textColor="@color/grey_8a_alpha"
+      android:textColor="@color/gray_alpha_8a"
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

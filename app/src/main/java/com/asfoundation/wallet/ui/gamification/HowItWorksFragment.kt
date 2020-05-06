@@ -118,7 +118,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     return HtmlCompat.fromHtml(String.format(
         HtmlCompat.toHtml(SpannedString(getText(id)),
             HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE),
-        nextLevelAmount, nextLevel), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        nextLevelAmount, nextLevel), HtmlCompat.FROM_HTML_MODE_LEGACY).trim()
   }
 
   private fun formatLevelInfo(value: Double): String {

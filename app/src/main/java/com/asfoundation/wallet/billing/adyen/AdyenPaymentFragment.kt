@@ -196,9 +196,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {
+      if(bonus.isNotEmpty()){
+        bonus_layout.visibility = View.INVISIBLE
+        bonus_msg.visibility = View.INVISIBLE
+      }
       adyen_card_form.visibility = View.INVISIBLE
-      bonus_layout.visibility = View.INVISIBLE
-      bonus_msg.visibility = View.INVISIBLE
       change_card_button.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
       buy_button.visibility = View.INVISIBLE
@@ -210,8 +212,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = VISIBLE
     } else {
-      bonus_layout.visibility = VISIBLE
-      bonus_msg.visibility = VISIBLE
+      showBonus()
       adyen_card_form.visibility = VISIBLE
       cancel_button.visibility = VISIBLE
     }
@@ -292,6 +293,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showCvvError() {
+    iabView.unlockRotation()
     hideLoadingAndShowView()
     if (isStored) {
       change_card_button?.visibility = VISIBLE
@@ -434,11 +436,18 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun showBonus() {
-    bonus_layout?.visibility = VISIBLE
-    bonus_layout_pre_selected?.visibility = VISIBLE
-    bonus_msg?.visibility = VISIBLE
-    bonus_msg_pre_selected?.visibility = VISIBLE
-    bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+    if (bonus.isNotEmpty()) {
+      bonus_layout?.visibility = VISIBLE
+      bonus_layout_pre_selected?.visibility = VISIBLE
+      bonus_msg?.visibility = VISIBLE
+      bonus_msg_pre_selected?.visibility = VISIBLE
+      bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+    } else {
+      bonus_layout?.visibility = GONE
+      bonus_layout_pre_selected?.visibility = GONE
+      bonus_msg?.visibility = GONE
+      bonus_msg_pre_selected?.visibility = GONE
+    }
   }
 
   private fun handleLayoutVisibility(isStored: Boolean) {

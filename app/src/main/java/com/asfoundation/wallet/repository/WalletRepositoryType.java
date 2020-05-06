@@ -20,11 +20,11 @@ public interface WalletRepositoryType {
 
   Completable deleteWallet(String address, String password);
 
-  Completable setDefaultWallet(Wallet wallet);
+  Completable setDefaultWallet(String address);
 
   Single<Wallet> getDefaultWallet();
 
-  Single<BigDecimal> getEthBalanceInWei(Wallet wallet);
+  Single<BigDecimal> getEthBalanceInWei(String address);
 
-  Single<BigDecimal> getAppcBalanceInWei(Wallet wallet);
+  Single<BigDecimal> getAppcBalanceInWei(String address);
 }

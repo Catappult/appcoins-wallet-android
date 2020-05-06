@@ -126,7 +126,7 @@
           android:ellipsize="end"
           android:gravity="center_vertical"
           android:maxLines="1"
-          android:textColor="@color/grey_8a_alpha"
+          android:textColor="@color/grey_alpha_active_54"
           android:textSize="12sp"
           tools:text="0x0eebe100e4866204497d78d93a1071941dce70a4"
           />

@@ -28,7 +28,7 @@ public class CreateWalletInteract {
   }
 
   private Single<Wallet> passwordVerification(Wallet wallet, String masterPassword) {
-    return passwordStore.getPassword(wallet)
+    return passwordStore.getPassword(wallet.address)
         .flatMap(password -> walletRepository.exportWallet(wallet, password, password)
             .flatMap(keyStore -> walletRepository.findWallet(wallet.address)))
         .onErrorResumeNext(
@@ -37,7 +37,7 @@ public class CreateWalletInteract {
                 .toSingle(() -> wallet));
   }
 
-  public Completable setDefaultWallet(Wallet wallet) {
-    return walletRepository.setDefaultWallet(wallet);
+  public Completable setDefaultWallet(String address) {
+    return walletRepository.setDefaultWallet(address);
   }
 }
