@@ -39,11 +39,9 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
     currentUser = walletAddress
   }
 
-  fun getUnreadConversationCountListener(): Observable<Int> {
-    return Observable.create {
-      Intercom.client()
-          .addUnreadConversationCountListener { i: Int -> it.onNext(i) }
-    }
+  fun getUnreadConversationCountListener() = Observable.create<Int> {
+    Intercom.client()
+        .addUnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
   }
 
   fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
