@@ -532,7 +532,7 @@
   <string name="backup_confirmation_title">خطوة واحدة أخرى</string>
   <string name="backup_confirmation_body">احتفظ بالنسخ الاحتياطي في أمان! أين تريد الاحتفاظ به؟</string>
   <string name="backup_confirmation_yes">نعم، خلّصني</string>
-  <string name="backup_confirmation_no">لا، احفظ مجددا</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">انتهى النسخ الاحتياطي!</string>
   <string name="backup_done_body">هل أنت متأكد بأن ملف النسخ الاحتياطي في مكان آمن؟</string>
   <string name="backup_confirmation_no_share_title">تم النسخ الاحتياطي!</string>
