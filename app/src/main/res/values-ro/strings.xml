@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Încă un pas</string>
   <string name="backup_confirmation_body">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
   <string name="backup_confirmation_yes">DA, FINALIZEAZĂ</string>
-  <string name="backup_confirmation_no">NU, SALVEAZĂ DIN NOU</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Copie de rezervă efectuată!</string>
   <string name="backup_done_body">Ești sigur că fișierul copiei de rezervă este într-un loc sigur?</string>
   <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
