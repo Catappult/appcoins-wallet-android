@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">ေနာက္ထပ္တစ္ဆင့္သာ</string>
   <string name="backup_confirmation_body">သင့္အရံသိမ္းဆည္းမႈကို လံုၿခံဳေအာင္ ထားလိုက္ပါ။ မည္သည့္ေနရာတြင္ သိမ္းလိုပါသလဲ။</string>
   <string name="backup_confirmation_yes">ဟုတ္ကဲ့ ၿပီးပါၿပီ</string>
-  <string name="backup_confirmation_no">မဟုတ္ပါ။ ထပ္မံသိမ္းမည္</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_done_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ လံုၿခံဳေသာေနရာတြင္ ရွိေနေၾကာင္း ေသခ်ာပါသလား။</string>
   <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
