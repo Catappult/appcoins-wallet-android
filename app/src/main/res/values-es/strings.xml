@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Solo un paso más</string>
   <string name="backup_confirmation_body">¡Mantén tu wallet segura! ¿Dónde quieres guardarla?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">¡Copia de seguridad terminada!</string>
   <string name="backup_done_body">¿Estás seguro de que tu copia de seguridad está en un lugar seguro?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
