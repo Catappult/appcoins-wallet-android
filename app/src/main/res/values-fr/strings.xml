@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Encore une étape</string>
   <string name="backup_confirmation_body">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
   <string name="backup_confirmation_yes">OUI, TERMINÉ</string>
-  <string name="backup_confirmation_no">NON, SAUVEGARDEZ À NOUVEAU</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Sauvegarde effectuée !</string>
   <string name="backup_done_body">Êtes-vous sûr que votre fichier de sauvegarde se trouve dans un endroit sûr ?</string>
   <string name="backup_confirmation_no_share_title">Sauvegarde effectuée !</string>
