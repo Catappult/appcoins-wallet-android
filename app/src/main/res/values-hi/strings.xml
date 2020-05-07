@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">केवल एक और चरण</string>
   <string name="backup_confirmation_body">अपना बैकअप सुरक्षित रखें! आप इसे कहाँ सहेजना चाहेंगे?</string>
   <string name="backup_confirmation_yes">हाँ, पूरा करें</string>
-  <string name="backup_confirmation_no">नहीं, इसे पुनः सहेजें</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">बैकअप पूर्ण!</string>
   <string name="backup_done_body">क्या आपकी बैकअप फाइल सुरक्षित जगह पर है?</string>
   <string name="backup_confirmation_no_share_title">बैकअप पूर्ण!</string>
