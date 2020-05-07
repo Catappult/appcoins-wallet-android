@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Još samo jedan korak</string>
   <string name="backup_confirmation_body">Čuvajte rezervnu kopiju na sigurnom! Gde želite da je sačuvate?</string>
   <string name="backup_confirmation_yes">DA, ZAVRŠI</string>
-  <string name="backup_confirmation_no">NE, PONOVO SAČUVAJ</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Rezervna kopija je napravljena!</string>
   <string name="backup_done_body">Da li ste sigurni da je vaša datoteka sa rezervnom kopijom na sigurnom mestu?</string>
   <string name="backup_confirmation_no_share_title">Rezervna kopija je napravljena!</string>
