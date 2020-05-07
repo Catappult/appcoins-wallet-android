@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">ਸਿਰਫ ਇਕ ਹੋਰ ਕਦਮ</string>
   <string name="backup_confirmation_body">ਆਪਣਾ ਬੈਕਅਪ ਸੁਰੱਖਿਅਤ ਰੱਖੋ! ਤੁਸੀਂ ਇਸਨੂੰ ਕਿੱਥੇ ਸੇਵ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="backup_confirmation_yes">ਹਾਂ, ਖਤਮ ਕਰੋ</string>
-  <string name="backup_confirmation_no">ਨਹੀਂ, ਇਸ ਨੂੰ ਫਿਰ ਸੇਵ ਕਰੋ</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_done_body">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਇੱਕ ਸੁਰੱਖਿਅਤ ਜਗ੍ਹਾ ਤੇ ਹੈ?</string>
   <string name="backup_confirmation_no_share_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
