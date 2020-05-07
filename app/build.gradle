@@ -154,7 +154,6 @@ dependencies {
   implementation "androidx.palette:palette:$project.palette_version"
   implementation "androidx.preference:preference:$project.preference_version"
   implementation "androidx.multidex:multidex:$project.multidex_version"
-  implementation "androidx.work:work-rxjava2:$project.work_version"
   implementation "androidx.viewpager2:viewpager2:$project.viewpager_version"
   implementation "androidx.room:room-runtime:$project.room_version"
   implementation "androidx.room:room-rxjava2:$project.room_version"

@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver.Companion.NOTIFICATION_SERVICE_ID
 import com.asfoundation.wallet.ui.TransactionsActivity
 
 class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
@@ -17,16 +18,15 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
     const val SUPPORT_NOTIFICATION_CLICK = "SUPPORT_NOTIFICATION_CLICK"
 
     @JvmStatic
-    fun newIntent(context: Context): Intent {
-      return Intent(context, SupportNotificationBroadcastReceiver::class.java)
-    }
+    fun newIntent(context: Context) =
+        Intent(context, SupportNotificationBroadcastReceiver::class.java)
   }
 
   override fun onReceive(context: Context, intent: Intent) {
     notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    notificationManager.cancel(SupportNotificationWorker.NOTIFICATION_SERVICE_ID)
+    notificationManager.cancel(NOTIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
     when (intent.getStringExtra(ACTION_KEY)) {
