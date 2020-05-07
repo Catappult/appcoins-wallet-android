@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Satu lagi langkah</string>
   <string name="backup_confirmation_body">Pastikan sandaran anda selamat! Di mana anda mahu simpan?</string>
   <string name="backup_confirmation_yes">YA, SELESAI</string>
-  <string name="backup_confirmation_no">TIDAK, SIMPAN SEMULA</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Sandaran selesai!</string>
   <string name="backup_done_body">Anda pasti fail sandaran anda di tempat selamat?</string>
   <string name="backup_confirmation_no_share_title">Sandaran selesai!</string>
