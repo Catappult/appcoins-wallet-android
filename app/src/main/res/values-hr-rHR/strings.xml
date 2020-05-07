@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Backup done!</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
