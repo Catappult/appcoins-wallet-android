@@ -16,7 +16,7 @@ public interface WalletRepositoryType {
 
   Single<Wallet> importPrivateKeyToWallet(String privateKey, String newPassword);
 
-  Single<String> exportWallet(Wallet wallet, String password, String newPassword);
+  Single<String> exportWallet(String address, String password, String newPassword);
 
   Completable deleteWallet(String address, String password);
 

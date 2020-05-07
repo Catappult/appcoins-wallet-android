@@ -4,7 +4,7 @@ interface BackupActivityView {
 
   fun showBackupScreen()
 
-  fun showBackupCreationScreen()
+  fun showBackupCreationScreen(password: String)
 
   fun startWalletBackup()
 

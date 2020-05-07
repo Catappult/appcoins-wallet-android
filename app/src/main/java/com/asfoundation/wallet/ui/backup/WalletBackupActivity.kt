@@ -31,7 +31,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   private lateinit var presenter: BackupActivityPresenter
 
-  private val walletAddr: String by lazy {
+  private val walletAddress: String by lazy {
     if (intent.extras!!.containsKey(WALLET_ADDRESS)) {
       intent.extras!!.getString(WALLET_ADDRESS)!!
     } else {
@@ -50,13 +50,14 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   override fun showBackupScreen() {
     setupToolbar()
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, BackupWalletFragment.newInstance(walletAddr))
+        .replace(R.id.fragment_container, BackupWalletFragment.newInstance(walletAddress))
         .commit()
   }
 
-  override fun showBackupCreationScreen() {
+  override fun showBackupCreationScreen(password: String) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, BackupCreationFragment.newInstance())
+        .replace(R.id.fragment_container,
+            BackupCreationFragment.newInstance(walletAddress, password))
         .commit()
   }
 

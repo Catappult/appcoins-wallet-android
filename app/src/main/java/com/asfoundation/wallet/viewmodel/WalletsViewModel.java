@@ -16,8 +16,6 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
-import static com.asfoundation.wallet.C.IMPORT_REQUEST_CODE;
-
 public class WalletsViewModel extends BaseViewModel {
 
   private static final String TAG = WalletsViewModel.class.getSimpleName();
@@ -124,7 +122,7 @@ public class WalletsViewModel extends BaseViewModel {
   }
 
   public void exportWallet(Wallet wallet, String storePassword) {
-    disposables.add(exportWalletInteract.export(wallet, storePassword)
+    disposables.add(exportWalletInteract.export(wallet.address, storePassword)
         .subscribe(exportedStore::postValue, this::onExportWalletError));
   }
 

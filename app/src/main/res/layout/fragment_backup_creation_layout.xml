@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -39,7 +40,7 @@
       android:layout_marginTop="24dp"
       android:layout_marginEnd="56dp"
       android:gravity="center"
-      android:text="@string/backup_done_title"
+      android:text="@string/backup_confirmation_title"
       app:layout_constraintBottom_toTopOf="@id/description"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -52,51 +53,14 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="56dp"
-      android:layout_marginTop="10dp"
+      android:layout_marginTop="32dp"
       android:layout_marginEnd="56dp"
       android:gravity="center"
-      android:text="@string/backup_done_body"
+      android:text="@string/backup_confirmation_body"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/title"
       />
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="35dp"
-      android:layout_marginEnd="16dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/description"
-      >
-    <TextView
-        android:id="@+id/info"
-        style="@style/WalletBackupTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/item_curved_border"
-        android:lineHeight="20sp"
-        android:paddingHorizontal="14dp"
-        android:paddingTop="22dp"
-        android:paddingBottom="18dp"
-        android:text="@string/backup_body"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="10dp"
-        android:background="@color/white"
-        android:src="@drawable/ic_info_white_bg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/button_container"
@@ -130,11 +94,14 @@
         android:layout_marginTop="11dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
+        android:enabled="false"
         android:text="@string/backup_save_button"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/done_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/separator"
+        tools:visibility="visible"
         />
 
     <androidx.appcompat.widget.AppCompatButton

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -82,8 +83,13 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun getBackupClick(): Observable<String> = RxView.clicks(backup_btn)
       .map { password.text.toString() }
 
-  override fun onDestroy() {
+  override fun hideKeyboard() {
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(password.windowToken, 0)
+  }
+
+  override fun onDestroyView() {
     presenter.stop()
-    super.onDestroy()
+    super.onDestroyView()
   }
 }

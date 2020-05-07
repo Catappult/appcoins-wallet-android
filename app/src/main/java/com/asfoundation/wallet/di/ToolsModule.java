@@ -71,6 +71,7 @@ import com.asfoundation.wallet.analytics.RakamAnalytics;
 import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
+import com.asfoundation.wallet.backup.FileInteract;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -1362,5 +1363,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides WalletValidationAnalytics provideWalletValidationAnalytics(
       AnalyticsManager analyticsManager) {
     return new WalletValidationAnalytics(analyticsManager);
+  }
+
+  @Singleton @Provides FileInteract provideFileInteract() {
+    return new FileInteract();
   }
 }

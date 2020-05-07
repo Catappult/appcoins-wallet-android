@@ -24,13 +24,12 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
           Observable.fromIterable(list)
               .flatMapCompletable { wallet ->
                 balanceInteract.getTotalBalance(wallet.address)
-                    .take(1)
-                    .flatMapCompletable { fiatValue ->
-                      Completable.fromAction {
-                        wallets.add(WalletBalance(wallet.address, fiatValue,
-                            currentWalletAddress == wallet.address))
-                      }
+                    .firstOrError()
+                    .doOnSuccess { fiatValue ->
+                      wallets.add(WalletBalance(wallet.address, fiatValue,
+                          currentWalletAddress == wallet.address))
                     }
+                    .ignoreElement()
               }
         }
         .toSingle {

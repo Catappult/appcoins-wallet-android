@@ -18,7 +18,10 @@ class BackupWalletFragmentPresenter(private var balanceInteract: BalanceInteract
 
   private fun handleBackupClick() {
     disposables.add(view.getBackupClick()
-        .doOnNext { activityView.showBackupCreationScreen() }
+        .doOnNext {
+          view.hideKeyboard()
+          activityView.showBackupCreationScreen(it)
+        }
         .subscribe())
   }
 

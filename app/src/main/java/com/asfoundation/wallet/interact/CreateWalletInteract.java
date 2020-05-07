@@ -29,7 +29,7 @@ public class CreateWalletInteract {
 
   private Single<Wallet> passwordVerification(Wallet wallet, String masterPassword) {
     return passwordStore.getPassword(wallet.address)
-        .flatMap(password -> walletRepository.exportWallet(wallet, password, password)
+        .flatMap(password -> walletRepository.exportWallet(wallet.address, password, password)
             .flatMap(keyStore -> walletRepository.findWallet(wallet.address)))
         .onErrorResumeNext(
             throwable -> walletRepository.deleteWallet(wallet.address, masterPassword)

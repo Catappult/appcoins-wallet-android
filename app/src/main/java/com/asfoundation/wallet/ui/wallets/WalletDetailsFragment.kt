@@ -78,7 +78,8 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
   }
 
   override fun backupWalletClick(): Observable<Any> {
-    return Observable.merge(RxView.clicks(backup_wallet_button), RxView.clicks(backup_text))
+    return Observable.merge(RxView.clicks(backup_wallet_button), RxView.clicks(backup_text),
+        RxView.clicks(middle_backup_wallet_button), RxView.clicks(middle_backup_text))
   }
 
   override fun makeWalletActiveClick() = RxView.clicks(make_this_active_button)

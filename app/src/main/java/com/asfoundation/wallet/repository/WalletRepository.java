@@ -56,8 +56,9 @@ public class WalletRepository implements WalletRepositoryType {
     return accountKeystoreService.importPrivateKey(privateKey, newPassword);
   }
 
-  @Override public Single<String> exportWallet(Wallet wallet, String password, String newPassword) {
-    return accountKeystoreService.exportAccount(wallet, password, newPassword);
+  @Override
+  public Single<String> exportWallet(String address, String password, String newPassword) {
+    return accountKeystoreService.exportAccount(address, password, newPassword);
   }
 
   @Override public Completable deleteWallet(String address, String password) {

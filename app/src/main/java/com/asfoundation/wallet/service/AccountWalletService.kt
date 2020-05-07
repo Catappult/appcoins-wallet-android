@@ -56,7 +56,7 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
     }
     return passwordStore.getPassword(wallet.address)
         .flatMap { password ->
-          accountKeyService.exportAccount(wallet, password, password)
+          accountKeyService.exportAccount(wallet.address, password, password)
               .map { json ->
                 ECKey.fromPrivate(WalletUtils.loadCredentials(password, json)
                     .ecKeyPair
