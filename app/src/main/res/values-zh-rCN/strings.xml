@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">最后一个步骤</string>
   <string name="backup_confirmation_body">请确保备份安全！你希望将其保存在哪里？</string>
   <string name="backup_confirmation_yes">是的，完成</string>
-  <string name="backup_confirmation_no">否，再次保存</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">备份完成！</string>
   <string name="backup_done_body">你确定备份文件存放在安全的位置吗？</string>
   <string name="backup_confirmation_no_share_title">备份完成！</string>
