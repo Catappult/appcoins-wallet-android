@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Само още една стъпка</string>
   <string name="backup_confirmation_body">Пази бекъпа си! Къде искаш да го запазиш?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Бекъпът приключи!</string>
   <string name="backup_done_body">Сигурен ли си, че файлът с бекъпа ти е на сигурно място?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
