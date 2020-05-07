@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Nog maar één stap</string>
   <string name="backup_confirmation_body">Zorg voor een veilige back-up! Waar wil je de back-up opslaan?</string>
   <string name="backup_confirmation_yes">JA, ZEKER WETEN</string>
-  <string name="backup_confirmation_no">NEE, OPNIEUW OPSLAAN</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Back-up gereed!</string>
   <string name="backup_done_body">Weet je zeker dat je back-upbestand op een veilige plek is opgeslagen?</string>
   <string name="backup_confirmation_no_share_title">Back-up gereed!</string>
