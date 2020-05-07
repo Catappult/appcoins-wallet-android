@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">فقط یک قدم دیگر</string>
   <string name="backup_confirmation_body">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
   <string name="backup_confirmation_yes">بله، تمام شد</string>
-  <string name="backup_confirmation_no">نه، دوباره ذخیره کن</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
   <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
