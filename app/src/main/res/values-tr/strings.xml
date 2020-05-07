@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Sadece bir adım daha</string>
   <string name="backup_confirmation_body">Yedeklemenizi güvende tutun! Nereye kaydetmek istersiniz?</string>
   <string name="backup_confirmation_yes">EVET, BİTİR</string>
-  <string name="backup_confirmation_no">HAYIR, TEKRAR KAYDET</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Yedekleme tamamlandı!</string>
   <string name="backup_done_body">Yedekleme dosyanızın güvenli bir yerde olduğundan emin misiniz?</string>
   <string name="backup_confirmation_no_share_title">Yedekleme tamamlandı!</string>
