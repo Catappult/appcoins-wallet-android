@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">อีกเพียงนิดเดียว</string>
   <string name="backup_confirmation_body">สำรองข้อมูลของคุณให้ปลอดภัย! คุณต้องการบันทึกไว้ที่ไหน</string>
   <string name="backup_confirmation_yes">ใช่ เสร็จสิ้น</string>
-  <string name="backup_confirmation_no">ไม่ บันทึกอีกครั้ง</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">สำรองสำเร็จ!</string>
   <string name="backup_done_body">คุณแน่ใจหรือว่าไฟล์สำรองของคุณอยู่ในที่ปลอดภัย?</string>
   <string name="backup_confirmation_no_share_title">สำรองสำเร็จ!</string>
