@@ -531,7 +531,7 @@
   <string name="backup_confirmation_title">Μόνο ένα βήμα ακόμη</string>
   <string name="backup_confirmation_body">Διατηρήστε ασφαλές το αντίγραφο ασφαλείας! Πού θέλετε να το αποθηκεύσετε;</string>
   <string name="backup_confirmation_yes">ΝΑΙ, ΤΕΛΟΣ</string>
-  <string name="backup_confirmation_no">ΟΧΙ, ΑΠΟΘΗΚΕΥΣΗ ΕΚ ΝΕΟΥ</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
   <string name="backup_done_body">Είστε σίγουροι ότι το αρχείο αντιγράφου ασφαλείας είναι σε ασφαλές μέρος;</string>
   <string name="backup_confirmation_no_share_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
