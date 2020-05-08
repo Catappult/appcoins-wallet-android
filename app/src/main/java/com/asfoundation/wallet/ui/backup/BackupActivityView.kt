@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.backup
 
+import io.reactivex.Observable
+
 interface BackupActivityView {
 
   fun showBackupScreen()
@@ -12,4 +14,5 @@ interface BackupActivityView {
 
   fun closeScreen()
 
+  fun onPermissionGiven(): Observable<Unit>
 }

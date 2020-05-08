@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 
 class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
-  private lateinit var presenter: BackupSuccessFragmentPresenter
+  private lateinit var presenter: BackupSuccessPresenter
   private lateinit var activityView: BackupActivityView
 
   companion object {
@@ -24,7 +24,7 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BackupSuccessFragmentPresenter(this, activityView, CompositeDisposable())
+    presenter = BackupSuccessPresenter(this, activityView, CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

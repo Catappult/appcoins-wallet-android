@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.wallets
 
 import com.asfoundation.wallet.interact.DeleteWalletInteract
+import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit
 class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmationView,
                                         private val walletAddress: String,
                                         private val deleteWalletInteract: DeleteWalletInteract,
+                                        private val logger: Logger,
                                         private val disposable: CompositeDisposable,
                                         private val viewScheduler: Scheduler,
                                         private val networkScheduler: Scheduler) {
@@ -33,12 +35,18 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
         .doOnNext { view.showRemoveWalletAnimation() }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          Single.zip(deleteWalletInteract.delete(walletAddress).toSingleDefault(""),
-              Completable.timer(2, TimeUnit.SECONDS).toSingleDefault(""),
+          Single.zip(deleteWalletInteract.delete(walletAddress)
+              .toSingleDefault(""),
+              Completable.timer(2, TimeUnit.SECONDS)
+                  .toSingleDefault(""),
               BiFunction { _: String, _: String -> })
         }
         .observeOn(viewScheduler)
         .doOnNext { view.finish() }
+        .doOnError {
+          logger.log("WalletRemoveConfirmationPresenter", it)
+          view.finish()
+        }
         .subscribe())
   }
 

@@ -14,18 +14,22 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.remove_wallet_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_second_layout.*
+import java.util.logging.Logger
 import javax.inject.Inject
 
 class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmationView {
 
   @Inject
   lateinit var deleteWalletInteract: DeleteWalletInteract
+
+  @Inject
+  lateinit var logger: Logger
   private lateinit var presenter: WalletRemoveConfirmationPresenter
   private lateinit var activityView: RemoveWalletActivityView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = WalletRemoveConfirmationPresenter(this, walletAddress, deleteWalletInteract,
+    presenter = WalletRemoveConfirmationPresenter(this, walletAddress, deleteWalletInteract, logger,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
   }
 

@@ -3,18 +3,23 @@ package com.asfoundation.wallet.ui.backup
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.FileInteract
 import com.asfoundation.wallet.interact.ExportWalletInteract
+import com.asfoundation.wallet.logging.Logger
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.backup_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.*
 import javax.inject.Inject
 
@@ -25,8 +30,14 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   @Inject
   lateinit var fileInteract: FileInteract
+
+  @Inject
+  lateinit var logger: Logger
+
+  private lateinit var dialogView: View
   private lateinit var presenter: BackupCreationPresenter
   private lateinit var activityView: BackupActivityView
+  private lateinit var dialog: AlertDialog
 
   companion object {
 
@@ -52,21 +63,28 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteract,
-        Schedulers.io(), AndroidSchedulers.mainThread())
+    presenter =
+        BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteract, logger,
+            Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), walletAddress,
+            password, fileInteract.getTemporaryPath(context), fileInteract.getDownloadPath(context))
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+    dialogView = layoutInflater.inflate(R.layout.backup_dialog, null)
     return inflater.inflate(R.layout.fragment_backup_creation_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    proceed_btn.visibility = View.VISIBLE
-    presenter.presenter(walletAddress, password,
-        context!!.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)!!)
+    proceed_button.visibility = View.VISIBLE //To avoid flick when user navigates with open keyboard
+    presenter.present(savedInstanceState)
     animation.playAnimation()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    presenter.onSaveInstanceState(outState)
   }
 
   override fun onResume() {
@@ -87,17 +105,33 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
         .startChooser()
   }
 
-  override fun getPositiveButtonClick() = RxView.clicks(proceed_btn)
+  override fun getPositiveButtonClick() = RxView.clicks(proceed_button)
 
-  override fun getNegativeButtonClick() = RxView.clicks(done_btn)
+  override fun getSaveAgainClick() = RxView.clicks(save_again_button)
 
   override fun enableSaveButton() {
-    proceed_btn.isEnabled = true
+    proceed_button.isEnabled = true
     animation.cancelAnimation()
   }
 
   override fun showError() {
+    Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG)
+        .show()
+    activityView.closeScreen()
+  }
 
+  override fun showSaveOnDeviceDialog(defaultName: String, path: String) {
+    if (!(this::dialog.isInitialized)) {
+      dialog = AlertDialog.Builder(context!!)
+          .setView(dialogView)
+          .create()
+      dialog.window?.decorView?.setBackgroundResource(R.color.transparent)
+      dialogView.visibility = View.VISIBLE
+      dialogView.edit_text_name?.setText(defaultName)
+      dialogView.store_path?.text = path
+      dialogView.store_path?.visibility = View.VISIBLE
+    }
+    dialog.show()
   }
 
   override fun showConfirmation() {
@@ -106,8 +140,22 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     backup_confirmation_image.visibility = View.VISIBLE
     title.setText(R.string.backup_done_body)
     description.visibility = View.INVISIBLE
-    done_btn.visibility = View.VISIBLE
-    proceed_btn.text = getText(R.string.backup_confirmation_yes)
+    save_again_button.visibility = View.VISIBLE
+    proceed_button.isEnabled = true
+    proceed_button.text = getText(R.string.backup_confirmation_yes)
+  }
+
+  override fun getDialogCancelClick() = RxView.clicks(dialogView.backup_cancel)
+
+  override fun getDialogSaveClick(): Observable<String> {
+    return RxView.clicks(dialogView.backup_save)
+        .map { dialogView.edit_text_name.text.toString() }
+  }
+
+  override fun closeDialog() {
+    if (this::dialog.isInitialized) {
+      dialog.cancel()
+    }
   }
 
   private val walletAddress: String by lazy {

@@ -77,16 +77,16 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@id/proceed_btn"
+        android:layout_above="@id/proceed_button"
         android:background="@color/list_separator_color"
-        app:layout_constraintBottom_toTopOf="@id/proceed_btn"
+        app:layout_constraintBottom_toTopOf="@id/proceed_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/proceed_btn"
+        android:id="@+id/proceed_button"
         style="@style/MaterialButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
         android:enabled="false"
         android:text="@string/backup_save_button"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/done_btn"
+        app:layout_constraintBottom_toTopOf="@id/save_again_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/separator"
@@ -105,7 +105,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/done_btn"
+        android:id="@+id/save_again_button"
         style="@style/MaterialButtonStyle.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/proceed_btn"
+        app:layout_constraintTop_toBottomOf="@id/proceed_button"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

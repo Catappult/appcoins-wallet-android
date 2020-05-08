@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
-import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
+import io.reactivex.subjects.PublishSubject
 
 class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
 
@@ -30,6 +30,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   private lateinit var presenter: BackupActivityPresenter
+  private var onPermissionSubject: PublishSubject<Unit>? = null
 
   private val walletAddress: String by lazy {
     if (intent.extras!!.containsKey(WALLET_ADDRESS)) {
@@ -43,6 +44,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_backup)
+    onPermissionSubject = PublishSubject.create()
     presenter = BackupActivityPresenter(this)
     presenter.present(savedInstanceState == null)
   }
@@ -64,6 +66,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   override fun startWalletBackup() {
     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         == PackageManager.PERMISSION_GRANTED) {
+      onPermissionSubject?.onNext(Unit)
       Toast.makeText(this, "backup wallet in file", Toast.LENGTH_LONG)
           .show()
     } else {
@@ -77,7 +80,9 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
         .commit()
   }
 
-  override fun closeScreen() = TransactionsRouter().open(this, true)
+  override fun closeScreen() = finish()
+
+  override fun onPermissionGiven() = onPermissionSubject!!
 
   private fun requestStorageWritePermission() {
     Log.e("TEST", "Requesting file system write permission")
@@ -93,6 +98,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
                                           grantResults: IntArray) {
     if (requestCode == RC_WRITE_EXTERNAL_STORAGE_PERMISSION) {
       if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        onPermissionSubject?.onNext(Unit)
         Log.e("TEST", "PERMISSION GRANTED")
       } else {
         Log.e("", "Permission not granted: results len = "
