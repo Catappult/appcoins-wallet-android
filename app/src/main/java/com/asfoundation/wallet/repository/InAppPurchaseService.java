@@ -19,20 +19,43 @@ public class InAppPurchaseService {
 
   private final Repository<String, PaymentTransaction> cache;
   private final ApproveService approveService;
+  private final AllowanceService allowanceService;
   private final BuyService buyService;
   private final BalanceService balanceService;
   private final Scheduler scheduler;
   private final ErrorMapper errorMapper;
 
   public Completable send(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
+    return checkFunds(key, paymentTransaction, checkAllowance(key, paymentTransaction));
+  }
+
+  private Completable checkAllowance(String key, PaymentTransaction paymentTransaction) {
+    String fromAddress = paymentTransaction.getTransactionBuilder()
+        .fromAddress();
+    String contractAddress = paymentTransaction.getTransactionBuilder()
+        .getIabContract();
+    String tokenAddress = paymentTransaction.getTransactionBuilder()
+        .contractAddress();
+
+    return allowanceService.checkAllowance(fromAddress, contractAddress, tokenAddress)
+        .flatMapCompletable(allowance -> {
+          int difference = allowance.compareTo(paymentTransaction.getTransactionBuilder()
+              .amount());
+
+          if (difference >= 0) {
+            return Completable.complete();
+          } else {
+            return approveService.approve(key, paymentTransaction);
+          }
+        });
   }
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
-      ApproveService approveService, BuyService buyService, BalanceService balanceService,
-      Scheduler scheduler, ErrorMapper errorMapper) {
+      ApproveService approveService, AllowanceService allowanceService, BuyService buyService,
+      BalanceService balanceService, Scheduler scheduler, ErrorMapper errorMapper) {
     this.cache = cache;
     this.approveService = approveService;
+    this.allowanceService = allowanceService;
     this.buyService = buyService;
     this.balanceService = balanceService;
     this.scheduler = scheduler;
