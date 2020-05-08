@@ -40,11 +40,12 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
   }
 
   private fun navigateToIntercomScreen(context: Context) {
-    val transactionsIntent =
-        TransactionsActivity.newIntent(context, true)
-    transactionsIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val transactionsIntent = TransactionsActivity.newIntent(context, true)
+        .apply {
+          addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+          addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
     context.startActivity(transactionsIntent)
   }
 }

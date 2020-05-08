@@ -42,7 +42,7 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
       val pendingIntent =
           PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-      val repeatInterval = TimeUnit.MINUTES.toMillis(1)
+      val repeatInterval = TimeUnit.MINUTES.toMillis(15)
       val triggerTime: Long = SystemClock.elapsedRealtime() + repeatInterval
       alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime,
           repeatInterval, pendingIntent)
@@ -55,15 +55,13 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
   override fun onReceive(context: Context, intent: Intent) {
     AndroidInjection.inject(this, context)
 
-/*    if (supportInteractor.shouldShowNotification()) {
-      supportInteractor.updateUnreadConversations()
-      notificationManager.notify(NOTIFICATION_SERVICE_ID,
-          createNotification(context).build())
-    }*/
-
     notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(context).build())
+
+    if (supportInteractor.shouldShowNotification()) {
+      supportInteractor.updateUnreadConversations()
+      notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(context).build())
+    }
   }
 
   private fun createNotification(context: Context): NotificationCompat.Builder {
