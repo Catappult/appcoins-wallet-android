@@ -5,45 +5,59 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
     >
-  <TextView
-      android:id="@+id/confirmation_title"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="32dp"
-      android:layout_marginEnd="48dp"
-      android:text="@string/title_delete_account"
-      android:textColor="@color/black_87_alpha"
-      android:textSize="16sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toTopOf="@id/no_remove_wallet_button"
       app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="28dp"
-      android:layout_marginEnd="16dp"
-      android:background="@drawable/rectangle_outline_red"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/confirmation_title"
       >
-    <include
-        android:id="@+id/remove_balance"
-        layout="@layout/remove_wallet_balance"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
-        />
-  </RelativeLayout>
+        >
 
+      <TextView
+          android:id="@+id/confirmation_title"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="32dp"
+          android:layout_marginEnd="48dp"
+          android:text="@string/title_delete_account"
+          android:textColor="@color/black_87_alpha"
+          android:textSize="16sp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="28dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="8dp"
+          android:background="@drawable/rectangle_outline_red"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/confirmation_title"
+          >
+        <include
+            android:id="@+id/remove_balance"
+            layout="@layout/remove_wallet_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            />
+      </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
   <Button
       android:id="@+id/make_this_active_button"
       style="@style/ButtonStyle.Alternative"
