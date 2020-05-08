@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
@@ -47,6 +46,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     onPermissionSubject = PublishSubject.create()
     presenter = BackupActivityPresenter(this)
     presenter.present(savedInstanceState == null)
+    savedInstanceState?.let { setupToolbar() }
   }
 
   override fun showBackupScreen() {
@@ -84,27 +84,15 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   override fun onPermissionGiven() = onPermissionSubject!!
 
-  private fun requestStorageWritePermission() {
-    Log.e("TEST", "Requesting file system write permission")
-    Log.e("TEST", "SHOW RATIONAL"
-        + ActivityCompat.shouldShowRequestPermissionRationale(this,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE))
-
-    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-        RC_WRITE_EXTERNAL_STORAGE_PERMISSION)
-  }
+  private fun requestStorageWritePermission() =
+      ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+          RC_WRITE_EXTERNAL_STORAGE_PERMISSION)
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                           grantResults: IntArray) {
     if (requestCode == RC_WRITE_EXTERNAL_STORAGE_PERMISSION) {
       if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         onPermissionSubject?.onNext(Unit)
-        Log.e("TEST", "PERMISSION GRANTED")
-      } else {
-        Log.e("", "Permission not granted: results len = "
-            + grantResults.size
-            + " Result code = "
-            + grantResults[0])
       }
     } else {
       super.onRequestPermissionsResult(requestCode, permissions, grantResults)
