@@ -14,7 +14,6 @@ import dagger.android.AndroidInjection
 import dagger.android.DaggerBroadcastReceiver
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -81,7 +80,7 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
         .setContentIntent(okPendingIntent)
         .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentText(context.getString(R.string.support_new_message_button) + Date().toString())
+        .setContentText(context.getString(R.string.support_new_message_button))
   }
 
   private fun createNotificationClickIntent(context: Context): PendingIntent {
