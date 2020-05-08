@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
@@ -67,8 +66,6 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         == PackageManager.PERMISSION_GRANTED) {
       onPermissionSubject?.onNext(Unit)
-      Toast.makeText(this, "backup wallet in file", Toast.LENGTH_LONG)
-          .show()
     } else {
       requestStorageWritePermission()
     }

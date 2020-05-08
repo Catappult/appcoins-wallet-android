@@ -77,6 +77,6 @@ class FileInteract {
   }
 
   fun getTemporaryPath(context: Context?): File? {
-    return context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+    return context?.externalCacheDir
   }
 }
