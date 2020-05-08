@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -1365,7 +1366,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new WalletValidationAnalytics(analyticsManager);
   }
 
-  @Singleton @Provides FileInteract provideFileInteract() {
-    return new FileInteract();
+  @Provides ContentResolver provideContentResolver(Context context) {
+    return context.getContentResolver();
+  }
+
+  @Singleton @Provides FileInteract provideFileInteract(ContentResolver contentResolver) {
+    return new FileInteract(contentResolver);
   }
 }

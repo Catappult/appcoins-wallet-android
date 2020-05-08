@@ -15,4 +15,8 @@ interface BackupActivityView {
   fun closeScreen()
 
   fun onPermissionGiven(): Observable<Unit>
+
+  fun openSystemFileDirectory(fileName: String)
+
+  fun onSystemFileIntentResult(): Observable<SystemFileIntentResult>
 }
