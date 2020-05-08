@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     >
 
   <LinearLayout
@@ -42,10 +41,10 @@
       >
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_onboarding"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="32:7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
@@ -94,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.71"
+        app:layout_constraintGuide_percent="0.75"
         />
 
     <androidx.constraintlayout.widget.Guideline
@@ -102,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.78"
+        app:layout_constraintGuide_percent="0.83"
         />
 
     <Button
