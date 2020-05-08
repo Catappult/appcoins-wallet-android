@@ -41,9 +41,10 @@
       >
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_onboarding"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/animation_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -85,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.34"
+        app:layout_constraintGuide_percent="0.40"
         />
 
     <androidx.constraintlayout.widget.Guideline
