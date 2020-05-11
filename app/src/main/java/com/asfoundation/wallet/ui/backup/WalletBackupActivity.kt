@@ -74,8 +74,9 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   override fun startWalletBackup() {
-    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ||
+        ActivityCompat.checkSelfPermission(this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
       onPermissionSubject?.onNext(Unit)
     } else {
       requestStorageWritePermission()
@@ -116,15 +117,16 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    var systemFileIntentResult = SystemFileIntentResult()
-    if (resultCode == RESULT_OK && requestCode == ACTION_OPEN_DOCUMENT_TREE_REQUEST_CODE && data != null) {
-      data.data?.let {
-        val documentFile = DocumentFile.fromTreeUri(this, it)
-        val fileName = data.getStringExtra(FILE_NAME_EXTRA_KEY)
-        systemFileIntentResult = SystemFileIntentResult(documentFile)
+    if (requestCode == ACTION_OPEN_DOCUMENT_TREE_REQUEST_CODE) {
+      var systemFileIntentResult = SystemFileIntentResult()
+      if (resultCode == RESULT_OK && data != null) {
+        data.data?.let {
+          val documentFile = DocumentFile.fromTreeUri(this, it)
+          systemFileIntentResult = SystemFileIntentResult(documentFile)
+        }
       }
+      onDocumentFileSubject?.onNext(systemFileIntentResult)
     }
-    onDocumentFileSubject?.onNext(systemFileIntentResult)
   }
 
   override fun onSystemFileIntentResult() = onDocumentFileSubject!!

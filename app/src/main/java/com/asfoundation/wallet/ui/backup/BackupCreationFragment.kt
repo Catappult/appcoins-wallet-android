@@ -66,7 +66,8 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     presenter =
         BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteract, logger,
             Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), walletAddress,
-            password, fileInteract.getTemporaryPath(context), fileInteract.getDownloadPath(context))
+            password, fileInteract.getTemporaryPath(context), fileInteract.getDownloadPath(context),
+            context)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -101,7 +102,8 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     ShareCompat.IntentBuilder.from(activity)
         .setStream(uri)
         .setType("text/plain")
-        .setChooserTitle(R.string.askafriend_share_popup_title)
+        .setSubject(getString(R.string.tab_keystore))
+        .setChooserTitle(R.string.share_via)
         .startChooser()
   }
 

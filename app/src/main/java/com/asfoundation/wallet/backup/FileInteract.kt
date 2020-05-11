@@ -3,9 +3,12 @@ package com.asfoundation.wallet.backup
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
+import com.asf.wallet.BuildConfig
 import io.reactivex.Completable
 import java.io.File
 import java.io.FileOutputStream
@@ -100,5 +103,9 @@ class FileInteract(private val contentResolver: ContentResolver) {
 
   fun getTemporaryPath(context: Context?): File? {
     return context?.externalCacheDir
+  }
+
+  fun getUriFromFile(context: Context, file: File): Uri {
+    return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
   }
 }
