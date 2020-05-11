@@ -42,9 +42,7 @@ class AppcoinsBalanceRepository(
           }
           .subscribe({}, { it.printStackTrace() })
     }
-    return Single.fromCallable { }
-        .observeOn(networkScheduler)
-        .flatMapObservable { getBalance(address) }
+    return getBalance(address)
         .map { balanceDetailsMapper.mapEthBalance(it) }
   }
 
@@ -63,9 +61,7 @@ class AppcoinsBalanceRepository(
           .onExceptionResumeNext {}
           .subscribe()
     }
-    return Single.fromCallable { }
-        .observeOn(networkScheduler)
-        .flatMapObservable { getBalance(address) }
+    return getBalance(address)
         .map { balanceDetailsMapper.mapAppcBalance(it) }
   }
 
@@ -84,9 +80,7 @@ class AppcoinsBalanceRepository(
           .onExceptionResumeNext {}
           .subscribe()
     }
-    return Single.fromCallable { }
-        .observeOn(networkScheduler)
-        .flatMapObservable { getBalance(address) }
+    return getBalance(address)
         .map { balanceDetailsMapper.mapCreditsBalance(it) }
   }
 
@@ -104,23 +98,20 @@ class AppcoinsBalanceRepository(
   }
 
   override fun getStoredEthBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
-    return getBalance(walletAddress).map {
-      balanceDetailsMapper.mapEthBalance(it)
-    }
+    return getBalance(walletAddress)
+        .map { balanceDetailsMapper.mapEthBalance(it) }
         .firstOrError()
   }
 
   override fun getStoredAppcBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
-    return getBalance(walletAddress).map {
-      balanceDetailsMapper.mapAppcBalance(it)
-    }
+    return getBalance(walletAddress)
+        .map { balanceDetailsMapper.mapAppcBalance(it) }
         .firstOrError()
   }
 
   override fun getStoredCreditsBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
-    return getBalance(walletAddress).map {
-      balanceDetailsMapper.mapCreditsBalance(it)
-    }
+    return getBalance(walletAddress)
+        .map { balanceDetailsMapper.mapCreditsBalance(it) }
         .firstOrError()
   }
 }

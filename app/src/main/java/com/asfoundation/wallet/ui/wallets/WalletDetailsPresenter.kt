@@ -62,7 +62,7 @@ class WalletDetailsPresenter(
     disposable.add(interactor.getBalanceModel(walletAddress)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext { view.populateUi(it) }
+        .doOnSuccess { view.populateUi(it) }
         .subscribe())
   }
 
