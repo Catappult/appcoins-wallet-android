@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
-class NewWalletsAdapter(private val context: Context, private var items: List<WalletBalance>,
-                        private val uiEventListener: PublishSubject<String>) :
+class WalletsAdapter(private val context: Context, private var items: List<WalletBalance>,
+                     private val uiEventListener: PublishSubject<String>) :
     RecyclerView.Adapter<WalletsViewHolder>() {
 
 

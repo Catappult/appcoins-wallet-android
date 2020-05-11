@@ -47,9 +47,6 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.ui.WalletsActivity"
-        android:label="@string/title_account_list" />
-    <activity
         android:name="com.asfoundation.wallet.ui.onboarding.OnboardingActivity"
         android:label="" />
     <activity

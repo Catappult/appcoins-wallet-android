@@ -20,7 +20,6 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
-import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
@@ -88,10 +87,6 @@ import javax.inject.Singleton;
       ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
       BackupInteractContract backupInteract) {
     return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract, backupInteract);
-  }
-
-  @Provides ManageWalletsRouter provideManageWalletsRouter() {
-    return new ManageWalletsRouter();
   }
 
   @Provides SettingsRouter provideSettingsRouter() {

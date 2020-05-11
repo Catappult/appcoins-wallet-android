@@ -19,7 +19,6 @@ interface PreferencesRepositoryType {
   fun setWalletValidationStatus(walletAddress: String, validated: Boolean)
   fun isWalletValidated(walletAddress: String): Boolean
   fun removeWalletValidationStatus(walletAddress: String): Completable
-  fun addWalletPreference(address: String?)
   fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
   fun getAutoUpdateCardDismissedVersion(): Single<Int>
   fun getUpdateNotificationSeenTime(): Long

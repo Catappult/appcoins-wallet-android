@@ -321,8 +321,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build();
   }
 
-  @Singleton @Provides SharedPreferencesRepository providePreferencesRepository(Context context) {
-    return new SharedPreferencesRepository(context);
+  @Singleton @Provides SharedPreferencesRepository providePreferencesRepository(
+      SharedPreferences sharedPreferences) {
+    return new SharedPreferencesRepository(sharedPreferences);
   }
 
   @Singleton @Provides PreferencesRepositoryType providePreferenceRepositoryType(
