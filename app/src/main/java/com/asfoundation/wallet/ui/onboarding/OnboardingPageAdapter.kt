@@ -9,9 +9,7 @@ import com.asf.wallet.R
 class OnboardingPageAdapter(val context: Context, private var items: List<OnboardingItem>) :
     RecyclerView.Adapter<OnboardingViewHolder>() {
 
-  override fun getItemCount(): Int {
-    return items.size
-  }
+  override fun getItemCount() = items.size
 
   override fun onCreateViewHolder(container: ViewGroup, viewType: Int): OnboardingViewHolder {
     val view = LayoutInflater.from(container.context)
