@@ -52,6 +52,7 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
   override fun androidInjector() = androidInjector
 
   override fun onReceive(context: Context, intent: Intent) {
+    super.onReceive(context, intent)
     AndroidInjection.inject(this, context)
 
     notificationManager =
