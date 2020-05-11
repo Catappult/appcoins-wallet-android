@@ -1,7 +1,6 @@
 package com.asfoundation.wallet
 
 import androidx.multidex.MultiDexApplication
-import androidx.work.*
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
@@ -11,14 +10,13 @@ import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.RakamAnalytics
-import com.asfoundation.wallet.di.AppComponent
 import com.asfoundation.wallet.di.DaggerAppComponent
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
-import com.asfoundation.wallet.support.SupportNotificationWorker
+import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.flurry.android.FlurryAgent
@@ -29,7 +27,6 @@ import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.sentry.Sentry
 import io.sentry.android.AndroidSentryClientFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvider {
@@ -83,8 +80,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         .build()
     appComponent.inject(this)
     setupRxJava()
-    setupWorkManager(appComponent)
-    setupSupportNotificationWorker()
+    setupSupportNotificationAlarm()
     initiateFlurry()
     inAppPurchaseInteractor.start()
     proofOfAttentionService.start()
@@ -109,25 +105,8 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     }
   }
 
-  private fun setupWorkManager(appComponent: AppComponent) {
-    WorkManager.initialize(this,
-        Configuration.Builder()
-            .setWorkerFactory(appComponent.daggerWorkerFactory())
-            .build())
-  }
-
-  private fun setupSupportNotificationWorker() {
-    val workerConstraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
-    val notificationWorkRequest = PeriodicWorkRequest.Builder(SupportNotificationWorker::class.java,
-        SupportNotificationWorker.NOTIFICATION_PERIOD, TimeUnit.MINUTES)
-        .addTag(SupportNotificationWorker.WORKER_TAG)
-        .setConstraints(workerConstraints)
-        .build()
-    WorkManager.getInstance(this)
-        .enqueueUniquePeriodicWork(SupportNotificationWorker.UNIQUE_WORKER_NAME,
-            ExistingPeriodicWorkPolicy.KEEP, notificationWorkRequest)
+  private fun setupSupportNotificationAlarm() {
+    AlarmManagerBroadcastReceiver.scheduleAlarm(this)
   }
 
   private fun initiateFlurry() {
