@@ -424,7 +424,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
     if (globalBalance.getFiatValue()
-        .length() > 0) {
+        .length() > 0 && !globalBalance.getFiatSymbol()
+        .isEmpty()) {
       balanceSkeleton.setVisibility(View.GONE);
       setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
       setSubtitle(globalBalance);
