@@ -1371,7 +1371,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return context.getContentResolver();
   }
 
-  @Singleton @Provides FileInteract provideFileInteract(ContentResolver contentResolver) {
-    return new FileInteract(contentResolver);
+  @Singleton @Provides FileInteract provideFileInteract(Context context,
+      ContentResolver contentResolver, PreferencesRepositoryType preferencesRepositoryType) {
+    return new FileInteract(context, contentResolver, preferencesRepositoryType);
   }
 }

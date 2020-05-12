@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.backup
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.documentfile.provider.DocumentFile
@@ -24,8 +23,7 @@ class BackupCreationPresenter(
     private val walletAddress: String,
     private val password: String,
     private val temporaryPath: File?,
-    private val downloadsPath: File?,
-    private val context: Context?) {
+    private val downloadsPath: File?) {
 
   companion object {
     private const val FILE_SHARED_KEY = "FILE_SHARED"
@@ -117,8 +115,7 @@ class BackupCreationPresenter(
             val file = fileInteract.getCachedFile()
             if (file == null) showError("Error retrieving file")
             else {
-              context?.let { view.shareFile(fileInteract.getUriFromFile(context, file)) }
-                  ?: showError("Null context")
+              view.shareFile(fileInteract.getUriFromFile(file))
               fileShared = true
             }
           }
@@ -148,6 +145,7 @@ class BackupCreationPresenter(
     return fileInteract.createAndSaveFile(cachedKeystore, documentFile, fileName)
         .observeOn(viewScheduler)
         .doOnComplete {
+          fileInteract.saveChosenUri(documentFile.uri)
           view.closeDialog()
           activityView.showSuccessScreen()
         }

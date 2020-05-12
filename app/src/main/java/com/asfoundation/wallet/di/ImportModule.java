@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import com.asfoundation.wallet.backup.FileInteract;
 import com.asfoundation.wallet.interact.ImportWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -16,9 +17,9 @@ import javax.inject.Singleton;
   @Singleton @Provides ImportWalletInteract provideImportWalletInteract(
       WalletRepositoryType walletRepository, PasswordStore passwordStore,
       PreferencesRepositoryType preferencesRepositoryType,
-      SetDefaultWalletInteract setDefaultWalletInteract) {
+      SetDefaultWalletInteract setDefaultWalletInteract, FileInteract fileInteract) {
     return new ImportWalletInteract(walletRepository, setDefaultWalletInteract, passwordStore,
-        preferencesRepositoryType);
+        preferencesRepositoryType, fileInteract);
   }
 
   @Singleton @Provides ImportWalletPasswordInteractor provideImportWalletInteractor(Gson gson,

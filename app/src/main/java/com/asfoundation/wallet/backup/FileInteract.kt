@@ -9,12 +9,15 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Completable
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class FileInteract(private val contentResolver: ContentResolver) {
+class FileInteract(private val context: Context,
+                   private val contentResolver: ContentResolver,
+                   private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   private var cachedFile: File? = null
 
@@ -101,11 +104,15 @@ class FileInteract(private val contentResolver: ContentResolver) {
     }
   }
 
-  fun getTemporaryPath(context: Context?): File? {
-    return context?.externalCacheDir
+  fun getTemporaryPath(): File? {
+    return context.externalCacheDir
   }
 
-  fun getUriFromFile(context: Context, file: File): Uri {
+  fun getUriFromFile(file: File): Uri {
     return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
+  }
+
+  fun saveChosenUri(uri: Uri) {
+    preferencesRepositoryType.saveChosenUri(uri.toString())
   }
 }

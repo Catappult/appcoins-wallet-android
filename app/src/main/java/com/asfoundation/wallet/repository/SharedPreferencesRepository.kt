@@ -151,6 +151,14 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun getGamificationLevel() = pref.getInt(GAMIFICATION_LEVEL, -1)
 
+  override fun saveChosenUri(uri: String) {
+    pref.edit()
+        .putString(KEYSTORE_DIRECTORY, uri)
+        .apply()
+  }
+
+  override fun getChosenUri() = pref.getString(KEYSTORE_DIRECTORY, null)
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
@@ -166,5 +174,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
     private const val ANDROID_ID = "android_id"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val KEYSTORE_DIRECTORY = "keystore_directory"
   }
 }

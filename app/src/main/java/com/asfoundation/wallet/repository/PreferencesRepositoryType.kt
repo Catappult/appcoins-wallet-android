@@ -34,4 +34,6 @@ interface PreferencesRepositoryType {
   fun getAndroidId(): String
   fun setAndroidId(androidId: String)
   fun getGamificationLevel(): Int
+  fun saveChosenUri(uri: String)
+  fun getChosenUri(): String?
 }

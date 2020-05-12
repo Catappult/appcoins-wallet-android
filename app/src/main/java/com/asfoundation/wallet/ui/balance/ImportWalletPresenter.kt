@@ -9,6 +9,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
 class ImportWalletPresenter(private val view: ImportWalletView,
+                            private val activityView: ImportWalletActivityView,
                             private val disposable: CompositeDisposable,
                             private val importWalletInteract: ImportWalletInteract,
                             private val viewScheduler: Scheduler,
@@ -16,12 +17,20 @@ class ImportWalletPresenter(private val view: ImportWalletView,
 
   fun present() {
     handleImportFromString()
+    handleImportFromFile()
+  }
+
+  private fun handleImportFromFile() {
+    disposable.add(view.importFromFileClick()
+        .observeOn(viewScheduler)
+        .doOnNext { activityView.launchFileIntent(importWalletInteract.getPath()) }
+        .subscribe())
   }
 
   private fun handleImportFromString() {
     disposable.add(view.importFromStringClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.showWalletImportAnimation() }
+        .doOnNext { activityView.showWalletImportAnimation() }
         .observeOn(computationScheduler)
         .flatMapSingle { fetchWalletModel(it) }
         .observeOn(viewScheduler)
@@ -32,13 +41,13 @@ class ImportWalletPresenter(private val view: ImportWalletView,
   private fun setDefaultWallet(address: String) {
     disposable.add(importWalletInteract.setDefaultWallet(address)
         .observeOn(viewScheduler)
-        .doOnComplete { view.showWalletImportedAnimation() }
+        .doOnComplete { activityView.showWalletImportedAnimation() }
         .subscribe())
   }
 
   private fun handleWalletModel(walletModel: WalletModel) {
     if (walletModel.error.hasError) {
-      view.hideAnimation()
+      activityView.hideAnimation()
       if (walletModel.error.type == ImportErrorType.INVALID_PASS) view.navigateToPasswordView()
       else view.showError(walletModel.error.type)
     } else {
