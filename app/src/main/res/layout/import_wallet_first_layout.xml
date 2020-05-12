@@ -7,7 +7,7 @@
     android:theme="@style/MaterialAppTheme"
     >
 
-  <androidx.core.widget.NestedScrollView
+  <ScrollView
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_marginBottom="8dp"
@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
       <TextView
           android:id="@+id/import_title"
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
@@ -55,8 +54,104 @@
             android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
             />
       </com.google.android.material.textfield.TextInputLayout>
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/separator"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="26dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/label_input"
+          >
+        <View
+            android:id="@+id/first_half_separator"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginEnd="12dp"
+            android:background="#f3f3f3"
+            app:layout_constraintBottom_toBottomOf="@id/or_text"
+            app:layout_constraintEnd_toStartOf="@id/or_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/or_text"
+            />
+
+        <View
+            android:id="@+id/second_half_separator"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="12dp"
+            android:background="#f3f3f3"
+            app:layout_constraintBottom_toBottomOf="@id/or_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/or_text"
+            app:layout_constraintTop_toTopOf="@id/or_text"
+            />
+
+        <TextView
+            android:id="@+id/or_text"
+            style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/common_or"
+            android:textColor="#99000000"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+      <androidx.appcompat.widget.AppCompatButton
+          android:id="@+id/import_from_file_button"
+          style="@style/ButtonStyle.Light"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/button_height"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="12dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="8dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/separator"
+          />
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:gravity="center"
+          app:layout_constraintBottom_toBottomOf="@id/import_from_file_button"
+          app:layout_constraintEnd_toEndOf="@id/import_from_file_button"
+          app:layout_constraintStart_toStartOf="@id/import_from_file_button"
+          app:layout_constraintTop_toTopOf="@id/import_from_file_button"
+          >
+        <ImageView
+            android:id="@+id/import_icon"
+            android:layout_width="13dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_import"
+            app:layout_constraintBottom_toBottomOf="@id/import_text"
+            app:layout_constraintEnd_toStartOf="@id/import_text"
+            app:layout_constraintTop_toTopOf="@id/import_text"
+            />
+        <TextView
+            android:id="@+id/import_text"
+            style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/import_wallet_file_button"
+            android:textColor="@color/text_button_color"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/import_from_file_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/import_from_file_button"
+            />
+      </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-  </androidx.core.widget.NestedScrollView>
+  </ScrollView>
   <Button
       android:id="@+id/import_wallet_button"
       style="@style/ButtonStyle.Alternative"
