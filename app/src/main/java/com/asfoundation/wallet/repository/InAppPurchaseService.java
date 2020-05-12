@@ -3,10 +3,12 @@ package com.asfoundation.wallet.repository;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.repository.ApproveService.Status;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BalanceState.OK;
@@ -42,12 +44,37 @@ public class InAppPurchaseService {
           int difference = allowance.compareTo(paymentTransaction.getTransactionBuilder()
               .amount());
 
-          if (difference >= 0) {
+          if (allowance.compareTo(BigDecimal.ZERO) == 0) {
+            return approveService.approve(key, paymentTransaction);
+          } else if (difference >= 0) {
             return Completable.complete();
           } else {
-            return approveService.approve(key, paymentTransaction);
+            PaymentTransaction approveWithZeroPaymentTransaction =
+                createApproveZeroTransaction(paymentTransaction);
+
+            return approveService.approveWithoutValidation(key + "zero",
+                approveWithZeroPaymentTransaction)
+                .andThen(approveService.getApprove(key + "zero")
+                    .filter(approveTransaction -> approveTransaction.getStatus() == Status.APPROVED)
+                    .take(1)
+                    .ignoreElements())
+                .andThen(approveService.approve(key, paymentTransaction));
           }
         });
+  }
+
+  private PaymentTransaction createApproveZeroTransaction(PaymentTransaction paymentTransaction) {
+    TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
+
+    TransactionBuilder approveWithZeroTransactionBuilder =
+        copyTransactionBuilder(transactionBuilder);
+    approveWithZeroTransactionBuilder.amount(BigDecimal.ZERO);
+
+    return new PaymentTransaction(paymentTransaction, approveWithZeroTransactionBuilder);
+  }
+
+  private TransactionBuilder copyTransactionBuilder(TransactionBuilder transactionBuilder) {
+    return new TransactionBuilder(transactionBuilder);
   }
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
@@ -201,10 +228,16 @@ public class InAppPurchaseService {
                 .toSingleDefault(paymentTransaction))
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
-                .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
-                    .andThen(buyService.buy(transaction.getUri(), transaction)
-                        .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
-                            new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
+                .flatMapCompletable(transaction -> {
+                  return transaction.getTransactionBuilder()
+                      .amount()
+                      .equals(BigDecimal.ZERO) ? approveService.remove(transaction.getUri())
+                      : approveService.remove(transaction.getUri())
+                          .andThen(buyService.buy(transaction.getUri(), transaction)
+                              .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
+                                  new PaymentTransaction(transaction,
+                                      errorMapper.map(throwable)))));
+                })))
         .subscribe();
 
     buyService.getAll()

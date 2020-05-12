@@ -22,6 +22,10 @@ public class ApproveService {
     transactionService.start();
   }
 
+  public Completable approveWithoutValidation(String key, PaymentTransaction paymentTransaction) {
+    return transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder());
+  }
+
   public Completable approve(String key, PaymentTransaction paymentTransaction) {
     return approveTransactionSender.validate(paymentTransaction)
         .andThen(
