@@ -70,25 +70,21 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             .subscribe({ view.showPendingUserPayment(it.first, it.second) }, { showError(it) }))
   }
 
-  private fun getPaymentMethodIcon(): Single<Bitmap> {
-    return Single.fromCallable {
-      GlideApp.with(context!!)
-          .asBitmap()
-          .load(paymentMethodIconUrl)
-          .override(getWidth(), getHeight())
-          .centerCrop()
-          .submit()
-          .get()
-    }
+  private fun getPaymentMethodIcon() = Single.fromCallable {
+    GlideApp.with(context!!)
+        .asBitmap()
+        .load(paymentMethodIconUrl)
+        .override(getWidth(), getHeight())
+        .centerCrop()
+        .submit()
+        .get()
   }
 
-  private fun getApplicationIconIcon(): Single<Bitmap> {
-    return Single.fromCallable {
-      val applicationIcon =
-          (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
+  private fun getApplicationIconIcon() = Single.fromCallable {
+    val applicationIcon =
+        (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
 
-      Bitmap.createScaledBitmap(applicationIcon, appIconWidth, appIconHeight, true)
-    }
+    Bitmap.createScaledBitmap(applicationIcon, appIconWidth, appIconHeight, true)
   }
 
   private fun onViewCreatedRequestLink() {
@@ -104,7 +100,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                   paymentId)
               navigator.navigateToUriForResult(it)
               waitingResult = true
-            }.subscribeOn(networkScheduler)
+            }
+            .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .subscribe({ }, { showError(it) }))
   }
@@ -167,10 +164,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         preparePendingUserPayment()
         analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
         analytics.sendPaymentPendingEvent(domain, skuId, amount.toString(), type, paymentId)
-      }.subscribeOn(viewScheduler)
+      }
+          .subscribeOn(viewScheduler)
       else -> Completable.fromAction {
         view.showError()
-      }.subscribeOn(viewScheduler)
+      }
+          .subscribeOn(viewScheduler)
     }
   }
 

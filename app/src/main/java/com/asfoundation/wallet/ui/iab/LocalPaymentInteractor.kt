@@ -44,30 +44,29 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
         }
   }
 
-  fun getTransaction(uri: Uri): Observable<Transaction> {
-    return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
-        .filter { isEndingState(it.status, it.type) }
-        .distinctUntilChanged { transaction -> transaction.status }
-  }
+  fun getTransaction(uri: Uri): Observable<Transaction> =
+      inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
+          .filter { isEndingState(it.status, it.type) }
+          .distinctUntilChanged { transaction -> transaction.status }
 
-  private fun isEndingState(status: Transaction.Status, type: String): Boolean {
-    return (status == PENDING_USER_PAYMENT && type == "TOPUP") || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
-  }
+  private fun isEndingState(status: Transaction.Status, type: String) =
+      (status == PENDING_USER_PAYMENT && type == "TOPUP") ||
+          (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) ||
+          status == FAILED ||
+          status == CANCELED ||
+          status == INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
-    }
-  }
+                                scheduler: Scheduler): Single<Bundle> =
+      if (isInApp(type) && sku != null) {
+        billing.getSkuPurchase(merchantName, sku, scheduler)
+            .map { billingMessagesMapper.mapPurchase(it, orderReference) }
+      } else {
+        Single.just(billingMessagesMapper.successBundle(hash))
+      }
 
-  private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
-  }
+  private fun isInApp(type: String) = type.equals("INAPP", ignoreCase = true)
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(paymentMethod)
