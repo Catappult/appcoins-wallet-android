@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.backup
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,8 +13,10 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.backup.FileInteract
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.activity_backup.*
 import javax.inject.Inject
 
 
@@ -97,7 +100,12 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
       putExtra(FILE_NAME_EXTRA_KEY, fileName)
     }
-    startActivityForResult(intent, ACTION_OPEN_DOCUMENT_TREE_REQUEST_CODE)
+    try {
+      startActivityForResult(intent, ACTION_OPEN_DOCUMENT_TREE_REQUEST_CODE)
+    } catch (ex: ActivityNotFoundException) {
+      Snackbar.make(backup_content, R.string.unknown_error, Snackbar.LENGTH_SHORT)
+          .show()
+    }
   }
 
   private fun requestStorageWritePermission() =
