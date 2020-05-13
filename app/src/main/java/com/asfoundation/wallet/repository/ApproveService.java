@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.util.List;
@@ -22,8 +23,8 @@ public class ApproveService {
     transactionService.start();
   }
 
-  public Completable approveWithoutValidation(String key, PaymentTransaction paymentTransaction) {
-    return transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder());
+  public Completable approveWithoutValidation(String key, TransactionBuilder transactionBuilder) {
+    return transactionService.sendTransaction(key, transactionBuilder);
   }
 
   public Completable approve(String key, PaymentTransaction paymentTransaction) {

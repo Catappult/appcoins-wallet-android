@@ -14,6 +14,7 @@ import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.Transaction;
 
 import static org.web3j.protocol.core.methods.request.Transaction.createEthCallTransaction;
 
@@ -53,7 +54,7 @@ public class AllowanceService {
   private String callSmartContractFunction(Function function, String contractAddress,
       String walletAddress) throws Exception {
     String encodedFunction = FunctionEncoder.encode(function);
-    org.web3j.protocol.core.methods.request.Transaction transaction =
+    Transaction transaction =
         createEthCallTransaction(walletAddress, contractAddress, encodedFunction);
     return web3j.ethCall(transaction, DefaultBlockParameterName.LATEST)
         .send()

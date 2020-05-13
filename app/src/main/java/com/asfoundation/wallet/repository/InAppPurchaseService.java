@@ -32,17 +32,14 @@ public class InAppPurchaseService {
   }
 
   private Completable checkAllowance(String key, PaymentTransaction paymentTransaction) {
-    String fromAddress = paymentTransaction.getTransactionBuilder()
-        .fromAddress();
-    String contractAddress = paymentTransaction.getTransactionBuilder()
-        .getIabContract();
-    String tokenAddress = paymentTransaction.getTransactionBuilder()
-        .contractAddress();
+    TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
+    String fromAddress = transactionBuilder.fromAddress();
+    String contractAddress = transactionBuilder.getIabContract();
+    String tokenAddress = transactionBuilder.contractAddress();
 
     return allowanceService.checkAllowance(fromAddress, contractAddress, tokenAddress)
         .flatMapCompletable(allowance -> {
-          int difference = allowance.compareTo(paymentTransaction.getTransactionBuilder()
-              .amount());
+          int difference = allowance.compareTo(transactionBuilder.amount());
 
           if (allowance.compareTo(BigDecimal.ZERO) == 0) {
             return approveService.approve(key, paymentTransaction);
@@ -53,7 +50,7 @@ public class InAppPurchaseService {
                 createApproveZeroTransaction(paymentTransaction);
 
             return approveService.approveWithoutValidation(key + "zero",
-                approveWithZeroPaymentTransaction)
+                approveWithZeroPaymentTransaction.getTransactionBuilder())
                 .andThen(approveService.getApprove(key + "zero")
                     .filter(approveTransaction -> approveTransaction.getStatus() == Status.APPROVED)
                     .take(1)
@@ -229,12 +226,13 @@ public class InAppPurchaseService {
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
                 .flatMapCompletable(transaction -> {
+                  String uri = transaction.getUri();
                   return transaction.getTransactionBuilder()
                       .amount()
-                      .equals(BigDecimal.ZERO) ? approveService.remove(transaction.getUri())
-                      : approveService.remove(transaction.getUri())
-                          .andThen(buyService.buy(transaction.getUri(), transaction)
-                              .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
+                      .equals(BigDecimal.ZERO) ? approveService.remove(uri)
+                      : approveService.remove(uri)
+                          .andThen(buyService.buy(uri, transaction)
+                              .onErrorResumeNext(throwable -> cache.save(uri,
                                   new PaymentTransaction(transaction,
                                       errorMapper.map(throwable)))));
                 })))
