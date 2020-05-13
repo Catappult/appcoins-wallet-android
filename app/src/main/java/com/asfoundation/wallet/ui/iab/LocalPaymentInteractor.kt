@@ -51,7 +51,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   private fun isEndingState(status: Transaction.Status, type: String) =
       (status == PENDING_USER_PAYMENT && type == "TOPUP") ||
-          (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) ||
+          status == COMPLETED ||
           status == FAILED ||
           status == CANCELED ||
           status == INVALID_TRANSACTION
