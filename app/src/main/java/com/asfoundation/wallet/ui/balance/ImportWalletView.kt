@@ -9,7 +9,7 @@ interface ImportWalletView {
 
   fun importFromFileClick(): Observable<Any>
 
-  fun navigateToPasswordView()
+  fun navigateToPasswordView(keystore: String)
 
   fun showError(type: ImportErrorType)
 }

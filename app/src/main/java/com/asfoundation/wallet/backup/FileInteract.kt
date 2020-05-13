@@ -11,9 +11,8 @@ import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Completable
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
+import io.reactivex.Single
+import java.io.*
 
 class FileInteract(private val context: Context,
                    private val contentResolver: ContentResolver,
@@ -44,8 +43,9 @@ class FileInteract(private val context: Context,
   //Use this method for android P and below
   fun createAndSaveFile(content: String, path: File?, fileName: String): Completable {
     val stringPath = path?.path ?: return Completable.error(Throwable("Null path"))
-    val file = File("$stringPath/$fileName")
-
+    val directory = File("$stringPath${File.separator}AppcoinsBackup")
+    directory.mkdirs()
+    val file = File("$directory${File.separator}$fileName")
     val fileOutputStream = FileOutputStream(file, false)
     try {
       fileOutputStream.write(content.toByteArray())
@@ -91,10 +91,6 @@ class FileInteract(private val context: Context,
   fun getDefaultBackupFileFullName(walletAddress: String) =
       getDefaultBackupFileName(walletAddress) + getDefaultBackupFileExtension()
 
-  private fun getDefaultBackupFileName(walletAddress: String) = "walletbackup$walletAddress"
-
-  private fun getDefaultBackupFileExtension() = ".txt"
-
   fun getDownloadPath(context: Context?): File? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
       context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: context?.getDir(
@@ -115,4 +111,30 @@ class FileInteract(private val context: Context,
   fun saveChosenUri(uri: Uri) {
     preferencesRepositoryType.saveChosenUri(uri.toString())
   }
+
+  fun readFile(fileUri: Uri?): Single<String> {
+    if (fileUri == null || fileUri.path == null) return Single.error(
+        Throwable("Error retrieving file"))
+    else {
+      val keystore = StringBuilder("")
+      try {
+        val inputStream = contentResolver.openInputStream(fileUri)
+        val reader = BufferedReader(InputStreamReader(inputStream!!))
+        var mLine: String?
+        while (reader.readLine()
+                .also { mLine = it } != null) {
+          keystore.append(mLine)
+          keystore.append('\n')
+        }
+      } catch (e: Exception) {
+        e.printStackTrace()
+        return Single.error(e)
+      }
+      return Single.just(keystore.toString())
+    }
+  }
+
+  private fun getDefaultBackupFileName(walletAddress: String) = "walletbackup$walletAddress"
+
+  private fun getDefaultBackupFileExtension() = ".bck"
 }

@@ -3,9 +3,6 @@
   <external-cache-path
       name="tmp"
       path="." />
-  <external-files-path
-      name="external_files"
-      path="." />
   <external-path
       name="external_files"
       path="." />

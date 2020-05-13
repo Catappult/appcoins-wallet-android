@@ -32,7 +32,7 @@ class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
           preferencesRepositoryType.setWalletImportBackup(it.address)
         }
         .map { WalletModel(it.address) }
-        .onErrorReturn { mapError(it) }
+        .onErrorReturn { mapError(keystore, it) }
   }
 
   fun importPrivateKey(privateKey: String?): Single<WalletModel> {
@@ -60,18 +60,23 @@ class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
     }
   }
 
-  private fun mapError(throwable: Throwable): WalletModel {
+  private fun mapError(keystore: String, throwable: Throwable): WalletModel {
     if (throwable.message != null) {
       if ((throwable.message as String).contains("Invalid Keystore", true)) {
         return WalletModel(ImportError(ImportErrorType.INVALID_KEYSTORE))
       }
       return when (throwable.message) {
-        "Invalid password provided" -> WalletModel(ImportError(ImportErrorType.INVALID_PASS))
+        "Invalid password provided" -> WalletModel(keystore,
+            ImportError(ImportErrorType.INVALID_PASS))
         "Already added" -> WalletModel(ImportError(ImportErrorType.ALREADY_ADDED))
         else -> WalletModel(ImportError(ImportErrorType.GENERIC))
       }
     } else {
       return WalletModel(ImportError(ImportErrorType.GENERIC))
     }
+  }
+
+  fun readFile(fileUri: Uri?): Single<String> {
+    return fileInteract.readFile(fileUri)
   }
 }

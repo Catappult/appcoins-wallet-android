@@ -18,6 +18,22 @@ class ImportWalletPresenter(private val view: ImportWalletView,
   fun present() {
     handleImportFromString()
     handleImportFromFile()
+    handleFileChosen()
+  }
+
+  private fun handleFileChosen() {
+    disposable.add(activityView.onFileChosen()
+        .observeOn(viewScheduler)
+        .doOnNext { activityView.showWalletImportAnimation() }
+        .flatMapSingle { importWalletInteract.readFile(it) }
+        .observeOn(viewScheduler)
+        .doOnError { view.showError(ImportErrorType.INVALID_KEYSTORE) }
+        .observeOn(computationScheduler)
+        .flatMapSingle { fetchWalletModel(it) }
+        .observeOn(viewScheduler)
+        .doOnNext { handleWalletModel(it) }
+        .subscribe()
+    )
   }
 
   private fun handleImportFromFile() {
@@ -48,7 +64,8 @@ class ImportWalletPresenter(private val view: ImportWalletView,
   private fun handleWalletModel(walletModel: WalletModel) {
     if (walletModel.error.hasError) {
       activityView.hideAnimation()
-      if (walletModel.error.type == ImportErrorType.INVALID_PASS) view.navigateToPasswordView()
+      if (walletModel.error.type == ImportErrorType.INVALID_PASS) view.navigateToPasswordView(
+          walletModel.keystore)
       else view.showError(walletModel.error.type)
     } else {
       setDefaultWallet(walletModel.address)

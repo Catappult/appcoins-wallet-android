@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.DocumentsContract.EXTRA_INITIAL_URI
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -31,7 +30,7 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
     fun newIntent(context: Context) = Intent(context, ImportWalletActivity::class.java)
   }
 
-  private var fileChosenSubject: PublishSubject<String>? = null
+  private var fileChosenSubject: PublishSubject<Uri>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,7 +51,8 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == FILE_INTENT_CODE && resultCode == Activity.RESULT_OK && data != null) {
-      Log.d("TAG123", "HERE: " + data.data)
+      val fileUri = data.data ?: Uri.parse("")
+      fileChosenSubject?.onNext(fileUri)
     }
   }
 
@@ -89,8 +89,8 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
   }
 
   override fun launchFileIntent(path: Uri?) {
-    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-      type = "*/*"
+    val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+      type = "text/*"
       path?.let {
         data = it
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) putExtra(EXTRA_INITIAL_URI, it)
@@ -109,6 +109,8 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
     import_wallet_animation.cancelAnimation()
     import_wallet_animation_group.visibility = View.GONE
   }
+
+  override fun onFileChosen() = fileChosenSubject!!
 
   private fun navigateToTransactions() {
     TransactionsRouter().open(this, true)

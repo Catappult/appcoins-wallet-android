@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
 import android.net.Uri
+import io.reactivex.Observable
 
 interface ImportWalletActivityView {
 
@@ -13,4 +14,6 @@ interface ImportWalletActivityView {
   fun launchFileIntent(path: Uri?)
 
   fun hideAnimation()
+
+  fun onFileChosen(): Observable<Uri>
 }

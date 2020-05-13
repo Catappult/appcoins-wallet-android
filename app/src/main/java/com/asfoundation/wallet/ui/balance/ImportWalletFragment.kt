@@ -76,8 +76,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
     }
   }
 
-  override fun navigateToPasswordView() {
-    val keystore = keystore_edit_text.editableText.toString()
+  override fun navigateToPasswordView(keystore: String) {
     activityView.navigateToPasswordView(keystore)
   }
 
