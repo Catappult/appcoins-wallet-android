@@ -37,7 +37,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val orderReference: String?,
                             private val payload: String?,
                             private val context: Context?,
-                            private val paymentMethodIconUrl: String?) {
+                            private val paymentMethodIconUrl: String?,
+                            private val async: Boolean) {
 
   private var waitingResult: Boolean = false
 
@@ -151,24 +152,25 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              Completable.fromAction {
-                view.showCompletedPayment()
+              if (async) {
+                Completable.fromAction {
+                  localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
+                  localPaymentInteractor.saveAsyncLocalPayment(paymentId)
+                  preparePendingUserPayment()
+                }
+              } else {
+                Completable.fromAction { view.showCompletedPayment() }
+                    .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                    .andThen(Completable.fromAction { view.popView(it) })
               }
-                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                  .andThen(Completable.fromAction { view.popView(it) })
             }
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
-        localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
-        localPaymentInteractor.saveAsyncLocalPayment(paymentId)
-        preparePendingUserPayment()
         analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
         analytics.sendPaymentPendingEvent(domain, skuId, amount.toString(), type, paymentId)
       }
           .subscribeOn(viewScheduler)
-      else -> Completable.fromAction {
-        view.showError()
-      }
+      else -> Completable.fromAction { view.showError() }
           .subscribeOn(viewScheduler)
     }
   }

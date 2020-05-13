@@ -53,6 +53,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val LAST_ANIMATION_FRAME_INCREMENT = 30
     private const val BUTTON_ANIMATION_START_FRAME = 120
     private const val LAST_ANIMATION_FRAME = 150
+    private val ASYNC_PAYMENTS_ID = listOf("oxxo", "boleto", "bank_transfer", "alfamart")
 
     @JvmStatic
     fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
@@ -213,7 +214,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
             paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), callbackUrl, orderReference, payload, context,
-            paymentMethodIconUrl)
+            paymentMethodIconUrl, isAsync())
   }
 
 
@@ -458,5 +459,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
           .setListener(null)
     }
   }
+
+  private fun isAsync() = ASYNC_PAYMENTS_ID.contains(paymentId)
 
 }
