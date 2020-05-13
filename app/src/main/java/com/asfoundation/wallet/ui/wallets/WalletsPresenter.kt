@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.wallets
 
+import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class WalletsPresenter(private val view: WalletsView,
                        private val walletsInteract: WalletsInteract,
+                       private val logger: Logger,
                        private val disposable: CompositeDisposable,
                        private val viewScheduler: Scheduler,
                        private val networkScheduler: Scheduler) {
@@ -54,7 +56,7 @@ class WalletsPresenter(private val view: WalletsView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.setupUi(it.totalWallets, it.totalBalance, it.walletsBalance) }
-        .subscribe())
+        .subscribe({}, { logger.log("WalletsPresenter", it) }))
   }
 
   fun stop() {

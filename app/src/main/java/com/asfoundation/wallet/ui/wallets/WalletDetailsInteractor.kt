@@ -9,12 +9,9 @@ import io.reactivex.Single
 class WalletDetailsInteractor(private val balanceInteract: BalanceInteract,
                               private val setDefaultWalletInteract: SetDefaultWalletInteract) {
 
-  fun getBalanceModel(address: String): Single<BalanceScreenModel> {
-    return balanceInteract.getStoredBalanceScreenModel(address)
-  }
+  fun getBalanceModel(address: String): Single<BalanceScreenModel> =
+      balanceInteract.getStoredBalanceScreenModel(address)
 
-  fun setActiveWallet(address: String): Completable {
-    return setDefaultWalletInteract.set(address)
-  }
+  fun setActiveWallet(address: String): Completable = setDefaultWalletInteract.set(address)
 
 }
