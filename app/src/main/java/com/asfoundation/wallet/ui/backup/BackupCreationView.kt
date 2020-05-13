@@ -17,7 +17,7 @@ interface BackupCreationView {
 
   fun showError()
 
-  fun showSaveOnDeviceDialog(defaultName: String, path: String)
+  fun showSaveOnDeviceDialog(defaultName: String, path: String?)
 
   fun getDialogCancelClick(): Observable<Any>
 

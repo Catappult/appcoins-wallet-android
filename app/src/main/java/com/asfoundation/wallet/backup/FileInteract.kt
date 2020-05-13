@@ -2,7 +2,6 @@ package com.asfoundation.wallet.backup
 
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -91,13 +90,11 @@ class FileInteract(private val context: Context,
   fun getDefaultBackupFileFullName(walletAddress: String) =
       getDefaultBackupFileName(walletAddress) + getDefaultBackupFileExtension()
 
-  fun getDownloadPath(context: Context?): File? {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: context?.getDir(
-          Environment.DIRECTORY_DOWNLOADS, MODE_PRIVATE)
-    } else {
-      Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-    }
+  //If android Q or above, the user must choose the directory so that the file isn't deleted when the app is uninstall
+  fun getDownloadPath(): File? {
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) Environment.getExternalStoragePublicDirectory(
+        Environment.DIRECTORY_DOWNLOADS)
+    else null
   }
 
   fun getTemporaryPath(): File? {

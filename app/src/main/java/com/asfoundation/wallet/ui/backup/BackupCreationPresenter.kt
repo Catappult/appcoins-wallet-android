@@ -132,10 +132,8 @@ class BackupCreationPresenter(
   private fun handlePermissionGiven() {
     disposables.add(activityView.onPermissionGiven()
         .doOnNext {
-          downloadsPath?.let {
-            view.showSaveOnDeviceDialog(fileInteract.getDefaultBackupFileFullName(walletAddress),
-                it.path)
-          } ?: showError("Unable to retrieve path")
+          view.showSaveOnDeviceDialog(fileInteract.getDefaultBackupFileFullName(walletAddress),
+              downloadsPath?.path)
         }
         .subscribe({}, { it.printStackTrace() }))
   }

@@ -66,7 +66,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     presenter =
         BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteract, logger,
             Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), walletAddress,
-            password, fileInteract.getTemporaryPath(), fileInteract.getDownloadPath(context))
+            password, fileInteract.getTemporaryPath(), fileInteract.getDownloadPath())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -121,7 +121,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     activityView.closeScreen()
   }
 
-  override fun showSaveOnDeviceDialog(defaultName: String, path: String) {
+  override fun showSaveOnDeviceDialog(defaultName: String, path: String?) {
     if (!(this::dialog.isInitialized)) {
       dialog = AlertDialog.Builder(context!!)
           .setView(dialogView)
@@ -129,8 +129,10 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
       dialog.window?.decorView?.setBackgroundResource(R.color.transparent)
       dialogView.visibility = View.VISIBLE
       dialogView.edit_text_name?.setText(defaultName)
-      dialogView.store_path?.text = path
-      dialogView.store_path?.visibility = View.VISIBLE
+      path?.let {
+        dialogView.store_path?.text = it
+        dialogView.store_path?.visibility = View.VISIBLE
+      }
     }
     dialog.show()
   }
