@@ -57,7 +57,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
+    check(context is BackupActivityView) { "Backup fragment must be attached to Backup activity" }
     activityView = context
   }
 
@@ -123,7 +123,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   }
 
   override fun showSaveOnDeviceDialog(defaultName: String, path: String?) {
-    if (!(this::dialog.isInitialized)) {
+    if (!(::dialog.isInitialized)) {
       dialog = AlertDialog.Builder(context!!)
           .setView(dialogView)
           .create()
@@ -142,7 +142,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     animation.visibility = View.INVISIBLE
     backup_confirmation_image.setImageResource(R.drawable.ic_backup_confirm)
     backup_confirmation_image.visibility = View.VISIBLE
-    title.setText(R.string.backup_done_body)
+    title.text = getString(R.string.backup_done_body)
     description.visibility = View.INVISIBLE
     save_again_button.visibility = View.VISIBLE
     proceed_button.isEnabled = true
@@ -157,7 +157,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   }
 
   override fun closeDialog() {
-    if (this::dialog.isInitialized) {
+    if (::dialog.isInitialized) {
       dialog.cancel()
     }
   }
@@ -174,7 +174,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     if (arguments!!.containsKey(PASSWORD_KEY)) {
       arguments!!.getString(PASSWORD_KEY)!!
     } else {
-      throw IllegalArgumentException("Wallet address not available")
+      throw IllegalArgumentException("Password not available")
     }
   }
 }

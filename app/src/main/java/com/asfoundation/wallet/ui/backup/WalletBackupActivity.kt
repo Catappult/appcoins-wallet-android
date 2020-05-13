@@ -10,14 +10,12 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_backup.*
-import javax.inject.Inject
 
 
 class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
@@ -37,8 +35,6 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   }
 
-  @Inject
-  lateinit var fileInteractor: FileInteractor
   private lateinit var presenter: BackupActivityPresenter
   private var onPermissionSubject: PublishSubject<Unit>? = null
   private var onDocumentFileSubject: PublishSubject<SystemFileIntentResult>? = null
@@ -47,7 +43,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     if (intent.extras!!.containsKey(WALLET_ADDRESS)) {
       intent.extras!!.getString(WALLET_ADDRESS)!!
     } else {
-      throw IllegalArgumentException("application package name data not found")
+      throw IllegalArgumentException("Wallet address not found")
     }
   }
 

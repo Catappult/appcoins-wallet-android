@@ -20,7 +20,6 @@ import com.asfoundation.wallet.util.generateQrCode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -77,14 +76,11 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
 
   override fun shareClick() = RxView.clicks(share_button)
 
-  override fun removeWalletClick(): Observable<Any> {
-    return Observable.merge(RxView.clicks(remove_wallet_button), RxView.clicks(remove_text))
-  }
+  override fun removeWalletClick() = RxView.clicks(remove_button_layout)
 
-  override fun backupWalletClick(): Observable<Any> {
-    return Observable.merge(RxView.clicks(backup_wallet_button), RxView.clicks(backup_text),
-        RxView.clicks(middle_backup_wallet_button), RxView.clicks(middle_backup_text))
-  }
+  override fun backupInactiveWalletClick() = RxView.clicks(backup_button_layout)
+
+  override fun backupActiveWalletClick() = RxView.clicks(middle_backup_button_layout)
 
   override fun makeWalletActiveClick() = RxView.clicks(make_this_active_button)
 
@@ -141,8 +137,7 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
   private fun handleActiveWalletLayoutVisibility() {
     if (isActive) {
       active_wallet_info.visibility = View.VISIBLE
-      middle_backup_wallet_button.visibility = View.VISIBLE
-      middle_backup_text.visibility = View.VISIBLE
+      middle_backup_button_layout.visibility = View.VISIBLE
     } else {
       remove_backup_buttons.visibility = View.VISIBLE
       make_this_active_button.visibility = View.VISIBLE

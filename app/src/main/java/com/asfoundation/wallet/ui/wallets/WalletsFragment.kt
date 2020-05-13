@@ -104,11 +104,9 @@ class WalletsFragment : DaggerFragment(), WalletsView {
   override fun activeWalletCardClicked(): Observable<String> = RxView.clicks(active_wallet_card)
       .map { active_wallet_address.text.toString() }
 
-  override fun importWalletClicked(): Observable<Any> =
-      Observable.merge(RxView.clicks(import_button), RxView.clicks(import_text))
+  override fun importWalletClicked(): Observable<Any> = RxView.clicks(import_button_layout)
 
-  override fun createNewWalletClicked(): Observable<Any> =
-      Observable.merge(RxView.clicks(create_new_button), RxView.clicks(create_new_wallet_text))
+  override fun createNewWalletClicked(): Observable<Any> = RxView.clicks(create_new_button_layout)
 
   override fun navigateToImportView() = activityView.navigateToImportView()
 

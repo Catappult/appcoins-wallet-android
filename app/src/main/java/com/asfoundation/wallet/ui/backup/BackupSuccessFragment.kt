@@ -45,7 +45,8 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
+    check(
+        context is BackupActivityView) { "BackupSuccess fragment must be attached to Backup activity" }
     activityView = context
   }
 

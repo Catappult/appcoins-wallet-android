@@ -11,7 +11,8 @@ interface WalletDetailsView {
   fun showShare(walletAddress: String)
   fun makeWalletActiveClick(): Observable<Any>
   fun navigateToBalanceView()
-  fun backupWalletClick(): Observable<Any>
+  fun backupInactiveWalletClick(): Observable<Any>
+  fun backupActiveWalletClick(): Observable<Any>
   fun removeWalletClick(): Observable<Any>
   fun navigateToBackupView(walletAddress: String)
   fun navigateToRemoveWalletView(walletAddress: String)

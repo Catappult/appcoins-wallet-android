@@ -27,7 +27,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
-  private lateinit var presenter: BackupWalletFragmentPresenter
+  private lateinit var presenter: BackupWalletPresenter
   private lateinit var activityView: BackupActivityView
 
   companion object {
@@ -54,7 +54,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        BackupWalletFragmentPresenter(balanceInteract, this, activityView, CompositeDisposable(),
+        BackupWalletPresenter(balanceInteract, this, activityView, CompositeDisposable(),
             Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
@@ -70,7 +70,8 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is BackupActivityView) { "TopUp fragment must be attached to TopUp activity" }
+    check(
+        context is BackupActivityView) { "BackupWallet fragment must be attached to Backup activity" }
     activityView = context
   }
 
