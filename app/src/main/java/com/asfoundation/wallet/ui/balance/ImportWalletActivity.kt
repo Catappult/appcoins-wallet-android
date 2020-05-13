@@ -92,7 +92,6 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
     val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
       type = "text/*"
       path?.let {
-        data = it
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) putExtra(EXTRA_INITIAL_URI, it)
       }
     }
