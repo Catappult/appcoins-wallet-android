@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import io.reactivex.Single;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,12 +22,12 @@ import static org.web3j.protocol.core.methods.request.Transaction.createEthCallT
 
 public class AllowanceService {
 
-  private static final String DECIMALS = "1000000000000000000";
-
   private final Web3j web3j;
+  private final DefaultTokenProvider defaultTokenProvider;
 
-  public AllowanceService(Web3j web3j) {
+  public AllowanceService(Web3j web3j, DefaultTokenProvider defaultTokenProvider) {
     this.web3j = web3j;
+    this.defaultTokenProvider = defaultTokenProvider;
   }
 
   private static Function allowance(String owner, String allowee) {
@@ -35,7 +37,8 @@ public class AllowanceService {
   }
 
   public Single<BigDecimal> checkAllowance(String owner, String allowee, String tokenAddress) {
-    return Single.fromCallable(() -> {
+    return defaultTokenProvider.getDefaultToken()
+        .flatMap(tokenInfo -> Single.fromCallable(() -> {
       Function function = allowance(owner, allowee);
 
       String responseValue = callSmartContractFunction(function, tokenAddress, owner);
@@ -44,11 +47,11 @@ public class AllowanceService {
           FunctionReturnDecoder.decode(responseValue, function.getOutputParameters());
       if (response.size() == 1) {
         return new BigDecimal(((Uint256) response.get(0)).getValue()).divide(
-            new BigDecimal(DECIMALS));
+            new BigDecimal(BigInteger.ONE, tokenInfo.decimals));
       } else {
         throw new IllegalStateException("Failed to execute contract call!");
       }
-    });
+        }));
   }
 
   private String callSmartContractFunction(Function function, String contractAddress,

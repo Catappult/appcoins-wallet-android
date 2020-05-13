@@ -423,8 +423,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
-  @Provides AllowanceService provideAllowanceService(Web3jProvider web3jProvider) {
-    return new AllowanceService(web3jProvider.getDefault());
+  @Provides AllowanceService provideAllowanceService(Web3jProvider web3jProvider,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new AllowanceService(web3jProvider.getDefault(), defaultTokenProvider);
   }
 
   @Singleton @Provides @Named("IN_APP_PURCHASE_SERVICE")
