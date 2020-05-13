@@ -55,7 +55,7 @@ class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
       preferencesRepositoryType.getChosenUri()
           ?.let { Uri.parse(it) }
     } else {
-      fileInteract.getDownloadPath(null)
+      fileInteract.getDownloadPath()
           ?.let { fileInteract.getUriFromFile(it) }
     }
   }
