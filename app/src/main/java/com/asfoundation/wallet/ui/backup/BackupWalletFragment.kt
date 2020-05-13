@@ -77,7 +77,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun showBalance(value: FiatValue) {
     address.text = walletAddress
     amount.text =
-        getString(R.string.value_fiat, value.symbol, currencyFormatter.formatCurrency(value))
+        getString(R.string.value_fiat, value.symbol, currencyFormatter.formatCurrency(value.amount))
   }
 
   override fun getBackupClick(): Observable<String> = RxView.clicks(backup_btn)

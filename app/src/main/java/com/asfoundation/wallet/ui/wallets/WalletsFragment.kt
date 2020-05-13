@@ -12,7 +12,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
 import com.asfoundation.wallet.ui.balance.BalanceFragmentView
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -30,6 +30,9 @@ class WalletsFragment : DaggerFragment(), WalletsView {
 
   @Inject
   lateinit var walletsInteract: WalletsInteract
+
+  @Inject
+  lateinit var currencyFormatter: CurrencyFormatUtils
   private var uiEventListener: PublishSubject<String>? = null
   private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var activityView: BalanceActivityView
@@ -70,7 +73,8 @@ class WalletsFragment : DaggerFragment(), WalletsView {
     total_wallets.text = totalWallets.toString()
     total_wallets.visibility = View.VISIBLE
     wallets_skeleton.visibility = View.GONE
-    accumulated_value.text = totalBalance.symbol + totalBalance.amount.scaleToString(2)
+    accumulated_value.text =
+        totalBalance.symbol + currencyFormatter.formatCurrency(totalBalance.amount)
     accumulated_value.visibility = View.VISIBLE
     accumulated_value_skeleton.visibility = View.GONE
 
@@ -78,14 +82,14 @@ class WalletsFragment : DaggerFragment(), WalletsView {
     active_wallet_address.text = currentWalletBalance.walletAddress
     active_wallet_card.wallet_balance.text = getString(
         R.string.wallets_2nd_view_balance_title) + " " + totalBalance.symbol +
-        currentWalletBalance.balance.amount.scaleToString(2)
+        currencyFormatter.formatCurrency(currentWalletBalance.balance.amount)
 
 
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
     val adapterList = removeCurrentWallet(walletsBalanceList)
     adapter =
-        NewWalletsAdapter(context!!, adapterList, uiEventListener!!)
+        NewWalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter)
     other_wallets_cards_recycler.layoutManager = layoutManager
     other_wallets_cards_recycler.adapter = adapter
     val walletsText =
