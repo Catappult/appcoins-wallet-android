@@ -77,4 +77,6 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
+
+  fun isAsync(type: String) = type == "TOPUP"
 }

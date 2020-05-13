@@ -37,8 +37,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val orderReference: String?,
                             private val payload: String?,
                             private val context: Context?,
-                            private val paymentMethodIconUrl: String?,
-                            private val async: Boolean) {
+                            private val paymentMethodIconUrl: String?) {
 
   private var waitingResult: Boolean = false
 
@@ -152,7 +151,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              if (async) {
+              if (localPaymentInteractor.isAsync(type)) {
                 Completable.fromAction {
                   localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
                   localPaymentInteractor.saveAsyncLocalPayment(paymentId)
