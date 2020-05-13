@@ -149,7 +149,6 @@ class BackupCreationPresenter(
           view.closeDialog()
           activityView.showSuccessScreen()
         }
-        .doOnError { showError(it) }
   }
 
   fun onResume() {
