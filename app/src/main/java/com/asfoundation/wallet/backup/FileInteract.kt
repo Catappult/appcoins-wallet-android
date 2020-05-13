@@ -117,9 +117,10 @@ class FileInteract(private val context: Context,
         Throwable("Error retrieving file"))
     else {
       val keystore = StringBuilder("")
+      var reader: BufferedReader? = null
       try {
         val inputStream = contentResolver.openInputStream(fileUri)
-        val reader = BufferedReader(InputStreamReader(inputStream!!))
+        reader = BufferedReader(InputStreamReader(inputStream!!))
         var mLine: String?
         while (reader.readLine()
                 .also { mLine = it } != null) {
@@ -129,6 +130,8 @@ class FileInteract(private val context: Context,
       } catch (e: Exception) {
         e.printStackTrace()
         return Single.error(e)
+      } finally {
+        reader?.close()
       }
       return Single.just(keystore.toString())
     }
