@@ -10,7 +10,7 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.FileInteract
+import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
@@ -38,7 +38,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   @Inject
-  lateinit var fileInteract: FileInteract
+  lateinit var fileInteractor: FileInteractor
   private lateinit var presenter: BackupActivityPresenter
   private var onPermissionSubject: PublishSubject<Unit>? = null
   private var onDocumentFileSubject: PublishSubject<SystemFileIntentResult>? = null

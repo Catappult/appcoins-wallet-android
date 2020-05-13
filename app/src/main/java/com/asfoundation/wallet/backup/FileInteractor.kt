@@ -13,7 +13,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class FileInteract(private val contentResolver: ContentResolver) {
+class FileInteractor(private val contentResolver: ContentResolver) {
 
   private var cachedFile: File? = null
 

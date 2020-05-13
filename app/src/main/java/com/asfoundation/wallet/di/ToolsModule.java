@@ -72,7 +72,7 @@ import com.asfoundation.wallet.analytics.RakamAnalytics;
 import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
-import com.asfoundation.wallet.backup.FileInteract;
+import com.asfoundation.wallet.backup.FileInteractor;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -1370,7 +1370,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return context.getContentResolver();
   }
 
-  @Singleton @Provides FileInteract provideFileInteract(ContentResolver contentResolver) {
-    return new FileInteract(contentResolver);
+  @Singleton @Provides FileInteractor provideFileInteract(ContentResolver contentResolver) {
+    return new FileInteractor(contentResolver);
   }
 }

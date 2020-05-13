@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.documentfile.provider.DocumentFile
-import com.asfoundation.wallet.backup.FileInteract
+import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.interact.ExportWalletInteract
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
@@ -16,7 +16,7 @@ class BackupCreationPresenter(
     private val activityView: BackupActivityView,
     private val view: BackupCreationView,
     private val exportWalletInteract: ExportWalletInteract,
-    private val fileInteract: FileInteract,
+    private val fileInteractor: FileInteractor,
     private val logger: Logger,
     private val networkScheduler: Scheduler,
     private val viewScheduler: Scheduler,
@@ -79,7 +79,7 @@ class BackupCreationPresenter(
   }
 
   private fun handleDialogSaveClickBelowAndroidQ(fileName: String) {
-    disposables.add(fileInteract.createAndSaveFile(cachedKeystore, downloadsPath, fileName)
+    disposables.add(fileInteractor.createAndSaveFile(cachedKeystore, downloadsPath, fileName)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnComplete {
@@ -99,7 +99,7 @@ class BackupCreationPresenter(
   private fun createBackUpFile() {
     disposables.add(exportWalletInteract.export(walletAddress, password)
         .doOnSuccess { cachedKeystore = it }
-        .flatMapCompletable { fileInteract.createTmpFile(walletAddress, it, temporaryPath) }
+        .flatMapCompletable { fileInteractor.createTmpFile(walletAddress, it, temporaryPath) }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnComplete { view.enableSaveButton() }
@@ -114,10 +114,10 @@ class BackupCreationPresenter(
           if (fileShared) {
             activityView.closeScreen()
           } else {
-            val file = fileInteract.getCachedFile()
+            val file = fileInteractor.getCachedFile()
             if (file == null) showError("Error retrieving file")
             else {
-              context?.let { view.shareFile(fileInteract.getUriFromFile(context, file)) }
+              context?.let { view.shareFile(fileInteractor.getUriFromFile(context, file)) }
                   ?: showError("Null context")
               fileShared = true
             }
@@ -135,7 +135,7 @@ class BackupCreationPresenter(
   private fun handlePermissionGiven() {
     disposables.add(activityView.onPermissionGiven()
         .doOnNext {
-          view.showSaveOnDeviceDialog(fileInteract.getDefaultBackupFileFullName(walletAddress),
+          view.showSaveOnDeviceDialog(fileInteractor.getDefaultBackupFileFullName(walletAddress),
               downloadsPath?.path)
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -143,7 +143,7 @@ class BackupCreationPresenter(
 
   private fun createAndSaveFile(documentFile: DocumentFile,
                                 fileName: String): Completable {
-    return fileInteract.createAndSaveFile(cachedKeystore, documentFile, fileName)
+    return fileInteractor.createAndSaveFile(cachedKeystore, documentFile, fileName)
         .observeOn(viewScheduler)
         .doOnComplete {
           view.closeDialog()
@@ -155,12 +155,12 @@ class BackupCreationPresenter(
   fun onResume() {
     if (fileShared) {
       view.showConfirmation()
-      fileInteract.deleteFile()
+      fileInteractor.deleteFile()
     }
   }
 
   fun stop() {
-    fileInteract.deleteFile()
+    fileInteractor.deleteFile()
     disposables.clear()
   }
 
