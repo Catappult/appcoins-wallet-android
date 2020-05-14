@@ -2,7 +2,7 @@ package com.asfoundation.wallet.interact
 
 import android.net.Uri
 import android.os.Build
-import com.asfoundation.wallet.backup.FileInteract
+import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.interact.rx.operator.Operators
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -16,7 +16,7 @@ class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
                            private val setDefaultWalletInteract: SetDefaultWalletInteract,
                            private val passwordStore: PasswordStore,
                            private val preferencesRepositoryType: PreferencesRepositoryType,
-                           private val fileInteract: FileInteract) {
+                           private val fileInteractor: FileInteractor) {
 
   fun isKeystore(key: String): Boolean {
     return key.contains("{")
@@ -55,8 +55,8 @@ class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
       preferencesRepositoryType.getChosenUri()
           ?.let { Uri.parse(it) }
     } else {
-      fileInteract.getDownloadPath()
-          ?.let { fileInteract.getUriFromFile(it) }
+      fileInteractor.getDownloadPath()
+          ?.let { fileInteractor.getUriFromFile(it) }
     }
   }
 
@@ -77,6 +77,6 @@ class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
   }
 
   fun readFile(fileUri: Uri?): Single<String> {
-    return fileInteract.readFile(fileUri)
+    return fileInteractor.readFile(fileUri)
   }
 }
