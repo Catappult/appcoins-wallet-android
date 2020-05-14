@@ -299,6 +299,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_description.text = paymentMethod.label
       payment_method_secondary.visibility = View.GONE
       payment_method_description_single.visibility = View.GONE
+      if (isBonusActive) showBonus()
     }
 
     layout_pre_selected.visibility = View.VISIBLE
@@ -480,7 +481,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     bonusMessageValue = newCurrencyString + formattedBonus
     bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
-    showBonus()
   }
 
   override fun onBackPressed() = onBackPressedSubject!!

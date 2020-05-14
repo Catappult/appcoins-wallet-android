@@ -42,7 +42,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.60"
+      app:layout_constraintGuide_percent="0.67"
       />
   <TextView
       android:id="@+id/referral_status_body"
@@ -63,7 +63,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.78"
+      app:layout_constraintGuide_percent="0.83"
       />
   <Button
       android:id="@+id/ok_button"

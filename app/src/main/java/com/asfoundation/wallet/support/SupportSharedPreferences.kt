@@ -8,8 +8,7 @@ class SupportSharedPreferences(private val sharedPreferences: SharedPreferences)
     private const val UNREAD_CONVERSATIONS = "UNREAD_CONVERSATIONS"
   }
 
-  fun checkSavedUnreadConversations(): Int =
-      sharedPreferences.getInt(UNREAD_CONVERSATIONS, 0)
+  fun checkSavedUnreadConversations() = sharedPreferences.getInt(UNREAD_CONVERSATIONS, 0)
 
   fun updateUnreadConversations(unreadConversations: Int) {
     sharedPreferences.edit()
