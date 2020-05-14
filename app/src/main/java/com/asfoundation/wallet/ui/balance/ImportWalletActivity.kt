@@ -151,6 +151,12 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
 
   override fun onPermissionsGiven() = onPermissionSubject!!
 
+  override fun onDestroy() {
+    onPermissionSubject = null
+    fileChosenSubject = null
+    super.onDestroy()
+  }
+
   private fun navigateToTransactions() {
     TransactionsRouter().open(this, true)
     finish()

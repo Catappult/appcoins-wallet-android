@@ -138,4 +138,10 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   override fun setupToolbar() {
     toolbar()
   }
+
+  override fun onDestroy() {
+    onPermissionSubject = null
+    onDocumentFileSubject = null
+    super.onDestroy()
+  }
 }
