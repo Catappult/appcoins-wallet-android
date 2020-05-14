@@ -200,16 +200,18 @@
       android:id="@+id/bottom_sheet_bottom_separator"
       android:layout_width="match_parent"
       android:layout_height="2dp"
-      android:layout_marginBottom="96dp"
+      android:layout_marginBottom="16dp"
       android:background="#f3f3f3"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/import_create_layout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
   <include
+      android:id="@+id/import_create_layout"
       layout="@layout/import_create_buttons_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginBottom="12dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />

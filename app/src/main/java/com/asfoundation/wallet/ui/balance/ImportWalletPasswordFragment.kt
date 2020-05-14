@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.ImportErrorType
-import com.asfoundation.wallet.util.scaleToString
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -26,6 +26,9 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
 
   @Inject
   lateinit var importWalletPasswordInteractor: ImportWalletPasswordInteractor
+
+  @Inject
+  lateinit var currencyFormatUtils: CurrencyFormatUtils
   private lateinit var activityView: ImportWalletActivityView
   private lateinit var presenter: ImportWalletPasswordPresenter
 
@@ -59,7 +62,8 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
   override fun updateUi(address: String, fiatValue: FiatValue) {
     setTextChangeListener()
     wallet_address.text = address
-    wallet_balance.text = "${fiatValue.symbol}${fiatValue.amount.scaleToString(2)}"
+    wallet_balance.text =
+        "${fiatValue.symbol}${currencyFormatUtils.formatCurrency(fiatValue.amount)}"
   }
 
   override fun importWalletButtonClick(): Observable<String> {

@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
 import com.asfoundation.wallet.ui.balance.BalanceFragmentView
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -26,11 +27,16 @@ import kotlinx.android.synthetic.main.import_create_buttons_layout.*
 import kotlinx.android.synthetic.main.wallets_layout.*
 import javax.inject.Inject
 
-class WalletsFragment : DaggerFragment(),
-    WalletsView {
+class WalletsFragment : DaggerFragment(), WalletsView {
 
   @Inject
   lateinit var walletsInteract: WalletsInteract
+
+  @Inject
+  lateinit var currencyFormatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var logger: Logger
   private var uiEventListener: PublishSubject<String>? = null
   private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var activityView: BalanceActivityView
@@ -41,7 +47,7 @@ class WalletsFragment : DaggerFragment(),
     super.onCreate(savedInstanceState)
     uiEventListener = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
-    presenter = WalletsPresenter(this, walletsInteract, CompositeDisposable(),
+    presenter = WalletsPresenter(this, walletsInteract, logger, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
@@ -71,7 +77,8 @@ class WalletsFragment : DaggerFragment(),
     total_wallets.text = totalWallets.toString()
     total_wallets.visibility = View.VISIBLE
     wallets_skeleton.visibility = View.GONE
-    accumulated_value.text = totalBalance.symbol + totalBalance.amount.scaleToString(2)
+    accumulated_value.text =
+        totalBalance.symbol + currencyFormatter.formatCurrency(totalBalance.amount)
     accumulated_value.visibility = View.VISIBLE
     accumulated_value_skeleton.visibility = View.GONE
 
@@ -79,14 +86,14 @@ class WalletsFragment : DaggerFragment(),
     active_wallet_address.text = currentWalletBalance.walletAddress
     active_wallet_card.wallet_balance.text = getString(
         R.string.wallets_2nd_view_balance_title) + " " + totalBalance.symbol +
-        currentWalletBalance.balance.amount.scaleToString(2)
+        currencyFormatter.formatCurrency(currentWalletBalance.balance.amount)
 
 
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
     val adapterList = removeCurrentWallet(walletsBalanceList)
     adapter =
-        NewWalletsAdapter(context!!, adapterList, uiEventListener!!)
+        NewWalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter)
     other_wallets_cards_recycler.layoutManager = layoutManager
     other_wallets_cards_recycler.adapter = adapter
     val walletsText =
@@ -96,26 +103,16 @@ class WalletsFragment : DaggerFragment(),
     else other_wallets_header.visibility = View.VISIBLE
   }
 
-  override fun otherWalletCardClicked(): Observable<String> {
-    return uiEventListener!!
-  }
+  override fun otherWalletCardClicked() = uiEventListener!!
 
-  override fun activeWalletCardClicked(): Observable<String> {
-    return RxView.clicks(active_wallet_card)
-        .map { active_wallet_address.text.toString() }
-  }
+  override fun activeWalletCardClicked(): Observable<String> = RxView.clicks(active_wallet_card)
+      .map { active_wallet_address.text.toString() }
 
-  override fun importWalletClicked(): Observable<Any> {
-    return Observable.merge(RxView.clicks(import_button), RxView.clicks(import_text))
-  }
+  override fun importWalletClicked(): Observable<Any> = RxView.clicks(import_button_layout)
 
-  override fun createNewWalletClicked(): Observable<Any> {
-    return Observable.merge(RxView.clicks(create_new_button), RxView.clicks(create_new_wallet_text))
-  }
+  override fun createNewWalletClicked(): Observable<Any> = RxView.clicks(create_new_button_layout)
 
-  override fun navigateToImportView() {
-    activityView.navigateToImportView()
-  }
+  override fun navigateToImportView() = activityView.navigateToImportView()
 
   override fun showCreatingAnimation() {
     val parentFragment = provideParentFragment()
@@ -127,9 +124,8 @@ class WalletsFragment : DaggerFragment(),
     parentFragment?.showWalletCreatedAnimation()
   }
 
-  override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {
-    activityView.navigateToWalletDetailView(walletAddress, isActive)
-  }
+  override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) =
+      activityView.navigateToWalletDetailView(walletAddress, isActive)
 
   override fun collapseBottomSheet() {
     val parentFragment = provideParentFragment()

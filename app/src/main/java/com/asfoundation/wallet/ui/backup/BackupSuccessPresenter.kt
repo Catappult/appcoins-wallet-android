@@ -2,9 +2,9 @@ package com.asfoundation.wallet.ui.backup
 
 import io.reactivex.disposables.CompositeDisposable
 
-class BackupSuccessFragmentPresenter(private val view: BackupSuccessFragmentView,
-                                     private val activityView: BackupActivityView) {
-  private val disposables = CompositeDisposable()
+class BackupSuccessPresenter(private val view: BackupSuccessFragmentView,
+                             private val activityView: BackupActivityView,
+                             private val disposables: CompositeDisposable) {
 
   fun present() {
     handleCloseBtnClick()
@@ -15,4 +15,6 @@ class BackupSuccessFragmentPresenter(private val view: BackupSuccessFragmentView
         .doOnNext { activityView.closeScreen() }
         .subscribe())
   }
+
+  fun stop() = disposables.clear()
 }

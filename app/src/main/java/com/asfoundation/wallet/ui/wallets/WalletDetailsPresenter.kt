@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.wallets
 
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -28,10 +29,11 @@ class WalletDetailsPresenter(
   }
 
   private fun handleBackupClick() {
-    disposable.add(view.backupWalletClick()
-        .observeOn(viewScheduler)
-        .doOnNext { view.navigateToBackupView(walletAddress) }
-        .subscribe())
+    disposable.add(
+        Observable.merge(view.backupInactiveWalletClick(), view.backupActiveWalletClick())
+            .observeOn(viewScheduler)
+            .doOnNext { view.navigateToBackupView(walletAddress) }
+            .subscribe())
   }
 
   private fun handleMakeWalletActiveClick() {
@@ -62,7 +64,7 @@ class WalletDetailsPresenter(
     disposable.add(interactor.getBalanceModel(walletAddress)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext { view.populateUi(it) }
+        .doOnSuccess { view.populateUi(it) }
         .subscribe())
   }
 

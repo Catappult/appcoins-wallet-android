@@ -33,32 +33,21 @@ class BalanceInteract(
         .flatMapObservable { balanceRepository.getCreditsBalance(it.address) }
   }
 
-  fun requestTokenConversion(address: String): Observable<BalanceScreenModel> {
-    return Observable.zip(
-        balanceRepository.getCreditsBalance(address),
-        balanceRepository.getAppcBalance(address),
-        balanceRepository.getEthBalance(address),
-        Function3 { creditsBalance, appcBalance, ethBalance ->
-          mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
-        }
-    )
-  }
-
   private fun getStoredAppcBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (if (walletAddress != null) Single.just(
-        walletAddress) else walletInteract.find().map { it.address })
+    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+        .map { it.address })
         .flatMap { balanceRepository.getStoredAppcBalance(it) }
   }
 
   private fun getStoredEthBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (if (walletAddress != null) Single.just(
-        walletAddress) else walletInteract.find().map { it.address })
+    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+        .map { it.address })
         .flatMap { balanceRepository.getStoredEthBalance(it) }
   }
 
   private fun getStoredCreditsBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (if (walletAddress != null) Single.just(
-        walletAddress) else walletInteract.find().map { it.address })
+    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+        .map { it.address })
         .flatMap { balanceRepository.getStoredCreditsBalance(it) }
   }
 
@@ -96,6 +85,17 @@ class BalanceInteract(
         getStoredCreditsBalance(walletAddress),
         Function3 { creditsBalance, appcBalance, ethBalance ->
           mapOverallBalance(creditsBalance, appcBalance, ethBalance)
+        }
+    )
+  }
+
+  fun getStoredBalanceScreenModel(walletAddress: String): Single<BalanceScreenModel> {
+    return Single.zip(
+        getStoredAppcBalance(walletAddress),
+        getStoredEthBalance(walletAddress),
+        getStoredCreditsBalance(walletAddress),
+        Function3 { creditsBalance, appcBalance, ethBalance ->
+          mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
         }
     )
   }

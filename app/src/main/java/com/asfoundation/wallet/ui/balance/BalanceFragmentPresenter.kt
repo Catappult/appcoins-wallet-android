@@ -80,7 +80,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     var fiatBalance = "-1"
     if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
       tokenBalance = formatter.formatCurrency(balance.token.amount, currency)
-      fiatBalance = formatter.formatCurrency(balance.fiat)
+      fiatBalance = formatter.formatCurrency(balance.fiat.amount)
     }
     view.updateTokenValue(tokenBalance, fiatBalance, currency, balance.fiat.symbol)
   }
@@ -88,7 +88,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun updateOverallBalance(balance: FiatValue) {
     var overallBalance = "-1"
     if (balance.amount.compareTo(BigDecimal("-1")) == 1) {
-      overallBalance = formatter.formatCurrency(balance)
+      overallBalance = formatter.formatCurrency(balance.amount)
     }
     view.updateOverallBalance(overallBalance, balance.currency, balance.symbol)
   }

@@ -17,7 +17,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity;
 import com.asfoundation.wallet.ui.widget.adapter.WalletsAdapter;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.viewmodel.WalletsViewModel;
@@ -177,8 +176,7 @@ public class WalletsActivity extends BaseActivity
   }
 
   private void onExportWallet(Wallet wallet) {
-    //showBackupDialog(wallet, false);
-    startActivity(WalletBackupActivity.newIntent(this, wallet.address));
+    showBackupDialog(wallet, false);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

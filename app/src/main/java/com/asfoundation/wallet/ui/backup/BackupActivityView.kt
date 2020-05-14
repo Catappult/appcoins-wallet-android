@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.backup
 
+import io.reactivex.Observable
+
 interface BackupActivityView {
 
   fun showBackupScreen()
 
-  fun showBackupCreationScreen()
+  fun showBackupCreationScreen(password: String)
 
   fun startWalletBackup()
 
@@ -12,4 +14,9 @@ interface BackupActivityView {
 
   fun closeScreen()
 
+  fun onPermissionGiven(): Observable<Unit>
+
+  fun openSystemFileDirectory(fileName: String)
+
+  fun onSystemFileIntentResult(): Observable<SystemFileIntentResult>
 }

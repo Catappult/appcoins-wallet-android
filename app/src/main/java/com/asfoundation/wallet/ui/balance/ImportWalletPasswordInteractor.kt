@@ -18,8 +18,7 @@ class ImportWalletPasswordInteractor(private val gson: Gson,
 
   fun getOverallBalance(address: String): Single<FiatValue> {
     return balanceInteract.getTotalBalance(address)
-        .take(1)
-        .single(FiatValue())
+        .firstOrError()
   }
 
   fun importWallet(keystore: String, password: String): Single<WalletModel> {

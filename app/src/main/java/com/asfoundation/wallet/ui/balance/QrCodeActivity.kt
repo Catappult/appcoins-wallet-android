@@ -46,9 +46,8 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
 
   override fun setAddressToClipBoard(walletAddress: String) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-    val clip = ClipData.newPlainText(
-        MyAddressActivity.KEY_ADDRESS, walletAddress)
-    clipboard?.let { it.primaryClip = clip }
+    val clip = ClipData.newPlainText(MyAddressActivity.KEY_ADDRESS, walletAddress)
+    clipboard?.setPrimaryClip(clip)
 
     Snackbar.make(main_layout, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
         .show()

@@ -13,8 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.remove_wallet_first_layout.*
 import kotlinx.android.synthetic.main.wallet_outlined_card.*
 
-class RemoveWalletFragment : DaggerFragment(),
-    RemoveWalletView {
+class RemoveWalletFragment : DaggerFragment(), RemoveWalletView {
 
   private lateinit var presenter: RemoveWalletPresenter
   private lateinit var activityView: RemoveWalletActivityView
@@ -49,13 +48,9 @@ class RemoveWalletFragment : DaggerFragment(),
 
   override fun noBackUpWalletClick() = RxView.clicks(no_backup_button)
 
-  override fun navigateToBackUp() {
+  override fun navigateToBackUp() = activityView.navigateToBackUp(walletAddress)
 
-  }
-
-  override fun proceedWithRemoveWallet() {
-    activityView.navigateToWalletRemoveConfirmation()
-  }
+  override fun proceedWithRemoveWallet() = activityView.navigateToWalletRemoveConfirmation()
 
   private fun setWalletBalance() {
     wallet_address.text = walletAddress
@@ -68,20 +63,16 @@ class RemoveWalletFragment : DaggerFragment(),
   }
 
   private val walletAddress: String by lazy {
-    if (arguments!!.containsKey(
-            WALLET_ADDRESS_KEY)) {
-      arguments!!.getString(
-          WALLET_ADDRESS_KEY)
+    if (arguments!!.containsKey(WALLET_ADDRESS_KEY)) {
+      arguments!!.getString(WALLET_ADDRESS_KEY)!!
     } else {
       throw IllegalArgumentException("walletAddress not found")
     }
   }
 
   private val fiatBalance: String by lazy {
-    if (arguments!!.containsKey(
-            FIAT_BALANCE_KEY)) {
-      arguments!!.getString(
-          FIAT_BALANCE_KEY)
+    if (arguments!!.containsKey(FIAT_BALANCE_KEY)) {
+      arguments!!.getString(FIAT_BALANCE_KEY)!!
     } else {
       throw IllegalArgumentException("fiat balance not found")
     }
@@ -95,10 +86,8 @@ class RemoveWalletFragment : DaggerFragment(),
     fun newInstance(walletAddress: String, totalFiatBalance: String): RemoveWalletFragment {
       val fragment = RemoveWalletFragment()
       Bundle().apply {
-        putString(
-            WALLET_ADDRESS_KEY, walletAddress)
-        putString(
-            FIAT_BALANCE_KEY, totalFiatBalance)
+        putString(WALLET_ADDRESS_KEY, walletAddress)
+        putString(FIAT_BALANCE_KEY, totalFiatBalance)
         fragment.arguments = this
       }
       return fragment

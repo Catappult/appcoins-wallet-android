@@ -55,9 +55,9 @@ import io.reactivex.disposables.CompositeDisposable;
 
   @Provides WalletsInteract provideWalletsInteract(BalanceInteract balanceInteract,
       FetchWalletsInteract fetchWalletsInteract, CreateWalletInteract createWalletInteract,
-      SharedPreferencesRepository sharedPreferencesRepository) {
+      SharedPreferencesRepository sharedPreferencesRepository, Logger logger) {
     return new WalletsInteract(balanceInteract, fetchWalletsInteract, createWalletInteract,
-        sharedPreferencesRepository);
+        sharedPreferencesRepository, logger);
   }
 
   @Provides WalletDetailsInteractor provideWalletDetailInteract(BalanceInteract balanceInteract,

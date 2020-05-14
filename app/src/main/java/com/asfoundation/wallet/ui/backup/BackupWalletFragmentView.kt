@@ -6,4 +6,5 @@ import io.reactivex.Observable
 interface BackupWalletFragmentView {
   fun showBalance(value: FiatValue)
   fun getBackupClick(): Observable<String>
+  fun hideKeyboard()
 }
