@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.ImportWalletInteract
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.ImportErrorType
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -23,6 +24,9 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
 
   @Inject
   lateinit var importWalletInteract: ImportWalletInteract
+
+  @Inject
+  lateinit var logger: Logger
   private lateinit var activityView: ImportWalletActivityView
   private lateinit var presenter: ImportWalletPresenter
 
@@ -37,7 +41,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
     super.onCreate(savedInstanceState)
     presenter =
         ImportWalletPresenter(this, activityView, CompositeDisposable(), importWalletInteract,
-            AndroidSchedulers.mainThread(), Schedulers.computation())
+            logger, AndroidSchedulers.mainThread(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {

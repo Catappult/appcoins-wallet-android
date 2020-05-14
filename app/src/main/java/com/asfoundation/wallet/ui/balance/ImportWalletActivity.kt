@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.Manifest
 import android.animation.Animator
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +14,7 @@ import android.provider.DocumentsContract.EXTRA_INITIAL_URI
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -24,17 +27,20 @@ import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
 
   companion object {
-    private const val FILE_INTENT_CODE = 1002
+    private const val RC_READ_EXTERNAL_PERMISSION_CODE = 1002
+    private const val FILE_INTENT_CODE = 1003
 
     @JvmStatic
     fun newIntent(context: Context) = Intent(context, ImportWalletActivity::class.java)
   }
 
   private var fileChosenSubject: PublishSubject<Uri>? = null
+  private var onPermissionSubject: PublishSubject<Unit>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     fileChosenSubject = PublishSubject.create()
+    onPermissionSubject = PublishSubject.create()
     setContentView(R.layout.import_wallet_layout)
     toolbar()
     navigateToInitialImportFragment()
@@ -90,7 +96,7 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
 
   override fun launchFileIntent(path: Uri?) {
     val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-      type = "text/*"
+      type = "*/*"
       path?.let {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) putExtra(EXTRA_INITIAL_URI, it)
       }
@@ -110,6 +116,33 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
   }
 
   override fun onFileChosen() = fileChosenSubject!!
+
+  override fun askForReadPermissions() {
+    if (ActivityCompat.checkSelfPermission(this,
+            Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+      onPermissionSubject?.onNext(Unit)
+    } else {
+      requestStorageReadPermission()
+    }
+  }
+
+  private fun requestStorageReadPermission() {
+    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+        RC_READ_EXTERNAL_PERMISSION_CODE)
+  }
+
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                          grantResults: IntArray) {
+    if (requestCode == RC_READ_EXTERNAL_PERMISSION_CODE) {
+      if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        onPermissionSubject?.onNext(Unit)
+      }
+    } else {
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+  }
+
+  override fun onPermissionsGiven() = onPermissionSubject!!
 
   private fun navigateToTransactions() {
     TransactionsRouter().open(this, true)

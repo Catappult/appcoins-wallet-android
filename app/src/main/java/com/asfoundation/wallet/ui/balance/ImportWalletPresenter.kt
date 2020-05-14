@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.balance
 
 import com.asfoundation.wallet.interact.ImportWalletInteract
 import com.asfoundation.wallet.interact.WalletModel
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.ImportError
 import com.asfoundation.wallet.util.ImportErrorType
 import io.reactivex.Scheduler
@@ -12,6 +13,7 @@ class ImportWalletPresenter(private val view: ImportWalletView,
                             private val activityView: ImportWalletActivityView,
                             private val disposable: CompositeDisposable,
                             private val importWalletInteract: ImportWalletInteract,
+                            private val logger: Logger,
                             private val viewScheduler: Scheduler,
                             private val computationScheduler: Scheduler) {
 
@@ -19,33 +21,39 @@ class ImportWalletPresenter(private val view: ImportWalletView,
     handleImportFromString()
     handleImportFromFile()
     handleFileChosen()
+    handleOnPermissionsGiven()
+  }
+
+  private fun handleOnPermissionsGiven() {
+    disposable.add(activityView.onPermissionsGiven()
+        .doOnNext { activityView.launchFileIntent(importWalletInteract.getPath()) }
+        .subscribe())
   }
 
   private fun handleFileChosen() {
     disposable.add(activityView.onFileChosen()
-        .observeOn(viewScheduler)
         .doOnNext { activityView.showWalletImportAnimation() }
         .flatMapSingle { importWalletInteract.readFile(it) }
-        .observeOn(viewScheduler)
-        .doOnError { view.showError(ImportErrorType.INVALID_KEYSTORE) }
         .observeOn(computationScheduler)
         .flatMapSingle { fetchWalletModel(it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
-        .subscribe()
+        .subscribe({}, {
+          logger.log("ImportWalletPresenter", it)
+          activityView.hideAnimation()
+          view.showError(ImportErrorType.INVALID_KEYSTORE)
+        })
     )
   }
 
   private fun handleImportFromFile() {
     disposable.add(view.importFromFileClick()
-        .observeOn(viewScheduler)
-        .doOnNext { activityView.launchFileIntent(importWalletInteract.getPath()) }
+        .doOnNext { activityView.askForReadPermissions() }
         .subscribe())
   }
 
   private fun handleImportFromString() {
     disposable.add(view.importFromStringClick()
-        .observeOn(viewScheduler)
         .doOnNext { activityView.showWalletImportAnimation() }
         .observeOn(computationScheduler)
         .flatMapSingle { fetchWalletModel(it) }
@@ -56,7 +64,6 @@ class ImportWalletPresenter(private val view: ImportWalletView,
 
   private fun setDefaultWallet(address: String) {
     disposable.add(importWalletInteract.setDefaultWallet(address)
-        .observeOn(viewScheduler)
         .doOnComplete { activityView.showWalletImportedAnimation() }
         .subscribe())
   }

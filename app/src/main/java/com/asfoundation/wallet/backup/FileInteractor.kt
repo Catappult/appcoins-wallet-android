@@ -26,7 +26,7 @@ class FileInteractor(private val context: Context,
     if (path == null) return Completable.error(Throwable("Null path"))
     val file = File.createTempFile("$fileName-", getDefaultBackupFileExtension(), path)
 
-    val fileOutputStream = FileOutputStream(file, true)
+    val fileOutputStream = FileOutputStream(file, false)
     try {
       fileOutputStream.write(content.toByteArray())
       cachedFile = file
@@ -44,7 +44,7 @@ class FileInteractor(private val context: Context,
     val stringPath = path?.path ?: return Completable.error(Throwable("Null path"))
     val directory = File("$stringPath${File.separator}AppcoinsBackup")
     directory.mkdirs()
-    val file = File("$directory${File.separator}$fileName")
+    val file = File("$directory${File.separator}$fileName${getDefaultBackupFileExtension()}")
     val fileOutputStream = FileOutputStream(file, false)
     try {
       fileOutputStream.write(content.toByteArray())
@@ -60,8 +60,9 @@ class FileInteractor(private val context: Context,
   //Use this method for Android Q and above
   fun createAndSaveFile(content: String, documentFile: DocumentFile,
                         fileName: String): Completable {
-    val file = documentFile.createFile("text/plain", fileName) ?: return Completable.error(
-        Throwable("Error creating file"))
+    val file = documentFile.createFile("", fileName + getDefaultBackupFileExtension())
+        ?: return Completable.error(
+            Throwable("Error creating file"))
 
     val outputStream = contentResolver.openOutputStream(file.uri)
     try {
@@ -86,9 +87,6 @@ class FileInteractor(private val context: Context,
   }
 
   fun getCachedFile(): File? = cachedFile
-
-  fun getDefaultBackupFileFullName(walletAddress: String) =
-      getDefaultBackupFileName(walletAddress) + getDefaultBackupFileExtension()
 
   //If android Q or above, the user must choose the directory so that the file isn't deleted when the app is uninstall
   fun getDownloadPath(): File? {
@@ -124,17 +122,17 @@ class FileInteractor(private val context: Context,
           keystore.append(mLine)
           keystore.append('\n')
         }
+        reader.close()
       } catch (e: Exception) {
         e.printStackTrace()
-        return Single.error(e)
-      } finally {
         reader?.close()
+        return Single.error(e)
       }
       return Single.just(keystore.toString())
     }
   }
 
-  private fun getDefaultBackupFileName(walletAddress: String) = "walletbackup$walletAddress"
+  fun getDefaultBackupFileName(walletAddress: String) = "walletbackup$walletAddress"
 
   private fun getDefaultBackupFileExtension() = ".bck"
 }

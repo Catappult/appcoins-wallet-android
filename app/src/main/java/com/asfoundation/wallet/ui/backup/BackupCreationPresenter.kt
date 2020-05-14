@@ -125,14 +125,14 @@ class BackupCreationPresenter(
 
   private fun handleSaveAgainClick() {
     disposables.add(view.getSaveAgainClick()
-        .doOnNext { activityView.startWalletBackup() }
+        .doOnNext { activityView.askForWritePermissions() }
         .subscribe())
   }
 
   private fun handlePermissionGiven() {
     disposables.add(activityView.onPermissionGiven()
         .doOnNext {
-          view.showSaveOnDeviceDialog(fileInteractor.getDefaultBackupFileFullName(walletAddress),
+          view.showSaveOnDeviceDialog(fileInteractor.getDefaultBackupFileName(walletAddress),
               downloadsPath?.path)
         }
         .subscribe({}, { it.printStackTrace() }))

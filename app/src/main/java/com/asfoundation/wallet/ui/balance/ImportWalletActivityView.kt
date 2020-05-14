@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.balance
 
 import android.net.Uri
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 interface ImportWalletActivityView {
 
@@ -16,4 +17,6 @@ interface ImportWalletActivityView {
   fun hideAnimation()
 
   fun onFileChosen(): Observable<Uri>
+  fun askForReadPermissions()
+  fun onPermissionsGiven(): PublishSubject<Unit>
 }
