@@ -34,7 +34,7 @@ class AllowanceService(private val web3j: Web3j,
           if (response.size == 1) {
             return@map BigDecimal(
                 (response[0] as Uint256).value)
-                .divide(
+                .multiply(
                     BigDecimal(BigInteger.ONE,
                         tokenInfo.decimals))
           } else {
