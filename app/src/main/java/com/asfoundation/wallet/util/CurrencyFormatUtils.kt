@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.util
 
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.transact.TransferFragmentView
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -35,8 +34,8 @@ class CurrencyFormatUtils {
     }
   }
 
-  fun formatCurrency(fiatValue: FiatValue): String {
-    val value = fiatValue.amount.toDouble()
+  fun formatCurrency(amount: BigDecimal): String {
+    val value = amount.toDouble()
     return formatCurrencyFiat(value)
   }
 

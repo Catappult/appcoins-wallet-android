@@ -34,20 +34,22 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
         .observeOn(viewScheduler)
         .doOnNext { view.showRemoveWalletAnimation() }
         .observeOn(networkScheduler)
-        .flatMapSingle {
-          Single.zip(deleteWalletInteract.delete(walletAddress)
-              .toSingleDefault(""),
-              Completable.timer(2, TimeUnit.SECONDS)
-                  .toSingleDefault(""),
-              BiFunction { _: String, _: String -> })
-        }
+        .flatMapSingle { deleteWallet() }
         .observeOn(viewScheduler)
         .doOnNext { view.finish() }
         .doOnError {
           logger.log("WalletRemoveConfirmationPresenter", it)
           view.finish()
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun deleteWallet(): Single<Any> {
+    return Single.zip(deleteWalletInteract.delete(walletAddress)
+        .toSingleDefault(Unit),
+        Completable.timer(2, TimeUnit.SECONDS)
+            .toSingleDefault(Unit),
+        BiFunction { _: Unit, _: Unit -> })
   }
 
   fun stop() {

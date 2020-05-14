@@ -14,12 +14,12 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
-import com.asfoundation.wallet.util.scaleToString
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -33,6 +33,9 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
 
   @Inject
   lateinit var interactor: WalletDetailsInteractor
+
+  @Inject
+  lateinit var currencyFormatter: CurrencyFormatUtils
   private lateinit var activityView: BalanceActivityView
   private lateinit var presenter: WalletDetailsPresenter
 
@@ -73,14 +76,11 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
 
   override fun shareClick() = RxView.clicks(share_button)
 
-  override fun removeWalletClick(): Observable<Any> {
-    return Observable.merge(RxView.clicks(remove_wallet_button), RxView.clicks(remove_text))
-  }
+  override fun removeWalletClick() = RxView.clicks(remove_button_layout)
 
-  override fun backupWalletClick(): Observable<Any> {
-    return Observable.merge(RxView.clicks(backup_wallet_button), RxView.clicks(backup_text),
-        RxView.clicks(middle_backup_wallet_button), RxView.clicks(middle_backup_text))
-  }
+  override fun backupInactiveWalletClick() = RxView.clicks(backup_button_layout)
+
+  override fun backupActiveWalletClick() = RxView.clicks(middle_backup_button_layout)
 
   override fun makeWalletActiveClick() = RxView.clicks(make_this_active_button)
 
@@ -125,17 +125,19 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
     val appc = balanceScreenModel.appcBalance.token
     val credits = balanceScreenModel.creditsBalance.token
     val ethereum = balanceScreenModel.ethBalance.token
-    total_balance_fiat.text = fiat.symbol + fiat.amount.scaleToString(2)
-    balance_appcoins.text = appc.amount.scaleToString(2) + " " + appc.symbol
-    balance_credits.text = credits.amount.scaleToString(2) + " " + credits.symbol
-    balance_ethereum.text = ethereum.amount.scaleToString(4) + " " + ethereum.symbol
+    total_balance_fiat.text = fiat.symbol + currencyFormatter.formatCurrency(fiat.amount)
+    balance_appcoins.text =
+        currencyFormatter.formatCurrency(appc.amount, WalletCurrency.APPCOINS) + " " + appc.symbol
+    balance_credits.text = currencyFormatter.formatCurrency(credits.amount,
+        WalletCurrency.CREDITS) + " " + credits.symbol
+    balance_ethereum.text = currencyFormatter.formatCurrency(ethereum.amount,
+        WalletCurrency.ETHEREUM) + " " + ethereum.symbol
   }
 
   private fun handleActiveWalletLayoutVisibility() {
     if (isActive) {
       active_wallet_info.visibility = View.VISIBLE
-      middle_backup_wallet_button.visibility = View.VISIBLE
-      middle_backup_text.visibility = View.VISIBLE
+      middle_backup_button_layout.visibility = View.VISIBLE
     } else {
       remove_backup_buttons.visibility = View.VISIBLE
       make_this_active_button.visibility = View.VISIBLE

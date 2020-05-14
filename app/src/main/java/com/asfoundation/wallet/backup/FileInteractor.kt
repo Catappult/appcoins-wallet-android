@@ -13,9 +13,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.*
 
-class FileInteract(private val context: Context,
-                   private val contentResolver: ContentResolver,
-                   private val preferencesRepositoryType: PreferencesRepositoryType) {
+class FileInteractor(private val context: Context,
+                     private val contentResolver: ContentResolver,
+                     private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   private var cachedFile: File? = null
 

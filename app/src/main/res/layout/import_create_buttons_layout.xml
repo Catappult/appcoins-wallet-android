@@ -1,74 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     >
-
-  <ImageView
-      android:id="@+id/import_button"
-      android:layout_width="32dp"
-      android:layout_height="32dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginBottom="40dp"
-      android:src="@drawable/ic_import_wallet"
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/import_button_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@id/vertical_guideline2"
       app:layout_constraintStart_toStartOf="@id/vertical_guideline1"
       app:layout_constraintTop_toTopOf="parent"
-      />
-  <TextView
-      android:id="@+id/import_text"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-      android:layout_width="0dp"
+      >
+    <ImageView
+        android:id="@+id/import_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_import_wallet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/import_text"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:letterSpacing="0.09"
+        android:lineSpacingExtra="0sp"
+        android:maxLines="2"
+        android:text="@string/import_wallet_button"
+        android:textColor="@color/text_button_color"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/import_button"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent=".4"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/create_new_button_layout"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:ellipsize="end"
-      android:gravity="center"
-      android:letterSpacing="0.09"
-      android:lineSpacingExtra="0sp"
-      android:maxLines="2"
-      android:text="@string/import_wallet_button"
-      android:textColor="@color/text_button_color"
-      android:textSize="12sp"
-      app:layout_constraintEnd_toEndOf="@id/import_button"
-      app:layout_constraintStart_toStartOf="@id/import_button"
-      app:layout_constraintTop_toBottomOf="@id/import_button"
-      app:layout_constraintWidth_default="percent"
-      app:layout_constraintWidth_percent=".4"
-      />
-  <ImageView
-      android:id="@+id/create_new_button"
-      android:layout_width="32dp"
-      android:layout_height="32dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginBottom="40dp"
-      android:src="@drawable/ic_create_new_wallet"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/vertical_guideline3"
       app:layout_constraintTop_toTopOf="parent"
-      />
-  <TextView
-      android:id="@+id/create_new_wallet_text"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:ellipsize="end"
-      android:gravity="center"
-      android:letterSpacing="0.09"
-      android:lineSpacingExtra="0sp"
-      android:maxLines="2"
-      android:text="@string/wallets_2nd_view_create_button"
-      android:textColor="@color/text_button_color"
-      android:textSize="12sp"
-      app:layout_constraintEnd_toEndOf="@id/create_new_button"
-      app:layout_constraintStart_toStartOf="@id/create_new_button"
-      app:layout_constraintTop_toBottomOf="@id/create_new_button"
-      app:layout_constraintWidth_default="percent"
-      app:layout_constraintWidth_percent=".4"
-      />
+      >
+    <ImageView
+        android:id="@+id/create_new_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_create_new_wallet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/create_new_wallet_text"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:letterSpacing="0.09"
+        android:lineSpacingExtra="0sp"
+        android:maxLines="2"
+        android:text="@string/wallets_2nd_view_create_button"
+        android:textColor="@color/text_button_color"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/create_new_button"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent=".4"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/vertical_guideline1"
