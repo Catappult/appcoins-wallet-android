@@ -17,11 +17,12 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     ViewPager2.OnPageChangeCallback() {
 
   companion object {
-    var ANIMATION_TRANSITIONS = 3
-    var pageCount = 4
+    private const val ANIMATION_TRANSITIONS = 3
+    private const val PAGE_COUNT = 4
   }
 
-  private lateinit var lottieView: LottieAnimationView
+  private var lottieViewPortrait: LottieAnimationView? = null
+  private var lottieViewLandscape: LottieAnimationView? = null
   private lateinit var skipButton: Button
   private lateinit var nextButton: Button
   private lateinit var beenInvitedButton: Button
@@ -36,7 +37,8 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
   }
 
   fun init() {
-    lottieView = view.findViewById(R.id.lottie_onboarding)
+    lottieViewPortrait = view.findViewById(R.id.lottie_onboarding_portrait)
+    lottieViewLandscape = view.findViewById(R.id.lottie_onboarding_landscape)
     skipButton = view.findViewById(R.id.skip_button)
     nextButton = view.findViewById(R.id.next_button)
     checkBox = view.findViewById(R.id.onboarding_checkbox)
@@ -62,7 +64,9 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
   }
 
   override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    lottieView.progress =
+    lottieViewPortrait?.progress =
+        position * (1f / ANIMATION_TRANSITIONS) + positionOffset * (1f / ANIMATION_TRANSITIONS)
+    lottieViewLandscape?.progress =
         position * (1f / ANIMATION_TRANSITIONS) + positionOffset * (1f / ANIMATION_TRANSITIONS)
     checkBox.setOnClickListener { handleUI(position) }
     updatePageIndicator(position)
@@ -112,16 +116,12 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     pos = if (config.layoutDirection == View.LAYOUT_DIRECTION_LTR) {
       position
     } else {
-      pageCount - position - 1
+      PAGE_COUNT - position - 1
     }
     pageIndicatorView.setSelected(pos)
   }
 
-  override fun onPageSelected(position: Int) {
+  override fun onPageSelected(position: Int) = Unit
 
-  }
-
-  override fun onPageScrollStateChanged(state: Int) {
-
-  }
+  override fun onPageScrollStateChanged(state: Int) = Unit
 }

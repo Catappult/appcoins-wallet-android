@@ -44,7 +44,6 @@ project.ext {
   collapsingtoolbarlayout_version = '1.0.0'
   constraintlayout_version = '1.1.3'
   cpp_version = '2.3.1'
-  crashlytics_sdk_version = '2.10.1@aar'
   dagger_version = '2.27'
   erc681_version = '0.36'
   ethereumj_sdk_version = '0.5.0.0'
@@ -81,7 +80,6 @@ project.ext {
   vector_drawable_version = '1.0.1'
   viewpager_version = '1.0.0'
   web3j_version = "3.3.1-android"
-  work_version = '2.3.4'
   zxing_android_version = '3.6.0'
   zxing_version = '3.4.0'
   sentry_version = '1.7.30'
