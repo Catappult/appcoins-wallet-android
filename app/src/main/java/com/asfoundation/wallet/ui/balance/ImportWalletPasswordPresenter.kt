@@ -5,6 +5,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class ImportWalletPasswordPresenter(private val view: ImportWalletPasswordView,
+                                    private val activityView: ImportWalletActivityView,
                                     private val interactor: ImportWalletPasswordInteractor,
                                     private val disposable: CompositeDisposable,
                                     private val viewScheduler: Scheduler,
@@ -29,8 +30,10 @@ class ImportWalletPasswordPresenter(private val view: ImportWalletPasswordView,
 
   private fun handleImportWalletButtonClicked(keystore: String) {
     disposable.add(view.importWalletButtonClick()
-        .observeOn(viewScheduler)
-        .doOnNext { view.showWalletImportAnimation() }
+        .doOnNext {
+          activityView.hideKeyboard()
+          view.showWalletImportAnimation()
+        }
         .observeOn(computationScheduler)
         .flatMapSingle { interactor.importWallet(keystore, it) }
         .observeOn(viewScheduler)
@@ -40,7 +43,6 @@ class ImportWalletPasswordPresenter(private val view: ImportWalletPasswordView,
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
-        .observeOn(viewScheduler)
         .doOnComplete { view.showWalletImportedAnimation() }
         .subscribe())
   }

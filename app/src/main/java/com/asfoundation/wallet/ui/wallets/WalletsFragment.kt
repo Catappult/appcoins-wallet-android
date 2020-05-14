@@ -40,7 +40,7 @@ class WalletsFragment : DaggerFragment(), WalletsView {
   private var uiEventListener: PublishSubject<String>? = null
   private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var activityView: BalanceActivityView
-  private lateinit var adapter: NewWalletsAdapter
+  private lateinit var adapter: WalletsAdapter
   private lateinit var presenter: WalletsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +93,7 @@ class WalletsFragment : DaggerFragment(), WalletsView {
     layoutManager.orientation = RecyclerView.VERTICAL
     val adapterList = removeCurrentWallet(walletsBalanceList)
     adapter =
-        NewWalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter)
+        WalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter)
     other_wallets_cards_recycler.layoutManager = layoutManager
     other_wallets_cards_recycler.adapter = adapter
     val walletsText =

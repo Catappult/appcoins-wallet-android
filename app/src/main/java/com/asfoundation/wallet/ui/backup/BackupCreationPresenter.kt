@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.backup
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.documentfile.provider.DocumentFile
@@ -24,8 +23,7 @@ class BackupCreationPresenter(
     private val walletAddress: String,
     private val password: String,
     private val temporaryPath: File?,
-    private val downloadsPath: File?,
-    private val context: Context?) {
+    private val downloadsPath: File?) {
 
   companion object {
     private const val FILE_SHARED_KEY = "FILE_SHARED"
@@ -117,8 +115,7 @@ class BackupCreationPresenter(
             val file = fileInteractor.getCachedFile()
             if (file == null) showError("Error retrieving file")
             else {
-              context?.let { view.shareFile(fileInteractor.getUriFromFile(context, file)) }
-                  ?: showError("Null context")
+              view.shareFile(fileInteractor.getUriFromFile(file))
               fileShared = true
             }
           }
@@ -128,14 +125,14 @@ class BackupCreationPresenter(
 
   private fun handleSaveAgainClick() {
     disposables.add(view.getSaveAgainClick()
-        .doOnNext { activityView.startWalletBackup() }
+        .doOnNext { activityView.askForWritePermissions() }
         .subscribe())
   }
 
   private fun handlePermissionGiven() {
     disposables.add(activityView.onPermissionGiven()
         .doOnNext {
-          view.showSaveOnDeviceDialog(fileInteractor.getDefaultBackupFileFullName(walletAddress),
+          view.showSaveOnDeviceDialog(fileInteractor.getDefaultBackupFileName(walletAddress),
               downloadsPath?.path)
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -146,6 +143,7 @@ class BackupCreationPresenter(
     return fileInteractor.createAndSaveFile(cachedKeystore, documentFile, fileName)
         .observeOn(viewScheduler)
         .doOnComplete {
+          fileInteractor.saveChosenUri(documentFile.uri)
           view.closeDialog()
           activityView.showSuccessScreen()
         }

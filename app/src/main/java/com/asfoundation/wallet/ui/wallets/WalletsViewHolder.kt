@@ -16,7 +16,7 @@ class WalletsViewHolder(private val context: Context, itemView: View,
 
   @SuppressLint("SetTextI18n")
   fun bind(item: WalletBalance) {
-    itemView.active_wallet_address.text = item.walletAddress
+    itemView.inactive_wallet_address.text = item.walletAddress
     itemView.wallet_balance.text = context.getString(
         R.string.wallets_2nd_view_balance_title) + " " + item.balance.symbol + currencyFormatUtils.formatCurrency(
         item.balance.amount)

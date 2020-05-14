@@ -321,8 +321,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build();
   }
 
-  @Singleton @Provides SharedPreferencesRepository providePreferencesRepository(Context context) {
-    return new SharedPreferencesRepository(context);
+  @Singleton @Provides SharedPreferencesRepository providePreferencesRepository(
+      SharedPreferences sharedPreferences) {
+    return new SharedPreferencesRepository(sharedPreferences);
   }
 
   @Singleton @Provides PreferencesRepositoryType providePreferenceRepositoryType(
@@ -1370,7 +1371,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return context.getContentResolver();
   }
 
-  @Singleton @Provides FileInteractor provideFileInteract(ContentResolver contentResolver) {
-    return new FileInteractor(contentResolver);
+  @Singleton @Provides FileInteractor provideFileInteract(Context context,
+      ContentResolver contentResolver, PreferencesRepositoryType preferencesRepositoryType) {
+    return new FileInteractor(context, contentResolver, preferencesRepositoryType);
   }
 }

@@ -1,14 +1,10 @@
 package com.asfoundation.wallet.repository
 
-import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType {
-
-  private val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+class SharedPreferencesRepository(private val pref: SharedPreferences) : PreferencesRepositoryType {
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
 
@@ -99,12 +95,6 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     }
   }
 
-  override fun addWalletPreference(address: String?) {
-    pref.edit()
-        .putString(PREF_WALLET, address)
-        .apply()
-  }
-
   override fun getBackupNotificationSeenTime(walletAddress: String) =
       pref.getLong(BACKUP_SEEN_TIME + walletAddress, -1)
 
@@ -149,7 +139,8 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun getAndroidId() = pref.getString(ANDROID_ID, "").orEmpty()
+  override fun getAndroidId() = pref.getString(ANDROID_ID, "")
+      .orEmpty()
 
 
   override fun setAndroidId(androidId: String) {
@@ -159,6 +150,14 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
   }
 
   override fun getGamificationLevel() = pref.getInt(GAMIFICATION_LEVEL, -1)
+
+  override fun saveChosenUri(uri: String) {
+    pref.edit()
+        .putString(KEYSTORE_DIRECTORY, uri)
+        .apply()
+  }
+
+  override fun getChosenUri() = pref.getString(KEYSTORE_DIRECTORY, null)
 
   companion object {
 
@@ -171,10 +170,10 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val BACKUP_SEEN_TIME = "backup_seen_time_"
     private const val WALLET_VERIFIED = "wallet_verified_"
-    private const val PREF_WALLET = "pref_wallet"
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
     private const val ANDROID_ID = "android_id"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val KEYSTORE_DIRECTORY = "keystore_directory"
   }
 }

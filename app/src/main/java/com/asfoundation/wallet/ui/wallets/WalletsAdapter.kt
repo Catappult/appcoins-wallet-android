@@ -8,9 +8,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 
-class NewWalletsAdapter(private val context: Context, private var items: List<WalletBalance>,
-                        private val uiEventListener: PublishSubject<String>,
-                        private val currencyFormatUtils: CurrencyFormatUtils) :
+class WalletsAdapter(private val context: Context, private var items: List<WalletBalance>,
+                     private val uiEventListener: PublishSubject<String>,
+                     private val currencyFormatUtils: CurrencyFormatUtils) :
     RecyclerView.Adapter<WalletsViewHolder>() {
 
 

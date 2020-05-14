@@ -8,7 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.ImportWalletInteract
+import com.asfoundation.wallet.interact.ImportWalletInteractor
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.ImportErrorType
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -22,14 +23,25 @@ import javax.inject.Inject
 class ImportWalletFragment : DaggerFragment(), ImportWalletView {
 
   @Inject
-  lateinit var importWalletInteract: ImportWalletInteract
+  lateinit var importWalletInteractor: ImportWalletInteractor
+
+  @Inject
+  lateinit var logger: Logger
   private lateinit var activityView: ImportWalletActivityView
   private lateinit var presenter: ImportWalletPresenter
 
+  companion object {
+    private const val KEYSTORE = "keystore"
+
+    @JvmStatic
+    fun newInstance() = ImportWalletFragment()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = ImportWalletPresenter(this, CompositeDisposable(), importWalletInteract,
-        AndroidSchedulers.mainThread(), Schedulers.computation())
+    presenter =
+        ImportWalletPresenter(this, activityView, CompositeDisposable(), importWalletInteractor,
+            logger, AndroidSchedulers.mainThread(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {
@@ -49,25 +61,15 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setTextChangeListener()
+    savedInstanceState?.let { keystore_edit_text.setText(it.getString(KEYSTORE, "")) }
     presenter.present()
   }
 
-  override fun importFromStringClick(): Observable<String> {
-    return RxView.clicks(import_wallet_button)
-        .map { keystore_edit_text.editableText.toString() }
-  }
+  override fun importFromStringClick(): Observable<String> = RxView.clicks(import_wallet_button)
+      .map { keystore_edit_text.editableText.toString() }
 
-  override fun hideAnimation() {
-    activityView.hideAnimation()
-  }
+  override fun importFromFileClick() = RxView.clicks(import_from_file_button)
 
-  override fun showWalletImportAnimation() {
-    activityView.showWalletImportAnimation()
-  }
-
-  override fun showWalletImportedAnimation() {
-    activityView.showWalletImportedAnimation()
-  }
 
   override fun showError(type: ImportErrorType) {
     label_input.isErrorEnabled = true
@@ -78,8 +80,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
     }
   }
 
-  override fun navigateToPasswordView() {
-    val keystore = keystore_edit_text.editableText.toString()
+  override fun navigateToPasswordView(keystore: String) {
     activityView.navigateToPasswordView(keystore)
   }
 
@@ -99,6 +100,11 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
             .isNotEmpty()
       }
     })
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putString(KEYSTORE, keystore_edit_text.editableText.toString())
   }
 
   override fun onDestroyView() {

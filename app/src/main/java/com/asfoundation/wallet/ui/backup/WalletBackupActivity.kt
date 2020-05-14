@@ -72,7 +72,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
         .commit()
   }
 
-  override fun startWalletBackup() {
+  override fun askForWritePermissions() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ||
         ActivityCompat.checkSelfPermission(this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -137,5 +137,11 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   override fun setupToolbar() {
     toolbar()
+  }
+
+  override fun onDestroy() {
+    onPermissionSubject = null
+    onDocumentFileSubject = null
+    super.onDestroy()
   }
 }

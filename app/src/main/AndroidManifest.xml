@@ -62,15 +62,12 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.ui.WalletsActivity"
-        android:label="@string/title_account_list" />
-    <activity
         android:name="com.asfoundation.wallet.ui.onboarding.OnboardingActivity"
         android:label="" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.ImportWalletActivity"
         android:label="@string/title_import"
-        android:windowSoftInputMode="stateAlwaysVisible" />
+        android:windowSoftInputMode="stateHidden" />
     <activity
         android:name="com.asfoundation.wallet.ui.TransactionsActivity"
         android:label="@string/app_name"

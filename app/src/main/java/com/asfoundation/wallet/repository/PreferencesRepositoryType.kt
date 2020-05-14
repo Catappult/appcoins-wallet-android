@@ -19,7 +19,6 @@ interface PreferencesRepositoryType {
   fun setWalletValidationStatus(walletAddress: String, validated: Boolean)
   fun isWalletValidated(walletAddress: String): Boolean
   fun removeWalletValidationStatus(walletAddress: String): Completable
-  fun addWalletPreference(address: String?)
   fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
   fun getAutoUpdateCardDismissedVersion(): Single<Int>
   fun getUpdateNotificationSeenTime(): Long
@@ -35,4 +34,6 @@ interface PreferencesRepositoryType {
   fun getAndroidId(): String
   fun setAndroidId(androidId: String)
   fun getGamificationLevel(): Int
+  fun saveChosenUri(uri: String)
+  fun getChosenUri(): String?
 }

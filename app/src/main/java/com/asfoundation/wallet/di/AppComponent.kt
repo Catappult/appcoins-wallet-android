@@ -13,7 +13,6 @@ import javax.inject.Singleton
       RepositoriesModule::class,
       BuildersModule::class,
       ImportModule::class,
-      SettingsModule::class,
       BroadcastReceiverModule::class])
 interface AppComponent {
 

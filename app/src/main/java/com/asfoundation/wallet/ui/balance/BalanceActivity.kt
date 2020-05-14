@@ -111,7 +111,7 @@ class BalanceActivity : BaseActivity(),
   }
 
   override fun navigateToImportView() {
-    startActivity(Intent(this, ImportWalletActivity::class.java))
+    startActivity(ImportWalletActivity.newIntent(this))
   }
 
   override fun showCreatingAnimation() {

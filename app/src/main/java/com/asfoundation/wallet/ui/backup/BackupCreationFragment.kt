@@ -66,8 +66,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     presenter =
         BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteractor, logger,
             Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), walletAddress,
-            password, fileInteractor.getTemporaryPath(context), fileInteractor.getDownloadPath(),
-            context)
+            password, fileInteractor.getTemporaryPath(), fileInteractor.getDownloadPath())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
