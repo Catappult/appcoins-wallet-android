@@ -108,7 +108,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setupPreferences() {
     setPermissionPreference()
     setSourceCodePreference()
-    setBugReportPreference()
     setIssueReportPreference()
     setTwitterPreference()
     setTelegramPreference()
@@ -183,15 +182,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val sourceCodePreference = findPreference<Preference>("pref_source_code")
     sourceCodePreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://github.com/Aptoide/appcoins-wallet-android"), false)
-      false
-    }
-  }
-
-  private fun setBugReportPreference() {
-    val bugReportPreference = findPreference<Preference>("pref_report_bug")
-    bugReportPreference?.setOnPreferenceClickListener {
-      startBrowserActivity(
-          Uri.parse("https://github.com/Aptoide/appcoins-wallet-android/issues/new"), false)
       false
     }
   }
