@@ -108,9 +108,9 @@ class FileInteractor(private val context: Context,
   }
 
   fun readFile(fileUri: Uri?): Single<String> {
-    if (fileUri == null || fileUri.path == null) return Single.error(
-        Throwable("Error retrieving file"))
-    else {
+    if (fileUri == null || fileUri.path == null) {
+      return Single.error(Throwable("Error retrieving file"))
+    } else {
       val keystore = StringBuilder("")
       var reader: BufferedReader? = null
       try {

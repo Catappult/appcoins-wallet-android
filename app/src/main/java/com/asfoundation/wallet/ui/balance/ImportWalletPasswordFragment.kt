@@ -35,8 +35,9 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        ImportWalletPasswordPresenter(this, importWalletPasswordInteractor, CompositeDisposable(),
-            AndroidSchedulers.mainThread(), Schedulers.io(), Schedulers.computation())
+        ImportWalletPasswordPresenter(this, activityView, importWalletPasswordInteractor,
+            CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
+            Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {
@@ -114,7 +115,7 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
 
   private val keystore: String by lazy {
     if (arguments!!.containsKey(KEYSTORE_KEY)) {
-      arguments!!.getString(KEYSTORE_KEY)
+      arguments!!.getString(KEYSTORE_KEY)!!
     } else {
       throw IllegalArgumentException("keystore not found")
     }

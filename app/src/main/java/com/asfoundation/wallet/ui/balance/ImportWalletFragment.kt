@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.ImportWalletInteract
+import com.asfoundation.wallet.interact.ImportWalletInteractor
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.ImportErrorType
 import com.jakewharton.rxbinding2.view.RxView
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class ImportWalletFragment : DaggerFragment(), ImportWalletView {
 
   @Inject
-  lateinit var importWalletInteract: ImportWalletInteract
+  lateinit var importWalletInteractor: ImportWalletInteractor
 
   @Inject
   lateinit var logger: Logger
@@ -40,7 +40,7 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        ImportWalletPresenter(this, activityView, CompositeDisposable(), importWalletInteract,
+        ImportWalletPresenter(this, activityView, CompositeDisposable(), importWalletInteractor,
             logger, AndroidSchedulers.mainThread(), Schedulers.computation())
   }
 

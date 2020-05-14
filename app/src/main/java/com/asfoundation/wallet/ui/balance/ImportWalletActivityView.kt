@@ -17,6 +17,10 @@ interface ImportWalletActivityView {
   fun hideAnimation()
 
   fun onFileChosen(): Observable<Uri>
+
   fun askForReadPermissions()
+
   fun onPermissionsGiven(): PublishSubject<Unit>
+
+  fun hideKeyboard()
 }

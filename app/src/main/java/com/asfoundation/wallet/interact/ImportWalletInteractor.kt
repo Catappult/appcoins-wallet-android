@@ -12,11 +12,11 @@ import com.asfoundation.wallet.util.ImportErrorType
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
-                           private val setDefaultWalletInteract: SetDefaultWalletInteract,
-                           private val passwordStore: PasswordStore,
-                           private val preferencesRepositoryType: PreferencesRepositoryType,
-                           private val fileInteractor: FileInteractor) {
+class ImportWalletInteractor(private val walletRepository: WalletRepositoryType,
+                             private val setDefaultWalletInteract: SetDefaultWalletInteract,
+                             private val passwordStore: PasswordStore,
+                             private val preferencesRepositoryType: PreferencesRepositoryType,
+                             private val fileInteractor: FileInteractor) {
 
   fun isKeystore(key: String): Boolean {
     return key.contains("{")
@@ -28,9 +28,7 @@ class ImportWalletInteract(private val walletRepository: WalletRepositoryType,
           walletRepository.importKeystoreToWallet(keystore, password, newPassword)
               .compose(Operators.savePassword(passwordStore, walletRepository, newPassword))
         }
-        .doOnSuccess {
-          preferencesRepositoryType.setWalletImportBackup(it.address)
-        }
+        .doOnSuccess { preferencesRepositoryType.setWalletImportBackup(it.address) }
         .map { WalletModel(it.address) }
         .onErrorReturn { mapError(keystore, it) }
   }

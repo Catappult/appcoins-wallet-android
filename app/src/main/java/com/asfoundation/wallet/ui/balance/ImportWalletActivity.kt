@@ -14,12 +14,14 @@ import android.provider.DocumentsContract.EXTRA_INITIAL_URI
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.fragment_backup_wallet_layout.*
 import kotlinx.android.synthetic.main.import_wallet_layout.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
@@ -124,6 +126,11 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
     } else {
       requestStorageReadPermission()
     }
+  }
+
+  override fun hideKeyboard() {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(password.windowToken, 0)
   }
 
   private fun requestStorageReadPermission() {

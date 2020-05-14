@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.backup.FileInteractor;
-import com.asfoundation.wallet.interact.ImportWalletInteract;
+import com.asfoundation.wallet.interact.ImportWalletInteractor;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
@@ -14,16 +14,16 @@ import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module(includes = { RepositoriesModule.class, AccountsManageModule.class }) class ImportModule {
-  @Singleton @Provides ImportWalletInteract provideImportWalletInteract(
+  @Singleton @Provides ImportWalletInteractor provideImportWalletInteract(
       WalletRepositoryType walletRepository, PasswordStore passwordStore,
       PreferencesRepositoryType preferencesRepositoryType,
       SetDefaultWalletInteract setDefaultWalletInteract, FileInteractor fileInteractor) {
-    return new ImportWalletInteract(walletRepository, setDefaultWalletInteract, passwordStore,
+    return new ImportWalletInteractor(walletRepository, setDefaultWalletInteract, passwordStore,
         preferencesRepositoryType, fileInteractor);
   }
 
   @Singleton @Provides ImportWalletPasswordInteractor provideImportWalletInteractor(Gson gson,
-      BalanceInteract balanceInteract, ImportWalletInteract importWalletInteract) {
-    return new ImportWalletPasswordInteractor(gson, balanceInteract, importWalletInteract);
+      BalanceInteract balanceInteract, ImportWalletInteractor importWalletInteractor) {
+    return new ImportWalletPasswordInteractor(gson, balanceInteract, importWalletInteractor);
   }
 }
