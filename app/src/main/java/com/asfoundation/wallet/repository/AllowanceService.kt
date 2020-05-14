@@ -18,13 +18,13 @@ import java.math.BigInteger
 class AllowanceService(private val web3j: Web3j,
                        private val defaultTokenProvider: DefaultTokenProvider) {
 
-  fun checkAllowance(owner: String, allowee: String,
+  fun checkAllowance(owner: String, spender: String,
                      tokenAddress: String): Single<BigDecimal> {
     return defaultTokenProvider.defaultToken
         .map { tokenInfo: TokenInfo ->
 
           val function =
-              allowance(owner, allowee)
+              allowance(owner, spender)
           val responseValue =
               callSmartContractFunction(function, tokenAddress, owner)
           val response =
@@ -59,10 +59,10 @@ class AllowanceService(private val web3j: Web3j,
 
   companion object {
     private fun allowance(owner: String,
-                          allowee: String): Function {
+                          spender: String): Function {
       return Function("allowance",
           listOf(Address(owner),
-              Address(allowee)),
+              Address(spender)),
           listOf(object : TypeReference<Uint256?>() {}))
     }
   }
