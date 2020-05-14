@@ -484,7 +484,6 @@
     <item name="colorControlNormal">#727272</item>
     <item name="boxStrokeColor">@color/text_button_color</item>
     <item name="hintTextColor">@color/text_button_color</item>
-    <item name="android:textCursorDrawable">@drawable/text_cursor</item>
     <item name="colorControlActivated">@color/text_button_color</item>
     <item name="colorControlHighlight">@color/text_button_color</item>
   </style>

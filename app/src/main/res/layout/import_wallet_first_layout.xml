@@ -52,6 +52,7 @@
             android:gravity="top"
             android:hint="@string/import_wallet_keystore_private_keys"
             android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+            android:textCursorDrawable="@drawable/text_cursor"
             />
       </com.google.android.material.textfield.TextInputLayout>
 

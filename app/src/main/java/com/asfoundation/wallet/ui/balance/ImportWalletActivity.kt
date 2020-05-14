@@ -21,7 +21,6 @@ import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_backup_wallet_layout.*
 import kotlinx.android.synthetic.main.import_wallet_layout.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
@@ -130,7 +129,7 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
 
   override fun hideKeyboard() {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-    imm?.hideSoftInputFromWindow(password.windowToken, 0)
+    imm?.hideSoftInputFromWindow(main_view.windowToken, 0)
   }
 
   private fun requestStorageReadPermission() {
