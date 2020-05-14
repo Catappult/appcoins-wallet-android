@@ -107,7 +107,7 @@
         android:minWidth="80dp"
         android:text="@string/cancel"
         android:textColor="@color/dialog_buy_value_text"
-        android:textSize="14sp"
+        android:textSize="12sp"
         />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -120,7 +120,7 @@
         android:minWidth="80dp"
         android:text="@string/backup_save_button"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="12sp"
         />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
