@@ -30,13 +30,13 @@ public interface AccountKeystoreService {
   /**
    * Export wallet to keystore
    *
-   * @param wallet wallet to export
+   * @param address wallet address to export
    * @param password password from wallet
    * @param newPassword new password to store
    *
    * @return store data
    */
-  Single<String> exportAccount(Wallet wallet, String password, String newPassword);
+  Single<String> exportAccount(String address, String password, String newPassword);
 
   /**
    * Delete account from keystore

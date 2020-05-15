@@ -13,7 +13,7 @@ public class PaymentReceiverInteract {
 
   public Single<Wallet> createWallet() {
     return createWalletInteract.create()
-        .flatMap(wallet -> createWalletInteract.setDefaultWallet(wallet)
+        .flatMap(wallet -> createWalletInteract.setDefaultWallet(wallet.address)
             .andThen(Single.just(wallet)));
   }
 }

@@ -26,13 +26,27 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   fun present() {
     view.setupUI()
+    requestActiveWalletAddress()
     requestBalances()
     handleTokenDetailsClick()
-    handleTopUpClick()
+    handleCopyClick()
+    handleQrCodeClick()
+    handleBackPress()
+
   }
 
-  fun stop() {
-    disposables.dispose()
+  private fun handleBackPress() {
+    disposables.add(view.backPressed()
+        .observeOn(viewScheduler)
+        .doOnNext { view.handleBackPress() }
+        .subscribe())
+  }
+
+  private fun requestActiveWalletAddress() {
+    disposables.add(
+        balanceInteract.requestActiveWalletAddress()
+            .doOnSuccess { view.setWalletAddress(it) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun requestBalances() {
@@ -41,7 +55,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnNext { updateUI(it) }
-            .doOnError { it?.printStackTrace() }
+            .doOnError { it.printStackTrace() }
             .subscribe()
     )
   }
@@ -61,19 +75,12 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
             .subscribe())
   }
 
-  private fun handleTopUpClick() {
-    disposables.add(view.getTopUpClick()
-        .throttleFirst(1, TimeUnit.SECONDS)
-        .doOnNext { view.showTopUpScreen() }
-        .subscribe())
-  }
-
   private fun updateTokenBalance(balance: TokenBalance, currency: WalletCurrency) {
     var tokenBalance = "-1"
     var fiatBalance = "-1"
     if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
       tokenBalance = formatter.formatCurrency(balance.token.amount, currency)
-      fiatBalance = formatter.formatCurrency(balance.fiat)
+      fiatBalance = formatter.formatCurrency(balance.fiat.amount)
     }
     view.updateTokenValue(tokenBalance, fiatBalance, currency, balance.fiat.symbol)
   }
@@ -81,8 +88,31 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun updateOverallBalance(balance: FiatValue) {
     var overallBalance = "-1"
     if (balance.amount.compareTo(BigDecimal("-1")) == 1) {
-      overallBalance = formatter.formatCurrency(balance)
+      overallBalance = formatter.formatCurrency(balance.amount)
     }
     view.updateOverallBalance(overallBalance, balance.currency, balance.symbol)
   }
+
+  private fun handleCopyClick() {
+    disposables.add(
+        view.getCopyClick()
+            .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+            .observeOn(viewScheduler)
+            .doOnNext { view.setAddressToClipBoard(it) }
+            .subscribe())
+  }
+
+  private fun handleQrCodeClick() {
+    disposables.add(
+        view.getQrCodeClick()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showQrCodeView() }
+            .subscribe())
+  }
+
+  fun stop() {
+    disposables.clear()
+  }
+
+
 }

@@ -56,19 +56,18 @@ public class WalletRepository implements WalletRepositoryType {
     return accountKeystoreService.importPrivateKey(privateKey, newPassword);
   }
 
-  @Override public Single<String> exportWallet(Wallet wallet, String password, String newPassword) {
-    return accountKeystoreService.exportAccount(wallet, password, newPassword);
+  @Override
+  public Single<String> exportWallet(String address, String password, String newPassword) {
+    return accountKeystoreService.exportAccount(address, password, newPassword);
   }
 
   @Override public Completable deleteWallet(String address, String password) {
     return accountKeystoreService.deleteAccount(address, password);
   }
 
-  @Override public Completable setDefaultWallet(Wallet wallet) {
-    return Completable.fromAction(() -> {
-      preferencesRepositoryType.setCurrentWalletAddress(wallet.address);
-      analyticsSetUp.setUserId(wallet.address);
-    });
+  @Override public Completable setDefaultWallet(String address) {
+    analyticsSetUp.setUserId(address);
+    return preferencesRepositoryType.setCurrentWalletAddress(address);
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
@@ -83,14 +82,14 @@ public class WalletRepository implements WalletRepositoryType {
         .flatMap(this::findWallet);
   }
 
-  @NotNull @Override public Single<BigDecimal> getEthBalanceInWei(Wallet wallet) {
-    return walletBalanceService.getWalletBalance(wallet.address)
+  @NotNull @Override public Single<BigDecimal> getEthBalanceInWei(String address) {
+    return walletBalanceService.getWalletBalance(address)
         .map(walletBalance -> new BigDecimal(walletBalance.getEth()))
         .subscribeOn(networkScheduler);
   }
 
-  @NotNull @Override public Single<BigDecimal> getAppcBalanceInWei(Wallet wallet) {
-    return walletBalanceService.getWalletBalance(wallet.address)
+  @NotNull @Override public Single<BigDecimal> getAppcBalanceInWei(String address) {
+    return walletBalanceService.getWalletBalance(address)
         .map(walletBalance -> new BigDecimal(walletBalance.getAppc()))
         .subscribeOn(networkScheduler);
   }

@@ -56,7 +56,7 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/scan_qr"
         android:padding="@dimen/big_padding"
-        android:src="@mipmap/qr_code_icon"
+        android:src="@drawable/ic_qr_code"
         app:layout_constraintBottom_toBottomOf="@+id/transact_fragment_recipient_address_layout"
         app:layout_constraintEnd_toEndOf="@+id/transact_fragment_recipient_address_layout"
         app:layout_constraintHorizontal_bias="1"

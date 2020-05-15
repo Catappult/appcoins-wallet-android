@@ -5,12 +5,6 @@
     android:layout_height="match_parent">
 
   <Preference
-      android:icon="@drawable/ic_settings_wallets"
-      android:key="pref_wallet"
-      android:layout="@layout/preference_with_summary_layout"
-      android:title="@string/action_wallets" />
-
-  <Preference
       android:icon="@drawable/ic_settings_verification"
       android:key="pref_verification"
       android:layout="@layout/preference_with_summary_layout"
