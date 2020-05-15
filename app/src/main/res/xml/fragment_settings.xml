@@ -41,9 +41,9 @@
 
     <Preference
         android:icon="@drawable/ic_issue_report"
-        android:key="pref_report_issue"
+        android:key="pref_contact_support"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="Report an issue" />
+        android:title="@string/settings_item_support" />
 
   </PreferenceCategory>
 

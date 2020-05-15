@@ -187,7 +187,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   private fun setIssueReportPreference() {
-    val bugReportPreference = findPreference<Preference>("pref_report_issue")
+    val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
       supportInteractor.displayChatScreen()
       false
