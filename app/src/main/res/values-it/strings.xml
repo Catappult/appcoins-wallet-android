@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Riscatta il codice</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In corso&#8230;</string>
   <string name="local_payments_inprogress_body">Una volta completato il pagamento riceverai gli AppCoins Credits nel tuo wallet. A quel punto per completare l\'acquisto dovrai solo tornare al gioco!</string>
