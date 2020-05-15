@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">兑换码</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">正在进行中&#8230;</string>
   <string name="local_payments_inprogress_body">完成付款后，你将在钱包中收到AppCoins积金。然后回到游戏进行购买！</string>
