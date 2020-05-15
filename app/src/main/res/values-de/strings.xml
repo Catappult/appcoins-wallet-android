@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Code einlösen</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Verarbeitung läuft&#8230;</string>
   <string name="local_payments_inprogress_body">So wie Sie die Bezahlung abgeschlossen haben, werden die AppCoins auf ihrem Wallet gutgeschrieben, danach gehen Sie zurück zu ihrem Spiel und tätigen den Einkauf!</string>
