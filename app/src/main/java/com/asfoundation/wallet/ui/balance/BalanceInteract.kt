@@ -94,7 +94,7 @@ class BalanceInteract(
         getStoredAppcBalance(walletAddress),
         getStoredEthBalance(walletAddress),
         getStoredCreditsBalance(walletAddress),
-        Function3 { creditsBalance, appcBalance, ethBalance ->
+        Function3 { appcBalance, ethBalance, creditsBalance ->
           mapToBalanceScreenModel(creditsBalance, appcBalance, ethBalance)
         }
     )
@@ -104,9 +104,9 @@ class BalanceInteract(
                                 appcBalance: Pair<Balance, FiatValue>,
                                 ethBalance: Pair<Balance, FiatValue>): FiatValue {
     var balance = getAddBalanceValue(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE,
-        creditsBalance.first.value)
-    balance = getAddBalanceValue(balance, appcBalance.first.value)
-    balance = getAddBalanceValue(balance, ethBalance.first.value)
+        creditsBalance.second.amount)
+    balance = getAddBalanceValue(balance, appcBalance.second.amount)
+    balance = getAddBalanceValue(balance, ethBalance.second.amount)
 
     return FiatValue(balance, appcBalance.second.currency, appcBalance.second.symbol)
 
