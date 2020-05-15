@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">कोड भुनाएं</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">प्रगति पर&#8230;</string>
   <string name="local_payments_inprogress_body">एक बार जब आप भुगतान पूरा कर लेंगे तो आपको अपने वॉलेट में AppCoins Credits मिल जाएगा। फिर खरीद करने के लिए गेम पर वापस जाएँ!</string>
