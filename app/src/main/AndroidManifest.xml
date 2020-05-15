@@ -9,6 +9,9 @@
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
   <application
       android:name="com.asfoundation.wallet.App"
       android:allowBackup="false"
@@ -19,14 +22,29 @@
       android:testOnly="false"
       android:theme="@style/AppTheme.NoActionBar"
       tools:replace="android:name, android:theme, android:allowBackup">
+
+    <receiver
+        android:name="com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
+    <receiver
+        android:name="com.asfoundation.wallet.support.BootCompletedBroadcastReceiver"
+        android:enabled="true">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+
     <receiver
         android:name="com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver"
         android:enabled="true"
         android:exported="false" />
 
-    <receiver android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
+    <receiver
+        android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
         android:enabled="true"
-        android:exported="false"/>
+        android:exported="false" />
 
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
@@ -173,7 +191,9 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
+
         <data
             android:host="wallet"
             android:path="/validation/1"
@@ -183,31 +203,23 @@
     <activity
         android:name="com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity"
         android:label="" />
-
     <activity
         android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
         android:label="@string/promotions_title"
         android:screenOrientation="portrait" />
-
     <activity
         android:name="com.asfoundation.wallet.referrals.InviteFriendsActivity"
         android:label="@string/referral_view_title"
         android:screenOrientation="portrait" />
-
     <activity
         android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
         android:label=""
         android:screenOrientation="portrait" />
-
     <activity
         android:name="com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity"
         android:launchMode="singleInstance"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
-
-    <meta-data
-        android:name="io.fabric.ApiKey"
-        android:value="${fabricApiKey}" />
 
     <service
         android:name="com.asfoundation.wallet.advertise.WalletPoAService"
@@ -240,7 +252,6 @@
         android:authorities="${applicationId}.workmanager-init"
         android:exported="false"
         tools:node="remove" />
-
   </application>
 
 </manifest>

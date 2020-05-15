@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.repository.entity.TransactionData
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.AnalyticsSetUp
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -63,7 +64,6 @@ class PaymentMethodsPresenter(
 
     handleOnGoingPurchases()
     setupUi(transactionValue)
-    loadBonusIntoView()
     handleCancelClick()
     handleErrorDismisses()
     handleMorePaymentMethodClicks()
@@ -79,22 +79,6 @@ class PaymentMethodsPresenter(
         .doOnNext { selectedPaymentMethod ->
           if (gamification.isBonusActiveAndValid()) handleBonusVisibility(selectedPaymentMethod)
           handlePositiveButtonText(selectedPaymentMethod)
-        }
-        .subscribe())
-  }
-
-  private fun loadBonusIntoView() {
-    disposables.add(gamification.getEarningBonus(transaction.domain, transaction.amount())
-        .subscribeOn(networkThread)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (gamification.isBonusActiveAndValid(it)) {
-            view.setBonus(it.amount, it.currency)
-          } else {
-            view.removeBonus()
-          }
-          gamificationLevel = it.level
-          analyticsSetUp.setGamificationLevel(it.level)
         }
         .subscribe())
   }
@@ -229,17 +213,31 @@ class PaymentMethodsPresenter(
             .subscribeOn(networkThread)
             .flatMapCompletable { fiatValue ->
               getPaymentMethods(fiatValue)
-                  .observeOn(viewScheduler)
                   .flatMapCompletable { paymentMethods ->
-                    Completable.fromAction {
-                      selectPaymentMethod(paymentMethods, fiatValue,
-                          gamification.isBonusActiveAndValid())
-                    }
+                    gamification.getEarningBonus(transaction.domain, transaction.amount())
+                        .observeOn(viewScheduler)
+                        .flatMapCompletable {
+                          Completable.fromAction {
+                            setupBonusInformation(it)
+                            selectPaymentMethod(paymentMethods, fiatValue,
+                                gamification.isBonusActiveAndValid(it))
+                          }
+                        }
                   }
             }
             .subscribeOn(networkThread)
             .observeOn(viewScheduler)
             .subscribe({ }, { this.showError(it) }))
+  }
+
+  private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
+    if (gamification.isBonusActiveAndValid(forecastBonus)) {
+      view.setBonus(forecastBonus.amount, forecastBonus.currency)
+    } else {
+      view.removeBonus()
+    }
+    gamificationLevel = forecastBonus.level
+    analyticsSetUp.setGamificationLevel(forecastBonus.level)
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
@@ -359,10 +357,6 @@ class PaymentMethodsPresenter(
                   val appcAmount = formatter.formatCurrency(transaction.amount(),
                       WalletCurrency.APPCOINS)
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
-                  if (paymentMethodId != paymentMethodsMapper
-                          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
-                    loadBonusIntoView()
-                  }
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount,
                       appcAmount)
                 }
@@ -494,6 +488,7 @@ class PaymentMethodsPresenter(
           .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper
           .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
+      else -> view.showBonus()
     }
   }
 

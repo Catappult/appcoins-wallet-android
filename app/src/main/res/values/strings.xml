@@ -440,6 +440,7 @@
 
   <!--Settings-->
   <string name="title_redeem">Redeem Code</string>
+  <string name="settings_item_support">Contact Support Team</string>
 
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In progress&#8230;</string>
@@ -580,7 +581,7 @@
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Backup done!</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
@@ -589,7 +590,7 @@
   <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
   <string name="backup_confirmation_tips_title">Keep the file safe:</string>
   <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
