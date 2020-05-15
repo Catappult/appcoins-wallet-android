@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="local_payments_inprogress_body">ਇੱਕ ਵਾਰ ਤੁਸੀਂ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰ ਲੈਂਦੇ ਹੋ ਤਾਂ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਹੋਣਗੇ| ਫਿਰ ਖਰੀਦਣ ਲਈ ਗੇਮ ਵਿੱਚ ਵਾਪਸ ਜਾਓ!</string>
