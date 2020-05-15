@@ -14,6 +14,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
   private var currentUser = ""
 
   fun displayChatScreen() {
+    resetUnreadConversations()
     Intercom.client()
         .displayMessenger()
   }
@@ -38,24 +39,20 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
     currentUser = walletAddress
   }
 
-  fun getUnreadConversationCountListener(): Observable<Int> {
-    return Observable.create {
-      Intercom.client()
-          .addUnreadConversationCountListener { i: Int -> it.onNext(i) }
-    }
+  fun getUnreadConversationCountListener() = Observable.create<Int> {
+    Intercom.client()
+        .addUnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
   }
 
-  fun getUnreadConversationCount(): Observable<Int> {
-    return Observable.just(Intercom.client().unreadConversationCount)
-  }
+  fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
 
-  fun shouldShowNotification(): Boolean =
+  fun shouldShowNotification() =
       getUnreadConversations() > preferences.checkSavedUnreadConversations()
 
   fun updateUnreadConversations() = preferences.updateUnreadConversations(getUnreadConversations())
 
-  fun resetUnreadConversations() = preferences.resetUnreadConversations()
+  private fun resetUnreadConversations() = preferences.resetUnreadConversations()
 
-  private fun getUnreadConversations(): Int = Intercom.client().unreadConversationCount
+  private fun getUnreadConversations() = Intercom.client().unreadConversationCount
 
 }

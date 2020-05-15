@@ -427,7 +427,6 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSupportScreen() {
-    supportInteractor.resetUnreadConversations();
     supportInteractor.displayChatScreen();
   }
 
