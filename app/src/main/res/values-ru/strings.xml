@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Использовать код</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">В процессе&#8230;</string>
   <string name="local_payments_inprogress_body">Как только вы завершите платеж, вы получите AppCoins Credits на свой кошелек. После этого вернитесь в игру, чтобы совершить покупку!</string>
