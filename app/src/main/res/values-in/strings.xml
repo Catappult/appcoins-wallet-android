@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Dapatkan Kode</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Sedang diproses&#8230;</string>
   <string name="local_payments_inprogress_body">Setelah pembayaran selesai, Anda akan menerima Kredit AppCoin di dompet Anda. Kemudian, kembalilah ke permainan untuk melakukan pembelian!</string>
