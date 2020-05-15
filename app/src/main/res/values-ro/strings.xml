@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Revendică cod</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">În curs&#8230;</string>
   <string name="local_payments_inprogress_body">Odată ce ai finalizat plata, vei primi AppCoins Credits în portofelul tău. Apoi întoarce-te la joc ca să faci cumpărătura!</string>
