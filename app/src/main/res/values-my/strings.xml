@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">လုပ္ေဆာင္ေနပါသည္&#8230;</string>
   <string name="local_payments_inprogress_body">ေငြေပးေခ်မႈ ျပဳလုပ္ၿပီးသည္ႏွင့္ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credit မ်ားကို ရရွိပါမည္။ ယင္းေနာက္တြင္ ၀ယ္ယူမႈျပဳလုပ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
