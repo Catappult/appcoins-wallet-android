@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">रिडीम कोड</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
   <string name="local_payments_inprogress_body">पेमेंट पूर्ण केल्यानंतर आपल्या वॉलेटमध्ये अॅपकॉइन्स मिळतील. नंतर खेळात परत जाऊन खरेदी करा!</string>
