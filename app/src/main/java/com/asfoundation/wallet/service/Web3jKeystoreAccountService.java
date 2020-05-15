@@ -79,8 +79,8 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   }
 
   @Override
-  public Single<String> exportAccount(Wallet wallet, String password, String newPassword) {
-    return Single.fromCallable(() -> keyStoreFileManager.getKeystore(wallet.address))
+  public Single<String> exportAccount(String address, String password, String newPassword) {
+    return Single.fromCallable(() -> keyStoreFileManager.getKeystore(address))
         .map(keystoreFilePath -> WalletUtils.loadCredentials(password, keystoreFilePath))
         .map(credentials -> objectMapper.writeValueAsString(
             create(newPassword, credentials.getEcKeyPair(), N, P)))
@@ -88,7 +88,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   }
 
   @Override public Completable deleteAccount(String address, String password) {
-    return exportAccount(new Wallet(address), password, password).doOnSuccess(
+    return exportAccount(address, password, password).doOnSuccess(
         __ -> keyStoreFileManager.delete(keyStoreFileManager.getKeystore(address)))
         .subscribeOn(scheduler)
         .ignoreElement();

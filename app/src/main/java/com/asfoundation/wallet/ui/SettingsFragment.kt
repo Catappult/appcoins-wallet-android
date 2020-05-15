@@ -16,7 +16,6 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.router.ManageWalletsRouter
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -29,10 +28,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   internal lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
-  @Inject
-  internal lateinit var manageWalletsRouter: ManageWalletsRouter
+
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+
   @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
@@ -146,15 +145,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
               ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
     }
     verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
-  }
-
-  override fun setWalletsPreference(walletAddress: String) {
-    val walletPreference = findPreference<Preference>("pref_wallet")
-    walletPreference?.summary = walletAddress
-    walletPreference?.setOnPreferenceClickListener {
-      manageWalletsRouter.open(context)
-      false
-    }
   }
 
   override fun setRedeemCodePreference(walletAddress: String) {

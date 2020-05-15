@@ -9,7 +9,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.util.List;
 
-import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BalanceState.OK;
+import static com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState.OK;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -24,10 +24,6 @@ public class InAppPurchaseService {
   private final Scheduler scheduler;
   private final ErrorMapper errorMapper;
 
-  public Completable send(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
-  }
-
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
       ApproveService approveService, BuyService buyService, BalanceService balanceService,
       Scheduler scheduler, ErrorMapper errorMapper) {
@@ -37,6 +33,10 @@ public class InAppPurchaseService {
     this.balanceService = balanceService;
     this.scheduler = scheduler;
     this.errorMapper = errorMapper;
+  }
+
+  public Completable send(String key, PaymentTransaction paymentTransaction) {
+    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
   }
 
   public Completable resume(String key, PaymentTransaction paymentTransaction) {
@@ -172,10 +172,9 @@ public class InAppPurchaseService {
     approveService.getAll()
         .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
             .flatMapCompletable(approveTransaction -> mapTransactionToPaymentTransaction(
-                approveTransaction).flatMap(paymentTransaction -> cache.save(
-                paymentTransaction.getUri(),
-                paymentTransaction)
-                .toSingleDefault(paymentTransaction))
+                approveTransaction).flatMap(
+                paymentTransaction -> cache.save(paymentTransaction.getUri(), paymentTransaction)
+                    .toSingleDefault(paymentTransaction))
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
                 .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
@@ -195,15 +194,15 @@ public class InAppPurchaseService {
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.BOUGHT))
                 .flatMapCompletable(transaction -> buyService.remove(transaction.getUri())
-                    .andThen(cache.save(transaction.getUri(),
-                        new PaymentTransaction(transaction,
-                            PaymentTransaction.PaymentState.COMPLETED))))))
+                    .andThen(cache.save(transaction.getUri(), new PaymentTransaction(transaction,
+                        PaymentTransaction.PaymentState.COMPLETED))))))
         .subscribe();
   }
 
   public Observable<PaymentTransaction> getTransactionState(String key) {
     return cache.get(key);
   }
+
   public Completable remove(String key) {
     return buyService.remove(key)
         .andThen(approveService.remove(key))

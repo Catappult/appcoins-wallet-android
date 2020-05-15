@@ -17,7 +17,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
@@ -105,7 +105,7 @@ public class InAppPurchaseInteractorTest {
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
-  private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
+  private PublishSubject<GetDefaultWalletBalanceInteract.BalanceState> balance;
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
 
@@ -230,7 +230,7 @@ public class InAppPurchaseInteractorTest {
         PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.OK);
 
     PendingTransaction pendingTransaction0 = new PendingTransaction(APPROVE_HASH, true);
     PendingTransaction pendingTransaction1 = new PendingTransaction(APPROVE_HASH, false);
@@ -290,7 +290,7 @@ public class InAppPurchaseInteractorTest {
         PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER);
 
     PendingTransaction pendingTransaction0 = new PendingTransaction("approve_hash", true);
     PendingTransaction pendingTransaction1 = new PendingTransaction("approve_hash", false);
@@ -331,7 +331,7 @@ public class InAppPurchaseInteractorTest {
         PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
 
     PendingTransaction pendingTransaction0 = new PendingTransaction("approve_hash", true);
     PendingTransaction pendingTransaction1 = new PendingTransaction("approve_hash", false);
@@ -342,13 +342,13 @@ public class InAppPurchaseInteractorTest {
     scheduler.triggerActions();
     pendingApproveState.onNext(pendingTransaction1);
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
     pendingBuyState.onNext(pendingTransaction2);
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
     pendingBuyState.onNext(pendingTransaction3);
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
 
     List<Payment> values = testObserver.assertNoErrors()
         .values();
@@ -391,7 +391,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(submitObserver);
 
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.OK);
     scheduler.triggerActions();
 
     pendingBuyState.onComplete();

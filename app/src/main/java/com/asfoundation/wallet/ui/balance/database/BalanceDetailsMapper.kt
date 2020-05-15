@@ -37,6 +37,6 @@ class BalanceDetailsMapper {
 
   private fun getBigDecimal(value: String, scale: Int = CurrencyFormatUtils.ETH_SCALE): BigDecimal {
     return if (value.isNotEmpty()) BigDecimal(value).setScale(scale, RoundingMode.FLOOR)
-    else BigDecimal("-1")
+    else BigDecimal.ZERO
   }
 }

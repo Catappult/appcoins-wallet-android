@@ -19,7 +19,6 @@ class SettingsPresenter(private val view: SettingsView,
   fun present() {
     view.setupPreferences()
     handleVerifyWalletPreferenceSummary()
-    handleWalletsPreferenceSummary()
     handleRedeemPreferenceSetup()
   }
 
@@ -51,20 +50,6 @@ class SettingsPresenter(private val view: SettingsView,
     } else {
       view.setWalletValidationNoNetwork()
     }
-  }
-
-  private fun handleWalletsPreferenceSummary() {
-    disposables.add(findDefaultWalletInteract.find()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .subscribe({ wallet ->
-          addWalletPreference(wallet.address)
-          view.setWalletsPreference(wallet.address)
-        }, {}))
-  }
-
-  private fun addWalletPreference(address: String?) {
-    preferencesRepositoryType.addWalletPreference(address)
   }
 
   private fun handleRedeemPreferenceSetup() {
