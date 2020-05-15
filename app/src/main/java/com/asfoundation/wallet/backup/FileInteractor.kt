@@ -60,7 +60,8 @@ class FileInteractor(private val context: Context,
   //Use this method for Android Q and above
   fun createAndSaveFile(content: String, documentFile: DocumentFile,
                         fileName: String): Completable {
-    val file = documentFile.createFile("", fileName + getDefaultBackupFileExtension())
+    //mimetype anything so that the file has the .bck extension alone.
+    val file = documentFile.createFile("anything", fileName + getDefaultBackupFileExtension())
         ?: return Completable.error(
             Throwable("Error creating file"))
 
