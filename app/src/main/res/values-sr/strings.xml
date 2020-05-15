@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Iskoristite kod</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">U toku&#8230;</string>
   <string name="local_payments_inprogress_body">Kada dovršite plaćanje, u novčanik ćete dobiti AppCoins Credits. Zatim se vratite u igru da obavite kupovinu!</string>
