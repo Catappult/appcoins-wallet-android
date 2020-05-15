@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">แลกใช้รหัส</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ดำเนินการ&#8230;</string>
   <string name="local_payments_inprogress_body">เมื่อคุณชำระเงินเสร็จ คุณจะได้รับเครดิต AppCoins ในกระเป๋าสตางค์ของคุณ หลังจากนั้นกลับไปที่เกมเพื่อซื้อ!</string>
