@@ -29,7 +29,7 @@ class BalanceActivity : BaseActivity(),
 
   private lateinit var activityPresenter: BalanceActivityPresenter
   private var onBackPressedSubject: PublishSubject<Any>? = null
-  private var backEnabled = false
+  private var backEnabled = true
   private var expandBottomSheet: Boolean = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
