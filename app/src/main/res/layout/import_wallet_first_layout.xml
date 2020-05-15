@@ -35,7 +35,7 @@
 
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/label_input"
-          style="@style/TextInputLayoutAppearanceOutlined"
+          style="@style/TextInputLayoutAppearanceOutlinedDense"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
@@ -47,6 +47,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/keystore_edit_text"
+            style="@style/ThemeOverlay.MaterialComponents.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top"

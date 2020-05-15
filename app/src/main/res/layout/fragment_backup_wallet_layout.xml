@@ -60,16 +60,11 @@
 
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/password_container"
-          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+          style="@style/TextInputLayoutAppearanceOutlinedDense"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="15dp"
           android:hint="@string/backup_password"
-          android:textColorHint="#727272"
-          app:boxStrokeColor="@color/box_stroke_color"
-          app:boxStrokeWidth="2dp"
-          app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-          app:hintTextColor="@color/edit_text_label"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/password_label_ic"

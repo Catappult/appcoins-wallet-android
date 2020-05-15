@@ -475,17 +475,13 @@
     <item name="colorControlHighlight">@color/colorAccent</item>
   </style>
 
-  <style name="TextInputLayoutAppearanceOutlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+  <style name="TextInputLayoutAppearanceOutlinedDense" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <!-- reference our hint & error styles -->
-    <item name="hintTextAppearance">@style/HintText</item>
-    <item name="errorTextAppearance">@style/ErrorText</item>
-    <item name="android:textColor">#000000</item>
     <item name="android:textColorHint">#727272</item>
-    <item name="colorControlNormal">#727272</item>
-    <item name="boxStrokeColor">@color/text_button_color</item>
-    <item name="hintTextColor">@color/text_button_color</item>
-    <item name="colorControlActivated">@color/text_button_color</item>
-    <item name="colorControlHighlight">@color/text_button_color</item>
+    <item name="boxStrokeColor">@color/box_stroke_color</item>
+    <item name="boxStrokeWidth">2dp</item>
+    <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="hintTextColor">@color/edit_text_label</item>
   </style>
 
 
