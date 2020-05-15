@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Kodu Kullan</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Devam ediyor&#8230;</string>
   <string name="local_payments_inprogress_body">Ödemeyi tamamladığınızda cüzdanınıza AppCoins Credits eklenecek. Daha sonra satın alma işlemini gerçekleştirmek için oyuna geri dönün!</string>
