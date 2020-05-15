@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Mã quà tặng</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Đang xử lý&#8230;</string>
   <string name="local_payments_inprogress_body">Khi bạn hoàn tất thanh toán, bạn sẽ nhận được AppCoins Credits trong ví của mình. Sau đó quay trở lại trò chơi để mua hàng!</string>
