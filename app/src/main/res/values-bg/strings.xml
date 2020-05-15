@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Осребри кода</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">В прогрес&#8230;</string>
   <string name="local_payments_inprogress_body">След като завършиш плащането, ще получиш AppCoins Credits в портфейла си. След това се върни към играта, за да направиш покупката!</string>
