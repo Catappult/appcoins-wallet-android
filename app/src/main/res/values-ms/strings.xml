@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Tebus Kod</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Sedang diproses&#8230;</string>
   <string name="local_payments_inprogress_body">Setelah anda selesaikan bayaran, anda akan terima Kredit AppCoins dalam dompet anda. Kemudian, sila kembali ke permainan untuk buat pembelian!</string>
