@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Εξαργύρωση Κωδικού</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Σε εξέλιξη&#8230;</string>
   <string name="local_payments_inprogress_body">Μόλις ολοκληρώσετε την πληρωμή, θα λάβετε AppCoins Credits στο wallet σας. Στη συνέχεια, επιστρέψτε στο παιχνίδι για να πραγματοποιήσετε την αγορά!</string>
