@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Odbierz kod</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">W trakcie&#8230;</string>
   <string name="local_payments_inprogress_body">Kiedy ukończysz płatność, otrzymasz Kredyty AppCoins w Twoim portfelu. Wróć potem do gry aby dokonać zakupu!</string>
