@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Code d\'échange</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">En cours&#8230;</string>
   <string name="local_payments_inprogress_body">Une fois le paiement effectué, vous recevrez les crédits AppCoins dans votre portefeuille. Puis retournez au jeu pour faire l\'achat !</string>
