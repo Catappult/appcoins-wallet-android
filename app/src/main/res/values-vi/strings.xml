@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Chọn tên cho tập tin sao lưu của bạn.</string>
   <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
   <string name="backup_confirmation_tips_1">In và lưu nó ở một nơi an toàn.</string>
-  <string name="backup_confirmation_tips_2">Lưu nó vào ổ USB.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Sao chép nó vào một lưu trữ đám mây riêng tư và an toàn.</string>
   <string name="backup_send_via_title">Gửi bản sao lưu qua:</string>
   <string name="backup_send_button">LƯU BẢN SAO LƯU</string>
