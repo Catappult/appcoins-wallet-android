@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">ਆਪਣੀ ਬੈਕਅਪ ਫਾਈਲ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ|</string>
   <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
   <string name="backup_confirmation_tips_1">ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
-  <string name="backup_confirmation_tips_2">ਇਸ ਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਤੇ ਸੇਵ ਕਰੋ|</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ ਕਾਪੀ ਕਰੋ|</string>
   <string name="backup_send_via_title">ਬੈਕਅਪ ਇਸ ਦੁਆਰਾ ਭੇਜੋ:</string>
   <string name="backup_send_button">ਬੈਕਅੱਪ ਭੇਜੋ</string>
