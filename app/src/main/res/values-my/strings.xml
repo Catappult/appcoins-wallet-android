@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
   <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
   <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
-  <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္တစ္ခုေပၚတြင္ သိမ္းဆည္းပါ။</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">သီးသန္႔ျဖစ္ၿပီး လံုျခံဳေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ ကူးယူထားပါ။</string>
   <string name="backup_send_via_title">အရန္သိမ္းဆည္းမႈကို ေပးပို႔မည္ -</string>
   <string name="backup_send_button">အရံသိမ္းဆည္းမႈကို ေပးပို႔မည္</string>
