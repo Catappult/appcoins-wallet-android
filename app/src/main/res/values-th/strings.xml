@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">เลือกชื่อสำหรับไฟล์สำรองของคุณ</string>
   <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
   <string name="backup_confirmation_tips_1">ปรินท์และจัดเก็บในที่ปลอดภัย</string>
-  <string name="backup_confirmation_tips_2">บันทึกใน USB</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">คัดลอกเป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
   <string name="backup_send_via_title">ส่งข้อมูลสำรองผ่าน:</string>
   <string name="backup_send_button">ส่งข้อมูลสำรอง</string>
