@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Izaberite naziv za datoteku sa rezervnom kopijom.</string>
   <string name="backup_confirmation_tips_title">Čuvajte datoteku na sigurnom:</string>
   <string name="backup_confirmation_tips_1">Odštampajte je i čuvajte je na bezbednom mestu.</string>
-  <string name="backup_confirmation_tips_2">Sačuvajte je na USB disku.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Kopirajte je u privatnu, bezbednu memoriju na oblaku.</string>
   <string name="backup_send_via_title">Pošaljite rezervnu kopiju preko:</string>
   <string name="backup_send_button">POŠALJI REZERVNU KOPIJU</string>
