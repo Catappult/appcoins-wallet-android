@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">अपनी बैकअप फाइल के लिए एक नाम चुनें।</string>
   <string name="backup_confirmation_tips_title">फाइल को सुरक्षित रखें:</string>
   <string name="backup_confirmation_tips_1">इसे प्रिंट करें और कहीं सुरक्षित रखें।</string>
-  <string name="backup_confirmation_tips_2">इसे यूएसबी ड्राइव पर सहेजें।</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">इसे किसी निजी और सुरक्षित क्लाउड स्टोरेज पर कॉपी करें।</string>
   <string name="backup_send_via_title">बैकअप निम्न से भेजें:</string>
   <string name="backup_send_button">बैकअप भेजें</string>
