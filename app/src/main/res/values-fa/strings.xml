@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
   <string name="backup_confirmation_tips_1">آن را پرینت و در جای امنی نگه‌داری کنید.</string>
-  <string name="backup_confirmation_tips_2">آن را روی یک درایو USB ذخیره کنید.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن منتقل کنید.</string>
   <string name="backup_send_via_title">ارسال بک‌آپ از طریق:</string>
   <string name="backup_send_button">ارسال بک‌آپ</string>
