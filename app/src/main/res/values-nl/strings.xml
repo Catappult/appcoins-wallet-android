@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Kies een naam voor je back-upbestand.</string>
   <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
   <string name="backup_confirmation_tips_1">Kopieer het bestand en sla het op een veilige plek op.</string>
-  <string name="backup_confirmation_tips_2">Sla het bestand op een USB-stick op.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Kopieer het naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_send_via_title">Back-up verzenden via:</string>
   <string name="backup_send_button">BACK-UP VERZENDEN</string>
