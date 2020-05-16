@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
   <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
   <string name="backup_confirmation_tips_1">Scoate-l la imprimantă și păstrează-l în siguranță.</string>
-  <string name="backup_confirmation_tips_2">Salvează-l pe un drive USB.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Copiază-l într-un cloud de stocare privat și securizat.</string>
   <string name="backup_send_via_title">Trimite copie de rezervă via:</string>
   <string name="backup_send_button">TRIMITE COPIE DE REZERVĂ</string>
