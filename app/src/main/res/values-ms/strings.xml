@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Pilih nama untuk fail sandaran anda.</string>
   <string name="backup_confirmation_tips_title">Pastikan fail selamat:</string>
   <string name="backup_confirmation_tips_1">Cetak ia dan simpan ia di tempat yang selamat.</string>
-  <string name="backup_confirmation_tips_2">Simpan ia dalam pemacu USB.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Salin ke storan awan peribadi dan selamat.</string>
   <string name="backup_send_via_title">Hantar sandaran melalui:</string>
   <string name="backup_send_button">HANTAR SANDARAN</string>
