@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Scegli un nome per il tuo file di backup.</string>
   <string name="backup_confirmation_tips_title">Tieni il file al sicuro:</string>
   <string name="backup_confirmation_tips_1">Stampalo e conservalo in un luogo sicuro.</string>
-  <string name="backup_confirmation_tips_2">Salvalo su una chiavetta USB.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Copialo su un archivio cloud sicuro.</string>
   <string name="backup_send_via_title">Invia backup tramite:</string>
   <string name="backup_send_button">INVIA BACKUP</string>
