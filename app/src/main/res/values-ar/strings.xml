@@ -542,7 +542,7 @@
   <string name="backup_save_dialogue_body">اختر اسمًا لملف النسخ الاحتياطي.</string>
   <string name="backup_confirmation_tips_title">احفظ الملف بأمان:</string>
   <string name="backup_confirmation_tips_1">اطبعه واحفظه في مكان آمن.</string>
-  <string name="backup_confirmation_tips_2">احفظه على فلاشة يو أس بي.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">انسخه إلى تخزين سحابي خاص وآمن.</string>
   <string name="backup_send_via_title">أرسل النسخة الاحتياطية بواسطة:</string>
   <string name="backup_send_button">إرسال النسخ الاحتياطي</string>
