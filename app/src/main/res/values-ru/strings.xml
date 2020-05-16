@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Введите имя для файла резервной копии.</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
   <string name="backup_confirmation_tips_1">Распечатайте и храните в безопасном месте.</string>
-  <string name="backup_confirmation_tips_2">Сохраните на диск USB.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Скопируйте в личное безопасное облачное хранилище.</string>
   <string name="backup_send_via_title">Отправить бэкап через:</string>
   <string name="backup_send_button">ОТПРАВИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
