@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Yedekleme dosyanızı adlandırın.</string>
   <string name="backup_confirmation_tips_title">Dosyayı güvende tutun:</string>
   <string name="backup_confirmation_tips_1">Yazdırın ve güvenli bir yerde saklayın.</string>
-  <string name="backup_confirmation_tips_2">USB dosyasına kaydedin.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Gizli ve güvenli bir bulut depolama alanına kopyalayın.</string>
   <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
   <string name="backup_send_button">YEDEKLEMEYİ GÖNDER</string>
