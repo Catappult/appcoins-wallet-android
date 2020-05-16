@@ -541,7 +541,7 @@
   <string name="backup_save_dialogue_body">Επιλέξτε ένα όνομα για το αρχείο αντιγράφου ασφαλείας.</string>
   <string name="backup_confirmation_tips_title">Διατηρήστε το αρχείο ασφαλές:</string>
   <string name="backup_confirmation_tips_1">Εκτυπώστε το και αποθηκεύστε το σε ασφαλές μέρος.</string>
-  <string name="backup_confirmation_tips_2">Αποθηκεύστε το σε μία μονάδα USB.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Αντιγράψτε το σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.</string>
   <string name="backup_send_via_title">Αποστολή αντιγράφου ασφαλείας μέσω:</string>
   <string name="backup_send_button">ΑΠΟΣΤΟΛΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
