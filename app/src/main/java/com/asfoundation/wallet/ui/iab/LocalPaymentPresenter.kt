@@ -70,25 +70,21 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             .subscribe({ view.showPendingUserPayment(it.first, it.second) }, { showError(it) }))
   }
 
-  private fun getPaymentMethodIcon(): Single<Bitmap> {
-    return Single.fromCallable {
-      GlideApp.with(context!!)
-          .asBitmap()
-          .load(paymentMethodIconUrl)
-          .override(getWidth(), getHeight())
-          .centerCrop()
-          .submit()
-          .get()
-    }
+  private fun getPaymentMethodIcon() = Single.fromCallable {
+    GlideApp.with(context!!)
+        .asBitmap()
+        .load(paymentMethodIconUrl)
+        .override(getWidth(), getHeight())
+        .centerCrop()
+        .submit()
+        .get()
   }
 
-  private fun getApplicationIconIcon(): Single<Bitmap> {
-    return Single.fromCallable {
-      val applicationIcon =
-          (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
+  private fun getApplicationIconIcon() = Single.fromCallable {
+    val applicationIcon =
+        (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
 
-      Bitmap.createScaledBitmap(applicationIcon, appIconWidth, appIconHeight, true)
-    }
+    Bitmap.createScaledBitmap(applicationIcon, appIconWidth, appIconHeight, true)
   }
 
   private fun onViewCreatedRequestLink() {
@@ -104,7 +100,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                   paymentId)
               navigator.navigateToUriForResult(it)
               waitingResult = true
-            }.subscribeOn(networkScheduler)
+            }
+            .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .subscribe({ }, { showError(it) }))
   }
@@ -141,36 +138,61 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
+    return when {
+      isErrorStatus(transaction) -> Completable.fromAction { view.showError() }
+          .subscribeOn(viewScheduler)
+      localPaymentInteractor.isAsync(transaction.type) ->
+        handleAsyncTransactionStatus(transaction)
+            .andThen(Completable.fromAction {
+              localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
+              localPaymentInteractor.saveAsyncLocalPayment(paymentId)
+              preparePendingUserPayment()
+            })
+      transaction.status == Status.COMPLETED -> handleSyncCompletedStatus(transaction)
+      else -> Completable.complete()
+    }
+  }
+
+  private fun isErrorStatus(transaction: Transaction) =
+      transaction.status == Status.FAILED ||
+          transaction.status == Status.CANCELED ||
+          transaction.status == Status.INVALID_TRANSACTION
+
+  private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
+    return localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
+        transaction.orderReference, transaction.hash, networkScheduler)
+        .doOnSuccess {
+          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+          analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
+              paymentId)
+          analytics.sendRevenueEvent(disposables, amount)
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          Completable.fromAction { view.showCompletedPayment() }
+              .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+              .andThen(Completable.fromAction { view.popView(it) })
+        }
+  }
+
+  private fun handleAsyncTransactionStatus(transaction: Transaction): Completable {
     return when (transaction.status) {
-      Status.COMPLETED -> {
-        localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
-            transaction.orderReference, transaction.hash, networkScheduler)
-            .doOnSuccess {
-              analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
-              analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
-                  paymentId)
-              analytics.sendRevenueEvent(disposables, amount)
-            }
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .flatMapCompletable {
-              Completable.fromAction {
-                view.showCompletedPayment()
-              }
-                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                  .andThen(Completable.fromAction { view.popView(it) })
-            }
+      Status.PENDING_USER_PAYMENT -> {
+        Completable.fromAction {
+          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+          analytics.sendPaymentPendingEvent(domain, skuId, amount.toString(), type, paymentId)
+        }
       }
-      Status.PENDING_USER_PAYMENT -> Completable.fromAction {
-        localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
-        localPaymentInteractor.saveAsyncLocalPayment(paymentId)
-        preparePendingUserPayment()
-        analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
-        analytics.sendPaymentPendingEvent(domain, skuId, amount.toString(), type, paymentId)
-      }.subscribeOn(viewScheduler)
-      else -> Completable.fromAction {
-        view.showError()
-      }.subscribeOn(viewScheduler)
+      Status.COMPLETED -> {
+        Completable.fromAction {
+          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+          analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
+              paymentId)
+          analytics.sendRevenueEvent(disposables, amount)
+        }
+      }
+      else -> Completable.complete()
     }
   }
 

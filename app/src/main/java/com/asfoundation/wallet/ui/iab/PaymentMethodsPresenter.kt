@@ -245,6 +245,7 @@ class PaymentMethodsPresenter(
     val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
     val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
     if (inAppPurchaseInteractor.hasAsyncLocalPayment()) {
+      //After a asynchronous payment credits will be used as pre selected
       getCreditsPaymentMethod(paymentMethods)?.let {
         if (it.isEnabled) {
           showPreSelectedPaymentMethod(fiatValue, it, fiatAmount, appcAmount, isBonusActive)
