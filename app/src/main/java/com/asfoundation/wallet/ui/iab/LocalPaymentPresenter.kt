@@ -158,9 +158,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun isErrorStatus(transaction: Transaction) =
-      transaction.status != Status.FAILED &&
-          transaction.status != Status.CANCELED &&
-          transaction.status != Status.INVALID_TRANSACTION
+      transaction.status == Status.FAILED ||
+          transaction.status == Status.CANCELED ||
+          transaction.status == Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
     return localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
