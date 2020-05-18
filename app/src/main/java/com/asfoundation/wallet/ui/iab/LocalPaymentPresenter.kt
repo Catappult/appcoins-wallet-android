@@ -138,22 +138,18 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
-    return if (isErrorStatus(transaction)) {
-      Completable.fromAction { view.showError() }
+    return when {
+      isErrorStatus(transaction) -> Completable.fromAction { view.showError() }
           .subscribeOn(viewScheduler)
-    } else {
-      when {
-        localPaymentInteractor.isAsync(transaction.type) -> {
-          handleAsyncTransactionStatus(transaction)
-              .andThen(Completable.fromAction {
-                localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
-                localPaymentInteractor.saveAsyncLocalPayment(paymentId)
-                preparePendingUserPayment()
-              })
-        }
-        transaction.status == Status.COMPLETED -> handleSyncCompletedStatus(transaction)
-        else -> Completable.complete()
-      }
+      localPaymentInteractor.isAsync(transaction.type) ->
+        handleAsyncTransactionStatus(transaction)
+            .andThen(Completable.fromAction {
+              localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
+              localPaymentInteractor.saveAsyncLocalPayment(paymentId)
+              preparePendingUserPayment()
+            })
+      transaction.status == Status.COMPLETED -> handleSyncCompletedStatus(transaction)
+      else -> Completable.complete()
     }
   }
 
