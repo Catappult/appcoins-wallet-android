@@ -138,8 +138,11 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
-    if (transaction.status != Status.FAILED && transaction.status != Status.CANCELED && transaction.status != Status.INVALID_TRANSACTION) {
-      return when {
+    return if (isErrorStatus(transaction)) {
+      Completable.fromAction { view.showError() }
+          .subscribeOn(viewScheduler)
+    } else {
+      when {
         localPaymentInteractor.isAsync(transaction.type) -> {
           handleAsyncTransactionStatus(transaction)
               .andThen(Completable.fromAction {
@@ -148,29 +151,33 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                 preparePendingUserPayment()
               })
         }
-        transaction.status == Status.COMPLETED -> {
-          localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
-              transaction.orderReference, transaction.hash, networkScheduler)
-              .doOnSuccess {
-                analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
-                analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
-                    paymentId)
-                analytics.sendRevenueEvent(disposables, amount)
-              }
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .flatMapCompletable {
-                Completable.fromAction { view.showCompletedPayment() }
-                    .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                    .andThen(Completable.fromAction { view.popView(it) })
-              }
-        }
+        transaction.status == Status.COMPLETED -> handleSyncCompletedStatus(transaction)
         else -> Completable.complete()
       }
-    } else {
-      return Completable.fromAction { view.showError() }
-          .subscribeOn(viewScheduler)
     }
+  }
+
+  private fun isErrorStatus(transaction: Transaction) =
+      transaction.status != Status.FAILED &&
+          transaction.status != Status.CANCELED &&
+          transaction.status != Status.INVALID_TRANSACTION
+
+  private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
+    return localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
+        transaction.orderReference, transaction.hash, networkScheduler)
+        .doOnSuccess {
+          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+          analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
+              paymentId)
+          analytics.sendRevenueEvent(disposables, amount)
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          Completable.fromAction { view.showCompletedPayment() }
+              .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+              .andThen(Completable.fromAction { view.popView(it) })
+        }
   }
 
   private fun handleAsyncTransactionStatus(transaction: Transaction): Completable {
@@ -182,17 +189,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         }
       }
       Status.COMPLETED -> {
-        localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
-            transaction.orderReference, transaction.hash, networkScheduler)
-            .doOnSuccess {
-              analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
-              analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
-                  paymentId)
-              analytics.sendRevenueEvent(disposables, amount)
-            }
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .ignoreElement()
+        Completable.fromAction {
+          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+          analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
+              paymentId)
+          analytics.sendRevenueEvent(disposables, amount)
+        }
       }
       else -> Completable.complete()
     }
