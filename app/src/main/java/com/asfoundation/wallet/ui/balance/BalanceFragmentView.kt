@@ -35,8 +35,6 @@ interface BalanceFragmentView {
 
   fun showQrCodeView()
 
-  fun collapseBottomSheet()
-
   fun backPressed(): Observable<Any>
 
   fun handleBackPress()
@@ -44,4 +42,6 @@ interface BalanceFragmentView {
   fun showWalletCreatedAnimation()
 
   fun showCreatingAnimation()
+
+  fun changeBottomSheetState()
 }

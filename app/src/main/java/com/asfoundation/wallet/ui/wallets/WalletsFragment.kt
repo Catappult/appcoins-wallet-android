@@ -127,9 +127,11 @@ class WalletsFragment : DaggerFragment(), WalletsView {
   override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) =
       activityView.navigateToWalletDetailView(walletAddress, isActive)
 
-  override fun collapseBottomSheet() {
+  override fun onBottomSheetHeaderClicked() = RxView.clicks(bottom_sheet_header)
+
+  override fun changeBottomSheetState() {
     val parentFragment = provideParentFragment()
-    parentFragment?.collapseBottomSheet()
+    parentFragment?.changeBottomSheetState()
   }
 
   private fun removeCurrentWallet(walletsBalanceList: List<WalletBalance>): List<WalletBalance> {

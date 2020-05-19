@@ -32,7 +32,6 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleCopyClick()
     handleQrCodeClick()
     handleBackPress()
-
   }
 
   private fun handleBackPress() {

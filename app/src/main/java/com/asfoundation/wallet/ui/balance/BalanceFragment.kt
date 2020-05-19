@@ -84,9 +84,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
     setBackListener(view)
     activityView?.let {
-      if (it.shouldExpandBottomSheet()) {
-        walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-      }
+      if (it.shouldExpandBottomSheet()) walletsBottomSheet.state =
+          BottomSheetBehavior.STATE_EXPANDED
     }
     animateBackgroundFade()
     activityView?.setupToolbar()
@@ -185,20 +184,14 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     }
   }
 
-  override fun getCreditClick(): Observable<View> {
-    return RxView.clicks(appcoins_credits_token)
-        .map { appcoins_credits_token }
-  }
+  override fun getCreditClick(): Observable<View> = RxView.clicks(appcoins_credits_token)
+      .map { appcoins_credits_token }
 
-  override fun getAppcClick(): Observable<View> {
-    return RxView.clicks(appcoins_token)
-        .map { appcoins_token }
-  }
+  override fun getAppcClick(): Observable<View> = RxView.clicks(appcoins_token)
+      .map { appcoins_token }
 
-  override fun getEthClick(): Observable<View> {
-    return RxView.clicks(ether_token)
-        .map { ether_token }
-  }
+  override fun getEthClick(): Observable<View> = RxView.clicks(ether_token)
+      .map { ether_token }
 
   override fun showTokenDetails(view: View) {
     lateinit var tokenId: TokenDetailsActivity.TokenDetailsId
@@ -238,13 +231,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     context?.let { startActivityForResult(QrCodeActivity.newIntent(it), 12) }
   }
 
-  override fun collapseBottomSheet() {
-    walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-  }
-
-  override fun backPressed(): Observable<Any> {
-    return Observable.merge(onBackPressedSubject!!, activityView?.backPressed())
-  }
+  override fun backPressed(): Observable<Any> =
+      Observable.merge(onBackPressedSubject!!, activityView?.backPressed())
 
   override fun handleBackPress() {
     if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -264,6 +252,13 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     activityView?.showWalletCreatedAnimation()
   }
 
+  override fun changeBottomSheetState() {
+    if (walletsBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+      walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+    } else if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+      walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+  }
 
   private fun setBackListener(view: View) {
     activityView?.disableBack()
