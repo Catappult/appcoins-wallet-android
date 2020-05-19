@@ -4,7 +4,7 @@
   <string name="title_send">Отправить</string>
   <string name="title_send_with_token">Отправить %s</string>
   <string name="title_request">Получить</string>
-  <string name="title_import">Импортировать кошелёк</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Пароль</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Кошельки</string>
   <string name="cancel">отменить</string>
   <string name="confirm_delete_account">Убедитесь, что у вас есть резервная копия этого кошелька.</string>
-  <string name="action_import">Импортировать</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Копировать в буфер</string>
   <string name="close">Закрыть</string>
   <string name="title_activity_settings">Параметры</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Установите пароль для шифрования вашего кошелька</string>
-  <string name="toast_message_wallet_imported">Кошелёк был импортирован</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">Была создана резервная копия</string>
   <string name="toast_qr_code_no_address">QR-код не содержит допустимый адрес</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Отправить бэкап через:</string>
   <string name="backup_send_button">ОТПРАВИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
   <string name="backup_save_button">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
-  <string name="import_wallet_title">Импортировать кошелёк</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Вставьте бэкап вашего кошелька ниже.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>
-  <string name="import_wallet_file_button">ИМПОРТИРОВАТЬ ИЗ ФАЙЛА</string>
-  <string name="import_wallet_button">ИМПОРТИРОВАТЬ КОШЕЛЁК</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Этот кошелёк защищен паролем!</string>
   <string name="import_wallet_wrong_password_body">Ой, неверный пароль!</string>
   <string name="error_invalid_private_key">Недопустимый приватный ключ</string>
@@ -567,10 +567,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Общая сумма</string>
   <string name="wallets_address_copied_body">Адрес кошелька скопирован в буфер</string>
-  <string name="wallets_imported_body">Кошелёк успешно импортирован</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Баланс:</string>
   <string name="wallets_2nd_view_other_wallets_title">Другие кошельки</string>
-  <string name="wallets_2nd_view_import_button">ИМПОРТИРОВАТЬ КОШЕЛЁК</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">СОЗДАТЬ НОВЫЙ</string>
   <string name="wallet_view_copy_button">КОПИРОВАТЬ</string>
   <string name="wallet_view_share_button">ПОДЕЛИТЬСЯ</string>
