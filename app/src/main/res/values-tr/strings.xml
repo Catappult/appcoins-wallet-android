@@ -4,7 +4,7 @@
   <string name="title_send">Gönder</string>
   <string name="title_send_with_token">%s gönder</string>
   <string name="title_request">Al</string>
-  <string name="title_import">Cüzdan Aktar</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Şifre</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Cüzdanlar</string>
   <string name="cancel">iptal et</string>
   <string name="confirm_delete_account">Bu cüzdanın yedeğine sahip olduğunuzdan emin olun.</string>
-  <string name="action_import">Aktar</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Panoya kopyala</string>
   <string name="close">Kapat</string>
   <string name="title_activity_settings">Ayarlar</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Cüzdanınızı şifrelemek için bir şifre belirleyin</string>
-  <string name="toast_message_wallet_imported">Cüzdan aktarıldı</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">Yedek oluşturuldu</string>
   <string name="toast_qr_code_no_address">QR kodu geçerli bir adres içermiyor</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
   <string name="backup_send_button">YEDEKLEMEYİ GÖNDER</string>
   <string name="backup_save_button">YEDEKLEMEYİ KAYDET</string>
-  <string name="import_wallet_title">Cüzdan Aktar</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
-  <string name="import_wallet_file_button">DOSYADAN AKTAR</string>
-  <string name="import_wallet_button">CÜZDAN AKTAR</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Bu cüzdan şifre korumalıdır!</string>
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
   <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
@@ -565,10 +565,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Toplam değer</string>
   <string name="wallets_address_copied_body">Cüzdan adresi panoya kopyalandı</string>
-  <string name="wallets_imported_body">Cüzdan başarıyla içe aktarıldı</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Bakiye:</string>
   <string name="wallets_2nd_view_other_wallets_title">Diğer Cüzdanlar</string>
-  <string name="wallets_2nd_view_import_button">CÜZDAN AKTAR</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">YENİ OLUŞTUR</string>
   <string name="wallet_view_copy_button">KOPYALA</string>
   <string name="wallet_view_share_button">PAYLAŞ</string>
