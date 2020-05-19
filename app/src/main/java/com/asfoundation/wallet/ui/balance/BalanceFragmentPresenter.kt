@@ -10,6 +10,7 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class BalanceFragmentPresenter(private val view: BalanceFragmentView,
+                               private val activityView: BalanceActivityView?,
                                private val balanceInteract: BalanceInteract,
                                private val networkScheduler: Scheduler,
                                private val viewScheduler: Scheduler,
@@ -31,6 +32,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleTokenDetailsClick()
     handleCopyClick()
     handleQrCodeClick()
+    handleBackupClick()
     handleBackPress()
   }
 
@@ -42,20 +44,18 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun requestActiveWalletAddress() {
-    disposables.add(
-        balanceInteract.requestActiveWalletAddress()
-            .doOnSuccess { view.setWalletAddress(it) }
-            .subscribe({}, { it.printStackTrace() }))
+    disposables.add(balanceInteract.requestActiveWalletAddress()
+        .doOnSuccess { view.setWalletAddress(it) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun requestBalances() {
-    disposables.add(
-        balanceInteract.requestTokenConversion()
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnNext { updateUI(it) }
-            .doOnError { it.printStackTrace() }
-            .subscribe()
+    disposables.add(balanceInteract.requestTokenConversion()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnNext { updateUI(it) }
+        .doOnError { it.printStackTrace() }
+        .subscribe()
     )
   }
 
@@ -93,20 +93,26 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleCopyClick() {
-    disposables.add(
-        view.getCopyClick()
-            .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
-            .observeOn(viewScheduler)
-            .doOnNext { view.setAddressToClipBoard(it) }
-            .subscribe())
+    disposables.add(view.getCopyClick()
+        .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+        .observeOn(viewScheduler)
+        .doOnNext { view.setAddressToClipBoard(it) }
+        .subscribe())
   }
 
   private fun handleQrCodeClick() {
-    disposables.add(
-        view.getQrCodeClick()
-            .observeOn(viewScheduler)
-            .doOnNext { view.showQrCodeView() }
-            .subscribe())
+    disposables.add(view.getQrCodeClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showQrCodeView() }
+        .subscribe())
+  }
+
+  private fun handleBackupClick() {
+    disposables.add(view.getBackupClick()
+        .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+        .observeOn(viewScheduler)
+        .doOnNext { activityView?.navigateToBackupView(it) }
+        .subscribe())
   }
 
   fun stop() {

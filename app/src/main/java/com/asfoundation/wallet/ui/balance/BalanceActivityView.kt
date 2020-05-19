@@ -13,8 +13,6 @@ interface BalanceActivityView {
       tokenDetailsId: TokenDetailsActivity.TokenDetailsId, imgView: ImageView,
       textView: TextView, parentView: View)
 
-  fun showTopUpScreen()
-
   fun setupToolbar()
 
   fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean)

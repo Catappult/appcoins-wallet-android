@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity.Companion.newIntent
@@ -83,10 +82,6 @@ class BalanceActivity : BaseActivity(),
 
     startActivity(intent, options.toBundle())
 
-  }
-
-  override fun showTopUpScreen() {
-    TopUpRouter().open(this)
   }
 
   override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {

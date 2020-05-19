@@ -23,8 +23,6 @@ interface BalanceFragmentView {
 
   fun showTokenDetails(view: View)
 
-  fun showTopUpScreen()
-
   fun getCopyClick(): Observable<Any>
 
   fun getQrCodeClick(): Observable<Any>
@@ -44,4 +42,5 @@ interface BalanceFragmentView {
   fun showCreatingAnimation()
 
   fun changeBottomSheetState()
+  fun getBackupClick(): Observable<Any>
 }

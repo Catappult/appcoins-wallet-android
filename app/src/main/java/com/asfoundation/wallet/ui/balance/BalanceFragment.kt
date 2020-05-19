@@ -64,9 +64,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BalanceFragmentPresenter(this, balanceInteract,
-        Schedulers.io(),
-        AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
+    presenter = BalanceFragmentPresenter(this, activityView, balanceInteract,
+        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
     onBackPressedSubject = PublishSubject.create()
   }
 
@@ -204,13 +203,11 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     activityView?.showTokenDetailsScreen(tokenId, view.token_icon, view.token_name, view)
   }
 
-  override fun showTopUpScreen() {
-    activityView?.showTopUpScreen()
-  }
-
   override fun getCopyClick() = RxView.clicks(copy_address)
 
   override fun getQrCodeClick() = RxView.clicks(wallet_qr_code)
+
+  override fun getBackupClick() = RxView.clicks(backup_active_button)
 
   override fun setWalletAddress(walletAddress: String) {
     active_wallet_address.text = walletAddress

@@ -19,9 +19,7 @@ import javax.inject.Inject
 
 class CreateWalletFragment : DaggerFragment(), CreateWalletView {
   companion object {
-    fun newInstance(): CreateWalletFragment {
-      return CreateWalletFragment()
-    }
+    fun newInstance() = CreateWalletFragment()
   }
 
   @Inject
@@ -72,9 +70,7 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
     return RxView.clicks(provide_wallet_cancel)
   }
 
-  override fun closeSuccess() {
-    navigator.closeSuccess()
-  }
+  override fun closeSuccess() = navigator.closeSuccess()
 
   override fun showFinishAnimation() {
     create_wallet_animation.setAnimation(R.raw.success_animation)
@@ -82,28 +78,16 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
     create_wallet_animation.playAnimation()
     create_wallet_animation.repeatCount = 0
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) {
-      }
-
-      override fun onAnimationEnd(animation: Animator?) {
-        finishAnimationFinishEvent.accept(Any())
-      }
-
-      override fun onAnimationCancel(animation: Animator?) {
-      }
-
-      override fun onAnimationStart(animation: Animator?) {
-      }
+      override fun onAnimationRepeat(animation: Animator?) = Unit
+      override fun onAnimationEnd(animation: Animator?) = finishAnimationFinishEvent.accept(Any())
+      override fun onAnimationCancel(animation: Animator?) = Unit
+      override fun onAnimationStart(animation: Animator?) = Unit
     })
   }
 
-  override fun getFinishAnimationFinishEvent(): BehaviorRelay<Any> {
-    return finishAnimationFinishEvent
-  }
+  override fun getFinishAnimationFinishEvent(): BehaviorRelay<Any> = finishAnimationFinishEvent
 
-  override fun closeCancel() {
-    navigator.closeCancel()
-  }
+  override fun closeCancel() = navigator.closeCancel()
 
   override fun showLoading() {
     create_wallet_group.visibility = View.INVISIBLE
