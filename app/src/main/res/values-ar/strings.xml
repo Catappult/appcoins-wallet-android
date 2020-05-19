@@ -4,7 +4,7 @@
   <string name="title_send">إرسال</string>
   <string name="title_send_with_token">إرسال %s</string>
   <string name="title_request">استقبال</string>
-  <string name="title_import">استيراد محفظة</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">كلمة المرور</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">المَحافظ</string>
   <string name="cancel">إلغاء</string>
   <string name="confirm_delete_account">تأكد من أن لديك نسخة احتاطية من هذه المحفظة.</string>
-  <string name="action_import">استيراد</string>
+  <string name="action_import">Recover</string>
   <string name="copy">نسخ إلى الحافظة</string>
   <string name="close">إغلاق</string>
   <string name="title_activity_settings">الإعدادات</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">أنشئ كلمة مرور لتشفير محفظتك</string>
-  <string name="toast_message_wallet_imported">تم استيراد المحفظة</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">تم إنشاء نسخة احتياطية</string>
   <string name="toast_qr_code_no_address">شيفرة QR لا تحتوي على عنوان صالح</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -547,11 +547,11 @@
   <string name="backup_send_via_title">أرسل النسخة الاحتياطية بواسطة:</string>
   <string name="backup_send_button">إرسال النسخ الاحتياطي</string>
   <string name="backup_save_button">احفظ النسخ الاحتياطي</string>
-  <string name="import_wallet_title">استيراد المحفظة</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">ألصق النسخ الاحتياطي للمحفظة في الأسفل.</string>
   <string name="import_wallet_keystore_private_keys">مخزن المفاتيح أو المفاتيح الخاصة</string>
-  <string name="import_wallet_file_button">استيراد من ملف</string>
-  <string name="import_wallet_button">استيراد المحفظة</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">هذه المحفظة محمية بكلمة مرور!</string>
   <string name="import_wallet_wrong_password_body">يوه، كلمة مرور خاطئة!</string>
   <string name="error_invalid_private_key">مفتاح خاص غير صالح</string>
@@ -570,10 +570,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">القيمة الكلية</string>
   <string name="wallets_address_copied_body">نُسخَ عنوان المحفظة إلى الحافظة</string>
-  <string name="wallets_imported_body">تم استيراد المحفظة بنجاح</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">الرصيد:</string>
   <string name="wallets_2nd_view_other_wallets_title">المَحافظ الأخرى</string>
-  <string name="wallets_2nd_view_import_button">استيراد المحفظة</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">إنشاء محفظة جديدة</string>
   <string name="wallet_view_copy_button">نسخ</string>
   <string name="wallet_view_share_button">مشاركة</string>
