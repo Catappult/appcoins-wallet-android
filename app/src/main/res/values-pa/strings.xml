@@ -4,7 +4,7 @@
   <string name="title_send">ਭੇਜੋ</string>
   <string name="title_send_with_token">ਭੇਜੋ %s</string>
   <string name="title_request">ਪ੍ਰਾਪਤ ਕਰੋ</string>
-  <string name="title_import">ਬਟੂਆ ਇਮਪੋਰਟ ਕਰੋ</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">ਪਾਸਵਰਡ</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">ਬਟੂਏ</string>
   <string name="cancel">ਕੈਂਸਲ</string>
   <string name="confirm_delete_account">ਇਹ ਪੱਕਾ ਕਰੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਹੈ|</string>
-  <string name="action_import">ਇਮਪੋਰਟ</string>
+  <string name="action_import">Recover</string>
   <string name="copy">ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕਰੋ</string>
   <string name="close">ਬੰਦ ਕਰੋ</string>
   <string name="title_activity_settings">ਸੈਟਿੰਗਾਂ</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਸੁਰਖਿਅਤ ਕਰਨ ਲਈ ਇੱਕ ਪਾਸਵਰਡ ਸੈਟ ਕਰੋ</string>
-  <string name="toast_message_wallet_imported">ਬਟੂਆ ਇਮਪੋਰਟ ਕੀਤਾ ਗਿਆ ਸੀ</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">ਇੱਕ ਬੈਕਅੱਪ ਬਣਾਇਆ ਗਿਆ ਸੀ</string>
   <string name="toast_qr_code_no_address">QR ਕੋਡ ਵਿੱਚ ਇੱਕ ਸਹੀ ਪਤਾ ਨਹੀਂ ਹੈ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">ਬੈਕਅਪ ਇਸ ਦੁਆਰਾ ਭੇਜੋ:</string>
   <string name="backup_send_button">ਬੈਕਅੱਪ ਭੇਜੋ</string>
   <string name="backup_save_button">ਬੈਕਅੱਪ ਸੇਵ ਕਰੋ</string>
-  <string name="import_wallet_title">ਬਟੂਆ ਇਮਪੋਰਟ ਕਰੋ</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਹੇਠਾਂ ਪਾਓ|</string>
   <string name="import_wallet_keystore_private_keys">ਚਾਬੀ ਸਟੋਰ ਜਾਂ ਨਿਜੀ ਕੁੰਜੀਆਂ</string>
-  <string name="import_wallet_file_button">ਫਾਈਲ ਤੋਂ ਇੰਪੋਰਟ ਕਰੋ</string>
-  <string name="import_wallet_button">ਬਟੂਆ ਇੰਪੋਰਟ ਕਰੋ</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
   <string name="import_wallet_wrong_password_body">ਓਹ ਹੋ, ਗਲਤ ਪਾਸਵਰਡ!</string>
   <string name="error_invalid_private_key">ਗਲਤ ਨਿਜੀ ਚਾਬੀ</string>
@@ -565,10 +565,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">ਕੁੱਲ ਮੁੱਲ</string>
   <string name="wallets_address_copied_body">ਬਟੂਏ ਦਾ ਪਤਾ ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
-  <string name="wallets_imported_body"> ਬਟੂਆ ਸਫਲਤਾਪੂਰਵਕ ਇਮਪੋਰਟ ਗਿਆ</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">ਰਕਮ:</string>
   <string name="wallets_2nd_view_other_wallets_title">ਹੋਰ ਬਟੂਏ</string>
-  <string name="wallets_2nd_view_import_button">ਬਟੂਆ ਇੰਪੋਰਟ ਕਰੋ</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">ਨਵਾਂ ਬਣਾਓ</string>
   <string name="wallet_view_copy_button">ਕਾਪੀ</string>
   <string name="wallet_view_share_button">ਵੰਡੋ</string>
