@@ -4,7 +4,7 @@
   <string name="title_send">Kirim</string>
   <string name="title_send_with_token">Kirim %s</string>
   <string name="title_request">Terima</string>
-  <string name="title_import">Impor Dompet</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Kata Sandi</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Dompet</string>
   <string name="cancel">batal</string>
   <string name="confirm_delete_account">Pastikan agar Anda sudah punya cadangan dari dompet ini.</string>
-  <string name="action_import">Impor</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Salin ke clipboard</string>
   <string name="close">Tutup</string>
   <string name="title_activity_settings">Pengaturan</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Buat kata sandi untuk mengenkripsi dompet Anda</string>
-  <string name="toast_message_wallet_imported">Dompet sudah diimpor</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">Cadangan sudah dibuat</string>
   <string name="toast_qr_code_no_address">Kode QR tidak mengandung alamat yang valid</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Kirim cadangan via:</string>
   <string name="backup_send_button">KIRIM CADANGAN</string>
   <string name="backup_save_button">SIMPAN CADANGAN</string>
-  <string name="import_wallet_title">Impor Dompet</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Tempelkan cadangan dompet Anda di bawah ini.</string>
   <string name="import_wallet_keystore_private_keys">Keystore atau kunci pribadi</string>
-  <string name="import_wallet_file_button">IMPOR DARI FILE</string>
-  <string name="import_wallet_button">IMPOR DOMPET</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Dompet ini diproteksi dengan kata sandi!</string>
   <string name="import_wallet_wrong_password_body">Ups, kata sandi salah!</string>
   <string name="error_invalid_private_key">Kunci pribadi tidak valid</string>
@@ -564,10 +564,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Nilai total</string>
   <string name="wallets_address_copied_body">Alamat dompet sudah disalin ke clipboard</string>
-  <string name="wallets_imported_body">Dompet berhasil diimpor</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Dompet Lain</string>
-  <string name="wallets_2nd_view_import_button">IMPOR DOMPET</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">BUAT BARU</string>
   <string name="wallet_view_copy_button">SALIN</string>
   <string name="wallet_view_share_button">BAGIKAN</string>
