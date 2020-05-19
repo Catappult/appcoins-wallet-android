@@ -4,7 +4,7 @@
   <string name="title_send">Senden</string>
   <string name="title_send_with_token">%s gesendet</string>
   <string name="title_request">Erhalten</string>
-  <string name="title_import">Wallet importieren</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Passwort</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Wallets</string>
   <string name="cancel">Abbrechen</string>
   <string name="confirm_delete_account">Stellen Sie sicher, dass Sie eine Sicherungskopie von diesem Wallet erstellt haben.</string>
-  <string name="action_import">Importieren</string>
+  <string name="action_import">Recover</string>
   <string name="copy">In Zwischenablage kopieren</string>
   <string name="close">Schließen</string>
   <string name="title_activity_settings">Einstellungen</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Legen Sie zum Verschlüsseln ihrer Wallets ein Passwort fest</string>
-  <string name="toast_message_wallet_imported">Das Wallet wurde importiert</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">Es wurde ein Backup erstellt</string>
   <string name="toast_qr_code_no_address">Der QR-Code enthält keine gültige Adresse</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Backup versenden über:</string>
   <string name="backup_send_button">BACKUP VERSENDEN</string>
   <string name="backup_save_button">BACKUP SICHERN</string>
-  <string name="import_wallet_title">Wallet importieren</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Fügen Sie das Backup ihres Wallets unten ein.</string>
   <string name="import_wallet_keystore_private_keys">Keystore oder private Schlüssel</string>
-  <string name="import_wallet_file_button">AUS DATEI IMPORTIEREN</string>
-  <string name="import_wallet_button">WALLET IMPORTIEREN</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Dieses Wallet ist passwortgeschützt!</string>
   <string name="import_wallet_wrong_password_body">Opps, falsches Password!</string>
   <string name="error_invalid_private_key">Ungültiger Privater Schlüssel</string>
@@ -565,10 +565,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Gesamtwert</string>
   <string name="wallets_address_copied_body">Walletadresse wurde in die Zwischenablage gespeichert</string>
-  <string name="wallets_imported_body">Wallet erfolgreich importiert</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Guthaben:</string>
   <string name="wallets_2nd_view_other_wallets_title">Weitere Wallets</string>
-  <string name="wallets_2nd_view_import_button">WALLET IMPORTIEREN</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">NEUES ERSTELLEN</string>
   <string name="wallet_view_copy_button">KOPIEREN</string>
   <string name="wallet_view_share_button">TEILEN</string>
