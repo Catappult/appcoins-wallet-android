@@ -4,7 +4,7 @@
   <string name="title_send">Verzenden</string>
   <string name="title_send_with_token">%s verzenden</string>
   <string name="title_request">Ontvangen</string>
-  <string name="title_import">Wallet importeren</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Wachtwoord</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Wallets</string>
   <string name="cancel">annuleren</string>
   <string name="confirm_delete_account">Zorg ervoor dat je een back-up van deze wallet hebt.</string>
-  <string name="action_import">Importeren</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Naar klembord kopiëren</string>
   <string name="close">Sluiten</string>
   <string name="title_activity_settings">Instellingen</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Stel een wachtwoord in om je wallet te versleutelen</string>
-  <string name="toast_message_wallet_imported">De wallet is geïmporteerd</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">Er is een back-up gemaakt</string>
   <string name="toast_qr_code_no_address">QR-code bevat geen geldig adres</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Back-up verzenden via:</string>
   <string name="backup_send_button">BACK-UP VERZENDEN</string>
   <string name="backup_save_button">BACK-UP OPSLAAN</string>
-  <string name="import_wallet_title">Wallet importeren</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
-  <string name="import_wallet_file_button">UIT BESTAND IMPORTEREN</string>
-  <string name="import_wallet_button">WALLET IMPORTEREN</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
@@ -565,10 +565,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Totale saldo</string>
   <string name="wallets_address_copied_body">Wallet-adres is naar het klembord gekopieerd</string>
-  <string name="wallets_imported_body">Wallet is met succes geïmporteerd</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Andere wallets</string>
-  <string name="wallets_2nd_view_import_button">WALLET IMPORTEREN</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">NIEUWE AANMAKEN</string>
   <string name="wallet_view_copy_button">KOPIËREN</string>
   <string name="wallet_view_share_button">DELEN</string>
