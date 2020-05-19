@@ -4,7 +4,7 @@
   <string name="title_send">Trimite</string>
   <string name="title_send_with_token">Trimite %s</string>
   <string name="title_request">Primește</string>
-  <string name="title_import">Importă portofel</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Parolă</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Portofele</string>
   <string name="cancel">anulează</string>
   <string name="confirm_delete_account">Asigură-te că ai o copie de rezervă a acestui portofel.</string>
-  <string name="action_import">Importă</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Copiază în clipboard</string>
   <string name="close">Închide</string>
   <string name="title_activity_settings">Setări</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Setează o parolă pentru a-ți cripta portofelul</string>
-  <string name="toast_message_wallet_imported">Portofelul a fost importat</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">A fost creată o copie de rezervă</string>
   <string name="toast_qr_code_no_address">Codul QR nu conține o adresă validă</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Trimite copie de rezervă via:</string>
   <string name="backup_send_button">TRIMITE COPIE DE REZERVĂ</string>
   <string name="backup_save_button">SALVEAZĂ COPIE DE REZERVĂ</string>
-  <string name="import_wallet_title">Importă portofel</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>
-  <string name="import_wallet_file_button">IMPORTĂ DIN FIȘIER</string>
-  <string name="import_wallet_button">IMPORTĂ PORTOFEL</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Acest portofel este protejat cu parolă!</string>
   <string name="import_wallet_wrong_password_body">Ups, parolă greșită!</string>
   <string name="error_invalid_private_key">Cheie privată nevalidă</string>
@@ -566,10 +566,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Valoare totală</string>
   <string name="wallets_address_copied_body">Adresa portofelului a fost copiată pe clipboard</string>
-  <string name="wallets_imported_body">Portofel importat cu succes</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Balanță:</string>
   <string name="wallets_2nd_view_other_wallets_title">Alte portofele</string>
-  <string name="wallets_2nd_view_import_button">IMPORTĂ PORTOFEL</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">CREEAZĂ NOU</string>
   <string name="wallet_view_copy_button">COPIAZĂ</string>
   <string name="wallet_view_share_button">DISTRIBUIE</string>
