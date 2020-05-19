@@ -4,7 +4,7 @@
   <string name="title_send">প্রেরণ করুন</string>
   <string name="title_send_with_token">প্রেরণ করুন %s</string>
   <string name="title_request">গ্রহণ</string>
-  <string name="title_import">ওয়ালেট আমদানি করুন</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">পাসওয়ার্ড</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">ওয়ালেট</string>
   <string name="cancel">বাতিল</string>
   <string name="confirm_delete_account">আপনার ওয়ালেটটির একটি ব্যাকআপ থাকার বিষয়টি নিশ্চিত করুন।</string>
-  <string name="action_import">আমদানি</string>
+  <string name="action_import">Recover</string>
   <string name="copy">ক্লিপবোর্ডে অনুলিপি করুণ</string>
   <string name="close">বন্ধ</string>
   <string name="title_activity_settings">সেটিংস</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">আপনার ওয়ালেট সংকেতায়িত করতে একটি পাসওয়ার্ড সেট করুন</string>
-  <string name="toast_message_wallet_imported">ওয়ালেটটি আমদানি করা হয়েছে</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">একটি ব্যাকআপ তৈরি করা হয়েছে</string>
   <string name="toast_qr_code_no_address">কিউআর কোডে কোন সঠিক ঠিকানা অন্তর্ভূক্ত নেই</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
   <string name="backup_save_button">SAVE BACKUP</string>
-  <string name="import_wallet_title">ওয়ালেট আমদানি করুন</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
-  <string name="import_wallet_file_button">IMPORT FROM FILE</string>
-  <string name="import_wallet_button">IMPORT WALLET</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <string name="error_invalid_private_key">Invalid private key</string>
@@ -565,10 +565,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
-  <string name="wallets_imported_body">Wallet successfuly imported</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Balance:</string>
   <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
-  <string name="wallets_2nd_view_import_button">IMPORT WALLET</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">CREATE NEW</string>
   <string name="wallet_view_copy_button">COPY</string>
   <string name="wallet_view_share_button">SHARE</string>
