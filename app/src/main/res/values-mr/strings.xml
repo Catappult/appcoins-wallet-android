@@ -4,7 +4,7 @@
   <string name="title_send">पाठवा</string>
   <string name="title_send_with_token">पाठवा %s</string>
   <string name="title_request">मिळवा</string>
-  <string name="title_import">वॉलेट इंपोर्ट करा</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">पासवर्ड</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">वॉलेट्स</string>
   <string name="cancel">रद्द करा</string>
   <string name="confirm_delete_account">ह्या वॉलेटचा बॅकअप आपल्याकडे असण्याची खात्री करा.</string>
-  <string name="action_import">इंपोर्ट</string>
+  <string name="action_import">Recover</string>
   <string name="copy">क्लिपबोर्डावर कॉपी करा</string>
   <string name="close">बंद करा</string>
   <string name="title_activity_settings">सेटिंग्ज</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">आपले वॉलेट एनक्रिप्ट करण्यासाठी पासवर्ड सेट करा</string>
-  <string name="toast_message_wallet_imported">हे वॉलेट इंपोर्ट केले होते</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">बॅकअप निर्माण केलेला आहे</string>
   <string name="toast_qr_code_no_address">क्युआर कोडमध्ये वैध पत्ता नाही</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">बॅकअप ह्याद्वारे करा:</string>
   <string name="backup_send_button">बॅकअप करा</string>
   <string name="backup_save_button">बॅकअप सेव्ह करा</string>
-  <string name="import_wallet_title">वॉलेट इंपोर्ट करा</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">आपल्या वॉलेटचा बॅकअप खाली पेस्ट करा.</string>
   <string name="import_wallet_keystore_private_keys">की स्टोर किंवा खासगी कीज</string>
-  <string name="import_wallet_file_button">फाईलमधुन इंपोर्ट करा</string>
-  <string name="import_wallet_button">वॉलेट इंपोर्ट करा</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
@@ -569,10 +569,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">एकुण मूल्य</string>
   <string name="wallets_address_copied_body">वॉलेटचा पत्ता क्लिपबोर्डावर कॉपी केलाय</string>
-  <string name="wallets_imported_body">वॉलेट इंपोर्ट सफल झाला</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">शिल्लक:</string>
   <string name="wallets_2nd_view_other_wallets_title">अन्य वॉलेटस</string>
-  <string name="wallets_2nd_view_import_button">वॉलेट इंपोर्ट करा</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">नविन तयार करा</string>
   <string name="wallet_view_copy_button">कॉपी</string>
   <string name="wallet_view_share_button">सामायिक करा</string>
