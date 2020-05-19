@@ -4,7 +4,7 @@
   <string name="title_send">ေပးပို႔မည္</string>
   <string name="title_send_with_token">%s ကို ေပးပို႔မည္</string>
   <string name="title_request">ရယူမည္</string>
-  <string name="title_import">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">စကားဝွက္</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="cancel">ပယ္ဖ်က္မည္</string>
   <string name="confirm_delete_account">သင့္တြင္ ဤပိုက္ဆံအိတ္ကို အရန္ျပဳလုပ္ထားေၾကာင္း ေသခ်ာေအာင္ စစ္ေဆးပါ။</string>
-  <string name="action_import">ထည့္သြင္းမည္</string>
+  <string name="action_import">Recover</string>
   <string name="copy">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
   <string name="close">ပိတ္မည္</string>
   <string name="title_activity_settings">ဆက္တင္</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">သင့္ပိုက္ဆံအိတ္ကို ကုဒ္ဖ်က္ထားရန္ စကားဝွက္တစ္ခုကို သတ္မွတ္ပါ</string>
-  <string name="toast_message_wallet_imported">ပိုုက္ဆံအိတ္ကို ထည့္သြင္းခဲ့ပါသည္</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">အရန္ထားရွိမႈကို ျပဳလုပ္ခဲ့ပါသည္</string>
   <string name="toast_qr_code_no_address">QR ကုဒ္တြင္ မွန္ကန္ေသာ လိပ္စာတစ္ခု မပါဝင္ပါ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">အရန္သိမ္းဆည္းမႈကို ေပးပို႔မည္ -</string>
   <string name="backup_send_button">အရံသိမ္းဆည္းမႈကို ေပးပို႔မည္</string>
   <string name="backup_save_button">အရံသိမ္းဆည္းမႈကို သိမ္းမည္</string>
-  <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
-  <string name="import_wallet_file_button">ဖိုင္မွထည့္သြင္းမည္</string>
-  <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
@@ -564,10 +564,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">စုစုေပါင္းတန္ဖိုး</string>
   <string name="wallets_address_copied_body">ပိုက္ဆံအိတ္လိပ္စာကို ကလစ္ပ္ဘုတ္သို႔ ကူးယူလိုက္ပါၿပီ</string>
-  <string name="wallets_imported_body">ပိုက္ဆံအိတ္ကို ေအာင္ျမင္စြာ ထည့္သြင္းလိုက္ပါသည္</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">လက္က်န္ေငြ -</string>
   <string name="wallets_2nd_view_other_wallets_title">အျခား ပိုက္ဆံအိတ္မ်ား</string>
-  <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ထည့့္သြင္းမည္</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">အသစ္ဖန္တီးမည္</string>
   <string name="wallet_view_copy_button">ကူးမည္</string>
   <string name="wallet_view_share_button">မွ်ေ၀မည္</string>
