@@ -4,7 +4,7 @@
   <string name="title_send">Pošaljite</string>
   <string name="title_send_with_token">Pošalji %s</string>
   <string name="title_request">Primite</string>
-  <string name="title_import">Uvezite novčanik</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Lozinka</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Novčanici</string>
   <string name="cancel">otkaži</string>
   <string name="confirm_delete_account">Proverite da li ste napravili rezervnu kopiju ovog novčanika.</string>
-  <string name="action_import">Uvezi</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Kopiraj u ostavu</string>
   <string name="close">Zatvori</string>
   <string name="title_activity_settings">Podešavanja</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Podesite lozinku za šifrovanje novčanika</string>
-  <string name="toast_message_wallet_imported">Novčanik je uvezen</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">Rezervna kopija je napravljena</string>
   <string name="toast_qr_code_no_address">QR kod ne sadrži ispravnu adresu</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -546,11 +546,11 @@
   <string name="backup_send_via_title">Pošaljite rezervnu kopiju preko:</string>
   <string name="backup_send_button">POŠALJI REZERVNU KOPIJU</string>
   <string name="backup_save_button">SAČUVAJ REZERVNU KOPIJU</string>
-  <string name="import_wallet_title">Uvezite novčanik</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
   <string name="import_wallet_keystore_private_keys">Skladište ključeva ili privatni ključevi</string>
-  <string name="import_wallet_file_button">UVEZI IZ DATOTEKE</string>
-  <string name="import_wallet_button">UVEZI NOVČANIK</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
   <string name="import_wallet_wrong_password_body">Ups, pogrešna lozinka!</string>
   <string name="error_invalid_private_key">Neispravan privatni ključ</string>
@@ -566,10 +566,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Ukupna vrednost</string>
   <string name="wallets_address_copied_body">Adresa novčanika je kopirana u ostavu</string>
-  <string name="wallets_imported_body">Uvoz novčanika je uspeo</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Stanje:</string>
   <string name="wallets_2nd_view_other_wallets_title">Drugi novčanici</string>
-  <string name="wallets_2nd_view_import_button">UVEZI NOVČANIK</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">NAPRAVITE NOVI</string>
   <string name="wallet_view_copy_button">KOPIRAJ</string>
   <string name="wallet_view_share_button">PODELI</string>
