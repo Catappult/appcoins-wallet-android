@@ -46,7 +46,6 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     referralsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
     animateBackgroundFade()
-    notification_image.setImageResource(R.drawable.ic_bonus_pending)
     setTextValues()
     presenter.present()
   }
@@ -97,11 +96,13 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     activity?.navigateToTopApps()
   }
 
-  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String) {
+  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String,
+                                    icon: Int?) {
     if (pendingAmount.toDouble() > 0) {
-      referral_notification_card.visibility = VISIBLE
+      icon?.let { notification_image.setImageResource(icon) }
       notification_title.text = getString(R.string.referral_notification_bonus_pending_title,
           "$symbol${pendingAmount.scaleToString(2)}")
+      referral_notification_card.visibility = VISIBLE
     } else {
       referral_notification_card.visibility = GONE
     }
