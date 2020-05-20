@@ -112,16 +112,16 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     }
   }
 
-  override fun isWalletImportBackup(walletAddress: String) =
+  override fun isWalletRestoreBackup(walletAddress: String) =
       pref.getBoolean(WALLET_IMPORT_BACKUP + walletAddress, false)
 
-  override fun setWalletImportBackup(walletAddress: String) {
+  override fun setWalletRestoreBackup(walletAddress: String) {
     pref.edit()
         .putBoolean(WALLET_IMPORT_BACKUP + walletAddress, true)
         .apply()
   }
 
-  override fun removeWalletImportBackup(walletAddress: String): Completable {
+  override fun removeWalletRestoreBackup(walletAddress: String): Completable {
     return Completable.fromAction {
       pref.edit()
           .remove(WALLET_IMPORT_BACKUP + walletAddress)

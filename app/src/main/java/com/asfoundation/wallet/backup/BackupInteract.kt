@@ -52,9 +52,9 @@ class BackupInteract(
   }
 
   private fun getBackupThreshold(walletAddress: String): Single<Boolean> {
-    val walletImportBackup = sharedPreferencesRepository.isWalletImportBackup(walletAddress)
+    val walletRestoreBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
     val previouslyShownBackup = sharedPreferencesRepository.hasShownBackup(walletAddress)
-    return if (walletImportBackup) {
+    return if (walletRestoreBackup) {
       Single.just(false)
     } else {
       Single.zip(

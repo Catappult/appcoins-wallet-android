@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.ui.balance
 
-import com.asfoundation.wallet.interact.ImportWalletInteractor
+import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class ImportWalletPasswordInteractor(private val gson: Gson,
-                                     private val balanceInteract: BalanceInteract,
-                                     private val importWalletInteractor: ImportWalletInteractor) {
+class RestoreWalletPasswordInteractor(private val gson: Gson,
+                                      private val balanceInteract: BalanceInteract,
+                                      private val restoreWalletInteractor: RestoreWalletInteractor) {
 
   fun extractWalletAddress(keystore: String): Single<String> {
     val parsedKeystore = gson.fromJson(keystore, Keystore::class.java)
@@ -21,12 +21,12 @@ class ImportWalletPasswordInteractor(private val gson: Gson,
         .firstOrError()
   }
 
-  fun importWallet(keystore: String, password: String): Single<WalletModel> {
-    return importWalletInteractor.importKeystore(keystore, password)
+  fun restoreWallet(keystore: String, password: String): Single<WalletModel> {
+    return restoreWalletInteractor.restoreKeystore(keystore, password)
   }
 
   fun setDefaultWallet(address: String): Completable {
-    return importWalletInteractor.setDefaultWallet(address)
+    return restoreWalletInteractor.setDefaultWallet(address)
   }
 
   private data class Keystore(val address: String)

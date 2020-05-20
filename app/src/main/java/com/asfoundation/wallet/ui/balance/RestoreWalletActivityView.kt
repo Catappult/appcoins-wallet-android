@@ -4,13 +4,13 @@ import android.net.Uri
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-interface ImportWalletActivityView {
+interface RestoreWalletActivityView {
 
   fun navigateToPasswordView(keystore: String)
 
-  fun showWalletImportAnimation()
+  fun showWalletRestoreAnimation()
 
-  fun showWalletImportedAnimation()
+  fun showWalletRestoredAnimation()
 
   fun launchFileIntent(path: Uri?)
 

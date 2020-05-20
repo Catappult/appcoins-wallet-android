@@ -24,7 +24,7 @@ public class DeleteWalletInteract {
     return passwordStore.getPassword(address)
         .flatMapCompletable(password -> walletRepository.deleteWallet(address, password))
         .andThen(preferencesRepositoryType.removeWalletValidationStatus(address))
-        .andThen(preferencesRepositoryType.removeWalletImportBackup(address))
+        .andThen(preferencesRepositoryType.removeWalletRestoreBackup(address))
         .andThen(preferencesRepositoryType.removeBackupNotificationSeenTime(address));
   }
 }

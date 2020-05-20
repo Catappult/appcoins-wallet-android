@@ -8,54 +8,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.ImportWalletInteractor
+import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.util.ImportErrorType
+import com.asfoundation.wallet.util.RestoreErrorType
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.import_wallet_first_layout.*
+import kotlinx.android.synthetic.main.restore_wallet_first_layout.*
 import javax.inject.Inject
 
-class ImportWalletFragment : DaggerFragment(), ImportWalletView {
+class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
 
   @Inject
-  lateinit var importWalletInteractor: ImportWalletInteractor
+  lateinit var restoreWalletInteractor: RestoreWalletInteractor
 
   @Inject
   lateinit var logger: Logger
-  private lateinit var activityView: ImportWalletActivityView
-  private lateinit var presenter: ImportWalletPresenter
+  private lateinit var activityView: RestoreWalletActivityView
+  private lateinit var presenter: RestoreWalletPresenter
 
   companion object {
     private const val KEYSTORE = "keystore"
 
     @JvmStatic
-    fun newInstance() = ImportWalletFragment()
+    fun newInstance() = RestoreWalletFragment()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        ImportWalletPresenter(this, activityView, CompositeDisposable(), importWalletInteractor,
+        RestoreWalletPresenter(this, activityView, CompositeDisposable(), restoreWalletInteractor,
             logger, AndroidSchedulers.mainThread(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is ImportWalletActivityView) {
+    if (context !is RestoreWalletActivityView) {
       throw IllegalStateException(
-          "Import Wallet fragment must be attached to Import Wallet Activity")
+          "Restore Wallet fragment must be attached to Restore Wallet Activity")
     }
     activityView = context
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.import_wallet_first_layout, container, false)
+    return inflater.inflate(R.layout.restore_wallet_first_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,17 +65,17 @@ class ImportWalletFragment : DaggerFragment(), ImportWalletView {
     presenter.present()
   }
 
-  override fun importFromStringClick(): Observable<String> = RxView.clicks(import_wallet_button)
+  override fun restoreFromStringClick(): Observable<String> = RxView.clicks(import_wallet_button)
       .map { keystore_edit_text.editableText.toString() }
 
-  override fun importFromFileClick() = RxView.clicks(import_from_file_button)
+  override fun restoreFromFileClick() = RxView.clicks(import_from_file_button)
 
 
-  override fun showError(type: ImportErrorType) {
+  override fun showError(type: RestoreErrorType) {
     label_input.isErrorEnabled = true
     when (type) {
-      ImportErrorType.ALREADY_ADDED -> label_input.error = getString(R.string.error_already_added)
-      ImportErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
+      RestoreErrorType.ALREADY_ADDED -> label_input.error = getString(R.string.error_already_added)
+      RestoreErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
       else -> label_input.error = getString(R.string.error_general)
     }
   }

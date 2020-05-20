@@ -15,7 +15,7 @@ class WalletsPresenter(private val view: WalletsView,
     handleActiveWalletCardClick()
     handleOtherWalletCardClick()
     handleCreateNewWalletClick()
-    handleImportWalletClick()
+    handleRestoreWalletClick()
     handleBottomSheetHeaderClick()
   }
 
@@ -25,10 +25,10 @@ class WalletsPresenter(private val view: WalletsView,
         .subscribe())
   }
 
-  private fun handleImportWalletClick() {
-    disposables.add(view.importWalletClicked()
+  private fun handleRestoreWalletClick() {
+    disposables.add(view.restoreWalletClicked()
         .observeOn(viewScheduler)
-        .doOnNext { view.navigateToImportView() }
+        .doOnNext { view.navigateToRestoreView() }
         .subscribe())
   }
 

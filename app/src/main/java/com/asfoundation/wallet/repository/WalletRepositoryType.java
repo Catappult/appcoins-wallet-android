@@ -12,9 +12,9 @@ public interface WalletRepositoryType {
 
   Single<Wallet> createWallet(String password);
 
-  Single<Wallet> importKeystoreToWallet(String store, String password, String newPassword);
+  Single<Wallet> restoreKeystoreToWallet(String store, String password, String newPassword);
 
-  Single<Wallet> importPrivateKeyToWallet(String privateKey, String newPassword);
+  Single<Wallet> restorePrivateKeyToWallet(String privateKey, String newPassword);
 
   Single<String> exportWallet(String address, String password, String newPassword);
 

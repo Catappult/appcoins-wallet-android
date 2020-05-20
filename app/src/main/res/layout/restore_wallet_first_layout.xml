@@ -132,13 +132,13 @@
             android:layout_width="13dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_import"
-            app:layout_constraintBottom_toBottomOf="@id/import_text"
-            app:layout_constraintEnd_toStartOf="@id/import_text"
-            app:layout_constraintTop_toTopOf="@id/import_text"
+            android:src="@drawable/ic_restore"
+            app:layout_constraintBottom_toBottomOf="@id/restore_text"
+            app:layout_constraintEnd_toStartOf="@id/restore_text"
+            app:layout_constraintTop_toTopOf="@id/restore_text"
             />
         <TextView
-            android:id="@+id/import_text"
+            android:id="@+id/restore_text"
             style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

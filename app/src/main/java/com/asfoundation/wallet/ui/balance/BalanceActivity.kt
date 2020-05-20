@@ -105,8 +105,8 @@ class BalanceActivity : BaseActivity(),
     startActivity(newIntent(this, walletAddress))
   }
 
-  override fun navigateToImportView() {
-    startActivity(ImportWalletActivity.newIntent(this))
+  override fun navigateToRestoreView() {
+    startActivity(RestoreWalletActivity.newIntent(this))
   }
 
   override fun showCreatingAnimation() {
