@@ -153,7 +153,5 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     balanceInteract.saveSeenBackupTooltip()
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 }
