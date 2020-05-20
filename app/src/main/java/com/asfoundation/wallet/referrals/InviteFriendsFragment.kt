@@ -46,6 +46,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     referralsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
     animateBackgroundFade()
+    notification_image.setImageResource(R.drawable.ic_bonus_pending)
     setTextValues()
     presenter.present()
   }
