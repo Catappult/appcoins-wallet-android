@@ -28,9 +28,16 @@ class HowItWorksPresenter(private val view: HowItWorksView,
     handleShowLevels()
     handleShowPeekInformation()
     handleShowNextLevelFooter()
+    handleBottomSheetHeaderClick()
     if (savedInstanceState == null) {
       sendEvent()
     }
+  }
+
+  private fun handleBottomSheetHeaderClick() {
+    disposables.add(view.bottomSheetHeaderClick()
+        .doOnNext { view.changeBottomSheetState() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleShowLevels() {

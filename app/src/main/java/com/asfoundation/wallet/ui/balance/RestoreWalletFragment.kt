@@ -104,7 +104,9 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.putString(KEYSTORE, keystore_edit_text.editableText.toString())
+    if (keystore_edit_text != null) {
+      outState.putString(KEYSTORE, keystore_edit_text.editableText.toString())
+    }
   }
 
   override fun onDestroyView() {
