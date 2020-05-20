@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.base.model.payments.response.Action
@@ -198,7 +199,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     swap_value_button.visibility = VISIBLE
     swap_value_label.visibility = VISIBLE
     top_separator_topup.visibility = VISIBLE
-    bot_separator.visibility = VISIBLE
+    //bot_separator.visibility = VISIBLE
     converted_value.visibility = VISIBLE
     button.visibility = VISIBLE
 
@@ -221,7 +222,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     swap_value_button.visibility = VISIBLE
     swap_value_label.visibility = VISIBLE
     top_separator_topup.visibility = VISIBLE
-    bot_separator.visibility = VISIBLE
+    //bot_separator.visibility = VISIBLE
     converted_value.visibility = VISIBLE
     button.visibility = VISIBLE
 
@@ -254,7 +255,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     swap_value_button.visibility = INVISIBLE
     swap_value_label.visibility = INVISIBLE
     top_separator_topup.visibility = INVISIBLE
-    bot_separator.visibility = INVISIBLE
+//    bot_separator.visibility = INVISIBLE
     converted_value.visibility = INVISIBLE
     button.visibility = GONE
 
@@ -423,6 +424,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
     topUpView.showToolbar()
     main_value.visibility = INVISIBLE
+    bot_separator.visibility = View.GONE
   }
 
   private fun setupCardConfiguration() {
@@ -454,16 +456,27 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     adyenSaveDetailsSwitch?.run {
 
       val params: LinearLayout.LayoutParams = this.layoutParams as LinearLayout.LayoutParams
-      params.topMargin = 8
+      params.topMargin = 4
+      params.bottomMargin = 0
 
       layoutParams = params
       isChecked = true
-      textSize = 15f
+      textSize = 14f
       text = getString(R.string.dialog_credit_card_remember)
-
+      setPadding(0, 0, 0, 0)
     }
 
     val height = resources.getDimensionPixelSize(R.dimen.adyen_text_input_layout_height)
+
+    val view: View = adyen_card_form_pre_selected ?: adyen_card_form
+    val layoutParams: ConstraintLayout.LayoutParams =
+        view.layoutParams as ConstraintLayout.LayoutParams
+    layoutParams.bottomMargin = 0
+    layoutParams.marginStart = 0
+    layoutParams.marginEnd = 0
+    layoutParams.topMargin = 0
+    view.layoutParams = layoutParams
+    view.setPadding(0, 0, 16, 0)
 
     adyenCardNumberLayout.minimumHeight = height
     adyenExpiryDateLayout.minimumHeight = height

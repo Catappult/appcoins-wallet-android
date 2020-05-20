@@ -201,6 +201,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
     payment_methods.visibility = View.VISIBLE
+    top_separator_topup.visibility = View.VISIBLE
+    bot_separator.visibility = View.VISIBLE
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
     swap_value_label.visibility = View.VISIBLE
@@ -303,18 +305,21 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun showLoading() {
     credit_card_info_container.visibility = View.GONE
     payment_methods.visibility = View.INVISIBLE
+    top_separator_topup.visibility = View.INVISIBLE
+    bot_separator.visibility = View.INVISIBLE
     loading.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
     credit_card_info_container.visibility = View.VISIBLE
     payment_methods.visibility = View.VISIBLE
+    top_separator_topup.visibility = View.VISIBLE
+    bot_separator.visibility = View.VISIBLE
     loading.visibility = View.INVISIBLE
   }
 
-  override fun hideButtonLoading() {
+  override fun showButton() {
     button.visibility = View.VISIBLE
-    button_loading.visibility = View.GONE
   }
 
   override fun showPaymentDetailsForm() {
@@ -323,12 +328,16 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     credit_card_info_container.visibility = View.VISIBLE
     bonus_layout.visibility = View.GONE
     bonus_msg.visibility = View.GONE
+    top_separator_topup.visibility = View.VISIBLE
+    bot_separator.visibility = View.INVISIBLE
   }
 
   override fun showPaymentMethods() {
     credit_card_info_container.visibility = View.GONE
     loading.visibility = View.GONE
     payment_methods.visibility = View.VISIBLE
+    top_separator_topup.visibility = View.VISIBLE
+    bot_separator.visibility = View.VISIBLE
   }
 
   override fun rotateChangeCurrencyButton() {

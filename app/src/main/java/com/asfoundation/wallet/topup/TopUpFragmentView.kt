@@ -17,7 +17,7 @@ interface TopUpFragmentView {
   fun setNextButtonState(enabled: Boolean)
   fun showLoading()
   fun hideLoading()
-  fun hideButtonLoading()
+  fun showButton()
   fun showPaymentDetailsForm()
   fun showPaymentMethods()
   fun rotateChangeCurrencyButton()

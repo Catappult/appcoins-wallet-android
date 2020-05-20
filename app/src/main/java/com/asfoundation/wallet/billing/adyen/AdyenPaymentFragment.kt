@@ -196,7 +196,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {
-      if(bonus.isNotEmpty()){
+      if (bonus.isNotEmpty()) {
         bonus_layout.visibility = View.INVISIBLE
         bonus_msg.visibility = View.INVISIBLE
       }
@@ -390,11 +390,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     adyenSaveDetailsSwitch?.run {
 
       val params: LinearLayout.LayoutParams = this.layoutParams as LinearLayout.LayoutParams
-      params.topMargin = 8
+      params.topMargin = 2
 
       layoutParams = params
       isChecked = true
-      textSize = 15f
+      textSize = 14f
       text = getString(R.string.dialog_credit_card_remember)
     }
 

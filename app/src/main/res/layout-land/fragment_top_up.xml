@@ -7,6 +7,7 @@
     android:background="@drawable/background_card"
     android:theme="@style/AdyenMaterialAppTheme"
     >
+
   <ScrollView
       android:id="@+id/top_up_container"
       android:layout_width="match_parent"
@@ -16,22 +17,39 @@
       app:layout_constraintBottom_toTopOf="@id/bottom_separator"
       app:layout_constraintTop_toTopOf="parent"
       >
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/activity_background_color"
         >
+
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/mid_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.5"
+          />
+
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/guideline_top_margin"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          app:layout_constraintGuide_percent="0.06"
+          />
+
       <TextView
           android:id="@+id/main_currency_code"
           style="@style/TopUpTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="33dp"
           android:text="--"
           app:autoSizeStepGranularity="2sp"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toTopOf="@id/guideline_top_margin"
           />
 
       <com.asfoundation.wallet.ui.widget.AutoFitEditText
@@ -51,7 +69,7 @@
           android:maxWidth="152dp"
           android:maxLength="152"
           android:maxLines="1"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/main_currency_code"
           />
@@ -63,8 +81,8 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:text="--"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="@id/main_value"
+          app:layout_constraintStart_toStartOf="@id/main_value"
           app:layout_constraintTop_toBottomOf="@id/main_value"
           />
 
@@ -79,7 +97,7 @@
           android:src="@drawable/ic_swap"
           android:visibility="invisible"
           app:layout_constraintBottom_toBottomOf="@id/main_value"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintHorizontal_bias="1"
           app:layout_constraintStart_toStartOf="@id/main_value"
           app:layout_constraintTop_toTopOf="@id/main_value"
@@ -112,20 +130,6 @@
           app:layout_constraintTop_toTopOf="@id/main_value"
           />
 
-      <View
-          android:id="@+id/top_separator_topup"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginStart="32dp"
-          android:layout_marginTop="8dp"
-          android:layout_marginEnd="32dp"
-          android:background="#eaeaea"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/value_warning_text"
-          />
-
       <TextView
           android:id="@+id/value_warning_text"
           style="@style/TopUpTextStyle.ValueWarning"
@@ -134,18 +138,65 @@
           android:layout_marginTop="13dp"
           android:text="@string/topup_minimum_value"
           android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/converted_value"
           />
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/payment_container"
-          android:layout_width="match_parent"
+      <include
+          android:id="@+id/bonus_layout"
+          layout="@layout/view_purchase_bonus"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="18dp"
-          android:paddingStart="25dp"
-          android:paddingEnd="25dp"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/converted_value"
+          app:layout_constraintVertical_bias="0"
+          app:layout_constraintVertical_chainStyle="packed"
+          />
+
+      <TextView
+          android:id="@+id/bonus_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="21dp"
+          android:gravity="center"
+          android:text="@string/gamification_purchase_body"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          />
+
+      <View
+          android:id="@+id/top_separator_topup"
+          android:layout_width="0dp"
+          android:layout_height="1dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginEnd="32dp"
+          android:background="#eaeaea"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintTop_toTopOf="@id/main_currency_code"
+          />
+
+      <RelativeLayout
+          android:id="@id/container"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator_topup"
           >
 
@@ -153,10 +204,8 @@
             android:id="@+id/credit_card_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             >
 
           <RelativeLayout
@@ -190,96 +239,74 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/payment_methods"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/payment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:overScrollMode="never"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            >
 
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:indeterminateDrawable="@drawable/gradient_progress"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-      </androidx.constraintlayout.widget.ConstraintLayout>
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/payment_methods"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:focusable="true"
+              android:overScrollMode="never"
+              android:visibility="visible"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+      </RelativeLayout>
 
       <View
           android:id="@+id/bot_separator"
-          android:layout_width="match_parent"
+          android:layout_width="0dp"
           android:layout_height="1dp"
           android:layout_marginStart="32dp"
-          android:layout_marginTop="15dp"
           android:layout_marginEnd="32dp"
           android:background="#eaeaea"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/payment_container"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/container"
           />
 
-      <include
-          android:id="@+id/bonus_layout"
-          layout="@layout/view_purchase_bonus"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
+      <ProgressBar
+          android:id="@+id/loading"
+          android:layout_width="@dimen/button_height"
+          android:layout_height="@dimen/button_height"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bot_separator"
-          app:layout_constraintVertical_bias="0"
-          app:layout_constraintVertical_chainStyle="packed"
-          />
-
-      <TextView
-          android:id="@+id/bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="11dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginBottom="21dp"
-          android:gravity="center"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-          app:layout_constraintVertical_bias="0"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
       <Button
           android:id="@+id/button"
           style="@style/ButtonStyle.Alternative"
-          android:layout_width="match_parent"
+          android:layout_width="0dp"
           android:layout_height="@dimen/button_height"
           android:layout_marginStart="40dp"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="40dp"
-          android:layout_marginBottom="80dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="21dp"
           android:enabled="false"
+          android:minWidth="144dp"
           android:text="@string/action_next"
           android:visibility="invisible"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
-          app:layout_constraintVertical_bias="1.0"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/container"
+          app:layout_constraintVertical_bias="0"
           />
 
       <include
@@ -300,6 +327,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
+
 
   <include
       android:id="@+id/no_network"
