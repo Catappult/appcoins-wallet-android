@@ -42,5 +42,15 @@ interface BalanceFragmentView {
   fun showCreatingAnimation()
 
   fun changeBottomSheetState()
+
   fun getBackupClick(): Observable<Any>
+
+  fun setTooltip()
+
+  fun getTooltipDismissClick(): Observable<Any>
+
+  fun getTooltipBackupButton(): Observable<Any>
+
+  fun homeBackPressed(): Observable<Any>?
+  fun dismissTooltip()
 }

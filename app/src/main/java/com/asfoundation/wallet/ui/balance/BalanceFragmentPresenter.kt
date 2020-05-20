@@ -5,6 +5,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -34,10 +35,43 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleQrCodeClick()
     handleBackupClick()
     handleBackPress()
+    handleSetupTooltip()
+    handleTooltipBackupClick()
+    handleTooltipLaterClick()
+  }
+
+  private fun handleTooltipLaterClick() {
+    disposables.add(view.getTooltipDismissClick()
+        .doOnNext {
+          view.dismissTooltip()
+          balanceInteract.saveSeenBackupTooltip()
+        }
+        .subscribe())
+  }
+
+  private fun handleTooltipBackupClick() {
+    disposables.add(view.getTooltipBackupButton()
+        .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+        .observeOn(viewScheduler)
+        .doOnNext {
+          balanceInteract.saveSeenBackupTooltip()
+          activityView?.navigateToBackupView(it)
+          view.dismissTooltip()
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleSetupTooltip() {
+    disposables.add(Single.just(balanceInteract.hasSeenBackupTooltip())
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .filter { !it }
+        .doOnSuccess { view.setTooltip() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleBackPress() {
-    disposables.add(view.backPressed()
+    disposables.add(Observable.merge(view.backPressed(), view.homeBackPressed())
         .observeOn(viewScheduler)
         .doOnNext { view.handleBackPress() }
         .subscribe())
@@ -115,9 +149,11 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .subscribe())
   }
 
+  fun saveSeenToolTip() {
+    balanceInteract.saveSeenBackupTooltip()
+  }
+
   fun stop() {
     disposables.clear()
   }
-
-
 }

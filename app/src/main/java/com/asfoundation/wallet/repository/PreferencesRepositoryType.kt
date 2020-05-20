@@ -36,4 +36,6 @@ interface PreferencesRepositoryType {
   fun getGamificationLevel(): Int
   fun saveChosenUri(uri: String)
   fun getChosenUri(): String?
+  fun getSeenBackupToolip(): Boolean
+  fun saveSeenBackupTooltip()
 }

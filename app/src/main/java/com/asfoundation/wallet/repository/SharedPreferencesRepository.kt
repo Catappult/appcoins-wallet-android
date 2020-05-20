@@ -159,6 +159,14 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun getChosenUri() = pref.getString(KEYSTORE_DIRECTORY, null)
 
+  override fun getSeenBackupToolip() = pref.getBoolean(SEEN_BACKUP_TOOLTIP, false)
+
+  override fun saveSeenBackupTooltip() {
+    pref.edit()
+        .putBoolean(SEEN_BACKUP_TOOLTIP, true)
+        .apply()
+  }
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
@@ -175,5 +183,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val ANDROID_ID = "android_id"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val KEYSTORE_DIRECTORY = "keystore_directory"
+    private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
   }
 }

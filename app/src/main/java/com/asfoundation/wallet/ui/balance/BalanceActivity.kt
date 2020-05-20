@@ -118,18 +118,10 @@ class BalanceActivity : BaseActivity(),
     create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) {
-      }
-
-      override fun onAnimationEnd(animation: Animator?) {
-        navigateToTransactions()
-      }
-
-      override fun onAnimationCancel(animation: Animator?) {
-      }
-
-      override fun onAnimationStart(animation: Animator?) {
-      }
+      override fun onAnimationRepeat(animation: Animator?) = Unit
+      override fun onAnimationEnd(animation: Animator?) = navigateToTransactions()
+      override fun onAnimationCancel(animation: Animator?) = Unit
+      override fun onAnimationStart(animation: Animator?) = Unit
     })
     create_wallet_animation.repeatCount = 0
     create_wallet_animation.playAnimation()

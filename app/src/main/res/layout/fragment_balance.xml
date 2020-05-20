@@ -129,11 +129,23 @@
         >
 
       <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/wallet_details_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:clipToPadding="false"
           android:padding="16dp"
           >
+        <include
+            android:id="@+id/tooltip"
+            layout="@layout/backup_tooltip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_details_card"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".747"
+            />
         <androidx.cardview.widget.CardView
             android:id="@+id/wallet_details_card"
             android:layout_width="match_parent"
@@ -150,6 +162,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               >
+
             <ImageView
                 android:id="@+id/wallet_icon"
                 android:layout_width="wrap_content"
@@ -300,4 +313,13 @@
         app:layout_behavior="@string/bottom_sheet_behavior"
         />
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
+  <FrameLayout
+      android:id="@+id/faded_background"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/faded_background_color"
+      android:clickable="true"
+      android:focusable="true"
+      android:visibility="gone"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>

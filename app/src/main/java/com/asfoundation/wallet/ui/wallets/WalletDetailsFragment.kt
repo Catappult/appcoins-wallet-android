@@ -101,7 +101,7 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
     ShareCompat.IntentBuilder.from(activity)
         .setText(walletAddress)
         .setType("text/plain")
-        .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
+        .setChooserTitle(resources.getString(R.string.share_via))
         .startChooser()
   }
 

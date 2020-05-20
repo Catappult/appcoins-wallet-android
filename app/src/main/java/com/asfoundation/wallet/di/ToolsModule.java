@@ -1228,8 +1228,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides BalanceInteract provideBalanceInteract(
-      FindDefaultWalletInteract findDefaultWalletInteract, BalanceRepository balanceRepository) {
-    return new BalanceInteract(findDefaultWalletInteract, balanceRepository);
+      FindDefaultWalletInteract findDefaultWalletInteract, BalanceRepository balanceRepository,
+      PreferencesRepositoryType preferencesRepositoryType) {
+    return new BalanceInteract(findDefaultWalletInteract, balanceRepository,
+        preferencesRepositoryType);
   }
 
   @Singleton @Provides BalanceRepository provideBalanceRepository(Context context,

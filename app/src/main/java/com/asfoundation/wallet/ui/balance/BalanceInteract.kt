@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.balance
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
@@ -16,7 +17,8 @@ import java.math.BigDecimal
 
 class BalanceInteract(
     private val walletInteract: FindDefaultWalletInteract,
-    private val balanceRepository: BalanceRepository) {
+    private val balanceRepository: BalanceRepository,
+    private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
@@ -99,6 +101,11 @@ class BalanceInteract(
         }
     )
   }
+
+  fun hasSeenBackupTooltip() = preferencesRepositoryType.getSeenBackupToolip()
+
+  fun saveSeenBackupTooltip() = preferencesRepositoryType.saveSeenBackupTooltip()
+
 
   private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
                                 appcBalance: Pair<Balance, FiatValue>,
