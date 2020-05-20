@@ -64,6 +64,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.setupUiElements(filterPaymentMethods(paymentMethods),
               LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
           updateDefaultValues(defaultValues)
+          view.hideButtonLoading()
         })
         .subscribe({}, { handleError(it) }))
   }
