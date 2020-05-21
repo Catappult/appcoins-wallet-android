@@ -555,6 +555,9 @@
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
   <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
   <string name="error_invalid_keystore">Geçersiz keystore</string>
+  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
+  <string name="backup_tooltip_later_button">MAYBE LATER</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>
