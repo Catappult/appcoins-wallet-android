@@ -555,6 +555,9 @@
   <string name="import_wallet_wrong_password_body">Password errata!</string>
   <string name="error_invalid_private_key">Chiave privata non valida</string>
   <string name="error_invalid_keystore">Keystore non valido</string>
+  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
+  <string name="backup_tooltip_later_button">MAYBE LATER</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallet</string>
   <string name="wallets_total_balance_title">Saldo totale in %s</string>
