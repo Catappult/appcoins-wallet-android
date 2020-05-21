@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.active_wallet_card.*
 import kotlinx.android.synthetic.main.active_wallet_card.view.*
-import kotlinx.android.synthetic.main.import_create_buttons_layout.*
+import kotlinx.android.synthetic.main.restore_create_buttons_layout.*
 import kotlinx.android.synthetic.main.wallets_layout.*
 import javax.inject.Inject
 
@@ -108,11 +108,11 @@ class WalletsFragment : DaggerFragment(), WalletsView {
   override fun activeWalletCardClicked(): Observable<String> = RxView.clicks(active_wallet_card)
       .map { active_wallet_address.text.toString() }
 
-  override fun importWalletClicked(): Observable<Any> = RxView.clicks(import_button_layout)
+  override fun restoreWalletClicked(): Observable<Any> = RxView.clicks(restore_button_layout)
 
   override fun createNewWalletClicked(): Observable<Any> = RxView.clicks(create_new_button_layout)
 
-  override fun navigateToImportView() = activityView.navigateToImportView()
+  override fun navigateToRestoreView() = activityView.navigateToRestoreView()
 
   override fun showCreatingAnimation() {
     val parentFragment = provideParentFragment()
@@ -127,9 +127,11 @@ class WalletsFragment : DaggerFragment(), WalletsView {
   override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) =
       activityView.navigateToWalletDetailView(walletAddress, isActive)
 
-  override fun collapseBottomSheet() {
+  override fun onBottomSheetHeaderClicked() = RxView.clicks(bottom_sheet_header)
+
+  override fun changeBottomSheetState() {
     val parentFragment = provideParentFragment()
-    parentFragment?.collapseBottomSheet()
+    parentFragment?.changeBottomSheetState()
   }
 
   private fun removeCurrentWallet(walletsBalanceList: List<WalletBalance>): List<WalletBalance> {

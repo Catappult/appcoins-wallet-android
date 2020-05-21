@@ -33,9 +33,9 @@ import com.asfoundation.wallet.ui.backup.BackupSuccessFragment;
 import com.asfoundation.wallet.ui.backup.BackupWalletFragment;
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
-import com.asfoundation.wallet.ui.balance.ImportWalletFragment;
-import com.asfoundation.wallet.ui.balance.ImportWalletPasswordFragment;
 import com.asfoundation.wallet.ui.balance.QrCodeActivity;
+import com.asfoundation.wallet.ui.balance.RestoreWalletFragment;
+import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment;
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity;
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.gamification.HowItWorksFragment;
@@ -220,10 +220,10 @@ import dagger.android.ContributesAndroidInjector;
   abstract WalletRemoveConfirmationFragment bindWalletRemoveConfirmationFragment();
 
   @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
-  abstract ImportWalletFragment bindImportWalletFragment();
+  abstract RestoreWalletFragment bindRestoreWalletFragment();
 
   @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
-  abstract ImportWalletPasswordFragment bindImportWalletPasswordFragment();
+  abstract RestoreWalletPasswordFragment bindRestoreWalletPasswordFragment();
 
   @ActivityScope @ContributesAndroidInjector
   abstract WalletBackupActivity bindWalletBackupActivity();

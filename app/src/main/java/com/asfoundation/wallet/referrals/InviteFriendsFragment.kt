@@ -108,19 +108,11 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
-  private fun expandBottomSheet() {
-    referralsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-  }
-
-  private fun collapseBottomSheet() {
-    referralsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-  }
-
   override fun changeBottomSheetState() {
     if (referralsBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
-      expandBottomSheet()
-    } else {
-      collapseBottomSheet()
+      referralsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+    } else if (referralsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+      referralsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     }
   }
 

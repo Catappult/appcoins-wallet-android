@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invited_friends_animation_list.*
 import kotlinx.android.synthetic.main.referrals_layout.*
 import java.math.BigDecimal
@@ -25,7 +27,7 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = ReferralsPresenter(this)
+    presenter = ReferralsPresenter(this, CompositeDisposable())
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,6 +57,20 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     invitations_progress_bar.progress =
         ((100 / (completedInvites.toDouble() + available.toDouble())) * completedInvites).roundToInt()
     setFriendsAnimations(completedInvites, completedInvites + available)
+  }
+
+  override fun bottomSheetHeaderClick() = RxView.clicks(bottom_sheet_header)
+
+  override fun changeBottomSheetState() {
+    val parentFragment = provideParentFragment()
+    parentFragment?.changeBottomSheetState()
+  }
+
+  private fun provideParentFragment(): InviteFriendsFragment? {
+    if (parentFragment !is InviteFriendsFragment) {
+      return null
+    }
+    return parentFragment as InviteFriendsFragment
   }
 
   private fun getTotalEarned(): BigDecimal {

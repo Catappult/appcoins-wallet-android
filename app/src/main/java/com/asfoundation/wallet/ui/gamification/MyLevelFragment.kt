@@ -51,7 +51,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     childFragmentManager.beginTransaction()
-        .replace(R.id.gamification_fragment_container, HowItWorksFragment())
+        .replace(R.id.gamification_fragment_container, HowItWorksFragment.newInstance())
         .commit()
     return inflater.inflate(R.layout.fragment_gamification_my_level, container, false)
   }
@@ -100,9 +100,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     setLevelResources(level)
     gamificationProgressBarView.animateProgress(lastShownLevel, level, step)
 
-    if (level > lastShownLevel) {
-      levelUpAnimation(level)
-    }
+    if (level > lastShownLevel) levelUpAnimation(level)
 
     for (value in bonus) {
       val levelIndex = bonus.indexOf(value)
@@ -130,9 +128,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun animateBackgroundFade() {
     howItWorksBottomSheet.addBottomSheetCallback(object :
         BottomSheetBehavior.BottomSheetCallback() {
-      override fun onStateChanged(bottomSheet: View, newState: Int) {
-      }
-
+      override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
@@ -175,18 +171,10 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     gamification_current_level_animation.visibility = View.VISIBLE
     gamification_current_level_animation.playAnimation()
     gamification_current_level_animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) {
-        setLevelIdleAnimation(level)
-      }
-
-      override fun onAnimationEnd(animation: Animator?) {
-      }
-
-      override fun onAnimationCancel(animation: Animator?) {
-      }
-
-      override fun onAnimationStart(animation: Animator?) {
-      }
+      override fun onAnimationRepeat(animation: Animator?) = setLevelIdleAnimation(level)
+      override fun onAnimationEnd(animation: Animator?) = Unit
+      override fun onAnimationCancel(animation: Animator?) = Unit
+      override fun onAnimationStart(animation: Animator?) = Unit
     })
   }
 
@@ -196,19 +184,11 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     gamification_current_level_animation.playAnimation()
   }
 
-  private fun expandBottomSheet() {
-    howItWorksBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-  }
-
-  private fun collapseBottomSheet() {
-    howItWorksBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-  }
-
   override fun changeBottomSheetState() {
     if (howItWorksBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
-      expandBottomSheet()
-    } else {
-      collapseBottomSheet()
+      howItWorksBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+    } else if (howItWorksBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+      howItWorksBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     }
   }
 }

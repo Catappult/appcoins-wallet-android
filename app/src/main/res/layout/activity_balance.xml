@@ -14,7 +14,7 @@
       android:id="@+id/wallet_creation_animation"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/animation_background"
+      android:background="@color/faded_background_color"
       android:clickable="true"
       android:focusable="true"
       android:gravity="center"

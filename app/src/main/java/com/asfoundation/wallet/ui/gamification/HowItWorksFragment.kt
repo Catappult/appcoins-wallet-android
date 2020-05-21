@@ -15,6 +15,7 @@ import androidx.core.text.HtmlCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -113,12 +114,20 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     }
   }
 
+  override fun bottomSheetHeaderClick() = RxView.clicks(bottom_sheet_header)
+
+  override fun changeBottomSheetState() {
+    val parentFragment = provideParentFragment()
+    parentFragment?.changeBottomSheetState()
+  }
+
   private fun formatNextLevelFooter(id: Int, nextLevelAmount: String,
                                     nextLevel: String): CharSequence {
     return HtmlCompat.fromHtml(String.format(
         HtmlCompat.toHtml(SpannedString(getText(id)),
             HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE),
-        nextLevelAmount, nextLevel), HtmlCompat.FROM_HTML_MODE_LEGACY).trim()
+        nextLevelAmount, nextLevel), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        .trim()
   }
 
   private fun formatLevelInfo(value: Double): String {
@@ -139,6 +148,14 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
         ContextCompat.getColor(context!!, R.color.rewards_level_main_color))
   }
 
+  private fun provideParentFragment(): MyLevelFragment? {
+    if (parentFragment !is MyLevelFragment) {
+      return null
+    }
+    return parentFragment as MyLevelFragment
+  }
+
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_gamification_how_it_works, container, false)
@@ -158,8 +175,6 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     const val MAX_LEVEL = 4
 
     @JvmStatic
-    fun newInstance(): HowItWorksFragment {
-      return HowItWorksFragment()
-    }
+    fun newInstance() = HowItWorksFragment()
   }
 }

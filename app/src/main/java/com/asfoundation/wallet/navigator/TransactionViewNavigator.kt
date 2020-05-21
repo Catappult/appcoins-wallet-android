@@ -55,9 +55,11 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
     updateNavigator.navigateToStoreAppView(context, url)
   }
 
-  fun navigateToBackup(context: Context) {
-    val intent = Intent(context, WalletBackupActivity::class.java)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+  fun navigateToBackup(context: Context, walletAddress: String) {
+    val intent = WalletBackupActivity.newIntent(context, walletAddress)
+        .apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
     context.startActivity(intent)
   }
 }

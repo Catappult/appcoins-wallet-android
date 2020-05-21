@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.MyAddressActivity
@@ -25,6 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.backup_tooltip.view.*
 import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.bottom_sheet_fragment_container
@@ -43,35 +47,34 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   private var onBackPressedSubject: PublishSubject<Any>? = null
   private var activityView: BalanceActivityView? = null
   private var showingAnimation: Boolean = false
+  private var popup: PopupWindow? = null
+  private lateinit var tooltip: View
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
   private lateinit var presenter: BalanceFragmentPresenter
 
   companion object {
     @JvmStatic
-    fun newInstance(): BalanceFragment {
-      return BalanceFragment()
-    }
+    fun newInstance() = BalanceFragment()
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is BalanceActivityView) {
-      throw IllegalStateException(
-          "Balance Fragment must be attached to Balance Activity")
+      throw IllegalStateException("Balance Fragment must be attached to Balance Activity")
     }
     activityView = context
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BalanceFragmentPresenter(this, balanceInteract,
-        Schedulers.io(),
-        AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
+    presenter = BalanceFragmentPresenter(this, activityView, balanceInteract,
+        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
     onBackPressedSubject = PublishSubject.create()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+    tooltip = layoutInflater.inflate(R.layout.backup_tooltip, null)
     childFragmentManager.beginTransaction()
         .replace(R.id.bottom_sheet_fragment_container, WalletsFragment())
         .commit()
@@ -84,9 +87,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
     setBackListener(view)
     activityView?.let {
-      if (it.shouldExpandBottomSheet()) {
-        walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-      }
+      if (it.shouldExpandBottomSheet()) walletsBottomSheet.state =
+          BottomSheetBehavior.STATE_EXPANDED
     }
     animateBackgroundFade()
     activityView?.setupToolbar()
@@ -102,6 +104,15 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
             setAlpha(balance_value_placeholder, percentage)
           }
         })
+  }
+
+  override fun setTooltip() {
+    popup = PopupWindow(tooltip)
+    popup?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+    popup?.width = ViewGroup.LayoutParams.MATCH_PARENT
+    val offset = dpToPx(25f)
+    faded_background.visibility = View.VISIBLE
+    popup?.showAsDropDown(backup_active_button, 0, offset * -1)
   }
 
   override fun onDestroyView() {
@@ -185,20 +196,14 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     }
   }
 
-  override fun getCreditClick(): Observable<View> {
-    return RxView.clicks(appcoins_credits_token)
-        .map { appcoins_credits_token }
-  }
+  override fun getCreditClick(): Observable<View> = RxView.clicks(appcoins_credits_token)
+      .map { appcoins_credits_token }
 
-  override fun getAppcClick(): Observable<View> {
-    return RxView.clicks(appcoins_token)
-        .map { appcoins_token }
-  }
+  override fun getAppcClick(): Observable<View> = RxView.clicks(appcoins_token)
+      .map { appcoins_token }
 
-  override fun getEthClick(): Observable<View> {
-    return RxView.clicks(ether_token)
-        .map { ether_token }
-  }
+  override fun getEthClick(): Observable<View> = RxView.clicks(ether_token)
+      .map { ether_token }
 
   override fun showTokenDetails(view: View) {
     lateinit var tokenId: TokenDetailsActivity.TokenDetailsId
@@ -211,13 +216,15 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     activityView?.showTokenDetailsScreen(tokenId, view.token_icon, view.token_name, view)
   }
 
-  override fun showTopUpScreen() {
-    activityView?.showTopUpScreen()
-  }
-
   override fun getCopyClick() = RxView.clicks(copy_address)
 
   override fun getQrCodeClick() = RxView.clicks(wallet_qr_code)
+
+  override fun getBackupClick() = RxView.clicks(backup_active_button)
+
+  override fun getTooltipDismissClick() = RxView.clicks(tooltip.tooltip_later_button)
+
+  override fun getTooltipBackupButton() = RxView.clicks(tooltip.tooltip_backup_button)
 
   override fun setWalletAddress(walletAddress: String) {
     active_wallet_address.text = walletAddress
@@ -238,13 +245,9 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     context?.let { startActivityForResult(QrCodeActivity.newIntent(it), 12) }
   }
 
-  override fun collapseBottomSheet() {
-    walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-  }
+  override fun backPressed() = onBackPressedSubject!!
 
-  override fun backPressed(): Observable<Any> {
-    return Observable.merge(onBackPressedSubject!!, activityView?.backPressed())
-  }
+  override fun homeBackPressed() = activityView?.backPressed()
 
   override fun handleBackPress() {
     if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -264,6 +267,18 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     activityView?.showWalletCreatedAnimation()
   }
 
+  override fun changeBottomSheetState() {
+    if (walletsBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+      walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+    } else if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+      walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+  }
+
+  override fun dismissTooltip() {
+    faded_background.visibility = View.GONE
+    popup?.dismiss()
+  }
 
   private fun setBackListener(view: View) {
     activityView?.disableBack()
@@ -271,8 +286,11 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
       isFocusableInTouchMode = true
       requestFocus()
       setOnKeyListener { _, keyCode, keyEvent ->
-        if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK && !showingAnimation) {
-          onBackPressedSubject?.onNext("")
+        if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+          if (popup != null && popup?.isShowing == true) {
+            dismissTooltip()
+            presenter.saveSeenToolTip()
+          } else if (!showingAnimation) onBackPressedSubject?.onNext("")
         }
         true
       }
@@ -282,9 +300,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   private fun animateBackgroundFade() {
     walletsBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-      override fun onStateChanged(bottomSheet: View, newState: Int) {
-      }
-
+      override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
@@ -294,4 +310,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   private fun setAlpha(view: View, alphaPercentage: Float) {
     view.alpha = 1 - alphaPercentage * 1.20f
   }
+
+  private fun dpToPx(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
+      Resources.getSystem().displayMetrics)
+      .toInt()
 }

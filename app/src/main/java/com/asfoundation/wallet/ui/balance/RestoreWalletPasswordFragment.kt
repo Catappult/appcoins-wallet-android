@@ -11,40 +11,40 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.ImportErrorType
+import com.asfoundation.wallet.util.RestoreErrorType
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.import_wallet_password_layout.*
+import kotlinx.android.synthetic.main.restore_wallet_password_layout.*
 import kotlinx.android.synthetic.main.wallet_outlined_card.*
 import javax.inject.Inject
 
-class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView {
+class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordView {
 
   @Inject
-  lateinit var importWalletPasswordInteractor: ImportWalletPasswordInteractor
+  lateinit var restoreWalletPasswordInteractor: RestoreWalletPasswordInteractor
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
-  private lateinit var activityView: ImportWalletActivityView
-  private lateinit var presenter: ImportWalletPasswordPresenter
+  private lateinit var activityView: RestoreWalletActivityView
+  private lateinit var presenter: RestoreWalletPasswordPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        ImportWalletPasswordPresenter(this, activityView, importWalletPasswordInteractor,
+        RestoreWalletPasswordPresenter(this, activityView, restoreWalletPasswordInteractor,
             CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
             Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is ImportWalletActivityView) {
+    if (context !is RestoreWalletActivityView) {
       throw IllegalStateException(
-          "Import Wallet Password fragment must be attached to Import Wallet Activity")
+          "Restore Wallet Password fragment must be attached to Restore Wallet Activity")
     }
     activityView = context
   }
@@ -56,7 +56,7 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.import_wallet_password_layout, container, false)
+    return inflater.inflate(R.layout.restore_wallet_password_layout, container, false)
   }
 
   @SuppressLint("SetTextI18n")
@@ -67,44 +67,38 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
         "${fiatValue.symbol}${currencyFormatUtils.formatCurrency(fiatValue.amount)}"
   }
 
-  override fun importWalletButtonClick(): Observable<String> {
+  override fun restoreWalletButtonClick(): Observable<String> {
     return RxView.clicks(import_wallet_button)
         .map { password_edit_text.editableText.toString() }
   }
 
-  override fun showWalletImportAnimation() {
-    activityView.showWalletImportAnimation()
+  override fun showWalletRestoreAnimation() {
+    activityView.showWalletRestoreAnimation()
   }
 
-  override fun showWalletImportedAnimation() {
-    activityView.showWalletImportedAnimation()
+  override fun showWalletRestoredAnimation() {
+    activityView.showWalletRestoredAnimation()
   }
 
   override fun hideAnimation() {
     activityView.hideAnimation()
   }
 
-  override fun showError(type: ImportErrorType) {
+  override fun showError(type: RestoreErrorType) {
     label_input.isErrorEnabled = true
     when (type) {
-      ImportErrorType.ALREADY_ADDED -> label_input.error = getString(R.string.error_already_added)
-      ImportErrorType.INVALID_PASS -> label_input.error =
+      RestoreErrorType.ALREADY_ADDED -> label_input.error = getString(R.string.error_already_added)
+      RestoreErrorType.INVALID_PASS -> label_input.error =
           getString(R.string.import_wallet_wrong_password_body)
-      ImportErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
+      RestoreErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
       else -> label_input.error = getString(R.string.error_general)
     }
   }
 
   private fun setTextChangeListener() {
     password_edit_text.addTextChangedListener(object : TextWatcher {
-      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int,
-                                     i2: Int) {
-      }
-
-      override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int,
-                                 i2: Int) {
-      }
-
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
+      override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun afterTextChanged(editable: Editable) {
         label_input.isErrorEnabled = false
         import_wallet_button.isEnabled = editable.toString()
@@ -125,8 +119,8 @@ class ImportWalletPasswordFragment : DaggerFragment(), ImportWalletPasswordView 
 
     private const val KEYSTORE_KEY = "keystore"
 
-    fun newInstance(keystore: String): ImportWalletPasswordFragment {
-      val fragment = ImportWalletPasswordFragment()
+    fun newInstance(keystore: String): RestoreWalletPasswordFragment {
+      val fragment = RestoreWalletPasswordFragment()
       Bundle().apply {
         putString(KEYSTORE_KEY, keystore)
         fragment.arguments = this

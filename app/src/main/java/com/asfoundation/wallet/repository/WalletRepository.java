@@ -48,12 +48,12 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override
-  public Single<Wallet> importKeystoreToWallet(String store, String password, String newPassword) {
-    return accountKeystoreService.importKeystore(store, password, newPassword);
+  public Single<Wallet> restoreKeystoreToWallet(String store, String password, String newPassword) {
+    return accountKeystoreService.restoreKeystore(store, password, newPassword);
   }
 
-  @Override public Single<Wallet> importPrivateKeyToWallet(String privateKey, String newPassword) {
-    return accountKeystoreService.importPrivateKey(privateKey, newPassword);
+  @Override public Single<Wallet> restorePrivateKeyToWallet(String privateKey, String newPassword) {
+    return accountKeystoreService.restorePrivateKey(privateKey, newPassword);
   }
 
   @Override

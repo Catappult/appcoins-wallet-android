@@ -23,9 +23,9 @@ public interface AccountKeystoreService {
    *
    * @return included {@link Wallet} if success
    */
-  Single<Wallet> importKeystore(String store, String password, String newPassword);
+  Single<Wallet> restoreKeystore(String store, String password, String newPassword);
 
-  Single<Wallet> importPrivateKey(String privateKey, String newPassword);
+  Single<Wallet> restorePrivateKey(String privateKey, String newPassword);
 
   /**
    * Export wallet to keystore

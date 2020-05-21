@@ -21,18 +21,18 @@ import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.import_wallet_layout.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
+import kotlinx.android.synthetic.main.restore_wallet_layout.*
 
 
-class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
+class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
 
   companion object {
     private const val RC_READ_EXTERNAL_PERMISSION_CODE = 1002
     private const val FILE_INTENT_CODE = 1003
 
     @JvmStatic
-    fun newIntent(context: Context) = Intent(context, ImportWalletActivity::class.java)
+    fun newIntent(context: Context) = Intent(context, RestoreWalletActivity::class.java)
   }
 
   private var fileChosenSubject: PublishSubject<Uri>? = null
@@ -42,9 +42,9 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
     super.onCreate(savedInstanceState)
     fileChosenSubject = PublishSubject.create()
     onPermissionSubject = PublishSubject.create()
-    setContentView(R.layout.import_wallet_layout)
+    setContentView(R.layout.restore_wallet_layout)
     toolbar()
-    navigateToInitialImportFragment()
+    navigateToInitialRestoreFragment()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,19 +69,19 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
 
   override fun navigateToPasswordView(keystore: String) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, ImportWalletPasswordFragment.newInstance(keystore))
-        .addToBackStack(ImportWalletPasswordFragment::class.java.simpleName)
+        .replace(R.id.fragment_container, RestoreWalletPasswordFragment.newInstance(keystore))
+        .addToBackStack(RestoreWalletPasswordFragment::class.java.simpleName)
         .commit()
   }
 
-  override fun showWalletImportAnimation() {
+  override fun showWalletRestoreAnimation() {
     import_wallet_animation_group.visibility = View.VISIBLE
     background.visibility = View.VISIBLE
     background.animation = AnimationUtils.loadAnimation(this, R.anim.fast_fade_in_animation)
     import_wallet_animation.playAnimation()
   }
 
-  override fun showWalletImportedAnimation() {
+  override fun showWalletRestoredAnimation() {
     import_wallet_animation.setAnimation(R.raw.success_animation)
     import_wallet_text.text = getText(R.string.provide_wallet_created_header)
     import_wallet_text.visibility = View.VISIBLE
@@ -161,9 +161,9 @@ class ImportWalletActivity : BaseActivity(), ImportWalletActivityView {
     finish()
   }
 
-  private fun navigateToInitialImportFragment() {
+  private fun navigateToInitialRestoreFragment() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, ImportWalletFragment.newInstance())
+        .replace(R.id.fragment_container, RestoreWalletFragment.newInstance())
         .commit()
   }
 }

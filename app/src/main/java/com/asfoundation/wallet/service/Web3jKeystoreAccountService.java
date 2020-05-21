@@ -55,7 +55,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   }
 
   @Override
-  public Single<Wallet> importKeystore(String store, String password, String newPassword) {
+  public Single<Wallet> restoreKeystore(String store, String password, String newPassword) {
     return Single.fromCallable(() -> extractAddressFromStore(store))
         .flatMap(address -> {
           if (hasAccount(address)) {
@@ -68,14 +68,14 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
         .subscribeOn(scheduler);
   }
 
-  @Override public Single<Wallet> importPrivateKey(String privateKey, String newPassword) {
+  @Override public Single<Wallet> restorePrivateKey(String privateKey, String newPassword) {
     return Single.fromCallable(() -> {
       BigInteger key = new BigInteger(privateKey, PRIVATE_KEY_RADIX);
       ECKeyPair keypair = ECKeyPair.create(key);
       WalletFile walletFile = create(newPassword, keypair, N, P);
       return new ObjectMapper().writeValueAsString(walletFile);
     })
-        .flatMap(keystore -> importKeystore(keystore, newPassword, newPassword));
+        .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword));
   }
 
   @Override
