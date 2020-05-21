@@ -555,6 +555,9 @@
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
   <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
   <string name="error_invalid_keystore">keystore نامعتبر</string>
+  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
+  <string name="backup_tooltip_later_button">MAYBE LATER</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>
