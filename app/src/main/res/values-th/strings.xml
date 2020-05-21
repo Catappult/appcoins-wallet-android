@@ -555,6 +555,9 @@
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <string name="error_invalid_keystore">คีย์สโตนไม่ถูกต้อง</string>
+  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
+  <string name="backup_tooltip_later_button">MAYBE LATER</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
