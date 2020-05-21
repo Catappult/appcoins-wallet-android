@@ -8,8 +8,10 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.commons.MemoryCache;
+import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -22,6 +24,7 @@ import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.repository.AllowanceService;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -72,6 +75,10 @@ import static org.mockito.Mockito.when;
  */
 public class InAppPurchaseInteractorTest {
 
+  private static final NetworkInfo networkInfo =
+      new com.asfoundation.wallet.entity.NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
+          "https://ropsten.infura.io/v3/df5b41e6a3a44d9dbf9142fa3f58cabc",
+          "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false);
   private static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   private static final String APPROVE_HASH = "approve_hash";
   private static final String BUY_HASH = "buy_hash";
@@ -102,6 +109,7 @@ public class InAppPurchaseInteractorTest {
   @Mock ProxyService proxyService;
   @Mock TokenRateService conversionService;
   @Mock AddressService addressService;
+  @Mock AllowanceService allowanceService;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -159,9 +167,12 @@ public class InAppPurchaseInteractorTest {
 
     when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
 
+    when(allowanceService.checkAllowance(any(), any(), any())).thenReturn(
+        Single.just(BigDecimal.ZERO));
+
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(approveTransactionService, transactionValidator),
+            new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
                 countryCodeProvider, new DataMapper(), addressService), balanceService, scheduler,
             new ErrorMapper());

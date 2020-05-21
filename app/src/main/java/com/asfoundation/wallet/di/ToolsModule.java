@@ -130,6 +130,7 @@ import com.asfoundation.wallet.promotions.PromotionsInteractorContract;
 import com.asfoundation.wallet.referrals.ReferralInteractor;
 import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
+import com.asfoundation.wallet.repository.AllowanceService;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.AutoUpdateRepository;
@@ -425,22 +426,27 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
+  @Provides AllowanceService provideAllowanceService(Web3jProvider web3jProvider,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new AllowanceService(web3jProvider.getDefault(), defaultTokenProvider);
+  }
+
   @Singleton @Provides @Named("IN_APP_PURCHASE_SERVICE")
   InAppPurchaseService provideInAppPurchaseService(
       @Named("APPROVE_SERVICE_BDS") ApproveService approveService,
-      @Named("BUY_SERVICE_BDS") BuyService buyService, BalanceService balanceService,
-      ErrorMapper errorMapper) {
+      AllowanceService allowanceService, @Named("BUY_SERVICE_BDS") BuyService buyService,
+      BalanceService balanceService, ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
+        approveService, allowanceService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_PURCHASE_SERVICE")
   InAppPurchaseService provideInAppPurchaseServiceAsf(
       @Named("APPROVE_SERVICE_ON_CHAIN") ApproveService approveService,
-      @Named("BUY_SERVICE_ON_CHAIN") BuyService buyService, BalanceService balanceService,
-      ErrorMapper errorMapper) {
+      AllowanceService allowanceService, @Named("BUY_SERVICE_ON_CHAIN") BuyService buyService,
+      BalanceService balanceService, ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
+        approveService, allowanceService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
 
   @Singleton @Provides BdsTransactionService providesBdsTransactionService(Billing billing,
