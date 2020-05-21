@@ -555,6 +555,9 @@
   <string name="import_wallet_wrong_password_body">अरे, गलत पासवर्ड!</string>
   <string name="error_invalid_private_key">अमान्य निजी कुंजी</string>
   <string name="error_invalid_keystore">अमान्य कीस्टोर</string>
+  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
+  <string name="backup_tooltip_later_button">MAYBE LATER</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट</string>
   <string name="wallets_total_balance_title">%s में कुल बैलेंस</string>
