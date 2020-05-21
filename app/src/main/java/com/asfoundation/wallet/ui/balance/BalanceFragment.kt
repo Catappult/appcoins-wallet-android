@@ -245,9 +245,9 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     context?.let { startActivityForResult(QrCodeActivity.newIntent(it), 12) }
   }
 
-  override fun backPressed(): Observable<Any> = onBackPressedSubject!!
+  override fun backPressed() = onBackPressedSubject!!
 
-  override fun homeBackPressed(): Observable<Any>? = activityView?.backPressed()
+  override fun homeBackPressed() = activityView?.backPressed()
 
   override fun handleBackPress() {
     if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -311,9 +311,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     view.alpha = 1 - alphaPercentage * 1.20f
   }
 
-  private fun dpToPx(value: Float): Int {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
-        Resources.getSystem().displayMetrics)
-        .toInt()
-  }
+  private fun dpToPx(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
+      Resources.getSystem().displayMetrics)
+      .toInt()
 }

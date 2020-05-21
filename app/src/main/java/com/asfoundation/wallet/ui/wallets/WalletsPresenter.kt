@@ -22,14 +22,14 @@ class WalletsPresenter(private val view: WalletsView,
   private fun handleBottomSheetHeaderClick() {
     disposables.add(view.onBottomSheetHeaderClicked()
         .doOnNext { view.changeBottomSheetState() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRestoreWalletClick() {
     disposables.add(view.restoreWalletClicked()
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToRestoreView() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleCreateNewWalletClick() {
@@ -41,21 +41,21 @@ class WalletsPresenter(private val view: WalletsView,
               .observeOn(viewScheduler)
               .andThen { view.showWalletCreatedAnimation() }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleOtherWalletCardClick() {
     disposables.add(view.otherWalletCardClicked()
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, false) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleActiveWalletCardClick() {
     disposables.add(view.activeWalletCardClicked()
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, true) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun retrieveViewInformation() {
@@ -66,8 +66,5 @@ class WalletsPresenter(private val view: WalletsView,
         .subscribe({}, { logger.log("WalletsPresenter", it) }))
   }
 
-  fun stop() {
-    disposables.clear()
-  }
-
+  fun stop() = disposables.clear()
 }

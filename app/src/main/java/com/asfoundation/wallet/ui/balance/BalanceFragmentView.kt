@@ -52,5 +52,6 @@ interface BalanceFragmentView {
   fun getTooltipBackupButton(): Observable<Any>
 
   fun homeBackPressed(): Observable<Any>?
+
   fun dismissTooltip()
 }

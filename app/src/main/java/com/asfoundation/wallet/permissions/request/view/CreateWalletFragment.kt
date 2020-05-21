@@ -11,7 +11,6 @@ import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_create_wallet_layout.*
@@ -62,13 +61,9 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
     super.onDestroyView()
   }
 
-  override fun getOnCreateWalletClick(): Observable<Any> {
-    return RxView.clicks(provide_wallet_create_wallet_button)
-  }
+  override fun getOnCreateWalletClick() = RxView.clicks(provide_wallet_create_wallet_button)
 
-  override fun getCancelClick(): Observable<Any> {
-    return RxView.clicks(provide_wallet_cancel)
-  }
+  override fun getCancelClick() = RxView.clicks(provide_wallet_cancel)
 
   override fun closeSuccess() = navigator.closeSuccess()
 

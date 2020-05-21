@@ -106,7 +106,6 @@ class BalanceInteract(
 
   fun saveSeenBackupTooltip() = preferencesRepositoryType.saveSeenBackupTooltip()
 
-
   private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
                                 appcBalance: Pair<Balance, FiatValue>,
                                 ethBalance: Pair<Balance, FiatValue>): FiatValue {

@@ -46,7 +46,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
           view.dismissTooltip()
           balanceInteract.saveSeenBackupTooltip()
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleTooltipBackupClick() {
@@ -64,8 +64,8 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun handleSetupTooltip() {
     disposables.add(Single.just(balanceInteract.hasSeenBackupTooltip())
         .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
         .filter { !it }
+        .observeOn(viewScheduler)
         .doOnSuccess { view.setTooltip() }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -74,11 +74,13 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     disposables.add(Observable.merge(view.backPressed(), view.homeBackPressed())
         .observeOn(viewScheduler)
         .doOnNext { view.handleBackPress() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun requestActiveWalletAddress() {
     disposables.add(balanceInteract.requestActiveWalletAddress()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
         .doOnSuccess { view.setWalletAddress(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -88,8 +90,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext { updateUI(it) }
-        .doOnError { it.printStackTrace() }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -105,7 +106,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         Observable.merge(view.getCreditClick(), view.getAppcClick(), view.getEthClick())
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .map { view.showTokenDetails(it) }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun updateTokenBalance(balance: TokenBalance, currency: WalletCurrency) {
@@ -131,14 +132,14 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { view.setAddressToClipBoard(it) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleQrCodeClick() {
     disposables.add(view.getQrCodeClick()
         .observeOn(viewScheduler)
         .doOnNext { view.showQrCodeView() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleBackupClick() {
@@ -146,7 +147,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { activityView?.navigateToBackupView(it) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun saveSeenToolTip() {
