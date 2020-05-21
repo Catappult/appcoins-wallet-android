@@ -16,7 +16,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.router.ManageWalletsRouter
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -29,13 +29,15 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   internal lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
-  @Inject
-  internal lateinit var manageWalletsRouter: ManageWalletsRouter
+
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+
   @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
+  @Inject
+  lateinit var supportInteractor: SupportInteractor
   private lateinit var presenter: SettingsPresenter
 
 
@@ -64,9 +66,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun startBrowserActivity(uri: Uri, newTaskFlag: Boolean) {
     try {
       val intent = Intent(Intent.ACTION_VIEW, uri)
-      if (newTaskFlag) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
+      if (newTaskFlag) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       startActivity(intent)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
@@ -104,7 +104,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setupPreferences() {
     setPermissionPreference()
     setSourceCodePreference()
-    setBugReportPreference()
+    setIssueReportPreference()
     setTwitterPreference()
     setTelegramPreference()
     setFacebookPreference()
@@ -148,15 +148,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     verifyWalletPreference?.setIcon(R.drawable.ic_settings_verification_disabled)
   }
 
-  override fun setWalletsPreference(walletAddress: String) {
-    val walletPreference = findPreference<Preference>("pref_wallet")
-    walletPreference?.summary = walletAddress
-    walletPreference?.setOnPreferenceClickListener {
-      manageWalletsRouter.open(context)
-      false
-    }
-  }
-
   override fun setRedeemCodePreference(walletAddress: String) {
     val redeemPreference = findPreference<Preference>("pref_redeem")
     redeemPreference?.setOnPreferenceClickListener {
@@ -182,11 +173,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setBugReportPreference() {
-    val bugReportPreference = findPreference<Preference>("pref_report_bug")
+  private fun setIssueReportPreference() {
+    val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
-      startBrowserActivity(
-          Uri.parse("https://github.com/Aptoide/appcoins-wallet-android/issues/new"), false)
+      supportInteractor.displayChatScreen()
       false
     }
   }
@@ -273,8 +263,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun getVersion(): String? {
     var version: String? = "N/A"
     try {
-      val pInfo = activity?.packageManager?.getPackageInfo(activity?.packageName, 0)
-      version = pInfo?.versionName
+      activity?.let {
+        val pInfo = it.packageManager?.getPackageInfo(it.packageName, 0)
+        version = pInfo?.versionName
+      }
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }

@@ -11,7 +11,7 @@ import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BalanceState.OK;
+import static com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState.OK;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -27,6 +27,19 @@ public class InAppPurchaseService {
   private final Scheduler scheduler;
   private final ErrorMapper errorMapper;
 
+
+  public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
+      ApproveService approveService, AllowanceService allowanceService, BuyService buyService,
+      BalanceService balanceService, Scheduler scheduler, ErrorMapper errorMapper) {
+    this.cache = cache;
+    this.approveService = approveService;
+    this.allowanceService = allowanceService;
+    this.buyService = buyService;
+    this.balanceService = balanceService;
+    this.scheduler = scheduler;
+    this.errorMapper = errorMapper;
+  }
+
   public Completable send(String key, PaymentTransaction paymentTransaction) {
     return checkFunds(key, paymentTransaction, checkAllowance(key, paymentTransaction));
   }
@@ -39,7 +52,6 @@ public class InAppPurchaseService {
 
     return allowanceService.checkAllowance(fromAddress, contractAddress, tokenAddress)
         .flatMapCompletable(allowance -> {
-          int difference = allowance.compareTo(transactionBuilder.amount());
 
           if (allowance.compareTo(BigDecimal.ZERO) == 0) {
             return approveService.approve(key, paymentTransaction);
@@ -70,18 +82,6 @@ public class InAppPurchaseService {
 
   private TransactionBuilder copyTransactionBuilder(TransactionBuilder transactionBuilder) {
     return new TransactionBuilder(transactionBuilder);
-  }
-
-  public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
-      ApproveService approveService, AllowanceService allowanceService, BuyService buyService,
-      BalanceService balanceService, Scheduler scheduler, ErrorMapper errorMapper) {
-    this.cache = cache;
-    this.approveService = approveService;
-    this.allowanceService = allowanceService;
-    this.buyService = buyService;
-    this.balanceService = balanceService;
-    this.scheduler = scheduler;
-    this.errorMapper = errorMapper;
   }
 
   public Completable resume(String key, PaymentTransaction paymentTransaction) {

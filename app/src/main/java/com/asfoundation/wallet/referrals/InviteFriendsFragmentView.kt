@@ -8,6 +8,6 @@ interface InviteFriendsFragmentView {
   fun appsAndGamesButtonClick(): Observable<Any>
   fun showShare()
   fun navigateToAptoide()
-  fun showNotificationCard(pendingAmount: BigDecimal, symbol: String)
+  fun showNotificationCard(pendingAmount: BigDecimal, symbol: String, icon: Int?)
   fun changeBottomSheetState()
 }

@@ -5,7 +5,6 @@ import android.os.Build
 import android.preference.PreferenceManager
 import android.widget.Toast
 import com.asfoundation.wallet.entity.ServiceErrorException
-import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.KS
 import com.asfoundation.wallet.util.KS.ANDROID_KEY_STORE
@@ -54,17 +53,17 @@ class TrustPasswordStore(private val context: Context,
     }
   }
 
-  override fun getPassword(wallet: Wallet): Single<String> {
+  override fun getPassword(address: String): Single<String> {
     return Single.fromCallable {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        return@fromCallable String(KS.get(context, wallet.address))
+        return@fromCallable String(KS.get(context, address))
       } else {
-        return@fromCallable PasswordManager.getPassword(wallet.address, context)
+        return@fromCallable PasswordManager.getPassword(address, context)
       }
     }
         .onErrorResumeNext { throwable: Throwable? ->
           logError(throwable)
-          getPasswordFallBack(wallet.address)
+          getPasswordFallBack(address)
         }
   }
 

@@ -204,6 +204,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
     swap_value_label.visibility = View.VISIBLE
+
   }
 
   private fun focusAndShowKeyboard(view: EditText) {
@@ -309,6 +310,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     credit_card_info_container.visibility = View.VISIBLE
     payment_methods.visibility = View.VISIBLE
     loading.visibility = View.INVISIBLE
+  }
+
+  override fun hideButtonLoading() {
+    button.visibility = View.VISIBLE
+    button_loading.visibility = View.GONE
   }
 
   override fun showPaymentDetailsForm() {

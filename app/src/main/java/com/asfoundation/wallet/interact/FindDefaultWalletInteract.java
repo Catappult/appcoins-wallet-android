@@ -17,7 +17,7 @@ public class FindDefaultWalletInteract {
         .onErrorResumeNext(throwable -> walletRepository.fetchWallets()
             .filter(wallets -> wallets.length > 0)
             .map(wallets -> wallets[0])
-            .flatMapCompletable(walletRepository::setDefaultWallet)
+            .flatMapCompletable(wallet -> walletRepository.setDefaultWallet(wallet.address))
             .andThen(walletRepository.getDefaultWallet()));
   }
 }

@@ -341,7 +341,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
-    transactionViewNavigator.openTokensView(context, defaultWallet.getValue());
+    transactionViewNavigator.openTokensView(context);
   }
 
   public void pause() {
@@ -427,7 +427,6 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSupportScreen() {
-    supportInteractor.resetUnreadConversations();
     supportInteractor.displayChatScreen();
   }
 

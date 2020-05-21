@@ -74,9 +74,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     )
   }
 
-  private fun isWalletCreated(): Observable<Boolean> {
-    return walletCreated.filter { it }
-  }
+  private fun isWalletCreated() = walletCreated.filter { it }
 
   private fun handleRetryClicks() {
     disposables.add(
@@ -158,8 +156,10 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleSkippedOnboarding() {
     disposables.add(
         Observable.zip(isWalletCreated(),
-            Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }.filter { clicked -> clicked },
-            Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }.filter { clicked -> clicked },
+            Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
+                .filter { clicked -> clicked },
+            Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }
+                .filter { clicked -> clicked },
             Function3 { _: Any, _: Any, _: Any -> }
         )
             .delay(1, TimeUnit.SECONDS)

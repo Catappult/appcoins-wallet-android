@@ -16,15 +16,15 @@ public interface WalletRepositoryType {
 
   Single<Wallet> importPrivateKeyToWallet(String privateKey, String newPassword);
 
-  Single<String> exportWallet(Wallet wallet, String password, String newPassword);
+  Single<String> exportWallet(String address, String password, String newPassword);
 
   Completable deleteWallet(String address, String password);
 
-  Completable setDefaultWallet(Wallet wallet);
+  Completable setDefaultWallet(String address);
 
   Single<Wallet> getDefaultWallet();
 
-  Single<BigDecimal> getEthBalanceInWei(Wallet wallet);
+  Single<BigDecimal> getEthBalanceInWei(String address);
 
-  Single<BigDecimal> getAppcBalanceInWei(Wallet wallet);
+  Single<BigDecimal> getAppcBalanceInWei(String address);
 }

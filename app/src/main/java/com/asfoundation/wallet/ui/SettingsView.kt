@@ -7,6 +7,5 @@ interface SettingsView {
   fun setVerifiedWalletPreference()
   fun setUnverifiedWalletPreference()
   fun setWalletValidationNoNetwork()
-  fun setWalletsPreference(walletAddress: String)
   fun setRedeemCodePreference(walletAddress: String)
 }

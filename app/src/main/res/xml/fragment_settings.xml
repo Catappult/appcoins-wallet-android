@@ -5,12 +5,6 @@
     android:layout_height="match_parent">
 
   <Preference
-      android:icon="@drawable/ic_settings_wallets"
-      android:key="pref_wallet"
-      android:layout="@layout/preference_with_summary_layout"
-      android:title="@string/action_wallets" />
-
-  <Preference
       android:icon="@drawable/ic_settings_verification"
       android:key="pref_verification"
       android:layout="@layout/preference_with_summary_layout"
@@ -37,17 +31,13 @@
         android:icon="@drawable/ic_settings_sourcecode"
         android:key="pref_source_code"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_source_code">
-
-    </Preference>
+        android:title="@string/title_source_code" />
 
     <Preference
-        android:icon="@drawable/ic_settings_bugreport"
-        android:key="pref_report_bug"
+        android:icon="@drawable/ic_issue_report"
+        android:key="pref_contact_support"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_report_bug">
-
-    </Preference>
+        android:title="@string/settings_item_support" />
 
   </PreferenceCategory>
 
@@ -61,9 +51,7 @@
         android:icon="@drawable/ic_settings_twt"
         android:key="pref_twitter"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/twitter">
-
-    </Preference>
+        android:title="@string/twitter" />
 
     <Preference
         android:icon="@drawable/ic_settings_telegram"
@@ -75,9 +63,8 @@
         android:icon="@drawable/ic_settings_fb"
         android:key="pref_facebook"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/facebook">
+        android:title="@string/facebook" />
 
-    </Preference>
   </PreferenceCategory>
 
   <PreferenceCategory

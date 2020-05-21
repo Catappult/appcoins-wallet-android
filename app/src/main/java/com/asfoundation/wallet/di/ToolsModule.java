@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -71,6 +72,7 @@ import com.asfoundation.wallet.analytics.RakamAnalytics;
 import com.asfoundation.wallet.analytics.RakamEventLogger;
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
+import com.asfoundation.wallet.backup.FileInteractor;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -102,7 +104,7 @@ import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
@@ -320,8 +322,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build();
   }
 
-  @Singleton @Provides SharedPreferencesRepository providePreferencesRepository(Context context) {
-    return new SharedPreferencesRepository(context);
+  @Singleton @Provides SharedPreferencesRepository providePreferencesRepository(
+      SharedPreferences sharedPreferences) {
+    return new SharedPreferencesRepository(sharedPreferences);
   }
 
   @Singleton @Provides PreferencesRepositoryType providePreferenceRepositoryType(
@@ -513,11 +516,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new PaymentMethodsMapper();
   }
 
-  @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
+  @Provides GetDefaultWalletBalanceInteract provideGetDefaultWalletBalance(
       WalletRepositoryType walletRepository, FindDefaultWalletInteract defaultWalletInteract,
       FetchCreditsInteract fetchCreditsInteract, NetworkInfo networkInfo,
       TokenRepositoryType tokenRepositoryType) {
-    return new GetDefaultWalletBalance(walletRepository, defaultWalletInteract,
+    return new GetDefaultWalletBalanceInteract(walletRepository, defaultWalletInteract,
         fetchCreditsInteract, networkInfo, tokenRepositoryType);
   }
 
@@ -530,8 +533,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         new NonceObtainerFactory(30000, new Web3jNonceProvider(web3jProvider)));
   }
 
-  @Provides BalanceService provideBalanceService(GetDefaultWalletBalance getDefaultWalletBalance) {
-    return getDefaultWalletBalance;
+  @Provides BalanceService provideBalanceService(
+      GetDefaultWalletBalanceInteract getDefaultWalletBalanceInteract) {
+    return getDefaultWalletBalanceInteract;
   }
 
   @Provides EIPTransactionParser provideEIPTransferParser(
@@ -565,7 +569,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides TransferInteractor provideTransferInteractor(
-      @NotNull RewardsManager rewardsManager, @NotNull GetDefaultWalletBalance balance,
+      @NotNull RewardsManager rewardsManager, @NotNull GetDefaultWalletBalanceInteract balance,
       @NotNull FindDefaultWalletInteract findWallet) {
     return new TransferInteractor(rewardsManager, new TransactionDataValidator(), balance,
         findWallet);
@@ -1236,8 +1240,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BalanceRepository provideBalanceRepository(Context context,
       LocalCurrencyConversionService localCurrencyConversionService,
-      GetDefaultWalletBalance getDefaultWalletBalance) {
-    return new AppcoinsBalanceRepository(getDefaultWalletBalance, localCurrencyConversionService,
+      GetDefaultWalletBalanceInteract getDefaultWalletBalanceInteract) {
+    return new AppcoinsBalanceRepository(getDefaultWalletBalanceInteract,
+        localCurrencyConversionService,
         Room.databaseBuilder(context.getApplicationContext(), BalanceDetailsDatabase.class,
             "balance_details")
             .build()
@@ -1366,5 +1371,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides WalletValidationAnalytics provideWalletValidationAnalytics(
       AnalyticsManager analyticsManager) {
     return new WalletValidationAnalytics(analyticsManager);
+  }
+
+  @Provides ContentResolver provideContentResolver(Context context) {
+    return context.getContentResolver();
+  }
+
+  @Singleton @Provides FileInteractor provideFileInteract(Context context,
+      ContentResolver contentResolver, PreferencesRepositoryType preferencesRepositoryType) {
+    return new FileInteractor(context, contentResolver, preferencesRepositoryType);
   }
 }
