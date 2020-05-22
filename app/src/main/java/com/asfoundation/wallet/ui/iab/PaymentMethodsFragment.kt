@@ -261,7 +261,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     this.fiatValue = fiatValue
     var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     var fiatPrice = "$fiatAmount $currency"
-    if (isSubscription) {
+    if (isSubscription && frequency != null) {
       fiatPrice += "/$frequency"
       appcPrice = "~$appcPrice"
     }
@@ -426,20 +426,22 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showPaypal(gamificationLevel: Int) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel, frequency)
+        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel, isSubscription,
+        frequency)
   }
 
   override fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
                          gamificationLevel: Int) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds, paymentType,
-          bonusMessageValue, true, iconUrl, gamificationLevel, frequency)
+          bonusMessageValue, true, iconUrl, gamificationLevel, isSubscription, frequency)
     }
   }
 
   override fun showCreditCard(gamificationLevel: Int) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel, frequency)
+        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel,
+        isSubscription, frequency)
   }
 
   override fun showAppCoins() {

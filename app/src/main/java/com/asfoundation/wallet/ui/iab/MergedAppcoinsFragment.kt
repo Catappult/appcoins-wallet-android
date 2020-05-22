@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -116,7 +117,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
   private val currency: String by lazy {
     if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
-      arguments!!.getString(FIAT_CURRENCY_KEY)
+      arguments!!.getString(FIAT_CURRENCY_KEY)!!
     } else {
       throw IllegalArgumentException("currency data not found")
     }
@@ -124,7 +125,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)
+      arguments!!.getString(BONUS_KEY, "")
     } else {
       throw IllegalArgumentException("bonus data not found")
     }
@@ -132,7 +133,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val appName: String by lazy {
     if (arguments!!.containsKey(APP_NAME_KEY)) {
-      arguments!!.getString(APP_NAME_KEY)
+      arguments!!.getString(APP_NAME_KEY, "")
     } else {
       throw IllegalArgumentException("app name data not found")
     }
@@ -192,7 +193,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val transactionType: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_TYPE)) {
-      arguments!!.getString(TRANSACTION_TYPE)
+      arguments!!.getString(TRANSACTION_TYPE)!!
     } else {
       throw IllegalArgumentException("transaction type data not found")
     }
@@ -242,14 +243,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private fun setupUI(view: View) {
     setHeaderInformation()
-    buy_button.text = setBuyButtonText()
-    cancel_button.text = getString(R.string.back_button)
+    setButtonsText()
     setPaymentInformation()
     setBonus()
     setBackListener(view)
-    if (isSubscription) {
-      showVolatilityInfo()
-    }
+    if (isSubscription) showVolatilityInfo()
   }
 
   override fun showLoading() {
@@ -266,9 +264,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setBuyButtonText(): String {
-    return if (isSubscription) {
-      "Subscribe"
-    } else {
+    return if (isSubscription) "Subscribe"
+    else {
       if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
     }
   }
@@ -292,67 +289,14 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setHeaderInformation() {
-    if (isDonation) {
-      app_name.text = getString(R.string.item_donation)
-      app_sku_description.text = getString(R.string.item_donation)
-    } else {
-      app_name.text = getApplicationName(appName)
-      app_sku_description.text = productName
-    }
-    try {
-      app_icon.setImageDrawable(context!!.packageManager
-          .getApplicationIcon(appName))
-    } catch (e: PackageManager.NameNotFoundException) {
-      e.printStackTrace()
-    }
-    var appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
-        .plus(" " + WalletCurrency.APPCOINS.symbol)
-    var fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
-        .plus(" $currency")
-    if (isSubscription) {
-      fiatText += "/$frequency"
-      appcText = "~$appcText"
-    }
-    fiat_price.text = fiatText
-    appc_price.text = appcText
-    fiat_price.visibility = VISIBLE
-    appc_price.visibility = VISIBLE
+    setNameAndDescription()
+    setAppIcon()
+    setPriceInformation()
   }
 
   private fun setPaymentInformation() {
-    if (appcEnabled) {
-      appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
-      appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
-        if (checked) paymentSelectionSubject?.onNext(APPC)
-        credits_radio_button.isChecked = !checked
-      }
-      appcoins_radio_button.isEnabled = true
-    } else {
-      appcoins_radio.message.text = getString(R.string.purchase_appcoins_noavailable_body)
-      appcoins_radio.title.setTextColor(
-          ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-      appcoins_radio.message.setTextColor(
-          ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-      appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
-      appcoins_radio.message.visibility = VISIBLE
-      appc_balances_group.visibility = INVISIBLE
-    }
-    if (creditsEnabled) {
-      credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
-      credits_radio_button.setOnCheckedChangeListener { _, checked ->
-        if (checked) paymentSelectionSubject?.onNext(CREDITS)
-        appcoins_radio_button.isChecked = !checked
-      }
-      credits_radio_button.isEnabled = true
-      credits_radio_button.isChecked = true
-    } else {
-      appcoins_radio_button.isChecked = true
-      credits_radio.message.text = getString(R.string.purchase_appcoins_credits_noavailable_body)
-      credits_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
-      credits_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
-      credits_radio.message.visibility = VISIBLE
-      credits_balances_group.visibility = INVISIBLE
-    }
+    if (appcEnabled) setAppcoinsEnabled() else setAppcoinsDisabled(isSubscription)
+    if (creditsEnabled) setCreditsEnabled() else setCreditsDisabled()
   }
 
   private fun getApplicationName(appPackage: String): CharSequence {
@@ -403,9 +347,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
-  override fun getPaymentSelection(): Observable<String> {
-    return paymentSelectionSubject!!
-  }
+  override fun getPaymentSelection() = paymentSelectionSubject!!
 
   override fun hideBonus() {
     bonus_layout?.visibility = INVISIBLE
@@ -422,9 +364,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     info_text?.visibility = GONE
   }
 
-  override fun showWalletBlocked() {
-    iabView.showWalletBlocked()
-  }
+  override fun showWalletBlocked() = iabView.showWalletBlocked()
 
   override fun showBonus(@StringRes bonusText: Int) {
     if (bonus.isNotEmpty()) {
@@ -446,17 +386,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     activity_iab_error_view.visibility = VISIBLE
   }
 
-  override fun navigateToAppcPayment() {
-    iabView.showOnChain(fiatAmount, isBds, bonus)
-  }
+  override fun navigateToAppcPayment() = iabView.showOnChain(fiatAmount, isBds, bonus)
 
-  override fun navigateToCreditsPayment() {
-    iabView.showAppcoinsCreditsPayment(appcAmount)
-  }
+  override fun navigateToCreditsPayment() = iabView.showAppcoinsCreditsPayment(appcAmount)
 
-  override fun navigateToPaymentMethods() {
-    iabView.showPaymentMethodsView()
-  }
+  override fun navigateToPaymentMethods() = iabView.showPaymentMethodsView()
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =
@@ -489,5 +423,91 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onDestroy()
     paymentSelectionSubject = null
     onBackPressSubject = null
+  }
+
+  private fun setCreditsEnabled() {
+    credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
+    credits_radio_button.setOnCheckedChangeListener { _, checked ->
+      if (checked) paymentSelectionSubject?.onNext(CREDITS)
+      appcoins_radio_button.isChecked = !checked
+    }
+    credits_radio_button.isEnabled = true
+    credits_radio_button.isChecked = true
+  }
+
+  private fun setCreditsDisabled() {
+    appcoins_radio_button.isChecked = true
+    credits_radio.message.text = getString(R.string.purchase_appcoins_credits_noavailable_body)
+    credits_radio.title.setTextColor(
+        ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+    credits_radio.message.setTextColor(
+        ResourcesCompat.getColor(resources, R.color.btn_disable_snd_color, null))
+    credits_radio.message.visibility = VISIBLE
+    credits_balances_group.visibility = INVISIBLE
+  }
+
+  private fun setAppcoinsEnabled() {
+    appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
+    appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
+      if (checked) paymentSelectionSubject?.onNext(APPC)
+      credits_radio_button.isChecked = !checked
+    }
+    appcoins_radio_button.isEnabled = true
+  }
+
+  private fun setAppcoinsDisabled(isSubscription: Boolean) {
+    val message =
+        if (isSubscription) "AppCoins support for subscriptions is coming soon"
+        else {
+          getString(R.string.purchase_appcoins_noavailable_body)
+        }
+    appcoins_radio.message.text = message
+    appcoins_radio.title.setTextColor(
+        ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
+    appcoins_radio.message.setTextColor(
+        ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
+    appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
+    appcoins_radio.message.visibility = VISIBLE
+    appc_balances_group.visibility = INVISIBLE
+  }
+
+  private fun setNameAndDescription() {
+    if (isDonation) {
+      app_name.text = getString(R.string.item_donation)
+      app_sku_description.text = getString(R.string.item_donation)
+    } else {
+      app_name.text = getApplicationName(appName)
+      app_sku_description.text = productName
+    }
+  }
+
+  private fun setAppIcon() {
+    try {
+      app_icon.setImageDrawable(context!!.packageManager
+          .getApplicationIcon(appName))
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+    }
+  }
+
+
+  private fun setPriceInformation() {
+    var appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
+        .plus(" " + WalletCurrency.APPCOINS.symbol)
+    var fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
+        .plus(" $currency")
+    if (isSubscription && frequency != null) {
+      fiatText += "/$frequency"
+      appcText = "~$appcText"
+    }
+    fiat_price.text = fiatText
+    appc_price.text = appcText
+    fiat_price.visibility = VISIBLE
+    appc_price.visibility = VISIBLE
+  }
+
+  private fun setButtonsText() {
+    buy_button.text = setBuyButtonText()
+    cancel_button.text = getString(R.string.back_button)
   }
 }

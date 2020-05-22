@@ -144,12 +144,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                                iconUrl: String?, gamificationLevel: Int, frequency: String?) {
+                                iconUrl: String?, gamificationLevel: Int, isSubscription: Boolean,
+                                frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, frequency))
+                bonus, isPreselected, gamificationLevel, isSubscription, frequency))
         .commit()
   }
 
