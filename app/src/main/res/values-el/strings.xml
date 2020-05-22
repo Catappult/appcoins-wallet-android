@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Μη έγκυρη μορφή barcode: %s</string>
-  <string name="title_delete_account">Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το wallet;</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram Group</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">Αφαίρεση Wallet</string>
   <string name="remove_wallet_body">Συνιστούμε να πραγματοποιήστε ένα αντίγραφο ασφαλείας του wallet πριν το αφαιρέσετε. Χωρίς αντίγραφο ασφαλείας, δε θα έχετε ξανά πρόσβαση σε αυτό.</string>
   <string name="remove_wallet_backup_button">ΑΝΤΙΓΡΑΦΟ ΑΣΦΑΛΕΙΑΣ WALLET</string>
-  <string name="remove_wallet_no_backup_button">ΣΥΝΕΧΕΙΑ ΧΩΡΙΣ ΑΝΤΙΓΡΑΦΟ ΑΣΦΑΛΕΙΑΣ</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Είστε σίγουροι πως θέλετε να αφαιρέσετε αυτό το wallet;</string>
   <string name="remove_wallet_no_button">ΟΧΙ, ΕΠΙΣΤΡΟΦΗ</string>
   <string name="remove_wallet_yes_button">ΝΑΙ, ΑΦΑΙΡΕΣΗ WALLET</string>
