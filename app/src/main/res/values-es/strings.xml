@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código no válido: %s</string>
-  <string name="title_delete_account">¿Está seguro que quieres eliminar esta wallet?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Grupo de Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">Eliminar Wallet</string>
   <string name="remove_wallet_body">Recomendamos hace run backup de la wallet antes de eliminarla. No podrás acceder a ella a menos que hagas un backup.</string>
   <string name="remove_wallet_backup_button">HACER BACKUP</string>
-  <string name="remove_wallet_no_backup_button">CONTINUAR SIN BACKUP</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">¿Estás seguro de que quieres eliminar esta wallet?</string>
   <string name="remove_wallet_no_button">NO, VOLVER</string>
   <string name="remove_wallet_yes_button">SÍ, ELIMINAR WALLET</string>
