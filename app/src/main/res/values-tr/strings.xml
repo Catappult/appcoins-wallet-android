@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
   <string name="ok">Tamam</string>
   <string name="barcode_error_format">Geçersiz barkod formatı: %s</string>
-  <string name="title_delete_account">Bu cüzdanı silmek istediğinizden emin misiniz?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram Grubu</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">Cüzdanı Kaldır</string>
   <string name="remove_wallet_body">Cüzdan kaldırmadan önce onu yedeklemenizi ısrarla tavsiye ediyoruz. Yedeği yoksa cüzdana tekrar erişemezsiniz.</string>
   <string name="remove_wallet_backup_button">CÜZDANI YEDEKLE</string>
-  <string name="remove_wallet_no_backup_button">YEDEKLEME OLMADAN DEVAM ET</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
   <string name="remove_wallet_no_button">HAYIR, GERİ GİT</string>
   <string name="remove_wallet_yes_button">EVET, CÜZDANI KALDIR</string>
