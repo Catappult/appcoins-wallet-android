@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="ok">ਠੀਕ ਹੈ</string>
   <string name="barcode_error_format">ਗਲਤ ​​ਬਾਰਕੋਡ ਫਾਰਮੈਟ: %s</string>
-  <string name="title_delete_account">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਬਟੂਏ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">ਟਵਿੱਟਰ</string>
   <string name="telegram">ਟੈਲੀਗਰਾਮ ਸਮੂਹ</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">ਬਟੂਆ ਹਟਾਓ</string>
   <string name="remove_wallet_body">ਅਸੀਂ ਬਟੂਏ ਨੂੰ ਹਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਇਸਦਾ ਬੈਕਅਪ ਲੈਣ ਦੀ ਜ਼ੋਰਦਾਰ ਸਿਫਾਰਸ਼ ਕਰਦੇ ਹਾਂ| ਤੁਸੀਂ ਇਸ ਨੂੰ ਤੱਕ ਦੁਬਾਰਾ ਵਰਤ ਨਹੀਂ ਸਕੋਗੇ ਜਦ ਤੱਕ ਤੁਹਾਨੂੰ ਬੈਕਅਪ ਨਹੀਂ ਮਿਲ ਮਿਲਦਾ|</string>
   <string name="remove_wallet_backup_button">ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਕਰੋ</string>
-  <string name="remove_wallet_no_backup_button">ਬਿਨਾ ਬੈਕਅਪ ਅੱਗੇ ਵਧੋ</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਬਟੂਏ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="remove_wallet_no_button">ਨਹੀਂ, ਪਿੱਛੇ ਜਾਓ</string>
   <string name="remove_wallet_yes_button">ਜੀ ਹਾਂ, ਬਟੂਆ ਹਟਾਓ</string>
