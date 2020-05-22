@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
-  <string name="title_delete_account">Weet je zeker dat je deze wallet wilt verwijderen?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram-groep</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">Wallet verwijderen</string>
   <string name="remove_wallet_body">We willen je sterk aanraden om een back-up van de wallet te maken voordat je deze verwijdert. Je kunt alleen opnieuw toegang tot de wallet krijgen als je een back-up hebt.</string>
   <string name="remove_wallet_backup_button">BACK-UP VAN WALLET MAKEN</string>
-  <string name="remove_wallet_no_backup_button">DOORGAAN ZONDER BACK-UP</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Weet je zeker dat je deze wallet wilt verwijderen?</string>
   <string name="remove_wallet_no_button">NEE, GA TERUG</string>
   <string name="remove_wallet_yes_button">JA, WALLET VERWIJDEREN</string>
