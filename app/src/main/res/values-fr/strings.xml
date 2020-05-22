@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format de code à barres non valide : %s</string>
-  <string name="title_delete_account">Êtes-vous sûr de vouloir supprimer ce portefeuille ?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Groupe Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">Supprimer le portefeuille</string>
   <string name="remove_wallet_body">Nous vous recommandons fortement de sauvegarder un portefeuille avant de le retirer. Vous ne pourrez pas y accéder à nouveau à moins d\'avoir une sauvegarde.</string>
   <string name="remove_wallet_backup_button">SAUVEGARDE DU PORTEFEUILLE</string>
-  <string name="remove_wallet_no_backup_button">CONTINUER SANS SAUVEGARDE</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Etes-vous sûr de vouloir supprimer ce portefeuille ?</string>
   <string name="remove_wallet_no_button">NON, RETOURNER EN ARRIÈRE</string>
   <string name="remove_wallet_yes_button">OUI, SUPPRIMER LE PORTEFEUILLE</string>
