@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
-  <string name="title_delete_account">确实要删除此钱包？</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram群</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -583,7 +583,7 @@
   <string name="remove_wallet_title">删除钱包</string>
   <string name="remove_wallet_body">我们强烈建议在删除钱包之前对钱包进行备份。除非留有备份，否则你将无法再次访问该钱包。</string>
   <string name="remove_wallet_backup_button">备份钱包</string>
-  <string name="remove_wallet_no_backup_button">继续，无需备份</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">确实要删除此钱包？</string>
   <string name="remove_wallet_no_button">不，返回</string>
   <string name="remove_wallet_yes_button">是，删除钱包</string>
