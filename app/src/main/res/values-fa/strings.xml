@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
-  <string name="title_delete_account">آیا می خواهید این کیف پول را حذف کنید؟</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">توییتر</string>
   <string name="telegram">گروه تلگرام</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">حذف کیف‌پول</string>
   <string name="remove_wallet_body">قویا توصیه می‌کنیم که قبل از حذف کیف‌پول از آن پشتیبان‌گیری کنید. دیگر فادر به دسترسی به آن نخواهید بود جز با داشتن پشتیانی.</string>
   <string name="remove_wallet_backup_button">پشتیبان‌گیری از کیف‌پول</string>
-  <string name="remove_wallet_no_backup_button">بدون پشتیبان‌گیری پیش روید</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">آیا مطمئن هستید که می‌خواهید این کیف‌پول را حذف کنید؟</string>
   <string name="remove_wallet_no_button">نه، به عقب برو</string>
   <string name="remove_wallet_yes_button">بله، حذف کیف‌پول</string>
