@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS портфейлът се нуждае от разрешение за достъп до твоята камера, за да сканира QR кодове.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Невалиден баркод формат: %s</string>
-  <string name="title_delete_account">Наистина ли искаш да изтриеш този портфейл?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram Group</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">Премахни портфейла</string>
   <string name="remove_wallet_body">Силно препоръчваме да направиш резервно копие на портфейла си преди да го премахнеш. Няма да можеш да получиш достъп до него отново, освен ако нямаш резервно копие.</string>
   <string name="remove_wallet_backup_button">БЕКЪП НА ПОРТФЕЙЛ</string>
-  <string name="remove_wallet_no_backup_button">ПРОДЪЛЖИ БЕЗ БЕКЪП</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Наистина ли искаш да премахнеш този портфейл?</string>
   <string name="remove_wallet_no_button">НЕ, ВЪРНИ СЕ</string>
   <string name="remove_wallet_yes_button">ДА, МАХНИ ПОРТФЕЙЛА</string>
