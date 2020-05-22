@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
-  <string name="title_delete_account">Da li ste sigurni da želite da izbrišete ovaj novčanik?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram grupa</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -585,7 +585,7 @@
   <string name="remove_wallet_title">Ukloni novčanik</string>
   <string name="remove_wallet_body">Preporučujemo vam da napravite rezervnu kopiju novčanika pre nego što ga uklonite. Ako ne budete imali rezervnu kopiju više nećete moći da mu pristupite.</string>
   <string name="remove_wallet_backup_button">NAPRAVI REZERVNU KOPIJU</string>
-  <string name="remove_wallet_no_backup_button">NASTAVI BEZ REZERVNE KOPIJE</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
   <string name="remove_wallet_no_button">NE, VRATI SE</string>
   <string name="remove_wallet_yes_button">DA, UKLONI NOVČANIK</string>
