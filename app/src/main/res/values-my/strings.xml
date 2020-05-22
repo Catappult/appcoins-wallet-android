@@ -29,7 +29,7 @@
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
   <string name="ok">အိုေက</string>
   <string name="barcode_error_format">ဘားကုဒ္ပံုစံ မမွန္ကန္ပါ - %s</string>
-  <string name="title_delete_account">ဤပိုက္ဆံအိတ္ကို ဖ်က္လိုသည္မွာ ေသခ်ာပါသလား။</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram အုပ္စု</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -583,7 +583,7 @@
   <string name="remove_wallet_title">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_body">ပိုက္ဆံအိတ္ကို မဖယ္ထုတ္မီတြင္ အရန္သိမ္းဆည္းထားရန္ ကၽြႏ္ုပ္တုိ႔ အေလးအနက္ တိုက္တြန္းပါသည္။ သင့္တြင္ အရန္သိမ္းဆည္းမႈ မရွိပါက ယင္းကိုျပန္လည္ရယူႏိုင္လိမ့္မည္ မဟုတ္ပါ။</string>
   <string name="remove_wallet_backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
-  <string name="remove_wallet_no_backup_button">အရန္မသိမ္းဆည္းဘဲ ဆက္လုပ္မည္</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
   <string name="remove_wallet_no_button">မဟုတ္ပါ။ ေနာက္သို႔ျပန္သြားမည္</string>
   <string name="remove_wallet_yes_button">ဟုတ္ပါသည္။ ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
