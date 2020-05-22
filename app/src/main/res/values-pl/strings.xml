@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
-  <string name="title_delete_account">Czy na pewno chcesz usunąć ten portfel?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Grupa Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -586,7 +586,7 @@
   <string name="remove_wallet_title">Usuń portfel</string>
   <string name="remove_wallet_body">Mocno rekomendujemy stworzenie kopii zapasowej portfela przed usunięciem. Nie uzyskasz już do niego dostępu bez kopii zapasowej.</string>
   <string name="remove_wallet_backup_button">UTWÓRZ KOPIĘ ZAPASOWĄ PORTFELA</string>
-  <string name="remove_wallet_no_backup_button">KONTYNUUJ BEZ KOPII</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Czy na pewno chcesz usunąć ten portfel?</string>
   <string name="remove_wallet_no_button">NIE, WRÓĆ</string>
   <string name="remove_wallet_yes_button">TAK, USUŃ PORTFEL</string>
