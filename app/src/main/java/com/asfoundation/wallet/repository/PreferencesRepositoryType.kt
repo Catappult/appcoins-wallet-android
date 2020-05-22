@@ -10,7 +10,7 @@ interface PreferencesRepositoryType {
   fun hasClickedSkipOnboarding(): Boolean
   fun setOnboardingSkipClicked()
   fun getCurrentWalletAddress(): String?
-  fun setCurrentWalletAddress(address: String)
+  fun setCurrentWalletAddress(address: String): Completable
   fun isFirstTimeOnTransactionActivity(): Boolean
   fun setFirstTimeOnTransactionActivity()
   fun getPoaNotificationSeenTime(): Long
@@ -18,21 +18,24 @@ interface PreferencesRepositoryType {
   fun setPoaNotificationSeenTime(currentTimeInMillis: Long)
   fun setWalletValidationStatus(walletAddress: String, validated: Boolean)
   fun isWalletValidated(walletAddress: String): Boolean
-  fun removeWalletValidationStatus(walletAddress: String)
-  fun addWalletPreference(address: String?)
+  fun removeWalletValidationStatus(walletAddress: String): Completable
   fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
   fun getAutoUpdateCardDismissedVersion(): Single<Int>
   fun getUpdateNotificationSeenTime(): Long
   fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
   fun getBackupNotificationSeenTime(walletAddress: String): Long
   fun setBackupNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
-  fun removeBackupNotificationSeenTime(walletAddress: String)
-  fun isWalletImportBackup(walletAddress: String): Boolean
-  fun setWalletImportBackup(walletAddress: String)
-  fun removeWalletImportBackup(walletAddress: String)
+  fun removeBackupNotificationSeenTime(walletAddress: String): Completable
+  fun isWalletRestoreBackup(walletAddress: String): Boolean
+  fun setWalletRestoreBackup(walletAddress: String)
+  fun removeWalletRestoreBackup(walletAddress: String): Completable
   fun hasShownBackup(walletAddress: String): Boolean
   fun setHasShownBackup(walletAddress: String, hasShown: Boolean)
   fun getAndroidId(): String
   fun setAndroidId(androidId: String)
   fun getGamificationLevel(): Int
+  fun saveChosenUri(uri: String)
+  fun getChosenUri(): String?
+  fun getSeenBackupToolip(): Boolean
+  fun saveSeenBackupTooltip()
 }

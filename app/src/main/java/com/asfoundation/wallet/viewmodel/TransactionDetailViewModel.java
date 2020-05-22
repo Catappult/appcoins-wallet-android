@@ -18,6 +18,8 @@ import com.asfoundation.wallet.subscriptions.SubscriptionDetails;
 import com.asfoundation.wallet.subscriptions.SubscriptionRepository;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.Scheduler;
 
 public class TransactionDetailViewModel extends BaseViewModel {
@@ -30,23 +32,30 @@ public class TransactionDetailViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<SubscriptionDetails> subscriptionDetails = new MutableLiveData<>();
+  private final CompositeDisposable disposables;
 
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter, SubscriptionRepository subscriptionRepository,
+      ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,SubscriptionRepository subscriptionRepository,
       Scheduler networkScheduler, Scheduler viewScheduler) {
     this.externalBrowserRouter = externalBrowserRouter;
+    this.disposables = compositeDisposable;
     this.subscriptionRepository = subscriptionRepository;
     this.networkScheduler = networkScheduler;
     this.viewScheduler = viewScheduler;
-    findDefaultNetworkInteract.find()
-        .observeOn(viewScheduler)
+    disposables.add(findDefaultNetworkInteract.find()
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
-        });
-    disposable = findDefaultWalletInteract.find()
+        }));
+    disposables.add(findDefaultWalletInteract.find()
         .observeOn(viewScheduler)
         .subscribe(defaultWallet::postValue, t -> {
-        });
+        }));
+  }
+
+  @Override protected void onCleared() {
+    disposables.clear();
+    super.onCleared();
   }
 
   public void loadSubscriptionDetails(String transactionId) {

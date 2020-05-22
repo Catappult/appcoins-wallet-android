@@ -1,14 +1,10 @@
 package com.asfoundation.wallet.repository
 
-import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType {
-
-  private val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+class SharedPreferencesRepository(private val pref: SharedPreferences) : PreferencesRepositoryType {
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
 
@@ -30,10 +26,12 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     return pref.getString(CURRENT_ACCOUNT_ADDRESS_KEY, null)
   }
 
-  override fun setCurrentWalletAddress(address: String) {
-    pref.edit()
-        .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
-        .apply()
+  override fun setCurrentWalletAddress(address: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
+          .apply()
+    }
   }
 
   override fun isFirstTimeOnTransactionActivity(): Boolean {
@@ -89,16 +87,12 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
   override fun isWalletValidated(walletAddress: String) =
       pref.getBoolean(WALLET_VERIFIED + walletAddress, false)
 
-  override fun removeWalletValidationStatus(walletAddress: String) {
-    pref.edit()
-        .remove(WALLET_VERIFIED + walletAddress)
-        .apply()
-  }
-
-  override fun addWalletPreference(address: String?) {
-    pref.edit()
-        .putString(PREF_WALLET, address)
-        .apply()
+  override fun removeWalletValidationStatus(walletAddress: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .remove(WALLET_VERIFIED + walletAddress)
+          .apply()
+    }
   }
 
   override fun getBackupNotificationSeenTime(walletAddress: String) =
@@ -110,25 +104,29 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun removeBackupNotificationSeenTime(walletAddress: String) {
-    pref.edit()
-        .remove(BACKUP_SEEN_TIME + walletAddress)
-        .apply()
+  override fun removeBackupNotificationSeenTime(walletAddress: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .remove(BACKUP_SEEN_TIME + walletAddress)
+          .apply()
+    }
   }
 
-  override fun isWalletImportBackup(walletAddress: String) =
+  override fun isWalletRestoreBackup(walletAddress: String) =
       pref.getBoolean(WALLET_IMPORT_BACKUP + walletAddress, false)
 
-  override fun setWalletImportBackup(walletAddress: String) {
+  override fun setWalletRestoreBackup(walletAddress: String) {
     pref.edit()
         .putBoolean(WALLET_IMPORT_BACKUP + walletAddress, true)
         .apply()
   }
 
-  override fun removeWalletImportBackup(walletAddress: String) {
-    pref.edit()
-        .remove(WALLET_IMPORT_BACKUP + walletAddress)
-        .apply()
+  override fun removeWalletRestoreBackup(walletAddress: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .remove(WALLET_IMPORT_BACKUP + walletAddress)
+          .apply()
+    }
   }
 
   override fun hasShownBackup(walletAddress: String): Boolean {
@@ -141,7 +139,8 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
         .apply()
   }
 
-  override fun getAndroidId() = pref.getString(ANDROID_ID, "").orEmpty()
+  override fun getAndroidId() = pref.getString(ANDROID_ID, "")
+      .orEmpty()
 
 
   override fun setAndroidId(androidId: String) {
@@ -151,6 +150,22 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
   }
 
   override fun getGamificationLevel() = pref.getInt(GAMIFICATION_LEVEL, -1)
+
+  override fun saveChosenUri(uri: String) {
+    pref.edit()
+        .putString(KEYSTORE_DIRECTORY, uri)
+        .apply()
+  }
+
+  override fun getChosenUri() = pref.getString(KEYSTORE_DIRECTORY, null)
+
+  override fun getSeenBackupToolip() = pref.getBoolean(SEEN_BACKUP_TOOLTIP, false)
+
+  override fun saveSeenBackupTooltip() {
+    pref.edit()
+        .putBoolean(SEEN_BACKUP_TOOLTIP, true)
+        .apply()
+  }
 
   companion object {
 
@@ -163,10 +178,11 @@ class SharedPreferencesRepository(context: Context) : PreferencesRepositoryType 
     private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val BACKUP_SEEN_TIME = "backup_seen_time_"
     private const val WALLET_VERIFIED = "wallet_verified_"
-    private const val PREF_WALLET = "pref_wallet"
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
     private const val ANDROID_ID = "android_id"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val KEYSTORE_DIRECTORY = "keystore_directory"
+    private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
   }
 }

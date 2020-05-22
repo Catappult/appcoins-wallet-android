@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.adyen.checkout.base.model.payments.response.Action
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
-import java.math.BigDecimal
 
 interface AdyenPaymentView {
 
@@ -45,7 +44,7 @@ interface AdyenPaymentView {
 
   fun showCvvError()
 
-  fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String)
+  fun showProductPrice(amount: String, currencyCode: String)
 
   fun lockRotation()
 

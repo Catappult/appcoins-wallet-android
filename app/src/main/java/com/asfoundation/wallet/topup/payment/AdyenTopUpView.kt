@@ -7,33 +7,22 @@ import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
 import io.reactivex.Observable
-import java.math.BigDecimal
 
 interface AdyenTopUpView {
 
-  fun showValues(value: BigDecimal, currency: String)
+  fun showValues(value: String, currency: String)
 
   fun showLoading()
-
-  fun showFinishingLoading()
 
   fun hideLoading()
 
   fun showNetworkError()
-
-  fun showGenericError()
 
   fun updateTopUpButton(valid: Boolean)
 
   fun cancelPayment()
 
   fun setFinishingPurchase()
-
-  fun errorDismisses(): Observable<Any>
-
-  fun errorCancels(): Observable<Any>
-
-  fun errorPositiveClicks(): Observable<Any>
 
   fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean, forget: Boolean,
                               savedInstanceState: Bundle?)
@@ -61,4 +50,14 @@ interface AdyenTopUpView {
   fun getSupportClicks(): Observable<Any>
 
   fun hideSpecificError()
+
+  fun lockRotation()
+
+  fun retryClick(): Observable<Any>
+
+  fun hideNoNetworkError()
+
+  fun showRetryAnimation()
+
+  fun navigateToPaymentSelection()
 }

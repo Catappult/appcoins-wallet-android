@@ -17,6 +17,7 @@ interface TopUpFragmentView {
   fun setNextButtonState(enabled: Boolean)
   fun showLoading()
   fun hideLoading()
+  fun hideButtonLoading()
   fun showPaymentDetailsForm()
   fun showPaymentMethods()
   fun rotateChangeCurrencyButton()
@@ -24,6 +25,7 @@ interface TopUpFragmentView {
   fun toggleSwitchCurrencyOff()
   fun hideBonus()
   fun showBonus(bonus: BigDecimal, currency: String)
+  fun showBonus()
   fun showMaxValueWarning(value: String)
   fun showMinValueWarning(value: String)
   fun hideValueInputWarning()
@@ -42,4 +44,6 @@ interface TopUpFragmentView {
   fun showValuesAdapter()
   fun hideValuesAdapter()
   fun getKeyboardEvents(): Observable<Boolean>
+  fun setDefaultAmountValue(amount: String)
+  fun removeBonus()
 }

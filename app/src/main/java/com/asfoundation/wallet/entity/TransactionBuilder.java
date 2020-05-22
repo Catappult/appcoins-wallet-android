@@ -44,6 +44,31 @@ public class TransactionBuilder implements Parcelable {
   private String originalOneStepCurrency;
   private String referrerUrl;
 
+  public TransactionBuilder(TransactionBuilder transactionBuilder) {
+    this.contractAddress = transactionBuilder.contractAddress;
+    this.decimals = transactionBuilder.decimals;
+    this.symbol = transactionBuilder.symbol;
+    this.shouldSendToken = transactionBuilder.shouldSendToken;
+    this.toAddress = transactionBuilder.toAddress;
+    this.fromAddress = transactionBuilder.fromAddress;
+    this.amount = transactionBuilder.amount;
+    this.data = transactionBuilder.data;
+    this.appcoinsData = transactionBuilder.appcoinsData;
+    this.gasSettings = transactionBuilder.gasSettings;
+    this.chainId = transactionBuilder.chainId;
+    this.skuId = transactionBuilder.skuId;
+    this.type = transactionBuilder.type;
+    this.origin = transactionBuilder.origin;
+    this.domain = transactionBuilder.domain;
+    this.payload = transactionBuilder.payload;
+    this.iabContract = transactionBuilder.iabContract;
+    this.callbackUrl = transactionBuilder.callbackUrl;
+    this.orderReference = transactionBuilder.orderReference;
+    this.originalOneStepValue = transactionBuilder.originalOneStepValue;
+    this.originalOneStepCurrency = transactionBuilder.originalOneStepCurrency;
+    this.referrerUrl = transactionBuilder.referrerUrl;
+  }
+
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
         .symbol(tokenInfo.symbol)

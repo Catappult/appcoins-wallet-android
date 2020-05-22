@@ -25,7 +25,6 @@ import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
 import com.asfoundation.wallet.ui.GasSettingsActivity;
-import com.asfoundation.wallet.ui.ImportWalletActivity;
 import com.asfoundation.wallet.ui.MyAddressActivity;
 import com.asfoundation.wallet.ui.OneStepPaymentReceiver;
 import com.asfoundation.wallet.ui.SendActivity;
@@ -33,9 +32,15 @@ import com.asfoundation.wallet.ui.SettingsActivity;
 import com.asfoundation.wallet.ui.SplashActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.UpdateRequiredActivity;
-import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
+import com.asfoundation.wallet.ui.backup.BackupCreationFragment;
+import com.asfoundation.wallet.ui.backup.BackupSuccessFragment;
+import com.asfoundation.wallet.ui.backup.BackupWalletFragment;
+import com.asfoundation.wallet.ui.backup.WalletBackupActivity;
 import com.asfoundation.wallet.ui.balance.BalanceFragment;
+import com.asfoundation.wallet.ui.balance.QrCodeActivity;
+import com.asfoundation.wallet.ui.balance.RestoreWalletFragment;
+import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment;
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity;
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.gamification.HowItWorksFragment;
@@ -54,6 +59,10 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity;
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransferFragment;
+import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment;
+import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment;
+import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment;
+import com.asfoundation.wallet.ui.wallets.WalletsFragment;
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity;
 import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment;
 import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment;
@@ -67,15 +76,9 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module abstract class BuildersModule {
-  @ActivityScope @ContributesAndroidInjector(modules = SplashModule.class)
-  abstract SplashActivity bindSplashModule();
+  @ActivityScope @ContributesAndroidInjector abstract SplashActivity bindSplashModule();
 
   @ActivityScope @ContributesAndroidInjector() abstract BaseActivity bindBaseActivityModule();
-
-  @ActivityScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
-  abstract WalletsActivity bindManageWalletsModule();
-
-  @ActivityScope @ContributesAndroidInjector abstract ImportWalletActivity bindImportWalletModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = TransactionsModule.class)
   abstract TransactionsActivity bindTransactionsModule();
@@ -115,6 +118,8 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector
   abstract InviteFriendsActivity bindInviteFriendsActivity();
+
+  @ActivityScope @ContributesAndroidInjector abstract QrCodeActivity bindActiveWalletActivity();
 
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 
@@ -200,6 +205,12 @@ import dagger.android.ContributesAndroidInjector;
 
   @ContributesAndroidInjector() abstract IabUpdateRequiredFragment bindIabUpdateRequiredFragment();
 
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract WalletsFragment bindWalletsFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract WalletDetailsFragment bindWalletDetailFragment();
+
   @FragmentScope @ContributesAndroidInjector()
   abstract AdyenPaymentFragment bindAdyenPaymentFragment();
 
@@ -207,6 +218,29 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector()
   abstract WalletBlockedActivity bindWalletBlockedActivity();
+
+  @ContributesAndroidInjector abstract RemoveWalletFragment bindRemoveWalletFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract WalletRemoveConfirmationFragment bindWalletRemoveConfirmationFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract RestoreWalletFragment bindRestoreWalletFragment();
+
+  @FragmentScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
+  abstract RestoreWalletPasswordFragment bindRestoreWalletPasswordFragment();
+
+  @ActivityScope @ContributesAndroidInjector
+  abstract WalletBackupActivity bindWalletBackupActivity();
+
+  @FragmentScope @ContributesAndroidInjector()
+  abstract BackupWalletFragment bindBackupWalletFragment();
+
+  @FragmentScope @ContributesAndroidInjector()
+  abstract BackupCreationFragment bindBackupCreationFragment();
+
+  @FragmentScope @ContributesAndroidInjector()
+  abstract BackupSuccessFragment bindBackupSuccessFragment();
 
   @ActivityScope @ContributesAndroidInjector(modules = SubscriptionModule.class)
   abstract SubscriptionActivity bindSubscriptionActivity();

@@ -21,7 +21,7 @@ class Erc681ReceiverPresenter {
   private final Scheduler viewScheduler;
   private Disposable disposable;
 
-  public Erc681ReceiverPresenter(Erc681ReceiverView view, TransferParser transferParser,
+  Erc681ReceiverPresenter(Erc681ReceiverView view, TransferParser transferParser,
       InAppPurchaseInteractor inAppPurchaseInteractor, FindDefaultWalletInteract walletInteract,
       String data, PaymentReceiverInteract paymentReceiverInteract, Scheduler viewScheduler) {
     this.view = view;
@@ -33,7 +33,7 @@ class Erc681ReceiverPresenter {
     this.viewScheduler = viewScheduler;
   }
 
-  public void present(Bundle savedInstanceState) {
+  void present(Bundle savedInstanceState) {
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
           .onErrorResumeNext(this::handleWalletCreation)
@@ -58,7 +58,7 @@ class Erc681ReceiverPresenter {
     return throwable instanceof WalletNotFoundException ? createWallet() : Single.error(throwable);
   }
 
-  public void pause() {
+  void pause() {
     if (disposable != null && !disposable.isDisposed()) {
       disposable.dispose();
     }

@@ -39,36 +39,69 @@ class WalletValidationActivity : BaseActivity(),
     intent.getBooleanExtra(SHOW_TOOLBAR, false)
   }
 
+  private val previousContext: String by lazy {
+    intent.getStringExtra(PREVIOUS_CONTEXT)
+  }
+
+
   companion object {
     const val FRAME_RATE = 30
     const val HAS_BEEN_INVITED_FLOW = "has_been_invited_flow"
     const val NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS = "navigate_to_transactions_on_success"
     const val NAVIGATE_TO_TRANSACTIONS_ON_CANCEL = "navigate_to_transactions_on_cancel"
     const val SHOW_TOOLBAR = "show_toolbar"
+    const val PREVIOUS_CONTEXT = "previous_context"
+    const val MIN_FRAME = "minFrame"
+    const val MAX_FRAME = "maxFrame"
+    const val LOOP_ANIMATION = "loopAnimation"
 
     @JvmStatic
     fun newIntent(context: Context, hasBeenInvitedFlow: Boolean,
                   navigateToTransactionsOnSuccess: Boolean,
                   navigateToTransactionsOnCancel: Boolean,
-                  showToolbar: Boolean): Intent {
+                  showToolbar: Boolean, previousContext: String): Intent {
       return Intent(context, WalletValidationActivity::class.java).apply {
         putExtra(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
         putExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, navigateToTransactionsOnSuccess)
         putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, navigateToTransactionsOnCancel)
         putExtra(SHOW_TOOLBAR, showToolbar)
+        putExtra(PREVIOUS_CONTEXT, previousContext)
       }
     }
   }
 
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    outState.putInt(MIN_FRAME, minFrame)
+    outState.putInt(MAX_FRAME, maxFrame)
+    outState.putInt(LOOP_ANIMATION, loopAnimation)
+  }
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_validation)
     presenter = WalletValidationPresenter(this)
 
+    handleSavedInstance(savedInstanceState)
+
     setupUI()
 
-    presenter.present()
+    presenter.present(savedInstanceState != null)
+  }
+
+  private fun handleSavedInstance(savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      if (savedInstanceState.containsKey(MIN_FRAME)) {
+        minFrame = it.getInt(MIN_FRAME)
+      }
+      if (savedInstanceState.containsKey(MAX_FRAME)) {
+        maxFrame = it.getInt(MAX_FRAME)
+      }
+      if (savedInstanceState.containsKey(LOOP_ANIMATION)) {
+        loopAnimation = it.getInt(LOOP_ANIMATION)
+      }
+    }
   }
 
   private fun setupUI() {
@@ -97,30 +130,31 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
-                                       errorMessage: Int?) {
-    if (countryCode != null && phoneNumber != null) {
-      reverseAnimation(30, 60, 0)
-    }
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            PhoneValidationFragment.newInstance(
-                countryCode, phoneNumber, errorMessage, hasBeenInvitedFlow))
-        .commit()
-
-    Handler().postDelayed({
+                                       errorMessage: Int?, isSavedInstance: Boolean) {
+    if (!isSavedInstance) {
       if (countryCode != null && phoneNumber != null) {
-        reverseAnimation(0, 30, -1)
+        reverseAnimation(30, 60, 0)
       }
-    }, 1000)
+      supportFragmentManager.beginTransaction()
+          .replace(R.id.fragment_container,
+              PhoneValidationFragment.newInstance(
+                  countryCode, phoneNumber, errorMessage, hasBeenInvitedFlow, previousContext))
+          .commit()
 
+      Handler().postDelayed({
+        if (countryCode != null && phoneNumber != null) {
+          reverseAnimation(0, 30, -1)
+        }
+      }, 1000)
+    }
   }
 
   override fun showCodeValidationView(countryCode: String, phoneNumber: String) {
-    increaseAnimationFrames()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             CodeValidationFragment.newInstance(countryCode, phoneNumber, hasBeenInvitedFlow))
         .commit()
+    increaseAnimationFrames()
   }
 
   override fun showCodeValidationView(validationInfo: ValidationInfo, errorMessage: Int) {

@@ -61,14 +61,14 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
   private fun animateBackgroundFade() {
-    referralsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+    referralsBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    }
+    })
   }
 
   private fun setTextValues() {
@@ -96,29 +96,23 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     activity?.navigateToTopApps()
   }
 
-  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String) {
+  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String,
+                                    icon: Int?) {
     if (pendingAmount.toDouble() > 0) {
-      referral_notification_card.visibility = VISIBLE
+      icon?.let { notification_image.setImageResource(icon) }
       notification_title.text = getString(R.string.referral_notification_bonus_pending_title,
           "$symbol${pendingAmount.scaleToString(2)}")
+      referral_notification_card.visibility = VISIBLE
     } else {
       referral_notification_card.visibility = GONE
     }
   }
 
-  private fun expandBottomSheet() {
-    referralsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-  }
-
-  private fun collapseBottomSheet() {
-    referralsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-  }
-
   override fun changeBottomSheetState() {
     if (referralsBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
-      expandBottomSheet()
-    } else {
-      collapseBottomSheet()
+      referralsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+    } else if (referralsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+      referralsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     }
   }
 
@@ -161,7 +155,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY)
+      arguments!!.getString(CURRENCY, "")
     } else {
       throw IllegalArgumentException("Currency not found")
     }
@@ -169,7 +163,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private val link: String by lazy {
     if (arguments!!.containsKey(LINK)) {
-      arguments!!.getString(LINK)
+      arguments!!.getString(LINK, "")
     } else {
       throw IllegalArgumentException("link not found")
     }

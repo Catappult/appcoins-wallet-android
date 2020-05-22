@@ -12,9 +12,9 @@ interface PhoneValidationView {
 
   fun setButtonState(state: Boolean)
 
-  fun getNextClicks(): Observable<Pair<String, String>>
+  fun getNextClicks(): Observable<PhoneValidationFragment.Companion.PhoneValidationClickData>
 
-  fun getCancelClicks(): Observable<Any>
+  fun getCancelClicks(): Observable<PhoneValidationFragment.Companion.PhoneValidationClickData>
 
   fun setError(message: Int)
 
@@ -24,9 +24,9 @@ interface PhoneValidationView {
 
   fun hideNoInternetView()
 
-  fun getRetryButtonClicks(): Observable<Pair<String, String>>
+  fun getRetryButtonClicks(): Observable<PhoneValidationFragment.Companion.PhoneValidationClickData>
 
-  fun getLaterButtonClicks(): Observable<Any>
+  fun getLaterButtonClicks(): Observable<PhoneValidationFragment.Companion.PhoneValidationClickData>
 
   fun hideKeyboard()
 

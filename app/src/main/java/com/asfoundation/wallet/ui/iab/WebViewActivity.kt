@@ -1,9 +1,12 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.AssetManager
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Surface
@@ -13,7 +16,16 @@ import dagger.android.AndroidInjection
 
 class WebViewActivity : AppCompatActivity() {
 
-  lateinit var billingWebViewFragment: BillingWebViewFragment
+  override fun getAssets(): AssetManager {
+    //Workaround for crash when inflating the webView
+    return if (Build.VERSION.SDK_INT > 22) {
+      super.getAssets()
+    } else {
+      resources.assets
+    }
+  }
+
+  private lateinit var billingWebViewFragment: BillingWebViewFragment
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -31,11 +43,12 @@ class WebViewActivity : AppCompatActivity() {
   }
 
   override fun onBackPressed() {
-    if (!billingWebViewFragment.handleBackPressed()) {
+    if (!((this::billingWebViewFragment.isInitialized) && billingWebViewFragment.handleBackPressed())) {
       super.onBackPressed()
     }
   }
 
+  @SuppressLint("SourceLockedOrientationActivity")
   private fun lockCurrentPosition() {
     //setRequestedOrientation requires translucent and floating to be false to work in API 26
     val rotation = windowManager.defaultDisplay

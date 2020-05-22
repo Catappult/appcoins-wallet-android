@@ -13,10 +13,10 @@ class TopUpActivityPresenter(private val view: TopUpActivityView) {
   fun processActivityResult(requestCode: Int, resultCode: Int,
                             data: Intent?) {
     if (requestCode == TopUpActivity.WEB_VIEW_REQUEST_CODE) {
-      if (resultCode == WebViewActivity.FAIL) {
+      if (resultCode == WebViewActivity.SUCCESS && data != null) {
+        data.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
+      } else if (resultCode == WebViewActivity.FAIL) {
         view.cancelPayment()
-      } else if (resultCode == WebViewActivity.SUCCESS && data != null) {
-        view.acceptResult(data.data)
       }
     }
   }

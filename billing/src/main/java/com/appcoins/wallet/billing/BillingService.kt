@@ -24,18 +24,19 @@ class BillingService : Service() {
 
   override fun onBind(intent: Intent): IBinder {
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
-    return AppcoinsBillingBinder(dependenciesProvider.getSupportedVersion(),
-        dependenciesProvider.getBillingMessagesMapper(),
+    return AppcoinsBillingBinder(dependenciesProvider.supportedVersion(),
+        dependenciesProvider.billingMessagesMapper(),
         packageManager,
         object : BillingFactory {
           override fun getBilling(): Billing {
             return BdsBilling(BdsRepository(
-                RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper(),
-                    dependenciesProvider.getBdsApiSecondary(),
-                    dependenciesProvider.getSubscriptionBillingService())),
-                dependenciesProvider.getWalletService(), BillingThrowableCodeMapper())
+                RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+                    dependenciesProvider.bdsApiSecondary(),
+                    dependenciesProvider.subscriptionBillingService())),
+                dependenciesProvider.walletService(),
+                BillingThrowableCodeMapper())
           }
-        }, ExternalBillingSerializer(), dependenciesProvider.getProxyService(),
+        }, ExternalBillingSerializer(), dependenciesProvider.proxyService(),
         BillingIntentBuilder(applicationContext), Schedulers.io())
   }
 }

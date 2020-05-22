@@ -13,7 +13,7 @@ import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.functions.Function3
+import io.reactivex.functions.BiFunction
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletService: WalletService,
@@ -28,36 +28,34 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                      callbackUrl: String?, orderReference: String?,
                      payload: String?): Single<String> {
 
-    return walletService.getWalletAddress()
-        .flatMap { address ->
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap { walletAddressModel ->
           Single.zip(
-              walletService.signContent(address),
               partnerAddressService.getStoreAddressForPackage(domain),
               partnerAddressService.getOemAddressForPackage(domain),
-              Function3 { signature: String, storeAddress: String, oemAddress: String ->
-                DeepLinkInformation(signature, storeAddress, oemAddress)
+              BiFunction { storeAddress: String, oemAddress: String ->
+                DeepLinkInformation(storeAddress, oemAddress)
               })
               .flatMap {
-                deepLinkRepository.getDeepLink(domain, skuId, address, it.signature, originalAmount,
-                    originalCurrency, paymentMethod, developerAddress, it.storeAddress,
-                    it.oemAddress, callbackUrl, orderReference, payload)
+                deepLinkRepository.getDeepLink(domain, skuId, walletAddressModel.address,
+                    walletAddressModel.signedAddress, originalAmount, originalCurrency,
+                    paymentMethod, developerAddress, it.storeAddress, it.oemAddress, callbackUrl,
+                    orderReference, payload)
               }
         }
   }
 
-  fun getTransaction(uri: Uri): Observable<Transaction> {
-    return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
-        .filter { isEndingState(it.status, it.type) }
-        .distinctUntilChanged { transaction -> transaction.status }
-  }
+  fun getTransaction(uri: Uri): Observable<Transaction> =
+      inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
+          .filter { isEndingState(it.status, it.type) }
+          .distinctUntilChanged { transaction -> transaction.status }
 
-  private fun isEndingState(status: Transaction.Status, type: String): Boolean {
-    return (status == PENDING_USER_PAYMENT && type == "TOPUP")
-        || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED"))
-        || status == FAILED
-        || status == CANCELED
-        || status == INVALID_TRANSACTION
-  }
+  private fun isEndingState(status: Transaction.Status, type: String) =
+      (status == PENDING_USER_PAYMENT && type == "TOPUP") ||
+          status == COMPLETED ||
+          status == FAILED ||
+          status == CANCELED ||
+          status == INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
@@ -83,6 +81,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     inAppPurchaseInteractor.saveAsyncLocalPayment(paymentMethod)
   }
 
-  private data class DeepLinkInformation(val signature: String, val storeAddress: String,
-                                         val oemAddress: String)
+  private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
+
+  fun isAsync(type: String) = type == "TOPUP"
 }

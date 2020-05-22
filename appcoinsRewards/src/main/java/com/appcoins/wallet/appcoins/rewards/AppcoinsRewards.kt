@@ -105,7 +105,8 @@ class AppcoinsRewards(
 
   fun getPayment(packageName: String, sku: String? = "",
                  amount: String? = ""): Observable<Transaction> =
-      cache.get(getKey(amount, sku, packageName)).filter { it.status != Transaction.Status.PENDING }
+      cache.get(getKey(amount, sku, packageName))
+          .filter { it.status != Transaction.Status.PENDING }
 
   private fun getKey(transaction: Transaction): String =
       getKey(transaction.amount.toString(), transaction.sku, transaction.packageName)

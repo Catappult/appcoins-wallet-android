@@ -3,7 +3,7 @@
   <string name="title_send">Send</string>
   <string name="title_send_with_token">Send %s</string>
   <string name="title_request">Receive</string>
-  <string name="title_import">Import Wallet</string>
+  <string name="title_import">Recover Wallet</string>
 
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Password</string>
@@ -19,7 +19,7 @@
   <string name="title_account_list">Wallets</string>
   <string name="cancel">cancel</string>
   <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
-  <string name="action_import">Import</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Copy to clipboard</string>
   <string name="close">Close</string>
   <string name="title_activity_settings">Settings</string>
@@ -106,7 +106,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -439,6 +439,7 @@
 
   <!--Settings-->
   <string name="title_redeem">Redeem Code</string>
+  <string name="settings_item_support">Contact Support Team</string>
 
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In progress&#8230;</string>
@@ -579,7 +580,7 @@
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
   <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE IT AGAIN</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Backup done!</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
@@ -588,20 +589,23 @@
   <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
   <string name="backup_confirmation_tips_title">Keep the file safe:</string>
   <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB dive.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
   <string name="backup_save_button">SAVE BACKUP</string>
-  <string name="import_wallet_title">Import Wallet</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
-  <string name="import_wallet_file_button">IMPORT FROM FILE</string>
-  <string name="import_wallet_button">IMPORT WALLET</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
+  <string name="backup_tooltip_later_button">MAYBE LATER</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
 
 
   <!--Wallets Management-->
@@ -616,10 +620,10 @@
 
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
-  <string name="wallets_imported_body">Wallet successfuly imported</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Balance:</string>
   <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
-  <string name="wallets_2nd_view_import_button">IMPORT WALLET</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">CREATE NEW</string>
   <string name="wallet_view_copy_button">COPY</string>
   <string name="wallet_view_share_button">SHARE</string>

@@ -7,20 +7,27 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invited_friends_animation_list.*
 import kotlinx.android.synthetic.main.referrals_layout.*
 import java.math.BigDecimal
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class ReferralsFragment : DaggerFragment(), ReferralsView {
 
   private lateinit var presenter: ReferralsPresenter
 
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = ReferralsPresenter(this)
+    presenter = ReferralsPresenter(this, CompositeDisposable())
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,17 +45,32 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
     friends_invited.visibility = VISIBLE
     number_friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
-    total_earned.text =
-        currency.plus(getTotalEarned().scaleToString(2))
+    total_earned.text = currency.plus(formatter.formatCurrency(getTotalEarned(),
+        WalletCurrency.FIAT))
     total_earned.visibility = VISIBLE
-    val individualEarn = currency + amount.scaleToString(2)
+    val individualEarn = currency.plus(formatter.formatCurrency(amount, WalletCurrency.FIAT))
     val totalEarn =
-        currency + amount.multiply(BigDecimal(totalAvailable)).scaleToString(2)
+        currency.plus(formatter.formatCurrency(amount.multiply(BigDecimal(totalAvailable)),
+            WalletCurrency.FIAT))
     referral_explanation.text =
         getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
     invitations_progress_bar.progress =
         ((100 / (completedInvites.toDouble() + available.toDouble())) * completedInvites).roundToInt()
     setFriendsAnimations(completedInvites, completedInvites + available)
+  }
+
+  override fun bottomSheetHeaderClick() = RxView.clicks(bottom_sheet_header)
+
+  override fun changeBottomSheetState() {
+    val parentFragment = provideParentFragment()
+    parentFragment?.changeBottomSheetState()
+  }
+
+  private fun provideParentFragment(): InviteFriendsFragment? {
+    if (parentFragment !is InviteFriendsFragment) {
+      return null
+    }
+    return parentFragment as InviteFriendsFragment
   }
 
   private fun getTotalEarned(): BigDecimal {
@@ -82,14 +104,6 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     }
   }
 
-  private val maxAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(MAX_AMOUNT)) {
-      arguments!!.getSerializable(MAX_AMOUNT) as BigDecimal
-    } else {
-      throw IllegalArgumentException("Max amount not found")
-    }
-  }
-
   private val amount: BigDecimal by lazy {
     if (arguments!!.containsKey(AMOUNT)) {
       arguments!!.getSerializable(AMOUNT) as BigDecimal
@@ -100,7 +114,7 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
 
   private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY)
+      arguments!!.getString(CURRENCY, "")
     } else {
       throw IllegalArgumentException("Currency not found")
     }

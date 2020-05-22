@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.service
 
 import android.util.Pair
+import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -33,6 +34,16 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
         }
   }
 
+  override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> {
+    return walletInteract.find()
+        .flatMap { wallet ->
+          getPrivateKey(wallet).map { ecKey ->
+            sign(normalizer.normalize(toChecksumAddress(wallet.address)), ecKey)
+          }
+              .map { WalletAddressModel(wallet.address, it) }
+        }
+  }
+
   @Throws(Exception::class)
   fun sign(plainText: String, ecKey: ECKey): String {
     val signature = ecKey.sign(sha3(plainText.toByteArray()))
@@ -43,9 +54,9 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
     if (stringECKeyPair != null && stringECKeyPair!!.first.equals(wallet.address, true)) {
       return Single.just(stringECKeyPair!!.second)
     }
-    return passwordStore.getPassword(wallet)
+    return passwordStore.getPassword(wallet.address)
         .flatMap { password ->
-          accountKeyService.exportAccount(wallet, password, password)
+          accountKeyService.exportAccount(wallet.address, password, password)
               .map { json ->
                 ECKey.fromPrivate(WalletUtils.loadCredentials(password, json)
                     .ecKeyPair

@@ -7,6 +7,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
@@ -16,8 +17,9 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -42,22 +44,39 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val bonusValue: String,
                           private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
                           private val gamificationLevel: Int,
-                          private val topUpAnalytics: TopUpAnalytics
+                          private val topUpAnalytics: TopUpAnalytics,
+                          private val formatter: CurrencyFormatUtils
 ) {
 
   private var waitingResult = false
+  private var paymentMethod = PaymentType.CARD.name
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState != null) {
       waitingResult = savedInstanceState.getBoolean(WAITING_RESULT)
     }
     loadPaymentMethodInfo(savedInstanceState)
-    handleErrorDismissEvent()
     handleForgetCardClick()
 
+    handleRetryClick(savedInstanceState)
     handleRedirectResponse()
     handleSupportClicks()
     handleTryAgainClicks()
+  }
+
+  private fun handleRetryClick(savedInstanceState: Bundle?) {
+    disposables.add(view.retryClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showRetryAnimation() }
+        .delay(1, TimeUnit.SECONDS)
+        .doOnNext {
+          if (waitingResult) {
+            view.navigateToPaymentSelection()
+          } else {
+            loadPaymentMethodInfo(savedInstanceState)
+          }
+        }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleSupportClicks() {
@@ -74,7 +93,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     disposables.add(
         view.getTryAgainClicks()
             .throttleFirst(50, TimeUnit.MILLISECONDS)
-            .doOnNext { view.hideSpecificError() }
+            .doOnNext {
+              if (paymentMethod == PaymentType.CARD.name) view.hideSpecificError()
+              else view.navigateToPaymentSelection()
+            }
             .subscribeOn(viewScheduler)
             .subscribe()
     )
@@ -89,12 +111,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
+          view.hideNoNetworkError()
           view.hideLoading()
           if (it.error.hasError) {
             if (it.error.isNetworkError) view.showNetworkError()
-            else view.showGenericError()
+            else view.showSpecificError(R.string.unknown_error)
           } else {
-            view.showValues(it.priceAmount, it.priceCurrency)
+            val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
+            view.showValues(priceAmount, it.priceCurrency)
+            paymentMethod = paymentType
             if (paymentType == PaymentType.CARD.name) {
               view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                   savedInstanceState)
@@ -104,7 +129,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
           }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
@@ -121,14 +146,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .subscribe())
   }
 
-  private fun handleErrorDismissEvent() {
-    disposables.add(Observable.merge(view.errorDismisses(), view.errorCancels(),
-        view.errorPositiveClicks())
-        .doOnNext { navigator.popViewWithError() }
-        .doOnError { it.printStackTrace() }
-        .subscribe())
-  }
-
+  //Called if is card
   private fun handleTopUpClick(priceAmount: BigDecimal, priceCurrency: String, appcValue: String) {
     disposables.add(
         view.topUpButtonClicked()
@@ -138,6 +156,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
             .doOnNext {
               view.showLoading()
+              view.lockRotation()
               view.setFinishingPurchase()
             }
             .observeOn(networkScheduler)
@@ -152,7 +171,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .flatMapCompletable {
               handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
             }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleForgetCardClick() {
@@ -162,7 +181,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.disablePayments() }
         .observeOn(viewScheduler)
-        .doOnNext { success -> if (!success) view.showGenericError() }
+        .doOnNext { success -> if (!success) view.showSpecificError(R.string.unknown_error) }
         .filter { it }
         .observeOn(networkScheduler)
         .flatMapSingle {
@@ -173,7 +192,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 view.hideLoading()
                 if (it.error.hasError) {
                   if (it.error.isNetworkError) view.showNetworkError()
-                  else view.showGenericError()
+                  else view.showSpecificError(R.string.unknown_error)
                 } else {
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
                 }
@@ -193,6 +212,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe())
   }
 
+  //Called if is paypal
   private fun handlePaymentDetails(priceAmount: BigDecimal,
                                    priceCurrency: String) {
     disposables.add(view.getPaymentDetails()
@@ -222,7 +242,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 Completable.fromAction {
                   topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType,
                       "success")
-                  val bundle = createBundle(priceAmount, priceCurrency)
+                  val bundle =
+                      createBundle(priceAmount, priceCurrency, currencyData.fiatCurrencySymbol)
                   waitingResult = false
                   navigator.popView(bundle)
                 }
@@ -231,7 +252,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                   topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
                       it.error.code.toString(),
                       buildRefusalReason(it.status, it.error.message))
-                  view.showGenericError()
+                  view.showSpecificError(R.string.unknown_error)
                 }
               }
             }
@@ -256,7 +277,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         } else {
           topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
               paymentModel.error.code.toString(), paymentModel.error.message ?: "")
-          view.showGenericError()
+          view.showSpecificError(R.string.unknown_error)
         }
       }
       paymentModel.status == CANCELED -> Completable.fromAction {
@@ -267,7 +288,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       else -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
             paymentModel.refusalCode.toString(), "Generic Error")
-        view.showGenericError()
+        view.showSpecificError(R.string.unknown_error)
       }
     }
   }
@@ -280,33 +301,32 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                                  priceAmount: BigDecimal, priceCurrency: String) {
     if (paymentModel.error.hasError) {
       if (paymentModel.error.isNetworkError) view.showNetworkError()
-      else view.showGenericError()
+      else view.showSpecificError(R.string.unknown_error)
     } else {
       view.showLoading()
+      view.lockRotation()
       view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
       handlePaymentDetails(priceAmount, priceCurrency)
       navigator.navigateToUriForResult(paymentModel.redirectUrl)
       waitingResult = true
-
     }
   }
 
-  private fun convertAmount()
-      : Single<BigDecimal> {
+  private fun convertAmount(): Single<BigDecimal> {
     return if (selectedCurrency == TopUpData.FIAT_CURRENCY) {
-      Single.just(
-          BigDecimal(currencyData.fiatValue))
+      Single.just(BigDecimal(currencyData.fiatValue))
     } else adyenPaymentInteractor.convertToLocalFiat(
         BigDecimal(currencyData.appcValue).toDouble())
         .map(FiatValue::amount)
   }
 
-  private fun createBundle(priceAmount: BigDecimal, priceCurrency: String): Bundle {
-    return billingMessagesMapper.topUpBundle(priceAmount.toPlainString(), priceCurrency, bonusValue)
+  private fun createBundle(priceAmount: BigDecimal, priceCurrency: String,
+                           fiatCurrencySymbol: String): Bundle {
+    return billingMessagesMapper.topUpBundle(priceAmount.toPlainString(), priceCurrency, bonusValue,
+        fiatCurrencySymbol)
   }
 
-  private fun mapPaymentToService(paymentType: String)
-      : AdyenPaymentRepository.Methods {
+  private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods {
     return if (paymentType == PaymentType.CARD.name) {
       AdyenPaymentRepository.Methods.CREDIT_CARD
     } else {

@@ -91,7 +91,7 @@ public class LogInterceptor implements Interceptor {
       if (responseBody != null) {
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE); // Buffer the entire body.
-        Buffer buffer = source.buffer();
+        Buffer buffer = source.getBuffer();
 
         Charset charset = null;
         MediaType contentType = responseBody.contentType();

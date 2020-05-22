@@ -56,7 +56,7 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/scan_qr"
         android:padding="@dimen/big_padding"
-        android:src="@mipmap/qr_code_icon"
+        android:src="@drawable/ic_qr_code"
         app:layout_constraintBottom_toBottomOf="@+id/transact_fragment_recipient_address_layout"
         app:layout_constraintEnd_toEndOf="@+id/transact_fragment_recipient_address_layout"
         app:layout_constraintHorizontal_bias="1"
@@ -84,7 +84,7 @@
           android:inputType="numberDecimal"
           />
     </com.google.android.material.textfield.TextInputLayout>
-    <include layout="@layout/currency_choose_layout"/>
+    <include layout="@layout/currency_choose_layout" />
 
     <TextView
         android:id="@+id/transact_fragment_balance"
@@ -96,7 +96,7 @@
         app:layout_constraintBottom_toTopOf="@id/send_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency_selector"
+        app:layout_constraintTop_toBottomOf="@id/currency_selector"
         tools:text="Current balance: 867 APPC-C"
         />
     <Button

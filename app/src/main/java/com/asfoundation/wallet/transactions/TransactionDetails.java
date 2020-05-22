@@ -2,6 +2,7 @@ package com.asfoundation.wallet.transactions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 /**
@@ -43,21 +44,35 @@ public class TransactionDetails implements Parcelable {
     return result;
   }
 
-  @Override public int describeContents() {
-    return 0;
-  }
-
   @Override public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof TransactionDetails)) return false;
 
     TransactionDetails that = (TransactionDetails) o;
 
-    if (sourceName != null ? !sourceName.equals(that.sourceName) : that.sourceName != null) {
+    if (!Objects.equals(sourceName, that.sourceName)) {
       return false;
     }
-    if (icon != null ? !icon.equals(that.icon) : that.icon != null) return false;
-    return description != null ? description.equals(that.description) : that.description == null;
+    if (!Objects.equals(icon, that.icon)) return false;
+    return Objects.equals(description, that.description);
+  }
+
+  @Override public String toString() {
+    return "TransactionDetails{"
+        + "sourceName='"
+        + sourceName
+        + '\''
+        + ", icon='"
+        + icon
+        + '\''
+        + ", description='"
+        + description
+        + '\''
+        + '}';
+  }
+
+  @Override public int describeContents() {
+    return 0;
   }
 
   @Override public void writeToParcel(Parcel dest, int flags) {
@@ -73,6 +88,10 @@ public class TransactionDetails implements Parcelable {
 
   public String getSourceName() {
     return sourceName;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public static class Icon {
@@ -92,8 +111,10 @@ public class TransactionDetails implements Parcelable {
       return uri;
     }
 
-    public enum Type {
-      FILE, URL
+    @Override public int hashCode() {
+      int result = type.hashCode();
+      result = 31 * result + uri.hashCode();
+      return result;
     }
 
     @Override public boolean equals(Object o) {
@@ -106,32 +127,8 @@ public class TransactionDetails implements Parcelable {
       return uri.equals(icon.uri);
     }
 
-    @Override public int hashCode() {
-      int result = type.hashCode();
-      result = 31 * result + uri.hashCode();
-      return result;
+    public enum Type {
+      FILE, URL
     }
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-
-
-
-
-  @Override public String toString() {
-    return "TransactionDetails{"
-        + "sourceName='"
-        + sourceName
-        + '\''
-        + ", icon='"
-        + icon
-        + '\''
-        + ", description='"
-        + description
-        + '\''
-        + '}';
   }
 }

@@ -18,9 +18,9 @@ import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
+import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
@@ -59,16 +59,12 @@ public class WalletPoAService extends Service {
   public static final int SERVICE_ID = 77784;
   public static final int VERIFICATION_SERVICE_ID = 77785;
 
-  static final String TAG = WalletPoAService.class.getSimpleName();
+  private static final String TAG = WalletPoAService.class.getSimpleName();
   /**
    * Target we publish for clients to send messages to IncomingHandler.Note
    * that calls to its binder are sequential!
    */
   final Messenger serviceMessenger = new Messenger(new IncomingHandler());
-
-  /** Boolean indicating that we are already bound */
-  boolean isBound = false;
-
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
   @Inject Logger logger;
@@ -79,6 +75,8 @@ public class WalletPoAService extends Service {
   @Inject CampaignInteract campaignInteract;
   @Inject AutoUpdateInteract autoUpdateInteract;
   @Inject @Named("heads_up") NotificationCompat.Builder headsUpNotificationBuilder;
+  /** Boolean indicating that we are already bound */
+  private boolean isBound = false;
   private Disposable disposable;
   private Disposable timerDisposable;
   private Disposable requirementsDisposable;
@@ -118,7 +116,8 @@ public class WalletPoAService extends Service {
                 .doOnSuccess(proof -> processWalletState(proof, intent, packageName)))
             .subscribe(requirementsStatus -> {
             }, throwable -> {
-              logger.log(throwable);
+              analytics.sendRakamProofEvent(packageName, "fail", throwable.toString());
+              logger.log(TAG, throwable);
               showGenericErrorNotificationAndStopForeground();
             });
       }
@@ -212,7 +211,7 @@ public class WalletPoAService extends Service {
             getString(R.string.notification_wrong_network_poa)).build());
         stopForeground(false);
         stopTimeout();
-        logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
+        logger.log(TAG, new Throwable(new WrongNetworkException("Not on the correct network")));
         break;
       case UPDATE_REQUIRED:
         if (autoUpdateInteract.shouldShowNotification()) {
@@ -223,7 +222,7 @@ public class WalletPoAService extends Service {
         stopTimeout();
         break;
       case UNKNOWN_NETWORK:
-        logger.log(new Throwable(new WrongNetworkException("Unknown network")));
+        logger.log(TAG, new Throwable(new WrongNetworkException("Unknown network")));
         break;
     }
   }
@@ -256,10 +255,10 @@ public class WalletPoAService extends Service {
     disposeDisposable(timerDisposable);
   }
 
-  public void startNotifications() {
-    startForeground(SERVICE_ID,
-        createDefaultNotificationBuilder(getString(R.string.notification_ongoing_poa)).build());
+  private void startNotifications() {
     if (disposable == null || disposable.isDisposed()) {
+      startForeground(SERVICE_ID,
+          createDefaultNotificationBuilder(getString(R.string.notification_ongoing_poa)).build());
       disposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
           .doOnNext(this::updateNotification)
@@ -301,7 +300,6 @@ public class WalletPoAService extends Service {
         }
         notificationManager.notify(SERVICE_ID, notificationBuilder.build());
         campaignInteract.clearSeenPoaNotification();
-
         break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
@@ -446,7 +444,7 @@ public class WalletPoAService extends Service {
         .setContentText(notificationText);
   }
 
-  public void setTimeout(String packageName) {
+  private void setTimeout(String packageName) {
     disposeDisposable(timerDisposable);
     timerDisposable = Observable.timer(3, TimeUnit.MINUTES)
         .subscribe(__ -> {
@@ -455,13 +453,13 @@ public class WalletPoAService extends Service {
         });
   }
 
-  public void disposeDisposable(Disposable disposable) {
+  private void disposeDisposable(Disposable disposable) {
     if (disposable != null && !disposable.isDisposed()) {
       disposable.dispose();
     }
   }
 
-  public void handlePoaStartToSendEvent() {
+  private void handlePoaStartToSendEvent() {
     if (startedEventDisposable == null || startedEventDisposable.isDisposed()) {
       startedEventDisposable = proofOfAttentionService.get()
           .flatMap(proofs -> Observable.fromIterable(proofs)
@@ -489,25 +487,38 @@ public class WalletPoAService extends Service {
         && proof.getChainId() > 0;
   }
 
-  public void handlePoaCompletedToSendEvent() {
+  private void handlePoaCompletedToSendEvent() {
     if (completedEventDisposable == null || completedEventDisposable.isDisposed()) {
       completedEventDisposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
+          .doOnNext(this::handlePoaCompletedAnalytics)
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
-          .doOnNext(proof -> {
-            analyticsController.cleanStateFor(proof.getPackageName());
-            if (proof.getProofStatus()
-                .equals(ProofStatus.COMPLETED)) {
-              analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
-                  Integer.toString(proof.getChainId()));
-            }
-          })
+          .doOnNext(proof -> analyticsController.cleanStateFor(proof.getPackageName()))
           .flatMapSingle(proof -> proofOfAttentionService.get()
               .firstOrError())
           .filter(List::isEmpty)
           .take(1)
           .subscribe();
+    }
+  }
+
+  private void handlePoaCompletedAnalytics(Proof proof) {
+    if (proof.getProofStatus()
+        .equals(ProofStatus.PHONE_NOT_VERIFIED)) {
+      analytics.sendRakamProofEvent(proof.getPackageName(), "fail", proof.getProofStatus()
+          .name());
+    } else if (proof.getProofStatus()
+        .isTerminate()) {
+      if (proof.getProofStatus()
+          .equals(ProofStatus.COMPLETED)) {
+        analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
+            Integer.toString(proof.getChainId()));
+        analytics.sendRakamProofEvent(proof.getPackageName(), "success", "");
+      } else {
+        analytics.sendRakamProofEvent(proof.getPackageName(), "fail", proof.getProofStatus()
+            .name());
+      }
     }
   }
 
@@ -518,7 +529,7 @@ public class WalletPoAService extends Service {
       packageInfo = getPackageManager().getPackageInfo(packageName, 0);
       versionCode = packageInfo.versionCode;
     } catch (PackageManager.NameNotFoundException e) {
-      logger.log(new Throwable("Package not found exception"));
+      logger.log(TAG, new Throwable("Package not found exception"));
       e.printStackTrace();
     }
     return versionCode;

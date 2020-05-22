@@ -53,16 +53,16 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val bdsBilling = BdsBilling(BdsRepository(
-        RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper(),
-            dependenciesProvider.getBdsApiSecondary(),
-            dependenciesProvider.getSubscriptionBillingService())),
-        dependenciesProvider.getWalletService(),
+        RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+            dependenciesProvider.bdsApiSecondary(),
+            dependenciesProvider.subscriptionBillingService())),
+        dependenciesProvider.walletService(),
         BillingThrowableCodeMapper())
 
     serializer = ExternalBillingSerializer()
 
-    proxyService = dependenciesProvider.getProxyService()
-    billingMessagesMapper = dependenciesProvider.getBillingMessagesMapper()
+    proxyService = dependenciesProvider.proxyService()
+    billingMessagesMapper = dependenciesProvider.billingMessagesMapper()
     networkScheduler = Schedulers.io()
     intentBuilder = BillingIntentBuilder(applicationContext)
 

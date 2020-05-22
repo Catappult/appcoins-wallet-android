@@ -8,6 +8,7 @@ import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 @Module public class TransactionDetailModule {
@@ -17,8 +18,8 @@ import io.reactivex.schedulers.Schedulers;
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExternalBrowserRouter externalBrowserRouter, SubscriptionRepository subscriptionRepository) {
     return new TransactionDetailViewModelFactory(findDefaultNetworkInteract,
-        findDefaultWalletInteract, externalBrowserRouter, subscriptionRepository, Schedulers.io(),
-        AndroidSchedulers.mainThread());
+        findDefaultWalletInteract, externalBrowserRouter, new CompositeDisposable(),
+        subscriptionRepository, Schedulers.io(), AndroidSchedulers.mainThread());
   }
 
   @Provides ExternalBrowserRouter externalBrowserRouter() {

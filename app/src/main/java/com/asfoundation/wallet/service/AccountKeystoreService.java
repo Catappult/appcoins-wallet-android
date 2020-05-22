@@ -23,20 +23,20 @@ public interface AccountKeystoreService {
    *
    * @return included {@link Wallet} if success
    */
-  Single<Wallet> importKeystore(String store, String password, String newPassword);
+  Single<Wallet> restoreKeystore(String store, String password, String newPassword);
 
-  Single<Wallet> importPrivateKey(String privateKey, String newPassword);
+  Single<Wallet> restorePrivateKey(String privateKey, String newPassword);
 
   /**
    * Export wallet to keystore
    *
-   * @param wallet wallet to export
+   * @param address wallet address to export
    * @param password password from wallet
    * @param newPassword new password to store
    *
    * @return store data
    */
-  Single<String> exportAccount(Wallet wallet, String password, String newPassword);
+  Single<String> exportAccount(String address, String password, String newPassword);
 
   /**
    * Delete account from keystore

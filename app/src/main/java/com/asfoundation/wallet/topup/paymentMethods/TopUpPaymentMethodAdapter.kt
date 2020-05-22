@@ -14,6 +14,15 @@ class TopUpPaymentMethodAdapter(
     RecyclerView.Adapter<PaymentMethodViewHolder>() {
   private var selectedItem = 0
 
+  fun setSelectedItem(position: Int) {
+    selectedItem = position
+    notifyDataSetChanged()
+  }
+
+  fun getSelectedItem(): Int {
+    return selectedItem
+  }
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
     return PaymentMethodViewHolder(LayoutInflater.from(parent.context)
         .inflate(R.layout.top_up_payment_method_item, parent, false))

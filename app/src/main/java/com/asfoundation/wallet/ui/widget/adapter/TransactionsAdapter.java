@@ -24,6 +24,7 @@ import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationsListViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -68,15 +69,17 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   private Wallet wallet;
   private NetworkInfo network;
   private Resources resources;
+  private CurrencyFormatUtils formatter;
 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
       Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener,
       Action2<CardNotification, CardNotificationAction> referralNotificationClickListener,
-      Resources resources) {
+      Resources resources, CurrencyFormatUtils formatter) {
     this.onTransactionClickListener = onTransactionClickListener;
     this.applicationClickListener = applicationClickListener;
     this.referralNotificationClickListener = referralNotificationClickListener;
     this.resources = resources;
+    this.formatter = formatter;
   }
 
   @NotNull @Override
@@ -86,7 +89,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
       case TransactionHolder.VIEW_TYPE:
         holder =
             new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener,
-                resources);
+                resources, formatter);
         break;
       case TransactionDateHolder.VIEW_TYPE:
         holder = new TransactionDateHolder(R.layout.item_transactions_date_head, parent);

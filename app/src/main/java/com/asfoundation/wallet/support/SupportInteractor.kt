@@ -1,13 +1,11 @@
 package com.asfoundation.wallet.support
 
-import android.content.SharedPreferences
-import com.asfoundation.wallet.support.SupportNotificationWorker.Companion.UNREAD_CONVERSATIONS
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.reactivex.Observable
 
-class SupportInteractor(private val sharedPreferences: SharedPreferences) {
+class SupportInteractor(private val preferences: SupportSharedPreferences) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
@@ -16,6 +14,7 @@ class SupportInteractor(private val sharedPreferences: SharedPreferences) {
   private var currentUser = ""
 
   fun displayChatScreen() {
+    resetUnreadConversations()
     Intercom.client()
         .displayMessenger()
   }
@@ -40,37 +39,20 @@ class SupportInteractor(private val sharedPreferences: SharedPreferences) {
     currentUser = walletAddress
   }
 
-  fun getUnreadConversationCountListener(): Observable<Int> {
-    return Observable.create<Int> {
-      Intercom.client()
-          .addUnreadConversationCountListener { i: Int -> it.onNext(i) }
-    }
+  fun getUnreadConversationCountListener() = Observable.create<Int> {
+    Intercom.client()
+        .addUnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
   }
 
-  fun getUnreadConversationCount(): Observable<Int> {
-    return Observable.just(Intercom.client().unreadConversationCount)
-  }
+  fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
 
-  private fun getUnreadConversations(): Int = Intercom.client().unreadConversationCount
+  fun shouldShowNotification() =
+      getUnreadConversations() > preferences.checkSavedUnreadConversations()
 
-  fun shouldShowNotification(): Boolean = getUnreadConversations() > checkSavedUnreadConversations()
+  fun updateUnreadConversations() = preferences.updateUnreadConversations(getUnreadConversations())
 
-  private fun checkSavedUnreadConversations(): Int =
-      sharedPreferences.getInt(UNREAD_CONVERSATIONS, 0)
+  private fun resetUnreadConversations() = preferences.resetUnreadConversations()
 
-  fun updateUnreadConversations() {
-    sharedPreferences.edit()
-        .apply {
-          putInt(UNREAD_CONVERSATIONS, getUnreadConversations())
-          apply()
-        }
-  }
+  private fun getUnreadConversations() = Intercom.client().unreadConversationCount
 
-  fun resetUnreadConversations() {
-    sharedPreferences.edit()
-        .apply {
-          putInt(UNREAD_CONVERSATIONS, 0)
-          apply()
-        }
-  }
 }

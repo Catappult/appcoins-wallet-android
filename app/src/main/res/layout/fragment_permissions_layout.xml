@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
-      xmlns:app="http://schemas.android.com/apk/res-auto"
+  <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -82,7 +81,6 @@
           android:layout_marginTop="16dp"
           android:layout_marginEnd="8dp"
           android:text="@string/provide_wallet_cancel"
-          app:layout_constraintBottom_toTopOf="@id/footer_layout"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="1"
           app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +126,7 @@
           android:ellipsize="end"
           android:gravity="center_vertical"
           android:maxLines="1"
-          android:textColor="@color/grey_8a_alpha"
+          android:textColor="@color/grey_alpha_active_54"
           android:textSize="12sp"
           tools:text="0x0eebe100e4866204497d78d93a1071941dce70a4"
           />

@@ -5,35 +5,29 @@
     android:layout_height="match_parent">
 
   <Preference
-      android:icon="@drawable/ic_settings_wallets"
-      android:key="pref_wallet"
-      android:layout="@layout/preference_with_summary_layout"
-      android:title="@string/action_wallets"/>
-
-  <Preference
       android:icon="@drawable/ic_settings_verification"
       android:key="pref_verification"
       android:layout="@layout/preference_with_summary_layout"
       android:summary="@string/verification_settings_unverified_body"
-      android:title="@string/verification_settings_unverified_title"/>
+      android:title="@string/verification_settings_unverified_title" />
 
   <Preference
       android:icon="@drawable/ic_manage_subscriptions"
       android:key="pref_manage_subscriptions"
       android:layout="@layout/preference_without_summary_layout"
-      android:title="Manage Subscriptions"/>
+      android:title="Manage Subscriptions" />
 
   <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
       android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/permissions_title"/>
+      android:title="@string/permissions_title" />
 
   <Preference
       android:icon="@drawable/ic_settings_redeem"
       android:key="pref_redeem"
       android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/title_redeem"/>
+      android:title="@string/title_redeem" />
 
   <PreferenceCategory
       android:key="pref_opensource_links"
@@ -45,13 +39,13 @@
         android:icon="@drawable/ic_settings_sourcecode"
         android:key="pref_source_code"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_source_code"/>
+        android:title="@string/title_source_code" />
 
     <Preference
-        android:icon="@drawable/ic_settings_bugreport"
-        android:key="pref_report_bug"
+        android:icon="@drawable/ic_issue_report"
+        android:key="pref_contact_support"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_report_bug"/>
+        android:title="@string/settings_item_support" />
 
   </PreferenceCategory>
 
@@ -65,19 +59,19 @@
         android:icon="@drawable/ic_settings_twt"
         android:key="pref_twitter"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/twitter"/>
+        android:title="@string/twitter" />
 
     <Preference
         android:icon="@drawable/ic_settings_telegram"
         android:key="pref_telegram"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/telegram"/>
+        android:title="@string/telegram" />
 
     <Preference
         android:icon="@drawable/ic_settings_fb"
         android:key="pref_facebook"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/facebook"/>
+        android:title="@string/facebook" />
 
   </PreferenceCategory>
 
@@ -91,19 +85,19 @@
         android:icon="@drawable/ic_settings_email"
         android:key="pref_email"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_email"/>
+        android:title="@string/title_email" />
 
     <Preference
         android:icon="@drawable/ic_settings_privacypolicy"
         android:key="pref_privacy_policy"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_privacy_policy"/>
+        android:title="@string/title_privacy_policy" />
 
     <Preference
         android:icon="@drawable/ic_settings_termsconditions"
         android:key="pref_terms_condition"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_terms"/>
+        android:title="@string/title_terms" />
 
   </PreferenceCategory>
 
@@ -117,7 +111,7 @@
         android:iconSpaceReserved="true"
         android:key="pref_credits"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/credits"/>
+        android:title="@string/credits" />
 
   </PreferenceCategory>
 
@@ -126,6 +120,6 @@
       android:iconSpaceReserved="true"
       android:key="pref_version"
       android:layout="@layout/preference_with_summary_layout"
-      android:title="@string/title_version"/>
+      android:title="@string/title_version" />
 
 </PreferenceScreen>

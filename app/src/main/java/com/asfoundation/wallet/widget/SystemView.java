@@ -65,7 +65,7 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     this.recyclerView = recyclerView;
   }
 
-  public void hide() {
+  private void hide() {
     hideAllComponents();
     setVisibility(GONE);
   }
@@ -129,10 +129,6 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
       messageTxt.setVisibility(TextUtils.isEmpty(message) ? GONE : VISIBLE);
       tryAgain.setVisibility(this.onTryAgainClickListener == null ? GONE : VISIBLE);
     }
-  }
-
-  public void showEmpty(@NonNull String message) {
-    showError(message, null);
   }
 
   public void showEmpty(View view) {

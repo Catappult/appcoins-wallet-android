@@ -123,19 +123,17 @@ class AdyenPaymentInteractor(
   }
 
   fun getTransaction(uid: String): Observable<PaymentModel> {
-    return walletService.getWalletAddress()
-        .flatMapObservable { address ->
-          walletService.signContent(address)
-              .flatMapObservable { signedWallet ->
-                Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
-                    .timeInterval()
-                    .switchMap {
-                      adyenPaymentRepository.getTransaction(uid, address, signedWallet)
-                          .toObservable()
-                    }
-                    .filter { isEndingState(it.status) }
-                    .distinctUntilChanged { transaction -> transaction.status }
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMapObservable { walletAddressModel ->
+          Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
+              .timeInterval()
+              .switchMap {
+                adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
+                    walletAddressModel.signedAddress)
+                    .toObservable()
               }
+              .filter { isEndingState(it.status) }
+              .distinctUntilChanged { transaction -> transaction.status }
         }
   }
 

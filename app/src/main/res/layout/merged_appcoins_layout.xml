@@ -74,7 +74,8 @@
               android:id="@+id/appcoins_radio"
               layout="@layout/appcoins_radio_button"
               android:layout_width="match_parent"
-              android:layout_height="128dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="24dp"
               android:layout_marginStart="24dp"
               android:layout_marginEnd="24dp"
               />
@@ -91,9 +92,11 @@
               android:id="@+id/credits_radio"
               layout="@layout/credits_radio_button"
               android:layout_width="match_parent"
-              android:layout_height="112dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="24dp"
               android:layout_marginStart="24dp"
               android:layout_marginEnd="24dp"
+              android:layout_marginBottom="24dp"
               />
           <View
               android:id="@+id/radio_bottom_separator"

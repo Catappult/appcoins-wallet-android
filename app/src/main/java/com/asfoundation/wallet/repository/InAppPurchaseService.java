@@ -3,13 +3,15 @@ package com.asfoundation.wallet.repository;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.repository.ApproveService.Status;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import java.math.BigDecimal;
 import java.util.List;
 
-import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BalanceState.OK;
+import static com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState.OK;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -19,24 +21,67 @@ public class InAppPurchaseService {
 
   private final Repository<String, PaymentTransaction> cache;
   private final ApproveService approveService;
+  private final AllowanceService allowanceService;
   private final BuyService buyService;
   private final BalanceService balanceService;
   private final Scheduler scheduler;
   private final ErrorMapper errorMapper;
 
-  public Completable send(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
-  }
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
-      ApproveService approveService, BuyService buyService, BalanceService balanceService,
-      Scheduler scheduler, ErrorMapper errorMapper) {
+      ApproveService approveService, AllowanceService allowanceService, BuyService buyService,
+      BalanceService balanceService, Scheduler scheduler, ErrorMapper errorMapper) {
     this.cache = cache;
     this.approveService = approveService;
+    this.allowanceService = allowanceService;
     this.buyService = buyService;
     this.balanceService = balanceService;
     this.scheduler = scheduler;
     this.errorMapper = errorMapper;
+  }
+
+  public Completable send(String key, PaymentTransaction paymentTransaction) {
+    return checkFunds(key, paymentTransaction, checkAllowance(key, paymentTransaction));
+  }
+
+  private Completable checkAllowance(String key, PaymentTransaction paymentTransaction) {
+    TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
+    String fromAddress = transactionBuilder.fromAddress();
+    String contractAddress = transactionBuilder.getIabContract();
+    String tokenAddress = transactionBuilder.contractAddress();
+
+    return allowanceService.checkAllowance(fromAddress, contractAddress, tokenAddress)
+        .flatMapCompletable(allowance -> {
+
+          if (allowance.compareTo(BigDecimal.ZERO) == 0) {
+            return approveService.approve(key, paymentTransaction);
+          } else {
+            PaymentTransaction approveWithZeroPaymentTransaction =
+                createApproveZeroTransaction(paymentTransaction);
+
+            return approveService.approveWithoutValidation(key + "zero",
+                approveWithZeroPaymentTransaction.getTransactionBuilder())
+                .andThen(approveService.getApprove(key + "zero")
+                    .filter(approveTransaction -> approveTransaction.getStatus() == Status.APPROVED)
+                    .take(1)
+                    .ignoreElements())
+                .andThen(approveService.approve(key, paymentTransaction));
+          }
+        });
+  }
+
+  private PaymentTransaction createApproveZeroTransaction(PaymentTransaction paymentTransaction) {
+    TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
+
+    TransactionBuilder approveWithZeroTransactionBuilder =
+        copyTransactionBuilder(transactionBuilder);
+    approveWithZeroTransactionBuilder.amount(BigDecimal.ZERO);
+
+    return new PaymentTransaction(paymentTransaction, approveWithZeroTransactionBuilder);
+  }
+
+  private TransactionBuilder copyTransactionBuilder(TransactionBuilder transactionBuilder) {
+    return new TransactionBuilder(transactionBuilder);
   }
 
   public Completable resume(String key, PaymentTransaction paymentTransaction) {
@@ -178,10 +223,17 @@ public class InAppPurchaseService {
                 .toSingleDefault(paymentTransaction))
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
-                .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
-                    .andThen(buyService.buy(transaction.getUri(), transaction)
-                        .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
-                            new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
+                .flatMapCompletable(transaction -> {
+                  String uri = transaction.getUri();
+                  return transaction.getTransactionBuilder()
+                      .amount()
+                      .equals(BigDecimal.ZERO) ? approveService.remove(uri)
+                      : approveService.remove(uri)
+                          .andThen(buyService.buy(uri, transaction)
+                              .onErrorResumeNext(throwable -> cache.save(uri,
+                                  new PaymentTransaction(transaction,
+                                      errorMapper.map(throwable)))));
+                })))
         .subscribe();
 
     buyService.getAll()

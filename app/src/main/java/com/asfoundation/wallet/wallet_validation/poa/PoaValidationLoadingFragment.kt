@@ -9,6 +9,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -37,6 +38,9 @@ class PoaValidationLoadingFragment : DaggerFragment(),
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
 
+  @Inject
+  lateinit var analytics: WalletValidationAnalytics
+
   private lateinit var presenter: PoaValidationLoadingPresenter
 
   private lateinit var walletValidationView: PoaWalletValidationView
@@ -64,7 +68,7 @@ class PoaValidationLoadingFragment : DaggerFragment(),
     presenter =
         PoaValidationLoadingPresenter(this, walletValidationView, findDefaultWalletInteract,
             smsValidationInteract, data, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable())
+            CompositeDisposable(), analytics)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

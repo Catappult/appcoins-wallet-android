@@ -38,24 +38,26 @@ import javax.inject.Inject
 class OnboardingActivity : BaseActivity(), OnboardingView {
 
   private lateinit var listener: OnboardingPageChangeListener
+
   @Inject
   lateinit var interactor: OnboardingInteract
+
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract
+
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private lateinit var adapter: OnboardingPageAdapter
   private var linkSubject: PublishSubject<String>? = null
 
   companion object {
-    fun newInstance(): OnboardingActivity {
-      return OnboardingActivity()
-    }
+    fun newInstance() = OnboardingActivity()
 
-    const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
-    const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
+    private const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
+    private const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +97,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
-    adapter = OnboardingPageAdapter(this, createDefaultItemList())
+    adapter = OnboardingPageAdapter(createDefaultItemList())
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter
@@ -114,27 +116,20 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     } else {
       adapter.setPages(createDefaultItemList())
     }
+    listener.updateUI()
   }
 
-  override fun getNextButtonClick(): Observable<Any> {
-    return RxView.clicks(next_button)
-  }
+  override fun getNextButtonClick() = RxView.clicks(next_button)
 
-  override fun getRedeemButtonClick(): Observable<Any> {
-    return RxView.clicks(been_invited_bonus)
-  }
+  override fun getRedeemButtonClick() = RxView.clicks(been_invited_bonus)
 
-  override fun getSkipClicks(): Observable<Any> {
-    return RxView.clicks(skip_button)
-  }
+  override fun getSkipClicks() = RxView.clicks(skip_button)
 
   override fun showViewPagerLastPage() {
     onboarding_viewpager.setCurrentItem(onboarding_viewpager.adapter?.itemCount ?: 0, true)
   }
 
-  override fun getLinkClick(): Observable<String> {
-    return linkSubject!!
-  }
+  override fun getLinkClick() = linkSubject!!
 
   override fun showWarningText() {
     if (!onboarding_checkbox.isChecked &&
@@ -164,7 +159,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     } else {
       val intent = WalletValidationActivity.newIntent(this, hasBeenInvitedFlow = true,
           navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = true,
-          showToolbar = false)
+          showToolbar = false, previousContext = "onboarding")
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
       startActivity(intent)
     }
@@ -181,19 +176,16 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) {
-      }
+      override fun onAnimationRepeat(animation: Animator?) = Unit
 
       override fun onAnimationEnd(animation: Animator?) {
         navigate(walletValidationStatus)
         finish()
       }
 
-      override fun onAnimationCancel(animation: Animator?) {
-      }
+      override fun onAnimationCancel(animation: Animator?) = Unit
 
-      override fun onAnimationStart(animation: Animator?) {
-      }
+      override fun onAnimationStart(animation: Animator?) = Unit
     })
     create_wallet_animation.repeatCount = 0
     create_wallet_animation.playAnimation()
@@ -207,7 +199,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       }
 
       override fun updateDrawState(ds: TextPaint) {
-        ds.color = resources.getColor(R.color.grey_8a_alpha)
+        ds.color = resources.getColor(R.color.grey_alpha_active_54)
         ds.isUnderlineText = true
       }
     }
@@ -237,9 +229,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
         .delay(1, TimeUnit.SECONDS)
   }
 
-  override fun getLaterButtonClicks(): Observable<Any> {
-    return RxView.clicks(later_button)
-  }
+  override fun getLaterButtonClicks() = RxView.clicks(later_button)
 
   private fun playRetryAnimation() {
     retry_button.visibility = View.GONE

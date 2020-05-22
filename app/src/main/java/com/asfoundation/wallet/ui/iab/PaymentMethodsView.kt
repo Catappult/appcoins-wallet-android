@@ -7,14 +7,13 @@ import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(
-      paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue, currency: String,
-      paymentMethodId: String, frequency: String?)
+  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
+                         currency: String, paymentMethodId: String, fiatAmount: String,
+                         appcAmount: String, frequency:String?)
 
-  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod,
-                                   fiatValue: FiatValue,
-                                   isDonation: Boolean, currency: String,
-                                   frequency: String?)
+  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
+                                   isDonation: Boolean, currency: String, fiatAmount: String,
+                                   appcAmount: String, isBonusActive: Boolean, frequency: String?)
 
   fun showError(message: Int)
   fun showItemAlreadyOwnedError()
@@ -31,6 +30,7 @@ interface PaymentMethodsView {
   fun showAdyen(fiatValue: FiatValue,
                 paymentType: PaymentType,
                 iconUrl: String?, gamificationLevel: Int)
+
   fun showCreditCard(gamificationLevel: Int)
   fun showAppCoins()
   fun showCredits()
@@ -65,4 +65,5 @@ interface PaymentMethodsView {
     ASK_FRIEND("ask_friend")
   }
 
+  fun removeBonus()
 }

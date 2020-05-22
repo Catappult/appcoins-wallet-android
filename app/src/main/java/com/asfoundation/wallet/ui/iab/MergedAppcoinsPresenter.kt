@@ -6,6 +6,8 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -21,6 +23,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val walletBlockedInteract: WalletBlockedInteract,
                               private val networkScheduler: Scheduler,
                               private val analytics: BillingAnalytics,
+                              private val formatter: CurrencyFormatUtils,
                               private val isSubscription: Boolean) {
 
   companion object {
@@ -48,7 +51,12 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         })
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext { view.updateBalanceValues(it.appcFiatValue, it.creditsBalance) }
+        .doOnNext {
+          val appcFiat = formatter.formatCurrency(it.appcFiatValue.amount, WalletCurrency.APPCOINS)
+          val creditsFiat = formatter.formatCurrency(it.creditsBalance.amount,
+              WalletCurrency.CREDITS)
+          view.updateBalanceValues(appcFiat, creditsFiat, it.creditsBalance.currency)
+        }
         .subscribe({ }, { it.printStackTrace() }))
   }
 

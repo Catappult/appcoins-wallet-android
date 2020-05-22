@@ -16,7 +16,6 @@ import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -48,7 +47,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val PAYLOAD = "PAYLOAD"
     private const val PAYMENT_METHOD_URL = "payment_method_url"
     private const val PAYMENT_METHOD_LABEL = "payment_method_label"
-
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
     private const val ANIMATION_STEP_TWO_START_FRAME = 80
     private const val MID_ANIMATION_FRAME_INCREMENT = 40
@@ -62,24 +60,24 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
                     type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
                     payload: String?, paymentMethodIconUrl: String,
                     paymentMethodLabel: String): LocalPaymentFragment {
-      val fragment = LocalPaymentFragment()
-      fragment.arguments = Bundle().apply {
-        putString(DOMAIN_KEY, domain)
-        putString(SKU_ID_KEY, skudId)
-        putString(ORIGINAL_AMOUNT_KEY, originalAmount)
-        putString(CURRENCY_KEY, currency)
-        putString(BONUS_KEY, bonus)
-        putString(PAYMENT_KEY, selectedPaymentMethod)
-        putString(DEV_ADDRESS_KEY, developerAddress)
-        putString(TYPE_KEY, type)
-        putSerializable(AMOUNT_KEY, amount)
-        putString(CALLBACK_URL, callbackUrl)
-        putString(ORDER_REFERENCE, orderReference)
-        putString(PAYLOAD, payload)
-        putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
-        putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
+      return LocalPaymentFragment().apply {
+        arguments = Bundle().apply {
+          putString(DOMAIN_KEY, domain)
+          putString(SKU_ID_KEY, skudId)
+          putString(ORIGINAL_AMOUNT_KEY, originalAmount)
+          putString(CURRENCY_KEY, currency)
+          putString(BONUS_KEY, bonus)
+          putString(PAYMENT_KEY, selectedPaymentMethod)
+          putString(DEV_ADDRESS_KEY, developerAddress)
+          putString(TYPE_KEY, type)
+          putSerializable(AMOUNT_KEY, amount)
+          putString(CALLBACK_URL, callbackUrl)
+          putString(ORDER_REFERENCE, orderReference)
+          putString(PAYLOAD, payload)
+          putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
+          putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
+        }
       }
-      return fragment
     }
   }
 
@@ -195,8 +193,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
+
   @Inject
   lateinit var analytics: LocalPaymentAnalytics
+
   private lateinit var iabView: IabView
   private lateinit var navigator: FragmentNavigator
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
@@ -225,7 +225,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is IabView) {
+    check(context is IabView) {
       throw IllegalStateException("Local payment fragment must be attached to IAB activity")
     }
     iabView = context
@@ -259,14 +259,12 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     super.onViewStateRestored(savedInstanceState)
   }
 
-  private fun setViewState(viewState: ViewState?) {
-    when (viewState) {
-      COMPLETED -> showCompletedPayment()
-      PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
-      ERROR -> showError()
-      LOADING -> showProcessingLoading()
-      else -> {
-      }
+  private fun setViewState(viewState: ViewState?) = when (viewState) {
+    COMPLETED -> showCompletedPayment()
+    PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
+    ERROR -> showError()
+    LOADING -> showProcessingLoading()
+    else -> {
     }
   }
 
@@ -294,9 +292,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     return inflater.inflate(R.layout.local_payment_layout, container, false)
   }
 
-  override fun getOkErrorClick(): Observable<Any> {
-    return RxView.clicks(error_view.activity_iab_error_ok_button)
-  }
+  override fun getOkErrorClick() = RxView.clicks(error_view.activity_iab_error_ok_button)
 
   override fun getGotItClick() = RxView.clicks(got_it_button)
 
@@ -379,9 +375,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     iabView.close(Bundle())
   }
 
-  override fun getAnimationDuration(): Long {
-    return complete_payment_view.lottie_transaction_success.duration
-  }
+  override fun getAnimationDuration() = complete_payment_view.lottie_transaction_success.duration
 
   override fun popView(bundle: Bundle) {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
@@ -397,8 +391,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
     pending_user_payment_view?.in_progress_animation?.addAnimatorListener(object :
         Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) {
-      }
+      override fun onAnimationRepeat(animation: Animator?) = Unit
 
       override fun onAnimationEnd(animation: Animator?) {
         if (maxFrame == LAST_ANIMATION_FRAME) {
@@ -417,8 +410,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         }
       }
 
-      override fun onAnimationCancel(animation: Animator?) {
-      }
+      override fun onAnimationCancel(animation: Animator?) = Unit
 
       override fun onAnimationStart(animation: Animator?) {
         when (minFrame) {

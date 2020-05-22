@@ -20,7 +20,6 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
-import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
@@ -32,6 +31,7 @@ import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
@@ -42,9 +42,10 @@ import javax.inject.Singleton;
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
       AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor) {
+      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
+      CurrencyFormatUtils formatter) {
     return new TransactionsViewModelFactory(applications, analytics, transactionViewNavigator,
-        transactionViewInteract, supportInteractor);
+        transactionViewInteract, supportInteractor, formatter);
   }
 
   @Provides TransactionViewNavigator provideTransactionsViewNavigator(SettingsRouter settingsRouter,
@@ -86,10 +87,6 @@ import javax.inject.Singleton;
       ReferralInteractorContract referralInteractor, AutoUpdateInteract autoUpdateInteract,
       BackupInteractContract backupInteract) {
     return new CardNotificationsInteractor(referralInteractor, autoUpdateInteract, backupInteract);
-  }
-
-  @Provides ManageWalletsRouter provideManageWalletsRouter() {
-    return new ManageWalletsRouter();
   }
 
   @Provides SettingsRouter provideSettingsRouter() {

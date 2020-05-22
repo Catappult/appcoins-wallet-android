@@ -17,14 +17,14 @@ public class GasSettingsViewModel extends BaseViewModel {
   private MutableLiveData<BigInteger> gasLimit = new MutableLiveData<>();
   private MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
 
-  public GasSettingsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract) {
+  GasSettingsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     gasPrice.setValue(BigInteger.ZERO);
     gasLimit.setValue(BigInteger.ZERO);
   }
 
   public void prepare() {
-    findDefaultNetworkInteract.find()
+    disposable = findDefaultNetworkInteract.find()
         .subscribe(this::onDefaultNetwork, this::onError);
   }
 

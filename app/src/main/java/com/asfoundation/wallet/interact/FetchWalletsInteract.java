@@ -3,7 +3,6 @@ package com.asfoundation.wallet.interact;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class FetchWalletsInteract {
 
@@ -14,7 +13,6 @@ public class FetchWalletsInteract {
   }
 
   public Single<Wallet[]> fetch() {
-    return accountRepository.fetchWallets()
-        .observeOn(AndroidSchedulers.mainThread());
+    return accountRepository.fetchWallets();
   }
 }

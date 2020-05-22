@@ -58,6 +58,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val DETAILS_LIST = "DETAILS_LIST"
     internal const val ITEM_ID_LIST = "ITEM_ID_LIST"
     internal const val BUY_INTENT = "BUY_INTENT"
+    internal const val BUY_INTENT_RAW = "BUY_INTENT_RAW"
 
     internal const val PRODUCT_NAME = "product_name"
     internal const val EXTRA_DEVELOPER_PAYLOAD = "developer_payload"

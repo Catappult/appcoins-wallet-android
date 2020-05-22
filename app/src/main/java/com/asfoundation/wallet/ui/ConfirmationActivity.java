@@ -21,6 +21,8 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.ConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.ConfirmationViewModelFactory;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
@@ -37,6 +39,7 @@ public class ConfirmationActivity extends BaseActivity {
 
   AlertDialog dialog;
   @Inject ConfirmationViewModelFactory confirmationViewModelFactory;
+  CurrencyFormatUtils currencyFormatUtils;
   ConfirmationViewModel viewModel;
   private TextView fromAddressText;
   private TextView toAddressText;
@@ -52,7 +55,7 @@ public class ConfirmationActivity extends BaseActivity {
 
     setContentView(R.layout.activity_confirm);
     toolbar();
-
+    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
     fromAddressText = findViewById(R.id.text_from);
     toAddressText = findViewById(R.id.text_to);
     valueText = findViewById(R.id.text_value);
@@ -82,6 +85,7 @@ public class ConfirmationActivity extends BaseActivity {
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    super.onActivityResult(requestCode, resultCode, intent);
     if (requestCode == GasSettingsViewModel.SET_GAS_SETTINGS) {
       if (resultCode == RESULT_OK) {
         viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
@@ -93,20 +97,24 @@ public class ConfirmationActivity extends BaseActivity {
     fromAddressText.setText(transactionBuilder.fromAddress());
     toAddressText.setText(transactionBuilder.toAddress());
 
-    String value = "-" + transactionBuilder.amount()
-        .toString();
+    String value = "-" + currencyFormatUtils.formatTransferCurrency(transactionBuilder.amount(),
+        WalletCurrency.ETHEREUM);
     String symbol = transactionBuilder.symbol();
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
     valueText.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
     BigDecimal gasPrice = transactionBuilder.gasSettings().gasPrice;
     BigDecimal gasLimit = transactionBuilder.gasSettings().gasLimit;
-    gasPriceText.setText(
-        getString(R.string.gas_price_value, BalanceUtils.weiToGwei(gasPrice), GWEI_UNIT));
+    String formattedGasPrice = getString(R.string.gas_price_value,
+        currencyFormatUtils.formatTransferCurrency(BalanceUtils.weiToGwei(gasPrice),
+            WalletCurrency.ETHEREUM), GWEI_UNIT);
+    gasPriceText.setText(formattedGasPrice);
     gasLimitText.setText(transactionBuilder.gasSettings().gasLimit.toPlainString());
 
-    String networkFee = BalanceUtils.weiToEth(gasPrice.multiply(gasLimit))
-        .toPlainString() + " " + C.ETH_SYMBOL;
+    String networkFee = currencyFormatUtils.formatTransferCurrency(
+        BalanceUtils.weiToEth(gasPrice.multiply(gasLimit)), WalletCurrency.ETHEREUM)
+        + " "
+        + C.ETH_SYMBOL;
     networkFeeText.setText(networkFee);
   }
 
@@ -152,8 +160,11 @@ public class ConfirmationActivity extends BaseActivity {
           .setNeutralButton(R.string.copy, (dialog1, id) -> {
             ClipboardManager clipboard =
                 (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("transaction transaction", transaction.getHash());
-            clipboard.setPrimaryClip(clip);
+            if (clipboard != null) {
+              ClipData clip =
+                  ClipData.newPlainText("transaction transaction", transaction.getHash());
+              clipboard.setPrimaryClip(clip);
+            }
             successFinish(transaction.getHash());
           })
           .create();
@@ -181,7 +192,10 @@ public class ConfirmationActivity extends BaseActivity {
 
   @Override protected void onResume() {
     super.onResume();
-
-    viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
+    TransactionBuilder transactionBuilder =
+        getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER);
+    if (transactionBuilder != null) {
+      viewModel.init(transactionBuilder);
+    }
   }
 }

@@ -23,6 +23,32 @@ public class CardHeaderTransformation extends BitmapTransformation {
     this.radius = radius;
   }
 
+  @NonNull private static Bitmap.Config getAlphaSafeConfig(@NonNull Bitmap inBitmap) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      if (Bitmap.Config.RGBA_F16.equals(inBitmap.getConfig())) {
+        return Bitmap.Config.RGBA_F16;
+      }
+    }
+
+    return Bitmap.Config.ARGB_8888;
+  }
+
+  private static Bitmap getAlphaSafeBitmap(@NonNull BitmapPool pool,
+      @NonNull Bitmap maybeAlphaSafe) {
+    Bitmap.Config safeConfig = getAlphaSafeConfig(maybeAlphaSafe);
+    if (safeConfig.equals(maybeAlphaSafe.getConfig())) {
+      return maybeAlphaSafe;
+    }
+
+    Bitmap argbBitmap = pool.get(maybeAlphaSafe.getWidth(), maybeAlphaSafe.getHeight(), safeConfig);
+    new Canvas(argbBitmap).drawBitmap(maybeAlphaSafe, 0, 0, null);
+    return argbBitmap;
+  }
+
+  private static void clear(Canvas canvas) {
+    canvas.setBitmap(null);
+  }
+
   public Bitmap transform(Bitmap toTransform) {
     final Paint paint = new Paint();
     paint.setAntiAlias(true);
@@ -64,15 +90,12 @@ public class CardHeaderTransformation extends BitmapTransformation {
     Paint paint = new Paint();
     paint.setAntiAlias(true);
     paint.setShader(shader);
-    try {
-      Canvas canvas = new Canvas(result);
-      canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-      canvas.drawRoundRect(new RectF(margin, margin, right, margin + (radius * 2)), radius, radius,
-          paint);
-      canvas.drawRect(new RectF(margin, margin + radius, right, bottom), paint);
-      clear(canvas);
-    } finally {
-    }
+    Canvas canvas = new Canvas(result);
+    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+    canvas.drawRoundRect(new RectF(margin, margin, right, margin + (radius * 2)), radius, radius,
+        paint);
+    canvas.drawRect(new RectF(margin, margin + radius, right, bottom), paint);
+    clear(canvas);
 
     if (!toTransform.equals(inBitmap)) {
       pool.put(toTransform);
@@ -83,31 +106,5 @@ public class CardHeaderTransformation extends BitmapTransformation {
 
   @Override public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
     messageDigest.update(ID_BYTES);
-  }
-
-  @NonNull private static Bitmap.Config getAlphaSafeConfig(@NonNull Bitmap inBitmap) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      if (Bitmap.Config.RGBA_F16.equals(inBitmap.getConfig())) {
-        return Bitmap.Config.RGBA_F16;
-      }
-    }
-
-    return Bitmap.Config.ARGB_8888;
-  }
-
-  private static Bitmap getAlphaSafeBitmap(@NonNull BitmapPool pool,
-      @NonNull Bitmap maybeAlphaSafe) {
-    Bitmap.Config safeConfig = getAlphaSafeConfig(maybeAlphaSafe);
-    if (safeConfig.equals(maybeAlphaSafe.getConfig())) {
-      return maybeAlphaSafe;
-    }
-
-    Bitmap argbBitmap = pool.get(maybeAlphaSafe.getWidth(), maybeAlphaSafe.getHeight(), safeConfig);
-    new Canvas(argbBitmap).drawBitmap(maybeAlphaSafe, 0 , 0 , null);
-    return argbBitmap;
-  }
-
-  private static void clear(Canvas canvas) {
-    canvas.setBitmap(null);
   }
 }

@@ -7,7 +7,7 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsActivity
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.WalletsActivity
+import com.asfoundation.wallet.ui.backup.WalletBackupActivity
 
 class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
                                private val sendRouter: SendRouter,
@@ -33,8 +33,8 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
     myAddressRouter.open(context, value)
   }
 
-  fun openTokensView(context: Context, value: Wallet?) {
-    balanceRouter.open(context, value)
+  fun openTokensView(context: Context) {
+    balanceRouter.open(context)
   }
 
   fun navigateToBrowser(context: Context, uri: Uri) {
@@ -55,9 +55,11 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
     updateNavigator.navigateToStoreAppView(context, url)
   }
 
-  fun navigateToBackup(context: Context) {
-    val intent = Intent(context, WalletsActivity::class.java)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+  fun navigateToBackup(context: Context, walletAddress: String) {
+    val intent = WalletBackupActivity.newIntent(context, walletAddress)
+        .apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
     context.startActivity(intent)
   }
 }

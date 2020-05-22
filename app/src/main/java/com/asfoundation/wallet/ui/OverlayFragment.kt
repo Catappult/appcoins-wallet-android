@@ -119,6 +119,7 @@ class OverlayFragment : Fragment(), OverlayView {
 
   companion object {
     private const val ITEM_KEY = "item"
+
     @JvmStatic
     fun newInstance(highlightedBottomNavigationItem: Int): Fragment {
       val fragment = OverlayFragment()

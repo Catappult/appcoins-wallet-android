@@ -107,7 +107,6 @@ class BillingWebViewFragment : DaggerFragment() {
           val timeout = timeoutReference.getAndSet(null)
           timeout?.cancel(false)
           webview_progress_bar?.visibility = View.GONE
-          webview.visibility = View.VISIBLE
         }
         if (url.contains(ASYNC_PAYMENT_FORM_SHOWN_SCHEMA)) {
           asyncDetailsShown = true

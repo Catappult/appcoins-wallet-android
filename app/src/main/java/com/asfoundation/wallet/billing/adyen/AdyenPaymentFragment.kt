@@ -35,7 +35,9 @@ import com.asfoundation.wallet.ui.iab.FragmentNavigator
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -68,14 +70,21 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   @Inject
   lateinit var billing: Billing
+
   @Inject
   lateinit var analytics: BillingAnalytics
+
   @Inject
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
+
   @Inject
   lateinit var adyenEnvironment: Environment
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var iabView: IabView
   private lateinit var presenter: AdyenPaymentPresenter
   private lateinit var cardConfiguration: CardConfiguration
@@ -93,9 +102,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    backButton = PublishRelay.create<Boolean>()
-    paymentDataSubject = ReplaySubject.createWithSize<AdyenCardWrapper>(1)
-    paymentDetailsSubject = PublishSubject.create<RedirectComponentModel>()
+    backButton = PublishRelay.create()
+    paymentDataSubject = ReplaySubject.createWithSize(1)
+    paymentDetailsSubject = PublishSubject.create()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
@@ -103,7 +112,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
             Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
             adyenPaymentInteractor, inAppPurchaseInteractor.parseTransaction(transactionData, true),
             navigator, paymentType, transactionType, amount, currency, isPreSelected,
-            AdyenErrorCodeMapper(), gamificationLevel)
+            AdyenErrorCodeMapper(), gamificationLevel, formatter)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -171,7 +180,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun getAnimationDuration() = lottie_transaction_success.duration
 
   override fun showProduct() {
-    val formatter = Formatter()
     try {
       app_icon?.setImageDrawable(context!!.packageManager
           .getApplicationIcon(domain))
@@ -180,9 +188,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       e.printStackTrace()
     }
     app_sku_description?.text = arguments!!.getString(IabActivity.PRODUCT_NAME)
-    val appcValue = formatter.format(Locale.getDefault(), "%(,.2f", appcAmount.toDouble())
-        .toString() + " APPC"
-    appc_price.text = appcValue
+    val appcValue = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
+    appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 
   override fun showLoading() {
@@ -190,9 +197,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {
+      if(bonus.isNotEmpty()){
+        bonus_layout.visibility = View.INVISIBLE
+        bonus_msg.visibility = View.INVISIBLE
+      }
       adyen_card_form.visibility = View.INVISIBLE
-      bonus_layout.visibility = View.INVISIBLE
-      bonus_msg.visibility = View.INVISIBLE
       change_card_button.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
       buy_button.visibility = View.INVISIBLE
@@ -204,8 +213,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = VISIBLE
     } else {
-      bonus_layout.visibility = VISIBLE
-      bonus_msg.visibility = VISIBLE
+      showBonus()
       adyen_card_form.visibility = VISIBLE
       cancel_button.visibility = VISIBLE
     }
@@ -286,6 +294,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showCvvError() {
+    iabView.unlockRotation()
     hideLoadingAndShowView()
     if (isStored) {
       change_card_button?.visibility = VISIBLE
@@ -317,20 +326,15 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     else RxView.clicks(change_card_button_pre_selected)
   }
 
-  override fun showProductPrice(fiatAmount: BigDecimal, currencyCode: String) {
-    val fiatPrice = Formatter().format(Locale.getDefault(), "%(,.2f", fiatAmount.toDouble())
-    var fiatText = "$fiatPrice $currencyCode"
-
+  override fun showProductPrice(amount: String, currencyCode: String) {
+    var fiatText = "$amount $currencyCode"
     frequency?.let {
       fiatText = "$fiatText/$frequency"
       val oldPrice = appc_price.text.toString()
 
-      val formatter = Formatter()
-      val appcText = formatter.format(Locale.getDefault(), "~%s", oldPrice)
-          .toString()
+      val appcText = formatter.formatCurrency(oldPrice, WalletCurrency.APPCOINS)
       appc_price.text = appcText
     }
-
     fiat_price.text = fiatText
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE
@@ -441,15 +445,21 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun showBonus() {
-    bonus_layout?.visibility = VISIBLE
-    bonus_layout_pre_selected?.visibility = VISIBLE
-    bonus_msg?.visibility = VISIBLE
-    bonus_msg_pre_selected?.visibility = VISIBLE
-    bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
-
-    frequency?.let {
-      bonus_msg?.text = "You will receive this bonus for each payment"
-      bonus_msg_pre_selected?.text = "You will receive this bonus for each payment"
+    if (bonus.isNotEmpty()) {
+      bonus_layout?.visibility = VISIBLE
+      bonus_layout_pre_selected?.visibility = VISIBLE
+      bonus_msg?.visibility = VISIBLE
+      bonus_msg_pre_selected?.visibility = VISIBLE
+      bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+      frequency?.let {
+        bonus_msg?.text = "You will receive this bonus for each payment"
+        bonus_msg_pre_selected?.text = "You will receive this bonus for each payment"
+      }
+    } else {
+      bonus_layout?.visibility = GONE
+      bonus_layout_pre_selected?.visibility = GONE
+      bonus_msg?.visibility = GONE
+      bonus_msg_pre_selected?.visibility = GONE
     }
   }
 
@@ -617,7 +627,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val transactionType: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_TYPE_KEY)) {
-      arguments!!.getString(TRANSACTION_TYPE_KEY)
+      arguments!!.getString(TRANSACTION_TYPE_KEY, "")
     } else {
       throw IllegalArgumentException("transaction type data not found")
     }
@@ -625,7 +635,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val paymentType: String by lazy {
     if (arguments!!.containsKey(PAYMENT_TYPE_KEY)) {
-      arguments!!.getString(PAYMENT_TYPE_KEY)
+      arguments!!.getString(PAYMENT_TYPE_KEY, "")
     } else {
       throw IllegalArgumentException("payment type data not found")
     }
@@ -633,7 +643,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val domain: String by lazy {
     if (arguments!!.containsKey(DOMAIN_KEY)) {
-      arguments!!.getString(DOMAIN_KEY)
+      arguments!!.getString(DOMAIN_KEY, "")
     } else {
       throw IllegalArgumentException("domain data not found")
     }
@@ -649,7 +659,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val transactionData: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_DATA_KEY)) {
-      arguments!!.getString(TRANSACTION_DATA_KEY)
+      arguments!!.getString(TRANSACTION_DATA_KEY, "")
     } else {
       throw IllegalArgumentException("transaction data not found")
     }
@@ -673,7 +683,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY_KEY)) {
-      arguments!!.getString(CURRENCY_KEY)
+      arguments!!.getString(CURRENCY_KEY, "")
     } else {
       throw IllegalArgumentException("currency data not found")
     }
@@ -681,7 +691,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)
+      arguments!!.getString(BONUS_KEY, "")
     } else {
       throw IllegalArgumentException("bonus data not found")
     }

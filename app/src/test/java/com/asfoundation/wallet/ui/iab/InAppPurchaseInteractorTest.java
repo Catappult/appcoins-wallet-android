@@ -9,8 +9,10 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.commons.MemoryCache;
+import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -18,11 +20,12 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.repository.AllowanceService;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -73,6 +76,10 @@ import static org.mockito.Mockito.when;
  */
 public class InAppPurchaseInteractorTest {
 
+  private static final NetworkInfo networkInfo =
+      new com.asfoundation.wallet.entity.NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
+          "https://ropsten.infura.io/v3/df5b41e6a3a44d9dbf9142fa3f58cabc",
+          "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false);
   private static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   private static final String APPROVE_HASH = "approve_hash";
   private static final String BUY_HASH = "buy_hash";
@@ -104,10 +111,11 @@ public class InAppPurchaseInteractorTest {
   @Mock ProxyService proxyService;
   @Mock TokenRateService conversionService;
   @Mock AddressService addressService;
+  @Mock AllowanceService allowanceService;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
-  private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
+  private PublishSubject<GetDefaultWalletBalanceInteract.BalanceState> balance;
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
 
@@ -161,9 +169,12 @@ public class InAppPurchaseInteractorTest {
 
     when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
 
+    when(allowanceService.checkAllowance(any(), any(), any())).thenReturn(
+        Single.just(BigDecimal.ZERO));
+
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(approveTransactionService, transactionValidator),
+            new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
                 countryCodeProvider, new DataMapper(), addressService), balanceService, scheduler,
             new ErrorMapper());
@@ -233,7 +244,7 @@ public class InAppPurchaseInteractorTest {
         PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.OK);
 
     PendingTransaction pendingTransaction0 = new PendingTransaction(APPROVE_HASH, true);
     PendingTransaction pendingTransaction1 = new PendingTransaction(APPROVE_HASH, false);
@@ -293,7 +304,7 @@ public class InAppPurchaseInteractorTest {
         PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER);
 
     PendingTransaction pendingTransaction0 = new PendingTransaction("approve_hash", true);
     PendingTransaction pendingTransaction1 = new PendingTransaction("approve_hash", false);
@@ -334,7 +345,7 @@ public class InAppPurchaseInteractorTest {
         PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
 
     PendingTransaction pendingTransaction0 = new PendingTransaction("approve_hash", true);
     PendingTransaction pendingTransaction1 = new PendingTransaction("approve_hash", false);
@@ -345,13 +356,13 @@ public class InAppPurchaseInteractorTest {
     scheduler.triggerActions();
     pendingApproveState.onNext(pendingTransaction1);
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
     pendingBuyState.onNext(pendingTransaction2);
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
     pendingBuyState.onNext(pendingTransaction3);
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
 
     List<Payment> values = testObserver.assertNoErrors()
         .values();
@@ -394,7 +405,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(submitObserver);
 
     scheduler.triggerActions();
-    balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
+    balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.OK);
     scheduler.triggerActions();
 
     pendingBuyState.onComplete();

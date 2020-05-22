@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
@@ -23,6 +24,8 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -43,8 +46,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var interactor: TopUpInteractor
+
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var adapter: TopUpPaymentMethodAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -59,11 +66,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var switchingCurrency = false
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
+  private var selectedPaymentMethod = 0
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
     private const val APPC_C_SYMBOL = "APPC-C"
 
+    private const val SELECTED_VALUE_PARAM = "SELECTED_VALUE"
+    private const val SELECTED_PAYMENT_METHOD_PARAM = "SELECTED_PAYMENT_METHOD"
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
 
@@ -86,7 +96,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       val heightDiff: Int = it.rootView.height - it.height - appBarHeight
 
       val threshold = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150f,
-              requireContext().resources.displayMetrics)
+          requireContext().resources.displayMetrics)
           .toInt()
 
       keyboardEvents.onNext(heightDiff > threshold)
@@ -120,7 +130,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     keyboardEvents = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
-            Schedulers.io(), topUpAnalytics)
+            Schedulers.io(), topUpAnalytics, formatter,
+            savedInstanceState?.getString(SELECTED_VALUE_PARAM))
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -135,6 +146,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
+    savedInstanceState?.let { selectedPaymentMethod = it.getInt(SELECTED_PAYMENT_METHOD_PARAM) }
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
 
@@ -147,8 +159,18 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
   }
 
+  override fun onResume() {
+    //added since this fragment continues active after navigating to AdyenToUpFragment
+    if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(main_value)
+    super.onResume()
+  }
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
+    if (::adapter.isInitialized) {
+      outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
+    }
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
@@ -158,16 +180,23 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     hideNoNetwork()
     if (isLocalCurrencyValid(localCurrency)) {
       this@TopUpFragment.localCurrency = localCurrency
-      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
-          APPC_C_SYMBOL, DEFAULT_VALUE)
+      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
+          DEFAULT_VALUE)
     }
     this@TopUpFragment.paymentMethods = paymentMethods
     main_value.isEnabled = true
-    focusAndShowKeyboard(main_value)
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
             .toFloat())
+    main_value.setOnEditorActionListener { _, actionId, _ ->
+      if (EditorInfo.IME_ACTION_NEXT == actionId) {
+        hideKeyboard()
+        button.performClick()
+      }
+      true
+    }
     adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
+    adapter.setSelectedItem(selectedPaymentMethod)
 
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
@@ -175,6 +204,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
     swap_value_label.visibility = View.VISIBLE
+
   }
 
   private fun focusAndShowKeyboard(view: EditText) {
@@ -183,6 +213,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
       imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
+  }
+
+  override fun setDefaultAmountValue(amount: String) {
+    setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
   override fun setValuesAdapter(values: List<FiatValue>) {
@@ -210,6 +244,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getKeyboardEvents(): Observable<Boolean> {
     return keyboardEvents
+  }
+
+  override fun onPause() {
+    hideKeyboard()
+    super.onPause()
   }
 
   override fun onDestroy() {
@@ -264,17 +303,18 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun showLoading() {
     credit_card_info_container.visibility = View.GONE
     payment_methods.visibility = View.INVISIBLE
-    bonus_layout.visibility = View.GONE
-    bonus_msg.visibility = View.GONE
     loading.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
     credit_card_info_container.visibility = View.VISIBLE
     payment_methods.visibility = View.VISIBLE
-    bonus_layout.visibility = View.VISIBLE
-    bonus_msg.visibility = View.VISIBLE
     loading.visibility = View.INVISIBLE
+  }
+
+  override fun hideButtonLoading() {
+    button.visibility = View.VISIBLE
+    button_loading.visibility = View.GONE
   }
 
   override fun showPaymentDetailsForm() {
@@ -317,7 +357,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     if (topUpData.selectedCurrency == selectedCurrency) {
       when (selectedCurrency) {
         FIAT_CURRENCY -> {
-          converted_value.text = "${topUpData.currency.appcValue} ${topUpData.currency.appcSymbol}"
+          converted_value.text = "${topUpData.currency.appcValue} ${WalletCurrency.CREDITS.symbol}"
         }
         APPC_C_CURRENCY -> {
           converted_value.text =
@@ -351,8 +391,18 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     bonus_msg.visibility = View.INVISIBLE
   }
 
+  override fun removeBonus() {
+    bonus_layout.visibility = View.GONE
+    bonus_msg.visibility = View.GONE
+  }
+
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
+    bonus_layout.visibility = View.VISIBLE
+    bonus_msg.visibility = View.VISIBLE
+  }
+
+  override fun showBonus() {
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
   }
@@ -399,6 +449,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun showNoNetworkError() {
+    hideKeyboard()
     no_network.visibility = View.VISIBLE
     retry_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
@@ -428,18 +479,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
-    var scaledBonus = bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_FLOOR)
-    var currency = bonusCurrency
-    if (scaledBonus < BigDecimal(0.01)) {
-      currency = "~$currency"
-    }
-    scaledBonus = scaledBonus.max(BigDecimal("0.01"))
-
-    bonusMessageValue = currency + scaledBonus.toPlainString()
+    val scaledBonus = bonus.max(BigDecimal("0.01"))
+    val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
+    bonusMessageValue = scaledBonus.toPlainString()
     bonus_layout.bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
     bonus_layout.bonus_value.text = getString(R.string.topup_bonus_header_part_2,
-        currency + scaledBonus.toPlainString())
+        currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
   }
 
   private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatValue: String,
@@ -521,14 +566,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private fun getTopUpValuesSpanCount(): Int {
     val screenWidth =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
-                fragmentContainer.measuredWidth.toFloat(),
-                requireContext().resources
-                    .displayMetrics)
+            fragmentContainer.measuredWidth.toFloat(),
+            requireContext().resources
+                .displayMetrics)
             .toInt()
 
     val viewWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80f,
-            requireContext().resources
-                .displayMetrics)
+        requireContext().resources
+            .displayMetrics)
         .toInt()
 
     return screenWidth / viewWidth
