@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet membutuhkan izin untuk mengakses kamera Anda guna memindai kode QR.</string>
   <string name="ok">Oke</string>
   <string name="barcode_error_format">Format barcode tidak valid: %s</string>
-  <string name="title_delete_account">Apakah Anda yakin ingin menghapus dompet ini?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Grup Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -583,7 +583,7 @@
   <string name="remove_wallet_title">Hapus Dompet</string>
   <string name="remove_wallet_body">Kami sangat menyarankan untuk membuat cadangan dompet sebelum menghapusnya. Anda tidak akan bisa mengaksesnya lagi kecuali Anda punya cadangan.</string>
   <string name="remove_wallet_backup_button">CADANGKAN DOMPET</string>
-  <string name="remove_wallet_no_backup_button">LANJUT TANPA MENCADANGKAN</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Anda yakin ingin menghapus dompet ini?</string>
   <string name="remove_wallet_no_button">TIDAK, KEMBALI</string>
   <string name="remove_wallet_yes_button">YA, HAPUS DOMPET</string>
