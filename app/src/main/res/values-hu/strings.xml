@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Érvénytelen formátumú Qr-kód: %s</string>
-  <string name="title_delete_account">Biztos törlöd ezt a tárcát?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram csoport</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -584,7 +584,7 @@
   <string name="remove_wallet_title">Remove Wallet</string>
   <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
   <string name="remove_wallet_backup_button">BACKUP WALLET</string>
-  <string name="remove_wallet_no_backup_button">PROCEED WITHOUT BACKUP</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Are you sure you want to remove this wallet?</string>
   <string name="remove_wallet_no_button">NO, GO BACK</string>
   <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
