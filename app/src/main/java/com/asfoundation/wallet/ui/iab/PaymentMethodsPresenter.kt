@@ -167,7 +167,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun checkProcessing(skuId: String?, type: BillingSupportedType): Completable {
-    return billing.getSkuTransaction(appPackage, skuId, networkThread)
+    return billing.getSkuTransaction(appPackage, skuId, networkThread, type)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }

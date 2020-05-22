@@ -13,7 +13,8 @@ import javax.inject.Singleton
       RepositoriesModule::class,
       BuildersModule::class,
       RestoreModule::class,
-      BroadcastReceiverModule::class])
+      BroadcastReceiverModule::class,
+      SubscriptionModule::class])
 interface AppComponent {
 
   fun inject(app: App?)

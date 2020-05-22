@@ -420,7 +420,7 @@
         android:text="Cancel Subscription"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         />
 
   </FrameLayout>

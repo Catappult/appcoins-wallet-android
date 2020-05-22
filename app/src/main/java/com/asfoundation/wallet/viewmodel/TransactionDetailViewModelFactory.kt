@@ -7,11 +7,13 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.subscriptions.SubscriptionRepository
 import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
 
 class TransactionDetailViewModelFactory(
     private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
     private val findDefaultWalletInteract: FindDefaultWalletInteract,
     private val externalBrowserRouter: ExternalBrowserRouter,
+    private val compositeDisposable: CompositeDisposable,
     private val subscriptionRepository: SubscriptionRepository,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler
@@ -19,7 +21,8 @@ class TransactionDetailViewModelFactory(
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     return TransactionDetailViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
-        externalBrowserRouter, subscriptionRepository, networkScheduler, viewScheduler) as T
+        externalBrowserRouter, compositeDisposable, subscriptionRepository, networkScheduler,
+        viewScheduler) as T
   }
 
 }

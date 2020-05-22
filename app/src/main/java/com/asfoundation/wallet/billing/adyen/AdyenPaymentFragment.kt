@@ -328,13 +328,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProductPrice(amount: String, currencyCode: String) {
     var fiatText = "$amount $currencyCode"
-    frequency?.let {
-      fiatText = "$fiatText/$frequency"
-      val oldPrice = appc_price.text.toString()
-
-      val appcText = formatter.formatCurrency(oldPrice, WalletCurrency.APPCOINS)
-      appc_price.text = appcText
-    }
+    frequency?.let { fiatText = "$fiatText/$it" }
     fiat_price.text = fiatText
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE

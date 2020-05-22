@@ -62,7 +62,7 @@ class SubscriptionApiMockedImpl : SubscriptionService {
   }
 
   override fun getSubscriptionByTransactionId(transactionId: String): Single<Subscription> {
-    return Single.create<Subscription> {
+    return Single.create {
       when (transactionId) {
         "0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1" -> {
           val subs1 = Subscription("Real Boxing", "com.vividgames.realboxing",
