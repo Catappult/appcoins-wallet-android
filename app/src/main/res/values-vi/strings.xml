@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Định dạng mã vạch không hợp lệ: %s</string>
-  <string name="title_delete_account">Bạn có chắc muốn xóa ví này?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Nhóm Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -583,7 +583,7 @@
   <string name="remove_wallet_title">Xóa ví</string>
   <string name="remove_wallet_body">Chúng tôi thực sự khuyên bạn nên sao lưu ví trước khi xóa nó vì bạn sẽ không thể truy cập lại trừ khi có bản sao lưu.</string>
   <string name="remove_wallet_backup_button">SAO LƯU VÍ</string>
-  <string name="remove_wallet_no_backup_button">TIẾP TỤC MÀ KHÔNG CẦN SAO LƯU</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Bạn có chắc chắn muốn xóa ví này không?</string>
   <string name="remove_wallet_no_button">KHÔNG, QUAY LẠI</string>
   <string name="remove_wallet_yes_button">CÓ, XÓA VÍ</string>
