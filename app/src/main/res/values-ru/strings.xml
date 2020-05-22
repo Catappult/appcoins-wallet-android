@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
-  <string name="title_delete_account">Вы уверены, что хотите удалить этот кошелек?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Группа Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -586,7 +586,7 @@
   <string name="remove_wallet_title">Удалить кошелёк</string>
   <string name="remove_wallet_body">Мы настоятельно рекомендуем сделать резервную копию кошелька перед удалением. Вы не сможете снова получить к нему доступ, если у вас нет такой копии.</string>
   <string name="remove_wallet_backup_button">СДЕЛАТЬ БЭКАП</string>
-  <string name="remove_wallet_no_backup_button">ПРОДОЛЖИТЬ БЕЗ БЭКАПА</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Вы уверены, что хотите удалить этот кошелек?</string>
   <string name="remove_wallet_no_button">НЕТ, ВЕРНУТЬСЯ</string>
   <string name="remove_wallet_yes_button">ДА, УДАЛИТЬ КОШЕЛЁК</string>
