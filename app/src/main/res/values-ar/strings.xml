@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
-  <string name="title_delete_account">هل أنت متأكد من حذف هذه المحفظة؟</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">تويتر</string>
   <string name="telegram">مجموعة تيليغرام</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -589,7 +589,7 @@
   <string name="remove_wallet_title">إزالة المحفظة</string>
   <string name="remove_wallet_body">نحن نوصيك بأهمية حفظ نسخة احتياطية لمحفظتك قبل إزالتها. لن تتمكن من الدخول إليها مجددًا ما لم تنشئ لها نسخة احتياطية.</string>
   <string name="remove_wallet_backup_button">نسخ احتياطي للمحفظة</string>
-  <string name="remove_wallet_no_backup_button">متابعة دون عمل نسخ احتياطي</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">هل انت متأكد من أنك تود إزالة هذه المحفظة؟</string>
   <string name="remove_wallet_no_button">لا، عودة إلى الخلف</string>
   <string name="remove_wallet_yes_button">نعم، إزالة المحفظة</string>
