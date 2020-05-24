@@ -199,7 +199,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     swap_value_button.visibility = VISIBLE
     swap_value_label.visibility = VISIBLE
     top_separator_topup.visibility = VISIBLE
-    //bot_separator.visibility = VISIBLE
     converted_value.visibility = VISIBLE
     button.visibility = VISIBLE
 
@@ -222,7 +221,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     swap_value_button.visibility = VISIBLE
     swap_value_label.visibility = VISIBLE
     top_separator_topup.visibility = VISIBLE
-    //bot_separator.visibility = VISIBLE
     converted_value.visibility = VISIBLE
     button.visibility = VISIBLE
 
@@ -255,7 +253,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     swap_value_button.visibility = INVISIBLE
     swap_value_label.visibility = INVISIBLE
     top_separator_topup.visibility = INVISIBLE
-//    bot_separator.visibility = INVISIBLE
     converted_value.visibility = INVISIBLE
     button.visibility = GONE
 

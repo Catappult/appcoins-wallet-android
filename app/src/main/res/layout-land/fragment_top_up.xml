@@ -37,7 +37,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
-          app:layout_constraintGuide_percent="0.06"
+          app:layout_constraintGuide_percent="0.09"
           />
 
       <TextView
@@ -204,6 +204,7 @@
             android:id="@+id/credit_card_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_centerHorizontal="true"
             android:visibility="gone"
             >
@@ -284,10 +285,10 @@
           android:layout_height="@dimen/button_height"
           android:indeterminateDrawable="@drawable/gradient_progress"
           android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintBottom_toBottomOf="@id/container"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toTopOf="@id/container"
           />
 
       <Button
