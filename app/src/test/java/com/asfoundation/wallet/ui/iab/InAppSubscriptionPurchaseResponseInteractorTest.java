@@ -74,7 +74,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by trinkes on 14/03/2018.
  */
-public class InAppPurchaseInteractorTest {
+public class InAppSubscriptionPurchaseResponseInteractorTest {
 
   private static final NetworkInfo networkInfo =
       new com.asfoundation.wallet.entity.NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,

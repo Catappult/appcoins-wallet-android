@@ -285,8 +285,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private fun sendPayPalConfirmationEvent(action: String) {
     billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
         transaction?.amount()
-            .toString(), "paypal",
-        transaction?.type, action)
+            .toString(), "paypal", transaction?.type, action)
   }
 
   private fun sendPaypalUrlEvent(data: Intent) {

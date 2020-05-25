@@ -1,6 +1,7 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.PurchaseResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchasListResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 import java.util.*
@@ -40,22 +41,26 @@ class BdsApiResponseMapper {
 
   //TODO this method should be in SubscriptionsResponse mapper
   //TODO This method does nothing. Needs to me implemented
-  fun map(packageName: String, purchasesResponse: PurchaseResponse): List<Purchase> {
-    return purchasesResponse.items.map { map(packageName, it) }
+  fun map(packageName: String,
+          purchasesResponseSubscription: SubscriptionPurchasListResponse): List<Purchase> {
+    return purchasesResponseSubscription.items.map { map(packageName, it) }
   }
 
   //TODO this method should be in SubscriptionsResponse mapper
   //TODO This method does nothing. Needs to me implemented
-  fun map(packageName: String, purchase: com.appcoins.wallet.bdsbilling.Purchase): Purchase {
+  fun map(packageName: String,
+          subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
     val developerPurchase = DeveloperPurchase()
     developerPurchase.packageName = packageName
-    developerPurchase.orderId = purchase.orderReference
-    developerPurchase.productId = purchase.sku
+    developerPurchase.orderId = subscriptionPurchaseResponse.orderReference
+    developerPurchase.productId = subscriptionPurchaseResponse.sku
     developerPurchase.purchaseState = 0
     developerPurchase.purchaseTime = System.currentTimeMillis()
     developerPurchase.purchaseToken = UUID.randomUUID()
         .toString()
-    return Purchase(purchase.uid, RemoteProduct(purchase.sku), purchase.status.name,
-        Package(packageName), Signature(purchase.verification.signature, developerPurchase))
+    return Purchase(subscriptionPurchaseResponse.uid,
+        RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
+        Package(packageName),
+        Signature(subscriptionPurchaseResponse.verification.signature, developerPurchase))
   }
 }

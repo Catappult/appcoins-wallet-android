@@ -27,11 +27,11 @@ interface SubscriptionBillingService {
   @GET("product/8.20200301/inapp/{domain}/subscription/purchases")
   fun getPurchases(@Path("domain") domain: String,
                    @Query("cursor") cursor: Long? = null,
-                   @Query("limit") limit: Long? = null): Single<PurchaseResponse>
+                   @Query("limit") limit: Long? = null): Single<SubscriptionPurchasListResponse>
 
   @GET("product/8.20200301/inapp/{domain}/subscription/purchases/{uid}")
   fun getPurchase(@Path("domain") domain: String,
-                  @Path("uid") uid: String): Single<Purchase>
+                  @Path("uid") uid: String): Single<SubscriptionPurchaseResponse>
 
   @PATCH("product/8.20200301/inapp/{domain}/subscription/purchases/{uid}")
   fun updatePurchase(@Path("domain") domain: String,
