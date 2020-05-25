@@ -207,7 +207,7 @@ class PaymentMethodsPresenter(
         }
   }
 
-  private fun setupUi(transactionValue: Double) {
+  fun setupUi(transactionValue: Double) {
     disposables.add(
         inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
             .subscribeOn(networkThread)
