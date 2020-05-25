@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,6 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
+      hideKeyboard();
       finish();
     }
     return true;
@@ -104,5 +107,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
     for (ActivityResultListener listener : activityResultListeners) {
       listener.onActivityResult(requestCode, resultCode, data);
     }
+  }
+
+  private void hideKeyboard() {
+    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(getWindow().getDecorView()
+        .getRootView()
+        .getWindowToken(), 0);
   }
 }
