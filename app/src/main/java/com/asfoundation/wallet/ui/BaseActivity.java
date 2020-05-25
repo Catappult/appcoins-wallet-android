@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.util.KeyboardUtils;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
+      KeyboardUtils.hideKeyboard(getWindow().getDecorView()
+          .getRootView());
       finish();
     }
     return true;
