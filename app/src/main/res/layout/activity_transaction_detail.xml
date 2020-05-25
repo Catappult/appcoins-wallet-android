@@ -33,6 +33,8 @@
       android:layout_height="match_parent"
       android:background="@drawable/background_fragment"
       android:fillViewport="true"
+      android:overScrollMode="never"
+      android:paddingBottom="40dp"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
     <androidx.constraintlayout.widget.ConstraintLayout

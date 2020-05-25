@@ -150,7 +150,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, isSubscription, frequency))
+                bonus, isPreselected, gamificationLevel, isSubscription, frequency, "10/12/20"))
         .commit()
   }
 
