@@ -179,8 +179,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
-    val isSubscription = TransactionData.TransactionType.SUBS.name
-        .equals(transaction?.type, ignoreCase = true)
+    val isSubscription = true
+    //TransactionData.TransactionType.SUBS.name.equals(transaction?.type, ignoreCase = true)
     presenter.handlePurchaseStartAnalytics(transaction)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,

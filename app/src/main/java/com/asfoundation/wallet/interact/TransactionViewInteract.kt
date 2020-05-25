@@ -3,7 +3,6 @@ package com.asfoundation.wallet.interact
 import android.util.Pair
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
@@ -57,16 +56,19 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   }
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {
-    return wallet?.let { fetchTransactionsInteract.fetch(wallet.address) } ?: Observable.just(
+    return wallet?.let { nonNullWallet ->
+      fetchTransactionsInteract.fetch(nonNullWallet.address)
+          .map { addMockedSubscriptions(it, nonNullWallet.address) }
+    } ?: Observable.just(
         emptyList())
     //TODO
   }
 
   private fun addMockedSubscriptions(transactions: MutableList<Transaction>,
-                                     it: Wallet): List<Transaction> {
-    transactions.add(getActiveMockedTransaction(it.address))
-    transactions.add(getExpiringMockedTransaction(it.address))
-    transactions.add(getExpiredMockedTransaction(it.address))
+                                     address: String): List<Transaction> {
+    transactions.add(getActiveMockedTransaction(address))
+    transactions.add(getExpiringMockedTransaction(address))
+    transactions.add(getExpiredMockedTransaction(address))
     return transactions.toList()
   }
 
@@ -78,7 +80,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         TransactionDetails("Real Boxing",
             TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png"),
-            "Subscription"), "EUR", emptyList())
+            "Subscription"), "APPC", emptyList())
   }
 
   private fun getExpiringMockedTransaction(address: String): Transaction {
@@ -89,7 +91,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         TransactionDetails("Cuties",
             TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "http://pool.img.aptoide.com/bds-store/d6267357ec641dd583a0ad318fa0741b_icon.png"),
-            "Subscription"), "EUR", emptyList())
+            "Subscription"), "APPC", emptyList())
   }
 
   private fun getExpiredMockedTransaction(address: String): Transaction {
@@ -100,7 +102,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         TransactionDetails("Creative Destruction",
             TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg"),
-            "Subscription"), "EUR", emptyList())
+            "Subscription"), "APPC", emptyList())
   }
 
   fun stopTransactionFetch() {
