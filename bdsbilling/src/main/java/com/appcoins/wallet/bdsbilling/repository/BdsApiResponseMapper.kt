@@ -12,7 +12,7 @@ class BdsApiResponseMapper {
     return ArrayList(productDetails.items.map {
       Product(it.name, it.label, it.description,
           Price(it.price.base, it.price.appc, it.price.fiat.value, it.price.fiat.currency.code,
-              it.price.fiat.currency.symbol), "inapp")
+              it.price.fiat.currency.symbol), "inapp") //TODO replace hardcoded
     })
   }
 
@@ -60,7 +60,7 @@ class BdsApiResponseMapper {
         .toString()
     return Purchase(subscriptionPurchaseResponse.uid,
         RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
-        Package(packageName),
+        subscriptionPurchaseResponse.autoRenewing, Package(packageName),
         Signature(subscriptionPurchaseResponse.verification.signature, developerPurchase))
   }
 }

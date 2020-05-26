@@ -1,10 +1,9 @@
 package com.appcoins.wallet.bdsbilling
 
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.TransactionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -30,7 +29,7 @@ interface BdsApi {
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String,
       @Query("cursor") cursor: Long,
-      @Query("type") type: TransactionType,
+      @Query("type") type: BillingSupportedType,
       @Query("limit") limit: Long,
       @Query("sort.name") sort: String,
       @Query("sort.reverse") isReverse: Boolean,

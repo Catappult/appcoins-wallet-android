@@ -59,13 +59,15 @@ class BdsBilling(private val repository: BillingRepository,
 
   override fun getPurchases(merchantName: String, type: BillingSupportedType,
                             scheduler: Scheduler): Single<List<Purchase>> {
-    return walletService.getAndSignCurrentWalletAddress()
-        .observeOn(scheduler)
-        .flatMap {
-          repository.getPurchases(merchantName, it.address, it.signedAddress,
-              type)
-        }
-        .onErrorReturn { emptyList() }
+    return if (isManagedType(type)) {
+      walletService.getAndSignCurrentWalletAddress()
+          .observeOn(scheduler)
+          .flatMap {
+            repository.getPurchases(merchantName, it.address, it.signedAddress,
+                type)
+          }
+          .onErrorReturn { emptyList() }
+    } else Single.just(emptyList())
   }
 
   override fun consumePurchases(merchantName: String, purchaseToken: String,
@@ -89,4 +91,7 @@ class BdsBilling(private val repository: BillingRepository,
   private fun map(it: Boolean) =
       if (it) Billing.BillingSupportType.SUPPORTED else Billing.BillingSupportType.MERCHANT_NOT_FOUND
 
+  private fun isManagedType(billingSupportedType: BillingSupportedType): Boolean {
+    return billingSupportedType == BillingSupportedType.INAPP || billingSupportedType == BillingSupportedType.SUBS
+  }
 }

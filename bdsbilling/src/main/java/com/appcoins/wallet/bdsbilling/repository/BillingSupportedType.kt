@@ -14,7 +14,7 @@ enum class BillingSupportedType {
 
     @JvmStatic
     fun valueOfManagedType(value: String): BillingSupportedType {
-      return mapToManagedType(valueOfInsensitive(value))
+      return mapToProductType(valueOfInsensitive(value))
     }
 
     @JvmStatic
@@ -27,12 +27,12 @@ enum class BillingSupportedType {
       }
     }
 
-    private fun mapToManagedType(type: BillingSupportedType): BillingSupportedType {
+    private fun mapToProductType(type: BillingSupportedType): BillingSupportedType {
       return when (type) {
         INAPP_UNMANAGED -> INAPP
         DONATION -> INAPP
-        SUBS_UNMANAGED -> SUBS
         INAPP -> INAPP
+        SUBS_UNMANAGED -> SUBS
         SUBS -> SUBS
       }
     }

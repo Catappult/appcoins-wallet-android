@@ -65,10 +65,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   override fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
                                  walletSignature: String,
                                  type: BillingSupportedType): Single<Transaction> {
-    val transactionType =
-        TransactionType.INAPP.takeIf { type == BillingSupportedType.INAPP } ?: TransactionType.SUBS
     return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature,
-        transactionType)
+        type)
         .flatMap {
           if (it.items.isNotEmpty()) {
             return@flatMap Single.just(it.items[0])

@@ -136,15 +136,14 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleOnGoingPurchases() {
-    if (transaction.skuId == null) {
+    val billingSupportedType =
+        transaction.type?.let { BillingSupportedType.valueOfInsensitive(it) }
+    if (transaction.skuId == null || billingSupportedType == null) {
       disposables.add(isSetupCompleted().doOnComplete { view.hideLoading() }
           .subscribeOn(viewScheduler)
           .subscribe())
       return
     }
-    val billingSupportedType =
-        transaction.type?.let { BillingSupportedType.valueOfManagedType(it) }
-            ?: BillingSupportedType.INAPP
     disposables.add(waitForUi(transaction.skuId, billingSupportedType)
         .observeOn(viewScheduler)
         .subscribe(
