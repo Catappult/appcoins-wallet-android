@@ -66,6 +66,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           updateDefaultValues(defaultValues)
           view.hideButtonLoading()
         })
+        .doOnSubscribe { view.showLoadingButton() }
         .subscribe({}, { handleError(it) }))
   }
 
