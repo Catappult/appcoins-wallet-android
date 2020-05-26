@@ -423,6 +423,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
     topUpView.showToolbar()
     main_value.visibility = INVISIBLE
+    button.visibility = VISIBLE
   }
 
   private fun setupCardConfiguration() {
