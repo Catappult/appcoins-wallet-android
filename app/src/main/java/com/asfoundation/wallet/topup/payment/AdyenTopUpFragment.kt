@@ -119,7 +119,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setupUi()
     presenter.present(savedInstanceState)
   }
 
@@ -168,6 +167,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun hideLoading() {
+    button.visibility = VISIBLE
     loading.visibility = GONE
     button.isEnabled = false
     credit_card_info_container.visibility = VISIBLE
@@ -189,33 +189,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     retry_animation.visibility = VISIBLE
   }
 
-  override fun hideNoNetworkError() {
+  override fun hideErrorViews() {
     no_network.visibility = GONE
     top_up_container.visibility = VISIBLE
     payment_container.visibility = VISIBLE
-    main_currency_code.visibility = VISIBLE
-    main_value.visibility = VISIBLE
-    swap_value_button.visibility = VISIBLE
-    swap_value_label.visibility = VISIBLE
-    top_separator_topup.visibility = VISIBLE
-    bot_separator.visibility = VISIBLE
-    converted_value.visibility = VISIBLE
-    button.visibility = VISIBLE
-
-    if (isStored) {
-      change_card_button.visibility = VISIBLE
-    } else {
-      change_card_button.visibility = INVISIBLE
-    }
-
-    payment_container.visibility = VISIBLE
-    credit_card_info_container.visibility = VISIBLE
-    fragment_adyen_error?.visibility = GONE
-
-    topUpView.unlockRotation()
-  }
-
-  override fun hideSpecificError() {
     main_currency_code.visibility = VISIBLE
     main_value.visibility = VISIBLE
     swap_value_button.visibility = VISIBLE
@@ -410,7 +387,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     adyenSecurityCodeLayout.error = null
   }
 
-  private fun setupUi() {
+  override fun setupUi() {
     credit_card_info_container.visibility = INVISIBLE
     button.isEnabled = false
 
@@ -506,7 +483,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private val paymentType: String by lazy {
     if (arguments!!.containsKey(PAYMENT_TYPE)) {
-      arguments!!.getString(PAYMENT_TYPE)
+      arguments!!.getString(PAYMENT_TYPE)!!
     } else {
       throw IllegalArgumentException("Payment Type not found")
     }
@@ -514,7 +491,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private val transactionType: String by lazy {
     if (arguments!!.containsKey(PAYMENT_TRANSACTION_TYPE)) {
-      arguments!!.getString(PAYMENT_TRANSACTION_TYPE)
+      arguments!!.getString(PAYMENT_TRANSACTION_TYPE)!!
     } else {
       throw IllegalArgumentException("Transaction type not found")
     }
@@ -522,7 +499,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private val currentCurrency: String by lazy {
     if (arguments!!.containsKey(PAYMENT_CURRENT_CURRENCY)) {
-      arguments!!.getString(PAYMENT_CURRENT_CURRENCY)
+      arguments!!.getString(PAYMENT_CURRENT_CURRENCY)!!
     } else {
       throw IllegalArgumentException("Payment main currency not found")
     }
@@ -530,7 +507,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private val bonusValue: String by lazy {
     if (arguments!!.containsKey(BONUS)) {
-      arguments!!.getString(BONUS)
+      arguments!!.getString(BONUS, "")
     } else {
       throw IllegalArgumentException("Bonus not found")
     }

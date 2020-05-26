@@ -173,7 +173,8 @@
         android:label="@string/title_activity_send" />
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
-        android:label="@string/topup_title">
+        android:label="@string/topup_title"
+        android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
