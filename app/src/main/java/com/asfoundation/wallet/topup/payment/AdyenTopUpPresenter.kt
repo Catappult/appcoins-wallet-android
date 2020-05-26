@@ -41,7 +41,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val navigator: Navigator,
                           private val billingMessagesMapper: BillingMessagesMapper,
                           private val adyenPaymentInteractor: AdyenPaymentInteractor,
-                          private val bonusValue: String,
+                          private val bonusValue: BigDecimal,
+                          private val bonusSymbol: String,
                           private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
                           private val gamificationLevel: Int,
                           private val topUpAnalytics: TopUpAnalytics,
@@ -57,11 +58,19 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
     loadPaymentMethodInfo(savedInstanceState)
     handleForgetCardClick()
-
+    loadBonusIntoView()
     handleRetryClick(savedInstanceState)
     handleRedirectResponse()
     handleSupportClicks()
     handleTryAgainClicks()
+  }
+
+  private fun loadBonusIntoView() {
+    if (bonusValue.compareTo(BigDecimal.ZERO) != 0) {
+      view.showBonus(bonusValue, bonusSymbol)
+    } else {
+      view.hideBonus()
+    }
   }
 
   private fun handleRetryClick(savedInstanceState: Bundle?) {
@@ -322,7 +331,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun createBundle(priceAmount: BigDecimal, priceCurrency: String,
                            fiatCurrencySymbol: String): Bundle {
-    return billingMessagesMapper.topUpBundle(priceAmount.toPlainString(), priceCurrency, bonusValue,
+    return billingMessagesMapper.topUpBundle(priceAmount.toPlainString(), priceCurrency,
+        bonusValue.toPlainString(),
         fiatCurrencySymbol)
   }
 

@@ -64,7 +64,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
-  private var bonusMessageValue: String = ""
+  private var bonusValue = BigDecimal.ZERO
   private var localCurrency = LocalCurrency()
   private var selectedPaymentMethod = 0
 
@@ -288,8 +288,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun getNextClick(): Observable<TopUpData> {
     return RxView.clicks(button)
         .map {
-          TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(),
-              bonusMessageValue)
+          TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(), bonusValue)
         }
   }
 
@@ -303,19 +302,15 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun showLoading() {
-    credit_card_info_container.visibility = View.GONE
     payment_methods.visibility = View.INVISIBLE
     top_separator_topup.visibility = View.INVISIBLE
     bot_separator.visibility = View.INVISIBLE
-    loading.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
-    credit_card_info_container.visibility = View.VISIBLE
     payment_methods.visibility = View.VISIBLE
     top_separator_topup.visibility = View.VISIBLE
     bot_separator.visibility = View.VISIBLE
-    loading.visibility = View.INVISIBLE
   }
 
   override fun showButton() {
@@ -324,8 +319,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun showPaymentDetailsForm() {
     payment_methods.visibility = View.GONE
-    loading.visibility = View.GONE
-    credit_card_info_container.visibility = View.VISIBLE
     bonus_layout.visibility = View.GONE
     bonus_msg.visibility = View.GONE
     top_separator_topup.visibility = View.VISIBLE
@@ -333,8 +326,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun showPaymentMethods() {
-    credit_card_info_container.visibility = View.GONE
-    loading.visibility = View.GONE
     payment_methods.visibility = View.VISIBLE
     top_separator_topup.visibility = View.VISIBLE
     bot_separator.visibility = View.VISIBLE
@@ -490,7 +481,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
-    bonusMessageValue = scaledBonus.toPlainString()
+    bonusValue = scaledBonus
     bonus_layout.bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
     bonus_layout.bonus_value.text = getString(R.string.topup_bonus_header_part_2,
         currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))

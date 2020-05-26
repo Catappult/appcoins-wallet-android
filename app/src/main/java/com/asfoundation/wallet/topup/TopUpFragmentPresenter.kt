@@ -130,7 +130,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                         topUpData.paymentMethod!!.name)
                     activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
                         topUpData.selectedCurrency, "TOPUP",
-                        topUpData.bonusValue, gamificationLevel)
+                        topUpData.bonusValue, gamificationLevel,
+                        topUpData.currency.fiatCurrencySymbol)
                     view.hideLoading()
                     if (isValidBonus) view.showBonus()
                   }

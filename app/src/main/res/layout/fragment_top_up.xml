@@ -19,7 +19,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/activity_background_color"
         >
       <TextView
           android:id="@+id/main_currency_code"
@@ -149,47 +148,6 @@
           app:layout_constraintTop_toBottomOf="@id/top_separator_topup"
           >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/credit_card_info_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
-
-          <RelativeLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              >
-            <include
-                android:id="@+id/adyen_card_form"
-                layout="@layout/selected_payment_method_cc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-            <Button
-                android:id="@+id/change_card_button"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/adyen_card_form"
-                android:layout_alignParentEnd="true"
-                android:fontFamily="sans-serif-medium"
-                android:lineSpacingExtra="5sp"
-                android:text="@string/activity_iab_change_card"
-                android:textColor="@color/btn_cancel_text"
-                android:textSize="12sp"
-                android:visibility="gone"
-                />
-          </RelativeLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/payment_methods"
             android:layout_width="match_parent"
@@ -202,19 +160,6 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:indeterminateDrawable="@drawable/gradient_progress"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
       </androidx.constraintlayout.widget.ConstraintLayout>
 
       <View

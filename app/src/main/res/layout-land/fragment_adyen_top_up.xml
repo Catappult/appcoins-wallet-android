@@ -11,10 +11,10 @@
   <ScrollView
       android:id="@+id/top_up_container"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
+      android:layout_height="match_parent"
       android:descendantFocusability="beforeDescendants"
       android:fillViewport="true"
-      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       >
 
@@ -28,7 +28,7 @@
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.5"
+          app:layout_constraintGuide_percent="0.45"
           />
 
       <androidx.constraintlayout.widget.Guideline
@@ -180,8 +180,8 @@
           android:id="@+id/top_separator_topup"
           android:layout_width="0dp"
           android:layout_height="1dp"
-          android:layout_marginStart="32dp"
-          android:layout_marginEnd="32dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
           android:background="#eaeaea"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
@@ -200,42 +200,58 @@
           >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/payment_container"
+            android:id="@+id/credit_card_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
+            android:visibility="gone"
+            tools:visibility="visible"
             >
 
-          <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/payment_methods"
+          <RelativeLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:focusable="true"
-              android:overScrollMode="never"
-              android:visibility="visible"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
-              />
+              >
+            <include
+                android:id="@+id/adyen_card_form"
+                layout="@layout/selected_payment_method_cc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/change_card_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/adyen_card_form"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/activity_iab_change_card"
+                android:textColor="@color/btn_cancel_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+          </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
       </RelativeLayout>
 
-      <View
-          android:id="@+id/bot_separator"
-          android:layout_width="0dp"
-          android:layout_height="1dp"
-          android:layout_marginStart="32dp"
-          android:layout_marginEnd="32dp"
-          android:background="#eaeaea"
-          android:visibility="invisible"
+      <ProgressBar
+          android:id="@+id/loading"
+          android:layout_width="@dimen/button_height"
+          android:layout_height="@dimen/button_height"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/container"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/container"
+          app:layout_constraintTop_toTopOf="@id/container"
           />
 
       <Button
@@ -276,7 +292,6 @@
 
   </ScrollView>
 
-
   <include
       android:id="@+id/no_network"
       layout="@layout/no_network_retry_only_layout"
@@ -286,33 +301,6 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <View
-      android:id="@+id/bottom_separator"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginBottom="8dp"
-      android:background="@color/layout_separator_color"
-      android:visibility="gone"
-      app:layout_constraintBottom_toTopOf="@id/rv_default_values"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      />
-
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rv_default_values"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:orientation="horizontal"
-      android:overScrollMode="never"
-      android:visibility="gone"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      tools:listitem="@layout/item_top_value"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
