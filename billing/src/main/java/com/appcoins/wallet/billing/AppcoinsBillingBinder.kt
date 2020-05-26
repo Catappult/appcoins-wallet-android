@@ -111,7 +111,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     val type = try {
-      BillingSupportedType.valueOfInsensitive(billingType)
+      BillingSupportedType.valueOfProductType(billingType)
     } catch (e: Exception) {
       with(result) { putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR) }
       return result
@@ -144,7 +144,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     requireNotNull(sku!!)
 
     val type = try {
-      BillingSupportedType.valueOfInsensitive(billingType)
+      BillingSupportedType.valueOfProductType(billingType)
     } catch (e: Exception) {
       return Bundle().apply {
         putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
@@ -208,23 +208,21 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     val signatureList = ArrayList<String>()
     val skuList = ArrayList<String>()
 
-    if (isValidType(billingType)) {
-      try {
-        val type =
-            billingType?.let { BillingSupportedType.valueOfInsensitive(it) }
-                ?: BillingSupportedType.INAPP
-        val purchases = billing.getPurchases(merchantName, type)
-            .blockingGet()
+    try {
+      val type =
+          billingType?.let { BillingSupportedType.valueOfProductType(it) }
+              ?: BillingSupportedType.INAPP
+      val purchases = billing.getPurchases(merchantName, type)
+          .blockingGet()
 
-        purchases.forEach { purchase: Purchase ->
-          idsList.add(purchase.uid)
-          dataList.add(serializer.serializeSignatureData(purchase))
-          signatureList.add(purchase.signature.value)
-          skuList.add(purchase.product.name)
-        }
-      } catch (exception: Exception) {
-        return billingMessagesMapper.mapPurchasesError(exception)
+      purchases.forEach { purchase: Purchase ->
+        idsList.add(purchase.uid)
+        dataList.add(serializer.serializeSignatureData(purchase))
+        signatureList.add(purchase.signature.value)
+        skuList.add(purchase.product.name)
       }
+    } catch (exception: Exception) {
+      return billingMessagesMapper.mapPurchasesError(exception)
     }
 
     return result.apply {

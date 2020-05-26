@@ -7,7 +7,7 @@ import com.google.gson.JsonSerializer
 import java.lang.reflect.Type
 
 data class Purchase(val uid: String, val product: RemoteProduct, val status: String,
-                    val packageName: Package, val signature: Signature)
+                    val autoRenewing: Boolean, val packageName: Package, val signature: Signature)
 
 data class RemoteProduct(val name: String)
 

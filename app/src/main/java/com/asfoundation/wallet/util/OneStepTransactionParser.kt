@@ -125,7 +125,7 @@ class OneStepTransactionParser(
   private fun getProductValue(type: String, packageName: String?,
                               skuId: String?): Single<BigDecimal> {
     return if (packageName != null && skuId != null) {
-      val billingType = BillingSupportedType.valueOfInsensitive(type)
+      val billingType = BillingSupportedType.valueOfManagedType(type)
       billing.getProducts(packageName, listOf(skuId), billingType)
           .map { products -> products[0] }
           .map { product -> BigDecimal(product.price.appcoinsAmount) }

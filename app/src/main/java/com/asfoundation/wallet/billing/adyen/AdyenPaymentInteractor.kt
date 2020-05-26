@@ -109,8 +109,8 @@ class AdyenPaymentInteractor(
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      val billingType = BillingSupportedType.valueOfInsensitive(type)
+    val billingType = BillingSupportedType.valueOfInsensitive(type)
+    return if (isManagedTransaction(billingType) && sku != null) {
       billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
@@ -141,7 +141,7 @@ class AdyenPaymentInteractor(
     return (status == TransactionResponse.Status.COMPLETED || status == TransactionResponse.Status.FAILED || status == TransactionResponse.Status.CANCELED || status == TransactionResponse.Status.INVALID_TRANSACTION)
   }
 
-  private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
+  private fun isManagedTransaction(type: BillingSupportedType): Boolean {
+    return type == BillingSupportedType.INAPP || type == BillingSupportedType.SUBS
   }
 }

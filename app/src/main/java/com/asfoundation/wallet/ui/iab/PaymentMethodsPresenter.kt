@@ -143,7 +143,7 @@ class PaymentMethodsPresenter(
       return
     }
     val billingSupportedType =
-        transaction.type?.let { BillingSupportedType.valueOfInsensitive(it) }
+        transaction.type?.let { BillingSupportedType.valueOfManagedType(it) }
             ?: BillingSupportedType.INAPP
     disposables.add(waitForUi(transaction.skuId, billingSupportedType)
         .observeOn(viewScheduler)

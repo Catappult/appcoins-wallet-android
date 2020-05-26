@@ -14,7 +14,7 @@ public class ApproveKeyProvider {
   }
 
   Single<String> getKey(String packageName, String productName, String type) {
-    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(type);
+    BillingSupportedType billingType = BillingSupportedType.valueOfManagedType(type);
     return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType)
         .map(Transaction::getUid);
   }

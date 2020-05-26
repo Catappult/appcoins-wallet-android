@@ -60,17 +60,13 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isValidType(type) && sku != null) {
-      val billingType = BillingSupportedType.valueOfInsensitive(type)
+    val billingType = BillingSupportedType.valueOfInsensitive(type)
+    return if (isManagedType(billingType) && sku != null) {
       billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
     }
-  }
-
-  private fun isValidType(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true) || type.equals("SUBS", ignoreCase = true)
   }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
@@ -79,6 +75,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun saveAsyncLocalPayment(paymentMethod: String) {
     inAppPurchaseInteractor.saveAsyncLocalPayment(paymentMethod)
+  }
+
+  private fun isManagedType(type: BillingSupportedType): Boolean {
+    return type == BillingSupportedType.INAPP || type == BillingSupportedType.SUBS
   }
 
   private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
