@@ -47,8 +47,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.add(getPaymentMethodsIcons()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .onErrorReturn({ emptyList() })
-        .doOnSuccess({ view.setPaymentMethodsIcons(it) })
+        .onErrorReturn { emptyList() }
+        .doOnSuccess { view.setPaymentMethodsIcons(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
