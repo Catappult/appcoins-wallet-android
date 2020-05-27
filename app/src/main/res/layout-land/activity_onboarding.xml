@@ -121,6 +121,18 @@
         app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
         />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/payment_methods_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/button_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
+        />
+
     <LinearLayout
         android:id="@+id/terms_conditions_layout"
         android:layout_width="0dp"

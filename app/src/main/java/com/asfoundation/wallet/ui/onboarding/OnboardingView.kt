@@ -26,6 +26,8 @@ interface OnboardingView {
 
   fun showViewPagerLastPage()
 
+  fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>)
+
   fun getRetryButtonClicks(): Observable<Any>
 
   fun getLaterButtonClicks(): Observable<Any>

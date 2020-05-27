@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
@@ -22,11 +24,13 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val smsValidationInteract: SmsValidationInteract,
                           private val networkScheduler: Scheduler,
                           private val walletCreated: ReplaySubject<Boolean>,
-                          private val referralInteractor: ReferralInteractorContract) {
+                          private val referralInteractor: ReferralInteractorContract,
+                          private val repository: BdsRepository) {
 
   private var hasShowedWarning = false
 
   fun present() {
+    handleAvailablePaymentMethods()
     handleSetupUI()
     handleSkipClicks()
     handleSkippedOnboarding()
@@ -37,6 +41,14 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     handleLaterClicks()
     handleRetryClicks()
     handleWarningText()
+  }
+
+  private fun handleAvailablePaymentMethods() {
+    disposables.add(getPaymentMethodsIcons().subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .onErrorReturn({ emptyList() })
+        .doOnSuccess({ view.setPaymentMethodsIcons(it) })
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleSetupUI() {
@@ -185,5 +197,14 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                                showAnimation: Boolean) {
     onboardingInteract.clickSkipOnboarding()
     view.finishOnboarding(walletValidationStatus, showAnimation)
+  }
+
+  private fun getPaymentMethodsIcons(): Single<List<String>> {
+    return repository.getPaymentMethods(type = "fiat")
+        .map { map(it) }
+  }
+
+  private fun map(paymentMethodEntity: List<PaymentMethodEntity>): List<String> {
+    return paymentMethodEntity.map { it.iconUrl }
   }
 }

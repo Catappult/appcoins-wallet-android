@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
@@ -13,7 +15,8 @@ import com.rd.PageIndicatorView
 
 
 class OnboardingPageChangeListener internal constructor(private val view: View,
-                                                        private var isActive: Boolean = false) :
+                                                        private var isActive: Boolean = false,
+                                                        var paymentMethodsIcons: List<String> = emptyList()) :
     ViewPager2.OnPageChangeCallback() {
 
   companion object {
@@ -26,6 +29,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
   private lateinit var skipButton: Button
   private lateinit var nextButton: Button
   private lateinit var beenInvitedButton: Button
+  private lateinit var paymentMethodsRecyclerView: RecyclerView
   private lateinit var checkBox: CheckBox
   private lateinit var warningText: TextView
   private lateinit var termsConditionsLayout: LinearLayout
@@ -43,6 +47,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     nextButton = view.findViewById(R.id.next_button)
     checkBox = view.findViewById(R.id.onboarding_checkbox)
     beenInvitedButton = view.findViewById(R.id.been_invited_bonus)
+    paymentMethodsRecyclerView = view.findViewById(R.id.payment_methods_recycler_view)
     warningText = view.findViewById(R.id.terms_conditions_warning)
     termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout)
     pageIndicatorView = view.findViewById(R.id.page_indicator)
@@ -79,6 +84,16 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
       showFirstPageLayout()
     } else if (position == 3) {
       showLastPageLayout()
+    }
+
+    if (position == 2) {
+      paymentMethodsRecyclerView.visibility = View.VISIBLE
+      paymentMethodsRecyclerView.adapter =
+          OnboardingPaymentMethodAdapter(paymentMethodsIcons)
+      paymentMethodsRecyclerView.layoutManager =
+          LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+    } else {
+      paymentMethodsRecyclerView.visibility = View.GONE
     }
   }
 

@@ -14,6 +14,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
@@ -48,16 +49,27 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract
 
+  @Inject
+  lateinit var repository: BdsRepository
+
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private lateinit var adapter: OnboardingPageAdapter
   private var linkSubject: PublishSubject<String>? = null
+  private var paymentMethodsIcons: ArrayList<String>? = null
 
   companion object {
     fun newInstance() = OnboardingActivity()
 
     private const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
     private const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
+    private const val PAYMENT_METHODS_ICONS = "paymentMethodsIcons"
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    paymentMethodsIcons?.let { outState.putStringArrayList(PAYMENT_METHODS_ICONS, it) }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,8 +80,14 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
-        ReplaySubject.create(), referralInteractor)
-    setupUI()
+        ReplaySubject.create(), referralInteractor, repository)
+    if (savedInstanceState != null && savedInstanceState.containsKey(PAYMENT_METHODS_ICONS)) {
+      setupUI(savedInstanceState.getStringArrayList(PAYMENT_METHODS_ICONS)!!
+          .toList())
+    } else {
+      setupUI()
+    }
+
     presenter.present()
   }
 
@@ -82,7 +100,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     super.onDestroy()
   }
 
-  private fun setupUI() {
+  private fun setupUI(paymentMethodsIcons: List<String> = emptyList()) {
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
@@ -101,7 +119,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter
-    listener = OnboardingPageChangeListener(onboarding_content)
+    listener =
+        OnboardingPageChangeListener(onboarding_content, paymentMethodsIcons = paymentMethodsIcons)
     onboarding_viewpager.registerOnPageChangeCallback(listener)
 
     onboarding_content.visibility = View.VISIBLE
@@ -127,6 +146,11 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun showViewPagerLastPage() {
     onboarding_viewpager.setCurrentItem(onboarding_viewpager.adapter?.itemCount ?: 0, true)
+  }
+
+  override fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>) {
+    this.paymentMethodsIcons = ArrayList(paymentMethodsIcons);
+    listener.paymentMethodsIcons = paymentMethodsIcons
   }
 
   override fun getLinkClick() = linkSubject!!
