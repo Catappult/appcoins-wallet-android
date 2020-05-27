@@ -154,7 +154,7 @@
           app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
           app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/converted_value"
+          app:layout_constraintTop_toBottomOf="@+id/value_warning_text"
           app:layout_constraintVertical_bias="0"
           app:layout_constraintVertical_chainStyle="packed"
           />
