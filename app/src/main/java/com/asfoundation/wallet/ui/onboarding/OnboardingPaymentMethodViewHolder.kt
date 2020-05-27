@@ -13,8 +13,7 @@ class OnboardingPaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolde
 
     GlideApp.with(itemView)
         .load(imageSrc)
-        .transition(
-            DrawableTransitionOptions.withCrossFade())
+        .transition(DrawableTransitionOptions.withCrossFade())
         .into(imageView)
   }
 }
