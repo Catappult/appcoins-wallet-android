@@ -331,8 +331,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun hideBonus() {
-    bonus_layout.visibility = INVISIBLE
-    bonus_msg.visibility = INVISIBLE
+    bonus_layout.visibility = GONE
+    bonus_msg.visibility = GONE
   }
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
