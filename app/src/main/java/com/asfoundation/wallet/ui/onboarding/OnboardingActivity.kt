@@ -81,12 +81,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
         ReplaySubject.create(), referralInteractor, repository)
-    if (savedInstanceState != null && savedInstanceState.containsKey(PAYMENT_METHODS_ICONS)) {
-      setupUI(savedInstanceState.getStringArrayList(PAYMENT_METHODS_ICONS)!!
-          .toList())
-    } else {
-      setupUI()
-    }
+    setupUI(savedInstanceState)
 
     presenter.present()
   }
@@ -100,7 +95,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     super.onDestroy()
   }
 
-  private fun setupUI(paymentMethodsIcons: List<String> = emptyList()) {
+  private fun setupUI(savedInstanceState: Bundle?) {
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
@@ -119,6 +114,13 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter
+    val paymentMethodsIcons =
+        if (savedInstanceState != null && savedInstanceState.containsKey(PAYMENT_METHODS_ICONS)) {
+          savedInstanceState.getStringArrayList(PAYMENT_METHODS_ICONS)!!
+              .toList()
+        } else {
+          emptyList()
+        }
     listener =
         OnboardingPageChangeListener(onboarding_content, paymentMethodsIcons = paymentMethodsIcons)
     onboarding_viewpager.registerOnPageChangeCallback(listener)
