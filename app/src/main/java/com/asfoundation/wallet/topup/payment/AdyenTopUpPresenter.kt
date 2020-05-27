@@ -68,8 +68,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private fun loadBonusIntoView() {
     if (bonusValue.compareTo(BigDecimal.ZERO) != 0) {
       view.showBonus(bonusValue, bonusSymbol)
-    } else {
-      view.hideBonus()
     }
   }
 
@@ -136,6 +134,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             } else if (paymentType == PaymentType.PAYPAL.name) {
               launchPaypal(it.paymentMethodInfo!!, it.priceAmount, it.priceCurrency)
             }
+            loadBonusIntoView()
           }
         }
         .subscribe({}, { it.printStackTrace() }))

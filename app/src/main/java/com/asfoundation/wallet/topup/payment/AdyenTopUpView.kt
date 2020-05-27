@@ -62,8 +62,6 @@ interface AdyenTopUpView {
 
   fun navigateToPaymentSelection()
 
-  fun hideBonus()
-
   fun showBonus(bonus: BigDecimal, currency: String)
 
 }
