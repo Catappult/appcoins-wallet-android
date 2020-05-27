@@ -26,9 +26,9 @@ interface PreferencesRepositoryType {
   fun getBackupNotificationSeenTime(walletAddress: String): Long
   fun setBackupNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
   fun removeBackupNotificationSeenTime(walletAddress: String): Completable
-  fun isWalletImportBackup(walletAddress: String): Boolean
-  fun setWalletImportBackup(walletAddress: String)
-  fun removeWalletImportBackup(walletAddress: String): Completable
+  fun isWalletRestoreBackup(walletAddress: String): Boolean
+  fun setWalletRestoreBackup(walletAddress: String)
+  fun removeWalletRestoreBackup(walletAddress: String): Completable
   fun hasShownBackup(walletAddress: String): Boolean
   fun setHasShownBackup(walletAddress: String, hasShown: Boolean)
   fun getAndroidId(): String
@@ -36,4 +36,6 @@ interface PreferencesRepositoryType {
   fun getGamificationLevel(): Int
   fun saveChosenUri(uri: String)
   fun getChosenUri(): String?
+  fun getSeenBackupToolip(): Boolean
+  fun saveSeenBackupTooltip()
 }

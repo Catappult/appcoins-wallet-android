@@ -416,7 +416,10 @@ public class TransactionsViewModel extends BaseViewModel {
         dismissNotification(cardNotification);
         break;
       case BACKUP:
-        transactionViewNavigator.navigateToBackup(context);
+        Wallet wallet = defaultWallet.getValue();
+        if (wallet != null && wallet.address != null) {
+          transactionViewNavigator.navigateToBackup(context, wallet.address);
+        }
         break;
     }
   }

@@ -4,17 +4,17 @@ import com.asfoundation.wallet.interact.WalletModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class ImportWalletPasswordPresenter(private val view: ImportWalletPasswordView,
-                                    private val activityView: ImportWalletActivityView,
-                                    private val interactor: ImportWalletPasswordInteractor,
-                                    private val disposable: CompositeDisposable,
-                                    private val viewScheduler: Scheduler,
-                                    private val networkScheduler: Scheduler,
-                                    private val computationScheduler: Scheduler) {
+class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView,
+                                     private val activityView: RestoreWalletActivityView,
+                                     private val interactor: RestoreWalletPasswordInteractor,
+                                     private val disposable: CompositeDisposable,
+                                     private val viewScheduler: Scheduler,
+                                     private val networkScheduler: Scheduler,
+                                     private val computationScheduler: Scheduler) {
 
   fun present(keystore: String) {
     populateUi(keystore)
-    handleImportWalletButtonClicked(keystore)
+    handleRestoreWalletButtonClicked(keystore)
   }
 
   private fun populateUi(keystore: String) {
@@ -28,14 +28,14 @@ class ImportWalletPasswordPresenter(private val view: ImportWalletPasswordView,
         .subscribe())
   }
 
-  private fun handleImportWalletButtonClicked(keystore: String) {
-    disposable.add(view.importWalletButtonClick()
+  private fun handleRestoreWalletButtonClicked(keystore: String) {
+    disposable.add(view.restoreWalletButtonClick()
         .doOnNext {
           activityView.hideKeyboard()
-          view.showWalletImportAnimation()
+          view.showWalletRestoreAnimation()
         }
         .observeOn(computationScheduler)
-        .flatMapSingle { interactor.importWallet(keystore, it) }
+        .flatMapSingle { interactor.restoreWallet(keystore, it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
         .subscribe())
@@ -43,7 +43,7 @@ class ImportWalletPasswordPresenter(private val view: ImportWalletPasswordView,
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
-        .doOnComplete { view.showWalletImportedAnimation() }
+        .doOnComplete { view.showWalletRestoredAnimation() }
         .subscribe())
   }
 

@@ -100,7 +100,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   override fun shareFile(uri: Uri) {
     ShareCompat.IntentBuilder.from(activity)
         .setStream(uri)
-        .setType("text/plain")
+        .setType("text/json")
         .setSubject(getString(R.string.tab_keystore))
         .setChooserTitle(R.string.share_via)
         .startChooser()

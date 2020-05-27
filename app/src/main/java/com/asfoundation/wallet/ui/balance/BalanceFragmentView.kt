@@ -23,8 +23,6 @@ interface BalanceFragmentView {
 
   fun showTokenDetails(view: View)
 
-  fun showTopUpScreen()
-
   fun getCopyClick(): Observable<Any>
 
   fun getQrCodeClick(): Observable<Any>
@@ -35,8 +33,6 @@ interface BalanceFragmentView {
 
   fun showQrCodeView()
 
-  fun collapseBottomSheet()
-
   fun backPressed(): Observable<Any>
 
   fun handleBackPress()
@@ -44,4 +40,18 @@ interface BalanceFragmentView {
   fun showWalletCreatedAnimation()
 
   fun showCreatingAnimation()
+
+  fun changeBottomSheetState()
+
+  fun getBackupClick(): Observable<Any>
+
+  fun setTooltip()
+
+  fun getTooltipDismissClick(): Observable<Any>
+
+  fun getTooltipBackupButton(): Observable<Any>
+
+  fun homeBackPressed(): Observable<Any>?
+
+  fun dismissTooltip()
 }

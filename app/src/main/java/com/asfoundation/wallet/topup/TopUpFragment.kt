@@ -317,6 +317,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     button.visibility = View.VISIBLE
   }
 
+  override fun showLoadingButton() {
+    button.visibility = View.INVISIBLE
+    button_loading.visibility = View.VISIBLE
+  }
+
   override fun showPaymentDetailsForm() {
     payment_methods.visibility = View.GONE
     bonus_layout.visibility = View.GONE

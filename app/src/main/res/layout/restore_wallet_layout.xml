@@ -32,7 +32,7 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/animation_background"
+        android:background="@color/faded_background_color"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"

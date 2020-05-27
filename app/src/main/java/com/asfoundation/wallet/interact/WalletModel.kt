@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.interact
 
-import com.asfoundation.wallet.util.ImportError
+import com.asfoundation.wallet.util.RestoreError
 
 data class WalletModel(val address: String, val keystore: String = "",
-                       val error: ImportError = ImportError()) {
+                       val error: RestoreError = RestoreError()) {
 
-  constructor(importError: ImportError) : this("", "", importError)
-  constructor(keystore: String, importError: ImportError) : this("", keystore, importError)
+  constructor(restoreError: RestoreError) : this("", "", restoreError)
+  constructor(keystore: String, restoreError: RestoreError) : this("", keystore, restoreError)
 }

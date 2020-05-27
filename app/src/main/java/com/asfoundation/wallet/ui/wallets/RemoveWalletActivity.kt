@@ -44,8 +44,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
         .replace(R.id.fragment_container,
             WalletRemoveConfirmationFragment.newInstance(walletAddress, fiatBalance,
                 appcoinsBalance, creditsBalance, ethereumBalance))
-        .addToBackStack(
-            WalletRemoveConfirmationFragment::class.java.simpleName)
+        .addToBackStack(WalletRemoveConfirmationFragment::class.java.simpleName)
         .commit()
   }
 
@@ -54,9 +53,8 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     finish()
   }
 
-  override fun navigateToBackUp(walletAddress: String) {
-    startActivity(newIntent(this, walletAddress))
-  }
+  override fun navigateToBackUp(walletAddress: String) =
+      startActivity(newIntent(this, walletAddress))
 
   override fun showRemoveWalletAnimation() {
     wallet_remove_animation.visibility = View.VISIBLE

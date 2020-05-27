@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 class WalletsPresenter(private val view: WalletsView,
                        private val walletsInteract: WalletsInteract,
                        private val logger: Logger,
-                       private val disposable: CompositeDisposable,
+                       private val disposables: CompositeDisposable,
                        private val viewScheduler: Scheduler,
                        private val networkScheduler: Scheduler) {
   fun present() {
@@ -15,18 +15,25 @@ class WalletsPresenter(private val view: WalletsView,
     handleActiveWalletCardClick()
     handleOtherWalletCardClick()
     handleCreateNewWalletClick()
-    handleImportWalletClick()
+    handleRestoreWalletClick()
+    handleBottomSheetHeaderClick()
   }
 
-  private fun handleImportWalletClick() {
-    disposable.add(view.importWalletClicked()
+  private fun handleBottomSheetHeaderClick() {
+    disposables.add(view.onBottomSheetHeaderClicked()
+        .doOnNext { view.changeBottomSheetState() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleRestoreWalletClick() {
+    disposables.add(view.restoreWalletClicked()
         .observeOn(viewScheduler)
-        .doOnNext { view.navigateToImportView() }
-        .subscribe())
+        .doOnNext { view.navigateToRestoreView() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleCreateNewWalletClick() {
-    disposable.add(view.createNewWalletClicked()
+    disposables.add(view.createNewWalletClicked()
         .observeOn(viewScheduler)
         .doOnNext { view.showCreatingAnimation() }
         .flatMapCompletable {
@@ -34,33 +41,30 @@ class WalletsPresenter(private val view: WalletsView,
               .observeOn(viewScheduler)
               .andThen { view.showWalletCreatedAnimation() }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleOtherWalletCardClick() {
-    disposable.add(view.otherWalletCardClicked()
+    disposables.add(view.otherWalletCardClicked()
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, false) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleActiveWalletCardClick() {
-    disposable.add(view.activeWalletCardClicked()
+    disposables.add(view.activeWalletCardClicked()
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, true) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun retrieveViewInformation() {
-    disposable.add(walletsInteract.retrieveWalletsModel()
+    disposables.add(walletsInteract.retrieveWalletsModel()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.setupUi(it.totalWallets, it.totalBalance, it.walletsBalance) }
         .subscribe({}, { logger.log("WalletsPresenter", it) }))
   }
 
-  fun stop() {
-    disposable.clear()
-  }
-
+  fun stop() = disposables.clear()
 }

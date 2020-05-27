@@ -86,6 +86,21 @@ public class PaymentTransaction {
         developerPayload, callbackUrl, orderReference);
   }
 
+  public PaymentTransaction(PaymentTransaction paymentTransaction,
+      TransactionBuilder transactionBuilder) {
+    this.uri = paymentTransaction.uri;
+    this.approveHash = paymentTransaction.approveHash;
+    this.buyHash = paymentTransaction.buyHash;
+    this.transactionBuilder = transactionBuilder;
+    this.state = paymentTransaction.state;
+    this.packageName = paymentTransaction.packageName;
+    this.productName = paymentTransaction.productName;
+    this.productId = paymentTransaction.productId;
+    this.developerPayload = paymentTransaction.developerPayload;
+    this.callbackUrl = paymentTransaction.callbackUrl;
+    this.orderReference = paymentTransaction.orderReference;
+  }
+
   public String getOrderReference() {
     return orderReference;
   }
