@@ -159,11 +159,11 @@
 
   <include
       android:id="@+id/fragment_iab_error"
-      layout="@layout/fragment_iab_error"
+      layout="@layout/generic_purchase_error_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      tools:visibility="gone"
+      android:visibility="gone"
       />
 
 </RelativeLayout>

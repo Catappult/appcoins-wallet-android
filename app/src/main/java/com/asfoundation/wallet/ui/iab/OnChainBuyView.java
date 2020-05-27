@@ -13,6 +13,8 @@ public interface OnChainBuyView {
 
   Observable<Object> getOkErrorClick();
 
+  Observable<Object> getSupportClick();
+
   void close(Bundle data);
 
   void finish(Bundle data);

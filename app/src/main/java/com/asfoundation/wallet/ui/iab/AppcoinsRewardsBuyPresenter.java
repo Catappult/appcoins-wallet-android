@@ -27,14 +27,15 @@ public class AppcoinsRewardsBuyPresenter {
   private final boolean isBds;
   private final BillingAnalytics analytics;
   private final TransactionBuilder transactionBuilder;
-  private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final CurrencyFormatUtils formatter;
+  private final int gamificationLevel;
+  private final AppcoinsRewardsBuyInteract appcoinsRewardsBuyInteract;
 
   AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
       Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String uri,
       String packageName, TransferParser transferParser, boolean isBds, BillingAnalytics analytics,
-      TransactionBuilder transactionBuilder, InAppPurchaseInteractor inAppPurchaseInteractor,
-      CurrencyFormatUtils formatter) {
+      TransactionBuilder transactionBuilder, CurrencyFormatUtils formatter, int gamificationLevel,
+      AppcoinsRewardsBuyInteract appcoinsRewardsBuyInteract) {
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
@@ -46,14 +47,16 @@ public class AppcoinsRewardsBuyPresenter {
     this.isBds = isBds;
     this.analytics = analytics;
     this.transactionBuilder = transactionBuilder;
-    this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.formatter = formatter;
+    this.gamificationLevel = gamificationLevel;
+    this.appcoinsRewardsBuyInteract = appcoinsRewardsBuyInteract;
   }
 
   public void present() {
     view.lockRotation();
     handleBuyClick();
     handleOkErrorClick();
+    handleSupportClicks();
   }
 
   private void handleOkErrorClick() {
@@ -98,7 +101,8 @@ public class AppcoinsRewardsBuyPresenter {
               .flatMapCompletable(purchase -> Completable.fromAction(view::showTransactionCompleted)
                   .subscribeOn(scheduler)
                   .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                  .andThen(Completable.fromAction(inAppPurchaseInteractor::removeAsyncLocalPayment))
+                  .andThen(
+                      Completable.fromAction(appcoinsRewardsBuyInteract::removeAsyncLocalPayment))
                   .andThen(Completable.fromAction(
                       () -> view.finish(purchase, transaction.getOrderReference()))))
               .observeOn(scheduler)
@@ -139,7 +143,7 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   void sendRevenueEvent() {
-    analytics.sendRevenueEvent(formatter.scaleFiat(inAppPurchaseInteractor.convertToFiat(
+    analytics.sendRevenueEvent(formatter.scaleFiat(appcoinsRewardsBuyInteract.convertToFiat(
         transactionBuilder.amount()
             .doubleValue(), EVENT_REVENUE_CURRENCY)
         .blockingGet()
@@ -162,5 +166,13 @@ public class AppcoinsRewardsBuyPresenter {
           transaction.getStatus()
               .toString());
     }
+  }
+
+  private void handleSupportClicks() {
+    disposables.add(view.getSupportClick()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .flatMapCompletable(__ -> appcoinsRewardsBuyInteract.showSupport(gamificationLevel))
+        .subscribeOn(scheduler)
+        .subscribe());
   }
 }

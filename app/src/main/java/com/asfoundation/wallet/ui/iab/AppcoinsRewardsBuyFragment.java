@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,13 +35,14 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private static final String URI_KEY = "uri_key";
   private static final String IS_BDS = "is_bds";
   private static final String TRANSACTION_KEY = "transaction_key";
+  private static final String GAMIFICATION_LEVEL = "gamification_level";
 
   @Inject RewardsManager rewardsManager;
   @Inject TransferParser transferParser;
   @Inject BillingMessagesMapper billingMessagesMapper;
   @Inject BillingAnalytics analytics;
-  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject CurrencyFormatUtils formatter;
+  @Inject AppcoinsRewardsBuyInteract appcoinsRewardsBuyInteract;
   private View loadingView;
   private View transactionCompletedLayout;
   private LottieAnimationView lottieTransactionComplete;
@@ -51,10 +53,13 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private boolean isBds;
   private View transactionErrorLayout;
   private TextView errorMessage;
-  private View okErrorButton;
+  private Button okErrorButton;
+  private View supportIcon;
+  private View supportLogo;
+  private int gamificationLevel;
 
   public static Fragment newInstance(BigDecimal amount, TransactionBuilder transactionBuilder,
-      String uri, String productName, boolean isBds) {
+      String uri, String productName, boolean isBds, int gamificationLevel) {
     AppcoinsRewardsBuyFragment fragment = new AppcoinsRewardsBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putString(AMOUNT_KEY, amount.toString());
@@ -62,6 +67,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     bundle.putString(URI_KEY, uri);
     bundle.putString(PRODUCT_NAME, productName);
     bundle.putBoolean(IS_BDS, isBds);
+    bundle.putInt(GAMIFICATION_LEVEL, gamificationLevel);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -72,6 +78,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     amount = new BigDecimal(arguments.getString(AMOUNT_KEY));
     uri = arguments.getString(URI_KEY);
     isBds = arguments.getBoolean(IS_BDS);
+    gamificationLevel = arguments.getInt(GAMIFICATION_LEVEL);
   }
 
   @Nullable @Override
@@ -84,9 +91,11 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     super.onViewCreated(view, savedInstanceState);
     loadingView = view.findViewById(R.id.loading_view);
 
-    errorMessage = view.findViewById(R.id.activity_iab_error_message);
-    transactionErrorLayout = view.findViewById(R.id.error_message);
-    okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
+    errorMessage = view.findViewById(R.id.error_message);
+    transactionErrorLayout = view.findViewById(R.id.credits_error_layout);
+    okErrorButton = view.findViewById(R.id.error_dismiss);
+    supportIcon = view.findViewById(R.id.layout_support_icn_top_up);
+    supportLogo = view.findViewById(R.id.layout_support_logo_top_up);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
 
     TransactionBuilder transactionBuilder = getArguments().getParcelable(TRANSACTION_KEY);
@@ -94,7 +103,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, uri, callerPackageName, transferParser, isBds,
-            analytics, transactionBuilder, inAppPurchaseInteractor, formatter);
+            analytics, transactionBuilder, formatter, gamificationLevel,
+            appcoinsRewardsBuyInteract);
 
     lottieTransactionComplete =
         transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
@@ -126,6 +136,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void showNoNetworkError() {
     hideLoading();
+    okErrorButton.setText(R.string.ok);
     errorMessage.setText(R.string.activity_iab_no_network_message);
     transactionErrorLayout.setVisibility(View.VISIBLE);
   }
@@ -134,12 +145,17 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     return RxView.clicks(okErrorButton);
   }
 
+  @Override public Observable<Object> getSupportClick() {
+    return Observable.merge(RxView.clicks(supportIcon), RxView.clicks(supportLogo));
+  }
+
   @Override public void close() {
     iabView.close(billingMessagesMapper.mapCancellation());
   }
 
   @Override public void showGenericError() {
     hideLoading();
+    okErrorButton.setText(R.string.ok);
     errorMessage.setText(R.string.activity_iab_error_message);
     transactionErrorLayout.setVisibility(View.VISIBLE);
   }

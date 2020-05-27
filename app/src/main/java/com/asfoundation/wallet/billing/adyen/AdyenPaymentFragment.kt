@@ -54,9 +54,9 @@ import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
-import kotlinx.android.synthetic.main.fragment_iab_error.*
-import kotlinx.android.synthetic.main.fragment_iab_error.view.*
+import kotlinx.android.synthetic.main.fragment_adyen_error.view.error_message
+import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
+import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
@@ -196,7 +196,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {
-      if(bonus.isNotEmpty()){
+      if (bonus.isNotEmpty()) {
         bonus_layout.visibility = View.INVISIBLE
         bonus_msg.visibility = View.INVISIBLE
       }
@@ -224,11 +224,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_adyen_error?.visibility = GONE
     fragment_adyen_error_pre_selected?.visibility = GONE
+    fragment_iab_error?.error_dismiss?.setText(R.string.ok)
     fragment_iab_error?.visibility = VISIBLE
-    fragment_iab_error?.activity_iab_error_message?.setText(R.string.notification_no_network_poa)
+    fragment_iab_error?.error_message?.setText(R.string.notification_no_network_poa)
+    fragment_iab_error_pre_selected?.error_dismiss?.setText(R.string.ok)
     fragment_iab_error_pre_selected?.visibility = VISIBLE
-    fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
-        R.string.notification_no_network_poa)
+    fragment_iab_error_pre_selected?.error_message?.setText(R.string.notification_no_network_poa)
   }
 
   override fun backEvent(): Observable<Any> {
@@ -256,14 +257,15 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showGenericError() {
     main_view?.visibility = GONE
     main_view_pre_selected?.visibility = GONE
+    fragment_credit_card_authorization_progress_bar?.visibility = GONE
     fragment_adyen_error?.visibility = GONE
     fragment_adyen_error_pre_selected?.visibility = GONE
+    fragment_iab_error?.error_dismiss?.setText(R.string.ok)
     fragment_iab_error?.visibility = VISIBLE
-    fragment_credit_card_authorization_progress_bar?.visibility = GONE
-    fragment_iab_error?.activity_iab_error_message?.setText(R.string.unknown_error)
+    fragment_iab_error?.error_message?.setText(R.string.unknown_error)
+    fragment_iab_error_pre_selected?.error_dismiss?.setText(R.string.ok)
     fragment_iab_error_pre_selected?.visibility = VISIBLE
-    fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
-        R.string.unknown_error)
+    fragment_iab_error_pre_selected?.error_message?.setText(R.string.unknown_error)
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
@@ -335,7 +337,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun adyenErrorCancelClicks() = RxView.clicks(error_cancel)
 
-  override fun errorDismisses() = RxView.clicks(activity_iab_error_ok_button)
+  override fun errorDismisses() = RxView.clicks(error_dismiss)
 
   override fun buyButtonClicked() = RxView.clicks(buy_button)
 
@@ -346,7 +348,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn),
+        RxView.clicks(layout_support_icn_top_up), RxView.clicks(layout_support_logo_top_up))
   }
 
   override fun lockRotation() = iabView.lockRotation()

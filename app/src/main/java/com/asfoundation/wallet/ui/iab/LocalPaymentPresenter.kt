@@ -37,7 +37,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val orderReference: String?,
                             private val payload: String?,
                             private val context: Context?,
-                            private val paymentMethodIconUrl: String?) {
+                            private val paymentMethodIconUrl: String?,
+                            private val gamificationLevel: Int) {
 
   private var waitingResult: Boolean = false
 
@@ -49,6 +50,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     handlePaymentRedirect()
     handleOkErrorButtonClick()
     handleOkBuyButtonClick()
+    handleSupportClicks()
   }
 
   fun handleStop() {
@@ -194,6 +196,15 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       }
       else -> Completable.complete()
     }
+  }
+
+  private fun handleSupportClicks() {
+    disposables.add(view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .flatMapCompletable { localPaymentInteractor.showSupport(gamificationLevel) }
+        .subscribeOn(viewScheduler)
+        .subscribe()
+    )
   }
 
   private fun showError(throwable: Throwable) {

@@ -16,10 +16,12 @@ import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_iab_error.view.*
+import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
+import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
@@ -47,6 +49,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val PAYLOAD = "PAYLOAD"
     private const val PAYMENT_METHOD_URL = "payment_method_url"
     private const val PAYMENT_METHOD_LABEL = "payment_method_label"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
     private const val ANIMATION_STEP_TWO_START_FRAME = 80
     private const val MID_ANIMATION_FRAME_INCREMENT = 40
@@ -59,7 +62,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
                     bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                     type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
                     payload: String?, paymentMethodIconUrl: String,
-                    paymentMethodLabel: String): LocalPaymentFragment {
+                    paymentMethodLabel: String, gamificationLevel: Int): LocalPaymentFragment {
       return LocalPaymentFragment().apply {
         arguments = Bundle().apply {
           putString(DOMAIN_KEY, domain)
@@ -76,6 +79,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
           putString(PAYLOAD, payload)
           putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
           putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
+          putInt(GAMIFICATION_LEVEL, gamificationLevel)
         }
       }
     }
@@ -191,6 +195,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
+  private val gamificationLevel: Int by lazy {
+    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
+      arguments!!.getInt(GAMIFICATION_LEVEL)
+    } else {
+      throw IllegalArgumentException("gamification level not found")
+    }
+  }
+
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
 
@@ -213,7 +225,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
             paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), callbackUrl, orderReference, payload, context,
-            paymentMethodIconUrl)
+            paymentMethodIconUrl, gamificationLevel)
   }
 
 
@@ -292,7 +304,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     return inflater.inflate(R.layout.local_payment_layout, container, false)
   }
 
-  override fun getOkErrorClick() = RxView.clicks(error_view.activity_iab_error_ok_button)
+  override fun getOkErrorClick(): Observable<Any> {
+    return RxView.clicks(error_view.error_dismiss)
+  }
+
+  override fun getSupportClicks(): Observable<Any> {
+    return Observable.merge(RxView.clicks(layout_support_icn_top_up),
+        RxView.clicks(layout_support_logo_top_up))
+  }
 
   override fun getGotItClick() = RxView.clicks(got_it_button)
 
@@ -350,6 +369,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun showError() {
     status = ERROR
+    error_dismiss.text = getString(R.string.ok)
+    error_message.text = getString(R.string.activity_iab_error_message)
     pending_user_payment_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()

@@ -11,8 +11,11 @@
     >
 
   <include
-      android:id="@+id/error_message"
-      layout="@layout/fragment_iab_error"
+      android:id="@+id/credits_error_layout"
+      layout="@layout/generic_purchase_error_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
       />
 
   <ProgressBar
