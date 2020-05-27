@@ -58,7 +58,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
     loadPaymentMethodInfo(savedInstanceState)
     handleForgetCardClick()
-    loadBonusIntoView()
     handleRetryClick(savedInstanceState)
     handleRedirectResponse()
     handleSupportClicks()
