@@ -195,8 +195,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     top_up_container.visibility = VISIBLE
     main_currency_code.visibility = VISIBLE
     main_value.visibility = VISIBLE
-    swap_value_button.visibility = VISIBLE
-    swap_value_label.visibility = VISIBLE
     top_separator_topup.visibility = VISIBLE
     converted_value.visibility = VISIBLE
     button.visibility = VISIBLE
@@ -216,8 +214,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun hideSpecificError() {
     main_currency_code.visibility = VISIBLE
     main_value.visibility = VISIBLE
-    swap_value_button.visibility = VISIBLE
-    swap_value_label.visibility = VISIBLE
     top_separator_topup.visibility = VISIBLE
     converted_value.visibility = VISIBLE
     button.visibility = VISIBLE
@@ -246,8 +242,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     //Header
     main_currency_code.visibility = INVISIBLE
     main_value.visibility = INVISIBLE
-    swap_value_button.visibility = INVISIBLE
-    swap_value_label.visibility = INVISIBLE
     top_separator_topup.visibility = INVISIBLE
     converted_value.visibility = INVISIBLE
     button.visibility = GONE

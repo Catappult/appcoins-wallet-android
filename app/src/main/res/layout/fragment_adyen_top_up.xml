@@ -67,50 +67,6 @@
           app:layout_constraintTop_toBottomOf="@id/main_value"
           />
 
-      <ImageButton
-          android:id="@+id/swap_value_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="40dp"
-          android:layout_marginEnd="40dp"
-          android:background="?attr/selectableItemBackgroundBorderless"
-          android:enabled="false"
-          android:src="@drawable/ic_swap"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="@id/main_value"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="@id/main_value"
-          app:layout_constraintTop_toTopOf="@id/main_value"
-          />
-
-      <TextView
-          android:id="@+id/swap_value_label"
-          style="@style/TopUpTextStyle.SwapCurrency"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="--"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/swap_value_button"
-          app:layout_constraintStart_toStartOf="@id/swap_value_button"
-          app:layout_constraintTop_toBottomOf="@id/swap_value_button"
-          />
-
-      <ImageView
-          android:id="@+id/value_warning_icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="40dp"
-          android:layout_marginEnd="40dp"
-          android:src="@drawable/ic_topup_error"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="@id/main_value"
-          app:layout_constraintEnd_toStartOf="@id/main_value"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@id/main_value"
-          />
-
       <View
           android:id="@+id/top_separator_topup"
           android:layout_width="match_parent"
