@@ -212,11 +212,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun hideSpecificError() {
-    main_currency_code.visibility = VISIBLE
-    main_value.visibility = VISIBLE
-    top_separator_topup.visibility = VISIBLE
-    converted_value.visibility = VISIBLE
-    button.visibility = VISIBLE
+    top_up_container.visibility = VISIBLE
+    fragment_adyen_error?.visibility = GONE
 
     if (isStored) {
       change_card_button.visibility = VISIBLE
@@ -225,7 +222,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
 
     credit_card_info_container.visibility = VISIBLE
-    fragment_adyen_error?.visibility = GONE
 
     topUpView.unlockRotation()
   }
@@ -233,19 +229,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun showSpecificError(@StringRes stringRes: Int) {
     topUpView.unlockRotation()
     loading.visibility = GONE
-    if (isStored) {
-      change_card_button.visibility = VISIBLE
-    } else {
-      change_card_button.visibility = INVISIBLE
-    }
-
-    //Header
-    main_currency_code.visibility = INVISIBLE
-    main_value.visibility = INVISIBLE
-    top_separator_topup.visibility = INVISIBLE
-    converted_value.visibility = INVISIBLE
-    button.visibility = GONE
-
+    top_up_container.visibility = GONE
 
     val message = getString(stringRes)
     fragment_adyen_error?.error_message?.text = message
