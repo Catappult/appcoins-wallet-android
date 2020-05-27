@@ -301,19 +301,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     payment_methods.requestFocus()
   }
 
-  override fun showLoading() {
-    payment_methods.visibility = View.INVISIBLE
-    top_separator_topup.visibility = View.INVISIBLE
-    bot_separator.visibility = View.INVISIBLE
-  }
-
-  override fun hideLoading() {
-    payment_methods.visibility = View.VISIBLE
-    top_separator_topup.visibility = View.VISIBLE
-    bot_separator.visibility = View.VISIBLE
-  }
-
-  override fun showButton() {
+  override fun hideLoadingButton() {
+    button_loading.visibility = View.INVISIBLE
     button.visibility = View.VISIBLE
   }
 

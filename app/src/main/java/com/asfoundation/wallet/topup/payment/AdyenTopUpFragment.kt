@@ -167,7 +167,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     loading.visibility = VISIBLE
     credit_card_info_container.visibility = INVISIBLE
     button.isEnabled = false
-    change_card_button.visibility = INVISIBLE
   }
 
   override fun hideLoading() {

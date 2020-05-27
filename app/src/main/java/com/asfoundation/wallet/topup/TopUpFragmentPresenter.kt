@@ -64,7 +64,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.setupUiElements(filterPaymentMethods(paymentMethods),
               LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
           updateDefaultValues(defaultValues)
-          view.showButton()
+          view.hideLoadingButton()
         })
         .doOnSubscribe { view.showLoadingButton() }
         .subscribe({}, { handleError(it) }))
@@ -124,7 +124,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                   .observeOn(viewScheduler)
                   .doOnNext {
                     val isValidBonus = interactor.isBonusValidAndActive()
-                    view.showLoading()
                     if (isValidBonus) view.hideBonus()
                     topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
                         "next",
@@ -133,7 +132,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                         topUpData.selectedCurrency, "TOPUP",
                         topUpData.bonusValue, gamificationLevel,
                         topUpData.currency.fiatCurrencySymbol)
-                    view.hideLoading()
                     if (isValidBonus) view.showBonus()
                   }
             }

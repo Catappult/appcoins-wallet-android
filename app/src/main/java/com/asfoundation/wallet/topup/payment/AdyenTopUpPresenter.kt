@@ -137,6 +137,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             loadBonusIntoView()
           }
         }
+        .doOnSubscribe { view.showLoading() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
