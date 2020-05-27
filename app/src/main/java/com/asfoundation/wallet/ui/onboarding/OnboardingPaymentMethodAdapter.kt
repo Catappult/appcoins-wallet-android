@@ -19,8 +19,6 @@ class OnboardingPaymentMethodAdapter(private var items: List<String>) :
     holder.bind(items[position])
   }
 
-  override fun getItemCount(): Int {
-    return items.size
-  }
+  override fun getItemCount() = items.size
 
 }
