@@ -248,6 +248,7 @@ import dagger.Provides;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.internal.schedulers.ExecutorScheduler;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
@@ -260,6 +261,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -969,8 +971,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides CreateWalletInteract provideCreateAccountInteract(
-      WalletRepositoryType accountRepository, PasswordStore passwordStore) {
-    return new CreateWalletInteract(accountRepository, passwordStore);
+      WalletRepositoryType accountRepository, PasswordStore passwordStore,
+      ExecutorScheduler scheduler) {
+    return new CreateWalletInteract(accountRepository, passwordStore, scheduler);
   }
 
   @Provides PaymentReceiverInteract providePaymentReceiverInteract(
@@ -1382,5 +1385,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides FileInteractor provideFileInteract(Context context,
       ContentResolver contentResolver, PreferencesRepositoryType preferencesRepositoryType) {
     return new FileInteractor(context, contentResolver, preferencesRepositoryType);
+  }
+
+  @Singleton @Provides ExecutorScheduler providesExecutorScheduler() {
+    return new ExecutorScheduler(Executors.newSingleThreadExecutor(), false);
   }
 }
