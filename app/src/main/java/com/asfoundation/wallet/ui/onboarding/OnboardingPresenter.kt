@@ -44,7 +44,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleAvailablePaymentMethods() {
-    disposables.add(getPaymentMethodsIcons().subscribeOn(networkScheduler)
+    disposables.add(getPaymentMethodsIcons()
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .onErrorReturn({ emptyList() })
         .doOnSuccess({ view.setPaymentMethodsIcons(it) })
