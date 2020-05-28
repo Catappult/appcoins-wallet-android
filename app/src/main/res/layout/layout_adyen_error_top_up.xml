@@ -101,13 +101,12 @@
       style="@style/ButtonStyle.Alternative"
       android:layout_width="match_parent"
       android:layout_height="@dimen/button_height"
-      android:layout_marginBottom="4dp"
+      android:layout_marginBottom="76dp"
       android:text="@string/try_again"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
-      app:layout_constraintVertical_bias="1.0"
+      app:layout_constraintVertical_bias="1"
       />
-
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/guideline_top"
       android:layout_width="match_parent"
