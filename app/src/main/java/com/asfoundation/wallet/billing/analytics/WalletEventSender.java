@@ -13,6 +13,8 @@ public interface WalletEventSender {
 
   void sendWalletConfirmationBackupEvent(String action);
 
+  void sendWalletSaveFileEvent(String action, String status);
+
   void sendWalletSaveFileEvent(String action, String status, String errorDetails);
 
   void sendWalletImportRestoreEvent(String action, String status, String errorDetails);

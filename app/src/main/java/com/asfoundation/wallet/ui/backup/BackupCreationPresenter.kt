@@ -75,6 +75,12 @@ class BackupCreationPresenter(
           } else {
             handleDialogSaveClickBelowAndroidQ(it)
           }
+          walletEventSender.sendWalletSaveFileEvent(WalletAnalytics.ACTION_SAVE,
+              WalletAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError { t ->
+          walletEventSender.sendWalletSaveFileEvent(WalletAnalytics.ACTION_SAVE,
+              WalletAnalytics.STATUS_FAIL, t.message)
         }
         .subscribe())
   }
@@ -94,6 +100,14 @@ class BackupCreationPresenter(
   private fun handleDialogCancelClick() {
     disposables.add(view.getDialogCancelClick()
         .doOnNext { view.closeDialog() }
+        .doOnNext {
+          walletEventSender.sendWalletSaveFileEvent(WalletAnalytics.ACTION_CANCEL,
+              WalletAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError { t ->
+          walletEventSender.sendWalletSaveFileEvent(WalletAnalytics.ACTION_CANCEL,
+              WalletAnalytics.STATUS_FAIL, t.message)
+        }
         .subscribe())
   }
 
