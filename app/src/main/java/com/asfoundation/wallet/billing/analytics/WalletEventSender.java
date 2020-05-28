@@ -1,8 +1,13 @@
 package com.asfoundation.wallet.billing.analytics;
 
-interface WalletEventSender {
+import androidx.annotation.Nullable;
 
-  void sendCreateBackupEvent(String action, String context, String status, String errorDetails);
+public interface WalletEventSender {
+
+  void sendCreateBackupEvent(String action, String context, String status);
+
+  void sendCreateBackupEvent(String action, String context, String status,
+      @Nullable String errorDetails);
 
   void sendSaveBackupEvent(String action);
 

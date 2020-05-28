@@ -4,6 +4,8 @@ import android.os.Build
 import android.os.Bundle
 import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.backup.FileInteractor
+import com.asfoundation.wallet.billing.analytics.WalletAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.interact.ExportWalletInteract
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
@@ -16,6 +18,7 @@ class BackupCreationPresenter(
     private val view: BackupCreationView,
     private val exportWalletInteract: ExportWalletInteract,
     private val fileInteractor: FileInteractor,
+    private val walletEventSender: WalletEventSender,
     private val logger: Logger,
     private val networkScheduler: Scheduler,
     private val viewScheduler: Scheduler,
@@ -111,12 +114,13 @@ class BackupCreationPresenter(
         .doOnNext {
           if (fileShared) {
             activityView.closeScreen()
+            walletEventSender.sendSaveBackupEvent(WalletAnalytics.ACTION_SAVE)
           } else {
             val file = fileInteractor.getCachedFile()
-            if (file == null) showError("Error retrieving file")
-            else {
+            if (file == null) showError("Error retrieving file") else {
               view.shareFile(fileInteractor.getUriFromFile(file))
               fileShared = true
+              walletEventSender.sendSaveBackupEvent(WalletAnalytics.ACTION_SAVE)
             }
           }
         }

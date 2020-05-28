@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.FileInteractor
+import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.interact.ExportWalletInteract
 import com.asfoundation.wallet.logging.Logger
 import com.jakewharton.rxbinding2.view.RxView
@@ -30,6 +31,9 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   @Inject
   lateinit var fileInteractor: FileInteractor
+
+  @Inject
+  lateinit var walletEventSender: WalletEventSender
 
   @Inject
   lateinit var logger: Logger
@@ -64,7 +68,8 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteractor, logger,
+        BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteractor,
+            walletEventSender, logger,
             Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), walletAddress,
             password, fileInteractor.getTemporaryPath(), fileInteractor.getDownloadPath())
   }

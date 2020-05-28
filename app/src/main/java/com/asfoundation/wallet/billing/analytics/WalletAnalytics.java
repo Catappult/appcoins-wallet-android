@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.analytics;
 
+import androidx.annotation.Nullable;
 import cm.aptoide.analytics.AnalyticsManager;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,14 +39,20 @@ public class WalletAnalytics implements WalletEventSender {
     this.analytics = analytics;
   }
 
+  @Override public void sendCreateBackupEvent(String action, String context, String status) {
+    sendCreateBackupEvent(action, context, status, null);
+  }
+
   @Override public void sendCreateBackupEvent(String action, String context, String status,
-      String errorDetails) {
+      @Nullable String errorDetails) {
 
     Map<String, Object> eventData = new HashMap<>();
     eventData.put(EVENT_ACTION, action);
     eventData.put(EVENT_CONTEXT, context);
     eventData.put(EVENT_STATUS, status);
-    eventData.put(EVENT_ERROR_DETAILS, errorDetails);
+    if (errorDetails != null) {
+      eventData.put(EVENT_ERROR_DETAILS, errorDetails);
+    }
 
     analytics.logEvent(eventData, WALLET_CREATE_BACKUP, null, WALLET);
   }
