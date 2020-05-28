@@ -2,6 +2,7 @@ package com.asfoundation.wallet.billing.analytics;
 
 import androidx.annotation.Nullable;
 import cm.aptoide.analytics.AnalyticsManager;
+import cm.aptoide.analytics.AnalyticsManager.Action;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,21 +55,21 @@ public class WalletAnalytics implements WalletEventSender {
       eventData.put(EVENT_ERROR_DETAILS, errorDetails);
     }
 
-    analytics.logEvent(eventData, WALLET_CREATE_BACKUP, null, WALLET);
+    analytics.logEvent(eventData, WALLET_CREATE_BACKUP, Action.CLICK, WALLET);
   }
 
   @Override public void sendSaveBackupEvent(String action) {
     Map<String, Object> eventData = new HashMap<>();
     eventData.put(EVENT_ACTION, action);
 
-    analytics.logEvent(eventData, WALLET_SAVE_BACKUP, null, WALLET);
+    analytics.logEvent(eventData, WALLET_SAVE_BACKUP, Action.CLICK, WALLET);
   }
 
   @Override public void sendWalletConfirmationBackupEvent(String action) {
     Map<String, Object> eventData = new HashMap<>();
     eventData.put(EVENT_ACTION, action);
 
-    analytics.logEvent(eventData, WALLET_CONFIRMATION_BACKUP, null, WALLET);
+    analytics.logEvent(eventData, WALLET_CONFIRMATION_BACKUP, Action.CLICK, WALLET);
   }
 
   @Override public void sendWalletSaveFileEvent(String action, String status, String errorDetails) {
@@ -77,7 +78,7 @@ public class WalletAnalytics implements WalletEventSender {
     eventData.put(EVENT_STATUS, status);
     eventData.put(EVENT_ERROR_DETAILS, errorDetails);
 
-    analytics.logEvent(eventData, WALLET_SAVE_FILE, null, WALLET);
+    analytics.logEvent(eventData, WALLET_SAVE_FILE, Action.CLICK, WALLET);
   }
 
   @Override
@@ -87,7 +88,7 @@ public class WalletAnalytics implements WalletEventSender {
     eventData.put(EVENT_STATUS, status);
     eventData.put(EVENT_ERROR_DETAILS, errorDetails);
 
-    analytics.logEvent(eventData, WALLET_IMPORT_RESTORE, null, WALLET);
+    analytics.logEvent(eventData, WALLET_IMPORT_RESTORE, Action.CLICK, WALLET);
   }
 
   @Override
@@ -97,7 +98,7 @@ public class WalletAnalytics implements WalletEventSender {
     eventData.put(EVENT_STATUS, status);
     eventData.put(EVENT_ERROR_DETAILS, errorDetails);
 
-    analytics.logEvent(eventData, WALLET_PASSWORD_RESTORE, null, WALLET);
+    analytics.logEvent(eventData, WALLET_PASSWORD_RESTORE, Action.CLICK, WALLET);
   }
 
   @Override public void sendWalletCompleteRestoreEvent(String status, String errorDetails) {
@@ -105,6 +106,6 @@ public class WalletAnalytics implements WalletEventSender {
     eventData.put(EVENT_STATUS, status);
     eventData.put(EVENT_ERROR_DETAILS, errorDetails);
 
-    analytics.logEvent(eventData, WALLET_COMPLETE_RESTORE, null, WALLET);
+    analytics.logEvent(eventData, WALLET_COMPLETE_RESTORE, Action.CLICK, WALLET);
   }
 }
