@@ -44,7 +44,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
   }
 
 
-  fun start(context: Context) {
+  fun start() {
     Single.just(idsRepository.getAndroidId())
         .flatMap { deviceId: String -> startRakam(deviceId) }
         .flatMap { rakamClient: RakamClient ->
@@ -52,7 +52,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
               .flatMap { installerPackage: String ->
                 Single.just(idsRepository.getGamificationLevel())
                     .flatMap { level: Int ->
-                      Single.just(hasGms(context))
+                      Single.just(hasGms())
                           .flatMap { hasGms: Boolean ->
                             Single.just(idsRepository.getActiveWalletAddress())
                                 .doOnSuccess { walletAddress: String ->
@@ -109,8 +109,8 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
     instance.enableForegroundTracking(context.applicationContext as Application)
   }
 
-  private fun hasGms(applicationContext: Context): Boolean {
+  private fun hasGms(): Boolean {
     return GoogleApiAvailability.getInstance()
-        .isGooglePlayServicesAvailable(applicationContext) == ConnectionResult.SUCCESS
+        .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
   }
 }
