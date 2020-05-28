@@ -7,6 +7,7 @@ import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.RedirectComponentModel
 import io.reactivex.Observable
+import java.math.BigDecimal
 
 interface AdyenTopUpView {
 
@@ -60,4 +61,7 @@ interface AdyenTopUpView {
   fun navigateToPaymentSelection()
 
   fun setupUi()
+
+  fun showBonus(bonus: BigDecimal, currency: String)
+
 }

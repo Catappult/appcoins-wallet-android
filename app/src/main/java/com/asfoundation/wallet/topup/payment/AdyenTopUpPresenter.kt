@@ -42,7 +42,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                           private val navigator: Navigator,
                           private val billingMessagesMapper: BillingMessagesMapper,
                           private val adyenPaymentInteractor: AdyenPaymentInteractor,
-                          private val bonusValue: String,
+                          private val bonusValue: BigDecimal,
+                          private val bonusSymbol: String,
                           private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
                           private val gamificationLevel: Int,
                           private val topUpAnalytics: TopUpAnalytics,
@@ -58,7 +59,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     retrieveSavedInstance(savedInstanceState)
     handleViewState(savedInstanceState)
     handleForgetCardClick()
-
     handleRetryClick(savedInstanceState)
     handleRedirectResponse()
     handleSupportClicks()
@@ -70,6 +70,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       loadPaymentMethodInfo(savedInstanceState)
     } else {
       view.showSpecificError(currentError)
+    }
+  }
+
+  private fun loadBonusIntoView() {
+    if (bonusValue.compareTo(BigDecimal.ZERO) != 0) {
+      view.showBonus(bonusValue, bonusSymbol)
     }
   }
 
@@ -136,8 +142,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             } else if (paymentType == PaymentType.PAYPAL.name) {
               launchPaypal(it.paymentMethodInfo!!, it.priceAmount, it.priceCurrency)
             }
+            loadBonusIntoView()
           }
         }
+        .doOnSubscribe { view.showLoading() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -331,7 +339,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun createBundle(priceAmount: BigDecimal, priceCurrency: String,
                            fiatCurrencySymbol: String): Bundle {
-    return billingMessagesMapper.topUpBundle(priceAmount.toPlainString(), priceCurrency, bonusValue,
+    return billingMessagesMapper.topUpBundle(priceAmount.toPlainString(), priceCurrency,
+        bonusValue.toPlainString(),
         fiatCurrencySymbol)
   }
 
