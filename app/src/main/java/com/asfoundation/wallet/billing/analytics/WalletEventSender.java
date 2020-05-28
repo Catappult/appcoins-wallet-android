@@ -17,6 +17,8 @@ public interface WalletEventSender {
 
   void sendWalletSaveFileEvent(String action, String status, String errorDetails);
 
+  void sendWalletImportRestoreEvent(String action, String status);
+
   void sendWalletImportRestoreEvent(String action, String status, String errorDetails);
 
   void sendWalletPasswordRestoreEvent(String action, String status, String errorDetails);

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.RestoreErrorType
@@ -26,6 +27,9 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
   lateinit var restoreWalletInteractor: RestoreWalletInteractor
 
   @Inject
+  lateinit var walletEventSender: WalletEventSender
+
+  @Inject
   lateinit var logger: Logger
   private lateinit var activityView: RestoreWalletActivityView
   private lateinit var presenter: RestoreWalletPresenter
@@ -41,7 +45,7 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
     super.onCreate(savedInstanceState)
     presenter =
         RestoreWalletPresenter(this, activityView, CompositeDisposable(), restoreWalletInteractor,
-            logger, AndroidSchedulers.mainThread(), Schedulers.computation())
+            walletEventSender, logger, AndroidSchedulers.mainThread(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {

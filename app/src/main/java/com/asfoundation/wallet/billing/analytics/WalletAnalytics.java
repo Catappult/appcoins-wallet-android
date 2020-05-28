@@ -87,12 +87,18 @@ public class WalletAnalytics implements WalletEventSender {
     analytics.logEvent(eventData, WALLET_SAVE_FILE, Action.CLICK, WALLET);
   }
 
+  @Override public void sendWalletImportRestoreEvent(String action, String status) {
+    sendWalletImportRestoreEvent(action, status, null);
+  }
+
   @Override
   public void sendWalletImportRestoreEvent(String action, String status, String errorDetails) {
     Map<String, Object> eventData = new HashMap<>();
     eventData.put(EVENT_ACTION, action);
     eventData.put(EVENT_STATUS, status);
-    eventData.put(EVENT_ERROR_DETAILS, errorDetails);
+    if (errorDetails != null) {
+      eventData.put(EVENT_ERROR_DETAILS, errorDetails);
+    }
 
     analytics.logEvent(eventData, WALLET_IMPORT_RESTORE, Action.CLICK, WALLET);
   }

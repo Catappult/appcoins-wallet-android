@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.billing.analytics.WalletAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.logging.Logger
@@ -13,6 +15,7 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
                              private val activityView: RestoreWalletActivityView,
                              private val disposable: CompositeDisposable,
                              private val restoreWalletInteractor: RestoreWalletInteractor,
+                             private val walletEventSender: WalletEventSender,
                              private val logger: Logger,
                              private val viewScheduler: Scheduler,
                              private val computationScheduler: Scheduler) {
@@ -49,6 +52,14 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
   private fun handleRestoreFromFile() {
     disposable.add(view.restoreFromFileClick()
         .doOnNext { activityView.askForReadPermissions() }
+        .doOnNext {
+          walletEventSender.sendWalletImportRestoreEvent(WalletAnalytics.ACTION_IMPORT_FROM_FILE,
+              WalletAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError { t ->
+          walletEventSender.sendWalletImportRestoreEvent(WalletAnalytics.ACTION_IMPORT_FROM_FILE,
+              WalletAnalytics.STATUS_FAIL, t.message)
+        }
         .subscribe())
   }
 
@@ -62,6 +73,14 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
         .flatMapSingle { fetchWalletModel(it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
+        .doOnNext {
+          walletEventSender.sendWalletImportRestoreEvent(WalletAnalytics.ACTION_IMPORT,
+              WalletAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError { t ->
+          walletEventSender.sendWalletImportRestoreEvent(WalletAnalytics.ACTION_IMPORT,
+              WalletAnalytics.STATUS_FAIL, t.message)
+        }
         .subscribe())
   }
 
