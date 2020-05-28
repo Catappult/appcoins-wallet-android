@@ -86,7 +86,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
-    rakamAnalytics.start()
+    rakamAnalytics.start(applicationContext)
     initiateIntercom()
     initiateSentry()
   }
