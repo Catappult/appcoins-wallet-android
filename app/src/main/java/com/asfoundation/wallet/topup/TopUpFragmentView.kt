@@ -18,6 +18,7 @@ interface TopUpFragmentView {
   fun showLoading()
   fun hideLoading()
   fun hideButtonLoading()
+  fun showLoadingButton()
   fun showPaymentDetailsForm()
   fun showPaymentMethods()
   fun rotateChangeCurrencyButton()
