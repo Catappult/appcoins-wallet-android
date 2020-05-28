@@ -256,9 +256,9 @@ public class WalletPoAService extends Service {
   }
 
   private void startNotifications() {
+    startForeground(SERVICE_ID,
+        createDefaultNotificationBuilder(getString(R.string.notification_ongoing_poa)).build());
     if (disposable == null || disposable.isDisposed()) {
-      startForeground(SERVICE_ID,
-          createDefaultNotificationBuilder(getString(R.string.notification_ongoing_poa)).build());
       disposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
           .doOnNext(this::updateNotification)
@@ -271,6 +271,9 @@ public class WalletPoAService extends Service {
           .take(1)
           .subscribe(proof -> {
           });
+    } else {
+      stopForeground(true);
+      stopTimeout();
     }
   }
 
