@@ -119,10 +119,16 @@ public class WalletAnalytics implements WalletEventSender {
     analytics.logEvent(eventData, WALLET_PASSWORD_RESTORE, Action.CLICK, WALLET);
   }
 
+  @Override public void sendWalletCompleteRestoreEvent(String status) {
+    sendWalletCompleteRestoreEvent(status, null);
+  }
+
   @Override public void sendWalletCompleteRestoreEvent(String status, String errorDetails) {
     Map<String, Object> eventData = new HashMap<>();
     eventData.put(EVENT_STATUS, status);
-    eventData.put(EVENT_ERROR_DETAILS, errorDetails);
+    if (errorDetails != null) {
+      eventData.put(EVENT_ERROR_DETAILS, errorDetails);
+    }
 
     analytics.logEvent(eventData, WALLET_COMPLETE_RESTORE, Action.CLICK, WALLET);
   }

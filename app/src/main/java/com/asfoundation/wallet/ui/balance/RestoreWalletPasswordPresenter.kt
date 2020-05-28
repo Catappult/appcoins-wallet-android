@@ -49,6 +49,12 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         .flatMapSingle { interactor.restoreWallet(keystore, it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
+        .doOnNext {
+          walletEventSender.sendWalletCompleteRestoreEvent(WalletAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError { t ->
+          walletEventSender.sendWalletCompleteRestoreEvent(WalletAnalytics.STATUS_FAIL, t.message)
+        }
         .subscribe())
   }
 
