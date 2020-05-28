@@ -114,7 +114,7 @@ class BackupCreationPresenter(
         .doOnNext {
           if (fileShared) {
             activityView.closeScreen()
-            walletEventSender.sendSaveBackupEvent(WalletAnalytics.ACTION_SAVE)
+            walletEventSender.sendWalletConfirmationBackupEvent(WalletAnalytics.ACTION_FINISH)
           } else {
             val file = fileInteractor.getCachedFile()
             if (file == null) showError("Error retrieving file") else {
@@ -130,6 +130,9 @@ class BackupCreationPresenter(
   private fun handleSaveAgainClick() {
     disposables.add(view.getSaveAgainClick()
         .doOnNext { activityView.askForWritePermissions() }
+        .doOnNext {
+          walletEventSender.sendWalletConfirmationBackupEvent(WalletAnalytics.ACTION_SAVE)
+        }
         .subscribe())
   }
 
