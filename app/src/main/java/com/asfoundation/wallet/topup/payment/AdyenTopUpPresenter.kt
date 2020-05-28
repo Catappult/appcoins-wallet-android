@@ -56,6 +56,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
+    view.showLoading()
     retrieveSavedInstance(savedInstanceState)
     handleViewState(savedInstanceState)
     handleForgetCardClick()
@@ -145,7 +146,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             loadBonusIntoView()
           }
         }
-        .doOnSubscribe { view.showLoading() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -332,8 +332,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private fun convertAmount(): Single<BigDecimal> {
     return if (selectedCurrency == TopUpData.FIAT_CURRENCY) {
       Single.just(BigDecimal(currencyData.fiatValue))
-    } else adyenPaymentInteractor.convertToLocalFiat(
-        BigDecimal(currencyData.appcValue).toDouble())
+    } else adyenPaymentInteractor.convertToLocalFiat(BigDecimal(currencyData.appcValue).toDouble())
         .map(FiatValue::amount)
   }
 
