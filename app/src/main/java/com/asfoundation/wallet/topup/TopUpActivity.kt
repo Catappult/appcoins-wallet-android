@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -72,13 +73,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .commit()
   }
 
-  override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
+  override fun navigateToPayment(paymentType: PaymentType,
+                                 data: TopUpData,
                                  selectedCurrency: String, transactionType: String,
-                                 bonusValue: String, gamificationLevel: Int) {
+                                 bonusValue: BigDecimal, gamificationLevel: Int,
+                                 bonusSymbol: String) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
             AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency,
-                transactionType, bonusValue, gamificationLevel))
+                transactionType, bonusValue, bonusSymbol, gamificationLevel))
         .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
   }
