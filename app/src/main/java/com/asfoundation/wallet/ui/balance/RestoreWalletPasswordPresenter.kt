@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.billing.analytics.WalletAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.interact.WalletModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -7,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView,
                                      private val activityView: RestoreWalletActivityView,
                                      private val interactor: RestoreWalletPasswordInteractor,
+                                     private val walletEventSender: WalletEventSender,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
                                      private val networkScheduler: Scheduler,
@@ -33,6 +36,14 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         .doOnNext {
           activityView.hideKeyboard()
           view.showWalletRestoreAnimation()
+        }
+        .doOnNext {
+          walletEventSender.sendWalletPasswordRestoreEvent(WalletAnalytics.ACTION_IMPORT,
+              WalletAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError { t ->
+          walletEventSender.sendWalletPasswordRestoreEvent(WalletAnalytics.ACTION_IMPORT,
+              WalletAnalytics.STATUS_FAIL, t.message)
         }
         .observeOn(computationScheduler)
         .flatMapSingle { interactor.restoreWallet(keystore, it) }
