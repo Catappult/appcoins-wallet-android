@@ -7,6 +7,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -95,7 +96,7 @@ public class OnChainBuyPresenter {
   }
 
   private void handleSupportClick() {
-    disposables.add(view.getSupportClick()
+    disposables.add(Observable.merge(view.getSupportIconClick(), view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable(__ -> onChainBuyInteract.showSupport(gamificationLevel))
         .subscribeOn(viewScheduler)

@@ -44,8 +44,8 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
-import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
+import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
@@ -281,10 +281,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun getTryAgainClicks() = RxView.clicks(error_dismiss)
 
-  override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo_top_up),
-        RxView.clicks(layout_support_icn_top_up))
-  }
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo_generic_error)
+
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn_generic_error)
 
   override fun topUpButtonClicked() = RxView.clicks(button)
 

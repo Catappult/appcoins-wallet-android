@@ -9,6 +9,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asfoundation.wallet.GlideApp
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -122,19 +123,17 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleOkErrorButtonClick() {
-    disposables.add(
-        view.getOkErrorClick()
-            .observeOn(viewScheduler)
-            .doOnNext { view.dismissError() }
-            .subscribe())
+    disposables.add(view.getErrorDismissClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.dismissError() }
+        .subscribe())
   }
 
   private fun handleOkBuyButtonClick() {
-    disposables.add(
-        view.getGotItClick()
-            .observeOn(viewScheduler)
-            .doOnNext { view.close() }
-            .subscribe()
+    disposables.add(view.getGotItClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.close() }
+        .subscribe()
     )
   }
 
@@ -199,7 +198,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleSupportClicks() {
-    disposables.add(view.getSupportClicks()
+    disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { localPaymentInteractor.showSupport(gamificationLevel) }
         .subscribeOn(viewScheduler)

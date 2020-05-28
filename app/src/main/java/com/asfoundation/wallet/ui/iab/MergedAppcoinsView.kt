@@ -21,5 +21,6 @@ interface MergedAppcoinsView {
   fun hideLoading()
   fun showPaymentMethods()
   fun errorDismisses(): Observable<Any>
-  fun getSupportClicks(): Observable<Any>
+  fun getSupportLogoClicks(): Observable<Any>
+  fun getSupportIconClicks(): Observable<Any>
 }

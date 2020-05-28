@@ -51,7 +51,8 @@ interface PaymentMethodsView {
   fun replaceBonus()
   fun showWalletBlocked()
   fun removeBonus()
-  fun getSupportClicks(): Observable<Any>
+  fun getSupportLogoClicks(): Observable<Any>
+  fun getSupportIconClicks(): Observable<Any>
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,

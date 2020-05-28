@@ -47,7 +47,9 @@ interface AdyenTopUpView {
 
   fun getTryAgainClicks(): Observable<Any>
 
-  fun getSupportClicks(): Observable<Any>
+  fun getSupportLogoClicks(): Observable<Any>
+
+  fun getSupportIconClicks(): Observable<Any>
 
   fun hideSpecificError()
 

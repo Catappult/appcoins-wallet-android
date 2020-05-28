@@ -8,6 +8,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENU
 public class AppcoinsRewardsBuyPresenter {
   private final AppcoinsRewardsBuyView view;
   private final RewardsManager rewardsManager;
-  private final Scheduler scheduler;
+  private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BigDecimal amount;
   private final String uri;
@@ -32,13 +33,13 @@ public class AppcoinsRewardsBuyPresenter {
   private final AppcoinsRewardsBuyInteract appcoinsRewardsBuyInteract;
 
   AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
-      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String uri,
+      Scheduler viewScheduler, CompositeDisposable disposables, BigDecimal amount, String uri,
       String packageName, TransferParser transferParser, boolean isBds, BillingAnalytics analytics,
       TransactionBuilder transactionBuilder, CurrencyFormatUtils formatter, int gamificationLevel,
       AppcoinsRewardsBuyInteract appcoinsRewardsBuyInteract) {
     this.view = view;
     this.rewardsManager = rewardsManager;
-    this.scheduler = scheduler;
+    this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.amount = amount;
     this.uri = uri;
@@ -72,7 +73,7 @@ public class AppcoinsRewardsBuyPresenter {
             transaction.getOrderReference(), transaction.getReferrerUrl())
             .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(),
                 transaction.amount()))
-            .observeOn(scheduler)
+            .observeOn(viewScheduler)
             .flatMapCompletable(
                 paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId(),
                     transaction.amount())))
@@ -99,13 +100,13 @@ public class AppcoinsRewardsBuyPresenter {
             .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
           return rewardsManager.getPaymentCompleted(packageName, sku)
               .flatMapCompletable(purchase -> Completable.fromAction(view::showTransactionCompleted)
-                  .subscribeOn(scheduler)
+                  .subscribeOn(viewScheduler)
                   .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
                   .andThen(
                       Completable.fromAction(appcoinsRewardsBuyInteract::removeAsyncLocalPayment))
                   .andThen(Completable.fromAction(
                       () -> view.finish(purchase, transaction.getOrderReference()))))
-              .observeOn(scheduler)
+              .observeOn(viewScheduler)
               .onErrorResumeNext(throwable -> Completable.fromAction(() -> {
                 throwable.printStackTrace();
                 view.showGenericError();
@@ -169,10 +170,10 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   private void handleSupportClicks() {
-    disposables.add(view.getSupportClick()
+    disposables.add(Observable.merge(view.getSupportIconClick(), view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable(__ -> appcoinsRewardsBuyInteract.showSupport(gamificationLevel))
-        .subscribeOn(scheduler)
+        .subscribeOn(viewScheduler)
         .subscribe());
   }
 }

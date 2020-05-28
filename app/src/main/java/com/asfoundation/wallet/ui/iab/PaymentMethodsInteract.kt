@@ -32,82 +32,55 @@ class PaymentMethodsInteract(private val walletService: WalletService,
         }
   }
 
-  fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
-    return balanceInteract.getEthBalance()
+  fun getEthBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteract.getEthBalance()
 
-  }
+  fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteract.getAppcBalance()
 
-  fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
-    return balanceInteract.getAppcBalance()
+  fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> =
+      balanceInteract.getCreditsBalance()
 
-  }
+  fun isBonusActiveAndValid() = gamificationInteractor.isBonusActiveAndValid()
 
-  fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
-    return balanceInteract.getCreditsBalance()
-  }
+  fun isBonusActiveAndValid(forecastBonus: ForecastBonusAndLevel) =
+      gamificationInteractor.isBonusActiveAndValid(forecastBonus)
 
-  fun isBonusActiveAndValid(): Boolean {
-    return gamificationInteractor.isBonusActiveAndValid()
-  }
+  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> =
+      gamificationInteractor.getEarningBonus(packageName, amount)
 
-  fun isBonusActiveAndValid(forecastBonus: ForecastBonusAndLevel): Boolean {
-    return gamificationInteractor.isBonusActiveAndValid(forecastBonus)
-  }
-
-  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
-    return gamificationInteractor.getEarningBonus(packageName, amount)
-  }
-
-  fun isWalletBlocked(): Single<Boolean> {
-    return walletBlockedInteract.isWalletBlocked()
-  }
+  fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun getCurrentPaymentStep(packageName: String, transactionBuilder: TransactionBuilder)
       : Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> {
     return inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder)
   }
 
-  fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType?,
-             packageName: String?, productName: String?, developerPayload: String?,
-             isBds: Boolean): Completable? {
+  fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
+             packageName: String, productName: String?, developerPayload: String?,
+             isBds: Boolean): Completable {
     return inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
         developerPayload, isBds)
   }
 
-  fun convertToLocalFiat(appcValue: Double): Single<FiatValue?> {
-    return inAppPurchaseInteractor.convertToLocalFiat(appcValue)
-  }
+  fun convertToLocalFiat(appcValue: Double): Single<FiatValue> =
+      inAppPurchaseInteractor.convertToLocalFiat(appcValue)
 
-  fun hasAsyncLocalPayment(): Boolean {
-    return inAppPurchaseInteractor.hasAsyncLocalPayment()
-  }
+  fun hasAsyncLocalPayment() = inAppPurchaseInteractor.hasAsyncLocalPayment()
 
-  fun hasPreSelectedPaymentMethod(): Boolean {
-    return inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
-  }
+  fun hasPreSelectedPaymentMethod() = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
 
-  fun removePreSelectedPaymentMethod() {
-    return inAppPurchaseInteractor.removePreSelectedPaymentMethod()
-  }
+  fun removePreSelectedPaymentMethod() = inAppPurchaseInteractor.removePreSelectedPaymentMethod()
 
-  fun removeAsyncLocalPayment() {
-    return inAppPurchaseInteractor.removeAsyncLocalPayment()
-  }
+  fun removeAsyncLocalPayment() = inAppPurchaseInteractor.removeAsyncLocalPayment()
 
   fun getPaymentMethods(transaction: TransactionBuilder, transactionValue: String,
                         currency: String): Single<List<PaymentMethod>> {
     return inAppPurchaseInteractor.getPaymentMethods(transaction, transactionValue, currency)
   }
 
-  fun mergeAppcoins(paymentMethods: List<PaymentMethod>): List<PaymentMethod> {
-    return inAppPurchaseInteractor.mergeAppcoins(paymentMethods)
-  }
+  fun mergeAppcoins(paymentMethods: List<PaymentMethod>): List<PaymentMethod> =
+      inAppPurchaseInteractor.mergeAppcoins(paymentMethods)
 
-  fun getPreSelectedPaymentMethod(): String {
-    return inAppPurchaseInteractor.preSelectedPaymentMethod
-  }
+  fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod
 
-  fun getLastUsedPaymentMethod(): String {
-    return inAppPurchaseInteractor.lastUsedPaymentMethod
-  }
+  fun getLastUsedPaymentMethod(): String = inAppPurchaseInteractor.lastUsedPaymentMethod
 }

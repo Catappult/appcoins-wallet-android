@@ -102,8 +102,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
     transactionErrorLayout = view.findViewById(R.id.activity_adyen_error_view);
 
-    supportIcon = view.findViewById(R.id.layout_support_icn_top_up);
-    supportLogo = view.findViewById(R.id.layout_support_logo_top_up);
+    supportIcon = view.findViewById(R.id.layout_support_icn_generic_error);
+    supportLogo = view.findViewById(R.id.layout_support_logo_generic_error);
     okErrorButton.setText(R.string.ok);
 
     lottieTransactionComplete =
@@ -155,8 +155,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public Observable<Object> getSupportClick() {
-    return Observable.merge(RxView.clicks(supportIcon), RxView.clicks(supportLogo));
+  @Override public Observable<Object> getSupportIconClick() {
+    return RxView.clicks(supportIcon);
+  }
+
+  @Override public Observable<Object> getSupportLogoClick() {
+    return RxView.clicks(supportLogo);
   }
 
   @Override public void close(Bundle data) {

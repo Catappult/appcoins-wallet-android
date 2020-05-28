@@ -19,11 +19,8 @@ class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurch
         }
   }
 
-  fun removeAsyncLocalPayment() {
-    inAppPurchaseInteractor.removeAsyncLocalPayment()
-  }
+  fun removeAsyncLocalPayment() = inAppPurchaseInteractor.removeAsyncLocalPayment()
 
-  fun convertToFiat(appcValue: Double, currency: String?): Single<FiatValue> {
-    return inAppPurchaseInteractor.convertToFiat(appcValue, currency)
-  }
+  fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> =
+      inAppPurchaseInteractor.convertToFiat(appcValue, currency)
 }

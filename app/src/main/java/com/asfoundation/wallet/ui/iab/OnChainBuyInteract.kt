@@ -24,50 +24,41 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
         }
   }
 
-  fun getTransactionState(uri: String?): Observable<Payment> {
-    return inAppPurchaseInteractor.getTransactionState(uri)
-  }
+  fun getTransactionState(uri: String?): Observable<Payment> =
+      inAppPurchaseInteractor.getTransactionState(uri)
 
-  fun send(uri: String, transactionType: AsfInAppPurchaseInteractor.TransactionType,
-           packageName: String, productName: String, developerPayload: String,
+  fun send(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
+           packageName: String, productName: String?, developerPayload: String?,
            isBds: Boolean): Completable {
     return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
         developerPayload, isBds)
   }
 
-  fun parseTransaction(uri: String, isBds: Boolean): Single<TransactionBuilder> {
-    return inAppPurchaseInteractor.parseTransaction(uri, isBds)
-  }
+  fun parseTransaction(uri: String?, isBds: Boolean): Single<TransactionBuilder> =
+      inAppPurchaseInteractor.parseTransaction(uri, isBds)
 
   fun getCurrentPaymentStep(packageName: String,
-                            transactionBuilder: TransactionBuilder): Single<CurrentPaymentStep> {
-    return inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder)
-  }
+                            transactionBuilder: TransactionBuilder): Single<CurrentPaymentStep> =
+      inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder)
 
-  fun resume(uri: String, transactionType: AsfInAppPurchaseInteractor.TransactionType,
-             packageName: String, productName: String, developerPayload: String,
+  fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
+             packageName: String, productName: String?, developerPayload: String?,
              isBds: Boolean): Completable {
     return inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
         developerPayload, isBds)
   }
 
-  fun getCompletedPurchase(transaction: Payment, isBds: Boolean): Single<Payment> {
-    return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
-  }
+  fun getCompletedPurchase(transaction: Payment, isBds: Boolean): Single<Payment> =
+      inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
 
-  fun remove(uri: String): Completable {
-    return inAppPurchaseInteractor.remove(uri)
-  }
+  fun remove(uri: String?): Completable = inAppPurchaseInteractor.remove(uri)
 
-  fun getTopUpChannelSuggestionValues(price: BigDecimal): List<BigDecimal> {
-    return inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price)
-  }
+  fun getTopUpChannelSuggestionValues(price: BigDecimal): List<BigDecimal> =
+      inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price)
 
-  fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> {
-    return inAppPurchaseInteractor.convertToFiat(appcValue, currency)
-  }
+  fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> =
+      inAppPurchaseInteractor.convertToFiat(appcValue, currency)
 
-  fun getBillingMessagesMapper(): BillingMessagesMapper {
-    return inAppPurchaseInteractor.billingMessagesMapper
-  }
+  fun getBillingMessagesMapper(): BillingMessagesMapper =
+      inAppPurchaseInteractor.billingMessagesMapper
 }

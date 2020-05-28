@@ -402,12 +402,11 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleSupportClicks() {
-    disposables.add(
-        view.getSupportClicks()
-            .throttleFirst(50, TimeUnit.MILLISECONDS)
-            .flatMapCompletable { paymentMethodsInteract.showSupport(gamificationLevel) }
-            .subscribeOn(viewScheduler)
-            .subscribe()
+    disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .flatMapCompletable { paymentMethodsInteract.showSupport(gamificationLevel) }
+        .subscribeOn(viewScheduler)
+        .subscribe()
     )
   }
 

@@ -107,7 +107,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   }
 
   private fun handleSupportClicks() {
-    disposables.add(view.getSupportClicks()
+    disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { mergedAppcoinsInteract.showSupport(gamificationLevel) }
         .subscribeOn(viewScheduler)
@@ -164,18 +164,10 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun getCreditsBalance(): Observable<FiatValue> {
-    return mergedAppcoinsInteract.getCreditsBalance()
-        .map { it.second }
-  }
+  private fun getCreditsBalance(): Observable<FiatValue> =
+      mergedAppcoinsInteract.getCreditsBalance()
 
-  private fun getAppcBalance(): Observable<FiatValue> {
-    return mergedAppcoinsInteract.getAppcBalance()
-        .map { it.second }
-  }
+  private fun getAppcBalance(): Observable<FiatValue> = mergedAppcoinsInteract.getAppcBalance()
 
-  private fun getEthBalance(): Observable<FiatValue> {
-    return mergedAppcoinsInteract.getEthBalance()
-        .map { it.second }
-  }
+  private fun getEthBalance(): Observable<FiatValue> = mergedAppcoinsInteract.getEthBalance()
 }

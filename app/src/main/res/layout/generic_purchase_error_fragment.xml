@@ -9,7 +9,7 @@
     >
 
   <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/adyen_error_animation"
+      android:id="@+id/generic_error_animation"
       android:layout_width="66dp"
       android:layout_height="66dp"
       app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/adyen_error_animation"
+      app:layout_constraintTop_toBottomOf="@+id/generic_error_animation"
       tools:visibility="visible"
       />
 
@@ -71,28 +71,28 @@
       />
 
   <ImageView
-      android:id="@+id/layout_support_logo_top_up"
+      android:id="@+id/layout_support_logo_generic_error"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="18dp"
       android:layout_marginEnd="@dimen/small_margin"
       android:src="@drawable/ic_logo_appc_support"
-      app:layout_constraintEnd_toStartOf="@id/layout_support_icn_top_up"
+      app:layout_constraintEnd_toStartOf="@id/layout_support_icn_generic_error"
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/contact_us"
       />
 
   <ImageView
-      android:id="@+id/layout_support_icn_top_up"
+      android:id="@+id/layout_support_icn_generic_error"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/small_margin"
       android:src="@drawable/ic_open_in_new_24"
-      app:layout_constraintBottom_toBottomOf="@id/layout_support_logo_top_up"
+      app:layout_constraintBottom_toBottomOf="@id/layout_support_logo_generic_error"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/layout_support_logo_top_up"
-      app:layout_constraintTop_toTopOf="@id/layout_support_logo_top_up"
+      app:layout_constraintStart_toEndOf="@id/layout_support_logo_generic_error"
+      app:layout_constraintTop_toTopOf="@id/layout_support_logo_generic_error"
       />
 
   <Button
@@ -104,7 +104,7 @@
       android:layout_marginBottom="4dp"
       android:text="@string/try_again"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/layout_support_logo_top_up"
+      app:layout_constraintTop_toBottomOf="@id/layout_support_logo_generic_error"
       app:layout_constraintVertical_bias="1.0"
       />
 

@@ -411,22 +411,17 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)
 
-  override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_icn_top_up),
-        RxView.clicks(layout_support_logo_top_up))
-  }
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo_generic_error)
 
-  override fun navigateToAppcPayment() {
-    iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
-  }
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn_generic_error)
 
-  override fun navigateToCreditsPayment() {
-    iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
-  }
+  override fun navigateToAppcPayment() =
+      iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
 
-  override fun navigateToPaymentMethods() {
-    iabView.showPaymentMethodsView()
-  }
+  override fun navigateToCreditsPayment() =
+      iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
+
+  override fun navigateToPaymentMethods() = iabView.showPaymentMethodsView()
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =

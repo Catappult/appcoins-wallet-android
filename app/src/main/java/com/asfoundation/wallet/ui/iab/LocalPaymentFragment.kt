@@ -304,14 +304,11 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     return inflater.inflate(R.layout.local_payment_layout, container, false)
   }
 
-  override fun getOkErrorClick(): Observable<Any> {
-    return RxView.clicks(error_view.error_dismiss)
-  }
+  override fun getErrorDismissClick() = RxView.clicks(error_view.error_dismiss)
 
-  override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_icn_top_up),
-        RxView.clicks(layout_support_logo_top_up))
-  }
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo_generic_error)
+
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn_generic_error)
 
   override fun getGotItClick() = RxView.clicks(got_it_button)
 

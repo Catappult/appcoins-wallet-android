@@ -1,14 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 
 class MergedAppcoinsInteract(private val balanceInteract: BalanceInteract,
                              private val walletBlockedInteract: WalletBlockedInteract,
@@ -25,21 +22,12 @@ class MergedAppcoinsInteract(private val balanceInteract: BalanceInteract,
         }
   }
 
-  fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
-    return balanceInteract.getEthBalance()
+  fun getEthBalance(): Observable<FiatValue> = balanceInteract.getEthBalance().map { it.second }
 
-  }
+  fun getAppcBalance(): Observable<FiatValue> = balanceInteract.getAppcBalance().map { it.second }
 
-  fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
-    return balanceInteract.getAppcBalance()
+  fun getCreditsBalance(): Observable<FiatValue> =
+      balanceInteract.getCreditsBalance().map { it.second }
 
-  }
-
-  fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
-    return balanceInteract.getCreditsBalance()
-  }
-
-  fun isWalletBlocked(): Single<Boolean> {
-    return walletBlockedInteract.isWalletBlocked()
-  }
+  fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 }

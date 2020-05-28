@@ -55,9 +55,9 @@ import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.view.error_message
+import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
@@ -347,10 +347,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
 
-  override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn),
-        RxView.clicks(layout_support_icn_top_up), RxView.clicks(layout_support_logo_top_up))
-  }
+  override fun getAdyenSupportLogoClicks(): Observable<Any> = RxView.clicks(layout_support_logo)
+
+  override fun getAdyenSupportIconClicks(): Observable<Any> = RxView.clicks(layout_support_icn)
+
+  override fun getGenericSupportLogoClicks(): Observable<Any> =
+      RxView.clicks(layout_support_logo_generic_error)
+
+  override fun getGenericSupportIconClicks(): Observable<Any> =
+      RxView.clicks(layout_support_icn_generic_error)
+
 
   override fun lockRotation() = iabView.lockRotation()
 
