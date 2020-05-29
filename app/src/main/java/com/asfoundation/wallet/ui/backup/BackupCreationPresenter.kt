@@ -102,7 +102,7 @@ class BackupCreationPresenter(
         .doOnNext { view.closeDialog() }
         .doOnNext {
           walletEventSender.sendWalletSaveFileEvent(WalletAnalytics.ACTION_CANCEL,
-              WalletAnalytics.STATUS_SUCCESS)
+              WalletAnalytics.STATUS_FAIL)
         }
         .doOnError { t ->
           walletEventSender.sendWalletSaveFileEvent(WalletAnalytics.ACTION_CANCEL,
