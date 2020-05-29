@@ -38,6 +38,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_adyen_error.*
+import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
@@ -324,7 +325,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_main_view.visibility = View.GONE
       error_message.error_dismiss.text = getString(R.string.ok)
       error_message.visibility = View.VISIBLE
-      activity_iab_error_message.setText(message)
+      error_message.generic_error_layout.error_message.setText(message)
     }
   }
 
