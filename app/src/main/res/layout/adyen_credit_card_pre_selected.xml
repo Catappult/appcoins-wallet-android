@@ -93,7 +93,7 @@
 
             <include
                 android:id="@+id/fragment_adyen_error_pre_selected"
-                layout="@layout/fragment_adyen_error"
+                layout="@layout/support_error_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"

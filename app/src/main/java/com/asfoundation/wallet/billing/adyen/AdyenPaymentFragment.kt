@@ -53,12 +53,12 @@ import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_c
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
+import kotlinx.android.synthetic.main.support_error_layout.*
+import kotlinx.android.synthetic.main.support_error_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal

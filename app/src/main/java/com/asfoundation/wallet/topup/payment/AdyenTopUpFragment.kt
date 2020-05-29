@@ -44,13 +44,13 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_icn
-import kotlinx.android.synthetic.main.fragment_adyen_error.layout_support_logo
-import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
 import kotlinx.android.synthetic.main.fragment_adyen_top_up.*
 import kotlinx.android.synthetic.main.layout_adyen_error_top_up.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
+import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
+import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
+import kotlinx.android.synthetic.main.support_error_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject

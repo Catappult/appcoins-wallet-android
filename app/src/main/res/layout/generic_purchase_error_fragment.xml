@@ -16,7 +16,7 @@
 
     <include
         android:id="@+id/generic_error_layout"
-        layout="@layout/fragment_adyen_error"
+        layout="@layout/support_error_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"

@@ -19,12 +19,12 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
+import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

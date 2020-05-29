@@ -31,10 +31,10 @@ import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_icon
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_name
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_description
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
+import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal

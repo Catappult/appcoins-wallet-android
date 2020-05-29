@@ -92,7 +92,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     loadingView = view.findViewById(R.id.loading_view);
 
     errorMessage = view.findViewById(R.id.error_message);
-    transactionErrorLayout = view.findViewById(R.id.credits_error_layout);
+    transactionErrorLayout = view.findViewById(R.id.generic_error_layout);
     okErrorButton = view.findViewById(R.id.error_dismiss);
     supportIcon = view.findViewById(R.id.layout_support_icn);
     supportLogo = view.findViewById(R.id.layout_support_logo);
