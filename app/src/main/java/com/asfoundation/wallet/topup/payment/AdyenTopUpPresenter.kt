@@ -51,7 +51,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 ) {
 
   private var waitingResult = false
-  private var paymentMethod = PaymentType.CARD.name
   private var currentError: Int = 0
 
   fun present(savedInstanceState: Bundle?) {
@@ -63,14 +62,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     handleRetryClick(savedInstanceState)
     handleRedirectResponse()
     handleSupportClicks()
-    handleTryAgainClicks(savedInstanceState)
+    handleTryAgainClicks()
   }
 
   private fun handleViewState(savedInstanceState: Bundle?) {
-    if (currentError == 0) {
-      loadPaymentMethodInfo(savedInstanceState)
-    } else {
+    if (currentError != 0) {
       view.showSpecificError(currentError)
+      if (paymentType == PaymentType.CARD.name) loadPaymentMethodInfo(savedInstanceState)
+    } else {
+      loadPaymentMethodInfo(savedInstanceState)
     }
   }
 
@@ -105,12 +105,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     )
   }
 
-  private fun handleTryAgainClicks(savedInstanceState: Bundle?) {
+  private fun handleTryAgainClicks() {
     disposables.add(
         view.getTryAgainClicks()
             .throttleFirst(50, TimeUnit.MILLISECONDS)
             .doOnNext {
-              if (paymentMethod == PaymentType.CARD.name) hideSpecificError(savedInstanceState)
+              if (paymentType == PaymentType.CARD.name) hideSpecificError()
               else view.navigateToPaymentSelection()
             }
             .subscribeOn(viewScheduler)
@@ -135,7 +135,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           } else {
             val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
             view.showValues(priceAmount, it.priceCurrency)
-            paymentMethod = paymentType
             if (paymentType == PaymentType.CARD.name) {
               view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, false,
                   savedInstanceState)
@@ -370,10 +369,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     view.showSpecificError(message)
   }
 
-  private fun hideSpecificError(savedInstanceState: Bundle?) {
+  private fun hideSpecificError() {
     currentError = 0
-    if (savedInstanceState == null) view.hideErrorViews() //User hasn't rotated so it's safe to just hide the error view and show the form
-    else loadPaymentMethodInfo(savedInstanceState, true)
+    view.hideErrorViews()
   }
 
   companion object {
