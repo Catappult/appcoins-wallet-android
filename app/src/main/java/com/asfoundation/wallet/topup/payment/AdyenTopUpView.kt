@@ -50,17 +50,17 @@ interface AdyenTopUpView {
 
   fun getSupportClicks(): Observable<Any>
 
-  fun hideSpecificError()
-
   fun lockRotation()
 
   fun retryClick(): Observable<Any>
 
-  fun hideNoNetworkError()
+  fun hideErrorViews()
 
   fun showRetryAnimation()
 
   fun navigateToPaymentSelection()
+
+  fun setupUi()
 
   fun showBonus(bonus: BigDecimal, currency: String)
 
