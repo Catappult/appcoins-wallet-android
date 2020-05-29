@@ -7,15 +7,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_backup.*
+import javax.inject.Inject
 
 
 class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
@@ -35,6 +39,8 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   }
 
+  @Inject
+  lateinit var walletEventSender: WalletEventSender
   private lateinit var presenter: BackupActivityPresenter
   private var onPermissionSubject: PublishSubject<Unit>? = null
   private var onDocumentFileSubject: PublishSubject<SystemFileIntentResult>? = null
@@ -91,6 +97,17 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   override fun closeScreen() = finish()
 
   override fun onPermissionGiven() = onPermissionSubject!!
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      android.R.id.home -> {
+        walletEventSender.sendCreateBackupEvent(WalletAnalytics.ACTION_BACK,
+            WalletAnalytics.CONTEXT_SETTINGS, WalletAnalytics.STATUS_FAIL,
+            WalletAnalytics.REASON_CANCELED)
+      }
+    }
+    return super.onOptionsItemSelected(item)
+  }
 
   override fun openSystemFileDirectory(fileName: String) {
     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {

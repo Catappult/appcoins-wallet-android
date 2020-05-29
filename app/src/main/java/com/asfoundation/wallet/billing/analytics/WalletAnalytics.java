@@ -27,6 +27,7 @@ public class WalletAnalytics implements WalletEventSender {
   public static final String WALLET_IMPORT_RESTORE = "wallet_import_restore";
   public static final String WALLET_PASSWORD_RESTORE = "wallet_password_restore";
   public static final String WALLET_COMPLETE_RESTORE = "wallet_complete_restore";
+  public static final String REASON_CANCELED = "canceled";
 
   private static final String WALLET = "WALLET";
   private static final String EVENT_ACTION = "action";
