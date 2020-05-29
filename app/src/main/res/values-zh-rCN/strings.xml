@@ -558,6 +558,9 @@
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">MAYBE LATER</string>
   <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_notification_title">Make a backup of your wallet!</string>
+  <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
+  <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
