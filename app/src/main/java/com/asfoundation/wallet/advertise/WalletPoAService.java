@@ -271,9 +271,6 @@ public class WalletPoAService extends Service {
           .take(1)
           .subscribe(proof -> {
           });
-    } else {
-      stopForeground(true);
-      stopTimeout();
     }
   }
 
