@@ -10,6 +10,7 @@
   <include layout="@layout/fragment_iab_loading" />
   <include layout="@layout/fragment_iab_transaction_completed" />
   <include
+      android:id="@+id/something"
       layout="@layout/generic_purchase_error_fragment"
       android:visibility="gone"
       />

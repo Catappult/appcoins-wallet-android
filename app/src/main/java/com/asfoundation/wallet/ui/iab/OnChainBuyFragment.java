@@ -100,7 +100,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     loadingMessage = view.findViewById(R.id.loading_message);
     errorTextView = view.findViewById(R.id.error_message);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
-    transactionErrorLayout = view.findViewById(R.id.activity_adyen_error_view);
+    transactionErrorLayout = view.findViewById(R.id.generic_purchase_error_layout);
 
     supportIcon = view.findViewById(R.id.layout_support_icn);
     supportLogo = view.findViewById(R.id.layout_support_logo);
