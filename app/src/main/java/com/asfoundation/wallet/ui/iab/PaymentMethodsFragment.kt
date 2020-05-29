@@ -345,10 +345,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         true
       })
     }
-    error_message.error_dismiss.text = getString(R.string.ok)
+    error_dismiss.text = getString(R.string.ok)
     error_message.visibility = View.VISIBLE
-    error_message.generic_error_layout.error_message.setText(
+    generic_error_layout.error_message.setText(
         R.string.purchase_error_incomplete_transaction_body)
+    layout_support_icn.visibility = View.GONE
+    layout_support_logo.visibility = View.GONE
+    contact_us.visibility = View.GONE
   }
 
   override fun finish(bundle: Bundle) {
