@@ -127,8 +127,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          if (fromError) view.hideErrorViews()
           view.hideLoading()
+          if (fromError) view.hideErrorViews()
           if (it.error.hasError) {
             if (it.error.isNetworkError) view.showNetworkError()
             else handleSpecificError(R.string.unknown_error)

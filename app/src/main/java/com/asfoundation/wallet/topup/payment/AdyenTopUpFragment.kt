@@ -201,7 +201,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (isStored) {
       change_card_button.visibility = VISIBLE
     } else {
-      change_card_button.visibility = INVISIBLE
+      change_card_button.visibility = GONE
     }
 
     credit_card_info_container.visibility = VISIBLE
