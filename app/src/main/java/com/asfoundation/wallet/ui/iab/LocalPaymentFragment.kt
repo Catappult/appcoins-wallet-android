@@ -16,13 +16,12 @@ import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
-import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
+import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
+import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
@@ -306,9 +305,9 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun getErrorDismissClick() = RxView.clicks(error_view.error_dismiss)
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo_generic_error)
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn_generic_error)
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun getGotItClick() = RxView.clicks(got_it_button)
 
@@ -366,7 +365,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun showError() {
     status = ERROR
-    error_dismiss.text = getString(R.string.ok)
+    error_message.text = getString(R.string.ok)
     error_message.text = getString(R.string.activity_iab_error_message)
     pending_user_payment_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE

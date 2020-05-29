@@ -94,8 +94,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     errorMessage = view.findViewById(R.id.error_message);
     transactionErrorLayout = view.findViewById(R.id.credits_error_layout);
     okErrorButton = view.findViewById(R.id.error_dismiss);
-    supportIcon = view.findViewById(R.id.layout_support_icn_generic_error);
-    supportLogo = view.findViewById(R.id.layout_support_logo_generic_error);
+    supportIcon = view.findViewById(R.id.layout_support_icn);
+    supportLogo = view.findViewById(R.id.layout_support_logo);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
 
     TransactionBuilder transactionBuilder = getArguments().getParcelable(TRANSACTION_KEY);
@@ -145,12 +145,12 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public Observable<Object> getSupportLogoClick() {
-    return RxView.clicks(supportLogo);
-  }
-
   @Override public Observable<Object> getSupportIconClick() {
     return RxView.clicks(supportIcon);
+  }
+
+  @Override public Observable<Object> getSupportLogoClick() {
+    return RxView.clicks(supportLogo);
   }
 
   @Override public void close() {

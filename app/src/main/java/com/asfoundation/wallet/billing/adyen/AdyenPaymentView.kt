@@ -65,8 +65,4 @@ interface AdyenPaymentView {
   fun getAdyenSupportLogoClicks(): Observable<Any>
 
   fun getAdyenSupportIconClicks(): Observable<Any>
-
-  fun getGenericSupportLogoClicks(): Observable<Any>
-
-  fun getGenericSupportIconClicks(): Observable<Any>
 }

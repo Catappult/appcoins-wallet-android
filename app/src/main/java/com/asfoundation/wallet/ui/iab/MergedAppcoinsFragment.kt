@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_icon
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_name
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_description
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
+import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
@@ -411,9 +412,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo_generic_error)
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn_generic_error)
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun navigateToAppcPayment() =
       iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)

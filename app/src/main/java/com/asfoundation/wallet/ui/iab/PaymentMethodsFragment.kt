@@ -37,6 +37,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
+import kotlinx.android.synthetic.main.fragment_adyen_error.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
 import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
@@ -392,9 +393,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         .map { itemAlreadyOwnedError }
   }
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo_generic_error)
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn_generic_error)
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun setupUiCompleted() = setupSubject!!
 

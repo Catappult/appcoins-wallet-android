@@ -63,8 +63,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleSupportClicks() {
     disposables.add(
-        Observable.merge(view.getAdyenSupportIconClicks(), view.getAdyenSupportLogoClicks(),
-            view.getGenericSupportIconClicks(), view.getGenericSupportLogoClicks())
+        Observable.merge(view.getAdyenSupportIconClicks(), view.getAdyenSupportLogoClicks())
             .throttleFirst(50, TimeUnit.MILLISECONDS)
             .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
             .subscribeOn(viewScheduler)
