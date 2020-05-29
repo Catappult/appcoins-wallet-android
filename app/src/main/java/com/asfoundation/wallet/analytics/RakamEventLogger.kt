@@ -14,6 +14,7 @@ class RakamEventLogger : EventLogger {
     const val VERSION_CODE = "version_code"
     const val ENTRY_POINT = "entry_point"
     const val USER_LEVEL = "user_level"
+    const val HAS_GMS = "has_gms"
     private const val TAG = "RakamEventLogger"
   }
 
