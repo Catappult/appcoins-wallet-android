@@ -189,20 +189,12 @@ class PaymentMethodsPresenter(
   }
 
   private fun checkAndConsumePrevious(sku: String?): Completable {
-    return getPurchases(sku).observeOn(viewScheduler)
-        .doOnNext { view.showItemAlreadyOwnedError() }
-        .ignoreElements()
-  }
-
-  private fun getPurchases(sku: String?): Observable<Purchase> {
-    return billing.getPurchases(appPackage, BillingSupportedType.INAPP, networkThread)
-        .flatMapObservable { purchases ->
-          for (purchase in purchases) {
-            if (purchase.product.name == sku) {
-              return@flatMapObservable Observable.just(purchase)
-            }
+    return getPurchases()
+        .observeOn(viewScheduler)
+        .flatMapCompletable { purchases ->
+          Completable.fromAction {
+            if (hasRequestedSkuPurchase(purchases, sku)) view.showItemAlreadyOwnedError()
           }
-          return@flatMapObservable Observable.empty<Purchase>()
         }
   }
 
@@ -390,15 +382,16 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.errorDismisses(), view.onBackPressed())
         .flatMapCompletable { itemAlreadyOwned ->
           if (itemAlreadyOwned) {
-            return@flatMapCompletable getPurchases(transaction.skuId).doOnNext {
-              finish(it, true)
+            getPurchases().doOnSuccess { purchases ->
+              val purchase = getRequestedSkuPurchase(purchases, transaction.skuId)
+              purchase?.let { finish(it, itemAlreadyOwned) } ?: view.close(Bundle())
             }
-                .ignoreElements()
+                .ignoreElement()
           } else {
             return@flatMapCompletable Completable.fromAction { view.close(Bundle()) }
           }
         }
-        .subscribe({ }, { this.showError(it) }))
+        .subscribe({ }, { view.close(Bundle()) }))
   }
 
   private fun handleSupportClicks() {
@@ -450,7 +443,8 @@ class PaymentMethodsPresenter(
             .subscribe())
   }
 
-  private fun getPreSelectedPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {
+  private fun getPreSelectedPaymentMethod(
+      paymentMethods: List<PaymentMethod>): PaymentMethod? {
     val preSelectedPreference = paymentMethodsInteract.getPreSelectedPaymentMethod()
     for (paymentMethod in paymentMethods) {
       if (paymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) {
@@ -522,5 +516,27 @@ class PaymentMethodsPresenter(
       analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
           .toString(), selectedPaymentMethod.id, transaction.type, action)
     }
+  }
+
+  private fun getPurchases(): Single<List<Purchase>> {
+    return billing.getPurchases(appPackage, BillingSupportedType.INAPP, networkThread)
+  }
+
+  private fun hasRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Boolean {
+    for (purchase in purchases) {
+      if (purchase.product.name == sku) {
+        return true
+      }
+    }
+    return false
+  }
+
+  private fun getRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Purchase? {
+    for (purchase in purchases) {
+      if (purchase.product.name == sku) {
+        return purchase
+      }
+    }
+    return null
   }
 }
