@@ -351,20 +351,17 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
   fun onSaveInstanceState(outState: Bundle) {
     outState.putBoolean(WAITING_RESULT, waitingResult)
     outState.putInt(CURRENT_ERROR, currentError)
-
   }
 
   private fun retrieveSavedInstance(savedInstanceState: Bundle?) {
-    if (savedInstanceState != null) {
-      waitingResult = savedInstanceState.getBoolean(WAITING_RESULT)
-      currentError = savedInstanceState.getInt(CURRENT_ERROR)
+    savedInstanceState?.let {
+      waitingResult = it.getBoolean(WAITING_RESULT)
+      currentError = it.getInt(CURRENT_ERROR)
     }
   }
 
