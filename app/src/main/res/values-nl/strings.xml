@@ -4,7 +4,7 @@
   <string name="title_send">Verzenden</string>
   <string name="title_send_with_token">%s verzenden</string>
   <string name="title_request">Ontvangen</string>
-  <string name="title_import">Recover Wallet</string>
+  <string name="title_import">Wallet herstellen</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Wachtwoord</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Wallets</string>
   <string name="cancel">annuleren</string>
   <string name="confirm_delete_account">Zorg ervoor dat je een back-up van deze wallet hebt.</string>
-  <string name="action_import">Recover</string>
+  <string name="action_import">Herstellen</string>
   <string name="copy">Naar klembord kopiëren</string>
   <string name="close">Sluiten</string>
   <string name="title_activity_settings">Instellingen</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">Weet je zeker dat je deze wallet wilt verwijderen?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram-groep</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Stel een wachtwoord in om je wallet te versleutelen</string>
-  <string name="toast_message_wallet_imported">The wallet was recovered</string>
+  <string name="toast_message_wallet_imported">De wallet is hersteld</string>
   <string name="toast_message_wallet_exported">Er is een back-up gemaakt</string>
   <string name="toast_qr_code_no_address">QR-code bevat geen geldig adres</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,7 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Code inwisselen</string>
-  <string name="settings_item_support">Contact Support Team</string>
+  <string name="settings_item_support">Neem contact op met support</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In behandeling&#8230;</string>
   <string name="local_payments_inprogress_body">Zodra je de betaling hebt voltooid, ontvang je de AppCoins Credits in je Wallet. Daarna kun je terug naar het spel gaan om de aankoop te doen!</string>
@@ -532,7 +532,7 @@
   <string name="backup_confirmation_title">Nog maar één stap</string>
   <string name="backup_confirmation_body">Zorg voor een veilige back-up! Waar wil je de back-up opslaan?</string>
   <string name="backup_confirmation_yes">JA, ZEKER WETEN</string>
-  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
+  <string name="backup_confirmation_no">NEE, OP APPARAAT OPSLAAN</string>
   <string name="backup_done_title">Back-up gereed!</string>
   <string name="backup_done_body">Weet je zeker dat je back-upbestand op een veilige plek is opgeslagen?</string>
   <string name="backup_confirmation_no_share_title">Back-up gereed!</string>
@@ -541,26 +541,26 @@
   <string name="backup_save_dialogue_body">Kies een naam voor je back-upbestand.</string>
   <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
   <string name="backup_confirmation_tips_1">Kopieer het bestand en sla het op een veilige plek op.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
+  <string name="backup_confirmation_tips_2">Sla het bestand op een USB-stick op.</string>
   <string name="backup_confirmation_tips_3">Kopieer het naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_send_via_title">Back-up verzenden via:</string>
   <string name="backup_send_button">BACK-UP VERZENDEN</string>
   <string name="backup_save_button">BACK-UP OPSLAAN</string>
-  <string name="import_wallet_title">Recover Wallet</string>
+  <string name="import_wallet_title">Wallet herstellen</string>
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
-  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
-  <string name="import_wallet_button">RECOVER WALLET</string>
+  <string name="import_wallet_file_button">VIA BESTAND HERSTELLEN</string>
+  <string name="import_wallet_button">WALLET HERSTELLEN</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <string name="error_invalid_keystore">Ongeldige keystore</string>
-  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
-  <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
-  <string name="backup_notification_title">Make a backup of your wallet!</string>
-  <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
-  <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
+  <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
+  <string name="backup_tooltip_later_button">MISSCHIEN LATER</string>
+  <string name="backup_tooltip_backup_button">BACK-UP</string>
+  <string name="backup_notification_title">Maak een back-up van je wallet!</string>
+  <string name="backup_notification_body">Beveilig je saldo en zorg ervoor dat je altijd toegang tot je wallet hebt.</string>
+  <string name="backup_choose_wallet_title">Kies een wallet om een back-up te maken</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Totale saldo in %s</string>
@@ -571,10 +571,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Totale saldo</string>
   <string name="wallets_address_copied_body">Wallet-adres is naar het klembord gekopieerd</string>
-  <string name="wallets_imported_body">Wallet successfuly recovered</string>
+  <string name="wallets_imported_body">Wallet is met succes hersteld</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Andere wallets</string>
-  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
+  <string name="wallets_2nd_view_import_button">WALLET HERSTELLEN</string>
   <string name="wallets_2nd_view_create_button">NIEUWE AANMAKEN</string>
   <string name="wallet_view_copy_button">KOPIËREN</string>
   <string name="wallet_view_share_button">DELEN</string>
@@ -587,7 +587,7 @@
   <string name="remove_wallet_title">Wallet verwijderen</string>
   <string name="remove_wallet_body">We willen je sterk aanraden om een back-up van de wallet te maken voordat je deze verwijdert. Je kunt alleen opnieuw toegang tot de wallet krijgen als je een back-up hebt.</string>
   <string name="remove_wallet_backup_button">BACK-UP VAN WALLET MAKEN</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_no_backup_button">WALLET VERWIJDEREN</string>
   <string name="remove_wallet_confirm_body">Weet je zeker dat je deze wallet wilt verwijderen?</string>
   <string name="remove_wallet_no_button">NEE, GA TERUG</string>
   <string name="remove_wallet_yes_button">JA, WALLET VERWIJDEREN</string>
@@ -608,7 +608,7 @@
   <string name="support_new_message_title">Je hebt een nieuw bericht!</string>
   <string name="support_new_message_button">Tik om te openen</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
-  <string name="pioneer_gamification_title">You\'re a Pioneer</string>
-  <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
+  <string name="pioneer_bonus_updated_body">Percentages voor bonussen zijn bijgewerkt op %s.</string>
+  <string name="pioneer_gamification_title">Je bent een pionier</string>
+  <string name="pioneer_gamification_body">Een pionier is een vroege gebruiker en krijgt hogere bonussen.</string>
 </resources>
