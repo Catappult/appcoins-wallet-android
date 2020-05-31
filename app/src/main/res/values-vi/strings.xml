@@ -4,7 +4,7 @@
   <string name="title_send">Gửi</string>
   <string name="title_send_with_token">Gửi %s</string>
   <string name="title_request">Nhận</string>
-  <string name="title_import">Recover Wallet</string>
+  <string name="title_import">Khôi phục ví</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Mật khẩu</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Ví</string>
   <string name="cancel">hủy</string>
   <string name="confirm_delete_account">Hãy chắc rằng bạn có một bản sao lưu của ví này.</string>
-  <string name="action_import">Recover</string>
+  <string name="action_import">Khôi phục</string>
   <string name="copy">Sao chép vào bộ nhớ tạm</string>
   <string name="close">Đóng</string>
   <string name="title_activity_settings">Cài đặt</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Định dạng mã vạch không hợp lệ: %s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">Bạn có chắc chắn muốn xóa ví này?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Nhóm Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Đặt mật khẩu để mã hóa ví của bạn</string>
-  <string name="toast_message_wallet_imported">The wallet was recovered</string>
+  <string name="toast_message_wallet_imported">Ví đã được khôi phục</string>
   <string name="toast_message_wallet_exported">Một bản sao lưu đã được tạo</string>
   <string name="toast_qr_code_no_address">Mã QR không chứa địa chỉ hợp lệ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,7 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Mã quà tặng</string>
-  <string name="settings_item_support">Contact Support Team</string>
+  <string name="settings_item_support">Liên hệ với Đội ngũ Hỗ trợ</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Đang xử lý&#8230;</string>
   <string name="local_payments_inprogress_body">Khi bạn hoàn tất thanh toán, bạn sẽ nhận được AppCoins Credits trong ví của mình. Sau đó quay trở lại trò chơi để mua hàng!</string>
@@ -532,7 +532,7 @@
   <string name="backup_confirmation_title">Chỉ một bước nữa thôi</string>
   <string name="backup_confirmation_body">Giữ bản sao lưu của bạn an toàn! Bạn muốn lưu nó ở đâu?</string>
   <string name="backup_confirmation_yes">CÓ, HOÀN TẤT</string>
-  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
+  <string name="backup_confirmation_no">KHÔNG, LƯU TRÊN THIẾT BỊ</string>
   <string name="backup_done_title">Sao lưu hoàn tất!</string>
   <string name="backup_done_body">Bạn có chắc rằng tập tin sao lưu của bạn đang ở chỗ an toàn không?</string>
   <string name="backup_confirmation_no_share_title">Sao lưu hoàn tất!</string>
@@ -541,26 +541,26 @@
   <string name="backup_save_dialogue_body">Chọn tên cho tập tin sao lưu của bạn.</string>
   <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
   <string name="backup_confirmation_tips_1">In và lưu nó ở một nơi an toàn.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
+  <string name="backup_confirmation_tips_2">Lưu nó vào ổ USB.</string>
   <string name="backup_confirmation_tips_3">Sao chép nó vào một lưu trữ đám mây riêng tư và an toàn.</string>
   <string name="backup_send_via_title">Gửi bản sao lưu qua:</string>
   <string name="backup_send_button">LƯU BẢN SAO LƯU</string>
   <string name="backup_save_button">LƯU BẢN SAO LƯU</string>
-  <string name="import_wallet_title">Recover Wallet</string>
+  <string name="import_wallet_title">Khôi phục ví</string>
   <string name="import_wallet_body">Dán sao lưu ví của bạn dưới đây.</string>
   <string name="import_wallet_keystore_private_keys">Kho khóa hoặc khóa cá nhân</string>
-  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
-  <string name="import_wallet_button">RECOVER WALLET</string>
+  <string name="import_wallet_file_button">KHÔI PHỤC TỪ TẬP TIN</string>
+  <string name="import_wallet_button">KHÔI PHỤC VÍ</string>
   <string name="import_wallet_password_body">Ví này được bảo vệ bằng mật khẩu!</string>
   <string name="import_wallet_wrong_password_body">Rất tiếc, sai mật khẩu!</string>
   <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
   <string name="error_invalid_keystore">Kho khóa không hợp lệ</string>
-  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
-  <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
-  <string name="backup_notification_title">Make a backup of your wallet!</string>
-  <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
-  <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
+  <string name="backup_tooltip_body">Tạo bản sao lưu cho ví của bạn!</string>
+  <string name="backup_tooltip_later_button">ĐỂ SAU</string>
+  <string name="backup_tooltip_backup_button">SAO LƯU</string>
+  <string name="backup_notification_title">Tạo bản sao lưu cho ví của bạn!</string>
+  <string name="backup_notification_body">Giữ tiền của bạn an toàn và đảm bảo bạn luôn có thể truy cập vào ví của mình.</string>
+  <string name="backup_choose_wallet_title">Chọn một ví để sao lưu</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
@@ -570,10 +570,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Tổng giá trị</string>
   <string name="wallets_address_copied_body">Địa chỉ ví đã được sao chép vào bộ nhớ tạm</string>
-  <string name="wallets_imported_body">Wallet successfuly recovered</string>
+  <string name="wallets_imported_body">Ví đã khôi phục thành công</string>
   <string name="wallets_2nd_view_balance_title">Số dư:</string>
   <string name="wallets_2nd_view_other_wallets_title">Ví khác</string>
-  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
+  <string name="wallets_2nd_view_import_button">KHÔI PHỤC VÍ</string>
   <string name="wallets_2nd_view_create_button">TẠO MỚI</string>
   <string name="wallet_view_copy_button">SAO CHÉP</string>
   <string name="wallet_view_share_button">CHIA SẺ</string>
@@ -586,7 +586,7 @@
   <string name="remove_wallet_title">Xóa ví</string>
   <string name="remove_wallet_body">Chúng tôi thực sự khuyên bạn nên sao lưu ví trước khi xóa nó vì bạn sẽ không thể truy cập lại trừ khi có bản sao lưu.</string>
   <string name="remove_wallet_backup_button">SAO LƯU VÍ</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_no_backup_button">XÓA VÍ</string>
   <string name="remove_wallet_confirm_body">Bạn có chắc chắn muốn xóa ví này không?</string>
   <string name="remove_wallet_no_button">KHÔNG, QUAY LẠI</string>
   <string name="remove_wallet_yes_button">CÓ, XÓA VÍ</string>
@@ -607,7 +607,7 @@
   <string name="support_new_message_title">Bạn có một tin nhắn mới!</string>
   <string name="support_new_message_button">Nhấp để mở</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
-  <string name="pioneer_gamification_title">You\'re a Pioneer</string>
-  <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
+  <string name="pioneer_bonus_updated_body">Phần trăm tiền thưởng đã được cập nhật vào %s.</string>
+  <string name="pioneer_gamification_title">Bạn là người tiên phong</string>
+  <string name="pioneer_gamification_body">Người tiên phong là người sớm tiếp nhận với số tiền thưởng tăng vọt.</string>
 </resources>
