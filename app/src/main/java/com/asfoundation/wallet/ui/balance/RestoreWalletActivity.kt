@@ -78,7 +78,7 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
   }
 
   override fun navigateToPasswordView(keystore: String) {
-    presenter.currentFragment = RestoreWalletPasswordFragment.javaClass.name
+    presenter.currentFragment = RestoreWalletPasswordFragment::class.java.simpleName
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, RestoreWalletPasswordFragment.newInstance(keystore))
         .addToBackStack(RestoreWalletPasswordFragment::class.java.simpleName)
@@ -173,7 +173,7 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
   }
 
   private fun navigateToInitialRestoreFragment() {
-    presenter.currentFragment = RestoreWalletFragment.javaClass.name
+    presenter.currentFragment = RestoreWalletFragment::class.java.simpleName
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, RestoreWalletFragment.newInstance())
         .commit()

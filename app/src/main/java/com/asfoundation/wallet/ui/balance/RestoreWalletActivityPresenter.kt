@@ -5,7 +5,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 
 class RestoreWalletActivityPresenter(private val walletsEventSender: WalletsEventSender) {
 
-  var currentFragment: String = RestoreWalletFragment.javaClass.name
+  var currentFragment: String = RestoreWalletFragment::class.java.simpleName
 
   private fun sendWalletImportRestoreBackEvent() {
     walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_BACK,
@@ -19,8 +19,8 @@ class RestoreWalletActivityPresenter(private val walletsEventSender: WalletsEven
 
   fun sendBackEvent() {
     when (currentFragment) {
-      RestoreWalletFragment.javaClass.name -> sendWalletImportRestoreBackEvent()
-      RestoreWalletPasswordFragment.javaClass.name -> sendWalletPasswordRestoreBackEvent()
+      RestoreWalletFragment::class.java.simpleName -> sendWalletImportRestoreBackEvent()
+      RestoreWalletPasswordFragment::class.java.simpleName -> sendWalletPasswordRestoreBackEvent()
     }
   }
 }

@@ -65,7 +65,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   override fun showBackupScreen() {
-    presenter.currentFragmentName = BackupWalletFragment.javaClass.name
+    presenter.currentFragmentName = BackupWalletFragment::class.java.simpleName
     setupToolbar()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, BackupWalletFragment.newInstance(walletAddress))
@@ -73,7 +73,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   override fun showBackupCreationScreen(password: String) {
-    presenter.currentFragmentName = BackupCreationFragment.javaClass.name
+    presenter.currentFragmentName = BackupCreationFragment::class.java.simpleName
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             BackupCreationFragment.newInstance(walletAddress, password))
@@ -104,7 +104,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     when (item.itemId) {
       android.R.id.home -> {
         when (presenter.currentFragmentName) {
-          BackupCreationFragment.javaClass.name -> walletsEventSender.sendWalletSaveFileEvent(
+          BackupCreationFragment::class.java.simpleName -> walletsEventSender.sendWalletSaveFileEvent(
               WalletsAnalytics.ACTION_BACK, WalletsAnalytics.STATUS_FAIL,
               WalletsAnalytics.REASON_CANCELED)
         }
