@@ -43,9 +43,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
         HashMap()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_STATUS] = status
-    if (errorDetails != null) {
-      eventData[EVENT_ERROR_DETAILS] = errorDetails
-    }
+    if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
     analytics.logEvent(eventData, WALLET_SAVE_FILE,
         AnalyticsManager.Action.CLICK, WALLET)
   }
@@ -61,9 +59,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
         HashMap()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_STATUS] = status
-    if (errorDetails != null) {
-      eventData[EVENT_ERROR_DETAILS] = errorDetails
-    }
+    if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
     analytics.logEvent(eventData, WALLET_IMPORT_RESTORE,
         AnalyticsManager.Action.CLICK, WALLET)
   }
@@ -79,9 +75,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
         HashMap()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_STATUS] = status
-    if (errorDetails != null) {
-      eventData[EVENT_ERROR_DETAILS] = errorDetails
-    }
+    if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
     analytics.logEvent(eventData, WALLET_PASSWORD_RESTORE,
         AnalyticsManager.Action.CLICK, WALLET)
   }
@@ -95,9 +89,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
     val eventData: MutableMap<String, Any> =
         HashMap()
     eventData[EVENT_STATUS] = status
-    if (errorDetails != null) {
-      eventData[EVENT_ERROR_DETAILS] = errorDetails
-    }
+    if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
     analytics.logEvent(eventData, WALLET_COMPLETE_RESTORE,
         AnalyticsManager.Action.CLICK, WALLET)
   }
