@@ -9,9 +9,9 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/validation_success_animation"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="@+id/guideline3"
+      android:layout_width="52dp"
+      android:layout_height="52dp"
+      android:layout_marginTop="16dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +26,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
       android:layout_marginEnd="16dp"
       android:textAlignment="center"
       android:textColor="@color/pending_payment_text_color"
@@ -74,14 +75,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/layout_support_logo"
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
-      />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.19"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
