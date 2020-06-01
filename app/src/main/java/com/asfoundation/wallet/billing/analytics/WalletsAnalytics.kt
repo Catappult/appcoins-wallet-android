@@ -12,7 +12,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
 
   private fun sendCreateBackupEvent(action: String, context: String,
                                     status: String,
-                                    errorDetails: String?) {
+                                    errorDetails: String? = null) {
     val eventData = HashMap<String, Any>()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_CONTEXT] = context
