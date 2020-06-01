@@ -41,8 +41,7 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
     presenter =
         RestoreWalletPasswordPresenter(this, activityView, restoreWalletPasswordInteractor,
             walletsEventSender, CompositeDisposable(), AndroidSchedulers.mainThread(),
-            Schedulers.io(),
-            Schedulers.computation())
+            Schedulers.io(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {
