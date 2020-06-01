@@ -77,8 +77,8 @@ import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
-import com.asfoundation.wallet.billing.analytics.WalletEventSender;
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.billing.partners.BdsPartnersApi;
 import com.asfoundation.wallet.billing.partners.InstallerService;
@@ -991,7 +991,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new OnboardingInteract(createWalletInteract, walletService, preferencesRepositoryType);
   }
 
-  @Singleton @Provides WalletEventSender provideWalletEventSender(AnalyticsManager analytics) {
+  @Singleton @Provides WalletsEventSender provideWalletEventSender(AnalyticsManager analytics) {
     return new WalletsAnalytics(analytics);
   }
 

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.WalletEventSender
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -27,7 +27,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   lateinit var balanceInteract: BalanceInteract
 
   @Inject
-  lateinit var walletEventSender: WalletEventSender
+  lateinit var walletsEventSender: WalletsEventSender
 
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
@@ -58,7 +58,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        BackupWalletPresenter(balanceInteract, walletEventSender, this, activityView,
+        BackupWalletPresenter(balanceInteract, walletsEventSender, this, activityView,
             CompositeDisposable(),
             Schedulers.io(), AndroidSchedulers.mainThread())
   }

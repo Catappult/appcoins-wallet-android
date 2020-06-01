@@ -17,7 +17,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.WalletEventSender
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
@@ -43,14 +43,14 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
   private var onPermissionSubject: PublishSubject<Unit>? = null
 
   @Inject
-  lateinit var walletEventSender: WalletEventSender
+  lateinit var walletsEventSender: WalletsEventSender
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     fileChosenSubject = PublishSubject.create()
     onPermissionSubject = PublishSubject.create()
-    presenter = RestoreWalletActivityPresenter(walletEventSender)
+    presenter = RestoreWalletActivityPresenter(walletsEventSender)
     setContentView(R.layout.restore_wallet_layout)
     toolbar()
     navigateToInitialRestoreFragment()

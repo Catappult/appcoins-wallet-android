@@ -11,8 +11,8 @@ import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
@@ -40,7 +40,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   @Inject
-  lateinit var walletEventSender: WalletEventSender
+  lateinit var walletsEventSender: WalletsEventSender
   private lateinit var presenter: BackupActivityPresenter
   private var onPermissionSubject: PublishSubject<Unit>? = null
   private var onDocumentFileSubject: PublishSubject<SystemFileIntentResult>? = null
@@ -104,11 +104,11 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     when (item.itemId) {
       android.R.id.home -> {
         when (presenter.currentFragmentName) {
-          BackupWalletFragment.javaClass.name -> walletEventSender.sendCreateBackupEvent(
+          BackupWalletFragment.javaClass.name -> walletsEventSender.sendCreateBackupEvent(
               WalletsAnalytics.ACTION_BACK,
               WalletsAnalytics.CONTEXT_SETTINGS, WalletsAnalytics.STATUS_FAIL,
               WalletsAnalytics.REASON_CANCELED)
-          BackupCreationFragment.javaClass.name -> walletEventSender.sendWalletSaveFileEvent(
+          BackupCreationFragment.javaClass.name -> walletsEventSender.sendWalletSaveFileEvent(
               WalletsAnalytics.ACTION_BACK, WalletsAnalytics.STATUS_FAIL,
               WalletsAnalytics.REASON_CANCELED)
         }

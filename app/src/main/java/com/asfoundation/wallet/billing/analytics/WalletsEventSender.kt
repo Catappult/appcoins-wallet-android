@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.analytics
 
-interface WalletEventSender {
+interface WalletsEventSender {
   fun sendCreateBackupEvent(action: String, context: String,
                             status: String)
 

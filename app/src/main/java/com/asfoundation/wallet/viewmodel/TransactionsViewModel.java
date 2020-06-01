@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
 import com.asfoundation.wallet.C;
-import com.asfoundation.wallet.billing.analytics.WalletEventSender;
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
@@ -64,7 +64,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final TransactionViewInteract transactionViewInteract;
   private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
-  private final WalletEventSender walletEventSender;
+  private final WalletsEventSender walletsEventSender;
   private CompositeDisposable disposables;
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
@@ -76,13 +76,13 @@ public class TransactionsViewModel extends BaseViewModel {
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
       TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
-      WalletEventSender walletEventSender, CurrencyFormatUtils formatter) {
+      WalletsEventSender walletsEventSender, CurrencyFormatUtils formatter) {
     this.applications = applications;
     this.analytics = analytics;
     this.transactionViewNavigator = transactionViewNavigator;
     this.transactionViewInteract = transactionViewInteract;
     this.supportInteractor = supportInteractor;
-    this.walletEventSender = walletEventSender;
+    this.walletsEventSender = walletsEventSender;
     this.formatter = formatter;
     this.disposables = new CompositeDisposable();
   }
@@ -423,7 +423,7 @@ public class TransactionsViewModel extends BaseViewModel {
         Wallet wallet = defaultWallet.getValue();
         if (wallet != null && wallet.address != null) {
           transactionViewNavigator.navigateToBackup(context, wallet.address);
-          walletEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
               WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
         }
         break;

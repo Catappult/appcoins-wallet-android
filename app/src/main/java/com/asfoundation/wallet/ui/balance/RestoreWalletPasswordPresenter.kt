@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
-import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.WalletModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView,
                                      private val activityView: RestoreWalletActivityView,
                                      private val interactor: RestoreWalletPasswordInteractor,
-                                     private val walletEventSender: WalletEventSender,
+                                     private val walletsEventSender: WalletsEventSender,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
                                      private val networkScheduler: Scheduler,
@@ -38,11 +38,11 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
           view.showWalletRestoreAnimation()
         }
         .doOnNext {
-          walletEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
               WalletsAnalytics.STATUS_SUCCESS)
         }
         .doOnError { t ->
-          walletEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
               WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .observeOn(computationScheduler)
@@ -50,10 +50,10 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
         .doOnNext {
-          walletEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_SUCCESS)
+          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_SUCCESS)
         }
         .doOnError { t ->
-          walletEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL, t.message)
+          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .subscribe())
   }

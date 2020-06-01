@@ -4,8 +4,8 @@ import android.os.Build
 import android.os.Bundle
 import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.backup.FileInteractor
-import com.asfoundation.wallet.billing.analytics.WalletEventSender
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.ExportWalletInteract
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
@@ -18,7 +18,7 @@ class BackupCreationPresenter(
     private val view: BackupCreationView,
     private val exportWalletInteract: ExportWalletInteract,
     private val fileInteractor: FileInteractor,
-    private val walletEventSender: WalletEventSender,
+    private val walletsEventSender: WalletsEventSender,
     private val logger: Logger,
     private val networkScheduler: Scheduler,
     private val viewScheduler: Scheduler,
@@ -75,11 +75,11 @@ class BackupCreationPresenter(
           } else {
             handleDialogSaveClickBelowAndroidQ(it)
           }
-          walletEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
+          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
               WalletsAnalytics.STATUS_SUCCESS)
         }
         .doOnError { t ->
-          walletEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
+          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
               WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .subscribe())
@@ -101,11 +101,11 @@ class BackupCreationPresenter(
     disposables.add(view.getDialogCancelClick()
         .doOnNext { view.closeDialog() }
         .doOnNext {
-          walletEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_CANCEL,
+          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_CANCEL,
               WalletsAnalytics.STATUS_FAIL)
         }
         .doOnError { t ->
-          walletEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_CANCEL,
+          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_CANCEL,
               WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .subscribe())
@@ -128,13 +128,13 @@ class BackupCreationPresenter(
         .doOnNext {
           if (fileShared) {
             activityView.closeScreen()
-            walletEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH)
+            walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH)
           } else {
             val file = fileInteractor.getCachedFile()
             if (file == null) showError("Error retrieving file") else {
               view.shareFile(fileInteractor.getUriFromFile(file))
               fileShared = true
-              walletEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
+              walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
             }
           }
         }
@@ -145,7 +145,7 @@ class BackupCreationPresenter(
     disposables.add(view.getSaveAgainClick()
         .doOnNext { activityView.askForWritePermissions() }
         .doOnNext {
-          walletEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_SAVE)
+          walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_SAVE)
         }
         .subscribe())
   }
