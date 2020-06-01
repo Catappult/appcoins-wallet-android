@@ -48,7 +48,7 @@
 
   <include
       android:id="@+id/error_view"
-      layout="@layout/generic_purchase_error_fragment"
+      layout="@layout/iab_error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"

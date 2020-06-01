@@ -54,7 +54,7 @@ import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
-import kotlinx.android.synthetic.main.generic_purchase_error_fragment.*
+import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import kotlinx.android.synthetic.main.support_error_layout.*

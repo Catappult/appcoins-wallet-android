@@ -216,7 +216,7 @@
 
   <include
       android:id="@+id/fragment_iab_error_pre_selected"
-      layout="@layout/generic_purchase_error_fragment"
+      layout="@layout/iab_error_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_centerInParent="true"

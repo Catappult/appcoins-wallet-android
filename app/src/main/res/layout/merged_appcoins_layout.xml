@@ -128,7 +128,7 @@
   </RelativeLayout>
   <include
       android:id="@+id/merged_error_layout"
-      layout="@layout/generic_purchase_error_fragment"
+      layout="@layout/iab_error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"

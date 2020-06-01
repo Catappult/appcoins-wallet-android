@@ -10,7 +10,7 @@
   <include layout="@layout/fragment_iab_loading" />
   <include layout="@layout/fragment_iab_transaction_completed" />
   <include
-      layout="@layout/generic_purchase_error_fragment"
+      layout="@layout/iab_error_layout"
       android:visibility="gone"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

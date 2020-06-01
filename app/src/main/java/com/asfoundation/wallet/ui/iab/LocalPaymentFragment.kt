@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
-import kotlinx.android.synthetic.main.generic_purchase_error_fragment.view.*
+import kotlinx.android.synthetic.main.iab_error_layout.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
