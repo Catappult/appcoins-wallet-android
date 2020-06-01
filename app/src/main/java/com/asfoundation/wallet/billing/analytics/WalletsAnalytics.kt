@@ -13,14 +13,11 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
   private fun sendCreateBackupEvent(action: String, context: String,
                                     status: String,
                                     errorDetails: String?) {
-    val eventData: MutableMap<String, Any> =
-        HashMap()
+    val eventData = HashMap<String, Any>()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_CONTEXT] = context
     eventData[EVENT_STATUS] = status
-    if (errorDetails != null) {
-      eventData[EVENT_ERROR_DETAILS] = errorDetails
-    }
+    if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
     analytics.logEvent(eventData, WALLET_CREATE_BACKUP,
         AnalyticsManager.Action.CLICK, WALLET)
   }
@@ -29,8 +26,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
     val eventData: MutableMap<String, Any> =
         HashMap()
     eventData[EVENT_ACTION] = action
-    analytics.logEvent(eventData, WALLET_SAVE_BACKUP,
-        AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_SAVE_BACKUP, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendWalletConfirmationBackupEvent(action: String) {
