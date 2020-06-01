@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
 import com.asfoundation.wallet.C;
-import com.asfoundation.wallet.billing.analytics.WalletAnalytics;
 import com.asfoundation.wallet.billing.analytics.WalletEventSender;
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
@@ -423,8 +423,8 @@ public class TransactionsViewModel extends BaseViewModel {
         Wallet wallet = defaultWallet.getValue();
         if (wallet != null && wallet.address != null) {
           transactionViewNavigator.navigateToBackup(context, wallet.address);
-          walletEventSender.sendCreateBackupEvent(WalletAnalytics.ACTION_CREATE,
-              WalletAnalytics.CONTEXT_CARD, WalletAnalytics.STATUS_SUCCESS);
+          walletEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
         }
         break;
     }

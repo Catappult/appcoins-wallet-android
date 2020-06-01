@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.backup
 
-import com.asfoundation.wallet.billing.analytics.WalletAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletEventSender
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -26,12 +26,12 @@ class BackupWalletPresenter(private var balanceInteract: BalanceInteract,
           activityView.showBackupCreationScreen(it)
         }
         .doOnNext {
-          walletEventSender.sendCreateBackupEvent(WalletAnalytics.ACTION_CREATE,
-              WalletAnalytics.CONTEXT_SETTINGS, WalletAnalytics.STATUS_SUCCESS)
+          walletEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_SETTINGS, WalletsAnalytics.STATUS_SUCCESS)
         }
         .doOnError { t ->
-          walletEventSender.sendCreateBackupEvent(WalletAnalytics.ACTION_CREATE,
-              WalletAnalytics.CONTEXT_SETTINGS, WalletAnalytics.STATUS_FAIL, t.message)
+          walletEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_SETTINGS, WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .subscribe())
   }

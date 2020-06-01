@@ -11,8 +11,8 @@ import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.WalletAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletEventSender
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
@@ -105,12 +105,12 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
       android.R.id.home -> {
         when (presenter.currentFragmentName) {
           BackupWalletFragment.javaClass.name -> walletEventSender.sendCreateBackupEvent(
-              WalletAnalytics.ACTION_BACK,
-              WalletAnalytics.CONTEXT_SETTINGS, WalletAnalytics.STATUS_FAIL,
-              WalletAnalytics.REASON_CANCELED)
+              WalletsAnalytics.ACTION_BACK,
+              WalletsAnalytics.CONTEXT_SETTINGS, WalletsAnalytics.STATUS_FAIL,
+              WalletsAnalytics.REASON_CANCELED)
           BackupCreationFragment.javaClass.name -> walletEventSender.sendWalletSaveFileEvent(
-              WalletAnalytics.ACTION_BACK, WalletAnalytics.STATUS_FAIL,
-              WalletAnalytics.REASON_CANCELED)
+              WalletsAnalytics.ACTION_BACK, WalletsAnalytics.STATUS_FAIL,
+              WalletsAnalytics.REASON_CANCELED)
         }
       }
     }

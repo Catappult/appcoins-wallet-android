@@ -3,7 +3,7 @@ package com.asfoundation.wallet.billing.analytics
 import cm.aptoide.analytics.AnalyticsManager
 import java.util.*
 
-class WalletAnalytics(private val analytics: AnalyticsManager) : WalletEventSender {
+class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletEventSender {
 
   override fun sendCreateBackupEvent(action: String, context: String,
                                      status: String) {

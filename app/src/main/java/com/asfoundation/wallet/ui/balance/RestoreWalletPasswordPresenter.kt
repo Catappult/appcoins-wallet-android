@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
-import com.asfoundation.wallet.billing.analytics.WalletAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletEventSender
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.interact.WalletModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -38,22 +38,22 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
           view.showWalletRestoreAnimation()
         }
         .doOnNext {
-          walletEventSender.sendWalletPasswordRestoreEvent(WalletAnalytics.ACTION_IMPORT,
-              WalletAnalytics.STATUS_SUCCESS)
+          walletEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_SUCCESS)
         }
         .doOnError { t ->
-          walletEventSender.sendWalletPasswordRestoreEvent(WalletAnalytics.ACTION_IMPORT,
-              WalletAnalytics.STATUS_FAIL, t.message)
+          walletEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .observeOn(computationScheduler)
         .flatMapSingle { interactor.restoreWallet(keystore, it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
         .doOnNext {
-          walletEventSender.sendWalletCompleteRestoreEvent(WalletAnalytics.STATUS_SUCCESS)
+          walletEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_SUCCESS)
         }
         .doOnError { t ->
-          walletEventSender.sendWalletCompleteRestoreEvent(WalletAnalytics.STATUS_FAIL, t.message)
+          walletEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .subscribe())
   }

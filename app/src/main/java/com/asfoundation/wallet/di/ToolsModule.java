@@ -77,8 +77,8 @@ import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
-import com.asfoundation.wallet.billing.analytics.WalletAnalytics;
 import com.asfoundation.wallet.billing.analytics.WalletEventSender;
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.billing.partners.BdsPartnersApi;
 import com.asfoundation.wallet.billing.partners.InstallerService;
@@ -953,12 +953,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION);
     list.add(WalletValidationAnalytics.WALLET_CODE_VERIFICATION);
     list.add(WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION);
-    list.add(WalletAnalytics.WALLET_CREATE_BACKUP);
-    list.add(WalletAnalytics.WALLET_SAVE_BACKUP);
-    list.add(WalletAnalytics.WALLET_CONFIRMATION_BACKUP);
-    list.add(WalletAnalytics.WALLET_SAVE_FILE);
-    list.add(WalletAnalytics.WALLET_IMPORT_RESTORE);
-    list.add(WalletAnalytics.WALLET_PASSWORD_RESTORE);
+    list.add(WalletsAnalytics.WALLET_CREATE_BACKUP);
+    list.add(WalletsAnalytics.WALLET_SAVE_BACKUP);
+    list.add(WalletsAnalytics.WALLET_CONFIRMATION_BACKUP);
+    list.add(WalletsAnalytics.WALLET_SAVE_FILE);
+    list.add(WalletsAnalytics.WALLET_IMPORT_RESTORE);
+    list.add(WalletsAnalytics.WALLET_PASSWORD_RESTORE);
     return list;
   }
 
@@ -992,7 +992,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides WalletEventSender provideWalletEventSender(AnalyticsManager analytics) {
-    return new WalletAnalytics(analytics);
+    return new WalletsAnalytics(analytics);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {

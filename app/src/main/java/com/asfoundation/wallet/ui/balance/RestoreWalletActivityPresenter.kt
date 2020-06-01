@@ -1,20 +1,20 @@
 package com.asfoundation.wallet.ui.balance
 
-import com.asfoundation.wallet.billing.analytics.WalletAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletEventSender
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 
 class RestoreWalletActivityPresenter(private val walletEventSender: WalletEventSender) {
 
   var currentFragment: String = RestoreWalletFragment.javaClass.name
 
   private fun sendWalletImportRestoreBackEvent() {
-    walletEventSender.sendWalletImportRestoreEvent(WalletAnalytics.ACTION_BACK,
-        WalletAnalytics.STATUS_FAIL, WalletAnalytics.REASON_CANCELED)
+    walletEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_BACK,
+        WalletsAnalytics.STATUS_FAIL, WalletsAnalytics.REASON_CANCELED)
   }
 
   private fun sendWalletPasswordRestoreBackEvent() {
-    walletEventSender.sendWalletPasswordRestoreEvent(WalletAnalytics.ACTION_BACK,
-        WalletAnalytics.STATUS_FAIL, WalletAnalytics.REASON_CANCELED)
+    walletEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_BACK,
+        WalletsAnalytics.STATUS_FAIL, WalletsAnalytics.REASON_CANCELED)
   }
 
   fun sendBackEvent() {
