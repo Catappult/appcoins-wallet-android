@@ -78,9 +78,9 @@ class BackupCreationPresenter(
           walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
               WalletsAnalytics.STATUS_SUCCESS)
         }
-        .doOnError { t ->
+        .doOnError {
           walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
-              WalletsAnalytics.STATUS_FAIL, t.message)
+              WalletsAnalytics.STATUS_FAIL, it.message)
         }
         .subscribe())
   }
