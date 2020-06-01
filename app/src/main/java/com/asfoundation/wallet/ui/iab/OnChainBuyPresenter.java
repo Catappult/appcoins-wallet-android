@@ -99,7 +99,6 @@ public class OnChainBuyPresenter {
     disposables.add(Observable.merge(view.getSupportIconClick(), view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable(__ -> onChainBuyInteract.showSupport(gamificationLevel))
-        .subscribeOn(viewScheduler)
         .subscribe());
   }
 

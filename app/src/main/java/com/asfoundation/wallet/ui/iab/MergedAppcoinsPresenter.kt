@@ -110,7 +110,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { mergedAppcoinsInteract.showSupport(gamificationLevel) }
-        .subscribeOn(viewScheduler)
         .subscribe()
     )
   }

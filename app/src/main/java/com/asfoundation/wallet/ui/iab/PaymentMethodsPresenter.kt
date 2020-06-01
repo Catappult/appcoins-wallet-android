@@ -398,7 +398,6 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { paymentMethodsInteract.showSupport(gamificationLevel) }
-        .subscribeOn(viewScheduler)
         .subscribe()
     )
   }

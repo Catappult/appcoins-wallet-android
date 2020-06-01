@@ -199,7 +199,6 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { localPaymentInteractor.showSupport(gamificationLevel) }
-        .subscribeOn(viewScheduler)
         .subscribe()
     )
   }

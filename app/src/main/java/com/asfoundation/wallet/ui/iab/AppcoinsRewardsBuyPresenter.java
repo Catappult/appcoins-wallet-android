@@ -173,7 +173,6 @@ public class AppcoinsRewardsBuyPresenter {
     disposables.add(Observable.merge(view.getSupportIconClick(), view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable(__ -> appcoinsRewardsBuyInteract.showSupport(gamificationLevel))
-        .subscribeOn(viewScheduler)
         .subscribe());
   }
 }

@@ -86,12 +86,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun handleSupportClicks() {
-    disposables.add(
-        view.getSupportClicks()
-            .throttleFirst(50, TimeUnit.MILLISECONDS)
-            .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
-            .subscribeOn(viewScheduler)
-            .subscribe()
+    disposables.add(view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
+        .subscribe()
     )
   }
 
