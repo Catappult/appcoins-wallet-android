@@ -68,6 +68,8 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
     if (walletModel.error.hasError) {
       view.hideAnimation()
       view.showError(walletModel.error.type)
+      walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+          walletModel.error.type.toString())
     } else {
       setDefaultWallet(walletModel.address)
     }
