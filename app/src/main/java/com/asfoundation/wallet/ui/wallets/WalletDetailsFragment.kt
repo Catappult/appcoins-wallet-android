@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
@@ -35,13 +36,17 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
   lateinit var interactor: WalletDetailsInteractor
 
   @Inject
+  lateinit var walletsEventSender: WalletsEventSender
+
+  @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
   private lateinit var activityView: BalanceActivityView
   private lateinit var presenter: WalletDetailsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = WalletDetailsPresenter(this, interactor, walletAddress, CompositeDisposable(),
+    presenter = WalletDetailsPresenter(this, interactor, walletsEventSender, walletAddress,
+        CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io())
   }
 

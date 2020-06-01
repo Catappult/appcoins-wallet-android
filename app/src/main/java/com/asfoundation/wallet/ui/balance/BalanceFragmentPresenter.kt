@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -13,6 +15,7 @@ import java.util.concurrent.TimeUnit
 class BalanceFragmentPresenter(private val view: BalanceFragmentView,
                                private val activityView: BalanceActivityView?,
                                private val balanceInteract: BalanceInteract,
+                               private val walletsEventSender: WalletsEventSender,
                                private val networkScheduler: Scheduler,
                                private val viewScheduler: Scheduler,
                                private val disposables: CompositeDisposable,
@@ -45,6 +48,14 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .doOnNext {
           view.dismissTooltip()
           balanceInteract.saveSeenBackupTooltip()
+        }
+        .doOnNext {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_FAIL)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -139,6 +150,14 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     disposables.add(view.getQrCodeClick()
         .observeOn(viewScheduler)
         .doOnNext { view.showQrCodeView() }
+        .doOnNext {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_FAIL)
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 

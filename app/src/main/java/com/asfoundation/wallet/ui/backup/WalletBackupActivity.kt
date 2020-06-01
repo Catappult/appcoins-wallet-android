@@ -104,10 +104,6 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
     when (item.itemId) {
       android.R.id.home -> {
         when (presenter.currentFragmentName) {
-          BackupWalletFragment.javaClass.name -> walletsEventSender.sendCreateBackupEvent(
-              WalletsAnalytics.ACTION_BACK,
-              WalletsAnalytics.CONTEXT_SETTINGS, WalletsAnalytics.STATUS_FAIL,
-              WalletsAnalytics.REASON_CANCELED)
           BackupCreationFragment.javaClass.name -> walletsEventSender.sendWalletSaveFileEvent(
               WalletsAnalytics.ACTION_BACK, WalletsAnalytics.STATUS_FAIL,
               WalletsAnalytics.REASON_CANCELED)
