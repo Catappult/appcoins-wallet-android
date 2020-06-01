@@ -46,8 +46,7 @@ class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = WalletDetailsPresenter(this, interactor, walletsEventSender, walletAddress,
-        CompositeDisposable(),
-        AndroidSchedulers.mainThread(), Schedulers.io())
+        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   override fun onAttach(context: Context) {
