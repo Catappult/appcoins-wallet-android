@@ -128,8 +128,7 @@ class BackupCreationPresenter(
         .doOnNext {
           if (fileShared) {
             activityView.closeScreen()
-            walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH)
-          } else {
+            walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH) } else {
             val file = fileInteractor.getCachedFile()
             if (file == null) showError("Error retrieving file") else {
               view.shareFile(fileInteractor.getUriFromFile(file))
