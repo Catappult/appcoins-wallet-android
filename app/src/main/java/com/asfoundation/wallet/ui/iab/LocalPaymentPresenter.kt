@@ -124,14 +124,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleOkErrorButtonClick() {
     disposables.add(view.getErrorDismissClick()
-        .observeOn(viewScheduler)
         .doOnNext { view.dismissError() }
         .subscribe())
   }
 
   private fun handleOkBuyButtonClick() {
     disposables.add(view.getGotItClick()
-        .observeOn(viewScheduler)
         .doOnNext { view.close() }
         .subscribe()
     )

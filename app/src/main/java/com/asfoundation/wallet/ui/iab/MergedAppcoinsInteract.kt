@@ -6,6 +6,7 @@ import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
+import java.util.*
 
 class MergedAppcoinsInteract(private val balanceInteract: BalanceInteract,
                              private val walletBlockedInteract: WalletBlockedInteract,
@@ -16,18 +17,21 @@ class MergedAppcoinsInteract(private val balanceInteract: BalanceInteract,
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
             supportInteractor.displayChatScreen()
           }
         }
   }
 
-  fun getEthBalance(): Observable<FiatValue> = balanceInteract.getEthBalance().map { it.second }
+  fun getEthBalance(): Observable<FiatValue> = balanceInteract.getEthBalance()
+      .map { it.second }
 
-  fun getAppcBalance(): Observable<FiatValue> = balanceInteract.getAppcBalance().map { it.second }
+  fun getAppcBalance(): Observable<FiatValue> = balanceInteract.getAppcBalance()
+      .map { it.second }
 
   fun getCreditsBalance(): Observable<FiatValue> =
-      balanceInteract.getCreditsBalance().map { it.second }
+      balanceInteract.getCreditsBalance()
+          .map { it.second }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 }

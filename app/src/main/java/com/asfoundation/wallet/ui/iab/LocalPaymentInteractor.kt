@@ -15,6 +15,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import java.util.*
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletService: WalletService,
@@ -82,7 +83,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
             supportInteractor.displayChatScreen()
           }
         }

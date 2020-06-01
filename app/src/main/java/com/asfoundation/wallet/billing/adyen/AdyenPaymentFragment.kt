@@ -324,9 +324,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
 
-  override fun getAdyenSupportLogoClicks(): Observable<Any> = RxView.clicks(layout_support_logo)
+  override fun getAdyenSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
-  override fun getAdyenSupportIconClicks(): Observable<Any> = RxView.clicks(layout_support_icn)
+  override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun lockRotation() = iabView.lockRotation()
 

@@ -13,6 +13,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
+import java.util.*
 
 class PaymentMethodsInteract(private val walletService: WalletService,
                              private val supportInteractor: SupportInteractor,
@@ -26,7 +27,7 @@ class PaymentMethodsInteract(private val walletService: WalletService,
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
             supportInteractor.displayChatScreen()
           }
         }
@@ -50,16 +51,14 @@ class PaymentMethodsInteract(private val walletService: WalletService,
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun getCurrentPaymentStep(packageName: String, transactionBuilder: TransactionBuilder)
-      : Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> {
-    return inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder)
-  }
+      : Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> =
+      inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder)
 
   fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
              packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean): Completable {
-    return inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-        developerPayload, isBds)
-  }
+             isBds: Boolean) =
+      inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
+          developerPayload, isBds)
 
   fun convertToLocalFiat(appcValue: Double): Single<FiatValue> =
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
@@ -73,9 +72,8 @@ class PaymentMethodsInteract(private val walletService: WalletService,
   fun removeAsyncLocalPayment() = inAppPurchaseInteractor.removeAsyncLocalPayment()
 
   fun getPaymentMethods(transaction: TransactionBuilder, transactionValue: String,
-                        currency: String): Single<List<PaymentMethod>> {
-    return inAppPurchaseInteractor.getPaymentMethods(transaction, transactionValue, currency)
-  }
+                        currency: String): Single<List<PaymentMethod>> =
+      inAppPurchaseInteractor.getPaymentMethods(transaction, transactionValue, currency)
 
   fun mergeAppcoins(paymentMethods: List<PaymentMethod>): List<PaymentMethod> =
       inAppPurchaseInteractor.mergeAppcoins(paymentMethods)

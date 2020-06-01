@@ -4,6 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.util.*
 
 class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                  private val supportInteractor: SupportInteractor,
@@ -13,7 +14,7 @@ class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurch
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
             supportInteractor.displayChatScreen()
           }
         }
