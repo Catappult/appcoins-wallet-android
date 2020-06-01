@@ -37,11 +37,6 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
         AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  override fun sendWalletSaveFileEvent(action: String,
-                                       status: String) {
-    sendWalletSaveFileEvent(action, status, null)
-  }
-
   override fun sendWalletSaveFileEvent(action: String, status: String,
                                        errorDetails: String?) {
     val eventData: MutableMap<String, Any> =
