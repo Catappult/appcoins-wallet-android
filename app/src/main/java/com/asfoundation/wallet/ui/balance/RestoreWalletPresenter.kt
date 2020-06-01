@@ -73,10 +73,6 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
         .flatMapSingle { fetchWalletModel(it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
-        .doOnNext {
-          walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
-              WalletsAnalytics.STATUS_SUCCESS)
-        }
         .doOnError { t ->
           walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
               WalletsAnalytics.STATUS_FAIL, t.message)
@@ -96,8 +92,12 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
       if (walletModel.error.type == RestoreErrorType.INVALID_PASS) {
         view.navigateToPasswordView(walletModel.keystore)
       } else view.showError(walletModel.error.type)
+      walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+          WalletsAnalytics.STATUS_FAIL, walletModel.error.type.toString())
     } else {
       setDefaultWallet(walletModel.address)
+      walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+          WalletsAnalytics.STATUS_SUCCESS)
     }
   }
 
