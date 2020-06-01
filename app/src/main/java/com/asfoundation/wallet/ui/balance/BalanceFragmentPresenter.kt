@@ -55,7 +55,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         }
         .doOnError {
           walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_FAIL)
+              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_FAIL, it.message)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
