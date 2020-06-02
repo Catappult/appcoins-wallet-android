@@ -91,9 +91,13 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
       activityView.hideAnimation()
       if (walletModel.error.type == RestoreErrorType.INVALID_PASS) {
         view.navigateToPasswordView(walletModel.keystore)
-      } else view.showError(walletModel.error.type)
-      walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
-          WalletsAnalytics.STATUS_FAIL, walletModel.error.type.toString())
+        walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+            WalletsAnalytics.STATUS_SUCCESS)
+      } else {
+        view.showError(walletModel.error.type)
+        walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+            WalletsAnalytics.STATUS_FAIL, walletModel.error.type.toString())
+      }
     } else {
       setDefaultWallet(walletModel.address)
       walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
