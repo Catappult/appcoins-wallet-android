@@ -18,8 +18,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
     eventData[EVENT_CONTEXT] = context
     eventData[EVENT_STATUS] = status
     if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
-    analytics.logEvent(eventData, WALLET_CREATE_BACKUP,
-        AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_CREATE_BACKUP, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendSaveBackupEvent(action: String) {
