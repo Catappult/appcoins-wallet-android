@@ -150,14 +150,6 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     disposables.add(view.getQrCodeClick()
         .observeOn(viewScheduler)
         .doOnNext { view.showQrCodeView() }
-        .doOnNext {
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_SUCCESS)
-        }
-        .doOnError {
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_FAIL)
-        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -166,6 +158,14 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { activityView?.navigateToBackupView(it) }
+        .doOnNext {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_FAIL)
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
