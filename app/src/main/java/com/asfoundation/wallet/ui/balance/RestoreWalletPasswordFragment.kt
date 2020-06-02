@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
@@ -28,6 +29,9 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
   lateinit var restoreWalletPasswordInteractor: RestoreWalletPasswordInteractor
 
   @Inject
+  lateinit var walletsEventSender: WalletsEventSender
+
+  @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
   private lateinit var activityView: RestoreWalletActivityView
   private lateinit var presenter: RestoreWalletPasswordPresenter
@@ -36,8 +40,8 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
     super.onCreate(savedInstanceState)
     presenter =
         RestoreWalletPasswordPresenter(this, activityView, restoreWalletPasswordInteractor,
-            CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
-            Schedulers.computation())
+            walletsEventSender, CompositeDisposable(), AndroidSchedulers.mainThread(),
+            Schedulers.io(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {

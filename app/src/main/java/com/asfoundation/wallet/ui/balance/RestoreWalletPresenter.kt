@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.logging.Logger
@@ -13,6 +15,7 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
                              private val activityView: RestoreWalletActivityView,
                              private val disposable: CompositeDisposable,
                              private val restoreWalletInteractor: RestoreWalletInteractor,
+                             private val walletsEventSender: WalletsEventSender,
                              private val logger: Logger,
                              private val viewScheduler: Scheduler,
                              private val computationScheduler: Scheduler) {
@@ -49,6 +52,14 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
   private fun handleRestoreFromFile() {
     disposable.add(view.restoreFromFileClick()
         .doOnNext { activityView.askForReadPermissions() }
+        .doOnNext {
+          walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT_FROM_FILE,
+              WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError { t ->
+          walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT_FROM_FILE,
+              WalletsAnalytics.STATUS_FAIL, t.message)
+        }
         .subscribe())
   }
 
@@ -62,6 +73,10 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
         .flatMapSingle { fetchWalletModel(it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
+        .doOnError { t ->
+          walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_FAIL, t.message)
+        }
         .subscribe())
   }
 
@@ -76,9 +91,17 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
       activityView.hideAnimation()
       if (walletModel.error.type == RestoreErrorType.INVALID_PASS) {
         view.navigateToPasswordView(walletModel.keystore)
-      } else view.showError(walletModel.error.type)
+        walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+            WalletsAnalytics.STATUS_SUCCESS)
+      } else {
+        view.showError(walletModel.error.type)
+        walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+            WalletsAnalytics.STATUS_FAIL, walletModel.error.type.toString())
+      }
     } else {
       setDefaultWallet(walletModel.address)
+      walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+          WalletsAnalytics.STATUS_SUCCESS)
     }
   }
 

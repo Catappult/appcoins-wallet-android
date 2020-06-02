@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.WalletModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -7,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView,
                                      private val activityView: RestoreWalletActivityView,
                                      private val interactor: RestoreWalletPasswordInteractor,
+                                     private val walletsEventSender: WalletsEventSender,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
                                      private val networkScheduler: Scheduler,
@@ -34,10 +37,21 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
           activityView.hideKeyboard()
           view.showWalletRestoreAnimation()
         }
+        .doOnNext {
+          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError {
+          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_FAIL, it.message)
+        }
         .observeOn(computationScheduler)
         .flatMapSingle { interactor.restoreWallet(keystore, it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
+        .doOnError {
+          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL, it.message)
+        }
         .subscribe())
   }
 
@@ -51,8 +65,11 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
     if (walletModel.error.hasError) {
       view.hideAnimation()
       view.showError(walletModel.error.type)
+      walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+          walletModel.error.type.toString())
     } else {
       setDefaultWallet(walletModel.address)
+      walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_SUCCESS)
     }
   }
 

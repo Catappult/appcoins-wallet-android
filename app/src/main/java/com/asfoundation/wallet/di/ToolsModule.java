@@ -77,6 +77,8 @@ import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.billing.partners.BdsPartnersApi;
 import com.asfoundation.wallet.billing.partners.InstallerService;
@@ -955,6 +957,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION);
     list.add(WalletValidationAnalytics.WALLET_CODE_VERIFICATION);
     list.add(WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION);
+    list.add(WalletsAnalytics.WALLET_CREATE_BACKUP);
+    list.add(WalletsAnalytics.WALLET_SAVE_BACKUP);
+    list.add(WalletsAnalytics.WALLET_CONFIRMATION_BACKUP);
+    list.add(WalletsAnalytics.WALLET_SAVE_FILE);
+    list.add(WalletsAnalytics.WALLET_IMPORT_RESTORE);
+    list.add(WalletsAnalytics.WALLET_PASSWORD_RESTORE);
     return list;
   }
 
@@ -985,6 +993,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
       WalletService walletService, PreferencesRepositoryType preferencesRepositoryType) {
     return new OnboardingInteract(createWalletInteract, walletService, preferencesRepositoryType);
+  }
+
+  @Singleton @Provides WalletsEventSender provideWalletEventSender(AnalyticsManager analytics) {
+    return new WalletsAnalytics(analytics);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
