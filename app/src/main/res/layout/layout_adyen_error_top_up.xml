@@ -2,35 +2,57 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_adyen_error_view"
+    android:id="@+id/generic_purchase_error_layout"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="match_parent"
     >
 
   <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/validation_success_animation"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="@+id/guideline3"
+      android:id="@+id/adyen_error_animation"
+      android:layout_width="66dp"
+      android:layout_height="66dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/guideline_top"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/adyen_error_animation"
       />
 
   <TextView
-      android:id="@+id/error_message"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:id="@+id/error_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="23dp"
+      android:fontFamily="sans-serif"
+      android:letterSpacing="0.03"
+      android:lineSpacingExtra="4sp"
+      android:text="@string/error_general"
+      android:textAlignment="center"
+      android:textColor="@color/btn_light_enabled_color"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/adyen_error_animation"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/error_message"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="@dimen/big_margin"
+      android:layout_marginEnd="16dp"
       android:textAlignment="center"
       android:textColor="@color/pending_payment_text_color"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/validation_success_animation"
+      app:layout_constraintTop_toBottomOf="@+id/error_title"
       tools:text="@string/purchase_card_error_invalid_details"
       />
 
@@ -39,7 +61,7 @@
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="32dp"
+      android:layout_marginTop="42dp"
       android:text="@string/error_contac_us_body"
       android:textAlignment="center"
       android:textColor="@color/grey_8a_alpha"
@@ -74,13 +96,27 @@
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
       />
 
+  <Button
+      android:id="@+id/try_again"
+      style="@style/ButtonStyle.Alternative"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/button_height"
+      android:layout_marginStart="32dp"
+      android:layout_marginEnd="32dp"
+      android:layout_marginBottom="76dp"
+      android:text="@string/try_again"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
+      app:layout_constraintVertical_bias="1"
+      />
   <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline3"
-      android:layout_width="wrap_content"
+      android:id="@+id/guideline_top"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.19"
+      app:layout_constraintGuide_percent="0.2"
       />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

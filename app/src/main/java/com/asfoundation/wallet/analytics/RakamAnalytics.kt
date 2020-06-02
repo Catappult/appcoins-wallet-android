@@ -7,6 +7,8 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.RakamReceiver
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import io.rakam.api.Rakam
 import io.rakam.api.RakamClient
 import io.rakam.api.TrackingOptions
@@ -50,13 +52,16 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
               .flatMap { installerPackage: String ->
                 Single.just(idsRepository.getGamificationLevel())
                     .flatMap { level: Int ->
-                      Single.just(idsRepository.getActiveWalletAddress())
-                          .doOnSuccess { walletAddress: String ->
-                            setRakamSuperProperties(rakamClient, installerPackage, level,
-                                walletAddress)
-                            if (!BuildConfig.DEBUG) {
-                              logger.addReceiver(RakamReceiver())
-                            }
+                      Single.just(hasGms())
+                          .flatMap { hasGms: Boolean ->
+                            Single.just(idsRepository.getActiveWalletAddress())
+                                .doOnSuccess { walletAddress: String ->
+                                  setRakamSuperProperties(rakamClient, installerPackage, level,
+                                      walletAddress, hasGms)
+                                  if (!BuildConfig.DEBUG) {
+                                    logger.addReceiver(RakamReceiver())
+                                  }
+                                }
                           }
                     }
               }
@@ -86,7 +91,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
 
   private fun setRakamSuperProperties(instance: RakamClient, installerPackage: String,
                                       userLevel: Int,
-                                      userId: String) {
+                                      userId: String, hasGms: Boolean) {
     val superProperties = instance.superProperties ?: JSONObject()
     try {
       superProperties.put(RakamEventLogger.APTOIDE_PACKAGE,
@@ -95,11 +100,17 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
       superProperties.put(RakamEventLogger.ENTRY_POINT,
           if (installerPackage.isEmpty()) "other" else installerPackage)
       superProperties.put(RakamEventLogger.USER_LEVEL, userLevel)
+      superProperties.put(RakamEventLogger.HAS_GMS, hasGms)
     } catch (e: JSONException) {
       e.printStackTrace()
     }
     instance.superProperties = superProperties
     if (userId.isNotEmpty()) instance.setUserId(userId)
     instance.enableForegroundTracking(context.applicationContext as Application)
+  }
+
+  private fun hasGms(): Boolean {
+    return GoogleApiAvailability.getInstance()
+        .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
   }
 }

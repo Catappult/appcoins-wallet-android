@@ -43,14 +43,14 @@
       android:gravity="center"
       android:visibility="gone"
       >
-    <include layout="@layout/fragment_iab_transaction_completed"/>
+    <include layout="@layout/fragment_iab_transaction_completed" />
   </FrameLayout>
 
   <include
       android:id="@+id/error_view"
-      layout="@layout/fragment_iab_error"
+      layout="@layout/iab_error_layout"
       android:layout_width="match_parent"
-      android:layout_height="160dp"
+      android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:visibility="gone"
       />
