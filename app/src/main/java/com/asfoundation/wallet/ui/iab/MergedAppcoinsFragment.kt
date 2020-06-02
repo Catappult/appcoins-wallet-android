@@ -14,10 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -32,9 +31,10 @@ import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_icon
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_name
 import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_description
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
-import kotlinx.android.synthetic.main.fragment_iab_error.*
+import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
+import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
@@ -55,6 +55,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val IS_DONATION_KEY = "is_donation"
     private const val SKU_ID = "sku_id"
     private const val TRANSACTION_TYPE = "transaction_type"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
     const val APPC = "appcoins"
     const val CREDITS = "credits"
 
@@ -64,7 +65,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     productName: String?,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean,
-                    isDonation: Boolean, skuId: String?, transactionType: String): Fragment {
+                    isDonation: Boolean, skuId: String?, transactionType: String,
+                    gamificationLevel: Int): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
         putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -79,6 +81,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         putBoolean(IS_DONATION_KEY, isDonation)
         putString(SKU_ID, skuId)
         putString(TRANSACTION_TYPE, transactionType)
+        putInt(GAMIFICATION_LEVEL, gamificationLevel)
       }
       fragment.arguments = bundle
       return fragment
@@ -91,16 +94,13 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   private lateinit var iabView: IabView
 
   @Inject
-  lateinit var balanceInteract: BalanceInteract
-
-  @Inject
-  lateinit var walletBlockedInteract: WalletBlockedInteract
-
-  @Inject
   lateinit var billingAnalytics: BillingAnalytics
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var mergedAppcoinsInteract: MergedAppcoinsInteract
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -193,13 +193,22 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+  private val gamificationLevel: Int by lazy {
+    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
+      arguments!!.getInt(GAMIFICATION_LEVEL)
+    } else {
+      throw IllegalArgumentException("gamification level not found")
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
-    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(), balanceInteract,
-        AndroidSchedulers.mainThread(), walletBlockedInteract, Schedulers.io(), billingAnalytics,
-        formatter)
+    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(),
+        AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
+        formatter, mergedAppcoinsInteract, gamificationLevel, navigator)
   }
 
   override fun onAttach(context: Context) {
@@ -367,6 +376,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+
   override fun getPaymentSelection(): Observable<String> {
     return paymentSelectionSubject!!
   }
@@ -395,21 +405,24 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun showError(@StringRes errorMessage: Int) {
     payment_method_main_view.visibility = GONE
-    activity_iab_error_message.text = getString(errorMessage)
-    activity_iab_error_view.visibility = VISIBLE
+    error_dismiss.text = getString(R.string.ok)
+    error_message.text = getString(errorMessage)
+    merged_error_layout.visibility = VISIBLE
   }
 
-  override fun navigateToAppcPayment() {
-    iabView.showOnChain(fiatAmount, isBds, bonus)
-  }
+  override fun errorDismisses() = RxView.clicks(error_dismiss)
 
-  override fun navigateToCreditsPayment() {
-    iabView.showAppcoinsCreditsPayment(appcAmount)
-  }
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
-  override fun navigateToPaymentMethods() {
-    iabView.showPaymentMethodsView()
-  }
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+
+  override fun navigateToAppcPayment() =
+      iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
+
+  override fun navigateToCreditsPayment() =
+      iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
+
+  override fun navigateToPaymentMethods() = iabView.showPaymentMethodsView()
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =

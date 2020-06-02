@@ -17,17 +17,17 @@ interface IabView {
   fun showError()
   fun close(bundle: Bundle?)
   fun navigateToWebViewAuthorization(url: String)
-  fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String)
+  fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String, gamificationLevel: Int)
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
                        iconUrl: String?, gamificationLevel: Int)
 
-  fun showAppcoinsCreditsPayment(appcAmount: BigDecimal)
+  fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int)
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                        type: String, amount: BigDecimal, callbackUrl: String?,
                        orderReference: String?, payload: String?, paymentMethodIconUrl: String,
-                       paymentMethodLabel: String)
+                       paymentMethodLabel: String, gamificationLevel: Int)
 
   fun showPaymentMethodsView()
   fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,
@@ -36,7 +36,7 @@ interface IabView {
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                          productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
-                         isBds: Boolean, isDonation: Boolean)
+                         isBds: Boolean, isDonation: Boolean, gamificationLevel: Int)
 
   fun showWalletBlocked()
   fun lockRotation()

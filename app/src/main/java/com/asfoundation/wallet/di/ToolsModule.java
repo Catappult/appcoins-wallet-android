@@ -210,6 +210,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver.OperationDataSource;
+import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyInteract;
 import com.asfoundation.wallet.ui.iab.ApproveKeyProvider;
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
@@ -217,6 +218,9 @@ import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.LocalPaymentAnalytics;
 import com.asfoundation.wallet.ui.iab.LocalPaymentInteractor;
+import com.asfoundation.wallet.ui.iab.MergedAppcoinsInteract;
+import com.asfoundation.wallet.ui.iab.OnChainBuyInteract;
+import com.asfoundation.wallet.ui.iab.PaymentMethodsInteract;
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper;
 import com.asfoundation.wallet.ui.iab.RewardsManager;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
@@ -502,9 +506,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides LocalPaymentInteractor provideLocalPaymentInteractor(InAppDeepLinkRepository repository,
       WalletService walletService, AddressService partnerAddressService,
       InAppPurchaseInteractor inAppPurchaseInteractor, Billing billing,
-      BillingMessagesMapper billingMessagesMapper) {
+      BillingMessagesMapper billingMessagesMapper, SupportInteractor supportInteractor) {
     return new LocalPaymentInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, billing, billingMessagesMapper);
+        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor);
   }
 
   @Provides LocalPaymentAnalytics provideLocalPaymentAnalytics(BillingAnalytics billingAnalytics,
@@ -1382,5 +1386,33 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides FileInteractor provideFileInteract(Context context,
       ContentResolver contentResolver, PreferencesRepositoryType preferencesRepositoryType) {
     return new FileInteractor(context, contentResolver, preferencesRepositoryType);
+  }
+
+  @Provides PaymentMethodsInteract providePaymentMethodsInteractor(WalletService walletService,
+      SupportInteractor supportInteractor, GamificationInteractor gamificationInteractor,
+      BalanceInteract balanceInteract, WalletBlockedInteract walletBlockedInteract,
+      InAppPurchaseInteractor inAppPurchaseInteractor) {
+    return new PaymentMethodsInteract(walletService, supportInteractor, gamificationInteractor,
+        balanceInteract, walletBlockedInteract, inAppPurchaseInteractor);
+  }
+
+  @Provides MergedAppcoinsInteract provideMergedAppcoinsInteractor(BalanceInteract balanceInteract,
+      WalletBlockedInteract walletBlockedInteract, SupportInteractor supportInteractor,
+      WalletService walletService) {
+    return new MergedAppcoinsInteract(balanceInteract, walletBlockedInteract, supportInteractor,
+        walletService);
+  }
+
+  @Provides AppcoinsRewardsBuyInteract providesAppcoinsRewardsBuyInteract(
+      InAppPurchaseInteractor inAppPurchaseInteractor, SupportInteractor supportInteractor,
+      WalletService walletService) {
+    return new AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor,
+        walletService);
+  }
+
+  @Provides OnChainBuyInteract providesOnChainBuyInteract(
+      InAppPurchaseInteractor inAppPurchaseInteractor, SupportInteractor supportInteractor,
+      WalletService walletService) {
+    return new OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService);
   }
 }
