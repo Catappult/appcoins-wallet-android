@@ -178,10 +178,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun onResume() {
-    if (paymentMethodList.isNotEmpty()) {
-      showLoading()
-    }
-    presenter.setupUi(transactionValue.toDouble())
+    if (paymentMethodList.isNotEmpty()) showLoading()
+    presenter.onResume()
     super.onResume()
   }
 
