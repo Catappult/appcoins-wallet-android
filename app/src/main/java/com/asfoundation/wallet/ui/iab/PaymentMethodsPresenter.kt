@@ -58,7 +58,6 @@ class PaymentMethodsPresenter(
   fun present() {
 
     handleOnGoingPurchases()
-    setupUi(transactionValue)
     handleCancelClick()
     handleErrorDismisses()
     handleMorePaymentMethodClicks()
@@ -68,6 +67,8 @@ class PaymentMethodsPresenter(
       handlePaymentSelection()
     }
   }
+
+  fun onResume() = setupUi(transactionValue)
 
   private fun handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
