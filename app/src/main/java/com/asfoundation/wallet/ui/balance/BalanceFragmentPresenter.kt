@@ -49,14 +49,6 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
           view.dismissTooltip()
           balanceInteract.saveSeenBackupTooltip()
         }
-        .doOnNext {
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_SUCCESS)
-        }
-        .doOnError {
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_FAIL, it.message)
-        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -68,6 +60,14 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
           balanceInteract.saveSeenBackupTooltip()
           activityView?.navigateToBackupView(it)
           view.dismissTooltip()
+        }
+        .doOnNext {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_TOOLTIP, WalletsAnalytics.STATUS_FAIL, it.message)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
