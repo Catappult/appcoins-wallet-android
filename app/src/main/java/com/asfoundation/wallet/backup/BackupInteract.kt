@@ -23,6 +23,14 @@ class BackupInteract(
     private val findDefaultWalletInteract: FindDefaultWalletInteract
 ) : BackupInteractContract {
 
+  companion object {
+    private const val DISMISS_PERIOD = 30L
+    private const val TRANSACTION_COUNT_THRESHOLD = 10
+    private const val GAMIFICATION_LEVEL_THRESHOLD = 2
+    private const val BALANCE_AMOUNT_THRESHOLD = 10
+
+  }
+
   override fun getUnwatchedBackupNotification(): Single<CardNotification> {
     return findDefaultWalletInteract.find()
         .flatMap { wallet ->
@@ -99,12 +107,19 @@ class BackupInteract(
     }
   }
 
-  companion object {
-    private const val DISMISS_PERIOD = 30L
-    private const val TRANSACTION_COUNT_THRESHOLD = 10
-    private const val GAMIFICATION_LEVEL_THRESHOLD = 2
-    private const val BALANCE_AMOUNT_THRESHOLD = 10
-
+  fun shouldShowSystemNotification(walletAddress: String): Single<Boolean> {
+    return sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
+        .flatMap {
+          if (it >= 2) {
+            sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
+                .map { dismissed -> dismissed.not() }
+          } else {
+            Single.just(false)
+          }
+        }
   }
+
+  fun updateWalletPurchasesCount(walletAddress: String) =
+      sharedPreferencesRepository.incrementWalletPurchasesCount(walletAddress)
 
 }

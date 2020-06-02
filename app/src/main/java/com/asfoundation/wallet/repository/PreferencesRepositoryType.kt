@@ -36,6 +36,10 @@ interface PreferencesRepositoryType {
   fun getGamificationLevel(): Int
   fun saveChosenUri(uri: String)
   fun getChosenUri(): String?
-  fun getSeenBackupToolip(): Boolean
+  fun getSeenBackupTooltip(): Boolean
   fun saveSeenBackupTooltip()
+  fun hasDismissedBackupSystemNotification(walletAddress: String): Single<Boolean>
+  fun setDismissedBackupSystemNotification(walletAddress: String): Completable
+  fun getWalletPurchasesCount(walletAddress: String): Single<Int>
+  fun incrementWalletPurchasesCount(walletAddress: String): Completable
 }
