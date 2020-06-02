@@ -195,6 +195,7 @@ import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
+import com.asfoundation.wallet.ui.SettingsInteract;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
@@ -231,6 +232,7 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.ui.wallets.WalletsInteract;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
@@ -1414,5 +1416,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       InAppPurchaseInteractor inAppPurchaseInteractor, SupportInteractor supportInteractor,
       WalletService walletService) {
     return new OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService);
+  }
+
+  @Provides SettingsInteract providesSettingsInteract(
+      FindDefaultWalletInteract findDefaultWalletInteract,
+      SmsValidationInteract smsValidationInteract,
+      PreferencesRepositoryType preferencesRepositoryType, WalletsInteract walletsInteract) {
+    return new SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
+        preferencesRepositoryType, walletsInteract);
   }
 }
