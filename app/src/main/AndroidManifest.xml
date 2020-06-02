@@ -84,7 +84,7 @@
         android:label="@string/title_my_address" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/wallets_title" />
+        android:label="@string/balance_title" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
         android:label="@string/balance_title"
