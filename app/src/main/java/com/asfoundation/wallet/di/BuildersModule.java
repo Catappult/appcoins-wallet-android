@@ -24,6 +24,7 @@ import com.asfoundation.wallet.ui.MyAddressActivity;
 import com.asfoundation.wallet.ui.OneStepPaymentReceiver;
 import com.asfoundation.wallet.ui.SendActivity;
 import com.asfoundation.wallet.ui.SettingsActivity;
+import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment;
 import com.asfoundation.wallet.ui.SplashActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.UpdateRequiredActivity;
@@ -236,4 +237,7 @@ import dagger.android.ContributesAndroidInjector;
 
   @FragmentScope @ContributesAndroidInjector()
   abstract BackupSuccessFragment bindBackupSuccessFragment();
+
+  @FragmentScope @ContributesAndroidInjector()
+  abstract SettingsWalletsBottomSheetFragment bindSettingsBottomSheetFragment();
 }

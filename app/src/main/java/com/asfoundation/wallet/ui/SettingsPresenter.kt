@@ -6,6 +6,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class SettingsPresenter(private val view: SettingsView,
+                        private val activityView: SettingsActivityView,
                         private val networkScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
                         private val disposables: CompositeDisposable,
@@ -63,10 +64,10 @@ class SettingsPresenter(private val view: SettingsView,
         view.showError()
       }
       1 -> {
-        view.navigateToBackUp(walletModel.walletsBalance[0].walletAddress)
+        activityView.navigateToBackup(walletModel.walletsBalance[0].walletAddress)
       }
       else -> {
-        view.showWalletsBottomSheet(walletModel)
+        activityView.showWalletsBottomSheet(walletModel)
       }
     }
   }

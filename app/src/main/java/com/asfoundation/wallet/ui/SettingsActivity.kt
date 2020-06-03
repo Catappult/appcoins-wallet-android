@@ -1,18 +1,24 @@
 package com.asfoundation.wallet.ui
 
+import android.app.ActivityOptions
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
+import com.asfoundation.wallet.ui.backup.WalletBackupActivity
+import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class SettingsActivity : BaseActivity(), HasAndroidInjector {
+class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityView {
 
   @Inject
   lateinit var androidInjector: DispatchingAndroidInjector<Any>
+  private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -34,4 +40,21 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector {
   }
 
   override fun androidInjector() = androidInjector
+
+  override fun showWalletsBottomSheet(walletModel: WalletsModel) {
+    supportFragmentManager.beginTransaction()
+        .setCustomAnimations(R.anim.fade_in_animation, R.anim.fragment_slide_down,
+            R.anim.fade_in_animation, R.anim.fragment_slide_down)
+        .replace(R.id.bottom_sheet_fragment_container,
+            SettingsWalletsFragment.newInstance(walletModel))
+        .addToBackStack(SettingsWalletsFragment::class.java.simpleName)
+        .commit()
+  }
+
+  override fun navigateToBackup(address: String, popBackStack: Boolean) {
+    startActivity(WalletBackupActivity.newIntent(this, address),
+        ActivityOptions.makeSceneTransitionAnimation(this)
+            .toBundle())
+    if (popBackStack) supportFragmentManager.popBackStack()
+  }
 }

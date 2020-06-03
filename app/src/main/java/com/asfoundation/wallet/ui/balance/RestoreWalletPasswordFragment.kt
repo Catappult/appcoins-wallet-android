@@ -72,17 +72,11 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
         .map { password_edit_text.editableText.toString() }
   }
 
-  override fun showWalletRestoreAnimation() {
-    activityView.showWalletRestoreAnimation()
-  }
+  override fun showWalletRestoreAnimation() = activityView.showWalletRestoreAnimation()
 
-  override fun showWalletRestoredAnimation() {
-    activityView.showWalletRestoredAnimation()
-  }
+  override fun showWalletRestoredAnimation() = activityView.showWalletRestoredAnimation()
 
-  override fun hideAnimation() {
-    activityView.hideAnimation()
-  }
+  override fun hideAnimation() = activityView.hideAnimation()
 
   override fun showError(type: RestoreErrorType) {
     label_input.isErrorEnabled = true

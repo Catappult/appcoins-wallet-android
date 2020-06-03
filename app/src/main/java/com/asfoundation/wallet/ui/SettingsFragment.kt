@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -14,9 +15,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -34,12 +33,22 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   lateinit var supportInteractor: SupportInteractor
 
   private lateinit var presenter: SettingsPresenter
+  private lateinit var activityView: SettingsActivityView
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    if (context !is SettingsActivityView) {
+      throw IllegalStateException("Settings Fragment must be attached to Settings Activity")
+    }
+    activityView = context
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
-    presenter = SettingsPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-        CompositeDisposable(), settingsInteract)
+    presenter =
+        SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
+            CompositeDisposable(), settingsInteract)
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -110,17 +119,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun showError() {
     view?.let {
       Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
-          .show()
-    }
-  }
-
-  override fun navigateToBackUp(walletAddress: String) {
-    context?.let { startActivity(WalletBackupActivity.newIntent(it, walletAddress)) }
-  }
-
-  override fun showWalletsBottomSheet(walletModel: WalletsModel) {
-    view?.let {
-      Snackbar.make(it, R.string.backup_done_title, Snackbar.LENGTH_SHORT)
           .show()
     }
   }
