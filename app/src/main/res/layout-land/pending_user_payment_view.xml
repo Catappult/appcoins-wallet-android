@@ -68,7 +68,7 @@
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/step_one"
       app:layout_constraintTop_toBottomOf="@id/in_progress_animation"
-      tools:text="Complete your payment with GO-PAY"
+      tools:text="@string/async_steps_1_no_notification"
       tools:visibility="visible"
       />
 
