@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
 import com.asfoundation.wallet.interact.WalletModel
+import com.asfoundation.wallet.util.RestoreErrorType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -25,7 +26,7 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
               .observeOn(viewScheduler)
               .doOnNext { fiatValue -> view.updateUi(address, fiatValue) }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRestoreWalletButtonClicked(keystore: String) {
@@ -38,13 +39,17 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         .flatMapSingle { interactor.restoreWallet(keystore, it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
-        .subscribe())
+        .subscribe({}, {
+          it.printStackTrace()
+          view.hideAnimation()
+          view.showError(RestoreErrorType.GENERIC)
+        }))
   }
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
         .doOnComplete { view.showWalletRestoredAnimation() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletModel(walletModel: WalletModel) {

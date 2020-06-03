@@ -19,7 +19,7 @@ class SettingsWalletsBottomSheetPresenter(
   private fun handleWalletCardClick() {
     disposables.add(view.walletCardClicked()
         .doOnNext { view.navigateToBackup(it) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
 

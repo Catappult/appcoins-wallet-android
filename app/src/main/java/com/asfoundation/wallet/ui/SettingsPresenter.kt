@@ -31,7 +31,7 @@ class SettingsPresenter(private val view: SettingsView,
             else -> handleValidationCache(it.first)
           }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleValidationCache(address: String) {
@@ -55,7 +55,10 @@ class SettingsPresenter(private val view: SettingsView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { handleWalletModel(it) }
-        .subscribe())
+        .subscribe({}, {
+          it.printStackTrace()
+          view.showError()
+        }))
   }
 
   private fun handleWalletModel(walletModel: WalletsModel) {
