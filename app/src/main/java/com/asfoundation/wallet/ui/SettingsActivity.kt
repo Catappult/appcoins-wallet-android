@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui
 
-import android.app.ActivityOptions
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -52,9 +51,7 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
   }
 
   override fun navigateToBackup(address: String, popBackStack: Boolean) {
-    startActivity(WalletBackupActivity.newIntent(this, address),
-        ActivityOptions.makeSceneTransitionAnimation(this)
-            .toBundle())
+    startActivity(WalletBackupActivity.newIntent(this, address))
     if (popBackStack) supportFragmentManager.popBackStack()
   }
 }
