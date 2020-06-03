@@ -20,10 +20,10 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
   private fun populateUi(keystore: String) {
     disposable.add(interactor.extractWalletAddress(keystore)
         .subscribeOn(networkScheduler)
-        .flatMap { address ->
+        .flatMapObservable { address ->
           interactor.getOverallBalance(address)
               .observeOn(viewScheduler)
-              .doOnSuccess { fiatValue -> view.updateUi(address, fiatValue) }
+              .doOnNext { fiatValue -> view.updateUi(address, fiatValue) }
         }
         .subscribe())
   }
@@ -56,7 +56,5 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
     }
   }
 
-  fun stop() {
-    disposable.clear()
-  }
+  fun stop() = disposable.clear()
 }

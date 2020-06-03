@@ -44,7 +44,7 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
     onPermissionSubject = PublishSubject.create()
     setContentView(R.layout.restore_wallet_layout)
     toolbar()
-    navigateToInitialRestoreFragment()
+    if (savedInstanceState == null) navigateToInitialRestoreFragment()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

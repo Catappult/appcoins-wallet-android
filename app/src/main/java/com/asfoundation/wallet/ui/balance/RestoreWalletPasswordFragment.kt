@@ -51,6 +51,7 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setTextChangeListener()
     presenter.present(keystore)
   }
 
@@ -61,7 +62,6 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
 
   @SuppressLint("SetTextI18n")
   override fun updateUi(address: String, fiatValue: FiatValue) {
-    setTextChangeListener()
     wallet_address.text = address
     wallet_balance.text =
         "${fiatValue.symbol}${currencyFormatUtils.formatCurrency(fiatValue.amount)}"
@@ -87,6 +87,11 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
       RestoreErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
       else -> label_input.error = getString(R.string.error_general)
     }
+  }
+
+  override fun onDestroyView() {
+    presenter.stop()
+    super.onDestroyView()
   }
 
   private fun setTextChangeListener() {
