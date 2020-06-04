@@ -151,8 +151,7 @@ class InteractModule {
       bdsTransactionService: BdsTransactionService,
       billingMessagesMapper: BillingMessagesMapper): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
-        gasSettingsInteract, BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT),
-        parser,
+        gasSettingsInteract, BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, currencyConversionService, bdsTransactionService,
         Schedulers.io())
   }
@@ -169,8 +168,7 @@ class InteractModule {
                                         bdsTransactionService: BdsTransactionService,
                                         billingMessagesMapper: BillingMessagesMapper): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
-        gasSettingsInteract, BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT),
-        parser,
+        gasSettingsInteract, BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, currencyConversionService, bdsTransactionService,
         Schedulers.io())
   }
@@ -200,24 +198,19 @@ class InteractModule {
   }
 
   @Provides
-  fun provideFetchCreditsInteract(balanceGetter: BalanceGetter): FetchCreditsInteract {
-    return FetchCreditsInteract(balanceGetter)
-  }
+  fun provideFetchCreditsInteract(balanceGetter: BalanceGetter) =
+      FetchCreditsInteract(balanceGetter)
 
   @Provides
-  fun provideFindDefaultNetworkInteract(networkInfo: NetworkInfo): FindDefaultNetworkInteract {
-    return FindDefaultNetworkInteract(networkInfo,
-        AndroidSchedulers.mainThread())
-  }
+  fun provideFindDefaultNetworkInteract(networkInfo: NetworkInfo) =
+      FindDefaultNetworkInteract(networkInfo, AndroidSchedulers.mainThread())
 
   @Singleton
   @Provides
   fun provideTransferInteractor(rewardsManager: RewardsManager,
                                 balance: GetDefaultWalletBalanceInteract,
-                                findWallet: FindDefaultWalletInteract): TransferInteractor {
-    return TransferInteractor(rewardsManager, TransactionDataValidator(), balance,
-        findWallet)
-  }
+                                findWallet: FindDefaultWalletInteract) =
+      TransferInteractor(rewardsManager, TransactionDataValidator(), balance, findWallet)
 
   @Singleton
   @Provides
@@ -226,10 +219,8 @@ class InteractModule {
                                findDefaultWalletInteract: FindDefaultWalletInteract,
                                airdropChainIdMapper: AirdropChainIdMapper): AirdropInteractor {
     return AirdropInteractor(
-        Airdrop(AppcoinsTransactionService(pendingTransactionService),
-            BehaviorSubject.create(), airdropService),
-        findDefaultWalletInteract,
-        airdropChainIdMapper)
+        Airdrop(AppcoinsTransactionService(pendingTransactionService), BehaviorSubject.create(),
+            airdropService), findDefaultWalletInteract, airdropChainIdMapper)
   }
 
   @Provides
@@ -245,30 +236,24 @@ class InteractModule {
 
   @Provides
   fun provideCreateAccountInteract(accountRepository: WalletRepositoryType,
-                                   passwordStore: PasswordStore): CreateWalletInteract {
-    return CreateWalletInteract(accountRepository, passwordStore)
-  }
+                                   passwordStore: PasswordStore) =
+      CreateWalletInteract(accountRepository, passwordStore)
 
   @Provides
-  fun providePaymentReceiverInteract(
-      createWalletInteract: CreateWalletInteract): PaymentReceiverInteract {
-    return PaymentReceiverInteract(createWalletInteract)
-  }
+  fun providePaymentReceiverInteract(createWalletInteract: CreateWalletInteract) =
+      PaymentReceiverInteract(createWalletInteract)
 
   @Provides
   fun provideOnboardingInteract(createWalletInteract: CreateWalletInteract,
                                 walletService: WalletService,
-                                preferencesRepositoryType: PreferencesRepositoryType): OnboardingInteract {
-    return OnboardingInteract(createWalletInteract, walletService,
-        preferencesRepositoryType)
-  }
+                                preferencesRepositoryType: PreferencesRepositoryType) =
+      OnboardingInteract(createWalletInteract, walletService, preferencesRepositoryType)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,
                                     defaultWallet: FindDefaultWalletInteract,
-                                    conversionService: LocalCurrencyConversionService): GamificationInteractor {
-    return GamificationInteractor(gamification, defaultWallet, conversionService)
-  }
+                                    conversionService: LocalCurrencyConversionService) =
+      GamificationInteractor(gamification, defaultWallet, conversionService)
 
   @Provides
   fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,
@@ -290,53 +275,46 @@ class InteractModule {
   @Provides
   fun providesShareLinkInteractor(repository: ShareLinkRepository,
                                   interactor: FindDefaultWalletInteract,
-                                  inAppPurchaseInteractor: InAppPurchaseInteractor): ShareLinkInteractor {
-    return ShareLinkInteractor(repository, interactor, inAppPurchaseInteractor)
-  }
+                                  inAppPurchaseInteractor: InAppPurchaseInteractor) =
+      ShareLinkInteractor(repository, interactor, inAppPurchaseInteractor)
 
   @Singleton
   @Provides
   fun providesTopUpInteractor(repository: BdsRepository,
                               conversionService: LocalCurrencyConversionService,
                               gamificationInteractor: GamificationInteractor,
-                              topUpValuesService: TopUpValuesService): TopUpInteractor {
-    return TopUpInteractor(repository, conversionService, gamificationInteractor,
-        topUpValuesService, LinkedHashMap(), TopUpLimitValues())
-  }
+                              topUpValuesService: TopUpValuesService) =
+      TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
+          LinkedHashMap(), TopUpLimitValues())
 
   @Singleton
   @Provides
   fun provideSmsValidationInteract(smsValidationRepository: SmsValidationRepositoryType,
-                                   preferencesRepositoryType: PreferencesRepositoryType): SmsValidationInteract {
-    return SmsValidationInteract(smsValidationRepository, preferencesRepositoryType)
-  }
+                                   preferencesRepositoryType: PreferencesRepositoryType) =
+      SmsValidationInteract(smsValidationRepository, preferencesRepositoryType)
 
   @Singleton
   @Provides
   fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                              balanceRepository: BalanceRepository,
-                             preferencesRepositoryType: PreferencesRepositoryType): BalanceInteract {
-    return BalanceInteract(findDefaultWalletInteract, balanceRepository,
-        preferencesRepositoryType)
-  }
+                             preferencesRepositoryType: PreferencesRepositoryType) =
+      BalanceInteract(findDefaultWalletInteract, balanceRepository,
+          preferencesRepositoryType)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
                                 @Named("local_version_code")
                                 localVersionCode: Int, packageManager: PackageManager,
                                 sharedPreferences: PreferencesRepositoryType,
-                                context: Context): AutoUpdateInteract {
-    return AutoUpdateInteract(autoUpdateRepository, localVersionCode,
-        Build.VERSION.SDK_INT,
-        packageManager, context.packageName, sharedPreferences)
-  }
+                                context: Context) =
+      AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
+          packageManager, context.packageName, sharedPreferences)
 
   @Singleton
   @Provides
   fun provideFileInteract(context: Context, contentResolver: ContentResolver,
-                          preferencesRepositoryType: PreferencesRepositoryType): FileInteractor {
-    return FileInteractor(context, contentResolver, preferencesRepositoryType)
-  }
+                          preferencesRepositoryType: PreferencesRepositoryType) =
+      FileInteractor(context, contentResolver, preferencesRepositoryType)
 
   @Provides
   fun providePaymentMethodsInteractor(walletService: WalletService,
@@ -354,8 +332,7 @@ class InteractModule {
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportInteractor: SupportInteractor,
                                       walletService: WalletService): MergedAppcoinsInteract {
-    return MergedAppcoinsInteract(balanceInteract, walletBlockedInteract,
-        supportInteractor,
+    return MergedAppcoinsInteract(balanceInteract, walletBlockedInteract, supportInteractor,
         walletService)
   }
 
@@ -363,8 +340,7 @@ class InteractModule {
   fun providesAppcoinsRewardsBuyInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                                          supportInteractor: SupportInteractor,
                                          walletService: WalletService): AppcoinsRewardsBuyInteract {
-    return AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor,
-        walletService)
+    return AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService)
   }
 
   @Provides
@@ -400,14 +376,14 @@ class InteractModule {
   }
 
   @Provides
-  fun provideTransactionsViewInteract(
-      findDefaultNetworkInteract: FindDefaultNetworkInteract,
-      findDefaultWalletInteract: FindDefaultWalletInteract,
-      fetchTransactionsInteract: FetchTransactionsInteract,
-      gamificationInteractor: GamificationInteractor, balanceInteract: BalanceInteract,
-      promotionsInteractorContract: PromotionsInteractorContract,
-      cardNotificationsInteractor: CardNotificationsInteractor,
-      autoUpdateInteract: AutoUpdateInteract): TransactionViewInteract {
+  fun provideTransactionsViewInteract(findDefaultNetworkInteract: FindDefaultNetworkInteract,
+                                      findDefaultWalletInteract: FindDefaultWalletInteract,
+                                      fetchTransactionsInteract: FetchTransactionsInteract,
+                                      gamificationInteractor: GamificationInteractor,
+                                      balanceInteract: BalanceInteract,
+                                      promotionsInteractorContract: PromotionsInteractorContract,
+                                      cardNotificationsInteractor: CardNotificationsInteractor,
+                                      autoUpdateInteract: AutoUpdateInteract): TransactionViewInteract {
     return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteract,
         promotionsInteractorContract, cardNotificationsInteractor, autoUpdateInteract)
@@ -420,28 +396,27 @@ class InteractModule {
   }
 
   @Provides
-  fun provideBackupInteractor(
-      sharedPreferences: PreferencesRepositoryType,
-      gamificationInteractor: GamificationInteractor,
-      fetchTransactionsInteract: FetchTransactionsInteract, balanceInteract: BalanceInteract,
-      findDefaultWalletInteract: FindDefaultWalletInteract): BackupInteractContract {
+  fun provideBackupInteractor(sharedPreferences: PreferencesRepositoryType,
+                              gamificationInteractor: GamificationInteractor,
+                              fetchTransactionsInteract: FetchTransactionsInteract,
+                              balanceInteract: BalanceInteract,
+                              findDefaultWalletInteract: FindDefaultWalletInteract): BackupInteractContract {
     return BackupInteract(sharedPreferences, fetchTransactionsInteract, balanceInteract,
         gamificationInteractor, findDefaultWalletInteract)
   }
 
   @Provides
-  fun provideCardNotificationInteractor(
-      referralInteractor: ReferralInteractorContract, autoUpdateInteract: AutoUpdateInteract,
-      backupInteract: BackupInteractContract): CardNotificationsInteractor {
+  fun provideCardNotificationInteractor(referralInteractor: ReferralInteractorContract,
+                                        autoUpdateInteract: AutoUpdateInteract,
+                                        backupInteract: BackupInteractContract): CardNotificationsInteractor {
     return CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
         backupInteract)
   }
 
   @Singleton
   @Provides
-  fun provideTokenRepository(
-      defaultTokenProvider: DefaultTokenProvider,
-      walletRepositoryType: WalletRepositoryType): TokenRepository {
+  fun provideTokenRepository(defaultTokenProvider: DefaultTokenProvider,
+                             walletRepositoryType: WalletRepositoryType): TokenRepository {
     return TokenRepository(defaultTokenProvider, walletRepositoryType)
   }
 
@@ -452,15 +427,13 @@ class InteractModule {
   }
 
   @Provides
-  fun provideDeleteAccountInteract(
-      accountRepository: WalletRepositoryType, store: PasswordStore,
-      preferencesRepositoryType: PreferencesRepositoryType): DeleteWalletInteract {
+  fun provideDeleteAccountInteract(accountRepository: WalletRepositoryType, store: PasswordStore,
+                                   preferencesRepositoryType: PreferencesRepositoryType): DeleteWalletInteract {
     return DeleteWalletInteract(accountRepository, store, preferencesRepositoryType)
   }
 
   @Provides
-  fun provideFetchAccountsInteract(
-      accountRepository: WalletRepositoryType): FetchWalletsInteract {
+  fun provideFetchAccountsInteract(accountRepository: WalletRepositoryType): FetchWalletsInteract {
     return FetchWalletsInteract(accountRepository)
   }
 
@@ -494,17 +467,14 @@ class InteractModule {
       setDefaultWalletInteract: SetDefaultWalletInteract,
       fileInteractor: FileInteractor): RestoreWalletInteractor {
     return RestoreWalletInteractor(walletRepository, setDefaultWalletInteract,
-        passwordStore,
-        preferencesRepositoryType, fileInteractor)
+        passwordStore, preferencesRepositoryType, fileInteractor)
   }
 
   @Singleton
   @Provides
-  fun provideRestoreWalletInteractor(gson: Gson,
-                                     balanceInteract: BalanceInteract,
+  fun provideRestoreWalletInteractor(gson: Gson, balanceInteract: BalanceInteract,
                                      restoreWalletInteractor: RestoreWalletInteractor): RestoreWalletPasswordInteractor {
-    return RestoreWalletPasswordInteractor(gson, balanceInteract,
-        restoreWalletInteractor)
+    return RestoreWalletPasswordInteractor(gson, balanceInteract, restoreWalletInteractor)
   }
 
 }

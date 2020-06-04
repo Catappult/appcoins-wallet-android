@@ -89,8 +89,7 @@ class RepositoryModule {
   @Provides
   fun providesAppCoinsOperationRepository(context: Context): AppCoinsOperationRepository {
     return AppCoinsOperationRepository(
-        Room.databaseBuilder(context.applicationContext,
-            AppCoinsOperationDatabase::class.java,
+        Room.databaseBuilder(context.applicationContext, AppCoinsOperationDatabase::class.java,
             "appcoins_operations_data")
             .build()
             .appCoinsOperationDao(), AppCoinsOperationMapper())
