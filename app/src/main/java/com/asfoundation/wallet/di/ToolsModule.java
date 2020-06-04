@@ -1433,8 +1433,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides SettingsInteract providesSettingsInteract(
       FindDefaultWalletInteract findDefaultWalletInteract,
       SmsValidationInteract smsValidationInteract,
-      PreferencesRepositoryType preferencesRepositoryType, WalletsInteract walletsInteract) {
+      PreferencesRepositoryType preferencesRepositoryType, WalletsInteract walletsInteract,
+      WalletsEventSender walletsEventSender) {
     return new SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, walletsInteract);
+        preferencesRepositoryType, walletsInteract, walletsEventSender);
   }
 }

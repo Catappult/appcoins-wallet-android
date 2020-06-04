@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
 import com.asfoundation.wallet.ui.wallets.WalletsModel
@@ -14,9 +15,7 @@ import com.asfoundation.wallet.ui.wallets.WalletsViewType
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.android.support.DaggerFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
 import javax.inject.Inject
@@ -26,6 +25,9 @@ class SettingsWalletsBottomSheetFragment : DaggerFragment(), SettingsWalletsBott
 
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
   private lateinit var presenter: SettingsWalletsBottomSheetPresenter
   private lateinit var adapter: WalletsAdapter
   private var uiEventListener: PublishSubject<String>? = null
@@ -47,8 +49,8 @@ class SettingsWalletsBottomSheetFragment : DaggerFragment(), SettingsWalletsBott
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     uiEventListener = PublishSubject.create()
-    presenter = SettingsWalletsBottomSheetPresenter(this, CompositeDisposable(),
-        AndroidSchedulers.mainThread(), Schedulers.io(), walletsModel)
+    presenter = SettingsWalletsBottomSheetPresenter(this, CompositeDisposable(), walletsEventSender,
+        walletsModel)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.ui
 
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class SettingsWalletsBottomSheetPresenter(
     private val view: SettingsWalletsBottomSheetView,
     private val disposables: CompositeDisposable,
-    private val viewScheduler: Scheduler,
-    private val networkScheduler: Scheduler,
+    private val walletsEventSender: WalletsEventSender,
     private val walletsModel: WalletsModel) {
 
   fun present() {
@@ -19,6 +19,14 @@ class SettingsWalletsBottomSheetPresenter(
   private fun handleWalletCardClick() {
     disposables.add(view.walletCardClicked()
         .doOnNext { view.navigateToBackup(it) }
+        .doOnNext {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError {
+          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_FAIL)
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 

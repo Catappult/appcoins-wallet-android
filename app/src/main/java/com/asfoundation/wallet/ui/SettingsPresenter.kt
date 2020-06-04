@@ -64,9 +64,11 @@ class SettingsPresenter(private val view: SettingsView,
   private fun handleWalletModel(walletModel: WalletsModel) {
     when (walletModel.totalWallets) {
       0 -> {
+        settingsInteract.sendCreateErrorEvent()
         view.showError()
       }
       1 -> {
+        settingsInteract.sendCreateSuccessEvent()
         activityView.navigateToBackup(walletModel.walletsBalance[0].walletAddress)
       }
       else -> {
