@@ -1,11 +1,8 @@
 package com.asfoundation.wallet.topup
 
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.asfoundation.wallet.backup.BackupInteractContract
-import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -19,20 +16,8 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private val gamificationInteractor: GamificationInteractor,
                       private val topUpValuesService: TopUpValuesService,
                       private val chipValueIndexMap: LinkedHashMap<FiatValue, Int>,
-                      private var limitValues: TopUpLimitValues,
-                      private val walletService: WalletService,
-                      private val backupInteractContract: BackupInteractContract) {
+                      private var limitValues: TopUpLimitValues) {
 
-  fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> {
-    return walletService.getWalletAddress()
-        .flatMap { wallet ->
-          backupInteractContract.updateWalletPurchasesCount(wallet)
-              .andThen(backupInteractContract.shouldShowSystemNotification(wallet))
-              .map {
-                NotificationNeeded(it, wallet)
-              }
-        }
-  }
 
   fun getPaymentMethods(): Single<List<PaymentMethodData>> {
     return repository.getPaymentMethods(type = "fiat")

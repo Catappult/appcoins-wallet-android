@@ -38,7 +38,7 @@ object BackupNotificationUtils {
             .setAutoCancel(true)
             .setContentIntent(backupIntent)
             .addAction(0, context.getString(R.string.dismiss_button), dismissIntent)
-            .addAction(0, context.getString(R.string.backup_notification_body), backupIntent)
+            .addAction(0, context.getString(R.string.backup_title), backupIntent)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentText(context.getString(R.string.backup_home_notification_body))
             .build()

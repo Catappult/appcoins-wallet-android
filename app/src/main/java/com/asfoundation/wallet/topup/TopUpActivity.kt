@@ -31,9 +31,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
   @Inject
-  lateinit var topUpInteractor: TopUpInteractor
-
-  @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
 
   private lateinit var results: PublishRelay<Uri>
@@ -59,8 +56,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-    presenter = TopUpActivityPresenter(this, topUpInteractor, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable())
+    presenter = TopUpActivityPresenter(this, inAppPurchaseInteractor,
+        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {

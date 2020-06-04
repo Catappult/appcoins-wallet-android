@@ -8,6 +8,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -113,6 +114,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun enableBack() {
     isBackEnable = true
+  }
+
+  override fun handleNotificationsAndFinish(data: Bundle) {
+    presenter.handleBackupNotifications(data)
+  }
+
+  override fun showBackupNotification(walletAddress: String) {
+    BackupNotificationUtils.showBackupNotification(this, walletAddress)
   }
 
   override fun finish(bundle: Bundle) {

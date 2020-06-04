@@ -179,9 +179,11 @@ class InteractModule {
                                          asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
                                          appcoinsRewards: AppcoinsRewards, billing: Billing,
                                          sharedPreferences: SharedPreferences,
-                                         packageManager: PackageManager): InAppPurchaseInteractor {
+                                         packageManager: PackageManager,
+                                         backupInteract: BackupInteractContract): InAppPurchaseInteractor {
     return InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences, packageManager)
+        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences, packageManager,
+        backupInteract)
   }
 
   @Provides
@@ -281,10 +283,9 @@ class InteractModule {
   fun providesTopUpInteractor(repository: BdsRepository,
                               conversionService: LocalCurrencyConversionService,
                               gamificationInteractor: GamificationInteractor,
-                              topUpValuesService: TopUpValuesService, walletService: WalletService,
-                              backupInteractContract: BackupInteractContract) =
+                              topUpValuesService: TopUpValuesService) =
       TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
-          LinkedHashMap(), TopUpLimitValues(), walletService, backupInteractContract)
+          LinkedHashMap(), TopUpLimitValues())
 
   @Singleton
   @Provides

@@ -2,12 +2,13 @@ package com.asfoundation.wallet.topup
 
 import android.content.Intent
 import android.os.Bundle
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class TopUpActivityPresenter(private val view: TopUpActivityView,
-                             private val topUpInteractor: TopUpInteractor,
+                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
                              private val disposables: CompositeDisposable) {
@@ -29,7 +30,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
 
   fun handleBackupNotifications(bundle: Bundle) {
     disposables.add(
-        topUpInteractor.incrementAndValidateNotificationNeeded()
+        inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { notificationNeeded ->

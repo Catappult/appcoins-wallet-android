@@ -16,7 +16,7 @@ public class FragmentNavigator implements Navigator {
   }
 
   @Override public void popView(Bundle bundle) {
-    iabView.finish(bundle);
+    iabView.handleNotificationsAndFinish(bundle);
   }
 
   @Override public void popViewWithError() {
