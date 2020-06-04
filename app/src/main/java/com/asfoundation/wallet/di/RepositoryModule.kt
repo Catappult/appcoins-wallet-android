@@ -67,23 +67,20 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providePreferencesRepository(
-      sharedPreferences: SharedPreferences): SharedPreferencesRepository {
+  fun providePreferencesRepository(sharedPreferences: SharedPreferences): SharedPreferencesRepository {
     return SharedPreferencesRepository(sharedPreferences)
   }
 
   @Singleton
   @Provides
-  fun providePreferenceRepositoryType(
-      sharedPreferenceRepository: SharedPreferencesRepository): PreferencesRepositoryType {
+  fun providePreferenceRepositoryType(sharedPreferenceRepository: SharedPreferencesRepository): PreferencesRepositoryType {
     return sharedPreferenceRepository
   }
 
   @Singleton
   @Provides
-  fun provideGasSettingsRepository(gasService: GasService): GasSettingsRepositoryType {
-    return GasSettingsRepository(gasService)
-  }
+  fun provideGasSettingsRepository(gasService: GasService): GasSettingsRepositoryType =
+      GasSettingsRepository(gasService)
 
   @Singleton
   @Provides
@@ -98,22 +95,18 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideRemoteRepository(bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi,
-        BdsApiResponseMapper(), api)
+    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api)
   }
 
   @Singleton
   @Provides
-  fun provideBdsRepository(repository: RemoteRepository): BdsRepository {
-    return BdsRepository(repository)
-  }
+  fun provideBdsRepository(repository: RemoteRepository) = BdsRepository(repository)
 
   @Singleton
   @Provides
   fun provideAdyenPaymentRepository(client: OkHttpClient): AdyenPaymentRepository {
     val api = Retrofit.Builder()
-        .baseUrl(
-            BuildConfig.BASE_HOST + "/broker/8.20191202/gateways/adyen_v2/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20191202/gateways/adyen_v2/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -123,8 +116,7 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providePromotionsRepository(api: GamificationApi,
-                                  preferences: SharedPreferences): PromotionsRepository {
+  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences): PromotionsRepository {
     return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences),
         getVersionCode())
   }
@@ -138,8 +130,7 @@ class RepositoryModule {
   @Provides
   fun providesOffChainTransactionsRepository(client: OkHttpClient): OffChainTransactionsRepository {
     val objectMapper = ObjectMapper()
-    val df: DateFormat =
-        SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
+    val df: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
     objectMapper.dateFormat = df
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
     val retrofit = Retrofit.Builder()
@@ -148,9 +139,7 @@ class RepositoryModule {
         .client(client)
         .baseUrl(BuildConfig.BACKEND_HOST)
         .build()
-    return OffChainTransactionsRepository(
-        retrofit.create(TransactionsApi::class.java),
-        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US))
+    return OffChainTransactionsRepository(retrofit.create(TransactionsApi::class.java), SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US))
   }
 
   @Singleton
@@ -160,8 +149,7 @@ class RepositoryModule {
                                    defaultTokenProvider: DefaultTokenProvider,
                                    nonceObtainer: MultiWalletNonceObtainer,
                                    transactionsNetworkRepository: OffChainTransactions,
-                                   context: Context,
-                                   sharedPreferences: SharedPreferences): TransactionRepositoryType {
+                                   context: Context, sharedPreferences: SharedPreferences): TransactionRepositoryType {
     val MIGRATION_1_2: Migration = object : Migration(1, 2) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
@@ -211,27 +199,22 @@ class RepositoryModule {
   }
 
   @Provides
-  fun provideAutoUpdateRepository(autoUpdateService: AutoUpdateService): AutoUpdateRepository {
-    return AutoUpdateRepository(autoUpdateService)
-  }
+  fun provideAutoUpdateRepository(autoUpdateService: AutoUpdateService) =
+      AutoUpdateRepository(autoUpdateService)
 
   @Singleton
   @Provides
   fun provideIdsRepository(context: Context,
                            sharedPreferencesRepository: SharedPreferencesRepository,
                            installerService: InstallerService): IdsRepository {
-    return IdsRepository(context.contentResolver, sharedPreferencesRepository,
-        installerService)
+    return IdsRepository(context.contentResolver, sharedPreferencesRepository, installerService)
   }
 
-  private fun getVersionCode(): String {
-    return BuildConfig.VERSION_CODE.toString()
-  }
+  private fun getVersionCode() = BuildConfig.VERSION_CODE.toString()
 
   @Singleton
   @Provides
-  fun provideWalletRepository(
-      preferencesRepositoryType: PreferencesRepositoryType,
+  fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
       accountKeystoreService: AccountKeystoreService, walletBalanceService: WalletBalanceService,
       analyticsSetup: RakamAnalytics): WalletRepositoryType {
     return WalletRepository(preferencesRepositoryType, accountKeystoreService,
@@ -266,6 +249,5 @@ class RepositoryModule {
   fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
     return LocalPayementsLinkRepository(api)
   }
-
 
 }

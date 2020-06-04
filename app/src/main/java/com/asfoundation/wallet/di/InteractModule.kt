@@ -133,8 +133,7 @@ class InteractModule {
   @Provides
   fun provideBdsInAppPurchaseInteractor(
       billingPaymentProofSubmission: BillingPaymentProofSubmission,
-      @Named("ASF_BDS_IN_APP_INTERACTOR")
-      inAppPurchaseInteractor: AsfInAppPurchaseInteractor,
+      @Named("ASF_BDS_IN_APP_INTERACTOR") inAppPurchaseInteractor: AsfInAppPurchaseInteractor,
       billing: Billing): BdsInAppPurchaseInteractor {
     return BdsInAppPurchaseInteractor(inAppPurchaseInteractor, billingPaymentProofSubmission,
         ApproveKeyProvider(billing), billing)
@@ -159,8 +158,7 @@ class InteractModule {
   @Singleton
   @Provides
   @Named("ASF_IN_APP_INTERACTOR")
-  fun provideAsfInAppPurchaseInteractor(@Named("ASF_IN_APP_PURCHASE_SERVICE")
-                                        inAppPurchaseService: InAppPurchaseService,
+  fun provideAsfInAppPurchaseInteractor(@Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
                                         defaultWalletInteract: FindDefaultWalletInteract,
                                         gasSettingsInteract: FetchGasSettingsInteract,
                                         parser: TransferParser, billing: Billing,
@@ -176,14 +174,12 @@ class InteractModule {
   @Singleton
   @Provides
   fun provideDualInAppPurchaseInteractor(bdsInAppPurchaseInteractor: BdsInAppPurchaseInteractor,
-                                         @Named("ASF_IN_APP_INTERACTOR")
-                                         asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
+                                         @Named("ASF_IN_APP_INTERACTOR") asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
                                          appcoinsRewards: AppcoinsRewards, billing: Billing,
                                          sharedPreferences: SharedPreferences,
                                          packageManager: PackageManager): InAppPurchaseInteractor {
     return InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences,
-        packageManager)
+        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences, packageManager)
   }
 
   @Provides

@@ -61,14 +61,13 @@ class ServiceModule {
 
   @Provides
   @Named("BUY_SERVICE_ON_CHAIN")
-  fun provideBuyServiceOnChain(
-      sendTransactionInteract: SendTransactionInteract,
-      errorMapper: ErrorMapper,
-      @Named("wait_pending_transaction")
-      pendingTransactionService: TrackTransactionService,
-      defaultTokenProvider: DefaultTokenProvider, countryCodeProvider: CountryCodeProvider,
-      dataMapper: DataMapper,
-      addressService: AddressService): BuyService {
+  fun provideBuyServiceOnChain(sendTransactionInteract: SendTransactionInteract,
+                               errorMapper: ErrorMapper,
+                               @Named("wait_pending_transaction")
+                               pendingTransactionService: TrackTransactionService,
+                               defaultTokenProvider: DefaultTokenProvider,
+                               countryCodeProvider: CountryCodeProvider, dataMapper: DataMapper,
+                               addressService: AddressService): BuyService {
     return BuyService(WatchedTransactionService(object : TransactionSender {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
@@ -107,12 +106,11 @@ class ServiceModule {
   @Singleton
   @Provides
   @Named("IN_APP_PURCHASE_SERVICE")
-  fun provideInAppPurchaseService(
-      @Named("APPROVE_SERVICE_BDS") approveService: ApproveService,
-      allowanceService: AllowanceService,
-      @Named("BUY_SERVICE_BDS") buyService: BuyService,
-      balanceService: BalanceService,
-      errorMapper: ErrorMapper): InAppPurchaseService {
+  fun provideInAppPurchaseService(@Named("APPROVE_SERVICE_BDS") approveService: ApproveService,
+                                  allowanceService: AllowanceService,
+                                  @Named("BUY_SERVICE_BDS") buyService: BuyService,
+                                  balanceService: BalanceService,
+                                  errorMapper: ErrorMapper): InAppPurchaseService {
     return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
         allowanceService, buyService, balanceService, Schedulers.io(), errorMapper)
   }
@@ -122,29 +120,19 @@ class ServiceModule {
   @Named("ASF_IN_APP_PURCHASE_SERVICE")
   fun provideInAppPurchaseServiceAsf(
       @Named("APPROVE_SERVICE_ON_CHAIN") approveService: ApproveService,
-      allowanceService: AllowanceService,
-      @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
-      balanceService: BalanceService,
-      errorMapper: ErrorMapper): InAppPurchaseService {
-    return InAppPurchaseService(
-        MemoryCache(
-            BehaviorSubject.create(),
-            HashMap()),
-        approveService, allowanceService, buyService, balanceService,
-        Schedulers.io(), errorMapper)
+      allowanceService: AllowanceService, @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
+      balanceService: BalanceService, errorMapper: ErrorMapper): InAppPurchaseService {
+    return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
+        allowanceService, buyService, balanceService, Schedulers.io(), errorMapper)
   }
 
   @Singleton
   @Provides
   fun providesBdsTransactionService(billing: Billing,
                                     billingPaymentProofSubmission: BillingPaymentProofSubmission): BdsTransactionService {
-    return BdsTransactionService(Schedulers.io(),
-        MemoryCache(
-            BehaviorSubject.create(),
-            HashMap()),
+    return BdsTransactionService(Schedulers.io(), MemoryCache(BehaviorSubject.create(), HashMap()),
         CompositeDisposable(),
-        BdsPendingTransactionService(billing, Schedulers.io(), 5,
-            billingPaymentProofSubmission))
+        BdsPendingTransactionService(billing, Schedulers.io(), 5, billingPaymentProofSubmission))
   }
 
   @Singleton
@@ -158,20 +146,15 @@ class ServiceModule {
       createWalletInteract: CreateWalletInteract,
       findDefaultWalletInteract: FindDefaultWalletInteract,
       campaignInteract: CampaignInteract): ProofOfAttentionService {
-    return ProofOfAttentionService(MemoryCache(
-        BehaviorSubject.create(),
-        HashMap()),
-        BuildConfig.APPLICATION_ID, hashCalculator,
-        CompositeDisposable(), proofWriter,
-        Schedulers.computation(), maxNumberProofComponents,
-        BackEndErrorMapper(), disposables,
+    return ProofOfAttentionService(MemoryCache(BehaviorSubject.create(), HashMap()),
+        BuildConfig.APPLICATION_ID, hashCalculator, CompositeDisposable(), proofWriter,
+        Schedulers.computation(), maxNumberProofComponents, BackEndErrorMapper(), disposables,
         countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract,
         campaignInteract)
   }
 
   @Provides
-  fun provideAirdropService(client: OkHttpClient,
-                            gson: Gson): AirdropService {
+  fun provideAirdropService(client: OkHttpClient, gson: Gson): AirdropService {
     val api = Retrofit.Builder()
         .baseUrl(AirdropService.BASE_URL)
         .client(client)
@@ -184,8 +167,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideTokenRateService(client: OkHttpClient,
-                              objectMapper: ObjectMapper): TokenRateService {
+  fun provideTokenRateService(client: OkHttpClient, objectMapper: ObjectMapper): TokenRateService {
     val baseUrl = TokenRateService.CONVERSION_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -199,8 +181,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideLocalCurrencyConversionService(
-      client: OkHttpClient, objectMapper: ObjectMapper): LocalCurrencyConversionService {
+  fun provideLocalCurrencyConversionService(client: OkHttpClient,
+                                            objectMapper: ObjectMapper): LocalCurrencyConversionService {
     val baseUrl = LocalCurrencyConversionService.CONVERSION_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -214,9 +196,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideCurrencyConversionService(
-      tokenRateService: TokenRateService,
-      localCurrencyConversionService: LocalCurrencyConversionService): CurrencyConversionService {
+  fun provideCurrencyConversionService(tokenRateService: TokenRateService,
+                                       localCurrencyConversionService: LocalCurrencyConversionService): CurrencyConversionService {
     return CurrencyConversionService(tokenRateService, localCurrencyConversionService)
   }
 
@@ -231,8 +212,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideProxyService(
-      proxySdk: AppCoinsAddressProxySdk): ProxyService {
+  fun provideProxyService(proxySdk: AppCoinsAddressProxySdk): ProxyService {
     return object : ProxyService {
       private val NETWORK_ID_ROPSTEN = 3
       private val NETWORK_ID_MAIN = 1
@@ -251,8 +231,7 @@ class ServiceModule {
   fun provideBdsPendingTransactionService(
       billingPaymentProofSubmission: BillingPaymentProofSubmission,
       billing: Billing): BdsPendingTransactionService {
-    return BdsPendingTransactionService(billing, Schedulers.io(), 5,
-        billingPaymentProofSubmission)
+    return BdsPendingTransactionService(billing, Schedulers.io(), 5, billingPaymentProofSubmission)
   }
 
   @Singleton
@@ -266,8 +245,7 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(CampaignApi::class.java)
-    return CampaignService(api, BuildConfig.VERSION_CODE,
-        Schedulers.io())
+    return CampaignService(api, BuildConfig.VERSION_CODE, Schedulers.io())
   }
 
   @Singleton
@@ -276,8 +254,7 @@ class ServiceModule {
                              addressService: WalletAddressService,
                              oemIdExtractorService: OemIdExtractorService): AddressService {
     return PartnerAddressService(installerService, addressService,
-        DeviceInfo(Build.MANUFACTURER,
-            Build.MODEL), oemIdExtractorService)
+        DeviceInfo(Build.MANUFACTURER, Build.MODEL), oemIdExtractorService)
   }
 
   @Singleton
@@ -302,8 +279,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideGasService(client: OkHttpClient,
-                        gson: Gson): GasService {
+  fun provideGasService(client: OkHttpClient, gson: Gson): GasService {
     return Retrofit.Builder()
         .baseUrl(GasService.API_BASE_URL)
         .client(client)
@@ -315,17 +291,14 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideOemIdExtractorService(context: Context,
-                                   extractor: IExtract): OemIdExtractorService {
+  fun provideOemIdExtractorService(context: Context, extractor: IExtract): OemIdExtractorService {
     return OemIdExtractorService(OemIdExtractorV1(context),
         OemIdExtractorV2(context, extractor))
   }
 
   @Provides
-  fun provideAutoUpdateService(
-      autoUpdateApi: AutoUpdateApi): AutoUpdateService {
-    return AutoUpdateService(autoUpdateApi)
-  }
+  fun provideAutoUpdateService(autoUpdateApi: AutoUpdateApi) =
+      AutoUpdateService(autoUpdateApi)
 
   @Provides
   fun provideBalanceService(
@@ -352,8 +325,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideWalletBalanceService(client: OkHttpClient,
-                                  gson: Gson): WalletBalanceService {
+  fun provideWalletBalanceService(client: OkHttpClient, gson: Gson): WalletBalanceService {
     return Retrofit.Builder()
         .baseUrl(WalletBalanceService.API_BASE_URL)
         .client(client)
@@ -404,8 +376,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideSmsValidationApi(client: OkHttpClient,
-                              gson: Gson): SmsValidationApi {
+  fun provideSmsValidationApi(client: OkHttpClient, gson: Gson): SmsValidationApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -418,8 +389,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideWalletStatusApi(client: OkHttpClient,
-                             gson: Gson): WalletStatusApi {
+  fun provideWalletStatusApi(client: OkHttpClient, gson: Gson): WalletStatusApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -432,8 +402,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideDeepLinkApi(client: OkHttpClient,
-                         gson: Gson): DeepLinkApi {
+  fun provideDeepLinkApi(client: OkHttpClient, gson: Gson): DeepLinkApi {
     val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -446,8 +415,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun providesTopUpValuesApi(client: OkHttpClient,
-                             gson: Gson): TopUpValuesApi {
+  fun providesTopUpValuesApi(client: OkHttpClient, gson: Gson): TopUpValuesApi {
     val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -460,8 +428,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsShareLinkApi(client: OkHttpClient,
-                             gson: Gson): BdsShareLinkApi {
+  fun provideBdsShareLinkApi(client: OkHttpClient, gson: Gson): BdsShareLinkApi {
     val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -474,8 +441,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsPartnersApi(client: OkHttpClient,
-                            gson: Gson): BdsPartnersApi {
+  fun provideBdsPartnersApi(client: OkHttpClient, gson: Gson): BdsPartnersApi {
     val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -488,8 +454,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideAnalyticsAPI(client: OkHttpClient,
-                          objectMapper: ObjectMapper): AnalyticsAPI {
+  fun provideAnalyticsAPI(client: OkHttpClient, objectMapper: ObjectMapper): AnalyticsAPI {
     return Retrofit.Builder()
         .baseUrl("https://ws75.aptoide.com/api/7/")
         .client(client)
@@ -516,8 +481,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBackendApi(client: OkHttpClient,
-                        gson: Gson): BackendApi {
+  fun provideBackendApi(client: OkHttpClient, gson: Gson): BackendApi {
     return Retrofit.Builder()
         .baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)
@@ -529,8 +493,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideAppcoinsApps(client: OkHttpClient,
-                          gson: Gson): AppcoinsApps {
+  fun provideAppcoinsApps(client: OkHttpClient, gson: Gson): AppcoinsApps {
     val appsApi = Retrofit.Builder()
         .baseUrl(AppsApi.API_BASE_URL)
         .client(client)
@@ -558,8 +521,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsApiSecondary(client: OkHttpClient,
-                             gson: Gson): BdsApiSecondary {
+  fun provideBdsApiSecondary(client: OkHttpClient, gson: Gson): BdsApiSecondary {
     val baseUrl = BuildConfig.BDS_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -569,6 +531,5 @@ class ServiceModule {
         .build()
         .create(BdsApiSecondary::class.java)
   }
-
 
 }

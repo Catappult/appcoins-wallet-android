@@ -186,9 +186,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideErrorMapper(): com.asfoundation.wallet.repository.ErrorMapper {
-    return com.asfoundation.wallet.repository.ErrorMapper()
-  }
+  fun provideErrorMapper() = ErrorMapper()
 
   @Provides
   fun provideGasSettingsRouter() = GasSettingsRouter()
@@ -243,9 +241,7 @@ internal class AppModule {
   @Singleton
   @Provides
   @Named("REGISTER_PROOF_GAS_LIMIT")
-  fun provideRegisterPoaGasLimit(): BigDecimal {
-    return BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT)
-  }
+  fun provideRegisterPoaGasLimit() = BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT)
 
   @Singleton
   @Provides
@@ -256,24 +252,20 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideAdsContractAddressSdk(): AppCoinsAddressProxySdk {
-    return AppCoinsAddressProxyBuilder().createAddressProxySdk()
-  }
+  fun provideAdsContractAddressSdk(): AppCoinsAddressProxySdk =
+      AppCoinsAddressProxyBuilder().createAddressProxySdk()
 
   @Singleton
   @Provides
-  fun provideHashCalculator(calculator: Calculator): HashCalculator {
-    return HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator)
-  }
+  fun provideHashCalculator(calculator: Calculator) =
+      HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator)
 
   @Provides
   @Named("MAX_NUMBER_PROOF_COMPONENTS")
   fun provideMaxNumberProofComponents() = 12
 
   @Provides
-  fun provideTaggedCompositeDisposable(): TaggedCompositeDisposable {
-    return TaggedCompositeDisposable(HashMap())
-  }
+  fun provideTaggedCompositeDisposable() = TaggedCompositeDisposable(HashMap())
 
   @Provides
   @Singleton
@@ -311,26 +303,20 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideBillingFactory(walletService: WalletService,
-                            bdsRepository: BdsRepository): Billing {
+  fun provideBillingFactory(walletService: WalletService, bdsRepository: BdsRepository): Billing {
     return BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper())
   }
 
   @Singleton
   @Provides
-  fun provideAppcoinsRewards(walletService: WalletService,
-                             billing: Billing, backendApi: BackendApi,
+  fun provideAppcoinsRewards(walletService: WalletService, billing: Billing, backendApi: BackendApi,
                              remoteRepository: RemoteRepository): AppcoinsRewards {
     return AppcoinsRewards(
         BdsAppcoinsRewardsRepository(CreditsRemoteRepository(backendApi, remoteRepository)),
         object : com.appcoins.wallet.appcoins.rewards.repository.WalletService {
-          override fun getWalletAddress(): Single<String> {
-            return walletService.getWalletAddress()
-          }
+          override fun getWalletAddress() = walletService.getWalletAddress()
 
-          override fun signContent(content: String): Single<String> {
-            return walletService.signContent(content)
-          }
+          override fun signContent(content: String) = walletService.signContent(content)
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), Schedulers.io(), billing,
         com.appcoins.wallet.appcoins.rewards.ErrorMapper())
   }
@@ -344,9 +330,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideBillingMessagesMapper(): BillingMessagesMapper {
-    return BillingMessagesMapper(ExternalBillingSerializer())
-  }
+  fun provideBillingMessagesMapper() = BillingMessagesMapper(ExternalBillingSerializer())
 
   @Provides
   fun provideAdyenEnvironment(): Environment {
@@ -364,9 +348,8 @@ internal class AppModule {
   }
 
   @Provides
-  fun provideGamification(promotionsRepository: PromotionsRepository): Gamification {
-    return Gamification(promotionsRepository)
-  }
+  fun provideGamification(promotionsRepository: PromotionsRepository) =
+      Gamification(promotionsRepository)
 
   @Singleton
   @Provides
@@ -386,61 +369,54 @@ internal class AppModule {
   @Singleton
   @Provides
   @Named("bi_event_list")
-  fun provideBiEventList(): List<String> {
-    val list: MutableList<String> = ArrayList()
-    list.add(BillingAnalytics.PURCHASE_DETAILS)
-    list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS)
-    list.add(BillingAnalytics.PAYMENT)
-    list.add(PoaAnalytics.POA_STARTED)
-    list.add(PoaAnalytics.POA_COMPLETED)
-    return list
-  }
+  fun provideBiEventList() = listOf(
+      BillingAnalytics.PURCHASE_DETAILS,
+      BillingAnalytics.PAYMENT_METHOD_DETAILS,
+      BillingAnalytics.PAYMENT,
+      PoaAnalytics.POA_STARTED,
+      PoaAnalytics.POA_COMPLETED)
 
   @Singleton
   @Provides
   @Named("facebook_event_list")
-  fun provideFacebookEventList(): List<String> {
-    val list: MutableList<String> = ArrayList()
-    list.add(BillingAnalytics.PURCHASE_DETAILS)
-    list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS)
-    list.add(BillingAnalytics.PAYMENT)
-    list.add(BillingAnalytics.REVENUE)
-    list.add(PoaAnalytics.POA_STARTED)
-    list.add(PoaAnalytics.POA_COMPLETED)
-    list.add(TransactionsAnalytics.OPEN_APPLICATION)
-    list.add(GamificationAnalytics.GAMIFICATION)
-    list.add(GamificationAnalytics.GAMIFICATION_MORE_INFO)
-    return list
-  }
+  fun provideFacebookEventList() = listOf(
+      BillingAnalytics.PURCHASE_DETAILS,
+      BillingAnalytics.PAYMENT_METHOD_DETAILS,
+      BillingAnalytics.PAYMENT,
+      BillingAnalytics.REVENUE,
+      PoaAnalytics.POA_STARTED,
+      PoaAnalytics.POA_COMPLETED,
+      TransactionsAnalytics.OPEN_APPLICATION,
+      GamificationAnalytics.GAMIFICATION,
+      GamificationAnalytics.GAMIFICATION_MORE_INFO
+  )
 
   @Singleton
   @Provides
   @Named("rakam_event_list")
-  fun provideRakamEventList(): List<String> {
-    val list: MutableList<String> = ArrayList()
-    list.add(BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
-    list.add(BillingAnalytics.RAKAM_PAYMENT_METHOD)
-    list.add(BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION)
-    list.add(BillingAnalytics.RAKAM_PAYMENT_CONCLUSION)
-    list.add(BillingAnalytics.RAKAM_PAYMENT_START)
-    list.add(BillingAnalytics.RAKAM_PAYPAL_URL)
-    list.add(TopUpAnalytics.WALLET_TOP_UP_START)
-    list.add(TopUpAnalytics.WALLET_TOP_UP_SELECTION)
-    list.add(TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION)
-    list.add(TopUpAnalytics.WALLET_TOP_UP_CONCLUSION)
-    list.add(TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL)
-    list.add(PoaAnalytics.RAKAM_POA_EVENT)
-    list.add(WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION)
-    list.add(WalletValidationAnalytics.WALLET_CODE_VERIFICATION)
-    list.add(WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION)
-    list.add(WalletsAnalytics.WALLET_CREATE_BACKUP)
-    list.add(WalletsAnalytics.WALLET_SAVE_BACKUP)
-    list.add(WalletsAnalytics.WALLET_CONFIRMATION_BACKUP)
-    list.add(WalletsAnalytics.WALLET_SAVE_FILE)
-    list.add(WalletsAnalytics.WALLET_IMPORT_RESTORE)
-    list.add(WalletsAnalytics.WALLET_PASSWORD_RESTORE)
-    return list
-  }
+  fun provideRakamEventList() = listOf(
+      BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
+      BillingAnalytics.RAKAM_PAYMENT_METHOD,
+      BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
+      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
+      BillingAnalytics.RAKAM_PAYMENT_START,
+      BillingAnalytics.RAKAM_PAYPAL_URL,
+      TopUpAnalytics.WALLET_TOP_UP_START,
+      TopUpAnalytics.WALLET_TOP_UP_SELECTION,
+      TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
+      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
+      TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
+      PoaAnalytics.RAKAM_POA_EVENT,
+      WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
+      WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
+      WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION,
+      WalletsAnalytics.WALLET_CREATE_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_BACKUP,
+      WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_FILE,
+      WalletsAnalytics.WALLET_IMPORT_RESTORE,
+      WalletsAnalytics.WALLET_PASSWORD_RESTORE
+  )
 
   @Singleton
   @Provides
@@ -461,27 +437,20 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideWalletEventSender(analytics: AnalyticsManager): WalletsEventSender {
-    return WalletsAnalytics(analytics)
-  }
+  fun provideWalletEventSender(analytics: AnalyticsManager): WalletsEventSender =
+      WalletsAnalytics(analytics)
 
   @Singleton
   @Provides
-  fun provideBillingAnalytics(analytics: AnalyticsManager): BillingAnalytics {
-    return BillingAnalytics(analytics)
-  }
+  fun provideBillingAnalytics(analytics: AnalyticsManager) = BillingAnalytics(analytics)
 
   @Singleton
   @Provides
-  fun providePoAAnalytics(analytics: AnalyticsManager): PoaAnalytics {
-    return PoaAnalytics(analytics)
-  }
+  fun providePoAAnalytics(analytics: AnalyticsManager) = PoaAnalytics(analytics)
 
   @Singleton
   @Provides
-  fun providesPoaAnalyticsController(): PoaAnalyticsController {
-    return PoaAnalyticsController(CopyOnWriteArrayList())
-  }
+  fun providesPoaAnalyticsController() = PoaAnalyticsController(CopyOnWriteArrayList())
 
   @Singleton
   @Provides
@@ -499,21 +468,15 @@ internal class AppModule {
   }
 
   @Provides
-  fun providesTopUpValuesApiResponseMapper(): TopUpValuesApiResponseMapper {
-    return TopUpValuesApiResponseMapper()
-  }
+  fun providesTopUpValuesApiResponseMapper() = TopUpValuesApiResponseMapper()
 
   @Singleton
   @Provides
-  fun providesTransactionsAnalytics(analytics: AnalyticsManager): TransactionsAnalytics {
-    return TransactionsAnalytics(analytics)
-  }
+  fun providesTransactionsAnalytics(analytics: AnalyticsManager) = TransactionsAnalytics(analytics)
 
   @Singleton
   @Provides
-  fun provideGamificationAnalytics(analytics: AnalyticsManager): GamificationAnalytics {
-    return GamificationAnalytics(analytics)
-  }
+  fun provideGamificationAnalytics(analytics: AnalyticsManager) = GamificationAnalytics(analytics)
 
   @Provides
   fun providesOffChainTransactions(repository: OffChainTransactionsRepository,
@@ -533,8 +496,7 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideNotificationManager(context: Context): NotificationManager {
-    return context.applicationContext.getSystemService(
-        Context.NOTIFICATION_SERVICE) as NotificationManager
+    return context.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
   }
 
   @Singleton
@@ -569,9 +531,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providePackageManager(context: Context): PackageManager {
-    return context.packageManager
-  }
+  fun providePackageManager(context: Context): PackageManager = context.packageManager
 
   @Singleton
   @Provides
@@ -597,15 +557,12 @@ internal class AppModule {
   }
 
   @Provides
-  fun provideUpdateNavigator(): UpdateNavigator {
-    return UpdateNavigator()
-  }
+  fun provideUpdateNavigator() = UpdateNavigator()
 
   @Singleton
   @Provides
-  fun provideSupportSharedPreferences(preferences: SharedPreferences): SupportSharedPreferences {
-    return SupportSharedPreferences(preferences)
-  }
+  fun provideSupportSharedPreferences(preferences: SharedPreferences) =
+      SupportSharedPreferences(preferences)
 
   @Singleton
   @Provides
@@ -616,27 +573,19 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideTopUpAnalytics(analyticsManager: AnalyticsManager): TopUpAnalytics {
-    return TopUpAnalytics(analyticsManager)
-  }
+  fun provideTopUpAnalytics(analyticsManager: AnalyticsManager) = TopUpAnalytics(analyticsManager)
 
   @Singleton
   @Provides
-  fun provideCurrencyFormatUtils(): CurrencyFormatUtils {
-    return create()
-  }
+  fun provideCurrencyFormatUtils() = create()
 
   @Singleton
   @Provides
-  fun provideWalletValidationAnalytics(
-      analyticsManager: AnalyticsManager): WalletValidationAnalytics {
-    return WalletValidationAnalytics(analyticsManager)
-  }
+  fun provideWalletValidationAnalytics(analyticsManager: AnalyticsManager) =
+      WalletValidationAnalytics(analyticsManager)
 
   @Provides
-  fun provideContentResolver(context: Context): ContentResolver {
-    return context.contentResolver
-  }
+  fun provideContentResolver(context: Context): ContentResolver = context.contentResolver
 
   @Singleton
   @Provides
