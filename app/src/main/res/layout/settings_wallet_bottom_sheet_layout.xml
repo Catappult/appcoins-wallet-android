@@ -15,7 +15,7 @@
       android:layout_marginTop="24dp"
       android:layout_marginEnd="16dp"
       android:letterSpacing="0.03"
-      android:text="Choose a wallet to backup"
+      android:text="@string/backup_choose_wallet_title"
       android:textColor="#de000000"
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
