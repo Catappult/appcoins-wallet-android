@@ -64,4 +64,6 @@ interface AdyenTopUpView {
 
   fun showBonus(bonus: BigDecimal, currency: String)
 
+  fun showBackupNotification(walletAddress: String)
+
 }

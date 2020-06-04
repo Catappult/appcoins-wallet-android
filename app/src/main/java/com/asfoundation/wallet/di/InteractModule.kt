@@ -228,10 +228,11 @@ class InteractModule {
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
                                     walletService: WalletService,
-                                    supportInteractor: SupportInteractor): AdyenPaymentInteractor {
+                                    supportInteractor: SupportInteractor,
+                                    backupInteract: BackupInteractContract): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor)
+        walletService, supportInteractor, backupInteract)
   }
 
   @Provides

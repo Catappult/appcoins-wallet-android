@@ -107,7 +107,7 @@ class BackupInteract(
     }
   }
 
-  fun shouldShowSystemNotification(walletAddress: String): Single<Boolean> {
+  override fun shouldShowSystemNotification(walletAddress: String): Single<Boolean> {
     return sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
         .flatMap {
           if (it >= 2) {
@@ -119,7 +119,7 @@ class BackupInteract(
         }
   }
 
-  fun updateWalletPurchasesCount(walletAddress: String) =
+  override fun updateWalletPurchasesCount(walletAddress: String) =
       sharedPreferencesRepository.incrementWalletPurchasesCount(walletAddress)
 
 }

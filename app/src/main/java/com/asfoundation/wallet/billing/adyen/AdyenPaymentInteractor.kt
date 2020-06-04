@@ -9,6 +9,8 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
+import com.asfoundation.wallet.backup.BackupInteractContract
+import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -20,6 +22,7 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(
@@ -29,14 +32,26 @@ class AdyenPaymentInteractor(
     private val partnerAddressService: AddressService,
     private val billing: Billing,
     private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor
+    private val supportInteractor: SupportInteractor,
+    private val backupInteractContract: BackupInteractContract
 ) {
+
+  fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> {
+    return walletService.getWalletAddress()
+        .flatMap { wallet ->
+          backupInteractContract.updateWalletPurchasesCount(wallet)
+              .andThen(backupInteractContract.shouldShowSystemNotification(wallet))
+              .map {
+                NotificationNeeded(it, wallet)
+              }
+        }
+  }
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
             supportInteractor.displayChatScreen()
           }
         }

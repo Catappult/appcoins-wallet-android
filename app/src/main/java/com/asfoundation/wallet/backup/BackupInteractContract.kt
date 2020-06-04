@@ -8,5 +8,6 @@ interface BackupInteractContract {
 
   fun getUnwatchedBackupNotification(): Single<CardNotification>
   fun dismissNotification(): Completable
-
+  fun shouldShowSystemNotification(walletAddress: String): Single<Boolean>
+  fun updateWalletPurchasesCount(walletAddress: String): Completable
 }
