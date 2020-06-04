@@ -177,9 +177,20 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     setupSubject!!.onNext(true)
   }
 
+  override fun onResume() {
+    if (paymentMethodList.isNotEmpty()) showLoading()
+    presenter.onResume()
+    super.onResume()
+  }
+
   private fun setupPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
                                   paymentMethodId: String) {
     pre_selected_payment_method_group.visibility = View.GONE
+    if (paymentMethods.isNotEmpty()) {
+      paymentMethodList.clear()
+      payment_methods_radio_group.removeAllViews()
+      hideLoading()
+    }
     payment_methods_list_group.visibility = View.VISIBLE
 
     var radioButton: AppCompatRadioButton

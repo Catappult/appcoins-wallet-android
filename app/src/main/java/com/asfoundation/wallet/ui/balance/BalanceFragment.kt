@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -42,6 +43,9 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   lateinit var balanceInteract: BalanceInteract
 
   @Inject
+  lateinit var walletsEventSender: WalletsEventSender
+
+  @Inject
   lateinit var formatter: CurrencyFormatUtils
 
   private var onBackPressedSubject: PublishSubject<Any>? = null
@@ -68,7 +72,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = BalanceFragmentPresenter(this, activityView, balanceInteract,
-        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
+        walletsEventSender, Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(),
+        formatter)
     onBackPressedSubject = PublishSubject.create()
   }
 

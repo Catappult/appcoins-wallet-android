@@ -7,15 +7,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_backup.*
+import javax.inject.Inject
 
 
 class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
@@ -35,6 +39,8 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   }
 
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
   private lateinit var presenter: BackupActivityPresenter
   private var onPermissionSubject: PublishSubject<Unit>? = null
   private var onDocumentFileSubject: PublishSubject<SystemFileIntentResult>? = null
@@ -59,6 +65,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   override fun showBackupScreen() {
+    presenter.currentFragmentName = BackupWalletFragment::class.java.simpleName
     setupToolbar()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, BackupWalletFragment.newInstance(walletAddress))
@@ -66,6 +73,7 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   }
 
   override fun showBackupCreationScreen(password: String) {
+    presenter.currentFragmentName = BackupCreationFragment::class.java.simpleName
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             BackupCreationFragment.newInstance(walletAddress, password))
@@ -91,6 +99,19 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
   override fun closeScreen() = finish()
 
   override fun onPermissionGiven() = onPermissionSubject!!
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      android.R.id.home -> {
+        when (presenter.currentFragmentName) {
+          BackupCreationFragment::class.java.simpleName -> walletsEventSender.sendWalletSaveFileEvent(
+              WalletsAnalytics.ACTION_BACK, WalletsAnalytics.STATUS_FAIL,
+              WalletsAnalytics.REASON_CANCELED)
+        }
+      }
+    }
+    return super.onOptionsItemSelected(item)
+  }
 
   override fun openSystemFileDirectory(fileName: String) {
     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {

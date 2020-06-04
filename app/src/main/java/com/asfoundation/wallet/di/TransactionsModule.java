@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.backup.BackupInteract;
 import com.asfoundation.wallet.backup.BackupInteractContract;
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.CardNotificationsInteractor;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -42,10 +43,11 @@ import javax.inject.Singleton;
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
       AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
+      TransactionViewInteract transactionViewInteract, WalletsEventSender walletsEventSender,
+      SupportInteractor supportInteractor,
       CurrencyFormatUtils formatter) {
     return new TransactionsViewModelFactory(applications, analytics, transactionViewNavigator,
-        transactionViewInteract, supportInteractor, formatter);
+        transactionViewInteract, walletsEventSender, supportInteractor, formatter);
   }
 
   @Provides TransactionViewNavigator provideTransactionsViewNavigator(SettingsRouter settingsRouter,

@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.wallets
 
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -7,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 class WalletDetailsPresenter(
     private val view: WalletDetailsView,
     private val interactor: WalletDetailsInteractor,
+    private val walletsEventSender: WalletsEventSender,
     private val walletAddress: String,
     private val disposable: CompositeDisposable,
     private val viewScheduler: Scheduler,
@@ -31,6 +34,14 @@ class WalletDetailsPresenter(
   private fun handleBackupClick() {
     disposable.add(
         Observable.merge(view.backupInactiveWalletClick(), view.backupActiveWalletClick())
+            .doOnNext {
+              walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+                  WalletsAnalytics.CONTEXT_WALLET_DETAILS, WalletsAnalytics.STATUS_SUCCESS)
+            }
+            .doOnError {
+              walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+                  WalletsAnalytics.CONTEXT_WALLET_DETAILS, WalletsAnalytics.STATUS_FAIL)
+            }
             .observeOn(viewScheduler)
             .doOnNext { view.navigateToBackupView(walletAddress) }
             .subscribe())

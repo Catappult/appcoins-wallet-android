@@ -17,12 +17,15 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.AndroidInjection
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 import kotlinx.android.synthetic.main.restore_wallet_layout.*
+import javax.inject.Inject
 
 
 class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
@@ -35,13 +38,19 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
     fun newIntent(context: Context) = Intent(context, RestoreWalletActivity::class.java)
   }
 
+  private lateinit var presenter: RestoreWalletActivityPresenter
   private var fileChosenSubject: PublishSubject<Uri>? = null
   private var onPermissionSubject: PublishSubject<Unit>? = null
 
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
+
   override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     fileChosenSubject = PublishSubject.create()
     onPermissionSubject = PublishSubject.create()
+    presenter = RestoreWalletActivityPresenter(walletsEventSender)
     setContentView(R.layout.restore_wallet_layout)
     toolbar()
     if (savedInstanceState == null) navigateToInitialRestoreFragment()
@@ -49,6 +58,7 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
+      presenter.sendBackEvent()
       if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
       return true
     }
@@ -68,6 +78,7 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
   }
 
   override fun navigateToPasswordView(keystore: String) {
+    presenter.currentFragment = RestoreWalletPasswordFragment::class.java.simpleName
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, RestoreWalletPasswordFragment.newInstance(keystore))
         .addToBackStack(RestoreWalletPasswordFragment::class.java.simpleName)
@@ -162,6 +173,7 @@ class RestoreWalletActivity : BaseActivity(), RestoreWalletActivityView {
   }
 
   private fun navigateToInitialRestoreFragment() {
+    presenter.currentFragment = RestoreWalletFragment::class.java.simpleName
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, RestoreWalletFragment.newInstance())
         .commit()
