@@ -11,7 +11,7 @@ class PaymentFragmentNavigator(private val uriNavigator: UriNavigator,
                                private val topUpView: TopUpActivityView) : Navigator {
 
   override fun popView(bundle: Bundle) {
-    topUpView.finish(bundle)
+    topUpView.handleNotificationsAndFinish(bundle)
   }
 
   override fun popViewWithError() {

@@ -9,8 +9,6 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
-import com.asfoundation.wallet.backup.BackupInteractContract
-import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -32,20 +30,8 @@ class AdyenPaymentInteractor(
     private val partnerAddressService: AddressService,
     private val billing: Billing,
     private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor,
-    private val backupInteractContract: BackupInteractContract
+    private val supportInteractor: SupportInteractor
 ) {
-
-  fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> {
-    return walletService.getWalletAddress()
-        .flatMap { wallet ->
-          backupInteractContract.updateWalletPurchasesCount(wallet)
-              .andThen(backupInteractContract.shouldShowSystemNotification(wallet))
-              .map {
-                NotificationNeeded(it, wallet)
-              }
-        }
-  }
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()

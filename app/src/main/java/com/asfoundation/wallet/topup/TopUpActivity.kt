@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
@@ -17,6 +18,9 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -25,6 +29,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
+  @Inject
+  lateinit var topUpInteractor: TopUpInteractor
 
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
@@ -52,7 +59,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-    presenter = TopUpActivityPresenter(this)
+    presenter = TopUpActivityPresenter(this, topUpInteractor, AndroidSchedulers.mainThread(),
+        Schedulers.io(), CompositeDisposable())
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
@@ -118,6 +126,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun setupToolbar() {
     toolbar()
+  }
+
+  override fun handleNotificationsAndFinish(data: Bundle) {
+    presenter.handleBackupNotifications(data)
+  }
+
+  override fun showBackupNotification(walletAddress: String) {
+    BackupNotificationUtils.showBackupNotification(this, walletAddress)
   }
 
   override fun finish(data: Bundle) {

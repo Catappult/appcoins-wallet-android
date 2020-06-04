@@ -158,13 +158,14 @@ class InteractModule {
   @Singleton
   @Provides
   @Named("ASF_IN_APP_INTERACTOR")
-  fun provideAsfInAppPurchaseInteractor(@Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
-                                        defaultWalletInteract: FindDefaultWalletInteract,
-                                        gasSettingsInteract: FetchGasSettingsInteract,
-                                        parser: TransferParser, billing: Billing,
-                                        currencyConversionService: CurrencyConversionService,
-                                        bdsTransactionService: BdsTransactionService,
-                                        billingMessagesMapper: BillingMessagesMapper): AsfInAppPurchaseInteractor {
+  fun provideAsfInAppPurchaseInteractor(
+      @Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
+      defaultWalletInteract: FindDefaultWalletInteract,
+      gasSettingsInteract: FetchGasSettingsInteract,
+      parser: TransferParser, billing: Billing,
+      currencyConversionService: CurrencyConversionService,
+      bdsTransactionService: BdsTransactionService,
+      billingMessagesMapper: BillingMessagesMapper): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, currencyConversionService, bdsTransactionService,
@@ -174,7 +175,8 @@ class InteractModule {
   @Singleton
   @Provides
   fun provideDualInAppPurchaseInteractor(bdsInAppPurchaseInteractor: BdsInAppPurchaseInteractor,
-                                         @Named("ASF_IN_APP_INTERACTOR") asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
+                                         @Named("ASF_IN_APP_INTERACTOR")
+                                         asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
                                          appcoinsRewards: AppcoinsRewards, billing: Billing,
                                          sharedPreferences: SharedPreferences,
                                          packageManager: PackageManager): InAppPurchaseInteractor {
@@ -224,11 +226,10 @@ class InteractModule {
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
                                     walletService: WalletService,
-                                    supportInteractor: SupportInteractor,
-                                    backupInteract: BackupInteractContract): AdyenPaymentInteractor {
+                                    supportInteractor: SupportInteractor): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, backupInteract)
+        walletService, supportInteractor)
   }
 
   @Provides
@@ -280,9 +281,10 @@ class InteractModule {
   fun providesTopUpInteractor(repository: BdsRepository,
                               conversionService: LocalCurrencyConversionService,
                               gamificationInteractor: GamificationInteractor,
-                              topUpValuesService: TopUpValuesService) =
+                              topUpValuesService: TopUpValuesService, walletService: WalletService,
+                              backupInteractContract: BackupInteractContract) =
       TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
-          LinkedHashMap(), TopUpLimitValues())
+          LinkedHashMap(), TopUpLimitValues(), walletService, backupInteractContract)
 
   @Singleton
   @Provides

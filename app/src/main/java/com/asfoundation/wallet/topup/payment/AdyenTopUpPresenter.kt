@@ -253,25 +253,19 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it.status == Status.COMPLETED) {
-                adyenPaymentInteractor.incrementAndValidateNotificationNeeded()
-                    .doOnSuccess { notificationNeeded ->
-                      if (notificationNeeded.isNeeded)
-                        view.showBackupNotification(notificationNeeded.walletAddress)
-                    }
-                    .flatMapCompletable {
-                      Completable.fromAction {
-                        topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType,
-                            "success")
-                        val bundle = createBundle(priceAmount, priceCurrency,
-                            currencyData.fiatCurrencySymbol)
-                        waitingResult = false
-                        navigator.popView(bundle)
-                      }
-                    }
+                Completable.fromAction {
+                  topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType,
+                      "success")
+                  val bundle =
+                      createBundle(priceAmount, priceCurrency, currencyData.fiatCurrencySymbol)
+                  waitingResult = false
+                  navigator.popView(bundle)
+                }
               } else {
                 Completable.fromAction {
                   topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-                      it.error.code.toString(), buildRefusalReason(it.status, it.error.message))
+                      it.error.code.toString(),
+                      buildRefusalReason(it.status, it.error.message))
                   handleSpecificError(R.string.unknown_error)
                 }
               }

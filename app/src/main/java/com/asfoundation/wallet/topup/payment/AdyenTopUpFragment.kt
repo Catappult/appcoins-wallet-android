@@ -22,7 +22,6 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -347,10 +346,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun cancelPayment() = topUpView.cancelPayment()
 
   override fun setFinishingPurchase() = topUpView.setFinishingPurchase()
-
-  override fun showBackupNotification(walletAddress: String) {
-    BackupNotificationUtils.showBackupNotification(requireContext(), walletAddress)
-  }
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
