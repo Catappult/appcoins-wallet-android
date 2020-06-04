@@ -4,7 +4,6 @@ import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.util.RestoreErrorType
-import com.asfoundation.wallet.util.RestoreErrorType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -52,7 +51,8 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
         .doOnError {
-          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL, it.message)
+          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+              it.message)
         }
         .subscribe({}, {
           it.printStackTrace()
