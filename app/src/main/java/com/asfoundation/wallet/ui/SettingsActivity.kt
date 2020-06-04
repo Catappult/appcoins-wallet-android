@@ -2,12 +2,10 @@ package com.asfoundation.wallet.ui
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -17,7 +15,6 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
 
   @Inject
   lateinit var androidInjector: DispatchingAndroidInjector<Any>
-  private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
