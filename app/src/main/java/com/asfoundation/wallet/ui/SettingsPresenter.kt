@@ -71,9 +71,7 @@ class SettingsPresenter(private val view: SettingsView,
         settingsInteract.sendCreateSuccessEvent()
         activityView.navigateToBackup(walletModel.walletsBalance[0].walletAddress)
       }
-      else -> {
-        activityView.showWalletsBottomSheet(walletModel)
-      }
+      else -> activityView.showWalletsBottomSheet(walletModel)
     }
   }
 
