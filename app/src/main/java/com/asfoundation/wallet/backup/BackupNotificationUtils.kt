@@ -50,13 +50,13 @@ object BackupNotificationUtils {
   private fun createNotificationBackupIntent(context: Context,
                                              walletAddress: String): PendingIntent {
     val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_BACKUP)
-    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
   private fun createNotificationDismissIntent(context: Context,
                                               walletAddress: String): PendingIntent {
     val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_DISMISS)
-    return PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+    return PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
 }

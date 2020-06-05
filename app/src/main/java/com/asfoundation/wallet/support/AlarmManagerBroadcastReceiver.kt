@@ -88,13 +88,13 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(SupportNotificationBroadcastReceiver.ACTION_KEY,
         SupportNotificationBroadcastReceiver.ACTION_CHECK_MESSAGES)
-    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+    return PendingIntent.getBroadcast(context, 0, intent, 0)
   }
 
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(SupportNotificationBroadcastReceiver.ACTION_KEY,
         SupportNotificationBroadcastReceiver.ACTION_DISMISS)
-    return PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+    return PendingIntent.getBroadcast(context, 1, intent, 0)
   }
 }

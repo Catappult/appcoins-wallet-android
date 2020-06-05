@@ -399,14 +399,12 @@ public class WalletPoAService extends Service {
     Intent okIntent = WalletValidationBroadcastReceiver.newIntent(this);
     okIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     okIntent.putExtra(ACTION_KEY, ACTION_START_VALIDATION);
-    PendingIntent okPendingIntent =
-        PendingIntent.getBroadcast(this, 0, okIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+    PendingIntent okPendingIntent = PendingIntent.getBroadcast(this, 0, okIntent, 0);
 
     Intent dismissIntent = WalletValidationBroadcastReceiver.newIntent(this);
     dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     dismissIntent.putExtra(ACTION_KEY, ACTION_DISMISS);
-    PendingIntent dismissPendingIntent =
-        PendingIntent.getBroadcast(this, 1, dismissIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+    PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(this, 1, dismissIntent, 0);
 
     return builder.setContentTitle(
         getString(R.string.verification_notification_verification_needed_title))
