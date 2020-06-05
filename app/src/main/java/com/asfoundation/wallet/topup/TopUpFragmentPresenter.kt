@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.topup
 
 import android.util.Log
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
-import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -11,7 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Function3
+import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -51,23 +51,29 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun setupUi() {
     disposables.add(Single.zip(
-        interactor.getPaymentMethods()
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler),
         interactor.getLimitTopUpValues()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
         interactor.getDefaultValues()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
-        Function3 { paymentMethods: List<PaymentMethodData>, values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
-          view.setupUiElements(filterPaymentMethods(paymentMethods),
-              LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+        BiFunction { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
+          view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
           updateDefaultValues(defaultValues)
-          view.hideLoadingButton()
         })
         .doOnSubscribe { view.showLoadingButton() }
         .subscribe({}, { handleError(it) }))
+  }
+
+  private fun retrievePaymentMethods(fiatAmount: String, currency: String): Completable {
+    return interactor.getPaymentMethods(fiatAmount, currency)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.setupPaymentMethods(it)
+          view.hideLoadingButton()
+        }
+        .ignoreElement()
   }
 
   private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel) {
@@ -118,7 +124,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                   .toObservable()
                   .filter {
                     isCurrencyValid(topUpData.currency) && isValueInRange(it,
-                        topUpData.currency.fiatValue.toDouble())
+                        topUpData.currency.fiatValue.toDouble()) && topUpData.paymentMethod != null
                   }
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
@@ -126,16 +132,29 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     val isValidBonus = interactor.isBonusValidAndActive()
                     if (isValidBonus) view.hideBonus()
                     topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
-                        "next",
-                        topUpData.paymentMethod!!.name)
-                    activity?.navigateToPayment(topUpData.paymentMethod!!, topUpData,
-                        topUpData.selectedCurrency, "TOPUP",
-                        topUpData.bonusValue, gamificationLevel,
-                        topUpData.currency.fiatCurrencySymbol)
+                        "next", topUpData.paymentMethod!!.paymentType.name)
+                    navigateToPayment(topUpData, gamificationLevel)
                     if (isValidBonus) view.showBonus()
                   }
             }
             .subscribe())
+  }
+
+  private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
+    val paymentType = topUpData.paymentMethod!!.paymentType
+    val transactionType = "TOPUP"
+    when (paymentType) {
+      PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(paymentType,
+          mapToAdyenTopUpData(topUpData), transactionType, gamificationLevel)
+      PaymentType.LOCAL_PAYMENTS -> activity?.navigateToLocalPayment(
+          topUpData.paymentMethod!!.paymentId, topUpData, transactionType, gamificationLevel)
+    }
+  }
+
+  private fun mapToAdyenTopUpData(topUpData: TopUpData): AdyenTopUpData {
+    return AdyenTopUpData(topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode,
+        topUpData.selectedCurrencyType, topUpData.bonusValue, topUpData.currency.fiatCurrencySymbol,
+        topUpData.currency.appcValue)
   }
 
   private fun handleManualAmountChange(packageName: String) {
@@ -193,7 +212,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun isNumericOrEmpty(data: TopUpData): Boolean {
-    return if (data.selectedCurrency == TopUpData.FIAT_CURRENCY) {
+    return if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
       data.currency.fiatValue == DEFAULT_VALUE || data.currency.fiatValue.matches(
           NUMERIC_REGEX.toRegex())
     } else {
@@ -202,16 +221,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
-  private fun filterPaymentMethods(methods: List<PaymentMethodData>): List<PaymentMethodData> {
-    return methods.filter { it.id == "paypal" || it.id == "credit_card" }
-  }
-
   private fun getConvertedValue(data: TopUpData): Observable<FiatValue> {
-    return if (data.selectedCurrency == TopUpData.FIAT_CURRENCY
+    return if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY
         && data.currency.fiatValue != DEFAULT_VALUE) {
       interactor.convertLocal(data.currency.fiatCurrencyCode,
           data.currency.fiatValue, 2)
-    } else if (data.selectedCurrency == TopUpData.APPC_C_CURRENCY
+    } else if (data.selectedCurrencyType == TopUpData.APPC_C_CURRENCY
         && data.currency.appcValue != DEFAULT_VALUE) {
       interactor.convertAppc(data.currency.appcValue)
     } else {
@@ -235,7 +250,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnNext {
           if (interactor.isBonusValidAndActive(it)) {
             val scaledBonus = formatter.scaleFiat(it.amount)
-            view.showBonus(scaledBonus, it.currency)
+            view.setBonus(scaledBonus, it.currency)
           } else {
             view.removeBonus()
           }
@@ -248,27 +263,28 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleInsertedValue(packageName: String, topUpData: TopUpData,
                                   limitValues: TopUpLimitValues): Completable {
     view.setNextButtonState(false)
+    val fiatAmount = BigDecimal(topUpData.currency.fiatValue)
     if (topUpData.currency.fiatValue != DEFAULT_VALUE && !limitValues.error.hasError) {
-      showValueWarning(limitValues.maxValue, limitValues.minValue,
-          BigDecimal(topUpData.currency.fiatValue))
+      handleValueWarning(limitValues.maxValue, limitValues.minValue, fiatAmount)
     } else {
       handleInvalidFormatInput()
     }
-    return handleShowBonus(packageName, topUpData, limitValues,
-        BigDecimal(topUpData.currency.fiatValue))
+    return updateUiInformation(packageName, limitValues,
+        topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode)
   }
 
-  private fun handleShowBonus(appPackage: String, topUpData: TopUpData,
-                              limitValues: TopUpLimitValues, amount: BigDecimal): Completable {
-    return if (!limitValues.error.hasError && (amount < limitValues.minValue.amount || amount > limitValues.maxValue.amount)) {
+  private fun updateUiInformation(appPackage: String,
+                                  limitValues: TopUpLimitValues, fiatAmount: String,
+                                  currency: String): Completable {
+    return if (isValueInRange(limitValues, fiatAmount.toDouble())) {
+      view.changeMainValueColor(true)
+      retrievePaymentMethods(fiatAmount, currency)
+          .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
+    } else {
       view.hideBonus()
       view.changeMainValueColor(false)
       view.setNextButtonState(false)
       Completable.complete()
-    } else {
-      view.changeMainValueColor(true)
-      loadBonusIntoView(appPackage, topUpData.currency.fiatValue,
-          topUpData.currency.fiatCurrencyCode)
     }
   }
 
@@ -283,7 +299,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun showValueWarning(maxValue: FiatValue, minValue: FiatValue, amount: BigDecimal) {
+  private fun handleValueWarning(maxValue: FiatValue, minValue: FiatValue, amount: BigDecimal) {
     val localCurrency = " ${maxValue.currency}"
     when {
       amount == BigDecimal(-1) -> {
@@ -308,7 +324,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun updateConversionValue(value: BigDecimal, topUpData: TopUpData): TopUpData {
-    if (topUpData.selectedCurrency == TopUpData.FIAT_CURRENCY) {
+    if (topUpData.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
       topUpData.currency.appcValue =
           if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
     } else {
@@ -319,7 +335,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun isConvertedValueAvailable(data: TopUpData): Boolean {
-    return if (data.selectedCurrency == TopUpData.FIAT_CURRENCY) {
+    return if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
       data.currency.appcValue != DEFAULT_VALUE
     } else {
       data.currency.fiatValue != DEFAULT_VALUE

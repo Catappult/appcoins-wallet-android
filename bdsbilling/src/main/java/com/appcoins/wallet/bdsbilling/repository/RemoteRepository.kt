@@ -61,7 +61,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
     return api.getPurchases(packageName, walletAddress, walletSignature,
-            type.name.toLowerCase())
+        type.name.toLowerCase())
         .map { responseMapper.map(it) }
   }
 
@@ -93,14 +93,10 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         paymentProof)
   }
 
-  internal fun getPaymentMethods(value: String?,
-                                 currency: String?): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(value, currency)
-        .map { responseMapper.map(it) }
-  }
-
-  internal fun getPaymentMethodsForType(type: String): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(type = type)
+  internal fun getPaymentMethods(value: String,
+                                 currency: String,
+                                 currencyType: String?): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(value, currency, currencyType)
         .map { responseMapper.map(it) }
   }
 
@@ -117,9 +113,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
     return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
-            "APPC", null, type, toWallet, null, null,
-            null, null, null, null, null, null,
-            walletAddress, signature)
+        "APPC", null, type, toWallet, null, null,
+        null, null, null, null, null, null,
+        walletAddress, signature)
         .toCompletable()
 
   }
@@ -174,10 +170,16 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Query("wallet.signature") walletSignature: String,
                         @Body data: Consumed): Completable
 
+    /**
+     * Returns the available payment methods
+     * @param value Value of the purchase/topup
+     * @param currency Currency of the purchase/topup
+     * @param currencyType fiat if you want to filter payments for only those that can be payed with fiat. Otherwise leave null
+     */
     @GET("broker/8.20200311/methods")
-    fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
-    currency: String? = null, @Query("currency.type")
-                          type: String? = null): Single<GetMethodsResponse>
+    fun getPaymentMethods(@Query("price.value") value: String, @Query("price.currency")
+    currency: String, @Query("currency.type")
+                          currencyType: String? = null): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")

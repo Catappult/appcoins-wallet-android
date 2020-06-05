@@ -19,11 +19,9 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private var limitValues: TopUpLimitValues) {
 
 
-  fun getPaymentMethods(): Single<List<PaymentMethodData>> {
-    return repository.getPaymentMethods(type = "fiat")
-        .map { methods ->
-          mapPaymentMethods(methods)
-        }
+  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethodData>> {
+    return repository.getPaymentMethods(value, currency, "fiat")
+        .map { mapPaymentMethods(it) }
   }
 
   fun convertAppc(value: String): Observable<FiatValue> {
@@ -38,7 +36,7 @@ class TopUpInteractor(private val repository: BdsRepository,
       paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
     val paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
     paymentMethods.forEach {
-      paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id))
+      paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)))
     }
     return paymentMethodsData
   }
@@ -89,4 +87,6 @@ class TopUpInteractor(private val repository: BdsRepository,
     limitValues = TopUpLimitValues(values.minValue, values.maxValue)
   }
 
+  private fun isUnavailable(paymentMethod: PaymentMethodEntity) =
+      paymentMethod.availability == "UNAVAILABLE"
 }

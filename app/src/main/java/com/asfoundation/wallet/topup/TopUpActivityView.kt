@@ -3,16 +3,16 @@ package com.asfoundation.wallet.topup
 import android.net.Uri
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import java.math.BigDecimal
 
 interface TopUpActivityView {
   fun showTopUpScreen()
 
-  fun navigateToPayment(paymentType: PaymentType,
-                        data: TopUpData,
-                        selectedCurrency: String,
-                        transactionType: String, bonusValue: BigDecimal,
-                        gamificationLevel: Int, bonusSymbol: String)
+  fun navigateToAdyenPayment(paymentType: PaymentType, data: AdyenTopUpData,
+                             transactionType: String,
+                             gamificationLevel: Int)
+
+  fun navigateToLocalPayment(paymentId: String, topUpData: TopUpData, transactionType: String,
+                             gamificationLevel: Int)
 
   fun finish(data: Bundle)
 

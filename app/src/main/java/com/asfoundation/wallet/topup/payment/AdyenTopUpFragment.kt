@@ -25,9 +25,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.topup.AdyenTopUpData
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
-import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -105,10 +105,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     presenter =
         AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
-            transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
-            data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            adyenPaymentInteractor, bonusValue, bonusSymbol, AdyenErrorCodeMapper(),
-            gamificationLevel, topUpAnalytics, formatter)
+            transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
+            data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
+            adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
+            AdyenErrorCodeMapper(), gamificationLevel, topUpAnalytics, formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -150,8 +150,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun showValues(value: String, currency: String) {
     main_value.visibility = VISIBLE
-    val formattedValue = formatter.formatCurrency(data.currency.appcValue, WalletCurrency.CREDITS)
-    if (currentCurrency == FIAT_CURRENCY) {
+    val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)
+    if (data.selectedCurrencyType == FIAT_CURRENCY) {
       main_value.setText(value)
       main_currency_code.text = currency
       converted_value.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
@@ -478,9 +478,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  private val data: TopUpData by lazy {
+  private val data: AdyenTopUpData by lazy {
     if (arguments!!.containsKey(PAYMENT_DATA)) {
-      arguments!!.getSerializable(PAYMENT_DATA) as TopUpData
+      arguments!!.getSerializable(PAYMENT_DATA) as AdyenTopUpData
     } else {
       throw IllegalArgumentException("previous payment data not found")
     }
@@ -502,30 +502,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  private val currentCurrency: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_CURRENT_CURRENCY)) {
-      arguments!!.getString(PAYMENT_CURRENT_CURRENCY)!!
-    } else {
-      throw IllegalArgumentException("Payment main currency not found")
-    }
-  }
-
-  private val bonusValue: BigDecimal by lazy {
-    if (arguments!!.containsKey(BONUS)) {
-      arguments!!.getSerializable(BONUS) as BigDecimal
-    } else {
-      throw IllegalArgumentException("Bonus not found")
-    }
-  }
-
-  private val bonusSymbol: String by lazy {
-    if (arguments!!.containsKey(BONUS_SYMBOL)) {
-      arguments!!.getString(BONUS_SYMBOL)
-    } else {
-      throw IllegalArgumentException("Bonus symbol not found")
-    }
-  }
-
   private val gamificationLevel: Int by lazy {
     if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
       arguments!!.getInt(GAMIFICATION_LEVEL)
@@ -539,27 +515,20 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     private const val PAYMENT_TYPE = "paymentType"
     private const val PAYMENT_TRANSACTION_TYPE = "transactionType"
     private const val PAYMENT_DATA = "data"
-    private const val PAYMENT_CURRENT_CURRENCY = "currentCurrency"
-    private const val BONUS = "bonus"
-    private const val BONUS_SYMBOL = "bonus_symbol"
     private const val CARD_NUMBER_KEY = "card_number"
     private const val EXPIRY_DATE_KEY = "expiry_date"
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
     private const val GAMIFICATION_LEVEL = "gamification_level"
 
-    fun newInstance(paymentType: PaymentType, data: TopUpData, currentCurrency: String,
-                    transactionType: String, bonusValue: BigDecimal, bonusSymbol: String,
-                    gamificationLevel: Int): AdyenTopUpFragment {
+    fun newInstance(paymentType: PaymentType, data: AdyenTopUpData,
+                    transactionType: String, gamificationLevel: Int): AdyenTopUpFragment {
       val bundle = Bundle()
       val fragment = AdyenTopUpFragment()
       bundle.apply {
         putString(PAYMENT_TYPE, paymentType.name)
         putString(PAYMENT_TRANSACTION_TYPE, transactionType)
         putSerializable(PAYMENT_DATA, data)
-        putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
-        putSerializable(BONUS, bonusValue)
-        putString(BONUS_SYMBOL, bonusSymbol)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
         fragment.arguments = this
       }

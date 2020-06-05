@@ -11,19 +11,18 @@ interface TopUpFragmentView {
   fun getEditTextChanges(): Observable<TopUpData>
   fun getPaymentMethodClick(): Observable<String>
   fun getNextClick(): Observable<TopUpData>
-  fun setupUiElements(paymentMethods: List<PaymentMethodData>, localCurrency: LocalCurrency)
+  fun setupPaymentMethods(paymentMethods: List<PaymentMethodData>)
+  fun setupCurrency(localCurrency: LocalCurrency)
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)
   fun hideLoadingButton()
   fun showLoadingButton()
-  fun showPaymentDetailsForm()
-  fun showPaymentMethods()
   fun rotateChangeCurrencyButton()
   fun toggleSwitchCurrencyOn()
   fun toggleSwitchCurrencyOff()
   fun hideBonus()
-  fun showBonus(bonus: BigDecimal, currency: String)
+  fun setBonus(bonus: BigDecimal, currency: String)
   fun showBonus()
   fun showMaxValueWarning(value: String)
   fun showMinValueWarning(value: String)
@@ -31,7 +30,6 @@ interface TopUpFragmentView {
   fun changeMainValueColor(isValid: Boolean)
   fun changeMainValueText(value: String)
   fun getSelectedCurrency(): String
-  fun initialInputSetup(preselectedChip: Int, preselectedChipValue: BigDecimal)
   fun paymentMethodsFocusRequest()
   fun disableSwapCurrencyButton()
   fun enableSwapCurrencyButton()

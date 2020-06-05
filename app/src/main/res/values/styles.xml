@@ -404,7 +404,7 @@
   </style>
 
   <style name="TopUpTextStyle.PaymentOptionText">
-    <item name="android:textColor">@color/grey_alpha_active_54</item>
+    <item name="android:textColor">@color/payment_option_text_color</item>
   </style>
 
   <style name="TopUpTextStyle.PaymentDetails">

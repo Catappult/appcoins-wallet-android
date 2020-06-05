@@ -105,7 +105,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   private val appPackage: String by lazy {
     if (arguments!!.containsKey(PARAM_APP_PACKAGE)) {
-      arguments!!.getString(PARAM_APP_PACKAGE)
+      arguments!!.getString(PARAM_APP_PACKAGE)!!
     } else {
       throw IllegalArgumentException("application package name data not found")
     }
@@ -175,19 +175,26 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
 
-  override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
-                               localCurrency: LocalCurrency) {
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethodData>) {
+    this@TopUpFragment.paymentMethods = paymentMethods
+    adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
+    adapter.setSelectedItem(selectedPaymentMethod)
+
+    payment_methods.adapter = adapter
+    payment_methods.layoutManager = LinearLayoutManager(context)
+    payment_methods.visibility = View.VISIBLE
+  }
+
+  override fun setupCurrency(localCurrency: LocalCurrency) {
     hideNoNetwork()
     if (isLocalCurrencyValid(localCurrency)) {
       this@TopUpFragment.localCurrency = localCurrency
       setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
           DEFAULT_VALUE)
     }
-    this@TopUpFragment.paymentMethods = paymentMethods
     main_value.isEnabled = true
-    main_value.setMinTextSize(
-        resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
-            .toFloat())
+    main_value.setMinTextSize(resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
+        .toFloat())
     main_value.setOnEditorActionListener { _, actionId, _ ->
       if (EditorInfo.IME_ACTION_NEXT == actionId) {
         hideKeyboard()
@@ -195,18 +202,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       }
       true
     }
-    adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
-    adapter.setSelectedItem(selectedPaymentMethod)
-
-    payment_methods.adapter = adapter
-    payment_methods.layoutManager = LinearLayoutManager(context)
-    payment_methods.visibility = View.VISIBLE
     top_separator_topup.visibility = View.VISIBLE
     bot_separator.visibility = View.VISIBLE
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
     swap_value_label.visibility = View.VISIBLE
-
   }
 
   private fun focusAndShowKeyboard(view: EditText) {
@@ -311,20 +311,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     button_loading.visibility = View.VISIBLE
   }
 
-  override fun showPaymentDetailsForm() {
-    payment_methods.visibility = View.GONE
-    bonus_layout.visibility = View.GONE
-    bonus_msg.visibility = View.GONE
-    top_separator_topup.visibility = View.VISIBLE
-    bot_separator.visibility = View.INVISIBLE
-  }
-
-  override fun showPaymentMethods() {
-    payment_methods.visibility = View.VISIBLE
-    top_separator_topup.visibility = View.VISIBLE
-    bot_separator.visibility = View.VISIBLE
-  }
-
   override fun rotateChangeCurrencyButton() {
     val rotateAnimation = RotateAnimation(
         0f,
@@ -348,7 +334,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun setConversionValue(topUpData: TopUpData) {
-    if (topUpData.selectedCurrency == selectedCurrency) {
+    if (topUpData.selectedCurrencyType == selectedCurrency) {
       when (selectedCurrency) {
         FIAT_CURRENCY -> {
           converted_value.text = "${topUpData.currency.appcValue} ${WalletCurrency.CREDITS.symbol}"
@@ -390,7 +376,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     bonus_msg.visibility = View.GONE
   }
 
-  override fun showBonus(bonus: BigDecimal, currency: String) {
+  override fun setBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
@@ -433,13 +419,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getSelectedCurrency(): String {
     return selectedCurrency
-  }
-
-  override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: BigDecimal) {
-    hideKeyboard()
-    if (preselectedChipValue.toDouble() > 0) {
-      changeMainValueText(preselectedChipValue.toString())
-    }
   }
 
   override fun showNoNetworkError() {
@@ -507,16 +486,22 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     converted_value.text = conversionValue
   }
 
-  private fun getSelectedPaymentMethod(): PaymentType {
+  private fun getSelectedPaymentMethod(): PaymentTypeInfo? {
     return if (payment_methods.adapter != null) {
       val data = (payment_methods.adapter as TopUpPaymentMethodAdapter).getSelectedItemData()
-      if (PaymentType.PAYPAL.subTypes.contains(data.id)) {
-        PaymentType.PAYPAL
-      } else {
-        PaymentType.CARD
+      when {
+        PaymentType.PAYPAL.subTypes.contains(data.id) -> {
+          PaymentTypeInfo(PaymentType.PAYPAL, data.id)
+        }
+        PaymentType.CARD.subTypes.contains(data.id) -> {
+          PaymentTypeInfo(PaymentType.CARD, data.id)
+        }
+        else -> {
+          PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id)
+        }
       }
     } else {
-      PaymentType.CARD
+      null
     }
   }
 

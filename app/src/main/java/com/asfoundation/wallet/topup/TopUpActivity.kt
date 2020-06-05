@@ -17,7 +17,6 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
-import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -73,17 +72,18 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .commit()
   }
 
-  override fun navigateToPayment(paymentType: PaymentType,
-                                 data: TopUpData,
-                                 selectedCurrency: String, transactionType: String,
-                                 bonusValue: BigDecimal, gamificationLevel: Int,
-                                 bonusSymbol: String) {
+  override fun navigateToAdyenPayment(paymentType: PaymentType, data: AdyenTopUpData,
+                                      transactionType: String, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
-            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency,
-                transactionType, bonusValue, bonusSymbol, gamificationLevel))
+            AdyenTopUpFragment.newInstance(paymentType, data, transactionType, gamificationLevel))
         .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
+  }
+
+  override fun navigateToLocalPayment(paymentId: String, topUpData: TopUpData,
+                                      transactionType: String, gamificationLevel: Int) {
+    TODO("Not yet implemented")
   }
 
   override fun onBackPressed() {
@@ -123,9 +123,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun finish(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
-                data.getString(TOP_UP_CURRENCY), data.getString(BONUS), data.getString(
-                TOP_UP_CURRENCY_SYMBOL)),
+            TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT, ""),
+                data.getString(TOP_UP_CURRENCY, ""), data.getString(BONUS, ""),
+                data.getString(TOP_UP_CURRENCY_SYMBOL, "")),
             TopUpSuccessFragment::class.java.simpleName)
         .commit()
     unlockRotation()

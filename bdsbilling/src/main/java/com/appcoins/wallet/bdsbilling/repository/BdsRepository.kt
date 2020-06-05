@@ -71,11 +71,14 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
         walletSignature)
   }
 
-  override fun getPaymentMethods(value: String?, currency: String?,
-                                 type: String?): Single<List<PaymentMethodEntity>> {
-    return if (type.isNullOrEmpty())
-      remoteRepository.getPaymentMethods(value,
-          currency) else remoteRepository.getPaymentMethodsForType(type)
+  override fun getPaymentMethods(value: String,
+                                 currency: String,
+                                 currencyType: String?): Single<List<PaymentMethodEntity>> {
+    return remoteRepository.getPaymentMethods(value, currency, currencyType)
+        .onErrorReturn {
+          it.printStackTrace()
+          ArrayList()
+        }
   }
 
   override fun getAppcoinsTransaction(uid: String, address: String,
