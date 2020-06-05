@@ -54,6 +54,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleTooltipBackupClick() {
     disposables.add(view.getTooltipBackupButton()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext {
@@ -148,6 +149,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleQrCodeClick() {
     disposables.add(view.getQrCodeClick()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.showQrCodeView() }
         .subscribe({}, { it.printStackTrace() }))
@@ -155,6 +157,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleBackupClick() {
     disposables.add(view.getBackupClick()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { activityView?.navigateToBackupView(it) }
