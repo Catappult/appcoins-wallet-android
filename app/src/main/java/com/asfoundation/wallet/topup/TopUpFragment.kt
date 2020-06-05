@@ -490,15 +490,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return if (payment_methods.adapter != null) {
       val data = (payment_methods.adapter as TopUpPaymentMethodAdapter).getSelectedItemData()
       when {
-        PaymentType.PAYPAL.subTypes.contains(data.id) -> {
-          PaymentTypeInfo(PaymentType.PAYPAL, data.id)
-        }
-        PaymentType.CARD.subTypes.contains(data.id) -> {
-          PaymentTypeInfo(PaymentType.CARD, data.id)
-        }
-        else -> {
-          PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id)
-        }
+        PaymentType.PAYPAL.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.description, data.imageSrc)
+        PaymentType.CARD.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.CARD, data.id, data.description, data.imageSrc)
+        else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.description,
+            data.imageSrc)
       }
     } else {
       null
