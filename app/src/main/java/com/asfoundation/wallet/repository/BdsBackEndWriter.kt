@@ -10,6 +10,7 @@ open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWallet
                             private val service: CampaignService) : ProofWriter {
 
   override fun writeProof(proof: Proof): Single<String> {
+    // TODO REPLACE BY AccountWallerService
     return defaultWalletInteract.find()
         .flatMap { wallet -> service.submitProof(proof, wallet.address) }
   }

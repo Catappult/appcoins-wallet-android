@@ -98,14 +98,13 @@ import com.asfoundation.wallet.identification.IdsRepository;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
+import com.asfoundation.wallet.interact.WalletCreatorInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
-import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
 import com.asfoundation.wallet.logging.DebugReceiver;
@@ -167,6 +166,7 @@ import com.asfoundation.wallet.repository.TransactionsDatabase;
 import com.asfoundation.wallet.repository.TransactionsLocalRepository;
 import com.asfoundation.wallet.repository.TransactionsRepository;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
+import com.asfoundation.wallet.repository.WalletRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.repository.Web3jProvider;
@@ -232,6 +232,7 @@ import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
+import com.asfoundation.wallet.util.SyncExecutor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.util.UserAgentInterceptor;
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract;
@@ -261,7 +262,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -615,13 +615,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
       @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents,
       CountryCodeProvider countryCodeProvider, AddressService addressService,
-      CreateWalletInteract createWalletInteract,
       FindDefaultWalletInteract findDefaultWalletInteract, CampaignInteract campaignInteract) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
         Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(), disposables,
-        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract,
-        campaignInteract);
+        countryCodeProvider, addressService, findDefaultWalletInteract, campaignInteract);
   }
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
@@ -749,9 +747,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
-      AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
+      AccountKeystoreService accountKeyService, PasswordStore passwordStore,
+      WalletCreatorInteract walletCreatorInteract, ExecutorScheduler syncScheduler,
+      WalletRepositoryType walletRepository) {
     return new AccountWalletService(walletInteract, accountKeyService, passwordStore,
-        new SignDataStandardNormalizer());
+        walletCreatorInteract, new SignDataStandardNormalizer(), syncScheduler, walletRepository);
   }
 
   @Singleton @Provides Billing provideBillingFactory(WalletService walletService,
@@ -970,20 +970,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build();
   }
 
-  @Provides CreateWalletInteract provideCreateAccountInteract(
+  @Provides WalletCreatorInteract provideCreateAccountInteract(
       WalletRepositoryType accountRepository, PasswordStore passwordStore,
       ExecutorScheduler scheduler) {
-    return new CreateWalletInteract(accountRepository, passwordStore, scheduler);
+    return new WalletCreatorInteract(accountRepository, passwordStore, scheduler);
   }
 
-  @Provides PaymentReceiverInteract providePaymentReceiverInteract(
-      CreateWalletInteract createWalletInteract) {
-    return new PaymentReceiverInteract(createWalletInteract);
-  }
-
-  @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
-      WalletService walletService, PreferencesRepositoryType preferencesRepositoryType) {
-    return new OnboardingInteract(createWalletInteract, walletService, preferencesRepositoryType);
+  @Provides OnboardingInteract provideOnboardingInteract(WalletService walletService,
+      PreferencesRepositoryType preferencesRepositoryType) {
+    return new OnboardingInteract(walletService, preferencesRepositoryType);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
@@ -1255,12 +1250,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
-      WalletService walletService, CreateWalletInteract createWalletInteract,
-      AutoUpdateInteract autoUpdateInteract, FindDefaultWalletInteract findDefaultWalletInteract,
+      WalletService walletService, AutoUpdateInteract autoUpdateInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract,
       PreferencesRepositoryType sharedPreferences) {
-    return new CampaignInteract(campaignService, walletService, createWalletInteract,
-        autoUpdateInteract, new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract,
-        sharedPreferences);
+    return new CampaignInteract(campaignService, walletService, autoUpdateInteract,
+        new AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, sharedPreferences);
   }
 
   @Singleton @Provides NotificationManager provideNotificationManager(Context context) {
@@ -1388,6 +1382,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides ExecutorScheduler providesExecutorScheduler() {
-    return new ExecutorScheduler(Executors.newSingleThreadExecutor(), false);
+    return new ExecutorScheduler(new SyncExecutor(1), false);
   }
 }

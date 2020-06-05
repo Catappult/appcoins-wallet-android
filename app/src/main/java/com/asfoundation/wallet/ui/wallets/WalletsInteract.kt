@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.wallets
 
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FetchWalletsInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.ui.balance.BalanceInteract
@@ -14,7 +14,7 @@ import io.reactivex.Single
 
 class WalletsInteract(private val balanceInteract: BalanceInteract,
                       private val fetchWalletsInteract: FetchWalletsInteract,
-                      private val createWalletInteract: CreateWalletInteract,
+                      private val createWalletInteract: WalletCreatorInteract,
                       private val preferencesRepository: SharedPreferencesRepository,
                       private val logger: Logger) {
 

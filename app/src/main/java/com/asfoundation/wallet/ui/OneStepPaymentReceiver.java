@@ -7,16 +7,11 @@ import androidx.annotation.Nullable;
 import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.PaymentReceiverInteract;
-import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
 import dagger.android.AndroidInjection;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
@@ -27,7 +22,6 @@ public class OneStepPaymentReceiver extends BaseActivity {
   public static final int REQUEST_CODE = 234;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract walletInteract;
-  @Inject PaymentReceiverInteract paymentReceiverInteract;
   @Inject TransferParser transferParser;
   private Disposable disposable;
   private View walletCreationCard;
@@ -43,7 +37,6 @@ public class OneStepPaymentReceiver extends BaseActivity {
     walletCreationText = findViewById(R.id.create_wallet_text);
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
-          .onErrorResumeNext(this::handleWalletCreation)
           .flatMap(__ -> transferParser.parse(getIntent().getDataString())
               .flatMap(
                   transaction -> inAppPurchaseInteractor.isWalletFromBds(transaction.getDomain(),
@@ -60,10 +53,6 @@ public class OneStepPaymentReceiver extends BaseActivity {
       setResult(resultCode, data);
       finish();
     }
-  }
-
-  private Single<Wallet> handleWalletCreation(Throwable throwable) {
-    return throwable instanceof WalletNotFoundException ? createWallet() : Single.error(throwable);
   }
 
   private void startApp(Throwable throwable) {
@@ -91,13 +80,6 @@ public class OneStepPaymentReceiver extends BaseActivity {
     walletCreationCard = null;
     walletCreationAnimation = null;
     walletCreationText = null;
-  }
-
-  private Single<Wallet> createWallet() {
-    showLoadingAnimation();
-    return paymentReceiverInteract.createWallet()
-        .observeOn(AndroidSchedulers.mainThread())
-        .doAfterTerminate(this::endAnimation);
   }
 
   private void endAnimation() {

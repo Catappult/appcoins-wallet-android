@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import android.util.Log;
 import com.asfoundation.wallet.analytics.AnalyticsSetUp;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
@@ -72,6 +73,7 @@ public class WalletRepository implements WalletRepositoryType {
 
   @Override public Single<Wallet> getDefaultWallet() {
     return Single.fromCallable(() -> {
+      Log.e("TEST", "**** Getting default wallet");
       String currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress();
       if (currentWalletAddress == null) {
         throw new WalletNotFoundException();

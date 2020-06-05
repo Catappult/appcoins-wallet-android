@@ -7,7 +7,7 @@ import android.os.PersistableBundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.CreateWalletInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
 import com.asfoundation.wallet.ui.BaseActivity
@@ -31,7 +31,7 @@ class PoaWalletValidationActivity : BaseActivity(),
   lateinit var walletInteractor: FindDefaultWalletInteract
 
   @Inject
-  lateinit var createWalletInteractor: CreateWalletInteract
+  lateinit var createWalletInteractor: WalletCreatorInteract
   private var walletValidated: Boolean = false
 
   companion object {

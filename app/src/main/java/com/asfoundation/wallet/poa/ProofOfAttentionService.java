@@ -6,7 +6,6 @@ import com.asfoundation.wallet.advertise.Advertising;
 import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -32,7 +31,6 @@ public class ProofOfAttentionService {
   private final CountryCodeProvider countryCodeProvider;
   private final AddressService partnerAddressService;
   private final Advertising campaignInteract;
-  private final CreateWalletInteract walletInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private Subject<Boolean> walletValidated;
 
@@ -41,7 +39,6 @@ public class ProofOfAttentionService {
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
       CountryCodeProvider countryCodeProvider, AddressService partnerAddressService,
-      CreateWalletInteract createWalletInteract,
       FindDefaultWalletInteract findDefaultWalletInteract, CampaignInteract campaignInteract) {
     this.cache = cache;
     this.walletPackage = walletPackage;
@@ -56,7 +53,6 @@ public class ProofOfAttentionService {
     this.partnerAddressService = partnerAddressService;
     this.campaignInteract = campaignInteract;
     this.walletValidated = BehaviorSubject.create();
-    this.walletInteract = createWalletInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
   }
 
@@ -368,10 +364,7 @@ public class ProofOfAttentionService {
   }
 
   public Single<Wallet> handleCreateWallet() {
-    return findDefaultWalletInteract.find()
-        .onErrorResumeNext(walletInteract.create()
-            .flatMap(wallet -> walletInteract.setDefaultWallet(wallet.address)
-                .andThen(Single.just(wallet))));
+    return findDefaultWalletInteract.find();
   }
 
   public Single<PoaInformationModel> retrievePoaInformation() {

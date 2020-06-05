@@ -57,9 +57,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   internal lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
   @Inject
-  internal lateinit var defaultWalletInteract: FindDefaultWalletInteract
-
-  @Inject
   internal lateinit var billing: Billing
 
   @Inject

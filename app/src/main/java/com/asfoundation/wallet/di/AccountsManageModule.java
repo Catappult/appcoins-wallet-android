@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.interact.CreateWalletInteract;
+import com.asfoundation.wallet.interact.WalletCreatorInteract;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
@@ -40,9 +40,9 @@ import dagger.Provides;
   }
 
   @Provides WalletsInteract provideWalletsInteract(BalanceInteract balanceInteract,
-      FetchWalletsInteract fetchWalletsInteract, CreateWalletInteract createWalletInteract,
+      FetchWalletsInteract fetchWalletsInteract, WalletCreatorInteract walletCreatorInteract,
       SharedPreferencesRepository sharedPreferencesRepository, Logger logger) {
-    return new WalletsInteract(balanceInteract, fetchWalletsInteract, createWalletInteract,
+    return new WalletsInteract(balanceInteract, fetchWalletsInteract, walletCreatorInteract,
         sharedPreferencesRepository, logger);
   }
 

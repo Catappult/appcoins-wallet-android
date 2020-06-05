@@ -8,7 +8,7 @@ import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
+import com.asfoundation.wallet.interact.WalletCreatorInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
@@ -51,7 +51,7 @@ public class ProofOfAttentionServiceTest {
   @Mock CampaignService campaignService;
   @Mock HashCalculator hashCalculator;
   @Mock AddressService addressService;
-  @Mock CreateWalletInteract walletInteract;
+  @Mock WalletCreatorInteract walletInteract;
   @Mock FindDefaultWalletInteract findDefaultWalletInteract;
   @Mock AdvertisingThrowableCodeMapper mapper;
   @Mock WalletService walletService;

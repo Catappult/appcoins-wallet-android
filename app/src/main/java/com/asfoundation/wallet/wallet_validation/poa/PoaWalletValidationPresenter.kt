@@ -1,8 +1,9 @@
 package com.asfoundation.wallet.wallet_validation.poa
 
+import android.util.Log
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
@@ -14,7 +15,7 @@ class PoaWalletValidationPresenter(
     private val view: PoaWalletValidationView,
     private val smsValidationRepository: SmsValidationRepositoryType,
     private val walletInteractor: FindDefaultWalletInteract,
-    private val createWalletInteractor: CreateWalletInteract,
+    private val createWalletInteractor: WalletCreatorInteract,
     private val disposables: CompositeDisposable,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler
@@ -27,6 +28,7 @@ class PoaWalletValidationPresenter(
   private fun handleWalletValidation() {
     disposables.add(walletInteractor.find()
         .onErrorResumeNext {
+          Log.e("TEST","**** FAILEd to get wallet, creating one, PoAWalletValidationPresenter")
           Completable.fromAction { view.showCreateAnimation() }
               .subscribeOn(viewScheduler)
               .andThen(createWallet())
@@ -46,6 +48,7 @@ class PoaWalletValidationPresenter(
         }))
   }
 
+  // TODO remove this also
   private fun createWallet(): Single<Wallet> {
     return createWalletInteractor.create()
         .subscribeOn(networkScheduler)

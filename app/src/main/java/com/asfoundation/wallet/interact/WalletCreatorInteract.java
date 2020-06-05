@@ -10,20 +10,18 @@ import io.reactivex.Single;
 
 import static com.asfoundation.wallet.interact.rx.operator.Operators.completableErrorProxy;
 
-public class CreateWalletInteract {
+public class WalletCreatorInteract {
 
   private final WalletRepositoryType walletRepository;
   private final PasswordStore passwordStore;
-  private final Scheduler syncScheduler;
 
-  public CreateWalletInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore, Scheduler syncScheduler) {
+  public WalletCreatorInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore, Scheduler syncScheduler) {
     this.walletRepository = walletRepository;
     this.passwordStore = passwordStore;
-    this.syncScheduler = syncScheduler;
   }
 
   public Single<Wallet> create() {
-    return passwordStore.generatePassword().subscribeOn(syncScheduler)
+    return passwordStore.generatePassword()
         .flatMap(masterPassword -> passwordStore.setBackUpPassword(masterPassword)
             .andThen(walletRepository.createWallet(masterPassword)
                 .compose(Operators.savePassword(passwordStore, walletRepository, masterPassword))
