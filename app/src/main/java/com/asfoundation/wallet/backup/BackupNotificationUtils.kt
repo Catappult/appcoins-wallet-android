@@ -41,7 +41,7 @@ object BackupNotificationUtils {
             .addAction(0, context.getString(R.string.backup_title), backupIntent)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setDeleteIntent(dismissIntent)
-            .setContentText(context.getString(R.string.backup_home_notification_body))
+            .setContentText(context.getString(R.string.backup_notification_body))
             .build()
 
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
