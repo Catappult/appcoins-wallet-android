@@ -7,4 +7,6 @@ interface SettingsActivityView {
   fun showWalletsBottomSheet(walletModel: WalletsModel)
 
   fun navigateToBackup(address: String, popBackStack: Boolean = false)
+
+  fun hideBottomSheet()
 }

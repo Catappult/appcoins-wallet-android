@@ -51,4 +51,6 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
     startActivity(WalletBackupActivity.newIntent(this, address))
     if (popBackStack) supportFragmentManager.popBackStack()
   }
+
+  override fun hideBottomSheet() = supportFragmentManager.popBackStack()
 }

@@ -10,12 +10,15 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_balance.*
 
 class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
 
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
   private lateinit var activityView: SettingsActivityView
+  private lateinit var presenter: SettingsWalletsPresenter
 
   companion object {
     private const val WALLET_MODEL_KEY = "wallet_model"
@@ -28,6 +31,11 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
         }
       }
     }
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    presenter = SettingsWalletsPresenter(this, activityView, CompositeDisposable())
   }
 
   override fun onAttach(context: Context) {
@@ -53,6 +61,7 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
     super.onViewCreated(view, savedInstanceState)
     walletsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    presenter.present()
   }
 
   override fun onDestroyView() {
@@ -60,6 +69,7 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
     faded_background.animation =
         AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
     faded_background.visibility = View.GONE
+    presenter.stop()
   }
 
   override fun showBottomSheet() {
@@ -75,6 +85,8 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
       override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
     })
   }
+
+  override fun outsideOfBottomSheetClick() = RxView.clicks(faded_background)
 
   override fun navigateToBackup(address: String) = activityView.navigateToBackup(address, true)
 
