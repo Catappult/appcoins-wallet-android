@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Θα μπορούσατε να έχετε λάβει %s με αυτήν την αγορά.</string>
   <string name="iab_purchase_done_title_long">Η αγορά ολοκληρώθηκε!</string>
   <string name="iab_purchase_change_payment_method_button">ΠΕΡΙΣΣΟΤΕΡΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>
+  <string name="iab_purchase_support_1">Χρειάζεστε βοήθεια;</string>
+  <string name="iab_purchase_support_2_link">Επικοινωνήστε με την Υποστήριξη.</string>
   <!-- SDK - Common -->
   <string name="next_button">ΕΠΟΜΕΝΟ</string>
   <string name="cancel_button">ΑΚΥΡΟ</string>
   <string name="buy_button">ΑΓΟΡΑ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ΕΓΚΑΤΑΣΤΑΣΗ WALLET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Εγκατάσταση</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Σφάλμα</string>
+  <string name="purchase_error_item_owned">Είστε ήδη κάτοχος αυτού του item!</string>
   <string name="purchase_card_error_title">Ωχ, κάτι πήγε στραβά.</string>
   <string name="purchase_card_error_general_1">Υπήρξε ένα πρόβλημα με την κάρτα σας. Παρακαλούμε, προσπαθήστε ξανά ή επικοινωνήστε μαζί μας.</string>
   <string name="purchase_card_error_general_2">Η συναλλαγή απορρίφθηκε από την τράπεζά σας. Παρακαλούμε, δοκιμάστε μία διαφορετική κάρτα ή επικοινωνήστε μαζί μας.</string>

@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Anda berpeluang untuk terima %s bagi pembelian ini.</string>
   <string name="iab_purchase_done_title_long">Pembelian selesai!</string>
   <string name="iab_purchase_change_payment_method_button">KAEDAH BAYARAN LAIN</string>
+  <string name="iab_purchase_support_1">Perlu bantuan?</string>
+  <string name="iab_purchase_support_2_link">Hubungi Sokongan.</string>
   <!-- SDK - Common -->
   <string name="next_button">SETERUSNYA</string>
   <string name="cancel_button">BATAL</string>
   <string name="buy_button">BELI</string>
   <string name="iab_wallet_not_installed_popup_close_install">PASANG DOMPET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Pasang</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Ralat</string>
+  <string name="purchase_error_item_owned">Anda sudah ada item ini!</string>
   <string name="purchase_card_error_title">Oops, ada sesuatu yang tidak kena.</string>
   <string name="purchase_card_error_general_1">Ada masalah dengan kad anda. Sila cuba lagi atau hubungi kami.</string>
   <string name="purchase_card_error_general_2">Transaksi telah ditolak oleh bank anda. Sila cuba kad yang lain atau hubungi kami.</string>

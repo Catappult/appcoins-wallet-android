@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Avresti potuto ricevere %s su questo acquisto.</string>
   <string name="iab_purchase_done_title_long">Acquisto completato!</string>
   <string name="iab_purchase_change_payment_method_button">ALTRI METODI DI PAGAMENTO</string>
+  <string name="iab_purchase_support_1">Serve aiuto?</string>
+  <string name="iab_purchase_support_2_link">Contatta l\'assistenza clienti.</string>
   <!-- SDK - Common -->
   <string name="next_button">AVANTI</string>
   <string name="cancel_button">ANNULLA</string>
   <string name="buy_button">ACQUISTA</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALLA IL WALLET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Installa</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Errore</string>
+  <string name="purchase_error_item_owned">Hai già questo articolo!</string>
   <string name="purchase_card_error_title">Si è verificato un errore.</string>
   <string name="purchase_card_error_general_1">Sì è verificato un problema con la tua carta. Riprova o contattaci.</string>
   <string name="purchase_card_error_general_2">La transazione è stata rifiutata dalla tua banca. Prova con un\'altra carta o contattaci.</string>
