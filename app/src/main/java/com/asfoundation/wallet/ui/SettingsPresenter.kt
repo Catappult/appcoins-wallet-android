@@ -35,19 +35,14 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun handleValidationCache(address: String) {
-    val isVerified = settingsInteract.isWalletValidated(address)
-    if (isVerified) {
-      view.setVerifiedWalletPreference()
-    } else {
-      view.setWalletValidationNoNetwork()
-    }
+    if (settingsInteract.isWalletValidated(address)) view.setVerifiedWalletPreference()
+    else view.setWalletValidationNoNetwork()
   }
 
   private fun handleRedeemPreferenceSetup() {
     disposables.add(settingsInteract.findWallet()
-        .subscribe { address ->
-          view.setRedeemCodePreference(address)
-        })
+        .doOnSuccess { view.setRedeemCodePreference(it) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun onBackupPreferenceClick() {

@@ -18,14 +18,14 @@ class SettingsWalletsBottomSheetPresenter(
 
   private fun handleWalletCardClick() {
     disposables.add(view.walletCardClicked()
-        .doOnNext { view.navigateToBackup(it) }
         .doOnNext {
           walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_SUCCESS)
+              WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_SUCCESS)
         }
+        .doOnNext { view.navigateToBackup(it) }
         .doOnError {
           walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_FAIL)
+              WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL)
         }
         .subscribe({}, { it.printStackTrace() }))
   }

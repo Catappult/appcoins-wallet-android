@@ -32,11 +32,11 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
 
   fun sendCreateSuccessEvent() {
     walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-        WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_SUCCESS)
+        WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_SUCCESS)
   }
 
   fun sendCreateErrorEvent() {
     walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-        WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_FAIL)
+        WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL)
   }
 }
