@@ -14,7 +14,6 @@ import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
@@ -28,9 +27,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   lateinit var settingsInteract: SettingsInteract
-
-  @Inject
-  lateinit var supportInteractor: SupportInteractor
 
   private lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
@@ -202,7 +198,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun setIssueReportPreference() {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
-      supportInteractor.displayChatScreen()
+      presenter.onBugReportClicked()
       false
     }
   }

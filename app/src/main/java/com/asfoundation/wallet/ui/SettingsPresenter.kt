@@ -70,5 +70,6 @@ class SettingsPresenter(private val view: SettingsView,
     }
   }
 
+  fun onBugReportClicked() = settingsInteract.displaySupportScreen()
 }
 

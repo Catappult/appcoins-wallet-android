@@ -5,6 +5,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
@@ -12,6 +13,7 @@ import io.reactivex.Single
 class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletInteract,
                        private val smsValidationInteract: SmsValidationInteract,
                        private val preferencesRepositoryType: PreferencesRepositoryType,
+                       private val supportInteractor: SupportInteractor,
                        private val walletsInteract: WalletsInteract,
                        private val walletsEventSender: WalletsEventSender) {
 
@@ -39,4 +41,6 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
     walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
         WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL)
   }
+
+  fun displaySupportScreen() = supportInteractor.displayChatScreen()
 }

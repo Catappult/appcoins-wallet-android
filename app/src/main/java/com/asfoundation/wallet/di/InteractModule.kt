@@ -482,9 +482,10 @@ class InteractModule {
   fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                                smsValidationInteract: SmsValidationInteract,
                                preferencesRepositoryType: PreferencesRepositoryType,
+                               supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
     return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, walletsInteract, walletsEventSender)
+        preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
   }
 }
