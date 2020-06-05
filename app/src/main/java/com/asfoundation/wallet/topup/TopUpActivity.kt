@@ -72,17 +72,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .commit()
   }
 
-  override fun navigateToAdyenPayment(paymentType: PaymentType, data: AdyenTopUpData,
-                                      transactionType: String, gamificationLevel: Int) {
+  override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
-            AdyenTopUpFragment.newInstance(paymentType, data, transactionType, gamificationLevel))
+            AdyenTopUpFragment.newInstance(paymentType, data))
         .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
         .commit()
   }
 
-  override fun navigateToLocalPayment(paymentId: String, topUpData: TopUpData,
-                                      transactionType: String, gamificationLevel: Int) {
+  override fun navigateToLocalPayment(paymentId: String, topUpData: TopUpPaymentData) {
     TODO("Not yet implemented")
   }
 

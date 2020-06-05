@@ -25,10 +25,10 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.topup.AdyenTopUpData
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
+import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
@@ -105,10 +105,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     presenter =
         AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
-            transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
+            data.transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
             data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
             adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
-            AdyenErrorCodeMapper(), gamificationLevel, topUpAnalytics, formatter)
+            AdyenErrorCodeMapper(), data.gamificationLevel, topUpAnalytics, formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -478,9 +478,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  private val data: AdyenTopUpData by lazy {
+  private val data: TopUpPaymentData by lazy {
     if (arguments!!.containsKey(PAYMENT_DATA)) {
-      arguments!!.getSerializable(PAYMENT_DATA) as AdyenTopUpData
+      arguments!!.getSerializable(PAYMENT_DATA) as TopUpPaymentData
     } else {
       throw IllegalArgumentException("previous payment data not found")
     }
@@ -494,42 +494,21 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     }
   }
 
-  private val transactionType: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_TRANSACTION_TYPE)) {
-      arguments!!.getString(PAYMENT_TRANSACTION_TYPE)!!
-    } else {
-      throw IllegalArgumentException("Transaction type not found")
-    }
-  }
-
-  private val gamificationLevel: Int by lazy {
-    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
-      arguments!!.getInt(GAMIFICATION_LEVEL)
-    } else {
-      throw IllegalArgumentException("gamification level data not found")
-    }
-  }
-
   companion object {
 
     private const val PAYMENT_TYPE = "paymentType"
-    private const val PAYMENT_TRANSACTION_TYPE = "transactionType"
     private const val PAYMENT_DATA = "data"
     private const val CARD_NUMBER_KEY = "card_number"
     private const val EXPIRY_DATE_KEY = "expiry_date"
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
-    private const val GAMIFICATION_LEVEL = "gamification_level"
 
-    fun newInstance(paymentType: PaymentType, data: AdyenTopUpData,
-                    transactionType: String, gamificationLevel: Int): AdyenTopUpFragment {
+    fun newInstance(paymentType: PaymentType, data: TopUpPaymentData): AdyenTopUpFragment {
       val bundle = Bundle()
       val fragment = AdyenTopUpFragment()
       bundle.apply {
         putString(PAYMENT_TYPE, paymentType.name)
-        putString(PAYMENT_TRANSACTION_TYPE, transactionType)
         putSerializable(PAYMENT_DATA, data)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
         fragment.arguments = this
       }
       return fragment

@@ -142,19 +142,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentType = topUpData.paymentMethod!!.paymentType
-    val transactionType = "TOPUP"
     when (paymentType) {
       PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(paymentType,
-          mapToAdyenTopUpData(topUpData), transactionType, gamificationLevel)
+          mapTopUpPaymentData(topUpData, gamificationLevel))
       PaymentType.LOCAL_PAYMENTS -> activity?.navigateToLocalPayment(
-          topUpData.paymentMethod!!.paymentId, topUpData, transactionType, gamificationLevel)
+          topUpData.paymentMethod!!, mapTopUpPaymentData(topUpData, gamificationLevel))
     }
-  }
-
-  private fun mapToAdyenTopUpData(topUpData: TopUpData): AdyenTopUpData {
-    return AdyenTopUpData(topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode,
-        topUpData.selectedCurrencyType, topUpData.bonusValue, topUpData.currency.fiatCurrencySymbol,
-        topUpData.currency.appcValue)
   }
 
   private fun handleManualAmountChange(packageName: String) {
@@ -365,5 +358,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnNext { view.changeMainValueText(it.amount.toString()) }
         .doOnError { view.showNoNetworkError() }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun mapTopUpPaymentData(topUpData: TopUpData, gamificationLevel: Int): TopUpPaymentData {
+    return TopUpPaymentData(topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode,
+        topUpData.selectedCurrencyType, topUpData.bonusValue, topUpData.currency.fiatCurrencySymbol,
+        topUpData.currency.appcValue, "TOPUP", gamificationLevel)
   }
 }

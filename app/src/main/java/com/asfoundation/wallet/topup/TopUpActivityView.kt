@@ -7,12 +7,9 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 interface TopUpActivityView {
   fun showTopUpScreen()
 
-  fun navigateToAdyenPayment(paymentType: PaymentType, data: AdyenTopUpData,
-                             transactionType: String,
-                             gamificationLevel: Int)
+  fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
 
-  fun navigateToLocalPayment(paymentId: String, topUpData: TopUpData, transactionType: String,
-                             gamificationLevel: Int)
+  fun navigateToLocalPayment(paymentTypeInfo: PaymentTypeInfo, topUpData: TopUpPaymentData)
 
   fun finish(data: Bundle)
 
