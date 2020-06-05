@@ -4,15 +4,15 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity
+import com.asfoundation.wallet.backup.BackupBroadcastReceiver.Companion.ACTION_BACKUP
+import com.asfoundation.wallet.backup.BackupBroadcastReceiver.Companion.ACTION_DISMISS
 
 object BackupNotificationUtils {
 
-  private const val NOTIFICATION_SERVICE_ID = 77795
+  const val NOTIFICATION_SERVICE_ID = 77795
   private const val CHANNEL_ID = "backup_notification_channel_id"
   private const val CHANNEL_NAME = "Backup Notification Channel"
 
@@ -22,7 +22,7 @@ object BackupNotificationUtils {
     notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val backupIntent = createNotificationBackupIntent(context, walletAddress)
-    val dismissIntent = createNotificationDismissIntent(context)
+    val dismissIntent = createNotificationDismissIntent(context, walletAddress)
     val builder: NotificationCompat.Builder
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       val importance = NotificationManager.IMPORTANCE_HIGH
@@ -40,20 +40,23 @@ object BackupNotificationUtils {
             .addAction(0, context.getString(R.string.dismiss_button), dismissIntent)
             .addAction(0, context.getString(R.string.backup_title), backupIntent)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setDeleteIntent(dismissIntent)
             .setContentText(context.getString(R.string.backup_home_notification_body))
             .build()
 
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
-
   }
 
   private fun createNotificationBackupIntent(context: Context,
                                              walletAddress: String): PendingIntent {
-    val intent = WalletBackupActivity.newIntent(context, walletAddress)
-    return PendingIntent.getBroadcast(context, 0, intent, 0)
+    val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_BACKUP)
+    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
   }
 
-  private fun createNotificationDismissIntent(context: Context) =
-      PendingIntent.getBroadcast(context, 0, Intent(), 0)
+  private fun createNotificationDismissIntent(context: Context,
+                                              walletAddress: String): PendingIntent {
+    val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_DISMISS)
+    return PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+  }
 
 }

@@ -23,8 +23,8 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val KEYSTORE_DIRECTORY = "keystore_directory"
     private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
-    private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification"
-    private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count"
+    private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification_"
+    private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
@@ -190,20 +190,18 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun hasDismissedBackupSystemNotification(walletAddress: String) =
       Single.create<Boolean> {
-        val status = pref.getBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION, false)
+        val status = pref.getBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION + walletAddress, false)
         it.onSuccess(status)
       }
 
   override fun setDismissedBackupSystemNotification(walletAddress: String) =
-      Completable.fromAction {
-        pref.edit()
-            .putBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION, true)
-            .apply()
-      }
+      pref.edit()
+          .putBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION + walletAddress, true)
+          .apply()
 
   override fun getWalletPurchasesCount(walletAddress: String) =
       Single.create<Int> {
-        val count = pref.getInt(WALLET_PURCHASES_COUNT, 0)
+        val count = pref.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
         it.onSuccess(count)
       }
 
@@ -212,7 +210,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
           .flatMapCompletable { count ->
             Completable.fromAction {
               pref.edit()
-                  .putInt(WALLET_PURCHASES_COUNT, count + 1)
+                  .putInt(WALLET_PURCHASES_COUNT + walletAddress, count + 1)
                   .apply()
             }
           }

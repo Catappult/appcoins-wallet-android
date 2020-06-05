@@ -122,4 +122,8 @@ class BackupInteract(
   override fun updateWalletPurchasesCount(walletAddress: String) =
       sharedPreferencesRepository.incrementWalletPurchasesCount(walletAddress)
 
+  override fun dismissSystemNotification(walletAddress: String) {
+    sharedPreferencesRepository.setDismissedBackupSystemNotification(walletAddress)
+  }
+
 }
