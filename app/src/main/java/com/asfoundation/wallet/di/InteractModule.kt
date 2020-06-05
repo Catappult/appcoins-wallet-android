@@ -26,6 +26,7 @@ import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
@@ -47,6 +48,7 @@ import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
+import com.asfoundation.wallet.ui.SettingsInteract
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
@@ -158,13 +160,14 @@ class InteractModule {
   @Singleton
   @Provides
   @Named("ASF_IN_APP_INTERACTOR")
-  fun provideAsfInAppPurchaseInteractor(@Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
-                                        defaultWalletInteract: FindDefaultWalletInteract,
-                                        gasSettingsInteract: FetchGasSettingsInteract,
-                                        parser: TransferParser, billing: Billing,
-                                        currencyConversionService: CurrencyConversionService,
-                                        bdsTransactionService: BdsTransactionService,
-                                        billingMessagesMapper: BillingMessagesMapper): AsfInAppPurchaseInteractor {
+  fun provideAsfInAppPurchaseInteractor(
+      @Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
+      defaultWalletInteract: FindDefaultWalletInteract,
+      gasSettingsInteract: FetchGasSettingsInteract,
+      parser: TransferParser, billing: Billing,
+      currencyConversionService: CurrencyConversionService,
+      bdsTransactionService: BdsTransactionService,
+      billingMessagesMapper: BillingMessagesMapper): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, currencyConversionService, bdsTransactionService,
@@ -174,7 +177,8 @@ class InteractModule {
   @Singleton
   @Provides
   fun provideDualInAppPurchaseInteractor(bdsInAppPurchaseInteractor: BdsInAppPurchaseInteractor,
-                                         @Named("ASF_IN_APP_INTERACTOR") asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
+                                         @Named("ASF_IN_APP_INTERACTOR")
+                                         asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
                                          appcoinsRewards: AppcoinsRewards, billing: Billing,
                                          sharedPreferences: SharedPreferences,
                                          packageManager: PackageManager): InAppPurchaseInteractor {
@@ -473,4 +477,14 @@ class InteractModule {
     return RestoreWalletPasswordInteractor(gson, balanceInteract, restoreWalletInteractor)
   }
 
+
+  @Provides
+  fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
+                               smsValidationInteract: SmsValidationInteract,
+                               preferencesRepositoryType: PreferencesRepositoryType,
+                               walletsInteract: WalletsInteract,
+                               walletsEventSender: WalletsEventSender): SettingsInteract {
+    return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
+        preferencesRepositoryType, walletsInteract, walletsEventSender)
+  }
 }
