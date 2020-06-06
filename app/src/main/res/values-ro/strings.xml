@@ -20,7 +20,7 @@
   <string name="copy">Copiază în clipboard</string>
   <string name="close">Închide</string>
   <string name="title_activity_settings">Setări</string>
-  <string name="network_label">Reţea</string>
+  <string name="network_label">Rețea</string>
   <string name="credits">Credite</string>
   <string name="label_new">Nou</string>
   <string name="got_it_button">AM ÎNȚELES</string>
@@ -611,5 +611,5 @@
   <!--Pioneers-->
   <string name="pioneer_bonus_updated_body">Procentele bonus au fost actualizate în %s.</string>
   <string name="pioneer_gamification_title">Ești un Pionier</string>
-  <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
+  <string name="pioneer_gamification_body">Un Pionier este unul dintre primii utilizatorii, cu acces la bonusuri mai mari.</string>
 </resources>
