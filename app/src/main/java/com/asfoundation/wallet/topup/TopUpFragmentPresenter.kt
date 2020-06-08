@@ -59,7 +59,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             .observeOn(viewScheduler),
         BiFunction { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
           if (values.error.hasError || defaultValues.error.hasError) {
-            view.showNoNetworkError()
+            if (values.error.isNoNetwork || defaultValues.error.isNoNetwork) view.showNoNetworkError()
+            else view.showGenericError()
           } else {
             view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
             updateDefaultValues(defaultValues)
@@ -94,19 +95,20 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleKeyboardEvents() {
-    disposables.add(
-        view.getKeyboardEvents()
-            .doOnNext {
-              if (it && hasDefaultValues) view.showValuesAdapter()
-              else view.hideValuesAdapter()
-            }
-            .subscribeOn(viewScheduler)
-            .subscribe()
+    disposables.add(view.getKeyboardEvents()
+        .doOnNext {
+          if (it && hasDefaultValues) view.showValuesAdapter()
+          else view.hideValuesAdapter()
+        }
+        .subscribeOn(viewScheduler)
+        .subscribe()
     )
   }
 
   private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
     if (throwable.isNoNetworkException()) view.showNoNetworkError()
+    else view.showGenericError()
   }
 
   private fun handleChangeCurrencyClick() {
@@ -133,12 +135,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnNext {
-                    val isValidBonus = interactor.isBonusValidAndActive()
-                    if (isValidBonus) view.hideBonus()
                     topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
                         "next", topUpData.paymentMethod!!.paymentType.name)
                     navigateToPayment(topUpData, gamificationLevel)
-                    if (isValidBonus) view.showBonus()
                   }
             }
             .subscribe())
@@ -359,7 +358,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext { view.changeMainValueText(it.amount.toString()) }
-        .doOnError { view.showNoNetworkError() }
+        .doOnError { handleError(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
