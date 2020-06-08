@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -125,15 +126,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     toolbar()
   }
 
-  override fun handleNotificationsAndFinish(data: Bundle) {
-    presenter.handleBackupNotifications(data)
-  }
-
-  override fun showBackupNotification(walletAddress: String) {
-    BackupNotificationUtils.showBackupNotification(this, walletAddress)
-  }
-
-  override fun finish(data: Bundle) {
+  override fun finishAfterNotification(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
@@ -142,6 +135,18 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
             TopUpSuccessFragment::class.java.simpleName)
         .commit()
     unlockRotation()
+  }
+
+  override fun showBackupNotification(walletAddress: String) {
+    BackupNotificationUtils.showBackupNotification(this, walletAddress)
+  }
+
+  override fun finish(data: Bundle) {
+    if (data.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
+      presenter.handleBackupNotifications(data)
+    } else {
+      finishAfterNotification(data)
+    }
   }
 
   override fun close(navigateToTransactions: Boolean) {

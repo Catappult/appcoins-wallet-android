@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
@@ -116,8 +117,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = true
   }
 
-  override fun handleNotificationsAndFinish(data: Bundle) {
-    presenter.handleBackupNotifications(data)
+  override fun finishAfterNotification(data: Bundle) {
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
+        data.getString(PRE_SELECTED_PAYMENT_METHOD_KEY))
+    data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
+
+    setResult(Activity.RESULT_OK, Intent().putExtras(data))
+    finish()
   }
 
   override fun showBackupNotification(walletAddress: String) {
@@ -125,12 +131,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun finish(bundle: Bundle) {
-    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
-        bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY))
-    bundle.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
-
-    setResult(Activity.RESULT_OK, Intent().putExtras(bundle))
-    finish()
+    if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
+      presenter.handleBackupNotifications(bundle)
+    } else {
+      finishAfterNotification(bundle)
+    }
   }
 
   override fun showError() {

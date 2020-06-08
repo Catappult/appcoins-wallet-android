@@ -38,8 +38,8 @@ interface PreferencesRepositoryType {
   fun getChosenUri(): String?
   fun getSeenBackupTooltip(): Boolean
   fun saveSeenBackupTooltip()
-  fun hasDismissedBackupSystemNotification(walletAddress: String): Single<Boolean>
+  fun hasDismissedBackupSystemNotification(walletAddress: String): Boolean
   fun setDismissedBackupSystemNotification(walletAddress: String)
-  fun getWalletPurchasesCount(walletAddress: String): Single<Int>
-  fun incrementWalletPurchasesCount(walletAddress: String): Completable
+  fun getWalletPurchasesCount(walletAddress: String): Int
+  fun incrementWalletPurchasesCount(walletAddress: String, count: Int): Completable
 }

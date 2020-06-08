@@ -189,10 +189,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   }
 
   override fun hasDismissedBackupSystemNotification(walletAddress: String) =
-      Single.create<Boolean> {
-        val status = pref.getBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION + walletAddress, false)
-        it.onSuccess(status)
-      }
+      pref.getBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION + walletAddress, false)
 
   override fun setDismissedBackupSystemNotification(walletAddress: String) =
       pref.edit()
@@ -200,18 +197,13 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
           .apply()
 
   override fun getWalletPurchasesCount(walletAddress: String) =
-      Single.create<Int> {
-        val count = pref.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
-        it.onSuccess(count)
+      pref.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
+
+  override fun incrementWalletPurchasesCount(walletAddress: String, count: Int) =
+      Completable.fromAction {
+        pref.edit()
+            .putInt(WALLET_PURCHASES_COUNT + walletAddress, count)
+            .apply()
       }
 
-  override fun incrementWalletPurchasesCount(walletAddress: String) =
-      getWalletPurchasesCount(walletAddress)
-          .flatMapCompletable { count ->
-            Completable.fromAction {
-              pref.edit()
-                  .putInt(WALLET_PURCHASES_COUNT + walletAddress, count + 1)
-                  .apply()
-            }
-          }
 }

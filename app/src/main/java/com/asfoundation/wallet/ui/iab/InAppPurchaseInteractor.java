@@ -65,9 +65,10 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<NotificationNeeded> incrementAndValidateNotificationNeeded() {
-    return getWalletAddress().flatMap(s -> backupInteract.updateWalletPurchasesCount(s)
-        .andThen(backupInteract.shouldShowSystemNotification(s))
-        .map(needed -> new NotificationNeeded(needed, s)));
+    return asfInAppPurchaseInteractor.getWalletAddress()
+        .flatMap(wallet -> backupInteract.updateWalletPurchasesCount(wallet)
+            .andThen(backupInteract.shouldShowSystemNotification(wallet))
+            .map(needed -> new NotificationNeeded(needed, wallet)));
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -121,10 +122,6 @@ public class InAppPurchaseInteractor {
 
   List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
     return bdsInAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
-  }
-
-  public Single<String> getWalletAddress() {
-    return asfInAppPurchaseInteractor.getWalletAddress();
   }
 
   Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(String packageName,

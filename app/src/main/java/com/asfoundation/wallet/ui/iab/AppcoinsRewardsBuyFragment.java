@@ -171,7 +171,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     Bundle bundle = billingMessagesMapper.successBundle(uid);
     bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
-    iabView.handleNotificationsAndFinish(bundle);
+    iabView.finish(bundle);
   }
 
   @Override public void errorClose() {
@@ -185,7 +185,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     Bundle bundle = billingMessagesMapper.mapPurchase(purchase, orderReference);
     bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
-    iabView.handleNotificationsAndFinish(bundle);
+    iabView.finish(bundle);
   }
 
   @Override public void showTransactionCompleted() {

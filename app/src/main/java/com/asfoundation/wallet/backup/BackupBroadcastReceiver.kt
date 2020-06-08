@@ -49,7 +49,7 @@ class BackupBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
 
     val wallet = intent.getStringExtra(WALLET_ADDRESS)
     wallet?.let {
-      backupInteract.dismissSystemNotification(it)
+      backupInteract.saveDismissSystemNotification(it)
 
       if (intent.getStringExtra(ACTION) == ACTION_BACKUP) {
         val backupIntent = WalletBackupActivity.newIntent(context, it)

@@ -7,8 +7,12 @@ import io.reactivex.Single
 interface BackupInteractContract {
 
   fun getUnwatchedBackupNotification(): Single<CardNotification>
+
   fun dismissNotification(): Completable
+
   fun shouldShowSystemNotification(walletAddress: String): Single<Boolean>
+
   fun updateWalletPurchasesCount(walletAddress: String): Completable
-  fun dismissSystemNotification(walletAddress: String)
+
+  fun saveDismissSystemNotification(walletAddress: String)
 }

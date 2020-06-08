@@ -33,7 +33,7 @@ class IabPresenter(private val view: IabView,
             .doOnSuccess { notificationNeeded ->
               if (notificationNeeded.isNeeded)
                 view.showBackupNotification(notificationNeeded.walletAddress)
-              view.finish(bundle)
+              view.finishAfterNotification(bundle)
             }
             .doOnError { view.finish(bundle) }
             .subscribe({ }, { it.printStackTrace() })

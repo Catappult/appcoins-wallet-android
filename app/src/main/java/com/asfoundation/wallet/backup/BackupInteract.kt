@@ -28,7 +28,7 @@ class BackupInteract(
     private const val TRANSACTION_COUNT_THRESHOLD = 10
     private const val GAMIFICATION_LEVEL_THRESHOLD = 2
     private const val BALANCE_AMOUNT_THRESHOLD = 10
-
+    private const val PURCHASE_NOTIFICATION_THRESHOLD = 2
   }
 
   override fun getUnwatchedBackupNotification(): Single<CardNotification> {
@@ -108,10 +108,11 @@ class BackupInteract(
   }
 
   override fun shouldShowSystemNotification(walletAddress: String): Single<Boolean> {
-    return sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
+    return Single.just(sharedPreferencesRepository.getWalletPurchasesCount(walletAddress))
         .flatMap {
-          if (it >= 2) {
-            sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
+          if (it >= PURCHASE_NOTIFICATION_THRESHOLD) {
+            Single.just(
+                sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress))
                 .map { dismissed -> dismissed.not() }
           } else {
             Single.just(false)
@@ -120,9 +121,13 @@ class BackupInteract(
   }
 
   override fun updateWalletPurchasesCount(walletAddress: String) =
-      sharedPreferencesRepository.incrementWalletPurchasesCount(walletAddress)
+      Single.just(sharedPreferencesRepository.getWalletPurchasesCount(walletAddress))
+          .map { it + 1 }
+          .flatMapCompletable {
+            sharedPreferencesRepository.incrementWalletPurchasesCount(walletAddress, it)
+          }
 
-  override fun dismissSystemNotification(walletAddress: String) {
+  override fun saveDismissSystemNotification(walletAddress: String) {
     sharedPreferencesRepository.setDismissedBackupSystemNotification(walletAddress)
   }
 

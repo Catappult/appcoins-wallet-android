@@ -44,6 +44,6 @@ interface IabView {
   fun showEarnAppcoins(domain: String, skuId: String?, amount: BigDecimal, type: String)
   fun launchIntent(intent: Intent)
   fun showUpdateRequiredView()
-  fun handleNotificationsAndFinish(data: Bundle)
+  fun finishAfterNotification(data: Bundle)
   fun showBackupNotification(walletAddress: String)
 }

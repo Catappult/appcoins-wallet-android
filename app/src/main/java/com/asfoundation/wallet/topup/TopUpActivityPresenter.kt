@@ -34,9 +34,10 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { notificationNeeded ->
-              if (notificationNeeded.isNeeded)
+              if (notificationNeeded.isNeeded) {
                 view.showBackupNotification(notificationNeeded.walletAddress)
-              view.finish(bundle)
+              }
+              view.finishAfterNotification(bundle)
             }
             .doOnError { view.finish(bundle) }
             .subscribe({ }, { it.printStackTrace() })

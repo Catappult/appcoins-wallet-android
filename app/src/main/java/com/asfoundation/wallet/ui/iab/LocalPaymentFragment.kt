@@ -397,7 +397,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun popView(bundle: Bundle) {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         paymentId)
-    iabView.handleNotificationsAndFinish(bundle)
+    iabView.finish(bundle)
   }
 
   override fun lockRotation() {
