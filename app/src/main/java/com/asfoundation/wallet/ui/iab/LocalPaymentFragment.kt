@@ -347,7 +347,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     progress_bar.visibility = View.GONE
     pending_user_payment_view?.visibility = View.VISIBLE
 
-    val placeholder = getString(R.string.async_steps_1)
+    val placeholder = getString(R.string.async_steps_1_no_notification)
     val stepOneText = String.format(placeholder, paymentMethodIconLabel)
 
     step_one_desc.text = stepOneText

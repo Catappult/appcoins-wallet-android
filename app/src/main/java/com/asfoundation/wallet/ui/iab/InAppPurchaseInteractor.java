@@ -15,6 +15,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.backup.BackupInteractContract;
+import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Completable;
@@ -45,11 +47,13 @@ public class InAppPurchaseInteractor {
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
   private final PackageManager packageManager;
+  private final BackupInteractContract backupInteract;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
-      SharedPreferences sharedPreferences, PackageManager packageManager) {
+      SharedPreferences sharedPreferences, PackageManager packageManager,
+      BackupInteractContract backupInteract) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
@@ -57,6 +61,21 @@ public class InAppPurchaseInteractor {
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
     this.packageManager = packageManager;
+    this.backupInteract = backupInteract;
+  }
+
+  public Single<NotificationNeeded> incrementAndValidateNotificationNeeded() {
+    return asfInAppPurchaseInteractor.getWalletAddress()
+        .flatMap(walletAddress -> backupInteract.updateWalletPurchasesCount(walletAddress)
+            .andThen(shouldShowSystemNotification(walletAddress).map(
+                needed -> new NotificationNeeded(needed, walletAddress))));
+  }
+
+  private Single<Boolean> shouldShowSystemNotification(String walletAddress) {
+    return Single.create(emitter -> {
+      boolean shouldShow = backupInteract.shouldShowSystemNotification(walletAddress);
+      emitter.onSuccess(shouldShow);
+    });
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -110,10 +129,6 @@ public class InAppPurchaseInteractor {
 
   List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
     return bdsInAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
-  }
-
-  public Single<String> getWalletAddress() {
-    return asfInAppPurchaseInteractor.getWalletAddress();
   }
 
   Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(String packageName,

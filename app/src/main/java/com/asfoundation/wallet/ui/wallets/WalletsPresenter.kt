@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.wallets
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class WalletsPresenter(private val view: WalletsView,
                        private val walletsInteract: WalletsInteract,
@@ -27,6 +28,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleRestoreWalletClick() {
     disposables.add(view.restoreWalletClicked()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToRestoreView() }
         .subscribe({}, { it.printStackTrace() }))
@@ -34,6 +36,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleCreateNewWalletClick() {
     disposables.add(view.createNewWalletClicked()
+        .throttleFirst(100, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.showCreatingAnimation() }
         .flatMapCompletable {
@@ -46,6 +49,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleOtherWalletCardClick() {
     disposables.add(view.otherWalletCardClicked()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, false) }
         .subscribe({}, { it.printStackTrace() }))
@@ -53,6 +57,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleActiveWalletCardClick() {
     disposables.add(view.activeWalletCardClicked()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, true) }
         .subscribe({}, { it.printStackTrace() }))

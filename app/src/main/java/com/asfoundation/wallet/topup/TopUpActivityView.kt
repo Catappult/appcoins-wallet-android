@@ -14,6 +14,10 @@ interface TopUpActivityView {
 
   fun finish(data: Bundle)
 
+  fun finishActivity(data: Bundle)
+
+  fun showBackupNotification(walletAddress: String)
+
   fun navigateBack()
 
   fun close(navigateToTransactions: Boolean = true)

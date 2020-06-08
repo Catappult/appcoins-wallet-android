@@ -20,6 +20,7 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(
@@ -36,7 +37,7 @@ class AdyenPaymentInteractor(
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
             supportInteractor.displayChatScreen()
           }
         }

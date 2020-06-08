@@ -96,6 +96,7 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
     const val CONTEXT_WALLET_DETAILS = "wallet_details"
     const val CONTEXT_WALLET_TOOLTIP = "tooltip"
     const val CONTEXT_WALLET_BALANCE = "balance"
+    const val CONTEXT_WALLET_SETTINGS = "settings"
     const val STATUS_SUCCESS = "success"
     const val STATUS_FAIL = "fail"
     const val WALLET_CREATE_BACKUP = "wallet_create_backup"
