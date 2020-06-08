@@ -25,6 +25,21 @@ class IabPresenter(private val view: IabView,
     handleAutoUpdate()
   }
 
+  fun handleBackupNotifications(bundle: Bundle) {
+    disposable.add(
+        inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess { notificationNeeded ->
+              if (notificationNeeded.isNeeded)
+                view.showBackupNotification(notificationNeeded.walletAddress)
+              view.finishActivity(bundle)
+            }
+            .doOnError { view.finish(bundle) }
+            .subscribe({ }, { it.printStackTrace() })
+    )
+  }
+
   fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
     disposable.add(Completable.fromAction {
       if (firstImpression) {

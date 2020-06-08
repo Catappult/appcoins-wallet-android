@@ -181,9 +181,11 @@ class InteractModule {
                                          asfInAppPurchaseInteractor: AsfInAppPurchaseInteractor,
                                          appcoinsRewards: AppcoinsRewards, billing: Billing,
                                          sharedPreferences: SharedPreferences,
-                                         packageManager: PackageManager): InAppPurchaseInteractor {
+                                         packageManager: PackageManager,
+                                         backupInteract: BackupInteractContract): InAppPurchaseInteractor {
     return InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences, packageManager)
+        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences, packageManager,
+        backupInteract)
   }
 
   @Provides
