@@ -51,11 +51,14 @@ class BackupInteractTest {
   fun shouldShowSystemNotification_whenZeroPurchases_shouldReturnFalse() {
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
         .thenReturn(0)
+    `when`(sharedPreferencesRepository.isWalletRestoreBackup(WALLET_ADDRESS))
+        .thenReturn(false)
 
     val result = backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
 
     verify(sharedPreferencesRepository, times(0))
         .hasDismissedBackupSystemNotification(anyString())
+    verify(sharedPreferencesRepository).isWalletRestoreBackup(WALLET_ADDRESS)
 
     Assert.assertFalse(result)
   }
@@ -65,11 +68,15 @@ class BackupInteractTest {
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
         .thenReturn(2)
 
+    `when`(sharedPreferencesRepository.isWalletRestoreBackup(WALLET_ADDRESS))
+        .thenReturn(false)
+
     `when`(sharedPreferencesRepository.hasDismissedBackupSystemNotification(WALLET_ADDRESS))
         .thenReturn(false)
 
     val result = backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
     verify(sharedPreferencesRepository).hasDismissedBackupSystemNotification(WALLET_ADDRESS)
+    verify(sharedPreferencesRepository).isWalletRestoreBackup(WALLET_ADDRESS)
 
     Assert.assertTrue(result)
   }
@@ -79,12 +86,16 @@ class BackupInteractTest {
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
         .thenReturn(2)
 
+    `when`(sharedPreferencesRepository.isWalletRestoreBackup(WALLET_ADDRESS))
+        .thenReturn(false)
+
     `when`(sharedPreferencesRepository.hasDismissedBackupSystemNotification(WALLET_ADDRESS))
         .thenReturn(true)
 
     val result = backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
 
     verify(sharedPreferencesRepository).hasDismissedBackupSystemNotification(WALLET_ADDRESS)
+    verify(sharedPreferencesRepository).isWalletRestoreBackup(WALLET_ADDRESS)
 
     Assert.assertFalse(result)
   }

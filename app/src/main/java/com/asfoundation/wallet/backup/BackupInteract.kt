@@ -108,8 +108,9 @@ class BackupInteract(
   }
 
   override fun shouldShowSystemNotification(walletAddress: String): Boolean {
+    val hasRestoredBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
     val count = sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
-    return if (count >= PURCHASE_NOTIFICATION_THRESHOLD) {
+    return if (hasRestoredBackup.not() && count >= PURCHASE_NOTIFICATION_THRESHOLD) {
       sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
           .not()
     } else {
@@ -117,12 +118,18 @@ class BackupInteract(
     }
   }
 
-  override fun updateWalletPurchasesCount(walletAddress: String) =
+  override fun updateWalletPurchasesCount(walletAddress: String): Completable {
+    val hasRestoredBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
+    return if (hasRestoredBackup.not()) {
       Single.just(sharedPreferencesRepository.getWalletPurchasesCount(walletAddress))
           .map { it + 1 }
           .flatMapCompletable {
             sharedPreferencesRepository.incrementWalletPurchasesCount(walletAddress, it)
           }
+    } else {
+      Completable.complete()
+    }
+  }
 
   override fun saveDismissSystemNotification(walletAddress: String) {
     sharedPreferencesRepository.setDismissedBackupSystemNotification(walletAddress)
