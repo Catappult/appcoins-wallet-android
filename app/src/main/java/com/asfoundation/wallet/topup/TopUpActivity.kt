@@ -80,8 +80,13 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .commit()
   }
 
-  override fun navigateToLocalPayment(paymentId: String, topUpData: TopUpPaymentData) {
-    TODO("Not yet implemented")
+  override fun navigateToLocalPayment(paymentId: String, icon: String, label: String,
+                                      topUpData: TopUpPaymentData) {
+    supportFragmentManager.beginTransaction()
+        .add(R.id.fragment_container,
+            LocalTopUpPaymentFragment.newInstance(paymentId, icon, label, topUpData))
+        .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun onBackPressed() {

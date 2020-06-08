@@ -9,7 +9,8 @@ interface TopUpActivityView {
 
   fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
 
-  fun navigateToLocalPayment(paymentTypeInfo: PaymentTypeInfo, topUpData: TopUpPaymentData)
+  fun navigateToLocalPayment(paymentId: String, icon: String, label: String,
+                             topUpData: TopUpPaymentData)
 
   fun finish(data: Bundle)
 

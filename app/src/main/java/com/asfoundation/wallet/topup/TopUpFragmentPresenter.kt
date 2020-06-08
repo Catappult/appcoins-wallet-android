@@ -141,12 +141,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
-    val paymentType = topUpData.paymentMethod!!.paymentType
-    when (paymentType) {
-      PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(paymentType,
-          mapTopUpPaymentData(topUpData, gamificationLevel))
-      PaymentType.LOCAL_PAYMENTS -> activity?.navigateToLocalPayment(
-          topUpData.paymentMethod!!, mapTopUpPaymentData(topUpData, gamificationLevel))
+    val paymentMethod = topUpData.paymentMethod!!
+    when (paymentMethod.paymentType) {
+      PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(
+          paymentMethod.paymentType, mapTopUpPaymentData(topUpData, gamificationLevel))
+      PaymentType.LOCAL_PAYMENTS ->
+        activity?.navigateToLocalPayment(paymentMethod.paymentId, paymentMethod.icon,
+            paymentMethod.label, mapTopUpPaymentData(topUpData, gamificationLevel))
     }
   }
 
