@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.balance
 import android.animation.Animator
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.transition.Fade
 import android.view.MenuItem
@@ -110,6 +111,7 @@ class BalanceActivity : BaseActivity(),
   }
 
   override fun showCreatingAnimation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     wallet_creation_animation.visibility = View.VISIBLE
     create_wallet_animation.playAnimation()
   }

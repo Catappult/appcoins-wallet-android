@@ -31,7 +31,7 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
                       wallets.add(WalletBalance(wallet.address, fiatValue,
                           currentWalletAddress == wallet.address))
                     }
-                    .doOnError { logger.log("WalletsInterct", it) }
+                    .doOnError { logger.log("WalletsInteract", it) }
                     .ignoreElement()
               }
         }

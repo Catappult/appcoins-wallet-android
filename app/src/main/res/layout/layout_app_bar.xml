@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
@@ -11,9 +10,8 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:minHeight="?attr/actionBarSize"
       android:background="@drawable/appbar_background_color"
-      android:elevation="8dp"
+      android:minHeight="?attr/actionBarSize"
       app:popupTheme="@style/AppTheme.PopupOverlay"
       />
 </com.google.android.material.appbar.AppBarLayout>
