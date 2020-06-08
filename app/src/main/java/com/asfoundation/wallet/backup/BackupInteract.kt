@@ -107,17 +107,14 @@ class BackupInteract(
     }
   }
 
-  override fun shouldShowSystemNotification(walletAddress: String): Single<Boolean> {
-    return Single.just(sharedPreferencesRepository.getWalletPurchasesCount(walletAddress))
-        .flatMap {
-          if (it >= PURCHASE_NOTIFICATION_THRESHOLD) {
-            Single.just(
-                sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress))
-                .map { dismissed -> dismissed.not() }
-          } else {
-            Single.just(false)
-          }
-        }
+  override fun shouldShowSystemNotification(walletAddress: String): Boolean {
+    val count = sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
+    return if (count >= PURCHASE_NOTIFICATION_THRESHOLD) {
+      sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
+          .not()
+    } else {
+      false
+    }
   }
 
   override fun updateWalletPurchasesCount(walletAddress: String) =

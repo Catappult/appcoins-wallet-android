@@ -16,7 +16,7 @@ interface TopUpActivityView {
 
   fun finish(data: Bundle)
 
-  fun finishAfterNotification(data: Bundle)
+  fun finishActivity(data: Bundle)
 
   fun showBackupNotification(walletAddress: String)
 

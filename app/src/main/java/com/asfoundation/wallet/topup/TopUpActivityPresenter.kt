@@ -37,7 +37,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
               if (notificationNeeded.isNeeded) {
                 view.showBackupNotification(notificationNeeded.walletAddress)
               }
-              view.finishAfterNotification(bundle)
+              view.finishActivity(bundle)
             }
             .doOnError { view.finish(bundle) }
             .subscribe({ }, { it.printStackTrace() })

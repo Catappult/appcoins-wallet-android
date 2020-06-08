@@ -126,7 +126,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     toolbar()
   }
 
-  override fun finishAfterNotification(data: Bundle) {
+  override fun finishActivity(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
@@ -145,7 +145,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     if (data.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       presenter.handleBackupNotifications(data)
     } else {
-      finishAfterNotification(data)
+      finishActivity(data)
     }
   }
 

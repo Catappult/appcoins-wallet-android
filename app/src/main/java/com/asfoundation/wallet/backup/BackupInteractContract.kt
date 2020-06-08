@@ -10,7 +10,7 @@ interface BackupInteractContract {
 
   fun dismissNotification(): Completable
 
-  fun shouldShowSystemNotification(walletAddress: String): Single<Boolean>
+  fun shouldShowSystemNotification(walletAddress: String): Boolean
 
   fun updateWalletPurchasesCount(walletAddress: String): Completable
 

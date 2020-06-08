@@ -6,8 +6,8 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import io.reactivex.Completable
-import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,57 +49,44 @@ class BackupInteractTest {
 
   @Test
   fun shouldShowSystemNotification_whenZeroPurchases_shouldReturnFalse() {
-    val testObserver = TestObserver<Boolean>()
-
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
         .thenReturn(0)
 
-    backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
-        .subscribe(testObserver)
+    val result = backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
 
     verify(sharedPreferencesRepository, times(0))
         .hasDismissedBackupSystemNotification(anyString())
 
-    testObserver.assertNoErrors()
-        .assertValue(false)
+    Assert.assertFalse(result)
   }
 
   @Test
   fun shouldShowSystemNotification_whenTwoPurchasesAndNotDismissed_shouldReturnTrue() {
-    val testObserver = TestObserver<Boolean>()
-
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
         .thenReturn(2)
 
     `when`(sharedPreferencesRepository.hasDismissedBackupSystemNotification(WALLET_ADDRESS))
         .thenReturn(false)
 
-    backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
-        .subscribe(testObserver)
-
+    val result = backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
     verify(sharedPreferencesRepository).hasDismissedBackupSystemNotification(WALLET_ADDRESS)
 
-    testObserver.assertNoErrors()
-        .assertValue(true)
+    Assert.assertTrue(result)
   }
 
   @Test
   fun shouldShowSystemNotification_whenTwoPurchasesAndDismissed_shouldReturnFalse() {
-    val testObserver = TestObserver<Boolean>()
-
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
         .thenReturn(2)
 
     `when`(sharedPreferencesRepository.hasDismissedBackupSystemNotification(WALLET_ADDRESS))
         .thenReturn(true)
 
-    backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
-        .subscribe(testObserver)
+    val result = backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
 
     verify(sharedPreferencesRepository).hasDismissedBackupSystemNotification(WALLET_ADDRESS)
 
-    testObserver.assertNoErrors()
-        .assertValue(false)
+    Assert.assertFalse(result)
   }
 
   @Test

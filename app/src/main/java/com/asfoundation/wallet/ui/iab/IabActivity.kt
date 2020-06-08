@@ -117,7 +117,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = true
   }
 
-  override fun finishAfterNotification(data: Bundle) {
+  override fun finishActivity(data: Bundle) {
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
         data.getString(PRE_SELECTED_PAYMENT_METHOD_KEY))
     data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
@@ -134,7 +134,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       presenter.handleBackupNotifications(bundle)
     } else {
-      finishAfterNotification(bundle)
+      finishActivity(bundle)
     }
   }
 
