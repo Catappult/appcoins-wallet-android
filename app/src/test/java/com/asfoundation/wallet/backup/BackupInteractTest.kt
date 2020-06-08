@@ -52,7 +52,7 @@ class BackupInteractTest {
     val testObserver = TestObserver<Boolean>()
 
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
-        .thenReturn(Single.just(0))
+        .thenReturn(0)
 
     backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
         .subscribe(testObserver)
@@ -69,10 +69,10 @@ class BackupInteractTest {
     val testObserver = TestObserver<Boolean>()
 
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
-        .thenReturn(Single.just(2))
+        .thenReturn(2)
 
     `when`(sharedPreferencesRepository.hasDismissedBackupSystemNotification(WALLET_ADDRESS))
-        .thenReturn(Single.just(false))
+        .thenReturn(false)
 
     backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
         .subscribe(testObserver)
@@ -88,10 +88,10 @@ class BackupInteractTest {
     val testObserver = TestObserver<Boolean>()
 
     `when`(sharedPreferencesRepository.getWalletPurchasesCount(WALLET_ADDRESS))
-        .thenReturn(Single.just(2))
+        .thenReturn(2)
 
     `when`(sharedPreferencesRepository.hasDismissedBackupSystemNotification(WALLET_ADDRESS))
-        .thenReturn(Single.just(true))
+        .thenReturn(true)
 
     backupInteract.shouldShowSystemNotification(WALLET_ADDRESS)
         .subscribe(testObserver)
@@ -105,7 +105,7 @@ class BackupInteractTest {
   @Test
   fun updateWalletPurchasesCount() {
     val testObserver = TestObserver<Unit>()
-    `when`(sharedPreferencesRepository.incrementWalletPurchasesCount(WALLET_ADDRESS)).thenReturn(
+    `when`(sharedPreferencesRepository.incrementWalletPurchasesCount(WALLET_ADDRESS, 1)).thenReturn(
         Completable.complete())
 
     backupInteract.updateWalletPurchasesCount(WALLET_ADDRESS)
