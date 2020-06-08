@@ -47,6 +47,18 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
         }
   }
 
+  fun getTopUpPaymentLink(packageName: String, fiatAmount: String,
+                          fiatCurrency: String, paymentMethod: String): Single<String> {
+
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap { walletAddressModel ->
+          deepLinkRepository.getDeepLink(packageName, null, walletAddressModel.address,
+              walletAddressModel.signedAddress, fiatAmount, fiatCurrency,
+              paymentMethod, null, null, null, null,
+              null, null)
+        }
+  }
+
   fun getTransaction(uri: Uri): Observable<Transaction> =
       inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
           .filter { isEndingState(it.status, it.type) }

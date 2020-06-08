@@ -174,8 +174,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
             .observeOn(networkScheduler)
             .flatMapSingle {
-              topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up",
-                  paymentType)
+              topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), paymentType)
               adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
                   returnUrl, priceAmount.toString(), priceCurrency,
                   mapPaymentToService(paymentType).transactionType, transactionType, appPackage)

@@ -128,7 +128,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   override fun close() {
-    topUpActivityView.close(true)
+    topUpActivityView.close()
   }
 
   override fun getOKClicks(): Observable<Any> {

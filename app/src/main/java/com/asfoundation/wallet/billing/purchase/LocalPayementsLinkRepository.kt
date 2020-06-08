@@ -13,8 +13,8 @@ class LocalPayementsLinkRepository(private var api: DeepLinkApi) : InAppDeepLink
                            userWalletAddress: String, signature: String,
                            originalAmount: String?, originalCurrency: String?,
                            paymentMethod: String,
-                           developerWalletAddress: String,
-                           storeWalletAddress: String, oemWalletAddress: String,
+                           developerWalletAddress: String?,
+                           storeWalletAddress: String?, oemWalletAddress: String?,
                            callbackUrl: String?, orderReference: String?,
                            payload: String?): Single<String> {
     return api.getDeepLink(userWalletAddress, signature,
@@ -38,8 +38,8 @@ data class DeepLinkData(@SerializedName("package") var packageName: String,
                         var message: String?, @SerializedName("price.value")
                         var amount: String?, @SerializedName("price.currency")
                         var currency: String?, var method: String,
-                        @SerializedName("wallets.developer") var developerWalletAddress: String,
+                        @SerializedName("wallets.developer") var developerWalletAddress: String?,
                         @SerializedName("callback_url") var callback: String?,
                         var metadata: String?, var reference: String?,
-                        @SerializedName("wallets.store") var storeWalletAddress: String,
+                        @SerializedName("wallets.store") var storeWalletAddress: String?,
                         @SerializedName("wallets.oem") var oemWalletAddress: String?)

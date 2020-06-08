@@ -91,7 +91,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun onBackPressed() {
     when {
-      isFinishingPurchase -> close(true)
+      isFinishingPurchase -> close()
       supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
       else -> super.onBackPressed()
     }
@@ -101,7 +101,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     when (item.itemId) {
       android.R.id.home -> {
         when {
-          isFinishingPurchase -> close(true)
+          isFinishingPurchase -> close()
           supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
           else -> super.onBackPressed()
         }
@@ -115,7 +115,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     if (supportFragmentManager.backStackEntryCount != 0) {
       supportFragmentManager.popBackStack()
     } else {
-      close(true)
+      close()
     }
   }
 

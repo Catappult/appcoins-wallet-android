@@ -15,6 +15,7 @@
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/main_content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:layout_constraintTop_toTopOf="@id/guideline_top_margin"
@@ -88,6 +89,17 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
+  <include
+      android:id="@+id/topup_pending_user_payment_view"
+      layout="@layout/pending_user_payment_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
   <include
       android:id="@+id/no_network"
@@ -101,8 +113,8 @@
       />
 
   <include
-      android:id="@+id/fragment_adyen_error"
-      layout="@layout/layout_adyen_error_top_up"
+      android:id="@+id/error_view"
+      layout="@layout/error_top_up_layout"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:visibility="gone"

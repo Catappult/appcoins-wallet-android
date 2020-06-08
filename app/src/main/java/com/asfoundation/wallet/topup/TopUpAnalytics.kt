@@ -17,10 +17,10 @@ class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
     analyticsManager.logEvent(map, WALLET_TOP_UP_SELECTION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  fun sendConfirmationEvent(value: Double, action: String, paymentMethod: String) {
+  fun sendConfirmationEvent(value: Double, paymentMethod: String) {
     val map = topUpBaseMap(value, paymentMethod)
 
-    map[ACTION] = action
+    map[ACTION] = "top_up"
 
     analyticsManager.logEvent(map, WALLET_TOP_UP_CONFIRMATION, AnalyticsManager.Action.CLICK,
         WALLET)

@@ -1,19 +1,35 @@
 package com.asfoundation.wallet.topup
 
+import android.animation.Animator
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.topup.payment.PaymentFragmentNavigator
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.LocalPaymentInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_adyen_top_up.*
+import kotlinx.android.synthetic.main.error_top_up_layout.*
+import kotlinx.android.synthetic.main.fragment_adyen_top_up.converted_value
+import kotlinx.android.synthetic.main.fragment_adyen_top_up.loading
+import kotlinx.android.synthetic.main.fragment_adyen_top_up.main_currency_code
+import kotlinx.android.synthetic.main.fragment_adyen_top_up.main_value
+import kotlinx.android.synthetic.main.local_topup_payment_layout.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
+import kotlinx.android.synthetic.main.pending_user_payment_view.*
+import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
+import kotlinx.android.synthetic.main.support_error_layout.view.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
@@ -23,8 +39,18 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var topUpAnalytics: TopUpAnalytics
+
+  @Inject
+  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   private lateinit var activityView: TopUpActivityView
   private lateinit var presenter: LocalTopUpPaymentPresenter
+  private lateinit var navigator: PaymentFragmentNavigator
+  private var minFrame = 0
+  private var maxFrame = 40
 
   companion object {
 
@@ -32,6 +58,12 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     private const val PAYMENT_ICON = "payment_icon"
     private const val PAYMENT_LABEL = "payment_label"
     private const val PAYMENT_DATA = "data"
+    private const val ANIMATION_STEP_ONE_START_FRAME = 0
+    private const val ANIMATION_STEP_TWO_START_FRAME = 80
+    private const val MID_ANIMATION_FRAME_INCREMENT = 40
+    private const val LAST_ANIMATION_FRAME_INCREMENT = 30
+    private const val BUTTON_ANIMATION_START_FRAME = 120
+    private const val LAST_ANIMATION_FRAME = 150
 
     fun newInstance(paymentId: String, icon: String, label: String,
                     data: TopUpPaymentData): LocalTopUpPaymentFragment {
@@ -53,12 +85,15 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
       throw IllegalStateException("Local topup payment fragment must be attached to Topup activity")
     }
     activityView = context
+    navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, activityView)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = LocalTopUpPaymentPresenter(this, activityView, localPaymentInteractor, formatter,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), data, paymentId)
+    presenter = LocalTopUpPaymentPresenter(this, activityView, context, localPaymentInteractor,
+        topUpAnalytics, navigator, formatter, inAppPurchaseInteractor.billingMessagesMapper,
+        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), data, paymentId,
+        paymentIcon, activity!!.packageName)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +103,7 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present()
+    presenter.present(savedInstanceState)
   }
 
   override fun showValues(value: String, currency: String, appcValue: String) {
@@ -84,10 +119,156 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     }
   }
 
+  override fun showError() {
+    activityView.unlockRotation()
+    loading.visibility = View.GONE
+    main_content.visibility = View.GONE
+    no_network.visibility = View.GONE
+    topup_pending_user_payment_view.visibility = View.GONE
+    error_view?.error_message?.text = getString(R.string.unknown_error)
+    error_view?.visibility = View.VISIBLE
+  }
+
+  override fun showNetworkError() {
+    activityView.unlockRotation()
+    loading.visibility = View.GONE
+    main_content.visibility = View.GONE
+    topup_pending_user_payment_view.visibility = View.GONE
+    error_view?.visibility = View.GONE
+    no_network.visibility = View.VISIBLE
+  }
+
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
+
+  override fun getGotItClick() = RxView.clicks(got_it_button)
+
+  override fun getTryAgainClick() = RxView.clicks(try_again)
+
+  override fun retryClick() = RxView.clicks(retry_button)
+
+  override fun showRetryAnimation() {
+    retry_button.visibility = View.INVISIBLE
+    retry_animation.visibility = View.VISIBLE
+  }
+
+  override fun showProcessingLoading() {
+    loading.visibility = View.VISIBLE
+    topup_pending_user_payment_view.visibility = View.GONE
+    main_content.visibility = View.GONE
+    error_view?.visibility = View.GONE
+    no_network.visibility = View.GONE
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    presenter.onSaveInstanceState(outState)
+  }
+
+  override fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap) {
+    activityView.unlockRotation()
+    loading.visibility = View.GONE
+    error_view?.visibility = View.GONE
+    no_network.visibility = View.GONE
+    main_content.visibility = View.GONE
+    topup_pending_user_payment_view.visibility = View.VISIBLE
+    val placeholder = getString(R.string.async_steps_1)
+    val stepOneText = String.format(placeholder, paymentLabel)
+
+    step_one_desc.text = stepOneText
+
+    topup_pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
+      when (it.id) {
+        "image_0" -> paymentMethodIcon
+        "image_1" -> applicationIcon
+        else -> null
+      }
+    }
+
+    playAnimation()
+  }
+
+  private fun playAnimation() {
+    topup_pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
+    topup_pending_user_payment_view?.in_progress_animation?.addAnimatorListener(object :
+        Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) = Unit
+
+      override fun onAnimationEnd(animation: Animator?) {
+        if (maxFrame == LAST_ANIMATION_FRAME) {
+          topup_pending_user_payment_view?.in_progress_animation?.cancelAnimation()
+        }
+        if (minFrame == BUTTON_ANIMATION_START_FRAME) {
+          minFrame += LAST_ANIMATION_FRAME_INCREMENT
+          maxFrame += LAST_ANIMATION_FRAME_INCREMENT
+          topup_pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame,
+              maxFrame)
+          topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
+        } else {
+          minFrame += MID_ANIMATION_FRAME_INCREMENT
+          maxFrame += MID_ANIMATION_FRAME_INCREMENT
+          topup_pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame,
+              maxFrame)
+          topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
+        }
+      }
+
+      override fun onAnimationCancel(animation: Animator?) = Unit
+
+      override fun onAnimationStart(animation: Animator?) {
+        when (minFrame) {
+          ANIMATION_STEP_ONE_START_FRAME -> {
+            animateShow(step_one)
+            animateShow(step_one_desc)
+          }
+          ANIMATION_STEP_TWO_START_FRAME -> {
+            animateShow(step_two)
+            animateShow(step_two_desc)
+          }
+          BUTTON_ANIMATION_START_FRAME -> animateButton(got_it_button)
+          else -> return
+        }
+      }
+    })
+    topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
+  }
+
+  private fun animateShow(view: View) {
+    view.apply {
+      alpha = 0.0f
+      visibility = View.VISIBLE
+      activityView.lockOrientation()
+
+      animate()
+          .alpha(1f)
+          .withEndAction { this.visibility = View.VISIBLE }
+          .setDuration(TimeUnit.SECONDS.toMillis(1))
+          .setListener(null)
+    }
+  }
+
+  private fun animateButton(view: View) {
+    view.apply {
+      alpha = 0.2f
+      animate()
+          .alpha(1f)
+          .withEndAction { this.isClickable = true }
+          .setDuration(TimeUnit.SECONDS.toMillis(1))
+          .setListener(null)
+    }
+  }
+
+  override fun navigateToPaymentSelection() = activityView.navigateBack()
 
   override fun onDestroyView() {
     super.onDestroyView()
     presenter.stop()
+  }
+
+  override fun onDestroy() {
+    activityView.unlockRotation()
+    super.onDestroy()
   }
 
   private val paymentId: String by lazy {

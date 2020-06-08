@@ -235,7 +235,7 @@
 
   <include
       android:id="@+id/fragment_adyen_error"
-      layout="@layout/layout_adyen_error_top_up"
+      layout="@layout/error_top_up_layout"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:visibility="gone"
