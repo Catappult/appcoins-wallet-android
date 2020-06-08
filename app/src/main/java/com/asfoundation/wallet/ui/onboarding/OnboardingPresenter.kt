@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
-import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.util.scaleToString
@@ -116,7 +115,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
           if (skipValidation) {
             Single.just(WalletValidationStatus.SUCCESS)
           } else {
-            smsValidationInteract.isValid(Wallet(it))
+            smsValidationInteract.isValid(it)
                 .subscribeOn(networkScheduler)
           }
         }

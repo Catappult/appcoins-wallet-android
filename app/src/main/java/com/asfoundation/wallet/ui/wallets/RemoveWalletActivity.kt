@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.wallets
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -17,7 +18,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.remove_wallet_activity_layout)
     toolbar()
-    navigateToInitialRemoveWalletView()
+    if (savedInstanceState == null) navigateToInitialRemoveWalletView()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -57,6 +58,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
       startActivity(newIntent(this, walletAddress))
 
   override fun showRemoveWalletAnimation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     wallet_remove_animation.visibility = View.VISIBLE
     remove_wallet_animation.repeatCount = 0
     remove_wallet_animation.playAnimation()

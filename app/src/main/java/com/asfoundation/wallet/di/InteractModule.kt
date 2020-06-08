@@ -26,6 +26,7 @@ import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
@@ -47,6 +48,7 @@ import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
+import com.asfoundation.wallet.ui.SettingsInteract
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
@@ -477,4 +479,15 @@ class InteractModule {
     return RestoreWalletPasswordInteractor(gson, balanceInteract, restoreWalletInteractor)
   }
 
+
+  @Provides
+  fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
+                               smsValidationInteract: SmsValidationInteract,
+                               preferencesRepositoryType: PreferencesRepositoryType,
+                               supportInteractor: SupportInteractor,
+                               walletsInteract: WalletsInteract,
+                               walletsEventSender: WalletsEventSender): SettingsInteract {
+    return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
+        preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
+  }
 }

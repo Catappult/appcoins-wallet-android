@@ -13,6 +13,7 @@ import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.SettingsFragment
+import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment
 import com.asfoundation.wallet.ui.backup.BackupCreationFragment
 import com.asfoundation.wallet.ui.backup.BackupSuccessFragment
@@ -183,4 +184,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun settingsFragment(): SettingsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment?
 }
