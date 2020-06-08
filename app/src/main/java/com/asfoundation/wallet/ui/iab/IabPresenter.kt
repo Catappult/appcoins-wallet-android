@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab
 import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -13,25 +12,25 @@ import io.reactivex.disposables.CompositeDisposable
  */
 
 class IabPresenter(private val view: IabView,
-                   private val autoUpdateInteract: AutoUpdateInteract,
                    private val networkScheduler: Scheduler,
                    private val viewScheduler: Scheduler,
                    private val disposable: CompositeDisposable,
-                   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                    private val billingAnalytics: BillingAnalytics,
-                   private var firstImpression: Boolean) {
+                   private var firstImpression: Boolean,
+                   private val iabInteract: IabInteract) {
 
   fun present() {
     handleAutoUpdate()
+    handleUserRegistration()
   }
 
   fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
     disposable.add(Completable.fromAction {
       if (firstImpression) {
-        if (inAppPurchaseInteractor.hasPreSelectedPaymentMethod()) {
+        if (iabInteract.hasPreSelectedPaymentMethod()) {
           billingAnalytics.sendPurchaseStartEvent(transaction?.domain, transaction?.skuId,
               transaction?.amount()
-                  .toString(), inAppPurchaseInteractor.preSelectedPaymentMethod,
+                  .toString(), iabInteract.getPreSelectedPaymentMethod(),
               transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
         } else {
           billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction?.domain,
@@ -47,14 +46,20 @@ class IabPresenter(private val view: IabView,
   }
 
   private fun handleAutoUpdate() {
-    disposable.add(autoUpdateInteract.getAutoUpdateModel()
+    disposable.add(iabInteract.getAutoUpdateModel()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .filter {
-          autoUpdateInteract.isHardUpdateRequired(it.blackList,
+          iabInteract.isHardUpdateRequired(it.blackList,
               it.updateVersionCode, it.updateMinSdk)
         }
         .doOnSuccess { view.showUpdateRequiredView() }
+        .subscribe())
+  }
+
+  private fun handleUserRegistration() {
+    disposable.add(iabInteract.registerUser()
+        .subscribeOn(networkScheduler)
         .subscribe())
   }
 

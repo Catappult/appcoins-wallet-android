@@ -10,7 +10,7 @@ interface PreferencesRepositoryType {
   fun hasClickedSkipOnboarding(): Boolean
   fun setOnboardingSkipClicked()
   fun getCurrentWalletAddress(): String?
-  fun setCurrentWalletAddress(address: String): Completable
+  fun setCurrentWalletAddress(address: String)
   fun isFirstTimeOnTransactionActivity(): Boolean
   fun setFirstTimeOnTransactionActivity()
   fun getPoaNotificationSeenTime(): Long

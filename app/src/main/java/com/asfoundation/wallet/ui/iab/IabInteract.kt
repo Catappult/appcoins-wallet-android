@@ -1,0 +1,32 @@
+package com.asfoundation.wallet.ui.iab
+
+import com.appcoins.wallet.gamification.Gamification
+import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.support.SupportInteractor
+import io.reactivex.Single
+
+class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                  private val autoUpdateInteract: AutoUpdateInteract,
+                  private val supportInteractor: SupportInteractor,
+                  private val gamificationRepository: Gamification) {
+
+  fun hasPreSelectedPaymentMethod() = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
+
+  fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod
+
+  fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
+
+  fun getAutoUpdateModel(invalidateCache: Boolean = true) =
+      autoUpdateInteract.getAutoUpdateModel(invalidateCache)
+
+  fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int,
+                           updateMinSdk: Int): Boolean {
+    return autoUpdateInteract.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)
+  }
+
+  fun registerUser() =
+      inAppPurchaseInteractor.walletAddress.flatMap { address ->
+        gamificationRepository.getUserStats(address)
+            .doOnSuccess { supportInteractor.registerUser(it.level, address) }
+      }
+}

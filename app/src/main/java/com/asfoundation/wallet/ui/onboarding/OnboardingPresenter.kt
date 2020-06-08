@@ -146,9 +146,11 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleCreateWallet() {
     disposables.add(
         onboardingInteract.getWalletAddress()
+            .subscribeOn(networkScheduler)
             .onErrorResumeNext {
               onboardingInteract.createWallet()
             }
+            .observeOn(viewScheduler)
             .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
             .subscribe())
   }

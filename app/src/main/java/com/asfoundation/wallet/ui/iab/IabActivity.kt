@@ -44,6 +44,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var billingAnalytics: BillingAnalytics
+
+  @Inject
+  lateinit var iabInteract: IabInteract
   private var isBackEnable: Boolean = false
   private lateinit var presenter: IabPresenter
   private var transaction: TransactionBuilder? = null
@@ -67,8 +70,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
     presenter =
-        IabPresenter(this, autoUpdateInteract, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), inAppPurchaseInteractor, billingAnalytics, firstImpression)
+        IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
+            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract)
     if (savedInstanceState == null) showPaymentMethodsView()
   }
 

@@ -66,8 +66,10 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override public Completable setDefaultWallet(String address) {
-    analyticsSetUp.setUserId(address);
-    return preferencesRepositoryType.setCurrentWalletAddress(address);
+    return Completable.fromAction(() -> {
+      analyticsSetUp.setUserId(address);
+      preferencesRepositoryType.setCurrentWalletAddress(address);
+    });
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
