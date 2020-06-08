@@ -238,7 +238,6 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     view.apply {
       alpha = 0.0f
       visibility = View.VISIBLE
-      activityView.lockOrientation()
 
       animate()
           .alpha(1f)
