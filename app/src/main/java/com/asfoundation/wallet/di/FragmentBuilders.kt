@@ -188,7 +188,7 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector
-  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment?
+  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment
 
   @FragmentScope
   @ContributesAndroidInjector

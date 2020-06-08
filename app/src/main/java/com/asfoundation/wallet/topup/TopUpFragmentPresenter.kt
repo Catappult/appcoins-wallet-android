@@ -58,8 +58,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
         BiFunction { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
-          view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-          updateDefaultValues(defaultValues)
+          if (values.error.hasError || defaultValues.error.hasError) {
+            view.showNoNetworkError()
+          } else {
+            view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+            updateDefaultValues(defaultValues)
+          }
         })
         .doOnSubscribe { view.showLoadingButton() }
         .subscribe({}, { handleError(it) }))
@@ -171,10 +175,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     .observeOn(viewScheduler)
                     .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
               }
-              .doOnError { it.printStackTrace() }
+              .doOnError { handleError(it) }
               .onErrorComplete()
         }
-        .subscribe())
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun handleInvalidFormatInput() {
@@ -287,9 +291,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
-        .doOnNext {
-          setupUi()
-        }
+        .doOnNext { setupUi() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
