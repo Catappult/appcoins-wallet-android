@@ -6,6 +6,27 @@ import io.reactivex.Single
 
 class SharedPreferencesRepository(private val pref: SharedPreferences) : PreferencesRepositoryType {
 
+  companion object {
+
+    private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
+    private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
+    private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
+    private const val FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY = "first_time_on_transaction_activity"
+    private const val AUTO_UPDATE_VERSION = "auto_update_version"
+    private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
+    private const val UPDATE_SEEN_TIME = "update_seen_time"
+    private const val BACKUP_SEEN_TIME = "backup_seen_time_"
+    private const val WALLET_VERIFIED = "wallet_verified_"
+    private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
+    private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
+    private const val ANDROID_ID = "android_id"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val KEYSTORE_DIRECTORY = "keystore_directory"
+    private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
+    private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification_"
+    private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
+  }
+
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
 
   override fun setOnboardingComplete() {
@@ -157,7 +178,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun getChosenUri() = pref.getString(KEYSTORE_DIRECTORY, null)
 
-  override fun getSeenBackupToolip() = pref.getBoolean(SEEN_BACKUP_TOOLTIP, false)
+  override fun getSeenBackupTooltip() = pref.getBoolean(SEEN_BACKUP_TOOLTIP, false)
 
   override fun saveSeenBackupTooltip() {
     pref.edit()
@@ -165,22 +186,22 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
         .apply()
   }
 
-  companion object {
+  override fun hasDismissedBackupSystemNotification(walletAddress: String) =
+      pref.getBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION + walletAddress, false)
 
-    private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
-    private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
-    private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
-    private const val FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY = "first_time_on_transaction_activity"
-    private const val AUTO_UPDATE_VERSION = "auto_update_version"
-    private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
-    private const val UPDATE_SEEN_TIME = "update_seen_time"
-    private const val BACKUP_SEEN_TIME = "backup_seen_time_"
-    private const val WALLET_VERIFIED = "wallet_verified_"
-    private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
-    private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
-    private const val ANDROID_ID = "android_id"
-    private const val GAMIFICATION_LEVEL = "gamification_level"
-    private const val KEYSTORE_DIRECTORY = "keystore_directory"
-    private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
-  }
+  override fun setDismissedBackupSystemNotification(walletAddress: String) =
+      pref.edit()
+          .putBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION + walletAddress, true)
+          .apply()
+
+  override fun getWalletPurchasesCount(walletAddress: String) =
+      pref.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
+
+  override fun incrementWalletPurchasesCount(walletAddress: String, count: Int) =
+      Completable.fromAction {
+        pref.edit()
+            .putInt(WALLET_PURCHASES_COUNT + walletAddress, count)
+            .apply()
+      }
+
 }

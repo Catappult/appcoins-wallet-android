@@ -29,16 +29,12 @@ class WalletValidationBroadcastReceiver : BroadcastReceiver() {
     notificationManager.cancel(VERIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
-    when (intent.getStringExtra(
-        ACTION_KEY)) {
-      ACTION_START_VALIDATION -> {
-        val validationIntent =
-            PoaWalletValidationActivity.newIntent(
-                context)
-        validationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        context.startActivity(validationIntent)
-      }
-      ACTION_DISMISS -> return
-    }
+    if (intent.getStringExtra(ACTION_KEY) == ACTION_START_VALIDATION) {
+      val validationIntent = PoaWalletValidationActivity.newIntent(context)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+          }
+      context.startActivity(validationIntent)
+    } else if (intent.getStringExtra(ACTION_KEY) == ACTION_DISMISS) return
   }
 }
