@@ -16,7 +16,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
@@ -39,6 +39,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var billingAnalytics: BillingAnalytics
+
   @Inject
   lateinit var iabInteract: IabInteract
   private var isBackEnable: Boolean = false
@@ -112,10 +113,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = true
   }
 
-  override fun finish(bundle: Bundle) {
-    presenter.savePreselectedPaymentMethod(bundle)
-    bundle.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
-    setResult(Activity.RESULT_OK, Intent().putExtras(bundle))
+  override fun finishActivity(data: Bundle) {
+    presenter.savePreselectedPaymentMethod(data)
+    data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
+    setResult(Activity.RESULT_OK, Intent().putExtras(data))
     finish()
   }
 

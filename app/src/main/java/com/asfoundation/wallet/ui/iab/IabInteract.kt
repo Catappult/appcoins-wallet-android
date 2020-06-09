@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.gamification.Gamification
+import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Single
@@ -35,4 +36,8 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(paymentMethod)
   }
+
+  fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> =
+      inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
+
 }

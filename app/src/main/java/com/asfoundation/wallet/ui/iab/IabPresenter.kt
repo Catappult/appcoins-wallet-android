@@ -27,7 +27,7 @@ class IabPresenter(private val view: IabView,
 
   fun handleBackupNotifications(bundle: Bundle) {
     disposable.add(
-        inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
+        iabInteract.incrementAndValidateNotificationNeeded()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { notificationNeeded ->
