@@ -43,6 +43,8 @@ import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
+import com.asfoundation.wallet.subscriptions.SubscriptionInteract
+import com.asfoundation.wallet.subscriptions.SubscriptionRepository
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpInteractor
@@ -505,4 +507,11 @@ class InteractModule {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
         gamificationRepository)
   }
+
+  @Provides
+  fun provideSubscriptionInteract(subscriptionRepository: SubscriptionRepository,
+                                  localCurrencyConversionService: LocalCurrencyConversionService): SubscriptionInteract {
+    return SubscriptionInteract(subscriptionRepository, localCurrencyConversionService)
+  }
+
 }

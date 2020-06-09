@@ -18,12 +18,10 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
-import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
@@ -174,13 +172,14 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBillingPaymentProofSubmission(api: BdsApi,
-                                            walletService: WalletService,
+  fun providesBillingPaymentProofSubmission(api: BdsApi, walletService: WalletService,
+                                            subscriptionBillingService: SubscriptionBillingService,
                                             bdsApi: BdsApiSecondary): BillingPaymentProofSubmission {
     return BillingPaymentProofSubmissionImpl.Builder()
         .setApi(api)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
+        .setSubscriptionBillingService(subscriptionBillingService)
         .build()
   }
 
@@ -496,7 +495,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideNotificationManager(context: Context): NotificationManager {
-    return context.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    return context.applicationContext.getSystemService(
+        Context.NOTIFICATION_SERVICE) as NotificationManager
   }
 
   @Singleton

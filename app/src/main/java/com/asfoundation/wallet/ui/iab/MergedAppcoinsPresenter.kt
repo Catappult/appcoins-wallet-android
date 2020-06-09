@@ -13,6 +13,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
+import java.util.concurrent.TimeUnit
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val disposables: CompositeDisposable,

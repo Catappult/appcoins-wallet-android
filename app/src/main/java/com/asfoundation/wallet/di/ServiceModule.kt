@@ -3,12 +3,8 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.os.Build
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
-import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
-import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.aptoide.apk.injector.extractor.domain.IExtract
@@ -30,6 +26,8 @@ import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService.CampaignApi
 import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi
+import com.asfoundation.wallet.subscriptions.SubscriptionApiMockedImpl
+import com.asfoundation.wallet.subscriptions.SubscriptionService
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
@@ -532,4 +530,25 @@ class ServiceModule {
         .create(BdsApiSecondary::class.java)
   }
 
+  @Provides
+  fun provideSubscriptionService(client: OkHttpClient, gson: Gson): SubscriptionService {
+    return SubscriptionApiMockedImpl()
+  }
+
+  @Provides
+  fun provideSubscriptionApiMocked(): SubscriptionApiMockedImpl {
+    return SubscriptionApiMockedImpl()
+  }
+
+  @Provides
+  fun provideSubscriptionBillingService(client: OkHttpClient,
+                                        gson: Gson): SubscriptionBillingService {
+    return Retrofit.Builder()
+        .baseUrl("http://192.168.2.3:8080/api/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SubscriptionBillingService::class.java)
+  }
 }

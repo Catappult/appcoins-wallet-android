@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di
 import com.asfoundation.wallet.advertise.AdvertisingService
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.*
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity
@@ -18,6 +19,7 @@ import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivit
 import com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+
 
 @Module
 abstract class ActivityBuilders {
@@ -124,4 +126,7 @@ abstract class ActivityBuilders {
   @ContributesAndroidInjector
   abstract fun bindAdvertisingService(): AdvertisingService
 
+  @ActivityScope
+  @ContributesAndroidInjector()
+  abstract fun bindSubscriptionActivity(): SubscriptionActivity
 }

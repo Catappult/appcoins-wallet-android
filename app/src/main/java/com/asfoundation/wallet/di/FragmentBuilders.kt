@@ -9,6 +9,10 @@ import com.asfoundation.wallet.promotions.PromotionsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
+import com.asfoundation.wallet.subscriptions.SubscriptionCancelFragment
+import com.asfoundation.wallet.subscriptions.SubscriptionCancelSuccessFragment
+import com.asfoundation.wallet.subscriptions.SubscriptionDetailsFragment
+import com.asfoundation.wallet.subscriptions.SubscriptionListFragment
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
@@ -39,6 +43,7 @@ import com.asfoundation.wallet.wallet_validation.poa.PoaValidationLoadingFragmen
 import com.asfoundation.wallet.wallet_validation.poa.PoaValidationSuccessFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+
 
 @Module
 abstract class FragmentBuilders {
@@ -188,4 +193,20 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment?
+
+  @FragmentScope
+  @ContributesAndroidInjector()
+  abstract fun bindSubscriptionListFragment(): SubscriptionListFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector()
+  abstract fun bindSubscriptionDetailsFragment(): SubscriptionDetailsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector()
+  abstract fun bindSubscriptionCancelFragment(): SubscriptionCancelFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector()
+  abstract fun bindSubscriptionCancelSuccessFragment(): SubscriptionCancelSuccessFragment
 }

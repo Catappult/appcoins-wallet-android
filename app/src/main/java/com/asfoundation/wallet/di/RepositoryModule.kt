@@ -5,11 +5,12 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.appcoins.wallet.bdsbilling.BdsApi
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
@@ -28,12 +29,15 @@ import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.*
+import com.asfoundation.wallet.subscriptions.SubscriptionRepository
+import com.asfoundation.wallet.subscriptions.SubscriptionService
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
@@ -67,13 +71,15 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providePreferencesRepository(sharedPreferences: SharedPreferences): SharedPreferencesRepository {
+  fun providePreferencesRepository(
+      sharedPreferences: SharedPreferences): SharedPreferencesRepository {
     return SharedPreferencesRepository(sharedPreferences)
   }
 
   @Singleton
   @Provides
-  fun providePreferenceRepositoryType(sharedPreferenceRepository: SharedPreferencesRepository): PreferencesRepositoryType {
+  fun providePreferenceRepositoryType(
+      sharedPreferenceRepository: SharedPreferencesRepository): PreferencesRepositoryType {
     return sharedPreferenceRepository
   }
 
@@ -94,8 +100,9 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideRemoteRepository(bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api)
+  fun provideRemoteRepository(subscriptionBillingService: SubscriptionBillingService,
+                              bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
+    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api, subscriptionBillingService)
   }
 
   @Singleton
@@ -116,7 +123,8 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences): PromotionsRepository {
+  fun providePromotionsRepository(api: GamificationApi,
+                                  preferences: SharedPreferences): PromotionsRepository {
     return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences),
         getVersionCode())
   }
@@ -139,7 +147,8 @@ class RepositoryModule {
         .client(client)
         .baseUrl(BuildConfig.BACKEND_HOST)
         .build()
-    return OffChainTransactionsRepository(retrofit.create(TransactionsApi::class.java), SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US))
+    return OffChainTransactionsRepository(retrofit.create(TransactionsApi::class.java),
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US))
   }
 
   @Singleton
@@ -149,7 +158,8 @@ class RepositoryModule {
                                    defaultTokenProvider: DefaultTokenProvider,
                                    nonceObtainer: MultiWalletNonceObtainer,
                                    transactionsNetworkRepository: OffChainTransactions,
-                                   context: Context, sharedPreferences: SharedPreferences): TransactionRepositoryType {
+                                   context: Context,
+                                   sharedPreferences: SharedPreferences): TransactionRepositoryType {
     val MIGRATION_1_2: Migration = object : Migration(1, 2) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
@@ -215,8 +225,9 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
-      accountKeystoreService: AccountKeystoreService, walletBalanceService: WalletBalanceService,
-      analyticsSetup: RakamAnalytics): WalletRepositoryType {
+                              accountKeystoreService: AccountKeystoreService,
+                              walletBalanceService: WalletBalanceService,
+                              analyticsSetup: RakamAnalytics): WalletRepositoryType {
     return WalletRepository(preferencesRepositoryType, accountKeystoreService,
         walletBalanceService, Schedulers.io(), analyticsSetup)
   }
@@ -250,4 +261,9 @@ class RepositoryModule {
     return LocalPayementsLinkRepository(api)
   }
 
+  @Provides
+  fun provideSubscriptionRepository(subscriptionService: SubscriptionService,
+                                    findDefaultWalletInteract: FindDefaultWalletInteract): SubscriptionRepository {
+    return SubscriptionRepository(subscriptionService, findDefaultWalletInteract)
+  }
 }

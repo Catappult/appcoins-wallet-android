@@ -26,6 +26,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
     private val view: PaymentMethodsView,
@@ -198,7 +199,7 @@ class PaymentMethodsPresenter(
         .ignoreElement()
   }
 
-  private fun checkAndConsumePrevious(sku: String?,, type: BillingSupportedType): Completable {
+  private fun checkAndConsumePrevious(sku: String?, type: BillingSupportedType): Completable {
     return getPurchases(type)
         .observeOn(viewScheduler)
         .flatMapCompletable { purchases ->
@@ -305,7 +306,8 @@ class PaymentMethodsPresenter(
                                  paymentMethodId: String, fiatAmount: String, appcAmount: String,
                                  frequency: String?) {
     view.showPaymentMethods(paymentMethods.toMutableList(), fiatValue,
-        mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId, fiatAmount, appcAmount, frequency)
+        mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId, fiatAmount, appcAmount,
+        frequency)
   }
 
   private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,
@@ -314,7 +316,8 @@ class PaymentMethodsPresenter(
     view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
         TransactionData.TransactionType.DONATION.name
             .equals(transaction.type, ignoreCase = true),
-        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive, frequency)
+        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive,
+        frequency)
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {

@@ -56,9 +56,9 @@ class PaymentMethodsInteract(private val walletService: WalletService,
 
   fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
              packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean) =
+             isBds: Boolean, type: String): Completable =
       inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-          developerPayload, isBds)
+          developerPayload, isBds, type)
 
   fun convertToLocalFiat(appcValue: Double): Single<FiatValue> =
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
