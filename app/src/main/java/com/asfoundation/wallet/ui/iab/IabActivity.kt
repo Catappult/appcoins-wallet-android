@@ -12,7 +12,6 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -37,14 +36,7 @@ import javax.inject.Inject
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
-
-  @Inject
-  lateinit var autoUpdateInteract: AutoUpdateInteract
-
-  @Inject
   lateinit var billingAnalytics: BillingAnalytics
-
   @Inject
   lateinit var iabInteract: IabInteract
   private var isBackEnable: Boolean = false
@@ -119,10 +111,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun finish(bundle: Bundle) {
-    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
-        bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY))
+    presenter.savePreselectedPaymentMethod(bundle)
     bundle.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
-
     setResult(Activity.RESULT_OK, Intent().putExtras(bundle))
     finish()
   }

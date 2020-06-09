@@ -451,11 +451,9 @@ class InteractModule {
                              createWalletInteract: CreateWalletInteract,
                              supportInteractor: SupportInteractor,
                              sharedPreferencesRepository: SharedPreferencesRepository,
-                             gamification: Gamification,
-                             logger: Logger): WalletsInteract {
+                             gamification: Gamification, logger: Logger): WalletsInteract {
     return WalletsInteract(balanceInteract, fetchWalletsInteract, createWalletInteract,
-        supportInteractor,
-        sharedPreferencesRepository, gamification, logger)
+        supportInteractor, sharedPreferencesRepository, gamification, logger)
   }
 
   @Provides
@@ -496,6 +494,7 @@ class InteractModule {
     return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
         preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
   }
+
   @Provides
   fun provideIabInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                          autoUpdateInteract: AutoUpdateInteract,

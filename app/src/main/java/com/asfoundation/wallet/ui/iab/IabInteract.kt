@@ -10,6 +10,10 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                   private val supportInteractor: SupportInteractor,
                   private val gamificationRepository: Gamification) {
 
+  companion object {
+    const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
+  }
+
   fun hasPreSelectedPaymentMethod() = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
 
   fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod
@@ -19,14 +23,16 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   fun getAutoUpdateModel(invalidateCache: Boolean = true) =
       autoUpdateInteract.getAutoUpdateModel(invalidateCache)
 
-  fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int,
-                           updateMinSdk: Int): Boolean {
-    return autoUpdateInteract.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)
-  }
+  fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int, updateMinSdk: Int) =
+      autoUpdateInteract.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)
 
   fun registerUser() =
       inAppPurchaseInteractor.walletAddress.flatMap { address ->
         gamificationRepository.getUserStats(address)
             .doOnSuccess { supportInteractor.registerUser(it.level, address) }
       }
+
+  fun savePreSelectedPaymentMethod(paymentMethod: String) {
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(paymentMethod)
+  }
 }

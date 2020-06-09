@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -50,8 +51,7 @@ class IabPresenter(private val view: IabView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .filter {
-          iabInteract.isHardUpdateRequired(it.blackList,
-              it.updateVersionCode, it.updateMinSdk)
+          iabInteract.isHardUpdateRequired(it.blackList, it.updateVersionCode, it.updateMinSdk)
         }
         .doOnSuccess { view.showUpdateRequiredView() }
         .subscribe())
@@ -60,7 +60,7 @@ class IabPresenter(private val view: IabView,
   private fun handleUserRegistration() {
     disposable.add(iabInteract.registerUser()
         .subscribeOn(networkScheduler)
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() {
@@ -69,5 +69,11 @@ class IabPresenter(private val view: IabView,
 
   fun onSaveInstance(outState: Bundle) {
     outState.putBoolean(IabActivity.FIRST_IMPRESSION, firstImpression)
+  }
+
+  fun savePreselectedPaymentMethod(bundle: Bundle) {
+    bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY)?.let {
+          iabInteract.savePreSelectedPaymentMethod(it)
+        }
   }
 }

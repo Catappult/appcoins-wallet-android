@@ -151,7 +151,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
             }
             .observeOn(viewScheduler)
             .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleSkippedOnboarding() {
