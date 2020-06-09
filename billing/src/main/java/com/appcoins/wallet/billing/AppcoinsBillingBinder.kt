@@ -31,7 +31,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
                             private val networkScheduler: Scheduler)
   : AppcoinsBilling.Stub() {
   companion object {
-    internal const val RESULT_OK = 0 // success
+    const val RESULT_OK = 0 // success
     internal const val RESULT_USER_CANCELED = 1 // user pressed back or canceled a dialog
     internal const val RESULT_SERVICE_UNAVAILABLE = 2 // The network connection is down
     internal const val RESULT_BILLING_UNAVAILABLE =
@@ -42,7 +42,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val RESULT_ITEM_ALREADY_OWNED =
         7 // Failure to purchase since item is already owned
 
-    internal const val RESPONSE_CODE = "RESPONSE_CODE"
+    const val RESPONSE_CODE = "RESPONSE_CODE"
     internal const val INAPP_PURCHASE_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST"
     internal const val INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST"
     internal const val INAPP_DATA_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST"

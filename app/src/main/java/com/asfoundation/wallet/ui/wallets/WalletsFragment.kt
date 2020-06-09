@@ -93,7 +93,8 @@ class WalletsFragment : DaggerFragment(), WalletsView {
     layoutManager.orientation = RecyclerView.VERTICAL
     val adapterList = removeCurrentWallet(walletsBalanceList)
     adapter =
-        WalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter)
+        WalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter,
+            WalletsViewType.BALANCE)
     other_wallets_cards_recycler.layoutManager = layoutManager
     other_wallets_cards_recycler.adapter = adapter
     val walletsText =

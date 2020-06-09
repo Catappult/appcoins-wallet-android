@@ -10,18 +10,21 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
+import com.asfoundation.wallet.support.SupportInteractor
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import java.util.*
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletService: WalletService,
                              private val partnerAddressService: AddressService,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
-                             private val billingMessagesMapper: BillingMessagesMapper
-) {
+                             private val billingMessagesMapper: BillingMessagesMapper,
+                             private val supportInteractor: SupportInteractor) {
 
   fun getPaymentLink(domain: String, skuId: String?, originalAmount: String?,
                      originalCurrency: String?, paymentMethod: String, developerAddress: String,
@@ -79,6 +82,16 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   private fun isManagedType(type: BillingSupportedType): Boolean {
     return type == BillingSupportedType.INAPP || type == BillingSupportedType.SUBS
+  }
+
+  fun showSupport(gamificationLevel: Int): Completable {
+    return walletService.getWalletAddress()
+        .flatMapCompletable {
+          Completable.fromAction {
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
+            supportInteractor.displayChatScreen()
+          }
+        }
   }
 
   private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)

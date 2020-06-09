@@ -53,13 +53,12 @@ import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_c
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.*
-import kotlinx.android.synthetic.main.fragment_adyen_error.view.*
-import kotlinx.android.synthetic.main.fragment_iab_error.*
-import kotlinx.android.synthetic.main.fragment_iab_error.view.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
+import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
+import kotlinx.android.synthetic.main.support_error_layout.*
+import kotlinx.android.synthetic.main.support_error_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
@@ -219,16 +218,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showNetworkError() {
-    main_view?.visibility = GONE
-    main_view_pre_selected?.visibility = GONE
-    fragment_credit_card_authorization_progress_bar?.visibility = GONE
-    fragment_adyen_error?.visibility = GONE
-    fragment_adyen_error_pre_selected?.visibility = GONE
-    fragment_iab_error?.visibility = VISIBLE
-    fragment_iab_error?.activity_iab_error_message?.setText(R.string.notification_no_network_poa)
-    fragment_iab_error_pre_selected?.visibility = VISIBLE
-    fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
-        R.string.notification_no_network_poa)
+    showSpecificError(R.string.notification_no_network_poa)
   }
 
   override fun backEvent(): Observable<Any> {
@@ -249,33 +239,22 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       lottie_transaction_success.visibility = VISIBLE
       fragment_adyen_error?.visibility = GONE
       fragment_adyen_error_pre_selected?.visibility = GONE
-      fragment_iab_error?.visibility = GONE
-      fragment_iab_error_pre_selected?.visibility = GONE
     }
   }
 
   override fun showGenericError() {
-    main_view?.visibility = GONE
-    main_view_pre_selected?.visibility = GONE
-    fragment_adyen_error?.visibility = GONE
-    fragment_adyen_error_pre_selected?.visibility = GONE
-    fragment_iab_error?.visibility = VISIBLE
-    fragment_credit_card_authorization_progress_bar?.visibility = GONE
-    fragment_iab_error?.activity_iab_error_message?.setText(R.string.unknown_error)
-    fragment_iab_error_pre_selected?.visibility = VISIBLE
-    fragment_iab_error_pre_selected?.activity_iab_error_message?.setText(
-        R.string.unknown_error)
+    showSpecificError(R.string.unknown_error)
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
-    fragment_iab_error?.visibility = GONE
-    fragment_iab_error_pre_selected?.visibility = GONE
     cancel_button?.visibility = GONE
     buy_button?.visibility = GONE
     payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
     bonus_msg_pre_selected?.visibility = GONE
+    bonus_layout?.visibility = GONE
+    bonus_msg?.visibility = GONE
     more_payment_methods?.visibility = GONE
     adyen_card_form?.visibility = GONE
     layout_pre_selected?.visibility = GONE
@@ -341,7 +320,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun adyenErrorCancelClicks() = RxView.clicks(error_cancel)
 
-  override fun errorDismisses() = RxView.clicks(activity_iab_error_ok_button)
+  override fun errorDismisses() = RxView.clicks(error_dismiss)
 
   override fun buyButtonClicked() = RxView.clicks(buy_button)
 
@@ -351,9 +330,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
 
-  override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
-  }
+  override fun getAdyenSupportLogoClicks() = RxView.clicks(layout_support_logo)
+
+  override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -396,11 +375,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     adyenSaveDetailsSwitch?.run {
 
       val params: LinearLayout.LayoutParams = this.layoutParams as LinearLayout.LayoutParams
-      params.topMargin = 8
+      params.topMargin = 2
 
       layoutParams = params
       isChecked = true
-      textSize = 15f
+      textSize = 14f
       text = getString(R.string.dialog_credit_card_remember)
     }
 
