@@ -174,10 +174,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     .observeOn(viewScheduler)
                     .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
               }
-              .doOnError { handleError(it) }
+              .doOnError { it.printStackTrace() }
               .onErrorComplete()
         }
-        .subscribe({}, { handleError(it) }))
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleInvalidFormatInput() {
