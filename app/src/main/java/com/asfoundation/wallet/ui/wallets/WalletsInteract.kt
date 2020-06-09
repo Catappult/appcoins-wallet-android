@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.wallets
 
+import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FetchWalletsInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.sumByBigDecimal
@@ -15,7 +17,9 @@ import io.reactivex.Single
 class WalletsInteract(private val balanceInteract: BalanceInteract,
                       private val fetchWalletsInteract: FetchWalletsInteract,
                       private val createWalletInteract: CreateWalletInteract,
+                      private val supportInteractor: SupportInteractor,
                       private val preferencesRepository: SharedPreferencesRepository,
+                      private val gamificationRepository: Gamification,
                       private val logger: Logger) {
 
   fun retrieveWalletsModel(): Single<WalletsModel> {
@@ -31,7 +35,7 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
                       wallets.add(WalletBalance(wallet.address, fiatValue,
                           currentWalletAddress == wallet.address))
                     }
-                    .doOnError { logger.log("WalletsInterct", it) }
+                    .doOnError { logger.log("WalletsInteract", it) }
                     .ignoreElement()
               }
         }
@@ -42,8 +46,11 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
 
   fun createWallet(): Completable {
     return createWalletInteract.create()
-        .flatMapCompletable {
-          createWalletInteract.setDefaultWallet(it.address)
+        .flatMapCompletable { wallet ->
+          createWalletInteract.setDefaultWallet(wallet.address)
+              .andThen(gamificationRepository.getUserStats(wallet.address)
+                  .doOnSuccess { supportInteractor.registerUser(it.level, wallet.address) }
+                  .toCompletable())
         }
   }
 

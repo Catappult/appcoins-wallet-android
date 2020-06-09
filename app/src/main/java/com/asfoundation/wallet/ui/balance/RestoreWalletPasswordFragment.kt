@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
@@ -28,6 +29,9 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
   lateinit var restoreWalletPasswordInteractor: RestoreWalletPasswordInteractor
 
   @Inject
+  lateinit var walletsEventSender: WalletsEventSender
+
+  @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
   private lateinit var activityView: RestoreWalletActivityView
   private lateinit var presenter: RestoreWalletPasswordPresenter
@@ -36,8 +40,8 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
     super.onCreate(savedInstanceState)
     presenter =
         RestoreWalletPasswordPresenter(this, activityView, restoreWalletPasswordInteractor,
-            CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
-            Schedulers.computation())
+            walletsEventSender, CompositeDisposable(), AndroidSchedulers.mainThread(),
+            Schedulers.io(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {
@@ -51,6 +55,7 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setTextChangeListener()
     presenter.present(keystore)
   }
 
@@ -61,7 +66,6 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
 
   @SuppressLint("SetTextI18n")
   override fun updateUi(address: String, fiatValue: FiatValue) {
-    setTextChangeListener()
     wallet_address.text = address
     wallet_balance.text =
         "${fiatValue.symbol}${currencyFormatUtils.formatCurrency(fiatValue.amount)}"
@@ -72,17 +76,11 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
         .map { password_edit_text.editableText.toString() }
   }
 
-  override fun showWalletRestoreAnimation() {
-    activityView.showWalletRestoreAnimation()
-  }
+  override fun showWalletRestoreAnimation() = activityView.showWalletRestoreAnimation()
 
-  override fun showWalletRestoredAnimation() {
-    activityView.showWalletRestoredAnimation()
-  }
+  override fun showWalletRestoredAnimation() = activityView.showWalletRestoredAnimation()
 
-  override fun hideAnimation() {
-    activityView.hideAnimation()
-  }
+  override fun hideAnimation() = activityView.hideAnimation()
 
   override fun showError(type: RestoreErrorType) {
     label_input.isErrorEnabled = true
@@ -93,6 +91,11 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
       RestoreErrorType.INVALID_KEYSTORE -> label_input.error = getString(R.string.error_import)
       else -> label_input.error = getString(R.string.error_general)
     }
+  }
+
+  override fun onDestroyView() {
+    presenter.stop()
+    super.onDestroyView()
   }
 
   private fun setTextChangeListener() {

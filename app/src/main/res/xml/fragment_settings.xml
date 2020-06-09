@@ -29,6 +29,17 @@
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/title_redeem" />
 
+  <Preference
+      android:icon="@drawable/ic_backup_black"
+      android:key="pref_backup"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/backup_title" />
+  <Preference
+      android:icon="@drawable/ic_restore_black"
+      android:key="pref_restore"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/import_wallet_title" />
+
   <PreferenceCategory
       android:key="pref_opensource_links"
       android:layout="@layout/preference_category_layout"

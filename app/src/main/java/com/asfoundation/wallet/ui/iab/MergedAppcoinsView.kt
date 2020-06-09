@@ -20,6 +20,9 @@ interface MergedAppcoinsView {
   fun showLoading()
   fun hideLoading()
   fun showPaymentMethods()
+  fun errorDismisses(): Observable<Any>
+  fun getSupportLogoClicks(): Observable<Any>
+  fun getSupportIconClicks(): Observable<Any>
   fun showVolatilityInfo()
   fun hideVolatilityInfo()
 }

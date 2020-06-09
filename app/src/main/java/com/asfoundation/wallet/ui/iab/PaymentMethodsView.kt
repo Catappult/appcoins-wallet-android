@@ -32,28 +32,32 @@ interface PaymentMethodsView {
                 iconUrl: String?, gamificationLevel: Int)
 
   fun showCreditCard(gamificationLevel: Int)
-  fun showAppCoins()
-  fun showCredits()
+  fun showAppCoins(gamificationLevel: Int)
+  fun showCredits(gamificationLevel: Int)
   fun showShareLink(selectedPaymentMethod: String)
   fun getPaymentSelection(): Observable<String>
   fun getMorePaymentMethodsClicks(): Observable<PaymentMethod>
-  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String)
+  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String, gamificationLevel: Int)
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
   fun onBackPressed(): Observable<Boolean>
   fun showNext()
   fun showBuy()
   fun showSubscribe()
-  fun showMergedAppcoins()
+  fun showMergedAppcoins(gamificationLevel: Int)
   fun lockRotation()
   fun showEarnAppcoins()
   fun showBonus(@StringRes bonusText: Int)
   fun hideBonus()
   fun replaceBonus()
   fun showWalletBlocked()
+  fun removeBonus()
+  fun getSupportLogoClicks(): Observable<Any>
+  fun getSupportIconClicks(): Observable<Any>
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
     ERROR
+
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -64,6 +68,4 @@ interface PaymentMethodsView {
     CREDIT_CARD("credit_card"),
     ASK_FRIEND("ask_friend")
   }
-
-  fun removeBonus()
 }

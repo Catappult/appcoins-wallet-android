@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -62,10 +63,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handleSupportClicks() {
     disposables.add(
-        view.getSupportClicks()
+        Observable.merge(view.getAdyenSupportIconClicks(), view.getAdyenSupportLogoClicks())
             .throttleFirst(50, TimeUnit.MILLISECONDS)
             .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
-            .subscribeOn(viewScheduler)
             .subscribe()
     )
   }
