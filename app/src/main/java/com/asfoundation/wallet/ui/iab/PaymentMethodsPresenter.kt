@@ -15,7 +15,8 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -527,7 +528,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
-    val action = if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+    val action = if (selectedPaymentMethod.id == PaymentMethodId.MERGED_APPC.id) "next" else "buy"
     if (paymentMethodsInteract.hasPreSelectedPaymentMethod()) {
       analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
           transaction.amount()
