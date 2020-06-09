@@ -60,10 +60,8 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     private const val PAYMENT_DATA = "data"
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
     private const val ANIMATION_STEP_TWO_START_FRAME = 80
-    private const val MID_ANIMATION_FRAME_INCREMENT = 40
-    private const val LAST_ANIMATION_FRAME_INCREMENT = 30
+    private const val ANIMATION_FRAME_INCREMENT = 40
     private const val BUTTON_ANIMATION_START_FRAME = 120
-    private const val LAST_ANIMATION_FRAME = 150
 
     fun newInstance(paymentId: String, icon: String, label: String,
                     data: TopUpPaymentData): LocalTopUpPaymentFragment {
@@ -166,7 +164,7 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     presenter.onSaveInstanceState(outState)
   }
 
-  override fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap) {
+  override fun showPendingUserPayment(paymentMethodIcon: Bitmap) {
     activityView.unlockRotation()
     loading.visibility = View.GONE
     error_view?.visibility = View.GONE
@@ -181,7 +179,6 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     topup_pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
       when (it.id) {
         "image_0" -> paymentMethodIcon
-        "image_1" -> applicationIcon
         else -> null
       }
     }
@@ -196,18 +193,11 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
       override fun onAnimationRepeat(animation: Animator?) = Unit
 
       override fun onAnimationEnd(animation: Animator?) {
-        if (maxFrame == LAST_ANIMATION_FRAME) {
-          topup_pending_user_payment_view?.in_progress_animation?.cancelAnimation()
-        }
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
-          minFrame += LAST_ANIMATION_FRAME_INCREMENT
-          maxFrame += LAST_ANIMATION_FRAME_INCREMENT
-          topup_pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame,
-              maxFrame)
-          topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
+          topup_pending_user_payment_view?.in_progress_animation?.cancelAnimation()
         } else {
-          minFrame += MID_ANIMATION_FRAME_INCREMENT
-          maxFrame += MID_ANIMATION_FRAME_INCREMENT
+          minFrame += ANIMATION_FRAME_INCREMENT
+          maxFrame += ANIMATION_FRAME_INCREMENT
           topup_pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame,
               maxFrame)
           topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
@@ -224,9 +214,8 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
           }
           ANIMATION_STEP_TWO_START_FRAME -> {
             animateShow(step_two)
-            animateShow(step_two_desc)
+            animateShow(step_two_desc, got_it_button)
           }
-          BUTTON_ANIMATION_START_FRAME -> animateButton(got_it_button)
           else -> return
         }
       }
@@ -234,14 +223,17 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
   }
 
-  private fun animateShow(view: View) {
+  private fun animateShow(view: View, viewToAnimateInTheEnd: View? = null) {
     view.apply {
       alpha = 0.0f
       visibility = View.VISIBLE
 
       animate()
           .alpha(1f)
-          .withEndAction { this.visibility = View.VISIBLE }
+          .withEndAction {
+            this.visibility = View.VISIBLE
+            viewToAnimateInTheEnd?.let { animateButton(it) }
+          }
           .setDuration(TimeUnit.SECONDS.toMillis(1))
           .setListener(null)
     }

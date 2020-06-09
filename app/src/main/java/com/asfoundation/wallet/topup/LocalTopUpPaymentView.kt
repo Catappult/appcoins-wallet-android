@@ -20,7 +20,7 @@ interface LocalTopUpPaymentView {
 
   fun showProcessingLoading()
 
-  fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap)
+  fun showPendingUserPayment(paymentMethodIcon: Bitmap)
 
   fun navigateToPaymentSelection()
 

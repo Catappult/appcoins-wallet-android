@@ -18,7 +18,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
 
 class LocalTopUpPaymentPresenter(
@@ -39,7 +38,7 @@ class LocalTopUpPaymentPresenter(
     private val packageName: String) {
 
   private var waitingResult: Boolean = false
-  private var status: ViewState = ViewState.NONE
+  private var status: ViewState = ViewState.PENDING_USER_PAYMENT
 
   fun present(savedInstance: Bundle?) {
     setupUi()
@@ -72,15 +71,12 @@ class LocalTopUpPaymentPresenter(
   }
 
   private fun preparePendingUserPayment() {
-    disposables.add(Single.zip(getPaymentMethodIcon(), getApplicationIcon(),
-        BiFunction { paymentMethodIcon: Bitmap, applicationIcon: Bitmap ->
-          Pair(paymentMethodIcon, applicationIcon)
-        })
+    disposables.add(getPaymentMethodIcon()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
           status = ViewState.PENDING_USER_PAYMENT
-          view.showPendingUserPayment(it.first, it.second)
+          view.showPendingUserPayment(it)
         }
         .subscribe({}, { showError(it) }))
   }

@@ -35,7 +35,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/next_steps_title"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/async_payment_progress"
+      app:lottie_rawRes="@raw/async_topup_progress"
       />
 
   <TextView
