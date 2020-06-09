@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui
 
+import android.content.Intent
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
 class SettingsPresenter(private val view: SettingsView,
@@ -50,10 +52,7 @@ class SettingsPresenter(private val view: SettingsView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { handleWalletModel(it) }
-        .subscribe({}, {
-          it.printStackTrace()
-          view.showError()
-        }))
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun handleWalletModel(walletModel: WalletsModel) {
@@ -71,5 +70,16 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   fun onBugReportClicked() = settingsInteract.displaySupportScreen()
+
+  fun redirectToStore() {
+    disposables.add(Single.create<Intent> { it.onSuccess(settingsInteract.retriveUpdateIntent()) }
+        .doOnSuccess { view.navigateToIntent(it) }
+        .subscribe({}, { handleError(it) }))
+  }
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    view.showError()
+  }
 }
 

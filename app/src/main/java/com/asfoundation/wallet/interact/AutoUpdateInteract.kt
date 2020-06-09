@@ -3,6 +3,7 @@ package com.asfoundation.wallet.interact
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import androidx.annotation.VisibleForTesting
 import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
@@ -31,11 +32,11 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     return blackList.contains(walletVersionCode) && hasSoftUpdate(updateVersionCode, updateMinSdk)
   }
 
+  @VisibleForTesting
   fun retrieveRedirectUrl(): String {
     return when {
-      isInstalled(APTOIDE_PACKAGE_NAME) -> APTOIDE_APP_VIEW_URL
-      isInstalled(PLAY_PACKAGE_NAME) -> PLAY_APP_VIEW_URL + walletPackageName
-      else -> APTOIDE_APP_VIEW_URL
+      isAptoideInstalled() -> String.format(APTOIDE_APP_VIEW_URL, walletPackageName)
+      else -> String.format(PLAY_APP_VIEW_URL, walletPackageName)
     }
   }
 
@@ -44,13 +45,13 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     val appsList =
         packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-    appsList?.let {
+    appsList.let {
       for (info in appsList) {
-        if (info.activityInfo.packageName == "cm.aptoide.pt") {
+        if (info.activityInfo.packageName == APTOIDE_PACKAGE_NAME) {
           intent.setPackage(info.activityInfo.packageName)
           break
         }
-        if (info.activityInfo.packageName == "com.android.vending")
+        if (info.activityInfo.packageName == PLAY_PACKAGE_NAME)
           intent.setPackage(info.activityInfo.packageName)
       }
     }
@@ -75,9 +76,9 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
         }
   }
 
-  private fun isInstalled(packageName: String): Boolean {
+  private fun isAptoideInstalled(): Boolean {
     return try {
-      packageManager.getApplicationInfo(packageName, 0)
+      packageManager.getApplicationInfo(APTOIDE_PACKAGE_NAME, 0)
           .enabled
     } catch (exception: PackageManager.NameNotFoundException) {
       false
@@ -91,9 +92,8 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     return currentTime >= savedTime + timeToShowNextNotificationInMillis
   }
 
-  fun saveSeenUpdateNotification() {
-    sharedPreferencesRepository.setUpdateNotificationSeenTime(System.currentTimeMillis())
-  }
+  fun saveSeenUpdateNotification() =
+      sharedPreferencesRepository.setUpdateNotificationSeenTime(System.currentTimeMillis())
 
   fun dismissNotification(): Completable {
     return getAutoUpdateModel(false)
@@ -105,7 +105,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   companion object {
     private const val APTOIDE_PACKAGE_NAME = "cm.aptoide.pt"
     private const val PLAY_PACKAGE_NAME = "com.android.vending"
-    private const val APTOIDE_APP_VIEW_URL = "https://appcoins-wallet.en.aptoide.com/"
-    private const val PLAY_APP_VIEW_URL = "https://play.google.com/store/apps/details?id="
+    private const val APTOIDE_APP_VIEW_URL = "aptoideinstall://package=%s&show_install_popup=false"
+    const val PLAY_APP_VIEW_URL = "https://play.google.com/store/apps/details?id=%s"
   }
 }

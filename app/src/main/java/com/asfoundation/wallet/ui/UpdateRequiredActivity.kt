@@ -5,10 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.navigator.UpdateNavigator
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.update_required_main_layout.*
 import javax.inject.Inject
@@ -16,8 +15,7 @@ import javax.inject.Inject
 class UpdateRequiredActivity : BaseActivity(), UpdateRequiredView {
 
   private lateinit var presenter: UpdateRequiredPresenter
-  @Inject
-  lateinit var updateNavigator: UpdateNavigator
+
   @Inject
   lateinit var autoUpdateInteract: AutoUpdateInteract
 
@@ -25,18 +23,16 @@ class UpdateRequiredActivity : BaseActivity(), UpdateRequiredView {
     super.onCreate(savedInstanceState)
     AndroidInjection.inject(this)
     setContentView(R.layout.update_required_main_layout)
-    updateNavigator = UpdateNavigator()
     presenter = UpdateRequiredPresenter(this, CompositeDisposable(), autoUpdateInteract)
     presenter.present()
   }
 
-  override fun navigateToStoreAppView(deepLink: String) {
-    updateNavigator.navigateToStoreAppView(this, deepLink)
-  }
+  override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
-  override fun updateClick(): Observable<Any> {
-    return RxView.clicks(update_button)
-  }
+  override fun updateClick() = RxView.clicks(update_button)
+
+  override fun showError() =
+      Snackbar.make(main_layout, R.string.unknown_error, Snackbar.LENGTH_SHORT)
 
   override fun onDestroy() {
     super.onDestroy()

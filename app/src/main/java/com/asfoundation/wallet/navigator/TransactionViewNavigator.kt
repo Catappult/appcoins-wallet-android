@@ -15,44 +15,29 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
                                private val myAddressRouter: MyAddressRouter,
                                private val balanceRouter: BalanceRouter,
                                private val externalBrowserRouter: ExternalBrowserRouter,
-                               private val topUpRouter: TopUpRouter,
-                               private val updateNavigator: UpdateNavigator) {
-  fun openSettings(context: Context) {
-    settingsRouter.open(context)
-  }
+                               private val topUpRouter: TopUpRouter) {
 
-  fun openSendView(context: Context) {
-    sendRouter.open(context)
-  }
+  fun openSettings(context: Context) = settingsRouter.open(context)
 
-  fun openTransactionsDetailView(context: Context, transaction: Transaction) {
-    transactionDetailRouter.open(context, transaction)
-  }
+  fun openSendView(context: Context) = sendRouter.open(context)
 
-  fun openMyAddressView(context: Context, value: Wallet?) {
-    myAddressRouter.open(context, value)
-  }
+  fun openTransactionsDetailView(context: Context, transaction: Transaction) =
+      transactionDetailRouter.open(context, transaction)
 
-  fun openTokensView(context: Context) {
-    balanceRouter.open(context)
-  }
+  fun openMyAddressView(context: Context, value: Wallet?) = myAddressRouter.open(context, value)
 
-  fun navigateToBrowser(context: Context, uri: Uri) {
-    externalBrowserRouter.open(context, uri)
-  }
+  fun openTokensView(context: Context) = balanceRouter.open(context)
 
-  fun openTopUp(context: Context) {
-    topUpRouter.open(context)
-  }
+  fun navigateToBrowser(context: Context, uri: Uri) = externalBrowserRouter.open(context, uri)
+
+  fun openIntent(context: Context, intent: Intent) = context.startActivity(intent)
+
+  fun openTopUp(context: Context) = topUpRouter.open(context)
 
   fun openPromotions(context: Context) {
     val intent = Intent(context, PromotionsActivity::class.java)
         .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
     context.startActivity(intent)
-  }
-
-  fun openUpdateAppView(context: Context, url: String) {
-    updateNavigator.navigateToStoreAppView(context, url)
   }
 
   fun navigateToBackup(context: Context, walletAddress: String) {

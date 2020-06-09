@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui
 
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -15,6 +16,7 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
                        private val preferencesRepositoryType: PreferencesRepositoryType,
                        private val supportInteractor: SupportInteractor,
                        private val walletsInteract: WalletsInteract,
+                       private val autoUpdateInteract: AutoUpdateInteract,
                        private val walletsEventSender: WalletsEventSender) {
 
   fun isWalletValid(): Single<Pair<String, WalletValidationStatus>> {
@@ -43,4 +45,6 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
   }
 
   fun displaySupportScreen() = supportInteractor.displayChatScreen()
+
+  fun retriveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 }

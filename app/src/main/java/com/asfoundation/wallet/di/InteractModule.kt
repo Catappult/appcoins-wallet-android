@@ -312,7 +312,7 @@ class InteractModule {
                                 sharedPreferences: PreferencesRepositoryType,
                                 context: Context) =
       AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
-          packageManager, context.packageName, sharedPreferences)
+          packageManager, "com.appcoins.wallet", sharedPreferences)
 
   @Singleton
   @Provides
@@ -492,9 +492,11 @@ class InteractModule {
                                preferencesRepositoryType: PreferencesRepositoryType,
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
+                               autoUpdateInteract: AutoUpdateInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
     return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
+        preferencesRepositoryType, supportInteractor, walletsInteract, autoUpdateInteract,
+        walletsEventSender)
   }
 
   @Provides

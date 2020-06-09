@@ -13,12 +13,14 @@ class UpdateRequiredPresenter(private val activity: UpdateRequiredView,
 
   private fun handleUpdateClick() {
     disposable.add(activity.updateClick()
-        .doOnNext { activity.navigateToStoreAppView(autoUpdateInteract.retrieveRedirectUrl()) }
-        .subscribe())
+        .doOnNext { activity.navigateToIntent(autoUpdateInteract.buildUpdateIntent()) }
+        .subscribe({}, { handleError(it) }))
   }
 
-  fun stop() {
-    disposable.clear()
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    activity.showError()
   }
 
+  fun stop() = disposable.clear()
 }
