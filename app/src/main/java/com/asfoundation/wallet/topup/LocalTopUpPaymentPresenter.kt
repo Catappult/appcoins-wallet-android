@@ -72,7 +72,7 @@ class LocalTopUpPaymentPresenter(
   }
 
   private fun preparePendingUserPayment() {
-    disposables.add(Single.zip(getPaymentMethodIcon(), getApplicationIconIcon(),
+    disposables.add(Single.zip(getPaymentMethodIcon(), getApplicationIcon(),
         BiFunction { paymentMethodIcon: Bitmap, applicationIcon: Bitmap ->
           Pair(paymentMethodIcon, applicationIcon)
         })
@@ -97,7 +97,7 @@ class LocalTopUpPaymentPresenter(
     }
   }
 
-  private fun getApplicationIconIcon(): Single<Bitmap> {
+  private fun getApplicationIcon(): Single<Bitmap> {
     return Single.fromCallable {
       val applicationIcon =
           (context!!.packageManager.getApplicationIcon(packageName) as BitmapDrawable).bitmap
@@ -107,19 +107,18 @@ class LocalTopUpPaymentPresenter(
   }
 
   private fun onViewCreatedRequestLink() {
-    disposables.add(
-        localPaymentInteractor.getTopUpPaymentLink(packageName, data.fiatValue,
-            data.fiatCurrencyCode, paymentId)
-            .filter { !waitingResult }
-            .observeOn(viewScheduler)
-            .doOnSuccess {
-              analytics.sendConfirmationEvent(data.appcValue.toDouble(), paymentId)
-              navigator.navigateToUriForResult(it)
-              waitingResult = true
-            }
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .subscribe({ }, { showError(it) }))
+    disposables.add(localPaymentInteractor.getTopUpPaymentLink(packageName, data.fiatValue,
+        data.fiatCurrencyCode, paymentId)
+        .filter { !waitingResult }
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          analytics.sendConfirmationEvent(data.appcValue.toDouble(), paymentId)
+          navigator.navigateToUriForResult(it)
+          waitingResult = true
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .subscribe({ }, { showError(it) }))
   }
 
   private fun handlePaymentRedirect() {

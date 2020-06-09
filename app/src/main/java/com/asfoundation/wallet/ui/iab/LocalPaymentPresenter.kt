@@ -63,7 +63,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     disposables.add(
         Single.zip(
             getPaymentMethodIcon(),
-            getApplicationIconIcon(),
+            getApplicationIcon(),
             BiFunction { paymentMethodIcon: Bitmap, applicationIcon: Bitmap ->
               Pair(paymentMethodIcon, applicationIcon)
             }
@@ -83,7 +83,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         .get()
   }
 
-  private fun getApplicationIconIcon() = Single.fromCallable {
+  private fun getApplicationIcon() = Single.fromCallable {
     val applicationIcon =
         (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
 
