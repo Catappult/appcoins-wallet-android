@@ -47,12 +47,10 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     return pref.getString(CURRENT_ACCOUNT_ADDRESS_KEY, null)
   }
 
-  override fun setCurrentWalletAddress(address: String): Completable {
-    return Completable.fromAction {
-      pref.edit()
-          .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
-          .apply()
-    }
+  override fun setCurrentWalletAddress(address: String) {
+    pref.edit()
+        .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
+        .apply()
   }
 
   override fun isFirstTimeOnTransactionActivity(): Boolean {
