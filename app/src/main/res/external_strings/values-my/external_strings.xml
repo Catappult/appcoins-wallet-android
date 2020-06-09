@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">ဤ၀ယ္ယူမႈအေပၚ %s သင္ရရွိနိုင္ပါသည္။</string>
   <string name="iab_purchase_done_title_long">၀ယ္ယူမႈ ၿပီးပါၿပီ။</string>
   <string name="iab_purchase_change_payment_method_button">ေနာက္ထပ္ ေငြေပးေခ်ရန္ နည္းလမ္းမ်ား</string>
+  <string name="iab_purchase_support_1">အကူအညီ လိုအပ္ပါသလား။</string>
+  <string name="iab_purchase_support_2_link">ပံ့ပိုးမႈအား ဆက္သြယ္ပါ။</string>
   <!-- SDK - Common -->
   <string name="next_button">ေနာက္ထပ္</string>
   <string name="cancel_button">ပယ္ဖ်က္မည္</string>
   <string name="buy_button">၀ယ္မည္</string>
   <string name="iab_wallet_not_installed_popup_close_install">WALLET ကို ထည့္သြင္းမည္</string>
   <string name="button_ok">အိုေက</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">ထည့္သြင္းပါ</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">ခ်ိဳ႕ယြင္းခ်က္</string>
+  <string name="purchase_error_item_owned">ဤပစၥည္းကို သင္ပိုင္ဆိုင္ထားၿပီး ျဖစ္ပါသည္။</string>
   <string name="purchase_card_error_title">အိုး တခုခုမွားသြားပါသည္။</string>
   <string name="purchase_card_error_general_1">သင့္ကဒ္တြင္ ျပႆနာတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ သို့မဟုတ္ ကၽြႏ္ုပ္တို့ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_card_error_general_2">ေငြလႊဲေျပာင္းမႈကို သင့္ဘဏ္က ျငင္းဆန္လိုက္ပါသည္။ အျခားကဒ္တစ္ကဒ္ျဖင့္ ႀကိဳးစားေပးပါ သို့မဟုတ္ ကၽြႏ္ုပ္တို့ကို ဆက္သြယ္ေပးပါ။</string>

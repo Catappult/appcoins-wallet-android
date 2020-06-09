@@ -4,7 +4,7 @@
   <string name="title_send">إرسال</string>
   <string name="title_send_with_token">إرسال %s</string>
   <string name="title_request">استقبال</string>
-  <string name="title_import">استيراد محفظة</string>
+  <string name="title_import">استعادة المحفظة</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">كلمة المرور</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">المَحافظ</string>
   <string name="cancel">إلغاء</string>
   <string name="confirm_delete_account">تأكد من أن لديك نسخة احتاطية من هذه المحفظة.</string>
-  <string name="action_import">استيراد</string>
+  <string name="action_import">استعادة</string>
   <string name="copy">نسخ إلى الحافظة</string>
   <string name="close">إغلاق</string>
   <string name="title_activity_settings">الإعدادات</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
-  <string name="title_delete_account">هل أنت متأكد من حذف هذه المحفظة؟</string>
+  <string name="title_delete_account">هل أنت متأكد من أنك تريد حذف هذه المحفظة؟</string>
   <string name="twitter">تويتر</string>
   <string name="telegram">مجموعة تيليغرام</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">أنشئ كلمة مرور لتشفير محفظتك</string>
-  <string name="toast_message_wallet_imported">تم استيراد المحفظة</string>
+  <string name="toast_message_wallet_imported">تمت استعادة المحفظة</string>
   <string name="toast_message_wallet_exported">تم إنشاء نسخة احتياطية</string>
   <string name="toast_qr_code_no_address">شيفرة QR لا تحتوي على عنوان صالح</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">استرجع قيمة الكود</string>
+  <string name="settings_item_support">تواصل مع فريق الدعم</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">قيد العمل&#8230;</string>
   <string name="local_payments_inprogress_body">حالما تكمل الدفع ستتلقّى رصيد AppCoins في محفظتك. بعدها تعدود إلى اللعبة لتشتري!</string>
@@ -506,6 +507,7 @@
   <string name="promotions_referral_card_title">احصل على ما يصل إلى %s بدعوة الأصدقاء</string>
   <string name="promotions_referral_card_body">شارك رابط الدعوة الخاص بك واحصل على رصيد AppCoins.</string>
   <string name="promotions_gamification_card_title">مكافآت تصل إلى 30% على كل عملية شراء</string>
+  <string name="promotions_gamification_card_title_variable">مكافآت حتى %s%% على كل عملية شراء</string>
   <string name="promotions_new">جديد</string>
   <string name="promotions_tab_promotions_title">إعلانات</string>
   <string name="promotions_tab_poa_title">العب &amp; واربح</string>
@@ -530,19 +532,36 @@
   <string name="backup_body">نحن لا نحتفظ بمفاتيحك الخاصة أو أيٍّ من وسائل الدخولا أخرى. من المهم أن يبقى النسخ الاحتياطي لمحفظتك (keystore) بأمان.</string>
   <string name="backup_confirmation_title">خطوة واحدة أخرى</string>
   <string name="backup_confirmation_body">احتفظ بالنسخ الاحتياطي في أمان! أين تريد الاحتفاظ به؟</string>
+  <string name="backup_confirmation_yes">نعم، خلّصني</string>
+  <string name="backup_confirmation_no">لا، احفظ على الجهاز</string>
   <string name="backup_done_title">انتهى النسخ الاحتياطي!</string>
   <string name="backup_done_body">هل أنت متأكد بأن ملف النسخ الاحتياطي في مكان آمن؟</string>
+  <string name="backup_confirmation_no_share_title">تم النسخ الاحتياطي!</string>
+  <string name="backup_confirmation_no_share_body">ملف النسخ الاحتياطي في مجلّد التنزيلات.</string>
+  <string name="backup_save_dialogue_title">احفظ ملفات النسخ الاحتياطي</string>
+  <string name="backup_save_dialogue_body">اختر اسمًا لملف النسخ الاحتياطي.</string>
+  <string name="backup_confirmation_tips_title">احفظ الملف بأمان:</string>
+  <string name="backup_confirmation_tips_1">اطبعه واحفظه في مكان آمن.</string>
+  <string name="backup_confirmation_tips_2">احفظها على مشغل يو أس بي.</string>
+  <string name="backup_confirmation_tips_3">انسخه إلى تخزين سحابي خاص وآمن.</string>
   <string name="backup_send_via_title">أرسل النسخة الاحتياطية بواسطة:</string>
   <string name="backup_send_button">إرسال النسخ الاحتياطي</string>
-  <string name="import_wallet_title">استيراد المحفظة</string>
+  <string name="backup_save_button">احفظ النسخ الاحتياطي</string>
+  <string name="import_wallet_title">استعادة المحفظة</string>
   <string name="import_wallet_body">ألصق النسخ الاحتياطي للمحفظة في الأسفل.</string>
   <string name="import_wallet_keystore_private_keys">مخزن المفاتيح أو المفاتيح الخاصة</string>
-  <string name="import_wallet_file_button">استيراد من ملف</string>
-  <string name="import_wallet_button">استيراد المحفظة</string>
+  <string name="import_wallet_file_button">استعادة من ملف</string>
+  <string name="import_wallet_button">استعادة المحفظة</string>
   <string name="import_wallet_password_body">هذه المحفظة محمية بكلمة مرور!</string>
   <string name="import_wallet_wrong_password_body">يوه، كلمة مرور خاطئة!</string>
   <string name="error_invalid_private_key">مفتاح خاص غير صالح</string>
   <string name="error_invalid_keystore">محفظة مفاتيح غير صالحة</string>
+  <string name="backup_tooltip_body">أنشئ نسخًا احتياطيًا لمحفظتك!</string>
+  <string name="backup_tooltip_later_button">ربما لاحقًا</string>
+  <string name="backup_tooltip_backup_button">نسخ احتياطي</string>
+  <string name="backup_notification_title">أنشئ نسخًا احتياطًا لمحفظتك!</string>
+  <string name="backup_notification_body">احتفظ بأموالك بأمان وتأكد من أنك تستطيع دومًا الدخول إلى محفظتك.</string>
+  <string name="backup_choose_wallet_title">اختر محفظة لإنشاء نسخ احتياطي لها</string>
   <!--Wallets Management-->
   <string name="wallets_title">المَحافظ</string>
   <string name="wallets_total_balance_title">الرصيد الكلي يساوي %s</string>
@@ -557,10 +576,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">القيمة الكلية</string>
   <string name="wallets_address_copied_body">نُسخَ عنوان المحفظة إلى الحافظة</string>
-  <string name="wallets_imported_body">تم استيراد المحفظة بنجاح</string>
+  <string name="wallets_imported_body">تمت استعادة المحفظة بنجاح</string>
   <string name="wallets_2nd_view_balance_title">الرصيد:</string>
   <string name="wallets_2nd_view_other_wallets_title">المَحافظ الأخرى</string>
-  <string name="wallets_2nd_view_import_button">استيراد المحفظة</string>
+  <string name="wallets_2nd_view_import_button">استعادة المحفظة</string>
   <string name="wallets_2nd_view_create_button">إنشاء محفظة جديدة</string>
   <string name="wallet_view_copy_button">نسخ</string>
   <string name="wallet_view_share_button">مشاركة</string>
@@ -573,7 +592,7 @@
   <string name="remove_wallet_title">إزالة المحفظة</string>
   <string name="remove_wallet_body">نحن نوصيك بأهمية حفظ نسخة احتياطية لمحفظتك قبل إزالتها. لن تتمكن من الدخول إليها مجددًا ما لم تنشئ لها نسخة احتياطية.</string>
   <string name="remove_wallet_backup_button">نسخ احتياطي للمحفظة</string>
-  <string name="remove_wallet_no_backup_button">متابعة دون عمل نسخ احتياطي</string>
+  <string name="remove_wallet_no_backup_button">حذف المحفظة</string>
   <string name="remove_wallet_confirm_body">هل انت متأكد من أنك تود إزالة هذه المحفظة؟</string>
   <string name="remove_wallet_no_button">لا، عودة إلى الخلف</string>
   <string name="remove_wallet_yes_button">نعم، إزالة المحفظة</string>
@@ -591,6 +610,10 @@
   <string name="transfer_send_button">إرسال</string>
   <string name="transfer_receive_body">شارك عنوان محفظتك لاستقبال الأموال.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">وصلتك رسالة جديدة!</string>
+  <string name="support_new_message_button">اضغط للفتح</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">تم تحديث نسبة المكافأة على %s.</string>
+  <string name="pioneer_gamification_title">أنت من الروّاد</string>
+  <string name="pioneer_gamification_body">الروّاد هم أول المنتمين مع مكافآت متزايدة.</string>
 </resources>

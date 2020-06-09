@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Sie hätten einen Bonus von %s auf diesen Einkauf erhalten können.</string>
   <string name="iab_purchase_done_title_long">Einkauf abgeschlossen!</string>
   <string name="iab_purchase_change_payment_method_button">WEITERE BEZAHLMETHODEN</string>
+  <string name="iab_purchase_support_1">Sie benötigen Hilfe?</string>
+  <string name="iab_purchase_support_2_link">Support kontaktieren.</string>
   <!-- SDK - Common -->
   <string name="next_button">WEITER</string>
   <string name="cancel_button">ABBRECHEN</string>
   <string name="buy_button">KAUF</string>
   <string name="iab_wallet_not_installed_popup_close_install">WALLET INSTALLIEREN</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Installieren</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Fehler</string>
+  <string name="purchase_error_item_owned">Sie haben diesen Artikel bereits gekauft!</string>
   <string name="purchase_card_error_title">Hoppla, etwas hat nicht funktioniert.</string>
   <string name="purchase_card_error_general_1">Es gab ein Problem mit ihrer Karte. Bitte nehmen Sie Kontakt zu uns auf.</string>
   <string name="purchase_card_error_general_2">Die Transaktion wurde von ihrer Bank zurückgewiesen. Bitte versuchen Sie es mit einer anderen Karte oder nehmen Sie Kontakt zu uns auf.</string>

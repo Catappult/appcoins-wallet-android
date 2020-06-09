@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Ai fi putut să primești %s pentru această cumpărătură.</string>
   <string name="iab_purchase_done_title_long">Cumpărătură finalizată!</string>
   <string name="iab_purchase_change_payment_method_button">MAI MULTE METODE DE PLATĂ</string>
+  <string name="iab_purchase_support_1">Ai nevoie de ajutor?</string>
+  <string name="iab_purchase_support_2_link">Contactează echipa de asistență.</string>
   <!-- SDK - Common -->
   <string name="next_button">URMĂTORUL</string>
   <string name="cancel_button">ANULEAZĂ</string>
   <string name="buy_button">CUMPĂRĂ</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALEAZĂ WALLET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Instalează</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Eroare</string>
+  <string name="purchase_error_item_owned">Ai deja acest articol!</string>
   <string name="purchase_card_error_title">Ups, ceva nu a mers cum trebuie.</string>
   <string name="purchase_card_error_general_1">A apărut o problemă cu cardul tău. Încearcă din nou sau contactează-ne.</string>
   <string name="purchase_card_error_general_2">Tranzacția a fost refuzată de banca ta. Încearcă cu un alt card sau contactează-ne.</string>
