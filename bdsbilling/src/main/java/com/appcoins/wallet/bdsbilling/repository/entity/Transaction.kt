@@ -7,11 +7,13 @@ data class Transaction(val uid: String,
                        var hash: String?,
                        val orderReference: String?,
                        val price: Price?,
-                       val type: String) {
+                       val type: String,
+                       val url: String? = null) {
 
   companion object {
     fun notFound(): Transaction {
-      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, "")
+      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, "",
+          "")
     }
 
   }

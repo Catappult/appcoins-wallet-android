@@ -11,6 +11,7 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.commons.MemoryCache
@@ -194,9 +195,11 @@ class InteractModule {
                                     partnerAddressService: AddressService,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     billing: Billing, billingMessagesMapper: BillingMessagesMapper,
-                                    supportInteractor: SupportInteractor): LocalPaymentInteractor {
+                                    supportInteractor: SupportInteractor,
+                                    remoteRepository: RemoteRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor)
+        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
+        remoteRepository)
   }
 
   @Provides

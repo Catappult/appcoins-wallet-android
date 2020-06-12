@@ -38,7 +38,7 @@ class LocalTopUpPaymentPresenter(
     private val packageName: String) {
 
   private var waitingResult: Boolean = false
-  private var status: ViewState = ViewState.PENDING_USER_PAYMENT
+  private var status: ViewState = ViewState.NONE
 
   fun present(savedInstance: Bundle?) {
     setupUi()
@@ -105,7 +105,7 @@ class LocalTopUpPaymentPresenter(
   private fun onViewCreatedRequestLink() {
     disposables.add(localPaymentInteractor.getTopUpPaymentLink(packageName, data.fiatValue,
         data.fiatCurrencyCode, paymentId)
-        .filter { !waitingResult }
+        .filter { !waitingResult && it.isNotEmpty() }
         .observeOn(viewScheduler)
         .doOnSuccess {
           analytics.sendConfirmationEvent(data.appcValue.toDouble(), paymentId)

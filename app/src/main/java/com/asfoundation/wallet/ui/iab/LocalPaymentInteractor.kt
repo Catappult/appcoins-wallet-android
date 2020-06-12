@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -23,7 +24,8 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
                              private val billingMessagesMapper: BillingMessagesMapper,
-                             private val supportInteractor: SupportInteractor) {
+                             private val supportInteractor: SupportInteractor,
+                             private val remoteRepository: RemoteRepository) {
 
   fun getPaymentLink(domain: String, skuId: String?, originalAmount: String?,
                      originalCurrency: String?, paymentMethod: String, developerAddress: String,
@@ -52,11 +54,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
-          deepLinkRepository.getDeepLink(packageName, null, walletAddressModel.address,
-              walletAddressModel.signedAddress, fiatAmount, fiatCurrency,
-              paymentMethod, null, null, null, null,
-              null, null)
+          remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName, fiatAmount,
+              fiatCurrency, walletAddressModel.address, walletAddressModel.signedAddress)
         }
+        .map { it.url ?: "" }
   }
 
   fun getTransaction(uri: Uri): Observable<Transaction> =
