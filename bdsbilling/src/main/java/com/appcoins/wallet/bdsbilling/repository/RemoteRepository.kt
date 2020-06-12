@@ -61,7 +61,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
     return api.getPurchases(packageName, walletAddress, walletSignature,
-            type.name.toLowerCase())
+        type.name.toLowerCase())
         .map { responseMapper.map(it) }
   }
 
@@ -94,13 +94,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   }
 
   internal fun getPaymentMethods(value: String?,
-                                 currency: String?): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(value, currency)
-        .map { responseMapper.map(it) }
-  }
-
-  internal fun getPaymentMethodsForType(type: String): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(type = type)
+                                 currency: String?, type: String?,
+                                 filter: String?): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(value, currency, type, filter)
         .map { responseMapper.map(it) }
   }
 
@@ -117,9 +113,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
     return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
-            "APPC", null, type, toWallet, null, null,
-            null, null, null, null, null, null,
-            walletAddress, signature)
+        "APPC", null, type, toWallet, null, null,
+        null, null, null, null, null, null,
+        walletAddress, signature)
         .toCompletable()
 
   }
@@ -175,9 +171,11 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Body data: Consumed): Completable
 
     @GET("broker/8.20200311/methods")
-    fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
-    currency: String? = null, @Query("currency.type")
-                          type: String? = null): Single<GetMethodsResponse>
+    fun getPaymentMethods(@Query("price.value") value: String? = null,
+                          @Query("price.currency") currency: String? = null,
+                          @Query("currency.type") type: String? = null,
+                          @Query("filter.fields") filter: String? = null
+    ): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")

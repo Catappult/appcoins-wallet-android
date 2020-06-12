@@ -225,9 +225,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
         indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
   }
 
-  override fun navigateToBrowser(uri: Uri) {
-    browserRouter.open(this, uri)
-  }
+  override fun navigateToBrowser(uri: Uri) = browserRouter.open(this, uri)
 
   override fun showNoInternetView() {
     stopRetryAnimation()
