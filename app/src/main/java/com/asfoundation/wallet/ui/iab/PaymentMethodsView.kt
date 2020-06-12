@@ -8,7 +8,7 @@ import java.math.BigDecimal
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                          currency: String, paymentMethodId: String, fiatAmount: String,
-                         appcAmount: String)
+                         appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                    isDonation: Boolean, currency: String, fiatAmount: String,

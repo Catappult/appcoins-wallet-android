@@ -286,8 +286,27 @@ class PaymentMethodsPresenter(
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
                                  paymentMethodId: String, fiatAmount: String, appcAmount: String) {
-    view.showPaymentMethods(paymentMethods.toMutableList(), fiatValue,
-        mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId, fiatAmount, appcAmount)
+    var appcEnabled = false
+    var creditsEnabled = false
+    val paymentList: MutableList<PaymentMethod>
+    val symbol = mapCurrencyCodeToSymbol(fiatValue.currency)
+    if (isBds) {
+      paymentMethods.forEach {
+        if (it is AppCoinsPaymentMethod) {
+          appcEnabled = it.isAppcEnabled
+          creditsEnabled = it.isCreditsEnabled
+        }
+      }
+      paymentList = paymentMethods.toMutableList()
+    } else {
+      paymentList = paymentMethods
+          .filter {
+            it.id == paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.APPC)
+          }
+          .toMutableList()
+    }
+    view.showPaymentMethods(paymentList, fiatValue, symbol, paymentMethodId, fiatAmount, appcAmount,
+        appcEnabled, creditsEnabled)
   }
 
   private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,

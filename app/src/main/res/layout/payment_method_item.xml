@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    >
+
+  <androidx.appcompat.widget.AppCompatRadioButton
+      android:id="@+id/radio_button"
+      style="@style/PaymentMethodsRadioButtonNoPadding"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:clickable="false"
+      android:scaleX="0.8"
+      android:scaleY="0.8"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/payment_method_ic"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginStart="10dp"
+      android:scaleType="centerInside"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/radio_button"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_payment_method_paypal"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_description"
+      style="@style/TopUpTextStyle.PaymentOptionText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="17dp"
+      android:text="Paypal"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="32dp"
+      android:orientation="vertical"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <TextView
+        android:id="@+id/fee_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:lineSpacingExtra="4sp"
+        android:textColor="@color/appc_pink"
+        android:textSize="12sp"
+        tools:text="1.5 R$"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:lineSpacingExtra="6sp"
+        android:textColor="@color/top_up_bonus_text"
+        android:textSize="10sp"
+        tools:text="fee"
+        />
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
