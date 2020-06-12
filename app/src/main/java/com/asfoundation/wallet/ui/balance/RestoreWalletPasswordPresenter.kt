@@ -1,12 +1,16 @@
 package com.asfoundation.wallet.ui.balance
 
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.WalletModel
+import com.asfoundation.wallet.util.RestoreErrorType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView,
                                      private val activityView: RestoreWalletActivityView,
                                      private val interactor: RestoreWalletPasswordInteractor,
+                                     private val walletsEventSender: WalletsEventSender,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
                                      private val networkScheduler: Scheduler,
@@ -20,12 +24,12 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
   private fun populateUi(keystore: String) {
     disposable.add(interactor.extractWalletAddress(keystore)
         .subscribeOn(networkScheduler)
-        .flatMap { address ->
+        .flatMapObservable { address ->
           interactor.getOverallBalance(address)
               .observeOn(viewScheduler)
-              .doOnSuccess { fiatValue -> view.updateUi(address, fiatValue) }
+              .doOnNext { fiatValue -> view.updateUi(address, fiatValue) }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRestoreWalletButtonClicked(keystore: String) {
@@ -34,29 +38,46 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
           activityView.hideKeyboard()
           view.showWalletRestoreAnimation()
         }
+        .doOnNext {
+          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_SUCCESS)
+        }
+        .doOnError {
+          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_FAIL, it.message)
+        }
         .observeOn(computationScheduler)
         .flatMapSingle { interactor.restoreWallet(keystore, it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
-        .subscribe())
+        .doOnError {
+          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+              it.message)
+        }
+        .subscribe({}, {
+          it.printStackTrace()
+          view.hideAnimation()
+          view.showError(RestoreErrorType.GENERIC)
+        }))
   }
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
         .doOnComplete { view.showWalletRestoredAnimation() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletModel(walletModel: WalletModel) {
     if (walletModel.error.hasError) {
       view.hideAnimation()
       view.showError(walletModel.error.type)
+      walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+          walletModel.error.type.toString())
     } else {
       setDefaultWallet(walletModel.address)
+      walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_SUCCESS)
     }
   }
 
-  fun stop() {
-    disposable.clear()
-  }
+  fun stop() = disposable.clear()
 }

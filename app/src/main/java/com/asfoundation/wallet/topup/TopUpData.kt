@@ -3,11 +3,12 @@ package com.asfoundation.wallet.topup
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import java.io.Serializable
+import java.math.BigDecimal
 
 data class TopUpData(var currency: CurrencyData,
                      var selectedCurrency: String,
                      var paymentMethod: PaymentType? = null,
-                     var bonusValue: String = "") :
+                     var bonusValue: BigDecimal = BigDecimal.ZERO) :
     Serializable {
   companion object {
     const val FIAT_CURRENCY = "FIAT_CURRENCY"

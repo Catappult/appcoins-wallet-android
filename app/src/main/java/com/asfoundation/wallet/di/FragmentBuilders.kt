@@ -1,0 +1,191 @@
+package com.asfoundation.wallet.di
+
+import com.asfoundation.wallet.advertise.WalletPoAService
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
+import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
+import com.asfoundation.wallet.permissions.request.view.PermissionFragment
+import com.asfoundation.wallet.promotions.PromotionsFragment
+import com.asfoundation.wallet.referrals.InviteFriendsFragment
+import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
+import com.asfoundation.wallet.referrals.ReferralsFragment
+import com.asfoundation.wallet.topup.TopUpFragment
+import com.asfoundation.wallet.topup.TopUpSuccessFragment
+import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
+import com.asfoundation.wallet.ui.SettingsFragment
+import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
+import com.asfoundation.wallet.ui.airdrop.AirdropFragment
+import com.asfoundation.wallet.ui.backup.BackupCreationFragment
+import com.asfoundation.wallet.ui.backup.BackupSuccessFragment
+import com.asfoundation.wallet.ui.backup.BackupWalletFragment
+import com.asfoundation.wallet.ui.balance.BalanceFragment
+import com.asfoundation.wallet.ui.balance.RestoreWalletFragment
+import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment
+import com.asfoundation.wallet.ui.gamification.HowItWorksFragment
+import com.asfoundation.wallet.ui.gamification.MyLevelFragment
+import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
+import com.asfoundation.wallet.ui.transact.TransferFragment
+import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
+import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
+import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
+import com.asfoundation.wallet.ui.wallets.WalletsFragment
+import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment
+import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment
+import com.asfoundation.wallet.wallet_validation.poa.PoaCodeValidationFragment
+import com.asfoundation.wallet.wallet_validation.poa.PoaPhoneValidationFragment
+import com.asfoundation.wallet.wallet_validation.poa.PoaValidationLoadingFragment
+import com.asfoundation.wallet.wallet_validation.poa.PoaValidationSuccessFragment
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+
+@Module
+abstract class FragmentBuilders {
+
+  @ContributesAndroidInjector
+  abstract fun bindWalletPoAService(): WalletPoAService
+
+  @ContributesAndroidInjector
+  abstract fun bindAirdropFragment(): AirdropFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindRegularBuyFragment(): OnChainBuyFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindHowItWorksFragment(): HowItWorksFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindMyLevelFragment(): MyLevelFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindWebViewFragment(): BillingWebViewFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindAppcoinsRewardsBuyFragment(): AppcoinsRewardsBuyFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPaymentMethodsFragment(): PaymentMethodsFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPermissionFragment(): PermissionFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindCreateWalletFragment(): CreateWalletFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPermissionsListFragment(): PermissionsListFragment
+
+  @ContributesAndroidInjector(modules = [ConfirmationModule::class])
+  abstract fun bindTransactFragment(): TransferFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindAppcoinsCreditsTransactSuccessFragment(): AppcoinsCreditsTransferSuccessFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindTopUpFragment(): TopUpFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindTopUpSuccessFragment(): TopUpSuccessFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindSharePaymentLinkFragment(): SharePaymentLinkFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindLocalPaymentFragment(): LocalPaymentFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindMergedAppcoinsFragment(): MergedAppcoinsFragment
+
+
+  @ContributesAndroidInjector
+  abstract fun bindPoaPhoneValidationFragment(): PoaPhoneValidationFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPoaCodeValidationFragment(): PoaCodeValidationFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPoaValidationLoadingFragment(): PoaValidationLoadingFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPoaValidationSuccessFragment(): PoaValidationSuccessFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindBalanceFragment(): BalanceFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPhoneValidationFragment(): PhoneValidationFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindCodeValidationFragment(): CodeValidationFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindPromotionsFragment(): PromotionsFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindInviteFriendsVerificationFragment(): InviteFriendsVerificationFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindInviteFriendsFragment(): InviteFriendsFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindReferralsFragment(): ReferralsFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindEarnAppcoinsFragment(): EarnAppcoinsFragment
+
+  @ContributesAndroidInjector
+  abstract fun bindIabUpdateRequiredFragment(): IabUpdateRequiredFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindWalletsFragment(): WalletsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindWalletDetailFragment(): WalletDetailsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindAdyenPaymentFragment(): AdyenPaymentFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindAdyenTopUpFragment(): AdyenTopUpFragment
+
+
+  @ContributesAndroidInjector
+  abstract fun bindRemoveWalletFragment(): RemoveWalletFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindWalletRemoveConfirmationFragment(): WalletRemoveConfirmationFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindRestoreWalletFragment(): RestoreWalletFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindBackupWalletFragment(): BackupWalletFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindBackupCreationFragment(): BackupCreationFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindBackupSuccessFragment(): BackupSuccessFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun settingsFragment(): SettingsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment?
+}

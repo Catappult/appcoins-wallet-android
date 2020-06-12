@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Mogli ste da dobijete %s za ovu kupovinu.</string>
   <string name="iab_purchase_done_title_long">Kupovina je dovršena!</string>
   <string name="iab_purchase_change_payment_method_button">JOŠ NAČINA PLAĆANJA</string>
+  <string name="iab_purchase_support_1">Potrebna vam je pomoć?</string>
+  <string name="iab_purchase_support_2_link">Obratite se podršci.</string>
   <!-- SDK - Common -->
   <string name="next_button">SLEDEĆE</string>
   <string name="cancel_button">OTKAŽI</string>
   <string name="buy_button">KUPI</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALIRAJ NOVČANIK</string>
   <string name="button_ok">U redu</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Instaliraj</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Greška</string>
+  <string name="purchase_error_item_owned">Već imate ovaj artikal!</string>
   <string name="purchase_card_error_title">Ups, došlo je do greške.</string>
   <string name="purchase_card_error_general_1">Došlo je do problema sa vašom karticom. Pokušajte ponovo ili nam se obratite.</string>
   <string name="purchase_card_error_general_2">Vaša banka je odbila transakciju. Pokušajte sa drugom karticom ili nam se obratite.</string>

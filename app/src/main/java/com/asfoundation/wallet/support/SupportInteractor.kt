@@ -12,6 +12,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
   }
 
   private var currentUser = ""
+  private var currentGamificationLevel = -1
 
   fun displayChatScreen() {
     resetUnreadConversations()
@@ -20,23 +21,26 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
   }
 
   fun registerUser(level: Int, walletAddress: String) {
-    if (currentUser != walletAddress) {
+    if (currentUser != walletAddress || currentGamificationLevel != level) {
+      if (currentUser != walletAddress) {
+        Intercom.client()
+            .logout()
+      }
+
+      val userAttributes = UserAttributes.Builder()
+          .withName(walletAddress)
+          .withCustomAttribute(USER_LEVEL_ATTRIBUTE,
+              level + 1)//we set level + 1 to help with readability for the support team
+          .build()
+      val registration: Registration = Registration.create()
+          .withUserId(walletAddress)
+          .withUserAttributes(userAttributes)
+
       Intercom.client()
-          .logout()
+          .registerIdentifiedUser(registration)
+      currentUser = walletAddress
+      currentGamificationLevel = level
     }
-
-    val userAttributes = UserAttributes.Builder()
-        .withName(walletAddress)
-        .withCustomAttribute(USER_LEVEL_ATTRIBUTE,
-            level + 1)//we set level + 1 to help with readability for the support team
-        .build()
-    val registration: Registration = Registration.create()
-        .withUserId(walletAddress)
-        .withUserAttributes(userAttributes)
-
-    Intercom.client()
-        .registerIdentifiedUser(registration)
-    currentUser = walletAddress
   }
 
   fun getUnreadConversationCountListener() = Observable.create<Int> {

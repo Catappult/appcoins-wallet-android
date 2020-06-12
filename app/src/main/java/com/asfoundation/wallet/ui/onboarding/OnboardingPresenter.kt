@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.onboarding
 import android.net.Uri
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
-import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.util.scaleToString
@@ -129,7 +128,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
           if (skipValidation) {
             Single.just(WalletValidationStatus.SUCCESS)
           } else {
-            smsValidationInteract.isValid(Wallet(it))
+            smsValidationInteract.isValid(it)
                 .subscribeOn(networkScheduler)
           }
         }
@@ -159,11 +158,13 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleCreateWallet() {
     disposables.add(
         onboardingInteract.getWalletAddress()
+            .subscribeOn(networkScheduler)
             .onErrorResumeNext {
               onboardingInteract.createWallet()
             }
+            .observeOn(viewScheduler)
             .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleSkippedOnboarding() {

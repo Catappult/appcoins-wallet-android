@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Bạn đã nhận được %s trên giao dịch mua này.</string>
   <string name="iab_purchase_done_title_long">Giao dịch mua đã hoàn tất!</string>
   <string name="iab_purchase_change_payment_method_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
+  <string name="iab_purchase_support_1">Cần trợ giúp?</string>
+  <string name="iab_purchase_support_2_link">Liên hệ bộ phận hỗ trợ.</string>
   <!-- SDK - Common -->
   <string name="next_button">KẾ TIẾP</string>
   <string name="cancel_button">HỦY BỎ</string>
   <string name="buy_button">MUA</string>
   <string name="iab_wallet_not_installed_popup_close_install">CÀI ĐẶT VÍ</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Cài đặt</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Lỗi</string>
+  <string name="purchase_error_item_owned">Bạn đã sở hữu vật phẩm này rồi!</string>
   <string name="purchase_card_error_title">Rất tiếc, đã xảy ra lỗi.</string>
   <string name="purchase_card_error_general_1">Đã xảy ra sự cố với thẻ của bạn. Vui lòng thử lại hoặc liên hệ ngay với chúng tôi.</string>
   <string name="purchase_card_error_general_2">Giao dịch đã bị ngân hàng của bạn từ chối. Vui lòng thử với một thẻ khác hoặc liên hệ ngay với chúng tôi.</string>

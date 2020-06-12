@@ -16,6 +16,10 @@ interface AppcoinsRewardsBuyView {
 
   Observable<Object> getOkErrorClick();
 
+  Observable<Object> getSupportIconClick();
+
+  Observable<Object> getSupportLogoClick();
+
   void close();
 
   void showGenericError();

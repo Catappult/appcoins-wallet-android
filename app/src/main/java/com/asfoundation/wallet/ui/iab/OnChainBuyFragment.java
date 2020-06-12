@@ -42,7 +42,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private static final String APP_PACKAGE = "app_package";
   private static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
   private static final String BONUS_KEY = "bonus";
-  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  private static final String GAMIFICATION_LEVEL = "gamification_level";
+  @Inject OnChainBuyInteract onChainBuyInteract;
   @Inject BillingAnalytics analytics;
   private Button okErrorButton;
   private OnChainBuyPresenter presenter;
@@ -58,9 +59,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private boolean isBds;
   private TransactionBuilder transaction;
   private LottieAnimationView lottieTransactionComplete;
+  private View supportIcon;
+  private View supportLogo;
+  private int gamificationLevel;
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
-      TransactionBuilder transaction, String bonus) {
+      TransactionBuilder transaction, String bonus, int gamificationLevel) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
@@ -68,6 +72,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     bundle.putBoolean("isBds", bdsIap);
     bundle.putParcelable(TRANSACTION_BUILDER_KEY, transaction);
     bundle.putString(BONUS_KEY, bonus);
+    bundle.putInt(GAMIFICATION_LEVEL, gamificationLevel);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -78,6 +83,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     data = getArguments().getString("data");
     isBds = getArguments().getBoolean("isBds");
     transaction = getArguments().getParcelable(TRANSACTION_BUILDER_KEY);
+    gamificationLevel = getArguments().getInt(GAMIFICATION_LEVEL);
   }
 
   @Override
@@ -89,21 +95,23 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-    okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
+    okErrorButton = view.findViewById(R.id.error_dismiss);
     loadingView = view.findViewById(R.id.loading);
     loadingMessage = view.findViewById(R.id.loading_message);
-    errorTextView = view.findViewById(R.id.activity_iab_error_message);
+    errorTextView = view.findViewById(R.id.error_message);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
-    transactionErrorLayout = view.findViewById(R.id.activity_iab_error_view);
+    transactionErrorLayout = view.findViewById(R.id.generic_purchase_error_layout);
+
+    supportIcon = view.findViewById(R.id.layout_support_icn);
+    supportLogo = view.findViewById(R.id.layout_support_logo);
+    okErrorButton.setText(R.string.ok);
 
     lottieTransactionComplete =
         transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
 
-    presenter =
-        new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-            Schedulers.io(), new CompositeDisposable(),
-            inAppPurchaseInteractor.getBillingMessagesMapper(), isBds, analytics, getAppPackage(),
-            data);
+    presenter = new OnChainBuyPresenter(this, AndroidSchedulers.mainThread(), Schedulers.io(),
+        new CompositeDisposable(), onChainBuyInteract.getBillingMessagesMapper(), isBds, analytics,
+        getAppPackage(), data, gamificationLevel, onChainBuyInteract);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
@@ -145,6 +153,14 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public Observable<Object> getOkErrorClick() {
     return RxView.clicks(okErrorButton);
+  }
+
+  @Override public Observable<Object> getSupportIconClick() {
+    return RxView.clicks(supportIcon);
+  }
+
+  @Override public Observable<Object> getSupportLogoClick() {
+    return RxView.clicks(supportLogo);
   }
 
   @Override public void close(Bundle data) {

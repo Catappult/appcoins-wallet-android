@@ -8,4 +8,5 @@ interface SettingsView {
   fun setUnverifiedWalletPreference()
   fun setWalletValidationNoNetwork()
   fun setRedeemCodePreference(walletAddress: String)
+  fun showError()
 }

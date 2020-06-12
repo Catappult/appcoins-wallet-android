@@ -31,6 +31,4 @@ class TokenDetailsPresenter(private val view: TokenDetailsView,
             .subscribe()
     )
   }
-
-
 }

@@ -11,12 +11,14 @@ interface LocalPaymentView {
   fun showCompletedPayment()
   fun showError()
   fun dismissError()
-  fun getOkErrorClick(): Observable<Any>
+  fun getErrorDismissClick(): Observable<Any>
   fun getGotItClick(): Observable<Any>
   fun close()
   fun getAnimationDuration(): Long
   fun popView(bundle: Bundle)
   fun lockRotation()
+  fun getSupportLogoClicks(): Observable<Any>
+  fun getSupportIconClicks(): Observable<Any>
 
   enum class ViewState {
     NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING
