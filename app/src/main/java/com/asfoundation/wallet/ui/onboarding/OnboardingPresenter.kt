@@ -1,10 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
-import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
@@ -20,11 +16,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val view: OnboardingView,
                           private val onboardingInteract: OnboardingInteract,
                           private val viewScheduler: Scheduler,
-                          private val smsValidationInteract: SmsValidationInteract,
                           private val networkScheduler: Scheduler,
-                          private val walletCreated: ReplaySubject<Boolean>,
-                          private val referralInteractor: ReferralInteractorContract,
-                          private val repository: BdsRepository) {
+                          private val walletCreated: ReplaySubject<Boolean>) {
 
   private var hasShowedWarning = false
 
@@ -43,16 +36,15 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleAvailablePaymentMethods() {
-    disposables.add(getPaymentMethodsIcons()
+    disposables.add(onboardingInteract.getPaymentMethodsIcons()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .onErrorReturn { emptyList() }
         .doOnSuccess { view.setPaymentMethodsIcons(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleSetupUI() {
-    disposables.add(referralInteractor.getReferralInfo()
+    disposables.add(onboardingInteract.getReferralInfo()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.updateUI(it.symbol + it.maxAmount.scaleToString(2), it.isActive) }
@@ -65,50 +57,43 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleWarningText() {
-    disposables.add(
-        Observable.timer(5, TimeUnit.SECONDS)
-            .observeOn(viewScheduler)
-            .doOnNext { view.showWarningText() }
-            .repeatUntil { hasShowedWarning }
-            .subscribe()
+    disposables.add(Observable.timer(5, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showWarningText() }
+        .repeatUntil { hasShowedWarning }
+        .subscribe()
     )
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
   private fun handleSkipClicks() {
-    disposables.add(
-        view.getSkipClicks()
-            .doOnNext { view.showViewPagerLastPage() }
-            .subscribe()
+    disposables.add(view.getSkipClicks()
+        .doOnNext { view.showViewPagerLastPage() }
+        .subscribe()
     )
   }
 
   private fun isWalletCreated() = walletCreated.filter { it }
 
   private fun handleRetryClicks() {
-    disposables.add(
-        view.getRetryButtonClicks()
-            .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = false) }
-            .subscribe()
+    disposables.add(view.getRetryButtonClicks()
+        .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = false) }
+        .subscribe()
     )
   }
 
   private fun handleLaterClicks() {
-    disposables.add(
-        view.getLaterButtonClicks()
-            .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, false) }
-            .subscribe())
+    disposables.add(view.getLaterButtonClicks()
+        .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, false) }
+        .subscribe())
   }
 
   private fun handleRedeemButtonClicks() {
-    disposables.add(
-        view.getRedeemButtonClick()
-            .observeOn(viewScheduler)
-            .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = true) }
-            .subscribe()
+    disposables.add(view.getRedeemButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = true) }
+        .subscribe()
     )
   }
 
@@ -128,7 +113,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
           if (skipValidation) {
             Single.just(WalletValidationStatus.SUCCESS)
           } else {
-            smsValidationInteract.isValid(it)
+            onboardingInteract.isAddressValid(it)
                 .subscribeOn(networkScheduler)
           }
         }
@@ -148,65 +133,50 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleNextButtonClicks() {
-    disposables.add(
-        view.getNextButtonClick()
-            .doOnNext { handleWalletCreation(skipValidation = true, showAnimation = true) }
-            .subscribe()
+    disposables.add(view.getNextButtonClick()
+        .doOnNext { handleWalletCreation(skipValidation = true, showAnimation = true) }
+        .subscribe()
     )
   }
 
   private fun handleCreateWallet() {
-    disposables.add(
-        onboardingInteract.getWalletAddress()
-            .subscribeOn(networkScheduler)
-            .onErrorResumeNext {
-              onboardingInteract.createWallet()
-            }
-            .observeOn(viewScheduler)
-            .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
-            .subscribe({}, { it.printStackTrace() }))
+    disposables.add(onboardingInteract.getWalletAddress()
+        .subscribeOn(networkScheduler)
+        .onErrorResumeNext {
+          onboardingInteract.createWallet()
+        }
+        .observeOn(viewScheduler)
+        .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleSkippedOnboarding() {
-    disposables.add(
-        Observable.zip(isWalletCreated(),
-            Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
-                .filter { clicked -> clicked },
-            Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }
-                .filter { clicked -> clicked },
-            Function3 { _: Any, _: Any, _: Any -> }
-        )
-            .delay(1, TimeUnit.SECONDS)
-            .observeOn(viewScheduler)
-            .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, true) }
-            .subscribe()
+    disposables.add(Observable.zip(isWalletCreated(),
+        Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
+            .filter { clicked -> clicked },
+        Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }
+            .filter { clicked -> clicked },
+        Function3 { _: Any, _: Any, _: Any -> }
+    )
+        .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, true) }
+        .subscribe()
     )
   }
 
   private fun handleLinkClick() {
-    disposables.add(
-        view.getLinkClick()
-            .doOnNext { uri -> view.navigateToBrowser(Uri.parse(uri)) }
-            .subscribe()
+    disposables.add(view.getLinkClick()
+        .doOnNext { uri -> view.navigateToBrowser(Uri.parse(uri)) }
+        .subscribe()
     )
   }
 
-  fun markOnboardingCompleted() {
-    onboardingInteract.finishOnboarding()
-  }
+  fun markOnboardingCompleted() = onboardingInteract.finishOnboarding()
 
   private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus,
                                showAnimation: Boolean) {
     onboardingInteract.clickSkipOnboarding()
     view.finishOnboarding(walletValidationStatus, showAnimation)
-  }
-
-  private fun getPaymentMethodsIcons(): Single<List<String>> {
-    return repository.getPaymentMethods(type = "fiat")
-        .map { map(it) }
-  }
-
-  private fun map(paymentMethodEntity: List<PaymentMethodEntity>): List<String> {
-    return paymentMethodEntity.map { it.iconUrl }
   }
 }

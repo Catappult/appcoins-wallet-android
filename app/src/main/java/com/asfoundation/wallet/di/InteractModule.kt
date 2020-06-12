@@ -249,9 +249,12 @@ class InteractModule {
   fun provideOnboardingInteract(createWalletInteract: CreateWalletInteract,
                                 walletService: WalletService,
                                 preferencesRepositoryType: PreferencesRepositoryType,
-                                supportInteractor: SupportInteractor, gamification: Gamification) =
+                                supportInteractor: SupportInteractor, gamification: Gamification,
+                                smsValidationInteract: SmsValidationInteract,
+                                referralInteractor: ReferralInteractorContract,
+                                bdsRepository: BdsRepository) =
       OnboardingInteract(createWalletInteract, walletService, preferencesRepositoryType,
-          supportInteractor, gamification)
+          supportInteractor, gamification, smsValidationInteract, referralInteractor, bdsRepository)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,

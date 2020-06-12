@@ -14,10 +14,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -42,15 +39,6 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   @Inject
   lateinit var interactor: OnboardingInteract
-
-  @Inject
-  lateinit var smsValidationInteract: SmsValidationInteract
-
-  @Inject
-  lateinit var referralInteractor: ReferralInteractorContract
-
-  @Inject
-  lateinit var repository: BdsRepository
 
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
@@ -79,8 +67,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     browserRouter = ExternalBrowserRouter()
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
-        AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
-        ReplaySubject.create(), referralInteractor, repository)
+        AndroidSchedulers.mainThread(), Schedulers.io(), ReplaySubject.create())
     setupUI(savedInstanceState)
 
     presenter.present()
@@ -151,7 +138,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   }
 
   override fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>) {
-    this.paymentMethodsIcons = ArrayList(paymentMethodsIcons);
+    this.paymentMethodsIcons = ArrayList(paymentMethodsIcons)
     listener.paymentMethodsIcons = paymentMethodsIcons
   }
 
