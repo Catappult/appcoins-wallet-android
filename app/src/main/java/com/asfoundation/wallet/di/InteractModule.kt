@@ -312,7 +312,7 @@ class InteractModule {
                                 sharedPreferences: PreferencesRepositoryType,
                                 context: Context) =
       AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
-          packageManager, "com.appcoins.wallet", sharedPreferences)
+          packageManager, context.packageName, sharedPreferences)
 
   @Singleton
   @Provides

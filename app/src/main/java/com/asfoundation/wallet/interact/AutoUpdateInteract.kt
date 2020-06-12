@@ -51,8 +51,6 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
           intent.setPackage(info.activityInfo.packageName)
           break
         }
-        if (info.activityInfo.packageName == PLAY_PACKAGE_NAME)
-          intent.setPackage(info.activityInfo.packageName)
       }
     }
     return intent
