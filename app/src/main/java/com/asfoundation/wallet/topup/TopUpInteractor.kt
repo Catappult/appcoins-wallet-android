@@ -36,7 +36,9 @@ class TopUpInteractor(private val repository: BdsRepository,
       paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
     val paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
     paymentMethods.forEach {
-      paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)))
+      if (it.id != "ask_friend") { //this should be done on the  api. remove it when api filters for it
+        paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)))
+      }
     }
     return paymentMethodsData
   }
