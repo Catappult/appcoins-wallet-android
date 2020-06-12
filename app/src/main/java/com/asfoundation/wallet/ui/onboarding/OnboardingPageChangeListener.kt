@@ -16,7 +16,7 @@ import com.rd.PageIndicatorView
 
 class OnboardingPageChangeListener internal constructor(private val view: View,
                                                         private var isActive: Boolean = false,
-                                                        var paymentMethodsIcons: List<String> = emptyList()) :
+                                                        private var paymentMethodsIcons: List<String> = emptyList()) :
     ViewPager2.OnPageChangeCallback() {
 
   companion object {
@@ -63,6 +63,15 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     if (isActive && currentPage == 3) beenInvitedButton.visibility = View.VISIBLE
   }
 
+  fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>) {
+    this.paymentMethodsIcons = paymentMethodsIcons
+    paymentMethodsRecyclerView.adapter =
+        OnboardingPaymentMethodAdapter(paymentMethodsIcons)
+    paymentMethodsRecyclerView.layoutManager =
+        LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+    if (currentPage == 2) paymentMethodsRecyclerView.visibility = View.VISIBLE
+  }
+
   private fun animateHideWarning(textView: TextView) {
     val animation = AnimationUtils.loadAnimation(view.context, R.anim.fast_fade_out_animation)
     textView.animation = animation
@@ -86,12 +95,8 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
       showLastPageLayout()
     }
 
-    if (position == 2) {
+    if (position == 2 && paymentMethodsIcons.isNotEmpty()) {
       paymentMethodsRecyclerView.visibility = View.VISIBLE
-      paymentMethodsRecyclerView.adapter =
-          OnboardingPaymentMethodAdapter(paymentMethodsIcons)
-      paymentMethodsRecyclerView.layoutManager =
-          LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
     } else {
       paymentMethodsRecyclerView.visibility = View.GONE
     }

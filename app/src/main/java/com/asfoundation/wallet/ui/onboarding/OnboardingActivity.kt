@@ -139,7 +139,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>) {
     this.paymentMethodsIcons = ArrayList(paymentMethodsIcons)
-    listener.paymentMethodsIcons = paymentMethodsIcons
+    listener.setPaymentMethodsIcons(paymentMethodsIcons)
   }
 
   override fun getLinkClick() = linkSubject!!
