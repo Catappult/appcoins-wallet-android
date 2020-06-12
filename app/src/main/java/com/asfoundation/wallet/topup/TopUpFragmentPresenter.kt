@@ -58,9 +58,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
         BiFunction { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
-          if (values.error.hasError || defaultValues.error.hasError) {
-            if (values.error.isNoNetwork || defaultValues.error.isNoNetwork) view.showNoNetworkError()
-            else view.showGenericError()
+          if (values.error.hasError || defaultValues.error.hasError &&
+              (values.error.isNoNetwork || defaultValues.error.isNoNetwork)) {
+            view.showNoNetworkError()
           } else {
             view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
             updateDefaultValues(defaultValues)
@@ -75,7 +75,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.setupPaymentMethods(it)
+          if (it.isNotEmpty()) view.setupPaymentMethods(it)
           view.hideLoadingButton()
         }
         .ignoreElement()
@@ -108,7 +108,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
     if (throwable.isNoNetworkException()) view.showNoNetworkError()
-    else view.showGenericError()
   }
 
   private fun handleChangeCurrencyClick() {

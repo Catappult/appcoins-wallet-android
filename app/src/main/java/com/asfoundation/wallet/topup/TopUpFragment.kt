@@ -34,7 +34,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
@@ -425,22 +424,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun showNoNetworkError() {
     hideKeyboard()
     retry_animation.visibility = View.GONE
-    topup_generic_error.visibility = View.GONE
     top_up_container.visibility = View.GONE
     rv_default_values.visibility = View.GONE
     no_network.visibility = View.VISIBLE
     retry_button.visibility = View.VISIBLE
-  }
-
-  override fun showGenericError() {
-    hideKeyboard()
-    no_network.visibility = View.GONE
-    retry_button.visibility = View.GONE
-    retry_animation.visibility = View.GONE
-    top_up_container.visibility = View.GONE
-    rv_default_values.visibility = View.GONE
-    topup_generic_error.visibility = View.VISIBLE
-    error_message.text = getString(R.string.unknown_error)
   }
 
   override fun showRetryAnimation() {
@@ -448,15 +435,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     retry_animation.visibility = View.VISIBLE
   }
 
-  override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
-  }
+  override fun retryClick() = RxView.clicks(retry_button)
 
   private fun hideErrorViews() {
     no_network.visibility = View.GONE
     retry_button.visibility = View.GONE
     retry_animation.visibility = View.GONE
-    topup_generic_error.visibility = View.GONE
     top_up_container.visibility = View.VISIBLE
   }
 
