@@ -43,10 +43,10 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="17dp"
-      android:text="Paypal"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
       app:layout_constraintTop_toTopOf="parent"
+      tools:text="Paypal"
       />
 
   <LinearLayout
@@ -70,6 +70,7 @@
         />
 
     <TextView
+        android:id="@+id/fee_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
