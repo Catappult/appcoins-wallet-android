@@ -4,7 +4,7 @@
   <string name="title_send">पाठवा</string>
   <string name="title_send_with_token">पाठवा %s</string>
   <string name="title_request">मिळवा</string>
-  <string name="title_import">वॉलेट इंपोर्ट करा</string>
+  <string name="title_import">वॉलेट परत मिळवा</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">पासवर्ड</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">वॉलेट्स</string>
   <string name="cancel">रद्द करा</string>
   <string name="confirm_delete_account">ह्या वॉलेटचा बॅकअप आपल्याकडे असण्याची खात्री करा.</string>
-  <string name="action_import">इंपोर्ट</string>
+  <string name="action_import">परत मिळवा</string>
   <string name="copy">क्लिपबोर्डावर कॉपी करा</string>
   <string name="close">बंद करा</string>
   <string name="title_activity_settings">सेटिंग्ज</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">आपले वॉलेट एनक्रिप्ट करण्यासाठी पासवर्ड सेट करा</string>
-  <string name="toast_message_wallet_imported">हे वॉलेट इंपोर्ट केले होते</string>
+  <string name="toast_message_wallet_imported">हे वॉलेट परत मिळविलेले होते</string>
   <string name="toast_message_wallet_exported">बॅकअप निर्माण केलेला आहे</string>
   <string name="toast_qr_code_no_address">क्युआर कोडमध्ये वैध पत्ता नाही</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">रिडीम कोड</string>
+  <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
   <string name="local_payments_inprogress_body">पेमेंट पूर्ण केल्यानंतर आपल्या वॉलेटमध्ये अॅपकॉइन्स मिळतील. नंतर खेळात परत जाऊन खरेदी करा!</string>
@@ -505,6 +506,7 @@
   <string name="promotions_referral_card_title">मित्रांना आमंत्रित करुन %s पर्यंत कमवा</string>
   <string name="promotions_referral_card_body">आपली आमंत्रण लिंक सामायिक करा आणि अॅपकॉइन्स क्रेडीटस कमवा.</string>
   <string name="promotions_gamification_card_title">प्रत्येक खरेदीवर ३०% पर्यंत बोनस</string>
+  <string name="promotions_gamification_card_title_variable">प्रत्येक खरेदीवर %s%%% पर्यंत बोनस</string>
   <string name="promotions_new">नविन</string>
   <string name="promotions_tab_promotions_title">जाहिराती</string>
   <string name="promotions_tab_poa_title">खेळा &amp; कमवा</string>
@@ -529,19 +531,36 @@
   <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
   <string name="backup_confirmation_title">अजुन फक्त एकच पायरी</string>
   <string name="backup_confirmation_body">आपला बॅकअप सुरक्षित राखा! आपण त्याला कुठे सेव्ह कराल?</string>
+  <string name="backup_confirmation_yes">हो, संपवा</string>
+  <string name="backup_confirmation_no">नको, डिव्हाईसवर सेव्ह करा</string>
   <string name="backup_done_title">बॅकअप झाला!</string>
   <string name="backup_done_body">बॅकअप फाईल सुरक्षित जागी आहे ह्याची खात्री आहे ना?</string>
+  <string name="backup_confirmation_no_share_title">बॅकअप झाला!</string>
+  <string name="backup_confirmation_no_share_body">आपली बॅकअप फाईल आपल्या डाऊनलोडस फोल्डरमध्ये आहे.</string>
+  <string name="backup_save_dialogue_title">बॅकअप फाईल सेव्ह करा</string>
+  <string name="backup_save_dialogue_body">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
+  <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
+  <string name="backup_confirmation_tips_1">प्रिंट करुन कुठेतरी सुरक्षित राखा.</string>
+  <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर सेव्ह करा.</string>
+  <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये कॉपी करा.</string>
   <string name="backup_send_via_title">बॅकअप ह्याद्वारे करा:</string>
   <string name="backup_send_button">बॅकअप करा</string>
-  <string name="import_wallet_title">वॉलेट इंपोर्ट करा</string>
+  <string name="backup_save_button">बॅकअप सेव्ह करा</string>
+  <string name="import_wallet_title">वॉलेट परत मिळवा</string>
   <string name="import_wallet_body">आपल्या वॉलेटचा बॅकअप खाली पेस्ट करा.</string>
   <string name="import_wallet_keystore_private_keys">की स्टोर किंवा खासगी कीज</string>
-  <string name="import_wallet_file_button">फाईलमधुन इंपोर्ट करा</string>
-  <string name="import_wallet_button">वॉलेट इंपोर्ट करा</string>
+  <string name="import_wallet_file_button">फाईलीतुन परत मिळवा</string>
+  <string name="import_wallet_button">वॉलेट परत मिळवा</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
   <string name="error_invalid_keystore">अवैध कीस्ट्रोक</string>
+  <string name="backup_tooltip_body">आपल्या वॉलेटचा बॅकअप करा!</string>
+  <string name="backup_tooltip_later_button">कदाचित नंतर</string>
+  <string name="backup_tooltip_backup_button">बॅकअप</string>
+  <string name="backup_notification_title">आपल्या वॉलेटचा बॅकअप करा!</string>
+  <string name="backup_notification_body">आपले पैसे सुरक्षित राखा आणि आपल्या वॉलेटमध्ये आपल्याला नेहमीच प्रवेश मिळेल याची खात्री करा.</string>
+  <string name="backup_choose_wallet_title">बॅकअपसाठी वॉलेट निवडा</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
@@ -556,10 +575,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">एकुण मूल्य</string>
   <string name="wallets_address_copied_body">वॉलेटचा पत्ता क्लिपबोर्डावर कॉपी केलाय</string>
-  <string name="wallets_imported_body">वॉलेट इंपोर्ट सफल झाला</string>
+  <string name="wallets_imported_body">वॉलेट यशस्वीपणे परत मिळविले</string>
   <string name="wallets_2nd_view_balance_title">शिल्लक:</string>
   <string name="wallets_2nd_view_other_wallets_title">अन्य वॉलेटस</string>
-  <string name="wallets_2nd_view_import_button">वॉलेट इंपोर्ट करा</string>
+  <string name="wallets_2nd_view_import_button">वॉलेट परत मिळवा</string>
   <string name="wallets_2nd_view_create_button">नविन तयार करा</string>
   <string name="wallet_view_copy_button">कॉपी</string>
   <string name="wallet_view_share_button">सामायिक करा</string>
@@ -572,7 +591,7 @@
   <string name="remove_wallet_title">वॉलेट काढा</string>
   <string name="remove_wallet_body">काढण्यापूर्वी वॉलेटचा बॅकअप घेण्याची आम्ही जोरदार शिफारस करतो. जर आपण बॅकअप घेतलेला नसेल तर आपण परत ह्यात प्रवेश करु शकणार नाही.</string>
   <string name="remove_wallet_backup_button">वॉलेट बॅकअप करा</string>
-  <string name="remove_wallet_no_backup_button">बॅकअपशिवाय पुढे चला</string>
+  <string name="remove_wallet_no_backup_button">वॉलेट परत मिळवा</string>
   <string name="remove_wallet_confirm_body">हे वॉलेट नक्की मिटवायचे आहे का?</string>
   <string name="remove_wallet_no_button">नाही, परत जाऊया</string>
   <string name="remove_wallet_yes_button">होय, वॉलेट काढा</string>
@@ -590,6 +609,10 @@
   <string name="transfer_send_button">पाठवा</string>
   <string name="transfer_receive_body">रक्कम मिळविण्यासाठी आपल्या वॉलेटचा पत्ता सामायिक करा.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">आपल्यासाठी नविन संदेश आहे!</string>
+  <string name="support_new_message_button">उघडण्यासाठी टॅप करा</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">%s ला बोनस टक्केवारी अद्यतन झाली.</string>
+  <string name="pioneer_gamification_title">आपण पायोनियर आहात</string>
+  <string name="pioneer_gamification_body">वाढीव बोनससह लवकर अडॉप्ट करणारे पायोनियर असतात.</string>
 </resources>

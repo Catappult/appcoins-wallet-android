@@ -11,9 +11,9 @@ class SmsValidationInteract(
     private val preferencesRepositoryType: PreferencesRepositoryType
 ) {
 
-  fun isValid(wallet: Wallet): Single<WalletValidationStatus> {
-    return smsValidationRepository.isValid(wallet.address)
-        .doOnSuccess { saveWalletVerifiedStatus(it, wallet.address) }
+  fun isValid(address: String): Single<WalletValidationStatus> {
+    return smsValidationRepository.isValid(address)
+        .doOnSuccess { saveWalletVerifiedStatus(it, address) }
   }
 
   fun requestValidationCode(phoneNumber: String): Single<WalletValidationStatus> {

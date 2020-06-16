@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.balance
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.WalletModel
+import com.asfoundation.wallet.util.RestoreErrorType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -23,12 +24,12 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
   private fun populateUi(keystore: String) {
     disposable.add(interactor.extractWalletAddress(keystore)
         .subscribeOn(networkScheduler)
-        .flatMap { address ->
+        .flatMapObservable { address ->
           interactor.getOverallBalance(address)
               .observeOn(viewScheduler)
-              .doOnSuccess { fiatValue -> view.updateUi(address, fiatValue) }
+              .doOnNext { fiatValue -> view.updateUi(address, fiatValue) }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRestoreWalletButtonClicked(keystore: String) {
@@ -50,15 +51,20 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
         .doOnError {
-          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL, it.message)
+          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+              it.message)
         }
-        .subscribe())
+        .subscribe({}, {
+          it.printStackTrace()
+          view.hideAnimation()
+          view.showError(RestoreErrorType.GENERIC)
+        }))
   }
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
         .doOnComplete { view.showWalletRestoredAnimation() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletModel(walletModel: WalletModel) {
@@ -73,7 +79,5 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
     }
   }
 
-  fun stop() {
-    disposable.clear()
-  }
+  fun stop() = disposable.clear()
 }

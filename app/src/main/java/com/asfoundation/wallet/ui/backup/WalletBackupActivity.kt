@@ -26,11 +26,10 @@ class WalletBackupActivity : BaseActivity(), BackupActivityView, ToolbarManager 
 
   companion object {
     @JvmStatic
-    fun newIntent(context: Context, walletAddress: String): Intent {
-      val intent = Intent(context, WalletBackupActivity::class.java)
-      intent.putExtra(WALLET_ADDRESS, walletAddress)
-      return intent
-    }
+    fun newIntent(context: Context, walletAddress: String) =
+        Intent(context, WalletBackupActivity::class.java).apply {
+          putExtra(WALLET_ADDRESS, walletAddress)
+        }
 
     private const val WALLET_ADDRESS = "wallet_addr"
     private const val FILE_NAME_EXTRA_KEY = "file_name"

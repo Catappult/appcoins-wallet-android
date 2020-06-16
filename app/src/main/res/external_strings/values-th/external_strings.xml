@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">คุณอาจได้รับ %s จากการสั่งซื้อนี้</string>
   <string name="iab_purchase_done_title_long">การซื้อสำเร็จ!</string>
   <string name="iab_purchase_change_payment_method_button">วิธีการชำระเพิ่มเติม</string>
+  <string name="iab_purchase_support_1">ต้องการความช่วยเหลือ?</string>
+  <string name="iab_purchase_support_2_link">ติดต่อฝ่ายสนับสนุน</string>
   <!-- SDK - Common -->
   <string name="next_button">ต่อไป</string>
   <string name="cancel_button">ยกเลิก</string>
   <string name="buy_button">ซื้อ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ติดตั้งกระเป๋าสตางค์</string>
   <string name="button_ok">ตกลง</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">ติดตั้ง</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">ข้อผิดพลาด</string>
+  <string name="purchase_error_item_owned">คุณเป็นเจ้าของชิ้นนี้แล้ว!</string>
   <string name="purchase_card_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
   <string name="purchase_card_error_general_1">บัตรของคุณมีอัญหา โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
   <string name="purchase_card_error_general_2">การทำธุรกรรมถูกปฏิเสธโดยธนาคารของคุณ โปรดลองบัตรใบอื่นหรือติดต่อเรา</string>

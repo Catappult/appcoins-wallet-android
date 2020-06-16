@@ -32,6 +32,11 @@
         android:exported="false" />
 
     <receiver
+        android:name="com.asfoundation.wallet.backup.BackupBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
+    <receiver
         android:name="com.asfoundation.wallet.support.BootCompletedBroadcastReceiver"
         android:enabled="true">
       <intent-filter>

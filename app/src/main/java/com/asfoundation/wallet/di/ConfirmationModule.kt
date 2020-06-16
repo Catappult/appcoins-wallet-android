@@ -12,10 +12,11 @@ import dagger.Provides
 class ConfirmationModule {
 
   @Provides
-  fun provideConfirmationViewModelFactory(
-      sendTransactionInteract: SendTransactionInteract, gasSettingsRouter: GasSettingsRouter,
-      gasSettingsInteract: FetchGasSettingsInteract, logger: Logger) =
-      ConfirmationViewModelFactory(sendTransactionInteract, gasSettingsRouter,
-          gasSettingsInteract, logger)
+  fun provideConfirmationViewModelFactory(sendTransactionInteract: SendTransactionInteract,
+                                          gasSettingsRouter: GasSettingsRouter,
+                                          gasSettingsInteract: FetchGasSettingsInteract,
+                                          logger: Logger) =
+      ConfirmationViewModelFactory(sendTransactionInteract, gasSettingsRouter, gasSettingsInteract,
+          logger)
 
 }

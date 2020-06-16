@@ -5,17 +5,18 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
@@ -37,13 +38,10 @@ import javax.inject.Inject
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
-
-  @Inject
-  lateinit var autoUpdateInteract: AutoUpdateInteract
-
-  @Inject
   lateinit var billingAnalytics: BillingAnalytics
+
+  @Inject
+  lateinit var iabInteract: IabInteract
   private var isBackEnable: Boolean = false
   private lateinit var presenter: IabPresenter
   private var transaction: TransactionBuilder? = null
@@ -67,8 +65,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
     presenter =
-        IabPresenter(this, autoUpdateInteract, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), inAppPurchaseInteractor, billingAnalytics, firstImpression)
+        IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
+            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract)
     if (savedInstanceState == null) showPaymentMethodsView()
   }
 
@@ -115,13 +113,23 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = true
   }
 
-  override fun finish(bundle: Bundle) {
-    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
-        bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY))
-    bundle.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
-
-    setResult(Activity.RESULT_OK, Intent().putExtras(bundle))
+  override fun finishActivity(data: Bundle) {
+    presenter.savePreselectedPaymentMethod(data)
+    data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
+    setResult(Activity.RESULT_OK, Intent().putExtras(data))
     finish()
+  }
+
+  override fun showBackupNotification(walletAddress: String) {
+    BackupNotificationUtils.showBackupNotification(this, walletAddress)
+  }
+
+  override fun finish(bundle: Bundle) {
+    if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
+      presenter.handleBackupNotifications(bundle)
+    } else {
+      finishActivity(bundle)
+    }
   }
 
   override fun showError() {
