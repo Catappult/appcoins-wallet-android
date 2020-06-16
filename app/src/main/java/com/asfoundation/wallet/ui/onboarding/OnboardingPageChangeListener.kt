@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.lottie.LottieAnimationView
@@ -65,10 +64,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
 
   fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>) {
     this.paymentMethodsIcons = paymentMethodsIcons
-    paymentMethodsRecyclerView.adapter =
-        OnboardingPaymentMethodAdapter(paymentMethodsIcons)
-    paymentMethodsRecyclerView.layoutManager =
-        LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+    paymentMethodsRecyclerView.adapter = OnboardingPaymentMethodAdapter(paymentMethodsIcons)
     if (currentPage == 2) paymentMethodsRecyclerView.visibility = View.VISIBLE
   }
 
