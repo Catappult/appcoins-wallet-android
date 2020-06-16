@@ -33,7 +33,7 @@ internal class AppCoinsAdvertisingBinder(
   override fun getAvailableCampaign(): Bundle {
     val uid = Binder.getCallingUid()
     val pkg = packageManager.getNameForUid(uid)
-    val pkgInfo = packageManager.getPackageInfo(pkg, 0)
+    val pkgInfo = packageManager.getPackageInfo(pkg ?: "", 0)
     return campaignInteract.getCampaign(pkg ?: "", pkgInfo.versionCode)
         .doOnSuccess { handleNotificationDisplay(it, pkgInfo) }
         .map { mapCampaignDetails(it) }

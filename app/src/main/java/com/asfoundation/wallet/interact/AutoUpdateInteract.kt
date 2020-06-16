@@ -3,7 +3,6 @@ package com.asfoundation.wallet.interact
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.annotation.VisibleForTesting
 import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
@@ -32,12 +31,9 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
     return blackList.contains(walletVersionCode) && hasSoftUpdate(updateVersionCode, updateMinSdk)
   }
 
-  @VisibleForTesting
   fun retrieveRedirectUrl(): String {
-    return when {
-      isAptoideInstalled() -> String.format(APTOIDE_APP_VIEW_URL, walletPackageName)
-      else -> String.format(PLAY_APP_VIEW_URL, walletPackageName)
-    }
+    return if (isAptoideInstalled()) String.format(APTOIDE_APP_VIEW_URL, walletPackageName)
+    else String.format(PLAY_APP_VIEW_URL, walletPackageName)
   }
 
   fun buildUpdateIntent(): Intent {
@@ -102,7 +98,6 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
 
   companion object {
     private const val APTOIDE_PACKAGE_NAME = "cm.aptoide.pt"
-    private const val PLAY_PACKAGE_NAME = "com.android.vending"
     private const val APTOIDE_APP_VIEW_URL = "aptoideinstall://package=%s&show_install_popup=false"
     const val PLAY_APP_VIEW_URL = "https://play.google.com/store/apps/details?id=%s"
   }
