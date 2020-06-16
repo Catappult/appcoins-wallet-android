@@ -615,4 +615,13 @@
   <string name="pioneer_bonus_updated_body">%s ला बोनस टक्केवारी अद्यतन झाली.</string>
   <string name="pioneer_gamification_title">आपण पायोनियर आहात</string>
   <string name="pioneer_gamification_body">वाढीव बोनससह लवकर अडॉप्ट करणारे पायोनियर असतात.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">Check for updates</string>
+  <string name="check_updates_settings_subtitle">Current version %s</string>
+  <string name="check_updates_checking_body">Searching for a new version</string>
+  <string name="check_updates_no_updates_body">You\'re up to date!</string>
+  <string name="check_updates_updates_available_title">New version available</string>
+  <string name="check_updates_update_button">UPDATE NOW</string>
+  <string name="check_updates_settings_available_title">New version available</string>
+  <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
 </resources>
