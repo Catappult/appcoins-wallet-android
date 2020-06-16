@@ -599,11 +599,11 @@ internal class AppModule {
   fun providesDefaultNetwork(): NetworkInfo {
     return if (BuildConfig.DEBUG) {
       NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://ropsten.infura.io/v3/df5b41e6a3a44d9dbf9142fa3f58cabc",
+          "https://ropsten.infura.io/v3/${BuildConfig.INFURA_API_KEY_ROPSTEN}",
           "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false)
     } else {
       NetworkInfo(C.ETHEREUM_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://mainnet.infura.io/v3/df5b41e6a3a44d9dbf9142fa3f58cabc",
+          "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}",
           "https://api.trustwalletapp.com/", "https://etherscan.io/tx/", 1, true)
     }
   }
