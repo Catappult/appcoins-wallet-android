@@ -7,9 +7,8 @@ import android.os.PersistableBundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.WalletCreatorInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
+import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import dagger.android.AndroidInjection
@@ -23,15 +22,10 @@ class PoaWalletValidationActivity : BaseActivity(),
     PoaWalletValidationView {
 
   private lateinit var presenter: PoaWalletValidationPresenter
-
   @Inject
   lateinit var smsValidationRepository: SmsValidationRepositoryType
-
   @Inject
-  lateinit var walletInteractor: FindDefaultWalletInteract
-
-  @Inject
-  lateinit var createWalletInteractor: WalletCreatorInteract
+  lateinit var walletService: AccountWalletService
   private var walletValidated: Boolean = false
 
   companion object {
@@ -53,8 +47,8 @@ class PoaWalletValidationActivity : BaseActivity(),
     savedInstanceState?.let {
       walletValidated = it.getBoolean(WALLET_VALIDATED_KEY, false)
     }
-    presenter = PoaWalletValidationPresenter(this, smsValidationRepository, walletInteractor,
-        createWalletInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
+    presenter = PoaWalletValidationPresenter(this, smsValidationRepository, walletService,
+        CompositeDisposable(), AndroidSchedulers.mainThread(),
         Schedulers.io())
     presenter.present()
   }

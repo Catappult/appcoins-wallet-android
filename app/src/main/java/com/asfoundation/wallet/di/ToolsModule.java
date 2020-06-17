@@ -98,7 +98,6 @@ import com.asfoundation.wallet.identification.IdsRepository;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
-import com.asfoundation.wallet.interact.WalletCreatorInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -107,6 +106,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.interact.SmsValidationInteract;
+import com.asfoundation.wallet.interact.WalletCreatorInteract;
 import com.asfoundation.wallet.logging.DebugReceiver;
 import com.asfoundation.wallet.logging.LogReceiver;
 import com.asfoundation.wallet.logging.Logger;
@@ -166,7 +166,6 @@ import com.asfoundation.wallet.repository.TransactionsDatabase;
 import com.asfoundation.wallet.repository.TransactionsLocalRepository;
 import com.asfoundation.wallet.repository.TransactionsRepository;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
-import com.asfoundation.wallet.repository.WalletRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.repository.Web3jProvider;
@@ -747,6 +746,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
+      AccountKeystoreService accountKeyService, PasswordStore passwordStore,
+      WalletCreatorInteract walletCreatorInteract, ExecutorScheduler syncScheduler,
+      WalletRepositoryType walletRepository) {
+    return new AccountWalletService(walletInteract, accountKeyService, passwordStore,
+        walletCreatorInteract, new SignDataStandardNormalizer(), syncScheduler, walletRepository);
+  }
+
+  @Singleton @Provides AccountWalletService provideAccountWalletService(FindDefaultWalletInteract walletInteract,
       AccountKeystoreService accountKeyService, PasswordStore passwordStore,
       WalletCreatorInteract walletCreatorInteract, ExecutorScheduler syncScheduler,
       WalletRepositoryType walletRepository) {

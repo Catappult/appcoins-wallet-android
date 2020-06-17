@@ -1,5 +1,6 @@
 package com.appcoins.wallet.bdsbilling
 
+import io.reactivex.Observable
 import io.reactivex.Single
 
 interface WalletService {
@@ -7,6 +8,8 @@ interface WalletService {
   fun getWalletAddress(): Single<String>
 
   fun getWalletOrCreate(): Single<String>
+
+  fun findWalletOrCreate(): Observable<String>
 
   fun signContent(content: String): Single<String>
 

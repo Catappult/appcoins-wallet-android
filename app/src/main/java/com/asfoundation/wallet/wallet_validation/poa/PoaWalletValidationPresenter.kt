@@ -1,12 +1,9 @@
 package com.asfoundation.wallet.wallet_validation.poa
 
-import android.util.Log
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
-import io.reactivex.Completable
+import com.asfoundation.wallet.service.AccountWalletService
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus.SUCCESS
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -14,8 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 class PoaWalletValidationPresenter(
     private val view: PoaWalletValidationView,
     private val smsValidationRepository: SmsValidationRepositoryType,
-    private val walletInteractor: FindDefaultWalletInteract,
-    private val createWalletInteractor: WalletCreatorInteract,
+    private val accountWalletService: AccountWalletService,
     private val disposables: CompositeDisposable,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler
@@ -26,31 +22,31 @@ class PoaWalletValidationPresenter(
   }
 
   private fun handleWalletValidation() {
-    disposables.add(walletInteractor.find()
-        .onErrorResumeNext {
-          Log.e("TEST","**** FAILEd to get wallet, creating one, PoAWalletValidationPresenter")
-          Completable.fromAction { view.showCreateAnimation() }
-              .subscribeOn(viewScheduler)
-              .andThen(createWallet())
-        }
-        .flatMap { smsValidationRepository.isValid(it.address) }.subscribeOn(
-            networkScheduler).observeOn(viewScheduler)
-        .doOnSuccess {
-          if (it == WalletValidationStatus.SUCCESS) {
-            view.closeSuccess()
-          } else {
-            view.showPhoneValidationView(null, null)
-          }
-        }
-        .subscribe({}, {
-          it.printStackTrace()
-          view.closeError()
-        }))
+    disposables.add(accountWalletService.findWalletOrCreate().doOnNext {
+      when (it) {
+        "Creating" -> view.showCreateAnimation()
+      }
+    }.filter { it != "Creating" }.flatMap {
+      smsValidationRepository.isValid(it)
+          .toObservable()
+          .subscribeOn(
+              networkScheduler)
+          .observeOn(viewScheduler)
+    }.map {
+      if (it == SUCCESS) {
+        view.closeSuccess()
+      } else {
+        view.showPhoneValidationView(null, null)
+      }
+    }.subscribe({}, {
+      it.printStackTrace()
+      view.closeError()
+    }))
   }
 
   // TODO remove this also
   private fun createWallet(): Single<Wallet> {
-    return createWalletInteractor.create()
+    return accountWalletService.create()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.hideAnimation() }

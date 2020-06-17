@@ -12,12 +12,13 @@ import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.util.WalletUtils
 import ethereumj.crypto.ECKey
 import ethereumj.crypto.HashUtil.sha3
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import org.web3j.crypto.Keys.toChecksumAddress
 
 
-class AccountWalletService(private val walletInteract: FindDefaultWalletInteract,
+class AccountWalletService(private val walletint: FindDefaultWalletInteract,
                            private val accountKeyService: AccountKeystoreService,
                            private val passwordStore: PasswordStore,
                            private val walletCreatorInteract: WalletCreatorInteract,
@@ -28,20 +29,37 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
   private var stringECKeyPair: Pair<String, ECKey>? = null
 
   override fun getWalletAddress(): Single<String> {
-    return walletInteract.find()
+    return find()
         .map { wallet -> toChecksumAddress(wallet.address) }
   }
 
   override fun getWalletOrCreate(): Single<String> {
-    return walletInteract.find().subscribeOn(syncScheduler).onErrorResumeNext {
-      Log.e("TEST","**** FAILED to get wallet, creating one, AccountWalletService")
-      walletCreatorInteract.create()
-    }
+    return find()
+        .subscribeOn(syncScheduler)
+        .onErrorResumeNext {
+          Log.e("TEST", "**** FAILED to get wallet, creating one, AccountWalletService")
+          walletCreatorInteract.create()
+        }
         .map { wallet -> toChecksumAddress(wallet.address) }
   }
 
+  override fun findWalletOrCreate(): Observable<String> {
+    return find()
+        .toObservable()
+        .subscribeOn(syncScheduler)
+        .map { wallet -> wallet.address }.onErrorResumeNext { throwable: Throwable ->
+          Log.e("TEST", "HANDLE ERROR: ${throwable.cause}")
+          Observable.just("Creating").flatMap {
+            walletCreatorInteract.create()
+                .toObservable()
+                .map { wallet -> wallet.address }
+          }
+        }
+
+  }
+
   override fun signContent(content: String): Single<String> {
-    return walletInteract.find()
+    return find()
         .flatMap { wallet ->
           getPrivateKey(wallet).map { ecKey ->
             sign(normalizer.normalize(content), ecKey)
@@ -50,7 +68,7 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
   }
 
   override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> {
-    return walletInteract.find()
+    return find()
         .flatMap { wallet ->
           getPrivateKey(wallet).map { ecKey ->
             sign(normalizer.normalize(toChecksumAddress(wallet.address)), ecKey)
@@ -68,7 +86,7 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
   fun find(): Single<Wallet> {
     return walletRepository.defaultWallet
         .onErrorResumeNext {
-          Log.e("TEST","**** FAILEd to get default wallet, FindDefaultWalletInteract")
+          Log.e("TEST", "**** FAILEd to get default wallet, FindDefaultWalletInteract")
           walletRepository.fetchWallets()
               .filter { wallets: Array<Wallet?> -> wallets.isNotEmpty() }
               .map { wallets: Array<Wallet> ->
@@ -80,6 +98,10 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
               .andThen(
                   walletRepository.defaultWallet)
         }
+  }
+
+  fun create(): Single<Wallet> {
+    return walletCreatorInteract.create()
   }
 
   private fun getPrivateKey(wallet: Wallet): Single<ECKey> {

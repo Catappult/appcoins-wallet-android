@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
 
   public static final int REQUEST_CODE = 234;
-  @Inject FindDefaultWalletInteract walletInteract;
+  @Inject AccountWalletService walletService;
   @Inject TransferParser transferParser;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private Erc681ReceiverPresenter presenter;
@@ -38,7 +38,7 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
     walletCreationAnimation = findViewById(R.id.create_wallet_animation);
     walletCreationText = findViewById(R.id.create_wallet_text);
     presenter =
-        new Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletInteract,
+        new Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletService,
             getIntent().getDataString(), AndroidSchedulers.mainThread());
     presenter.present(savedInstanceState);
   }
@@ -78,7 +78,7 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
   }
 
   @Override public void endAnimation() {
-    if(walletCreationAnimation != null){
+    if (walletCreationAnimation != null) {
       walletCreationAnimation.setVisibility(View.INVISIBLE);
       walletCreationText.setVisibility(View.INVISIBLE);
       walletCreationCard.setVisibility(View.INVISIBLE);
