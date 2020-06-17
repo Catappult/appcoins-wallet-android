@@ -32,7 +32,6 @@ class BackupInteract(
   }
 
   override fun getUnwatchedBackupNotification(): Single<CardNotification> {
-    // TODO REPLACE BY ACCOUNT SERVICE
     return findDefaultWalletInteract.find()
         .flatMap { wallet ->
           getBackupThreshold(wallet.address)
@@ -51,7 +50,6 @@ class BackupInteract(
   }
 
   override fun dismissNotification(): Completable {
-    // TODO REPLACE BY ACCOUNT SERVICE
     return findDefaultWalletInteract.find()
         .flatMapCompletable {
           Completable.fromAction {

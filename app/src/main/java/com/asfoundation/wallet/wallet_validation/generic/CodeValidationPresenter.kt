@@ -79,7 +79,7 @@ class CodeValidationPresenter(
             .doOnEach { view.hideNoInternetView() }
             .doOnEach { view.showLoading() }
             .doOnEach { analytics.sendCodeVerificationEvent("next") }
-            .flatMapSingle { validationInfo ->     // TODO REPLACE BY AccountWallerService
+            .flatMapSingle { validationInfo ->
               defaultWalletInteract.find()
                   .delay(2, TimeUnit.SECONDS)
                   .flatMap { wallet ->

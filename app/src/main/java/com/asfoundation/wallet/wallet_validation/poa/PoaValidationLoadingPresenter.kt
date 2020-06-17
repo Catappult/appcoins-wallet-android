@@ -30,7 +30,7 @@ class PoaValidationLoadingPresenter(
 
   private fun handleValidationWallet() {
     disposables.add(
-        defaultWalletInteract.find() // TODO REPLACE WITH
+        defaultWalletInteract.find()
             .delay(1, TimeUnit.SECONDS)
             .flatMap { wallet ->
               smsValidationInteract.validateCode(

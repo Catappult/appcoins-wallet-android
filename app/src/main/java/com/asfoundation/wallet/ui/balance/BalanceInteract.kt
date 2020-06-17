@@ -16,7 +16,6 @@ import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
 class BalanceInteract(
-    // TODO REPLACE FindDefaultWalletInteract BY AccountWalletService
     private val walletInteract: FindDefaultWalletInteract,
     private val balanceRepository: BalanceRepository,
     private val preferencesRepositoryType: PreferencesRepositoryType) {

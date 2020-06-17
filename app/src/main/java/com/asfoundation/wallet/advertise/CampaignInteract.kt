@@ -27,7 +27,7 @@ class CampaignInteract(private val campaignService: CampaignService,
     if (isHardUpdateRequired()) {
       return Single.just(CampaignDetails(Advertising.CampaignAvailabilityType.UPDATE_REQUIRED))
     }
-    return walletService.getWalletAddress()
+    return walletService.getWalletOrCreate()
         .flatMap { campaignService.getCampaign(it, packageName, versionCode) }
         .map { map(it) }
         .onErrorReturn { CampaignDetails(errorMapper.map(it)) }
@@ -74,7 +74,6 @@ class CampaignInteract(private val campaignService: CampaignService,
             ProofSubmissionData(ProofSubmissionData.RequirementsStatus.UNKNOWN_NETWORK))
       }
     }
-    // TODO REPLACE BY AccountWallerService
     return defaultWalletInteract.find()
         .flatMap {
           campaignService.getCampaign(it.address,

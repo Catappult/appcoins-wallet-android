@@ -19,7 +19,7 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
   }
 
   private fun handleFragmentNavigation() {
-    disposables.add(walletInteract.find() // TODO REPLACE WITH WalletService
+    disposables.add(walletInteract.find()
         .flatMap { referralInteractor.retrieveReferral() }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
