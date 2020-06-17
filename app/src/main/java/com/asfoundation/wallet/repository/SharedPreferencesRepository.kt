@@ -25,6 +25,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
     private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification_"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
+    private const val WALLET_ID = "wallet_id"
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
@@ -203,5 +204,13 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
             .putInt(WALLET_PURCHASES_COUNT + walletAddress, count)
             .apply()
       }
+
+  override fun setWalletId(walletId: String) {
+    pref.edit()
+        .putString(WALLET_ID, walletId)
+        .apply()
+  }
+
+  override fun getWalletId() = pref.getString(WALLET_ID, null)
 
 }
