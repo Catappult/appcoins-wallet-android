@@ -23,6 +23,14 @@ class BackupInteract(
     private val findDefaultWalletInteract: FindDefaultWalletInteract
 ) : BackupInteractContract {
 
+  companion object {
+    private const val DISMISS_PERIOD = 30L
+    private const val TRANSACTION_COUNT_THRESHOLD = 10
+    private const val GAMIFICATION_LEVEL_THRESHOLD = 2
+    private const val BALANCE_AMOUNT_THRESHOLD = 10
+    private const val PURCHASE_NOTIFICATION_THRESHOLD = 2
+  }
+
   override fun getUnwatchedBackupNotification(): Single<CardNotification> {
     // TODO REPLACE BY ACCOUNT SERVICE
     return findDefaultWalletInteract.find()
@@ -101,12 +109,32 @@ class BackupInteract(
     }
   }
 
-  companion object {
-    private const val DISMISS_PERIOD = 30L
-    private const val TRANSACTION_COUNT_THRESHOLD = 10
-    private const val GAMIFICATION_LEVEL_THRESHOLD = 2
-    private const val BALANCE_AMOUNT_THRESHOLD = 10
+  override fun shouldShowSystemNotification(walletAddress: String): Boolean {
+    val hasRestoredBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
+    val count = sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
+    return if (hasRestoredBackup.not() && count >= PURCHASE_NOTIFICATION_THRESHOLD) {
+      sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
+          .not()
+    } else {
+      false
+    }
+  }
 
+  override fun updateWalletPurchasesCount(walletAddress: String): Completable {
+    val hasRestoredBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
+    return if (hasRestoredBackup.not()) {
+      Single.just(sharedPreferencesRepository.getWalletPurchasesCount(walletAddress))
+          .map { it + 1 }
+          .flatMapCompletable {
+            sharedPreferencesRepository.incrementWalletPurchasesCount(walletAddress, it)
+          }
+    } else {
+      Completable.complete()
+    }
+  }
+
+  override fun saveDismissSystemNotification(walletAddress: String) {
+    sharedPreferencesRepository.setDismissedBackupSystemNotification(walletAddress)
   }
 
 }

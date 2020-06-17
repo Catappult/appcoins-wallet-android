@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,11 +13,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -28,25 +26,25 @@ import javax.inject.Inject
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
-  internal lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+  lateinit var settingsInteract: SettingsInteract
 
-  @Inject
-  lateinit var smsValidationInteract: SmsValidationInteract
-
-  @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
-
-  @Inject
-  lateinit var supportInteractor: SupportInteractor
   private lateinit var presenter: SettingsPresenter
+  private lateinit var activityView: SettingsActivityView
 
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    if (context !is SettingsActivityView) {
+      throw IllegalStateException("Settings Fragment must be attached to Settings Activity")
+    }
+    activityView = context
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
-    presenter = SettingsPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-        CompositeDisposable(), findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType)
+    presenter =
+        SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
+            CompositeDisposable(), settingsInteract)
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -70,10 +68,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       startActivity(intent)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
-      view?.let {
-        Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
-            .show()
-      }
+      showError()
     }
   }
 
@@ -113,6 +108,33 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     setTermsConditionsPreference()
     setCreditsPreference()
     setVersionPreference()
+    setRestorePreference()
+    setBackupPreference()
+  }
+
+  override fun showError() {
+    view?.let {
+      Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
+          .show()
+    }
+  }
+
+  private fun setBackupPreference() {
+    val backupPreference = findPreference<Preference>("pref_backup")
+    backupPreference?.setOnPreferenceClickListener {
+      presenter.onBackupPreferenceClick()
+      false
+    }
+  }
+
+  private fun setRestorePreference() {
+    val restorePreference = findPreference<Preference>("pref_restore")
+    restorePreference?.setOnPreferenceClickListener {
+      context?.let {
+        startActivity(RestoreWalletActivity.newIntent(it))
+      }
+      false
+    }
   }
 
   override fun setVerifiedWalletPreference() {
@@ -176,7 +198,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun setIssueReportPreference() {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
-      supportInteractor.displayChatScreen()
+      presenter.onBugReportClicked()
       false
     }
   }

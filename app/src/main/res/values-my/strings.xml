@@ -4,7 +4,7 @@
   <string name="title_send">ေပးပို႔မည္</string>
   <string name="title_send_with_token">%s ကို ေပးပို႔မည္</string>
   <string name="title_request">ရယူမည္</string>
-  <string name="title_import">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="title_import">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">စကားဝွက္</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="cancel">ပယ္ဖ်က္မည္</string>
   <string name="confirm_delete_account">သင့္တြင္ ဤပိုက္ဆံအိတ္ကို အရန္ျပဳလုပ္ထားေၾကာင္း ေသခ်ာေအာင္ စစ္ေဆးပါ။</string>
-  <string name="action_import">ထည့္သြင္းမည္</string>
+  <string name="action_import">ျပန္လည္ရယူမည္</string>
   <string name="copy">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
   <string name="close">ပိတ္မည္</string>
   <string name="title_activity_settings">ဆက္တင္</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
   <string name="ok">အိုေက</string>
   <string name="barcode_error_format">ဘားကုဒ္ပံုစံ မမွန္ကန္ပါ - %s</string>
-  <string name="title_delete_account">ဤပိုက္ဆံအိတ္ကို ဖ်က္လိုသည္မွာ ေသခ်ာပါသလား။</string>
+  <string name="title_delete_account">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram အုပ္စု</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">သင့္ပိုက္ဆံအိတ္ကို ကုဒ္ဖ်က္ထားရန္ စကားဝွက္တစ္ခုကို သတ္မွတ္ပါ</string>
-  <string name="toast_message_wallet_imported">ပိုုက္ဆံအိတ္ကို ထည့္သြင္းခဲ့ပါသည္</string>
+  <string name="toast_message_wallet_imported">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူလိုက္ပါသည္</string>
   <string name="toast_message_wallet_exported">အရန္ထားရွိမႈကို ျပဳလုပ္ခဲ့ပါသည္</string>
   <string name="toast_qr_code_no_address">QR ကုဒ္တြင္ မွန္ကန္ေသာ လိပ္စာတစ္ခု မပါဝင္ပါ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
+  <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">လုပ္ေဆာင္ေနပါသည္&#8230;</string>
   <string name="local_payments_inprogress_body">ေငြေပးေခ်မႈ ျပဳလုပ္ၿပီးသည္ႏွင့္ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credit မ်ားကို ရရွိပါမည္။ ယင္းေနာက္တြင္ ၀ယ္ယူမႈျပဳလုပ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
@@ -505,6 +506,7 @@
   <string name="promotions_referral_card_title">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚျခင္းျဖင့္ %s အထိ ရယူလိုက္ပါ</string>
   <string name="promotions_referral_card_body">ဖိတ္ေခၚသည့္လင့္ခ္ကို မွ်ေ၀ကာ AppCoins Credits မ်ားကို ရယူပါ။</string>
   <string name="promotions_gamification_card_title">၀ယ္ယူမႈတစ္ခုစီအတြက္ ၃၀% အထိ ေဘာနပ္စ္</string>
+  <string name="promotions_gamification_card_title_variable">၀ယ္ယူမႈတစ္ခုစီအတြက္ %s%% အထိ ေဘာနပ္စ္</string>
   <string name="promotions_new">အသစ္</string>
   <string name="promotions_tab_promotions_title">အေရာင္းျမႇင့္တင္မႈမ်ား</string>
   <string name="promotions_tab_poa_title">ကစားကာ&amp;ရယူပါ</string>
@@ -529,19 +531,36 @@
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_confirmation_title">ေနာက္ထပ္တစ္ဆင့္သာ</string>
   <string name="backup_confirmation_body">သင့္အရံသိမ္းဆည္းမႈကို လံုၿခံဳေအာင္ ထားလိုက္ပါ။ မည္သည့္ေနရာတြင္ သိမ္းလိုပါသလဲ။</string>
+  <string name="backup_confirmation_yes">ဟုတ္ကဲ့ ၿပီးပါၿပီ</string>
+  <string name="backup_confirmation_no">မဟုတ္ပါ။ ကိရိယာေပၚတြင္ သိမ္းဆည္းမည္</string>
   <string name="backup_done_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_done_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ လံုၿခံဳေသာေနရာတြင္ ရွိေနေၾကာင္း ေသခ်ာပါသလား။</string>
+  <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
+  <string name="backup_confirmation_no_share_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ သင့္ Downloads ဖိုလ္ဒါတြင္ ရွိပါသည္။</string>
+  <string name="backup_save_dialogue_title">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
+  <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
+  <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
+  <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
+  <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္တစ္ခုေပၚတြင္ သိမ္းဆည္းပါ။</string>
+  <string name="backup_confirmation_tips_3">သီးသန္႔ျဖစ္ၿပီး လံုျခံဳေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ ကူးယူထားပါ။</string>
   <string name="backup_send_via_title">အရန္သိမ္းဆည္းမႈကို ေပးပို႔မည္ -</string>
   <string name="backup_send_button">အရံသိမ္းဆည္းမႈကို ေပးပို႔မည္</string>
-  <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="backup_save_button">အရံသိမ္းဆည္းမႈကို သိမ္းမည္</string>
+  <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
-  <string name="import_wallet_file_button">ဖိုင္မွထည့္သြင္းမည္</string>
-  <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="import_wallet_file_button">ဖိုင္မွ ျပန္လည္ရယူမည္</string>
+  <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
   <string name="error_invalid_keystore">Keystore မမွန္ကန္ပါ</string>
+  <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
+  <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
+  <string name="backup_tooltip_backup_button">အရံသိမ္းဆည္းမည္</string>
+  <string name="backup_notification_title">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
+  <string name="backup_notification_body">သင့္ေငြမ်ားကို ေဘးကင္းေအာင္ထားရွိကာ သင့္ပိုက္ဆံအိတ္ကို အၿမဲတမ္း ၀င္ေရာက္အသံုးျပဳႏိုင္ေအာင္ ျပဳလုပ္ထားပါ။</string>
+  <string name="backup_choose_wallet_title">အရံသိမ္းဆည္းရန္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ေရြးခ်ယ္ပါ</string>
   <!--Wallets Management-->
   <string name="wallets_title">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_total_balance_title">%s တြင္ စုစုေပါင္းလက္က်န္ေငြ</string>
@@ -551,10 +570,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">စုစုေပါင္းတန္ဖိုး</string>
   <string name="wallets_address_copied_body">ပိုက္ဆံအိတ္လိပ္စာကို ကလစ္ပ္ဘုတ္သို႔ ကူးယူလိုက္ပါၿပီ</string>
-  <string name="wallets_imported_body">ပိုက္ဆံအိတ္ကို ေအာင္ျမင္စြာ ထည့္သြင္းလိုက္ပါသည္</string>
+  <string name="wallets_imported_body">ပိုက္ဆံအိတ္ကို ေအာင္ျမင္စြာ ျပန္လည္ရယူလိုက္ပါသည္</string>
   <string name="wallets_2nd_view_balance_title">လက္က်န္ေငြ -</string>
   <string name="wallets_2nd_view_other_wallets_title">အျခား ပိုက္ဆံအိတ္မ်ား</string>
-  <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ထည့့္သြင္းမည္</string>
+  <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="wallets_2nd_view_create_button">အသစ္ဖန္တီးမည္</string>
   <string name="wallet_view_copy_button">ကူးမည္</string>
   <string name="wallet_view_share_button">မွ်ေ၀မည္</string>
@@ -567,7 +586,7 @@
   <string name="remove_wallet_title">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_body">ပိုက္ဆံအိတ္ကို မဖယ္ထုတ္မီတြင္ အရန္သိမ္းဆည္းထားရန္ ကၽြႏ္ုပ္တုိ႔ အေလးအနက္ တိုက္တြန္းပါသည္။ သင့္တြင္ အရန္သိမ္းဆည္းမႈ မရွိပါက ယင္းကိုျပန္လည္ရယူႏိုင္လိမ့္မည္ မဟုတ္ပါ။</string>
   <string name="remove_wallet_backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
-  <string name="remove_wallet_no_backup_button">အရန္မသိမ္းဆည္းဘဲ ဆက္လုပ္မည္</string>
+  <string name="remove_wallet_no_backup_button">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_confirm_body">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
   <string name="remove_wallet_no_button">မဟုတ္ပါ။ ေနာက္သို႔ျပန္သြားမည္</string>
   <string name="remove_wallet_yes_button">ဟုတ္ပါသည္။ ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
@@ -585,6 +604,10 @@
   <string name="transfer_send_button">ေပးပို႔မည္</string>
   <string name="transfer_receive_body">ေငြကိုလက္ခံယူရန္ သင့္ပိုက္ဆံအိတ္လိပ္စာကို မွ်ေ၀ပါ။</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">သင့္အတြက္ မက္ေဆ့ဂ်္အသစ္တစ္ခု ရွိပါသည္။</string>
+  <string name="support_new_message_button">ဖြင့္ရန္ႏွိပ္ပါ</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">ေဘာနပ္စ္ရာခိုင္ႏႈန္းမ်ားကို %s ေပၚတြင္ ျဖည့္စြက္ျပင္ဆင္ထားပါသည္။</string>
+  <string name="pioneer_gamification_title">သင္က ေရွ႔ေဆာင္လမ္းျပတစ္ဦး ျဖစ္ပါသည္</string>
+  <string name="pioneer_gamification_body">ေရွ႔ေဆာင္လမ္းျပသူဆိုသည္မွာ ေဘာနပ္စ္မ်ားမ်ားပိုရသည့္ အေစာပိုင္းသံုးစြဲသူ ျဖစ္ပါသည္။</string>
 </resources>

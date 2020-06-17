@@ -32,6 +32,11 @@
         android:exported="false" />
 
     <receiver
+        android:name="com.asfoundation.wallet.backup.BackupBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
+    <receiver
         android:name="com.asfoundation.wallet.support.BootCompletedBroadcastReceiver"
         android:enabled="true">
       <intent-filter>
@@ -84,7 +89,7 @@
         android:label="@string/title_my_address" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/wallets_title" />
+        android:label="@string/balance_title" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
         android:label="@string/balance_title"
@@ -173,7 +178,8 @@
         android:label="@string/title_activity_send" />
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
-        android:label="@string/topup_title">
+        android:label="@string/topup_title"
+        android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 

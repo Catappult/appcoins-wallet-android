@@ -103,7 +103,7 @@ class BalanceInteract(
     )
   }
 
-  fun hasSeenBackupTooltip() = preferencesRepositoryType.getSeenBackupToolip()
+  fun hasSeenBackupTooltip() = preferencesRepositoryType.getSeenBackupTooltip()
 
   fun saveSeenBackupTooltip() = preferencesRepositoryType.saveSeenBackupTooltip()
 

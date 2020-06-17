@@ -1,20 +1,16 @@
 package com.asfoundation.wallet.ui
 
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class SettingsPresenter(private val view: SettingsView,
+                        private val activityView: SettingsActivityView,
                         private val networkScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
                         private val disposables: CompositeDisposable,
-                        private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                        private val smsValidationInteract: SmsValidationInteract,
-                        private val preferencesRepositoryType: PreferencesRepositoryType) {
+                        private val settingsInteract: SettingsInteract) {
 
   fun present() {
     view.setupPreferences()
@@ -22,42 +18,58 @@ class SettingsPresenter(private val view: SettingsView,
     handleRedeemPreferenceSetup()
   }
 
-  fun stop() {
-    disposables.dispose()
-  }
+  fun stop() = disposables.dispose()
 
   private fun handleVerifyWalletPreferenceSummary() {
-    disposables.add(findDefaultWalletInteract.find()
-        .flatMap { wallet ->
-          smsValidationInteract.isValid(Wallet(wallet.address))
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .doOnSuccess {
-                when (it) {
-                  WalletValidationStatus.SUCCESS -> view.setVerifiedWalletPreference()
-                  WalletValidationStatus.GENERIC_ERROR -> view.setUnverifiedWalletPreference()
-                  else -> handleValidationCache(wallet)
-                }
-              }
+    disposables.add(settingsInteract.isWalletValid()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          when (it.second) {
+            WalletValidationStatus.SUCCESS -> view.setVerifiedWalletPreference()
+            WalletValidationStatus.GENERIC_ERROR -> view.setUnverifiedWalletPreference()
+            else -> handleValidationCache(it.first)
+          }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleValidationCache(wallet: Wallet) {
-    val isVerified = preferencesRepositoryType.isWalletValidated(wallet.address)
-    if (isVerified) {
-      view.setVerifiedWalletPreference()
-    } else {
-      view.setWalletValidationNoNetwork()
-    }
+  private fun handleValidationCache(address: String) {
+    if (settingsInteract.isWalletValidated(address)) view.setVerifiedWalletPreference()
+    else view.setWalletValidationNoNetwork()
   }
 
   private fun handleRedeemPreferenceSetup() {
-    disposables.add(findDefaultWalletInteract.find()
-        .subscribe { wallet ->
-          view.setRedeemCodePreference(wallet.address)
-        })
+    disposables.add(settingsInteract.findWallet()
+        .doOnSuccess { view.setRedeemCodePreference(it) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
+  fun onBackupPreferenceClick() {
+    disposables.add(settingsInteract.retrieveWallets()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess { handleWalletModel(it) }
+        .subscribe({}, {
+          it.printStackTrace()
+          view.showError()
+        }))
+  }
+
+  private fun handleWalletModel(walletModel: WalletsModel) {
+    when (walletModel.totalWallets) {
+      0 -> {
+        settingsInteract.sendCreateErrorEvent()
+        view.showError()
+      }
+      1 -> {
+        settingsInteract.sendCreateSuccessEvent()
+        activityView.navigateToBackup(walletModel.walletsBalance[0].walletAddress)
+      }
+      else -> activityView.showWalletsBottomSheet(walletModel)
+    }
+  }
+
+  fun onBugReportClicked() = settingsInteract.displaySupportScreen()
 }
 

@@ -7,7 +7,10 @@
     android:background="@drawable/background_card"
     >
 
-  <include layout="@layout/fragment_iab_loading"/>
-  <include layout="@layout/fragment_iab_transaction_completed"/>
-  <include layout="@layout/fragment_iab_error"/>
+  <include layout="@layout/fragment_iab_loading" />
+  <include layout="@layout/fragment_iab_transaction_completed" />
+  <include
+      layout="@layout/iab_error_layout"
+      android:visibility="gone"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>

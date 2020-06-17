@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.service
 
-import android.util.Log
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
@@ -18,13 +16,12 @@ import io.reactivex.internal.schedulers.ExecutorScheduler
 import org.web3j.crypto.Keys.toChecksumAddress
 
 
-class AccountWalletService(private val walletint: FindDefaultWalletInteract,
-                           private val accountKeyService: AccountKeystoreService,
+class AccountWalletService(private val accountKeyService: AccountKeystoreService,
                            private val passwordStore: PasswordStore,
                            private val walletCreatorInteract: WalletCreatorInteract,
                            private val normalizer: ContentNormalizer,
-                           private val syncScheduler: ExecutorScheduler,
-                           private val walletRepository: WalletRepositoryType) : WalletService {
+                           private val walletRepository: WalletRepositoryType,
+                           private val syncScheduler: ExecutorScheduler) : WalletService {
 
   private var stringECKeyPair: Pair<String, ECKey>? = null
 
@@ -37,7 +34,6 @@ class AccountWalletService(private val walletint: FindDefaultWalletInteract,
     return find()
         .subscribeOn(syncScheduler)
         .onErrorResumeNext {
-          Log.e("TEST", "**** FAILED to get wallet, creating one, AccountWalletService")
           walletCreatorInteract.create()
         }
         .map { wallet -> toChecksumAddress(wallet.address) }
@@ -47,15 +43,14 @@ class AccountWalletService(private val walletint: FindDefaultWalletInteract,
     return find()
         .toObservable()
         .subscribeOn(syncScheduler)
-        .map { wallet -> wallet.address }.onErrorResumeNext { throwable: Throwable ->
-          Log.e("TEST", "HANDLE ERROR: ${throwable.cause}")
-          Observable.just("Creating").flatMap {
-            walletCreatorInteract.create()
-                .toObservable()
-                .map { wallet -> wallet.address }
-          }
+        .map { wallet -> wallet.address }
+        .onErrorResumeNext { _: Throwable ->
+          Observable.just(WalletGetterStatus.CREATING.toString())
+              .mergeWith(
+                  walletCreatorInteract.create()
+                      .toObservable()
+                      .map { wallet -> wallet.address })
         }
-
   }
 
   override fun signContent(content: String): Single<String> {
@@ -86,7 +81,6 @@ class AccountWalletService(private val walletint: FindDefaultWalletInteract,
   fun find(): Single<Wallet> {
     return walletRepository.defaultWallet
         .onErrorResumeNext {
-          Log.e("TEST", "**** FAILEd to get default wallet, FindDefaultWalletInteract")
           walletRepository.fetchWallets()
               .filter { wallets: Array<Wallet?> -> wallets.isNotEmpty() }
               .map { wallets: Array<Wallet> ->
@@ -124,3 +118,5 @@ class AccountWalletService(private val walletint: FindDefaultWalletInteract,
     fun normalize(content: String): String
   }
 }
+
+enum class WalletGetterStatus { CREATING, OBTAINED }

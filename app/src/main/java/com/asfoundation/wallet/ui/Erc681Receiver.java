@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.airbnb.lottie.LottieAnimationView;
+import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
 
   public static final int REQUEST_CODE = 234;
-  @Inject AccountWalletService walletService;
+  @Inject WalletService walletService;
   @Inject TransferParser transferParser;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private Erc681ReceiverPresenter presenter;

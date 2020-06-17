@@ -9,6 +9,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asfoundation.wallet.GlideApp
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -37,7 +38,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val orderReference: String?,
                             private val payload: String?,
                             private val context: Context?,
-                            private val paymentMethodIconUrl: String?) {
+                            private val paymentMethodIconUrl: String?,
+                            private val gamificationLevel: Int) {
 
   private var waitingResult: Boolean = false
 
@@ -49,6 +51,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     handlePaymentRedirect()
     handleOkErrorButtonClick()
     handleOkBuyButtonClick()
+    handleSupportClicks()
   }
 
   fun handleStop() {
@@ -120,19 +123,15 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleOkErrorButtonClick() {
-    disposables.add(
-        view.getOkErrorClick()
-            .observeOn(viewScheduler)
-            .doOnNext { view.dismissError() }
-            .subscribe())
+    disposables.add(view.getErrorDismissClick()
+        .doOnNext { view.dismissError() }
+        .subscribe())
   }
 
   private fun handleOkBuyButtonClick() {
-    disposables.add(
-        view.getGotItClick()
-            .observeOn(viewScheduler)
-            .doOnNext { view.close() }
-            .subscribe()
+    disposables.add(view.getGotItClick()
+        .doOnNext { view.close() }
+        .subscribe()
     )
   }
 
@@ -194,6 +193,14 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       }
       else -> Completable.complete()
     }
+  }
+
+  private fun handleSupportClicks() {
+    disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .flatMapCompletable { localPaymentInteractor.showSupport(gamificationLevel) }
+        .subscribe()
+    )
   }
 
   private fun showError(throwable: Throwable) {

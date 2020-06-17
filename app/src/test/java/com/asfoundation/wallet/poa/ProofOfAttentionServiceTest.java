@@ -75,14 +75,13 @@ public class ProofOfAttentionServiceTest {
     testScheduler = new TestScheduler();
     ProofWriter proofWriter = new BdsBackEndWriter(defaultWalletInteract, campaignService);
     CampaignInteract campaignInteract =
-        new CampaignInteract(campaignService, walletService, walletInteract, autoUpdateInteract,
-            mapper, defaultWalletInteract, preferences);
+        new CampaignInteract(campaignService, walletService, autoUpdateInteract, mapper,
+            defaultWalletInteract, preferences);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
             new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
-            () -> Single.just("PT"), addressService, walletInteract, findDefaultWalletInteract,
-            campaignInteract);
+            () -> Single.just("PT"), addressService, walletService, campaignInteract);
     if (BuildConfig.DEBUG) {
       chainId = 3;
     } else {

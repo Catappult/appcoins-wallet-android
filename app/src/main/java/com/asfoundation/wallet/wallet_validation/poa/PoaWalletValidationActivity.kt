@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
-import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import dagger.android.AndroidInjection
@@ -25,7 +25,7 @@ class PoaWalletValidationActivity : BaseActivity(),
   @Inject
   lateinit var smsValidationRepository: SmsValidationRepositoryType
   @Inject
-  lateinit var walletService: AccountWalletService
+  lateinit var walletService: WalletService
   private var walletValidated: Boolean = false
 
   companion object {

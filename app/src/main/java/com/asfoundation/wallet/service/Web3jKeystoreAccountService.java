@@ -119,7 +119,6 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
 
   @Override public Single<Wallet[]> fetchAccounts() {
     return Single.fromCallable(() -> {
-      Log.e("TEST", "**** fetch Accounts");
       List<String> accounts = keyStoreFileManager.getAccounts();
       int len = accounts.size();
       Wallet[] result = new Wallet[len];

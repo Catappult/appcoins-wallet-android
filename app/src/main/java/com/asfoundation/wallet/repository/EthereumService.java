@@ -7,6 +7,6 @@ import io.reactivex.Single;
  * Created by trinkes on 26/02/2018.
  */
 
-interface EthereumService {
+public interface EthereumService {
   Single<PendingTransaction> getTransaction(String hash);
 }

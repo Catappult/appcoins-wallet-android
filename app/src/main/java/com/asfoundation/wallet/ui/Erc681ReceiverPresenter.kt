@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui
 
 import android.os.Bundle
-import android.util.Log
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.service.AccountWalletService
+import com.asfoundation.wallet.service.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Observable
@@ -13,14 +13,16 @@ import io.reactivex.disposables.Disposable
 internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
                                        private val transferParser: TransferParser,
                                        private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                       private val walletService: AccountWalletService,
+                                       private val walletService: WalletService,
                                        private val data: String,
                                        private val viewScheduler: Scheduler) {
   private var disposable: Disposable? = null
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposable =
-          handleWalletCreationIfNeeded().takeUntil { it != "Creating" }
+          handleWalletCreationIfNeeded().takeUntil {
+            it != WalletGetterStatus.CREATING.toString()
+          }
               .flatMap {
                 transferParser.parse(data)
                     .map { transactionBuilder: TransactionBuilder ->
@@ -50,14 +52,14 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
     return walletService.findWalletOrCreate()
         .observeOn(viewScheduler)
         .doOnNext {
-          Log.e("TEST", "FIND WALLET RESULT: $it")
           when (it) {
-            "Creating" -> view.showLoadingAnimation()
+            WalletGetterStatus.CREATING.toString() -> {
+              view.showLoadingAnimation()
+            }
           }
         }
-        .filter { it != "Creating" }
+        .filter { it != WalletGetterStatus.CREATING.toString() }
         .map {
-          Log.e("TEST", "END ANIMATION: $it")
           view.endAnimation()
           it
         }

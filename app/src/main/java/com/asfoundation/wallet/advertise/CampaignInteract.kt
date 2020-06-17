@@ -121,5 +121,4 @@ class CampaignInteract(private val campaignService: CampaignService,
   override fun retrievePoaInformation(address: String): Single<PoaInformationModel> {
     return campaignService.retrievePoaInformation(address)
   }
-
 }

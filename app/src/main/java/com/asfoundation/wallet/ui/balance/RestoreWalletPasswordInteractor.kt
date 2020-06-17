@@ -4,7 +4,7 @@ import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.google.gson.Gson
-import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class RestoreWalletPasswordInteractor(private val gson: Gson,
@@ -16,18 +16,13 @@ class RestoreWalletPasswordInteractor(private val gson: Gson,
     return Single.just("0x" + parsedKeystore.address)
   }
 
-  fun getOverallBalance(address: String): Single<FiatValue> {
-    return balanceInteract.getTotalBalance(address)
-        .firstOrError()
-  }
+  fun getOverallBalance(address: String): Observable<FiatValue> =
+      balanceInteract.getTotalBalance(address)
 
-  fun restoreWallet(keystore: String, password: String): Single<WalletModel> {
-    return restoreWalletInteractor.restoreKeystore(keystore, password)
-  }
+  fun restoreWallet(keystore: String, password: String): Single<WalletModel> =
+      restoreWalletInteractor.restoreKeystore(keystore, password)
 
-  fun setDefaultWallet(address: String): Completable {
-    return restoreWalletInteractor.setDefaultWallet(address)
-  }
+  fun setDefaultWallet(address: String) = restoreWalletInteractor.setDefaultWallet(address)
 
   private data class Keystore(val address: String)
 

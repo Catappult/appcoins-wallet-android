@@ -75,8 +75,8 @@
               layout="@layout/appcoins_radio_button"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="24dp"
               android:layout_marginStart="24dp"
+              android:layout_marginTop="24dp"
               android:layout_marginEnd="24dp"
               />
           <View
@@ -93,8 +93,8 @@
               layout="@layout/credits_radio_button"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="24dp"
               android:layout_marginStart="24dp"
+              android:layout_marginTop="24dp"
               android:layout_marginEnd="24dp"
               android:layout_marginBottom="24dp"
               />
@@ -116,8 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radio_group"
             />
 
@@ -127,10 +127,11 @@
 
   </RelativeLayout>
   <include
-      android:id="@+id/error_message"
-      layout="@layout/fragment_iab_error"
+      android:id="@+id/merged_error_layout"
+      layout="@layout/iab_error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
+      android:visibility="gone"
       />
 </RelativeLayout>

@@ -10,7 +10,7 @@ interface PreferencesRepositoryType {
   fun hasClickedSkipOnboarding(): Boolean
   fun setOnboardingSkipClicked()
   fun getCurrentWalletAddress(): String?
-  fun setCurrentWalletAddress(address: String): Completable
+  fun setCurrentWalletAddress(address: String)
   fun isFirstTimeOnTransactionActivity(): Boolean
   fun setFirstTimeOnTransactionActivity()
   fun getPoaNotificationSeenTime(): Long
@@ -36,6 +36,10 @@ interface PreferencesRepositoryType {
   fun getGamificationLevel(): Int
   fun saveChosenUri(uri: String)
   fun getChosenUri(): String?
-  fun getSeenBackupToolip(): Boolean
+  fun getSeenBackupTooltip(): Boolean
   fun saveSeenBackupTooltip()
+  fun hasDismissedBackupSystemNotification(walletAddress: String): Boolean
+  fun setDismissedBackupSystemNotification(walletAddress: String)
+  fun getWalletPurchasesCount(walletAddress: String): Int
+  fun incrementWalletPurchasesCount(walletAddress: String, count: Int): Completable
 }
