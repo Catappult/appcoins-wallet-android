@@ -693,6 +693,7 @@
   <string name="subscriptions_details_last_bill">Last bill:</string>
   <string name="subscriptions_details_start_date_title">Start date:</string>
   <string name="subscriptions_details_cancelled_body">Cancelled - It expires on %s</string>
+  <string name="subscriptions_expiration_body">It expires on %s</string>
   <string name="subscriptions_canceled_body">Canceled</string>
   <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
   <string name="subscriptions_details_button">DETAILS</string>
