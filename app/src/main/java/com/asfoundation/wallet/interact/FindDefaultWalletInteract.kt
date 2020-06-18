@@ -2,12 +2,13 @@ package com.asfoundation.wallet.interact
 
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.WalletRepositoryType
+import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 
-class FindDefaultWalletInteract(private val walletRepository: WalletRepositoryType) {
+class FindDefaultWalletInteract(private val walletRepository: WalletRepositoryType,
+                                private val scheduler: Scheduler) {
   fun find(): Single<Wallet> {
-    return walletRepository.defaultWallet.subscribeOn(Schedulers.io())
+    return walletRepository.defaultWallet.subscribeOn(scheduler)
         .onErrorResumeNext {
           walletRepository.fetchWallets()
               .filter { wallets: Array<Wallet?> -> wallets.isNotEmpty() }
@@ -17,8 +18,7 @@ class FindDefaultWalletInteract(private val walletRepository: WalletRepositoryTy
               .flatMapCompletable { wallet: Wallet ->
                 walletRepository.setDefaultWallet(wallet.address)
               }
-              .andThen(
-                  walletRepository.defaultWallet)
+              .andThen(walletRepository.defaultWallet)
         }
   }
 

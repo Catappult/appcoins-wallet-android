@@ -22,14 +22,13 @@ class PoaWalletValidationPresenter(
 
   private fun handleWalletValidation() {
     disposables.add(accountWalletService.findWalletOrCreate().doOnNext {
-      when (it) {
-        WalletGetterStatus.CREATING.toString() -> view.showCreateAnimation()
+      if (it == WalletGetterStatus.CREATING.toString()) {
+        view.showCreateAnimation()
       }
     }.filter { it != WalletGetterStatus.CREATING.toString() }.flatMap {
       smsValidationRepository.isValid(it)
           .toObservable()
-          .subscribeOn(
-              networkScheduler)
+          .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
     }.map {
       if (it == SUCCESS) {

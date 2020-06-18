@@ -31,7 +31,7 @@ public class ProofOfAttentionService {
   private final AddressService partnerAddressService;
   private final Advertising campaignInteract;
   private final WalletService walletService;
-  private Subject<Boolean> walletValidated;
+  private final Subject<Boolean> walletValidated;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,

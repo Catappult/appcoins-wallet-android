@@ -47,9 +47,7 @@ class AccountWalletService(private val accountKeyService: AccountKeystoreService
         .onErrorResumeNext { _: Throwable ->
           Observable.just(WalletGetterStatus.CREATING.toString())
               .mergeWith(
-                  walletCreatorInteract.create()
-                      .toObservable()
-                      .map { wallet -> wallet.address })
+                  walletCreatorInteract.create().toObservable().map { wallet -> wallet.address })
         }
   }
 
@@ -89,14 +87,11 @@ class AccountWalletService(private val accountKeyService: AccountKeystoreService
               .flatMapCompletable { wallet: Wallet ->
                 walletRepository.setDefaultWallet(wallet.address)
               }
-              .andThen(
-                  walletRepository.defaultWallet)
+              .andThen(walletRepository.defaultWallet)
         }
   }
 
-  fun create(): Single<Wallet> {
-    return walletCreatorInteract.create()
-  }
+  fun create(): Single<Wallet> = walletCreatorInteract.create()
 
   private fun getPrivateKey(wallet: Wallet): Single<ECKey> {
     if (stringECKeyPair != null && stringECKeyPair!!.first.equals(wallet.address, true)) {
@@ -119,4 +114,4 @@ class AccountWalletService(private val accountKeyService: AccountKeystoreService
   }
 }
 
-enum class WalletGetterStatus { CREATING, OBTAINED }
+enum class WalletGetterStatus { CREATING }

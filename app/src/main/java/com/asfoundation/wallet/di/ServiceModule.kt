@@ -366,9 +366,7 @@ class ServiceModule {
   @Provides
   fun provideAccountKeyStoreService(context: Context): AccountKeystoreService {
     val file = File(context.filesDir, "keystore/keystore")
-    return Web3jKeystoreAccountService(
-        KeyStoreFileManager(file.absolutePath, ObjectMapper()),
-        Schedulers.io(),
+    return Web3jKeystoreAccountService(KeyStoreFileManager(file.absolutePath, ObjectMapper()),
         ObjectMapper())
   }
 

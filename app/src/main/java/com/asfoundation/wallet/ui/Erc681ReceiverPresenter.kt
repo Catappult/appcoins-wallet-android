@@ -8,21 +8,20 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Observable
 import io.reactivex.Scheduler
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 
 internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
                                        private val transferParser: TransferParser,
                                        private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                        private val walletService: WalletService,
                                        private val data: String,
-                                       private val viewScheduler: Scheduler) {
-  private var disposable: Disposable? = null
+                                       private val viewScheduler: Scheduler,
+                                       private var disposables: CompositeDisposable) {
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
-      disposable =
-          handleWalletCreationIfNeeded().takeUntil {
-            it != WalletGetterStatus.CREATING.toString()
-          }
+      disposables.add(
+          handleWalletCreationIfNeeded()
+              .takeUntil { it != WalletGetterStatus.CREATING.toString() }
               .flatMap {
                 transferParser.parse(data)
                     .map { transactionBuilder: TransactionBuilder ->
@@ -45,6 +44,7 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
 
               }
               .subscribe({ }, { throwable: Throwable? -> view.startApp(throwable) })
+      )
     }
   }
 
@@ -52,10 +52,8 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
     return walletService.findWalletOrCreate()
         .observeOn(viewScheduler)
         .doOnNext {
-          when (it) {
-            WalletGetterStatus.CREATING.toString() -> {
-              view.showLoadingAnimation()
-            }
+          if (it == WalletGetterStatus.CREATING.toString()) {
+            view.showLoadingAnimation()
           }
         }
         .filter { it != WalletGetterStatus.CREATING.toString() }
@@ -66,9 +64,7 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
   }
 
   fun pause() {
-    if (disposable != null && !disposable!!.isDisposed) {
-      disposable!!.dispose()
-    }
+    disposables.clear()
   }
 
 }

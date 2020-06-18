@@ -106,7 +106,7 @@ class InteractModule {
   @Provides
   fun provideFindDefaultWalletInteract(
       walletRepository: WalletRepositoryType): FindDefaultWalletInteract {
-    return FindDefaultWalletInteract(walletRepository)
+    return FindDefaultWalletInteract(walletRepository, Schedulers.io())
   }
 
   @Provides

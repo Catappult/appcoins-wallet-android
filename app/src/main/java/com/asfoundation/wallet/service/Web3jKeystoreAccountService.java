@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.service;
 
-import android.util.Log;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.Completable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.io.File;
 import java.math.BigDecimal;
@@ -40,7 +38,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   private final KeyStoreFileManager keyStoreFileManager;
   private final ObjectMapper objectMapper;
 
-  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager, Scheduler scheduler,
+  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager,
       ObjectMapper objectMapper) {
     this.keyStoreFileManager = keyStoreFileManager;
     this.objectMapper = objectMapper;

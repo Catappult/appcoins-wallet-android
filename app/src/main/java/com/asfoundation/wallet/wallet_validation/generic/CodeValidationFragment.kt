@@ -59,8 +59,7 @@ class CodeValidationFragment : DaggerFragment(),
 
   val countryCode: String by lazy {
     try {
-      arguments!!.getString(
-          PhoneValidationFragment.COUNTRY_CODE)!!
+      arguments!!.getString(PhoneValidationFragment.COUNTRY_CODE)!!
     } catch (e: Exception) {
       throw IllegalArgumentException("Unable to get Country Code")
     }
@@ -68,28 +67,23 @@ class CodeValidationFragment : DaggerFragment(),
 
   val phoneNumber: String by lazy {
     try {
-      arguments!!.getString(
-          PhoneValidationFragment.PHONE_NUMBER)!!
+      arguments!!.getString(PhoneValidationFragment.PHONE_NUMBER)!!
     } catch (e: Exception) {
       throw IllegalArgumentException("Unable to get Phone Number")
     }
   }
 
   private val errorMessage: Int? by lazy {
-    if (arguments!!.containsKey(
-            ERROR_MESSAGE)) {
-      arguments!!.getInt(
-          ERROR_MESSAGE)
+    if (arguments!!.containsKey(ERROR_MESSAGE)) {
+      arguments!!.getInt(ERROR_MESSAGE)
     } else {
       null
     }
   }
 
   private val validationInfo: ValidationInfo? by lazy {
-    if (arguments!!.containsKey(
-            VALIDATION_INFO)) {
-      arguments!!.getSerializable(
-          VALIDATION_INFO) as ValidationInfo
+    if (arguments!!.containsKey(VALIDATION_INFO)) {
+      arguments!!.getSerializable(VALIDATION_INFO) as ValidationInfo
     } else {
       null
     }
