@@ -8,8 +8,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.preference.PreferenceManager
-import android.util.DisplayMetrics
-import android.view.WindowManager
 import androidx.core.app.NotificationCompat
 import androidx.room.Room
 import cm.aptoide.analytics.AnalyticsManager
@@ -116,40 +114,10 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  @Named("user_agent")
-  fun provideUserAgent(context: Context): String {
-    val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val display = wm.defaultDisplay
-    val displayMetrics = DisplayMetrics()
-    display.getRealMetrics(displayMetrics)
-    return ("AppCoins_Wallet/"
-        + BuildConfig.VERSION_NAME
-        + " (Linux; Android "
-        + Build.VERSION.RELEASE.replace(";".toRegex(), " ")
-        + "; "
-        + Build.VERSION.SDK_INT
-        + "; "
-        + Build.MODEL.replace(";".toRegex(), " ")
-        + " Build/"
-        + Build.PRODUCT.replace(";", " ")
-        + "; "
-        + System.getProperty("os.arch")
-        + "; "
-        + BuildConfig.APPLICATION_ID
-        + "; "
-        + BuildConfig.VERSION_CODE
-        + "; "
-        + displayMetrics.widthPixels
-        + "x"
-        + displayMetrics.heightPixels
-        + ")")
-  }
-
-  @Singleton
-  @Provides
-  fun okHttpClient(@Named("user_agent") userAgent: String): OkHttpClient {
+  fun okHttpClient(context: Context,
+                   preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
     return OkHttpClient.Builder()
-        .addInterceptor(UserAgentInterceptor(userAgent))
+        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
         .addInterceptor(LogInterceptor())
         .connectTimeout(15, TimeUnit.MINUTES)
         .readTimeout(30, TimeUnit.MINUTES)
