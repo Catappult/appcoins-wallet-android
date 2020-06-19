@@ -432,6 +432,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void dismissNotification(CardNotification cardNotification) {
     disposables.add(transactionViewInteract.dismissNotification(cardNotification)
+        .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(() -> dismissNotification.postValue(cardNotification), this::onError));
   }
 

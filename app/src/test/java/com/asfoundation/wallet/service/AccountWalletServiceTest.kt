@@ -2,10 +2,12 @@ package com.asfoundation.wallet.service
 
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer
+import com.asfoundation.wallet.repository.WalletRepositoryType
 import io.reactivex.Single
+import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
@@ -19,13 +21,20 @@ import org.mockito.junit.MockitoJUnitRunner
 class AccountWalletServiceTest {
 
   @Mock
-  lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
-
-  @Mock
   lateinit var accountKeyService: AccountKeystoreService
 
   @Mock
   lateinit var passwordStore: PasswordStore
+
+  @Mock
+  lateinit var walletCreatorInteract: WalletCreatorInteract
+
+  @Mock
+  lateinit var walletRepository: WalletRepositoryType
+
+  @Mock
+  lateinit var syncScheduler: ExecutorScheduler
+
   private lateinit var accountWalletService: AccountWalletService
 
   companion object {
@@ -37,15 +46,14 @@ class AccountWalletServiceTest {
 
   @Before
   fun setUp() {
-    `when`(findDefaultWalletInteract.find()).thenReturn(
+    `when`(walletRepository.defaultWallet).thenReturn(
         Single.just(Wallet(ADDRESS)))
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))
 
-
     accountWalletService =
-        AccountWalletService(findDefaultWalletInteract, accountKeyService, passwordStore,
-            SignDataStandardNormalizer())
+        AccountWalletService(accountKeyService, passwordStore, walletCreatorInteract,
+            SignDataStandardNormalizer(), walletRepository, syncScheduler)
   }
 
   @Test

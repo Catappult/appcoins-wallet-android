@@ -22,7 +22,10 @@ import com.asfoundation.wallet.billing.partners.*
 import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.interact.*
+import com.asfoundation.wallet.interact.DefaultTokenProvider
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.interact.SendTransactionInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.poa.*
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.*
@@ -43,6 +46,7 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
@@ -143,13 +147,12 @@ class ServiceModule {
       @Named("MAX_NUMBER_PROOF_COMPONENTS") maxNumberProofComponents: Int,
       countryCodeProvider: CountryCodeProvider,
       addressService: AddressService,
-      createWalletInteract: CreateWalletInteract,
-      findDefaultWalletInteract: FindDefaultWalletInteract,
+      walletService: WalletService,
       campaignInteract: CampaignInteract): ProofOfAttentionService {
     return ProofOfAttentionService(MemoryCache(BehaviorSubject.create(), HashMap()),
         BuildConfig.APPLICATION_ID, hashCalculator, CompositeDisposable(), proofWriter,
         Schedulers.computation(), maxNumberProofComponents, BackEndErrorMapper(), disposables,
-        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract,
+        countryCodeProvider, addressService, walletService,
         campaignInteract)
   }
 
@@ -203,11 +206,13 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideWalletService(walletInteract: FindDefaultWalletInteract,
-                           accountKeyService: AccountKeystoreService,
-                           passwordStore: PasswordStore): WalletService {
-    return AccountWalletService(walletInteract, accountKeyService, passwordStore,
-        SignDataStandardNormalizer())
+  fun provideAccountWalletService(accountKeyService: AccountKeystoreService,
+                                  passwordStore: PasswordStore,
+                                  walletCreatorInteract: WalletCreatorInteract,
+                                  walletRepository: WalletRepositoryType,
+                                  syncScheduler: ExecutorScheduler): WalletService {
+    return AccountWalletService(accountKeyService, passwordStore, walletCreatorInteract,
+        SignDataStandardNormalizer(), walletRepository, syncScheduler)
   }
 
   @Singleton
@@ -361,9 +366,7 @@ class ServiceModule {
   @Provides
   fun provideAccountKeyStoreService(context: Context): AccountKeystoreService {
     val file = File(context.filesDir, "keystore/keystore")
-    return Web3jKeystoreAccountService(
-        KeyStoreFileManager(file.absolutePath, ObjectMapper()),
-        Schedulers.io(),
+    return Web3jKeystoreAccountService(KeyStoreFileManager(file.absolutePath, ObjectMapper()),
         ObjectMapper())
   }
 

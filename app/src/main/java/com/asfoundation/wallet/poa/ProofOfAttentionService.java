@@ -1,13 +1,11 @@
 package com.asfoundation.wallet.poa;
 
 import androidx.annotation.NonNull;
+import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.advertise.Advertising;
 import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
-import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -32,17 +30,15 @@ public class ProofOfAttentionService {
   private final CountryCodeProvider countryCodeProvider;
   private final AddressService partnerAddressService;
   private final Advertising campaignInteract;
-  private final CreateWalletInteract walletInteract;
-  private final FindDefaultWalletInteract findDefaultWalletInteract;
-  private Subject<Boolean> walletValidated;
+  private final WalletService walletService;
+  private final Subject<Boolean> walletValidated;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
       CountryCodeProvider countryCodeProvider, AddressService partnerAddressService,
-      CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract, CampaignInteract campaignInteract) {
+      WalletService walletService, CampaignInteract campaignInteract) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
@@ -56,8 +52,7 @@ public class ProofOfAttentionService {
     this.partnerAddressService = partnerAddressService;
     this.campaignInteract = campaignInteract;
     this.walletValidated = BehaviorSubject.create();
-    this.walletInteract = createWalletInteract;
-    this.findDefaultWalletInteract = findDefaultWalletInteract;
+    this.walletService = walletService;
   }
 
   public void start() {
@@ -367,15 +362,12 @@ public class ProofOfAttentionService {
     });
   }
 
-  public Single<Wallet> handleCreateWallet() {
-    return findDefaultWalletInteract.find()
-        .onErrorResumeNext(walletInteract.create()
-            .flatMap(wallet -> walletInteract.setDefaultWallet(wallet.address)
-                .andThen(Single.just(wallet))));
+  public Single<String> handleCreateWallet() {
+    return walletService.getWalletOrCreate();
   }
 
   public Single<PoaInformationModel> retrievePoaInformation() {
-    return findDefaultWalletInteract.find()
-        .flatMap(wallet -> campaignInteract.retrievePoaInformation(wallet.address));
+    return walletService.getWalletAddress()
+        .flatMap(campaignInteract::retrievePoaInformation);
   }
 }

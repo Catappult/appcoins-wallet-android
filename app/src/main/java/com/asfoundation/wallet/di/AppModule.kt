@@ -89,6 +89,7 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
@@ -496,7 +497,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideNotificationManager(context: Context): NotificationManager {
-    return context.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    return context.applicationContext.getSystemService(
+        Context.NOTIFICATION_SERVICE) as NotificationManager
   }
 
   @Singleton
@@ -550,7 +552,8 @@ internal class AppModule {
   @Named("local_version_code")
   fun provideLocalVersionCode(context: Context, packageManager: PackageManager): Int {
     return try {
-      packageManager.getPackageInfo(context.packageName, 0).versionCode
+      packageManager.getPackageInfo(context.packageName, 0)
+          .versionCode
     } catch (e: PackageManager.NameNotFoundException) {
       -1
     }
@@ -607,4 +610,8 @@ internal class AppModule {
           "https://api.trustwalletapp.com/", "https://etherscan.io/tx/", 1, true)
     }
   }
+
+  @Singleton
+  @Provides
+  fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
 }
