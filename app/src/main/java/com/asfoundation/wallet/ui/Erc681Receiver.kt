@@ -53,7 +53,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   }
 
   override fun startEipTransfer(transaction: TransactionBuilder, isBds: Boolean,
-                                developerPayload: String) {
+                                developerPayload: String?) {
     val intent: Intent = if (intent.data != null && intent.data.toString().contains("/buy?")) {
       newIntent(this, intent, transaction, isBds, developerPayload)
     } else {
