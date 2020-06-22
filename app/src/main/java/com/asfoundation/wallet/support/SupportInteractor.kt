@@ -1,11 +1,19 @@
 package com.asfoundation.wallet.support
 
+import android.util.Log
+import com.asfoundation.wallet.App
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
+import io.intercom.android.sdk.push.IntercomPushClient
 import io.reactivex.Observable
 
-class SupportInteractor(private val preferences: SupportSharedPreferences) {
+
+class SupportInteractor(private val preferences: SupportSharedPreferences, val app: App) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
@@ -35,6 +43,19 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
       val registration: Registration = Registration.create()
           .withUserId(walletAddress)
           .withUserAttributes(userAttributes)
+
+      FirebaseInstanceId.getInstance()
+          .instanceId
+          .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
+            override fun onComplete(task: Task<InstanceIdResult?>) {
+              if (!task.isSuccessful) {
+                Log.w("TAG", "getInstanceId failed", task.exception)
+                return
+              }
+
+              IntercomPushClient().sendTokenToIntercom(app, task.result?.token!!)
+            }
+          })
 
       Intercom.client()
           .registerIdentifiedUser(registration)

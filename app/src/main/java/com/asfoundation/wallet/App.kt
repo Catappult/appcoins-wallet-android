@@ -1,5 +1,6 @@
 package com.asfoundation.wallet
 
+import android.os.Build
 import androidx.multidex.MultiDexApplication
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
@@ -21,8 +22,11 @@ import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.flurry.android.FlurryAgent
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import io.intercom.android.sdk.Injector
 import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
@@ -85,14 +89,17 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         .build()
     appComponent.inject(this)
     setupRxJava()
-    setupSupportNotificationAlarm()
+    val available = checkGooglePlayServices()
+    if (available.not()) {
+      setupSupportNotificationAlarm()
+    }
     initiateFlurry()
     inAppPurchaseInteractor.start()
     proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
     rakamAnalytics.start()
-    initiateIntercom()
+    initiateIntercom(available)
     initiateSentry()
     initializeWalletId()
   }
@@ -109,6 +116,12 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         throw RuntimeException(throwable)
       }
     }
+  }
+
+  private fun checkGooglePlayServices(): Boolean {
+    val availability = GoogleApiAvailability.getInstance()
+    val resultCode = availability.isGooglePlayServicesAvailable(this)
+    return resultCode == ConnectionResult.SUCCESS
   }
 
   private fun setupSupportNotificationAlarm() {
@@ -129,8 +142,15 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     logger.addReceiver(SentryReceiver())
   }
 
-  private fun initiateIntercom() {
+  private fun initiateIntercom(gmsAvailable: Boolean) {
+    Intercom.setLogLevel(Intercom.LogLevel.VERBOSE)
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
+
+    //This is needed due to an Intercom SDK bug
+    if (gmsAvailable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      Injector.get().systemNotificationManager.setUpNotificationChannelsIfSupported(this)
+    }
+
     Intercom.client()
         .setInAppMessageVisibility(Intercom.Visibility.GONE)
   }

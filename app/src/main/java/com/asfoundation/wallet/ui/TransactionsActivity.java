@@ -50,6 +50,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
+import io.intercom.android.sdk.Intercom;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
@@ -294,6 +295,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       viewModel.updateConversationCount();
       viewModel.handleUnreadConversationCount();
       checkRoot();
+      Intercom.client()
+          .handlePushMessage();
     } else {
       finish();
     }
