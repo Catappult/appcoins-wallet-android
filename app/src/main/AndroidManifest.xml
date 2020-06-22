@@ -30,6 +30,10 @@
         android:name="com.google.firebase.messaging.default_notification_channel_id"
         android:value="Support notification channel" />
 
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_launcher_foreground" />
+
     <receiver
         android:name="com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver"
         android:enabled="true"

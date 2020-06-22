@@ -89,8 +89,8 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         .build()
     appComponent.inject(this)
     setupRxJava()
-    val available = checkGooglePlayServices()
-    if (available.not()) {
+    val gpsAvailable = checkGooglePlayServices()
+    if (gpsAvailable.not()) {
       setupSupportNotificationAlarm()
     }
     initiateFlurry()
@@ -99,7 +99,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
     rakamAnalytics.start()
-    initiateIntercom(available)
+    initiateIntercom(gpsAvailable)
     initiateSentry()
     initializeWalletId()
   }
