@@ -57,7 +57,7 @@ import io.reactivex.subjects.PublishSubject;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
-import static com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver.SUPPORT_NOTIFICATION_CLICK;
+import static com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
