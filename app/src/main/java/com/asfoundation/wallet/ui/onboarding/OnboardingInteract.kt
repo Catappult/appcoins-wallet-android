@@ -28,13 +28,9 @@ class OnboardingInteract(
             .map { address }
       }
 
-  fun finishOnboarding() {
-    preferencesRepositoryType.setOnboardingComplete()
-  }
+  fun finishOnboarding() = preferencesRepositoryType.setOnboardingComplete()
 
-  fun clickSkipOnboarding() {
-    preferencesRepositoryType.setOnboardingSkipClicked()
-  }
+  fun clickSkipOnboarding() = preferencesRepositoryType.setOnboardingSkipClicked()
 
   fun hasClickedSkipOnboarding() = preferencesRepositoryType.hasClickedSkipOnboarding()
 
