@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">Anda sebenarnya bisa menerima %s pada pembelian ini.</string>
   <string name="iab_purchase_done_title_long">Pembelian selesai!</string>
   <string name="iab_purchase_change_payment_method_button">METODE PEMBAYARAN LAINNYA</string>
+  <string name="iab_purchase_support_1">Perlu bantuan?</string>
+  <string name="iab_purchase_support_2_link">Hubungi Dukungan.</string>
   <!-- SDK - Common -->
   <string name="next_button">SELANJUTNYA</string>
   <string name="cancel_button">BATAL</string>
@@ -40,8 +42,8 @@
   <string name="button_ok">Oke</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Kesalahan</string>
+  <string name="purchase_error_item_owned">Anda sudah punya item ini!</string>
   <string name="purchase_card_error_title">Ups, ada kesalahan.</string>
   <string name="purchase_card_error_general_1">Ada masalah dengan kartu Anda. Silakan coba lagi atau hubungi kami.</string>
   <string name="purchase_card_error_general_2">Transaksi ditolak oleh bank Anda. Silakan coba dengan kartu lain atau hubungi kami.</string>

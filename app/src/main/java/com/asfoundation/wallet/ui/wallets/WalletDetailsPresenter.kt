@@ -52,9 +52,9 @@ class WalletDetailsPresenter(
         .flatMapCompletable {
           interactor.setActiveWallet(walletAddress)
               .observeOn(viewScheduler)
-              .andThen { view.navigateToBalanceView() }
+              .doOnComplete { view.navigateToBalanceView() }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleCopyClick() {

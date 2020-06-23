@@ -8,7 +8,7 @@ import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
+import com.asfoundation.wallet.interact.WalletCreatorInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
@@ -51,7 +51,7 @@ public class ProofOfAttentionServiceTest {
   @Mock CampaignService campaignService;
   @Mock HashCalculator hashCalculator;
   @Mock AddressService addressService;
-  @Mock CreateWalletInteract walletInteract;
+  @Mock WalletCreatorInteract walletInteract;
   @Mock FindDefaultWalletInteract findDefaultWalletInteract;
   @Mock AdvertisingThrowableCodeMapper mapper;
   @Mock WalletService walletService;
@@ -75,14 +75,13 @@ public class ProofOfAttentionServiceTest {
     testScheduler = new TestScheduler();
     ProofWriter proofWriter = new BdsBackEndWriter(defaultWalletInteract, campaignService);
     CampaignInteract campaignInteract =
-        new CampaignInteract(campaignService, walletService, walletInteract, autoUpdateInteract,
-            mapper, defaultWalletInteract, preferences);
+        new CampaignInteract(campaignService, walletService, autoUpdateInteract, mapper,
+            defaultWalletInteract, preferences);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
             new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
-            () -> Single.just("PT"), addressService, walletInteract, findDefaultWalletInteract,
-            campaignInteract);
+            () -> Single.just("PT"), addressService, walletService, campaignInteract);
     if (BuildConfig.DEBUG) {
       chainId = 3;
     } else {

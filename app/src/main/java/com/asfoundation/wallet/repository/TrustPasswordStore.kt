@@ -102,6 +102,7 @@ class TrustPasswordStore(private val context: Context,
         try {
           return@fromCallable String(KS.get(context, DEFAULT_WALLET))
         } catch (ex: Exception) {
+          logger.log(TAG, ex.message, ex)
           val exception = ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
               "Failed to get the password from the store.")
           logError(exception)
@@ -111,6 +112,7 @@ class TrustPasswordStore(private val context: Context,
         try {
           return@fromCallable PasswordManager.getPassword(DEFAULT_WALLET, context)
         } catch (ex: Exception) {
+          logger.log(TAG, ex.message, ex)
           val exception = ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
               "Failed to get the password from the password manager.")
           logError(exception)

@@ -16,6 +16,7 @@ import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -27,6 +28,7 @@ import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.sentry.Sentry
 import io.sentry.android.AndroidSentryClientFactory
+import java.util.*
 import javax.inject.Inject
 
 class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvider {
@@ -69,6 +71,9 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   @Inject
   lateinit var rakamAnalytics: RakamAnalytics
 
+  @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+
   companion object {
     private val TAG = App::class.java.name
   }
@@ -89,6 +94,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     rakamAnalytics.start()
     initiateIntercom()
     initiateSentry()
+    initializeWalletId()
   }
 
   private fun setupRxJava() {
@@ -127,6 +133,14 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
     Intercom.client()
         .setInAppMessageVisibility(Intercom.Visibility.GONE)
+  }
+
+  private fun initializeWalletId() {
+    if (preferencesRepositoryType.getWalletId() == null) {
+      val id = UUID.randomUUID()
+          .toString()
+      preferencesRepositoryType.setWalletId(id)
+    }
   }
 
   override fun androidInjector() = androidInjector

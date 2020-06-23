@@ -4,7 +4,7 @@
   <string name="title_send">Pošaljite</string>
   <string name="title_send_with_token">Pošalji %s</string>
   <string name="title_request">Primite</string>
-  <string name="title_import">Uvezite novčanik</string>
+  <string name="title_import">Oporavite novčanik</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Lozinka</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Novčanici</string>
   <string name="cancel">otkaži</string>
   <string name="confirm_delete_account">Proverite da li ste napravili rezervnu kopiju ovog novčanika.</string>
-  <string name="action_import">Uvezi</string>
+  <string name="action_import">Oporavi</string>
   <string name="copy">Kopiraj u ostavu</string>
   <string name="close">Zatvori</string>
   <string name="title_activity_settings">Podešavanja</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
-  <string name="title_delete_account">Da li ste sigurni da želite da izbrišete ovaj novčanik?</string>
+  <string name="title_delete_account">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram grupa</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Podesite lozinku za šifrovanje novčanika</string>
-  <string name="toast_message_wallet_imported">Novčanik je uvezen</string>
+  <string name="toast_message_wallet_imported">Novčanik je oporavljen</string>
   <string name="toast_message_wallet_exported">Rezervna kopija je napravljena</string>
   <string name="toast_qr_code_no_address">QR kod ne sadrži ispravnu adresu</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Iskoristite kod</string>
+  <string name="settings_item_support">Obratite se timu korisničke podrške</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">U toku&#8230;</string>
   <string name="local_payments_inprogress_body">Kada dovršite plaćanje, u novčanik ćete dobiti AppCoins Credits. Zatim se vratite u igru da obavite kupovinu!</string>
@@ -505,6 +506,7 @@
   <string name="promotions_referral_card_title">Zaradite do %s tako što ćete pozvati prijatelje</string>
   <string name="promotions_referral_card_body">Podelite pozivni link i zaradite AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Do 30% bonusa za svaku kupovinu</string>
+  <string name="promotions_gamification_card_title_variable">Do %s%% bonusa za svaku kupovinu</string>
   <string name="promotions_new">NOVO</string>
   <string name="promotions_tab_promotions_title">PROMOCIJE</string>
   <string name="promotions_tab_poa_title">IGRAJTE I ZARADITE</string>
@@ -529,19 +531,36 @@
   <string name="backup_body">Ne čuvamo vaše privatnhe ključeve ni ostale načine pristupa. Važno je da rezervna kopija (skladište ključeva) vašeg novčanika bude na sigurnom.</string>
   <string name="backup_confirmation_title">Još samo jedan korak</string>
   <string name="backup_confirmation_body">Čuvajte rezervnu kopiju na sigurnom! Gde želite da je sačuvate?</string>
+  <string name="backup_confirmation_yes">DA, ZAVRŠI</string>
+  <string name="backup_confirmation_no">NE, SAČUVAJ NA UREĐAJU</string>
   <string name="backup_done_title">Rezervna kopija je napravljena!</string>
   <string name="backup_done_body">Da li ste sigurni da je vaša datoteka sa rezervnom kopijom na sigurnom mestu?</string>
+  <string name="backup_confirmation_no_share_title">Rezervna kopija je napravljena!</string>
+  <string name="backup_confirmation_no_share_body">Datoteka sa rezervnom kopijom se nalazi u fascikli Preuzimanja.</string>
+  <string name="backup_save_dialogue_title">Sačuvaj datoteku sa rezervnom kopijom</string>
+  <string name="backup_save_dialogue_body">Izaberite naziv za datoteku sa rezervnom kopijom.</string>
+  <string name="backup_confirmation_tips_title">Čuvajte datoteku na sigurnom:</string>
+  <string name="backup_confirmation_tips_1">Odštampajte je i čuvajte je na bezbednom mestu.</string>
+  <string name="backup_confirmation_tips_2">Sačuvajte je na USB disku.</string>
+  <string name="backup_confirmation_tips_3">Kopirajte je u privatnu, bezbednu memoriju na oblaku.</string>
   <string name="backup_send_via_title">Pošaljite rezervnu kopiju preko:</string>
   <string name="backup_send_button">POŠALJI REZERVNU KOPIJU</string>
-  <string name="import_wallet_title">Uvezite novčanik</string>
+  <string name="backup_save_button">SAČUVAJ REZERVNU KOPIJU</string>
+  <string name="import_wallet_title">Oporavite novčanik</string>
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
   <string name="import_wallet_keystore_private_keys">Skladište ključeva ili privatni ključevi</string>
-  <string name="import_wallet_file_button">UVEZI IZ DATOTEKE</string>
-  <string name="import_wallet_button">UVEZI NOVČANIK</string>
+  <string name="import_wallet_file_button">OPORAVITE IZ DATOTEKE</string>
+  <string name="import_wallet_button">OPORAVI NOVČANIK</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
   <string name="import_wallet_wrong_password_body">Ups, pogrešna lozinka!</string>
   <string name="error_invalid_private_key">Neispravan privatni ključ</string>
   <string name="error_invalid_keystore">Nevažeće skladište ključeva</string>
+  <string name="backup_tooltip_body">Napravite rezervnu kopiju novčanika!</string>
+  <string name="backup_tooltip_later_button">MOŽDA KASNIJE</string>
+  <string name="backup_tooltip_backup_button">REZERVNA KOPIJA</string>
+  <string name="backup_notification_title">Napravite rezervnu kopiju novčanika!</string>
+  <string name="backup_notification_body">Zaštitite svoja sredstva i pristupite novčaniku kad god želite.</string>
+  <string name="backup_choose_wallet_title">Odaberite novčanik za pravljenje rezervne kopije</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
@@ -553,10 +572,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Ukupna vrednost</string>
   <string name="wallets_address_copied_body">Adresa novčanika je kopirana u ostavu</string>
-  <string name="wallets_imported_body">Uvoz novčanika je uspeo</string>
+  <string name="wallets_imported_body">Oporavak novčanika je uspeo</string>
   <string name="wallets_2nd_view_balance_title">Stanje:</string>
   <string name="wallets_2nd_view_other_wallets_title">Drugi novčanici</string>
-  <string name="wallets_2nd_view_import_button">UVEZI NOVČANIK</string>
+  <string name="wallets_2nd_view_import_button">OPORAVI NOVČANIK</string>
   <string name="wallets_2nd_view_create_button">NAPRAVITE NOVI</string>
   <string name="wallet_view_copy_button">KOPIRAJ</string>
   <string name="wallet_view_share_button">PODELI</string>
@@ -569,7 +588,7 @@
   <string name="remove_wallet_title">Ukloni novčanik</string>
   <string name="remove_wallet_body">Preporučujemo vam da napravite rezervnu kopiju novčanika pre nego što ga uklonite. Ako ne budete imali rezervnu kopiju više nećete moći da mu pristupite.</string>
   <string name="remove_wallet_backup_button">NAPRAVI REZERVNU KOPIJU</string>
-  <string name="remove_wallet_no_backup_button">NASTAVI BEZ REZERVNE KOPIJE</string>
+  <string name="remove_wallet_no_backup_button">UKLONI NOVČANIK</string>
   <string name="remove_wallet_confirm_body">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
   <string name="remove_wallet_no_button">NE, VRATI SE</string>
   <string name="remove_wallet_yes_button">DA, UKLONI NOVČANIK</string>
@@ -587,6 +606,10 @@
   <string name="transfer_send_button">POŠALJI</string>
   <string name="transfer_receive_body">Podelite adresu svog novčanika da biste dobili sredstva.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Dobili ste novu poruku!</string>
+  <string name="support_new_message_button">Dodirnite da otvorite</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">Procenti za bonus su ažurirani %s.</string>
+  <string name="pioneer_gamification_title">Vi ste pionir</string>
+  <string name="pioneer_gamification_body">Pioniri su prvi korisnici koji dobijaju veće bonuse.</string>
 </resources>

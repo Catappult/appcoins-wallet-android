@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.permissions.request.view
 
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.CreateWalletInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 class CreateWalletPresenter(private val view: CreateWalletView,
                             private val disposables: CompositeDisposable,
-                            private val interactor: CreateWalletInteract,
+                            private val interactor: WalletCreatorInteract,
                             private val viewScheduler: Scheduler) {
   fun present() {
     handleOnCreateWalletClick()

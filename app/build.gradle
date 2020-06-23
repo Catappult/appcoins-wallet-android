@@ -56,6 +56,8 @@ android {
     buildConfigField 'String', 'RAKAM_BASE_HOST', project.RAKAM_BASE_HOST
     buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
+    buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
+    buildConfigField 'String', 'INFURA_API_KEY_ROPSTEN', project.INFURA_API_KEY_ROPSTEN
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 

@@ -4,7 +4,7 @@
   <string name="title_send">Invia</string>
   <string name="title_send_with_token">Invia %s</string>
   <string name="title_request">Ricevi</string>
-  <string name="title_import">Importa wallet</string>
+  <string name="title_import">Recupera wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Password</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Wallet</string>
   <string name="cancel">Annulla</string>
   <string name="confirm_delete_account">Assicurati di avere un backup per questo wallet.</string>
-  <string name="action_import">Importa</string>
+  <string name="action_import">Recupera</string>
   <string name="copy">Copia negli appunti</string>
   <string name="close">Chiudi</string>
   <string name="title_activity_settings">Impostazioni</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Imposta una password per criptare il tuo wallet</string>
-  <string name="toast_message_wallet_imported">Il wallet è stato importato</string>
+  <string name="toast_message_wallet_imported">Il wallet è stato recuperato</string>
   <string name="toast_message_wallet_exported">E\' stato creato un backup</string>
   <string name="toast_qr_code_no_address">Il codice QR non contiene un indirizzo valido</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Riscatta il codice</string>
+  <string name="settings_item_support">Contatta l\'assistenza clienti</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In corso&#8230;</string>
   <string name="local_payments_inprogress_body">Una volta completato il pagamento riceverai gli AppCoins Credits nel tuo wallet. A quel punto per completare l\'acquisto dovrai solo tornare al gioco!</string>
@@ -505,6 +506,7 @@
   <string name="promotions_referral_card_title">Ricevi fino a %s invitando amici</string>
   <string name="promotions_referral_card_body">Condividi il tuo link d\'invito e ricevi AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Ricevi un bonus fino al 30% su ogni acquisto</string>
+  <string name="promotions_gamification_card_title_variable">Ricevi un bonus fino al %s%% su ogni acquisto</string>
   <string name="promotions_new">NOVITÀ</string>
   <string name="promotions_tab_promotions_title">PROMOZIONI</string>
   <string name="promotions_tab_poa_title">GIOCA &amp; GUADAGNA</string>
@@ -529,19 +531,36 @@
   <string name="backup_body">Non conserviamo le tue chiavi private o qualsiasi altro metodo di accesso. È importante che il backup del tuo wallet (keystore) sia al sicuro.</string>
   <string name="backup_confirmation_title">Ultimo passaggio</string>
   <string name="backup_confirmation_body">Tieni il backup al sicuro! Dove desideri salvarlo?</string>
+  <string name="backup_confirmation_yes">SÌ, CONCLUDI</string>
+  <string name="backup_confirmation_no">NO, SALVA SUL DISPOSITIVO</string>
   <string name="backup_done_title">Backup completato!</string>
   <string name="backup_done_body">Hai controllato che il file di backup sia al sicuro?</string>
+  <string name="backup_confirmation_no_share_title">Backup completato!</string>
+  <string name="backup_confirmation_no_share_body">Il tuo file di backup è nella cartella dei Download.</string>
+  <string name="backup_save_dialogue_title">Salva file di backup</string>
+  <string name="backup_save_dialogue_body">Scegli un nome per il tuo file di backup.</string>
+  <string name="backup_confirmation_tips_title">Tieni il file al sicuro:</string>
+  <string name="backup_confirmation_tips_1">Stampalo e conservalo in un luogo sicuro.</string>
+  <string name="backup_confirmation_tips_2">Salvalo su una chiavetta USB.</string>
+  <string name="backup_confirmation_tips_3">Copialo su un archivio cloud sicuro.</string>
   <string name="backup_send_via_title">Invia backup tramite:</string>
   <string name="backup_send_button">INVIA BACKUP</string>
-  <string name="import_wallet_title">Importa il wallet</string>
+  <string name="backup_save_button">SALVA BACKUP</string>
+  <string name="import_wallet_title">Recupera wallet</string>
   <string name="import_wallet_body">Incolla il backup del tuo wallet di seguito.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o chiavi private</string>
-  <string name="import_wallet_file_button">IMPORTA DA FILE</string>
-  <string name="import_wallet_button">IMPORTA WALLET</string>
+  <string name="import_wallet_file_button">RECUPERA DA FILE</string>
+  <string name="import_wallet_button">RECUPERA WALLET</string>
   <string name="import_wallet_password_body">Questo wallet è protetto da password!</string>
   <string name="import_wallet_wrong_password_body">Password errata!</string>
   <string name="error_invalid_private_key">Chiave privata non valida</string>
   <string name="error_invalid_keystore">Keystore non valido</string>
+  <string name="backup_tooltip_body">Fai un backup del tuo wallet!</string>
+  <string name="backup_tooltip_later_button">MAGARI PIÙ TARDI</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_notification_title">Fai un backup del tuo wallet!</string>
+  <string name="backup_notification_body">Proteggi i tuoi fondi e assicurati di poter sempre accedere al tuo wallet.</string>
+  <string name="backup_choose_wallet_title">Scegli un wallet per il backup</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallet</string>
   <string name="wallets_total_balance_title">Saldo totale in %s</string>
@@ -552,10 +571,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Valore totale</string>
   <string name="wallets_address_copied_body">Indirizzo del wallet copiato negli appunti</string>
-  <string name="wallets_imported_body">Wallet importato con successo</string>
+  <string name="wallets_imported_body">Wallet recuperato con successo</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Altri wallet</string>
-  <string name="wallets_2nd_view_import_button">IMPORTA WALLET</string>
+  <string name="wallets_2nd_view_import_button">RECUPERA WALLET</string>
   <string name="wallets_2nd_view_create_button">CREA NUOVO</string>
   <string name="wallet_view_copy_button">COPIA</string>
   <string name="wallet_view_share_button">CONDIVIDI</string>
@@ -568,7 +587,7 @@
   <string name="remove_wallet_title">Elimina wallet</string>
   <string name="remove_wallet_body">Ti consigliamo vivamente di effettuare il backup di un wallet prima di rimuoverlo. Se non fai il backup non potrai più accedervi.</string>
   <string name="remove_wallet_backup_button">FAI IL BACKUP DEL WALLET</string>
-  <string name="remove_wallet_no_backup_button">CONTINUA SENZA FARE IL BACKUP</string>
+  <string name="remove_wallet_no_backup_button">ELIMINA WALLET</string>
   <string name="remove_wallet_confirm_body">Sei sicuro di voler eliminare questo wallet?</string>
   <string name="remove_wallet_no_button">NO, TORNA INDIETRO</string>
   <string name="remove_wallet_yes_button">SÌ, ELIMINA WALLET</string>
@@ -586,6 +605,10 @@
   <string name="transfer_send_button">INVIA</string>
   <string name="transfer_receive_body">Condividi l\'indirizzo del tuo wallet per ricevere fondi.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Hai un nuovo messaggio!</string>
+  <string name="support_new_message_button">Premi per aprire</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">Le percentuali bonus sono state aggiornate il giorno %s.</string>
+  <string name="pioneer_gamification_title">Sei un Pioniere</string>
+  <string name="pioneer_gamification_body">Un Pioniere è un vero esploratore e ha diritto a bonus migliorati.</string>
 </resources>
