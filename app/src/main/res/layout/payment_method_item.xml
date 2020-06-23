@@ -79,9 +79,9 @@
         android:layout_height="wrap_content"
         android:gravity="end"
         android:lineSpacingExtra="6sp"
+        android:text="@string/subtitle_gas_fee"
         android:textColor="@color/top_up_bonus_text"
         android:textSize="10sp"
-        tools:text="fee"
         />
   </LinearLayout>
 
