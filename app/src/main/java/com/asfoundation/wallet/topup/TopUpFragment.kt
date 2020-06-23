@@ -66,7 +66,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var switchingCurrency = false
   private var bonusValue = BigDecimal.ZERO
   private var localCurrency = LocalCurrency()
-  private var selectedPaymentMethod = 0
+  private var selectedPaymentMethodId: String? = null
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -146,7 +146,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
-    savedInstanceState?.let { selectedPaymentMethod = it.getInt(SELECTED_PAYMENT_METHOD_PARAM) }
+    savedInstanceState?.let {
+      selectedPaymentMethodId = it.getString(SELECTED_PAYMENT_METHOD_PARAM)
+    }
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
 
@@ -160,7 +162,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun onResume() {
-    //added since this fragment continues active after navigating to AdyenToUpFragment
+    //added since this fragment continues active after navigating to the payment fragment
     if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(main_value)
     super.onResume()
   }
@@ -169,7 +171,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
     if (::adapter.isInitialized) {
-      outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
+      outState.putString(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItemData().id)
     }
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
@@ -178,11 +180,25 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun setupPaymentMethods(paymentMethods: List<PaymentMethodData>) {
     this@TopUpFragment.paymentMethods = paymentMethods
     adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
-    adapter.setSelectedItem(selectedPaymentMethod)
+    selectPaymentMethod(paymentMethods)
 
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
     payment_methods.visibility = View.VISIBLE
+  }
+
+  private fun selectPaymentMethod(paymentMethods: List<PaymentMethodData>) {
+    var selected = false
+    if (selectedPaymentMethodId != null) {
+      for (i in paymentMethods.indices) {
+        if (paymentMethods[i].id == selectedPaymentMethodId && paymentMethods[i].isAvailable) {
+          selectedPaymentMethodId = paymentMethods[i].id
+          adapter.setSelectedItem(i)
+          selected = true
+        }
+      }
+    }
+    if (!selected) adapter.setSelectedItem(0)
   }
 
   override fun setupCurrency(localCurrency: LocalCurrency) {
@@ -299,6 +315,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun paymentMethodsFocusRequest() {
     hideKeyboard()
     payment_methods.requestFocus()
+    selectedPaymentMethodId = adapter.getSelectedItemData().id
   }
 
   override fun hideLoadingButton() {
