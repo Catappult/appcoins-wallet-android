@@ -8,9 +8,8 @@ import com.asf.wallet.R
 import com.jakewharton.rxrelay2.PublishRelay
 
 
-class TopUpPaymentMethodAdapter(
-    private var paymentMethods: List<PaymentMethodData>,
-    private var paymentMethodClick: PublishRelay<String>) :
+class TopUpPaymentMethodAdapter(private var paymentMethods: List<PaymentMethodData>,
+                                private var paymentMethodClick: PublishRelay<String>) :
     RecyclerView.Adapter<PaymentMethodViewHolder>() {
   private var selectedItem = 0
 
@@ -24,9 +23,7 @@ class TopUpPaymentMethodAdapter(
         .inflate(R.layout.top_up_payment_method_item, parent, false))
   }
 
-  override fun getItemCount(): Int {
-    return paymentMethods.size
-  }
+  override fun getItemCount() = paymentMethods.size
 
   override fun onBindViewHolder(holder: PaymentMethodViewHolder, position: Int) {
     holder.bind(paymentMethods[position], selectedItem == position, View.OnClickListener {
