@@ -118,6 +118,6 @@
       android:iconSpaceReserved="true"
       android:key="pref_version"
       android:layout="@layout/preference_with_summary_layout"
-      android:title="Check for updates" />
+      android:title="@string/check_updates_settings_title" />
 
 </PreferenceScreen>

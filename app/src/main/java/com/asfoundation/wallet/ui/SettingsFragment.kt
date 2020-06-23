@@ -282,7 +282,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun setVersionPreference() {
     val versionString = getVersion()
     val versionPreference = findPreference<Preference>("pref_version")
-    versionPreference?.summary = "Current version $versionString"
+    versionPreference?.summary = getString(R.string.check_updates_settings_subtitle, versionString)
     versionPreference?.setOnPreferenceClickListener {
       presenter.redirectToStore()
       false
