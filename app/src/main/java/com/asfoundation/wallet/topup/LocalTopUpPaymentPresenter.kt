@@ -2,7 +2,6 @@ package com.asfoundation.wallet.topup
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
@@ -90,15 +89,6 @@ class LocalTopUpPaymentPresenter(
           .centerCrop()
           .submit()
           .get()
-    }
-  }
-
-  private fun getApplicationIcon(): Single<Bitmap> {
-    return Single.fromCallable {
-      val applicationIcon =
-          (context!!.packageManager.getApplicationIcon(packageName) as BitmapDrawable).bitmap
-
-      Bitmap.createScaledBitmap(applicationIcon, appIconWidth, appIconHeight, true)
     }
   }
 
@@ -240,16 +230,6 @@ class LocalTopUpPaymentPresenter(
         context?.resources?.displayMetrics)
         .toInt()
   }
-
-  private val appIconWidth: Int
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160f,
-        context?.resources?.displayMetrics)
-        .toInt()
-
-  private val appIconHeight: Int
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 160f,
-        context?.resources?.displayMetrics)
-        .toInt()
 
   fun stop() {
     waitingResult = false

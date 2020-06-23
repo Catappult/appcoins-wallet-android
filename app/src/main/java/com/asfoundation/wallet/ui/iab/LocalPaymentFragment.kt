@@ -352,13 +352,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
     step_one_desc.text = stepOneText
 
-    pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
-      when (it.id) {
-        "image_0" -> paymentMethodIcon
-        "image_1" -> applicationIcon
-        else -> null
-      }
-    }
+    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_0", paymentMethodIcon)
+    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_1", applicationIcon)
 
     playAnimation()
   }

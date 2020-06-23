@@ -27,8 +27,8 @@ import kotlinx.android.synthetic.main.fragment_adyen_top_up.main_value
 import kotlinx.android.synthetic.main.local_topup_payment_layout.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
-import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
 import kotlinx.android.synthetic.main.support_error_layout.view.*
+import kotlinx.android.synthetic.main.topup_pending_user_payment_view.view.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -176,31 +176,28 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
 
     step_one_desc.text = stepOneText
 
-    topup_pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
-      when (it.id) {
-        "image_0" -> paymentMethodIcon
-        else -> null
-      }
-    }
+    topup_pending_user_payment_view?.top_up_in_progress_animation?.updateBitmap("image_0",
+        paymentMethodIcon)
 
     playAnimation()
   }
 
   private fun playAnimation() {
-    topup_pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
-    topup_pending_user_payment_view?.in_progress_animation?.addAnimatorListener(object :
+    topup_pending_user_payment_view?.top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
+        maxFrame)
+    topup_pending_user_payment_view?.top_up_in_progress_animation?.addAnimatorListener(object :
         Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator?) = Unit
 
       override fun onAnimationEnd(animation: Animator?) {
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
-          topup_pending_user_payment_view?.in_progress_animation?.cancelAnimation()
+          topup_pending_user_payment_view?.top_up_in_progress_animation?.cancelAnimation()
         } else {
           minFrame += ANIMATION_FRAME_INCREMENT
           maxFrame += ANIMATION_FRAME_INCREMENT
-          topup_pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame,
+          topup_pending_user_payment_view?.top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
               maxFrame)
-          topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
+          topup_pending_user_payment_view?.top_up_in_progress_animation?.playAnimation()
         }
       }
 
@@ -220,7 +217,7 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
         }
       }
     })
-    topup_pending_user_payment_view?.in_progress_animation?.playAnimation()
+    topup_pending_user_payment_view?.top_up_in_progress_animation?.playAnimation()
   }
 
   private fun animateShow(view: View, viewToAnimateInTheEnd: View? = null) {
