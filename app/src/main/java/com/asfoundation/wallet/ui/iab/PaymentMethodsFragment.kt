@@ -193,6 +193,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_methods_radio_list.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)
+      paymentMethodClick.accept(paymentMethodsAdapter.getSelectedItem())
       hideLoading()
     }
 
