@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
@@ -58,6 +59,8 @@ class BillingPaymentProofSubmissionTest {
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
           override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
               Single.just(WalletAddressModel(walletAddress, signedContent))
+          override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
+          override fun findWalletOrCreate(): Observable<String> = Observable.just(walletAddress)
         })
         .setBdsApiSecondary(object : BdsApiSecondary {
           override fun getWallet(packageName: String): Single<GetWalletResponse> {

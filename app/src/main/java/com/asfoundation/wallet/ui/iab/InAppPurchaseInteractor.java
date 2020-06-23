@@ -131,6 +131,10 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
   }
 
+  public Single<String> getWalletAddress() {
+    return asfInAppPurchaseInteractor.getWalletAddress();
+  }
+
   Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(String packageName,
       TransactionBuilder transactionBuilder) {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);

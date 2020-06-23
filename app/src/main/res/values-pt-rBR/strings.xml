@@ -4,7 +4,7 @@
   <string name="title_send">Enviar</string>
   <string name="title_send_with_token">Enviar %s</string>
   <string name="title_request">Receber</string>
-  <string name="title_import">Importar Wallet</string>
+  <string name="title_import">Recuperar Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Senha</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Wallets</string>
   <string name="cancel">cancelar</string>
   <string name="confirm_delete_account">Certifique-se de que você tenha um backup desta carteira.</string>
-  <string name="action_import">Importar</string>
+  <string name="action_import">Recuperar</string>
   <string name="copy">Copiar para a área de transferência</string>
   <string name="close">Fechar</string>
   <string name="title_activity_settings">Configurações</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">A BDS da AppCoins Wallet precisa permissão para acessar sua câmera para escanear QR Codes.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código de barras inválido: %s</string>
-  <string name="title_delete_account">Tem certeza que deseja excluir esta wallet?</string>
+  <string name="title_delete_account">Tem certeza que deseja remover esta wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Grupo Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Definir senha para encriptar sua wallet</string>
-  <string name="toast_message_wallet_imported">A wallet foi importada</string>
+  <string name="toast_message_wallet_imported">A wallet foi recuperada</string>
   <string name="toast_message_wallet_exported">Um backup foi criado</string>
   <string name="toast_qr_code_no_address">O QR Code não contém um endereço válido</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Utilizar Código</string>
+  <string name="settings_item_support">Falar com a Equipe de Suporte</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Em andamento&#8230;</string>
   <string name="local_payments_inprogress_body">Depois de concluir o pagamento, você receberá os Créditos AppCoins na sua carteira. Então volte para o jogo para fazer a compra!</string>
@@ -505,6 +506,7 @@
   <string name="promotions_referral_card_title">Ganhe até %s ao convidar amigos</string>
   <string name="promotions_referral_card_body">Compartilhe seu link de convite e ganhe Créditos AppCoins.</string>
   <string name="promotions_gamification_card_title">Até 30% de bônus em cada compra</string>
+  <string name="promotions_gamification_card_title_variable">Até %s%% de bônus em cada compra</string>
   <string name="promotions_new">NOVO</string>
   <string name="promotions_tab_promotions_title">PROMOÇÕES</string>
   <string name="promotions_tab_poa_title">JOGUE E GANHE</string>
@@ -529,19 +531,36 @@
   <string name="backup_body">Nós não armazenamos suas chaves privadas ou qualquer outro método de acesso. É importante manter o backup (keystore) de sua wallet seguro.</string>
   <string name="backup_confirmation_title">Só mais um passo</string>
   <string name="backup_confirmation_body">Mantenha seu backup seguro! Onde você quer salvá-lo?</string>
+  <string name="backup_confirmation_yes">SIM, CONCLUIR</string>
+  <string name="backup_confirmation_no">NÃO, SALVAR NO DISPOSITIVO</string>
   <string name="backup_done_title">Backup concluído!</string>
   <string name="backup_done_body">Tem certeza de que seu arquivo de backup está em um local seguro?</string>
+  <string name="backup_confirmation_no_share_title">Backup concluído!</string>
+  <string name="backup_confirmation_no_share_body">Seu arquivo de backup está em sua pasta Downloads.</string>
+  <string name="backup_save_dialogue_title">Salvar arquivo de backup</string>
+  <string name="backup_save_dialogue_body">Escolha um nome para seu arquivo de backup.</string>
+  <string name="backup_confirmation_tips_title">Mantenha o arquivo em segurança:</string>
+  <string name="backup_confirmation_tips_1">Imprima-o e guarde em um lugar seguro.</string>
+  <string name="backup_confirmation_tips_2">Salvar em uma unidade USB.</string>
+  <string name="backup_confirmation_tips_3">Copiar para um armazenamento em nuvem privativo e seguro.</string>
   <string name="backup_send_via_title">Enviar backup via:</string>
   <string name="backup_send_button">ENVIAR BACKUP</string>
-  <string name="import_wallet_title">Importar Wallet</string>
+  <string name="backup_save_button">SALVAR BACKUP</string>
+  <string name="import_wallet_title">Recuperar Wallet</string>
   <string name="import_wallet_body">Colar o backup da sua wallet abaixo.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou chaves privadas</string>
-  <string name="import_wallet_file_button">IMPORTAR DO ARQUIVO</string>
-  <string name="import_wallet_button">IMPORTAR WALLET</string>
+  <string name="import_wallet_file_button">RECUPERAR DO ARQUIVO</string>
+  <string name="import_wallet_button">RECUPERAR WALLET</string>
   <string name="import_wallet_password_body">Esta wallet está protegida com senha!</string>
   <string name="import_wallet_wrong_password_body">Ops, senha incorreta!</string>
   <string name="error_invalid_private_key">Chave privada inválida</string>
   <string name="error_invalid_keystore">Keystore inválida</string>
+  <string name="backup_tooltip_body">Faça um backup da sua wallet!</string>
+  <string name="backup_tooltip_later_button">TALVEZ MAIS TARDE</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_notification_title">Faça um backup da sua wallet!</string>
+  <string name="backup_notification_body">Mantenha seus fundos seguros e tenha sempre acesso à sua carteira.</string>
+  <string name="backup_choose_wallet_title">Escolha uma wallet para fazer backup</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>
@@ -552,10 +571,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Valor total</string>
   <string name="wallets_address_copied_body">Endereço da wallet copiado para a área de transferência</string>
-  <string name="wallets_imported_body">Wallet importada com sucesso</string>
+  <string name="wallets_imported_body">Wallet recuperada com sucesso</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Outras Wallets</string>
-  <string name="wallets_2nd_view_import_button">IMPORTAR WALLET</string>
+  <string name="wallets_2nd_view_import_button">RECUPERAR WALLET</string>
   <string name="wallets_2nd_view_create_button">CRIAR NOVA</string>
   <string name="wallet_view_copy_button">COPIAR</string>
   <string name="wallet_view_share_button">COMPARTILHAR</string>
@@ -568,7 +587,7 @@
   <string name="remove_wallet_title">Remover Wallet</string>
   <string name="remove_wallet_body">É altamente recomendável fazer backup de uma wallet antes de removê-la. Você não poderá acessá-la novamente, a menos que tenha um backup.</string>
   <string name="remove_wallet_backup_button">FAZER BACKUP DA WALLET</string>
-  <string name="remove_wallet_no_backup_button">AVANÇAR SEM FAZER BACKUP</string>
+  <string name="remove_wallet_no_backup_button">REMOVER WALLET</string>
   <string name="remove_wallet_confirm_body">Tem certeza que deseja remover esta wallet?</string>
   <string name="remove_wallet_no_button">NÃO, VOLTAR</string>
   <string name="remove_wallet_yes_button">SIM, REMOVER A WALLET</string>
@@ -586,6 +605,10 @@
   <string name="transfer_send_button">ENVIAR</string>
   <string name="transfer_receive_body">Compartilhe o endereço de sua wallet para receber créditos.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Você tem uma nova mensagem!</string>
+  <string name="support_new_message_button">Toque para abrir</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">As porcentagens de bônus foram atualizadas em %s.</string>
+  <string name="pioneer_gamification_title">Você é um Pioneiro</string>
+  <string name="pioneer_gamification_body">Um Pioneiro é um dos primeiros a utilizar, com maiores bônus.</string>
 </resources>

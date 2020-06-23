@@ -72,6 +72,7 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
@@ -106,7 +107,7 @@ class InteractModule {
   @Provides
   fun provideFindDefaultWalletInteract(
       walletRepository: WalletRepositoryType): FindDefaultWalletInteract {
-    return FindDefaultWalletInteract(walletRepository)
+    return FindDefaultWalletInteract(walletRepository, Schedulers.io())
   }
 
   @Provides
@@ -240,19 +241,16 @@ class InteractModule {
   }
 
   @Provides
-  fun provideCreateAccountInteract(accountRepository: WalletRepositoryType,
-                                   passwordStore: PasswordStore) =
-      CreateWalletInteract(accountRepository, passwordStore)
+  fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
+                                   passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
+      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
 
   @Provides
-  fun providePaymentReceiverInteract(createWalletInteract: CreateWalletInteract) =
-      PaymentReceiverInteract(createWalletInteract)
-
-  @Provides
-  fun provideOnboardingInteract(createWalletInteract: CreateWalletInteract,
-                                walletService: WalletService,
-                                preferencesRepositoryType: PreferencesRepositoryType) =
-      OnboardingInteract(createWalletInteract, walletService, preferencesRepositoryType)
+  fun provideOnboardingInteract(walletService: WalletService,
+                                preferencesRepositoryType: PreferencesRepositoryType,
+                                supportInteractor: SupportInteractor, gamification: Gamification) =
+      OnboardingInteract(walletService, preferencesRepositoryType,
+          supportInteractor, gamification)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,
@@ -365,13 +363,12 @@ class InteractModule {
   @Singleton
   @Provides
   fun provideCampaignInteract(campaignService: CampaignService, walletService: WalletService,
-                              createWalletInteract: CreateWalletInteract,
+                              createWalletInteract: WalletCreatorInteract,
                               autoUpdateInteract: AutoUpdateInteract,
                               findDefaultWalletInteract: FindDefaultWalletInteract,
                               sharedPreferences: PreferencesRepositoryType): CampaignInteract {
-    return CampaignInteract(campaignService, walletService, createWalletInteract,
-        autoUpdateInteract, AdvertisingThrowableCodeMapper(), findDefaultWalletInteract,
-        sharedPreferences)
+    return CampaignInteract(campaignService, walletService, autoUpdateInteract,
+        AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, sharedPreferences)
   }
 
   @Singleton
@@ -451,17 +448,21 @@ class InteractModule {
   @Provides
   fun provideWalletsInteract(balanceInteract: BalanceInteract,
                              fetchWalletsInteract: FetchWalletsInteract,
-                             createWalletInteract: CreateWalletInteract,
+                             walletcreatorInteract: WalletCreatorInteract,
+                             supportInteractor: SupportInteractor,
                              sharedPreferencesRepository: SharedPreferencesRepository,
-                             logger: Logger): WalletsInteract {
-    return WalletsInteract(balanceInteract, fetchWalletsInteract, createWalletInteract,
-        sharedPreferencesRepository, logger)
+                             gamification: Gamification, logger: Logger): WalletsInteract {
+    return WalletsInteract(balanceInteract, fetchWalletsInteract, walletcreatorInteract,
+        supportInteractor, sharedPreferencesRepository, gamification, logger)
   }
 
   @Provides
   fun provideWalletDetailInteract(balanceInteract: BalanceInteract,
-                                  setDefaultWalletInteract: SetDefaultWalletInteract): WalletDetailsInteractor {
-    return WalletDetailsInteractor(balanceInteract, setDefaultWalletInteract)
+                                  setDefaultWalletInteract: SetDefaultWalletInteract,
+                                  supportInteractor: SupportInteractor,
+                                  gamification: Gamification): WalletDetailsInteractor {
+    return WalletDetailsInteractor(balanceInteract, setDefaultWalletInteract, supportInteractor,
+        gamification)
   }
 
   @Singleton
@@ -492,5 +493,14 @@ class InteractModule {
                                walletsEventSender: WalletsEventSender): SettingsInteract {
     return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
         preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
+  }
+
+  @Provides
+  fun provideIabInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
+                         autoUpdateInteract: AutoUpdateInteract,
+                         supportInteractor: SupportInteractor,
+                         gamificationRepository: Gamification): IabInteract {
+    return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
+        gamificationRepository)
   }
 }

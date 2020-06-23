@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.commons.MemoryCache;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
@@ -77,7 +78,7 @@ public class InAppPurchaseInteractorTest {
 
   private static final NetworkInfo networkInfo =
       new com.asfoundation.wallet.entity.NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://ropsten.infura.io/v3/df5b41e6a3a44d9dbf9142fa3f58cabc",
+          "https://ropsten.infura.io/v3/" + BuildConfig.INFURA_API_KEY_ROPSTEN,
           "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false);
   private static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   private static final String APPROVE_HASH = "approve_hash";

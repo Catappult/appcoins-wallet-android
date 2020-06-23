@@ -3,7 +3,6 @@ package com.asfoundation.wallet.advertise
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.ProofSubmissionData
@@ -17,7 +16,6 @@ import java.net.UnknownHostException
 
 class CampaignInteract(private val campaignService: CampaignService,
                        private val walletService: WalletService,
-                       private val createWalletInteract: CreateWalletInteract,
                        private val autoUpdateInteract: AutoUpdateInteract,
                        private val errorMapper: AdvertisingThrowableCodeMapper,
                        private val defaultWalletInteract: FindDefaultWalletInteract,
@@ -29,11 +27,7 @@ class CampaignInteract(private val campaignService: CampaignService,
     if (isHardUpdateRequired()) {
       return Single.just(CampaignDetails(Advertising.CampaignAvailabilityType.UPDATE_REQUIRED))
     }
-    return walletService.getWalletAddress()
-        .onErrorResumeNext {
-          createWalletInteract.create()
-              .map { it.address }
-        }
+    return walletService.getWalletOrCreate()
         .flatMap { campaignService.getCampaign(it, packageName, versionCode) }
         .map { map(it) }
         .onErrorReturn { CampaignDetails(errorMapper.map(it)) }
@@ -126,5 +120,4 @@ class CampaignInteract(private val campaignService: CampaignService,
   override fun retrievePoaInformation(address: String): Single<PoaInformationModel> {
     return campaignService.retrievePoaInformation(address)
   }
-
 }

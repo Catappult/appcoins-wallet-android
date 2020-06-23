@@ -37,8 +37,8 @@ class WalletsPresenter(private val view: WalletsView,
   private fun handleCreateNewWalletClick() {
     disposables.add(view.createNewWalletClicked()
         .throttleFirst(100, TimeUnit.MILLISECONDS)
-        .observeOn(viewScheduler)
         .doOnNext { view.showCreatingAnimation() }
+        .observeOn(networkScheduler)
         .flatMapCompletable {
           walletsInteract.createWallet()
               .observeOn(viewScheduler)
