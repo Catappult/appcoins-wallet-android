@@ -33,11 +33,9 @@ class GasSettingsRepository(private val gasService: GasService) : GasSettingsRep
   }
 
   private fun shouldRefresh() =
-      System.nanoTime() - lastFlushTime >= TimeUnit.MINUTES.toNanos(1)
+      System.nanoTime() - lastFlushTime >= TimeUnit.MINUTES.toNanos(1) || cachedGasPrice == null
 
-  private fun getGasPriceLocal(): Single<BigDecimal> {
-    return Single.just(cachedGasPrice)
-  }
+  private fun getGasPriceLocal(): Single<BigDecimal> = Single.just(cachedGasPrice)
 
   private fun getGasPrice(): Single<BigDecimal> {
     return if (shouldRefresh()) {
@@ -60,6 +58,5 @@ class GasSettingsRepository(private val gasService: GasService) : GasSettingsRep
     const val DEFAULT_GAS_LIMIT_FOR_TOKENS = "144000"
     const val DEFAULT_GAS_PRICE = "30000000000"
   }
-
 
 }

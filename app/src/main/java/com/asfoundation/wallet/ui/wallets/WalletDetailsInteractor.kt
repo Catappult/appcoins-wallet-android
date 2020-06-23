@@ -18,9 +18,11 @@ class WalletDetailsInteractor(private val balanceInteract: BalanceInteract,
 
   fun setActiveWallet(address: String): Completable {
     return setDefaultWalletInteract.set(address)
-        .andThen {
+        .andThen(gamificationRepository.getUserStats(address))
+        .flatMap {
           gamificationRepository.getUserStats(address)
               .doOnSuccess { supportInteractor.registerUser(it.level, address) }
         }
+        .ignoreElement()
   }
 }

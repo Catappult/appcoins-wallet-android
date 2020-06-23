@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Bu satın alma işleminden %s alabilirdiniz.</string>
   <string name="iab_purchase_done_title_long">Satın alma işlemi tamamlandı!</string>
   <string name="iab_purchase_change_payment_method_button">DAHA FAZLA ÖDEME YÖNTEMİ</string>
+  <string name="iab_purchase_support_1">Yardım mı gerekiyor?</string>
+  <string name="iab_purchase_support_2_link">Destekle İletişime Geçin.</string>
   <!-- SDK - Common -->
   <string name="next_button">İLERİ</string>
   <string name="cancel_button">İPTAL ET</string>
   <string name="buy_button">SATIN AL</string>
   <string name="iab_wallet_not_installed_popup_close_install">CÜZDANI YÜKLE</string>
   <string name="button_ok">Tamam</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Yükle</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Hata</string>
+  <string name="purchase_error_item_owned">Bu öğeye zaten sahipsiniz!</string>
   <string name="purchase_card_error_title">Hay aksi, bir şeyler ters gitti.</string>
   <string name="purchase_card_error_general_1">Kartınızla ilgili bir sorun vardı. Lütfen tekrar deneyin veya bizimle iletişime geçin.</string>
   <string name="purchase_card_error_general_2">İşlem bankanız tarafından reddedildi. Lütfen farklı bir kartla deneyin veya bizimle iletişime geçin.</string>
