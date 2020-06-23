@@ -4,7 +4,6 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.Gamification
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralModel
@@ -14,7 +13,6 @@ import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 
 class OnboardingInteract(
-    private val walletInteract: CreateWalletInteract,
     private val walletService: WalletService,
     private val preferencesRepositoryType: PreferencesRepositoryType,
     private val supportInteractor: SupportInteractor,
@@ -23,16 +21,12 @@ class OnboardingInteract(
     private val referralInteractor: ReferralInteractorContract,
     private val bdsRepository: BdsRepository) {
 
-  fun getWalletAddress() = walletService.getWalletAddress()
-
-  fun createWallet() =
-      walletInteract.create()
-          .map { it.address }
-          .flatMap { address ->
-            gamificationRepository.getUserStats(address)
-                .doOnSuccess { supportInteractor.registerUser(it.level, address) }
-                .map { address }
-          }
+  fun getWalletAddress() = walletService.getWalletOrCreate()
+      .flatMap { address ->
+        gamificationRepository.getUserStats(address)
+            .doOnSuccess { supportInteractor.registerUser(it.level, address) }
+            .map { address }
+      }
 
   fun finishOnboarding() {
     preferencesRepositoryType.setOnboardingComplete()

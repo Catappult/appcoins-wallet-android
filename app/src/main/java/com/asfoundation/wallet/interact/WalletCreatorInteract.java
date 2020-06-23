@@ -5,16 +5,17 @@ import com.asfoundation.wallet.interact.rx.operator.Operators;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 
 import static com.asfoundation.wallet.interact.rx.operator.Operators.completableErrorProxy;
 
-public class CreateWalletInteract {
+public class WalletCreatorInteract {
 
   private final WalletRepositoryType walletRepository;
   private final PasswordStore passwordStore;
 
-  public CreateWalletInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore) {
+  public WalletCreatorInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore, Scheduler syncScheduler) {
     this.walletRepository = walletRepository;
     this.passwordStore = passwordStore;
   }

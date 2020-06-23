@@ -93,7 +93,7 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
 
   @Throws(IllegalArgumentException::class)
   private fun getPermission(): PermissionName {
-    return PermissionName.valueOf(intent.extras[PERMISSION_NAME_KEY] as String)
+    return PermissionName.valueOf(intent.extras?.get(PERMISSION_NAME_KEY) as String)
   }
 
   override fun showPermissionFragment(callingPackage: String,

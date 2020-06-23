@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.CreateWalletInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.android.support.DaggerFragment
@@ -22,7 +22,7 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
   }
 
   @Inject
-  lateinit var interactor: CreateWalletInteract
+  lateinit var interactor: WalletCreatorInteract
 
   private lateinit var presenter: CreateWalletPresenter
   private lateinit var navigator: CreateWalletNavigator

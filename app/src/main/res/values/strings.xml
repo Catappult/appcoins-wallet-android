@@ -670,6 +670,46 @@
   <string name="pioneer_gamification_title">You\'re a Pioneer</string>
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
 
+<!--Check for Updates-->
+  <string name="check_updates_settings_title">Check for updates</string>
+  <string name="check_updates_settings_subtitle">Current version %s</string>
+  <string name="check_updates_checking_body">Searching for a new version</string>
+  <string name="check_updates_no_updates_body">You\'re up to date!</string>
+  <string name="check_updates_updates_available_title">New version available</string>
+  <string name="check_updates_update_button">UPDATE NOW</string>
+  <string name="check_updates_settings_available_title">New version available</string>
+  <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
 
-
+<!--Subscriptions-->
+  <string name="subscriptions_settings_title">Manage subscriptions</string>
+  <string name="subscriptions_title">Subscriptions</string>
+  <string name="subscriptions_active_title">Active</string>
+  <string name="subscriptions_expired_title">Inactive</string>
+  <string name="subscriptions_empty_title">No Subscriptions Yet</string>
+  <string name="subscriptions_empty_body">Subscribe to services in your favorite apps and games and we\'ll deal with periodic payments.</string>
+  <string name="subscriptions_details_billing_title">Billing:</string>
+  <string name="subscriptions_details_next_payment_title">Next payment:</string>
+  <string name="subscriptions_details_payment_method_title">Payment method:</string>
+  <string name="subscriptions_details_last_bill">Last bill:</string>
+  <string name="subscriptions_details_start_date_title">Start date:</string>
+  <string name="subscriptions_details_cancelled_body">Cancelled - It expires on %s</string>
+  <string name="subscriptions_expiration_body">It expires on %s</string>
+  <string name="subscriptions_canceled_body">Canceled</string>
+  <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
+  <string name="subscriptions_details_button">DETAILS</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTION</string>
+  <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
+  <string name="subscriptions_cancel_title">Cancel Subscription</string>
+  <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
+  <string name="subscriptions_cancel_no_button">NO, GO BACK</string>
+  <string name="subscriptions_cancel_yes_button">YES, CANCEL SUBSCRIPTION</string>
+  <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
+  <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
+  <string name="subscriptions_category_title">Subscription</string>
+  <string name="subscriptions_bonus_body">You\'ll receive this bonus on each payment.</string>
+  <string name="subscriptions_per_day">%1$s%2$s/day</string>
+  <string name="subscriptions_per_week">%1$s%2$s/week</string>
+  <string name="subscriptions_per_month">%1$s%2$s/month</string>
+  <string name="subscriptions_per_year">%1$s%2$s/year</string>
+  
 </resources>
