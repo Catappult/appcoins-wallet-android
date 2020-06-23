@@ -631,8 +631,8 @@
   <string name="subscriptions_details_payment_method_title">Phương thức thanh toán:</string>
   <string name="subscriptions_details_last_bill">Hóa đơn cuối cùng:</string>
   <string name="subscriptions_details_start_date_title">Ngày bắt đầu:</string>
-  <string name="subscriptions_details_cancelled_body">Đã hủy - Hết hạn vào ngày %s</string>
-  <string name="subscriptions_expiration_body">Hết hạn vào ngày %s</string>
+  <string name="subscriptions_details_cancelled_body">Đã hủy - Đã hết hạn vào ngày %s</string>
+  <string name="subscriptions_expiration_body">Đã hết hạn vào ngày %s</string>
   <string name="subscriptions_canceled_body">Đã hủy</string>
   <string name="subscriptions_details_disclaimer">Giá trị bằng AppCoin có thể thay đổi cho lần thanh toán tiếp theo tùy thuộc vào tỷ giá hối đoái.</string>
   <string name="subscriptions_details_button">CHI TIẾT</string>
@@ -643,11 +643,11 @@
   <string name="subscriptions_cancel_no_button">KHÔNG, QUAY LẠI</string>
   <string name="subscriptions_cancel_yes_button">CÓ, HỦY GÓI ĐĂNG KÝ</string>
   <string name="subscriptions_cancel_confirmation_title">Gói đăng ký đã bị hủy!</string>
-  <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
-  <string name="subscriptions_category_title">Subscription</string>
-  <string name="subscriptions_bonus_body">You\'ll receive this bonus on each payment.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/day</string>
-  <string name="subscriptions_per_week">%1$s%2$s/week</string>
-  <string name="subscriptions_per_month">%1$s%2$s/month</string>
-  <string name="subscriptions_per_year">%1$s%2$s/year</string>
+  <string name="subscriptions_cancel_confirmation_body">Bạn sẽ không bị tính phí cho gói đăng ký này nữa và có thể sử dụng nó cho đến %s.</string>
+  <string name="subscriptions_category_title">Gói đăng ký</string>
+  <string name="subscriptions_bonus_body">Bạn sẽ được nhận tiền thưởng trên mỗi lượt thanh toán.</string>
+  <string name="subscriptions_per_day">%1$s %2$s/ngày</string>
+  <string name="subscriptions_per_week">%1$s %2$s/tuần</string>
+  <string name="subscriptions_per_month">%1$s %2$s/tháng</string>
+  <string name="subscriptions_per_year">%1$s %2$s/năm</string>
 </resources>
