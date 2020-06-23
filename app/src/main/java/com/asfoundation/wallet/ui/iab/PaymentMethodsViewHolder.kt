@@ -16,7 +16,10 @@ class PaymentMethodViewHolder(itemView: View) :
     itemView.payment_method_description.text = data.label
     itemView.radio_button.isChecked = data.isEnabled && checked
     itemView.radio_button.isEnabled = data.isEnabled
-    itemView.setOnClickListener(listener)
+
+    if (data.isEnabled) {
+      itemView.setOnClickListener(listener)
+    }
     if (true) {//TODO needs to be changed after implemented by microservices
       itemView.fee_label.visibility = View.VISIBLE
       itemView.fee_label.text = "1.5 €"
