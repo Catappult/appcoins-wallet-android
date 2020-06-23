@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.support
 
-import android.util.Log
 import com.asfoundation.wallet.App
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.iid.FirebaseInstanceId
@@ -44,18 +45,10 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
           .withUserId(walletAddress)
           .withUserAttributes(userAttributes)
 
-      FirebaseInstanceId.getInstance()
-          .instanceId
-          .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
-            override fun onComplete(task: Task<InstanceIdResult?>) {
-              if (!task.isSuccessful) {
-                Log.w("TAG", "getInstanceId failed", task.exception)
-                return
-              }
-
-              IntercomPushClient().sendTokenToIntercom(app, task.result?.token!!)
-            }
-          })
+      val gpsAvailable = checkGooglePlayServices()
+      if (gpsAvailable) {
+        handleFirebaseToken()
+      }
 
       Intercom.client()
           .registerIdentifiedUser(registration)
@@ -79,5 +72,25 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
   private fun resetUnreadConversations() = preferences.resetUnreadConversations()
 
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
+
+  private fun checkGooglePlayServices(): Boolean {
+    val availability = GoogleApiAvailability.getInstance()
+    val resultCode = availability.isGooglePlayServicesAvailable(app)
+    return resultCode == ConnectionResult.SUCCESS
+  }
+
+  private fun handleFirebaseToken() {
+    FirebaseInstanceId.getInstance()
+        .instanceId
+        .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
+          override fun onComplete(task: Task<InstanceIdResult?>) {
+            if (!task.isSuccessful) {
+              return
+            }
+
+            IntercomPushClient().sendTokenToIntercom(app, task.result?.token!!)
+          }
+        })
+  }
 
 }
