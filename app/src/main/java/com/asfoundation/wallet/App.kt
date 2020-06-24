@@ -1,6 +1,5 @@
 package com.asfoundation.wallet
 
-import android.os.Build
 import androidx.multidex.MultiDexApplication
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
@@ -26,7 +25,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import io.intercom.android.sdk.Injector
 import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
@@ -97,7 +95,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
     rakamAnalytics.start()
-    initiateIntercom(gpsAvailable)
+    initiateIntercom()
     initiateSentry()
     initializeWalletId()
   }
@@ -139,8 +137,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     logger.addReceiver(SentryReceiver())
   }
 
-  private fun initiateIntercom(gmsAvailable: Boolean) {
-    Intercom.setLogLevel(Intercom.LogLevel.VERBOSE)
+  private fun initiateIntercom() {
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
 
     Intercom.client()
