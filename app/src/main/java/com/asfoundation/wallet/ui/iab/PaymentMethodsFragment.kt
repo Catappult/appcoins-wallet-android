@@ -324,7 +324,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showError(message: Int) {
     if (!itemAlreadyOwnedError) {
-      loading_view.visibility = View.GONE
       payment_methods.visibility = View.GONE
       payment_method_main_view.visibility = View.GONE
       error_message.error_dismiss.text = getString(R.string.ok)
@@ -334,7 +333,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showItemAlreadyOwnedError() {
-    loading_view.visibility = View.GONE
     payment_methods.visibility = View.GONE
     payment_method_main_view.visibility = View.GONE
     itemAlreadyOwnedError = true
@@ -364,13 +362,17 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showLoading() {
-    loading_view.visibility = View.VISIBLE
     payment_methods.visibility = View.INVISIBLE
+    fiat_price_skeleton.visibility = View.VISIBLE
+    appc_price_skeleton.visibility = View.VISIBLE
+    payments_skeleton.visibility = View.VISIBLE
+    bonus_layout_skeleton.visibility = View.VISIBLE
+    bonus_msg_skeleton.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
-    loading_view.visibility = View.GONE
     if (processing_loading.visibility != View.VISIBLE) {
+      removeSkeletons()
       payment_methods.visibility = View.VISIBLE
     }
   }
@@ -406,18 +408,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun displayPaymentMethods() {
-    if (processing_loading.visibility != View.VISIBLE) {
-      payment_methods.visibility = View.VISIBLE
-      payments_skeleton.visibility = View.GONE
-    }
-  }
-
   override fun setupUiCompleted() = setupSubject!!
 
   override fun showProcessingLoadingDialog() {
     payment_methods.visibility = View.INVISIBLE
-    loading_view.visibility = View.GONE
+
     processing_loading.visibility = View.VISIBLE
   }
 
@@ -654,5 +649,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun removeBonusSkeletons() {
     bonus_layout_skeleton.visibility = View.GONE
     bonus_msg_skeleton.visibility = View.GONE
+  }
+
+  private fun removeSkeletons() {
+    fiat_price_skeleton.visibility = View.GONE
+    appc_price_skeleton.visibility = View.GONE
+    payments_skeleton.visibility = View.GONE
+    removeBonusSkeletons()
   }
 }

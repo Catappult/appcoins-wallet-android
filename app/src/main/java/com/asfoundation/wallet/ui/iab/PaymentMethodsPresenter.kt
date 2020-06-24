@@ -55,7 +55,6 @@ class PaymentMethodsPresenter(
   }
 
   fun present() {
-    view.hideLoading()
     handleOnGoingPurchases()
     handleCancelClick()
     handleErrorDismisses()
@@ -107,38 +106,37 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleWalletBlockStatus() {
-    disposables.add(
-        paymentMethodsInteract.isWalletBlocked()
-            .subscribeOn(networkThread)
-            .observeOn(viewScheduler)
-            .flatMapCompletable {
-              if (it) {
-                Completable.fromAction {
-                  view.hideLoading()
-                  view.showWalletBlocked()
-                }
-              } else {
-                Completable.fromAction {
-                  view.showCredits(gamificationLevel)
-                }
-              }
+    disposables.add(paymentMethodsInteract.isWalletBlocked()
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          if (it) {
+            Completable.fromAction {
+              view.hideLoading()
+              view.showWalletBlocked()
             }
-            .andThen { Completable.fromAction { view.hideLoading() } }
-            .doOnSubscribe { view.showLoading() }
-            .doOnError { showError(it) }
-            .subscribe()
+          } else {
+            Completable.fromAction {
+              view.showCredits(gamificationLevel)
+            }
+          }
+        }
+        .andThen { Completable.fromAction { view.hideLoading() } }
+        .doOnSubscribe { view.showLoading() }
+        .doOnError { showError(it) }
+        .subscribe()
     )
   }
 
   private fun handleOnGoingPurchases() {
     if (transaction.skuId == null) {
-      disposables.add(isSetupCompleted().doOnComplete { view.displayPaymentMethods() }
+      disposables.add(isSetupCompleted().doOnComplete { view.hideLoading() }
           .subscribeOn(viewScheduler)
           .subscribe())
       return
     }
     disposables.add(waitForUi(transaction.skuId).observeOn(viewScheduler)
-        .subscribe({ view.displayPaymentMethods() }, { throwable: Throwable ->
+        .subscribe({ view.hideLoading() }, { throwable: Throwable ->
           showError(throwable)
           throwable.printStackTrace()
         }))

@@ -53,7 +53,6 @@ interface PaymentMethodsView {
   fun removeBonus()
   fun getSupportLogoClicks(): Observable<Any>
   fun getSupportIconClicks(): Observable<Any>
-  fun displayPaymentMethods()
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
