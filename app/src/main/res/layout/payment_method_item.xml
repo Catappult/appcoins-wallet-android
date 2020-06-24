@@ -39,17 +39,37 @@
 
   <TextView
       android:id="@+id/payment_method_description"
-      style="@style/TopUpTextStyle.PaymentOptionText"
+      style="@style/TopUpTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="17dp"
+      android:ellipsize="end"
       android:gravity="start"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/payment_method_reason"
       app:layout_constraintEnd_toStartOf="@+id/linearLayout"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="@id/payment_method_ic"
       tools:text="Paypal"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_reason"
+      style="@style/TopUpTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="17dp"
+      android:ellipsize="end"
+      android:gravity="start"
+      android:textColor="#929292"
+      android:textSize="11sp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
+      app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_description"
+      tools:text="You need ETH to pay for the gas."
       />
 
   <LinearLayout

@@ -393,10 +393,6 @@
     <item name="android:textColor">@color/top_up_bonus_text</item>
   </style>
 
-  <style name="TopUpTextStyle.PaymentOptionText">
-    <item name="android:textColor">@color/grey_alpha_active_54</item>
-  </style>
-
   <style name="TopUpTextStyle.PaymentDetails">
     <item name="android:textColor">@color/color_title</item>
     <item name="android:gravity">start</item>
