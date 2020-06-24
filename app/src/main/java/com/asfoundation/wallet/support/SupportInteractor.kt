@@ -46,9 +46,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
           .withUserAttributes(userAttributes)
 
       val gpsAvailable = checkGooglePlayServices()
-      if (gpsAvailable) {
-        handleFirebaseToken()
-      }
+      if (gpsAvailable) handleFirebaseToken()
 
       Intercom.client()
           .registerIdentifiedUser(registration)
@@ -75,8 +73,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
 
   private fun checkGooglePlayServices(): Boolean {
     val availability = GoogleApiAvailability.getInstance()
-    val resultCode = availability.isGooglePlayServicesAvailable(app)
-    return resultCode == ConnectionResult.SUCCESS
+    return availability.isGooglePlayServicesAvailable(app) == ConnectionResult.SUCCESS
   }
 
   private fun handleFirebaseToken() {
@@ -84,10 +81,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
         .instanceId
         .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
           override fun onComplete(task: Task<InstanceIdResult?>) {
-            if (!task.isSuccessful) {
-              return
-            }
-
+            if (!task.isSuccessful) return
             IntercomPushClient().sendTokenToIntercom(app, task.result?.token!!)
           }
         })

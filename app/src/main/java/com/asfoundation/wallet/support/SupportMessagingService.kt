@@ -21,18 +21,21 @@ import io.intercom.android.sdk.push.IntercomPushClient
 class SupportMessagingService : FirebaseMessagingService() {
 
   private lateinit var notificationManager: NotificationManager
-  private val intercomPushClient = IntercomPushClient()
+  private lateinit var intercomPushClient: IntercomPushClient
 
-  override fun onNewToken(token: String) {
-    intercomPushClient.sendTokenToIntercom(application, token)
+  override fun onCreate() {
+    super.onCreate()
+    intercomPushClient = IntercomPushClient()
   }
+
+  override fun onNewToken(token: String) =
+      intercomPushClient.sendTokenToIntercom(application, token)
 
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
     notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     if (intercomPushClient.isIntercomPush(remoteMessage.data)) {
       if (isSupportMessage(remoteMessage.data)) {
-        val entries = remoteMessage.data.entries.joinToString(separator = ",")
         notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(this).build())
       }
     } else {

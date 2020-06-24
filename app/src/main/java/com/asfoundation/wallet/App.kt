@@ -90,9 +90,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     appComponent.inject(this)
     setupRxJava()
     val gpsAvailable = checkGooglePlayServices()
-    if (gpsAvailable.not()) {
-      setupSupportNotificationAlarm()
-    }
+    if (gpsAvailable.not()) setupSupportNotificationAlarm()
     initiateFlurry()
     inAppPurchaseInteractor.start()
     proofOfAttentionService.start()
@@ -120,8 +118,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   private fun checkGooglePlayServices(): Boolean {
     val availability = GoogleApiAvailability.getInstance()
-    val resultCode = availability.isGooglePlayServicesAvailable(this)
-    return resultCode == ConnectionResult.SUCCESS
+    return availability.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS
   }
 
   private fun setupSupportNotificationAlarm() {
