@@ -146,6 +146,27 @@
           tools:visibility="visible"
           />
 
+      <include
+          android:id="@+id/bonus_layout_skeleton"
+          layout="@layout/rounded_rectangle_skeleton"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+          app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="@id/bonus_layout"
+          app:layout_constraintTop_toTopOf="@id/bonus_layout"
+          />
+      <include
+          android:id="@+id/bonus_msg_skeleton"
+          layout="@layout/rounded_rectangle_skeleton"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
+          app:layout_constraintEnd_toEndOf="@+id/bonus_msg"
+          app:layout_constraintStart_toStartOf="@id/bonus_msg"
+          app:layout_constraintTop_toTopOf="@id/bonus_msg"
+          />
+
       <ImageView
           android:id="@+id/mid_separator"
           android:layout_width="1dp"
@@ -182,6 +203,38 @@
 
       </androidx.core.widget.NestedScrollView>
 
+      <LinearLayout
+          android:id="@+id/payments_skeleton"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="5dp"
+          android:layout_marginEnd="14dp"
+          android:orientation="vertical"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          >
+        <include layout="@layout/payments_skeleton" />
+        <include
+            layout="@layout/payments_skeleton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            />
+        <include
+            layout="@layout/payments_skeleton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            />
+        <include
+            layout="@layout/payments_skeleton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            />
+      </LinearLayout>
       <include
           android:id="@+id/layout_pre_selected"
           layout="@layout/selected_payment_method"
@@ -254,10 +307,9 @@
           android:id="@+id/pre_selected_payment_method_group"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:visibility="gone"
           app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
-          tools:visibility="visible"
           />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </RelativeLayout>

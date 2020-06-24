@@ -288,6 +288,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         .plus(" $currency")
     fiat_price.text = fiatText
     appc_price.text = appcText
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE
   }

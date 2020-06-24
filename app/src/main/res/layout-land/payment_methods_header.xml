@@ -93,4 +93,27 @@
       tools:text="0,09 APPC"
       />
 
+  <include
+      android:id="@+id/fiat_price_skeleton"
+      layout="@layout/rounded_rectangle_skeleton"
+      android:layout_width="60dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/fiat_price"
+      app:layout_constraintEnd_toEndOf="@id/fiat_price"
+      app:layout_constraintTop_toTopOf="@id/fiat_price"
+      tools:visibility="invisible"
+      />
+
+  <include
+      android:id="@+id/appc_price_skeleton"
+      layout="@layout/rounded_rectangle_skeleton"
+      android:layout_width="60dp"
+      android:layout_height="0dp"
+      android:layout_marginTop="4dp"
+      app:layout_constraintBottom_toBottomOf="@id/appc_price"
+      app:layout_constraintEnd_toEndOf="@id/appc_price"
+      app:layout_constraintTop_toTopOf="@id/appc_price"
+      tools:visibility="invisible"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

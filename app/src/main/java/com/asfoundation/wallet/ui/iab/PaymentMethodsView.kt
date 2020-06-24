@@ -11,7 +11,7 @@ interface PaymentMethodsView {
                          appcAmount: String)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                   isDonation: Boolean, currency: String, fiatAmount: String,
+                                   currency: String, fiatAmount: String,
                                    appcAmount: String, isBonusActive: Boolean)
 
   fun showError(message: Int)
@@ -53,6 +53,7 @@ interface PaymentMethodsView {
   fun removeBonus()
   fun getSupportLogoClicks(): Observable<Any>
   fun getSupportIconClicks(): Observable<Any>
+  fun displayPaymentMethods()
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,

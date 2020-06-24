@@ -147,6 +147,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
     setupAppNameAndIcon()
 
+    setBuyButtonText()
     presenter.present()
   }
 
@@ -169,9 +170,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                                   currency: String, paymentMethodId: String, fiatAmount: String,
                                   appcAmount: String) {
-    updateHeaderInfo(fiatValue, isDonation, currency, fiatAmount, appcAmount)
+    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
-
+    buy_button.isEnabled = true
     presenter.sendPaymentMethodsEvents()
 
     setupSubject!!.onNext(true)
@@ -211,10 +212,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       for (paymentMethod in paymentMethods) {
         if (paymentMethod.id == paymentMethodsMapper.map(SelectedPaymentMethod.APPC)) {
           radioButton = createPaymentRadioButton(paymentMethod, 0)
-          radioButton.isEnabled = true
-          radioButton.isChecked = true
+          radioButton.isEnabled = paymentMethod.isEnabled
+          radioButton.isChecked = paymentMethod.isEnabled
           paymentMethodList.add(paymentMethod)
           payment_methods_radio_group.addView(radioButton)
+          removeBonus()
         }
       }
     }
@@ -255,32 +257,24 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         .subscribe({ }) { it.printStackTrace() })
   }
 
-  private fun updateHeaderInfo(fiatValue: FiatValue, isDonation: Boolean, currency: String,
+  private fun updateHeaderInfo(fiatValue: FiatValue, currency: String,
                                fiatAmount: String, appcAmount: String) {
     this.fiatValue = fiatValue
     val appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     val fiatPrice = "$fiatAmount $currency"
     appc_price.text = appcPrice
     fiat_price.text = fiatPrice
+    fiat_price_skeleton.visibility = View.GONE
+    appc_price_skeleton.visibility = View.GONE
     appc_price.visibility = View.VISIBLE
     fiat_price.visibility = View.VISIBLE
-    val buyButtonText = if (isDonation) R.string.action_donate else R.string.action_buy
-    buy_button.text = resources.getString(buyButtonText)
-    if (isDonation) {
-      app_sku_description.text = resources.getString(R.string.item_donation)
-      app_name.text = resources.getString(R.string.item_donation)
-    } else
-      if (productName != null) {
-        app_sku_description.text = productName
-      }
   }
 
   override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                            isDonation: Boolean, currency: String,
-                                            fiatAmount: String, appcAmount: String,
-                                            isBonusActive: Boolean) {
+                                            currency: String, fiatAmount: String,
+                                            appcAmount: String, isBonusActive: Boolean) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
-    updateHeaderInfo(fiatValue, isDonation, currency, fiatAmount, appcAmount)
+    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
 
     setupPaymentMethod(paymentMethod, isBonusActive)
 
@@ -376,7 +370,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun hideLoading() {
     loading_view.visibility = View.GONE
-    buy_button.isEnabled = true
     if (processing_loading.visibility != View.VISIBLE) {
       payment_methods.visibility = View.VISIBLE
     }
@@ -413,6 +406,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
+  override fun displayPaymentMethods() {
+    if (processing_loading.visibility != View.VISIBLE) {
+      payment_methods.visibility = View.VISIBLE
+      payments_skeleton.visibility = View.GONE
+    }
+  }
+
   override fun setupUiCompleted() = setupSubject!!
 
   override fun showProcessingLoadingDialog() {
@@ -445,7 +445,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showAppCoins(gamificationLevel: Int) {
-    iabView.showOnChain(transactionBuilder!!.amount(), isBds, bonusMessageValue, gamificationLevel)
+    iabView.showOnChain(transactionBuilder!!.amount(), isBds, bonusMessageValue,
+        gamificationLevel)
   }
 
   override fun showCredits(gamificationLevel: Int) {
@@ -529,6 +530,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_msg.visibility = View.VISIBLE
     no_bonus_msg?.visibility = View.INVISIBLE
     bottom_separator?.visibility = View.VISIBLE
+    removeBonusSkeletons()
   }
 
   override fun removeBonus() {
@@ -536,36 +538,45 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_msg.visibility = View.GONE
     no_bonus_msg?.visibility = View.GONE
     bottom_separator?.visibility = View.GONE
+    removeBonusSkeletons()
   }
 
   override fun hideBonus() {
     bonus_layout.visibility = View.INVISIBLE
     bonus_msg.visibility = View.INVISIBLE
     bottom_separator?.visibility = View.INVISIBLE
+    removeBonusSkeletons()
   }
 
   override fun replaceBonus() {
     bonus_layout.visibility = View.INVISIBLE
     bonus_msg.visibility = View.INVISIBLE
     no_bonus_msg?.visibility = View.VISIBLE
+    removeBonusSkeletons()
   }
 
   override fun showWalletBlocked() = iabView.showWalletBlocked()
 
   private fun setupAppNameAndIcon() {
-    compositeDisposable.add(Single.defer { Single.just(appPackage) }
-        .observeOn(Schedulers.io())
-        .map { packageName ->
-          Pair(
-              getApplicationName(packageName),
-              context!!.packageManager
-                  .getApplicationIcon(packageName))
-        }
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-          app_name?.text = it.first
-          app_icon?.setImageDrawable(it.second)
-        }) { it.printStackTrace() })
+    if (isDonation) {
+      app_sku_description.text = resources.getString(R.string.item_donation)
+      app_name.text = resources.getString(R.string.item_donation)
+    } else {
+      compositeDisposable.add(Single.defer { Single.just(appPackage) }
+          .observeOn(Schedulers.io())
+          .map { packageName ->
+            Pair(
+                getApplicationName(packageName),
+                context!!.packageManager
+                    .getApplicationIcon(packageName))
+          }
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe({
+            app_name?.text = it.first
+            app_icon?.setImageDrawable(it.second)
+            if (productName != null) app_sku_description.text = productName
+          }) { it.printStackTrace() })
+    }
   }
 
   private fun getApplicationName(packageName: String): String {
@@ -638,5 +649,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     } else {
       throw IllegalArgumentException("productName data not found")
     }
+  }
+
+  private fun removeBonusSkeletons() {
+    bonus_layout_skeleton.visibility = View.GONE
+    bonus_msg_skeleton.visibility = View.GONE
   }
 }

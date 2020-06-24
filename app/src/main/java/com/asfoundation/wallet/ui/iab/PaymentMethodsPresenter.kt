@@ -6,7 +6,6 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.AnalyticsSetUp
@@ -56,7 +55,7 @@ class PaymentMethodsPresenter(
   }
 
   fun present() {
-
+    view.hideLoading()
     handleOnGoingPurchases()
     handleCancelClick()
     handleErrorDismisses()
@@ -133,13 +132,13 @@ class PaymentMethodsPresenter(
 
   private fun handleOnGoingPurchases() {
     if (transaction.skuId == null) {
-      disposables.add(isSetupCompleted().doOnComplete { view.hideLoading() }
+      disposables.add(isSetupCompleted().doOnComplete { view.displayPaymentMethods() }
           .subscribeOn(viewScheduler)
           .subscribe())
       return
     }
     disposables.add(waitForUi(transaction.skuId).observeOn(viewScheduler)
-        .subscribe({ view.hideLoading() }, { throwable: Throwable ->
+        .subscribe({ view.displayPaymentMethods() }, { throwable: Throwable ->
           showError(throwable)
           throwable.printStackTrace()
         }))
@@ -294,8 +293,6 @@ class PaymentMethodsPresenter(
                                            fiatAmount: String, appcAmount: String,
                                            isBonusActive: Boolean) {
     view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
-        TransactionData.TransactionType.DONATION.name
-            .equals(transaction.type, ignoreCase = true),
         mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive)
   }
 
