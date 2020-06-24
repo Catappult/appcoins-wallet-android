@@ -143,11 +143,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     Intercom.setLogLevel(Intercom.LogLevel.VERBOSE)
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
 
-    //This is needed due to an Intercom SDK bug
-    if (gmsAvailable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      Injector.get().systemNotificationManager.setUpNotificationChannelsIfSupported(this)
-    }
-
     Intercom.client()
         .setInAppMessageVisibility(Intercom.Visibility.GONE)
   }
