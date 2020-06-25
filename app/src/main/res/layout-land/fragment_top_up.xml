@@ -176,6 +176,29 @@
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
 
+      <include
+          android:id="@+id/bonus_layout_skeleton"
+          layout="@layout/rounded_rectangle_skeleton"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+          app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="@id/bonus_layout"
+          app:layout_constraintTop_toTopOf="@id/bonus_layout"
+          />
+      <include
+          android:id="@+id/bonus_msg_skeleton"
+          layout="@layout/rounded_rectangle_skeleton"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_marginStart="56dp"
+          android:layout_marginEnd="56dp"
+          app:layout_constraintStart_toStartOf="@id/bonus_msg"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
+          app:layout_constraintTop_toTopOf="@id/bonus_msg"
+          />
+
       <View
           android:id="@+id/top_separator_topup"
           android:layout_width="0dp"
