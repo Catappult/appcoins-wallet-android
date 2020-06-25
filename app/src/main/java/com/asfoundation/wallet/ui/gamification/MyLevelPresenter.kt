@@ -17,7 +17,7 @@ class MyLevelPresenter(private val view: MyLevelView,
                        private val activity: GamificationView?,
                        private val gamification: GamificationInteractor,
                        private val analytics: GamificationAnalytics,
-                       private val disposables:CompositeDisposable,
+                       private val disposables: CompositeDisposable,
                        private val networkScheduler: Scheduler,
                        private val viewScheduler: Scheduler) {
 
@@ -25,7 +25,6 @@ class MyLevelPresenter(private val view: MyLevelView,
     handleShowLevels(savedInstanceState == null)
     handleInfoButtonClick()
     view.animateBackgroundFade()
-    view.setupLayout()
   }
 
   private fun handleShowLevels(sendEvent: Boolean) {
@@ -56,6 +55,7 @@ class MyLevelPresenter(private val view: MyLevelView,
         UserType.INNOVATOR -> view.showInnovatorUser()
         else -> view.showNonPioneerUser()
       }
+      view.setLevelIcons()
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {
         view.setStaringLevel(lastShownLevel, level, bonus)
       }

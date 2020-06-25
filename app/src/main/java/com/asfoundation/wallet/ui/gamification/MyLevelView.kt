@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.gamification
 
 
 interface MyLevelView {
-  fun setupLayout()
+  fun setLevelIcons()
 
   fun updateLevel(lastShownLevel: Int, level: Int, bonus: List<Double>)
 

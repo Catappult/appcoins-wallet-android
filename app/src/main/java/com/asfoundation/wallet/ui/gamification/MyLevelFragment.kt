@@ -91,7 +91,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   }
 
-  override fun setupLayout() {
+  override fun setLevelIcons() {
     for (i in 0..4) {
       gamificationProgressBarView.setLevelIcons(i)
     }
