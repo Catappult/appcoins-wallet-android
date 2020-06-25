@@ -12,6 +12,7 @@ import com.asfoundation.wallet.promotions.GamificationProgressBarView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_my_level.*
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
@@ -37,8 +38,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        MyLevelPresenter(this, gamificationView, gamificationInteractor, analytics, Schedulers.io(),
-            AndroidSchedulers.mainThread())
+        MyLevelPresenter(this, gamificationView, gamificationInteractor, analytics,
+            CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {

@@ -17,9 +17,10 @@ class MyLevelPresenter(private val view: MyLevelView,
                        private val activity: GamificationView?,
                        private val gamification: GamificationInteractor,
                        private val analytics: GamificationAnalytics,
+                       private val disposables:CompositeDisposable,
                        private val networkScheduler: Scheduler,
                        private val viewScheduler: Scheduler) {
-  val disposables = CompositeDisposable()
+
   fun present(savedInstanceState: Bundle?) {
     handleShowLevels(savedInstanceState == null)
     handleInfoButtonClick()
