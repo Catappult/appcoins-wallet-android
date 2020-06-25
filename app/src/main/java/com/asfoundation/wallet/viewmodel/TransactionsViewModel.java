@@ -432,8 +432,8 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(() -> dismissNotification.postValue(cardNotification), this::onError));
   }
 
-  public void showSupportScreen(boolean checkUnread) {
-    if (checkUnread) {
+  public void showSupportScreen(boolean fromNotification) {
+    if (fromNotification) {
       supportInteractor.displayConversationListOrChat();
     } else {
       supportInteractor.displayChatScreen();
