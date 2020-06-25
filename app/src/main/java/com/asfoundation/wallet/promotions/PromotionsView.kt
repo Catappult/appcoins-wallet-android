@@ -4,15 +4,12 @@ import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import io.reactivex.Observable
 
 interface PromotionsView {
-  fun setupLayout()
+  fun setLevelIcons()
   fun setStaringLevel(userStatus: UserRewardsStatus)
   fun updateLevel(userStatus: UserRewardsStatus)
   fun seeMoreClick(): Observable<Any>
-  fun navigateToGamification()
   fun detailsClick(): Observable<Any>
-  fun navigateToInviteFriends()
   fun shareClick(): Observable<Any>
-  fun showShare(link: String)
   fun gamificationCardClick(): Observable<Any>
   fun referralCardClick(): Observable<Any>
   fun showGamificationUpdate(show: Boolean)

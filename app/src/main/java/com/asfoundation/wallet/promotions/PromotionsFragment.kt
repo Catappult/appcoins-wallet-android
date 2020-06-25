@@ -13,7 +13,6 @@ import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -33,6 +32,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   @Inject
   lateinit var promotionsInteractor: PromotionsInteractorContract
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var activity: PromotionsActivityView
@@ -42,8 +42,8 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        PromotionsPresenter(this, promotionsInteractor, CompositeDisposable(), Schedulers.io(),
-            AndroidSchedulers.mainThread(), formatter)
+        PromotionsPresenter(this, activity, promotionsInteractor, CompositeDisposable(),
+            Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -58,7 +58,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     return inflater.inflate(R.layout.promotions_fragment_view, container, false)
   }
 
-  override fun setupLayout() {
+  override fun setLevelIcons() {
     for (i in 0..4) {
       gamification_progress_bar.setLevelIcons(i)
     }
@@ -123,41 +123,17 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     }
   }
 
-  override fun seeMoreClick(): Observable<Any> {
-    return RxView.clicks(see_more_button)
-  }
+  override fun seeMoreClick() = RxView.clicks(see_more_button)
 
-  override fun detailsClick(): Observable<Any> {
-    return RxView.clicks(details_button)
-  }
+  override fun detailsClick() = RxView.clicks(details_button)
 
-  override fun shareClick(): Observable<Any> {
-    return RxView.clicks(share_button)
-  }
+  override fun shareClick() = RxView.clicks(share_button)
 
-  override fun gamificationCardClick(): Observable<Any> {
-    return RxView.clicks(gamification_card)
-  }
+  override fun gamificationCardClick() = RxView.clicks(gamification_card)
 
-  override fun referralCardClick(): Observable<Any> {
-    return RxView.clicks(referrals_card)
-  }
+  override fun referralCardClick() = RxView.clicks(referrals_card)
 
-  override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
-  }
-
-  override fun showShare(link: String) {
-    activity.handleShare(link)
-  }
-
-  override fun navigateToInviteFriends() {
-    activity.navigateToInviteFriends()
-  }
-
-  override fun navigateToGamification() {
-    activity.navigateToGamification()
-  }
+  override fun retryClick() = RxView.clicks(retry_button)
 
   override fun showReferralCard() {
     no_promotions.visibility = GONE
@@ -217,8 +193,6 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   }
 
   companion object {
-    fun newInstance(): PromotionsFragment {
-      return PromotionsFragment()
-    }
+    fun newInstance() = PromotionsFragment()
   }
 }

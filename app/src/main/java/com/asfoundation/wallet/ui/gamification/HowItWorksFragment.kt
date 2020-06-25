@@ -38,20 +38,20 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: HowItWorksPresenter
-  private lateinit var gamificationView: GamificationView
+  private lateinit var rewardsLevelView: RewardsLevelView
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = HowItWorksPresenter(this, gamificationView, gamificationInteractor, analytics,
+    presenter = HowItWorksPresenter(this, rewardsLevelView, gamificationInteractor, analytics,
         CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is GamificationView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + GamificationView::class.java.simpleName }
-    gamificationView = context
+        context is RewardsLevelView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + RewardsLevelView::class.java.simpleName }
+    rewardsLevelView = context
   }
 
   override fun showLevels(
@@ -148,11 +148,11 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
         ContextCompat.getColor(context!!, R.color.rewards_level_main_color))
   }
 
-  private fun provideParentFragment(): MyLevelFragment? {
-    if (parentFragment !is MyLevelFragment) {
+  private fun provideParentFragment(): LegacyGamificationFragment? {
+    if (parentFragment !is LegacyGamificationFragment) {
       return null
     }
-    return parentFragment as MyLevelFragment
+    return parentFragment as LegacyGamificationFragment
   }
 
 

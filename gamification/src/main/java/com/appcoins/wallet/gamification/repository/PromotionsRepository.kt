@@ -8,7 +8,7 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 interface PromotionsRepository {
-  fun getUserStats(wallet: String): Single<UserStats>
+  fun getUserStats(wallet: String): Single<GamificationStats>
   fun getLevels(wallet: String): Single<Levels>
   fun getForecastBonus(wallet: String, packageName: String,
                        amount: BigDecimal): Single<ForecastBonus>

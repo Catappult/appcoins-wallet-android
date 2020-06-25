@@ -14,14 +14,14 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_gamification_my_level.*
+import kotlinx.android.synthetic.main.fragment_gamification_legacy.*
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.view.*
 import kotlinx.android.synthetic.main.rewards_progress_normal.*
 import kotlinx.android.synthetic.main.rewards_progress_pioneer.*
 import javax.inject.Inject
 
-class MyLevelFragment : DaggerFragment(), MyLevelView {
+class LegacyGamificationFragment : DaggerFragment(), LegacyGamificationView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
 
@@ -29,8 +29,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   lateinit var analytics: GamificationAnalytics
 
 
-  private lateinit var presenter: MyLevelPresenter
-  private lateinit var gamificationView: GamificationView
+  private lateinit var presenter: LegacyGamificationPresenter
+  private lateinit var rewardsLevelView: RewardsLevelView
   private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
   private lateinit var gamificationProgressBarView: GamificationProgressBarView
   private var step = 100
@@ -38,15 +38,15 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        MyLevelPresenter(this, gamificationView, gamificationInteractor, analytics,
+        LegacyGamificationPresenter(this, rewardsLevelView, gamificationInteractor, analytics,
             CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is GamificationView) { MyLevelFragment::class.java.simpleName + " needs to be attached to a " + GamificationView::class.java.simpleName }
-    gamificationView = context
+        context is RewardsLevelView) { LegacyGamificationFragment::class.java.simpleName + " needs to be attached to a " + RewardsLevelView::class.java.simpleName }
+    rewardsLevelView = context
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +54,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     childFragmentManager.beginTransaction()
         .replace(R.id.gamification_fragment_container, HowItWorksFragment.newInstance())
         .commit()
-    return inflater.inflate(R.layout.fragment_gamification_my_level, container, false)
+    return inflater.inflate(R.layout.fragment_gamification_legacy, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

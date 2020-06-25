@@ -4,24 +4,28 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class RewardsLevelPresenter(private val activity: RewardsLevelActivity,
+class RewardsLevelPresenter(private val activity: RewardsLevelView,
                             private val disposable: CompositeDisposable,
                             private val viewScheduler: Scheduler) {
 
-  fun present() {
-    handleRetryClick()
+  fun present(legacy: Boolean) {
+    handleNavigation(legacy)
+    handleRetryClick(legacy)
   }
 
-  private fun handleRetryClick() {
+  private fun handleNavigation(legacy: Boolean) {
+    if (legacy) activity.loadLegacyGamificationView()
+    else activity.loadGamificationView()
+  }
+
+  private fun handleRetryClick(legacy: Boolean) {
     disposable.add(activity.retryClick()
         .observeOn(viewScheduler)
         .doOnNext { activity.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
-        .doOnNext { activity.loadMyLevelFragment() }
+        .doOnNext { handleNavigation(legacy) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun stop() {
-    disposable.clear()
-  }
+  fun stop() = disposable.clear()
 }

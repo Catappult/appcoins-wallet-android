@@ -1,20 +1,22 @@
 package com.asfoundation.wallet.ui.gamification
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_rewards_level.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 
-class RewardsLevelActivity : BaseActivity(), GamificationView {
+class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
 
   private lateinit var menu: Menu
   private lateinit var presenter: RewardsLevelPresenter
@@ -25,14 +27,11 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
 
     setContentView(R.layout.activity_rewards_level)
     toolbar()
+
     infoButtonSubject = PublishSubject.create()
-    val fragment = MyLevelFragment()
-    presenter = RewardsLevelPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
-    presenter.present()
-    // Display the fragment as the main content.
-    supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container, fragment)
-        .commit()
+    presenter =
+        RewardsLevelPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
+    presenter.present(intent.getBooleanExtra(LEGACY, false))
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -58,20 +57,13 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun getInfoButtonClick(): Observable<Any> {
-    return infoButtonSubject!!
-  }
+  override fun getInfoButtonClick() = infoButtonSubject!!
 
-  override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
-  }
+  override fun retryClick() = RxView.clicks(retry_button)
 
-  override fun loadMyLevelFragment() {
-    val fragment = MyLevelFragment()
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment)
-        .commit()
-  }
+  override fun loadLegacyGamificationView() = navigateTo(LegacyGamificationFragment())
+
+  override fun loadGamificationView() = navigateTo(GamificationFragment())
 
   override fun showNetworkErrorView() {
     gamification_no_network.visibility = View.VISIBLE
@@ -94,5 +86,23 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     infoButtonSubject = null
     presenter.stop()
     super.onDestroy()
+  }
+
+  private fun navigateTo(fragment: Fragment) {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, fragment)
+        .commit()
+  }
+
+  companion object {
+
+    const val LEGACY = "legacy"
+
+    @JvmStatic
+    fun newIntent(context: Context, legacy: Boolean): Intent {
+      return Intent(context, RewardsLevelActivity::class.java).apply {
+        putExtra(LEGACY, legacy)
+      }
+    }
   }
 }

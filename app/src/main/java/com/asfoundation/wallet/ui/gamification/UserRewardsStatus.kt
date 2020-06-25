@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
-import com.appcoins.wallet.gamification.repository.UserStats.UserType
+import com.appcoins.wallet.gamification.repository.UserType
 import java.math.BigDecimal
 
 data class UserRewardsStatus(val lastShownLevel: Int = 0, val level: Int = 0,

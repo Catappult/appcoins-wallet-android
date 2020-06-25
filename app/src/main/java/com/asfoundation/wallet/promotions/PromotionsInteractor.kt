@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.UserStats
+import com.appcoins.wallet.gamification.repository.UserType
 import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
@@ -82,8 +83,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         gamificationInteractor.getLevels(),
         gamificationInteractor.getUserStats(),
         gamificationInteractor.getLastShownLevel(GamificationScreen.PROMOTIONS),
-        Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
-          mapToUserStatus(levels, userStats, lastShownLevel)
+        Function3 { levels: Levels, gamificationStats: GamificationStats, lastShownLevel: Int ->
+          mapToUserStatus(levels, gamificationStats, lastShownLevel)
         })
   }
 
@@ -91,13 +92,13 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     return gamificationInteractor.levelShown(level, promotions)
   }
 
-  private fun mapToUserStatus(levels: Levels, userStats: UserStats,
+  private fun mapToUserStatus(levels: Levels, gamificationStats: GamificationStats,
                               lastShownLevel: Int): UserRewardsStatus {
     var status = Status.OK
-    if (levels.status == Levels.Status.NO_NETWORK && userStats.status == UserStats.Status.NO_NETWORK) {
+    if (levels.status == Levels.Status.NO_NETWORK && gamificationStats.status == GamificationStats.Status.NO_NETWORK) {
       status = Status.NO_NETWORK
     }
-    if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
+    if (levels.status == Levels.Status.OK && gamificationStats.status == GamificationStats.Status.OK) {
       var list = listOf<Double>()
       if (levels.isActive) {
         list = levels.list.map { it.bonus }
@@ -105,10 +106,11 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
       val maxBonus = list.max()
           ?.toString() ?: "0.0"
-      val nextLevelAmount = userStats.nextLevelAmount?.minus(
-          userStats.totalSpend)
+      val nextLevelAmount = gamificationStats.nextLevelAmount?.minus(
+          gamificationStats.totalSpend)
           ?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list, status,
+      return UserRewardsStatus(lastShownLevel, gamificationStats.level, nextLevelAmount, list,
+          status,
           maxBonus)
     }
     return UserRewardsStatus(lastShownLevel, lastShownLevel, status = status)
@@ -123,8 +125,16 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     val maxAmount =
         referral.amount.multiply(BigDecimal(referral.available.plus(referral.completed)))
     return PromotionsModel(gamificationAvailable, referralsAvailable, gamification.level,
-        gamification.nextLevelAmount, gamification.totalSpend,
-        referral.link, maxAmount, referral.completed, referral.receivedAmount,
+        gamification.nextLevelAmount, gamification.totalSpend, map(gamification.userType),
+        referral.link ?: "", maxAmount, referral.completed, referral.receivedAmount,
         referral.link != null, referral.symbol)
+  }
+
+  private fun map(userType: GamificationResponse.UserType): UserType {
+    return when (userType) {
+      GamificationResponse.UserType.PIONEER -> UserType.PIONEER
+      GamificationResponse.UserType.INNOVATOR -> UserType.INNOVATOR
+      GamificationResponse.UserType.STANDARD -> UserType.STANDARD
+    }
   }
 }

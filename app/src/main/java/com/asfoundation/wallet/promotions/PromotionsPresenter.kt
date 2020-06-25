@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.repository.UserType
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.Status
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -12,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class PromotionsPresenter(private val view: PromotionsView,
+                          private val activityView: PromotionsActivityView,
                           private val promotionsInteractor: PromotionsInteractorContract,
                           private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
@@ -24,8 +26,6 @@ class PromotionsPresenter(private val view: PromotionsView,
     handleDetailsClick()
     handleShareClick()
     handleRetryClick()
-    handleShowLevels()
-    view.setupLayout()
   }
 
   private fun retrievePromotions() {
@@ -59,21 +59,31 @@ class PromotionsPresenter(private val view: PromotionsView,
         .observeOn(networkScheduler)
         .flatMapSingle { promotionsInteractor.retrievePromotions() }
         .observeOn(viewScheduler)
-        .doOnNext { view.showShare(it.link!!) }
+        .doOnNext { activityView.handleShare(it.link) }
         .subscribe({}, { handleError(it) }))
   }
 
   private fun handleDetailsClick() {
     disposables.add(
         Observable.merge(view.detailsClick(), view.referralCardClick())
-            .doOnNext { view.navigateToInviteFriends() }
+            .doOnNext { activityView.navigateToInviteFriends() }
             .subscribe({}, { handleError(it) }))
   }
 
   private fun handleGamificationNavigationClicks() {
     disposables.add(Observable.merge(view.seeMoreClick(), view.gamificationCardClick())
-        .doOnNext { view.navigateToGamification() }
+        .observeOn(networkScheduler)
+        .flatMapSingle { promotionsInteractor.retrievePromotions() }
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (isLegacyUser(it.userType)) activityView.navigateToLegacyGamification()
+          else activityView.navigateToGamification()
+        }
         .subscribe({}, { handleError(it) }))
+  }
+
+  private fun isLegacyUser(userType: UserType): Boolean {
+    return userType == UserType.PIONEER || userType == UserType.INNOVATOR
   }
 
   private fun handleShowLevels() {
@@ -100,15 +110,16 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun showPromotions(promotionsModel: PromotionsModel) {
     if (promotionsModel.referralsAvailable) {
-      view.setReferralBonus(
-          formatter.formatCurrency(promotionsModel.maxValue, WalletCurrency.FIAT),
+      view.setReferralBonus(formatter.formatCurrency(promotionsModel.maxValue, WalletCurrency.FIAT),
           promotionsModel.currency)
       view.toggleShareAvailability(promotionsModel.isValidated)
       view.showReferralCard()
       checkForReferralsUpdates(promotionsModel)
     }
     if (promotionsModel.gamificationAvailable) {
+      view.setLevelIcons()
       view.showGamificationCard()
+      handleShowLevels()
       handleNewLevel()
     }
   }
@@ -139,15 +150,10 @@ class PromotionsPresenter(private val view: PromotionsView,
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
-        .doOnNext {
-          retrievePromotions()
-          handleShowLevels()
-        }
+        .doOnNext { retrievePromotions() }
         .subscribe({}, { handleError(it) }))
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
 }
