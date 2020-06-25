@@ -71,7 +71,15 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
         gamification.totalEarned,
         GamificationResponse.Status.ACTIVE == gamification.status,
-        GamificationResponse.UserType.PIONEER == gamification.userType)
+        map(gamification.userType))
+  }
+
+  private fun map(userType: GamificationResponse.UserType): UserStats.UserType {
+    return when (userType) {
+      GamificationResponse.UserType.PIONEER -> UserStats.UserType.PIONEER
+      GamificationResponse.UserType.INNOVATOR -> UserStats.UserType.INNOVATOR
+      GamificationResponse.UserType.STANDARD -> UserStats.UserType.STANDARD
+    }
   }
 
   override fun getLevels(wallet: String): Single<Levels> {

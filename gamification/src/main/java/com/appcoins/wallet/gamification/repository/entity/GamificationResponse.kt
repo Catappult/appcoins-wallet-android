@@ -17,14 +17,12 @@ data class GamificationResponse(
     @SerializedName("user_type")
     val userType: UserType) {
 
-  @Suppress("unused")
   enum class Status {
     ACTIVE, INACTIVE
   }
 
-  @Suppress("unused")
   enum class UserType {
-    PIONEER, STANDARD
+    PIONEER, INNOVATOR, STANDARD
   }
 
 }

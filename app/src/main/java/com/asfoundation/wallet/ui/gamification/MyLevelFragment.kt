@@ -86,6 +86,10 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     rewards_layout_pioneer.visibility = View.GONE
   }
 
+  override fun showInnovatorUser() {
+
+  }
+
   override fun setupLayout() {
     for (i in 0..4) {
       gamificationProgressBarView.setLevelIcons(i)

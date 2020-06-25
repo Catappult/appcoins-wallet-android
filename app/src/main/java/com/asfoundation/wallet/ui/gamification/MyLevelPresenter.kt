@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
+import com.appcoins.wallet.gamification.repository.UserStats.UserType
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -37,22 +38,23 @@ class MyLevelPresenter(private val view: MyLevelView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               displayInformation(it.status, it.lastShownLevel, it.level, it.bonus, sendEvent,
-                  it.pioneer)
+                  it.userType)
             }
             .flatMapCompletable { gamification.levelShown(it.level, GamificationScreen.MY_LEVEL) }
             .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun displayInformation(status: Status, lastShownLevel: Int, level: Int,
-                                 bonus: List<Double>, sendEvent: Boolean, pioneer: Boolean) {
+                                 bonus: List<Double>, sendEvent: Boolean, userType: UserType) {
     if (status == Status.NO_NETWORK) {
       activity?.showNetworkErrorView()
     } else {
       activity?.showMainView()
-      if (pioneer)
-        view.showPioneerUser()
-      else
-        view.showNonPioneerUser()
+      when (userType) {
+        UserType.PIONEER -> view.showPioneerUser()
+        UserType.INNOVATOR -> view.showInnovatorUser()
+        else -> view.showNonPioneerUser()
+      }
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {
         view.setStaringLevel(lastShownLevel, level, bonus)
       }
@@ -85,7 +87,7 @@ class MyLevelPresenter(private val view: MyLevelView,
           userStats.totalSpend)
           ?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
       return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list, status,
-          pioneer = userStats.isPioneer)
+          userType = userStats.userType)
     }
     if (levels.status == Levels.Status.NO_NETWORK || userStats.status == UserStats.Status.NO_NETWORK) {
       status = Status.NO_NETWORK

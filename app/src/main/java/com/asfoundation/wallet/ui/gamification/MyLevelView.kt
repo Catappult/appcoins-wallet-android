@@ -15,4 +15,6 @@ interface MyLevelView {
   fun showPioneerUser()
 
   fun showNonPioneerUser()
+
+  fun showInnovatorUser()
 }
