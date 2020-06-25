@@ -98,11 +98,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   private fun map(response: LevelsResponse): Levels {
-    val list = mutableListOf<Levels.Level>()
-    for (level in response.list) {
-      list.add(Levels.Level(level.amount, level.bonus, level.level))
-    }
-    return Levels(Levels.Status.OK, list.toList(), LevelsResponse.Status.ACTIVE == response.status,
+    val list = response.list.map { Levels.Level(it.amount, it.bonus, it.level) }
+    return Levels(Levels.Status.OK, list, LevelsResponse.Status.ACTIVE == response.status,
         response.updateDate)
   }
 
