@@ -207,6 +207,8 @@ dependencies {
   implementation "com.asfoundation:appcoins-contract-proxy:$project.asf_sdk_version"
   implementation "com.asfoundation:ethereumj-android:$project.ethereumj_sdk_version"
 
+  implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
+
   implementation "com.romandanylyk:pageindicatorview:$project.pageindicatorview_version"
 
   implementation "org.web3j:core:$project.web3j_version"
@@ -235,3 +237,5 @@ def renameArtifact(defaultConfig) {
     }
   }
 }
+
+apply plugin: 'com.google.gms.google-services'

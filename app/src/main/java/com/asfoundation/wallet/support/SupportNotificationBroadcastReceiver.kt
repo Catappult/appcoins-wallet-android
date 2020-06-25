@@ -4,7 +4,10 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver.Companion.NOTIFICATION_SERVICE_ID
+import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_CHECK_MESSAGES
+import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_DISMISS
+import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
+import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
 import com.asfoundation.wallet.ui.TransactionsActivity
 
 class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
@@ -12,10 +15,6 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
   private lateinit var notificationManager: NotificationManager
 
   companion object {
-    const val ACTION_KEY = "ACTION_KEY"
-    const val ACTION_CHECK_MESSAGES = "ACTION_CHECK_MESSAGES"
-    const val ACTION_DISMISS = "ACTION_DISMISS"
-    const val SUPPORT_NOTIFICATION_CLICK = "SUPPORT_NOTIFICATION_CLICK"
 
     @JvmStatic
     fun newIntent(context: Context) =

@@ -21,6 +21,8 @@ import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.flurry.android.FlurryAgent
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import io.intercom.android.sdk.Intercom
@@ -85,7 +87,8 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         .build()
     appComponent.inject(this)
     setupRxJava()
-    setupSupportNotificationAlarm()
+    val gpsAvailable = checkGooglePlayServices()
+    if (gpsAvailable.not()) setupSupportNotificationAlarm()
     initiateFlurry()
     inAppPurchaseInteractor.start()
     proofOfAttentionService.start()
@@ -111,6 +114,11 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     }
   }
 
+  private fun checkGooglePlayServices(): Boolean {
+    val availability = GoogleApiAvailability.getInstance()
+    return availability.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS
+  }
+
   private fun setupSupportNotificationAlarm() {
     AlarmManagerBroadcastReceiver.scheduleAlarm(this)
   }
@@ -131,6 +139,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   private fun initiateIntercom() {
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
+
     Intercom.client()
         .setInAppMessageVisibility(Intercom.Visibility.GONE)
   }

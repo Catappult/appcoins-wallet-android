@@ -1,13 +1,10 @@
 package com.asfoundation.wallet.support
 
-import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
-import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_CHECK_MESSAGES
@@ -16,54 +13,31 @@ import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_ID
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_NAME
 import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
-import dagger.android.AndroidInjection
-import dagger.android.DaggerBroadcastReceiver
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import io.intercom.android.sdk.push.IntercomPushClient
 
-class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
 
-  @Inject
-  lateinit var androidInjector: DispatchingAndroidInjector<Any>
+class SupportMessagingService : FirebaseMessagingService() {
 
-  @Inject
-  lateinit var supportInteractor: SupportInteractor
+  private lateinit var notificationManager: NotificationManager
+  private lateinit var intercomPushClient: IntercomPushClient
 
-  lateinit var notificationManager: NotificationManager
-
-  companion object {
-
-    @JvmStatic
-    fun scheduleAlarm(context: Context) {
-      val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-      val intent = Intent(context, AlarmManagerBroadcastReceiver::class.java)
-
-      val pendingIntent =
-          PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-
-      val repeatInterval = TimeUnit.MINUTES.toMillis(15)
-      val triggerTime: Long = SystemClock.elapsedRealtime() + repeatInterval
-      alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime,
-          repeatInterval, pendingIntent)
-    }
-
+  override fun onCreate() {
+    super.onCreate()
+    intercomPushClient = IntercomPushClient()
   }
 
-  override fun androidInjector() = androidInjector
+  override fun onNewToken(token: String) =
+      intercomPushClient.sendTokenToIntercom(application, token)
 
-  override fun onReceive(context: Context, intent: Intent) {
-    super.onReceive(context, intent)
-    AndroidInjection.inject(this, context)
+  override fun onMessageReceived(remoteMessage: RemoteMessage) {
+    notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    if (supportInteractor.shouldShowNotification()) {
-      supportInteractor.updateUnreadConversations()
-      notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(context).build())
+    if (intercomPushClient.isIntercomPush(remoteMessage.data)) {
+      if (isSupportMessage(remoteMessage.data)) {
+        notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(this).build())
+      }
     }
   }
 
@@ -98,4 +72,10 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
     return PendingIntent.getBroadcast(context, 1, intent, 0)
   }
+
+  private fun isSupportMessage(data: MutableMap<String, String>): Boolean {
+    val type = data["conversation_part_type"]
+    return type != null && (type == "message" || type == "comment")
+  }
+
 }
