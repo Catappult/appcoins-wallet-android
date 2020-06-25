@@ -39,11 +39,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun onPromotions(promotionsModel: PromotionsModel) {
     view.hideLoading()
-    if (promotionsModel.gamificationAvailable && promotionsModel.referralsAvailable) {
-      view.setReferralBonus(
-          formatter.formatCurrency(promotionsModel.maxValue, WalletCurrency.FIAT),
-          promotionsModel.currency)
-      view.toggleShareAvailability(promotionsModel.isValidated)
+    if (promotionsModel.gamificationAvailable || promotionsModel.referralsAvailable) {
       showPromotions(promotionsModel)
     } else {
       view.showNoPromotionsScreen()
@@ -104,6 +100,10 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun showPromotions(promotionsModel: PromotionsModel) {
     if (promotionsModel.referralsAvailable) {
+      view.setReferralBonus(
+          formatter.formatCurrency(promotionsModel.maxValue, WalletCurrency.FIAT),
+          promotionsModel.currency)
+      view.toggleShareAvailability(promotionsModel.isValidated)
       view.showReferralCard()
       checkForReferralsUpdates(promotionsModel)
     }
