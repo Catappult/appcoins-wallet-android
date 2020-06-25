@@ -18,11 +18,10 @@ class HowItWorksPresenter(private val view: HowItWorksView,
                           private val activity: GamificationView?,
                           private val gamification: GamificationInteractor,
                           private val analytics: GamificationAnalytics,
+                          private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
                           private val viewScheduler: Scheduler,
                           private val formatter: CurrencyFormatUtils) {
-
-  val disposables = CompositeDisposable()
 
   fun present(savedInstanceState: Bundle?) {
     handleShowLevels()

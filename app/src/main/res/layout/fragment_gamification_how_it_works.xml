@@ -132,187 +132,190 @@
         app:layout_constraintGuide_percent="0.5"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <TextView
-      android:id="@+id/fragment_gamification_how_it_works_title"
-      style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="4dp"
-      android:gravity="center"
-      android:text="@string/gamification_how_header"
-      app:autoSizeMaxTextSize="19sp"
-      app:autoSizeMinTextSize="16sp"
-      app:autoSizeTextType="uniform"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/horizontal_guideline1"
-      />
+      >
+    <TextView
+        android:id="@+id/fragment_gamification_how_it_works_title"
+        style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/gamification_how_header"
+        app:autoSizeMaxTextSize="19sp"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-  <TextView
-      android:id="@+id/fragment_gamification_how_it_works_message"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="32dp"
-      android:layout_marginBottom="16dp"
-      android:gravity="center"
-      android:text="@string/gamification_how_body_new"
-      app:autoSizeMaxTextSize="15sp"
-      app:autoSizeMinTextSize="12sp"
-      app:autoSizeTextType="uniform"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_title"
-      />
+    <TextView
+        android:id="@+id/fragment_gamification_how_it_works_message"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="@string/gamification_how_body_new"
+        app:autoSizeMaxTextSize="15sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_title"
+        />
 
-  <TextView
-      android:id="@+id/level"
-      style="@style/RewardsLevelTextStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="14dp"
-      android:text="@string/gamification_how_table_level"
-      android:textSize="14sp"
-      app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
-      app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_message"
-      />
+    <TextView
+        android:id="@+id/level"
+        style="@style/RewardsLevelTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/gamification_how_table_level"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_message"
+        />
 
-  <TextView
-      android:id="@+id/spend"
-      style="@style/RewardsLevelTextStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="14dp"
-      android:text="@string/gamification_how_table_a1"
-      android:textSize="14sp"
-      app:layout_constraintStart_toEndOf="@+id/vertical_guideline2"
-      app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
-      />
+    <TextView
+        android:id="@+id/spend"
+        style="@style/RewardsLevelTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/gamification_how_table_a1"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guideline2"
+        app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
+        />
 
-  <TextView
-      android:id="@+id/bonus"
-      style="@style/RewardsLevelTextStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="14dp"
-      android:text="@string/gamification_how_table_b1"
-      android:textSize="14sp"
-      app:layout_constraintStart_toEndOf="@id/vertical_guideline3"
-      app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_message"
-      />
+    <TextView
+        android:id="@+id/bonus"
+        style="@style/RewardsLevelTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/gamification_how_table_b1"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_message"
+        />
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/vertical_guideline1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.16"
-      />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.16"
+        />
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/vertical_guideline2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.36"
-      />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.36"
+        />
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/vertical_guideline3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.72"
-      />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.72"
+        />
 
+    <ProgressBar
+        android:id="@+id/fragment_gamification_how_it_works_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        app:layout_constraintBottom_toTopOf="@+id/next_level_footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
+        />
 
+    <LinearLayout
+        android:id="@+id/fragment_gamification_how_it_works_levels_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bonus"
+        />
+
+    <TextView
+        android:id="@+id/next_level_footer"
+        style="@style/GamificationBottomPeekTextStyle.Body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
+        tools:text="@string/gamification_how_to_next_level_body"
+        />
+
+    <ImageView
+        android:id="@+id/bonus_update_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_gamification_level_stats"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/next_level_footer"
+        />
+
+    <TextView
+        android:id="@+id/bonus_update_info"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:paddingBottom="16dp"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/how_it_works_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bonus_update_icon"
+        tools:text="Bonus percentages update in 01/04/2020"
+        />
+
+    <View
+        android:id="@+id/how_it_works_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gamification_how_it_works"
+        app:layout_constraintBottom_toBottomOf="@id/bonus_update_info"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/horizontal_guideline1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       app:layout_constraintGuide_begin="96dp"
-      />
-
-  <ProgressBar
-      android:id="@+id/fragment_gamification_how_it_works_loading"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      app:layout_constraintBottom_toTopOf="@+id/next_level_footer"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
-      />
-
-  <LinearLayout
-      android:id="@+id/fragment_gamification_how_it_works_levels_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="6dp"
-      android:orientation="vertical"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/bonus"
-      />
-
-  <TextView
-      android:id="@+id/next_level_footer"
-      style="@style/GamificationBottomPeekTextStyle.Body"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="32dp"
-      android:gravity="center"
-      android:textSize="12sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
-      tools:text="@string/gamification_how_to_next_level_body"
-      />
-
-  <ImageView
-      android:id="@+id/bonus_update_icon"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
-      android:layout_marginTop="4dp"
-      android:src="@drawable/ic_gamification_level_stats"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/next_level_footer"
-      />
-
-  <TextView
-      android:id="@+id/bonus_update_info"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="4dp"
-      android:layout_marginEnd="32dp"
-      android:gravity="center"
-      android:paddingBottom="16dp"
-      android:textColor="#000000"
-      android:textSize="12sp"
-      app:layout_constraintBottom_toBottomOf="@id/how_it_works_background"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/bonus_update_icon"
-      tools:text="Bonus percentages update in 01/04/2020"
-      />
-
-  <View
-      android:id="@+id/how_it_works_background"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:background="@color/gamification_how_it_works"
-      app:layout_constraintBottom_toBottomOf="@id/bonus_update_info"
-      app:layout_constraintTop_toTopOf="@id/horizontal_guideline1"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

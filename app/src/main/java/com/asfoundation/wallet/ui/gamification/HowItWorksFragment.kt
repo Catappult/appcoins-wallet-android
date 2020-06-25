@@ -18,8 +18,10 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_how_it_works.*
+import java.math.BigDecimal
 import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -43,7 +45,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = HowItWorksPresenter(this, gamificationView, gamificationInteractor, analytics,
-        Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
+        CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
@@ -57,8 +59,13 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       levels: List<ViewLevel>,
       currentLevel: Int, updateDate: Date?) {
     fragment_gamification_how_it_works_loading.visibility = View.INVISIBLE
-
-    for (level in levels) {
+    val newList: MutableList<ViewLevel> = levels as MutableList<ViewLevel>
+    newList.add(ViewLevel(6, BigDecimal(20000), 27.5, false))
+    newList.add(ViewLevel(7, BigDecimal(25000), 30.0, false))
+    newList.add(ViewLevel(8, BigDecimal(30000), 32.5, false))
+    newList.add(ViewLevel(9, BigDecimal(35000), 35.0, false))
+    newList.add(ViewLevel(10, BigDecimal(40000), 37.5, false))
+    for (level in newList) {
       val view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
           fragment_gamification_how_it_works_levels_layout, false)
       val levelTextView = view.findViewById<TextView>(R.id.level)
