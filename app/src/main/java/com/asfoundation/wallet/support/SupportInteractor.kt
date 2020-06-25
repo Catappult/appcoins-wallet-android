@@ -29,6 +29,21 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
         .displayMessenger()
   }
 
+  @Suppress("DEPRECATION")
+  fun displayConversationListOrChat() {
+    //this method was introduced because if the app is closed intercom returns 0 unread conversations
+    //even if there are more
+    resetUnreadConversations()
+    val handledByIntercom = getUnreadConversations() > 0
+    if (handledByIntercom) {
+      Intercom.client()
+          .displayMessenger()
+    } else {
+      Intercom.client()
+          .displayConversationsList()
+    }
+  }
+
   fun registerUser(level: Int, walletAddress: String) {
     if (currentUser != walletAddress || currentGamificationLevel != level) {
       if (currentUser != walletAddress) {

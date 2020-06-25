@@ -184,7 +184,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
       if (supportNotificationClick) {
         overridePendingTransition(0, 0);
-        viewModel.showSupportScreen();
+        viewModel.showSupportScreen(true);
       }
     }
   }
@@ -248,7 +248,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       animation.setProgress(0);
     }
 
-    animation.setOnClickListener(v -> viewModel.showSupportScreen());
+    animation.setOnClickListener(v -> viewModel.showSupportScreen(false));
   }
 
   private void onFetchTransactionsError(Double maxBonus) {

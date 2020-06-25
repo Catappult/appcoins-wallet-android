@@ -38,8 +38,6 @@ class SupportMessagingService : FirebaseMessagingService() {
       if (isSupportMessage(remoteMessage.data)) {
         notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(this).build())
       }
-    } else {
-      super.onMessageReceived(remoteMessage)
     }
   }
 
