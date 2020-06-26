@@ -20,6 +20,9 @@ class PromotionsPresenter(private val view: PromotionsView,
                           private val viewScheduler: Scheduler,
                           private val formatter: CurrencyFormatUtils) {
 
+  var cachedUserType: UserType = UserType.STANDARD
+  var cachedLink: String = ""
+
   fun present() {
     retrievePromotions()
     handleGamificationNavigationClicks()
@@ -29,12 +32,11 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun retrievePromotions() {
-    disposables.add(
-        promotionsInteractor.retrievePromotions()
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess { onPromotions(it) }
-            .subscribe({}, { handleError(it) }))
+    disposables.add(promotionsInteractor.retrievePromotions()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess { onPromotions(it) }
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun onPromotions(promotionsModel: PromotionsModel) {
@@ -47,43 +49,31 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handleNewLevel() {
-    disposables.add(
-        promotionsInteractor.hasGamificationNewLevel(GamificationScreen.MY_LEVEL)
-            .observeOn(viewScheduler)
-            .doOnSuccess { view.showGamificationUpdate(it) }
-            .subscribe({}, { handleError(it) }))
+    disposables.add(promotionsInteractor.hasGamificationNewLevel(GamificationScreen.MY_LEVEL)
+        .observeOn(viewScheduler)
+        .doOnSuccess { view.showGamificationUpdate(it) }
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun handleShareClick() {
     disposables.add(view.shareClick()
-        .observeOn(networkScheduler)
-        .flatMapSingle { promotionsInteractor.retrievePromotions() }
-        .observeOn(viewScheduler)
-        .doOnNext { activityView.handleShare(it.link) }
+        .doOnNext { activityView.handleShare(cachedLink) }
         .subscribe({}, { handleError(it) }))
   }
 
   private fun handleDetailsClick() {
-    disposables.add(
-        Observable.merge(view.detailsClick(), view.referralCardClick())
-            .doOnNext { activityView.navigateToInviteFriends() }
-            .subscribe({}, { handleError(it) }))
+    disposables.add(Observable.merge(view.detailsClick(), view.referralCardClick())
+        .doOnNext { activityView.navigateToInviteFriends() }
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun handleGamificationNavigationClicks() {
     disposables.add(Observable.merge(view.seeMoreClick(), view.gamificationCardClick())
-        .observeOn(networkScheduler)
-        .flatMapSingle { promotionsInteractor.retrievePromotions() }
-        .observeOn(viewScheduler)
         .doOnNext {
-          if (isLegacyUser(it.userType)) activityView.navigateToLegacyGamification()
+          if (isLegacyUser(cachedUserType)) activityView.navigateToLegacyGamification()
           else activityView.navigateToGamification()
         }
         .subscribe({}, { handleError(it) }))
-  }
-
-  private fun isLegacyUser(userType: UserType): Boolean {
-    return userType == UserType.PIONEER || userType == UserType.INNOVATOR
   }
 
   private fun handleShowLevels() {
@@ -110,6 +100,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun showPromotions(promotionsModel: PromotionsModel) {
     if (promotionsModel.referralsAvailable) {
+      cachedLink = promotionsModel.link
       view.setReferralBonus(formatter.formatCurrency(promotionsModel.maxValue, WalletCurrency.FIAT),
           promotionsModel.currency)
       view.toggleShareAvailability(promotionsModel.isValidated)
@@ -117,6 +108,7 @@ class PromotionsPresenter(private val view: PromotionsView,
       checkForReferralsUpdates(promotionsModel)
     }
     if (promotionsModel.gamificationAvailable) {
+      cachedUserType = promotionsModel.userType
       view.setLevelIcons()
       view.showGamificationCard()
       handleShowLevels()
@@ -152,6 +144,10 @@ class PromotionsPresenter(private val view: PromotionsView,
         .delay(1, TimeUnit.SECONDS)
         .doOnNext { retrievePromotions() }
         .subscribe({}, { handleError(it) }))
+  }
+
+  private fun isLegacyUser(userType: UserType): Boolean {
+    return userType == UserType.PIONEER || userType == UserType.INNOVATOR
   }
 
   fun stop() = disposables.clear()

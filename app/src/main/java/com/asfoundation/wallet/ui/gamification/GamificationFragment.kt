@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,6 +26,9 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   @Inject
   lateinit var analytics: GamificationAnalytics
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: GamificationPresenter
   private lateinit var activityView: RewardsLevelView
   private lateinit var levelsAdapter: LevelsAdapter
@@ -39,8 +43,8 @@ class GamificationFragment : DaggerFragment(), GamificationView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        GamificationPresenter(this, activityView, interactor, analytics, CompositeDisposable(),
-            AndroidSchedulers.mainThread(), Schedulers.io())
+        GamificationPresenter(this, activityView, interactor, analytics, formatter,
+            CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +64,16 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel)
     gamification_recycler_view.layoutManager = layoutManager
     gamification_recycler_view.adapter = levelsAdapter
+  }
+
+  override fun showHeaderInformation(totalSpent: String, bonusEarned: String, symbol: String) {
+    bonus_earned.text = getString(R.string.value_fiat, symbol, bonusEarned)
+    total_spend.text = getString(R.string.gamification_how_table_a2, totalSpent)
+
+    bonus_earned_skeleton.visibility = View.INVISIBLE
+    total_spend_skeleton.visibility = View.INVISIBLE
+    bonus_earned.visibility = View.VISIBLE
+    total_spend.visibility = View.VISIBLE
   }
 
   override fun onDestroyView() {

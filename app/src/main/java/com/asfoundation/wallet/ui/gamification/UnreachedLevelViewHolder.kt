@@ -8,7 +8,7 @@ class UnreachedLevelViewHolder(itemView: View, private val context: Context) :
     LevelsViewHolder(itemView) {
 
   override fun bind(level: Levels.Level) {
-    TODO("Not yet implemented")
+
   }
 
 }

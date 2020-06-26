@@ -25,7 +25,6 @@ class HowItWorksPresenter(private val view: HowItWorksView,
 
   fun present(savedInstanceState: Bundle?) {
     handleShowLevels()
-    handleShowPeekInformation()
     handleShowNextLevelFooter()
     handleBottomSheetHeaderClick()
     if (savedInstanceState == null) {
@@ -43,6 +42,8 @@ class HowItWorksPresenter(private val view: HowItWorksView,
     disposables.add(
         Single.zip(gamification.getLevels(), gamification.getUserStats(),
             BiFunction { levels: Levels, gamificationStats: GamificationStats ->
+              handlePeekInformation(gamificationStats.totalEarned, gamificationStats.totalSpend,
+                  gamificationStats.status)
               mapToViewLevels(levels, gamificationStats)
             })
             .subscribeOn(networkScheduler)
@@ -58,20 +59,20 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             .subscribe({ }, { handleError(it) }))
   }
 
-  private fun handleShowPeekInformation() {
-    disposables.add(gamification.getUserStats()
-        .flatMapObservable { userStats ->
-          gamification.getAppcToLocalFiat(userStats.totalEarned.toString(), 2)
-              .filter { it.amount.toInt() >= 0 }
-              .observeOn(viewScheduler)
-              .doOnNext {
-                val totalSpend = formatter.formatCurrency(userStats.totalSpend, WalletCurrency.FIAT)
-                val bonusEarned = formatter.formatCurrency(it.amount, WalletCurrency.FIAT)
-                view.showPeekInformation(totalSpend, bonusEarned, it.symbol)
-              }
-        }
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { handleError(it) }))
+  private fun handlePeekInformation(totalEarned: BigDecimal, totalSpend: BigDecimal,
+                                    status: GamificationStats.Status) {
+    if (status == GamificationStats.Status.OK) {
+      disposables.add(gamification.getAppcToLocalFiat(totalEarned.toString(), 2)
+          .filter { it.amount.toInt() >= 0 }
+          .observeOn(viewScheduler)
+          .doOnNext {
+            val totalSpent = formatter.formatCurrency(totalSpend, WalletCurrency.FIAT)
+            val bonusEarned = formatter.formatCurrency(it.amount, WalletCurrency.FIAT)
+            view.showPeekInformation(totalSpent, bonusEarned, it.symbol)
+          }
+          .subscribeOn(networkScheduler)
+          .subscribe({}, { handleError(it) }))
+    }
   }
 
   private fun handleShowNextLevelFooter() {
@@ -98,9 +99,8 @@ class HowItWorksPresenter(private val view: HowItWorksView,
     var status = Status.OK
     if (levels.status == Levels.Status.OK && gamificationStats.status == GamificationStats.Status.OK) {
       for (level in levels.list) {
-        list.add(
-            ViewLevel(level.level, level.amount, level.bonus,
-                gamificationStats.totalSpend >= level.amount))
+        list.add(ViewLevel(level.level, level.amount, level.bonus,
+            gamificationStats.totalSpend >= level.amount))
       }
     }
     if (levels.status == Levels.Status.NO_NETWORK || gamificationStats.status == GamificationStats.Status.NO_NETWORK) {

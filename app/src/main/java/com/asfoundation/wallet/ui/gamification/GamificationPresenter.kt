@@ -5,15 +5,20 @@ import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
+import java.math.BigDecimal
 
 class GamificationPresenter(private val view: GamificationFragment,
                             private val activityView: RewardsLevelView,
                             private val gamification: GamificationInteractor,
                             private val analytics: GamificationAnalytics,
+                            private val formatter: CurrencyFormatUtils,
                             private val disposables: CompositeDisposable,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler) {
@@ -25,6 +30,8 @@ class GamificationPresenter(private val view: GamificationFragment,
   private fun handleLevelInformation(sendEvent: Boolean) {
     disposables.add(Single.zip(gamification.getLevels(), gamification.getUserStats(),
         BiFunction { levels: Levels, gamificationStats: GamificationStats ->
+          handleHeaderInformation(gamificationStats.totalEarned, gamificationStats.totalSpend,
+              gamificationStats.status)
           mapToUserStatus(levels, gamificationStats)
         })
         .subscribeOn(networkScheduler)
@@ -33,7 +40,7 @@ class GamificationPresenter(private val view: GamificationFragment,
         .flatMapCompletable {
           gamification.levelShown(it.currentLevel, GamificationScreen.MY_LEVEL)
         }
-        .subscribe({}, { it.printStackTrace() }))
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun mapToUserStatus(levels: Levels,
@@ -59,6 +66,30 @@ class GamificationPresenter(private val view: GamificationFragment,
       if (sendEvent) analytics.sendMainScreenViewEvent(currentLevel + 1)
     }
   }
+
+  private fun handleHeaderInformation(totalEarned: BigDecimal, totalSpend: BigDecimal,
+                                      status: GamificationStats.Status) {
+    if (status == GamificationStats.Status.OK) {
+      disposables.add(gamification.getAppcToLocalFiat(totalEarned.toString(), 2)
+          .filter { it.amount.toInt() >= 0 }
+          .observeOn(viewScheduler)
+          .doOnNext {
+            val totalSpent = formatter.formatCurrency(totalSpend, WalletCurrency.FIAT)
+            val bonusEarned = formatter.formatCurrency(it.amount, WalletCurrency.FIAT)
+            view.showHeaderInformation(totalSpent, bonusEarned, it.symbol)
+          }
+          .subscribeOn(networkScheduler)
+          .subscribe({}, { handleError(it) }))
+    }
+  }
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    if (throwable.isNoNetworkException()) {
+      activityView.showNetworkErrorView()
+    }
+  }
+
 
   fun stop() = disposables.clear()
 }
