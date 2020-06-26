@@ -14,7 +14,5 @@ interface LegacyGamificationView {
 
   fun showPioneerUser()
 
-  fun showNonPioneerUser()
-
   fun showInnovatorUser()
 }

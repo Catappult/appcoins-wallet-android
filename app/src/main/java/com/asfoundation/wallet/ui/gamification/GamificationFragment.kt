@@ -22,6 +22,7 @@ class GamificationFragment : DaggerFragment(), GamificationView {
   lateinit var analytics: GamificationAnalytics
   private lateinit var presenter: GamificationPresenter
   private lateinit var activityView: RewardsLevelView
+  private lateinit var levelsAdapter: LevelsAdapter
 
   override fun onAttach(context: Context) {
     super.onAttach(context)

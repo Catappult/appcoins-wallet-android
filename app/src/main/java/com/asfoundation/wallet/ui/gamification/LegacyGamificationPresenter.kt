@@ -52,7 +52,8 @@ class LegacyGamificationPresenter(private val view: LegacyGamificationView,
       when (userType) {
         UserType.PIONEER -> view.showPioneerUser()
         UserType.INNOVATOR -> view.showInnovatorUser()
-        else -> view.showNonPioneerUser()
+        //This shouldn't happen as this fragment is only loaded if user type is Pioneer or Innovator
+        else -> activity?.loadGamificationView()
       }
       view.setLevelIcons()
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {

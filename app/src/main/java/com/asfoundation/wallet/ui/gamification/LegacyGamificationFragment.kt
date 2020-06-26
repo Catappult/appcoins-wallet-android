@@ -79,16 +79,13 @@ class LegacyGamificationFragment : DaggerFragment(), LegacyGamificationView {
     rewards_layout_normal.visibility = View.GONE
   }
 
-  override fun showNonPioneerUser() {
+  override fun showInnovatorUser() {
+    //TODO change later for the correct one. Currently showing the old standard user
     gamification_loading.visibility = View.GONE
     content.visibility = View.VISIBLE
     gamificationProgressBarView = gamification_progress_bar_normal
     rewards_layout_normal.visibility = View.VISIBLE
     rewards_layout_pioneer.visibility = View.GONE
-  }
-
-  override fun showInnovatorUser() {
-
   }
 
   override fun setLevelIcons() {
