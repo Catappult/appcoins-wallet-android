@@ -2,8 +2,9 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.appcoins.wallet.gamification.repository.Levels
 
 abstract class LevelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-  abstract fun bind(level: ViewLevel)
+  abstract fun bind(level: Levels.Level)
 }

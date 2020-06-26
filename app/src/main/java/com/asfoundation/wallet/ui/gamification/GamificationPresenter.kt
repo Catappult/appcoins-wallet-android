@@ -4,14 +4,11 @@ import android.os.Bundle
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.UserType
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Function3
-import java.math.BigDecimal
-import java.math.RoundingMode
+import io.reactivex.functions.BiFunction
 
 class GamificationPresenter(private val view: GamificationFragment,
                             private val activityView: RewardsLevelView,
@@ -27,55 +24,41 @@ class GamificationPresenter(private val view: GamificationFragment,
 
   private fun handleLevelInformation(sendEvent: Boolean) {
     disposables.add(Single.zip(gamification.getLevels(), gamification.getUserStats(),
-        gamification.getLastShownLevel(GamificationScreen.MY_LEVEL),
-        Function3 { levels: Levels, gamificationStats: GamificationStats, lastShownLevel: Int ->
-          mapToUserStatus(levels, gamificationStats, lastShownLevel)
+        BiFunction { levels: Levels, gamificationStats: GamificationStats ->
+          mapToUserStatus(levels, gamificationStats)
         })
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess {
-          displayInformation(it.status, it.lastShownLevel, it.level, it.bonus, sendEvent,
-              it.userType)
+        .doOnSuccess { displayInformation(it, sendEvent) }
+        .flatMapCompletable {
+          gamification.levelShown(it.currentLevel, GamificationScreen.MY_LEVEL)
         }
-        .flatMapCompletable { gamification.levelShown(it.level, GamificationScreen.MY_LEVEL) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun mapToUserStatus(levels: Levels, gamificationStats: GamificationStats,
-                              lastShownLevel: Int): UserRewardsStatus {
-    var status = Status.OK
+  private fun mapToUserStatus(levels: Levels,
+                              gamificationStats: GamificationStats): GamificationInfo {
+    var status = Status.UNKNOWN_ERROR
     if (levels.status == Levels.Status.OK && gamificationStats.status == GamificationStats.Status.OK) {
-      val list = mutableListOf<Double>()
-      if (levels.isActive) {
-        for (level in levels.list) {
-          list.add(level.bonus)
-        }
-      }
-      val nextLevelAmount = gamificationStats.nextLevelAmount?.minus(gamificationStats.totalSpend)
-          ?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(lastShownLevel, gamificationStats.level, nextLevelAmount, list,
-          status, userType = gamificationStats.userType)
+      return GamificationInfo(gamificationStats.level, gamificationStats.totalSpend, levels.list,
+          Status.OK)
     }
     if (levels.status == Levels.Status.NO_NETWORK || gamificationStats.status == GamificationStats.Status.NO_NETWORK) {
       status = Status.NO_NETWORK
     }
-    return UserRewardsStatus(lastShownLevel, lastShownLevel, status = status)
+    return GamificationInfo(status)
   }
 
-  private fun displayInformation(status: Status, lastShownLevel: Int, level: Int,
-                                 bonus: List<Double>, sendEvent: Boolean, userType: UserType) {
-    if (status == Status.NO_NETWORK) {
+  private fun displayInformation(gamification: GamificationInfo, sendEvent: Boolean) {
+    if (gamification.status != Status.OK) {
       activityView.showNetworkErrorView()
     } else {
+      val currentLevel = gamification.currentLevel
       activityView.showMainView()
-      view.displayGamificationInfo()
-      if (sendEvent) {
-        analytics.sendMainScreenViewEvent(level + 1)
-      }
+      view.displayGamificationInfo(currentLevel, gamification.levels, gamification.totalSpend)
+      if (sendEvent) analytics.sendMainScreenViewEvent(currentLevel + 1)
     }
   }
 
-
   fun stop() = disposables.clear()
-
 }

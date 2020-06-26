@@ -7,7 +7,7 @@
     android:background="@color/gamification_how_it_works"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/bottom_sheet_header"
+      android:id="@+id/gamification_header"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@color/white"
@@ -130,5 +130,14 @@
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/gamification_recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:overScrollMode="never"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/gamification_header"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>

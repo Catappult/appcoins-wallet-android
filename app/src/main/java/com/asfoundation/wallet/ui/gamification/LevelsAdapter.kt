@@ -4,10 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
+import java.math.BigDecimal
 
-class LevelsAdapter(private val context: Context, private val levels: List<ViewLevel>,
-                    private val amountSpent: Double, private val currentLevel: Int) :
+class LevelsAdapter(private val context: Context, private val levels: List<Levels.Level>,
+                    private val amountSpent: BigDecimal, private val currentLevel: Int) :
     RecyclerView.Adapter<LevelsViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {

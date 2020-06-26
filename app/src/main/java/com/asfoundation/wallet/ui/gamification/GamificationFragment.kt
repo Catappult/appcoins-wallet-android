@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_gamification.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class GamificationFragment : DaggerFragment(), GamificationView {
@@ -48,8 +53,13 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo() {
-
+  override fun displayGamificationInfo(currentLevel: Int, levels: List<Levels.Level>,
+                                       totalSpend: BigDecimal) {
+    val layoutManager = LinearLayoutManager(context)
+    layoutManager.orientation = RecyclerView.VERTICAL
+    levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel)
+    gamification_recycler_view.layoutManager = layoutManager
+    gamification_recycler_view.adapter = levelsAdapter
   }
 
   override fun onDestroyView() {
