@@ -19,10 +19,10 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
             .inflate(R.layout.reached_level_layout, parent, false)
         LevelReachedViewHolder(layout, context)
       }
-      ACTUAL_VIEW_TYPE -> {
+      CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.actual_level_layout, parent, false)
-        ActualLevelViewHolder(layout, context, amountSpent)
+            .inflate(R.layout.current_level_layout, parent, false)
+        CurrentLevelViewHolder(layout, context, amountSpent)
       }
       else -> {
         val layout = LayoutInflater.from(parent.context)
@@ -40,14 +40,14 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
 
   override fun getItemViewType(position: Int): Int {
     return when {
-      levels[position].level <= currentLevel -> REACHED_VIEW_TYPE
-      levels[position].level == currentLevel + 1 -> ACTUAL_VIEW_TYPE
+      levels[position].level < currentLevel -> REACHED_VIEW_TYPE
+      levels[position].level == currentLevel -> CURRENT_LEVEL_VIEW_TYPE
       else -> UNREACHED_VIEW_TYPE
     }
   }
 
   companion object {
-    private const val ACTUAL_VIEW_TYPE = 0
+    private const val CURRENT_LEVEL_VIEW_TYPE = 0
     private const val REACHED_VIEW_TYPE = 1
     private const val UNREACHED_VIEW_TYPE = 2
   }

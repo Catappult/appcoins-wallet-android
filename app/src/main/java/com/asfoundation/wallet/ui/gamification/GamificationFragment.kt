@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -62,6 +63,9 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
     levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel)
+    gamification_recycler_view.addItemDecoration(
+        MarginItemDecoration(resources.getDimension(R.dimen.wallets_card_margin)
+            .toInt()))
     gamification_recycler_view.layoutManager = layoutManager
     gamification_recycler_view.adapter = levelsAdapter
   }

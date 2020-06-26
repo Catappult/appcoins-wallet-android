@@ -5,9 +5,9 @@ import android.view.View
 import com.appcoins.wallet.gamification.repository.Levels
 import java.math.BigDecimal
 
-class ActualLevelViewHolder(itemView: View,
-                            private val context: Context,
-                            private val amountSpent: BigDecimal) :
+class CurrentLevelViewHolder(itemView: View,
+                             private val context: Context,
+                             private val amountSpent: BigDecimal) :
     LevelsViewHolder(itemView) {
 
   override fun bind(level: Levels.Level) {

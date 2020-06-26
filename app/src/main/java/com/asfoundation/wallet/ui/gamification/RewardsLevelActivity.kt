@@ -31,7 +31,7 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
     infoButtonSubject = PublishSubject.create()
     presenter =
         RewardsLevelPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
-    presenter.present(intent.getBooleanExtra(LEGACY, false))
+    presenter.present(legacy)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -52,8 +52,7 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_info, menu)
     this.menu = menu
-    this.menu.findItem(R.id.action_info)
-        .isVisible = true
+    if (legacy) this.menu.findItem(R.id.action_info).isVisible = true
     return super.onCreateOptionsMenu(menu)
   }
 
@@ -63,7 +62,10 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
 
   override fun loadLegacyGamificationView() = navigateTo(LegacyGamificationFragment())
 
-  override fun loadGamificationView() = navigateTo(GamificationFragment())
+  override fun loadGamificationView() {
+    toolbar().menu.removeItem(R.id.action_info)
+    navigateTo(GamificationFragment())
+  }
 
   override fun showNetworkErrorView() {
     gamification_no_network.visibility = View.VISIBLE
@@ -92,6 +94,10 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, fragment)
         .commit()
+  }
+
+  private val legacy: Boolean by lazy {
+    intent.getBooleanExtra(LEGACY, false)
   }
 
   companion object {
