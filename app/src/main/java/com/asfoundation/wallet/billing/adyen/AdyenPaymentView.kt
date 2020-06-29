@@ -65,4 +65,6 @@ interface AdyenPaymentView {
   fun getAdyenSupportLogoClicks(): Observable<Any>
 
   fun getAdyenSupportIconClicks(): Observable<Any>
+
+  fun showWalletValidation()
 }

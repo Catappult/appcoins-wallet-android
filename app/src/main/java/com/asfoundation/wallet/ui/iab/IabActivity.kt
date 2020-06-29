@@ -20,9 +20,9 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
+import com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -148,6 +148,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
 
+  override fun showWalletValidation() {
+    val intent = PoaWalletValidationActivity.newIntent(this)
+        .apply {
+          intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+    startActivity(intent)
+  }
+
   override fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String,
                            gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
@@ -265,17 +273,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
-  fun isBds(): Boolean {
-    return intent.getBooleanExtra(EXTRA_BDS_IAP, false)
-  }
+  fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
 
   override fun navigateToUri(url: String) {
     navigateToWebViewAuthorization(url)
   }
 
-  override fun uriResults(): Observable<Uri>? {
-    return results
-  }
+  override fun uriResults() = results
 
   override fun launchIntent(intent: Intent) {
     startActivity(intent)
@@ -330,22 +334,24 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
+    const val WALLET_VALIDATION_REQUEST_CODE = 12346
     const val IS_BDS_EXTRA = "is_bds_extra"
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,
                   isBds: Boolean?, developerPayload: String?): Intent {
-      val intent = Intent(activity, IabActivity::class.java)
-      intent.data = previousIntent.data
-      if (previousIntent.extras != null) {
-        intent.putExtras(previousIntent.extras!!)
-      }
-      intent.putExtra(TRANSACTION_EXTRA, transaction)
-      intent.putExtra(IS_BDS_EXTRA, isBds)
-      intent.putExtra(DEVELOPER_PAYLOAD, developerPayload)
-      intent.putExtra(URI, intent.data!!.toString())
-      intent.putExtra(APP_PACKAGE, transaction.domain)
-      return intent
+      return Intent(activity, IabActivity::class.java)
+          .apply {
+            data = previousIntent.data
+            if (previousIntent.extras != null) {
+              putExtras(previousIntent.extras!!)
+            }
+            putExtra(TRANSACTION_EXTRA, transaction)
+            putExtra(IS_BDS_EXTRA, isBds)
+            putExtra(DEVELOPER_PAYLOAD, developerPayload)
+            putExtra(URI, data!!.toString())
+            putExtra(APP_PACKAGE, transaction.domain)
+          }
     }
 
   }

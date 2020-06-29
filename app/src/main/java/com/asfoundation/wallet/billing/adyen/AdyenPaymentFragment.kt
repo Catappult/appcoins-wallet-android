@@ -245,6 +245,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     showSpecificError(R.string.unknown_error)
   }
 
+  override fun showWalletValidation() = iabView.showWalletValidation()
+
   override fun showSpecificError(@StringRes stringRes: Int) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     cancel_button?.visibility = GONE

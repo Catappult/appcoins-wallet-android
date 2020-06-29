@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -236,10 +237,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       refusalReason != null -> Completable.fromAction {
         sendPaymentErrorEvent(refusalCode, refusalReason)
         refusalCode?.let { code ->
-          if (code == CVC_DECLINED) {
-            view.showCvvError()
-          } else {
-            view.showSpecificError(adyenErrorCodeMapper.map(code))
+          when (code) {
+            CVC_DECLINED -> view.showCvvError()
+            FRAUD -> handleFraudFlow()
+            else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
       }
@@ -254,6 +255,31 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         view.showGenericError()
       }
     }
+  }
+
+  private fun handleFraudFlow() {
+    disposables.add(
+        adyenPaymentInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              if (it.not()) view.showGenericError()
+            }
+            .observeOn(networkScheduler)
+            .flatMap {
+              adyenPaymentInteractor.isWalletVerified()
+                  .observeOn(viewScheduler)
+                  .doOnSuccess {
+                    if (it) view.showGenericError()
+                    else view.showWalletValidation()
+                  }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              view.showGenericError()
+            })
+    )
   }
 
   private fun buildRefusalReason(status: Status, message: String?): String {

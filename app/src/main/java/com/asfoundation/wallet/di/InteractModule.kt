@@ -231,11 +231,12 @@ class InteractModule {
   fun provideAdyenPaymentInteractor(adyenPaymentRepository: AdyenPaymentRepository,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
-                                    walletService: WalletService,
-                                    supportInteractor: SupportInteractor): AdyenPaymentInteractor {
+                                    walletService: WalletService, supportInteractor: SupportInteractor,
+                                    walletBlockedInteract: WalletBlockedInteract,
+                                    smsValidationInteract: SmsValidationInteract): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor)
+        walletService, supportInteractor, walletBlockedInteract, smsValidationInteract)
   }
 
   @Provides

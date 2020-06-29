@@ -8,7 +8,7 @@ class WalletStatusRepository(
 
   fun isWalletBlocked(walletAddress: String): Single<Boolean> {
     return api.isWalletBlocked(walletAddress)
-        .map { it.blocked }
+        .map { it.blocked || true}
   }
 
 }

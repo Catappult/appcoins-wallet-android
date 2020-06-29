@@ -22,8 +22,10 @@ class PoaWalletValidationActivity : BaseActivity(),
     PoaWalletValidationView {
 
   private lateinit var presenter: PoaWalletValidationPresenter
+
   @Inject
   lateinit var smsValidationRepository: SmsValidationRepositoryType
+
   @Inject
   lateinit var walletService: WalletService
   private var walletValidated: Boolean = false
