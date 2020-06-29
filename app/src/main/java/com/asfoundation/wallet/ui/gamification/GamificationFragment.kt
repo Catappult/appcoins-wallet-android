@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.LevelViewModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -16,6 +16,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_gamification.*
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -33,6 +34,7 @@ class GamificationFragment : DaggerFragment(), GamificationView {
   private lateinit var presenter: GamificationPresenter
   private lateinit var activityView: RewardsLevelView
   private lateinit var levelsAdapter: LevelsAdapter
+  private var uiEventListener: PublishSubject<Boolean>? = null
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -43,6 +45,7 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    uiEventListener = PublishSubject.create()
     presenter =
         GamificationPresenter(this, activityView, interactor, analytics, formatter,
             CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
@@ -58,11 +61,12 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo(currentLevel: Int, levels: List<Levels.Level>,
+  override fun displayGamificationInfo(currentLevel: Int, levels: List<LevelViewModel>,
                                        totalSpend: BigDecimal) {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
-    levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel)
+    levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel,
+        uiEventListener!!)
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.wallets_card_margin)
             .toInt()))
@@ -79,6 +83,14 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     bonus_earned.visibility = View.VISIBLE
     total_spend.visibility = View.VISIBLE
   }
+
+  override fun getLevelsClicks() = uiEventListener!!
+
+  override fun toogleReachedLevels(hide: Boolean) {
+    levelsAdapter.toogleReachedLevels(hide)
+    if (hide.not()) gamification_recycler_view.scrollToPosition(0)
+  }
+
 
   override fun onDestroyView() {
     presenter.stop()

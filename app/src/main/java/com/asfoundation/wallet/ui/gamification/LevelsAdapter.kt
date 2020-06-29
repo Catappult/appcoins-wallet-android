@@ -4,13 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.LevelViewModel
+import com.appcoins.wallet.gamification.LevelViewModel.LevelType
 import com.asf.wallet.R
+import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 
-class LevelsAdapter(private val context: Context, private val levels: List<Levels.Level>,
-                    private val amountSpent: BigDecimal, private val currentLevel: Int) :
+class LevelsAdapter(private val context: Context, private val levels: List<LevelViewModel>,
+                    private val amountSpent: BigDecimal, private val currentLevel: Int,
+                    private val uiEventListener: PublishSubject<Boolean>) :
     RecyclerView.Adapter<LevelsViewHolder>() {
+
+  private var activeLevelList: MutableList<LevelViewModel> = levels.toMutableList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {
     return when (viewType) {
@@ -22,7 +27,7 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
       CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.current_level_layout, parent, false)
-        CurrentLevelViewHolder(layout, context, amountSpent)
+        CurrentLevelViewHolder(layout, context, amountSpent, currentLevel, uiEventListener)
       }
       else -> {
         val layout = LayoutInflater.from(parent.context)
@@ -32,17 +37,29 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
     }
   }
 
-  override fun getItemCount() = levels.size
+  override fun getItemCount() = activeLevelList.size
 
   override fun onBindViewHolder(holder: LevelsViewHolder, position: Int) {
-    holder.bind(levels[position])
+    holder.bind(activeLevelList[position])
   }
 
   override fun getItemViewType(position: Int): Int {
-    return when {
-      levels[position].level < currentLevel -> REACHED_VIEW_TYPE
-      levels[position].level == currentLevel -> CURRENT_LEVEL_VIEW_TYPE
-      else -> UNREACHED_VIEW_TYPE
+    return when (activeLevelList[position].levelType) {
+      LevelType.REACHED -> REACHED_VIEW_TYPE
+      LevelType.CURRENT -> CURRENT_LEVEL_VIEW_TYPE
+      LevelType.UNREACHED -> UNREACHED_VIEW_TYPE
+    }
+  }
+
+  fun toogleReachedLevels(hide: Boolean) {
+    if (hide) {
+      activeLevelList.removeAll { it.levelType == LevelType.REACHED }
+      notifyItemRangeRemoved(0, currentLevel)
+    } else {
+      for (i in currentLevel - 1 downTo 0) {
+        activeLevelList.add(0, levels[i])
+      }
+      notifyItemRangeInserted(0, currentLevel)
     }
   }
 
