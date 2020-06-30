@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">आपल्या कार्डाचा प्रकार अजुनतरी समर्थित नाही. वेगळे वापरुन प्रयत्न करा.</string>
   <string name="purchase_card_error_security">सुरक्षा माहिती बरोबर आहे ह्याची खात्री आहे? कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
   <!--Async Payments-->
