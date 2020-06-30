@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Tipul tău de card nu este încă acceptat. Încearcă cu un alt card.</string>
   <string name="purchase_card_error_security">Ești sigur că informațiile de securitate sunt corecte? Încearcă din nou.</string>
   <string name="purchase_card_error_wrong_CVV">Codul tău CVV/CVC pare a fi greșit. Încearcă din nou.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC greșit</string>
   <string name="error_contac_us_body">Dacă problema continuă, te rugăm să ne contactezi.</string>
   <!--Async Payments-->
