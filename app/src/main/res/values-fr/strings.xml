@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Votre type de carte n\'est pas encore pris en charge. Essayez avec une autre carte.</string>
   <string name="purchase_card_error_security">Êtes-vous sûr que les informations de sécurité sont correctes ? Veuillez réessayer.</string>
   <string name="purchase_card_error_wrong_CVV">Votre code CVV/CVC semble être erroné. Veuillez réessayer.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Mauvais CVV/CVC</string>
   <string name="error_contac_us_body">Si le problème persiste, veuillez nous contacter.</string>
   <!--Async Payments-->
