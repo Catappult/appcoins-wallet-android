@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">نوع کارت شما پشتیبانی نمی‌شود. با کارت دیگری امتحان کنید.</string>
   <string name="purchase_card_error_security">آیا مطمئن هستید که اطلاعات امنیتی صحیح است؟ لطفا مجدد امتحان کنید.</string>
   <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC اشتباه</string>
   <string name="error_contac_us_body">اگر مشکل ادامه داشت لطفا با ما تماس بگیرید.</string>
   <!--Async Payments-->
