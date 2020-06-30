@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Типът на твоята карта все още не се поддържа. Опитай с друга.</string>
   <string name="purchase_card_error_security">Сигурен ли сте, че информацията за сигурност е вярна? Моля, опитай отново.</string>
   <string name="purchase_card_error_wrong_CVV">Твоят CVV/CVC код изглежда грешен. Моля, опитай отново.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Грешен CVV/CVC</string>
   <string name="error_contac_us_body">Ако проблемът продължава, свържи се с нас.</string>
   <!--Async Payments-->
