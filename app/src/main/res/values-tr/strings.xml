@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Kart türünüz henüz desteklenmiyor. Farklı bir kartla deneyin.</string>
   <string name="purchase_card_error_security">Güvenlik bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin.</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVC kodunuz yanlış gibi görünüyor. Lütfen tekrar deneyin.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Yanlış CVV/CVC</string>
   <string name="error_contac_us_body">Sorun devam ederse lütfen bizimle iletişime geçin.</string>
   <!--Async Payments-->
