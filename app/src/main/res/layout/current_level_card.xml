@@ -10,7 +10,7 @@
       android:layout_height="match_parent"
       >
     <ImageView
-        android:id="@+id/current_level_icon"
+        android:id="@+id/current_level_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
     <TextView
-        android:id="@+id/next_level_title"
+        android:id="@+id/current_level_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -38,8 +38,8 @@
         android:layout_marginTop="4dp"
         android:text="Spend this amount to reach next level"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@id/next_level_title"
-        app:layout_constraintTop_toBottomOf="@id/next_level_title"
+        app:layout_constraintStart_toStartOf="@id/current_level_title"
+        app:layout_constraintTop_toBottomOf="@id/current_level_title"
         />
 
     <ProgressBar
@@ -50,21 +50,25 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="78dp"
         android:max="100"
-        android:progress="0"
-        android:progressDrawable="@drawable/progress_bar_gradient"
+        android:min="0"
+        android:progress="50"
+        android:progressDrawable="@drawable/generic_progress_bar"
+        android:scaleY="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/spend_amount_text"
         app:layout_constraintTop_toBottomOf="@id/spend_amount_text"
         />
     <TextView
+        android:id="@+id/percentage_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         android:text="75%"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/current_level_progress_bar"
+        app:layout_constraintBottom_toTopOf="@id/current_level_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/current_level_progress_bar"
-        app:layout_constraintTop_toTopOf="@id/current_level_progress_bar"
+        app:layout_constraintTop_toBottomOf="@id/current_level_progress_bar"
         />
 
     <TextView
@@ -87,6 +91,18 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/current_level_phrase"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="All truths are easy to understand once they are discovered, the point is to discover them - Galileo Galilei"
+        android:textColor="@color/blue_grey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/percentage_left"
+        app:layout_constraintStart_toStartOf="@id/current_level_progress_bar"
+        app:layout_constraintTop_toBottomOf="@id/current_level_progress_bar"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

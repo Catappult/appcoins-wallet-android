@@ -41,7 +41,7 @@ class GamificationPresenter(private val view: GamificationView,
         BiFunction { levels: Levels, gamificationStats: GamificationStats ->
           handleHeaderInformation(gamificationStats.totalEarned, gamificationStats.totalSpend,
               gamificationStats.status)
-          mapToUserStatus(levels, gamificationStats)
+          mapToGamificationInfo(levels, gamificationStats)
         })
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -52,12 +52,12 @@ class GamificationPresenter(private val view: GamificationView,
         .subscribe({}, { handleError(it) }))
   }
 
-  private fun mapToUserStatus(levels: Levels,
-                              gamificationStats: GamificationStats): GamificationInfo {
+  private fun mapToGamificationInfo(levels: Levels,
+                                    gamificationStats: GamificationStats): GamificationInfo {
     var status = Status.UNKNOWN_ERROR
     if (levels.status == Levels.Status.OK && gamificationStats.status == GamificationStats.Status.OK) {
-      return GamificationInfo(gamificationStats.level, gamificationStats.totalSpend, levels.list,
-          Status.OK)
+      return GamificationInfo(gamificationStats.level, gamificationStats.totalSpend,
+          gamificationStats.nextLevelAmount ?: BigDecimal.ZERO, levels.list, Status.OK)
     }
     if (levels.status == Levels.Status.NO_NETWORK || gamificationStats.status == GamificationStats.Status.NO_NETWORK) {
       status = Status.NO_NETWORK
@@ -72,7 +72,8 @@ class GamificationPresenter(private val view: GamificationView,
       val currentLevel = gamification.currentLevel
       activityView.showMainView()
       val levelViewModel = map(gamification.levels, currentLevel)
-      view.displayGamificationInfo(currentLevel, levelViewModel, gamification.totalSpend)
+      view.displayGamificationInfo(currentLevel, gamification.nextLevelAmount, levelViewModel,
+          gamification.totalSpend)
       if (sendEvent) analytics.sendMainScreenViewEvent(currentLevel + 1)
     }
   }

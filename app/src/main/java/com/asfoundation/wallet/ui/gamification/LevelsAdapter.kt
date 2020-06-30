@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.gamification.LevelViewModel
 import com.appcoins.wallet.gamification.LevelViewModel.LevelType
 import com.asf.wallet.R
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 
 class LevelsAdapter(private val context: Context, private val levels: List<LevelViewModel>,
                     private val amountSpent: BigDecimal, private val currentLevel: Int,
+                    private val nextLevelAmount: BigDecimal,
+                    private val currencyFormatUtils: CurrencyFormatUtils,
                     private val uiEventListener: PublishSubject<Boolean>) :
     RecyclerView.Adapter<LevelsViewHolder>() {
 
@@ -22,17 +25,18 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
       REACHED_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.reached_level_layout, parent, false)
-        LevelReachedViewHolder(layout, context)
+        LevelReachedViewHolder(layout, context, currencyFormatUtils)
       }
       CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.current_level_layout, parent, false)
-        CurrentLevelViewHolder(layout, context, amountSpent, currentLevel, uiEventListener)
+        CurrentLevelViewHolder(layout, context, nextLevelAmount, amountSpent, currencyFormatUtils,
+            uiEventListener)
       }
       else -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.unreached_level_layout, parent, false)
-        UnreachedLevelViewHolder(layout, context)
+        UnreachedLevelViewHolder(layout, context, currencyFormatUtils)
       }
     }
   }
@@ -55,7 +59,7 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
     if (hide) {
       activeLevelList.removeAll { it.levelType == LevelType.REACHED }
       notifyItemRangeRemoved(0, currentLevel)
-    } else {
+    } else if (currentLevel != 0) {
       for (i in currentLevel - 1 downTo 0) {
         activeLevelList.add(0, levels[i])
       }
@@ -69,3 +73,4 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
     private const val UNREACHED_VIEW_TYPE = 2
   }
 }
+

@@ -61,12 +61,13 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo(currentLevel: Int, levels: List<LevelViewModel>,
+  override fun displayGamificationInfo(currentLevel: Int, nextLevelAmount: BigDecimal,
+                                       levels: List<LevelViewModel>,
                                        totalSpend: BigDecimal) {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
-    levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel,
-        uiEventListener!!)
+    levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel, nextLevelAmount,
+        formatter, uiEventListener!!)
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.wallets_card_margin)
             .toInt()))

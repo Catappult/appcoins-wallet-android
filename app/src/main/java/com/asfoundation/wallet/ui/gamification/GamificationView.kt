@@ -6,7 +6,8 @@ import java.math.BigDecimal
 
 interface GamificationView {
 
-  fun displayGamificationInfo(currentLevel: Int, levels: List<LevelViewModel>,
+  fun displayGamificationInfo(currentLevel: Int, nextLevelAmount: BigDecimal,
+                              levels: List<LevelViewModel>,
                               totalSpend: BigDecimal)
 
   fun showHeaderInformation(totalSpent: String, bonusEarned: String, symbol: String)
