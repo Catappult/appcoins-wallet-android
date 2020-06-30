@@ -77,7 +77,6 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   private fun map(userType: GamificationResponse.UserType): UserType {
     return when (userType) {
       GamificationResponse.UserType.PIONEER -> UserType.PIONEER
-      GamificationResponse.UserType.INNOVATOR -> UserType.INNOVATOR
       GamificationResponse.UserType.STANDARD -> UserType.STANDARD
     }
   }

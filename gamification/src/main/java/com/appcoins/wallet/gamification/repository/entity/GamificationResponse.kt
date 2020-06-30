@@ -22,7 +22,7 @@ data class GamificationResponse(
   }
 
   enum class UserType {
-    PIONEER, INNOVATOR, STANDARD
+    PIONEER, STANDARD
   }
 
 }

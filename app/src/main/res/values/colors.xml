@@ -99,9 +99,14 @@
 
   <!-- Gamification -->
 
-  <color name="yellow">#FFFF00</color>
-  <color name="blue_grey">#6699CC</color>
-  <color name="blue_green">#0d98ba</color>
-  <color name="blue">#0000FF</color>
-  <color name="light_blue">#add8e6</color>
+  <color name="gamification_green">#96c562</color>
+  <color name="gamification_light_grey">#a1aec2</color>
+  <color name="gamification_red">#f55151</color>
+  <color name="gamification_blue_grey">#8088af</color>
+  <color name="gamification_orange">#f86d00</color>
+  <color name="gamification_dark_yellow">#d98000</color>
+  <color name="gamification_yellow">#ffb400</color>
+  <color name="gamification_blue_green">#00b2a7</color>
+  <color name="gamification_light_blue">#79b9c8</color>
+  <color name="gamification_blue">#00b3dd</color>
 </resources>

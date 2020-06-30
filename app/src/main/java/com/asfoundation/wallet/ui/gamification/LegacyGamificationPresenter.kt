@@ -49,12 +49,7 @@ class LegacyGamificationPresenter(private val view: LegacyGamificationView,
       activity?.showNetworkErrorView()
     } else {
       activity?.showMainView()
-      when (userType) {
-        UserType.PIONEER -> view.showPioneerUser()
-        UserType.INNOVATOR -> view.showInnovatorUser()
-        //This shouldn't happen as this fragment is only loaded if user type is Pioneer or Innovator
-        else -> activity?.loadGamificationView()
-      }
+      view.showPioneerUser()
       view.setLevelIcons()
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {
         view.setStaringLevel(lastShownLevel, level, bonus)

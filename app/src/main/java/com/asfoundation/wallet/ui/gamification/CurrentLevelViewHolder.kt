@@ -40,61 +40,61 @@ class CurrentLevelViewHolder(itemView: View,
     when (level) {
       0 -> {
         setBackground(R.drawable.gamification_background)
-        setColor(R.color.green)
+        setColor(R.color.gamification_green)
         setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       1 -> {
         setBackground(R.drawable.referrals_background)
-        setColor(R.color.grey)
+        setColor(R.color.gamification_light_grey)
         setText(R.string.gamification_a_galaxy_title, R.string.gamification_galaxy_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       2 -> {
         setBackground(R.drawable.gamification_background)
-        setColor(R.color.red)
+        setColor(R.color.gamification_red)
         setText(R.string.gamification_a_moon_title, R.string.gamification_a_moon_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       3 -> {
         setBackground(R.drawable.referrals_background)
-        setColor(R.color.blue_grey)
+        setColor(R.color.gamification_blue_grey)
         setText(R.string.gamification_a_planet_title, R.string.gamification_planet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       4 -> {
         setBackground(R.drawable.gamification_background)
-        setColor(R.color.orange)
+        setColor(R.color.gamification_orange)
         setText(R.string.gamification_a_star_title, R.string.gamification_star_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       5 -> {
         setBackground(R.drawable.referrals_background)
-        setColor(android.R.color.holo_orange_light)
+        setColor(R.color.gamification_dark_yellow)
         setText(R.string.gamification_a_star_title, R.string.gamification_star_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       6 -> {
         setBackground(R.drawable.gamification_background)
-        setColor(R.color.yellow)
+        setColor(R.color.gamification_yellow)
         setText(R.string.gamification_a_planet_title, R.string.gamification_planet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       7 -> {
         setBackground(R.drawable.referrals_background)
-        setColor(R.color.blue_green)
+        setColor(R.color.gamification_blue_green)
         setText(R.string.gamification_a_moon_title, R.string.gamification_a_moon_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       8 -> {
         setBackground(R.drawable.gamification_background)
-        setColor(R.color.light_blue)
+        setColor(R.color.gamification_light_blue)
         setText(R.string.gamification_a_galaxy_title, R.string.gamification_galaxy_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       9 -> {
         setBackground(R.drawable.referrals_background)
-        setColor(R.color.blue)
+        setColor(R.color.gamification_blue)
         setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
@@ -136,7 +136,8 @@ class CurrentLevelViewHolder(itemView: View,
                       @StringRes phrase: Int, progressPercentage: String,
                       bonus: Double) {
     itemView.current_level_title.text = context.getString(title)
-    itemView.spend_amount_text.text = context.getString(progress)// , getRemainingAmount()
+    itemView.spend_amount_text.text =
+        "Spend ${getRemainingAmount()} more AppCoins to reach the next level"
     itemView.current_level_phrase.text = context.getString(phrase)
     itemView.current_level_bonus.text = "$bonus% Bonus"
     itemView.percentage_left.text = "$progressPercentage%"

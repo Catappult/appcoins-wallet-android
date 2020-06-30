@@ -147,7 +147,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun isLegacyUser(userType: UserType): Boolean {
-    return userType == UserType.PIONEER || userType == UserType.INNOVATOR
+    return userType == UserType.PIONEER
   }
 
   fun stop() = disposables.clear()

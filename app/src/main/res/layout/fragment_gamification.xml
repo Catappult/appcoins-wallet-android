@@ -17,6 +17,16 @@
       app:layout_constraintTop_toTopOf="parent"
       >
     <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#35979797"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/amount_spent_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/total_spend"
+        />
+    <View
         android:id="@+id/top_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -99,6 +109,7 @@
         />
 
     <TextView
+        android:id="@+id/amount_spent_text"
         style="@style/GamificationBottomPeekTextStyle.Body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -120,7 +131,14 @@
         app:layout_constraintGuide_percent="0.5"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
-
+  <View
+      android:layout_width="4dp"
+      android:layout_height="match_parent"
+      android:layout_marginStart="46dp"
+      android:background="#32d4d4d4"
+      android:orientation="vertical"
+      app:layout_constraintStart_toStartOf="parent"
+      />
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/gamification_recycler_view"
       android:layout_width="match_parent"
@@ -134,5 +152,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/gamification_header"
+      tools:listitem="@layout/unreached_level_layout"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

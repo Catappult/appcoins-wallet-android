@@ -13,6 +13,4 @@ interface LegacyGamificationView {
   fun animateBackgroundFade()
 
   fun showPioneerUser()
-
-  fun showInnovatorUser()
 }
