@@ -461,6 +461,7 @@
   <string name="purchase_card_error_not_supported">إن نوع بطاقتك غير مدعوم حاليًا. حاول مع بطاقة أخرى.</string>
   <string name="purchase_card_error_security">هل أنت متأكد من أن المعلومات الأمنية صحيحة؟ يرجى المحاولة ثانية.</string>
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
   <!--Async Payments-->
