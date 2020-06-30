@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">သင့္ကဒ္အမ်ိဳးအစားကို မပံ့ပိုးေပးထားေသးပါ။ အျခားကဒ္တစ္ကဒ္ျဖင့္ ႀကိဳးစားပါ။</string>
   <string name="purchase_card_error_security">လံုၿခံဳေရး သတင္းအခ်က္အလက္ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <!--Async Payments-->
