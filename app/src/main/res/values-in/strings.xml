@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Jenis kartu Anda belum didukung. Silakan coba yang lainnya.</string>
   <string name="purchase_card_error_security">Apakah Anda yakin informasi keamanannya benar? Silakan coba lagi.</string>
   <string name="purchase_card_error_wrong_CVV">Kode CVV/CVC Anda sepertinya salah. Silakan coba lagi.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC salah</string>
   <string name="error_contac_us_body">Kalau masalah tetap ada, silakan hubungi kami.</string>
   <!--Async Payments-->
