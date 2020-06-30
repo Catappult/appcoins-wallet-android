@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Tip vaše kartice još nije podržan. Pokušajte sa drugom karticom.</string>
   <string name="purchase_card_error_security">Da li ste sigurni da su bezbednosne informacije tačne? Pokušajte ponovo.</string>
   <string name="purchase_card_error_wrong_CVV">Izgleda da je CVV/CVC kod pogrešan. Pokušajte ponovo.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
   <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
   <!--Async Payments-->
