@@ -231,7 +231,8 @@ class InteractModule {
   fun provideAdyenPaymentInteractor(adyenPaymentRepository: AdyenPaymentRepository,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
-                                    walletService: WalletService, supportInteractor: SupportInteractor,
+                                    walletService: WalletService,
+                                    supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     smsValidationInteract: SmsValidationInteract): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
@@ -341,8 +342,11 @@ class InteractModule {
   @Provides
   fun providesAppcoinsRewardsBuyInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                                          supportInteractor: SupportInteractor,
-                                         walletService: WalletService): AppcoinsRewardsBuyInteract {
-    return AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService)
+                                         walletService: WalletService,
+                                         walletBlockedInteract: WalletBlockedInteract,
+                                         smsValidationInteract: SmsValidationInteract): AppcoinsRewardsBuyInteract {
+    return AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService,
+        walletBlockedInteract, smsValidationInteract)
   }
 
   @Provides
