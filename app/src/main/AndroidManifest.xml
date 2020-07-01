@@ -177,9 +177,7 @@
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
         android:label="@string/title_airdrop"
         android:screenOrientation="portrait" />
-    <activity
-        android:name="com.asfoundation.wallet.ui.gamification.RewardsLevelActivity"
-        android:screenOrientation="portrait" />
+    <activity android:name="com.asfoundation.wallet.ui.gamification.RewardsLevelActivity" />
     <activity
         android:name="com.asfoundation.wallet.ui.transact.TransferActivity"
         android:label="@string/title_activity_send" />
