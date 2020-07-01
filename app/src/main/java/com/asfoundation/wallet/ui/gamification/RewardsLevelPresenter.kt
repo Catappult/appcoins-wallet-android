@@ -23,6 +23,7 @@ class RewardsLevelPresenter(private val activity: RewardsLevelView,
         .observeOn(viewScheduler)
         .doOnNext { activity.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
         .doOnNext { handleNavigation(legacy) }
         .subscribe({}, { it.printStackTrace() }))
   }
