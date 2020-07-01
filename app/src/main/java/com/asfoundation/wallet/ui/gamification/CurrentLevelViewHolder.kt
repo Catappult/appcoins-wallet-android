@@ -38,62 +38,99 @@ class CurrentLevelViewHolder(itemView: View,
   private fun handleSpecificLevel(level: Int, progressPercentage: String, bonus: Double) {
     when (level) {
       0 -> {
-        setBackground(R.drawable.gamification_background)
+        setImage(R.drawable.gamification_earth)
         setColor(R.color.gamification_green)
         setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       1 -> {
-        setBackground(R.drawable.referrals_background)
+        setImage(R.drawable.gamification_moon)
         setColor(R.color.gamification_light_grey)
         setText(R.string.gamification_a_galaxy_title, R.string.gamification_galaxy_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       2 -> {
-        setBackground(R.drawable.gamification_background)
+        setImage(R.drawable.gamification_mars)
         setColor(R.color.gamification_red)
         setText(R.string.gamification_a_moon_title, R.string.gamification_a_moon_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       3 -> {
-        setBackground(R.drawable.referrals_background)
+        setImage(R.drawable.gamification_phobos)
         setColor(R.color.gamification_blue_grey)
         setText(R.string.gamification_a_planet_title, R.string.gamification_planet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       4 -> {
-        setBackground(R.drawable.gamification_background)
+        setImage(R.drawable.gamification_jupiter)
         setColor(R.color.gamification_orange)
         setText(R.string.gamification_a_star_title, R.string.gamification_star_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       5 -> {
-        setBackground(R.drawable.referrals_background)
+        setImage(R.drawable.gamification_europa)
         setColor(R.color.gamification_dark_yellow)
         setText(R.string.gamification_a_star_title, R.string.gamification_star_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       6 -> {
-        setBackground(R.drawable.gamification_background)
+        setImage(R.drawable.gamification_saturn)
         setColor(R.color.gamification_yellow)
         setText(R.string.gamification_a_planet_title, R.string.gamification_planet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       7 -> {
-        setBackground(R.drawable.referrals_background)
+        setImage(R.drawable.gamification_titan)
         setColor(R.color.gamification_blue_green)
         setText(R.string.gamification_a_moon_title, R.string.gamification_a_moon_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       8 -> {
-        setBackground(R.drawable.gamification_background)
+        setImage(R.drawable.gamification_uranus)
         setColor(R.color.gamification_light_blue)
         setText(R.string.gamification_a_galaxy_title, R.string.gamification_galaxy_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
       9 -> {
-        setBackground(R.drawable.referrals_background)
+        setImage(R.drawable.gamification_neptune)
         setColor(R.color.gamification_blue)
+        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
+            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
+      }
+      //TODO Change for future unknown planet
+      10 -> {
+        setImage(R.drawable.gamification_planetx)
+        setColor(R.color.gamification_purple)
+        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
+            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
+      }
+      11 -> {
+        setImage(R.drawable.gamification_planetx)
+        setColor(R.color.gamification_purple)
+        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
+            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
+      }
+      12 -> {
+        setImage(R.drawable.gamification_planetx)
+        setColor(R.color.gamification_purple)
+        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
+            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
+      }
+      13 -> {
+        setImage(R.drawable.gamification_planetx)
+        setColor(R.color.gamification_purple)
+        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
+            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
+      }
+      14 -> {
+        setImage(R.drawable.gamification_planetx)
+        setColor(R.color.gamification_purple)
+        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
+            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
+      }
+      else -> {
+        setImage(R.drawable.gamification_planetx)
+        setColor(R.color.gamification_purple)
         setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
             R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
       }
@@ -110,7 +147,7 @@ class CurrentLevelViewHolder(itemView: View,
     }
   }
 
-  private fun setBackground(@DrawableRes image: Int) {
+  private fun setImage(@DrawableRes image: Int) {
     itemView.current_level_image.setImageDrawable(
         ResourcesCompat.getDrawable(context.resources, image, null))
   }

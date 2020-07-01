@@ -25,7 +25,7 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
       REACHED_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.reached_level_layout, parent, false)
-        LevelReachedViewHolder(layout, context, currencyFormatUtils)
+        LevelReachedViewHolder(layout, context)
       }
       CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
