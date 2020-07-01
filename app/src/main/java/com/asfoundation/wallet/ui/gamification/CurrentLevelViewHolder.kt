@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.current_level_card.view.*
 import kotlinx.android.synthetic.main.current_level_layout.view.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class CurrentLevelViewHolder(itemView: View,
@@ -171,7 +172,8 @@ class CurrentLevelViewHolder(itemView: View,
         "Spend ${getRemainingAmount()} more AppCoins to reach the next level"
     itemView.current_level_phrase.text =
         "All truths are easy to understand once they are discovered, the point is to discover them - Galileo Galilei"
-    itemView.current_level_bonus.text = "$bonus% Bonus"
+    val df = DecimalFormat("###.#")
+    itemView.current_level_bonus.text = "${df.format(bonus)}% Bonus"
     itemView.percentage_left.text = "$progressPercentage%"
   }
 
