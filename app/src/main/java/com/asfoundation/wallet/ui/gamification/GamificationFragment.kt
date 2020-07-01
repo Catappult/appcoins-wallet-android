@@ -69,7 +69,7 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel, nextLevelAmount,
         formatter, uiEventListener!!)
     gamification_recycler_view.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.wallets_card_margin)
+        MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
             .toInt()))
     gamification_recycler_view.layoutManager = layoutManager
     gamification_recycler_view.adapter = levelsAdapter

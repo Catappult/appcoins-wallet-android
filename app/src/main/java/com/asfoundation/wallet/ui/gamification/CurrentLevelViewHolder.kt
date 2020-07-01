@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.gamification
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
@@ -103,13 +102,8 @@ class CurrentLevelViewHolder(itemView: View,
 
   private fun handleToogleButton(level: Int) {
     if (level != 0) {
-      val arrow = itemView.toogle_button.compoundDrawablesRelative[2]
       itemView.toogle_button.setOnCheckedChangeListener { _, isChecked ->
         uiEventListener.onNext(isChecked)
-        arrow?.let {
-          ObjectAnimator.ofInt(it, "level", 0, 10000)
-              .start()
-        }
       }
     } else {
       itemView.toogle_button.visibility = View.GONE
@@ -138,7 +132,8 @@ class CurrentLevelViewHolder(itemView: View,
     itemView.current_level_title.text = context.getString(title)
     itemView.spend_amount_text.text =
         "Spend ${getRemainingAmount()} more AppCoins to reach the next level"
-    itemView.current_level_phrase.text = context.getString(phrase)
+    itemView.current_level_phrase.text =
+        "All truths are easy to understand once they are discovered, the point is to discover them - Galileo Galilei"
     itemView.current_level_bonus.text = "$bonus% Bonus"
     itemView.percentage_left.text = "$progressPercentage%"
   }
@@ -152,7 +147,8 @@ class CurrentLevelViewHolder(itemView: View,
       levelRange = BigDecimal.ONE
     }
     val amountSpentInLevel = amountSpent - levelAmount
-    return amountSpentInLevel.divide(levelRange, 0, RoundingMode.HALF_EVEN)
+    return amountSpentInLevel.divide(levelRange, 2, RoundingMode.HALF_EVEN)
+        .multiply(BigDecimal(100))
   }
 
   private fun setProgress(progress: BigDecimal) {

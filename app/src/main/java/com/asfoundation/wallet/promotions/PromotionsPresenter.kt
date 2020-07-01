@@ -22,6 +22,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   var cachedUserType: UserType = UserType.STANDARD
   var cachedLink: String = ""
+  var cachedBonus: Double = 0.0
 
   fun present() {
     retrievePromotions()
@@ -70,8 +71,8 @@ class PromotionsPresenter(private val view: PromotionsView,
   private fun handleGamificationNavigationClicks() {
     disposables.add(Observable.merge(view.seeMoreClick(), view.gamificationCardClick())
         .doOnNext {
-          if (isLegacyUser(cachedUserType)) activityView.navigateToLegacyGamification()
-          else activityView.navigateToGamification()
+          if (isLegacyUser(cachedUserType)) activityView.navigateToLegacyGamification(cachedBonus)
+          else activityView.navigateToGamification(cachedBonus)
         }
         .subscribe({}, { handleError(it) }))
   }
@@ -85,6 +86,7 @@ class PromotionsPresenter(private val view: PromotionsView,
               if (it.status == Status.NO_NETWORK) {
                 view.showNetworkErrorView()
               } else {
+                cachedBonus = it.bonus.last()
                 if (it.lastShownLevel > 0 || it.lastShownLevel == 0 && it.level == 0) {
                   view.setStaringLevel(it)
                 }

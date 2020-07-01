@@ -6,9 +6,8 @@
     >
   <include
       android:id="@+id/app_bar"
-      layout="@layout/layout_app_bar_large_size"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      layout="@layout/layout_app_bar"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />

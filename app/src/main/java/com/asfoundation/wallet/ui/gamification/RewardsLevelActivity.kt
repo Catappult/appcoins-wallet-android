@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
@@ -20,14 +21,15 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
 
   private lateinit var menu: Menu
   private lateinit var presenter: RewardsLevelPresenter
+  private var toolbar: Toolbar? = null
   private var infoButtonSubject: PublishSubject<Any>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_rewards_level)
-    toolbar()
-
+    toolbar = toolbar()
+    setTitle("Get $bonus% Bonus")
     infoButtonSubject = PublishSubject.create()
     presenter =
         RewardsLevelPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
@@ -63,7 +65,7 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
   override fun loadLegacyGamificationView() = navigateTo(LegacyGamificationFragment())
 
   override fun loadGamificationView() {
-    toolbar().menu.removeItem(R.id.action_info)
+    toolbar?.menu?.removeItem(R.id.action_info)
     navigateTo(GamificationFragment())
   }
 
@@ -100,14 +102,22 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
     intent.getBooleanExtra(LEGACY, false)
   }
 
+  private val bonus: Int by lazy {
+    intent.getDoubleExtra(BONUS, 25.0)
+        .toInt()
+  }
+
+
   companion object {
 
     const val LEGACY = "legacy"
+    const val BONUS = "bonus"
 
     @JvmStatic
-    fun newIntent(context: Context, legacy: Boolean): Intent {
+    fun newIntent(context: Context, legacy: Boolean, bonus: Double): Intent {
       return Intent(context, RewardsLevelActivity::class.java).apply {
         putExtra(LEGACY, legacy)
+        putExtra(BONUS, bonus)
       }
     }
   }

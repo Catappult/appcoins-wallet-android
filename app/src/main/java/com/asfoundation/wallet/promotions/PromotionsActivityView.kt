@@ -2,9 +2,9 @@ package com.asfoundation.wallet.promotions
 
 interface PromotionsActivityView {
 
-  fun navigateToLegacyGamification()
+  fun navigateToLegacyGamification(bonus: Double)
 
-  fun navigateToGamification()
+  fun navigateToGamification(bonus: Double)
 
   fun navigateToInviteFriends()
 
