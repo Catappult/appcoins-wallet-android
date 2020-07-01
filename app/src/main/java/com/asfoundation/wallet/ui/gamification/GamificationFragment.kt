@@ -17,8 +17,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.bonus_updated_layout.*
 import kotlinx.android.synthetic.main.fragment_gamification.*
 import java.math.BigDecimal
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class GamificationFragment : DaggerFragment(), GamificationView {
@@ -61,18 +65,22 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo(currentLevel: Int, nextLevelAmount: BigDecimal,
+  override fun displayGamificationInfo(currentLevel: Int,
+                                       nextLevelAmount: BigDecimal,
                                        levels: List<LevelViewModel>,
-                                       totalSpend: BigDecimal) {
+                                       totalSpend: BigDecimal,
+                                       updateDate: Date?) {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
-    levelsAdapter = LevelsAdapter(context!!, levels, totalSpend, currentLevel, nextLevelAmount,
-        formatter, uiEventListener!!)
+    levelsAdapter =
+        LevelsAdapter(context!!, levels, totalSpend, currentLevel, nextLevelAmount, formatter,
+            uiEventListener!!)
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
             .toInt()))
     gamification_recycler_view.layoutManager = layoutManager
     gamification_recycler_view.adapter = levelsAdapter
+    handleBonusUpdatedText(updateDate)
   }
 
   override fun showHeaderInformation(totalSpent: String, bonusEarned: String, symbol: String) {
@@ -92,6 +100,14 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     if (hide.not()) gamification_recycler_view.scrollToPosition(0)
   }
 
+  private fun handleBonusUpdatedText(updateDate: Date?) {
+    if (updateDate != null) {
+      val df: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+      val date = df.format(updateDate)
+      bonus_update_text.text = getString(R.string.pioneer_bonus_updated_body, date)
+      bonus_update.visibility = View.VISIBLE
+    }
+  }
 
   override fun onDestroyView() {
     presenter.stop()

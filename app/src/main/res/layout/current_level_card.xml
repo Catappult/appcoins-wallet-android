@@ -18,7 +18,7 @@
         android:layout_marginTop="17dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_level_galaxy"
+        android:src="@drawable/gamification_unknown_planet_purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

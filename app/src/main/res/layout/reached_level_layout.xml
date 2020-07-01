@@ -14,7 +14,7 @@
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:layout_marginStart="16dp"
-      android:src="@drawable/gamification_planetx_reached"
+      android:src="@drawable/gamification_unknown_planet_purple_reached"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintTop_toTopOf="parent"

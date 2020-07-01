@@ -30,8 +30,8 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
       CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.current_level_layout, parent, false)
-        CurrentLevelViewHolder(layout, context, amountSpent, nextLevelAmount,
-            currencyFormatUtils, uiEventListener)
+        CurrentLevelViewHolder(layout, context, amountSpent, nextLevelAmount, currencyFormatUtils,
+            uiEventListener)
       }
       else -> {
         val layout = LayoutInflater.from(parent.context)

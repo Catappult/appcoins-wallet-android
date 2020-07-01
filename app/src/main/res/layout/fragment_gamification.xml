@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/gamification_how_it_works"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/gamification_header"
@@ -137,30 +136,52 @@
         app:layout_constraintGuide_percent="0.5"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
-  <View
-      android:layout_width="4dp"
-      android:layout_height="0dp"
-      android:layout_marginStart="46dp"
-      android:layout_marginBottom="16dp"
-      android:background="#33d4d4d4"
-      android:orientation="vertical"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/gamification_recycler_view"
+  <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_marginStart="12dp"
-      android:layout_marginEnd="12dp"
-      android:clipToPadding="false"
-      android:overScrollMode="never"
-      android:paddingTop="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/gamification_header"
-      tools:listitem="@layout/unreached_level_layout"
-      />
+      >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+      <View
+          android:layout_width="4dp"
+          android:layout_height="0dp"
+          android:layout_marginStart="46dp"
+          android:layout_marginBottom="16dp"
+          android:background="#33d4d4d4"
+          android:orientation="vertical"
+          app:layout_constraintBottom_toBottomOf="@id/gamification_recycler_view"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/gamification_recycler_view"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_marginStart="12dp"
+          android:layout_marginEnd="12dp"
+          android:clipToPadding="false"
+          android:overScrollMode="never"
+          android:paddingTop="16dp"
+          app:layout_constraintBottom_toTopOf="@id/bonus_update"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          tools:listitem="@layout/unreached_level_layout"
+          />
+      <include
+          android:id="@+id/bonus_update"
+          layout="@layout/bonus_updated_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

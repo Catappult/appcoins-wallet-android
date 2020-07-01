@@ -29,13 +29,12 @@ class LevelReachedViewHolder(itemView: View, private val context: Context) :
       7 -> setImage(R.drawable.gamification_titan_reached)
       8 -> setImage(R.drawable.gamification_uranus_reached)
       9 -> setImage(R.drawable.gamification_neptune_reached)
-      //TODO Change for future unknown planet
-      10 -> setImage(R.drawable.gamification_planetx_reached)
-      11 -> setImage(R.drawable.gamification_planetx_reached)
-      12 -> setImage(R.drawable.gamification_planetx_reached)
-      13 -> setImage(R.drawable.gamification_planetx_reached)
-      14 -> setImage(R.drawable.gamification_planetx_reached)
-      else -> setImage(R.drawable.gamification_planetx_reached)
+      10 -> setImage(R.drawable.gamification_unknown_planet_purple_reached)
+      11 -> setImage(R.drawable.gamification_unknown_planet_green_reached)
+      12 -> setImage(R.drawable.gamification_unknown_planet_brown_reached)
+      13 -> setImage(R.drawable.gamification_unknown_planet_blue_reached)
+      14 -> setImage(R.drawable.gamification_unknown_planet_red_reached)
+      else -> setImage(R.drawable.gamification_unknown_planet_purple_reached)
     }
   }
 

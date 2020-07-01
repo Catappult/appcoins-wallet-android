@@ -57,7 +57,8 @@ class GamificationPresenter(private val view: GamificationView,
     var status = Status.UNKNOWN_ERROR
     if (levels.status == Levels.Status.OK && gamificationStats.status == GamificationStats.Status.OK) {
       return GamificationInfo(gamificationStats.level, gamificationStats.totalSpend,
-          gamificationStats.nextLevelAmount ?: BigDecimal.ZERO, levels.list, Status.OK)
+          gamificationStats.nextLevelAmount ?: BigDecimal.ZERO, levels.list, levels.updateDate,
+          Status.OK)
     }
     if (levels.status == Levels.Status.NO_NETWORK || gamificationStats.status == GamificationStats.Status.NO_NETWORK) {
       status = Status.NO_NETWORK
@@ -73,7 +74,7 @@ class GamificationPresenter(private val view: GamificationView,
       activityView.showMainView()
       val levelViewModel = map(gamification.levels, currentLevel)
       view.displayGamificationInfo(currentLevel, gamification.nextLevelAmount, levelViewModel,
-          gamification.totalSpend)
+          gamification.totalSpend, gamification.updateDate)
       if (sendEvent) analytics.sendMainScreenViewEvent(currentLevel + 1)
     }
   }
