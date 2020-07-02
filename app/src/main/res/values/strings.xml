@@ -730,7 +730,7 @@
   <string name="gamif_achievement_unknown_location">You can\'t go further!</string>
   <string name="gamif_card_start">You\'re still on Earth</string>
   <string name="gamif_card_title">You\'re on %s</string>
-  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamif_card_body">Spend %s AppCoins more to reach this level.</string>
   <string name="gamif_bonus">%s%% Bonus</string>
   <string name="gamif_placeholder_earth">Earth</string>
   <string name="gamif_quote_earth">"The Earth is what we all have in common." – Wendell Berry</string>
