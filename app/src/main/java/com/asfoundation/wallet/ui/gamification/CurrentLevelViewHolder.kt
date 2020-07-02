@@ -140,11 +140,11 @@ class CurrentLevelViewHolder(itemView: View,
 
   private fun handleToogleButton(level: Int) {
     if (level != 0) {
-      itemView.toogle_button.setOnCheckedChangeListener { _, isChecked ->
+      itemView.toggle_button.setOnCheckedChangeListener { _, isChecked ->
         uiEventListener.onNext(isChecked)
       }
     } else {
-      itemView.toogle_button.visibility = View.GONE
+      itemView.toggle_button.visibility = View.GONE
     }
   }
 

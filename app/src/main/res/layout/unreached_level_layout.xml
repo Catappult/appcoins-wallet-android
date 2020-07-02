@@ -46,7 +46,6 @@
       android:fontFamily="sans-serif-medium"
       android:gravity="end"
       android:lineSpacingExtra="4sp"
-      android:maxLines="1"
       android:paddingHorizontal="12dp"
       android:paddingVertical="5dp"
       android:textColor="#808080"
