@@ -16,7 +16,6 @@ class UnreachedLevelViewHolder(itemView: View, private val context: Context,
     itemView.locked_text.text = context.getString(R.string.gamif_next_goals,
         currencyFormatUtils.formatGamificationValues(level.amount))
     val df = DecimalFormat("###.#")
-    itemView.locked_bonus.text =
-        context.getString(R.string.gamification_level_bonus, df.format(level.bonus))
+    itemView.locked_bonus.text = context.getString(R.string.gamif_bonus, df.format(level.bonus))
   }
 }
