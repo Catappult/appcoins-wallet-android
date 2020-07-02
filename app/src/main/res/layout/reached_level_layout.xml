@@ -5,6 +5,8 @@
     android:id="@+id/wallet_card"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
     android:background="@drawable/rectangle_solid_white"
     android:elevation="2dp"
     >
@@ -46,7 +48,7 @@
       android:ellipsize="end"
       android:fontFamily="sans-serif"
       android:lineSpacingExtra="9sp"
-      android:textColor="#000f19"
+      android:textColor="#99000f19"
       android:textSize="11sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/level_title"

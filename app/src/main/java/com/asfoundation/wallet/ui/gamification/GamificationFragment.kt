@@ -97,7 +97,7 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   override fun toogleReachedLevels(hide: Boolean) {
     levelsAdapter.toogleReachedLevels(hide)
-    if (hide.not()) gamification_recycler_view.scrollToPosition(0)
+    gamification_scroll_view.scrollTo(0, 0)
   }
 
   private fun handleBonusUpdatedText(updateDate: Date?) {

@@ -5,6 +5,8 @@
     android:id="@+id/wallet_card"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
     android:background="@drawable/rectangle_solid_white"
     android:elevation="2dp"
     >
@@ -25,7 +27,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
       android:layout_marginEnd="48dp"
-      android:fontFamily="sans-serif"
+      android:fontFamily="sans-serif-medium"
       android:lineSpacingExtra="5sp"
       android:textColor="#000f1a"
       android:textSize="11sp"

@@ -16,5 +16,5 @@ interface GamificationView {
 
   fun getLevelsClicks(): Observable<Boolean>
 
-  fun toogleReachedLevels(it: Boolean)
+  fun toogleReachedLevels(hide: Boolean)
 }
