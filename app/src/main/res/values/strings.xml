@@ -730,31 +730,41 @@
   <string name="gamif_achievement_unknown_location">You can\'t go further!</string>
   <string name="gamif_card_start">You\'re still on Earth</string>
   <string name="gamif_card_title">You\'re on %s</string>
-  <string name="gamif_card_body">Spend %s AppCoins more to reach this level.</string>
+  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
   <string name="gamif_bonus">%s%% Bonus</string>
   <string name="gamif_placeholder_earth">Earth</string>
-  <string name="gamif_quote_earth">"The Earth is what we all have in common." – Wendell Berry</string>
+  <string name="gamif_quote_earth">&quot;The Earth is what we all have in common.&quot; – Wendell Berry</string>
   <string name="gamif_placeholder_moon">the Moon</string>
-  <string name="gamif_quote_moon">"That\'s one small step for a man, one giant leap for mankind." – Neil Armstrong</string>
+  <string name="gamif_quote_moon">&quot;That\'s one small step for a man, one giant leap for mankind.&quot; – Neil Armstrong</string>
+  <string name="gamif_distance_moon">384,400 km from Earth</string>
   <string name="gamif_placeholder_mars">Mars</string>
-  <string name="gamif_quote_mars">"I would like to die on Mars. Just not on impact." – Elon Musk</string>
+  <string name="gamif_quote_mars">&quot;I would like to die on Mars. Just not on impact.&quot; – Elon Musk</string>
+  <string name="gamif_distance_mars">121.8 million km from Earth</string>
   <string name="gamif_placeholder_phobos">the Phobos moon</string>
-  <string name="gamif_quote_phobos">"Everyone is a moon, and has a dark side which he never shows to anybody." – Mark Twain</string>
+  <string name="gamif_quote_phobos">&quot;Everyone is a moon, and has a dark side which he never shows to anybody.&quot; – Mark Twain</string>
+  <string name="gamif_distance_phobos">77.79 million km from Earth</string>
   <string name="gamif_placeholder_jupiter">Jupiter</string>
-  <string name="gamif_quote_jupiter">"All truths are easy to understand once they are discovered; the point is to discover them..." – Galileo Galilei</string>
+  <string name="gamif_quote_jupiter">&quot;All truths are easy to understand once they are discovered; the point is to discover them...&quot; – Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">623.31 million km km from Earth</string>
   <string name="gamif_placeholder_europa">Europa moon</string>
-  <string name="gamif_quote_europa">"If you find life on Europa, what would you call it? Would it be, like, Europeans?" – Neil DeGrasse Tyson</string>
+  <string name="gamif_quote_europa">&quot;If you find life on Europa, what would you call it? Would it be, like, Europeans?&quot; – Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">628.3 million km from Earth</string>
   <string name="gamif_placeholder_saturn">Saturn</string>
-  <string name="gamif_quote_saturn">"The scientific theory I like best is that the rings of Saturn are composed entirely of lost airline luggage." – Mark Russell</string>
+  <string name="gamif_quote_saturn">&quot;The scientific theory I like best is that the rings of Saturn are composed entirely of lost airline luggage.&quot; – Mark Russell</string>
+  <string name="gamif_distance_saturn">1.35 billion km from Earth</string>
   <string name="gamif_placeholder_titan">Titan moon</string>
-  <string name="gamif_quote_titan">"I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here." – Arthur C.Clarke</string>
+  <string name="gamif_quote_titan">&quot;I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here.&quot; – Arthur C.Clarke</string>
+  <string name="gamif_distance_titan">1.4 billion km from Earth</string>
   <string name="gamif_placeholder_uranus">Uranus</string>
-  <string name="gamif_quote_uranus">"The moons of Uranus seem to have got a twist." – Sir Robert Stawell Ball</string>
+  <string name="gamif_quote_uranus">&quot;The moons of Uranus seem to have got a twist.&quot; – Sir Robert Stawell Ball</string>
+  <string name="gamif_distance_uranus">3.03 billion km from Earth</string>
   <string name="gamif_placeholder_neptune">Neptune</string>
-  <string name="gamif_quote_">"That star is not on the chart!" – Helnrich d\'Arrest upon discovering Neptune.</string>
+  <string name="gamif_quote_neptune">&quot;That star is not on the chart!&quot; – Helnrich d\'Arrest upon discovering Neptune.</string>
+  <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
   <string name="gamif_placeholder_planetx">Planet X</string>
-  <string name="gamif_quote_planetx">"Somewhere, something incredible is waiting to be know." – Carl Sagan</string>
-
-
+  <string name="gamif_quote_planetx">&quot;Somewhere, something incredible is waiting to be know.&quot; – Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">an unknown planet</string>
+  <string name="gamif_distance_unkown">Unknown location</string>
+  <string name="gamif_placeholder_new_planet">a new planet</string>
 
 </resources>
