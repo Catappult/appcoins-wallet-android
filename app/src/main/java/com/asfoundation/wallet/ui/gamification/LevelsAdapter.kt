@@ -15,6 +15,7 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
                     private val amountSpent: BigDecimal, private val currentLevel: Int,
                     private val nextLevelAmount: BigDecimal,
                     private val currencyFormatUtils: CurrencyFormatUtils,
+                    private val mapper: GamificationMapper,
                     private val uiEventListener: PublishSubject<Boolean>) :
     RecyclerView.Adapter<LevelsViewHolder>() {
 
@@ -25,13 +26,13 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
       REACHED_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.reached_level_layout, parent, false)
-        LevelReachedViewHolder(layout, context)
+        LevelReachedViewHolder(layout, mapper)
       }
       CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.current_level_layout, parent, false)
         CurrentLevelViewHolder(layout, context, amountSpent, nextLevelAmount, currencyFormatUtils,
-            uiEventListener)
+            mapper, uiEventListener)
       }
       else -> {
         val layout = LayoutInflater.from(parent.context)

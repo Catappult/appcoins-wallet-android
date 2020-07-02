@@ -4,9 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.appcoins.wallet.gamification.LevelViewModel
@@ -25,6 +22,7 @@ class CurrentLevelViewHolder(itemView: View,
                              private val amountSpent: BigDecimal,
                              private val nextLevelAmount: BigDecimal,
                              private val currencyFormatUtils: CurrencyFormatUtils,
+                             private val mapper: GamificationMapper,
                              private val uiEventListener: PublishSubject<Boolean>) :
     LevelsViewHolder(itemView) {
 
@@ -37,105 +35,10 @@ class CurrentLevelViewHolder(itemView: View,
   }
 
   private fun handleSpecificLevel(level: Int, progressPercentage: String, bonus: Double) {
-    when (level) {
-      0 -> {
-        setImage(R.drawable.gamification_earth)
-        setColor(R.color.gamification_light_green)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      1 -> {
-        setImage(R.drawable.gamification_moon)
-        setColor(R.color.gamification_light_grey)
-        setText(R.string.gamification_a_galaxy_title, R.string.gamification_galaxy_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      2 -> {
-        setImage(R.drawable.gamification_mars)
-        setColor(R.color.gamification_red)
-        setText(R.string.gamification_a_moon_title, R.string.gamification_a_moon_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      3 -> {
-        setImage(R.drawable.gamification_phobos)
-        setColor(R.color.gamification_blue_grey)
-        setText(R.string.gamification_a_planet_title, R.string.gamification_planet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      4 -> {
-        setImage(R.drawable.gamification_jupiter)
-        setColor(R.color.gamification_orange)
-        setText(R.string.gamification_a_star_title, R.string.gamification_star_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      5 -> {
-        setImage(R.drawable.gamification_europa)
-        setColor(R.color.gamification_dark_yellow)
-        setText(R.string.gamification_a_star_title, R.string.gamification_star_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      6 -> {
-        setImage(R.drawable.gamification_saturn)
-        setColor(R.color.gamification_yellow)
-        setText(R.string.gamification_a_planet_title, R.string.gamification_planet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      7 -> {
-        setImage(R.drawable.gamification_titan)
-        setColor(R.color.gamification_blue_green)
-        setText(R.string.gamification_a_moon_title, R.string.gamification_a_moon_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      8 -> {
-        setImage(R.drawable.gamification_uranus)
-        setColor(R.color.gamification_old_blue)
-        setText(R.string.gamification_a_galaxy_title, R.string.gamification_galaxy_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      9 -> {
-        setImage(R.drawable.gamification_neptune)
-        setColor(R.color.gamification_blue)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      //TODO Change for future unknown planet
-      10 -> {
-        setImage(R.drawable.gamification_unknown_planet_purple)
-        setColor(R.color.gamification_purple)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      11 -> {
-        setImage(R.drawable.gamification_unknown_planet_green)
-        setColor(R.color.gamification_green)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      12 -> {
-        setImage(R.drawable.gamification_unknown_planet_brown)
-        setColor(R.color.gamification_brown)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      13 -> {
-        setImage(R.drawable.gamification_unknown_planet_blue)
-        setColor(R.color.gamification_light_blue)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      14 -> {
-        setImage(R.drawable.gamification_unknown_planet_red)
-        setColor(R.color.gamification_dark_red)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-      else -> {
-        setImage(R.drawable.gamification_unknown_planet_purple)
-        setColor(R.color.gamification_purple)
-        setText(R.string.gamification_a_comet_title, R.string.gamification_a_comet_subtitle,
-            R.string.gamification_how_terms_and_conditions, progressPercentage, bonus)
-      }
-    }
+    val currentLevelInfo = mapper.mapCurrentLevelInfo(level)
+    itemView.current_level_image.setImageDrawable(currentLevelInfo.planet)
+    setColor(currentLevelInfo.levelColor)
+    setText(currentLevelInfo.title, currentLevelInfo.phrase, progressPercentage, bonus)
   }
 
   private fun handleToogleButton(level: Int) {
@@ -148,26 +51,19 @@ class CurrentLevelViewHolder(itemView: View,
     }
   }
 
-  private fun setImage(@DrawableRes image: Int) {
-    itemView.current_level_image.setImageDrawable(
-        ResourcesCompat.getDrawable(context.resources, image, null))
-  }
-
-  private fun setColor(@ColorRes color: Int) {
-    val resColor = ResourcesCompat.getColor(context.resources, color, null)
+  private fun setColor(color: Int) {
     val ovalBackground =
         ResourcesCompat.getDrawable(context.resources, R.drawable.oval_grey_background, null)
     ovalBackground?.let {
-      DrawableCompat.setTint(it.mutate(), resColor)
+      DrawableCompat.setTint(it.mutate(), color)
       itemView.current_level_bonus.background = it
     }
-    itemView.current_level_progress_bar.progressTintList = ColorStateList.valueOf(resColor)
+    itemView.current_level_progress_bar.progressTintList = ColorStateList.valueOf(color)
   }
 
-  private fun setText(@StringRes title: Int, @StringRes progress: Int,
-                      @StringRes phrase: Int, progressPercentage: String,
+  private fun setText(title: String, phrase: String, progressPercentage: String,
                       bonus: Double) {
-    itemView.current_level_title.text = context.getString(title)
+    itemView.current_level_title.text = title
     itemView.spend_amount_text.text =
         "Spend ${getRemainingAmount()} more AppCoins to reach the next level"
     itemView.current_level_phrase.text =
