@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/gamification_header"
@@ -158,9 +157,9 @@
           android:clipToPadding="false"
           android:overScrollMode="never"
           android:paddingTop="16dp"
-          app:layout_constraintBottom_toTopOf="@id/bonus_update"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
           tools:listitem="@layout/unreached_level_layout"
           />
       <include
@@ -168,11 +167,13 @@
           layout="@layout/bonus_updated_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="14dp"
           android:layout_marginBottom="8dp"
           android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/gamification_recycler_view"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
