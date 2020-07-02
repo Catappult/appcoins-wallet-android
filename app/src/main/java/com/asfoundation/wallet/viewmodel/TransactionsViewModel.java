@@ -191,6 +191,7 @@ public class TransactionsViewModel extends BaseViewModel {
     fetchTransactionsDisposable =
         transactionViewInteract.fetchTransactions(defaultWallet.getValue())
             .flatMapSingle(transactions -> transactionViewInteract.getCardNotifications()
+                .subscribeOn(Schedulers.io())
                 .onErrorReturnItem(Collections.emptyList())
                 .flatMap(notifications -> applications.getApps()
                     .onErrorReturnItem(Collections.emptyList())
