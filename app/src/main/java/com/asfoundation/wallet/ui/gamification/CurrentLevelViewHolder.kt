@@ -65,11 +65,11 @@ class CurrentLevelViewHolder(itemView: View,
                       bonus: Double) {
     itemView.current_level_title.text = title
     itemView.spend_amount_text.text =
-        "Spend ${getRemainingAmount()} more AppCoins to reach the next level"
-    itemView.current_level_phrase.text =
-        "All truths are easy to understand once they are discovered, the point is to discover them - Galileo Galilei"
+        context.getString(R.string.gamif_card_body, getRemainingAmount())
+    itemView.current_level_phrase.text = phrase
     val df = DecimalFormat("###.#")
-    itemView.current_level_bonus.text = "${df.format(bonus)}% Bonus"
+    itemView.current_level_bonus.text =
+        context.getString(R.string.gamification_level_bonus, df.format(bonus))
     itemView.percentage_left.text = "$progressPercentage%"
   }
 
