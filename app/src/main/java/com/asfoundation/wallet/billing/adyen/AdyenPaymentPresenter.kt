@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -239,7 +241,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
-            FRAUD -> handleFraudFlow()
+            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
             else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
@@ -247,7 +249,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       error.hasError -> Completable.fromAction {
         sendPaymentErrorEvent(error.code, error.message)
         when {
-          error.code == 403 -> handleFraudFlow()
+          error.code == 403 -> handleFraudFlow(R.string.unknown_error)
           error.isNetworkError -> view.showNetworkError()
           else -> view.showGenericError()
         }
@@ -260,7 +262,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
-  private fun handleFraudFlow() {
+  private fun handleFraudFlow(@StringRes error: Int) {
     disposables.add(
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
@@ -272,7 +274,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) view.showGenericError()
-                      else view.showWalletValidation()
+                      else view.showWalletValidation(error)
                     }
               } else {
                 Single.just(true)

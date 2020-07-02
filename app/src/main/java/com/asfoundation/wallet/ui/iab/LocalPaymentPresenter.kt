@@ -5,8 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.TypedValue
+import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
+import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -135,10 +137,41 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     )
   }
 
+  private fun handleFraudFlow(@StringRes error: Int) {
+    disposables.add(
+        localPaymentInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { blocked ->
+              if (blocked) {
+                localPaymentInteractor.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) view.showError()
+                      else view.showWalletValidation(error)
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { view.showError() }
+              }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              view.showError()
+            })
+    )
+  }
+
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
     return when {
-      isErrorStatus(transaction) -> Completable.fromAction { view.showError() }
+      isErrorStatus(transaction) -> Completable.fromAction {
+        if (true) handleFraudFlow(R.string.activity_iab_error_message)
+        else view.showError()
+      }
           .subscribeOn(viewScheduler)
       localPaymentInteractor.isAsync(transaction.type) ->
         handleAsyncTransactionStatus(transaction)

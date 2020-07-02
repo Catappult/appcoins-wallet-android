@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -33,13 +34,13 @@ class IabPresenter(private val view: IabView,
     )
   }
 
-  fun handleWalletBlockedCheck() {
+  fun handleWalletBlockedCheck(@StringRes error: Int) {
     disposable.add(
         walletBlockedInteract.isWalletBlocked()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              if (it) view.showIntercomSupport()
+              if (it) view.showError(error)
               else view.showPaymentMethodsView()
             }
             .subscribe({}, { handleError(it) })
@@ -48,7 +49,7 @@ class IabPresenter(private val view: IabView,
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    view.showError()
+    view.finishWithError()
   }
 
   fun handleBackupNotifications(bundle: Bundle) {

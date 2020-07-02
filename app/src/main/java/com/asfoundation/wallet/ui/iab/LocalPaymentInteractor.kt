@@ -9,7 +9,10 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
+import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -23,7 +26,19 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
                              private val billingMessagesMapper: BillingMessagesMapper,
-                             private val supportInteractor: SupportInteractor) {
+                             private val supportInteractor: SupportInteractor,
+                             private val walletBlockedInteract: WalletBlockedInteract,
+                             private val smsValidationInteract: SmsValidationInteract) {
+
+  fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
+
+  fun isWalletVerified() =
+      walletService.getWalletAddress()
+          .flatMap {
+            smsValidationInteract.isValid(it)
+                .map { status -> status == WalletValidationStatus.SUCCESS }
+          }
+          .onErrorReturn { true }
 
   fun getPaymentLink(domain: String, skuId: String?, originalAmount: String?,
                      originalCurrency: String?, paymentMethod: String, developerAddress: String,

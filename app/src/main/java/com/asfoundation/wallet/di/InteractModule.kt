@@ -196,9 +196,12 @@ class InteractModule {
                                     partnerAddressService: AddressService,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     billing: Billing, billingMessagesMapper: BillingMessagesMapper,
-                                    supportInteractor: SupportInteractor): LocalPaymentInteractor {
+                                    supportInteractor: SupportInteractor,
+                                    walletBlockedInteract: WalletBlockedInteract,
+                                    smsValidationInteract: SmsValidationInteract): LocalPaymentInteractor {
     return LocalPaymentInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor)
+        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
+        walletBlockedInteract, smsValidationInteract)
   }
 
   @Provides
@@ -366,7 +369,6 @@ class InteractModule {
   @Singleton
   @Provides
   fun provideCampaignInteract(campaignService: CampaignService, walletService: WalletService,
-                              createWalletInteract: WalletCreatorInteract,
                               autoUpdateInteract: AutoUpdateInteract,
                               findDefaultWalletInteract: FindDefaultWalletInteract,
                               sharedPreferences: PreferencesRepositoryType): CampaignInteract {

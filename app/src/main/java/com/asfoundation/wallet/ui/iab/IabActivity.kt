@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -93,7 +94,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
     } else if (requestCode == WALLET_VALIDATION_REQUEST_CODE) {
-      presenter.handleWalletBlockedCheck()
+      var errorMessage = data?.getIntExtra(ERROR_MESSAGE, 0)
+      if (errorMessage == null || errorMessage == 0) {
+        errorMessage = R.string.unknown_error
+
+      }
+      presenter.handleWalletBlockedCheck(errorMessage)
     }
   }
 
@@ -140,7 +146,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
-  override fun showError() {
+  override fun finishWithError() {
     setResult(Activity.RESULT_CANCELED)
     finish()
   }
@@ -156,8 +162,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
 
-  override fun showWalletValidation() {
-    val intent = PoaWalletValidationActivity.newIntent(this)
+  override fun showWalletValidation(@StringRes error: Int) {
+    fragment_container.visibility = View.GONE
+    val intent = PoaWalletValidationActivity.newIntent(this, error)
         .apply {
           intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -254,9 +261,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showIntercomSupport() {
-    fragment_container.visibility = View.GONE
+  override fun showError(@StringRes error: Int) {
     layout_error.visibility = View.VISIBLE
+    error_message.text = getText(error)
   }
 
   override fun getSupportClicks(): Observable<Any> {
@@ -353,6 +360,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val WALLET_VALIDATION_REQUEST_CODE = 12346
     const val IS_BDS_EXTRA = "is_bds_extra"
+    const val ERROR_MESSAGE = "error_message"
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,

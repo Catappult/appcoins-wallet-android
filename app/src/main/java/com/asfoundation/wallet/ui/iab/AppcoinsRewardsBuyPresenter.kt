@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.util.Log
+import androidx.annotation.StringRes
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.TransactionData
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -112,7 +114,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
       }
       RewardPayment.Status.ERROR -> Completable.fromAction {
         if (true) {
-          handleFraudFlow()
+          handleFraudFlow(R.string.unknown_error)
         }
       }
       RewardPayment.Status.NO_NETWORK -> Completable.fromAction {
@@ -124,7 +126,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     }
   }
 
-  private fun handleFraudFlow() {
+  private fun handleFraudFlow(@StringRes error: Int) {
     disposables.add(
         appcoinsRewardsBuyInteract.isWalletBlocked()
             .subscribeOn(networkScheduler)
@@ -136,7 +138,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) view.showGenericError()
-                      else view.showWalletValidation()
+                      else view.showWalletValidation(error)
                     }
               } else {
                 Single.just(true)
