@@ -262,17 +262,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSuccess {
-              if (it.not()) view.showGenericError()
-            }
             .observeOn(networkScheduler)
-            .flatMap {
-              adyenPaymentInteractor.isWalletVerified()
-                  .observeOn(viewScheduler)
-                  .doOnSuccess {
-                    if (it) view.showGenericError()
-                    else view.showWalletValidation()
-                  }
+            .flatMap { blocked ->
+              if (blocked) {
+                adyenPaymentInteractor.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) view.showGenericError()
+                      else view.showWalletValidation()
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { view.showGenericError() }
+              }
             }
             .observeOn(viewScheduler)
             .subscribe({}, {

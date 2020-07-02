@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -20,20 +21,20 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity
+import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_iab.*
+import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
-
-
-/**
- * Created by franciscocalado on 20/07/2018.
- */
 
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
@@ -42,8 +43,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var iabInteract: IabInteract
-  private var isBackEnable: Boolean = false
+
+  @Inject
+  lateinit var walletBlockedInteract: WalletBlockedInteract
+
   private lateinit var presenter: IabPresenter
+  private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
   private var isBds: Boolean = false
   private var results: PublishRelay<Uri>? = null
@@ -66,7 +71,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract)
+            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
+            walletBlockedInteract)
     if (savedInstanceState == null) showPaymentMethodsView()
   }
 
@@ -86,6 +92,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         }
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
+    } else if (requestCode == WALLET_VALIDATION_REQUEST_CODE) {
+      presenter.handleWalletBlockedCheck()
     }
   }
 
@@ -153,7 +161,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .apply {
           intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
-    startActivity(intent)
+    startActivityForResult(intent, WALLET_VALIDATION_REQUEST_CODE)
   }
 
   override fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String,
@@ -244,6 +252,15 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, IabUpdateRequiredFragment())
         .commit()
+  }
+
+  override fun showIntercomSupport() {
+    fragment_container.visibility = View.GONE
+    layout_error.visibility = View.VISIBLE
+  }
+
+  override fun getSupportClicks(): Observable<Any> {
+    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
   }
 
   override fun showWalletBlocked() {

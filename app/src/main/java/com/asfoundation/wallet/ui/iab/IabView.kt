@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import io.reactivex.Observable
 import java.math.BigDecimal
 
 /**
@@ -64,4 +65,8 @@ interface IabView {
   fun showBackupNotification(walletAddress: String)
 
   fun showWalletValidation()
+
+  fun showIntercomSupport()
+
+  fun getSupportClicks(): Observable<Any>
 }

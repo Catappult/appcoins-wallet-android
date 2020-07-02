@@ -139,7 +139,6 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                       else view.showWalletValidation()
                     }
               } else {
-
                 Single.just(true)
                     .observeOn(viewScheduler)
                     .doOnSuccess { view.showGenericError() }

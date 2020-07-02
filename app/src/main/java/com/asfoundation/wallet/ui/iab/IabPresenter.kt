@@ -4,13 +4,11 @@ import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-
-/**
- * Created by franciscocalado on 20/07/2018.
- */
+import java.util.concurrent.TimeUnit
 
 class IabPresenter(private val view: IabView,
                    private val networkScheduler: Scheduler,
@@ -18,11 +16,39 @@ class IabPresenter(private val view: IabView,
                    private val disposable: CompositeDisposable,
                    private val billingAnalytics: BillingAnalytics,
                    private var firstImpression: Boolean,
-                   private val iabInteract: IabInteract) {
+                   private val iabInteract: IabInteract,
+                   private val walletBlockedInteract: WalletBlockedInteract) {
 
   fun present() {
     handleAutoUpdate()
     handleUserRegistration()
+    handleSupportClicks()
+  }
+
+  private fun handleSupportClicks() {
+    disposable.add(view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .flatMapCompletable { iabInteract.showSupport() }
+        .subscribe()
+    )
+  }
+
+  fun handleWalletBlockedCheck() {
+    disposable.add(
+        walletBlockedInteract.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              if (it) view.showIntercomSupport()
+              else view.showPaymentMethodsView()
+            }
+            .subscribe({}, { handleError(it) })
+    )
+  }
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    view.showError()
   }
 
   fun handleBackupNotifications(bundle: Bundle) {

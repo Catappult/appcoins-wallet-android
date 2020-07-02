@@ -4,6 +4,7 @@ import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
@@ -13,6 +14,10 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
 
   companion object {
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
+  }
+
+  fun showSupport() = Completable.fromAction {
+    supportInteractor.displayChatScreen()
   }
 
   fun hasPreSelectedPaymentMethod() = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
