@@ -70,13 +70,15 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   override fun displayGamificationInfo(currentLevel: Int,
                                        nextLevelAmount: BigDecimal,
-                                       levels: List<LevelViewModel>,
+                                       hiddenLevels: List<LevelViewModel>,
+                                       shownLevels: List<LevelViewModel>,
                                        totalSpend: BigDecimal,
                                        updateDate: Date?) {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
     levelsAdapter =
-        LevelsAdapter(context!!, levels, totalSpend, currentLevel, nextLevelAmount, formatter,
+        LevelsAdapter(context!!, hiddenLevels, shownLevels, totalSpend, currentLevel,
+            nextLevelAmount, formatter,
             mapper, uiEventListener!!)
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
@@ -96,11 +98,11 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     total_spend.visibility = View.VISIBLE
   }
 
-  override fun getLevelsClicks() = uiEventListener!!
+  override fun getToggleButtonClick() = uiEventListener!!
 
-  override fun toogleReachedLevels(hide: Boolean) {
-    levelsAdapter.toogleReachedLevels(hide)
+  override fun toogleReachedLevels(show: Boolean) {
     gamification_scroll_view.scrollTo(0, 0)
+    levelsAdapter.toogleReachedLevels(show)
   }
 
   private fun handleBonusUpdatedText(updateDate: Date?) {

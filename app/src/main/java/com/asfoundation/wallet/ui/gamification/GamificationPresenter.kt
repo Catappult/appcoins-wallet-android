@@ -31,7 +31,7 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   private fun handleLevelsClick() {
-    disposables.add(view.getLevelsClicks()
+    disposables.add(view.getToggleButtonClick()
         .doOnNext { view.toogleReachedLevels(it) }
         .subscribe())
   }
@@ -72,24 +72,28 @@ class GamificationPresenter(private val view: GamificationView,
     } else {
       val currentLevel = gamification.currentLevel
       activityView.showMainView()
-      val levelViewModel = map(gamification.levels, currentLevel)
-      view.displayGamificationInfo(currentLevel, gamification.nextLevelAmount, levelViewModel,
-          gamification.totalSpend, gamification.updateDate)
+      val levels = map(gamification.levels, currentLevel)
+      view.displayGamificationInfo(currentLevel, gamification.nextLevelAmount, levels.first,
+          levels.second, gamification.totalSpend, gamification.updateDate)
       if (sendEvent) analytics.sendMainScreenViewEvent(currentLevel + 1)
     }
   }
 
-  private fun map(levels: List<Levels.Level>, currentLevel: Int): List<LevelViewModel> {
-    val list = ArrayList<LevelViewModel>()
+  private fun map(levels: List<Levels.Level>,
+                  currentLevel: Int): Pair<List<LevelViewModel>, List<LevelViewModel>> {
+    val hiddenList = ArrayList<LevelViewModel>()
+    val shownList = ArrayList<LevelViewModel>()
     for (level in levels) {
       val viewType = when {
         level.level < currentLevel -> LevelType.REACHED
         level.level == currentLevel -> LevelType.CURRENT
         else -> LevelType.UNREACHED
       }
-      list.add(LevelViewModel(level.amount, level.bonus, level.level, viewType))
+      val levelViewModel = LevelViewModel(level.amount, level.bonus, level.level, viewType)
+      if (viewType == LevelType.REACHED) hiddenList.add(levelViewModel)
+      else shownList.add(levelViewModel)
     }
-    return list
+    return Pair(hiddenList, shownList)
   }
 
   private fun handleHeaderInformation(totalEarned: BigDecimal, totalSpend: BigDecimal,

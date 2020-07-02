@@ -8,13 +8,14 @@ import java.util.*
 interface GamificationView {
 
   fun displayGamificationInfo(currentLevel: Int, nextLevelAmount: BigDecimal,
-                              levels: List<LevelViewModel>,
+                              hiddenLevels: List<LevelViewModel>,
+                              shownLevels: List<LevelViewModel>,
                               totalSpend: BigDecimal,
                               updateDate: Date?)
 
   fun showHeaderInformation(totalSpent: String, bonusEarned: String, symbol: String)
 
-  fun getLevelsClicks(): Observable<Boolean>
+  fun getToggleButtonClick(): Observable<Boolean>
 
-  fun toogleReachedLevels(hide: Boolean)
+  fun toogleReachedLevels(show: Boolean)
 }

@@ -11,7 +11,9 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 
-class LevelsAdapter(private val context: Context, private val levels: List<LevelViewModel>,
+class LevelsAdapter(private val context: Context,
+                    private val hiddenLevels: List<LevelViewModel>,
+                    shownLevels: List<LevelViewModel>,
                     private val amountSpent: BigDecimal, private val currentLevel: Int,
                     private val nextLevelAmount: BigDecimal,
                     private val currencyFormatUtils: CurrencyFormatUtils,
@@ -19,7 +21,7 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
                     private val uiEventListener: PublishSubject<Boolean>) :
     RecyclerView.Adapter<LevelsViewHolder>() {
 
-  private var activeLevelList: MutableList<LevelViewModel> = levels.toMutableList()
+  private var activeLevelList: MutableList<LevelViewModel> = shownLevels.toMutableList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {
     return when (viewType) {
@@ -56,15 +58,17 @@ class LevelsAdapter(private val context: Context, private val levels: List<Level
     }
   }
 
-  fun toogleReachedLevels(hide: Boolean) {
-    if (hide) {
+  fun toogleReachedLevels(show: Boolean) {
+    if (show) {
+      if (currentLevel != 0) {
+        for (level in hiddenLevels.reversed()) {
+          activeLevelList.add(0, level)
+        }
+        notifyItemRangeInserted(0, currentLevel)
+      }
+    } else {
       activeLevelList.removeAll { it.levelType == LevelType.REACHED }
       notifyItemRangeRemoved(0, currentLevel)
-    } else if (currentLevel != 0) {
-      for (i in currentLevel - 1 downTo 0) {
-        activeLevelList.add(0, levels[i])
-      }
-      notifyItemRangeInserted(0, currentLevel)
     }
   }
 
