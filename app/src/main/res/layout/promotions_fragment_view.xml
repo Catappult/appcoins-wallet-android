@@ -32,19 +32,6 @@
           />
 
       <include
-          android:id="@+id/gamification_update"
-          layout="@layout/promotions_update"
-          android:layout_width="wrap_content"
-          android:layout_height="24dp"
-          android:layout_marginStart="12dp"
-          android:layout_marginTop="16dp"
-          android:visibility="invisible"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@id/gamification_card"
-          tools:visibility="visible"
-          />
-
-      <include
           android:id="@+id/referrals_card"
           layout="@layout/referral_card_layout"
           android:layout_width="match_parent"
@@ -59,8 +46,46 @@
           />
 
       <include
+          android:id="@+id/legacy_gamification_update"
+          layout="@layout/promotions_update"
+          android:layout_width="wrap_content"
+          android:layout_height="24dp"
+          android:layout_marginStart="12dp"
+          android:layout_marginTop="16dp"
+          android:visibility="invisible"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@id/legacy_gamification_card"
+          />
+
+      <include
+          android:id="@+id/legacy_gamification_card"
+          layout="@layout/legacy_gamification_card"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="16dp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/referrals_card"
+          />
+      <include
+          android:id="@+id/gamification_update"
+          layout="@layout/promotions_update"
+          android:layout_width="wrap_content"
+          android:layout_height="24dp"
+          android:layout_marginStart="12dp"
+          android:layout_marginTop="16dp"
+          android:visibility="invisible"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@id/gamification_card"
+          tools:visibility="visible"
+          />
+      <include
           android:id="@+id/gamification_card"
-          layout="@layout/gamification_card_layout"
+          layout="@layout/gamification_card"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"

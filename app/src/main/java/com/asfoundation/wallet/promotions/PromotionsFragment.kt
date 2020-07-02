@@ -16,7 +16,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.gamification_card_layout.*
+import kotlinx.android.synthetic.main.legacy_gamification_card.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.referrals_card
@@ -60,32 +60,33 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun setLevelIcons() {
     for (i in 0..4) {
-      gamification_progress_bar.setLevelIcons(i)
+      legacy_gamification_progress_bar.setLevelIcons(i)
     }
   }
 
   override fun setStaringLevel(userStatus: UserRewardsStatus) {
     progress_bar.progress = userStatus.lastShownLevel * (100 / (userStatus.bonus.size - 1))
     for (i in 0..userStatus.lastShownLevel) {
-      gamification_progress_bar.showPreviousLevelIcons(i, i < userStatus.lastShownLevel)
+      legacy_gamification_progress_bar.showPreviousLevelIcons(i, i < userStatus.lastShownLevel)
     }
   }
 
   override fun updateLevel(userStatus: UserRewardsStatus) {
-    gamification_title.text = getString(R.string.promotions_gamification_card_title_variable,
+    legacy_gamification_title.text = getString(R.string.promotions_gamification_card_title_variable,
         formatter.formatGamificationValues(BigDecimal(userStatus.maxBonus)))
 
     if (userStatus.bonus.size != 1) {
       step = 100 / (userStatus.bonus.size - 1)
     }
 
-    gamification_progress_bar.animateProgress(userStatus.lastShownLevel, userStatus.level, step)
+    legacy_gamification_progress_bar.animateProgress(userStatus.lastShownLevel, userStatus.level,
+        step)
 
     for (value in userStatus.bonus) {
       val level = userStatus.bonus.indexOf(value)
       val bonusLabel = R.string.gamification_how_table_b2
-      gamification_progress_bar.setLevelBonus(level,
-          getString(bonusLabel, gamification_progress_bar.formatLevelInfo(value)))
+      legacy_gamification_progress_bar.setLevelBonus(level,
+          getString(bonusLabel, legacy_gamification_progress_bar.formatLevelInfo(value)))
     }
   }
 
@@ -110,16 +111,16 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun showGamificationUpdate(show: Boolean) {
     if (show) {
-      if (gamification_update.visibility == INVISIBLE) {
+      if (legacy_gamification_update.visibility == INVISIBLE) {
         val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
         animation.duration = 750
-        gamification_update.visibility = VISIBLE
-        gamification_update.startAnimation(animation)
+        legacy_gamification_update.visibility = VISIBLE
+        legacy_gamification_update.startAnimation(animation)
       }
-    } else if (gamification_update.visibility == VISIBLE) {
-      gamification_update.startAnimation(
+    } else if (legacy_gamification_update.visibility == VISIBLE) {
+      legacy_gamification_update.startAnimation(
           AnimationUtils.loadAnimation(context, R.anim.fade_out_animation))
-      gamification_update.visibility = INVISIBLE
+      legacy_gamification_update.visibility = INVISIBLE
     }
   }
 
@@ -129,7 +130,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun shareClick() = RxView.clicks(share_button)
 
-  override fun gamificationCardClick() = RxView.clicks(gamification_card)
+  override fun gamificationCardClick() = RxView.clicks(legacy_gamification_card)
 
   override fun referralCardClick() = RxView.clicks(referrals_card)
 
@@ -146,7 +147,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     no_promotions.visibility = GONE
     no_network.visibility = GONE
     promotions_container.visibility = VISIBLE
-    gamification_card.visibility = VISIBLE
+    legacy_gamification_card.visibility = VISIBLE
   }
 
   override fun showNetworkErrorView() {
