@@ -246,8 +246,11 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       error.hasError -> Completable.fromAction {
         sendPaymentErrorEvent(error.code, error.message)
-        if (error.isNetworkError) view.showNetworkError()
-        else view.showGenericError()
+        when {
+          error.code == 403 -> handleFraudFlow()
+          error.isNetworkError -> view.showNetworkError()
+          else -> view.showGenericError()
+        }
       }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
