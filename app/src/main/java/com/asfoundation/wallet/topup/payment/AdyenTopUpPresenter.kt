@@ -11,6 +11,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.CurrencyData
@@ -275,23 +276,27 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
             paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
         paymentModel.refusalCode?.let { code ->
-          if (code == CVC_DECLINED) {
-            view.showCvvError()
-          } else {
-            handleSpecificError(adyenErrorCodeMapper.map(code))
+          when (code) {
+            CVC_DECLINED -> view.showCvvError()
+            FRAUD -> handleFraudFlow(R.string.unknown_error)
+            else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        if (paymentModel.error.isNetworkError) {
-          topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
-              paymentModel.error.code.toString(),
-              "network_error")
-          view.showNetworkError()
-        } else {
-          topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-              paymentModel.error.code.toString(), paymentModel.error.message ?: "")
-          handleSpecificError(R.string.unknown_error)
+        when {
+          paymentModel.error.code == 403 -> handleFraudFlow(R.string.unknown_error)
+          paymentModel.error.isNetworkError -> {
+            topUpAnalytics.sendErrorEvent(priceAmount.toDouble(), paymentType, "error",
+                paymentModel.error.code.toString(),
+                "network_error")
+            view.showNetworkError()
+          }
+          else -> {
+            topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
+                paymentModel.error.code.toString(), paymentModel.error.message ?: "")
+            handleSpecificError(R.string.unknown_error)
+          }
         }
       }
       paymentModel.status == CANCELED -> Completable.fromAction {
@@ -305,6 +310,34 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         handleSpecificError(R.string.unknown_error)
       }
     }
+  }
+
+  private fun handleFraudFlow(@StringRes error: Int) {
+    disposables.add(
+        adyenPaymentInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { blocked ->
+              if (blocked) {
+                adyenPaymentInteractor.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) handleSpecificError(R.string.unknown_error)
+                      else view.showWalletValidation(error)
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { handleSpecificError(R.string.unknown_error) }
+              }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              handleSpecificError(R.string.unknown_error)
+            })
+    )
   }
 
   private fun buildRefusalReason(status: Status, message: String?): String {

@@ -2,7 +2,9 @@ package com.asfoundation.wallet.topup
 
 import android.net.Uri
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface TopUpActivityView {
@@ -35,4 +37,10 @@ interface TopUpActivityView {
   fun cancelPayment()
 
   fun setFinishingPurchase()
+
+  fun showError(@StringRes error: Int)
+
+  fun getSupportClicks(): Observable<Any>
+
+  fun showWalletValidation(@StringRes error: Int)
 }
