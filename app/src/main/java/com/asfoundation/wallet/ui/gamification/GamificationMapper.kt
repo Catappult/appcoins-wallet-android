@@ -112,22 +112,22 @@ class GamificationMapper(private val context: Context) {
           getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_neptune),
           getString(R.string.gamif_distance_neptune))
       10 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_planetx),
+          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
           getString(R.string.gamif_distance_unkown))
       11 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_green_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_planetx),
+          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
           getString(R.string.gamif_distance_unkown))
       12 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_brown_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_planetx),
+          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
           getString(R.string.gamif_distance_unkown))
       13 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_blue_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_planetx),
+          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
           getString(R.string.gamif_distance_unkown))
       14 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_red_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_planetx),
+          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
           getString(R.string.gamif_distance_unkown))
       else -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_planetx),
+          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
           getString(R.string.gamif_distance_unkown))
     }
   }
