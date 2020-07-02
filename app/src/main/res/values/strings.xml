@@ -724,10 +724,6 @@
   <string name="gamif_achievement_start">You started your journey</string>
   <string name="gamif_achievement_start_sub">Just left Earth!</string>
   <string name="gamif_achievement_reach">You reached %s</string>
-  <string name="gamif_achievement_distance">%s km from Earth</string>
-  <string name="gamif_achievement_distance_million">%s million km from Earth</string>
-  <string name="gamif_achievement_distance_billion">%s billion km from Earth</string>
-  <string name="gamif_achievement_unknown_location">You can\'t go further!</string>
   <string name="gamif_card_start">You\'re still on Earth</string>
   <string name="gamif_card_title">You\'re on %s</string>
   <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
@@ -745,7 +741,7 @@
   <string name="gamif_distance_phobos">77.79 million km from Earth</string>
   <string name="gamif_placeholder_jupiter">Jupiter</string>
   <string name="gamif_quote_jupiter">&quot;All truths are easy to understand once they are discovered; the point is to discover them...&quot; – Galileo Galilei</string>
-  <string name="gamif_distance_jupiter">623.31 million km km from Earth</string>
+  <string name="gamif_distance_jupiter">623.31 million km from Earth</string>
   <string name="gamif_placeholder_europa">Europa moon</string>
   <string name="gamif_quote_europa">&quot;If you find life on Europa, what would you call it? Would it be, like, Europeans?&quot; – Neil DeGrasse Tyson</string>
   <string name="gamif_distance_europa">628.3 million km from Earth</string>
