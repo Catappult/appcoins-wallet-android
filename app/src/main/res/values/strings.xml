@@ -502,6 +502,7 @@
   <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
   <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
 
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
 
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
@@ -712,4 +713,54 @@
   <string name="subscriptions_per_month">%1$s%2$s/month</string>
   <string name="subscriptions_per_year">%1$s%2$s/year</string>
   
+
+<!--New Gamification-->
+  <string name="gamif_title">Up to %s%% Bonus!</string>
+  <string name="gamif_bonus_received">Bonus received</string>
+  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_show_previous">Show previous achievements</string>
+  <string name="gamif_hide_previous">Hide previous achievements</string>
+  <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
+  <string name="gamif_achievement_start">You started your journey</string>
+  <string name="gamif_achievement_start_sub">Just left Earth!</string>
+  <string name="gamif_achievement_reach">You reached %s</string>
+  <string name="gamif_card_start">You\'re still on Earth</string>
+  <string name="gamif_card_title">You\'re on %s</string>
+  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamif_bonus">%s%% Bonus</string>
+  <string name="gamif_placeholder_earth">Earth</string>
+  <string name="gamif_quote_earth">&quot;The Earth is what we all have in common.&quot; – Wendell Berry</string>
+  <string name="gamif_placeholder_moon">the Moon</string>
+  <string name="gamif_quote_moon">&quot;That\'s one small step for a man, one giant leap for mankind.&quot; – Neil Armstrong</string>
+  <string name="gamif_distance_moon">384,400 km from Earth</string>
+  <string name="gamif_placeholder_mars">Mars</string>
+  <string name="gamif_quote_mars">&quot;I would like to die on Mars. Just not on impact.&quot; – Elon Musk</string>
+  <string name="gamif_distance_mars">121.8 million km from Earth</string>
+  <string name="gamif_placeholder_phobos">the Phobos moon</string>
+  <string name="gamif_quote_phobos">&quot;Everyone is a moon, and has a dark side which he never shows to anybody.&quot; – Mark Twain</string>
+  <string name="gamif_distance_phobos">77.79 million km from Earth</string>
+  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_quote_jupiter">&quot;All truths are easy to understand once they are discovered; the point is to discover them...&quot; – Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">623.31 million km from Earth</string>
+  <string name="gamif_placeholder_europa">Europa moon</string>
+  <string name="gamif_quote_europa">&quot;If you find life on Europa, what would you call it? Would it be, like, Europeans?&quot; – Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">628.3 million km from Earth</string>
+  <string name="gamif_placeholder_saturn">Saturn</string>
+  <string name="gamif_quote_saturn">&quot;The scientific theory I like best is that the rings of Saturn are composed entirely of lost airline luggage.&quot; – Mark Russell</string>
+  <string name="gamif_distance_saturn">1.35 billion km from Earth</string>
+  <string name="gamif_placeholder_titan">Titan moon</string>
+  <string name="gamif_quote_titan">&quot;I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here.&quot; – Arthur C.Clarke</string>
+  <string name="gamif_distance_titan">1.4 billion km from Earth</string>
+  <string name="gamif_placeholder_uranus">Uranus</string>
+  <string name="gamif_quote_uranus">&quot;The moons of Uranus seem to have got a twist.&quot; – Sir Robert Stawell Ball</string>
+  <string name="gamif_distance_uranus">3.03 billion km from Earth</string>
+  <string name="gamif_placeholder_neptune">Neptune</string>
+  <string name="gamif_quote_neptune">&quot;That star is not on the chart!&quot; – Helnrich d\'Arrest upon discovering Neptune.</string>
+  <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
+  <string name="gamif_placeholder_planetx">Planet X</string>
+  <string name="gamif_quote_planetx">&quot;Somewhere, something incredible is waiting to be know.&quot; – Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">an unknown planet</string>
+  <string name="gamif_distance_unkown">Unknown location</string>
+  <string name="gamif_placeholder_new_planet">a new planet</string>
+
 </resources>
