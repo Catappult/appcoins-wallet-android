@@ -6,22 +6,29 @@ import androidx.annotation.StringRes
 import com.asf.wallet.R
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.WALLET_VALIDATION_REQUEST_CODE
 import com.asfoundation.wallet.ui.iab.IabActivity
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class TopUpActivityPresenter(private val view: TopUpActivityView,
-                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                             private val topUpInteractor: TopUpInteractor,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
-                             private val disposables: CompositeDisposable,
-                             private val walletBlockedInteract: WalletBlockedInteract) {
+                             private val disposables: CompositeDisposable) {
   fun present(isCreating: Boolean) {
     if (isCreating) {
       view.showTopUpScreen()
     }
+    handleSupportClicks()
+  }
+
+  private fun handleSupportClicks() {
+    disposables.add(view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .flatMapCompletable { topUpInteractor.showSupport() }
+        .subscribe({}, { handleError(it) })
+    )
   }
 
   fun processActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -42,7 +49,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
 
   private fun handleWalletBlockedCheck(@StringRes error: Int) {
     disposables.add(
-        walletBlockedInteract.isWalletBlocked()
+        topUpInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
@@ -60,7 +67,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
 
   fun handleBackupNotifications(bundle: Bundle) {
     disposables.add(
-        inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
+        topUpInteractor.incrementAndValidateNotificationNeeded()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { notificationNeeded ->

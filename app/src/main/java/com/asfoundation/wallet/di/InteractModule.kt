@@ -289,9 +289,13 @@ class InteractModule {
   fun providesTopUpInteractor(repository: BdsRepository,
                               conversionService: LocalCurrencyConversionService,
                               gamificationInteractor: GamificationInteractor,
-                              topUpValuesService: TopUpValuesService) =
+                              topUpValuesService: TopUpValuesService,
+                              walletBlockedInteract: WalletBlockedInteract,
+                              inAppPurchaseInteractor: InAppPurchaseInteractor,
+                              supportInteractor: SupportInteractor) =
       TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
-          LinkedHashMap(), TopUpLimitValues())
+          LinkedHashMap(), TopUpLimitValues(), walletBlockedInteract, inAppPurchaseInteractor,
+          supportInteractor)
 
   @Singleton
   @Provides

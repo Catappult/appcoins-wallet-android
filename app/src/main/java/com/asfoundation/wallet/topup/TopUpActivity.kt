@@ -17,7 +17,6 @@ import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -28,9 +27,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_iab.*
 import kotlinx.android.synthetic.main.support_error_layout.*
-import kotlinx.android.synthetic.main.top_up_activity_layout.fragment_container
+import kotlinx.android.synthetic.main.top_up_activity_layout.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -38,7 +36,7 @@ import javax.inject.Inject
 class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavigator {
 
   @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  lateinit var topUpInteractor: TopUpInteractor
 
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
@@ -53,9 +51,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   companion object {
     @JvmStatic
-    fun newIntent(context: Context): Intent {
-      return Intent(context, TopUpActivity::class.java)
-    }
+    fun newIntent(context: Context) = Intent(context, TopUpActivity::class.java)
 
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val WALLET_VALIDATION_REQUEST_CODE = 1235
@@ -71,9 +67,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-    presenter = TopUpActivityPresenter(this, inAppPurchaseInteractor,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(),
-        walletBlockedInteract)
+    presenter = TopUpActivityPresenter(this, topUpInteractor, AndroidSchedulers.mainThread(),
+        Schedulers.io(), CompositeDisposable())
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
@@ -87,7 +82,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun showTopUpScreen() {
-    setupToolbar()
+    toolbar()
     handleTopUpStartAnalytics()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
@@ -134,15 +129,13 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      android.R.id.home -> {
-        when {
-          isFinishingPurchase -> close(true)
-          supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
-          else -> super.onBackPressed()
-        }
-        return true
+    if (item.itemId == android.R.id.home) {
+      when {
+        isFinishingPurchase -> close(true)
+        supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
+        else -> super.onBackPressed()
       }
+      return true
     }
     return super.onOptionsItemSelected(item)
   }

@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.TypedValue
-import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
@@ -137,7 +136,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     )
   }
 
-  private fun handleFraudFlow(@StringRes error: Int) {
+  private fun handleFraudFlow() {
     disposables.add(
         localPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
@@ -149,7 +148,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) view.showError()
-                      else view.showWalletValidation(error)
+                      else view.showWalletValidation(R.string.activity_iab_error_message)
                     }
               } else {
                 Single.just(true)
@@ -169,7 +168,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     view.hideLoading()
     return when {
       isErrorStatus(transaction) -> Completable.fromAction {
-        if (true) handleFraudFlow(R.string.activity_iab_error_message)
+        if (true) handleFraudFlow()
         else view.showError()
       }
           .subscribeOn(viewScheduler)

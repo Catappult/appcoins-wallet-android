@@ -12,7 +12,7 @@
       />
 
   <include
-      android:id="@+id/fragment_error"
+      android:id="@+id/layout_error"
       layout="@layout/layout_adyen_error_top_up"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

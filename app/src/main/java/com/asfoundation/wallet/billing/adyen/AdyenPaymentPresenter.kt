@@ -273,19 +273,19 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 adyenPaymentInteractor.isWalletVerified()
                     .observeOn(viewScheduler)
                     .doOnSuccess {
-                      if (it) view.showGenericError()
+                      if (it) view.showSpecificError(error)
                       else view.showWalletValidation(error)
                     }
               } else {
                 Single.just(true)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { view.showGenericError() }
+                    .doOnSuccess { view.showSpecificError(error) }
               }
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
               it.printStackTrace()
-              view.showGenericError()
+              view.showSpecificError(error)
             })
     )
   }

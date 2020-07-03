@@ -278,7 +278,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
-            FRAUD -> handleFraudFlow(R.string.unknown_error)
+            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
@@ -323,19 +323,19 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 adyenPaymentInteractor.isWalletVerified()
                     .observeOn(viewScheduler)
                     .doOnSuccess {
-                      if (it) handleSpecificError(R.string.unknown_error)
+                      if (it) handleSpecificError(error)
                       else view.showWalletValidation(error)
                     }
               } else {
                 Single.just(true)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { handleSpecificError(R.string.unknown_error) }
+                    .doOnSuccess { handleSpecificError(error) }
               }
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
               it.printStackTrace()
-              handleSpecificError(R.string.unknown_error)
+              handleSpecificError(error)
             })
     )
   }
