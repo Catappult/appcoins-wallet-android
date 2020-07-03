@@ -68,7 +68,7 @@ class LevelsAdapter(private val context: Context,
       }
     } else {
       activeLevelList.removeAll { it.levelType == LevelType.REACHED }
-      notifyItemRangeRemoved(0, currentLevel)
+      notifyDataSetChanged()
     }
   }
 
