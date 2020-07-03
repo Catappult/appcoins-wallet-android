@@ -15,7 +15,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class HowItWorksPresenter(private val view: HowItWorksView,
-                          private val activity: RewardsLevelView?,
+                          private val activityView: GamificationActivityView,
                           private val gamification: GamificationInteractor,
                           private val analytics: GamificationAnalytics,
                           private val disposables: CompositeDisposable,
@@ -50,9 +50,9 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               if (it.status == Status.NO_NETWORK) {
-                activity?.showNetworkErrorView()
+                activityView.showNetworkErrorView()
               } else {
-                activity?.showMainView()
+                activityView.showMainView()
                 view.showLevels(it.list, it.level, it.updateDate)
               }
             }
@@ -85,9 +85,9 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               if (it.status == Status.NO_NETWORK) {
-                activity?.showNetworkErrorView()
+                activityView.showNetworkErrorView()
               } else {
-                activity?.showMainView()
+                activityView.showMainView()
                 view.showNextLevelFooter(it)
               }
             }
@@ -135,7 +135,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
     if (throwable.isNoNetworkException()) {
-      activity?.showNetworkErrorView()
+      activityView.showNetworkErrorView()
     }
   }
 

@@ -17,7 +17,7 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 
 class GamificationPresenter(private val view: GamificationView,
-                            private val activityView: RewardsLevelView,
+                            private val activityView: GamificationActivityView,
                             private val gamification: GamificationInteractor,
                             private val analytics: GamificationAnalytics,
                             private val formatter: CurrencyFormatUtils,

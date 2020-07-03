@@ -39,14 +39,14 @@ class GamificationFragment : DaggerFragment(), GamificationView {
   @Inject
   lateinit var mapper: GamificationMapper
   private lateinit var presenter: GamificationPresenter
-  private lateinit var activityView: RewardsLevelView
+  private lateinit var activityView: GamificationActivityView
   private lateinit var levelsAdapter: LevelsAdapter
   private var uiEventListener: PublishSubject<Boolean>? = null
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is RewardsLevelView) { GamificationFragment::class.java.simpleName + " needs to be attached to a " + RewardsLevelView::class.java.simpleName }
+        context is GamificationActivityView) { GamificationFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
     activityView = context
   }
 

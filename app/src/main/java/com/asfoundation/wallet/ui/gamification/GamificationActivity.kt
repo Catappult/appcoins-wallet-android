@@ -17,10 +17,10 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_rewards_level.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 
-class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
+class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   private lateinit var menu: Menu
-  private lateinit var presenter: RewardsLevelPresenter
+  private lateinit var presenter: GamificationActivityPresenter
   private var toolbar: Toolbar? = null
   private var infoButtonSubject: PublishSubject<Any>? = null
 
@@ -32,7 +32,7 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
     setTitle(getString(R.string.gamif_title, bonus.toString()))
     infoButtonSubject = PublishSubject.create()
     presenter =
-        RewardsLevelPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
+        GamificationActivityPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
     presenter.present(legacy)
   }
 
@@ -115,7 +115,7 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
 
     @JvmStatic
     fun newIntent(context: Context, legacy: Boolean, bonus: Double): Intent {
-      return Intent(context, RewardsLevelActivity::class.java).apply {
+      return Intent(context, GamificationActivity::class.java).apply {
         putExtra(LEGACY, legacy)
         putExtra(BONUS, bonus)
       }

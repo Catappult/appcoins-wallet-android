@@ -8,7 +8,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.gamification.RewardsLevelActivity
+import com.asfoundation.wallet.ui.gamification.GamificationActivity
 
 class PromotionsActivity : BaseActivity(), PromotionsActivityView {
 
@@ -35,10 +35,10 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
   }
 
   override fun navigateToLegacyGamification(bonus: Double) =
-      startActivity(RewardsLevelActivity.newIntent(this, true, bonus))
+      startActivity(GamificationActivity.newIntent(this, true, bonus))
 
   override fun navigateToGamification(bonus: Double) =
-      startActivity(RewardsLevelActivity.newIntent(this, false, bonus))
+      startActivity(GamificationActivity.newIntent(this, false, bonus))
 
   override fun handleShare(link: String) {
     ShareCompat.IntentBuilder.from(this)
