@@ -692,13 +692,13 @@
   <string name="gamif_quote_titan">\"I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here.\" – Arthur C.Clarke</string>
   <string name="gamif_distance_titan">1.4 billion km from Earth</string>
   <string name="gamif_placeholder_uranus">Uranus</string>
-  <string name="gamif_quote_uranus">&quot;The moons of Uranus seem to have got a twist.&quot; – Sir Robert Stawell Ball</string>
+  <string name="gamif_quote_uranus">\"The moons of Uranus seem to have got a twist.\" – Sir Robert Stawell Ball</string>
   <string name="gamif_distance_uranus">3.03 billion km from Earth</string>
   <string name="gamif_placeholder_neptune">Neptune</string>
-  <string name="gamif_quote_neptune">&quot;That star is not on the chart!&quot; – Helnrich d\'Arrest upon discovering Neptune.</string>
+  <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
   <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
   <string name="gamif_placeholder_planetx">Planet %s</string>
-  <string name="gamif_quote_planetx">&quot;Somewhere, something incredible is waiting to be know.&quot; – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">an unknown planet</string>
   <string name="gamif_distance_unkown">Unknown location</string>
   <string name="gamif_placeholder_new_planet">a new planet</string>
