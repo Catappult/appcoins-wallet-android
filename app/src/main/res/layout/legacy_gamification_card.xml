@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/legacy_gamification_content"
         />
     <Button
-        android:id="@+id/see_more_button"
+        android:id="@+id/legacy_see_more_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

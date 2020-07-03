@@ -6,6 +6,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.asf.wallet.R
 
 class GamificationMapper(private val context: Context) {
@@ -130,6 +131,15 @@ class GamificationMapper(private val context: Context) {
           getUnknownPlanetString(15),
           getString(R.string.gamif_distance_unkown))
     }
+  }
+
+  fun getOvalBackground(levelColor: Int): Drawable? {
+    val ovalBackground =
+        ResourcesCompat.getDrawable(context.resources, R.drawable.oval_grey_background, null)
+    ovalBackground?.let { drawable ->
+      DrawableCompat.setTint(drawable.mutate(), levelColor)
+    }
+    return ovalBackground
   }
 
   private fun getDrawable(@DrawableRes drawable: Int): Drawable? {
