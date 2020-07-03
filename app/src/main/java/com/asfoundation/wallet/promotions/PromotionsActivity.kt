@@ -6,14 +6,13 @@ import android.view.MenuItem
 import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
-import com.asfoundation.wallet.router.RewardsLevelRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.gamification.RewardsLevelActivity
 
 class PromotionsActivity : BaseActivity(), PromotionsActivityView {
 
   private lateinit var transactionsRouter: TransactionsRouter
-  private lateinit var rewardsLevelRouter: RewardsLevelRouter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -21,7 +20,6 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     setContentView(R.layout.promotions_activity_view)
     toolbar()
     transactionsRouter = TransactionsRouter()
-    rewardsLevelRouter = RewardsLevelRouter()
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container, PromotionsFragment.newInstance())
         .commit()
@@ -37,9 +35,10 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
   }
 
   override fun navigateToLegacyGamification(bonus: Double) =
-      rewardsLevelRouter.open(this, true, bonus)
+      startActivity(RewardsLevelActivity.newIntent(this, true, bonus))
 
-  override fun navigateToGamification(bonus: Double) = rewardsLevelRouter.open(this, false, bonus)
+  override fun navigateToGamification(bonus: Double) =
+      startActivity(RewardsLevelActivity.newIntent(this, false, bonus))
 
   override fun handleShare(link: String) {
     ShareCompat.IntentBuilder.from(this)
