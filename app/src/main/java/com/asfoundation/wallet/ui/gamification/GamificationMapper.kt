@@ -112,22 +112,22 @@ class GamificationMapper(private val context: Context) {
           getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_neptune),
           getString(R.string.gamif_distance_neptune))
       10 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
+          getUnknownPlanetString(10),
           getString(R.string.gamif_distance_unkown))
       11 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_green_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
+          getUnknownPlanetString(11),
           getString(R.string.gamif_distance_unkown))
       12 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_brown_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
+          getUnknownPlanetString(12),
           getString(R.string.gamif_distance_unkown))
       13 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_blue_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
+          getUnknownPlanetString(13),
           getString(R.string.gamif_distance_unkown))
       14 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_red_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
+          getUnknownPlanetString(14),
           getString(R.string.gamif_distance_unkown))
       else -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple_reached),
-          getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_new_planet),
+          getUnknownPlanetString(15),
           getString(R.string.gamif_distance_unkown))
     }
   }
@@ -145,5 +145,10 @@ class GamificationMapper(private val context: Context) {
 
   private fun getFullString(@StringRes string: Int, @StringRes planet: Int): String {
     return context.getString(string, getString(planet))
+  }
+
+  private fun getUnknownPlanetString(number: Int): String {
+    return context.getString(R.string.gamif_achievement_reach,
+        context.getString(R.string.gamif_placeholder_planetx, number.toString()))
   }
 }
