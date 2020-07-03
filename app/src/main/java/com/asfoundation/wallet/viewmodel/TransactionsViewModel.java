@@ -69,8 +69,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
-  private PublishSubject<Context> topUpClicks = PublishSubject.create();
-  private CurrencyFormatUtils formatter;
+  private final PublishSubject<Context> topUpClicks = PublishSubject.create();
+  private final CurrencyFormatUtils formatter;
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
@@ -155,11 +155,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void updateIntercomAnimation(Integer count) {
-    if (count == null || count == 0) {
-      unreadMessages.setValue(false);
-    } else {
-      unreadMessages.setValue(true);
-    }
+    unreadMessages.setValue(count != null && count != 0);
   }
 
   private Completable publishMaxBonus() {
@@ -195,6 +191,7 @@ public class TransactionsViewModel extends BaseViewModel {
     fetchTransactionsDisposable =
         transactionViewInteract.fetchTransactions(defaultWallet.getValue())
             .flatMapSingle(transactions -> transactionViewInteract.getCardNotifications()
+                .subscribeOn(Schedulers.io())
                 .onErrorReturnItem(Collections.emptyList())
                 .flatMap(notifications -> applications.getApps()
                     .onErrorReturnItem(Collections.emptyList())
@@ -436,8 +433,12 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(() -> dismissNotification.postValue(cardNotification), this::onError));
   }
 
-  public void showSupportScreen() {
-    supportInteractor.displayChatScreen();
+  public void showSupportScreen(boolean fromNotification) {
+    if (fromNotification) {
+      supportInteractor.displayConversationListOrChat();
+    } else {
+      supportInteractor.displayChatScreen();
+    }
   }
 
   private void registerSupportUser(Integer level, String walletAddress) {

@@ -14,6 +14,7 @@ buildscript {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    classpath "com.google.gms:google-services:4.3.3"
   }
 }
 
@@ -48,12 +49,14 @@ project.ext {
   erc681_version = '0.36'
   ethereumj_sdk_version = '0.5.0.0'
   facebook_sdk_version = '4.39.0'
+  firebase_messaging = '20.2.1'
   flurry_version = '12.2.0'
   glide_version = '4.11.0'
+  google_services = '4.3.3'
   gradle_version = '3.3.2'
   gradle_bintray_version = '1.7.3'
   gson_version = '2.8.6'
-  intercom_version = '6.0.1'
+  intercom_version = '7.1.0'
   jackson_version = "2.10.3"
   jetbrains_annotations_version = "19.0.0"
   junit_version = '4.13'
