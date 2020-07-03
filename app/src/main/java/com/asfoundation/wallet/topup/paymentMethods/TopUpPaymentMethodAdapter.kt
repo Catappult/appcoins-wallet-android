@@ -8,9 +8,8 @@ import com.asf.wallet.R
 import com.jakewharton.rxrelay2.PublishRelay
 
 
-class TopUpPaymentMethodAdapter(
-    private var paymentMethods: List<PaymentMethodData>,
-    private var paymentMethodClick: PublishRelay<String>) :
+class TopUpPaymentMethodAdapter(private var paymentMethods: List<PaymentMethodData>,
+                                private var paymentMethodClick: PublishRelay<String>) :
     RecyclerView.Adapter<PaymentMethodViewHolder>() {
   private var selectedItem = 0
 
