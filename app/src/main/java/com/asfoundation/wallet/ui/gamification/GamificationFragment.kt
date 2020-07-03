@@ -101,8 +101,8 @@ class GamificationFragment : DaggerFragment(), GamificationView {
   override fun getToggleButtonClick() = uiEventListener!!
 
   override fun toogleReachedLevels(show: Boolean) {
-    gamification_scroll_view.scrollTo(0, 0)
     levelsAdapter.toogleReachedLevels(show)
+    gamification_scroll_view.scrollTo(0, 0)
   }
 
   private fun handleBonusUpdatedText(updateDate: Date?) {
