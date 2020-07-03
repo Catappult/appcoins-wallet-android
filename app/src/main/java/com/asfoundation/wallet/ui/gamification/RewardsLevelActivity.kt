@@ -29,7 +29,7 @@ class RewardsLevelActivity : BaseActivity(), RewardsLevelView {
 
     setContentView(R.layout.activity_rewards_level)
     toolbar = toolbar()
-    setTitle("Get $bonus% Bonus")
+    setTitle(getString(R.string.gamif_title, bonus.toString()))
     infoButtonSubject = PublishSubject.create()
     presenter =
         RewardsLevelPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())

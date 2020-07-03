@@ -10,7 +10,7 @@ class LevelReachedViewHolder(itemView: View, private val mapper: GamificationMap
   override fun bind(level: LevelViewModel) {
     val reachedLevelInfo = mapper.mapReachedLevelInfo(level.level)
     itemView.level_icon.setImageDrawable(reachedLevelInfo.planet)
-    itemView.level_title.text = "Level: " + level.level
-    itemView.level_description.text = "You started here"
+    itemView.level_title.text = reachedLevelInfo.reachedTitle
+    itemView.level_description.text = reachedLevelInfo.reachedSubtitle
   }
 }

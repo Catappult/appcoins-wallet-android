@@ -28,8 +28,8 @@ class CurrentLevelViewHolder(itemView: View,
 
   override fun bind(level: LevelViewModel) {
     val progress = getProgressPercentage(level.amount)
-    handleSpecificLevel(level.level, currencyFormatUtils.formatGamificationValues(progress),
-        level.bonus)
+    val progressString = validateAndGetProgressString(getProgressPercentage(level.amount))
+    handleSpecificLevel(level.level, progressString, level.bonus)
     setProgress(progress)
     handleToogleButton(level.level)
   }
@@ -65,11 +65,11 @@ class CurrentLevelViewHolder(itemView: View,
                       bonus: Double) {
     itemView.current_level_title.text = title
     itemView.spend_amount_text.text =
-        "Spend ${getRemainingAmount()} more AppCoins to reach the next level"
-    itemView.current_level_phrase.text =
-        "All truths are easy to understand once they are discovered, the point is to discover them - Galileo Galilei"
+        context.getString(R.string.gamif_card_body, getRemainingAmount())
+    itemView.current_level_phrase.text = phrase
     val df = DecimalFormat("###.#")
-    itemView.current_level_bonus.text = "${df.format(bonus)}% Bonus"
+    itemView.current_level_bonus.text =
+        context.getString(R.string.gamif_bonus, df.format(bonus))
     itemView.percentage_left.text = "$progressPercentage%"
   }
 
@@ -91,6 +91,14 @@ class CurrentLevelViewHolder(itemView: View,
       itemView.current_level_progress_bar.setProgress(progress.toInt(), true)
     } else {
       itemView.current_level_progress_bar.progress = progress.toInt()
+    }
+  }
+
+  private fun validateAndGetProgressString(progress: BigDecimal): String {
+    return if (progress >= BigDecimal.ZERO && progress <= BigDecimal(100.0)) {
+      currencyFormatUtils.formatGamificationValues(progress)
+    } else {
+      ""
     }
   }
 }
