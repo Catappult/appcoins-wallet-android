@@ -460,7 +460,7 @@
   <string name="purchase_card_error_not_supported">Тип вашей карты пока не поддерживается. Попробуйте другую карту.</string>
   <string name="purchase_card_error_security">Вы уверены, что правильно ввели атрибуты безопасности? Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
-  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
+  <string name="purchase_wallet_error_contact_us">Ой, с вашим бумажником что-то не так. Пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
   <string name="error_contac_us_body">Если проблема не исчезнет – пожалуйста, свяжитесь с нами.</string>
   <!--Async Payments-->
@@ -655,16 +655,16 @@
   <string name="subscriptions_per_month">%1$s%2$s в месяц</string>
   <string name="subscriptions_per_year">%1$s%2$s в год</string>
   <!--New Gamification-->
-  <string name="gamif_title">Up to %s%% Bonus!</string>
-  <string name="gamif_bonus_received">Bonus received</string>
-  <string name="gamif_spent">Amount spent to reach this level</string>
-  <string name="gamif_show_previous">Show previous achievements</string>
-  <string name="gamif_hide_previous">Hide previous achievements</string>
-  <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
-  <string name="gamif_achievement_start">You started your journey</string>
-  <string name="gamif_achievement_start_sub">Just left Earth!</string>
-  <string name="gamif_achievement_reach">You reached %s</string>
-  <string name="gamif_card_start">You\'re still on Earth</string>
+  <string name="gamif_title">Получите бонус до %s%%!</string>
+  <string name="gamif_bonus_received">Бонус получен</string>
+  <string name="gamif_spent">Потрачено, чтобы достичь этого уровня</string>
+  <string name="gamif_show_previous">Показать предыдущие достижения</string>
+  <string name="gamif_hide_previous">Скрыть предыдущие достижения</string>
+  <string name="gamif_next_goals">Потратьте %s AppCoins, чтобы достичь следующего уровня</string>
+  <string name="gamif_achievement_start">Вы начали своё путешествие</string>
+  <string name="gamif_achievement_start_sub">Только что взлетели с Земли!</string>
+  <string name="gamif_achievement_reach">Вы добрались до %s</string>
+  <string name="gamif_card_start">Вы всё ещё на Земле</string>
   <string name="gamif_card_title">You\'re on %s</string>
   <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
   <string name="gamif_bonus">%s%% Bonus</string>
