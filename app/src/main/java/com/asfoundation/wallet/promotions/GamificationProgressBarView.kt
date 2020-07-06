@@ -98,9 +98,7 @@ constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 
         progress_bar.progress.toFloat(), to.toFloat())
     animation.duration = if (nextLevel == toLevel) 1000 else 600
     animation.setAnimationListener(object : Animation.AnimationListener {
-      override fun onAnimationRepeat(animation: Animation?) {
-      }
-
+      override fun onAnimationRepeat(animation: Animation?) = Unit
       override fun onAnimationEnd(animation: Animation?) {
         if (fromLevel <= nextLevel) {
           levelUp(nextLevel)
@@ -166,20 +164,17 @@ constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 
   private fun animateLevelUp(levelIcon: View, levelText: TextView, newLevel: Boolean) {
     val activeIcon = levelIcon.findViewById(R.id.level_active_icon) as ImageView
     val listener = object : Animation.AnimationListener {
-      override fun onAnimationRepeat(animation: Animation?) {
-      }
-
+      override fun onAnimationRepeat(animation: Animation?) = Unit
       override fun onAnimationEnd(animation: Animation?) {
         activeIcon.visibility = VISIBLE
         levelText.isEnabled = true
         levelText.visibility = VISIBLE
       }
 
-      override fun onAnimationStart(animation: Animation?) {
-      }
+      override fun onAnimationStart(animation: Animation?) = Unit
     }
-    if (newLevel) startBounceAnimation(activeIcon, listener) else startRebounceAnimation(activeIcon,
-        listener)
+    if (newLevel) startBounceAnimation(activeIcon, listener)
+    else startRebounceAnimation(activeIcon, listener)
   }
 
   private fun animateLevelToLock(levelIcon: View, levelText: TextView) {

@@ -42,5 +42,6 @@
   <dimen name="card_view_corner_radius">7dp</dimen>
   <dimen name="adyen_text_input_layout_height">70dp</dimen>
   <dimen name="wallets_card_margin">10dp</dimen>
+  <dimen name="gamification_card_margin">16dp</dimen>
   <dimen name="bottom_sheet_corner_radius">8dp</dimen>
 </resources>

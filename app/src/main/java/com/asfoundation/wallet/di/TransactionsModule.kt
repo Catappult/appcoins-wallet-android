@@ -60,7 +60,4 @@ internal class TransactionsModule {
 
   @Provides
   fun provideAirdropRouter() = AirdropRouter()
-
-  @Provides
-  fun providerRewardsLevelRouter() = RewardsLevelRouter()
 }
