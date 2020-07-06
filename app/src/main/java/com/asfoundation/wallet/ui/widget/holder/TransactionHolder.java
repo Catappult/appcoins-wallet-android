@@ -79,15 +79,17 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       currency = transaction.getCurrency();
     }
 
-    String to = extractTo(transaction);
     String from = extractFrom(transaction);
+    String to = extractTo(transaction);
 
     fill(from, to, currency, transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(),
         transaction.getDetails());
   }
 
   private String extractTo(Transaction transaction) {
-    if (transaction.getOperations() != null
+    if (transaction.getTo() != null) {
+      return transaction.getTo();
+    } else if (transaction.getOperations() != null
         && !transaction.getOperations()
         .isEmpty()
         && transaction.getOperations()
@@ -99,7 +101,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           .get(0)
           .getTo();
     } else {
-      return transaction.getTo();
+      return "";
     }
   }
 
