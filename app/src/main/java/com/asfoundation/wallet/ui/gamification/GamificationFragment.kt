@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.appcoins.wallet.gamification.LevelViewModel
+import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -70,8 +70,8 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   override fun displayGamificationInfo(currentLevel: Int,
                                        nextLevelAmount: BigDecimal,
-                                       hiddenLevels: List<LevelViewModel>,
-                                       shownLevels: List<LevelViewModel>,
+                                       hiddenLevels: List<LevelModel>,
+                                       shownLevels: List<LevelModel>,
                                        totalSpend: BigDecimal,
                                        updateDate: Date?) {
     val layoutManager = LinearLayoutManager(context)
@@ -100,8 +100,8 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   override fun getToggleButtonClick() = uiEventListener!!
 
-  override fun toogleReachedLevels(show: Boolean) {
-    levelsAdapter.toogleReachedLevels(show)
+  override fun toggleReachedLevels(show: Boolean) {
+    levelsAdapter.toggleReachedLevels(show)
     gamification_scroll_view.scrollTo(0, 0)
   }
 

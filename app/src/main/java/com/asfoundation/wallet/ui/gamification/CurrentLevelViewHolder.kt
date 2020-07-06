@@ -6,7 +6,7 @@ import android.os.Build
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import com.appcoins.wallet.gamification.LevelViewModel
+import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
@@ -26,12 +26,12 @@ class CurrentLevelViewHolder(itemView: View,
                              private val uiEventListener: PublishSubject<Boolean>) :
     LevelsViewHolder(itemView) {
 
-  override fun bind(level: LevelViewModel) {
+  override fun bind(level: LevelModel) {
     val progress = getProgressPercentage(level.amount)
-    val progressString = validateAndGetProgressString(getProgressPercentage(level.amount))
+    val progressString = validateAndGetProgressString(progress)
     handleSpecificLevel(level.level, progressString, level.bonus)
     setProgress(progress)
-    handleToogleButton(level.level)
+    handleToggleButton(level.level)
   }
 
   private fun handleSpecificLevel(level: Int, progressPercentage: String, bonus: Double) {
@@ -41,7 +41,7 @@ class CurrentLevelViewHolder(itemView: View,
     setText(currentLevelInfo.title, currentLevelInfo.phrase, progressPercentage, bonus)
   }
 
-  private fun handleToogleButton(level: Int) {
+  private fun handleToggleButton(level: Int) {
     if (level != 0) {
       itemView.toggle_button.setOnCheckedChangeListener { _, isChecked ->
         uiEventListener.onNext(isChecked)

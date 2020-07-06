@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.content.Context
 import android.view.View
-import com.appcoins.wallet.gamification.LevelViewModel
+import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import kotlinx.android.synthetic.main.unreached_level_layout.view.*
@@ -12,7 +12,7 @@ class UnreachedLevelViewHolder(itemView: View, private val context: Context,
                                private val currencyFormatUtils: CurrencyFormatUtils) :
     LevelsViewHolder(itemView) {
 
-  override fun bind(level: LevelViewModel) {
+  override fun bind(level: LevelModel) {
     itemView.locked_text.text = context.getString(R.string.gamif_next_goals,
         currencyFormatUtils.formatGamificationValues(level.amount))
     val df = DecimalFormat("###.#")

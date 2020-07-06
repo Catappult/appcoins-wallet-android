@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
-import com.appcoins.wallet.gamification.LevelViewModel
+import com.appcoins.wallet.gamification.LevelModel
 import io.reactivex.Observable
 import java.math.BigDecimal
 import java.util.*
@@ -8,8 +8,8 @@ import java.util.*
 interface GamificationView {
 
   fun displayGamificationInfo(currentLevel: Int, nextLevelAmount: BigDecimal,
-                              hiddenLevels: List<LevelViewModel>,
-                              shownLevels: List<LevelViewModel>,
+                              hiddenLevels: List<LevelModel>,
+                              shownLevels: List<LevelModel>,
                               totalSpend: BigDecimal,
                               updateDate: Date?)
 
@@ -17,5 +17,5 @@ interface GamificationView {
 
   fun getToggleButtonClick(): Observable<Boolean>
 
-  fun toogleReachedLevels(show: Boolean)
+  fun toggleReachedLevels(show: Boolean)
 }

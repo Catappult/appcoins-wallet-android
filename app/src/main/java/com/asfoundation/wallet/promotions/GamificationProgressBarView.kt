@@ -173,9 +173,8 @@ constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 
 
       override fun onAnimationStart(animation: Animation?) = Unit
     }
-    if (newLevel) {
-      startBounceAnimation(activeIcon, listener)
-    } else startRebounceAnimation(activeIcon, listener)
+    if (newLevel) startBounceAnimation(activeIcon, listener)
+    else startRebounceAnimation(activeIcon, listener)
   }
 
   private fun animateLevelToLock(levelIcon: View, levelText: TextView) {

@@ -4,16 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.appcoins.wallet.gamification.LevelViewModel
-import com.appcoins.wallet.gamification.LevelViewModel.LevelType
+import com.appcoins.wallet.gamification.LevelModel
+import com.appcoins.wallet.gamification.LevelModel.LevelType
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 
 class LevelsAdapter(private val context: Context,
-                    private val hiddenLevels: List<LevelViewModel>,
-                    shownLevels: List<LevelViewModel>,
+                    private val hiddenLevels: List<LevelModel>,
+                    shownLevels: List<LevelModel>,
                     private val amountSpent: BigDecimal, private val currentLevel: Int,
                     private val nextLevelAmount: BigDecimal,
                     private val currencyFormatUtils: CurrencyFormatUtils,
@@ -21,7 +21,7 @@ class LevelsAdapter(private val context: Context,
                     private val uiEventListener: PublishSubject<Boolean>) :
     RecyclerView.Adapter<LevelsViewHolder>() {
 
-  private var activeLevelList: MutableList<LevelViewModel> = shownLevels.toMutableList()
+  private var activeLevelList: MutableList<LevelModel> = shownLevels.toMutableList()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {
     return when (viewType) {
@@ -58,7 +58,7 @@ class LevelsAdapter(private val context: Context,
     }
   }
 
-  fun toogleReachedLevels(show: Boolean) {
+  fun toggleReachedLevels(show: Boolean) {
     if (show) {
       if (currentLevel != 0) {
         for (level in hiddenLevels.reversed()) {

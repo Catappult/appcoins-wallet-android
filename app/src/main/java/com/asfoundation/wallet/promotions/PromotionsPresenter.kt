@@ -20,9 +20,9 @@ class PromotionsPresenter(private val view: PromotionsView,
                           private val viewScheduler: Scheduler,
                           private val formatter: CurrencyFormatUtils) {
 
-  var cachedUserType: UserType = UserType.STANDARD
-  var cachedLink: String = ""
-  var cachedBonus: Double = 0.0
+  var cachedUserType = UserType.STANDARD
+  var cachedLink = ""
+  var cachedBonus = 0.0
 
   fun present() {
     retrievePromotions()
@@ -51,6 +51,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun handleNewLevel() {
     disposables.add(promotionsInteractor.hasGamificationNewLevel(GamificationScreen.MY_LEVEL)
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.showGamificationUpdate(it) }
         .subscribe({}, { handleError(it) }))
@@ -148,9 +149,7 @@ class PromotionsPresenter(private val view: PromotionsView,
         .subscribe({}, { handleError(it) }))
   }
 
-  private fun isLegacyUser(userType: UserType): Boolean {
-    return userType == UserType.PIONEER
-  }
+  private fun isLegacyUser(userType: UserType) = userType == UserType.PIONEER
 
   fun stop() = disposables.clear()
 
