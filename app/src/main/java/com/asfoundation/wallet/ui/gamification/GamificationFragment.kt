@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -74,8 +72,6 @@ class GamificationFragment : DaggerFragment(), GamificationView {
                                        shownLevels: List<LevelModel>,
                                        totalSpend: BigDecimal,
                                        updateDate: Date?) {
-    val layoutManager = LinearLayoutManager(context)
-    layoutManager.orientation = RecyclerView.VERTICAL
     levelsAdapter =
         LevelsAdapter(context!!, hiddenLevels, shownLevels, totalSpend, currentLevel,
             nextLevelAmount, formatter,
@@ -83,7 +79,6 @@ class GamificationFragment : DaggerFragment(), GamificationView {
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
             .toInt()))
-    gamification_recycler_view.layoutManager = layoutManager
     gamification_recycler_view.adapter = levelsAdapter
     handleBonusUpdatedText(updateDate)
   }
