@@ -696,7 +696,7 @@
   <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
   <string name="gamif_placeholder_planetx">Planet %s</string>
   <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
-  <string name="gamif_placeholder_unknown">an unknown planet</string>
-  <string name="gamif_distance_unkown">Unknown location</string>
-  <string name="gamif_placeholder_new_planet">a new planet</string>
+  <string name="gamif_placeholder_unknown">未知星球</string>
+  <string name="gamif_distance_unkown">未知位置</string>
+  <string name="gamif_placeholder_new_planet">新星球</string>
 </resources>
