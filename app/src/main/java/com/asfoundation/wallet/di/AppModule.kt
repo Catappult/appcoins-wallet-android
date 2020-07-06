@@ -56,7 +56,6 @@ import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.WalletLogger
-import com.asfoundation.wallet.navigator.UpdateNavigator
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
@@ -527,9 +526,6 @@ internal class AppModule {
       -1
     }
   }
-
-  @Provides
-  fun provideUpdateNavigator() = UpdateNavigator()
 
   @Singleton
   @Provides

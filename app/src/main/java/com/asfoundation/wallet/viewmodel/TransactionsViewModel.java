@@ -412,8 +412,8 @@ public class TransactionsViewModel extends BaseViewModel {
             Uri.parse(InviteFriendsActivity.APTOIDE_TOP_APPS_URL));
         break;
       case UPDATE:
-        transactionViewNavigator.openUpdateAppView(context,
-            transactionViewInteract.retrieveUpdateUrl());
+        transactionViewNavigator.openIntent(context,
+            transactionViewInteract.retrieveUpdateIntent());
         dismissNotification(cardNotification);
         break;
       case BACKUP:
