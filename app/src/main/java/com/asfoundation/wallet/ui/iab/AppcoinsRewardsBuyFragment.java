@@ -158,9 +158,14 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void showGenericError() {
+    showError(null);
+  }
+
+  @Override public void showError(Integer message) {
     hideLoading();
     okErrorButton.setText(R.string.ok);
-    errorMessage.setText(R.string.activity_iab_error_message);
+    errorMessage.setText(
+        getString(message != null ? message : R.string.activity_iab_error_message));
     transactionErrorLayout.setVisibility(View.VISIBLE);
   }
 

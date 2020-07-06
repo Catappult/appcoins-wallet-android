@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui.iab;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
@@ -15,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
+import static com.asfoundation.wallet.ui.iab.RewardsManager.RewardPayment.Status.FORBIDDEN;
 
 public class AppcoinsRewardsBuyPresenter {
   private final AppcoinsRewardsBuyView view;
@@ -119,10 +122,9 @@ public class AppcoinsRewardsBuyPresenter {
             .doOnSuccess(view::finish)
             .ignoreElement();
       case ERROR:
-        return Completable.fromAction(() -> {
-          view.showGenericError();
-          view.hideLoading();
-        });
+        return Completable.fromAction(view::showGenericError);
+      case FORBIDDEN:
+        return Completable.fromAction(() -> view.showError(mapError(FORBIDDEN)));
       case NO_NETWORK:
         return Completable.fromAction(() -> {
           view.showNoNetworkError();
@@ -160,7 +162,8 @@ public class AppcoinsRewardsBuyPresenter {
 
   private void sendPaymentErrorEvent(RewardsManager.RewardPayment transaction) {
     if (transaction.getStatus() == RewardsManager.RewardPayment.Status.ERROR
-        || transaction.getStatus() == RewardsManager.RewardPayment.Status.NO_NETWORK) {
+        || transaction.getStatus() == RewardsManager.RewardPayment.Status.NO_NETWORK
+        || transaction.getStatus() == RewardsManager.RewardPayment.Status.FORBIDDEN) {
       analytics.sendPaymentErrorEvent(packageName, transactionBuilder.getSkuId(),
           transactionBuilder.amount()
               .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.getType(),
@@ -174,5 +177,13 @@ public class AppcoinsRewardsBuyPresenter {
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable(__ -> appcoinsRewardsBuyInteract.showSupport(gamificationLevel))
         .subscribe());
+  }
+
+  @StringRes private int mapError(RewardsManager.RewardPayment.Status status) {
+    if (status == FORBIDDEN) {
+      return R.string.purchase_wallet_error_contact_us;
+    } else {
+      return R.string.activity_iab_error_message;
+    }
   }
 }

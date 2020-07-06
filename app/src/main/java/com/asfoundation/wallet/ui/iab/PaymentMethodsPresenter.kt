@@ -113,15 +113,8 @@ class PaymentMethodsPresenter(
             .subscribeOn(networkThread)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              if (it) {
-                Completable.fromAction {
-                  view.hideLoading()
-                  view.showWalletBlocked()
-                }
-              } else {
-                Completable.fromAction {
-                  view.showCredits(gamificationLevel)
-                }
+              Completable.fromAction {
+                view.showCredits(gamificationLevel)
               }
             }
             .andThen { Completable.fromAction { view.hideLoading() } }

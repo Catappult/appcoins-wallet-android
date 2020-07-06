@@ -9,7 +9,7 @@ interface LocalPaymentView {
   fun hideLoading()
   fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap)
   fun showCompletedPayment()
-  fun showError()
+  fun showError(message: Int? = null)
   fun dismissError()
   fun getErrorDismissClick(): Observable<Any>
   fun getGotItClick(): Observable<Any>

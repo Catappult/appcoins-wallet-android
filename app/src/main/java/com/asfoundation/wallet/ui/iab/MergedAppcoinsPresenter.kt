@@ -93,11 +93,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
               .flatMapCompletable {
-                if (it) {
-                  showBlockedError()
-                } else {
-                  handleBuyClickSelection(paymentMethod.purchaseDetails)
-                }
+                handleBuyClickSelection(paymentMethod.purchaseDetails)
               }
         }
         .subscribe({}, {
@@ -119,14 +115,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .observeOn(viewScheduler)
         .doOnNext { navigator.popViewWithError() }
         .subscribe())
-  }
-
-  private fun showBlockedError(): Completable {
-    return Completable.fromAction {
-      view.hideLoading()
-      view.showPaymentMethods()
-      view.showWalletBlocked()
-    }
   }
 
   private fun handlePaymentSelectionChange() {

@@ -169,6 +169,8 @@ public class AsfInAppPurchaseInteractor {
         return Payment.Status.NO_FUNDS;
       case NO_INTERNET:
         return Payment.Status.NO_INTERNET;
+      case FORBIDDEN:
+        return Payment.Status.FORBIDDEN;
     }
     throw new IllegalStateException("State " + state + " not mapped");
   }
