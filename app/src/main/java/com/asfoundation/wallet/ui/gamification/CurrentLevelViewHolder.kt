@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -52,12 +50,7 @@ class CurrentLevelViewHolder(itemView: View,
   }
 
   private fun setColor(color: Int) {
-    val ovalBackground =
-        ResourcesCompat.getDrawable(context.resources, R.drawable.oval_grey_background, null)
-    ovalBackground?.let {
-      DrawableCompat.setTint(it.mutate(), color)
-      itemView.current_level_bonus.background = it
-    }
+    itemView.current_level_bonus.background = mapper.getOvalBackground(color)
     itemView.current_level_progress_bar.progressTintList = ColorStateList.valueOf(color)
   }
 

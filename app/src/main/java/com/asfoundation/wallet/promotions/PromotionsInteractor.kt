@@ -126,8 +126,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         referral.amount.multiply(BigDecimal(referral.available.plus(referral.completed)))
     return PromotionsModel(gamificationAvailable, referralsAvailable, gamification.level,
         gamification.nextLevelAmount, gamification.totalSpend, map(gamification.userType),
-        referral.link ?: "", maxAmount, referral.completed, referral.receivedAmount,
-        referral.link != null, referral.symbol)
+        gamification.bonus, referral.link ?: "", maxAmount, referral.completed,
+        referral.receivedAmount, referral.link != null, referral.symbol)
   }
 
   private fun map(userType: GamificationResponse.UserType): UserType {
