@@ -33,8 +33,8 @@ internal class AppCoinsAdvertisingBinder(
   override fun getAvailableCampaign(): Bundle {
     val uid = Binder.getCallingUid()
     val pkg = packageManager.getNameForUid(uid)
-    val pkgInfo = packageManager.getPackageInfo(pkg, 0)
-    return campaignInteract.getCampaign(pkg?:"", pkgInfo.versionCode)
+    val pkgInfo = packageManager.getPackageInfo(pkg ?: "", 0)
+    return campaignInteract.getCampaign(pkg ?: "", pkgInfo.versionCode)
         .doOnSuccess { handleNotificationDisplay(it, pkgInfo) }
         .map { mapCampaignDetails(it) }
         .blockingGet()
@@ -60,11 +60,11 @@ internal class AppCoinsAdvertisingBinder(
     val intent = autoUpdateInteract.buildUpdateIntent()
     val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
     notificationManager.notify(WalletPoAService.SERVICE_ID,
-        headsUpNotificationBuilder.setStyle(
-            NotificationCompat.BigTextStyle().setBigContentTitle(
+        headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle()
+            .setBigContentTitle(
                 context.getString(R.string.update_wallet_poa_notification_title))
-                .bigText(context.getString(
-                    R.string.update_wallet_poa_notification_body)))
+            .bigText(context.getString(
+                R.string.update_wallet_poa_notification_body)))
             .setContentIntent(pendingIntent)
             .build())
   }
@@ -75,7 +75,8 @@ internal class AppCoinsAdvertisingBinder(
     val message = context.getString(R.string.notification_poa_limit_reached,
         campaign.hoursRemaining.toString(), minutesRemaining)
     val notificationBuilder =
-        headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle().bigText(message))
+        headsUpNotificationBuilder.setStyle(NotificationCompat.BigTextStyle()
+            .bigText(message))
             .setContentText(message)
     packageInfo?.let {
       notificationBuilder.setContentTitle(packageManager.getApplicationLabel(it.applicationInfo))

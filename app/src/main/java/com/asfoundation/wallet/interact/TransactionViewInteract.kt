@@ -59,9 +59,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         emptyList())
   }
 
-  fun stopTransactionFetch() {
-    fetchTransactionsInteract.stop()
-  }
+  fun stopTransactionFetch() = fetchTransactionsInteract.stop()
 
   fun findWallet(): Single<Wallet> {
     return findDefaultWalletInteract.find()
@@ -71,7 +69,5 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     return cardNotificationsInteractor.dismissNotification(cardNotification)
   }
 
-  fun retrieveUpdateUrl(): String {
-    return autoUpdateInteract.retrieveRedirectUrl()
-  }
+  fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 }
