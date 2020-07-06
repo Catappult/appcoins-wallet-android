@@ -1,38 +1,39 @@
 package com.asfoundation.wallet.ui.gamification
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_rewards_level.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 
-class RewardsLevelActivity : BaseActivity(), GamificationView {
+class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   private lateinit var menu: Menu
-  private lateinit var presenter: RewardsLevelPresenter
+  private lateinit var presenter: GamificationActivityPresenter
+  private var toolbar: Toolbar? = null
   private var infoButtonSubject: PublishSubject<Any>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_rewards_level)
-    toolbar()
+    toolbar = toolbar()
+    setTitle(getString(R.string.gamif_title, bonus.toString()))
     infoButtonSubject = PublishSubject.create()
-    val fragment = MyLevelFragment()
-    presenter = RewardsLevelPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
-    presenter.present()
-    // Display the fragment as the main content.
-    supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container, fragment)
-        .commit()
+    presenter =
+        GamificationActivityPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
+    presenter.present(legacy)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -53,24 +54,19 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_info, menu)
     this.menu = menu
-    this.menu.findItem(R.id.action_info)
-        .isVisible = true
+    if (legacy) this.menu.findItem(R.id.action_info).isVisible = true
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun getInfoButtonClick(): Observable<Any> {
-    return infoButtonSubject!!
-  }
+  override fun getInfoButtonClick() = infoButtonSubject!!
 
-  override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
-  }
+  override fun retryClick() = RxView.clicks(retry_button)
 
-  override fun loadMyLevelFragment() {
-    val fragment = MyLevelFragment()
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment)
-        .commit()
+  override fun loadLegacyGamificationView() = navigateTo(LegacyGamificationFragment())
+
+  override fun loadGamificationView() {
+    toolbar?.menu?.removeItem(R.id.action_info)
+    navigateTo(GamificationFragment())
   }
 
   override fun showNetworkErrorView() {
@@ -94,5 +90,35 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     infoButtonSubject = null
     presenter.stop()
     super.onDestroy()
+  }
+
+  private fun navigateTo(fragment: Fragment) {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, fragment)
+        .commit()
+  }
+
+  private val legacy: Boolean by lazy {
+    intent.getBooleanExtra(LEGACY, false)
+  }
+
+  private val bonus: Int by lazy {
+    intent.getDoubleExtra(BONUS, 25.0)
+        .toInt()
+  }
+
+
+  companion object {
+
+    const val LEGACY = "legacy"
+    const val BONUS = "bonus"
+
+    @JvmStatic
+    fun newIntent(context: Context, legacy: Boolean, bonus: Double): Intent {
+      return Intent(context, GamificationActivity::class.java).apply {
+        putExtra(LEGACY, legacy)
+        putExtra(BONUS, bonus)
+      }
+    }
   }
 }

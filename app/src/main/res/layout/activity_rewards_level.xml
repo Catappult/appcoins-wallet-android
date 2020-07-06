@@ -22,7 +22,7 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <FrameLayout
       android:id="@+id/gamification_no_network"
       android:layout_width="match_parent"
       android:layout_height="0dp"
@@ -36,15 +36,7 @@
         layout="@layout/no_network_retry_only_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/no_network_bottom_guideline"
         />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/no_network_bottom_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.68"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
