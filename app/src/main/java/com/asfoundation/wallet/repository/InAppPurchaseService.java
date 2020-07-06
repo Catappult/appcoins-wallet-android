@@ -160,6 +160,9 @@ public class InAppPurchaseService {
       case NO_INTERNET:
         toReturn = PaymentTransaction.PaymentState.NO_INTERNET;
         break;
+      case FORBIDDEN:
+        toReturn = PaymentTransaction.PaymentState.FORBIDDEN;
+        break;
     }
     return toReturn;
   }
@@ -206,6 +209,9 @@ public class InAppPurchaseService {
         break;
       case PENDING:
         paymentState = PaymentTransaction.PaymentState.PENDING;
+        break;
+      case FORBIDDEN:
+        paymentState = PaymentTransaction.PaymentState.FORBIDDEN;
         break;
     }
     return paymentState;

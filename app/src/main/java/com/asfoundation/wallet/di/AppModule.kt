@@ -64,6 +64,7 @@ import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService
+import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -583,4 +584,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesGamificationMapper(context: Context) = GamificationMapper(context)
+
+  @Singleton
+  @Provides
+  fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 }

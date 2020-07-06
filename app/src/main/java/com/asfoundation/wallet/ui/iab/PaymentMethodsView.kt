@@ -49,7 +49,6 @@ interface PaymentMethodsView {
   fun showBonus()
   fun hideBonus()
   fun replaceBonus()
-  fun showWalletBlocked()
   fun removeBonus()
   fun getSupportLogoClicks(): Observable<Any>
   fun getSupportIconClicks(): Observable<Any>

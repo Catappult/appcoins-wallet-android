@@ -550,8 +550,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     no_bonus_msg?.visibility = View.VISIBLE
   }
 
-  override fun showWalletBlocked() = iabView.showWalletBlocked()
-
   private fun setupAppNameAndIcon() {
     compositeDisposable.add(Single.defer { Single.just(appPackage) }
         .observeOn(Schedulers.io())

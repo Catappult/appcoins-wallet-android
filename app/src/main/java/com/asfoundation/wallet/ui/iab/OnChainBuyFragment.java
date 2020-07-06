@@ -219,7 +219,11 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     showError(R.string.activity_iab_no_funds_message);
   }
 
-  @Override public void showRaidenChannelValues(List<BigDecimal> values) {
+  @Override public void showForbiddenError() {
+    showError(R.string.purchase_wallet_error_contact_us);
+  }
+
+  @Override public void showRaidenChannelValues(@NotNull List<? extends BigDecimal> values) {
     adapter.clear();
     adapter.addAll(values);
     adapter.notifyDataSetChanged();
