@@ -173,12 +173,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             >
-          <include layout="@layout/payments_skeleton" />
           <include
               layout="@layout/payments_skeleton"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="2dp"
+              android:layout_height="48dp"
+              />
+          <include
+              layout="@layout/payments_skeleton"
+              android:layout_width="match_parent"
+              android:layout_height="48dp"
+              android:layout_marginTop="4dp"
               />
         </LinearLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -274,7 +278,6 @@
           android:layout_marginBottom="80dp"
           android:enabled="false"
           android:text="@string/action_next"
-          android:visibility="invisible"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bonus_msg"
           app:layout_constraintVertical_bias="1.0"

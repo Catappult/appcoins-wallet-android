@@ -200,6 +200,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
+    payments_skeleton.visibility = View.GONE
     payment_methods.visibility = View.VISIBLE
     top_separator_topup.visibility = View.VISIBLE
     bot_separator.visibility = View.VISIBLE
@@ -301,16 +302,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     payment_methods.requestFocus()
   }
 
-  override fun hideLoadingButton() {
-    button_loading.visibility = View.INVISIBLE
-    button.visibility = View.VISIBLE
-  }
-
-  override fun showLoadingButton() {
-    button.visibility = View.INVISIBLE
-    button_loading.visibility = View.VISIBLE
-  }
-
   override fun showPaymentDetailsForm() {
     payment_methods.visibility = View.GONE
     bonus_layout.visibility = View.GONE
@@ -383,22 +374,27 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun hideBonus() {
     bonus_layout.visibility = View.INVISIBLE
     bonus_msg.visibility = View.INVISIBLE
+    bonus_layout_skeleton.visibility = View.GONE
+    bonus_msg_skeleton.visibility = View.GONE
   }
 
   override fun removeBonus() {
     bonus_layout.visibility = View.GONE
     bonus_msg.visibility = View.GONE
+    bonus_layout_skeleton.visibility = View.GONE
+    bonus_msg_skeleton.visibility = View.GONE
   }
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
-    bonus_layout.visibility = View.VISIBLE
-    bonus_msg.visibility = View.VISIBLE
+    showBonus()
   }
 
   override fun showBonus() {
-    bonus_layout.visibility = View.VISIBLE
+    bonus_layout_skeleton.visibility = View.GONE
+    bonus_msg_skeleton.visibility = View.GONE
     bonus_msg.visibility = View.VISIBLE
+    bonus_layout.visibility = View.VISIBLE
   }
 
   override fun showMaxValueWarning(value: String) {
@@ -456,8 +452,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     retry_animation.visibility = View.VISIBLE
   }
 
-  override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
+  override fun retryClick() = RxView.clicks(retry_button)
+
+  override fun showSkeletons() {
+    payments_skeleton.visibility = View.VISIBLE
+    bonus_layout_skeleton.visibility = View.VISIBLE
+    bonus_msg_skeleton.visibility = View.VISIBLE
   }
 
   private fun hideNoNetwork() {

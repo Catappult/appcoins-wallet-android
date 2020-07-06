@@ -15,8 +15,6 @@ interface TopUpFragmentView {
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)
-  fun hideLoadingButton()
-  fun showLoadingButton()
   fun showPaymentDetailsForm()
   fun showPaymentMethods()
   fun rotateChangeCurrencyButton()
@@ -45,4 +43,5 @@ interface TopUpFragmentView {
   fun getKeyboardEvents(): Observable<Boolean>
   fun setDefaultAmountValue(amount: String)
   fun removeBonus()
+  fun showSkeletons()
 }

@@ -138,23 +138,27 @@
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@id/top_separator"
               >
-            <include layout="@layout/payments_skeleton" />
             <include
                 layout="@layout/payments_skeleton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                />
+            <include
+                layout="@layout/payments_skeleton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="2dp"
                 />
             <include
                 layout="@layout/payments_skeleton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="2dp"
                 />
             <include
                 layout="@layout/payments_skeleton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="2dp"
                 />
           </LinearLayout>
