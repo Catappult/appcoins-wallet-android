@@ -251,7 +251,7 @@ public class AsfInAppPurchaseInteractor {
             .getName()) {
           case appcoins:
             return CurrentPaymentStep.PAUSED_ON_CHAIN;
-          case adyen:
+          case adyen_v2:
             if (transaction.getStatus()
                 .equals(Transaction.Status.PROCESSING)) {
               return CurrentPaymentStep.PAUSED_CC_PAYMENT;
