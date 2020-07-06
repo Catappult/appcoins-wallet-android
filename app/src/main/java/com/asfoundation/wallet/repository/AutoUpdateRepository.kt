@@ -6,8 +6,7 @@ import io.reactivex.Single
 
 class AutoUpdateRepository(private val autoUpdateService: AutoUpdateService) {
 
-  private var autoUpdateModel: AutoUpdateModel =
-      AutoUpdateModel()
+  private var autoUpdateModel = AutoUpdateModel()
 
   fun loadAutoUpdateModel(invalidateCache: Boolean): Single<AutoUpdateModel> {
     if (autoUpdateModel.isValid() && !invalidateCache) {
