@@ -14,7 +14,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class LegacyGamificationPresenter(private val view: LegacyGamificationView,
-                                  private val activity: RewardsLevelView?,
+                                  private val activityView: GamificationActivityView,
                                   private val gamification: GamificationInteractor,
                                   private val analytics: GamificationAnalytics,
                                   private val disposables: CompositeDisposable,
@@ -46,9 +46,9 @@ class LegacyGamificationPresenter(private val view: LegacyGamificationView,
   private fun displayInformation(status: Status, lastShownLevel: Int, level: Int,
                                  bonus: List<Double>, sendEvent: Boolean, userType: UserType) {
     if (status == Status.NO_NETWORK) {
-      activity?.showNetworkErrorView()
+      activityView.showNetworkErrorView()
     } else {
-      activity?.showMainView()
+      activityView.showMainView()
       view.showPioneerUser()
       view.setLevelIcons()
       if (lastShownLevel > 0 || lastShownLevel == 0 && level == 0) {
@@ -62,11 +62,9 @@ class LegacyGamificationPresenter(private val view: LegacyGamificationView,
   }
 
   private fun handleInfoButtonClick() {
-    activity?.let {
-      disposables.add(it.getInfoButtonClick()
-          .doOnNext { view.changeBottomSheetState() }
-          .subscribe())
-    }
+    disposables.add(activityView.getInfoButtonClick()
+        .doOnNext { view.changeBottomSheetState() }
+        .subscribe())
   }
 
   private fun mapToUserStatus(levels: Levels, gamificationStats: GamificationStats,

@@ -30,7 +30,7 @@ class LegacyGamificationFragment : DaggerFragment(), LegacyGamificationView {
 
 
   private lateinit var presenter: LegacyGamificationPresenter
-  private lateinit var rewardsLevelView: RewardsLevelView
+  private lateinit var activityView: GamificationActivityView
   private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
   private lateinit var gamificationProgressBarView: GamificationProgressBarView
   private var step = 100
@@ -38,15 +38,15 @@ class LegacyGamificationFragment : DaggerFragment(), LegacyGamificationView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        LegacyGamificationPresenter(this, rewardsLevelView, gamificationInteractor, analytics,
+        LegacyGamificationPresenter(this, activityView, gamificationInteractor, analytics,
             CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is RewardsLevelView) { LegacyGamificationFragment::class.java.simpleName + " needs to be attached to a " + RewardsLevelView::class.java.simpleName }
-    rewardsLevelView = context
+        context is GamificationActivityView) { LegacyGamificationFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
+    activityView = context
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

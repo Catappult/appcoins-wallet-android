@@ -142,23 +142,18 @@ class GamificationMapper(private val context: Context) {
     return ovalBackground
   }
 
-  private fun getDrawable(@DrawableRes drawable: Int): Drawable? {
-    return ResourcesCompat.getDrawable(context.resources, drawable, null)
-  }
+  private fun getDrawable(@DrawableRes drawable: Int) =
+      ResourcesCompat.getDrawable(context.resources, drawable, null)
 
-
-  private fun getColor(@ColorRes color: Int): Int {
-    return ResourcesCompat.getColor(context.resources, color, null)
-  }
+  private fun getColor(@ColorRes color: Int) =
+      ResourcesCompat.getColor(context.resources, color, null)
 
   private fun getString(@StringRes string: Int) = context.getString(string)
 
-  private fun getFullString(@StringRes string: Int, @StringRes planet: Int): String {
-    return context.getString(string, getString(planet))
-  }
+  private fun getFullString(@StringRes string: Int, @StringRes planet: Int) =
+      context.getString(string, getString(planet))
 
-  private fun getUnknownPlanetString(number: Int): String {
-    return context.getString(R.string.gamif_achievement_reach,
-        context.getString(R.string.gamif_placeholder_planetx, number.toString()))
-  }
+  private fun getUnknownPlanetString(number: Int) =
+      context.getString(R.string.gamif_achievement_reach,
+          context.getString(R.string.gamif_placeholder_planetx, number.toString()))
 }

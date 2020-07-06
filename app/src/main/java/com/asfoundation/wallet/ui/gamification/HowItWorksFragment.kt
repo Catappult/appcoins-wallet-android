@@ -38,20 +38,20 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: HowItWorksPresenter
-  private lateinit var rewardsLevelView: RewardsLevelView
+  private lateinit var activityView: GamificationActivityView
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = HowItWorksPresenter(this, rewardsLevelView, gamificationInteractor, analytics,
+    presenter = HowItWorksPresenter(this, activityView, gamificationInteractor, analytics,
         CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is RewardsLevelView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + RewardsLevelView::class.java.simpleName }
-    rewardsLevelView = context
+        context is GamificationActivityView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
+    activityView = context
   }
 
   override fun showLevels(

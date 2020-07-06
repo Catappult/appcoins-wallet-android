@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.gamification
 
 import io.reactivex.Observable
 
-interface RewardsLevelView {
+interface GamificationActivityView {
 
   fun getInfoButtonClick(): Observable<Any>
 

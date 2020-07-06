@@ -2,8 +2,8 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.os.Bundle
 import com.appcoins.wallet.gamification.GamificationScreen
-import com.appcoins.wallet.gamification.LevelViewModel
-import com.appcoins.wallet.gamification.LevelViewModel.LevelType
+import com.appcoins.wallet.gamification.LevelModel
+import com.appcoins.wallet.gamification.LevelModel.LevelType
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -17,7 +17,7 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 
 class GamificationPresenter(private val view: GamificationView,
-                            private val activityView: RewardsLevelView,
+                            private val activityView: GamificationActivityView,
                             private val gamification: GamificationInteractor,
                             private val analytics: GamificationAnalytics,
                             private val formatter: CurrencyFormatUtils,
@@ -32,7 +32,7 @@ class GamificationPresenter(private val view: GamificationView,
 
   private fun handleLevelsClick() {
     disposables.add(view.getToggleButtonClick()
-        .doOnNext { view.toogleReachedLevels(it) }
+        .doOnNext { view.toggleReachedLevels(it) }
         .subscribe())
   }
 
@@ -80,16 +80,16 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   private fun map(levels: List<Levels.Level>,
-                  currentLevel: Int): Pair<List<LevelViewModel>, List<LevelViewModel>> {
-    val hiddenList = ArrayList<LevelViewModel>()
-    val shownList = ArrayList<LevelViewModel>()
+                  currentLevel: Int): Pair<List<LevelModel>, List<LevelModel>> {
+    val hiddenList = ArrayList<LevelModel>()
+    val shownList = ArrayList<LevelModel>()
     for (level in levels) {
       val viewType = when {
         level.level < currentLevel -> LevelType.REACHED
         level.level == currentLevel -> LevelType.CURRENT
         else -> LevelType.UNREACHED
       }
-      val levelViewModel = LevelViewModel(level.amount, level.bonus, level.level, viewType)
+      val levelViewModel = LevelModel(level.amount, level.bonus, level.level, viewType)
       if (viewType == LevelType.REACHED) hiddenList.add(levelViewModel)
       else shownList.add(levelViewModel)
     }
@@ -118,7 +118,6 @@ class GamificationPresenter(private val view: GamificationView,
       activityView.showNetworkErrorView()
     }
   }
-
 
   fun stop() = disposables.clear()
 }

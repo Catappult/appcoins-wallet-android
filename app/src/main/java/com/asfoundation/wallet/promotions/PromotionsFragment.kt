@@ -42,14 +42,14 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   @Inject
   lateinit var mapper: GamificationMapper
-  private lateinit var activity: PromotionsActivityView
+  private lateinit var activityView: PromotionsActivityView
   private var step = 100
   private lateinit var presenter: PromotionsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        PromotionsPresenter(this, activity, promotionsInteractor, mapper, CompositeDisposable(),
+        PromotionsPresenter(this, activityView, promotionsInteractor, mapper, CompositeDisposable(),
             Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
@@ -57,7 +57,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     super.onAttach(context)
     require(
         context is PromotionsActivityView) { PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName }
-    activity = context
+    activityView = context
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

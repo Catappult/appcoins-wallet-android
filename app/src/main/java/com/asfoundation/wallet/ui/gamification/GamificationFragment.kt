@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.appcoins.wallet.gamification.LevelViewModel
+import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -39,14 +39,14 @@ class GamificationFragment : DaggerFragment(), GamificationView {
   @Inject
   lateinit var mapper: GamificationMapper
   private lateinit var presenter: GamificationPresenter
-  private lateinit var activityView: RewardsLevelView
+  private lateinit var activityView: GamificationActivityView
   private lateinit var levelsAdapter: LevelsAdapter
   private var uiEventListener: PublishSubject<Boolean>? = null
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is RewardsLevelView) { GamificationFragment::class.java.simpleName + " needs to be attached to a " + RewardsLevelView::class.java.simpleName }
+        context is GamificationActivityView) { GamificationFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
     activityView = context
   }
 
@@ -70,8 +70,8 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   override fun displayGamificationInfo(currentLevel: Int,
                                        nextLevelAmount: BigDecimal,
-                                       hiddenLevels: List<LevelViewModel>,
-                                       shownLevels: List<LevelViewModel>,
+                                       hiddenLevels: List<LevelModel>,
+                                       shownLevels: List<LevelModel>,
                                        totalSpend: BigDecimal,
                                        updateDate: Date?) {
     val layoutManager = LinearLayoutManager(context)
@@ -100,8 +100,8 @@ class GamificationFragment : DaggerFragment(), GamificationView {
 
   override fun getToggleButtonClick() = uiEventListener!!
 
-  override fun toogleReachedLevels(show: Boolean) {
-    levelsAdapter.toogleReachedLevels(show)
+  override fun toggleReachedLevels(show: Boolean) {
+    levelsAdapter.toggleReachedLevels(show)
     gamification_scroll_view.scrollTo(0, 0)
   }
 

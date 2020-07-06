@@ -11,7 +11,7 @@
       android:layout_width="wrap_content"
       android:layout_height="32dp"
       android:layout_marginStart="16dp"
-      android:background="@drawable/oval_toogle_button"
+      android:background="@drawable/oval_toggle_button"
       android:drawableEnd="@drawable/arrow_rotated"
       android:drawablePadding="8dp"
       android:paddingHorizontal="12dp"

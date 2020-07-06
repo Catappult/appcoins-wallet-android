@@ -4,9 +4,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class RewardsLevelPresenter(private val activity: RewardsLevelView,
-                            private val disposable: CompositeDisposable,
-                            private val viewScheduler: Scheduler) {
+class GamificationActivityPresenter(private val activity: GamificationActivityView,
+                                    private val disposable: CompositeDisposable,
+                                    private val viewScheduler: Scheduler) {
 
   fun present(legacy: Boolean) {
     handleNavigation(legacy)
