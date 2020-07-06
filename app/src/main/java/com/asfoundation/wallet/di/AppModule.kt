@@ -72,6 +72,7 @@ import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
@@ -582,6 +583,9 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
+  fun providesGamificationMapper(context: Context) = GamificationMapper(context)
 
+  @Singleton
+  @Provides
+  fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 }

@@ -18,6 +18,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_how_it_works.*
 import java.text.DateFormat
@@ -37,27 +38,26 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: HowItWorksPresenter
-  private lateinit var gamificationView: GamificationView
+  private lateinit var activityView: GamificationActivityView
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = HowItWorksPresenter(this, gamificationView, gamificationInteractor, analytics,
-        Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
+    presenter = HowItWorksPresenter(this, activityView, gamificationInteractor, analytics,
+        CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread(), formatter)
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is GamificationView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + GamificationView::class.java.simpleName }
-    gamificationView = context
+        context is GamificationActivityView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
+    activityView = context
   }
 
   override fun showLevels(
       levels: List<ViewLevel>,
       currentLevel: Int, updateDate: Date?) {
     fragment_gamification_how_it_works_loading.visibility = View.INVISIBLE
-
     for (level in levels) {
       val view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
           fragment_gamification_how_it_works_levels_layout, false)
@@ -148,11 +148,11 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
         ContextCompat.getColor(context!!, R.color.rewards_level_main_color))
   }
 
-  private fun provideParentFragment(): MyLevelFragment? {
-    if (parentFragment !is MyLevelFragment) {
+  private fun provideParentFragment(): LegacyGamificationFragment? {
+    if (parentFragment !is LegacyGamificationFragment) {
       return null
     }
-    return parentFragment as MyLevelFragment
+    return parentFragment as LegacyGamificationFragment
   }
 
 

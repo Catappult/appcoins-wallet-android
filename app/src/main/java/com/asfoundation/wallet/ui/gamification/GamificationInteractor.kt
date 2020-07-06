@@ -4,8 +4,8 @@ import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
@@ -28,7 +28,7 @@ class GamificationInteractor(
         .flatMap { gamification.getLevels(it.address) }
   }
 
-  fun getUserStats(): Single<UserStats> {
+  fun getUserStats(): Single<GamificationStats> {
     return defaultWallet.find()
         .flatMap { gamification.getUserStats(it.address) }
   }

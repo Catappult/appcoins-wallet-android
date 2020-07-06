@@ -4,7 +4,7 @@
   <string name="title_send">ส่ง</string>
   <string name="title_send_with_token">ส่ง %s</string>
   <string name="title_request">ได้รับ</string>
-  <string name="title_import">Recover Wallet</string>
+  <string name="title_import">กู้คืน Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">รหัสผ่าน</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">กระเป๋าสตางค์</string>
   <string name="cancel">ยกเลิก</string>
   <string name="confirm_delete_account">ตรวจสอบว่า คุณมีสำเนาสำรองนี้กระเป๋าสตางค์</string>
-  <string name="action_import">Recover</string>
+  <string name="action_import">กู้คืน</string>
   <string name="copy">คัดลอกลงคลิปบอร์ด</string>
   <string name="close">ปิด</string>
   <string name="title_activity_settings">การตั้งค่า</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">คุณมั่นใจว่าต้องการลบกระเป๋าสตางค์นี้</string>
   <string name="twitter">ทวิตเตอร์</string>
   <string name="telegram">กลุ่มเทเลแกรม</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">ตั้งรหัสผ่านเพื่อเข้ารหัสกระเป๋าสตางค์ของคุณ</string>
-  <string name="toast_message_wallet_imported">The wallet was recovered</string>
+  <string name="toast_message_wallet_imported">กระเป๋าสตางค์ถูกกู้คืน</string>
   <string name="toast_message_wallet_exported">สร้างการสำรองข้อมูล</string>
   <string name="toast_qr_code_no_address">รหัส QR ไม่มีที่อยู่ที่ถูกต้อง</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,7 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">แลกใช้รหัส</string>
-  <string name="settings_item_support">Contact Support Team</string>
+  <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ดำเนินการ&#8230;</string>
   <string name="local_payments_inprogress_body">เมื่อคุณชำระเงินเสร็จ คุณจะได้รับเครดิต AppCoins ในกระเป๋าสตางค์ของคุณ หลังจากนั้นกลับไปที่เกมเพื่อซื้อ!</string>
@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">ประเภทบัตรของคุณยังไม่ได้รับการรับรอง โปรดลองบัตรใบอื่น</string>
   <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC ไม่ถูกต้อง</string>
   <string name="error_contac_us_body">โปรดติดต่อเราหากยังคงมีปัญหา</string>
   <!--Async Payments-->
@@ -532,7 +533,7 @@
   <string name="backup_confirmation_title">อีกเพียงนิดเดียว</string>
   <string name="backup_confirmation_body">สำรองข้อมูลของคุณให้ปลอดภัย! คุณต้องการบันทึกไว้ที่ไหน</string>
   <string name="backup_confirmation_yes">ใช่ เสร็จสิ้น</string>
-  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
+  <string name="backup_confirmation_no">ไม่ บันทึกบนอุปกรณ์</string>
   <string name="backup_done_title">สำรองสำเร็จ!</string>
   <string name="backup_done_body">คุณแน่ใจหรือว่าไฟล์สำรองของคุณอยู่ในที่ปลอดภัย?</string>
   <string name="backup_confirmation_no_share_title">สำรองสำเร็จ!</string>
@@ -541,26 +542,26 @@
   <string name="backup_save_dialogue_body">เลือกชื่อสำหรับไฟล์สำรองของคุณ</string>
   <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
   <string name="backup_confirmation_tips_1">ปรินท์และจัดเก็บในที่ปลอดภัย</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
+  <string name="backup_confirmation_tips_2">บันทึกลงในไดรฟ์ USB</string>
   <string name="backup_confirmation_tips_3">คัดลอกเป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
   <string name="backup_send_via_title">ส่งข้อมูลสำรองผ่าน:</string>
   <string name="backup_send_button">ส่งข้อมูลสำรอง</string>
   <string name="backup_save_button">บันทึกข้อมูลสำรอง</string>
-  <string name="import_wallet_title">Recover Wallet</string>
+  <string name="import_wallet_title">กู้คืน Wallet</string>
   <string name="import_wallet_body">วางข้อมูลสำรองของกระเป๋าสตางค์ของคุณด้านล่าง</string>
   <string name="import_wallet_keystore_private_keys">Keystore หรือคีย์ส่วนตัว</string>
-  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
-  <string name="import_wallet_button">RECOVER WALLET</string>
+  <string name="import_wallet_file_button">ลบจากไฟล์</string>
+  <string name="import_wallet_button">กู้ค่ากระเป๋าสตางค์</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <string name="error_invalid_keystore">คีย์สโตนไม่ถูกต้อง</string>
-  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
-  <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
-  <string name="backup_notification_title">Make a backup of your wallet!</string>
-  <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
-  <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
+  <string name="backup_tooltip_body">สำรองกระเป๋าสตางค์</string>
+  <string name="backup_tooltip_later_button">อาจจะภายหลัง</string>
+  <string name="backup_tooltip_backup_button">สำรอง</string>
+  <string name="backup_notification_title">สำรองกระเป๋าสตางค์!</string>
+  <string name="backup_notification_body">เก็บเงินของคุณอย่างปลอดภัยและแน่ใจว่าสามารุเข้าถึงกระเป๋าสตางค์</string>
+  <string name="backup_choose_wallet_title">เลือกสำรองกระเป๋าสตางค์</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
@@ -570,10 +571,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">มูลค่าทั้งหมด</string>
   <string name="wallets_address_copied_body">คัดลอกที่อยู่กระเป๋าสตางค์ไปยังคลิปบอร์ดแล้ว</string>
-  <string name="wallets_imported_body">Wallet successfuly recovered</string>
+  <string name="wallets_imported_body">กู้คืนกระเป๋าสตางค์ได้สำเร็จ</string>
   <string name="wallets_2nd_view_balance_title">ยอดคงเหลือ:</string>
   <string name="wallets_2nd_view_other_wallets_title">กระเป๋าสตางค์อื่นๆ</string>
-  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
+  <string name="wallets_2nd_view_import_button">กู้คืนกระเป๋าสตางค์</string>
   <string name="wallets_2nd_view_create_button">สร้างใหม่</string>
   <string name="wallet_view_copy_button">คัดลอก</string>
   <string name="wallet_view_share_button">แชร์</string>
@@ -586,7 +587,7 @@
   <string name="remove_wallet_title">ลบกระเป๋าสตางค์</string>
   <string name="remove_wallet_body">เราขอแนะนำอย่างยิ่งให้สำรองกระเป๋าสตางค์ก่อนที่จะลบออก คุณจะไม่สามารถเข้าถึงได้อีก เว้นแต่ว่าคุณจะได้รับการสำรองข้อมูลไว้</string>
   <string name="remove_wallet_backup_button">สำรองข้อมูลกระเป๋าสตางค์</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_no_backup_button">ลบกระเป๋าสตางค์</string>
   <string name="remove_wallet_confirm_body">คุณแน่ใจหรือไม่ว่าต้องการลบกระเป๋าสตางค์นี้</string>
   <string name="remove_wallet_no_button">ไม่ ย้อนกลับไป</string>
   <string name="remove_wallet_yes_button">ใช่ ลบกระเป๋าสตางค์</string>
@@ -607,7 +608,95 @@
   <string name="support_new_message_title">คุณได้รับข้อความใหม่!</string>
   <string name="support_new_message_button">แตะเพื่อเปิด</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
-  <string name="pioneer_gamification_title">You\'re a Pioneer</string>
-  <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
+  <string name="pioneer_bonus_updated_body">เปอร์เซ็นต์โบนัสถูกอัปเดตใน %s</string>
+  <string name="pioneer_gamification_title">คุณคือระดับ Pioneer</string>
+  <string name="pioneer_gamification_body">ระดับ Pioneer เป็นผู้เริ่มต้นได้โบนัสเพิ่มขึ้น</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">ตรวจสอบการอัพเดต</string>
+  <string name="check_updates_settings_subtitle">เวอร์ชั่นปัจจุบัน %s</string>
+  <string name="check_updates_checking_body">กำลังค้นหาเวอร์ชั่นใหม่</string>
+  <string name="check_updates_no_updates_body">คุณอัพเดตแล้ว!</string>
+  <string name="check_updates_updates_available_title">มีเวอร์ชั่นใหม่</string>
+  <string name="check_updates_update_button">อัพเดตตอนนี้</string>
+  <string name="check_updates_settings_available_title">มีเวอร์ชั่นใหม่</string>
+  <string name="check_updates_settings_available_subtitle_button">แตะเพื่ออัพเดต</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">จัดการการสมัครสมาชิก</string>
+  <string name="subscriptions_title">สมัครสมาชิก</string>
+  <string name="subscriptions_active_title">ใช้งาน</string>
+  <string name="subscriptions_expired_title">ไม่ใช้งาน</string>
+  <string name="subscriptions_empty_title">ยังไม่มีการสมัครสมาชิก</string>
+  <string name="subscriptions_empty_body">สมัครบริการแอปและเกมส์ที่คุณชื่นชอบและเราจะจัดการระยะเวลาการชำระเงินให้</string>
+  <string name="subscriptions_details_billing_title">การเรียกเก็บเงิน:</string>
+  <string name="subscriptions_details_next_payment_title">การชำระครั้งต่อไป:</string>
+  <string name="subscriptions_details_payment_method_title">วิธีการชำระเงิน:</string>
+  <string name="subscriptions_details_last_bill">การเรียกเก็บเงินครั้งล่าสุด:</string>
+  <string name="subscriptions_details_start_date_title">วันที่เริ่มต้น:</string>
+  <string name="subscriptions_details_cancelled_body">ยกเลิก - หมดอายุเมื่อ %s</string>
+  <string name="subscriptions_expiration_body">หมดอายุเมื่อ %s</string>
+  <string name="subscriptions_canceled_body">ยกเลิก</string>
+  <string name="subscriptions_details_disclaimer">มูลค่าใน AppCoins อาจเปลี่ยนแปลงสำหรับการชำระเงินครั้งถัดไปซึ่งขึ้นอยู่กับอัตราแลกเปลี่ยน</string>
+  <string name="subscriptions_details_button">รายละเอียด</string>
+  <string name="subscriptions_manage_button">จัดการการสมัครสมาชิก</string>
+  <string name="subscriptions_cancel_button">ยกเลิกสมาชิก</string>
+  <string name="subscriptions_cancel_title">ยกเลิกสมาชิก</string>
+  <string name="subscriptions_cancel_body">คุณแน่ใจใช่ไหมว่าต้องการยกเลิกการเป็นสมาชิกนี้</string>
+  <string name="subscriptions_cancel_no_button">ไม่ ย้อนกลับ</string>
+  <string name="subscriptions_cancel_yes_button">ใช่ ยกเลิกการเป็นสมาชิก</string>
+  <string name="subscriptions_cancel_confirmation_title">สมาชิกถูกยกเลิก!</string>
+  <string name="subscriptions_cancel_confirmation_body">คุณจะไม่โดนเรียกเก็บเงินใดๆสำหรับการเป็นสมาชิกนี้ และคุณสามารถใช้ได้ถึง %s</string>
+  <string name="subscriptions_category_title">สมัครสมาชิก</string>
+  <string name="subscriptions_bonus_body">คุณจะได้รับโบนัสนี้สำหรับทุกการชำระเงิน</string>
+  <string name="subscriptions_per_day">%1$s%2$s/วัน</string>
+  <string name="subscriptions_per_week">%1$s%2$s/สัปดาห์</string>
+  <string name="subscriptions_per_month">%1$s%2$s/เดือน</string>
+  <string name="subscriptions_per_year">%1$s%2$s/ปี</string>
+  <!--New Gamification-->
+  <string name="gamif_title">Up to %s%% Bonus!</string>
+  <string name="gamif_bonus_received">Bonus received</string>
+  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_show_previous">Show previous achievements</string>
+  <string name="gamif_hide_previous">Hide previous achievements</string>
+  <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
+  <string name="gamif_achievement_start">You started your journey</string>
+  <string name="gamif_achievement_start_sub">Just left Earth!</string>
+  <string name="gamif_achievement_reach">You reached %s</string>
+  <string name="gamif_card_start">You\'re still on Earth</string>
+  <string name="gamif_card_title">You\'re on %s</string>
+  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamif_bonus">%s%% Bonus</string>
+  <string name="gamif_placeholder_earth">Earth</string>
+  <string name="gamif_quote_earth">\"The Earth is what we all have in common\" – Wendell Berry</string>
+  <string name="gamif_placeholder_moon">the Moon</string>
+  <string name="gamif_quote_moon">\"That\'s one small step for a man, one giant leap for mankind\" – Neil Armstrong</string>
+  <string name="gamif_distance_moon">384,400 km from Earth</string>
+  <string name="gamif_placeholder_mars">Mars</string>
+  <string name="gamif_quote_mars">\"I would like to die on Mars. Just not on impact.\" – Elon Musk</string>
+  <string name="gamif_distance_mars">121.8 million km from Earth</string>
+  <string name="gamif_placeholder_phobos">the Phobos moon</string>
+  <string name="gamif_quote_phobos">\"Everyone is a moon, and has a dark side which he never shows to anybody.\" – Mark Twain</string>
+  <string name="gamif_distance_phobos">77.79 million km from Earth</string>
+  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_quote_jupiter">\"All truths are easy to understand once they are discovered; the point is to discover them...\" – Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">623.31 million km from Earth</string>
+  <string name="gamif_placeholder_europa">Europa moon</string>
+  <string name="gamif_quote_europa">\"If you find life on Europa, what would you call it? Would it be, like, Europeans?\" – Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">628.3 million km from Earth</string>
+  <string name="gamif_placeholder_saturn">Saturn</string>
+  <string name="gamif_quote_saturn">\"The scientific theory I like best is that the rings of Saturn are composed entirely of lost airline luggage.\" – Mark Russell</string>
+  <string name="gamif_distance_saturn">1.35 billion km from Earth</string>
+  <string name="gamif_placeholder_titan">Titan moon</string>
+  <string name="gamif_quote_titan">\"I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here.\" – Arthur C.Clarke</string>
+  <string name="gamif_distance_titan">1.4 billion km from Earth</string>
+  <string name="gamif_placeholder_uranus">Uranus</string>
+  <string name="gamif_quote_uranus">\"The moons of Uranus seem to have got a twist.\" – Sir Robert Stawell Ball</string>
+  <string name="gamif_distance_uranus">3.03 billion km from Earth</string>
+  <string name="gamif_placeholder_neptune">Neptune</string>
+  <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
+  <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
+  <string name="gamif_placeholder_planetx">Planet %s</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">an unknown planet</string>
+  <string name="gamif_distance_unkown">Unknown location</string>
+  <string name="gamif_placeholder_new_planet">a new planet</string>
 </resources>
