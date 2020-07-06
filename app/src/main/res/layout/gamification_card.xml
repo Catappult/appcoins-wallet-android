@@ -123,7 +123,7 @@
           android:ellipsize="end"
           android:fontFamily="sans-serif"
           android:maxLines="2"
-          android:text="The more you spend in your favorite apps, the bigger the Bonus!"
+          android:text="@string/gamification_how_body_new"
           android:textColor="#727272"
           android:textSize="14sp"
           app:layout_constraintEnd_toEndOf="parent"
