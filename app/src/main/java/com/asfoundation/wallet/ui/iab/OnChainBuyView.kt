@@ -4,13 +4,10 @@ import android.os.Bundle
 import io.reactivex.Observable
 import java.math.BigDecimal
 
-/**
- * Created by franciscocalado on 19/07/2018.
- */
 interface OnChainBuyView {
-  val okErrorClick: Observable<Any?>
-  val supportIconClick: Observable<Any?>
-  val supportLogoClick: Observable<Any?>
+  fun getOkErrorClick(): Observable<Any?>
+  fun getSupportIconClick(): Observable<Any?>
+  fun getSupportLogoClick(): Observable<Any?>
   fun close(data: Bundle?)
   fun finish(data: Bundle?)
   fun showError()
@@ -25,6 +22,6 @@ interface OnChainBuyView {
   fun showNoFundsError()
   fun showForbiddenError()
   fun showRaidenChannelValues(values: List<BigDecimal>)
-  val animationDuration: Long
+  fun getAnimationDuration(): Long
   fun lockRotation()
 }

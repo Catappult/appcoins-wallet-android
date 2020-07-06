@@ -485,8 +485,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleErrors(error: Error) {
     when {
       error.isNetworkError -> view.showNetworkError()
-      error.code != null -> view.showSpecificError(
-          servicesErrorCodeMapper.mapError(error.code!!))
+      error.code != null -> view.showSpecificError(servicesErrorCodeMapper.mapError(error.code!!))
       else -> view.showGenericError()
     }
   }

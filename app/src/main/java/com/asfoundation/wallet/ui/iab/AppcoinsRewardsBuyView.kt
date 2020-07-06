@@ -8,9 +8,9 @@ internal interface AppcoinsRewardsBuyView {
   fun showLoading()
   fun hideLoading()
   fun showNoNetworkError()
-  val okErrorClick: Observable<Any>
-  val supportIconClick: Observable<Any>
-  val supportLogoClick: Observable<Any>
+  fun getOkErrorClick(): Observable<Any>
+  fun getSupportIconClick(): Observable<Any>
+  fun getSupportLogoClick(): Observable<Any>
   fun close()
   fun showGenericError()
   fun showError(message: Int?)
@@ -18,6 +18,6 @@ internal interface AppcoinsRewardsBuyView {
   fun errorClose()
   fun finish(purchase: Purchase, orderReference: String)
   fun showTransactionCompleted()
-  val animationDuration: Long
+  fun getAnimationDuration(): Long
   fun lockRotation()
 }
