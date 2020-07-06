@@ -65,13 +65,13 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     return inflater.inflate(R.layout.promotions_fragment_view, container, false)
   }
 
-  override fun setLevelIcons() {
+  override fun setLegacyLevelIcons() {
     for (i in 0..4) {
       legacy_gamification_progress_bar.setLevelIcons(i)
     }
   }
 
-  override fun setStaringLevel(userStatus: UserRewardsStatus) {
+  override fun setLegacyStaringLevel(userStatus: UserRewardsStatus) {
     progress_bar.progress = userStatus.lastShownLevel * (100 / (userStatus.bonus.size - 1))
     for (i in 0..userStatus.lastShownLevel) {
       legacy_gamification_progress_bar.showPreviousLevelIcons(i, i < userStatus.lastShownLevel)

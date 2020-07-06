@@ -95,7 +95,7 @@ class PromotionsPresenter(private val view: PromotionsView,
               } else {
                 cachedBonus = it.bonus.last()
                 if ((it.lastShownLevel > 0 || it.lastShownLevel == 0 && it.level == 0) && legacy) {
-                  view.setStaringLevel(it)
+                  view.setLegacyStaringLevel(it)
                 }
                 view.setLevelInformation(it, legacy)
               }
@@ -120,7 +120,7 @@ class PromotionsPresenter(private val view: PromotionsView,
       cachedUserType = promotionsModel.userType
       val legacy = promotionsModel.userType == UserType.PIONEER
       if (legacy) {
-        view.setLevelIcons()
+        view.setLegacyLevelIcons()
         view.showLegacyGamificationCard()
       } else {
         val currentLevelInfo = mapper.mapCurrentLevelInfo(promotionsModel.level)

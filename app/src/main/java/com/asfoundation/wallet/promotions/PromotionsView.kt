@@ -6,9 +6,9 @@ import io.reactivex.Observable
 
 interface PromotionsView {
 
-  fun setLevelIcons()
+  fun setLegacyLevelIcons()
 
-  fun setStaringLevel(userStatus: UserRewardsStatus)
+  fun setLegacyStaringLevel(userStatus: UserRewardsStatus)
 
   fun setLevelInformation(userStatus: UserRewardsStatus,
                           legacy: Boolean)
