@@ -191,6 +191,7 @@ public class TransactionsViewModel extends BaseViewModel {
     fetchTransactionsDisposable =
         transactionViewInteract.fetchTransactions(defaultWallet.getValue())
             .flatMapSingle(transactions -> transactionViewInteract.getCardNotifications()
+                .subscribeOn(Schedulers.io())
                 .onErrorReturnItem(Collections.emptyList())
                 .flatMap(notifications -> applications.getApps()
                     .onErrorReturnItem(Collections.emptyList())
@@ -411,8 +412,8 @@ public class TransactionsViewModel extends BaseViewModel {
             Uri.parse(InviteFriendsActivity.APTOIDE_TOP_APPS_URL));
         break;
       case UPDATE:
-        transactionViewNavigator.openUpdateAppView(context,
-            transactionViewInteract.retrieveUpdateUrl());
+        transactionViewNavigator.openIntent(context,
+            transactionViewInteract.retrieveUpdateIntent());
         dismissNotification(cardNotification);
         break;
       case BACKUP:

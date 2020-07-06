@@ -18,8 +18,10 @@ class AutoUpdateInteractTest {
 
   @Mock
   lateinit var autoUpdateRepository: AutoUpdateRepository
+
   @Mock
   private lateinit var packageManager: PackageManager
+
   @Mock
   private lateinit var sharePreferences: PreferencesRepositoryType
   private lateinit var autoUpdateInteract: AutoUpdateInteract
@@ -84,6 +86,7 @@ class AutoUpdateInteractTest {
     `when`(packageManager.getApplicationInfo(anyString(), eq(0)))
         .thenReturn(ApplicationInfo())
     val url = autoUpdateInteract.retrieveRedirectUrl()
-    Assert.assertEquals(url, "https://appcoins-wallet.en.aptoide.com/")
+    Assert.assertEquals(url,
+        String.format(AutoUpdateInteract.PLAY_APP_VIEW_URL, WALLET_PACKAGE_NAME))
   }
 }
