@@ -676,10 +676,10 @@
   <string name="gamif_placeholder_phobos">火卫一</string>
   <string name="gamif_quote_phobos">“人人都是月亮，都有不愿让人见到的阴暗面”– Mark Twain</string>
   <string name="gamif_distance_phobos">距离地球 7779 万公里</string>
-  <string name="gamif_placeholder_jupiter">Jupiter</string>
-  <string name="gamif_quote_jupiter">\"All truths are easy to understand once they are discovered; the point is to discover them...\" – Galileo Galilei</string>
-  <string name="gamif_distance_jupiter">623.31 million km from Earth</string>
-  <string name="gamif_placeholder_europa">Europa moon</string>
+  <string name="gamif_placeholder_jupiter">木星</string>
+  <string name="gamif_quote_jupiter">“真相一旦被发现，就很容易理解；关键是要发现真相”– Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">距离地球 6.2331 亿公里</string>
+  <string name="gamif_placeholder_europa">木卫二</string>
   <string name="gamif_quote_europa">\"If you find life on Europa, what would you call it? Would it be, like, Europeans?\" – Neil DeGrasse Tyson</string>
   <string name="gamif_distance_europa">628.3 million km from Earth</string>
   <string name="gamif_placeholder_saturn">Saturn</string>
