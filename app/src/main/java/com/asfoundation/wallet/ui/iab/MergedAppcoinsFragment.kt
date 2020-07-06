@@ -388,10 +388,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     bonus_msg?.visibility = INVISIBLE
   }
 
-  override fun showWalletBlocked() {
-    iabView.showWalletBlocked()
-  }
-
   override fun showBonus() {
     if (bonus.isNotEmpty()) {
       val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)

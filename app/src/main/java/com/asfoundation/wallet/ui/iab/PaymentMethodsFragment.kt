@@ -550,8 +550,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     removeBonusSkeletons()
   }
 
-  override fun showWalletBlocked() = iabView.showWalletBlocked()
-
   private fun setupAppNameAndIcon() {
     if (isDonation) {
       app_sku_description.text = resources.getString(R.string.item_donation)

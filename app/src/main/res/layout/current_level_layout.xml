@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <ToggleButton
+      android:id="@+id/toggle_button"
+      style="?android:attr/borderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="32dp"
+      android:layout_marginStart="16dp"
+      android:background="@drawable/oval_toggle_button"
+      android:drawableEnd="@drawable/arrow_rotated"
+      android:drawablePadding="8dp"
+      android:paddingHorizontal="12dp"
+      android:paddingVertical="6dp"
+      android:textColor="#000f1a"
+      android:textOff="@string/gamif_show_previous"
+      android:textOn="@string/gamif_hide_previous"
+      android:textSize="11sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <include
+      android:id="@+id/current_level_card_layout"
+      layout="@layout/current_level_card"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      app:layout_constraintTop_toBottomOf="@id/toggle_button"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

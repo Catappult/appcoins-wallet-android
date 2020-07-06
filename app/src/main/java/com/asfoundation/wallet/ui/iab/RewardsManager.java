@@ -62,6 +62,9 @@ public class RewardsManager {
       case ERROR:
         return Observable.just(
             new RewardPayment(transaction.getOrderReference(), RewardPayment.Status.ERROR));
+      case FORBIDDEN:
+        return Observable.just(
+            new RewardPayment(transaction.getOrderReference(), RewardPayment.Status.FORBIDDEN));
       case NO_NETWORK:
         return Observable.just(
             new RewardPayment(transaction.getOrderReference(), RewardPayment.Status.NO_NETWORK));
@@ -97,7 +100,7 @@ public class RewardsManager {
     }
 
     enum Status {
-      PROCESSING, COMPLETED, ERROR, NO_NETWORK
+      PROCESSING, COMPLETED, ERROR, FORBIDDEN, NO_NETWORK
     }
   }
 }

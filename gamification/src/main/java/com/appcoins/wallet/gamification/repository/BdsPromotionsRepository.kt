@@ -46,7 +46,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return ForecastBonus(ForecastBonus.Status.INACTIVE)
   }
 
-  override fun getUserStats(wallet: String): Single<UserStats> {
+  override fun getUserStats(wallet: String): Single<GamificationStats> {
     return api.getUserStatus(wallet, versionCode)
         .map { map(it) }
         .onErrorReturn { map(it) }
@@ -56,22 +56,29 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         }
   }
 
-  private fun map(throwable: Throwable): UserStats {
+  private fun map(throwable: Throwable): GamificationStats {
     throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
-      UserStats(UserStats.Status.NO_NETWORK)
+      GamificationStats(GamificationStats.Status.NO_NETWORK)
     } else {
-      UserStats(UserStats.Status.UNKNOWN_ERROR)
+      GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
     }
   }
 
-  private fun map(response: UserStatusResponse): UserStats {
+  private fun map(response: UserStatusResponse): GamificationStats {
     val gamification = response.gamification
-    return UserStats(UserStats.Status.OK, gamification.level,
+    return GamificationStats(GamificationStats.Status.OK, gamification.level,
         gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
         gamification.totalEarned,
         GamificationResponse.Status.ACTIVE == gamification.status,
-        GamificationResponse.UserType.PIONEER == gamification.userType)
+        map(gamification.userType))
+  }
+
+  private fun map(userType: GamificationResponse.UserType): UserType {
+    return when (userType) {
+      GamificationResponse.UserType.PIONEER -> UserType.PIONEER
+      GamificationResponse.UserType.STANDARD -> UserType.STANDARD
+    }
   }
 
   override fun getLevels(wallet: String): Single<Levels> {
@@ -90,11 +97,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   private fun map(response: LevelsResponse): Levels {
-    val list = mutableListOf<Levels.Level>()
-    for (level in response.list) {
-      list.add(Levels.Level(level.amount, level.bonus, level.level))
-    }
-    return Levels(Levels.Status.OK, list.toList(), LevelsResponse.Status.ACTIVE == response.status,
+    val list = response.list.map { Levels.Level(it.amount, it.bonus, it.level) }
+    return Levels(Levels.Status.OK, list, LevelsResponse.Status.ACTIVE == response.status,
         response.updateDate)
   }
 

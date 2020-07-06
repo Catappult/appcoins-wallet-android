@@ -16,7 +16,6 @@ interface MergedAppcoinsView {
   fun navigateToCreditsPayment()
   fun navigateToPaymentMethods()
   fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String)
-  fun showWalletBlocked()
   fun showLoading()
   fun hideLoading()
   fun showPaymentMethods()

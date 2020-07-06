@@ -165,5 +165,4 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
             .message), DeveloperPurchase::class.java)
     return objectMapper.writeValueAsString(developerPurchase)
   }
-
 }

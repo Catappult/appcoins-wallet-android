@@ -10,9 +10,7 @@ class AutoUpdateService(private val api: AutoUpdateApi) {
   fun loadAutoUpdateModel(): Single<AutoUpdateModel> {
     return api.getAutoUpdateInfo()
         .map {
-          AutoUpdateModel(it.latestVersion.versionCode,
-              it.latestVersion.minSdk,
-              it.blackList)
+          AutoUpdateModel(it.latestVersion.versionCode, it.latestVersion.minSdk, it.blackList)
         }
         .onErrorReturn { AutoUpdateModel() }
   }

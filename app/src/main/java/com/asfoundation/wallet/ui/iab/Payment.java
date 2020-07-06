@@ -106,7 +106,7 @@ public class Payment {
 
   public enum Status {
     COMPLETED, NO_FUNDS, NETWORK_ERROR, NO_ETHER, NO_TOKENS, NO_INTERNET, NONCE_ERROR, APPROVING,
-    BUYING, ERROR
+    BUYING, FORBIDDEN, ERROR
   }
 
   @Override public String toString() {

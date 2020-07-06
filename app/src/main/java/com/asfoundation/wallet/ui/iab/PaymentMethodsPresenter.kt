@@ -107,24 +107,17 @@ class PaymentMethodsPresenter(
 
   private fun handleWalletBlockStatus() {
     disposables.add(paymentMethodsInteract.isWalletBlocked()
-        .subscribeOn(networkThread)
-        .observeOn(viewScheduler)
-        .flatMapCompletable {
-          if (it) {
-            Completable.fromAction {
-              view.hideLoading()
-              view.showWalletBlocked()
+            .subscribeOn(networkThread)
+            .observeOn(viewScheduler)
+            .flatMapCompletable {
+              Completable.fromAction {
+                view.showCredits(gamificationLevel)
+              }
             }
-          } else {
-            Completable.fromAction {
-              view.showCredits(gamificationLevel)
-            }
-          }
-        }
-        .andThen { Completable.fromAction { view.hideLoading() } }
-        .doOnSubscribe { view.showLoading() }
-        .doOnError { showError(it) }
-        .subscribe()
+            .andThen { Completable.fromAction { view.hideLoading() } }
+            .doOnSubscribe { view.showLoading() }
+            .doOnError { showError(it) }
+            .subscribe()
     )
   }
 

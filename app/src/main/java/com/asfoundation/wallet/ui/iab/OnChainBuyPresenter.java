@@ -184,6 +184,9 @@ public class OnChainBuyPresenter {
       case BUYING:
         view.lockRotation();
         return Completable.fromAction(view::showBuying);
+      case FORBIDDEN:
+        return Completable.fromAction(view::showForbiddenError)
+            .andThen(onChainBuyInteract.remove(transaction.getUri()));
       case ERROR:
       default:
         return Completable.fromAction(() -> showError(null))
@@ -252,7 +255,8 @@ public class OnChainBuyPresenter {
         || error == Payment.Status.NO_ETHER
         || error == Payment.Status.NO_INTERNET
         || error == Payment.Status.NO_TOKENS
-        || error == Payment.Status.NETWORK_ERROR) {
+        || error == Payment.Status.NETWORK_ERROR
+        || error == Payment.Status.FORBIDDEN) {
       disposables.add(transactionBuilder.observeOn(networkScheduler)
           .subscribe(transactionBuilder -> analytics.sendPaymentErrorEvent(appPackage,
               transactionBuilder.getSkuId(), transactionBuilder.amount()
