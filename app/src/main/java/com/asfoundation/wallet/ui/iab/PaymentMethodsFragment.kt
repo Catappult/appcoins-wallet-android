@@ -317,7 +317,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showError(message: Int) {
     if (!itemAlreadyOwnedError) {
-      payment_methods.visibility = View.GONE
       payment_method_main_view.visibility = View.GONE
       error_message.error_dismiss.text = getString(R.string.ok)
       error_message.visibility = View.VISIBLE
