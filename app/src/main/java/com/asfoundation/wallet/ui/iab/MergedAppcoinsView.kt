@@ -14,7 +14,6 @@ interface MergedAppcoinsView {
   fun backPressed(): Observable<PaymentInfoWrapper>
   fun navigateToAppcPayment()
   fun navigateToCreditsPayment()
-  fun navigateToPaymentMethods()
   fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String)
   fun showLoading()
   fun hideLoading()

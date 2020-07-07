@@ -13,7 +13,6 @@
       android:layout_width="@dimen/payment_methods_width"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:animateLayoutChanges="true"
       android:background="@drawable/background_card"
       >
     <LinearLayout

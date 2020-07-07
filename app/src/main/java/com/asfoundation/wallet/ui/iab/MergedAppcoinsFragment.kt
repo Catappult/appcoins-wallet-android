@@ -206,7 +206,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
-    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(),
+    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, iabView, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
         formatter, mergedAppcoinsInteract, gamificationLevel, navigator)
   }
@@ -415,8 +415,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun navigateToCreditsPayment() =
       iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
-
-  override fun navigateToPaymentMethods() = iabView.showPaymentMethodsView()
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =

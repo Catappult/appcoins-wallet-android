@@ -107,23 +107,24 @@ class PaymentMethodsPresenter(
 
   private fun handleWalletBlockStatus() {
     disposables.add(paymentMethodsInteract.isWalletBlocked()
-            .subscribeOn(networkThread)
-            .observeOn(viewScheduler)
-            .flatMapCompletable {
-              Completable.fromAction {
-                view.showCredits(gamificationLevel)
-              }
-            }
-            .andThen { Completable.fromAction { view.hideLoading() } }
-            .doOnSubscribe { view.showLoading() }
-            .doOnError { showError(it) }
-            .subscribe()
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          Completable.fromAction {
+            view.showCredits(gamificationLevel)
+          }
+        }
+        .andThen { Completable.fromAction { view.hideLoading() } }
+        .doOnSubscribe { view.showLoading() }
+        .doOnError { showError(it) }
+        .subscribe()
     )
   }
 
   private fun handleOnGoingPurchases() {
     if (transaction.skuId == null) {
-      disposables.add(isSetupCompleted().doOnComplete { view.hideLoading() }
+      disposables.add(isSetupCompleted()
+          .doOnComplete { view.hideLoading() }
           .subscribeOn(viewScheduler)
           .subscribe())
       return
@@ -148,6 +149,7 @@ class PaymentMethodsPresenter(
 
   private fun checkProcessing(skuId: String?): Completable {
     return billing.getSkuTransaction(appPackage, skuId, networkThread)
+        .subscribeOn(networkThread)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }
@@ -181,6 +183,7 @@ class PaymentMethodsPresenter(
 
   private fun checkAndConsumePrevious(sku: String?): Completable {
     return getPurchases()
+        .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .flatMapCompletable { purchases ->
           Completable.fromAction {

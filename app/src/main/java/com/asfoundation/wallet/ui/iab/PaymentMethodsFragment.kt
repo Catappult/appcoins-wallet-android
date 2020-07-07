@@ -44,7 +44,7 @@ import kotlinx.android.synthetic.main.payment_methods_layout.*
 import kotlinx.android.synthetic.main.payment_methods_layout.error_message
 import kotlinx.android.synthetic.main.selected_payment_method.*
 import kotlinx.android.synthetic.main.support_error_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.view.*
+import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import java.math.BigDecimal
 import java.util.*
@@ -362,7 +362,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showLoading() {
-    payment_methods.visibility = View.INVISIBLE
+    payment_methods_list_group.visibility = View.INVISIBLE
     fiat_price_skeleton.visibility = View.VISIBLE
     appc_price_skeleton.visibility = View.VISIBLE
     payments_skeleton.visibility = View.VISIBLE
@@ -373,7 +373,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun hideLoading() {
     if (processing_loading.visibility != View.VISIBLE) {
       removeSkeletons()
-      payment_methods.visibility = View.VISIBLE
+      payment_methods_list_group.visibility = View.VISIBLE
     }
   }
 
