@@ -116,6 +116,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private var setupSubject: PublishSubject<Boolean>? = null
   private var onBackPressedSubject: PublishSubject<Boolean>? = null
   private var preSelectedPaymentMethod: BehaviorSubject<PaymentMethod>? = null
+  private var isPreSelected = false
   private var itemAlreadyOwnedError = false
   private var appcEnabled = false
   private var creditsEnabled = false
@@ -172,28 +173,25 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                   appcAmount: String) {
     updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
-    buy_button.isEnabled = true
     presenter.sendPaymentMethodsEvents()
 
     setupSubject!!.onNext(true)
   }
 
   override fun onResume() {
-    if (paymentMethodList.isNotEmpty()) showLoading()
+    if (paymentMethodList.isNotEmpty()) showPaymentsSkeletonLoading()
     presenter.onResume()
     super.onResume()
   }
 
   private fun setupPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
                                   paymentMethodId: String) {
-    pre_selected_payment_method_group.visibility = View.GONE
+    isPreSelected = false
     if (paymentMethods.isNotEmpty()) {
       paymentMethodList.clear()
       payment_methods_radio_group.removeAllViews()
       hideLoading()
     }
-    payment_methods_list_group.visibility = View.VISIBLE
-
     var radioButton: AppCompatRadioButton
     if (isBds) {
       for (index in paymentMethods.indices) {
@@ -285,9 +283,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   private fun setupPaymentMethod(paymentMethod: PaymentMethod,
                                  isBonusActive: Boolean) {
-    pre_selected_payment_method_group.visibility = View.VISIBLE
-    payment_methods_list_group.visibility = View.GONE
-    bottom_separator?.visibility = View.INVISIBLE
+    isPreSelected = true
     if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
       payment_method_description.visibility = View.VISIBLE
       payment_method_description.text = paymentMethod.label
@@ -301,9 +297,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_description_single.visibility = View.GONE
       if (isBonusActive) showBonus()
     }
-
-    layout_pre_selected.visibility = View.VISIBLE
-
     loadIcons(paymentMethod, payment_method_ic)
   }
 
@@ -361,19 +354,39 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     iabView.finish(bundle)
   }
 
-  override fun showLoading() {
+  override fun showPaymentsSkeletonLoading() {
     payment_methods_list_group.visibility = View.INVISIBLE
+    payments_skeleton.visibility = View.VISIBLE
+  }
+
+  override fun showSkeletonLoading() {
+    payment_methods_list_group.visibility = View.INVISIBLE
+    pre_selected_payment_method_group.visibility = View.GONE
+    payments_skeleton.visibility = View.VISIBLE
     fiat_price_skeleton.visibility = View.VISIBLE
     appc_price_skeleton.visibility = View.VISIBLE
-    payments_skeleton.visibility = View.VISIBLE
     bonus_layout_skeleton.visibility = View.VISIBLE
     bonus_msg_skeleton.visibility = View.VISIBLE
+  }
+
+  override fun showProgressBarLoading() {
+    payment_methods.visibility = View.INVISIBLE
+    loading_view.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
     if (processing_loading.visibility != View.VISIBLE) {
       removeSkeletons()
-      payment_methods_list_group.visibility = View.VISIBLE
+      buy_button.isEnabled = true
+      if (isPreSelected) {
+        pre_selected_payment_method_group.visibility = View.VISIBLE
+        payment_methods_list_group.visibility = View.GONE
+        bottom_separator?.visibility = View.INVISIBLE
+        layout_pre_selected.visibility = View.VISIBLE
+      } else {
+        payment_methods_list_group.visibility = View.VISIBLE
+        pre_selected_payment_method_group.visibility = View.GONE
+      }
     }
   }
 

@@ -17,7 +17,9 @@ interface PaymentMethodsView {
   fun showError(message: Int)
   fun showItemAlreadyOwnedError()
   fun finish(bundle: Bundle)
-  fun showLoading()
+  fun showPaymentsSkeletonLoading()
+  fun showSkeletonLoading()
+  fun showProgressBarLoading()
   fun hideLoading()
   fun getCancelClick(): Observable<PaymentMethod>
   fun close(bundle: Bundle)

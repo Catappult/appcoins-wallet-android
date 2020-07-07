@@ -15,6 +15,15 @@
       android:layout_gravity="center"
       android:background="@drawable/background_card"
       >
+    <ProgressBar
+        android:id="@+id/loading_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        android:visibility="gone"
+        />
+
     <LinearLayout
         android:id="@+id/processing_loading"
         android:layout_width="match_parent"
@@ -195,7 +204,8 @@
               android:id="@+id/payment_methods_list_group"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              app:constraint_referenced_ids="top_separator,payment_methods_radio_list"
+              android:visibility="invisible"
+              app:constraint_referenced_ids="payment_methods_radio_list"
               tools:visibility="visible"
               />
 

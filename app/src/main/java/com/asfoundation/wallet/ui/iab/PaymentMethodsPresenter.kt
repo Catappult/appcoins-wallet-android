@@ -115,7 +115,7 @@ class PaymentMethodsPresenter(
           }
         }
         .andThen { Completable.fromAction { view.hideLoading() } }
-        .doOnSubscribe { view.showLoading() }
+        .doOnSubscribe { view.showProgressBarLoading() }
         .doOnError { showError(it) }
         .subscribe()
     )
@@ -129,11 +129,10 @@ class PaymentMethodsPresenter(
           .subscribe())
       return
     }
-    disposables.add(waitForUi(transaction.skuId).observeOn(viewScheduler)
-        .subscribe({ view.hideLoading() }, { throwable: Throwable ->
-          showError(throwable)
-          throwable.printStackTrace()
-        }))
+    disposables.add(waitForUi(transaction.skuId)
+        .observeOn(viewScheduler)
+        .doOnComplete { view.hideLoading() }
+        .subscribe({ }, { showError(it) }))
   }
 
   private fun isSetupCompleted(): Completable {
@@ -325,9 +324,7 @@ class PaymentMethodsPresenter(
                   .toString(), selectedPaymentMethod.id, transaction.type, "other_payments")
         }
         .observeOn(viewScheduler)
-        .doOnEach {
-          view.showLoading()
-        }
+        .doOnEach { view.showSkeletonLoading() }
         .flatMapSingle {
           paymentMethodsInteract.convertToLocalFiat(transactionValue)
               .subscribeOn(networkThread)
