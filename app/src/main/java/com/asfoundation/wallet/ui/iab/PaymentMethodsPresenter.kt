@@ -66,7 +66,7 @@ class PaymentMethodsPresenter(
     }
   }
 
-  fun onResume() = setupUi(transactionValue)
+  fun onResume(firstRun: Boolean) = setupUi(transactionValue, firstRun)
 
   private fun handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
@@ -191,7 +191,7 @@ class PaymentMethodsPresenter(
         }
   }
 
-  private fun setupUi(transactionValue: Double) {
+  private fun setupUi(transactionValue: Double, firstRun: Boolean) {
     disposables.add(paymentMethodsInteract.convertToLocalFiat(transactionValue)
         .subscribeOn(networkThread)
         .flatMapCompletable { fiatValue ->
@@ -210,6 +210,10 @@ class PaymentMethodsPresenter(
         }
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
+        .doOnComplete {
+          //If not first run we should rely on the hideLoading of the handleOnGoingPurchases method
+          if (!firstRun) view.hideLoading()
+        }
         .subscribe({ }, { this.showError(it) }))
   }
 

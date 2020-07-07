@@ -179,8 +179,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun onResume() {
-    if (paymentMethodList.isNotEmpty()) showPaymentsSkeletonLoading()
-    presenter.onResume()
+    val firstRun = paymentMethodList.isEmpty()
+    if (firstRun.not()) showPaymentsSkeletonLoading()
+    presenter.onResume(firstRun)
     super.onResume()
   }
 
@@ -190,7 +191,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (paymentMethods.isNotEmpty()) {
       paymentMethodList.clear()
       payment_methods_radio_group.removeAllViews()
-      hideLoading()
     }
     var radioButton: AppCompatRadioButton
     if (isBds) {
@@ -326,7 +326,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showItemAlreadyOwnedError() {
-    payment_methods.visibility = View.GONE
     payment_method_main_view.visibility = View.GONE
     itemAlreadyOwnedError = true
     iabView.disableBack()
