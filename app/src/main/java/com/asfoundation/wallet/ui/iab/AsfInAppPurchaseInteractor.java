@@ -169,6 +169,8 @@ public class AsfInAppPurchaseInteractor {
         return Payment.Status.NO_FUNDS;
       case NO_INTERNET:
         return Payment.Status.NO_INTERNET;
+      case FORBIDDEN:
+        return Payment.Status.FORBIDDEN;
     }
     throw new IllegalStateException("State " + state + " not mapped");
   }
@@ -249,7 +251,7 @@ public class AsfInAppPurchaseInteractor {
             .getName()) {
           case appcoins:
             return CurrentPaymentStep.PAUSED_ON_CHAIN;
-          case adyen:
+          case adyen_v2:
             if (transaction.getStatus()
                 .equals(Transaction.Status.PROCESSING)) {
               return CurrentPaymentStep.PAUSED_CC_PAYMENT;

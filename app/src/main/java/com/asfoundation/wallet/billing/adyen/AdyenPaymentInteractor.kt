@@ -153,7 +153,11 @@ class AdyenPaymentInteractor(
   }
 
   private fun isEndingState(status: TransactionResponse.Status): Boolean {
-    return (status == TransactionResponse.Status.COMPLETED || status == TransactionResponse.Status.FAILED || status == TransactionResponse.Status.CANCELED || status == TransactionResponse.Status.INVALID_TRANSACTION)
+    return (status == TransactionResponse.Status.COMPLETED
+        || status == TransactionResponse.Status.FAILED
+        || status == TransactionResponse.Status.CANCELED
+        || status == TransactionResponse.Status.INVALID_TRANSACTION
+        || status == TransactionResponse.Status.FRAUD)
   }
 
   private fun isInApp(type: String): Boolean {

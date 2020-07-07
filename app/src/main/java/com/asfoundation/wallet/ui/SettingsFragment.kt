@@ -180,6 +180,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
+  override fun navigateToIntent(intent: Intent) = startActivity(intent)
+
   private fun setPermissionPreference() {
     val permissionPreference = findPreference<Preference>("pref_permissions")
     permissionPreference?.setOnPreferenceClickListener {
@@ -249,7 +251,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun setPrivacyPolicyPreference() {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
-      startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"), false)
+      startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"),
+          false)
       false
     }
   }
@@ -279,7 +282,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun setVersionPreference() {
     val versionString = getVersion()
     val versionPreference = findPreference<Preference>("pref_version")
-    versionPreference?.summary = versionString
+    versionPreference?.summary = getString(R.string.check_updates_settings_subtitle, versionString)
+    versionPreference?.setOnPreferenceClickListener {
+      presenter.redirectToStore()
+      false
+    }
   }
 
   private fun getVersion(): String? {

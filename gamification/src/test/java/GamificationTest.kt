@@ -46,8 +46,9 @@ class GamificationTest {
     val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(
-        UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO,
-            isActive = true, isPioneer = true))
+        GamificationStats(GamificationStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
+            BigDecimal.ZERO,
+            isActive = true, userType = UserType.PIONEER))
   }
 
   @Test
@@ -55,7 +56,7 @@ class GamificationTest {
     api.userStatusResponse = Single.error(UnknownHostException())
     val testObserver = gamification.getUserStats(WALLET)
         .test()
-    testObserver.assertValue(UserStats(UserStats.Status.NO_NETWORK))
+    testObserver.assertValue(GamificationStats(GamificationStats.Status.NO_NETWORK))
   }
 
   @Test

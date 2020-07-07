@@ -24,6 +24,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
@@ -74,6 +75,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
+  @Inject
+  lateinit var servicesErrorMapper: ServicesErrorCodeMapper
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
@@ -104,7 +108,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
             data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
             adyenPaymentInteractor, bonusValue, bonusSymbol, AdyenErrorCodeMapper(),
-            gamificationLevel, topUpAnalytics, formatter)
+            servicesErrorMapper, gamificationLevel, topUpAnalytics, formatter)
   }
 
   override fun onAttach(context: Context) {

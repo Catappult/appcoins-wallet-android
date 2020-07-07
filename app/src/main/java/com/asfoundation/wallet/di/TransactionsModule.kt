@@ -3,7 +3,6 @@ package com.asfoundation.wallet.di
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.TransactionViewInteract
 import com.asfoundation.wallet.navigator.TransactionViewNavigator
-import com.asfoundation.wallet.navigator.UpdateNavigator
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
@@ -33,10 +32,9 @@ internal class TransactionsModule {
                                        myAddressRouter: MyAddressRouter,
                                        balanceRouter: BalanceRouter,
                                        externalBrowserRouter: ExternalBrowserRouter,
-                                       topUpRouter: TopUpRouter,
-                                       updateNavigator: UpdateNavigator): TransactionViewNavigator {
+                                       topUpRouter: TopUpRouter): TransactionViewNavigator {
     return TransactionViewNavigator(settingsRouter, sendRouter, transactionDetailRouter,
-        myAddressRouter, balanceRouter, externalBrowserRouter, topUpRouter, updateNavigator)
+        myAddressRouter, balanceRouter, externalBrowserRouter, topUpRouter)
   }
 
   @Provides
@@ -62,7 +60,4 @@ internal class TransactionsModule {
 
   @Provides
   fun provideAirdropRouter() = AirdropRouter()
-
-  @Provides
-  fun providerRewardsLevelRouter() = RewardsLevelRouter()
 }

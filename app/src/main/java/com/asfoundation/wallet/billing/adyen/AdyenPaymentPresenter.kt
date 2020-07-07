@@ -14,6 +14,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
@@ -44,6 +45,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val currency: String,
                             private val isPreSelected: Boolean,
                             private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+                            private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
                             private val gamificationLevel: Int,
                             private val formatter: CurrencyFormatUtils) {
 
@@ -109,9 +111,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               if (it.error.hasError) {
+                sendPaymentErrorEvent(it.error.code, it.error.message)
                 view.hideLoadingAndShowView()
-                if (it.error.isNetworkError) view.showNetworkError()
-                else view.showGenericError()
+                handleErrors(it.error)
               } else {
                 val amount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
                 view.showProductPrice(amount, it.priceCurrency)
@@ -149,8 +151,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
     if (paymentModel.error.hasError) {
-      if (paymentModel.error.isNetworkError) view.showNetworkError()
-      else view.showGenericError()
+      handleErrors(paymentModel.error)
     } else {
       view.showLoading()
       view.lockRotation()
@@ -225,13 +226,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                   Completable.fromAction {
                     sendPaymentErrorEvent(it.error.code,
                         buildRefusalReason(it.status, it.error.message))
-                    view.showGenericError()
+                    handleErrors(it.error)
                   }
                       .subscribeOn(viewScheduler)
                 }
                 else -> {
                   sendPaymentErrorEvent(it.error.code, it.status.toString())
-                  Completable.fromAction { view.showGenericError() }
+                  Completable.fromAction { handleErrors(it.error) }
                 }
               }
             }
@@ -248,11 +249,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       error.hasError -> Completable.fromAction {
         sendPaymentErrorEvent(error.code, error.message)
-        when {
-          error.code == 403 -> handleFraudFlow(R.string.unknown_error)
-          error.isNetworkError -> view.showNetworkError()
-          else -> view.showGenericError()
-        }
+        handleErrors(error)
       }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
@@ -514,5 +511,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   companion object {
 
     private const val WAITING_RESULT = "WAITING_RESULT"
+  }
+
+  private fun handleErrors(error: Error) {
+    when {
+      error.isNetworkError -> view.showNetworkError()
+      error.code != null -> view.showSpecificError(servicesErrorCodeMapper.mapError(error.code!!))
+      else -> view.showGenericError()
+    }
   }
 }

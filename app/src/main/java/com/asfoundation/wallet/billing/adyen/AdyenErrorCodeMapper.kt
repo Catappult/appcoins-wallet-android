@@ -8,13 +8,14 @@ class AdyenErrorCodeMapper {
   @StringRes
   internal fun map(errorCode: Int): Int {
     return when (errorCode) {
-      DECLINED, BLOCKED_CARD, FRAUD, CANCELLED_DUE_TO_FRAUD, TRANSACTION_NOT_PERMITTED, REVOCATION_OF_AUTH, DECLINED_NON_GENERIC, ISSUER_SUSPECTED_FRAUD -> R.string.purchase_card_error_general_2
+      DECLINED, BLOCKED_CARD, TRANSACTION_NOT_PERMITTED, REVOCATION_OF_AUTH, DECLINED_NON_GENERIC, ISSUER_SUSPECTED_FRAUD -> R.string.purchase_card_error_general_2
       REFERRAL, ACQUIRER_ERROR, ISSUER_UNAVAILABLE -> R.string.purchase_card_error_general_1
       EXPIRED_CARD -> R.string.purchase_card_error_expired
       INVALID_AMOUNT, NOT_ENOUGH_BALANCE, RESTRICTED_CARD -> R.string.purchase_card_error_no_funds
       INVALID_CARD_NUMBER -> R.string.purchase_card_error_invalid_details
       NOT_SUPPORTED -> R.string.purchase_card_error_not_supported
       INCORRECT_ONLINE_PIN, PIN_TRIES_EXCEEDED -> R.string.purchase_card_error_security
+      FRAUD, CANCELLED_DUE_TO_FRAUD -> R.string.purchase_wallet_error_contact_us
       else -> R.string.purchase_card_error_invalid_details
     }
   }

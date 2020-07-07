@@ -10,7 +10,7 @@ import java.net.UnknownHostException
 
 class Gamification(private val repository: PromotionsRepository) {
 
-  fun getUserStats(wallet: String): Single<UserStats> {
+  fun getUserStats(wallet: String): Single<GamificationStats> {
     return repository.getUserStats(wallet)
   }
 
@@ -55,8 +55,8 @@ class Gamification(private val repository: PromotionsRepository) {
 
   fun hasNewLevel(wallet: String, screen: String): Single<Boolean> {
     return Single.zip(repository.getLastShownLevel(wallet, screen), getUserStats(wallet),
-        BiFunction { lastShownLevel: Int, userStats: UserStats ->
-          userStats.status == UserStats.Status.OK && lastShownLevel < userStats.level
+        BiFunction { lastShownLevel: Int, gamificationStats: GamificationStats ->
+          gamificationStats.status == GamificationStats.Status.OK && lastShownLevel < gamificationStats.level
         })
   }
 

@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.TypedValue
+import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
@@ -15,6 +16,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
+import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -237,7 +239,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    view.showError()
+    view.showError(mapError(throwable))
   }
 
   fun onSaveInstanceState(outState: Bundle) {
@@ -268,6 +270,23 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   companion object {
     private const val WAITING_RESULT = "WAITING_RESULT"
+    private const val FORBIDDEN_CODE = 403
+  }
+
+  @StringRes
+  private fun mapError(throwable: Throwable): Int {
+    return when (throwable) {
+      is HttpException -> mapHttpError(throwable)
+      else -> R.string.unknown_error
+    }
+  }
+
+  @StringRes
+  private fun mapHttpError(exceptiont: HttpException): Int {
+    return when (exceptiont.code()) {
+      FORBIDDEN_CODE -> R.string.purchase_wallet_error_contact_us
+     else -> R.string.unknown_error
+    }
   }
 }
 

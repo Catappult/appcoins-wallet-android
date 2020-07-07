@@ -49,8 +49,6 @@ interface IabView {
                          productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
                          isBds: Boolean, isDonation: Boolean, gamificationLevel: Int)
 
-  fun showWalletBlocked()
-
   fun lockRotation()
 
   fun unlockRotation()

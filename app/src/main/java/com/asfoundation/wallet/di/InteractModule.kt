@@ -499,9 +499,11 @@ class InteractModule {
                                preferencesRepositoryType: PreferencesRepositoryType,
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
+                               autoUpdateInteract: AutoUpdateInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
     return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
+        preferencesRepositoryType, supportInteractor, walletsInteract, autoUpdateInteract,
+        walletsEventSender)
   }
 
   @Provides

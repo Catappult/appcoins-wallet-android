@@ -10,7 +10,7 @@
       layout="@layout/fragment_rewards_level"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="100dp"
+      android:layout_marginBottom="116dp"
       />
 
   <View

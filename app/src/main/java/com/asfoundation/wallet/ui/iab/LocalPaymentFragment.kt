@@ -273,6 +273,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private fun setViewState(viewState: ViewState?) = when (viewState) {
     COMPLETED -> showCompletedPayment()
     PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
+    // TODO we may need to improve the logic here, to handle different errors
     ERROR -> showError()
     LOADING -> showProcessingLoading()
     else -> {
@@ -364,10 +365,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     playAnimation()
   }
 
-  override fun showError() {
+  override fun showError(message: Int?) {
     status = ERROR
     error_message.text = getString(R.string.ok)
-    error_message.text = getString(R.string.activity_iab_error_message)
+    error_message.text = getString(message ?: R.string.activity_iab_error_message)
     pending_user_payment_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()

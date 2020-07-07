@@ -15,7 +15,7 @@ interface LocalPaymentView {
 
   fun showCompletedPayment()
 
-  fun showError()
+  fun showError(message: Int? = null)
 
   fun dismissError()
 

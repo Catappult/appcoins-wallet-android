@@ -3,7 +3,6 @@ package com.asfoundation.wallet.interact
 import android.util.Pair
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
@@ -43,7 +42,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     get() = cardNotificationsInteractor.getCardNotifications()
 
   val userLevel: Single<Int>
-    get() = gamificationInteractor.getUserStats().map { it.level }
+    get() = gamificationInteractor.getUserStats()
+        .map { it.level }
 
   fun findNetwork(): Single<NetworkInfo> {
     return findDefaultNetworkInteract.find()
@@ -59,9 +59,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         emptyList())
   }
 
-  fun stopTransactionFetch() {
-    fetchTransactionsInteract.stop()
-  }
+  fun stopTransactionFetch() = fetchTransactionsInteract.stop()
 
   fun findWallet(): Single<Wallet> {
     return findDefaultWalletInteract.find()
@@ -71,7 +69,5 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     return cardNotificationsInteractor.dismissNotification(cardNotification)
   }
 
-  fun retrieveUpdateUrl(): String {
-    return autoUpdateInteract.retrieveRedirectUrl()
-  }
+  fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 }
