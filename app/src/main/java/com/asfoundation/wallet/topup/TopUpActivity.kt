@@ -27,7 +27,10 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.support_error_layout.*
+import kotlinx.android.synthetic.main.layout_adyen_error_top_up.*
+import kotlinx.android.synthetic.main.support_error_layout.error_message
+import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
+import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
 import kotlinx.android.synthetic.main.top_up_activity_layout.*
 import java.math.BigDecimal
 import java.util.*
@@ -87,6 +90,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
         .commit()
+    layout_error.visibility = View.GONE
+    fragment_container.visibility = View.VISIBLE
   }
 
   override fun showWalletValidation(@StringRes error: Int) {
@@ -202,6 +207,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun lockOrientation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
+
+  override fun getTryAgainClicks() = RxView.clicks(try_again)
 
   override fun setFinishingPurchase() {
     isFinishingPurchase = true
