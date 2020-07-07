@@ -95,7 +95,7 @@
 
   <include
       android:id="@+id/fiat_price_skeleton"
-      layout="@layout/rounded_rectangle_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
       android:layout_width="60dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toBottomOf="@id/fiat_price"
@@ -106,7 +106,7 @@
 
   <include
       android:id="@+id/appc_price_skeleton"
-      layout="@layout/rounded_rectangle_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
       android:layout_width="60dp"
       android:layout_height="0dp"
       android:layout_marginTop="4dp"

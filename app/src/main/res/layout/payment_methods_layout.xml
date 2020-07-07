@@ -139,24 +139,24 @@
               app:layout_constraintTop_toBottomOf="@id/top_separator"
               >
             <include
-                layout="@layout/payments_skeleton"
+                layout="@layout/skeleton_payments"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 />
             <include
-                layout="@layout/payments_skeleton"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="2dp"
-                />
-            <include
-                layout="@layout/payments_skeleton"
+                layout="@layout/skeleton_payments"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="2dp"
                 />
             <include
-                layout="@layout/payments_skeleton"
+                layout="@layout/skeleton_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="2dp"
+                />
+            <include
+                layout="@layout/skeleton_payments"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="2dp"
@@ -257,7 +257,7 @@
 
         <include
             android:id="@+id/bonus_layout_skeleton"
-            layout="@layout/rounded_rectangle_skeleton"
+            layout="@layout/skeleton_rounded_rectangle"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
@@ -267,7 +267,7 @@
             />
         <include
             android:id="@+id/bonus_msg_skeleton"
-            layout="@layout/rounded_rectangle_skeleton"
+            layout="@layout/skeleton_rounded_rectangle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="42dp"

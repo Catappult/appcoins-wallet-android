@@ -111,7 +111,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
   private val currency: String by lazy {
     if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
-      arguments!!.getString(FIAT_CURRENCY_KEY)
+      arguments!!.getString(FIAT_CURRENCY_KEY)!!
     } else {
       throw IllegalArgumentException("currency data not found")
     }
@@ -119,7 +119,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)
+      arguments!!.getString(BONUS_KEY)!!
     } else {
       throw IllegalArgumentException("bonus data not found")
     }
@@ -127,7 +127,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val appName: String by lazy {
     if (arguments!!.containsKey(APP_NAME_KEY)) {
-      arguments!!.getString(APP_NAME_KEY)
+      arguments!!.getString(APP_NAME_KEY)!!
     } else {
       throw IllegalArgumentException("app name data not found")
     }
@@ -187,7 +187,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val transactionType: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_TYPE)) {
-      arguments!!.getString(TRANSACTION_TYPE)
+      arguments!!.getString(TRANSACTION_TYPE)!!
     } else {
       throw IllegalArgumentException("transaction type data not found")
     }
@@ -234,16 +234,12 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun showLoading() {
-    payment_methods?.visibility = INVISIBLE
+    payment_methods_group.visibility = INVISIBLE
     loading_view?.visibility = VISIBLE
   }
 
   override fun hideLoading() {
     loading_view?.visibility = GONE
-  }
-
-  override fun showPaymentMethods() {
-    payment_methods?.visibility = VISIBLE
   }
 
   private fun setBuyButtonText(): String {
@@ -427,7 +423,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
     credits_fiat_balance.text =
         getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
-    payment_methods.visibility = VISIBLE
+    skeleton_appcoins.visibility = GONE
+    skeleton_credits.visibility = GONE
+    payment_methods_group.visibility = VISIBLE
   }
 
   override fun onResume() {

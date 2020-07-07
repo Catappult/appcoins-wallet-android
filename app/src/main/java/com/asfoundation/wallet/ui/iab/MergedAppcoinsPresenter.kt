@@ -70,9 +70,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               paymentMethod.transactionType, "cancel")
         }
         .observeOn(viewScheduler)
-        .doOnNext {
-          view.navigateToPaymentMethods()
-        }
+        .doOnNext { view.navigateToPaymentMethods() }
         .subscribe({}, { showError(it) }))
   }
 

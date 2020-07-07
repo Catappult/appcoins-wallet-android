@@ -18,7 +18,6 @@ interface MergedAppcoinsView {
   fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String)
   fun showLoading()
   fun hideLoading()
-  fun showPaymentMethods()
   fun errorDismisses(): Observable<Any>
   fun getSupportLogoClicks(): Observable<Any>
   fun getSupportIconClicks(): Observable<Any>
