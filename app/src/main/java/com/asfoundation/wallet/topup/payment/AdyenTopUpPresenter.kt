@@ -403,7 +403,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
             paymentModel.error.code.toString(),
             buildRefusalReason(paymentModel.status, paymentModel.error.message))
-        handleSpecificError(servicesErrorMapper.mapError(paymentModel.error.code!!))
+        val resId = servicesErrorMapper.mapError(paymentModel.error.code!!)
+        if (paymentModel.error.code == 403) handleFraudFlow(resId)
+        else view.showSpecificError(resId)
       }
       else -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",

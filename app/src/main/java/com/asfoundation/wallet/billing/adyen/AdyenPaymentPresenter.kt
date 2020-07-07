@@ -8,7 +8,6 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
-import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -516,7 +515,11 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleErrors(error: Error) {
     when {
       error.isNetworkError -> view.showNetworkError()
-      error.code != null -> view.showSpecificError(servicesErrorCodeMapper.mapError(error.code!!))
+      error.code != null -> {
+        val resId = servicesErrorCodeMapper.mapError(error.code!!)
+        if (error.code == 403) handleFraudFlow(resId)
+        else view.showSpecificError(resId)
+      }
       else -> view.showGenericError()
     }
   }

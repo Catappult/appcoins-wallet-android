@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
+
 class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
 
   @Inject
@@ -71,8 +72,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     super.onDestroyView()
   }
 
-  override fun finish(
-      purchase: Purchase) {
+  override fun finish(purchase: Purchase) {
     finish(purchase, null)
   }
 
@@ -104,10 +104,14 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
   }
 
   override fun showGenericError() {
-    hideLoading()
+    showError(null)
+  }
+
+  override fun showError(message: Int?) {
     error_dismiss.setText(R.string.ok)
-    error_message.setText(R.string.activity_iab_error_message)
+    error_message.text = getString(message ?: R.string.activity_iab_error_message)
     generic_error_layout.visibility = View.VISIBLE
+    hideLoading()
   }
 
   override fun finish(uid: String) {

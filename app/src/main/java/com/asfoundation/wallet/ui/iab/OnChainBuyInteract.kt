@@ -3,26 +3,42 @@ package com.asfoundation.wallet.ui.iab
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
+import java.util.*
 
 class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                          private val supportInteractor: SupportInteractor,
-                         private val walletService: WalletService) {
+                         private val walletService: WalletService,
+                         private val walletBlockedInteract: WalletBlockedInteract,
+                         private val smsValidationInteract: SmsValidationInteract) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase())
+            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
             supportInteractor.displayChatScreen()
           }
         }
   }
+
+  fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
+
+  fun isWalletVerified() =
+      walletService.getWalletAddress()
+          .flatMap {
+            smsValidationInteract.isValid(it)
+                .map { status -> status == WalletValidationStatus.SUCCESS }
+          }
+          .onErrorReturn { true }
 
   fun getTransactionState(uri: String?): Observable<Payment> =
       inAppPurchaseInteractor.getTransactionState(uri)

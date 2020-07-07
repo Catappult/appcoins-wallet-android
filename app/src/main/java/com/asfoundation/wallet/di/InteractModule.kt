@@ -359,8 +359,11 @@ class InteractModule {
   @Provides
   fun providesOnChainBuyInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                                  supportInteractor: SupportInteractor,
-                                 walletService: WalletService): OnChainBuyInteract {
-    return OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService)
+                                 walletService: WalletService,
+                                 walletBlockedInteract: WalletBlockedInteract,
+                                 smsValidationInteract: SmsValidationInteract): OnChainBuyInteract {
+    return OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService,
+        walletBlockedInteract, smsValidationInteract)
   }
 
   @Singleton

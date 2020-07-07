@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.util.Log
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -51,7 +50,6 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   private fun handleBuyClick() {
     disposables.add(transferParser.parse(uri)
         .flatMapCompletable { transaction: TransactionBuilder ->
-          Log.e("TESTE", transaction.toString())
           rewardsManager.pay(transaction.skuId, amount,
               transaction.toAddress(), packageName, getOrigin(isBds, transaction),
               transaction.type, transaction.payload, transaction.callbackUrl,
@@ -99,7 +97,6 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               .observeOn(viewScheduler)
               .onErrorResumeNext { throwable: Throwable ->
                 Completable.fromAction {
-                  Log.e("TESTE", transaction.toString())
                   throwable.printStackTrace()
                   view.showGenericError()
                   view.hideLoading()
@@ -112,9 +109,10 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
             .ignoreElement()
       }
       RewardPayment.Status.ERROR -> Completable.fromAction {
-        if (true) {
-          handleFraudFlow()
-        }
+        Completable.fromAction(view::showGenericError)
+      }
+      RewardPayment.Status.FORBIDDEN -> Completable.fromAction {
+        handleFraudFlow()
       }
       RewardPayment.Status.NO_NETWORK -> Completable.fromAction {
         view.showNoNetworkError()
@@ -179,7 +177,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   }
 
   private fun sendPaymentErrorEvent(transaction: RewardPayment) {
-    if (transaction.status == RewardPayment.Status.ERROR || transaction.status == RewardPayment.Status.NO_NETWORK) {
+    if (transaction.status == RewardPayment.Status.ERROR || transaction.status == RewardPayment.Status.NO_NETWORK || transaction.status == RewardPayment.Status.FORBIDDEN) {
       analytics.sendPaymentErrorEvent(packageName, transactionBuilder.skuId,
           transactionBuilder.amount()
               .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.type,
