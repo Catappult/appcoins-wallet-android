@@ -234,7 +234,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun showLoading() {
-    payment_methods_group.visibility = INVISIBLE
+    payment_methods.visibility = INVISIBLE
     loading_view?.visibility = VISIBLE
   }
 
