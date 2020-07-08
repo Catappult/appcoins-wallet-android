@@ -463,13 +463,15 @@ class PaymentMethodsPresenter(
   private fun getLastUsedPaymentMethod(paymentMethods: List<PaymentMethod>): String {
     val lastUsedPaymentMethod = paymentMethodsInteract.getLastUsedPaymentMethod()
     for (it in paymentMethods) {
-      if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id &&
-          (lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC.id ||
-              lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)) {
-        return PaymentMethodsView.PaymentMethodId.MERGED_APPC.id
-      }
-      if (it.id == lastUsedPaymentMethod && it.isEnabled) {
-        return it.id
+      if(it.isEnabled) {
+        if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id &&
+            (lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC.id ||
+                lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)) {
+          return PaymentMethodsView.PaymentMethodId.MERGED_APPC.id
+        }
+        if (it.id == lastUsedPaymentMethod) {
+          return it.id
+        }
       }
     }
     return PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id
