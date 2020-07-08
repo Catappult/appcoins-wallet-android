@@ -188,7 +188,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun setupPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
                                   paymentMethodId: String) {
     isPreSelected = false
-    if (paymentMethods.isNotEmpty()) {
+    if (paymentMethodList.isNotEmpty()) {
       paymentMethodList.clear()
       payment_methods_radio_group.removeAllViews()
     }
