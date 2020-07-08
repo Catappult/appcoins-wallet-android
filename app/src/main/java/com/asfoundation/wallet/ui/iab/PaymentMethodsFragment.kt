@@ -179,7 +179,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun onResume() {
-    val firstRun = paymentMethodList.isEmpty()
+    val firstRun = paymentMethodList.isEmpty() && !isPreSelected
     if (firstRun.not()) showPaymentsSkeletonLoading()
     presenter.onResume(firstRun)
     super.onResume()
@@ -190,6 +190,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     isPreSelected = false
     if (paymentMethodList.isNotEmpty()) {
       paymentMethodList.clear()
+      payment_methods_radio_group.clearCheck()
       payment_methods_radio_group.removeAllViews()
     }
     var radioButton: AppCompatRadioButton
@@ -354,6 +355,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showPaymentsSkeletonLoading() {
     buy_button.isEnabled = false
+    pre_selected_payment_method_group.visibility = View.GONE
     payment_methods_list_group.visibility = View.INVISIBLE
     payments_skeleton.visibility = View.VISIBLE
   }
@@ -387,6 +389,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         payment_methods_list_group.visibility = View.VISIBLE
         pre_selected_payment_method_group.visibility = View.GONE
       }
+      loading_view.visibility = View.GONE
     }
   }
 
@@ -399,9 +402,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     val hasPreSelectedPaymentMethod =
         inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
     val checkedButtonId = payment_methods_radio_group.checkedRadioButtonId
-    return if (paymentMethodList.isNotEmpty() && checkedButtonId != -1) {
+    return if (paymentMethodList.isNotEmpty() && !isPreSelected && checkedButtonId != -1) {
       paymentMethodList[checkedButtonId]
-    } else if (hasPreSelectedPaymentMethod && checkedButtonId == -1) {
+    } else if (hasPreSelectedPaymentMethod) {
       preSelectedPaymentMethod?.value ?: PaymentMethod()
     } else {
       PaymentMethod()
