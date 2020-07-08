@@ -374,6 +374,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun hideBonus() {
     bonus_layout.visibility = View.INVISIBLE
     bonus_msg.visibility = View.INVISIBLE
+  }
+
+  override fun hideBonusAndSkeletons() {
+    hideBonus()
     bonus_layout_skeleton.visibility = View.GONE
     bonus_msg_skeleton.visibility = View.GONE
   }

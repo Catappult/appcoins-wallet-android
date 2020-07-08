@@ -256,7 +256,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleShowBonus(appPackage: String, topUpData: TopUpData,
                               limitValues: TopUpLimitValues, amount: BigDecimal): Completable {
     return if (!limitValues.error.hasError && (amount < limitValues.minValue.amount || amount > limitValues.maxValue.amount)) {
-      view.hideBonus()
+      view.hideBonusAndSkeletons()
       view.changeMainValueColor(false)
       view.setNextButtonState(false)
       Completable.complete()
