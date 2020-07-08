@@ -105,7 +105,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   private val appPackage: String by lazy {
     if (arguments!!.containsKey(PARAM_APP_PACKAGE)) {
-      arguments!!.getString(PARAM_APP_PACKAGE)
+      arguments!!.getString(PARAM_APP_PACKAGE)!!
     } else {
       throw IllegalArgumentException("application package name data not found")
     }
@@ -390,7 +390,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     showBonus()
   }
 
-  override fun showBonus() {
+  private fun showBonus() {
     bonus_layout_skeleton.visibility = View.GONE
     bonus_msg_skeleton.visibility = View.GONE
     bonus_msg.visibility = View.VISIBLE
