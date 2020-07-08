@@ -223,7 +223,7 @@ dependencies {
 
   implementation "io.sentry:sentry-android:$project.sentry_version"
 
-  implementation 'com.facebook.shimmer:shimmer:0.5.0'
+  implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
