@@ -15,44 +15,76 @@ interface PaymentMethodsView {
                                    appcAmount: String, isBonusActive: Boolean)
 
   fun showError(message: Int)
+
   fun showItemAlreadyOwnedError()
+
   fun finish(bundle: Bundle)
+
   fun showPaymentsSkeletonLoading()
+
   fun showSkeletonLoading()
+
   fun showProgressBarLoading()
+
   fun hideLoading()
+
   fun getCancelClick(): Observable<PaymentMethod>
+
   fun close(bundle: Bundle)
+
   fun errorDismisses(): Observable<Boolean>
+
   fun setupUiCompleted(): Observable<Boolean>
+
   fun showProcessingLoadingDialog()
+
   fun getBuyClick(): Observable<PaymentMethod>
+
   fun showPaypal(gamificationLevel: Int)
+
   fun showAdyen(fiatValue: FiatValue,
                 paymentType: PaymentType,
                 iconUrl: String?, gamificationLevel: Int)
 
   fun showCreditCard(gamificationLevel: Int)
+
   fun showAppCoins(gamificationLevel: Int)
+
   fun showCredits(gamificationLevel: Int)
+
   fun showShareLink(selectedPaymentMethod: String)
+
   fun getPaymentSelection(): Observable<String>
+
   fun getMorePaymentMethodsClicks(): Observable<PaymentMethod>
+
   fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
                        gamificationLevel: Int)
 
   fun setBonus(bonus: BigDecimal, currency: String)
+
   fun onBackPressed(): Observable<Boolean>
+
   fun showNext()
+
   fun showBuy()
+
   fun showMergedAppcoins(gamificationLevel: Int)
+
   fun lockRotation()
+
   fun showEarnAppcoins()
+
   fun showBonus()
+
   fun hideBonus()
+
   fun replaceBonus()
+
   fun removeBonus()
+
   fun getSupportLogoClicks(): Observable<Any>
+
   fun getSupportIconClicks(): Observable<Any>
 
   enum class SelectedPaymentMethod {

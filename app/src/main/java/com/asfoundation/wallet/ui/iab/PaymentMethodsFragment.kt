@@ -353,11 +353,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showPaymentsSkeletonLoading() {
+    buy_button.isEnabled = false
     payment_methods_list_group.visibility = View.INVISIBLE
     payments_skeleton.visibility = View.VISIBLE
   }
 
   override fun showSkeletonLoading() {
+    buy_button.isEnabled = true
     payment_methods_list_group.visibility = View.INVISIBLE
     pre_selected_payment_method_group.visibility = View.GONE
     payments_skeleton.visibility = View.VISIBLE
