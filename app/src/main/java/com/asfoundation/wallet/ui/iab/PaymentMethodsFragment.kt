@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Pair
 import android.view.KeyEvent
@@ -8,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
@@ -198,70 +201,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)
       paymentMethodClick.accept(paymentMethodsAdapter.getSelectedItem())
-      payment_methods_radio_group.clearCheck()
-      payment_methods_radio_group.removeAllViews()
+      paymentMethodList.clear()
     }
-    var radioButton: AppCompatRadioButton
-    if (isBds) {
-      for (index in paymentMethods.indices) {
-        val paymentMethod = paymentMethods[index]
-        radioButton = createPaymentRadioButton(paymentMethod, index)
-        radioButton.isEnabled = paymentMethod.isEnabled
-        radioButton.isChecked = paymentMethod.id == paymentMethodId && paymentMethod.isEnabled
-        if (paymentMethod is AppCoinsPaymentMethod) {
-          appcEnabled = paymentMethod.isAppcEnabled
-          creditsEnabled = paymentMethod.isCreditsEnabled
-        }
-        paymentMethodList.add(paymentMethod)
-        payment_methods_radio_group.addView(radioButton)
-      }
-    } else {
-      for (paymentMethod in paymentMethods) {
-        if (paymentMethod.id == paymentMethodsMapper.map(SelectedPaymentMethod.APPC)) {
-          radioButton = createPaymentRadioButton(paymentMethod, 0)
-          radioButton.isEnabled = paymentMethod.isEnabled
-          radioButton.isChecked = paymentMethod.isEnabled
-          paymentMethodList.add(paymentMethod)
-          payment_methods_radio_group.addView(radioButton)
-          removeBonus()
-        }
-      }
-    }
-  }
-
-  private fun createPaymentRadioButton(paymentMethod: PaymentMethod,
-                                       index: Int): AppCompatRadioButton {
-    val radioButton = activity!!.layoutInflater.inflate(R.layout.payment_radio_button,
-        null) as AppCompatRadioButton
-    radioButton.text = paymentMethod.label
-    radioButton.id = index
-    loadIcons(paymentMethod, radioButton, false)
-    return radioButton
-  }
-
-  private fun loadIcons(paymentMethod: PaymentMethod, radioButton: RadioButton, showNew: Boolean) {
-    val iconSize = resources.getDimensionPixelSize(R.dimen.payment_method_icon_size)
-    val context = context!!
-    compositeDisposable.add(Observable.fromCallable {
-      val bitmap = GlideApp.with(context)
-          .asBitmap()
-          .load(paymentMethod.iconUrl)
-          .submit()
-          .get()
-      val drawable = BitmapDrawable(context.resources,
-          Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, true))
-      drawable.current
-    }
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext {
-          val newOptionIcon =
-              if (showNew) context.resources.getDrawable(R.drawable.ic_new_option)
-              else null
-          radioButton.setCompoundDrawablesWithIntrinsicBounds(it, null, newOptionIcon,
-              null)
-        }
-        .subscribe({ }) { it.printStackTrace() })
   }
 
   private fun updateHeaderInfo(fiatValue: FiatValue, currency: String,
