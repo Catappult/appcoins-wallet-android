@@ -12,17 +12,25 @@ import java.math.BigDecimal
 interface IabView {
 
   fun disableBack()
+
   fun enableBack()
+
   fun finish(bundle: Bundle)
+
   fun showError()
+
   fun close(bundle: Bundle?)
+
   fun navigateToWebViewAuthorization(url: String)
+
   fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String, gamificationLevel: Int)
+
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
                        iconUrl: String?, gamificationLevel: Int)
 
   fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int)
+
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                        type: String, amount: BigDecimal, callbackUrl: String?,
@@ -30,6 +38,7 @@ interface IabView {
                        paymentMethodLabel: String, gamificationLevel: Int)
 
   fun showPaymentMethodsView()
+
   fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,
                            originalCurrency: String?, amount: BigDecimal, type: String,
                            selectedPaymentMethod: String)
@@ -39,10 +48,16 @@ interface IabView {
                          isBds: Boolean, isDonation: Boolean, gamificationLevel: Int)
 
   fun lockRotation()
+
   fun unlockRotation()
+
   fun showEarnAppcoins(domain: String, skuId: String?, amount: BigDecimal, type: String)
+
   fun launchIntent(intent: Intent)
+
   fun showUpdateRequiredView()
+
   fun finishActivity(data: Bundle)
+
   fun showBackupNotification(walletAddress: String)
 }

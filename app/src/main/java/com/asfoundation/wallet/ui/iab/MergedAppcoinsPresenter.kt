@@ -16,6 +16,7 @@ import io.reactivex.functions.Function3
 import java.util.concurrent.TimeUnit
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
+                              private val activityView: IabView,
                               private val disposables: CompositeDisposable,
                               private val viewScheduler: Scheduler,
                               private val networkScheduler: Scheduler,
@@ -38,9 +39,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     handleErrorDismiss()
   }
 
-  fun handleStop() {
-    disposables.clear()
-  }
+  fun handleStop() = disposables.clear()
 
   private fun fetchBalance() {
     disposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthBalance(),
@@ -70,9 +69,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               paymentMethod.transactionType, "cancel")
         }
         .observeOn(viewScheduler)
-        .doOnNext {
-          view.navigateToPaymentMethods()
-        }
+        .doOnNext { activityView.showPaymentMethodsView() }
         .subscribe({}, { showError(it) }))
   }
 
