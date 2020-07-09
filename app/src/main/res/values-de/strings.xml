@@ -696,7 +696,7 @@
   <string name="gamif_quote_neptune">\"Dieser Stern ist nicht auf der Karte!\" - Heinrich d\'Arrest über die Entdeckung des Neptune.</string>
   <string name="gamif_distance_neptune">4,42 Milliarden km von der Erde entfernt</string>
   <string name="gamif_placeholder_planetx">Planet %s</string>
-  <string name="gamif_quote_planetx">\"Irgendwo wartet etwas unglaubliches, um entdeckt zu werden= - Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">ein unbekannter Planet</string>
   <string name="gamif_distance_unkown">Unbekannter Standort</string>
   <string name="gamif_placeholder_new_planet">ein neuer Planet</string>
