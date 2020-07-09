@@ -695,7 +695,7 @@
   <string name="gamif_quote_neptune">“那颗星不在星图上！”– Heinrich d\'Arrest 在发现海王星时的言论。</string>
   <string name="gamif_distance_neptune">距离地球 44.2 亿公里</string>
   <string name="gamif_placeholder_planetx">%s 星球</string>
-  <string name="gamif_quote_planetx">“在世界上的某个地方，总有令人难以置信的事情等待被揭晓”– Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">未知星球</string>
   <string name="gamif_distance_unkown">未知位置</string>
   <string name="gamif_placeholder_new_planet">新星球</string>
