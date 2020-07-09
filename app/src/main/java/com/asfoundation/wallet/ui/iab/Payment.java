@@ -14,9 +14,11 @@ public class Payment {
   private @Nullable final String signatureData;
   private @Nullable final String productId;
   private @Nullable final String orderReference;
+  private @Nullable final Integer errorCode;
+  private @Nullable final String errorMessage;
 
   public Payment(String uri, Status status, String uid, String signature, String signatureData,
-      String orderReference) {
+      String orderReference, Integer errorCode, String errorMessage) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = null;
@@ -28,11 +30,13 @@ public class Payment {
     this.signatureData = signatureData;
     this.productId = null;
     this.orderReference = orderReference;
+    this.errorCode = errorCode;
+    this.errorMessage = errorMessage;
   }
 
   public Payment(String uri, Status status, @Nullable String fromAddress, @Nullable String buyHash,
       @Nullable String packageName, @Nullable String productName, @Nullable String productId,
-      @Nullable String orderReference) {
+      @Nullable String orderReference, @Nullable Integer errorCode, @Nullable String errorMessage) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = fromAddress;
@@ -44,20 +48,8 @@ public class Payment {
     this.signatureData = null;
     this.productId = productId;
     this.orderReference = orderReference;
-  }
-
-  public Payment(String uri, Status status) {
-    this.uri = uri;
-    this.status = status;
-    this.fromAddress = null;
-    this.buyHash = null;
-    this.packageName = null;
-    this.productName = null;
-    this.uid = null;
-    this.signature = null;
-    this.signatureData = null;
-    this.productId = null;
-    this.orderReference = null;
+    this.errorCode = errorCode;
+    this.errorMessage = errorMessage;
   }
 
   @Nullable public String getOrderReference() {
@@ -104,9 +96,12 @@ public class Payment {
     return signature;
   }
 
-  public enum Status {
-    COMPLETED, NO_FUNDS, NETWORK_ERROR, NO_ETHER, NO_TOKENS, NO_INTERNET, NONCE_ERROR, APPROVING,
-    BUYING, FORBIDDEN, ERROR
+  @Nullable public Integer getErrorCode() {
+    return errorCode;
+  }
+
+  @Nullable public String getErrorMessage() {
+    return errorMessage;
   }
 
   @Override public String toString() {
@@ -141,6 +136,11 @@ public class Payment {
         + productId
         + '\''
         + '}';
+  }
+
+  public enum Status {
+    COMPLETED, NO_FUNDS, NETWORK_ERROR, NO_ETHER, NO_TOKENS, NO_INTERNET, NONCE_ERROR, APPROVING,
+    BUYING, FORBIDDEN, ERROR
   }
 }
 

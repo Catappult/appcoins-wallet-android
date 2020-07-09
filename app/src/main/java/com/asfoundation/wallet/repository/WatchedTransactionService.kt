@@ -34,21 +34,25 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
     return cache.save(transaction.key,
         Transaction(transaction.key, Transaction.Status.PROCESSING, transaction.transactionBuilder))
         .observeOn(scheduler)
-        .andThen(transactionSender.send(transaction.transactionBuilder).flatMapCompletable { hash ->
-          cache.save(transaction.key,
-              Transaction(transaction.key, Transaction.Status.PROCESSING,
-                  transaction.transactionBuilder, hash))
-              .andThen(transactionTracker.checkTransactionState(hash).retryWhen {
-                retryOnTransactionNotFound(it)
-              }.ignoreElements()
-                  .andThen(cache.save(transaction.key,
-                      Transaction(transaction.key, Transaction.Status.COMPLETED,
-                          transaction.transactionBuilder, hash))))
-        })
+        .andThen(transactionSender.send(transaction.transactionBuilder)
+            .flatMapCompletable { hash ->
+              cache.save(transaction.key,
+                  Transaction(transaction.key, Transaction.Status.PROCESSING,
+                      transaction.transactionBuilder, hash))
+                  .andThen(transactionTracker.checkTransactionState(hash)
+                      .retryWhen {
+                        retryOnTransactionNotFound(it)
+                      }
+                      .ignoreElements()
+                      .andThen(cache.save(transaction.key,
+                          Transaction(transaction.key, Transaction.Status.COMPLETED,
+                              transaction.transactionBuilder, hash))))
+            })
         .doOnError { throwable ->
           throwable.printStackTrace()
           cache.saveSync(transaction.key,
-              Transaction(transaction.key, enumValueOf(errorMapper.map(throwable).name),
+              Transaction(transaction.key,
+                  enumValueOf(errorMapper.map(throwable).paymentState.name),
                   transaction.transactionBuilder))
         }
   }
@@ -69,12 +73,14 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
   }
 
   fun getTransaction(key: String): Observable<Transaction> =
-      cache.get(key).filter { it.status != Transaction.Status.PENDING }
+      cache.get(key)
+          .filter { it.status != Transaction.Status.PENDING }
 
 
   fun getAll(): Observable<List<Transaction>> =
       cache.all.flatMapSingle { transactions ->
-        Observable.fromIterable(transactions).filter { it.status != Transaction.Status.PENDING }
+        Observable.fromIterable(transactions)
+            .filter { it.status != Transaction.Status.PENDING }
             .toList()
       }
 
