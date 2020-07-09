@@ -695,7 +695,7 @@
   <string name="gamif_quote_neptune">\"Bintang itu tidak ada dalam daftar!\" – Helnrich d\'Arrest saat menemukan Neptunus.</string>
   <string name="gamif_distance_neptune">4,42 miliar km dari Bumi</string>
   <string name="gamif_placeholder_planetx">Planet %s</string>
-  <string name="gamif_quote_planetx">\"Di suatu tempat, sesuatu yang luar biasa tengah menunggu untuk diketahui.\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">planet tidak dikenal</string>
   <string name="gamif_distance_unkown">Lokasi tidak dikenal</string>
   <string name="gamif_placeholder_new_planet">planet baru</string>
