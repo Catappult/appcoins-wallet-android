@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
@@ -26,8 +26,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import java.math.BigDecimal;
 
-import static com.asfoundation.wallet.C.ETHER_DECIMALS;
-
 public class TransactionHolder extends BinderViewHolder<Transaction>
     implements View.OnClickListener {
 
@@ -41,15 +39,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private final TextView value;
   private final TextView currency;
   private final TextView status;
-
+  private final OnTransactionClickListener onTransactionClickListener;
+  private final CurrencyFormatUtils formatter;
   private Transaction transaction;
   private String defaultAddress;
-  private OnTransactionClickListener onTransactionClickListener;
-  private Resources resources;
-  private CurrencyFormatUtils formatter;
 
   public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener,
-      Resources resources, CurrencyFormatUtils formatter) {
+      CurrencyFormatUtils formatter) {
     super(resId, parent);
 
     srcImage = findViewById(R.id.img);
@@ -63,7 +59,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     this.formatter = formatter;
 
     itemView.setOnClickListener(this);
-    this.resources = resources;
   }
 
   @Override public void bind(@Nullable Transaction data, @NonNull Bundle addition) {
@@ -79,48 +74,11 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       currency = transaction.getCurrency();
     }
 
-    String to = extractTo(transaction);
-    String from = extractFrom(transaction);
-
-    fill(from, to, currency, transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(),
-        transaction.getDetails());
+    fill(transaction.getFrom(), transaction.getTo(), currency, transaction.getValue(),
+        transaction.getStatus(), transaction.getDetails());
   }
 
-  private String extractTo(Transaction transaction) {
-    if (transaction.getOperations() != null
-        && !transaction.getOperations()
-        .isEmpty()
-        && transaction.getOperations()
-        .get(0) != null
-        && transaction.getOperations()
-        .get(0)
-        .getTo() != null) {
-      return transaction.getOperations()
-          .get(0)
-          .getTo();
-    } else {
-      return transaction.getTo();
-    }
-  }
-
-  private String extractFrom(Transaction transaction) {
-    if (transaction.getOperations() != null
-        && !transaction.getOperations()
-        .isEmpty()
-        && transaction.getOperations()
-        .get(0) != null
-        && transaction.getOperations()
-        .get(0)
-        .getFrom() != null) {
-      return transaction.getOperations()
-          .get(0)
-          .getFrom();
-    } else {
-      return transaction.getFrom();
-    }
-  }
-
-  private void fill(String from, String to, String currencySymbol, String valueStr, long decimals,
+  private void fill(String from, String to, String currencySymbol, String valueStr,
       Transaction.TransactionStatus transactionStatus, TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
@@ -141,7 +99,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     int transactionTypeIcon;
     switch (transaction.getType()) {
-      case IAB:
+      case IAP:
       case IAP_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_iab;
         setTypeIconVisibilityBasedOnDescription(details, uri);
@@ -237,7 +195,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     if (valueStr.equals("0")) {
       valueStr = "0 ";
     } else {
-      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals, currencySymbol);
+      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     }
 
     currency.setText(currencySymbol);
