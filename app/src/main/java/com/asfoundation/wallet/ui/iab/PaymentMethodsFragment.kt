@@ -365,8 +365,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showSkeletonLoading() {
     showPaymentsSkeletonLoading()
-    fiat_price_skeleton.visibility = View.VISIBLE
-    appc_price_skeleton.visibility = View.VISIBLE
     bonus_layout_skeleton.visibility = View.VISIBLE
     bonus_msg_skeleton.visibility = View.VISIBLE
   }
