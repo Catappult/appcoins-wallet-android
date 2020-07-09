@@ -13,7 +13,6 @@
       android:layout_width="@dimen/payment_methods_width"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:animateLayoutChanges="true"
       android:background="@drawable/background_card"
       >
     <ProgressBar
@@ -22,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/gradient_progress"
-        tools:visibility="gone"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -78,8 +77,6 @@
           android:layout_height="wrap_content"
           android:background="@drawable/background_card"
           android:elevation="2dp"
-          android:visibility="invisible"
-          tools:visibility="visible"
           >
 
         <include
@@ -136,6 +133,43 @@
                 />
           </androidx.core.widget.NestedScrollView>
 
+          <LinearLayout
+              android:id="@+id/payments_skeleton"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="10dp"
+              android:layout_marginTop="4dp"
+              android:layout_marginEnd="10dp"
+              android:orientation="vertical"
+              app:layout_constraintBottom_toBottomOf="@id/content_main"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/top_separator"
+              >
+            <include
+                layout="@layout/skeleton_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                />
+            <include
+                layout="@layout/skeleton_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="2dp"
+                />
+            <include
+                layout="@layout/skeleton_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="2dp"
+                />
+            <include
+                layout="@layout/skeleton_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="2dp"
+                />
+          </LinearLayout>
 
           <include
               android:id="@+id/layout_pre_selected"
@@ -145,7 +179,6 @@
               android:layout_marginStart="16dp"
               android:layout_marginTop="23dp"
               android:layout_marginEnd="16dp"
-              android:visibility="gone"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
@@ -171,7 +204,8 @@
               android:id="@+id/payment_methods_list_group"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              app:constraint_referenced_ids="top_separator,payment_methods_radio_list"
+              android:visibility="invisible"
+              app:constraint_referenced_ids="payment_methods_radio_list"
               tools:visibility="visible"
               />
 
@@ -179,6 +213,7 @@
               android:id="@+id/pre_selected_payment_method_group"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:visibility="gone"
               app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
               />
 
@@ -212,9 +247,7 @@
             app:layout_constraintTop_toBottomOf="@+id/content_main"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:visibility="invisible"
             />
-
         <TextView
             android:id="@+id/bonus_msg"
             style="@style/TopUpTextStyle.Small.BonusText"
@@ -226,12 +259,31 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/gamification_purchase_body"
-            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
             app:layout_constraintVertical_bias="0"
             />
 
+        <include
+            android:id="@+id/bonus_layout_skeleton"
+            layout="@layout/skeleton_rounded_rectangle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+            app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+            app:layout_constraintStart_toStartOf="@id/bonus_layout"
+            app:layout_constraintTop_toTopOf="@id/bonus_layout"
+            />
+        <include
+            android:id="@+id/bonus_msg_skeleton"
+            layout="@layout/skeleton_rounded_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginEnd="42dp"
+            app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
+            app:layout_constraintTop_toTopOf="@id/bonus_msg"
+            />
         <TextView
             android:id="@+id/no_bonus_msg"
             style="@style/TopUpTextStyle.Small.BonusText"
