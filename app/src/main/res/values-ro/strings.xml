@@ -697,7 +697,7 @@
   <string name="gamif_quote_neptune">„Acea stea nu este în grafic!” - Heinrich d\'Arrest la descoperirea planetei Neptun.</string>
   <string name="gamif_distance_neptune">4,42 miliarde km față de Pământ</string>
   <string name="gamif_placeholder_planetx">Planeta %s</string>
-  <string name="gamif_quote_planetx">„Undeva, ceva incredibil așteaptă să fie descoperit” - Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">o planetă necunoscută</string>
   <string name="gamif_distance_unkown">Locație necunoscută</string>
   <string name="gamif_placeholder_new_planet">o planetă nouă</string>
