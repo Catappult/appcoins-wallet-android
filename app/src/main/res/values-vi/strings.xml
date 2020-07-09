@@ -695,7 +695,7 @@
   <string name="gamif_quote_neptune">\"Ngôi sao đó không có trên bản đồ!\" – Heinrich d\'Arrest khi phát hiện ra Sao Hải Vương.</string>
   <string name="gamif_distance_neptune">4,42 tỷ km từ Trái Đất</string>
   <string name="gamif_placeholder_planetx">%s</string>
-  <string name="gamif_quote_planetx">\"Một nơi hoặc một điều khó tin nào đó đang chờ đợi để được khám phá\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">một hành tinh không xác định</string>
   <string name="gamif_distance_unkown">Vị trí không xác định</string>
   <string name="gamif_placeholder_new_planet">một hành tinh mới</string>
