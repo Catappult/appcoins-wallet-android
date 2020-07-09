@@ -696,7 +696,7 @@
   <string name="gamif_quote_neptune">\"ਉਹ ਤਾਰਾ ਚਾਰਟ ਤੇ ਨਹੀਂ ਹੈ!\" - ਨੈਪਚਿਊਨ ਦੀ ਖੋਜ ਕਰਨ ਤੇ ਹੇਨਰਿਕ ਡੀ ਆਰਸਟ|</string>
   <string name="gamif_distance_neptune">ਧਰਤੀ ਤੋਂ 442 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
   <string name="gamif_placeholder_planetx">ਗ੍ਰਹਿ %s</string>
-  <string name="gamif_quote_planetx">\"ਕਿਤੇ, ਕੋਈ ਅਸਚਰਜ ਚੀਜ਼ ਜਾਣਨ ਦੀ ਉਡੀਕ ਵਿੱਚ ਹੈ\" - ਕਾਰਲ ਸਾਗਨ</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">ਇੱਕ ਅਣਜਾਣ ਗ੍ਰਹਿ</string>
   <string name="gamif_distance_unkown">ਅਣਜਾਣ ਸਥਾਨ</string>
   <string name="gamif_placeholder_new_planet">ਇਕ ਨਵਾਂ ਗ੍ਰਹਿ</string>
