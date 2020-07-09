@@ -695,7 +695,7 @@
   <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
   <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
   <string name="gamif_placeholder_planetx">โลก %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">ดาวเคราะห์ที่ไม่รู้จัก</string>
   <string name="gamif_distance_unkown">ไม่ทราบที่ตั้ง</string>
   <string name="gamif_placeholder_new_planet">ดาวเคราะห์ใหม่</string>
