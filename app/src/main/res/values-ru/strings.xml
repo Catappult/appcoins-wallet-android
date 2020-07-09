@@ -698,7 +698,7 @@
   <string name="gamif_quote_neptune">\"Этой звезды на картах нет!\" – Генрих Луи д\'Арре в момент открытия Нептуна.</string>
   <string name="gamif_distance_neptune">4,42 миллиарда километров от Земли</string>
   <string name="gamif_placeholder_planetx">Планета %s</string>
-  <string name="gamif_quote_planetx">\"Где-то там нечто невероятное ждёт своего открытия\" – Карл Саган</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">неизветная планета</string>
   <string name="gamif_distance_unkown">Местонахождение неизвестно</string>
   <string name="gamif_placeholder_new_planet">новая планета</string>
