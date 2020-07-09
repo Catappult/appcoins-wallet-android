@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Observable
 
-internal interface AppcoinsRewardsBuyView {
+interface AppcoinsRewardsBuyView {
   fun finish(purchase: Purchase?)
   fun showLoading()
   fun hideLoading()
@@ -14,9 +14,9 @@ internal interface AppcoinsRewardsBuyView {
   fun close()
   fun showGenericError()
   fun showError(message: Int?)
-  fun finish(uid: String)
+  fun finish(uid: String?)
   fun errorClose()
-  fun finish(purchase: Purchase, orderReference: String)
+  fun finish(purchase: Purchase, orderReference: String?)
   fun showTransactionCompleted()
   fun getAnimationDuration(): Long
   fun lockRotation()

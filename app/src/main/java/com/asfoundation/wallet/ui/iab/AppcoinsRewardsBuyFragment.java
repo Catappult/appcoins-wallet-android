@@ -16,6 +16,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.TransferParser;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -43,6 +44,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Inject BillingAnalytics analytics;
   @Inject CurrencyFormatUtils formatter;
   @Inject AppcoinsRewardsBuyInteract appcoinsRewardsBuyInteract;
+  @Inject Logger logger;
   private View loadingView;
   private View transactionCompletedLayout;
   private LottieAnimationView lottieTransactionComplete;
@@ -103,8 +105,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, uri, callerPackageName, transferParser, isBds,
-            analytics, transactionBuilder, formatter, gamificationLevel,
-            appcoinsRewardsBuyInteract);
+            analytics, transactionBuilder, formatter, gamificationLevel, appcoinsRewardsBuyInteract,
+            logger);
 
     lottieTransactionComplete =
         transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
@@ -183,7 +185,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     iabView.close(billingMessagesMapper.genericError());
   }
 
-  @Override public void finish(Purchase purchase, @Nullable String orderReference) {
+  @Override public void finish(@NonNull Purchase purchase, @Nullable String orderReference) {
     presenter.sendPaymentEvent();
     presenter.sendRevenueEvent();
     presenter.sendPaymentSuccessEvent();

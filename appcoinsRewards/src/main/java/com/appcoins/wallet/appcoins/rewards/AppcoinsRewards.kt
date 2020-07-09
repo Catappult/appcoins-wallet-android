@@ -29,7 +29,7 @@ class AppcoinsRewards(
   }
 
   fun pay(amount: BigDecimal,
-          origin: String, sku: String?,
+          origin: String?, sku: String?,
           type: String,
           developerAddress: String,
           storeAddress: String,
@@ -76,16 +76,18 @@ class AppcoinsRewards(
                     }
                     .onErrorResumeNext { t ->
                       t.printStackTrace()
+                      val transactionError = errorMapper.map(t)
                       cache.save(getKey(transaction),
-                          Transaction(transaction, errorMapper.map(t)))
+                          Transaction(transaction, transactionError.status,
+                              transactionError.errorCode,
+                              transactionError.errorMessage))
                     }
               }
         }
         .subscribe()
   }
 
-  private fun getOrigin(
-      transaction: Transaction) =
+  private fun getOrigin(transaction: Transaction) =
       if (transaction.isBds()) transaction.origin else null
 
   private fun waitTransactionCompletion(
