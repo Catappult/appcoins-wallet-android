@@ -20,6 +20,7 @@ import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
+import com.asfoundation.wallet.App
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.backup.BackupInteract
@@ -370,8 +371,8 @@ class InteractModule {
 
   @Singleton
   @Provides
-  fun provideSupportInteractor(preferences: SupportSharedPreferences): SupportInteractor {
-    return SupportInteractor(preferences)
+  fun provideSupportInteractor(preferences: SupportSharedPreferences, app: App): SupportInteractor {
+    return SupportInteractor(preferences, app)
   }
 
   @Provides
@@ -487,9 +488,11 @@ class InteractModule {
                                preferencesRepositoryType: PreferencesRepositoryType,
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
+                               autoUpdateInteract: AutoUpdateInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
     return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
+        preferencesRepositoryType, supportInteractor, walletsInteract, autoUpdateInteract,
+        walletsEventSender)
   }
 
   @Provides

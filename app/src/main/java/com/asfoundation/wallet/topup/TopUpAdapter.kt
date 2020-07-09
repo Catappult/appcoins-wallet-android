@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.item_top_value.view.*
 import rx.functions.Action1
 
 
-class TopUpAdapter(
-    private val listener: Action1<FiatValue>
+class TopUpAdapter(private val listener: Action1<FiatValue>
 ) : ListAdapter<FiatValue, TopUpAdapter.TopUpViewHolder>(FiatValueCallback()) {
 
 

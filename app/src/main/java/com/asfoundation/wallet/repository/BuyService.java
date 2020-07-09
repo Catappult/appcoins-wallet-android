@@ -132,12 +132,15 @@ public class BuyService {
       case NO_INTERNET:
         toReturn = Status.NO_INTERNET;
         break;
+      case FORBIDDEN:
+        toReturn = Status.FORBIDDEN;
+        break;
     }
     return toReturn;
   }
 
   public enum Status {
-    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, PENDING
+    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, PENDING, FORBIDDEN
 
   }
 

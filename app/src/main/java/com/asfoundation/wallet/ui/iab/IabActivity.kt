@@ -19,7 +19,6 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -196,8 +195,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter.handlePurchaseStartAnalytics(transaction)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            intent.extras!!
-                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            intent.extras!!.getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
   }
@@ -236,10 +234,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, IabUpdateRequiredFragment())
         .commit()
-  }
-
-  override fun showWalletBlocked() {
-    startActivityForResult(WalletBlockedActivity.newIntent(this), BLOCKED_WARNING_REQUEST_CODE)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {

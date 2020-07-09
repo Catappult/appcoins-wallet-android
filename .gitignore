@@ -44,4 +44,4 @@ proguard/
 
 ### Android Patch ###
 gen-external-apklibs
-app/google-services.json
+/app/google-services.json

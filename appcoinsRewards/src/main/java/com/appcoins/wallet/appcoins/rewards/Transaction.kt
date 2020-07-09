@@ -25,6 +25,6 @@ data class Transaction(val sku: String?,
   fun isBds(): Boolean = this.origin == "BDS" || this.origin == "UNITY"
 
   enum class Status {
-    PENDING, PROCESSING, COMPLETED, ERROR, NO_NETWORK
+    PENDING, PROCESSING, COMPLETED, ERROR, FORBIDDEN, NO_NETWORK
   }
 }

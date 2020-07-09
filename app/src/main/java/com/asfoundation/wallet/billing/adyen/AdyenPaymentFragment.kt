@@ -31,6 +31,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.FragmentNavigator
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabView
@@ -83,6 +84,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var servicesErrorMapper: ServicesErrorCodeMapper
+
   private lateinit var iabView: IabView
   private lateinit var presenter: AdyenPaymentPresenter
   private lateinit var cardConfiguration: CardConfiguration
@@ -110,7 +115,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
             Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
             adyenPaymentInteractor, inAppPurchaseInteractor.parseTransaction(transactionData, true),
             navigator, paymentType, transactionType, amount, currency, isPreSelected,
-            AdyenErrorCodeMapper(), gamificationLevel, formatter)
+            AdyenErrorCodeMapper(), servicesErrorMapper, gamificationLevel, formatter)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -203,6 +208,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       change_card_button.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
       buy_button.visibility = View.INVISIBLE
+      fiat_price_skeleton.visibility = GONE
+      appc_price_skeleton.visibility = GONE
     }
   }
 
@@ -306,6 +313,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProductPrice(amount: String, currencyCode: String) {
     fiat_price.text = "$amount $currencyCode"
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE
   }
