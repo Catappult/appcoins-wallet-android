@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Kártyaszám</string>
   <string name="dialog_credit_card_expiration">Lejárati dátum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">AppCoins-ok fogadásához igazold, hogy ember vagy</string>
   <string name="activity_airdrop_details">Ezt csak biztonsági okból kérjük.</string>
   <string name="activity_airdrop_hint">Írd be a képen látható szavakat</string>
