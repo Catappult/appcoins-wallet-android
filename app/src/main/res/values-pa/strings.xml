@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
   <string name="dialog_credit_card_expiration">ਐਕਸਪਾਈਰੀ ਦੀ ਤਾਰੀਖ</string>
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
   <string name="activity_airdrop_hint">ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਸ਼ਬਦਾਂ ਨੂੰ ਟਾਈਪ ਕਰੋ</string>
