@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Số thẻ</string>
   <string name="dialog_credit_card_expiration">Ngày hết hạn</string>
   <string name="dialog_credit_card_cvv">Mã CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
   <string name="activity_airdrop_details">Đây chỉ là yếu tố bảo mật.</string>
   <string name="activity_airdrop_hint">Nhập từ trong ảnh</string>
