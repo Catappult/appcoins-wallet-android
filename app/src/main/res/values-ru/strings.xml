@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Номер карты</string>
   <string name="dialog_credit_card_expiration">Дата окончания срока действия</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">Подтвердите, что вы человек, чтобы получить AppCoins</string>
   <string name="activity_airdrop_details">Это просто для обеспечения безопасности.</string>
   <string name="activity_airdrop_hint">Введите слова на картинке</string>
