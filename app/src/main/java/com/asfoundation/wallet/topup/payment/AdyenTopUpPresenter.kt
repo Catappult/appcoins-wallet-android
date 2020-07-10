@@ -404,7 +404,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             paymentModel.error.code.toString(),
             buildRefusalReason(paymentModel.status, paymentModel.error.message))
         val resId = servicesErrorMapper.mapError(paymentModel.error.code!!)
-        if (paymentModel.error.code == 403) handleFraudFlow(resId)
+        if (paymentModel.error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
         else view.showSpecificError(resId)
       }
       else -> {
@@ -419,6 +419,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   companion object {
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val CURRENT_ERROR = "current_error"
+    private const val HTTP_FRAUD_CODE = 403
   }
 
 }

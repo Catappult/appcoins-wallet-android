@@ -14,8 +14,8 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
+import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogDialogActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
-import com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -87,7 +87,7 @@ abstract class ActivityBuilders {
 
   @ActivityScope
   @ContributesAndroidInjector
-  internal abstract fun bindPoaWalletValidationActivity(): PoaWalletValidationActivity
+  internal abstract fun bindPoaWalletValidationActivity(): WalletValidationDialogDialogActivity
 
   @ActivityScope
   @ContributesAndroidInjector

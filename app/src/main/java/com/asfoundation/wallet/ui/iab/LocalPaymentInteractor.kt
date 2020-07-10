@@ -12,7 +12,6 @@ import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -34,10 +33,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun isWalletVerified() =
       walletService.getWalletAddress()
-          .flatMap {
-            smsValidationInteract.isValid(it)
-                .map { status -> status == WalletValidationStatus.SUCCESS }
-          }
+          .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
 
   fun getPaymentLink(domain: String, skuId: String?, originalAmount: String?,

@@ -194,6 +194,7 @@ public class OnChainBuyPresenter {
   private void handleFraudFlow() {
     disposables.add(onChainBuyInteract.isWalletBlocked()
         .subscribeOn(networkScheduler)
+        .observeOn(networkScheduler)
         .flatMap(blocked -> {
           if (blocked) {
             return onChainBuyInteract.isWalletVerified()

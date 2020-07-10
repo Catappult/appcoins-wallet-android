@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import android.content.Context
 import android.os.Bundle
@@ -22,8 +22,8 @@ import kotlinx.android.synthetic.main.fragment_phone_validation.*
 import javax.inject.Inject
 
 
-class PoaPhoneValidationFragment : DaggerFragment(),
-    PoaPhoneValidationView {
+class PhoneValidationDialogFragment : DaggerFragment(),
+    PhoneValidationDialogView {
 
   @Inject
   lateinit var interactor: SmsValidationInteract
@@ -31,8 +31,8 @@ class PoaPhoneValidationFragment : DaggerFragment(),
   @Inject
   lateinit var analytics: WalletValidationAnalytics
 
-  private var walletValidationView: PoaWalletValidationView? = null
-  private lateinit var presenter: PoaPhoneValidationPresenter
+  private var walletValidationDialogView: WalletValidationDialogView? = null
+  private lateinit var dialogPresenter: PhoneValidationDialogPresenter
 
   private var countryCode: String? = null
   private var phoneNumber: String? = null
@@ -41,9 +41,9 @@ class PoaPhoneValidationFragment : DaggerFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    presenter =
-        PoaPhoneValidationPresenter(this,
-            walletValidationView, interactor,
+    dialogPresenter =
+        PhoneValidationDialogPresenter(this,
+            walletValidationDialogView, interactor,
             AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), analytics)
   }
 
@@ -64,13 +64,13 @@ class PoaPhoneValidationFragment : DaggerFragment(),
       errorMessage = arguments?.getInt(ERROR_MESSAGE)
     }
 
-    presenter.present()
+    dialogPresenter.present()
   }
 
   override fun onResume() {
     super.onResume()
 
-    presenter.onResume()
+    dialogPresenter.onResume()
     focusAndShowKeyboard(phone_number)
   }
 
@@ -78,7 +78,8 @@ class PoaPhoneValidationFragment : DaggerFragment(),
     ccp.registerCarrierNumberEditText(phone_number)
 
     countryCode?.let {
-      ccp.setCountryForPhoneCode(it.drop(0).toInt())
+      ccp.setCountryForPhoneCode(it.drop(0)
+          .toInt())
     }
     phoneNumber?.let { phone_number.setText(it) }
 
@@ -120,24 +121,24 @@ class PoaPhoneValidationFragment : DaggerFragment(),
   override fun getCancelClicks() = RxView.clicks(cancel_button)
 
   override fun onDestroy() {
-    presenter.stop()
+    dialogPresenter.stop()
     super.onDestroy()
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
-    if (context !is PoaWalletValidationView) {
+    if (context !is WalletValidationDialogView) {
       throw IllegalStateException(
           "PoaPhoneValidationFragment must be attached to Wallet Validation activity")
     }
 
-    walletValidationView = context
+    walletValidationDialogView = context
   }
 
   override fun onDetach() {
     super.onDetach()
-    walletValidationView = null
+    walletValidationDialogView = null
   }
 
   companion object {
@@ -158,7 +159,7 @@ class PoaPhoneValidationFragment : DaggerFragment(),
         bundle.putInt(ERROR_MESSAGE, errorMessage)
       }
 
-      return PoaPhoneValidationFragment().apply { arguments = bundle }
+      return PhoneValidationDialogFragment().apply { arguments = bundle }
     }
 
   }

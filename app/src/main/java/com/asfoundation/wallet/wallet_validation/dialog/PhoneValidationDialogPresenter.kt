@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import androidx.annotation.StringRes
 import com.asf.wallet.R
@@ -10,9 +10,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 
-class PoaPhoneValidationPresenter(
-    private val view: PoaPhoneValidationView,
-    private val activity: PoaWalletValidationView?,
+class PhoneValidationDialogPresenter(
+    private val dialogView: PhoneValidationDialogView,
+    private val activity: WalletValidationDialogView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
@@ -23,7 +23,7 @@ class PoaPhoneValidationPresenter(
   private var cachedValidationStatus: Pair<WalletValidationStatus, Pair<String, String>>? = null
 
   fun present() {
-    view.setupUI()
+    dialogView.setupUI()
     handleValuesChange()
     handleSubmit()
     handleCancel()
@@ -31,16 +31,17 @@ class PoaPhoneValidationPresenter(
 
   private fun handleCancel() {
     disposables.add(
-        view.getCancelClicks()
+        dialogView.getCancelClicks()
             .doOnNext {
               activity?.closeCancel(true)
-            }.subscribe())
+            }
+            .subscribe())
   }
 
   private fun handleSubmit() {
     disposables.add(
-        view.getSubmitClicks()
-            .doOnNext { view.setButtonState(false) }
+        dialogView.getSubmitClicks()
+            .doOnNext { dialogView.setButtonState(false) }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.first}${it.second}")
@@ -48,10 +49,10 @@ class PoaPhoneValidationPresenter(
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->
                     cachedValidationStatus = Pair(status, it)
-                    view.setButtonState(true)
+                    dialogView.setButtonState(true)
                     onSuccess(status, it)
                   }
-                  .doOnError { view.setButtonState(true) }
+                  .doOnError { dialogView.setButtonState(true) }
                   .doOnSuccess { cachedValidationStatus = null }
             }
             .retry()
@@ -67,21 +68,21 @@ class PoaPhoneValidationPresenter(
       WalletValidationStatus.INVALID_INPUT,
       WalletValidationStatus.INVALID_PHONE -> {
         showErrorMessage(R.string.verification_insert_phone_field_number_error)
-        view.setButtonState(false)
+        dialogView.setButtonState(false)
       }
       WalletValidationStatus.DOUBLE_SPENT -> {
         showErrorMessage(R.string.verification_insert_phone_field_phone_used_already_error)
-        view.setButtonState(false)
+        dialogView.setButtonState(false)
       }
       WalletValidationStatus.NO_NETWORK,
       WalletValidationStatus.GENERIC_ERROR -> showErrorMessage(R.string.unknown_error)
       WalletValidationStatus.LANDLINE_NOT_SUPPORTED -> {
         showErrorMessage(R.string.verification_insert_phone_field_landline_error)
-        view.setButtonState(false)
+        dialogView.setButtonState(false)
       }
       WalletValidationStatus.REGION_NOT_SUPPORTED -> {
         showErrorMessage(R.string.verification_insert_phone_field_region_error)
-        view.setButtonState(false)
+        dialogView.setButtonState(false)
       }
     }
   }
@@ -95,20 +96,20 @@ class PoaPhoneValidationPresenter(
   }
 
   private fun showErrorMessage(@StringRes errorMessage: Int) {
-    view.setError(errorMessage)
+    dialogView.setError(errorMessage)
   }
 
   private fun handleValuesChange() {
     disposables.add(
         Observable.combineLatest(
-            view.getCountryCode(),
-            view.getPhoneNumber(),
+            dialogView.getCountryCode(),
+            dialogView.getPhoneNumber(),
             BiFunction { countryCode: String, phoneNumber: String ->
-              view.clearError()
+              dialogView.clearError()
               if (hasValidData(countryCode, phoneNumber)) {
-                view.setButtonState(true)
+                dialogView.setButtonState(true)
               } else {
-                view.setButtonState(false)
+                dialogView.setButtonState(false)
               }
             })
             .subscribe({ }, { throwable -> throwable.printStackTrace() }))

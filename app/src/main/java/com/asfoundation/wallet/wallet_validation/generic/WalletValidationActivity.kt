@@ -189,9 +189,7 @@ class WalletValidationActivity : BaseActivity(),
     if (navigateToTransactionsOnSuccess) {
       startActivity(TransactionsActivity.newIntent(this))
     } else if (errorMessage != 0) {
-      val intent = Intent().apply {
-        putExtra(ERROR_MESSAGE, errorMessage)
-      }
+      val intent = Intent().apply { putExtra(ERROR_MESSAGE, errorMessage) }
       setResult(RESULT_OK, intent)
     }
     finish()
@@ -201,9 +199,7 @@ class WalletValidationActivity : BaseActivity(),
     if (navigateToTransactionsOnCancel) {
       startActivity(TransactionsActivity.newIntent(this))
     } else if (errorMessage != 0) {
-      val intent = Intent().apply {
-        putExtra(ERROR_MESSAGE, errorMessage)
-      }
+      val intent = Intent().apply { putExtra(ERROR_MESSAGE, errorMessage) }
       setResult(RESULT_CANCELED, intent)
     }
     finish()

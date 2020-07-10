@@ -4,7 +4,6 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.util.*
@@ -19,10 +18,7 @@ class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurch
 
   fun isWalletVerified() =
       walletService.getWalletAddress()
-          .flatMap {
-            smsValidationInteract.isValid(it)
-                .map { status -> status == WalletValidationStatus.SUCCESS }
-          }
+          .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
 
   fun showSupport(gamificationLevel: Int): Completable {

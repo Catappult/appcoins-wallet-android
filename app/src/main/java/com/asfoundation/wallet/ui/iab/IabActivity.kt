@@ -22,7 +22,7 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity
+import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogDialogActivity
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
@@ -163,10 +163,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showWalletValidation(@StringRes error: Int) {
     fragment_container.visibility = View.GONE
-    val intent = PoaWalletValidationActivity.newIntent(this, error)
-        .apply {
-          intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
+    val intent = WalletValidationDialogDialogActivity.newIntent(this, error)
+        .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivityForResult(intent, WALLET_VALIDATION_REQUEST_CODE)
   }
 

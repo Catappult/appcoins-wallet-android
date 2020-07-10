@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
@@ -7,9 +7,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function6
 
-class PoaCodeValidationPresenter(
-    private val view: PoaCodeValidationView,
-    private val activity: PoaWalletValidationView?,
+class CodeValidationDialogPresenter(
+    private val dialogView: CodeValidationDialogView,
+    private val activity: WalletValidationDialogView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
@@ -20,7 +20,7 @@ class PoaCodeValidationPresenter(
 ) {
 
   fun present() {
-    view.setupUI()
+    dialogView.setupUI()
     handleBack()
     handleCode()
     handleResendCode()
@@ -30,9 +30,9 @@ class PoaCodeValidationPresenter(
 
   private fun handleResendCode() {
     disposables.add(
-        view.getResentCodeClicks()
+        dialogView.getResentCodeClicks()
             .doOnNext {
-              view.clearUI()
+              dialogView.clearUI()
             }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
@@ -46,7 +46,7 @@ class PoaCodeValidationPresenter(
 
   private fun handleSubmit() {
     disposables.add(
-        view.getSubmitClicks()
+        dialogView.getSubmitClicks()
             .doOnNext {
               analytics.sendCodeVerificationEvent("submit")
               activity?.showLoading(it)
@@ -57,7 +57,7 @@ class PoaCodeValidationPresenter(
 
   private fun handleBack() {
     disposables.add(
-        view.getBackClicks()
+        dialogView.getBackClicks()
             .doOnNext {
               analytics.sendCodeVerificationEvent("back")
               activity?.showPhoneValidationView(countryCode, phoneNumber)
@@ -69,19 +69,20 @@ class PoaCodeValidationPresenter(
   private fun handleValuesChange() {
     disposables.add(
         Observable.combineLatest(
-            view.getFirstChar(),
-            view.getSecondChar(),
-            view.getThirdChar(),
-            view.getFourthChar(),
-            view.getFifthChar(),
-            view.getSixthChar(),
+            dialogView.getFirstChar(),
+            dialogView.getSecondChar(),
+            dialogView.getThirdChar(),
+            dialogView.getFourthChar(),
+            dialogView.getFifthChar(),
+            dialogView.getSixthChar(),
             Function6 { first: String, second: String, third: String, fourth: String, fifth: String, sixth: String ->
               if (isValidInput(first, second, third, fourth, fifth, sixth)) {
-                view.setButtonState(true)
+                dialogView.setButtonState(true)
               } else {
-                view.setButtonState(false)
+                dialogView.setButtonState(false)
               }
-            }).subscribe { })
+            })
+            .subscribe { })
   }
 
   private fun isValidInput(first: String, second: String, third: String,
@@ -95,39 +96,39 @@ class PoaCodeValidationPresenter(
   }
 
   private fun handleCode() {
-    disposables.add(view.getFirstChar()
+    disposables.add(dialogView.getFirstChar()
         .filter { it.isNotBlank() }
-        .doOnNext { view.moveToNextView(1) }
+        .doOnNext { dialogView.moveToNextView(1) }
         .subscribe()
     )
 
-    disposables.add(view.getSecondChar()
+    disposables.add(dialogView.getSecondChar()
         .filter { it.isNotBlank() }
-        .doOnNext { view.moveToNextView(2) }
+        .doOnNext { dialogView.moveToNextView(2) }
         .subscribe()
     )
 
-    disposables.add(view.getThirdChar()
+    disposables.add(dialogView.getThirdChar()
         .filter { it.isNotBlank() }
-        .doOnNext { view.moveToNextView(3) }
+        .doOnNext { dialogView.moveToNextView(3) }
         .subscribe()
     )
 
-    disposables.add(view.getFourthChar()
+    disposables.add(dialogView.getFourthChar()
         .filter { it.isNotBlank() }
-        .doOnNext { view.moveToNextView(4) }
+        .doOnNext { dialogView.moveToNextView(4) }
         .subscribe()
     )
 
-    disposables.add(view.getFifthChar()
+    disposables.add(dialogView.getFifthChar()
         .filter { it.isNotBlank() }
-        .doOnNext { view.moveToNextView(5) }
+        .doOnNext { dialogView.moveToNextView(5) }
         .subscribe()
     )
 
-    disposables.add(view.getSixthChar()
+    disposables.add(dialogView.getSixthChar()
         .filter { it.isNotBlank() }
-        .doOnNext { view.hideKeyboard() }
+        .doOnNext { dialogView.hideKeyboard() }
         .subscribe()
     )
   }

@@ -142,7 +142,6 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     disposables.add(
         localPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
             .observeOn(networkScheduler)
             .flatMap { blocked ->
               if (blocked) {
@@ -238,7 +237,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (throwable is HttpException && throwable.code() == 403) handleFraudFlow()
+    if (throwable is HttpException && throwable.code() == FORBIDDEN_CODE) handleFraudFlow()
     else view.showError(mapError(throwable))
   }
 

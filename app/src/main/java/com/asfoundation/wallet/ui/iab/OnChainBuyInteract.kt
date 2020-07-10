@@ -7,7 +7,6 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -34,10 +33,7 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
 
   fun isWalletVerified() =
       walletService.getWalletAddress()
-          .flatMap {
-            smsValidationInteract.isValid(it)
-                .map { status -> status == WalletValidationStatus.SUCCESS }
-          }
+          .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
 
   fun getTransactionState(uri: String?): Observable<Payment> =

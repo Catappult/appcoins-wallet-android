@@ -29,7 +29,8 @@ class IabPresenter(private val view: IabView,
   private fun handleSupportClicks() {
     disposable.add(view.getSupportClicks()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapCompletable { iabInteract.showSupport() }
+        .observeOn(viewScheduler)
+        .doOnNext { iabInteract.showSupport() }
         .subscribe()
     )
   }

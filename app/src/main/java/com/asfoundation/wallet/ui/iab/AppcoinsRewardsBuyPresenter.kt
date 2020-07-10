@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import androidx.annotation.StringRes
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -54,13 +55,11 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               transaction.toAddress(), packageName, getOrigin(isBds, transaction),
               transaction.type, transaction.payload, transaction.callbackUrl,
               transaction.orderReference, transaction.referrerUrl)
-              .andThen(
-                  rewardsManager.getPaymentStatus(packageName, transaction.skuId,
-                      transaction.amount()))
+              .andThen(rewardsManager.getPaymentStatus(packageName, transaction.skuId,
+                  transaction.amount()))
               .observeOn(viewScheduler)
               .flatMapCompletable { paymentStatus: RewardPayment ->
-                handlePaymentStatus(paymentStatus, transaction.skuId,
-                    transaction.amount())
+                handlePaymentStatus(paymentStatus, transaction.skuId, transaction.amount())
               }
         }
         .doOnSubscribe { view.showLoading() }
@@ -127,26 +126,25 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     disposables.add(
         appcoinsRewardsBuyInteract.isWalletBlocked()
             .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
             .observeOn(networkScheduler)
             .flatMap { blocked ->
               if (blocked) {
                 appcoinsRewardsBuyInteract.isWalletVerified()
                     .observeOn(viewScheduler)
                     .doOnSuccess {
-                      if (it) view.showGenericError()
+                      if (it) view.showError(mapError(RewardPayment.Status.FORBIDDEN))
                       else view.showWalletValidation(R.string.unknown_error)
                     }
               } else {
                 Single.just(true)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { view.showGenericError() }
+                    .doOnSuccess { view.showError(mapError(RewardPayment.Status.FORBIDDEN)) }
               }
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
               it.printStackTrace()
-              view.showGenericError()
+              view.showError(mapError(RewardPayment.Status.FORBIDDEN))
             })
     )
   }
@@ -189,10 +187,15 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     disposables.add(Observable.merge(view.getSupportIconClick(),
         view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapCompletable {
-          appcoinsRewardsBuyInteract.showSupport(gamificationLevel)
-        }
+        .observeOn(viewScheduler)
+        .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
         .subscribe())
+  }
+
+  @StringRes
+  private fun mapError(status: RewardPayment.Status): Int {
+    return if (status == RewardPayment.Status.FORBIDDEN) R.string.purchase_wallet_error_contact_us
+    else R.string.activity_iab_error_message
   }
 
 }

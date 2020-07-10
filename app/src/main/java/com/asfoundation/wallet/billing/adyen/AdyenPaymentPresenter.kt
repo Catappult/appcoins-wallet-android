@@ -262,7 +262,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
             .observeOn(networkScheduler)
             .flatMap { blocked ->
               if (blocked) {
@@ -510,6 +509,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   companion object {
 
     private const val WAITING_RESULT = "WAITING_RESULT"
+    private const val HTTP_FRAUD_CODE = 403
+
   }
 
   private fun handleErrors(error: Error) {
@@ -517,7 +518,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       error.isNetworkError -> view.showNetworkError()
       error.code != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.code!!)
-        if (error.code == 403) handleFraudFlow(resId)
+        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
         else view.showSpecificError(resId)
       }
       else -> view.showGenericError()

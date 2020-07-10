@@ -53,7 +53,7 @@
     </receiver>
 
     <receiver
-        android:name="com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver"
+        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationBroadcastReceiver"
         android:enabled="true"
         android:exported="false" />
 
@@ -197,7 +197,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity"
+        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogDialogActivity"
         android:launchMode="singleInstance"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>

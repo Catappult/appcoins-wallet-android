@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -10,9 +10,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class PoaValidationLoadingPresenter(
-    private val view: PoaValidationLoadingView,
-    private val activity: PoaWalletValidationView?,
+class ValidationLoadingDialogPresenter(
+    private val dialogView: ValidationLoadingDialogView,
+    private val activity: WalletValidationDialogView?,
     private val defaultWalletInteract: FindDefaultWalletInteract,
     private val smsValidationInteract: SmsValidationInteract,
     private val validationInfo: ValidationInfo,
@@ -23,7 +23,7 @@ class PoaValidationLoadingPresenter(
 ) {
 
   fun present() {
-    view.show()
+    dialogView.show()
 
     handleValidationWallet()
   }
@@ -75,7 +75,7 @@ class PoaValidationLoadingPresenter(
 
   fun stop() {
     disposables.clear()
-    view.clean()
+    dialogView.clean()
   }
 
 }

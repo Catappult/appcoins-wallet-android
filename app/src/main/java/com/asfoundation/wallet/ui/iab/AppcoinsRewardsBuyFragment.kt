@@ -58,10 +58,9 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    val callerPackageName = transactionBuilder.domain
     presenter = AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), amount, uri, callerPackageName, transferParser,
-        isBds, analytics, transactionBuilder, formatter, gamificationLevel,
+        Schedulers.io(), CompositeDisposable(), amount, uri, transactionBuilder!!.domain,
+        transferParser, isBds, analytics, transactionBuilder!!, formatter, gamificationLevel,
         appcoinsRewardsBuyInteract)
     setupTransactionCompleteAnimation()
     presenter.present()
@@ -72,9 +71,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     super.onDestroyView()
   }
 
-  override fun finish(purchase: Purchase) {
-    finish(purchase, null)
-  }
+  override fun finish(purchase: Purchase) = finish(purchase, null)
 
   override fun showLoading() {
     generic_error_layout.visibility = View.GONE
@@ -99,13 +96,9 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
 
   override fun getSupportLogoClick() = RxView.clicks(layout_support_logo)
 
-  override fun close() {
-    iabView.close(billingMessagesMapper.mapCancellation())
-  }
+  override fun close() = iabView.close(billingMessagesMapper.mapCancellation())
 
-  override fun showGenericError() {
-    showError(null)
-  }
+  override fun showGenericError() = showError(null)
 
   override fun showError(message: Int?) {
     error_dismiss.setText(R.string.ok)
@@ -124,9 +117,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     iabView.finish(bundle)
   }
 
-  override fun errorClose() {
-    iabView.close(billingMessagesMapper.genericError())
-  }
+  override fun errorClose() = iabView.close(billingMessagesMapper.genericError())
 
   override fun finish(purchase: Purchase, orderReference: String?) {
     presenter.sendPaymentEvent()
@@ -138,9 +129,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     iabView.finish(bundle)
   }
 
-  override fun showWalletValidation(@StringRes error: Int) {
-    iabView.showWalletValidation(error)
-  }
+  override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
 
   override fun showTransactionCompleted() {
     loading_view.visibility = View.GONE
@@ -148,13 +137,9 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     iab_activity_transaction_completed.visibility = View.VISIBLE
   }
 
-  override fun getAnimationDuration(): Long {
-    return lottie_transaction_success.duration
-  }
+  override fun getAnimationDuration() = lottie_transaction_success.duration
 
-  override fun lockRotation() {
-    iabView.lockRotation()
-  }
+  override fun lockRotation() = iabView.lockRotation()
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -162,9 +147,8 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     iabView = context
   }
 
-  private fun setupTransactionCompleteAnimation() {
-    lottie_transaction_success.setAnimation(R.raw.success_animation)
-  }
+  private fun setupTransactionCompleteAnimation() =
+      lottie_transaction_success.setAnimation(R.raw.success_animation)
 
   private val amount: BigDecimal by lazy {
     if (arguments!!.containsKey(AMOUNT_KEY)) {
@@ -198,7 +182,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     }
   }
 
-  private val transactionBuilder: TransactionBuilder by lazy {
+  private val transactionBuilder: TransactionBuilder? by lazy {
     if (arguments!!.containsKey(TRANSACTION_KEY)) {
       arguments!!.getParcelable(TRANSACTION_KEY) as TransactionBuilder
     } else {

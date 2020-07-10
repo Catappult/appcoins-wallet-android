@@ -27,6 +27,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
   private fun handleSupportClicks() {
     disposables.add(view.getSupportClicks()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
         .flatMapCompletable { topUpInteractor.showSupport() }
         .subscribe({}, { handleError(it) })
     )
@@ -35,6 +36,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
   private fun handleTryAgainClicks() {
     disposables.add(view.getTryAgainClicks()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
         .doOnNext { view.showTopUpScreen() }
         .subscribe({}, { handleError(it) })
     )

@@ -15,7 +15,6 @@ import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -42,10 +41,7 @@ class AdyenPaymentInteractor(
 
   fun isWalletVerified() =
       walletService.getWalletAddress()
-          .flatMap {
-            smsValidationInteract.isValid(it)
-                .map { status -> status == WalletValidationStatus.SUCCESS }
-          }
+          .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
 
 
