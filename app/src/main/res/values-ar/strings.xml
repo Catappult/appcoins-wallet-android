@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">رقم البطاقة</string>
   <string name="dialog_credit_card_expiration">تاريخ الانتهاء</string>
   <string name="dialog_credit_card_cvv">الرمز السري</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
   <string name="activity_airdrop_details">هذه أمر أمني محض.</string>
   <string name="activity_airdrop_hint">اكتب الكلمات التي في الصورة</string>
