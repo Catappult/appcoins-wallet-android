@@ -208,6 +208,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       change_card_button.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
       buy_button.visibility = View.INVISIBLE
+      fiat_price_skeleton.visibility = GONE
+      appc_price_skeleton.visibility = GONE
     }
   }
 
@@ -313,6 +315,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProductPrice(amount: String, currencyCode: String) {
     fiat_price.text = "$amount $currencyCode"
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE
   }

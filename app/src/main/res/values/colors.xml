@@ -97,6 +97,12 @@
   <color name="edit_text_border">@color/appc_pink</color>
   <color name="edit_text_label">@color/appc_pink</color>
 
+  <!-- Skeletons -->
+
+  <color name="skeleton_dark_base_color">#5cd8d8d8</color>
+  <color name="skeleton_light_base_color">#f0f0f0</color>
+  <color name="skeleton_higlight_color">#d2d2d2</color>
+
   <!-- Gamification -->
 
   <color name="gamification_light_green">#96c562</color>

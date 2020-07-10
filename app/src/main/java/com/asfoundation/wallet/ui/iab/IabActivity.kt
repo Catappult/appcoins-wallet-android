@@ -218,8 +218,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter.handlePurchaseStartAnalytics(transaction)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            intent.extras!!
-                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            intent.extras!!.getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
   }
