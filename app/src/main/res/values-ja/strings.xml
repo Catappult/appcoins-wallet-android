@@ -244,6 +244,7 @@
   <string name="dialog_credit_card_number">カード番号</string>
   <string name="dialog_credit_card_expiration">有効期限</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
