@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">卡号</string>
   <string name="dialog_credit_card_expiration">到期日</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
   <string name="activity_airdrop_hint">输入图片中的字母</string>
