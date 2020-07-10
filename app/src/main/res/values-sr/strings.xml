@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Broj kartice</string>
   <string name="dialog_credit_card_expiration">Datum isteka</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
   <string name="activity_airdrop_details">Ovo je samo iz bezbednosnih razloga.</string>
   <string name="activity_airdrop_hint">Unesite reči sa slike</string>
