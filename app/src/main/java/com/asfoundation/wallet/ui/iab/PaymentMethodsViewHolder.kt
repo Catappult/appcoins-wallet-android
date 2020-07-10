@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import kotlinx.android.synthetic.main.payment_method_item.view.*
+import kotlinx.android.synthetic.main.item_payment_method.view.*
 
 class PaymentMethodViewHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
@@ -46,13 +46,6 @@ class PaymentMethodViewHolder(itemView: View) :
       colorMatrix.setSaturation(0f)
       val filter = ColorMatrixColorFilter(colorMatrix)
       itemView.payment_method_ic.colorFilter = filter
-    }
-
-    if (false) {//TODO needs to be changed after implemented by microservices
-      itemView.fee_label.visibility = View.VISIBLE
-      itemView.fee_label.text = "1.5 €"
-    } else {
-      itemView.fee_label.visibility = View.GONE
     }
   }
 }

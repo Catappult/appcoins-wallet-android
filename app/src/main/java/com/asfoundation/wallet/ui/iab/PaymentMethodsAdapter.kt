@@ -32,7 +32,7 @@ class PaymentMethodsAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
     return PaymentMethodViewHolder(LayoutInflater.from(parent.context)
-        .inflate(R.layout.payment_method_item, parent, false))
+        .inflate(R.layout.item_payment_method, parent, false))
   }
 
   override fun getItemCount(): Int {

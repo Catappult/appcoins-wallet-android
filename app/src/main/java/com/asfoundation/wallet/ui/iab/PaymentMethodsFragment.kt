@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Pair
 import android.view.KeyEvent
@@ -10,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
@@ -194,14 +191,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     isPreSelected = false
     pre_selected_payment_method_group.visibility = View.GONE
     mid_separator?.visibility = View.VISIBLE
-    if (paymentMethodList.isNotEmpty()) {
+    if (paymentMethods.isNotEmpty()) {
       paymentMethodsAdapter =
           PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick)
       payment_methods_radio_list.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)
       paymentMethodClick.accept(paymentMethodsAdapter.getSelectedItem())
-      paymentMethodList.clear()
     }
   }
 
@@ -351,7 +347,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     return if (paymentMethodList.isNotEmpty() && !isPreSelected && checkedButtonId != -1) {
       paymentMethodsAdapter.setSelectedItem(checkedButtonId)
       paymentMethodList[checkedButtonId]
-    } else if (hasPreSelectedPaymentMethod) {
+    } else if (hasPreSelectedPaymentMethod && checkedButtonId == -1) {
       preSelectedPaymentMethod?.value ?: PaymentMethod()
     } else {
       PaymentMethod()

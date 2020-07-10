@@ -46,7 +46,7 @@
       android:ellipsize="end"
       android:gravity="start"
       app:layout_constraintBottom_toTopOf="@id/payment_method_reason"
-      app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
       app:layout_constraintTop_toTopOf="@id/payment_method_ic"
@@ -65,44 +65,11 @@
       android:textSize="11sp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
-      app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
       app:layout_constraintTop_toBottomOf="@id/payment_method_description"
       tools:text="You need ETH to pay for the gas."
       />
-
-  <LinearLayout
-      android:id="@+id/linearLayout"
-      android:layout_width="wrap_content"
-      android:layout_height="32dp"
-      android:orientation="vertical"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      >
-
-    <TextView
-        android:id="@+id/fee_amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:lineSpacingExtra="4sp"
-        android:textColor="@color/appc_pink"
-        android:textSize="12sp"
-        tools:text="1.5 R$"
-        />
-
-    <TextView
-        android:id="@+id/fee_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:lineSpacingExtra="6sp"
-        android:text="@string/subtitle_gas_fee"
-        android:textColor="@color/top_up_bonus_text"
-        android:textSize="10sp"
-        />
-  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
