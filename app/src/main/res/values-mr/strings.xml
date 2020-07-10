@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">कार्ड क्रमांक</string>
   <string name="dialog_credit_card_expiration">कालबाह्य तारीख</string>
   <string name="dialog_credit_card_cvv">सीव्हीव्ही</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
   <string name="activity_airdrop_details">हे फक्त सुरक्षिततेबाबत आहे.</string>
   <string name="activity_airdrop_hint">चित्रातील शब्द लिहा</string>
