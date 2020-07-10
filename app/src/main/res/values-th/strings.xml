@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
   <string name="activity_airdrop_hint">พิมพ์คำในภาพ</string>
