@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">কার্ড নম্বর</string>
   <string name="dialog_credit_card_expiration">মেয়াদোত্তীর্ণের তারিখ</string>
   <string name="dialog_credit_card_cvv">সিভিভি</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">অ্যাপকয়েনে কিছু গ্রহণ করার জন্য প্রমান করুন আপনি মানুষ</string>
   <string name="activity_airdrop_details">এটি শুধুমাত্র একটি নিরাপত্তা জিনিস।</string>
   <string name="activity_airdrop_hint">ছবিতে থাকা শব্দ টাইপ করুন</string>
