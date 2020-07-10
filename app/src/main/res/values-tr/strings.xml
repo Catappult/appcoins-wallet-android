@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Kart Numarası</string>
   <string name="dialog_credit_card_expiration">Son Kullanma Tarihi</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">AppCoin\'leri almak için insan olduğunuzu doğrulayın</string>
   <string name="activity_airdrop_details">Bu sadece güvenlik içindir.</string>
   <string name="activity_airdrop_hint">Görseldeki kelimeleri girin</string>
