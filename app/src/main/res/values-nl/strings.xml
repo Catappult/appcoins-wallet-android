@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Kaartnummer</string>
   <string name="dialog_credit_card_expiration">Vervaldatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
   <string name="activity_airdrop_hint">Voer de tekens in die worden weergegeven</string>
