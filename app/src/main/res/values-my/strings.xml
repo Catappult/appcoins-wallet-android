@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">ကဒ္နံပါတ္</string>
   <string name="dialog_credit_card_expiration">သက္တမ္းကုန္သည့္ရက္</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
   <string name="activity_airdrop_details">ယင္းသည္ လံုၿခံဳေရးကိစၥအတြက္သာ ျဖစ္ပါသည္။</string>
   <string name="activity_airdrop_hint">ပံုတြင္ စကားလံုးမ်ားကို ႐ိုက္ထည့္ပါ</string>
