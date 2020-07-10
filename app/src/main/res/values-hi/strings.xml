@@ -29,7 +29,7 @@
   <string name="no_camera_permission">क्यूआर कोड स्कैन के लिए AppCoins BDS Wallet को आपका कैमरा उपयोग करने की अनुमति की जरूरत है।</string>
   <string name="ok">ठीक</string>
   <string name="barcode_error_format">अमान्य बारकोड प्रारूप: %s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">आप निश्चित रूप से यह वॉलेट हटाना चाहते हैं?</string>
   <string name="twitter">ट्विटर</string>
   <string name="telegram">टेलीग्राम समूह</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">कार्ड नंबर</string>
   <string name="dialog_credit_card_expiration">समाप्ति तिथि</string>
   <string name="dialog_credit_card_cvv">सीवीवी</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">AppCoins प्राप्त करने के लिए पुष्टि करें कि आप एक मानव हैं</string>
   <string name="activity_airdrop_details">यह केवल एक सुरक्षा की बात है।</string>
   <string name="activity_airdrop_hint">छवि में दिए गए शब्द लिखें</string>
@@ -558,7 +559,7 @@
   <string name="error_invalid_keystore">अमान्य कीस्टोर</string>
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_tooltip_backup_button">बैकअप लें</string>
   <string name="backup_notification_title">Make a backup of your wallet!</string>
   <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
   <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
@@ -588,7 +589,7 @@
   <string name="remove_wallet_title">वॉलेट हटाएँ</string>
   <string name="remove_wallet_body">हम इसे हटाने से पहले वॉलेट का बैकअप लेने की अनुशंसा करते हैं। बैकअप नहीं लिए जाने पर आप इसे फिर से उपयोग नहीं कर पाएंगे।</string>
   <string name="remove_wallet_backup_button">वॉलेट का बैकअप लें</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_no_backup_button">वॉलेट हटाएँ</string>
   <string name="remove_wallet_confirm_body">आप निश्चित रूप से यह वॉलेट हटाना चाहते हैं?</string>
   <string name="remove_wallet_no_button">नहीं, पीछे जाएँ</string>
   <string name="remove_wallet_yes_button">हाँ, वॉलेट हटाएँ</string>
@@ -642,7 +643,7 @@
   <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
-  <string name="subscriptions_cancel_no_button">NO, GO BACK</string>
+  <string name="subscriptions_cancel_no_button">नहीं, पीछे जाएँ</string>
   <string name="subscriptions_cancel_yes_button">YES, CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
@@ -654,8 +655,8 @@
   <string name="subscriptions_per_year">%1$s%2$s/year</string>
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
-  <string name="gamif_bonus_received">Bonus received</string>
-  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_bonus_received">बोनस प्राप्त हुआ</string>
+  <string name="gamif_spent">यह लेवल पाने के लिए खर्च राशि</string>
   <string name="gamif_show_previous">Show previous achievements</string>
   <string name="gamif_hide_previous">Hide previous achievements</string>
   <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
