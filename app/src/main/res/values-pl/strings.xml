@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">Czy na pewno chcesz usunąć ten portfel?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Grupa Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Numer karty</string>
   <string name="dialog_credit_card_expiration">Data wygaśnięcia</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">Potwierdź że jesteś człowiekiem aby otrzymać AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
   <string name="activity_airdrop_hint">Wpisz słowa z obrazka</string>
@@ -558,7 +559,7 @@
   <string name="error_invalid_keystore">Invalid keystore</string>
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_tooltip_backup_button">KOPIUJ</string>
   <string name="backup_notification_title">Make a backup of your wallet!</string>
   <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
   <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
@@ -590,7 +591,7 @@
   <string name="remove_wallet_title">Usuń portfel</string>
   <string name="remove_wallet_body">Mocno rekomendujemy stworzenie kopii zapasowej portfela przed usunięciem. Nie uzyskasz już do niego dostępu bez kopii zapasowej.</string>
   <string name="remove_wallet_backup_button">UTWÓRZ KOPIĘ ZAPASOWĄ PORTFELA</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_no_backup_button">USUŃ PORTFEL</string>
   <string name="remove_wallet_confirm_body">Czy na pewno chcesz usunąć ten portfel?</string>
   <string name="remove_wallet_no_button">NIE, WRÓĆ</string>
   <string name="remove_wallet_yes_button">TAK, USUŃ PORTFEL</string>
@@ -644,7 +645,7 @@
   <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
-  <string name="subscriptions_cancel_no_button">NO, GO BACK</string>
+  <string name="subscriptions_cancel_no_button">NIE, WRÓĆ</string>
   <string name="subscriptions_cancel_yes_button">YES, CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
@@ -656,8 +657,8 @@
   <string name="subscriptions_per_year">%1$s%2$s/year</string>
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
-  <string name="gamif_bonus_received">Bonus received</string>
-  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_bonus_received">Bonus Otrzymany</string>
+  <string name="gamif_spent">Wydana kwota do tego poziomu</string>
   <string name="gamif_show_previous">Show previous achievements</string>
   <string name="gamif_hide_previous">Hide previous achievements</string>
   <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
