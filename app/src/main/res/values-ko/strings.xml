@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">카드번호</string>
   <string name="dialog_credit_card_expiration">만료일</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">AppCoins를 받으려면 귀하가 사람인지 확인해주십시오</string>
   <string name="activity_airdrop_details">이것은 보안일 뿐입니다.</string>
   <string name="activity_airdrop_hint">이미지에 있는 단어를 입력하십시오</string>
