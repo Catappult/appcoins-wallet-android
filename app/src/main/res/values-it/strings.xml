@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Numero di carta</string>
   <string name="dialog_credit_card_expiration">Data di scadenza</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
   <string name="activity_airdrop_details">E\' solo una questione di sicurezza.</string>
   <string name="activity_airdrop_hint">Digita le parole nell\'immagine</string>
@@ -654,8 +655,8 @@
   <string name="subscriptions_per_year">%1$s%2$s/all\'anno</string>
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
-  <string name="gamif_bonus_received">Bonus received</string>
-  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_bonus_received">Bonus ricevuto</string>
+  <string name="gamif_spent">Importo speso per raggiungere questo livello</string>
   <string name="gamif_show_previous">Show previous achievements</string>
   <string name="gamif_hide_previous">Hide previous achievements</string>
   <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
