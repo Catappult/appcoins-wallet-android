@@ -243,6 +243,7 @@
   <string name="dialog_credit_card_number">Kartennummer</string>
   <string name="dialog_credit_card_expiration">Ablaufdatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="activity_airdrop_title">Um AppCoins zu erhalten, müssen Sie bestätigen Sie, dass Sie ein Mensch sind</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheits-Vorgang.</string>
   <string name="activity_airdrop_hint">Geben Sie die Zeichen im Bild ein</string>
