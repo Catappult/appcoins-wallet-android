@@ -697,7 +697,7 @@
   <string name="gamif_quote_neptune">\"Тази звезда не е в таблицата!\" - Хайнрих д\'Арест при откриването на Нептун.</string>
   <string name="gamif_distance_neptune">4.42 трилиона км от Земята</string>
   <string name="gamif_placeholder_planetx">Планета %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Някъде нещо невероятно чака да бъде узнато\" - Карл Сагън</string>
   <string name="gamif_placeholder_unknown">непозната планета</string>
   <string name="gamif_distance_unkown">Неизвестна локация</string>
   <string name="gamif_placeholder_new_planet">нова планета</string>
