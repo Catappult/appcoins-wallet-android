@@ -697,7 +697,7 @@
   <string name="gamif_quote_neptune">\"Αυτό το αστέρι δεν υπάρχει στον χάρτη!\" – Heinrich d\'Arrest, όταν ανακάλυψε τον Ποσειδώνα.</string>
   <string name="gamif_distance_neptune">4,42 δισεκατομμύρια χλμ. από τη Γη</string>
   <string name="gamif_placeholder_planetx">στον Πλανήτη %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Κάπου εκεί, κάτι απίστευτο περιμένει να γίνει εδώ γνωστό\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">σε έναν άγνωστο πλανήτη</string>
   <string name="gamif_distance_unkown">Άγνωστη τοποθεσία</string>
   <string name="gamif_placeholder_new_planet">σε έναν νέο πλανήτη</string>
