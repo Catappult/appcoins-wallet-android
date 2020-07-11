@@ -697,7 +697,7 @@
   <string name="gamif_quote_neptune">\"O yıldız tabloda değil!\" – Neptün\'ü keşfettikten sonra Heinrich d\'Arrest.</string>
   <string name="gamif_distance_neptune">Dünya\'dan 4,42 milyar km</string>
   <string name="gamif_placeholder_planetx">%s Gezegenine</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Bir yerlerde inanılmaz bir şey öğrenilmeyi bekliyor\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">bilinmeyen bir gezegen</string>
   <string name="gamif_distance_unkown">Bilinmeyen konum</string>
   <string name="gamif_placeholder_new_planet">yeni bir gezegen</string>
