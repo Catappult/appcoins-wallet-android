@@ -697,7 +697,7 @@
   <string name="gamif_quote_neptune">\"Essa estrela não está no mapa!\" - Heinrich d\'Arrest ao descobrir Netuno.</string>
   <string name="gamif_distance_neptune">4,42 mil milhões de km da Terra</string>
   <string name="gamif_placeholder_planetx">Planeta %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Algures, algo incrível está à espera de ser conhecido\" - Carl Sagan</string>
   <string name="gamif_placeholder_unknown">um planeta desconhecido</string>
   <string name="gamif_distance_unkown">Local desconhecido</string>
   <string name="gamif_placeholder_new_planet">um novo planeta</string>
