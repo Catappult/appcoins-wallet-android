@@ -701,7 +701,7 @@
   <string name="gamif_quote_neptune">\"तो तारा नकाशात नाहीये!\" - नेपच्युनचा शोध लागल्यानंतर हेन्रिच डीअरेस्ट यांचे उद्गार.</string>
   <string name="gamif_distance_neptune">पृथ्वीपासुन ४. ४२ बिलियन किमी</string>
   <string name="gamif_placeholder_planetx">%s ग्रह</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"कुठेतरी, काहीतरी आश्चर्यकारक, अस्तित्व दर्शविण्यासाठी थांबलेल असत.\" - कार्ल सेगान</string>
   <string name="gamif_placeholder_unknown">माहिती नसलेला ग्रह</string>
   <string name="gamif_distance_unkown">माहिती नसलेले ठिकाण</string>
   <string name="gamif_placeholder_new_planet">ऩविन ग्रह</string>
