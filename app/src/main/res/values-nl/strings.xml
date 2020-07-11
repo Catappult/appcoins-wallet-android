@@ -697,7 +697,7 @@
   <string name="gamif_quote_neptune">\"Die ster staat niet op de kaart!\" – Heinrich d\'Arrest bij het ontdekken van Neptunus.</string>
   <string name="gamif_distance_neptune">4,42 miljard km van de aarde</string>
   <string name="gamif_placeholder_planetx">Planeet %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Ergens wacht er iets ongelofelijks om ontdekt te worden.\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">een onbekende planeet</string>
   <string name="gamif_distance_unkown">Onbekende locatie</string>
   <string name="gamif_placeholder_new_planet">een nieuwe planeet</string>
