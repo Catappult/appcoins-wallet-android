@@ -697,7 +697,7 @@
   <string name="gamif_quote_neptune">\"آن ستاره روی چارت قرار ندارد!\" - هنریک دارست پس از کشف نپتون.</string>
   <string name="gamif_distance_neptune">۴/۴۲ میلیارد کیلومتر از زمین</string>
   <string name="gamif_placeholder_planetx">سیاره %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"جایی چیزی فوق‌العاده منتظر شناخته شدن است\" - کارل ساگان</string>
   <string name="gamif_placeholder_unknown">یک سیاره ناشناخته</string>
   <string name="gamif_distance_unkown">موقعیت ناشناخته</string>
   <string name="gamif_placeholder_new_planet">یک سیاره جدید</string>
