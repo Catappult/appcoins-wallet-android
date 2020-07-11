@@ -698,7 +698,7 @@
   <string name="gamif_quote_neptune">„Ove zvezde nema na mapi!“, Hajrih Dare kada je otkrio Neptun</string>
   <string name="gamif_distance_neptune">4,42 milijarde km od Zemlje</string>
   <string name="gamif_placeholder_planetx">Planeta %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">„Negde nešto neverovatno čeka da bude otkriveno“, Karl Sagan</string>
   <string name="gamif_placeholder_unknown">nepoznata planeta</string>
   <string name="gamif_distance_unkown">Nepoznata lokacija</string>
   <string name="gamif_placeholder_new_planet">nova planeta</string>
