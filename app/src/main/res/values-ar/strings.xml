@@ -702,7 +702,7 @@
   <string name="gamif_quote_neptune">\"تلك النجمة ليست موجودة على الخريطة!\" - هلنريتش ديأريست عندما اكتُشِفَ نيبتون.</string>
   <string name="gamif_distance_neptune">4.42 مليار كم من الأرض</string>
   <string name="gamif_placeholder_planetx">كوكب %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"في مكان ما، شيء لا يصدق في انتظار أن يُكتَشَف.\" - كارل ساغان</string>
   <string name="gamif_placeholder_unknown">كوكب غير معروف</string>
   <string name="gamif_distance_unkown">موقع غير معروف</string>
   <string name="gamif_placeholder_new_planet">كوكب جديد</string>
