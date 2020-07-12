@@ -243,7 +243,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
   <string name="activity_airdrop_hint">พิมพ์คำในภาพ</string>
@@ -664,13 +664,13 @@
   <string name="gamif_achievement_reach">คุณถึง %s</string>
   <string name="gamif_card_start">คุณยังอยู่บนโลก</string>
   <string name="gamif_card_title">คุณอยู่ที่ %s</string>
-  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamif_card_body">ใช้ %s AppCoins เพื่อถึงระดับถัดไป</string>
   <string name="gamif_bonus">โบนัส %s%%</string>
   <string name="gamif_placeholder_earth">โลก</string>
-  <string name="gamif_quote_earth">\"The Earth is what we all have in common\" – Wendell Berry</string>
+  <string name="gamif_quote_earth">“โลกคือสิ่งที่เรามีเหมือนกัน” - เวนเดล เบอร์รี่</string>
   <string name="gamif_placeholder_moon">ดวงจันทร์</string>
-  <string name="gamif_quote_moon">\"That\'s one small step for a man, one giant leap for mankind\" – Neil Armstrong</string>
-  <string name="gamif_distance_moon">384,400 km from Earth</string>
+  <string name="gamif_quote_moon">“นั่นเป็นก้าวเล็กๆ ของมนุษย์ หนึ่งก้าวใหญ่สำหรับมวลมนุษยชาติ - รีบ อาร์มสตรอง</string>
+  <string name="gamif_distance_moon">384,400 กม. จากโลก</string>
   <string name="gamif_placeholder_mars">ดาวอังคาร</string>
   <string name="gamif_quote_mars">\"I would like to die on Mars. Just not on impact.\" – Elon Musk</string>
   <string name="gamif_distance_mars">121.8 million km from Earth</string>
