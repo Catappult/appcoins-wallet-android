@@ -59,8 +59,8 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter = AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), amount, uri, transactionBuilder!!.domain,
-        transferParser, isBds, analytics, transactionBuilder!!, formatter, gamificationLevel,
+        Schedulers.io(), CompositeDisposable(), amount, uri, transactionBuilder.domain,
+        transferParser, isBds, analytics, transactionBuilder, formatter, gamificationLevel,
         appcoinsRewardsBuyInteract)
     setupTransactionCompleteAnimation()
     presenter.present()
@@ -182,7 +182,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     }
   }
 
-  private val transactionBuilder: TransactionBuilder? by lazy {
+  private val transactionBuilder: TransactionBuilder by lazy {
     if (arguments!!.containsKey(TRANSACTION_KEY)) {
       arguments!!.getParcelable(TRANSACTION_KEY) as TransactionBuilder
     } else {
@@ -198,7 +198,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     private const val TRANSACTION_KEY = "transaction_key"
     private const val GAMIFICATION_LEVEL = "gamification_level"
 
-    fun newInstance(amount: BigDecimal, transactionBuilder: TransactionBuilder?,
+    fun newInstance(amount: BigDecimal, transactionBuilder: TransactionBuilder,
                     uri: String?, productName: String?, isBds: Boolean,
                     gamificationLevel: Int): Fragment {
       return AppcoinsRewardsBuyFragment().apply {

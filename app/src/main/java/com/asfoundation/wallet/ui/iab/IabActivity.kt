@@ -190,7 +190,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction, intent.data!!
+            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction!!, intent.data!!
                 .toString(), intent.extras!!
                 .getString(PRODUCT_NAME, ""), isBds, gamificationLevel))
         .commit()
