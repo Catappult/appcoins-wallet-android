@@ -11,6 +11,7 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
@@ -44,7 +45,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
                             private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
                             private val gamificationLevel: Int,
-                            private val formatter: CurrencyFormatUtils) {
+                            private val formatter: CurrencyFormatUtils,
+                            private val logger: Logger) {
 
   private var waitingResult = false
 
@@ -67,6 +69,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(
         Observable.merge(view.getAdyenSupportIconClicks(), view.getAdyenSupportLogoClicks())
             .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .observeOn(viewScheduler)
             .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
             .subscribe()
     )
@@ -125,7 +128,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 }
               }
             }
-            .subscribe())
+            .subscribe({}, {
+              view.showGenericError()
+              logger.log(TAG, it)
+            }))
   }
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
@@ -143,7 +149,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           view.hideLoadingAndShowView()
           handlePaymentModel(it)
         }
-        .subscribe())
+        .subscribe({}, {
+          view.showGenericError()
+          logger.log(TAG, it)
+        }))
   }
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
@@ -213,9 +222,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       .observeOn(viewScheduler)
                       .flatMapCompletable {
                         Completable.fromAction { view.showSuccess() }
-                            .andThen(
-                                Completable.timer(view.getAnimationDuration(),
-                                    TimeUnit.MILLISECONDS))
+                            .andThen(Completable.timer(view.getAnimationDuration(),
+                                TimeUnit.MILLISECONDS))
                             .andThen(Completable.fromAction { navigator.popView(it) })
                       }
                 }
@@ -250,7 +258,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
-        sendPaymentErrorEvent(error.code, "Generic Error")
+        sendPaymentErrorEvent(error.code, "$status: Generic Error")
         view.showGenericError()
       }
     }
@@ -299,9 +307,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(view.backEvent()
         .observeOn(networkScheduler)
         .flatMapSingle { transactionBuilder }
-        .doOnNext { transaction ->
-          handlePaymentMethodAnalytics(transaction)
-        }
+        .doOnNext { handlePaymentMethodAnalytics(it) }
         .observeOn(viewScheduler)
         .subscribe({}, { view.showGenericError() }))
   }
@@ -323,16 +329,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleMorePaymentsClick() {
-    disposables.add(
-        view.getMorePaymentMethodsClicks()
-            .observeOn(networkScheduler)
-            .flatMapSingle { transactionBuilder }
-            .doOnNext { transaction ->
-              handleMorePaymentsAnalytics(transaction)
-            }
-            .observeOn(viewScheduler)
-            .doOnNext { showMoreMethods() }
-            .subscribe())
+    disposables.add(view.getMorePaymentMethodsClicks()
+        .observeOn(networkScheduler)
+        .flatMapSingle { transactionBuilder }
+        .doOnNext { handleMorePaymentsAnalytics(it) }
+        .observeOn(viewScheduler)
+        .doOnNext { showMoreMethods() }
+        .subscribe())
   }
 
   private fun handleMorePaymentsAnalytics(transaction: TransactionBuilder) {
@@ -346,7 +349,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(navigator.uriResults()
         .observeOn(viewScheduler)
         .doOnNext { view.submitUriResult(it) }
-        .subscribe())
+        .subscribe({}, {
+          view.showGenericError()
+          logger.log(TAG, it)
+        }))
   }
 
   private fun showMoreMethods() {
@@ -467,19 +473,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleAdyenErrorCancel() {
     disposables.add(view.adyenErrorCancelClicks()
         .observeOn(viewScheduler)
-        .doOnNext {
-          view.close(adyenPaymentInteractor.mapCancellation())
-        }
+        .doOnNext { view.close(adyenPaymentInteractor.mapCancellation()) }
         .subscribe({}, { view.showGenericError() }))
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
   companion object {
 
     private const val WAITING_RESULT = "WAITING_RESULT"
+    private val TAG = AdyenPaymentPresenter::class.java.name
   }
 
   private fun handleErrors(error: Error) {
