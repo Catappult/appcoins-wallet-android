@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function6
 
 class CodeValidationDialogPresenter(
-    private val dialogView: CodeValidationDialogView,
+    private val view: CodeValidationDialogView,
     private val activity: WalletValidationDialogView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
@@ -20,7 +20,7 @@ class CodeValidationDialogPresenter(
 ) {
 
   fun present() {
-    dialogView.setupUI()
+    view.setupUI()
     handleBack()
     handleCode()
     handleResendCode()
@@ -30,9 +30,9 @@ class CodeValidationDialogPresenter(
 
   private fun handleResendCode() {
     disposables.add(
-        dialogView.getResentCodeClicks()
+        view.getResentCodeClicks()
             .doOnNext {
-              dialogView.clearUI()
+              view.clearUI()
             }
             .subscribeOn(viewScheduler)
             .flatMapSingle {
@@ -46,7 +46,7 @@ class CodeValidationDialogPresenter(
 
   private fun handleSubmit() {
     disposables.add(
-        dialogView.getSubmitClicks()
+        view.getSubmitClicks()
             .doOnNext {
               analytics.sendCodeVerificationEvent("submit")
               activity?.showLoading(it)
@@ -57,7 +57,7 @@ class CodeValidationDialogPresenter(
 
   private fun handleBack() {
     disposables.add(
-        dialogView.getBackClicks()
+        view.getBackClicks()
             .doOnNext {
               analytics.sendCodeVerificationEvent("back")
               activity?.showPhoneValidationView(countryCode, phoneNumber)
@@ -69,17 +69,17 @@ class CodeValidationDialogPresenter(
   private fun handleValuesChange() {
     disposables.add(
         Observable.combineLatest(
-            dialogView.getFirstChar(),
-            dialogView.getSecondChar(),
-            dialogView.getThirdChar(),
-            dialogView.getFourthChar(),
-            dialogView.getFifthChar(),
-            dialogView.getSixthChar(),
+            view.getFirstChar(),
+            view.getSecondChar(),
+            view.getThirdChar(),
+            view.getFourthChar(),
+            view.getFifthChar(),
+            view.getSixthChar(),
             Function6 { first: String, second: String, third: String, fourth: String, fifth: String, sixth: String ->
               if (isValidInput(first, second, third, fourth, fifth, sixth)) {
-                dialogView.setButtonState(true)
+                view.setButtonState(true)
               } else {
-                dialogView.setButtonState(false)
+                view.setButtonState(false)
               }
             })
             .subscribe { })
@@ -96,39 +96,39 @@ class CodeValidationDialogPresenter(
   }
 
   private fun handleCode() {
-    disposables.add(dialogView.getFirstChar()
+    disposables.add(view.getFirstChar()
         .filter { it.isNotBlank() }
-        .doOnNext { dialogView.moveToNextView(1) }
+        .doOnNext { view.moveToNextView(1) }
         .subscribe()
     )
 
-    disposables.add(dialogView.getSecondChar()
+    disposables.add(view.getSecondChar()
         .filter { it.isNotBlank() }
-        .doOnNext { dialogView.moveToNextView(2) }
+        .doOnNext { view.moveToNextView(2) }
         .subscribe()
     )
 
-    disposables.add(dialogView.getThirdChar()
+    disposables.add(view.getThirdChar()
         .filter { it.isNotBlank() }
-        .doOnNext { dialogView.moveToNextView(3) }
+        .doOnNext { view.moveToNextView(3) }
         .subscribe()
     )
 
-    disposables.add(dialogView.getFourthChar()
+    disposables.add(view.getFourthChar()
         .filter { it.isNotBlank() }
-        .doOnNext { dialogView.moveToNextView(4) }
+        .doOnNext { view.moveToNextView(4) }
         .subscribe()
     )
 
-    disposables.add(dialogView.getFifthChar()
+    disposables.add(view.getFifthChar()
         .filter { it.isNotBlank() }
-        .doOnNext { dialogView.moveToNextView(5) }
+        .doOnNext { view.moveToNextView(5) }
         .subscribe()
     )
 
-    disposables.add(dialogView.getSixthChar()
+    disposables.add(view.getSixthChar()
         .filter { it.isNotBlank() }
-        .doOnNext { dialogView.hideKeyboard() }
+        .doOnNext { view.hideKeyboard() }
         .subscribe()
     )
   }

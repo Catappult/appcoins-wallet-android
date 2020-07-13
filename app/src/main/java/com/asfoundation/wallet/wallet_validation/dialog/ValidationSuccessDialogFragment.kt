@@ -24,7 +24,7 @@ class ValidationSuccessDialogFragment : DaggerFragment(), ValidationSuccessDialo
   lateinit var proofOfAttentionService: ProofOfAttentionService
 
   private lateinit var walletValidationDialogView: WalletValidationDialogView
-  private lateinit var dialogPresenter: ValidationSuccessDialogPresenter
+  private lateinit var presenter: ValidationSuccessDialogPresenter
   private lateinit var notificationManager: NotificationManager
 
   private lateinit var animationCompleted: Subject<Boolean>
@@ -47,7 +47,7 @@ class ValidationSuccessDialogFragment : DaggerFragment(), ValidationSuccessDialo
 
     animationCompleted = BehaviorSubject.create()
 
-    dialogPresenter =
+    presenter =
         ValidationSuccessDialogPresenter(this, proofOfAttentionService, CompositeDisposable(),
             walletValidationDialogView)
   }
@@ -58,11 +58,11 @@ class ValidationSuccessDialogFragment : DaggerFragment(), ValidationSuccessDialo
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    dialogPresenter.present()
+    presenter.present()
   }
 
   override fun onDestroyView() {
-    dialogPresenter.stop()
+    presenter.stop()
     super.onDestroyView()
   }
 

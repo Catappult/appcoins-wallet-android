@@ -5,20 +5,20 @@ import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 
 class ValidationSuccessDialogPresenter(
-    private val dialogView: ValidationSuccessDialogView,
+    private val view: ValidationSuccessDialogView,
     private val service: ProofOfAttentionService,
     private val disposables: CompositeDisposable,
     private val activity: WalletValidationDialogView?
 ) {
 
   fun present() {
-    dialogView.setupUI()
+    view.setupUI()
     handleAnimationEnd()
   }
 
   private fun handleAnimationEnd() {
     disposables.add(
-        dialogView.handleAnimationEnd()
+        view.handleAnimationEnd()
             .filter { animationCompleted -> animationCompleted }
             .flatMapCompletable { Completable.fromAction { service.setWalletValidated() } }
             .subscribe({}, {
@@ -30,7 +30,7 @@ class ValidationSuccessDialogPresenter(
 
   fun stop() {
     disposables.clear()
-    dialogView.clean()
+    view.clean()
   }
 
 }

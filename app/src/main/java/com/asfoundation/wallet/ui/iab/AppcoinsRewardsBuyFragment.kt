@@ -98,8 +98,6 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
 
   override fun close() = iabView.close(billingMessagesMapper.mapCancellation())
 
-  override fun showGenericError() = showError(null)
-
   override fun showError(message: Int?) {
     error_dismiss.setText(R.string.ok)
     error_message.text = getString(message ?: R.string.activity_iab_error_message)

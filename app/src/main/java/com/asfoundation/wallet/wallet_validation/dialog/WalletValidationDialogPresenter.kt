@@ -35,11 +35,8 @@ class WalletValidationDialogPresenter(
               .observeOn(viewScheduler)
         }
         .map {
-          if (it == SUCCESS) {
-            dialogView.closeSuccess()
-          } else {
-            dialogView.showPhoneValidationView(null, null)
-          }
+          if (it == SUCCESS) dialogView.closeSuccess()
+          else dialogView.showPhoneValidationView(null, null)
         }
         .subscribe({}, {
           it.printStackTrace()
@@ -47,7 +44,5 @@ class WalletValidationDialogPresenter(
         }))
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 }

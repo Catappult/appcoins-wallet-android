@@ -12,7 +12,7 @@ class SmsValidationInteract(
 ) {
 
   fun isValidated(address: String): Single<Boolean> {
-    return getValidationStatus(address).map { status -> status == WalletValidationStatus.SUCCESS }
+    return getValidationStatus(address).map { it == WalletValidationStatus.SUCCESS }
   }
 
   fun getValidationStatus(address: String): Single<WalletValidationStatus> {

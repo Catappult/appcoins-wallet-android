@@ -17,8 +17,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_validation_loading.*
 import javax.inject.Inject
 
-class ValidationLoadingDialogFragment : DaggerFragment(),
-    ValidationLoadingDialogView {
+class ValidationLoadingDialogFragment : DaggerFragment(), ValidationLoadingDialogView {
 
   companion object {
     @JvmStatic
@@ -41,7 +40,7 @@ class ValidationLoadingDialogFragment : DaggerFragment(),
   @Inject
   lateinit var analytics: WalletValidationAnalytics
 
-  private lateinit var dialogPresenter: ValidationLoadingDialogPresenter
+  private lateinit var presenter: ValidationLoadingDialogPresenter
 
   private lateinit var walletValidationDialogView: WalletValidationDialogView
 
@@ -65,7 +64,7 @@ class ValidationLoadingDialogFragment : DaggerFragment(),
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    dialogPresenter =
+    presenter =
         ValidationLoadingDialogPresenter(this, walletValidationDialogView,
             findDefaultWalletInteract,
             smsValidationInteract, data, AndroidSchedulers.mainThread(), Schedulers.io(),
@@ -78,11 +77,11 @@ class ValidationLoadingDialogFragment : DaggerFragment(),
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    dialogPresenter.present()
+    presenter.present()
   }
 
   override fun onDestroyView() {
-    dialogPresenter.stop()
+    presenter.stop()
     super.onDestroyView()
   }
 

@@ -29,8 +29,7 @@ import kotlinx.android.synthetic.main.sms_text_input_layout.*
 import javax.inject.Inject
 
 
-class CodeValidationDialogFragment : DaggerFragment(),
-    CodeValidationDialogView {
+class CodeValidationDialogFragment : DaggerFragment(), CodeValidationDialogView {
 
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
@@ -39,7 +38,7 @@ class CodeValidationDialogFragment : DaggerFragment(),
   lateinit var analytics: WalletValidationAnalytics
 
   private var walletValidationDialogView: WalletValidationDialogView? = null
-  private lateinit var dialogPresenter: CodeValidationDialogPresenter
+  private lateinit var presenter: CodeValidationDialogPresenter
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var clipboard: ClipboardManager
 
@@ -80,7 +79,7 @@ class CodeValidationDialogFragment : DaggerFragment(),
 
     clipboard = context!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 
-    dialogPresenter =
+    presenter =
         CodeValidationDialogPresenter(this, walletValidationDialogView, smsValidationInteract,
             AndroidSchedulers.mainThread(), Schedulers.io(), countryCode, phoneNumber,
             CompositeDisposable(), analytics)
@@ -94,7 +93,7 @@ class CodeValidationDialogFragment : DaggerFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    dialogPresenter.present()
+    presenter.present()
   }
 
   override fun onResume() {
@@ -228,7 +227,7 @@ class CodeValidationDialogFragment : DaggerFragment(),
   }
 
   override fun onDestroy() {
-    dialogPresenter.stop()
+    presenter.stop()
     super.onDestroy()
   }
 

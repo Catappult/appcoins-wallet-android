@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class ValidationLoadingDialogPresenter(
-    private val dialogView: ValidationLoadingDialogView,
+    private val view: ValidationLoadingDialogView,
     private val activity: WalletValidationDialogView?,
     private val defaultWalletInteract: FindDefaultWalletInteract,
     private val smsValidationInteract: SmsValidationInteract,
@@ -23,7 +23,7 @@ class ValidationLoadingDialogPresenter(
 ) {
 
   fun present() {
-    dialogView.show()
+    view.show()
 
     handleValidationWallet()
   }
@@ -75,7 +75,7 @@ class ValidationLoadingDialogPresenter(
 
   fun stop() {
     disposables.clear()
-    dialogView.clean()
+    view.clean()
   }
 
 }

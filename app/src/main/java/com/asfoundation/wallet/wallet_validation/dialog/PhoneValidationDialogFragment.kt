@@ -32,7 +32,7 @@ class PhoneValidationDialogFragment : DaggerFragment(),
   lateinit var analytics: WalletValidationAnalytics
 
   private var walletValidationDialogView: WalletValidationDialogView? = null
-  private lateinit var dialogPresenter: PhoneValidationDialogPresenter
+  private lateinit var presenter: PhoneValidationDialogPresenter
 
   private var countryCode: String? = null
   private var phoneNumber: String? = null
@@ -41,7 +41,7 @@ class PhoneValidationDialogFragment : DaggerFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    dialogPresenter =
+    presenter =
         PhoneValidationDialogPresenter(this,
             walletValidationDialogView, interactor,
             AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), analytics)
@@ -64,13 +64,13 @@ class PhoneValidationDialogFragment : DaggerFragment(),
       errorMessage = arguments?.getInt(ERROR_MESSAGE)
     }
 
-    dialogPresenter.present()
+    presenter.present()
   }
 
   override fun onResume() {
     super.onResume()
 
-    dialogPresenter.onResume()
+    presenter.onResume()
     focusAndShowKeyboard(phone_number)
   }
 
@@ -121,7 +121,7 @@ class PhoneValidationDialogFragment : DaggerFragment(),
   override fun getCancelClicks() = RxView.clicks(cancel_button)
 
   override fun onDestroy() {
-    dialogPresenter.stop()
+    presenter.stop()
     super.onDestroy()
   }
 
