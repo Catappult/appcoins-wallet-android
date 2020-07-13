@@ -17,8 +17,9 @@ public class Payment {
   private @Nullable final Integer errorCode;
   private @Nullable final String errorMessage;
 
-  public Payment(String uri, Status status, String uid, String signature, String signatureData,
-      String orderReference, Integer errorCode, String errorMessage) {
+  public Payment(String uri, Status status, @Nullable String uid, @Nullable String signature,
+      @Nullable String signatureData, @Nullable String orderReference, @Nullable Integer errorCode,
+      @Nullable String errorMessage) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = null;

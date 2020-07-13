@@ -20,9 +20,7 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
         .observeOn(scheduler)
         .flatMapCompletable { paymentTransactions ->
           Observable.fromIterable(paymentTransactions)
-              .filter { transaction ->
-                transaction.status == Transaction.Status.PENDING
-              }
+              .filter { transaction -> transaction.status == Transaction.Status.PENDING }
               .flatMapCompletable { executeTransaction(it) }
         }
         .doOnError { it.printStackTrace() }
@@ -40,25 +38,21 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
                   Transaction(transaction.key, Transaction.Status.PROCESSING,
                       transaction.transactionBuilder, hash))
                   .andThen(transactionTracker.checkTransactionState(hash)
-                      .retryWhen {
-                        retryOnTransactionNotFound(it)
-                      }
+                      .retryWhen { retryOnTransactionNotFound(it) }
                       .ignoreElements()
                       .andThen(cache.save(transaction.key,
                           Transaction(transaction.key, Transaction.Status.COMPLETED,
                               transaction.transactionBuilder, hash))))
             })
-        .doOnError { throwable ->
-          throwable.printStackTrace()
+        .doOnError {
+          it.printStackTrace()
           cache.saveSync(transaction.key,
-              Transaction(transaction.key,
-                  enumValueOf(errorMapper.map(throwable).paymentState.name),
+              Transaction(transaction.key, enumValueOf(errorMapper.map(it).paymentState.name),
                   transaction.transactionBuilder))
         }
   }
 
-  private fun retryOnTransactionNotFound(
-      throwable: Observable<Throwable>): Observable<Long> {
+  private fun retryOnTransactionNotFound(throwable: Observable<Throwable>): Observable<Long> {
     return throwable.flatMap {
       if (it is TransactionNotFoundException) {
         Observable.timer(1, TimeUnit.SECONDS, Schedulers.trampoline())
@@ -85,9 +79,7 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
       }
 
 
-  fun remove(key: String): Completable {
-    return cache.remove(key)
-  }
+  fun remove(key: String): Completable = cache.remove(key)
 
 }
 

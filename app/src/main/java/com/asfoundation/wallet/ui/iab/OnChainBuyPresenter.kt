@@ -11,7 +11,6 @@ import com.asfoundation.wallet.util.UnknownTokenException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
@@ -57,7 +56,6 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
             appPackage, productName, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError { showError(it) }
-            .observeOn(networkScheduler)
             .subscribe())
   }
 
@@ -70,6 +68,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
   private fun handleSupportClick() {
     disposables.add(Observable.merge(view.getSupportIconClick(), view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
         .flatMapCompletable { onChainBuyInteract.showSupport(gamificationLevel) }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -113,7 +112,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       Payment.Status.COMPLETED -> {
         view.lockRotation()
         onChainBuyInteract.getCompletedPurchase(transaction, isBds)
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(viewScheduler)
             .map { buildBundle(it, transaction.orderReference) }
             .flatMapCompletable { bundle ->
               Completable.fromAction { view.showTransactionCompleted() }
@@ -166,10 +165,10 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       billingMessagesMapper.mapPurchase(payment.uid!!, payment.signature!!,
           payment.signatureData!!, orderReference)
     } else {
-      val bundle = Bundle()
-      bundle.putInt(IabActivity.RESPONSE_CODE, 0)
-      bundle.putString(IabActivity.TRANSACTION_HASH, payment.buyHash)
-      bundle
+      Bundle().also {
+        it.putInt(IabActivity.RESPONSE_CODE, 0)
+        it.putString(IabActivity.TRANSACTION_HASH, payment.buyHash)
+      }
     }
   }
 

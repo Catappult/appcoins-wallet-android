@@ -15,19 +15,19 @@ import java.math.BigDecimal
 
 class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val billing: Billing,
                      private val partnerAddressService: AddressService) {
-  fun pay(sku: String?, amount: BigDecimal, developerAddress: String,
-          packageName: String, origin: String?, type: String, payload: String?,
-          callbackUrl: String?, orderReference: String?,
-          referrerUrl: String?): Completable {
-    return Single.zip(
-        partnerAddressService.getStoreAddressForPackage(packageName),
+
+  val balance: Single<BigDecimal>
+    get() = appcoinsRewards.getBalance()
+
+  fun pay(sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
+          origin: String?, type: String, payload: String?, callbackUrl: String?,
+          orderReference: String?, referrerUrl: String?): Completable {
+    return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
         partnerAddressService.getOemAddressForPackage(packageName),
-        BiFunction { storeAddress: String, oemAddress: String ->
-          Pair(storeAddress, oemAddress)
-        })
+        BiFunction { storeAddress: String, oemAddress: String -> Pair(storeAddress, oemAddress) })
         .flatMapCompletable {
-          appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
-              it.first, it.second, packageName, payload, callbackUrl, orderReference, referrerUrl)
+          appcoinsRewards.pay(amount, origin, sku, type, developerAddress, it.first, it.second,
+              packageName, payload, callbackUrl, orderReference, referrerUrl)
         }
   }
 
@@ -68,8 +68,4 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
                   packageName: String): Single<AppcoinsRewardsRepository.Status> {
     return appcoinsRewards.sendCredits(toWallet, amount, packageName)
   }
-
-  val balance: Single<BigDecimal>
-    get() = appcoinsRewards.getBalance()
-
 }
