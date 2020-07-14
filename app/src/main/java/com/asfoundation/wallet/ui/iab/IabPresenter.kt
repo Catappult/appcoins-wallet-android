@@ -24,6 +24,13 @@ class IabPresenter(private val view: IabView,
     handleAutoUpdate()
     handleUserRegistration()
     handleSupportClicks()
+    handleErrorDismisses()
+  }
+
+  private fun handleErrorDismisses() {
+    disposable.add(view.errorDismisses()
+        .doOnNext { view.close(Bundle()) }
+        .subscribe({ }, { view.close(Bundle()) }))
   }
 
   private fun handleSupportClicks() {

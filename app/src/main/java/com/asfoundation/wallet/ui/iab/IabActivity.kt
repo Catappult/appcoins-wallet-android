@@ -31,6 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_iab.*
+import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import java.util.*
@@ -214,6 +215,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
     presenter.handlePurchaseStartAnalytics(transaction)
+    layout_error.visibility = View.GONE
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!.getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
@@ -262,9 +264,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     error_message.text = getText(error)
   }
 
-  override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
-  }
+  override fun getSupportClicks() =
+      Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+
+  override fun errorDismisses() = RxView.clicks(error_dismiss)
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)

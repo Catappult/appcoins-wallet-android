@@ -68,4 +68,6 @@ interface IabView {
   fun showError(@StringRes error: Int)
 
   fun getSupportClicks(): Observable<Any>
+
+  fun errorDismisses(): Observable<Any>
 }
