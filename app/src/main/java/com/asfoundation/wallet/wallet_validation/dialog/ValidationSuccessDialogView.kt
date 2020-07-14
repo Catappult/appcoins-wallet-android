@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import io.reactivex.Observable
 
-interface PoaValidationSuccessView {
+interface ValidationSuccessDialogView {
 
   fun setupUI()
 

@@ -11,6 +11,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
@@ -275,10 +276,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
             paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
         paymentModel.refusalCode?.let { code ->
-          if (code == CVC_DECLINED) {
-            view.showCvvError()
-          } else {
-            handleSpecificError(adyenErrorCodeMapper.map(code))
+          when (code) {
+            CVC_DECLINED -> view.showCvvError()
+            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
+            else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
       }
@@ -296,6 +297,33 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         handleSpecificError(R.string.unknown_error)
       }
     }
+  }
+
+  private fun handleFraudFlow(@StringRes error: Int) {
+    disposables.add(
+        adyenPaymentInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { blocked ->
+              if (blocked) {
+                adyenPaymentInteractor.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) handleSpecificError(error)
+                      else view.showWalletValidation(error)
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { handleSpecificError(error) }
+              }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              handleSpecificError(error)
+            })
+    )
   }
 
   private fun buildRefusalReason(status: Status, message: String?): String {
@@ -374,7 +402,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
             paymentModel.error.code.toString(),
             buildRefusalReason(paymentModel.status, paymentModel.error.message))
-        handleSpecificError(servicesErrorMapper.mapError(paymentModel.error.code!!))
+        val resId = servicesErrorMapper.mapError(paymentModel.error.code!!)
+        if (paymentModel.error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
+        else view.showSpecificError(resId)
       }
       else -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
@@ -388,6 +418,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   companion object {
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val CURRENT_ERROR = "current_error"
+    private const val HTTP_FRAUD_CODE = 403
   }
 
 }

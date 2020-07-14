@@ -22,7 +22,7 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
   fun isWalletValid(): Single<Pair<String, WalletValidationStatus>> {
     return findDefaultWalletInteract.find()
         .flatMap { wallet ->
-          smsValidationInteract.isValid(wallet.address)
+          smsValidationInteract.getValidationStatus(wallet.address)
               .map { Pair(wallet.address, it) }
         }
   }

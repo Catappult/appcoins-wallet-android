@@ -151,15 +151,15 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView = null;
   }
 
-  @Override public Observable<Object> getOkErrorClick() {
+  @Override public @NotNull Observable<Object> getOkErrorClick() {
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public Observable<Object> getSupportIconClick() {
+  @Override public @NotNull Observable<Object> getSupportIconClick() {
     return RxView.clicks(supportIcon);
   }
 
-  @Override public Observable<Object> getSupportLogoClick() {
+  @Override public @NotNull Observable<Object> getSupportLogoClick() {
     return RxView.clicks(supportLogo);
   }
 
@@ -235,6 +235,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void lockRotation() {
     iabView.lockRotation();
+  }
+
+  @Override public void showWalletValidation(@StringRes int error) {
+    iabView.showWalletValidation(error);
   }
 
   @Override public void onAttach(Context context) {

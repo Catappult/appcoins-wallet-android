@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
@@ -18,10 +19,6 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
 import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
-
-/**
- * Created by franciscocalado on 19/07/2018.
- */
 
 public class OnChainBuyPresenter {
 
@@ -185,13 +182,42 @@ public class OnChainBuyPresenter {
         view.lockRotation();
         return Completable.fromAction(view::showBuying);
       case FORBIDDEN:
-        return Completable.fromAction(view::showForbiddenError)
+        return Completable.fromAction(this::handleFraudFlow)
             .andThen(onChainBuyInteract.remove(transaction.getUri()));
       case ERROR:
       default:
         return Completable.fromAction(() -> showError(null))
             .andThen(onChainBuyInteract.remove(transaction.getUri()));
     }
+  }
+
+  private void handleFraudFlow() {
+    disposables.add(onChainBuyInteract.isWalletBlocked()
+        .subscribeOn(networkScheduler)
+        .observeOn(networkScheduler)
+        .flatMap(blocked -> {
+          if (blocked) {
+            return onChainBuyInteract.isWalletVerified()
+                .observeOn(viewScheduler)
+                .doOnSuccess(verified -> {
+                  if (verified) {
+                    view.showForbiddenError();
+                  } else {
+                    view.showWalletValidation(R.string.purchase_wallet_error_contact_us);
+                  }
+                });
+          } else {
+            return Single.just(true)
+                .observeOn(viewScheduler)
+                .doOnSuccess(__ -> view.showForbiddenError());
+          }
+        })
+        .observeOn(viewScheduler)
+        .subscribe(aBoolean -> {
+        }, throwable -> {
+          throwable.printStackTrace();
+          view.showForbiddenError();
+        }));
   }
 
   private Bundle buildBundle(Payment payment, String orderReference) {
