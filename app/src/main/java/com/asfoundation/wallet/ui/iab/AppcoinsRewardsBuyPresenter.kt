@@ -73,7 +73,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     }
   }
 
-  private fun handlePaymentStatus(transaction: RewardPayment, sku: String,
+  private fun handlePaymentStatus(transaction: RewardPayment, sku: String?,
                                   amount: BigDecimal): Completable {
     sendPaymentErrorEvent(transaction)
     return when (transaction.status) {
