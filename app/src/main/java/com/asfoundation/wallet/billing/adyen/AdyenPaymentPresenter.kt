@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -9,6 +10,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -245,10 +247,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       refusalReason != null -> Completable.fromAction {
         sendPaymentErrorEvent(refusalCode, refusalReason)
         refusalCode?.let { code ->
-          if (code == CVC_DECLINED) {
-            view.showCvvError()
-          } else {
-            view.showSpecificError(adyenErrorCodeMapper.map(code))
+          when (code) {
+            CVC_DECLINED -> view.showCvvError()
+            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
+            else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
       }
@@ -262,6 +264,33 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         view.showGenericError()
       }
     }
+  }
+
+  private fun handleFraudFlow(@StringRes error: Int) {
+    disposables.add(
+        adyenPaymentInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { blocked ->
+              if (blocked) {
+                adyenPaymentInteractor.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) view.showSpecificError(error)
+                      else view.showWalletValidation(error)
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { view.showSpecificError(error) }
+              }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              view.showSpecificError(error)
+            })
+    )
   }
 
   private fun buildRefusalReason(status: Status, message: String?): String {
@@ -482,13 +511,18 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   companion object {
 
     private const val WAITING_RESULT = "WAITING_RESULT"
+    private const val HTTP_FRAUD_CODE = 403
     private val TAG = AdyenPaymentPresenter::class.java.name
   }
 
   private fun handleErrors(error: Error) {
     when {
       error.isNetworkError -> view.showNetworkError()
-      error.code != null -> view.showSpecificError(servicesErrorCodeMapper.mapError(error.code!!))
+      error.code != null -> {
+        val resId = servicesErrorCodeMapper.mapError(error.code!!)
+        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
+        else view.showSpecificError(resId)
+      }
       else -> view.showGenericError()
     }
   }
