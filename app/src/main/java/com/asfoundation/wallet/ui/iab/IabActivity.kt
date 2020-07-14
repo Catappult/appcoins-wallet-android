@@ -216,6 +216,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .equals(transaction?.type, ignoreCase = true)
     presenter.handlePurchaseStartAnalytics(transaction)
     layout_error.visibility = View.GONE
+    fragment_container.visibility = View.VISIBLE
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!.getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,

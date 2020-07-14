@@ -48,7 +48,7 @@ class IabPresenter(private val view: IabView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              if (it) view.showError(error)
+              if (false) view.showError(error)
               else view.showPaymentMethodsView()
             }
             .subscribe({}, { handleError(it) })
