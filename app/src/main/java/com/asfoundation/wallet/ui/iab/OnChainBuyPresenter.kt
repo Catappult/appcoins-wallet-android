@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -11,6 +12,7 @@ import com.asfoundation.wallet.util.UnknownTokenException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
@@ -149,7 +151,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
         view.lockRotation()
         Completable.fromAction { view.showBuying() }
       }
-      Payment.Status.FORBIDDEN -> Completable.fromAction { view.showForbiddenError() }
+      Payment.Status.FORBIDDEN -> Completable.fromAction { handleFraudFlow() }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
       Payment.Status.ERROR -> Completable.fromAction { showError(null) }
@@ -227,6 +229,35 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       }
     }
   }
+
+  private fun handleFraudFlow() {
+    disposables.add(onChainBuyInteract.isWalletBlocked()
+        .subscribeOn(networkScheduler)
+        .observeOn(networkScheduler)
+        .flatMap { blocked ->
+          if (blocked) {
+            onChainBuyInteract.isWalletVerified()
+                .observeOn(viewScheduler)
+                .doOnSuccess { verified ->
+                  if (verified) {
+                    view.showForbiddenError()
+                  } else {
+                    view.showWalletValidation(R.string.purchase_wallet_error_contact_us)
+                  }
+                }
+          } else {
+            Single.just(true)
+                .observeOn(viewScheduler)
+                .doOnSuccess { view.showForbiddenError() }
+          }
+        }
+        .observeOn(viewScheduler)
+        .subscribe({}, {
+          it.printStackTrace()
+          view.showForbiddenError()
+        }))
+  }
+
 
   private fun isError(status: Payment.Status): Boolean {
     return status == Payment.Status.ERROR || status == Payment.Status.NO_FUNDS ||

@@ -7,7 +7,6 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.iab.RewardsManager.RewardPayment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Completable
@@ -62,7 +61,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         }
         .doOnSubscribe { view.showLoading() }
         .subscribe({}, {
-          view.showGenericError()
+          view.showError(null)
           logger.log("AppcoinsRewardsBuyPresenter", it)
         }))
   }
@@ -108,7 +107,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
             .doOnSuccess { view.finish(it) }
             .ignoreElement()
       }
-      Status.ERROR -> Completable.fromAction { view.showGenericError() }
+      Status.ERROR -> Completable.fromAction { view.showError(null) }
       Status.FORBIDDEN -> Completable.fromAction {
         handleFraudFlow()
       }

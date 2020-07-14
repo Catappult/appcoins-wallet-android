@@ -6,7 +6,7 @@ import io.reactivex.Observable
 
 interface AppcoinsRewardsBuyView {
 
-  fun finish(purchase: Purchase?)
+  fun finish(purchase: Purchase)
 
   fun showLoading()
 
