@@ -128,12 +128,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun onBackPressed() {
     when {
       isFinishingPurchase -> close(true)
-      supportFragmentManager.backStackEntryCount != 0 -> {
-        supportFragmentManager.popBackStack()
-        layout_error.visibility = View.GONE
-        fragment_container.visibility = View.VISIBLE
-
-      }
+      supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
       else -> super.onBackPressed()
     }
   }
@@ -160,6 +155,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun setupToolbar() {
     toolbar()
+  }
+
+  override fun popBackStack() {
+    if (supportFragmentManager.backStackEntryCount != 0) {
+      supportFragmentManager.popBackStack()
+    }
   }
 
   override fun finishActivity(data: Bundle) {

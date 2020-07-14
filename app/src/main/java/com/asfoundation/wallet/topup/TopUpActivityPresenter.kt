@@ -64,6 +64,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
+              view.popBackStack()
               if (it) view.showError(error)
               else view.showTopUpScreen()
             }
