@@ -260,11 +260,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showError(@StringRes error: Int) {
+    fragment_container.visibility = View.GONE
     layout_error.visibility = View.VISIBLE
     error_message.text = getText(error)
   }
 
-  override fun getSupportClicks() =
+  override fun getSupportClicks(): Observable<Any> =
       Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)

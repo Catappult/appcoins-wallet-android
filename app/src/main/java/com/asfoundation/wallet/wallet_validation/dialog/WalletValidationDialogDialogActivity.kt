@@ -23,7 +23,7 @@ import javax.inject.Inject
 class WalletValidationDialogDialogActivity : BaseActivity(),
     WalletValidationDialogView {
 
-  private lateinit var dialogPresenter: WalletValidationDialogPresenter
+  private lateinit var presenter: WalletValidationDialogPresenter
 
   @Inject
   lateinit var smsValidationRepository: SmsValidationRepositoryType
@@ -58,10 +58,10 @@ class WalletValidationDialogDialogActivity : BaseActivity(),
     savedInstanceState?.let {
       walletValidated = it.getBoolean(WALLET_VALIDATED_KEY, false)
     }
-    dialogPresenter = WalletValidationDialogPresenter(this, smsValidationRepository, walletService,
+    presenter = WalletValidationDialogPresenter(this, smsValidationRepository, walletService,
         CompositeDisposable(), AndroidSchedulers.mainThread(),
         Schedulers.io())
-    dialogPresenter.present()
+    presenter.present()
   }
 
   override fun onBackPressed() {
@@ -74,7 +74,7 @@ class WalletValidationDialogDialogActivity : BaseActivity(),
   }
 
   override fun onDestroy() {
-    dialogPresenter.stop()
+    presenter.stop()
     super.onDestroy()
   }
 
