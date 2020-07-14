@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup.payment
 
 import android.net.Uri
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
@@ -63,5 +64,7 @@ interface AdyenTopUpView {
   fun setupUi()
 
   fun showBonus(bonus: BigDecimal, currency: String)
+
+  fun showWalletValidation(@StringRes error: Int)
 
 }

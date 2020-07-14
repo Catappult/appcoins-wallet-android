@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 
-interface PoaWalletValidationView {
+interface WalletValidationDialogView {
 
   fun showPhoneValidationView(countryCode: String?, phoneNumber: String?, errorMessage: Int? = null)
 

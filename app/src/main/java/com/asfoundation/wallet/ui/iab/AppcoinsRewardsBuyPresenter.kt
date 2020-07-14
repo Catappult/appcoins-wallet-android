@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import androidx.annotation.StringRes
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
@@ -8,11 +7,13 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.ui.iab.RewardsManager.RewardPayment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit
 class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                                   private val rewardsManager: RewardsManager,
                                   private val viewScheduler: Scheduler,
+                                  private val networkScheduler: Scheduler,
                                   private val disposables: CompositeDisposable,
                                   private val amount: BigDecimal,
                                   private val uri: String,
@@ -32,7 +34,6 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                                   private val gamificationLevel: Int,
                                   private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
                                   private val logger: Logger) {
-
   fun present() {
     view.lockRotation()
     handleBuyClick()
@@ -43,7 +44,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   private fun handleOkErrorClick() {
     disposables.add(view.getOkErrorClick()
         .doOnNext { view.errorClose() }
-        .subscribe())
+        .subscribe({}, { view.errorClose() }))
   }
 
   private fun handleBuyClick() {
@@ -97,7 +98,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               .onErrorResumeNext {
                 Completable.fromAction {
                   it.printStackTrace()
-                  view.showGenericError()
+                  view.showError(null)
                   view.hideLoading()
                 }
               }
@@ -108,12 +109,41 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
             .ignoreElement()
       }
       Status.ERROR -> Completable.fromAction { view.showGenericError() }
-      Status.FORBIDDEN -> Completable.fromAction { view.showError(mapError(Status.FORBIDDEN)) }
+      Status.FORBIDDEN -> Completable.fromAction {
+        handleFraudFlow()
+      }
       Status.NO_NETWORK -> Completable.fromAction {
         view.showNoNetworkError()
         view.hideLoading()
       }
     }
+  }
+
+  private fun handleFraudFlow() {
+    disposables.add(
+        appcoinsRewardsBuyInteract.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { blocked ->
+              if (blocked) {
+                appcoinsRewardsBuyInteract.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) view.showError(R.string.purchase_wallet_error_contact_us)
+                      else view.showWalletValidation(R.string.unknown_error)
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { view.showError(R.string.purchase_wallet_error_contact_us) }
+              }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              view.showError(R.string.purchase_wallet_error_contact_us)
+            })
+    )
   }
 
   fun stop() = disposables.clear()
@@ -160,17 +190,8 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     disposables.add(Observable.merge(view.getSupportIconClick(),
         view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
         .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
         .subscribe())
   }
-
-  @StringRes
-  private fun mapError(status: Status): Int {
-    return if (status === Status.FORBIDDEN) {
-      R.string.purchase_wallet_error_contact_us
-    } else {
-      R.string.activity_iab_error_message
-    }
-  }
-
 }

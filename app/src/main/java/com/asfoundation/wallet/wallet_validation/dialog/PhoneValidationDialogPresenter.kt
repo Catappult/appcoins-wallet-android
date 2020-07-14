@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import androidx.annotation.StringRes
 import com.asf.wallet.R
@@ -10,9 +10,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 
-class PoaPhoneValidationPresenter(
-    private val view: PoaPhoneValidationView,
-    private val activity: PoaWalletValidationView?,
+class PhoneValidationDialogPresenter(
+    private val view: PhoneValidationDialogView,
+    private val activity: WalletValidationDialogView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
@@ -34,7 +34,8 @@ class PoaPhoneValidationPresenter(
         view.getCancelClicks()
             .doOnNext {
               activity?.closeCancel(true)
-            }.subscribe())
+            }
+            .subscribe())
   }
 
   private fun handleSubmit() {

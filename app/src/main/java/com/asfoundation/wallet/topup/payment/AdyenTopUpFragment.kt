@@ -23,7 +23,6 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.*
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivityView
@@ -321,6 +320,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     bonus_msg.visibility = VISIBLE
   }
 
+  override fun showWalletValidation(@StringRes error: Int) = topUpView.showWalletValidation(error)
+
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
@@ -552,19 +553,17 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     fun newInstance(paymentType: PaymentType, data: TopUpData, currentCurrency: String,
                     transactionType: String, bonusValue: BigDecimal, bonusSymbol: String,
                     gamificationLevel: Int): AdyenTopUpFragment {
-      val bundle = Bundle()
-      val fragment = AdyenTopUpFragment()
-      bundle.apply {
-        putString(PAYMENT_TYPE, paymentType.name)
-        putString(PAYMENT_TRANSACTION_TYPE, transactionType)
-        putSerializable(PAYMENT_DATA, data)
-        putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
-        putSerializable(BONUS, bonusValue)
-        putString(BONUS_SYMBOL, bonusSymbol)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        fragment.arguments = this
+      return AdyenTopUpFragment().apply {
+        arguments = Bundle().apply {
+          putString(PAYMENT_TYPE, paymentType.name)
+          putString(PAYMENT_TRANSACTION_TYPE, transactionType)
+          putSerializable(PAYMENT_DATA, data)
+          putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
+          putSerializable(BONUS, bonusValue)
+          putString(BONUS_SYMBOL, bonusSymbol)
+          putInt(GAMIFICATION_LEVEL, gamificationLevel)
+        }
       }
-      return fragment
     }
   }
 }

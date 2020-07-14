@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import android.animation.Animator
 import android.app.NotificationManager
@@ -18,24 +18,24 @@ import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_validation_success.*
 import javax.inject.Inject
 
-class PoaValidationSuccessFragment : DaggerFragment(), PoaValidationSuccessView {
+class ValidationSuccessDialogFragment : DaggerFragment(), ValidationSuccessDialogView {
 
   @Inject
   lateinit var proofOfAttentionService: ProofOfAttentionService
 
-  private lateinit var walletValidationView: PoaWalletValidationView
-  private lateinit var presenter: PoaValidationSuccessPresenter
+  private lateinit var walletValidationDialogView: WalletValidationDialogView
+  private lateinit var presenter: ValidationSuccessDialogPresenter
   private lateinit var notificationManager: NotificationManager
 
   private lateinit var animationCompleted: Subject<Boolean>
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is PoaWalletValidationView) {
+    if (context !is WalletValidationDialogView) {
       throw IllegalStateException(
           "Validation Success fragment must be attached to Wallet Validation Activity")
     }
-    walletValidationView = context
+    walletValidationDialogView = context
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +48,8 @@ class PoaValidationSuccessFragment : DaggerFragment(), PoaValidationSuccessView 
     animationCompleted = BehaviorSubject.create()
 
     presenter =
-        PoaValidationSuccessPresenter(this, proofOfAttentionService, CompositeDisposable(),
-            walletValidationView)
+        ValidationSuccessDialogPresenter(this, proofOfAttentionService, CompositeDisposable(),
+            walletValidationDialogView)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -77,7 +77,7 @@ class PoaValidationSuccessFragment : DaggerFragment(), PoaValidationSuccessView 
       override fun onAnimationEnd(animation: Animator?) {
         animationCompleted.onNext(true)
         notificationManager.cancel(VERIFICATION_SERVICE_ID)
-        walletValidationView.closeSuccess()
+        walletValidationDialogView.closeSuccess()
       }
 
       override fun onAnimationCancel(animation: Animator?) {
@@ -100,8 +100,8 @@ class PoaValidationSuccessFragment : DaggerFragment(), PoaValidationSuccessView 
 
   companion object {
     @JvmStatic
-    fun newInstance(): PoaValidationSuccessFragment {
-      return PoaValidationSuccessFragment()
+    fun newInstance(): ValidationSuccessDialogFragment {
+      return ValidationSuccessDialogFragment()
     }
   }
 

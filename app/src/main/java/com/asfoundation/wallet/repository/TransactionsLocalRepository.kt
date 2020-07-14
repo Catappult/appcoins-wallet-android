@@ -30,7 +30,6 @@ class TransactionsLocalRepository(private val database: TransactionsDao,
 
   override fun getOlderTransaction(relatedWallet: String): Maybe<TransactionEntity> {
     return database.getOlderTransaction(relatedWallet)
-
   }
 
 

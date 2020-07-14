@@ -115,7 +115,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
           if (skipValidation) {
             Single.just(WalletValidationStatus.SUCCESS)
           } else {
-            smsValidationInteract.isValid(it)
+            smsValidationInteract.getValidationStatus(it)
                 .subscribeOn(networkScheduler)
           }
         }

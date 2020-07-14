@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Observable
 
@@ -21,8 +22,6 @@ interface AppcoinsRewardsBuyView {
 
   fun close()
 
-  fun showGenericError()
-
   fun showError(message: Int?)
 
   fun finish(uid: String?)
@@ -36,4 +35,6 @@ interface AppcoinsRewardsBuyView {
   fun getAnimationDuration(): Long
 
   fun lockRotation()
+
+  fun showWalletValidation(@StringRes error: Int)
 }

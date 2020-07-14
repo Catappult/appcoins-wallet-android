@@ -156,7 +156,7 @@ import org.mockito.junit.MockitoJUnitRunner;
     List<Transaction> transactionList = new ArrayList<>();
     transactionList.add(
         new Transaction("0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9",
-            Transaction.TransactionType.IAB,
+            Transaction.TransactionType.IAP,
             "0x8506e0e07e4fbcd89684689257dd5f5649474f5cb3d1f0c703460a31bac110bb", 1524491228000L,
             1524491228, Transaction.TransactionStatus.SUCCESS, "1000000000000000000",
             "0x33a8c36a4812947e6f5d7cd37778ff1ad699839b",

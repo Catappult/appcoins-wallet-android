@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import android.content.Context
 import android.os.Bundle
@@ -17,16 +17,15 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_validation_loading.*
 import javax.inject.Inject
 
-class PoaValidationLoadingFragment : DaggerFragment(),
-    PoaValidationLoadingView {
+class ValidationLoadingDialogFragment : DaggerFragment(), ValidationLoadingDialogView {
 
   companion object {
     @JvmStatic
-    fun newInstance(validationInfo: ValidationInfo): PoaValidationLoadingFragment {
+    fun newInstance(validationInfo: ValidationInfo): ValidationLoadingDialogFragment {
       val bundle = Bundle().apply {
         putSerializable(VALIDATION, validationInfo)
       }
-      return PoaValidationLoadingFragment().apply { arguments = bundle }
+      return ValidationLoadingDialogFragment().apply { arguments = bundle }
     }
 
     private const val VALIDATION = "validation"
@@ -41,9 +40,9 @@ class PoaValidationLoadingFragment : DaggerFragment(),
   @Inject
   lateinit var analytics: WalletValidationAnalytics
 
-  private lateinit var presenter: PoaValidationLoadingPresenter
+  private lateinit var presenter: ValidationLoadingDialogPresenter
 
-  private lateinit var walletValidationView: PoaWalletValidationView
+  private lateinit var walletValidationDialogView: WalletValidationDialogView
 
   val data: ValidationInfo by lazy {
     if (arguments!!.containsKey(VALIDATION)) {
@@ -55,18 +54,19 @@ class PoaValidationLoadingFragment : DaggerFragment(),
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is PoaWalletValidationView) {
+    if (context !is WalletValidationDialogView) {
       throw IllegalStateException(
           "Express checkout buy fragment must be attached to IAB activity")
     }
-    walletValidationView = context
+    walletValidationDialogView = context
   }
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        PoaValidationLoadingPresenter(this, walletValidationView, findDefaultWalletInteract,
+        ValidationLoadingDialogPresenter(this, walletValidationDialogView,
+            findDefaultWalletInteract,
             smsValidationInteract, data, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), analytics)
   }
