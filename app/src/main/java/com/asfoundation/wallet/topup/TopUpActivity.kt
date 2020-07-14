@@ -128,7 +128,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun onBackPressed() {
     when {
       isFinishingPurchase -> close(true)
-      supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
+      supportFragmentManager.backStackEntryCount != 0 -> {
+        supportFragmentManager.popBackStack()
+        layout_error.visibility = View.GONE
+        fragment_container.visibility = View.VISIBLE
+
+      }
       else -> super.onBackPressed()
     }
   }
