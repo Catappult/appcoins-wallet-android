@@ -303,7 +303,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     disposables.add(
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
             .observeOn(networkScheduler)
             .flatMap { blocked ->
               if (blocked) {

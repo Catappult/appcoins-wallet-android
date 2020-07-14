@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_iab_wallet_creation.*
 import javax.inject.Inject
 
-class WalletValidationDialogDialogActivity : BaseActivity(),
+class WalletValidationDialogActivity : BaseActivity(),
     WalletValidationDialogView {
 
   private lateinit var presenter: WalletValidationDialogPresenter
@@ -40,12 +40,12 @@ class WalletValidationDialogDialogActivity : BaseActivity(),
 
     @JvmStatic
     fun newIntent(context: Context): Intent {
-      return Intent(context, WalletValidationDialogDialogActivity::class.java)
+      return Intent(context, WalletValidationDialogActivity::class.java)
     }
 
     @JvmStatic
     fun newIntent(context: Context, @StringRes error: Int): Intent {
-      return Intent(context, WalletValidationDialogDialogActivity::class.java).apply {
+      return Intent(context, WalletValidationDialogActivity::class.java).apply {
         putExtra(ERROR_MESSAGE, error)
       }
     }

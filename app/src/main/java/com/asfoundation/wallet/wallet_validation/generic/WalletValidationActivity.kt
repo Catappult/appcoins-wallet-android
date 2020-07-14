@@ -127,6 +127,11 @@ class WalletValidationActivity : BaseActivity(),
     scrollView.isHorizontalScrollBarEnabled = false
     scrollView.isVerticalScrollBarEnabled = false
     setupToolbar()
+
+    if (errorMessage != 0) {
+      val intent = Intent().apply { putExtra(ERROR_MESSAGE, errorMessage) }
+      setResult(RESULT_CANCELED, intent)
+    }
   }
 
   private fun setupToolbar() {

@@ -197,7 +197,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogDialogActivity"
+        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity"
         android:launchMode="singleInstance"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>

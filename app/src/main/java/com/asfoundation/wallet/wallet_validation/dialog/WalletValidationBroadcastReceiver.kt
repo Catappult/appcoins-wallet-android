@@ -30,7 +30,7 @@ class WalletValidationBroadcastReceiver : BroadcastReceiver() {
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
     if (intent.getStringExtra(ACTION_KEY) == ACTION_START_VALIDATION) {
-      val validationIntent = WalletValidationDialogDialogActivity.newIntent(context)
+      val validationIntent = WalletValidationDialogActivity.newIntent(context)
           .apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
           }
