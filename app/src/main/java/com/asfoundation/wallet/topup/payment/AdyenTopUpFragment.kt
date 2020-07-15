@@ -23,6 +23,7 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.*
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivityView
@@ -78,6 +79,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   @Inject
   lateinit var servicesErrorMapper: ServicesErrorCodeMapper
 
+  @Inject
+  lateinit var logger: Logger
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
@@ -108,7 +112,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             transactionType, data.currency.fiatValue, data.currency.fiatCurrencyCode, data.currency,
             data.selectedCurrency, navigator, inAppPurchaseInteractor.billingMessagesMapper,
             adyenPaymentInteractor, bonusValue, bonusSymbol, AdyenErrorCodeMapper(),
-            servicesErrorMapper, gamificationLevel, topUpAnalytics, formatter)
+            servicesErrorMapper, gamificationLevel, topUpAnalytics, formatter, logger)
   }
 
   override fun onAttach(context: Context) {
@@ -522,7 +526,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private val bonusSymbol: String by lazy {
     if (arguments!!.containsKey(BONUS_SYMBOL)) {
-      arguments!!.getString(BONUS_SYMBOL)
+      arguments!!.getString(BONUS_SYMBOL)!!
     } else {
       throw IllegalArgumentException("Bonus symbol not found")
     }

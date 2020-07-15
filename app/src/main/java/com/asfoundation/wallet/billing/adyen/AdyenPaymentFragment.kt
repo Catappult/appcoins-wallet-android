@@ -30,6 +30,7 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.FragmentNavigator
@@ -88,6 +89,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   @Inject
   lateinit var servicesErrorMapper: ServicesErrorCodeMapper
 
+  @Inject
+  lateinit var logger: Logger
   private lateinit var iabView: IabView
   private lateinit var presenter: AdyenPaymentPresenter
   private lateinit var cardConfiguration: CardConfiguration
@@ -115,7 +118,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
             Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
             adyenPaymentInteractor, inAppPurchaseInteractor.parseTransaction(transactionData, true),
             navigator, paymentType, transactionType, amount, currency, isPreSelected,
-            AdyenErrorCodeMapper(), servicesErrorMapper, gamificationLevel, formatter)
+            AdyenErrorCodeMapper(), servicesErrorMapper, gamificationLevel, formatter, logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
