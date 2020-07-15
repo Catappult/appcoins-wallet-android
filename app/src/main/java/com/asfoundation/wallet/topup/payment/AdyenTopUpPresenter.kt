@@ -105,7 +105,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -118,7 +118,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           else view.navigateToPaymentSelection()
         }
         .subscribeOn(viewScheduler)
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -224,7 +224,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 }
               }
         }
-        .subscribe())
+        .subscribe({}, {
+          logger.log(TAG, it)
+          handleSpecificError(R.string.unknown_error)
+        }))
   }
 
   private fun handleRedirectResponse() {
@@ -235,7 +238,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         }
         .observeOn(viewScheduler)
         .doOnNext { view.submitUriResult(it) }
-        .subscribe())
+        .subscribe({}, {
+          logger.log(TAG, it)
+          handleSpecificError(R.string.unknown_error)
+        }))
   }
 
   //Called if is paypal
