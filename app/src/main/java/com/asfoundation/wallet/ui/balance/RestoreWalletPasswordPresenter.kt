@@ -29,7 +29,11 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
               .observeOn(viewScheduler)
               .doOnNext { fiatValue -> view.updateUi(address, fiatValue) }
         }
-        .subscribe({}, { it.printStackTrace() }))
+        .observeOn(viewScheduler)
+        .subscribe({}, {
+          it.printStackTrace()
+          view.showError(RestoreErrorType.GENERIC)
+        }))
   }
 
   private fun handleRestoreWalletButtonClicked(keystore: String) {
