@@ -1,37 +1,39 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.appcoins.rewards.getMessage
 import com.asfoundation.wallet.repository.PaymentTransaction.PaymentState
 import com.asfoundation.wallet.util.UnknownTokenException
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
 class ErrorMapper {
-  fun map(throwable: Throwable): PaymentState {
+  fun map(throwable: Throwable): PaymentError {
     throwable.printStackTrace()
     return when (throwable) {
       is HttpException -> mapHttpException(throwable)
-      is UnknownHostException -> PaymentState.NO_INTERNET
-      is WrongNetworkException -> PaymentState.WRONG_NETWORK
-      is TransactionNotFoundException -> PaymentState.ERROR
-      is UnknownTokenException -> PaymentState.UNKNOWN_TOKEN
+      is UnknownHostException -> PaymentError(PaymentState.NO_INTERNET)
+      is WrongNetworkException -> PaymentError(PaymentState.WRONG_NETWORK)
+      is TransactionNotFoundException -> PaymentError(PaymentState.ERROR)
+      is UnknownTokenException -> PaymentError(PaymentState.UNKNOWN_TOKEN)
       is TransactionException -> mapTransactionException(throwable)
-      else -> PaymentState.ERROR
+      else -> PaymentError(PaymentState.ERROR, null, throwable.message)
     }
   }
 
-  private fun mapTransactionException(throwable: Throwable): PaymentState {
+  private fun mapTransactionException(throwable: Throwable): PaymentError {
     return when (throwable.message) {
-      INSUFFICIENT_ERROR_MESSAGE -> PaymentState.NO_FUNDS
-      NONCE_TOO_LOW_ERROR_MESSAGE -> PaymentState.NONCE_ERROR
-      else -> PaymentState.ERROR
+      INSUFFICIENT_ERROR_MESSAGE -> PaymentError(PaymentState.NO_FUNDS)
+      NONCE_TOO_LOW_ERROR_MESSAGE -> PaymentError(PaymentState.NONCE_ERROR)
+      else -> PaymentError(PaymentState.ERROR, null, throwable.message)
     }
   }
 
-  private fun mapHttpException(exception: HttpException): PaymentState {
+  private fun mapHttpException(exception: HttpException): PaymentError {
     return if (exception.code() == FORBIDDEN_CODE) {
-      PaymentState.FORBIDDEN
+      PaymentError(PaymentState.FORBIDDEN)
     } else {
-      PaymentState.ERROR
+      val message = exception.getMessage()
+      PaymentError(PaymentState.ERROR, exception.code(), message)
     }
   }
 

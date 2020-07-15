@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import com.jakewharton.rxbinding2.view.RxView
@@ -48,6 +49,9 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
   @Inject
   lateinit var appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract
 
+  @Inject
+  lateinit var logger: Logger
+
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
   private lateinit var iabView: IabView
 
@@ -61,7 +65,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     presenter = AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), amount, uri, transactionBuilder.domain,
         transferParser, isBds, analytics, transactionBuilder, formatter, gamificationLevel,
-        appcoinsRewardsBuyInteract)
+        appcoinsRewardsBuyInteract, logger)
     setupTransactionCompleteAnimation()
     presenter.present()
   }
@@ -105,7 +109,7 @@ class AppcoinsRewardsBuyFragment : DaggerFragment(), AppcoinsRewardsBuyView {
     hideLoading()
   }
 
-  override fun finish(uid: String) {
+  override fun finish(uid: String?) {
     presenter.sendPaymentEvent()
     presenter.sendRevenueEvent()
     presenter.sendPaymentSuccessEvent()

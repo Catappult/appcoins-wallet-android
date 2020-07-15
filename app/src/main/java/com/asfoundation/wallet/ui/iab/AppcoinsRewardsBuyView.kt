@@ -24,7 +24,7 @@ interface AppcoinsRewardsBuyView {
 
   fun showError(message: Int?)
 
-  fun finish(uid: String)
+  fun finish(uid: String?)
 
   fun errorClose()
 

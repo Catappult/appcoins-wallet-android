@@ -1,26 +1,27 @@
 package com.appcoins.wallet.appcoins.rewards
 
 import retrofit2.HttpException
-import java.net.UnknownHostException
 
 class ErrorMapper {
   companion object {
     private const val FORBIDDEN_CODE = 403
   }
 
-  fun map(throwable: Throwable): Transaction.Status {
-    return when (throwable) {
-      is UnknownHostException -> Transaction.Status.NO_NETWORK
-      is HttpException -> mapHttpException(throwable)
-      else -> Transaction.Status.ERROR
+  fun map(throwable: Throwable): TransactionError {
+    return when {
+      throwable.isNoNetworkException() -> TransactionError(Transaction.Status.NO_NETWORK, null,
+          null)
+      throwable is HttpException -> mapHttpException(throwable)
+      else -> TransactionError(Transaction.Status.ERROR, null, throwable.message)
     }
   }
 
-  private fun mapHttpException(exception: HttpException): Transaction.Status {
+  private fun mapHttpException(exception: HttpException): TransactionError {
     return if (exception.code() == FORBIDDEN_CODE) {
-      Transaction.Status.FORBIDDEN
+      TransactionError(Transaction.Status.FORBIDDEN, null, null)
     } else {
-      Transaction.Status.ERROR
+      val message = exception.getMessage()
+      TransactionError(Transaction.Status.ERROR, exception.code(), message)
     }
   }
 }

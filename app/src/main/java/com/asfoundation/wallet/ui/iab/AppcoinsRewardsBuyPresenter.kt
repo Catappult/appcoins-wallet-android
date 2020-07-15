@@ -1,13 +1,12 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.appcoins.rewards.Transaction
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.ui.iab.RewardsManager.RewardPayment
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Completable
@@ -32,7 +31,8 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                                   private val transactionBuilder: TransactionBuilder,
                                   private val formatter: CurrencyFormatUtils,
                                   private val gamificationLevel: Int,
-                                  private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract) {
+                                  private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
+                                  private val logger: Logger) {
   fun present() {
     view.lockRotation()
     handleBuyClick()
@@ -41,19 +41,17 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   }
 
   private fun handleOkErrorClick() {
-    disposables.add(
-        view.getOkErrorClick()
-            .subscribe { view.errorClose() }
-    )
+    disposables.add(view.getOkErrorClick()
+        .doOnNext { view.errorClose() }
+        .subscribe({}, { view.errorClose() }))
   }
 
   private fun handleBuyClick() {
     disposables.add(transferParser.parse(uri)
         .flatMapCompletable { transaction: TransactionBuilder ->
-          rewardsManager.pay(transaction.skuId, amount,
-              transaction.toAddress(), packageName, getOrigin(isBds, transaction),
-              transaction.type, transaction.payload, transaction.callbackUrl,
-              transaction.orderReference, transaction.referrerUrl)
+          rewardsManager.pay(transaction.skuId, amount, transaction.toAddress(), packageName,
+              getOrigin(isBds, transaction), transaction.type, transaction.payload,
+              transaction.callbackUrl, transaction.orderReference, transaction.referrerUrl)
               .andThen(rewardsManager.getPaymentStatus(packageName, transaction.skuId,
                   transaction.amount()))
               .observeOn(viewScheduler)
@@ -62,7 +60,10 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               }
         }
         .doOnSubscribe { view.showLoading() }
-        .subscribe())
+        .subscribe({}, {
+          view.showError(null)
+          logger.log("AppcoinsRewardsBuyPresenter", it)
+        }))
   }
 
   private fun getOrigin(isBds: Boolean, transaction: TransactionBuilder): String? {
@@ -73,16 +74,16 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     }
   }
 
-  private fun handlePaymentStatus(transaction: RewardPayment, sku: String,
+  private fun handlePaymentStatus(transaction: RewardPayment, sku: String?,
                                   amount: BigDecimal): Completable {
     sendPaymentErrorEvent(transaction)
     return when (transaction.status) {
-      RewardPayment.Status.PROCESSING -> Completable.fromAction { view.showLoading() }
-      RewardPayment.Status.COMPLETED -> {
+      Status.PROCESSING -> Completable.fromAction { view.showLoading() }
+      Status.COMPLETED -> {
         if (isBds && transactionBuilder.type.equals(TransactionData.TransactionType.INAPP.name,
                 ignoreCase = true)) {
           rewardsManager.getPaymentCompleted(packageName, sku)
-              .flatMapCompletable { purchase: Purchase ->
+              .flatMapCompletable { purchase ->
                 Completable.fromAction { view.showTransactionCompleted() }
                     .subscribeOn(viewScheduler)
                     .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
@@ -93,31 +94,27 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                     })
               }
               .observeOn(viewScheduler)
-              .onErrorResumeNext { throwable: Throwable ->
+              .onErrorResumeNext {
                 Completable.fromAction {
-                  throwable.printStackTrace()
+                  it.printStackTrace()
                   view.showError(null)
                   view.hideLoading()
                 }
               }
         } else rewardsManager.getTransaction(packageName, sku, amount)
             .firstOrError()
-            .map<String>(Transaction::txId)
-            .doOnSuccess { uid: String -> view.finish(uid) }
+            .map(Transaction::txId)
+            .doOnSuccess { view.finish(it) }
             .ignoreElement()
       }
-      RewardPayment.Status.ERROR -> Completable.fromAction {
-        Completable.fromAction { view.showError(null) }
-      }
-      RewardPayment.Status.FORBIDDEN -> Completable.fromAction {
+      Status.ERROR -> Completable.fromAction { view.showError(null) }
+      Status.FORBIDDEN -> Completable.fromAction {
         handleFraudFlow()
       }
-      RewardPayment.Status.NO_NETWORK -> Completable.fromAction {
+      Status.NO_NETWORK -> Completable.fromAction {
         view.showNoNetworkError()
         view.hideLoading()
       }
-      else -> Completable.error(UnsupportedOperationException(
-          "Transaction status " + transaction.status + " not supported"))
     }
   }
 
@@ -148,9 +145,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     )
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
   fun sendPaymentEvent() {
     analytics.sendPaymentEvent(packageName, transactionBuilder.skuId,
@@ -174,11 +169,19 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   }
 
   private fun sendPaymentErrorEvent(transaction: RewardPayment) {
-    if (transaction.status == RewardPayment.Status.ERROR || transaction.status == RewardPayment.Status.NO_NETWORK || transaction.status == RewardPayment.Status.FORBIDDEN) {
-      analytics.sendPaymentErrorEvent(packageName, transactionBuilder.skuId,
-          transactionBuilder.amount()
-              .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.type,
-          transaction.status.toString())
+    val status = transaction.status
+    if (status === Status.ERROR || status === Status.NO_NETWORK || status === Status.FORBIDDEN) {
+      if (transaction.errorCode == null && transaction.errorMessage == null) {
+        analytics.sendPaymentErrorEvent(packageName, transactionBuilder.skuId,
+            transactionBuilder.amount()
+                .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.type,
+            status.toString())
+      } else {
+        analytics.sendPaymentErrorWithDetailsEvent(packageName, transactionBuilder.skuId,
+            transactionBuilder.amount()
+                .toString(), BillingAnalytics.PAYMENT_METHOD_REWARDS, transactionBuilder.type,
+            transaction.errorCode.toString(), transaction.errorMessage.toString())
+      }
     }
   }
 
@@ -190,5 +193,4 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
         .subscribe())
   }
-
 }
