@@ -187,9 +187,18 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
+              if (it.action != null) {
+                Completable.fromAction {
+                  handlePaymentModel(it, priceAmount, priceCurrency, appcValue)
+                }
+              } else {
+                handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
+              }
             }
-            .subscribe({}, { it.printStackTrace() }))
+            .subscribe({}, {
+              it.printStackTrace()
+              view.showSpecificError(R.string.unknown_error)
+            }))
   }
 
   private fun handleForgetCardClick() {
@@ -230,9 +239,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe())
   }
 
-  //Called if is paypal
-  private fun handlePaymentDetails(priceAmount: BigDecimal,
-                                   priceCurrency: String) {
+  //Called if is paypal or 3DS
+  private fun handlePaymentDetails(priceAmount: BigDecimal, priceCurrency: String) {
     disposables.add(view.getPaymentDetails()
         .observeOn(viewScheduler)
         .doOnNext {
@@ -337,10 +345,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     } else {
       view.showLoading()
       view.lockRotation()
-      view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
       handlePaymentDetails(priceAmount, priceCurrency)
-      navigator.navigateToUriForResult(paymentModel.redirectUrl)
-      waitingResult = true
+      if (paymentModel.action != null) {
+        if (paymentModel.action?.type == "redirect") {
+          view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
+          navigator.navigateToUriForResult(paymentModel.redirectUrl)
+          waitingResult = true
+        } else {
+          view.set3DSComponent(paymentModel.uid, paymentModel.action!!)
+        }
+      }
     }
   }
 

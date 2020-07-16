@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
+import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -81,6 +82,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
+  private lateinit var adyen3DS2Component: Adyen3DS2Component
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
@@ -90,7 +92,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private var adyenCardImageLayout: RoundCornerImageView? = null
   private var adyenSaveDetailsSwitch: SwitchCompat? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
-  private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
+  private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var keyboardTopUpRelay: PublishRelay<Boolean>? = null
   private var validationSubject: PublishSubject<Boolean>? = null
   private var isStored = false
@@ -310,7 +312,15 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun setRedirectComponent(uid: String, action: Action) {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.observe(this, Observer {
-      paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details!!, it.paymentData))
+    })
+  }
+
+  override fun set3DSComponent(uid: String, action: Action) {
+    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
+    adyen3DS2Component.handleAction(activity!!, action)
+    adyen3DS2Component.observe(this, Observer {
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details!!, it.paymentData))
     })
   }
 
@@ -522,7 +532,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private val bonusSymbol: String by lazy {
     if (arguments!!.containsKey(BONUS_SYMBOL)) {
-      arguments!!.getString(BONUS_SYMBOL)
+      arguments!!.getString(BONUS_SYMBOL, "")
     } else {
       throw IllegalArgumentException("Bonus symbol not found")
     }

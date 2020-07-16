@@ -53,7 +53,7 @@ interface AdyenPaymentView {
 
   fun submitUriResult(uri: Uri)
 
-  fun getPaymentDetails(): Observable<RedirectComponentModel>
+  fun getPaymentDetails(): Observable<AdyenComponentResponseModel>
 
   fun forgetCardClick(): Observable<Any>
 

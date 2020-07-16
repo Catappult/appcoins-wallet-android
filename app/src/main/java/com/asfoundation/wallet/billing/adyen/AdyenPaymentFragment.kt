@@ -95,7 +95,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private lateinit var redirectComponent: RedirectComponent
   private var backButton: PublishRelay<Boolean>? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
-  private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
+  private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
@@ -304,7 +304,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun setRedirectComponent(action: Action, uid: String) {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.observe(this, Observer {
-      paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details!!, it.paymentData))
     })
   }
 
@@ -333,7 +333,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
 
-  override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
+  override fun getPaymentDetails(): Observable<AdyenComponentResponseModel> =
+      paymentDetailsSubject!!
 
   override fun getAdyenSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
