@@ -10,6 +10,7 @@ import android.view.WindowManager
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import retrofit2.HttpException
 import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -67,6 +68,15 @@ fun Drawable.toBitmap(): Bitmap {
   this.setBounds(0, 0, canvas.width, canvas.height)
   this.draw(canvas)
   return bitmap
+}
+
+fun HttpException.getMessage(): String {
+  val reader = this.response()
+      ?.errorBody()
+      ?.charStream()
+  val message = reader?.readText()
+  reader?.close()
+  return if (message.isNullOrBlank()) message() else message
 }
 
 inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDecimal {

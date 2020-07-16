@@ -175,7 +175,7 @@ public class InAppPurchaseInteractor {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
         purchase.getSignature()
             .getValue(), billingSerializer.serializeSignatureData(purchase),
-        transaction.getOrderReference());
+        transaction.getOrderReference(), transaction.getErrorCode(), transaction.getErrorMessage());
   }
 
   public Single<Boolean> isWalletFromBds(String packageName, String wallet) {

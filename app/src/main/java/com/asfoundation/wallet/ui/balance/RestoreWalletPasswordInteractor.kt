@@ -11,9 +11,9 @@ class RestoreWalletPasswordInteractor(private val gson: Gson,
                                       private val balanceInteract: BalanceInteract,
                                       private val restoreWalletInteractor: RestoreWalletInteractor) {
 
-  fun extractWalletAddress(keystore: String): Single<String> {
+  fun extractWalletAddress(keystore: String): Single<String> = Single.create {
     val parsedKeystore = gson.fromJson(keystore, Keystore::class.java)
-    return Single.just("0x" + parsedKeystore.address)
+    it.onSuccess("0x" + parsedKeystore.address)
   }
 
   fun getOverallBalance(address: String): Observable<FiatValue> =

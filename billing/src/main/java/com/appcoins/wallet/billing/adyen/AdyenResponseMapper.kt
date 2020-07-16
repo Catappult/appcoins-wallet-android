@@ -7,8 +7,9 @@ import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.billing.util.Error
 import org.json.JSONObject
+import com.appcoins.wallet.billing.util.getMessage
+import com.appcoins.wallet.billing.util.isNoNetworkException
 import retrofit2.HttpException
-import java.io.IOException
 
 class AdyenResponseMapper {
 
@@ -76,14 +77,7 @@ class AdyenResponseMapper {
     val message: String?
     if (throwable is HttpException) {
       code = throwable.code()
-      val retrofitMessage = throwable.response()
-          ?.errorBody()
-          ?.string()
-      if (retrofitMessage.isNullOrBlank()) {
-        message = throwable.message
-      } else {
-        message = retrofitMessage
-      }
+      message = throwable.getMessage()
     } else {
       code = null
       message = throwable.message
@@ -101,10 +95,6 @@ class AdyenResponseMapper {
       }
     }
     return PaymentInfoModel(Error(true))
-  }
-
-  fun Throwable?.isNoNetworkException(): Boolean {
-    return this != null && (this is IOException || (this.cause != null && this.cause is IOException))
   }
 
   companion object {
