@@ -249,7 +249,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           view.setFinishingPurchase()
         }
         .observeOn(networkScheduler)
-        .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
+        .flatMapSingle {
+          adyenPaymentInteractor.submitRedirect(it.uid, it.details!!, it.paymentData)
+        }
         .observeOn(viewScheduler)
         .flatMapCompletable {
           handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)

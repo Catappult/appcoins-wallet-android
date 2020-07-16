@@ -312,7 +312,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun setRedirectComponent(uid: String) {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.observe(this, Observer {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details!!, it.paymentData))
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
     })
   }
 
@@ -320,7 +320,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
     adyen3DS2Component.handleAction(activity!!, action)
     adyen3DS2Component.observe(this, Observer {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details!!, it.paymentData))
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
     })
   }
 

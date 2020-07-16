@@ -296,7 +296,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handlePaymentDetails() {
     disposables.add(view.getPaymentDetails()
         .observeOn(networkScheduler)
-        .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
+        .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details!!, it.paymentData) }
         .observeOn(viewScheduler)
         .flatMapCompletable {
           handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.status,
