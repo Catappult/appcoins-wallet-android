@@ -77,7 +77,7 @@ class PaymentMethodsPresenter(
           }
           handlePositiveButtonText(selectedPaymentMethod)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleBuyClick() {
@@ -102,7 +102,7 @@ class PaymentMethodsPresenter(
             else -> return@doOnNext
           }
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletBlockStatus() {
@@ -117,7 +117,7 @@ class PaymentMethodsPresenter(
         .andThen { Completable.fromAction { view.hideLoading() } }
         .doOnSubscribe { view.showProgressBarLoading() }
         .doOnError { showError(it) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -126,7 +126,7 @@ class PaymentMethodsPresenter(
       disposables.add(isSetupCompleted()
           .doOnComplete { view.hideLoading() }
           .subscribeOn(viewScheduler)
-          .subscribe())
+          .subscribe({}, { it.printStackTrace() }))
       return
     }
     disposables.add(waitForUi(transaction.skuId)
@@ -170,7 +170,7 @@ class PaymentMethodsPresenter(
           paymentMethodsInteract.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
               appPackage, transaction.skuId, developerPayload, isBds)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun finishProcess(skuId: String?): Completable {
@@ -409,8 +409,9 @@ class PaymentMethodsPresenter(
   private fun handleSupportClicks() {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
         .flatMapCompletable { paymentMethodsInteract.showSupport(gamificationLevel) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -451,7 +452,7 @@ class PaymentMethodsPresenter(
             paymentMethodsInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> })
             .take(1)
             .subscribeOn(networkThread)
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun getPreSelectedPaymentMethod(
@@ -482,7 +483,7 @@ class PaymentMethodsPresenter(
   private fun getLastUsedPaymentMethod(paymentMethods: List<PaymentMethod>): String {
     val lastUsedPaymentMethod = paymentMethodsInteract.getLastUsedPaymentMethod()
     for (it in paymentMethods) {
-      if(it.isEnabled) {
+      if (it.isEnabled) {
         if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id &&
             (lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC.id ||
                 lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)) {
