@@ -1,16 +1,15 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-
-/**
- * Created by franciscocalado on 20/07/2018.
- */
+import java.util.concurrent.TimeUnit
 
 class IabPresenter(private val view: IabView,
                    private val networkScheduler: Scheduler,
@@ -18,11 +17,47 @@ class IabPresenter(private val view: IabView,
                    private val disposable: CompositeDisposable,
                    private val billingAnalytics: BillingAnalytics,
                    private var firstImpression: Boolean,
-                   private val iabInteract: IabInteract) {
+                   private val iabInteract: IabInteract,
+                   private val walletBlockedInteract: WalletBlockedInteract) {
 
   fun present() {
     handleAutoUpdate()
     handleUserRegistration()
+    handleSupportClicks()
+    handleErrorDismisses()
+  }
+
+  private fun handleErrorDismisses() {
+    disposable.add(view.errorDismisses()
+        .doOnNext { view.close(Bundle()) }
+        .subscribe({ }, { view.close(Bundle()) }))
+  }
+
+  private fun handleSupportClicks() {
+    disposable.add(view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { iabInteract.showSupport() }
+        .subscribe()
+    )
+  }
+
+  fun handleWalletBlockedCheck(@StringRes error: Int) {
+    disposable.add(
+        walletBlockedInteract.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              if (it) view.showError(error)
+              else view.showPaymentMethodsView()
+            }
+            .subscribe({}, { handleError(it) })
+    )
+  }
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    view.finishWithError()
   }
 
   fun handleBackupNotifications(bundle: Bundle) {

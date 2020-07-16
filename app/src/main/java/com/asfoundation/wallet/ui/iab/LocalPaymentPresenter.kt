@@ -138,6 +138,33 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     )
   }
 
+  private fun handleFraudFlow() {
+    disposables.add(
+        localPaymentInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { blocked ->
+              if (blocked) {
+                localPaymentInteractor.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) view.showError(R.string.purchase_wallet_error_contact_us)
+                      else view.showWalletValidation(R.string.purchase_wallet_error_contact_us)
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { view.showError(R.string.purchase_wallet_error_contact_us) }
+              }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              view.showError(R.string.purchase_wallet_error_contact_us)
+            })
+    )
+  }
+
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
     return when {
@@ -210,7 +237,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    view.showError(mapError(throwable))
+    if (throwable is HttpException && throwable.code() == FORBIDDEN_CODE) handleFraudFlow()
+    else view.showError(mapError(throwable))
   }
 
   fun onSaveInstanceState(outState: Bundle) {
@@ -256,7 +284,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun mapHttpError(exceptiont: HttpException): Int {
     return when (exceptiont.code()) {
       FORBIDDEN_CODE -> R.string.purchase_wallet_error_contact_us
-     else -> R.string.unknown_error
+      else -> R.string.unknown_error
     }
   }
 }

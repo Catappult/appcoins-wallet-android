@@ -118,8 +118,8 @@ public class AsfInAppPurchaseInteractor {
 
   private Payment map(BdsTransactionService.BdsTransaction transaction) {
     return new Payment(transaction.getKey(), mapStatus(transaction.getStatus()), null, null,
-        transaction.getPackageName(), null, transaction.getSkuId(),
-        transaction.getOrderReference());
+        transaction.getPackageName(), null, transaction.getSkuId(), transaction.getOrderReference(),
+        null, null);
   }
 
   private Payment.Status mapStatus(BdsTransactionService.BdsTransaction.Status status) {
@@ -140,7 +140,8 @@ public class AsfInAppPurchaseInteractor {
         paymentTransaction.getTransactionBuilder()
             .fromAddress(), paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),
-        paymentTransaction.getOrderReference());
+        paymentTransaction.getOrderReference(), paymentTransaction.getErrorCode(),
+        paymentTransaction.getErrorMessage());
   }
 
   private Payment.Status mapStatus(PaymentTransaction.PaymentState state) {
@@ -205,7 +206,8 @@ public class AsfInAppPurchaseInteractor {
                 mapStatus(paymentTransaction.getState()), paymentTransaction.getTransactionBuilder()
                 .fromAddress(), paymentTransaction.getBuyHash(),
                 paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
-                paymentTransaction.getProductId(), null))
+                paymentTransaction.getProductId(), null, paymentTransaction.getErrorCode(),
+                paymentTransaction.getErrorMessage()))
             .toList());
   }
 

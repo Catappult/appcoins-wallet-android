@@ -9,18 +9,21 @@ data class Transaction(val sku: String?,
                        val oemAddress: String,
                        val packageName: String,
                        val amount: BigDecimal,
-                       val origin: String,
+                       val origin: String?,
                        val status: Status,
                        var txId: String?,
                        val payload: String?,
                        val callback: String?,
                        val orderReference: String?,
-                       val referrerUrl: String?) {
-  constructor(transaction: Transaction, status: Status) : this(transaction.sku, transaction.type,
+                       val referrerUrl: String?,
+                       val errorCode: Int? = null,
+                       val errorMessage: String? = null) {
+  constructor(transaction: Transaction, status: Status, errorCode: Int? = null,
+              errorMessage: String? = null) : this(transaction.sku, transaction.type,
       transaction.developerAddress, transaction.oemAddress, transaction.storeAddress,
       transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId,
       transaction.payload, transaction.callback, transaction.orderReference,
-      transaction.referrerUrl)
+      transaction.referrerUrl, errorCode, errorMessage)
 
   fun isBds(): Boolean = this.origin == "BDS" || this.origin == "UNITY"
 

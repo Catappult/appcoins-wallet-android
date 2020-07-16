@@ -11,34 +11,23 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class AppcoinsRewards(
-    private val repository: AppcoinsRewardsRepository,
-    private val walletService: WalletService,
-    private val cache: Repository<String, Transaction>,
-    private val scheduler: Scheduler,
-    private val billing: Billing,
-    private val errorMapper: ErrorMapper) {
+class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
+                      private val walletService: WalletService,
+                      private val cache: Repository<String, Transaction>,
+                      private val scheduler: Scheduler,
+                      private val billing: Billing,
+                      private val errorMapper: ErrorMapper) {
 
-  fun getBalance(address: String): Single<BigDecimal> {
-    return repository.getBalance(address)
-  }
+  fun getBalance(address: String): Single<BigDecimal> = repository.getBalance(address)
 
   fun getBalance(): Single<BigDecimal> {
     return walletService.getWalletAddress()
         .flatMap { getBalance(it) }
   }
 
-  fun pay(amount: BigDecimal,
-          origin: String, sku: String?,
-          type: String,
-          developerAddress: String,
-          storeAddress: String,
-          oemAddress: String,
-          packageName: String,
-          payload: String?,
-          callbackUrl: String?,
-          orderReference: String?,
-          referrerUrl: String?): Completable {
+  fun pay(amount: BigDecimal, origin: String?, sku: String?, type: String, developerAddress: String,
+          storeAddress: String, oemAddress: String, packageName: String, payload: String?,
+          callbackUrl: String?, orderReference: String?, referrerUrl: String?): Completable {
     return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
             origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
@@ -76,16 +65,18 @@ class AppcoinsRewards(
                     }
                     .onErrorResumeNext { t ->
                       t.printStackTrace()
+                      val transactionError = errorMapper.map(t)
                       cache.save(getKey(transaction),
-                          Transaction(transaction, errorMapper.map(t)))
+                          Transaction(transaction, transactionError.status,
+                              transactionError.errorCode,
+                              transactionError.errorMessage))
                     }
               }
         }
         .subscribe()
   }
 
-  private fun getOrigin(
-      transaction: Transaction) =
+  private fun getOrigin(transaction: Transaction) =
       if (transaction.isBds()) transaction.origin else null
 
   private fun waitTransactionCompletion(
@@ -96,9 +87,7 @@ class AppcoinsRewards(
           billing.getAppcoinsTransaction(createdTransaction.uid, scheduler)
               .toObservable()
         }
-        .takeUntil { pendingTransaction ->
-          pendingTransaction.status != Status.PROCESSING
-        }
+        .takeUntil { pendingTransaction -> pendingTransaction.status != Status.PROCESSING }
         .ignoreElements()
 
   }
@@ -121,8 +110,7 @@ class AppcoinsRewards(
           walletService.signContent(walletAddress)
               .flatMap { signature ->
                 repository.sendCredits(toWallet, walletAddress, signature, amount, "BDS",
-                    "TRANSFER",
-                    packageName)
+                    "TRANSFER", packageName)
               }
         }
   }

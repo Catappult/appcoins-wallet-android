@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
@@ -7,9 +7,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function6
 
-class PoaCodeValidationPresenter(
-    private val view: PoaCodeValidationView,
-    private val activity: PoaWalletValidationView?,
+class CodeValidationDialogPresenter(
+    private val view: CodeValidationDialogView,
+    private val activity: WalletValidationDialogView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
@@ -81,7 +81,8 @@ class PoaCodeValidationPresenter(
               } else {
                 view.setButtonState(false)
               }
-            }).subscribe { })
+            })
+            .subscribe { })
   }
 
   private fun isValidInput(first: String, second: String, third: String,

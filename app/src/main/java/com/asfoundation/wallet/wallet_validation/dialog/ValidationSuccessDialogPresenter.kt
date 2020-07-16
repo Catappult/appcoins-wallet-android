@@ -1,14 +1,14 @@
-package com.asfoundation.wallet.wallet_validation.poa
+package com.asfoundation.wallet.wallet_validation.dialog
 
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 
-class PoaValidationSuccessPresenter(
-    private val view: PoaValidationSuccessView,
+class ValidationSuccessDialogPresenter(
+    private val view: ValidationSuccessDialogView,
     private val service: ProofOfAttentionService,
     private val disposables: CompositeDisposable,
-    private val activity: PoaWalletValidationView?
+    private val activity: WalletValidationDialogView?
 ) {
 
   fun present() {

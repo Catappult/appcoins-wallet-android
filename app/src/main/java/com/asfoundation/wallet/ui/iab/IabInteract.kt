@@ -15,6 +15,8 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
   }
 
+  fun showSupport() = supportInteractor.displayChatScreen()
+
   fun hasPreSelectedPaymentMethod() = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
 
   fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod

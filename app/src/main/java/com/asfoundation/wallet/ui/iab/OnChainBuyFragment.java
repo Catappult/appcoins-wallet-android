@@ -17,6 +17,7 @@ import com.airbnb.lottie.TextDelegate;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.logging.Logger;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
@@ -45,6 +46,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private static final String GAMIFICATION_LEVEL = "gamification_level";
   @Inject OnChainBuyInteract onChainBuyInteract;
   @Inject BillingAnalytics analytics;
+  @Inject Logger logger;
   private Button okErrorButton;
   private OnChainBuyPresenter presenter;
   private View loadingView;
@@ -111,12 +113,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
     presenter = new OnChainBuyPresenter(this, AndroidSchedulers.mainThread(), Schedulers.io(),
         new CompositeDisposable(), onChainBuyInteract.getBillingMessagesMapper(), isBds, analytics,
-        getAppPackage(), data, gamificationLevel, onChainBuyInteract);
+        getAppPackage(), data, gamificationLevel, logger, onChainBuyInteract);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
 
-    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
+    presenter.present(extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
 
     if (StringUtils.isNotBlank(getBonus())) {
@@ -151,15 +153,15 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView = null;
   }
 
-  @Override public Observable<Object> getOkErrorClick() {
+  @Override public @NotNull Observable<Object> getOkErrorClick() {
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public Observable<Object> getSupportIconClick() {
+  @Override public @NotNull Observable<Object> getSupportIconClick() {
     return RxView.clicks(supportIcon);
   }
 
-  @Override public Observable<Object> getSupportLogoClick() {
+  @Override public @NotNull Observable<Object> getSupportLogoClick() {
     return RxView.clicks(supportLogo);
   }
 
@@ -235,6 +237,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void lockRotation() {
     iabView.lockRotation();
+  }
+
+  @Override public void showWalletValidation(@StringRes int error) {
+    iabView.showWalletValidation(error);
   }
 
   @Override public void onAttach(Context context) {
