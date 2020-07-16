@@ -17,6 +17,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
+import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -93,6 +94,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
+  private lateinit var adyen3DS2Component: Adyen3DS2Component
   private var backButton: PublishRelay<Boolean>? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
@@ -301,12 +303,22 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     iabView.showPaymentMethodsView()
   }
 
-  override fun setRedirectComponent(action: Action, uid: String) {
+  override fun setRedirectComponent(uid: String) {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.observe(this, Observer {
       paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details!!, it.paymentData))
     })
   }
+
+
+  override fun set3DSComponent(uid: String, action: Action) {
+    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
+    adyen3DS2Component.handleAction(activity!!, action)
+    adyen3DS2Component.observe(this, Observer {
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details!!, it.paymentData))
+    })
+  }
+
 
   override fun forgetCardClick(): Observable<Any> {
     return if (change_card_button != null) RxView.clicks(change_card_button)

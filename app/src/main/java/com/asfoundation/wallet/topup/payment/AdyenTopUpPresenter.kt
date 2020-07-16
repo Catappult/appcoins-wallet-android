@@ -5,6 +5,8 @@ import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
@@ -166,39 +168,38 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   //Called if is card
   private fun handleTopUpClick(priceAmount: BigDecimal, priceCurrency: String, appcValue: String) {
-    disposables.add(
-        view.topUpButtonClicked()
-            .flatMapSingle {
-              view.retrievePaymentData()
-                  .firstOrError()
+    disposables.add(view.topUpButtonClicked()
+        .flatMapSingle {
+          view.retrievePaymentData()
+              .firstOrError()
+        }
+        .doOnNext {
+          view.showLoading()
+          view.lockRotation()
+          view.setFinishingPurchase()
+        }
+        .observeOn(networkScheduler)
+        .flatMapSingle {
+          topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up",
+              paymentType)
+          adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
+              returnUrl, priceAmount.toString(), priceCurrency,
+              mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
+        }
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          if (it.action != null) {
+            Completable.fromAction {
+              handlePaymentModel(it, priceAmount, priceCurrency, appcValue)
             }
-            .doOnNext {
-              view.showLoading()
-              view.lockRotation()
-              view.setFinishingPurchase()
-            }
-            .observeOn(networkScheduler)
-            .flatMapSingle {
-              topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up",
-                  paymentType)
-              adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
-                  returnUrl, priceAmount.toString(), priceCurrency,
-                  mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
-            }
-            .observeOn(viewScheduler)
-            .flatMapCompletable {
-              if (it.action != null) {
-                Completable.fromAction {
-                  handlePaymentModel(it, priceAmount, priceCurrency, appcValue)
-                }
-              } else {
-                handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
-              }
-            }
-            .subscribe({}, {
-              it.printStackTrace()
-              view.showSpecificError(R.string.unknown_error)
-            }))
+          } else {
+            handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
+          }
+        }
+        .subscribe({}, {
+          it.printStackTrace()
+          view.showSpecificError(R.string.unknown_error)
+        }))
   }
 
   private fun handleForgetCardClick() {
@@ -346,15 +347,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       view.showLoading()
       view.lockRotation()
       handlePaymentDetails(priceAmount, priceCurrency)
-      if (paymentModel.action != null) {
-        if (paymentModel.action?.type == "redirect") {
-          view.setRedirectComponent(paymentModel.uid, paymentModel.action!!)
-          navigator.navigateToUriForResult(paymentModel.redirectUrl)
-          waitingResult = true
-        } else {
-          view.set3DSComponent(paymentModel.uid, paymentModel.action!!)
-        }
-      }
+      handleAdyenAction(paymentModel)
     }
   }
 
@@ -402,6 +395,21 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private fun hideSpecificError() {
     currentError = 0
     view.hideErrorViews()
+  }
+
+  private fun handleAdyenAction(paymentModel: PaymentModel) {
+    if (paymentModel.action != null) {
+      val type = paymentModel.action?.type
+      if (type == REDIRECT) {
+        view.setRedirectComponent(paymentModel.uid)
+        navigator.navigateToUriForResult(paymentModel.redirectUrl)
+        waitingResult = true
+      } else if (type == THREEDS2FINGERPRINT || type == THREEDS2FINGERPRINT) {
+        view.set3DSComponent(paymentModel.uid, paymentModel.action!!)
+      } else {
+        handleSpecificError(R.string.unknown_error)
+      }
+    }
   }
 
   private fun handleErrors(paymentModel: PaymentModel, value: Double) {

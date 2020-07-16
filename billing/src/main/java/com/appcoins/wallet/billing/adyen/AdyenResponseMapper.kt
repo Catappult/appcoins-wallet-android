@@ -25,12 +25,17 @@ class AdyenResponseMapper {
 
   fun map(response: AdyenTransactionResponse): PaymentModel {
     val adyenResponse = response.payment
-    val actionType = adyenResponse.action?.get("type")?.asString
-    val jsonAction = JSONObject(adyenResponse.action.toString())
+    var actionType: String? = null
+    var jsonAction: JSONObject? = null
     var redirectUrl: String? = null
     var action: Action? = null
 
-    if (actionType != null) {
+    if (adyenResponse.action != null) {
+      actionType = adyenResponse.action.get("type")?.asString
+      jsonAction = JSONObject(adyenResponse.action.toString())
+    }
+
+    if (actionType != null && jsonAction != null) {
       when (actionType) {
         REDIRECT -> {
           action = RedirectAction.SERIALIZER.deserialize(jsonAction)
@@ -103,8 +108,8 @@ class AdyenResponseMapper {
   }
 
   companion object {
-    private val REDIRECT = "redirect"
-    private val THREEDS2FINGERPRINT = "threeDS2Fingerprint"
-    private val THREEDS2CHALLENGE = "threeDS2Challenge"
+    const val REDIRECT = "redirect"
+    const val THREEDS2FINGERPRINT = "threeDS2Fingerprint"
+    const val THREEDS2CHALLENGE = "threeDS2Challenge"
   }
 }

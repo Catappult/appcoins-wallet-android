@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
@@ -154,10 +156,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     } else {
       view.showLoading()
       view.lockRotation()
-      view.setRedirectComponent(paymentModel.action!!, paymentModel.uid)
-      navigator.navigateToUriForResult(paymentModel.redirectUrl)
-      waitingResult = true
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
+      handleAdyenAction(paymentModel)
     }
   }
 
@@ -500,6 +500,21 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           view.close(adyenPaymentInteractor.mapCancellation())
         }
         .subscribe({}, { view.showGenericError() }))
+  }
+
+  private fun handleAdyenAction(paymentModel: PaymentModel) {
+    if (paymentModel.action != null) {
+      val type = paymentModel.action?.type
+      if (type == REDIRECT) {
+        view.setRedirectComponent(paymentModel.uid)
+        navigator.navigateToUriForResult(paymentModel.redirectUrl)
+        waitingResult = true
+      } else if (type == THREEDS2FINGERPRINT || type == THREEDS2FINGERPRINT) {
+        view.set3DSComponent(paymentModel.uid, paymentModel.action!!)
+      } else {
+        view.showGenericError()
+      }
+    }
   }
 
   fun stop() {
