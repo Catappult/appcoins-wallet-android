@@ -205,8 +205,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           }
         }
         .subscribe({}, {
-          it.printStackTrace()
           view.showSpecificError(R.string.unknown_error)
+          logger.log(TAG, it)
         }))
   }
 
