@@ -61,7 +61,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
             return importKeystoreInternal(store, password, newPassword);
           }
         })
-        .doOnError(throwable -> throwable.printStackTrace());
+        .doOnError(Throwable::printStackTrace);
   }
 
   @Override public Single<Wallet> restorePrivateKey(String privateKey, String newPassword) {
@@ -170,7 +170,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
     try {
       JsonObject keyStore = JsonParser.parseString(keystore)
           .getAsJsonObject();
-      return keyStore.get("address")
+      return "0x" + keyStore.get("address")
           .getAsString();
     } catch (Exception ex) {
       throw new Exception("Invalid keystore: " + keystore);
