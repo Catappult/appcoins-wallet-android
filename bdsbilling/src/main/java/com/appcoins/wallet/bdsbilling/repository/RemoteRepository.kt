@@ -94,8 +94,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   internal fun getPaymentMethods(value: String?,
                                  currency: String?, type: String?,
-                                 filter: String?): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(value, currency, type, filter)
+                                 direct: Boolean? = null): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(value, currency, type, direct)
         .map { responseMapper.map(it) }
   }
 
@@ -169,11 +169,18 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Query("wallet.signature") walletSignature: String,
                         @Body data: Consumed): Completable
 
+    /**
+     * @param value, value of purchase
+     * @param currency, currency of purchase
+     * @param type, filter for appc and credits payment, use fiat if you don't want appc and credits
+     * @param direct, either if it returns non-direct payments (false) (earn appcoins and ask someone to pay) or not
+     *
+     */
     @GET("broker/8.20200311/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null,
                           @Query("price.currency") currency: String? = null,
                           @Query("currency.type") type: String? = null,
-                          @Query("filter.fields") filter: String? = null
+                          @Query("direct") direct: Boolean? = null
     ): Single<GetMethodsResponse>
 
     @FormUrlEncoded

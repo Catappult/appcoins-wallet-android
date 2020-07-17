@@ -42,7 +42,7 @@ class OnboardingInteract(
   fun getReferralInfo(): Single<ReferralModel> = referralInteractor.getReferralInfo()
 
   fun getPaymentMethodsIcons(): Single<List<String>> {
-    return bdsRepository.getPaymentMethods(type = "fiat", filter = "icon")
+    return bdsRepository.getPaymentMethods(type = "fiat", direct = true)
         .map { map(it) }
         .onErrorReturn { emptyList() }
   }
