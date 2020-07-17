@@ -112,7 +112,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             data.transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
             data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
             adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
-            servicesErrorMapper, data.gamificationLevel, topUpAnalytics, formatter, logger)
+            AdyenErrorCodeMapper(), servicesErrorMapper, data.gamificationLevel, topUpAnalytics,
+            formatter, logger)
   }
 
   override fun onAttach(context: Context) {

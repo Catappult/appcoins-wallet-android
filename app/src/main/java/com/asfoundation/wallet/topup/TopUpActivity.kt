@@ -27,12 +27,11 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.layout_adyen_error_top_up.*
+import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.error_message
 import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
 import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
 import kotlinx.android.synthetic.main.top_up_activity_layout.*
-import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 

@@ -16,7 +16,6 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
-import com.asfoundation.wallet.topup.CurrencyData
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -144,8 +143,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                   savedInstanceState)
               handleTopUpClick(it.priceAmount, it.priceCurrency)
             } else if (paymentType == PaymentType.PAYPAL.name) {
-              launchPaypal(it.paymentMethodInfo!!, it.priceAmount, it.priceCurrency,
-                  currencyData.appcValue)
+              launchPaypal(it.paymentMethodInfo!!, it.priceAmount, it.priceCurrency, appcValue)
             }
             loadBonusIntoView()
           }

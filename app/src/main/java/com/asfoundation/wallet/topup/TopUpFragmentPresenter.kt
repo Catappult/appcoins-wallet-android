@@ -75,7 +75,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .observeOn(viewScheduler)
         .doOnSuccess {
           if (it.isNotEmpty()) view.setupPaymentMethods(it)
-          view.hideLoadingButton()
         }
         .ignoreElement()
   }
@@ -245,7 +244,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnNext {
           if (interactor.isBonusValidAndActive(it)) {
             val scaledBonus = formatter.scaleFiat(it.amount)
-            view.setBonus(scaledBonus, it.currency)
+            view.showBonus(scaledBonus, it.currency)
           } else {
             view.removeBonus()
           }
@@ -273,6 +272,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                                   currency: String): Completable {
     return if (isValueInRange(limitValues, fiatAmount.toDouble())) {
       view.changeMainValueColor(true)
+      view.showBonusSkeletons()
       retrievePaymentMethods(fiatAmount, currency)
           .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
     } else {

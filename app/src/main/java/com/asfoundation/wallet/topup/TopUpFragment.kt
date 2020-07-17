@@ -319,16 +319,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     selectedPaymentMethodId = adapter.getSelectedItemData().id
   }
 
-  override fun hideLoadingButton() {
-    button_loading.visibility = View.INVISIBLE
-    button.visibility = View.VISIBLE
-  }
-
-  override fun showLoadingButton() {
-    button.visibility = View.INVISIBLE
-    button_loading.visibility = View.VISIBLE
-  }
-
   override fun rotateChangeCurrencyButton() {
     val rotateAnimation = RotateAnimation(
         0f,
@@ -402,7 +392,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     bonus_msg_skeleton.visibility = View.GONE
   }
 
-  override fun setBonus(bonus: BigDecimal, currency: String) {
+  override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
     showBonus()
   }
@@ -466,6 +456,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun showSkeletons() {
     payments_skeleton.visibility = View.VISIBLE
+    bonus_layout_skeleton.visibility = View.VISIBLE
+    bonus_msg_skeleton.visibility = View.VISIBLE
+  }
+
+  override fun showBonusSkeletons() {
+    bonus_msg.visibility = View.INVISIBLE
+    bonus_layout.visibility = View.INVISIBLE
     bonus_layout_skeleton.visibility = View.VISIBLE
     bonus_msg_skeleton.visibility = View.VISIBLE
   }

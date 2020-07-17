@@ -16,8 +16,6 @@ interface TopUpFragmentView {
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)
-  fun hideLoadingButton()
-  fun showLoadingButton()
   fun rotateChangeCurrencyButton()
   fun toggleSwitchCurrencyOn()
   fun toggleSwitchCurrencyOff()
@@ -44,4 +42,5 @@ interface TopUpFragmentView {
   fun setDefaultAmountValue(amount: String)
   fun removeBonus()
   fun showSkeletons()
+  fun showBonusSkeletons()
 }
