@@ -281,7 +281,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                            currency: String, fiatAmount: String, appcAmount: String,
+                                            currency: String, fiatAmount: String,
+                                            appcAmount: String,
                                             isBonusActive: Boolean, frequency: String?) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
     updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount, frequency)
@@ -309,7 +310,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_secondary.visibility = View.GONE
       payment_method_description_single.visibility = View.GONE
       if (isBonusActive) {
-        if (isSubscription) showBonus(R.string.subscription_bonus)
+        if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
         else showBonus(R.string.gamification_purchase_body)
       }
     }

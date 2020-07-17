@@ -21,8 +21,10 @@ import javax.inject.Inject
 class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   @Inject
   lateinit var walletService: WalletService
+
   @Inject
   lateinit var transferParser: TransferParser
+
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
   private lateinit var presenter: Erc681ReceiverPresenter
@@ -52,10 +54,10 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     }
   }
 
-  override fun startEipTransfer(transaction: TransactionBuilder, isBds: Boolean,
-                                developerPayload: String?) {
-    val intent: Intent = if (intent.data != null && intent.data.toString().contains("/buy?")) {
-      newIntent(this, intent, transaction, isBds, developerPayload)
+  override fun startEipTransfer(transaction: TransactionBuilder, isBds: Boolean) {
+    val intent: Intent = if (intent.data != null && intent.data.toString()
+            .contains("/buy?")) {
+      newIntent(this, intent, transaction, isBds, transaction.payload)
     } else {
       SendActivity.newIntent(this, intent)
     }

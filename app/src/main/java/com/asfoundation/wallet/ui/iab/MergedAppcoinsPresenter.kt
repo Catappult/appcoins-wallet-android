@@ -145,7 +145,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     when (selection) {
       APPC -> {
         view.hideVolatilityInfo()
-        view.showBonus(R.string.subscription_bonus.takeIf { isSubscription }
+        view.showBonus(R.string.subscriptions_bonus_body.takeIf { isSubscription }
             ?: R.string.gamification_purchase_body)
       }
       CREDITS -> {

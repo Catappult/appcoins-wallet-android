@@ -4,6 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.asfoundation.wallet.billing.partners.AddressService
 import io.reactivex.Completable
@@ -31,8 +32,9 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
         }
   }
 
-  fun getPaymentCompleted(packageName: String, sku: String?): Single<Purchase> {
-    return billing.getSkuPurchase(packageName, sku, Schedulers.io())
+  fun getPaymentCompleted(packageName: String, sku: String?,
+                          billingType: BillingSupportedType): Single<Purchase> {
+    return billing.getSkuPurchase(packageName, sku, Schedulers.io(), billingType)
   }
 
   fun getTransaction(packageName: String, sku: String?,

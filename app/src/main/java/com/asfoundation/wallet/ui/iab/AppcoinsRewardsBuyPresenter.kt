@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.appcoins.rewards.Transaction
-import com.appcoins.wallet.billing.repository.entity.TransactionData
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -80,9 +80,9 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     return when (transaction.status) {
       Status.PROCESSING -> Completable.fromAction { view.showLoading() }
       Status.COMPLETED -> {
-        if (isBds && transactionBuilder.type.equals(TransactionData.TransactionType.INAPP.name,
-                ignoreCase = true)) {
-          rewardsManager.getPaymentCompleted(packageName, sku)
+        if (isBds && isValidPaymentType(transactionBuilder.type)) {
+          val billingType = BillingSupportedType.valueOfInsensitive(transactionBuilder.type)
+          rewardsManager.getPaymentCompleted(packageName, sku, billingType)
               .flatMapCompletable { purchase ->
                 Completable.fromAction { view.showTransactionCompleted() }
                     .subscribeOn(viewScheduler)
@@ -192,5 +192,9 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         .observeOn(viewScheduler)
         .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
         .subscribe())
+  }
+
+  private fun isValidPaymentType(type: String): Boolean {
+    return type == "INAPP" || type == "SUBS"
   }
 }

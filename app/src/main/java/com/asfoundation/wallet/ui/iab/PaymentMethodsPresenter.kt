@@ -227,7 +227,7 @@ class PaymentMethodsPresenter(
     if (paymentMethodsInteract.isBonusActiveAndValid(forecastBonus)) {
       if (isSubscription) {
         view.setPurchaseBonus(forecastBonus.amount, forecastBonus.currency,
-            R.string.subscription_bonus)
+            R.string.subscriptions_bonus_body)
       } else {
         view.setPurchaseBonus(forecastBonus.amount, forecastBonus.currency,
             R.string.gamification_purchase_body)
@@ -306,8 +306,6 @@ class PaymentMethodsPresenter(
                                            fiatAmount: String, appcAmount: String,
                                            isBonusActive: Boolean, frequency: String?) {
     view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
-        TransactionData.TransactionType.DONATION.name
-            .equals(transaction.type, ignoreCase = true),
         mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive,
         frequency)
   }
@@ -483,7 +481,7 @@ class PaymentMethodsPresenter(
   private fun getLastUsedPaymentMethod(paymentMethods: List<PaymentMethod>): String {
     val lastUsedPaymentMethod = paymentMethodsInteract.getLastUsedPaymentMethod()
     for (it in paymentMethods) {
-      if(it.isEnabled) {
+      if (it.isEnabled) {
         if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id &&
             (lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC.id ||
                 lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)) {
@@ -506,7 +504,7 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper
           .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
       else -> if (isSubscription) {
-        view.showBonus(R.string.subscription_bonus)
+        view.showBonus(R.string.subscriptions_bonus_body)
       } else {
         view.showBonus(R.string.gamification_purchase_body)
       }

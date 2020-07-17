@@ -83,7 +83,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                 when (currentPaymentStep) {
                   CurrentPaymentStep.PAUSED_ON_CHAIN -> onChainBuyInteract.resume(uriString,
                       AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage,
-                      transaction.skuId, developerPayload, isBds)
+                      transaction.skuId, developerPayload, isBds, transaction.type)
 
                   CurrentPaymentStep.READY -> Completable.fromAction { setup(appcAmount) }
                       .subscribeOn(viewScheduler)
