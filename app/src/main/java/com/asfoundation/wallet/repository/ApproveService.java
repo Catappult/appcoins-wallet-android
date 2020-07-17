@@ -80,6 +80,9 @@ public class ApproveService {
       case NO_INTERNET:
         toReturn = Status.NO_INTERNET;
         break;
+      case FORBIDDEN:
+        toReturn = Status.FORBIDDEN;
+        break;
     }
     return toReturn;
   }
@@ -96,7 +99,7 @@ public class ApproveService {
   }
 
   public enum Status {
-    PENDING, APPROVING, APPROVED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET
+    PENDING, APPROVING, APPROVED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN
   }
 
   public class ApproveTransaction {

@@ -2,13 +2,17 @@ package com.asfoundation.wallet.topup
 
 import android.content.Intent
 import android.os.Bundle
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import androidx.annotation.StringRes
+import com.asf.wallet.R
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.WALLET_VALIDATION_REQUEST_CODE
+import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class TopUpActivityPresenter(private val view: TopUpActivityView,
-                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                             private val topUpInteractor: TopUpInteractor,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
                              private val disposables: CompositeDisposable) {
@@ -16,6 +20,26 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
     if (isCreating) {
       view.showTopUpScreen()
     }
+    handleSupportClicks()
+    handleTryAgainClicks()
+  }
+
+  private fun handleSupportClicks() {
+    disposables.add(view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { topUpInteractor.showSupport() }
+        .subscribe({}, { handleError(it) })
+    )
+  }
+
+  private fun handleTryAgainClicks() {
+    disposables.add(view.getTryAgainClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showTopUpScreen() }
+        .subscribe({}, { handleError(it) })
+    )
   }
 
   fun processActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -25,12 +49,37 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
       } else if (resultCode == WebViewActivity.FAIL) {
         view.cancelPayment()
       }
+    } else if (requestCode == WALLET_VALIDATION_REQUEST_CODE) {
+      var errorMessage = data?.getIntExtra(IabActivity.ERROR_MESSAGE, 0)
+      if (errorMessage == null || errorMessage == 0) {
+        errorMessage = R.string.unknown_error
+      }
+      handleWalletBlockedCheck(errorMessage)
     }
+  }
+
+  private fun handleWalletBlockedCheck(@StringRes error: Int) {
+    disposables.add(
+        topUpInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              view.popBackStack()
+              if (it) view.showError(error)
+              else view.showTopUpScreen()
+            }
+            .subscribe({}, { handleError(it) })
+    )
+  }
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    view.showError(R.string.unknown_error)
   }
 
   fun handleBackupNotifications(bundle: Bundle) {
     disposables.add(
-        inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
+        topUpInteractor.incrementAndValidateNotificationNeeded()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { notificationNeeded ->

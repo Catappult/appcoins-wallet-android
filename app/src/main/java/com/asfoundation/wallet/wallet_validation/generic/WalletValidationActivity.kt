@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.annotation.StringRes
 import com.asf.wallet.R
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.ERROR_MESSAGE
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
@@ -43,6 +45,10 @@ class WalletValidationActivity : BaseActivity(),
     intent.getStringExtra(PREVIOUS_CONTEXT)
   }
 
+  private val errorMessage: Int by lazy {
+    intent.getIntExtra(ERROR_MESSAGE, 0)
+  }
+
 
   companion object {
     const val FRAME_RATE = 30
@@ -57,8 +63,7 @@ class WalletValidationActivity : BaseActivity(),
 
     @JvmStatic
     fun newIntent(context: Context, hasBeenInvitedFlow: Boolean,
-                  navigateToTransactionsOnSuccess: Boolean,
-                  navigateToTransactionsOnCancel: Boolean,
+                  navigateToTransactionsOnSuccess: Boolean, navigateToTransactionsOnCancel: Boolean,
                   showToolbar: Boolean, previousContext: String): Intent {
       return Intent(context, WalletValidationActivity::class.java).apply {
         putExtra(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
@@ -66,6 +71,16 @@ class WalletValidationActivity : BaseActivity(),
         putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, navigateToTransactionsOnCancel)
         putExtra(SHOW_TOOLBAR, showToolbar)
         putExtra(PREVIOUS_CONTEXT, previousContext)
+      }
+    }
+
+    fun newIntent(context: Context, @StringRes error: Int): Intent {
+      return Intent(context, WalletValidationActivity::class.java).apply {
+        putExtra(HAS_BEEN_INVITED_FLOW, false)
+        putExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, false)
+        putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, false)
+        putExtra(SHOW_TOOLBAR, true)
+        putExtra(ERROR_MESSAGE, error)
       }
     }
   }
@@ -77,6 +92,7 @@ class WalletValidationActivity : BaseActivity(),
     outState.putInt(MAX_FRAME, maxFrame)
     outState.putInt(LOOP_ANIMATION, loopAnimation)
   }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
@@ -111,6 +127,11 @@ class WalletValidationActivity : BaseActivity(),
     scrollView.isHorizontalScrollBarEnabled = false
     scrollView.isVerticalScrollBarEnabled = false
     setupToolbar()
+
+    if (errorMessage != 0) {
+      val intent = Intent().apply { putExtra(ERROR_MESSAGE, errorMessage) }
+      setResult(RESULT_CANCELED, intent)
+    }
   }
 
   private fun setupToolbar() {
@@ -172,6 +193,9 @@ class WalletValidationActivity : BaseActivity(),
   override fun finishSuccessActivity() {
     if (navigateToTransactionsOnSuccess) {
       startActivity(TransactionsActivity.newIntent(this))
+    } else if (errorMessage != 0) {
+      val intent = Intent().apply { putExtra(ERROR_MESSAGE, errorMessage) }
+      setResult(RESULT_OK, intent)
     }
     finish()
   }
@@ -179,6 +203,9 @@ class WalletValidationActivity : BaseActivity(),
   override fun finishCancelActivity() {
     if (navigateToTransactionsOnCancel) {
       startActivity(TransactionsActivity.newIntent(this))
+    } else if (errorMessage != 0) {
+      val intent = Intent().apply { putExtra(ERROR_MESSAGE, errorMessage) }
+      setResult(RESULT_CANCELED, intent)
     }
     finish()
   }
@@ -188,8 +215,7 @@ class WalletValidationActivity : BaseActivity(),
     validation_progress_animation.setMinAndMaxFrame(minFrame, maxFrame)
     validation_progress_animation.repeatCount = loopAnimation
     validation_progress_animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) {
-      }
+      override fun onAnimationRepeat(animation: Animator?) = Unit
 
       override fun onAnimationEnd(animation: Animator?) {
         minFrame += FRAME_RATE
@@ -200,11 +226,9 @@ class WalletValidationActivity : BaseActivity(),
         validation_progress_animation.playAnimation()
       }
 
-      override fun onAnimationCancel(animation: Animator?) {
-      }
+      override fun onAnimationCancel(animation: Animator?) = Unit
 
-      override fun onAnimationStart(animation: Animator?) {
-      }
+      override fun onAnimationStart(animation: Animator?) = Unit
     })
     validation_progress_animation.playAnimation()
   }

@@ -56,7 +56,6 @@ import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.WalletLogger
-import com.asfoundation.wallet.navigator.UpdateNavigator
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
@@ -65,6 +64,7 @@ import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService
+import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -72,6 +72,7 @@ import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
@@ -527,9 +528,6 @@ internal class AppModule {
     }
   }
 
-  @Provides
-  fun provideUpdateNavigator() = UpdateNavigator()
-
   @Singleton
   @Provides
   fun provideSupportSharedPreferences(preferences: SharedPreferences) =
@@ -582,4 +580,12 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
+
+  @Singleton
+  @Provides
+  fun providesGamificationMapper(context: Context) = GamificationMapper(context)
+
+  @Singleton
+  @Provides
+  fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 }

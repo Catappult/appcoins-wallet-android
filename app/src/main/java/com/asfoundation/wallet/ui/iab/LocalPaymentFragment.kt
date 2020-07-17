@@ -273,6 +273,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private fun setViewState(viewState: ViewState?) = when (viewState) {
     COMPLETED -> showCompletedPayment()
     PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
+    // TODO we may need to improve the logic here, to handle different errors
     ERROR -> showError()
     LOADING -> showProcessingLoading()
     else -> {
@@ -287,9 +288,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
     complete_payment_view.lottie_transaction_success.setFontAssetDelegate(object :
         FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String?): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
+      override fun fetchFont(fontFamily: String?) =
+          Typeface.create("sans-serif-medium", Typeface.BOLD)
     })
   }
 
@@ -310,6 +310,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun getGotItClick() = RxView.clicks(got_it_button)
+
+  override fun showWalletValidation(error: Int) = iabView.showWalletValidation(error)
 
   override fun showProcessingLoading() {
     status = LOADING
@@ -363,10 +365,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     playAnimation()
   }
 
-  override fun showError() {
+  override fun showError(message: Int?) {
     status = ERROR
     error_message.text = getString(R.string.ok)
-    error_message.text = getString(R.string.activity_iab_error_message)
+    error_message.text = getString(message ?: R.string.activity_iab_error_message)
     pending_user_payment_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()
@@ -378,7 +380,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun dismissError() {
     status = NONE
     error_view.visibility = View.GONE
-    iabView.showError()
+    iabView.finishWithError()
   }
 
   override fun close() {

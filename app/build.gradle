@@ -18,8 +18,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 149
-    versionName "1.14.1.2"
+    versionCode 156
+    versionName "1.15.1.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -191,7 +191,7 @@ dependencies {
   implementation "com.adyen.checkout:card-ui:$project.adyen_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
 
-  implementation "io.intercom.android:intercom-sdk-base:$project.intercom_version"
+  implementation "io.intercom.android:intercom-sdk:$project.intercom_version"
 
   implementation "io.rakam:android-sdk:$project.rakam_version"
 
@@ -207,6 +207,8 @@ dependencies {
   implementation "com.asfoundation:appcoins-contract-proxy:$project.asf_sdk_version"
   implementation "com.asfoundation:ethereumj-android:$project.ethereumj_sdk_version"
 
+  implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
+
   implementation "com.romandanylyk:pageindicatorview:$project.pageindicatorview_version"
 
   implementation "org.web3j:core:$project.web3j_version"
@@ -220,6 +222,8 @@ dependencies {
   implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout_version"
 
   implementation "io.sentry:sentry-android:$project.sentry_version"
+
+  implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
@@ -235,3 +239,5 @@ def renameArtifact(defaultConfig) {
     }
   }
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -47,7 +47,9 @@ class AccountWalletService(private val accountKeyService: AccountKeystoreService
         .onErrorResumeNext { _: Throwable ->
           Observable.just(WalletGetterStatus.CREATING.toString())
               .mergeWith(
-                  walletCreatorInteract.create().toObservable().map { wallet -> wallet.address })
+                  walletCreatorInteract.create()
+                      .toObservable()
+                      .map { wallet -> wallet.address })
         }
   }
 

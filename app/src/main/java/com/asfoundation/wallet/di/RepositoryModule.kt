@@ -3,8 +3,6 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
@@ -33,6 +31,8 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
+import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_1_2
+import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_2_3
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
@@ -67,13 +67,15 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providePreferencesRepository(sharedPreferences: SharedPreferences): SharedPreferencesRepository {
+  fun providePreferencesRepository(
+      sharedPreferences: SharedPreferences): SharedPreferencesRepository {
     return SharedPreferencesRepository(sharedPreferences)
   }
 
   @Singleton
   @Provides
-  fun providePreferenceRepositoryType(sharedPreferenceRepository: SharedPreferencesRepository): PreferencesRepositoryType {
+  fun providePreferenceRepositoryType(
+      sharedPreferenceRepository: SharedPreferencesRepository): PreferencesRepositoryType {
     return sharedPreferenceRepository
   }
 
@@ -116,7 +118,8 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences): PromotionsRepository {
+  fun providePromotionsRepository(api: GamificationApi,
+                                  preferences: SharedPreferences): PromotionsRepository {
     return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences),
         getVersionCode())
   }
@@ -139,7 +142,8 @@ class RepositoryModule {
         .client(client)
         .baseUrl(BuildConfig.BACKEND_HOST)
         .build()
-    return OffChainTransactionsRepository(retrofit.create(TransactionsApi::class.java), SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US))
+    return OffChainTransactionsRepository(retrofit.create(TransactionsApi::class.java),
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US))
   }
 
   @Singleton
@@ -149,30 +153,13 @@ class RepositoryModule {
                                    defaultTokenProvider: DefaultTokenProvider,
                                    nonceObtainer: MultiWalletNonceObtainer,
                                    transactionsNetworkRepository: OffChainTransactions,
-                                   context: Context, sharedPreferences: SharedPreferences): TransactionRepositoryType {
-    val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-      override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
-            "CREATE TABLE IF NOT EXISTS TransactionEntityCopy (transactionId TEXT NOT "
-                + "NULL, relatedWallet TEXT NOT NULL, approveTransactionId TEXT, type TEXT NOT "
-                + "NULL, timeStamp INTEGER NOT NULL, processedTime INTEGER NOT NULL, status "
-                + "TEXT NOT NULL, value TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, "
-                + "currency TEXT, operations TEXT, sourceName TEXT, description TEXT, "
-                + "iconType TEXT, uri TEXT, PRIMARY KEY(transactionId, relatedWallet))")
-        database.execSQL("INSERT INTO TransactionEntityCopy (transactionId, relatedWallet, "
-            + "approveTransactionId, type, timeStamp, processedTime, status, value, `from`, `to`,"
-            + " currency, operations, sourceName, description, iconType, uri) SELECT "
-            + "transactionId, relatedWallet,approveTransactionId, type, timeStamp, processedTime,"
-            + " status, value, `from`, `to`, currency, operations, sourceName, description, "
-            + "iconType, uri FROM TransactionEntity")
-        database.execSQL("DROP TABLE TransactionEntity")
-        database.execSQL("ALTER TABLE TransactionEntityCopy RENAME TO TransactionEntity")
-      }
-    }
+                                   context: Context,
+                                   sharedPreferences: SharedPreferences): TransactionRepositoryType {
+
     val transactionsDao = Room.databaseBuilder(context.applicationContext,
         TransactionsDatabase::class.java,
         "transactions_database")
-        .addMigrations(MIGRATION_1_2)
+        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
         .build()
         .transactionsDao()
     val localRepository: TransactionsRepository =
@@ -215,8 +202,9 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
-      accountKeystoreService: AccountKeystoreService, walletBalanceService: WalletBalanceService,
-      analyticsSetup: RakamAnalytics): WalletRepositoryType {
+                              accountKeystoreService: AccountKeystoreService,
+                              walletBalanceService: WalletBalanceService,
+                              analyticsSetup: RakamAnalytics): WalletRepositoryType {
     return WalletRepository(preferencesRepositoryType, accountKeystoreService,
         walletBalanceService, Schedulers.io(), analyticsSetup)
   }

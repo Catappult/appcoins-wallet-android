@@ -10,6 +10,8 @@ interface HowItWorksView {
   fun showPeekInformation(totalSpend: String, bonusEarned: String, currencySymbol: String)
 
   fun showNextLevelFooter(userStatus: UserRewardsStatus)
+
   fun bottomSheetHeaderClick(): Observable<Any>
+
   fun changeBottomSheetState()
 }
