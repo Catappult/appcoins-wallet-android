@@ -80,8 +80,8 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     return when (transaction.status) {
       Status.PROCESSING -> Completable.fromAction { view.showLoading() }
       Status.COMPLETED -> {
-        if (isBds && isValidPaymentType(transactionBuilder.type)) {
-          val billingType = BillingSupportedType.valueOfInsensitive(transactionBuilder.type)
+        if (isBds && isManagedPaymentType(transactionBuilder.type)) {
+          val billingType = BillingSupportedType.valueOfProductType(transactionBuilder.type);
           rewardsManager.getPaymentCompleted(packageName, sku, billingType)
               .flatMapCompletable { purchase ->
                 Completable.fromAction { view.showTransactionCompleted() }
@@ -194,7 +194,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         .subscribe())
   }
 
-  private fun isValidPaymentType(type: String): Boolean {
+  private fun isManagedPaymentType(type: String): Boolean {
     return type == "INAPP" || type == "SUBS"
   }
 }
