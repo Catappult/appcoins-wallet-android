@@ -21,6 +21,7 @@ import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
+import com.asfoundation.wallet.App
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.backup.BackupInteract
@@ -197,10 +198,12 @@ class InteractModule {
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     billing: Billing, billingMessagesMapper: BillingMessagesMapper,
                                     supportInteractor: SupportInteractor,
+                                    walletBlockedInteract: WalletBlockedInteract,
+                                    smsValidationInteract: SmsValidationInteract,
                                     remoteRepository: RemoteRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
-        remoteRepository)
+        walletBlockedInteract, smsValidationInteract, remoteRepository)
   }
 
   @Provides
@@ -234,10 +237,12 @@ class InteractModule {
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
                                     walletService: WalletService,
-                                    supportInteractor: SupportInteractor): AdyenPaymentInteractor {
+                                    supportInteractor: SupportInteractor,
+                                    walletBlockedInteract: WalletBlockedInteract,
+                                    smsValidationInteract: SmsValidationInteract): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor)
+        walletService, supportInteractor, walletBlockedInteract, smsValidationInteract)
   }
 
   @Provides
@@ -286,9 +291,13 @@ class InteractModule {
   fun providesTopUpInteractor(repository: BdsRepository,
                               conversionService: LocalCurrencyConversionService,
                               gamificationInteractor: GamificationInteractor,
-                              topUpValuesService: TopUpValuesService) =
+                              topUpValuesService: TopUpValuesService,
+                              walletBlockedInteract: WalletBlockedInteract,
+                              inAppPurchaseInteractor: InAppPurchaseInteractor,
+                              supportInteractor: SupportInteractor) =
       TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
-          LinkedHashMap(), TopUpLimitValues())
+          LinkedHashMap(), TopUpLimitValues(), walletBlockedInteract, inAppPurchaseInteractor,
+          supportInteractor)
 
   @Singleton
   @Provides
@@ -342,15 +351,21 @@ class InteractModule {
   @Provides
   fun providesAppcoinsRewardsBuyInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                                          supportInteractor: SupportInteractor,
-                                         walletService: WalletService): AppcoinsRewardsBuyInteract {
-    return AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService)
+                                         walletService: WalletService,
+                                         walletBlockedInteract: WalletBlockedInteract,
+                                         smsValidationInteract: SmsValidationInteract): AppcoinsRewardsBuyInteract {
+    return AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService,
+        walletBlockedInteract, smsValidationInteract)
   }
 
   @Provides
   fun providesOnChainBuyInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                                  supportInteractor: SupportInteractor,
-                                 walletService: WalletService): OnChainBuyInteract {
-    return OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService)
+                                 walletService: WalletService,
+                                 walletBlockedInteract: WalletBlockedInteract,
+                                 smsValidationInteract: SmsValidationInteract): OnChainBuyInteract {
+    return OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService,
+        walletBlockedInteract, smsValidationInteract)
   }
 
   @Singleton
@@ -363,7 +378,6 @@ class InteractModule {
   @Singleton
   @Provides
   fun provideCampaignInteract(campaignService: CampaignService, walletService: WalletService,
-                              createWalletInteract: WalletCreatorInteract,
                               autoUpdateInteract: AutoUpdateInteract,
                               findDefaultWalletInteract: FindDefaultWalletInteract,
                               sharedPreferences: PreferencesRepositoryType): CampaignInteract {
@@ -373,8 +387,8 @@ class InteractModule {
 
   @Singleton
   @Provides
-  fun provideSupportInteractor(preferences: SupportSharedPreferences): SupportInteractor {
-    return SupportInteractor(preferences)
+  fun provideSupportInteractor(preferences: SupportSharedPreferences, app: App): SupportInteractor {
+    return SupportInteractor(preferences, app)
   }
 
   @Provides
@@ -490,9 +504,11 @@ class InteractModule {
                                preferencesRepositoryType: PreferencesRepositoryType,
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
+                               autoUpdateInteract: AutoUpdateInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
     return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, supportInteractor, walletsInteract, walletsEventSender)
+        preferencesRepositoryType, supportInteractor, walletsInteract, autoUpdateInteract,
+        walletsEventSender)
   }
 
   @Provides

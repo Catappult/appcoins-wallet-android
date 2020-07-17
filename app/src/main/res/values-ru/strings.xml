@@ -4,7 +4,7 @@
   <string name="title_send">Отправить</string>
   <string name="title_send_with_token">Отправить %s</string>
   <string name="title_request">Получить</string>
-  <string name="title_import">Recover Wallet</string>
+  <string name="title_import">Восстановить кошелёк</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Пароль</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Кошельки</string>
   <string name="cancel">отменить</string>
   <string name="confirm_delete_account">Убедитесь, что у вас есть резервная копия этого кошелька.</string>
-  <string name="action_import">Recover</string>
+  <string name="action_import">Восстановить</string>
   <string name="copy">Копировать в буфер</string>
   <string name="close">Закрыть</string>
   <string name="title_activity_settings">Параметры</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">Вы уверены, что хотите удалить этот кошелек?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Группа Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Установите пароль для шифрования вашего кошелька</string>
-  <string name="toast_message_wallet_imported">The wallet was recovered</string>
+  <string name="toast_message_wallet_imported">Кошелёк был восстановлен</string>
   <string name="toast_message_wallet_exported">Была создана резервная копия</string>
   <string name="toast_qr_code_no_address">QR-код не содержит допустимый адрес</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,7 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Использовать код</string>
-  <string name="settings_item_support">Contact Support Team</string>
+  <string name="settings_item_support">Связаться с поддержкой</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">В процессе&#8230;</string>
   <string name="local_payments_inprogress_body">Как только вы завершите платеж, вы получите AppCoins Credits на свой кошелек. После этого вернитесь в игру, чтобы совершить покупку!</string>
@@ -460,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Тип вашей карты пока не поддерживается. Попробуйте другую карту.</string>
   <string name="purchase_card_error_security">Вы уверены, что правильно ввели атрибуты безопасности? Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
+  <string name="purchase_wallet_error_contact_us">Ой, с вашим бумажником что-то не так. Пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
   <string name="error_contac_us_body">Если проблема не исчезнет – пожалуйста, свяжитесь с нами.</string>
   <!--Async Payments-->
@@ -532,7 +533,7 @@
   <string name="backup_confirmation_title">Остался всего один шаг</string>
   <string name="backup_confirmation_body">Держите свои резервные копии в безопасном месте! Где вы хотите их сохранить?</string>
   <string name="backup_confirmation_yes">ДА, ЗАКОНЧИТЬ</string>
-  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
+  <string name="backup_confirmation_no">НЕТ, СОХРАНИТЬ НА УСТРОЙСТВО</string>
   <string name="backup_done_title">Резервное копирование сделано!</string>
   <string name="backup_done_body">Вы уверены, что ваш файл с резервной копией в безопасном месте?</string>
   <string name="backup_confirmation_no_share_title">Резервное копирование сделано!</string>
@@ -541,26 +542,26 @@
   <string name="backup_save_dialogue_body">Введите имя для файла резервной копии.</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
   <string name="backup_confirmation_tips_1">Распечатайте и храните в безопасном месте.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
+  <string name="backup_confirmation_tips_2">Сохраните на диск USB.</string>
   <string name="backup_confirmation_tips_3">Скопируйте в личное безопасное облачное хранилище.</string>
   <string name="backup_send_via_title">Отправить бэкап через:</string>
   <string name="backup_send_button">ОТПРАВИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
   <string name="backup_save_button">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
-  <string name="import_wallet_title">Recover Wallet</string>
+  <string name="import_wallet_title">Восстановить кошелёк</string>
   <string name="import_wallet_body">Вставьте бэкап вашего кошелька ниже.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>
-  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
-  <string name="import_wallet_button">RECOVER WALLET</string>
+  <string name="import_wallet_file_button">ВОССТАНОВИТЬ ИЗ ФАЙЛА</string>
+  <string name="import_wallet_button">ВОССТАНОВИТЬ КОШЕЛЁК</string>
   <string name="import_wallet_password_body">Этот кошелёк защищен паролем!</string>
   <string name="import_wallet_wrong_password_body">Ой, неверный пароль!</string>
   <string name="error_invalid_private_key">Недопустимый приватный ключ</string>
   <string name="error_invalid_keystore">Недопустимое хранилище ключей</string>
-  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
-  <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
-  <string name="backup_notification_title">Make a backup of your wallet!</string>
-  <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
-  <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
+  <string name="backup_tooltip_body">Сделать резервную копию кошелька!</string>
+  <string name="backup_tooltip_later_button">ВОЗМОЖНО ПОЗЖЕ</string>
+  <string name="backup_tooltip_backup_button">КОПИРОВАТЬ</string>
+  <string name="backup_notification_title">Сделайте резервную копию кошелька!</string>
+  <string name="backup_notification_body">Обезопасьте ваши средства и гарантируйте, что у вас всегда будет доступ к вашему кошельку.</string>
+  <string name="backup_choose_wallet_title">Выберите кошелёк для создания резервной копии</string>
   <!--Wallets Management-->
   <string name="wallets_title">Кошельки</string>
   <string name="wallets_total_balance_title">Общий баланс в %s</string>
@@ -573,10 +574,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Общая сумма</string>
   <string name="wallets_address_copied_body">Адрес кошелька скопирован в буфер</string>
-  <string name="wallets_imported_body">Wallet successfuly recovered</string>
+  <string name="wallets_imported_body">Кошелёк успешно восстановлен</string>
   <string name="wallets_2nd_view_balance_title">Баланс:</string>
   <string name="wallets_2nd_view_other_wallets_title">Другие кошельки</string>
-  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
+  <string name="wallets_2nd_view_import_button">ВОССТАНОВИТЬ КОШЕЛЁК</string>
   <string name="wallets_2nd_view_create_button">СОЗДАТЬ НОВЫЙ</string>
   <string name="wallet_view_copy_button">КОПИРОВАТЬ</string>
   <string name="wallet_view_share_button">ПОДЕЛИТЬСЯ</string>
@@ -589,7 +590,7 @@
   <string name="remove_wallet_title">Удалить кошелёк</string>
   <string name="remove_wallet_body">Мы настоятельно рекомендуем сделать резервную копию кошелька перед удалением. Вы не сможете снова получить к нему доступ, если у вас нет такой копии.</string>
   <string name="remove_wallet_backup_button">СДЕЛАТЬ БЭКАП</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_no_backup_button">УДАЛИТЬ КОШЕЛЁК</string>
   <string name="remove_wallet_confirm_body">Вы уверены, что хотите удалить этот кошелек?</string>
   <string name="remove_wallet_no_button">НЕТ, ВЕРНУТЬСЯ</string>
   <string name="remove_wallet_yes_button">ДА, УДАЛИТЬ КОШЕЛЁК</string>
@@ -610,7 +611,95 @@
   <string name="support_new_message_title">У вас новое сообщение!</string>
   <string name="support_new_message_button">Нажмите, чтобы открыть</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
-  <string name="pioneer_gamification_title">You\'re a Pioneer</string>
-  <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
+  <string name="pioneer_bonus_updated_body">Проценты бонусов были обновлены %s.</string>
+  <string name="pioneer_gamification_title">Вы – первопроходец</string>
+  <string name="pioneer_gamification_body">Первопроходец – один из первых участников с увеличенными бонусами.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">Проверьте обновления</string>
+  <string name="check_updates_settings_subtitle">Текущая версия %s</string>
+  <string name="check_updates_checking_body">Ищем новую версию</string>
+  <string name="check_updates_no_updates_body">У вас последняя версия!</string>
+  <string name="check_updates_updates_available_title">Доступна новая версия</string>
+  <string name="check_updates_update_button">ОБНОВИТЬ СЕЙЧАС</string>
+  <string name="check_updates_settings_available_title">Доступна новая версия</string>
+  <string name="check_updates_settings_available_subtitle_button">Нажмите, чтобы обновить</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">Управление подписками</string>
+  <string name="subscriptions_title">Подписки</string>
+  <string name="subscriptions_active_title">Активные</string>
+  <string name="subscriptions_expired_title">Неактивные</string>
+  <string name="subscriptions_empty_title">Пока нет подписок</string>
+  <string name="subscriptions_empty_body">Подпишисывайтесь на сервисы ваших любимых приложений и игр, а мы разберёмся с периодическими платежами.</string>
+  <string name="subscriptions_details_billing_title">Оплата:</string>
+  <string name="subscriptions_details_next_payment_title">Следующая оплата:</string>
+  <string name="subscriptions_details_payment_method_title">Способ оплаты:</string>
+  <string name="subscriptions_details_last_bill">Последний счёт:</string>
+  <string name="subscriptions_details_start_date_title">Начало:</string>
+  <string name="subscriptions_details_cancelled_body">Отменена – истекает %s</string>
+  <string name="subscriptions_expiration_body">Истекает %s</string>
+  <string name="subscriptions_canceled_body">Отменена</string>
+  <string name="subscriptions_details_disclaimer">Стоимость в AppCoins может измениться для следующего платежа из-за курса обмена.</string>
+  <string name="subscriptions_details_button">ПОДРОБНОСТИ</string>
+  <string name="subscriptions_manage_button">УПРАВЛЯТЬ ПОДПИСКОЙ</string>
+  <string name="subscriptions_cancel_button">ОТМЕНИТЬ ПОДПИСКУ</string>
+  <string name="subscriptions_cancel_title">Отменить подписку</string>
+  <string name="subscriptions_cancel_body">Вы уверены, что хотите отменить подписку?</string>
+  <string name="subscriptions_cancel_no_button">НЕТ, ВЕРНУТЬСЯ</string>
+  <string name="subscriptions_cancel_yes_button">ДА, ОТМЕНИТЬ ПОДПИСКУ</string>
+  <string name="subscriptions_cancel_confirmation_title">Подписка отменена!</string>
+  <string name="subscriptions_cancel_confirmation_body">С вас больше не будут списываться средства за эту подписку, и вы ещё можете использовать её до %s.</string>
+  <string name="subscriptions_category_title">Подписка</string>
+  <string name="subscriptions_bonus_body">Такой бонус вы получите за каждую покупку.</string>
+  <string name="subscriptions_per_day">%1$s%2$s в день</string>
+  <string name="subscriptions_per_week">%1$s%2$s в неделю</string>
+  <string name="subscriptions_per_month">%1$s%2$s в месяц</string>
+  <string name="subscriptions_per_year">%1$s%2$s в год</string>
+  <!--New Gamification-->
+  <string name="gamif_title">Получите бонус до %s%%!</string>
+  <string name="gamif_bonus_received">Бонус получен</string>
+  <string name="gamif_spent">Потрачено, чтобы достичь этого уровня</string>
+  <string name="gamif_show_previous">Показать предыдущие достижения</string>
+  <string name="gamif_hide_previous">Скрыть предыдущие достижения</string>
+  <string name="gamif_next_goals">Потратьте %s AppCoins, чтобы достичь следующего уровня</string>
+  <string name="gamif_achievement_start">Вы начали своё путешествие</string>
+  <string name="gamif_achievement_start_sub">Только что взлетели с Земли!</string>
+  <string name="gamif_achievement_reach">Вы добрались до %s</string>
+  <string name="gamif_card_start">Вы всё ещё на Земле</string>
+  <string name="gamif_card_title">Вы на орбите %s</string>
+  <string name="gamif_card_body">Потратьте ещё %s AppCoins, чтобы достичь следующего уровня.</string>
+  <string name="gamif_bonus">Бонус %s%%</string>
+  <string name="gamif_placeholder_earth">Земле</string>
+  <string name="gamif_quote_earth">\"Земля – это то единственное, что у нас есть общего\" – Уэнделл Берри</string>
+  <string name="gamif_placeholder_moon">Луны</string>
+  <string name="gamif_quote_moon">\"Это один маленький шаг для человека, но гигантский скачок для всего человечества\" – Нил Армстронг</string>
+  <string name="gamif_distance_moon">384 400 километров от Земли</string>
+  <string name="gamif_placeholder_mars">Марса</string>
+  <string name="gamif_quote_mars">\"Я бы хотел умереть на Марсе. Но только не от удара о поверхность\" – Илон Маск</string>
+  <string name="gamif_distance_mars">121,8 миллиона километров от Земли</string>
+  <string name="gamif_placeholder_phobos">луны Фобос</string>
+  <string name="gamif_quote_phobos">\"Каждый из нас – луна, и имеет тёмную сторону, которую никому не показывает\" – Марк Твен</string>
+  <string name="gamif_distance_phobos">77,79 миллиона километров от Земли</string>
+  <string name="gamif_placeholder_jupiter">Юпитера</string>
+  <string name="gamif_quote_jupiter">\"Истины легко понять, когда они открыты; сложность в том, чтобы открыть их...\" – Галилео Галилей</string>
+  <string name="gamif_distance_jupiter">623,31 миллиона километров от Земли</string>
+  <string name="gamif_placeholder_europa">луны Европа</string>
+  <string name="gamif_quote_europa">\"Если вы обнаружите жизнь на Европе – как её назвать? Получается, это будут европейцы?\" – Нил Деграсс Тайсон</string>
+  <string name="gamif_distance_europa">628,3 миллиона километров от Земли</string>
+  <string name="gamif_placeholder_saturn">Сатурна</string>
+  <string name="gamif_quote_saturn">\"Мне больше всего нравится научная теория, утверждающая, что кольца Сатурна целиком состоят из багажа, потерянного при авиаперелётах\" – Марк Расселл</string>
+  <string name="gamif_distance_saturn">1,35 миллиарда километров от Земли</string>
+  <string name="gamif_placeholder_titan">луны Титан</string>
+  <string name="gamif_quote_titan">\"Я уверен, что Вселенная полна разумной жизни. Просто она слишком разумна, что заявится сюда\" – Артур Кларк</string>
+  <string name="gamif_distance_titan">1,4 миллиарда километров от Земли</string>
+  <string name="gamif_placeholder_uranus">Урана</string>
+  <string name="gamif_quote_uranus">\"Похоже, что луны Урана кто-то раскрутил\" – Сэр Роберт Ставелл Болл</string>
+  <string name="gamif_distance_uranus">3,03 миллиарда километров от Земли</string>
+  <string name="gamif_placeholder_neptune">Нептуна</string>
+  <string name="gamif_quote_neptune">\"Этой звезды на картах нет!\" – Генрих Луи д\'Арре в момент открытия Нептуна.</string>
+  <string name="gamif_distance_neptune">4,42 миллиарда километров от Земли</string>
+  <string name="gamif_placeholder_planetx">Планета %s</string>
+  <string name="gamif_quote_planetx">\"Где-то там нечто невероятное ждёт своего открытия\" – Карл Саган</string>
+  <string name="gamif_placeholder_unknown">неизветная планета</string>
+  <string name="gamif_distance_unkown">Местонахождение неизвестно</string>
+  <string name="gamif_placeholder_new_planet">новая планета</string>
 </resources>

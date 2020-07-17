@@ -5,8 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.TypedValue
+import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
+import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -14,6 +16,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
+import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -135,10 +138,39 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     )
   }
 
+  private fun handleFraudFlow() {
+    disposables.add(
+        localPaymentInteractor.isWalletBlocked()
+            .subscribeOn(networkScheduler)
+            .observeOn(networkScheduler)
+            .flatMap { blocked ->
+              if (blocked) {
+                localPaymentInteractor.isWalletVerified()
+                    .observeOn(viewScheduler)
+                    .doOnSuccess {
+                      if (it) view.showError(R.string.purchase_wallet_error_contact_us)
+                      else view.showWalletValidation(R.string.purchase_wallet_error_contact_us)
+                    }
+              } else {
+                Single.just(true)
+                    .observeOn(viewScheduler)
+                    .doOnSuccess { view.showError(R.string.purchase_wallet_error_contact_us) }
+              }
+            }
+            .observeOn(viewScheduler)
+            .subscribe({}, {
+              it.printStackTrace()
+              view.showError(R.string.purchase_wallet_error_contact_us)
+            })
+    )
+  }
+
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
     return when {
-      isErrorStatus(transaction) -> Completable.fromAction { view.showError() }
+      isErrorStatus(transaction) -> Completable.fromAction {
+        view.showError()
+      }
           .subscribeOn(viewScheduler)
       localPaymentInteractor.isAsync(transaction.type) ->
         handleAsyncTransactionStatus(transaction)
@@ -205,7 +237,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    view.showError()
+    if (throwable is HttpException && throwable.code() == FORBIDDEN_CODE) handleFraudFlow()
+    else view.showError(mapError(throwable))
   }
 
   fun onSaveInstanceState(outState: Bundle) {
@@ -236,6 +269,23 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   companion object {
     private const val WAITING_RESULT = "WAITING_RESULT"
+    private const val FORBIDDEN_CODE = 403
+  }
+
+  @StringRes
+  private fun mapError(throwable: Throwable): Int {
+    return when (throwable) {
+      is HttpException -> mapHttpError(throwable)
+      else -> R.string.unknown_error
+    }
+  }
+
+  @StringRes
+  private fun mapHttpError(exceptiont: HttpException): Int {
+    return when (exceptiont.code()) {
+      FORBIDDEN_CODE -> R.string.purchase_wallet_error_contact_us
+      else -> R.string.unknown_error
+    }
   }
 }
 

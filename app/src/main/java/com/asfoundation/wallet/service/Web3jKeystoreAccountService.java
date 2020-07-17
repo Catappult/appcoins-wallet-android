@@ -4,14 +4,14 @@ import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
@@ -60,7 +60,8 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
           } else {
             return importKeystoreInternal(store, password, newPassword);
           }
-        });
+        })
+        .doOnError(Throwable::printStackTrace);
   }
 
   @Override public Single<Wallet> restorePrivateKey(String privateKey, String newPassword) {
@@ -165,12 +166,14 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
     }
   }
 
-  private String extractAddressFromStore(String store) throws Exception {
+  private String extractAddressFromStore(String keystore) throws Exception {
     try {
-      JSONObject jsonObject = new JSONObject(store);
-      return "0x" + jsonObject.getString("address");
-    } catch (JSONException ex) {
-      throw new Exception("Invalid keystore: " + store);
+      JsonObject keyStore = JsonParser.parseString(keystore)
+          .getAsJsonObject();
+      return "0x" + keyStore.get("address")
+          .getAsString();
+    } catch (Exception ex) {
+      throw new Exception("Invalid keystore: " + keystore);
     }
   }
 }

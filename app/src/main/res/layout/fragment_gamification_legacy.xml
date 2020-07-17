@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gamification_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <include
+      layout="@layout/fragment_rewards_level"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="116dp"
+      />
+
+  <View
+      android:id="@+id/bottomsheet_shadow"
+      android:layout_width="match_parent"
+      android:layout_height="16dp"
+      android:background="@drawable/bottomsheet_top_shadow"
+      app:layout_anchor="@id/gamification_fragment_container"
+      />
+
+  <FrameLayout
+      android:id="@+id/gamification_fragment_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:behavior_hideable="false"
+      app:behavior_peekHeight="96dp"
+      app:layout_behavior="@string/bottom_sheet_behavior"
+      />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

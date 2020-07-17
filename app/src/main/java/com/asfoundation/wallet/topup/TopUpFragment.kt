@@ -184,6 +184,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
+    payments_skeleton.visibility = View.GONE
     payment_methods.visibility = View.VISIBLE
   }
 
@@ -388,20 +389,29 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     bonus_msg.visibility = View.INVISIBLE
   }
 
+  override fun hideBonusAndSkeletons() {
+    hideBonus()
+    bonus_layout_skeleton.visibility = View.GONE
+    bonus_msg_skeleton.visibility = View.GONE
+  }
+
   override fun removeBonus() {
     bonus_layout.visibility = View.GONE
     bonus_msg.visibility = View.GONE
+    bonus_layout_skeleton.visibility = View.GONE
+    bonus_msg_skeleton.visibility = View.GONE
   }
 
   override fun setBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
-    bonus_layout.visibility = View.VISIBLE
-    bonus_msg.visibility = View.VISIBLE
+    showBonus()
   }
 
-  override fun showBonus() {
-    bonus_layout.visibility = View.VISIBLE
+  private fun showBonus() {
+    bonus_layout_skeleton.visibility = View.GONE
+    bonus_msg_skeleton.visibility = View.GONE
     bonus_msg.visibility = View.VISIBLE
+    bonus_layout.visibility = View.VISIBLE
   }
 
   override fun showMaxValueWarning(value: String) {
@@ -453,6 +463,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun retryClick() = RxView.clicks(retry_button)
+
+  override fun showSkeletons() {
+    payments_skeleton.visibility = View.VISIBLE
+    bonus_layout_skeleton.visibility = View.VISIBLE
+    bonus_msg_skeleton.visibility = View.VISIBLE
+  }
 
   private fun hideErrorViews() {
     no_network.visibility = View.GONE

@@ -175,7 +175,7 @@ public class InAppPurchaseInteractor {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
         purchase.getSignature()
             .getValue(), billingSerializer.serializeSignatureData(purchase),
-        transaction.getOrderReference());
+        transaction.getOrderReference(), transaction.getErrorCode(), transaction.getErrorMessage());
   }
 
   public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
@@ -209,7 +209,7 @@ public class InAppPurchaseInteractor {
       list.add(Gateway.Name.appcoins);
     }
 
-    list.add(Gateway.Name.adyen);
+    list.add(Gateway.Name.adyen_v2);
 
     return list;
   }
@@ -382,7 +382,7 @@ public class InAppPurchaseInteractor {
       } else if (paymentMethod.getGateway() != null && (paymentMethod.getGateway()
           .getName() == (Gateway.Name.myappcoins)
           || paymentMethod.getGateway()
-          .getName() == (Gateway.Name.adyen)) && isUnavailable(paymentMethod)) {
+          .getName() == (Gateway.Name.adyen_v2)) && isUnavailable(paymentMethod)) {
         iterator.remove();
       }
     }

@@ -18,9 +18,7 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
                               private val preferencesRepositoryType: PreferencesRepositoryType,
                               private val fileInteractor: FileInteractor) {
 
-  fun isKeystore(key: String): Boolean {
-    return key.contains("{")
-  }
+  fun isKeystore(key: String) = key.contains("{")
 
   fun restoreKeystore(keystore: String, password: String = ""): Single<WalletModel> {
     return passwordStore.generatePassword()

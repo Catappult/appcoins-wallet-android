@@ -22,8 +22,8 @@ interface TopUpFragmentView {
   fun toggleSwitchCurrencyOn()
   fun toggleSwitchCurrencyOff()
   fun hideBonus()
-  fun setBonus(bonus: BigDecimal, currency: String)
-  fun showBonus()
+  fun hideBonusAndSkeletons()
+  fun showBonus(bonus: BigDecimal, currency: String)
   fun showMaxValueWarning(value: String)
   fun showMinValueWarning(value: String)
   fun hideValueInputWarning()
@@ -43,4 +43,5 @@ interface TopUpFragmentView {
   fun getKeyboardEvents(): Observable<Boolean>
   fun setDefaultAmountValue(amount: String)
   fun removeBonus()
+  fun showSkeletons()
 }

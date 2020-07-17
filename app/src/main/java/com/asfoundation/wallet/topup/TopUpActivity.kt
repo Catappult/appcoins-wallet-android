@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import androidx.annotation.StringRes
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
@@ -15,23 +17,35 @@ import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
+import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.layout_adyen_error_top_up.*
+import kotlinx.android.synthetic.main.support_error_layout.error_message
+import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
+import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
+import kotlinx.android.synthetic.main.top_up_activity_layout.*
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
 class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavigator {
 
   @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  lateinit var topUpInteractor: TopUpInteractor
 
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
+
+  @Inject
+  lateinit var walletBlockedInteract: WalletBlockedInteract
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
@@ -40,11 +54,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   companion object {
     @JvmStatic
-    fun newIntent(context: Context): Intent {
-      return Intent(context, TopUpActivity::class.java)
-    }
+    fun newIntent(context: Context) = Intent(context, TopUpActivity::class.java)
 
     const val WEB_VIEW_REQUEST_CODE = 1234
+    const val WALLET_VALIDATION_REQUEST_CODE = 1235
+    const val ERROR_MESSAGE = "error_message"
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
     private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
@@ -56,8 +70,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-    presenter = TopUpActivityPresenter(this, inAppPurchaseInteractor,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
+    presenter = TopUpActivityPresenter(this, topUpInteractor, AndroidSchedulers.mainThread(),
+        Schedulers.io(), CompositeDisposable())
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
@@ -71,11 +85,31 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun showTopUpScreen() {
-    setupToolbar()
+    toolbar()
     handleTopUpStartAnalytics()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
         .commit()
+    layout_error.visibility = View.GONE
+    fragment_container.visibility = View.VISIBLE
+  }
+
+  override fun showWalletValidation(@StringRes error: Int) {
+    fragment_container.visibility = View.GONE
+    val intent = WalletValidationActivity.newIntent(this, error)
+        .apply {
+          intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+    startActivityForResult(intent, WALLET_VALIDATION_REQUEST_CODE)
+  }
+
+  override fun showError(@StringRes error: Int) {
+    layout_error.visibility = View.VISIBLE
+    error_message.text = getText(error)
+  }
+
+  override fun getSupportClicks(): Observable<Any> {
+    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
   }
 
   override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
@@ -104,15 +138,13 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      android.R.id.home -> {
-        when {
-          isFinishingPurchase -> close()
-          supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
-          else -> super.onBackPressed()
-        }
-        return true
+    if (item.itemId == android.R.id.home) {
+      when {
+        isFinishingPurchase -> close()
+        supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
+        else -> super.onBackPressed()
       }
+      return true
     }
     return super.onOptionsItemSelected(item)
   }
@@ -127,6 +159,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun setupToolbar() {
     toolbar()
+  }
+
+  override fun popBackStack() {
+    if (supportFragmentManager.backStackEntryCount != 0) {
+      supportFragmentManager.popBackStack()
+    }
   }
 
   override fun finishActivity(data: Bundle) {
@@ -179,6 +217,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun lockOrientation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
+
+  override fun getTryAgainClicks() = RxView.clicks(try_again)
 
   override fun setFinishingPurchase() {
     isFinishingPurchase = true

@@ -66,7 +66,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             updateDefaultValues(defaultValues)
           }
         })
-        .doOnSubscribe { view.showLoadingButton() }
         .subscribe({}, { handleError(it) }))
   }
 
@@ -277,7 +276,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       retrievePaymentMethods(fiatAmount, currency)
           .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
     } else {
-      view.hideBonus()
+      view.hideBonusAndSkeletons()
       view.changeMainValueColor(false)
       view.setNextButtonState(false)
       Completable.complete()
@@ -289,7 +288,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
-        .doOnNext { setupUi() }
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.showSkeletons()
+          setupUi()
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 

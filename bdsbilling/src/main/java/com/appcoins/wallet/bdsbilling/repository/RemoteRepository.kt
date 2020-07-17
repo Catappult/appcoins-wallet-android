@@ -61,8 +61,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletAddress: String,
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
-    return api.getPurchases(packageName, walletAddress, walletSignature,
-        type.name.toLowerCase())
+    return api.getPurchases(packageName, walletAddress, walletSignature, type.name.toLowerCase())
         .map { responseMapper.map(it) }
   }
 

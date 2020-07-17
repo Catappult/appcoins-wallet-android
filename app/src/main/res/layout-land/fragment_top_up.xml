@@ -169,6 +169,29 @@
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
 
+      <include
+          android:id="@+id/bonus_layout_skeleton"
+          layout="@layout/skeleton_rounded_rectangle"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+          app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="@id/bonus_layout"
+          app:layout_constraintTop_toTopOf="@id/bonus_layout"
+          />
+      <include
+          android:id="@+id/bonus_msg_skeleton"
+          layout="@layout/skeleton_rounded_rectangle"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_marginStart="56dp"
+          android:layout_marginEnd="56dp"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="@id/bonus_msg"
+          app:layout_constraintTop_toTopOf="@id/bonus_msg"
+          />
+
       <View
           android:id="@+id/top_separator_topup"
           android:layout_width="0dp"
@@ -214,6 +237,32 @@
               app:layout_constraintTop_toTopOf="parent"
               />
 
+          <LinearLayout
+              android:id="@+id/payments_skeleton"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="10dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="16dp"
+              android:orientation="vertical"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              >
+            <include
+                layout="@layout/skeleton_payments"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                />
+            <include
+                layout="@layout/skeleton_payments"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                />
+          </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
       </RelativeLayout>
@@ -231,18 +280,6 @@
           app:layout_constraintTop_toBottomOf="@id/container"
           />
 
-      <ProgressBar
-          android:id="@+id/button_loading"
-          android:layout_width="@dimen/button_height"
-          android:layout_height="@dimen/button_height"
-          android:indeterminateDrawable="@drawable/gradient_progress"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="@+id/button"
-          app:layout_constraintEnd_toEndOf="@+id/button"
-          app:layout_constraintStart_toStartOf="@+id/button"
-          app:layout_constraintTop_toTopOf="@+id/button"
-          />
-
       <Button
           android:id="@+id/button"
           style="@style/ButtonStyle.Alternative"
@@ -255,7 +292,6 @@
           android:enabled="false"
           android:minWidth="144dp"
           android:text="@string/action_next"
-          android:visibility="invisible"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/container"

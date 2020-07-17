@@ -23,8 +23,9 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.*
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
@@ -75,6 +76,12 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
+  @Inject
+  lateinit var servicesErrorMapper: ServicesErrorCodeMapper
+
+  @Inject
+  lateinit var logger: Logger
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
@@ -105,7 +112,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
             data.transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
             data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
             adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
-            AdyenErrorCodeMapper(), data.gamificationLevel, topUpAnalytics, formatter)
+            servicesErrorMapper, data.gamificationLevel, topUpAnalytics, formatter, logger)
   }
 
   override fun onAttach(context: Context) {
@@ -316,6 +323,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     bonus_layout.visibility = VISIBLE
     bonus_msg.visibility = VISIBLE
   }
+
+  override fun showWalletValidation(@StringRes error: Int) = topUpView.showWalletValidation(error)
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
