@@ -255,8 +255,8 @@ class InteractModule {
                                 smsValidationInteract: SmsValidationInteract,
                                 referralInteractor: ReferralInteractorContract,
                                 bdsRepository: BdsRepository) =
-      OnboardingInteract(walletService, preferencesRepositoryType,
-          supportInteractor, gamification, smsValidationInteract, referralInteractor, bdsRepository)
+      OnboardingInteract(walletService, preferencesRepositoryType, supportInteractor, gamification,
+          smsValidationInteract, referralInteractor, bdsRepository)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,

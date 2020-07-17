@@ -37,7 +37,7 @@ class OnboardingInteract(
   fun hasOnboardingCompleted() = preferencesRepositoryType.hasCompletedOnboarding()
 
   fun isAddressValid(address: String): Single<WalletValidationStatus> =
-      smsValidationInteract.isValid(address)
+      smsValidationInteract.getValidationStatus(address)
 
   fun getReferralInfo(): Single<ReferralModel> = referralInteractor.getReferralInfo()
 
