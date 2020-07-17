@@ -4,7 +4,7 @@
   <string name="title_send">ਭੇਜੋ</string>
   <string name="title_send_with_token">ਭੇਜੋ %s</string>
   <string name="title_request">ਪ੍ਰਾਪਤ ਕਰੋ</string>
-  <string name="title_import">ਬਟੂਆ ਇਮਪੋਰਟ ਕਰੋ</string>
+  <string name="title_import">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">ਪਾਸਵਰਡ</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">ਬਟੂਏ</string>
   <string name="cancel">ਕੈਂਸਲ</string>
   <string name="confirm_delete_account">ਇਹ ਪੱਕਾ ਕਰੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਹੈ|</string>
-  <string name="action_import">ਇਮਪੋਰਟ</string>
+  <string name="action_import">ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="copy">ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕਰੋ</string>
   <string name="close">ਬੰਦ ਕਰੋ</string>
   <string name="title_activity_settings">ਸੈਟਿੰਗਾਂ</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="ok">ਠੀਕ ਹੈ</string>
   <string name="barcode_error_format">ਗਲਤ ​​ਬਾਰਕੋਡ ਫਾਰਮੈਟ: %s</string>
-  <string name="title_delete_account">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਬਟੂਏ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="title_delete_account">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਬਟੂਏ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="twitter">ਟਵਿੱਟਰ</string>
   <string name="telegram">ਟੈਲੀਗਰਾਮ ਸਮੂਹ</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਸੁਰਖਿਅਤ ਕਰਨ ਲਈ ਇੱਕ ਪਾਸਵਰਡ ਸੈਟ ਕਰੋ</string>
-  <string name="toast_message_wallet_imported">ਬਟੂਆ ਇਮਪੋਰਟ ਕੀਤਾ ਗਿਆ ਸੀ</string>
+  <string name="toast_message_wallet_imported">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕੀਤਾ ਗਿਆ</string>
   <string name="toast_message_wallet_exported">ਇੱਕ ਬੈਕਅੱਪ ਬਣਾਇਆ ਗਿਆ ਸੀ</string>
   <string name="toast_qr_code_no_address">QR ਕੋਡ ਵਿੱਚ ਇੱਕ ਸਹੀ ਪਤਾ ਨਹੀਂ ਹੈ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
+  <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="local_payments_inprogress_body">ਇੱਕ ਵਾਰ ਤੁਸੀਂ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰ ਲੈਂਦੇ ਹੋ ਤਾਂ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਹੋਣਗੇ| ਫਿਰ ਖਰੀਦਣ ਲਈ ਗੇਮ ਵਿੱਚ ਵਾਪਸ ਜਾਓ!</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਕਿਸਮ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ| ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="purchase_card_error_security">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਸੁਰੱਖਿਆ ਜਾਣਕਾਰੀ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦੇ ਕੇ %s ਤੱਕ ਕਮਾਓ</string>
   <string name="promotions_referral_card_body">ਆਪਣੇ ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ ਅਤੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ|</string>
   <string name="promotions_gamification_card_title">ਹਰ ਖਰੀਦ ਤੇ 30% ਤੱਕ ਦਾ ਬੋਨਸ</string>
+  <string name="promotions_gamification_card_title_variable">ਹਰ ਖਰੀਦ ਤੇ %s%% ਤੱਕ ਦਾ ਬੋਨਸ</string>
   <string name="promotions_new">ਨਵਾਂ</string>
   <string name="promotions_tab_promotions_title">ਆਫਰਾਂ</string>
   <string name="promotions_tab_poa_title">ਖੇਲੋ &amp; ਕਮਾਓ</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">ਅਸੀਂ ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਜਾਂ ਕੋਈ ਹੋਰ ਪਹੁੰਚ ਵਿਧੀ ਆਪਣੇ ਕੋਲ ਨਹੀਂ ਰੱਖਦੇ| ਤੁਹਾਡੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ (ਚਾਬੀ ਸਟੋਰ) ਸੁਰੱਖਿਅਤ ਰੱਖਣਾ ਜਰੂਰੀ ਹੈ|</string>
   <string name="backup_confirmation_title">ਸਿਰਫ ਇਕ ਹੋਰ ਕਦਮ</string>
   <string name="backup_confirmation_body">ਆਪਣਾ ਬੈਕਅਪ ਸੁਰੱਖਿਅਤ ਰੱਖੋ! ਤੁਸੀਂ ਇਸਨੂੰ ਕਿੱਥੇ ਸੇਵ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="backup_confirmation_yes">ਹਾਂ, ਖਤਮ ਕਰੋ</string>
+  <string name="backup_confirmation_no">ਨਹੀਂ, ਡਿਵਾਈਸ ਤੇ ਸੇਵ ਕਰੋ</string>
   <string name="backup_done_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_done_body">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਇੱਕ ਸੁਰੱਖਿਅਤ ਜਗ੍ਹਾ ਤੇ ਹੈ?</string>
+  <string name="backup_confirmation_no_share_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
+  <string name="backup_confirmation_no_share_body">ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਤੁਹਾਡੇ ਡਾਉਨਲੋਡ ਫੋਲਡਰ ਵਿੱਚ ਹੈ|</string>
+  <string name="backup_save_dialogue_title">ਬੈਕਅਪ ਫਾਈਲ ਨੂੰ ਸੇਵ ਕਰੋ</string>
+  <string name="backup_save_dialogue_body">ਆਪਣੀ ਬੈਕਅਪ ਫਾਈਲ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ|</string>
+  <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
+  <string name="backup_confirmation_tips_1">ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
+  <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ ਸੁਰੱਖਿਅਤ ਕਰੋ|</string>
+  <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ ਕਾਪੀ ਕਰੋ|</string>
   <string name="backup_send_via_title">ਬੈਕਅਪ ਇਸ ਦੁਆਰਾ ਭੇਜੋ:</string>
   <string name="backup_send_button">ਬੈਕਅੱਪ ਭੇਜੋ</string>
-  <string name="import_wallet_title">ਬਟੂਆ ਇਮਪੋਰਟ ਕਰੋ</string>
+  <string name="backup_save_button">ਬੈਕਅੱਪ ਸੇਵ ਕਰੋ</string>
+  <string name="import_wallet_title">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਹੇਠਾਂ ਪਾਓ|</string>
   <string name="import_wallet_keystore_private_keys">ਚਾਬੀ ਸਟੋਰ ਜਾਂ ਨਿਜੀ ਕੁੰਜੀਆਂ</string>
-  <string name="import_wallet_file_button">ਫਾਈਲ ਤੋਂ ਇੰਪੋਰਟ ਕਰੋ</string>
-  <string name="import_wallet_button">ਬਟੂਆ ਇੰਪੋਰਟ ਕਰੋ</string>
+  <string name="import_wallet_file_button">ਫਾਈਲ ਤੋਂ ਪ੍ਰਾਪਤ ਕਰੋ</string>
+  <string name="import_wallet_button">ਬਟੂਆ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
   <string name="import_wallet_wrong_password_body">ਓਹ ਹੋ, ਗਲਤ ਪਾਸਵਰਡ!</string>
   <string name="error_invalid_private_key">ਗਲਤ ਨਿਜੀ ਚਾਬੀ</string>
   <string name="error_invalid_keystore">ਅਵੈਧ ਕੀਸਟੋਰ</string>
+  <string name="backup_tooltip_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
+  <string name="backup_tooltip_later_button">ਫੇਰ ਕਦੇ</string>
+  <string name="backup_tooltip_backup_button">ਬੈਕਅਪ</string>
+  <string name="backup_notification_title">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
+  <string name="backup_notification_body">ਆਪਣੇ ਫੰਡਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ ਅਤੇ ਇਹ ਸੁਨਿਸ਼ਚਿਤ ਕਰੋ ਕਿ ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਵਰਤ ਕਰ ਸਕਦੇ ਹੋ|</string>
+  <string name="backup_choose_wallet_title">ਬੈਕਅਪ ਲਈ ਇੱਕ ਬਟੂਏ ਦੀ ਚੋਣ ਕਰੋ</string>
   <!--Wallets Management-->
   <string name="wallets_title">ਬਟੂਏ</string>
   <string name="wallets_total_balance_title">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
@@ -552,10 +572,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">ਕੁੱਲ ਮੁੱਲ</string>
   <string name="wallets_address_copied_body">ਬਟੂਏ ਦਾ ਪਤਾ ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
-  <string name="wallets_imported_body"> ਬਟੂਆ ਸਫਲਤਾਪੂਰਵਕ ਇਮਪੋਰਟ ਗਿਆ</string>
+  <string name="wallets_imported_body">ਬਟੂਆ ਸਫਲਤਾਪੂਰਵਕ ਠੀਕ ਹੋ ਗਿਆ</string>
   <string name="wallets_2nd_view_balance_title">ਰਕਮ:</string>
   <string name="wallets_2nd_view_other_wallets_title">ਹੋਰ ਬਟੂਏ</string>
-  <string name="wallets_2nd_view_import_button">ਬਟੂਆ ਇੰਪੋਰਟ ਕਰੋ</string>
+  <string name="wallets_2nd_view_import_button">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="wallets_2nd_view_create_button">ਨਵਾਂ ਬਣਾਓ</string>
   <string name="wallet_view_copy_button">ਕਾਪੀ</string>
   <string name="wallet_view_share_button">ਵੰਡੋ</string>
@@ -568,7 +588,7 @@
   <string name="remove_wallet_title">ਬਟੂਆ ਹਟਾਓ</string>
   <string name="remove_wallet_body">ਅਸੀਂ ਬਟੂਏ ਨੂੰ ਹਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਇਸਦਾ ਬੈਕਅਪ ਲੈਣ ਦੀ ਜ਼ੋਰਦਾਰ ਸਿਫਾਰਸ਼ ਕਰਦੇ ਹਾਂ| ਤੁਸੀਂ ਇਸ ਨੂੰ ਤੱਕ ਦੁਬਾਰਾ ਵਰਤ ਨਹੀਂ ਸਕੋਗੇ ਜਦ ਤੱਕ ਤੁਹਾਨੂੰ ਬੈਕਅਪ ਨਹੀਂ ਮਿਲ ਮਿਲਦਾ|</string>
   <string name="remove_wallet_backup_button">ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਕਰੋ</string>
-  <string name="remove_wallet_no_backup_button">ਬਿਨਾ ਬੈਕਅਪ ਅੱਗੇ ਵਧੋ</string>
+  <string name="remove_wallet_no_backup_button">ਬਟੂਆ ਹਟਾਓ</string>
   <string name="remove_wallet_confirm_body">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਬਟੂਏ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="remove_wallet_no_button">ਨਹੀਂ, ਪਿੱਛੇ ਜਾਓ</string>
   <string name="remove_wallet_yes_button">ਜੀ ਹਾਂ, ਬਟੂਆ ਹਟਾਓ</string>
@@ -586,6 +606,98 @@
   <string name="transfer_send_button">ਭੇਜੋ</string>
   <string name="transfer_receive_body">ਪੈਸੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦਾ ਪਤਾ ਸਾਂਝਾ ਕਰੋ|</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">ਤੁਹਾਨੂੰ ਇੱਕ ਨਵਾਂ ਮੈਸਜ ਆਇਆ ਹੈ!</string>
+  <string name="support_new_message_button">ਖੋਲ੍ਹਣ ਲਈ ਟੈਪ ਕਰੋ</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">ਬੋਨਸ ਪ੍ਰਤੀਸ਼ਤਤਾ ਨੂੰ %s ਨੂੰ ਅਪਡੇਟ ਕੀਤਾ ਗਿਆ ਸੀ|</string>
+  <string name="pioneer_gamification_title">ਤੁਸੀਂ ਇੱਕ ਪਾਇਨੀਅਰ ਹੋ</string>
+  <string name="pioneer_gamification_body">ਇੱਕ ਪਾਇਨੀਅਰ ਵਧੇ ਹੋਏ ਬੋਨਸਾਂ ਵਾਲਾ ਇੱਕ ਆਰੰਭਕ ਧਾਰਕ ਹੈ|</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">ਅਪਡੇਟ ਦੇਖੋ</string>
+  <string name="check_updates_settings_subtitle">ਮੌਜੂਦਾ ਵਰਜਨ %s</string>
+  <string name="check_updates_checking_body">ਇੱਕ ਨਵੇਂ ਵਰਜਨ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
+  <string name="check_updates_no_updates_body">ਤੁਸੀਂ ਅਪ ਟੂ ਡੇਟ ਹੋ!</string>
+  <string name="check_updates_updates_available_title">ਨਵਾਂ ਵਰਜਨ ਉਪਲੱਬਧ ਹੈ</string>
+  <string name="check_updates_update_button">ਹੁਣੇ ਅਪਡੇਟ ਕਰੋ</string>
+  <string name="check_updates_settings_available_title">ਨਵਾਂ ਵਰਜਨ ਉਪਲੱਬਧ ਹੈ</string>
+  <string name="check_updates_settings_available_subtitle_button">ਅਪਡੇਟ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
+  <string name="subscriptions_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_active_title">ਐਕਟਿਵ</string>
+  <string name="subscriptions_expired_title">ਇਨ ਐਕਟਿਵ</string>
+  <string name="subscriptions_empty_title">ਅਜੇ ਕੋਈ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨਹੀਂ</string>
+  <string name="subscriptions_empty_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਦੀਆਂ ਸੇਵਾਵਾਂ ਦੀ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਲਓ ਅਤੇ ਅਸੀਂ ਸਮੇਂ-ਸਮੇਂ ਤੇ ਭੁਗਤਾਨਾਂ ਨਾਲ ਕੰਮ ਕਰਾਂਗੇ|</string>
+  <string name="subscriptions_details_billing_title">ਬਿਲਿੰਗ:</string>
+  <string name="subscriptions_details_next_payment_title">ਅਗਲਾ ਭੁਗਤਾਨ:</string>
+  <string name="subscriptions_details_payment_method_title">ਭੁਗਤਾਨ ਦੇ ਢੰਗ:</string>
+  <string name="subscriptions_details_last_bill">ਆਖਰੀ ਬਿੱਲ:</string>
+  <string name="subscriptions_details_start_date_title">ਸ਼ੁਰੂਆਤੀ ਤਾਰੀਖ:</string>
+  <string name="subscriptions_details_cancelled_body">ਰੱਦ - %s ਨੂੰ ਇਹ ਖਤਮ ਹੁੰਦਾ ਹੈ</string>
+  <string name="subscriptions_expiration_body">%s ਨੂੰ ਇਹ ਖਤਮ ਹੁੰਦਾ ਹੈ</string>
+  <string name="subscriptions_canceled_body">ਰੱਦ</string>
+  <string name="subscriptions_details_disclaimer">ਐਕਸਚੇਂਜ ਰੇਟ ਕਾਰਨ ਅਗਲੇ ਭੁਗਤਾਨ ਲਈ ਮੁੱਲ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ|</string>
+  <string name="subscriptions_details_button">ਵੇਰਵਾ</string>
+  <string name="subscriptions_manage_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
+  <string name="subscriptions_cancel_button">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_cancel_title">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_cancel_body">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="subscriptions_cancel_no_button">ਨਹੀਂ, ਵਾਪਸ ਜਾਓ</string>
+  <string name="subscriptions_cancel_yes_button">ਹਾਂ, ਰੱਦ ਕਰੋ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_cancel_confirmation_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਰੱਦ ਕੀਤੀ ਗਈ!</string>
+  <string name="subscriptions_cancel_confirmation_body">ਤੁਹਾਡੇ ਤੋਂ ਹੁਣ ਇਸ ਗਾਹਕੀ ਲਈ ਕੋਈ ਪੈਸਾ ਨਹੀਂ ਲਿੱਤਾ ਜਾਵੇਗਾ, ਅਤੇ ਤੁਸੀਂ ਇਸ ਨੂੰ %s ਤੱਕ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
+  <string name="subscriptions_category_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_bonus_body">ਤੁਸੀਂ ਹਰ ਅਦਾਇਗੀ ਤੇ ਇਹ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="subscriptions_per_day">%1$s%2$s/ਦਿਨ</string>
+  <string name="subscriptions_per_week">%1$s%2$s/ਹਫ਼ਤਾ</string>
+  <string name="subscriptions_per_month">%1$s%2$s/ਮਹੀਨਾ</string>
+  <string name="subscriptions_per_year">%1$s%2$s/ਸਾਲ</string>
+  <!--New Gamification-->
+  <string name="gamif_title">Up to %s%% Bonus!</string>
+  <string name="gamif_bonus_received">Bonus received</string>
+  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_show_previous">Show previous achievements</string>
+  <string name="gamif_hide_previous">Hide previous achievements</string>
+  <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
+  <string name="gamif_achievement_start">You started your journey</string>
+  <string name="gamif_achievement_start_sub">Just left Earth!</string>
+  <string name="gamif_achievement_reach">You reached %s</string>
+  <string name="gamif_card_start">You\'re still on Earth</string>
+  <string name="gamif_card_title">You\'re on %s</string>
+  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamif_bonus">%s%% Bonus</string>
+  <string name="gamif_placeholder_earth">Earth</string>
+  <string name="gamif_quote_earth">\"The Earth is what we all have in common\" – Wendell Berry</string>
+  <string name="gamif_placeholder_moon">the Moon</string>
+  <string name="gamif_quote_moon">\"That\'s one small step for a man, one giant leap for mankind\" – Neil Armstrong</string>
+  <string name="gamif_distance_moon">384,400 km from Earth</string>
+  <string name="gamif_placeholder_mars">Mars</string>
+  <string name="gamif_quote_mars">\"I would like to die on Mars. Just not on impact.\" – Elon Musk</string>
+  <string name="gamif_distance_mars">121.8 million km from Earth</string>
+  <string name="gamif_placeholder_phobos">the Phobos moon</string>
+  <string name="gamif_quote_phobos">\"Everyone is a moon, and has a dark side which he never shows to anybody.\" – Mark Twain</string>
+  <string name="gamif_distance_phobos">77.79 million km from Earth</string>
+  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_quote_jupiter">\"All truths are easy to understand once they are discovered; the point is to discover them...\" – Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">623.31 million km from Earth</string>
+  <string name="gamif_placeholder_europa">Europa moon</string>
+  <string name="gamif_quote_europa">\"If you find life on Europa, what would you call it? Would it be, like, Europeans?\" – Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">628.3 million km from Earth</string>
+  <string name="gamif_placeholder_saturn">Saturn</string>
+  <string name="gamif_quote_saturn">\"The scientific theory I like best is that the rings of Saturn are composed entirely of lost airline luggage.\" – Mark Russell</string>
+  <string name="gamif_distance_saturn">1.35 billion km from Earth</string>
+  <string name="gamif_placeholder_titan">Titan moon</string>
+  <string name="gamif_quote_titan">\"I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here.\" – Arthur C.Clarke</string>
+  <string name="gamif_distance_titan">1.4 billion km from Earth</string>
+  <string name="gamif_placeholder_uranus">Uranus</string>
+  <string name="gamif_quote_uranus">\"The moons of Uranus seem to have got a twist.\" – Sir Robert Stawell Ball</string>
+  <string name="gamif_distance_uranus">3.03 billion km from Earth</string>
+  <string name="gamif_placeholder_neptune">Neptune</string>
+  <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
+  <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
+  <string name="gamif_placeholder_planetx">Planet %s</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">an unknown planet</string>
+  <string name="gamif_distance_unkown">Unknown location</string>
+  <string name="gamif_placeholder_new_planet">a new planet</string>
 </resources>

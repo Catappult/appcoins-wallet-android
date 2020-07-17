@@ -25,8 +25,9 @@ import com.asfoundation.wallet.ui.backup.BackupWalletFragment
 import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.balance.RestoreWalletFragment
 import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment
+import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.gamification.HowItWorksFragment
-import com.asfoundation.wallet.ui.gamification.MyLevelFragment
+import com.asfoundation.wallet.ui.gamification.LegacyGamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
@@ -35,12 +36,12 @@ import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
+import com.asfoundation.wallet.wallet_validation.dialog.CodeValidationDialogFragment
+import com.asfoundation.wallet.wallet_validation.dialog.PhoneValidationDialogFragment
+import com.asfoundation.wallet.wallet_validation.dialog.ValidationLoadingDialogFragment
+import com.asfoundation.wallet.wallet_validation.dialog.ValidationSuccessDialogFragment
 import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment
 import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment
-import com.asfoundation.wallet.wallet_validation.poa.PoaCodeValidationFragment
-import com.asfoundation.wallet.wallet_validation.poa.PoaPhoneValidationFragment
-import com.asfoundation.wallet.wallet_validation.poa.PoaValidationLoadingFragment
-import com.asfoundation.wallet.wallet_validation.poa.PoaValidationSuccessFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -61,7 +62,7 @@ abstract class FragmentBuilders {
   abstract fun bindHowItWorksFragment(): HowItWorksFragment
 
   @ContributesAndroidInjector
-  abstract fun bindMyLevelFragment(): MyLevelFragment
+  abstract fun bindLegacyGamificationFragment(): LegacyGamificationFragment
 
   @ContributesAndroidInjector
   abstract fun bindWebViewFragment(): BillingWebViewFragment
@@ -104,16 +105,16 @@ abstract class FragmentBuilders {
 
 
   @ContributesAndroidInjector
-  abstract fun bindPoaPhoneValidationFragment(): PoaPhoneValidationFragment
+  abstract fun bindPoaPhoneValidationFragment(): PhoneValidationDialogFragment
 
   @ContributesAndroidInjector
-  abstract fun bindPoaCodeValidationFragment(): PoaCodeValidationFragment
+  abstract fun bindPoaCodeValidationFragment(): CodeValidationDialogFragment
 
   @ContributesAndroidInjector
-  abstract fun bindPoaValidationLoadingFragment(): PoaValidationLoadingFragment
+  abstract fun bindPoaValidationLoadingFragment(): ValidationLoadingDialogFragment
 
   @ContributesAndroidInjector
-  abstract fun bindPoaValidationSuccessFragment(): PoaValidationSuccessFragment
+  abstract fun bindPoaValidationSuccessFragment(): ValidationSuccessDialogFragment
 
   @ContributesAndroidInjector
   abstract fun bindBalanceFragment(): BalanceFragment
@@ -193,6 +194,10 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment?
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindGamificationFragment(): GamificationFragment
 
   @FragmentScope
   @ContributesAndroidInjector()

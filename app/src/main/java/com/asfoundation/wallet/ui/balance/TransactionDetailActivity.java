@@ -47,6 +47,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private static final int DECIMALS = 18;
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
+  @Inject CurrencyFormatUtils formatter;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
   private boolean isSent = false;
@@ -55,8 +56,6 @@ public class TransactionDetailActivity extends BaseActivity {
   private RecyclerView detailsList;
   private Dialog dialog;
   private CompositeDisposable disposables;
-  @Inject CurrencyFormatUtils formatter;
-
   private View paymentMethodLabel;
   private View paymentMethod;
   private Button cancelSubscription;
@@ -242,7 +241,7 @@ public class TransactionDetailActivity extends BaseActivity {
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case SUBS:
-        typeStr = R.string.transaction_type_subscription;
+        typeStr = R.string.subscriptions_category_title;
         typeIcon = R.drawable.ic_transaction_subscription;
         categoryBackground.setBackground(null);
         button.setVisibility(View.VISIBLE);

@@ -9,49 +9,84 @@ import java.math.BigDecimal
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                          currency: String, paymentMethodId: String, fiatAmount: String,
-                         appcAmount: String, frequency:String?)
+                         appcAmount: String, frequency: String?)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                   isDonation: Boolean, currency: String, fiatAmount: String,
+                                   currency: String, fiatAmount: String,
                                    appcAmount: String, isBonusActive: Boolean, frequency: String?)
 
   fun showError(message: Int)
+
   fun showItemAlreadyOwnedError()
+
   fun finish(bundle: Bundle)
-  fun showLoading()
+
+  fun showPaymentsSkeletonLoading()
+
+  fun showSkeletonLoading()
+
+  fun showProgressBarLoading()
+
   fun hideLoading()
+
   fun getCancelClick(): Observable<PaymentMethod>
+
   fun close(bundle: Bundle)
+
   fun errorDismisses(): Observable<Boolean>
+
   fun setupUiCompleted(): Observable<Boolean>
+
   fun showProcessingLoadingDialog()
+
   fun getBuyClick(): Observable<PaymentMethod>
+
   fun showPaypal(gamificationLevel: Int)
+
   fun showAdyen(fiatValue: FiatValue,
                 paymentType: PaymentType,
                 iconUrl: String?, gamificationLevel: Int)
 
   fun showCreditCard(gamificationLevel: Int)
+
   fun showAppCoins(gamificationLevel: Int)
+
   fun showCredits(gamificationLevel: Int)
+
   fun showShareLink(selectedPaymentMethod: String)
+
   fun getPaymentSelection(): Observable<String>
+
   fun getMorePaymentMethodsClicks(): Observable<PaymentMethod>
-  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String, gamificationLevel: Int)
+
+  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
+                       gamificationLevel: Int)
+
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
+
   fun onBackPressed(): Observable<Boolean>
+
   fun showNext()
+
   fun showBuy()
+
   fun showSubscribe()
+
   fun showMergedAppcoins(gamificationLevel: Int)
+
   fun lockRotation()
+
   fun showEarnAppcoins()
+
   fun showBonus(@StringRes bonusText: Int)
   fun hideBonus()
+
   fun replaceBonus()
-  fun showWalletBlocked()
+
   fun removeBonus()
+
   fun getSupportLogoClicks(): Observable<Any>
+
   fun getSupportIconClicks(): Observable<Any>
 
   enum class SelectedPaymentMethod {

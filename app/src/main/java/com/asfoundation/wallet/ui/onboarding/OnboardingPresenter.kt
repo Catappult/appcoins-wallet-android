@@ -115,7 +115,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
           if (skipValidation) {
             Single.just(WalletValidationStatus.SUCCESS)
           } else {
-            smsValidationInteract.isValid(it)
+            smsValidationInteract.getValidationStatus(it)
                 .subscribeOn(networkScheduler)
           }
         }
@@ -145,10 +145,6 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleCreateWallet() {
     disposables.add(
         onboardingInteract.getWalletAddress()
-            .subscribeOn(networkScheduler)
-            .onErrorResumeNext {
-              onboardingInteract.createWallet()
-            }
             .observeOn(viewScheduler)
             .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
             .subscribe({}, { it.printStackTrace() }))

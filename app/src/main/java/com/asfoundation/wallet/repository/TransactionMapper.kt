@@ -11,10 +11,7 @@ import java.math.BigDecimal
 
 class TransactionMapper {
 
-  fun map(
-      transactions: List<TransactionEntity>): List<Transaction> {
-    return transactions.map { map(it) }
-  }
+  fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 
   private fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type),
@@ -57,7 +54,7 @@ class TransactionMapper {
   private fun map(type: TransactionEntity.TransactionType): Transaction.TransactionType {
     return when (type) {
       TransactionEntity.TransactionType.STANDARD -> Transaction.TransactionType.STANDARD
-      TransactionEntity.TransactionType.IAB -> Transaction.TransactionType.IAB
+      TransactionEntity.TransactionType.IAP -> Transaction.TransactionType.IAP
       TransactionEntity.TransactionType.ADS -> Transaction.TransactionType.ADS
       TransactionEntity.TransactionType.IAP_OFFCHAIN -> Transaction.TransactionType.IAP_OFFCHAIN
       TransactionEntity.TransactionType.ADS_OFFCHAIN -> Transaction.TransactionType.ADS_OFFCHAIN
@@ -118,7 +115,7 @@ class TransactionMapper {
   private fun map(type: Transaction.TransactionType): TransactionEntity.TransactionType {
     return when (type) {
       Transaction.TransactionType.STANDARD -> TransactionEntity.TransactionType.STANDARD
-      Transaction.TransactionType.IAB -> TransactionEntity.TransactionType.IAB
+      Transaction.TransactionType.IAP -> TransactionEntity.TransactionType.IAP
       Transaction.TransactionType.ADS -> TransactionEntity.TransactionType.ADS
       Transaction.TransactionType.IAP_OFFCHAIN -> TransactionEntity.TransactionType.IAP_OFFCHAIN
       Transaction.TransactionType.ADS_OFFCHAIN -> TransactionEntity.TransactionType.ADS_OFFCHAIN

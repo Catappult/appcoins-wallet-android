@@ -110,7 +110,7 @@ class BackupInteract(
   override fun shouldShowSystemNotification(walletAddress: String): Boolean {
     val hasRestoredBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
     val count = sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
-    return if (hasRestoredBackup.not() && count >= PURCHASE_NOTIFICATION_THRESHOLD) {
+    return if (hasRestoredBackup.not() && count > 0 && count % PURCHASE_NOTIFICATION_THRESHOLD == 0) {
       sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
           .not()
     } else {

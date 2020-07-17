@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import androidx.annotation.StringRes
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -19,13 +21,18 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
+import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_iab.*
+import kotlinx.android.synthetic.main.iab_error_layout.*
+import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -37,8 +44,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var iabInteract: IabInteract
-  private var isBackEnable: Boolean = false
+
+  @Inject
+  lateinit var walletBlockedInteract: WalletBlockedInteract
+
   private lateinit var presenter: IabPresenter
+  private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
   private var isBds: Boolean = false
   private var results: PublishRelay<Uri>? = null
@@ -61,7 +72,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract)
+            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
+            walletBlockedInteract)
     if (savedInstanceState == null) showPaymentMethodsView()
   }
 
@@ -81,6 +93,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         }
         results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
       }
+    } else if (requestCode == WALLET_VALIDATION_REQUEST_CODE) {
+      var errorMessage = data?.getIntExtra(ERROR_MESSAGE, 0)
+      if (errorMessage == null || errorMessage == 0) {
+        errorMessage = R.string.unknown_error
+
+      }
+      presenter.handleWalletBlockedCheck(errorMessage)
     }
   }
 
@@ -127,7 +146,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
-  override fun showError() {
+  override fun finishWithError() {
     setResult(Activity.RESULT_CANCELED)
     finish()
   }
@@ -141,6 +160,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun navigateToWebViewAuthorization(url: String) {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
+  }
+
+  override fun showWalletValidation(@StringRes error: Int) {
+    fragment_container.visibility = View.GONE
+    val intent = WalletValidationDialogActivity.newIntent(this, error)
+        .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivityForResult(intent, WALLET_VALIDATION_REQUEST_CODE)
   }
 
   override fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String,
@@ -166,7 +192,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction, intent.data!!
+            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction!!, intent.data!!
                 .toString(), intent.extras!!
                 .getString(PRODUCT_NAME, ""), isBds, gamificationLevel))
         .commit()
@@ -192,6 +218,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     val isSubscription = true
     //TransactionData.TransactionType.SUBS.name.equals(transaction?.type, ignoreCase = true)
     presenter.handlePurchaseStartAnalytics(transaction)
+    layout_error.visibility = View.GONE
+    fragment_container.visibility = View.VISIBLE
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
@@ -236,9 +264,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showWalletBlocked() {
-    startActivityForResult(WalletBlockedActivity.newIntent(this), BLOCKED_WARNING_REQUEST_CODE)
+  override fun showError(@StringRes error: Int) {
+    fragment_container.visibility = View.GONE
+    layout_error.visibility = View.VISIBLE
+    error_message.text = getText(error)
   }
+
+  override fun getSupportClicks(): Observable<Any> =
+      Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+
+  override fun errorDismisses() = RxView.clicks(error_dismiss)
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
@@ -263,17 +298,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
-  fun isBds(): Boolean {
-    return intent.getBooleanExtra(EXTRA_BDS_IAP, false)
-  }
+  fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
 
   override fun navigateToUri(url: String) {
     navigateToWebViewAuthorization(url)
   }
 
-  override fun uriResults(): Observable<Uri>? {
-    return results
-  }
+  override fun uriResults() = results
 
   override fun launchIntent(intent: Intent) {
     startActivity(intent)
@@ -327,22 +358,25 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
+    const val WALLET_VALIDATION_REQUEST_CODE = 12346
     const val IS_BDS_EXTRA = "is_bds_extra"
+    const val ERROR_MESSAGE = "error_message"
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,
                   isBds: Boolean?, developerPayload: String?): Intent {
-      val intent = Intent(activity, IabActivity::class.java)
-      intent.data = previousIntent.data
-      if (previousIntent.extras != null) {
-        intent.putExtras(previousIntent.extras!!)
-      }
-      intent.putExtra(TRANSACTION_EXTRA, transaction)
-      intent.putExtra(IS_BDS_EXTRA, isBds)
-      intent.putExtra(DEVELOPER_PAYLOAD, developerPayload)
-      intent.putExtra(URI, intent.data!!.toString())
-      intent.putExtra(APP_PACKAGE, transaction.domain)
-      return intent
+      return Intent(activity, IabActivity::class.java)
+          .apply {
+            data = previousIntent.data
+            if (previousIntent.extras != null) {
+              putExtras(previousIntent.extras!!)
+            }
+            putExtra(TRANSACTION_EXTRA, transaction)
+            putExtra(IS_BDS_EXTRA, isBds)
+            putExtra(DEVELOPER_PAYLOAD, developerPayload)
+            putExtra(URI, data!!.toString())
+            putExtra(APP_PACKAGE, transaction.domain)
+          }
     }
 
   }

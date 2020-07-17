@@ -8,8 +8,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.preference.PreferenceManager
-import android.util.DisplayMetrics
-import android.view.WindowManager
 import androidx.core.app.NotificationCompat
 import androidx.room.Room
 import cm.aptoide.analytics.AnalyticsManager
@@ -56,7 +54,6 @@ import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.WalletLogger
-import com.asfoundation.wallet.navigator.UpdateNavigator
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
@@ -65,6 +62,7 @@ import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService
+import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -72,6 +70,7 @@ import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
@@ -87,6 +86,7 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
@@ -113,40 +113,10 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  @Named("user_agent")
-  fun provideUserAgent(context: Context): String {
-    val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val display = wm.defaultDisplay
-    val displayMetrics = DisplayMetrics()
-    display.getRealMetrics(displayMetrics)
-    return ("AppCoins_Wallet/"
-        + BuildConfig.VERSION_NAME
-        + " (Linux; Android "
-        + Build.VERSION.RELEASE.replace(";".toRegex(), " ")
-        + "; "
-        + Build.VERSION.SDK_INT
-        + "; "
-        + Build.MODEL.replace(";".toRegex(), " ")
-        + " Build/"
-        + Build.PRODUCT.replace(";", " ")
-        + "; "
-        + System.getProperty("os.arch")
-        + "; "
-        + BuildConfig.APPLICATION_ID
-        + "; "
-        + BuildConfig.VERSION_CODE
-        + "; "
-        + displayMetrics.widthPixels
-        + "x"
-        + displayMetrics.heightPixels
-        + ")")
-  }
-
-  @Singleton
-  @Provides
-  fun okHttpClient(@Named("user_agent") userAgent: String): OkHttpClient {
+  fun okHttpClient(context: Context,
+                   preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
     return OkHttpClient.Builder()
-        .addInterceptor(UserAgentInterceptor(userAgent))
+        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
         .addInterceptor(LogInterceptor())
         .connectTimeout(15, TimeUnit.MINUTES)
         .readTimeout(30, TimeUnit.MINUTES)
@@ -550,14 +520,12 @@ internal class AppModule {
   @Named("local_version_code")
   fun provideLocalVersionCode(context: Context, packageManager: PackageManager): Int {
     return try {
-      packageManager.getPackageInfo(context.packageName, 0).versionCode
+      packageManager.getPackageInfo(context.packageName, 0)
+          .versionCode
     } catch (e: PackageManager.NameNotFoundException) {
       -1
     }
   }
-
-  @Provides
-  fun provideUpdateNavigator() = UpdateNavigator()
 
   @Singleton
   @Provides
@@ -599,12 +567,24 @@ internal class AppModule {
   fun providesDefaultNetwork(): NetworkInfo {
     return if (BuildConfig.DEBUG) {
       NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://ropsten.infura.io/v3/df5b41e6a3a44d9dbf9142fa3f58cabc",
+          "https://ropsten.infura.io/v3/${BuildConfig.INFURA_API_KEY_ROPSTEN}",
           "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false)
     } else {
       NetworkInfo(C.ETHEREUM_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://mainnet.infura.io/v3/df5b41e6a3a44d9dbf9142fa3f58cabc",
+          "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}",
           "https://api.trustwalletapp.com/", "https://etherscan.io/tx/", 1, true)
     }
   }
+
+  @Singleton
+  @Provides
+  fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
+
+  @Singleton
+  @Provides
+  fun providesGamificationMapper(context: Context) = GamificationMapper(context)
+
+  @Singleton
+  @Provides
+  fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 }

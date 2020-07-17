@@ -4,7 +4,7 @@
   <string name="title_send">Verzenden</string>
   <string name="title_send_with_token">%s verzenden</string>
   <string name="title_request">Ontvangen</string>
-  <string name="title_import">Wallet importeren</string>
+  <string name="title_import">Wallet herstellen</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Wachtwoord</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Wallets</string>
   <string name="cancel">annuleren</string>
   <string name="confirm_delete_account">Zorg ervoor dat je een back-up van deze wallet hebt.</string>
-  <string name="action_import">Importeren</string>
+  <string name="action_import">Herstellen</string>
   <string name="copy">Naar klembord kopiëren</string>
   <string name="close">Sluiten</string>
   <string name="title_activity_settings">Instellingen</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Stel een wachtwoord in om je wallet te versleutelen</string>
-  <string name="toast_message_wallet_imported">De wallet is geïmporteerd</string>
+  <string name="toast_message_wallet_imported">De wallet is hersteld</string>
   <string name="toast_message_wallet_exported">Er is een back-up gemaakt</string>
   <string name="toast_qr_code_no_address">QR-code bevat geen geldig adres</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Code inwisselen</string>
+  <string name="settings_item_support">Neem contact op met support</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In behandeling&#8230;</string>
   <string name="local_payments_inprogress_body">Zodra je de betaling hebt voltooid, ontvang je de AppCoins Credits in je Wallet. Daarna kun je terug naar het spel gaan om de aankoop te doen!</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Je kaarttype wordt nog niet ondersteund. Probeer het opnieuw met een andere kaart.</string>
   <string name="purchase_card_error_security">Weet je zeker dat je de juiste beveiligingsinformatie hebt ingevoerd? Probeer het opnieuw.</string>
   <string name="purchase_card_error_wrong_CVV">Het lijkt erop dat de CVV/CVC-code onjuist is. Probeer het opnieuw.</string>
+  <string name="purchase_wallet_error_contact_us">Oeps, er is iets mis met je wallet. Neem contact met ons op.</string>
   <string name="purchase_card_error_CVV">Onjuiste CVV/CVC</string>
   <string name="error_contac_us_body">Neem contact met ons op als het probleem zich blijft voordoen.</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">Verdien tot %s door vrienden uit te nodigen</string>
   <string name="promotions_referral_card_body">Deel je link met de uitnodiging en verdien AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Tot 30% bonus bij elke aankoop</string>
+  <string name="promotions_gamification_card_title_variable">Tot %s%% bonus bij elke aankoop</string>
   <string name="promotions_new">NIEUW</string>
   <string name="promotions_tab_promotions_title">ACTIES</string>
   <string name="promotions_tab_poa_title">SPEEL &amp; VERDIEN</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
   <string name="backup_confirmation_title">Nog maar één stap</string>
   <string name="backup_confirmation_body">Zorg voor een veilige back-up! Waar wil je de back-up opslaan?</string>
+  <string name="backup_confirmation_yes">JA, ZEKER WETEN</string>
+  <string name="backup_confirmation_no">NEE, OP APPARAAT OPSLAAN</string>
   <string name="backup_done_title">Back-up gereed!</string>
   <string name="backup_done_body">Weet je zeker dat je back-upbestand op een veilige plek is opgeslagen?</string>
+  <string name="backup_confirmation_no_share_title">Back-up gereed!</string>
+  <string name="backup_confirmation_no_share_body">Je back-upbestand is in de map downloads opgeslagen.</string>
+  <string name="backup_save_dialogue_title">Back-upbestand opslaan</string>
+  <string name="backup_save_dialogue_body">Kies een naam voor je back-upbestand.</string>
+  <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
+  <string name="backup_confirmation_tips_1">Kopieer het bestand en sla het op een veilige plek op.</string>
+  <string name="backup_confirmation_tips_2">Sla het bestand op een USB-stick op.</string>
+  <string name="backup_confirmation_tips_3">Kopieer het naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_send_via_title">Back-up verzenden via:</string>
   <string name="backup_send_button">BACK-UP VERZENDEN</string>
-  <string name="import_wallet_title">Wallet importeren</string>
+  <string name="backup_save_button">BACK-UP OPSLAAN</string>
+  <string name="import_wallet_title">Wallet herstellen</string>
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
-  <string name="import_wallet_file_button">UIT BESTAND IMPORTEREN</string>
-  <string name="import_wallet_button">WALLET IMPORTEREN</string>
+  <string name="import_wallet_file_button">VIA BESTAND HERSTELLEN</string>
+  <string name="import_wallet_button">WALLET HERSTELLEN</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <string name="error_invalid_keystore">Ongeldige keystore</string>
+  <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
+  <string name="backup_tooltip_later_button">MISSCHIEN LATER</string>
+  <string name="backup_tooltip_backup_button">BACK-UP</string>
+  <string name="backup_notification_title">Maak een back-up van je wallet!</string>
+  <string name="backup_notification_body">Beveilig je saldo en zorg ervoor dat je altijd toegang tot je wallet hebt.</string>
+  <string name="backup_choose_wallet_title">Kies een wallet om een back-up te maken</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Totale saldo in %s</string>
@@ -552,10 +572,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Totale saldo</string>
   <string name="wallets_address_copied_body">Wallet-adres is naar het klembord gekopieerd</string>
-  <string name="wallets_imported_body">Wallet is met succes geïmporteerd</string>
+  <string name="wallets_imported_body">Wallet is met succes hersteld</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Andere wallets</string>
-  <string name="wallets_2nd_view_import_button">WALLET IMPORTEREN</string>
+  <string name="wallets_2nd_view_import_button">WALLET HERSTELLEN</string>
   <string name="wallets_2nd_view_create_button">NIEUWE AANMAKEN</string>
   <string name="wallet_view_copy_button">KOPIËREN</string>
   <string name="wallet_view_share_button">DELEN</string>
@@ -568,7 +588,7 @@
   <string name="remove_wallet_title">Wallet verwijderen</string>
   <string name="remove_wallet_body">We willen je sterk aanraden om een back-up van de wallet te maken voordat je deze verwijdert. Je kunt alleen opnieuw toegang tot de wallet krijgen als je een back-up hebt.</string>
   <string name="remove_wallet_backup_button">BACK-UP VAN WALLET MAKEN</string>
-  <string name="remove_wallet_no_backup_button">DOORGAAN ZONDER BACK-UP</string>
+  <string name="remove_wallet_no_backup_button">WALLET VERWIJDEREN</string>
   <string name="remove_wallet_confirm_body">Weet je zeker dat je deze wallet wilt verwijderen?</string>
   <string name="remove_wallet_no_button">NEE, GA TERUG</string>
   <string name="remove_wallet_yes_button">JA, WALLET VERWIJDEREN</string>
@@ -586,6 +606,98 @@
   <string name="transfer_send_button">VERZEND</string>
   <string name="transfer_receive_body">Deel je wallet-adres om saldo te ontvangen.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Je hebt een nieuw bericht!</string>
+  <string name="support_new_message_button">Tik om te openen</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">Percentages voor bonussen zijn bijgewerkt op %s.</string>
+  <string name="pioneer_gamification_title">Je bent een pionier</string>
+  <string name="pioneer_gamification_body">Een pionier is een vroege gebruiker en krijgt hogere bonussen.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">Controleer op updates</string>
+  <string name="check_updates_settings_subtitle">Huidige versie %s</string>
+  <string name="check_updates_checking_body">Aan het zoeken naar een nieuwe versie</string>
+  <string name="check_updates_no_updates_body">Je versie is up-to-date!</string>
+  <string name="check_updates_updates_available_title">Nieuwe versie beschikbaar</string>
+  <string name="check_updates_update_button">NU UPDATEN</string>
+  <string name="check_updates_settings_available_title">Nieuwe versie beschikbaar</string>
+  <string name="check_updates_settings_available_subtitle_button">Tik om bij te werken</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">Abonnementen beheren</string>
+  <string name="subscriptions_title">Abonnementen</string>
+  <string name="subscriptions_active_title">Actief</string>
+  <string name="subscriptions_expired_title">Inactief</string>
+  <string name="subscriptions_empty_title">Nog geen abonnementen</string>
+  <string name="subscriptions_empty_body">Abonneer je op services in je favoriete apps en games, dan zorgen wij voor de periodieke betalingen.</string>
+  <string name="subscriptions_details_billing_title">Facturatie:</string>
+  <string name="subscriptions_details_next_payment_title">Volgende betaling:</string>
+  <string name="subscriptions_details_payment_method_title">Betalingsmethode:</string>
+  <string name="subscriptions_details_last_bill">Laatste factuur:</string>
+  <string name="subscriptions_details_start_date_title">Startdatum:</string>
+  <string name="subscriptions_details_cancelled_body">Geannuleerd - dit verloopt op %s</string>
+  <string name="subscriptions_expiration_body">Dit verloopt op %s</string>
+  <string name="subscriptions_canceled_body">Geannuleerd</string>
+  <string name="subscriptions_details_disclaimer">Vanwege de wisselkoers kan de waarde in AppCoins voor de volgende betaling variëren.</string>
+  <string name="subscriptions_details_button">DETAILS</string>
+  <string name="subscriptions_manage_button">ABONNEMENT BEHEREN</string>
+  <string name="subscriptions_cancel_button">ABONNEMENT ANNULEREN</string>
+  <string name="subscriptions_cancel_title">Abonnement annuleren</string>
+  <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
+  <string name="subscriptions_cancel_no_button">NEE, GA TERUG</string>
+  <string name="subscriptions_cancel_yes_button">JA, ABONNEMENT ANNULEREN</string>
+  <string name="subscriptions_cancel_confirmation_title">Abonnement geannuleerd!</string>
+  <string name="subscriptions_cancel_confirmation_body">Er worden geen kosten meer in rekening gebracht voor dit abonnement en je kunt het abonnement gebruiken tot %s.</string>
+  <string name="subscriptions_category_title">Abonnement</string>
+  <string name="subscriptions_bonus_body">Je krijgt deze bonus bij elke betaling.</string>
+  <string name="subscriptions_per_day">%1$s%2$s per dag</string>
+  <string name="subscriptions_per_week">%1$s%2$s per week</string>
+  <string name="subscriptions_per_month">%1$s%2$s per maand</string>
+  <string name="subscriptions_per_year">%1$s%2$s per jaar</string>
+  <!--New Gamification-->
+  <string name="gamif_title">Tot %s%% bonus!</string>
+  <string name="gamif_bonus_received">Bonus ontvangen</string>
+  <string name="gamif_spent">Bedrag besteed om dit niveau te bereiken</string>
+  <string name="gamif_show_previous">Eerdere prestaties tonen</string>
+  <string name="gamif_hide_previous">Eerdere prestaties verbergen</string>
+  <string name="gamif_next_goals">Besteed %s AppCoins om het volgende niveau te bereiken</string>
+  <string name="gamif_achievement_start">Je bent je reis begonnen</string>
+  <string name="gamif_achievement_start_sub">Je hebt de aarde verlaten!</string>
+  <string name="gamif_achievement_reach">Je hebt %s bereikt</string>
+  <string name="gamif_card_start">Je bent nog steeds op aarde</string>
+  <string name="gamif_card_title">Je bent op %s</string>
+  <string name="gamif_card_body">Besteed nog %s AppCoins om het volgende niveau te bereiken.</string>
+  <string name="gamif_bonus">%s%% bonus</string>
+  <string name="gamif_placeholder_earth">aarde</string>
+  <string name="gamif_quote_earth">\"De aarde is wat we allemaal gemeen hebben\" – Wendell Berry</string>
+  <string name="gamif_placeholder_moon">de maan</string>
+  <string name="gamif_quote_moon">\"Een kleine stap voor een mens, een grote sprong voor de mensheid.\" – Neil Armstrong</string>
+  <string name="gamif_distance_moon">384.400 km van de aarde</string>
+  <string name="gamif_placeholder_mars">Mars</string>
+  <string name="gamif_quote_mars">\"Ik zou graag sterven op Mars, maar niet tijdens de landing.\" – Elon Musk</string>
+  <string name="gamif_distance_mars">121,8 miljoen km van de aarde</string>
+  <string name="gamif_placeholder_phobos">de maan Phobos</string>
+  <string name="gamif_quote_phobos">\"Ieder persoon is een maan met een donkere kant die nooit wordt getoond.\" – Mark Twain</string>
+  <string name="gamif_distance_phobos">77,79 miljoen km van de aarde</string>
+  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_quote_jupiter">\"Alle waarheden zijn eenvoudig te begrijpen zodra ze eenmaal ontdekt zijn; het punt is om ze te ontdekken...\" – Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">623,31 miljoen km van de aarde</string>
+  <string name="gamif_placeholder_europa">de maan Europa</string>
+  <string name="gamif_quote_europa">\"Als je leven op Europa ontdekt, hoe zou je dat dan noemen? Zouden het zoiets als Europeanen zijn?\" – Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">628,3 miljoen km van de aarde</string>
+  <string name="gamif_placeholder_saturn">Saturnus</string>
+  <string name="gamif_quote_saturn">\"Mijn favoriete wetenschappelijke theorie is dat de ringen van Saturnus volledig uit verloren bagage uit vliegtuigen bestaan.\" – Mark Russell</string>
+  <string name="gamif_distance_saturn">1,35 miljard km van de aarde</string>
+  <string name="gamif_placeholder_titan">de maan Titan</string>
+  <string name="gamif_quote_titan">\"Ik weet zeker dat het universum vol intelligent leven zit. Het is alleen te intelligent om hier te komen.\" – Arthur C. Clarke</string>
+  <string name="gamif_distance_titan">1,4 miljard km van de aarde</string>
+  <string name="gamif_placeholder_uranus">Uranus</string>
+  <string name="gamif_quote_uranus">\"De manen van Uranus lijken gekanteld te zijn.\" – Sir Robert Stawell Ball</string>
+  <string name="gamif_distance_uranus">3,03 miljard km van de aarde</string>
+  <string name="gamif_placeholder_neptune">Neptunus</string>
+  <string name="gamif_quote_neptune">\"Die ster staat niet op de kaart!\" – Heinrich d\'Arrest bij het ontdekken van Neptunus.</string>
+  <string name="gamif_distance_neptune">4,42 miljard km van de aarde</string>
+  <string name="gamif_placeholder_planetx">Planeet %s</string>
+  <string name="gamif_quote_planetx">\"Ergens wacht er iets ongelofelijks om ontdekt te worden.\" – Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">een onbekende planeet</string>
+  <string name="gamif_distance_unkown">Onbekende locatie</string>
+  <string name="gamif_placeholder_new_planet">een nieuwe planeet</string>
 </resources>

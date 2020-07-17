@@ -4,7 +4,7 @@
   <string name="title_send">发送</string>
   <string name="title_send_with_token">发送%s</string>
   <string name="title_request">接收</string>
-  <string name="title_import">导入钱包</string>
+  <string name="title_import">恢复钱包</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">密码</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">钱包</string>
   <string name="cancel">取消</string>
   <string name="confirm_delete_account">请一定要保留此钱包的备份。</string>
-  <string name="action_import">导入</string>
+  <string name="action_import">恢复</string>
   <string name="copy">复制到剪贴板</string>
   <string name="close">关闭</string>
   <string name="title_activity_settings">设置</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">设置密码来加密钱包</string>
-  <string name="toast_message_wallet_imported">钱包已导入</string>
+  <string name="toast_message_wallet_imported">钱包已恢复</string>
   <string name="toast_message_wallet_exported">已创建备份</string>
   <string name="toast_qr_code_no_address">二维码没有包含有效地址</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">兑换码</string>
+  <string name="settings_item_support">联系支持团队</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">正在进行中&#8230;</string>
   <string name="local_payments_inprogress_body">完成付款后，你将在钱包中收到AppCoins积金。然后回到游戏进行购买！</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">尚不支持你的卡类型。请尝试使用其他卡。</string>
   <string name="purchase_card_error_security">你确定安全信息正确吗？请重试。</string>
   <string name="purchase_card_error_wrong_CVV">你的CVV/CVC代码似乎有误。请重试。</string>
+  <string name="purchase_wallet_error_contact_us">糟糕，您的钱包出现问题。请与我们联系。</string>
   <string name="purchase_card_error_CVV">CVV/CVC错误</string>
   <string name="error_contac_us_body">如果问题仍然存在，请与我们联系。</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">通过邀请好友最多可获取%s</string>
   <string name="promotions_referral_card_body">分享邀请链接，获取AppCoins积金。</string>
   <string name="promotions_gamification_card_title">每次购买最多可获取30%奖励</string>
+  <string name="promotions_gamification_card_title_variable">每次购买可享高达%s%%的奖励</string>
   <string name="promotions_new">新</string>
   <string name="promotions_tab_promotions_title">促销</string>
   <string name="promotions_tab_poa_title">播放&amp;赚钱</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_confirmation_title">最后一个步骤</string>
   <string name="backup_confirmation_body">请确保备份安全！你希望将其保存在哪里？</string>
+  <string name="backup_confirmation_yes">是的，完成</string>
+  <string name="backup_confirmation_no">不，保存在设备上</string>
   <string name="backup_done_title">备份完成！</string>
   <string name="backup_done_body">你确定备份文件存放在安全的位置吗？</string>
+  <string name="backup_confirmation_no_share_title">备份完成！</string>
+  <string name="backup_confirmation_no_share_body">备份文件位于“下载”文件夹中。</string>
+  <string name="backup_save_dialogue_title">保存备份文件</string>
+  <string name="backup_save_dialogue_body">选择备份文件的名称。</string>
+  <string name="backup_confirmation_tips_title">确保文件安全：</string>
+  <string name="backup_confirmation_tips_1">打印并将其存储在安全的地方。</string>
+  <string name="backup_confirmation_tips_2">将其保存在 USB 驱动器上。</string>
+  <string name="backup_confirmation_tips_3">将其复制到安全的私有云存储中。</string>
   <string name="backup_send_via_title">备份发送方式：</string>
   <string name="backup_send_button">发送备份</string>
-  <string name="import_wallet_title">导入钱包</string>
+  <string name="backup_save_button">保存备份</string>
+  <string name="import_wallet_title">恢复钱包</string>
   <string name="import_wallet_body">将你的钱包备份粘贴在下方。</string>
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
-  <string name="import_wallet_file_button">从文件导入</string>
-  <string name="import_wallet_button">导入钱包</string>
+  <string name="import_wallet_file_button">从文件恢复</string>
+  <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
+  <string name="backup_tooltip_body">备份您的钱包！</string>
+  <string name="backup_tooltip_later_button">以后再说</string>
+  <string name="backup_tooltip_backup_button">备份</string>
+  <string name="backup_notification_title">备份您的钱包！</string>
+  <string name="backup_notification_body">确保资金安全，确保您随时均可访问钱包。</string>
+  <string name="backup_choose_wallet_title">选择要备份的钱包</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
@@ -551,10 +571,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">总价值</string>
   <string name="wallets_address_copied_body">已将钱包地址复制到剪贴板</string>
-  <string name="wallets_imported_body">已成功导入钱包</string>
+  <string name="wallets_imported_body">已成功恢复钱包</string>
   <string name="wallets_2nd_view_balance_title">余额：</string>
   <string name="wallets_2nd_view_other_wallets_title">其他钱包</string>
-  <string name="wallets_2nd_view_import_button">导入钱包</string>
+  <string name="wallets_2nd_view_import_button">恢复钱包</string>
   <string name="wallets_2nd_view_create_button">新建</string>
   <string name="wallet_view_copy_button">复制</string>
   <string name="wallet_view_share_button">分享</string>
@@ -567,7 +587,7 @@
   <string name="remove_wallet_title">删除钱包</string>
   <string name="remove_wallet_body">我们强烈建议在删除钱包之前对钱包进行备份。除非留有备份，否则你将无法再次访问该钱包。</string>
   <string name="remove_wallet_backup_button">备份钱包</string>
-  <string name="remove_wallet_no_backup_button">继续，无需备份</string>
+  <string name="remove_wallet_no_backup_button">删除钱包</string>
   <string name="remove_wallet_confirm_body">确实要删除此钱包？</string>
   <string name="remove_wallet_no_button">不，返回</string>
   <string name="remove_wallet_yes_button">是，删除钱包</string>
@@ -585,6 +605,98 @@
   <string name="transfer_send_button">发送</string>
   <string name="transfer_receive_body">分享你的钱包地址以收款。</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">您有新消息！</string>
+  <string name="support_new_message_button">点击打开</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">奖励百分比已在 %s 更新。</string>
+  <string name="pioneer_gamification_title">您属于先锋用户</string>
+  <string name="pioneer_gamification_body">先锋用户是指早期采用者，享有更高的奖励。</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">查看更新</string>
+  <string name="check_updates_settings_subtitle">当前版本%s</string>
+  <string name="check_updates_checking_body">正在搜索新版本</string>
+  <string name="check_updates_no_updates_body">你在使用最新版本！</string>
+  <string name="check_updates_updates_available_title">新版本可用</string>
+  <string name="check_updates_update_button">立即更新</string>
+  <string name="check_updates_settings_available_title">新版本可用</string>
+  <string name="check_updates_settings_available_subtitle_button">点击以更新</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">管理订购</string>
+  <string name="subscriptions_title">订购</string>
+  <string name="subscriptions_active_title">激活</string>
+  <string name="subscriptions_expired_title">未激活</string>
+  <string name="subscriptions_empty_title">尚无订购</string>
+  <string name="subscriptions_empty_body">订购最喜欢的应用和游戏的服务，我们将处理定期付款。</string>
+  <string name="subscriptions_details_billing_title">支付：</string>
+  <string name="subscriptions_details_next_payment_title">下次付款：</string>
+  <string name="subscriptions_details_payment_method_title">付款方式：</string>
+  <string name="subscriptions_details_last_bill">上次支付：</string>
+  <string name="subscriptions_details_start_date_title">开始日期：</string>
+  <string name="subscriptions_details_cancelled_body">已取消——到期日期%s</string>
+  <string name="subscriptions_expiration_body">到期日期%s</string>
+  <string name="subscriptions_canceled_body">已取消</string>
+  <string name="subscriptions_details_disclaimer">AppCoins下次付款的价值可能因汇率而有所不同。</string>
+  <string name="subscriptions_details_button">详情</string>
+  <string name="subscriptions_manage_button">管理订购</string>
+  <string name="subscriptions_cancel_button">取消订购</string>
+  <string name="subscriptions_cancel_title">取消订购</string>
+  <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
+  <string name="subscriptions_cancel_no_button">否，返回</string>
+  <string name="subscriptions_cancel_yes_button">是，取消订购</string>
+  <string name="subscriptions_cancel_confirmation_title">已取消订购！</string>
+  <string name="subscriptions_cancel_confirmation_body">你不会再为此订购付款，你可以用到%s。</string>
+  <string name="subscriptions_category_title">订购</string>
+  <string name="subscriptions_bonus_body">每支付一次都会收到此奖励。</string>
+  <string name="subscriptions_per_day">%1$s%2$s/天</string>
+  <string name="subscriptions_per_week">%1$s%2$s/周</string>
+  <string name="subscriptions_per_month">%1$s%2$s/月</string>
+  <string name="subscriptions_per_year">%1$s%2$s/年</string>
+  <!--New Gamification-->
+  <string name="gamif_title">高达 %s%% 的奖金！</string>
+  <string name="gamif_bonus_received">已收到的奖金</string>
+  <string name="gamif_spent">为达到此等级已花费的金额</string>
+  <string name="gamif_show_previous">显示以前的成就</string>
+  <string name="gamif_hide_previous">隐藏以前的成就</string>
+  <string name="gamif_next_goals">花费 %s AppCoins 可达到下一级</string>
+  <string name="gamif_achievement_start">您已开始旅程</string>
+  <string name="gamif_achievement_start_sub">刚刚离开地球！</string>
+  <string name="gamif_achievement_reach">您到达了 %s</string>
+  <string name="gamif_card_start">您还在地球上</string>
+  <string name="gamif_card_title">您目前在 %s</string>
+  <string name="gamif_card_body">再花费 %s AppCoins 可达到下一级。</string>
+  <string name="gamif_bonus">%s%% 奖金</string>
+  <string name="gamif_placeholder_earth">地球</string>
+  <string name="gamif_quote_earth">“地球是我们大家共有的家园”– Wendell Berry</string>
+  <string name="gamif_placeholder_moon">月球</string>
+  <string name="gamif_quote_moon">“这是我个人的一小步，却是全人类的一大步”– Neil Armstrong</string>
+  <string name="gamif_distance_moon">距离地球 384,400 公里</string>
+  <string name="gamif_placeholder_mars">火星</string>
+  <string name="gamif_quote_mars">“我情愿在火星上死去，只要不是坠毁在上面”– Elon Musk</string>
+  <string name="gamif_distance_mars">距离地球 1.218 亿公里</string>
+  <string name="gamif_placeholder_phobos">火卫一福波斯</string>
+  <string name="gamif_quote_phobos">“人人都是月亮，都有不愿让人见到的阴暗面”– Mark Twain</string>
+  <string name="gamif_distance_phobos">距离地球 7779 万公里</string>
+  <string name="gamif_placeholder_jupiter">木星</string>
+  <string name="gamif_quote_jupiter">“真相一旦被发现，就很容易理解；关键是要发现真相”– Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">距离地球 6.2331 亿公里</string>
+  <string name="gamif_placeholder_europa">木卫二欧罗巴</string>
+  <string name="gamif_quote_europa">“如果在木卫二欧罗巴上找到生命，该叫什么好呢？欧罗巴人吗？”– Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">距离地球 6.283 亿公里</string>
+  <string name="gamif_placeholder_saturn">土星</string>
+  <string name="gamif_quote_saturn">“我最喜欢的科学理论是：土星光环完全由航空公司遗失的行李组成。”– Mark Russell</string>
+  <string name="gamif_distance_saturn">距离地球 13.5 亿公里</string>
+  <string name="gamif_placeholder_titan">土卫六泰坦</string>
+  <string name="gamif_quote_titan">“我深信宇宙充满了智慧生命。只是他们太聪明了，不到这里来。”– Arthur C.Clarke</string>
+  <string name="gamif_distance_titan">距离地球 14 亿公里</string>
+  <string name="gamif_placeholder_uranus">天王星</string>
+  <string name="gamif_quote_uranus">“天王星的卫星似乎有点扭曲”– Robert Stawell Ball 爵士</string>
+  <string name="gamif_distance_uranus">距离地球 30.3 亿</string>
+  <string name="gamif_placeholder_neptune">海王星</string>
+  <string name="gamif_quote_neptune">“那颗星不在星图上！”– Heinrich d\'Arrest 在发现海王星时的言论。</string>
+  <string name="gamif_distance_neptune">距离地球 44.2 亿公里</string>
+  <string name="gamif_placeholder_planetx">%s 星球</string>
+  <string name="gamif_quote_planetx">“在世界上的某个地方，总有令人难以置信的事情等待被揭晓”– Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">未知星球</string>
+  <string name="gamif_distance_unkown">未知位置</string>
+  <string name="gamif_placeholder_new_planet">新星球</string>
 </resources>

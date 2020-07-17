@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Je had %s voor deze aankoop kunnen ontvangen.</string>
   <string name="iab_purchase_done_title_long">Aankoop voltooid!</string>
   <string name="iab_purchase_change_payment_method_button">MEER BETALINGSMETHODEN</string>
+  <string name="iab_purchase_support_1">Hulp nodig?</string>
+  <string name="iab_purchase_support_2_link">Neem contact op met support.</string>
   <!-- SDK - Common -->
   <string name="next_button">VOLGENDE</string>
   <string name="cancel_button">ANNULEREN</string>
   <string name="buy_button">KOPEN</string>
   <string name="iab_wallet_not_installed_popup_close_install">WALLET INSTALLEREN</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Installeren</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Fout</string>
+  <string name="purchase_error_item_owned">Je hebt dit item al!</string>
   <string name="purchase_card_error_title">Oeps. Er is iets fout gegaan.</string>
   <string name="purchase_card_error_general_1">Er is een probleem met je kaart opgetreden. Probeer het opnieuw of neem contact met ons op.</string>
   <string name="purchase_card_error_general_2">De transactie is door je bank geweigerd. Gebruik een andere kaart of neem contact met ons op.</string>

@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Vous auriez reçu %s pour cet achat.</string>
   <string name="iab_purchase_done_title_long">Achat terminé !</string>
   <string name="iab_purchase_change_payment_method_button">PLUS DE METHODES DE PAIEMENT</string>
+  <string name="iab_purchase_support_1">Besoin d\'aide ?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">SUIVANT</string>
   <string name="cancel_button">ANNULER</string>
   <string name="buy_button">ACHETER</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALLER LE PORTEFEUILLE</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Installer</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Erreur</string>
+  <string name="purchase_error_item_owned">Vous possédez déjà cet article !</string>
   <string name="purchase_card_error_title">Oups, quelque chose s\'est mal passé.</string>
   <string name="purchase_card_error_general_1">Il y a eu un problème avec votre carte. Veuillez réessayer ou nous contacter.</string>
   <string name="purchase_card_error_general_2">La transaction a été rejetée par votre banque. Veuillez essayer avec une autre carte ou contactez-nous.</string>
