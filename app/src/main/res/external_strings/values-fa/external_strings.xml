@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">در این خرید می‌توانستید %s دریافت کنید.</string>
   <string name="iab_purchase_done_title_long">خرید تکمیل شد!</string>
   <string name="iab_purchase_change_payment_method_button">سایر روش‌های پرداخت</string>
+  <string name="iab_purchase_support_1">نیاز به کمک دارید؟</string>
+  <string name="iab_purchase_support_2_link">تماس با پشتیبانی.</string>
   <!-- SDK - Common -->
   <string name="next_button">بعدی</string>
   <string name="cancel_button">لغو</string>
   <string name="buy_button">خرید</string>
   <string name="iab_wallet_not_installed_popup_close_install">نصب کیف پول</string>
   <string name="button_ok">اوکی</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">نصب</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">خطا</string>
+  <string name="purchase_error_item_owned">این آیتم را از قبل دارید!</string>
   <string name="purchase_card_error_title">مشکلی پیش آمده است.</string>
   <string name="purchase_card_error_general_1">مشکلی در ارتباط با کارت شما وجود دارد. لطفا دوباره امتحان کنید یا با ما تماس بگیرید.</string>
   <string name="purchase_card_error_general_2">تراکنش از طرف بانک شما رد شده است. لطفا با کارت دیگری دوباره امتحان کنید یا با ما تماس بگیرید.</string>

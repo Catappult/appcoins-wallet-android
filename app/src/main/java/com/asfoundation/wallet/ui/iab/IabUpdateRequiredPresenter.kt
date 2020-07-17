@@ -20,8 +20,13 @@ class IabUpdateRequiredPresenter(private val view: IabUpdateRequiredView,
 
   private fun handleUpdateClick() {
     disposables.add(view.updateClick()
-        .doOnNext { view.navigateToStoreAppView(autoUpdateInteract.retrieveRedirectUrl()) }
-        .subscribe())
+        .doOnNext { view.navigateToIntent(autoUpdateInteract.buildUpdateIntent()) }
+        .subscribe({}, { handleError(it) }))
+  }
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    view.showError()
   }
 
   fun stop() {

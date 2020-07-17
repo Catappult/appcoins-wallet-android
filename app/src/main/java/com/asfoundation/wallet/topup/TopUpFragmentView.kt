@@ -15,16 +15,14 @@ interface TopUpFragmentView {
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)
-  fun hideLoadingButton()
-  fun showLoadingButton()
   fun showPaymentDetailsForm()
   fun showPaymentMethods()
   fun rotateChangeCurrencyButton()
   fun toggleSwitchCurrencyOn()
   fun toggleSwitchCurrencyOff()
   fun hideBonus()
+  fun hideBonusAndSkeletons()
   fun showBonus(bonus: BigDecimal, currency: String)
-  fun showBonus()
   fun showMaxValueWarning(value: String)
   fun showMinValueWarning(value: String)
   fun hideValueInputWarning()
@@ -45,4 +43,5 @@ interface TopUpFragmentView {
   fun getKeyboardEvents(): Observable<Boolean>
   fun setDefaultAmountValue(amount: String)
   fun removeBonus()
+  fun showSkeletons()
 }

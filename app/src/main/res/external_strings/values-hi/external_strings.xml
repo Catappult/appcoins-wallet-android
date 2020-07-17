@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">आप इस खरीद पर %s प्राप्त कर सकते थे।</string>
   <string name="iab_purchase_done_title_long">खरीद पूरी हुई!</string>
   <string name="iab_purchase_change_payment_method_button">अधिक भुगतान विधि</string>
+  <string name="iab_purchase_support_1">मदद चाहिए?</string>
+  <string name="iab_purchase_support_2_link">सहायता टीम से संपर्क करें।</string>
   <!-- SDK - Common -->
   <string name="next_button">आगे</string>
   <string name="cancel_button">रद्द करें</string>
   <string name="buy_button">खरीदें</string>
   <string name="iab_wallet_not_installed_popup_close_install">वॉलेट स्थापित करें</string>
   <string name="button_ok">ठीक</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">स्थापित करें</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">त्रुटि</string>
+  <string name="purchase_error_item_owned">यह वस्तु आपके पास पहले से है!</string>
   <string name="purchase_card_error_title">अरे, कुछ गलत हो गया है।</string>
   <string name="purchase_card_error_general_1">आपके कार्ड के साथ कोई समस्या थी। कृपया पुनः प्रयास करें या हमसे संपर्क करें।</string>
   <string name="purchase_card_error_general_2">बैंक द्वारा आपका लेनदेन अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें या हमसे संपर्क करें।</string>

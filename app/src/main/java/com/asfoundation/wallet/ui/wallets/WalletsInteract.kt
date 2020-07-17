@@ -2,8 +2,8 @@ package com.asfoundation.wallet.ui.wallets
 
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FetchWalletsInteract
+import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.support.SupportInteractor
@@ -16,7 +16,7 @@ import io.reactivex.Single
 
 class WalletsInteract(private val balanceInteract: BalanceInteract,
                       private val fetchWalletsInteract: FetchWalletsInteract,
-                      private val createWalletInteract: CreateWalletInteract,
+                      private val walletCreatorInteract: WalletCreatorInteract,
                       private val supportInteractor: SupportInteractor,
                       private val preferencesRepository: SharedPreferencesRepository,
                       private val gamificationRepository: Gamification,
@@ -45,9 +45,9 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
   }
 
   fun createWallet(): Completable {
-    return createWalletInteract.create()
+    return walletCreatorInteract.create()
         .flatMapCompletable { wallet ->
-          createWalletInteract.setDefaultWallet(wallet.address)
+          walletCreatorInteract.setDefaultWallet(wallet.address)
               .andThen(gamificationRepository.getUserStats(wallet.address)
                   .doOnSuccess { supportInteractor.registerUser(it.level, wallet.address) }
                   .toCompletable())

@@ -65,11 +65,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   private final OnTransactionClickListener onTransactionClickListener;
   private final Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener;
   private final Action2<CardNotification, CardNotificationAction> referralNotificationClickListener;
-
+  private final Resources resources;
+  private final CurrencyFormatUtils formatter;
   private Wallet wallet;
   private NetworkInfo network;
-  private Resources resources;
-  private CurrencyFormatUtils formatter;
 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
       Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener,
@@ -89,7 +88,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
       case TransactionHolder.VIEW_TYPE:
         holder =
             new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener,
-                resources, formatter);
+                formatter);
         break;
       case TransactionDateHolder.VIEW_TYPE:
         holder = new TransactionDateHolder(R.layout.item_transactions_date_head, parent);

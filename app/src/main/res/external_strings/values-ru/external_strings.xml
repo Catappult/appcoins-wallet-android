@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">Вы могли бы получить %s на эту покупку.</string>
   <string name="iab_purchase_done_title_long">Покупка завершена!</string>
   <string name="iab_purchase_change_payment_method_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>
+  <string name="iab_purchase_support_1">Нужна помощь?</string>
+  <string name="iab_purchase_support_2_link">Свяжитесь с поддержкой.</string>
   <!-- SDK - Common -->
   <string name="next_button">ДАЛЕЕ</string>
   <string name="cancel_button">ОТМЕНИТЬ</string>
   <string name="buy_button">КУПИТЬ</string>
   <string name="iab_wallet_not_installed_popup_close_install">УСТАНОВИТЬ КОШЕЛЁК</string>
   <string name="button_ok">ОК</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Установить</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">Ошибка</string>
+  <string name="purchase_error_item_owned">У вас уже есть этот товар!</string>
   <string name="purchase_card_error_title">Ой, что-то пошло не так.</string>
   <string name="purchase_card_error_general_1">С вашей картой возникла проблема. Пожалуйста, попробуйте снова, или свяжитесь с нами.</string>
   <string name="purchase_card_error_general_2">Ваш банк отказал в данной транзакции. Пожалуйста, попробуйте другую карту, или свяжитесь с нами.</string>

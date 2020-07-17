@@ -11,9 +11,11 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -31,8 +33,18 @@ class AdyenPaymentInteractor(
     private val partnerAddressService: AddressService,
     private val billing: Billing,
     private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor
+    private val supportInteractor: SupportInteractor,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val smsValidationInteract: SmsValidationInteract
 ) {
+
+  fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
+
+  fun isWalletVerified() =
+      walletService.getWalletAddress()
+          .flatMap { smsValidationInteract.isValidated(it) }
+          .onErrorReturn { true }
+
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
@@ -139,7 +151,11 @@ class AdyenPaymentInteractor(
   }
 
   private fun isEndingState(status: TransactionResponse.Status): Boolean {
-    return (status == TransactionResponse.Status.COMPLETED || status == TransactionResponse.Status.FAILED || status == TransactionResponse.Status.CANCELED || status == TransactionResponse.Status.INVALID_TRANSACTION)
+    return (status == TransactionResponse.Status.COMPLETED
+        || status == TransactionResponse.Status.FAILED
+        || status == TransactionResponse.Status.CANCELED
+        || status == TransactionResponse.Status.INVALID_TRANSACTION
+        || status == TransactionResponse.Status.FRAUD)
   }
 
   private fun isInApp(type: String): Boolean {

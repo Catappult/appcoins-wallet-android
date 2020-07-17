@@ -28,7 +28,7 @@
 
   <Button
       android:id="@+id/buy_button"
-      style="@style/ButtonStyle"
+      style="@style/ButtonStyle.Alternative"
       android:layout_width="wrap_content"
       android:layout_height="35dp"
       android:layout_gravity="center_vertical"

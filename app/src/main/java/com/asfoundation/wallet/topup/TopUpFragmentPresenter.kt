@@ -64,9 +64,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.setupUiElements(filterPaymentMethods(paymentMethods),
               LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
           updateDefaultValues(defaultValues)
-          view.hideLoadingButton()
         })
-        .doOnSubscribe { view.showLoadingButton() }
         .subscribe({}, { handleError(it) }))
   }
 
@@ -123,8 +121,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnNext {
-                    val isValidBonus = interactor.isBonusValidAndActive()
-                    if (isValidBonus) view.hideBonus()
                     topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
                         "next",
                         topUpData.paymentMethod!!.name)
@@ -132,7 +128,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                         topUpData.selectedCurrency, "TOPUP",
                         topUpData.bonusValue, gamificationLevel,
                         topUpData.currency.fiatCurrencySymbol)
-                    if (isValidBonus) view.showBonus()
                   }
             }
             .subscribe())
@@ -261,7 +256,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleShowBonus(appPackage: String, topUpData: TopUpData,
                               limitValues: TopUpLimitValues, amount: BigDecimal): Completable {
     return if (!limitValues.error.hasError && (amount < limitValues.minValue.amount || amount > limitValues.maxValue.amount)) {
-      view.hideBonus()
+      view.hideBonusAndSkeletons()
       view.changeMainValueColor(false)
       view.setNextButtonState(false)
       Completable.complete()
@@ -277,7 +272,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
         .doOnNext {
+          view.showSkeletons()
           setupUi()
         }
         .subscribe({}, { it.printStackTrace() }))

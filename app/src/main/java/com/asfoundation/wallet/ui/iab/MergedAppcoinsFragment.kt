@@ -115,7 +115,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
   private val currency: String by lazy {
     if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
-      arguments!!.getString(FIAT_CURRENCY_KEY)
+      arguments!!.getString(FIAT_CURRENCY_KEY)!!
     } else {
       throw IllegalArgumentException("currency data not found")
     }
@@ -123,7 +123,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)
+      arguments!!.getString(BONUS_KEY)!!
     } else {
       throw IllegalArgumentException("bonus data not found")
     }
@@ -131,7 +131,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val appName: String by lazy {
     if (arguments!!.containsKey(APP_NAME_KEY)) {
-      arguments!!.getString(APP_NAME_KEY)
+      arguments!!.getString(APP_NAME_KEY)!!
     } else {
       throw IllegalArgumentException("app name data not found")
     }
@@ -191,7 +191,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val transactionType: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_TYPE)) {
-      arguments!!.getString(TRANSACTION_TYPE)
+      arguments!!.getString(TRANSACTION_TYPE)!!
     } else {
       throw IllegalArgumentException("transaction type data not found")
     }
@@ -226,7 +226,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
-    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable(),
+    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, iabView, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
         formatter, mergedAppcoinsInteract, gamificationLevel, navigator, isSubscription)
   }
@@ -261,16 +261,12 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun showLoading() {
-    payment_methods?.visibility = INVISIBLE
+    payment_methods.visibility = INVISIBLE
     loading_view?.visibility = VISIBLE
   }
 
   override fun hideLoading() {
     loading_view?.visibility = GONE
-  }
-
-  override fun showPaymentMethods() {
-    payment_methods?.visibility = VISIBLE
   }
 
   private fun setBuyButtonText(): String {
@@ -323,6 +319,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
     fiat_price.text = fiatText
     appc_price.text = appcText
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE
   }
@@ -431,10 +429,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     info_text?.visibility = GONE
   }
 
-  override fun showWalletBlocked() {
-    iabView.showWalletBlocked()
-  }
-
   override fun showBonus(@StringRes bonusText: Int) {
     if (bonus.isNotEmpty()) {
       val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
@@ -468,14 +462,14 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun navigateToCreditsPayment() =
       iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
 
-  override fun navigateToPaymentMethods() = iabView.showPaymentMethodsView()
-
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =
         getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
     credits_fiat_balance.text =
         getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
-    payment_methods.visibility = VISIBLE
+    skeleton_appcoins.visibility = GONE
+    skeleton_credits.visibility = GONE
+    payment_methods_group.visibility = VISIBLE
   }
 
   override fun onResume() {

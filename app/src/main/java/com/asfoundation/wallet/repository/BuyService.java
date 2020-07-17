@@ -47,12 +47,12 @@ public class BuyService {
         partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName()),
         partnerAddressService.getOemAddressForPackage(paymentTransaction.getPackageName()),
         (countryCode, tokenInfo, storeAddress, oemAddress) -> transactionBuilder.appcoinsData(
-              getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                  countryCode, storeAddress, oemAddress)))
-        .map(transaction -> updateTransactionBuilderData(paymentTransaction,
-        transaction)).flatMapCompletable(
-        payment -> Completable.defer(() -> transactionValidator.validate(payment))
-            .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                countryCode, storeAddress, oemAddress)))
+        .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
+        .flatMapCompletable(
+            payment -> Completable.defer(() -> transactionValidator.validate(payment))
+                .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
@@ -79,7 +79,8 @@ public class BuyService {
         paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),
         paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl(),
-        paymentTransaction.getOrderReference());
+        paymentTransaction.getOrderReference(), paymentTransaction.getErrorCode(),
+        paymentTransaction.getErrorMessage());
   }
 
   private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
@@ -132,13 +133,16 @@ public class BuyService {
       case NO_INTERNET:
         toReturn = Status.NO_INTERNET;
         break;
+      case FORBIDDEN:
+        toReturn = Status.FORBIDDEN;
+        break;
     }
     return toReturn;
   }
 
   public enum Status {
-    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, PENDING
-
+    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER,
+    NO_FUNDS, NO_INTERNET, PENDING, FORBIDDEN
   }
 
   public static class BuyTransaction {

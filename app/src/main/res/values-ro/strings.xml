@@ -4,7 +4,7 @@
   <string name="title_send">Trimite</string>
   <string name="title_send_with_token">Trimite %s</string>
   <string name="title_request">Primește</string>
-  <string name="title_import">Importă portofel</string>
+  <string name="title_import">Recuperează Portofel</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Parolă</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,11 +16,11 @@
   <string name="title_account_list">Portofele</string>
   <string name="cancel">anulează</string>
   <string name="confirm_delete_account">Asigură-te că ai o copie de rezervă a acestui portofel.</string>
-  <string name="action_import">Importă</string>
+  <string name="action_import">Recuperează</string>
   <string name="copy">Copiază în clipboard</string>
   <string name="close">Închide</string>
   <string name="title_activity_settings">Setări</string>
-  <string name="network_label">Reţea</string>
+  <string name="network_label">Rețea</string>
   <string name="credits">Credite</string>
   <string name="label_new">Nou</string>
   <string name="got_it_button">AM ÎNȚELES</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format cod de bare nevalid: %s</string>
-  <string name="title_delete_account">Ești sigur că vrei să ștergi acest portofel?</string>
+  <string name="title_delete_account">Ești sigur că vrei să elimini acest portofel?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Grup Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Setează o parolă pentru a-ți cripta portofelul</string>
-  <string name="toast_message_wallet_imported">Portofelul a fost importat</string>
+  <string name="toast_message_wallet_imported">Portofelul a fost recuperat</string>
   <string name="toast_message_wallet_exported">A fost creată o copie de rezervă</string>
   <string name="toast_qr_code_no_address">Codul QR nu conține o adresă validă</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Revendică cod</string>
+  <string name="settings_item_support">Contactează echipa de asistență</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">În curs&#8230;</string>
   <string name="local_payments_inprogress_body">Odată ce ai finalizat plata, vei primi AppCoins Credits în portofelul tău. Apoi întoarce-te la joc ca să faci cumpărătura!</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Tipul tău de card nu este încă acceptat. Încearcă cu un alt card.</string>
   <string name="purchase_card_error_security">Ești sigur că informațiile de securitate sunt corecte? Încearcă din nou.</string>
   <string name="purchase_card_error_wrong_CVV">Codul tău CVV/CVC pare a fi greșit. Încearcă din nou.</string>
+  <string name="purchase_wallet_error_contact_us">Ups, ceva nu e în regulă cu portofelul tău. Te rugăm să ne contactezi.</string>
   <string name="purchase_card_error_CVV">CVV/CVC greșit</string>
   <string name="error_contac_us_body">Dacă problema continuă, te rugăm să ne contactezi.</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">Câștigă până la %s invitând prieteni</string>
   <string name="promotions_referral_card_body">Distribuie linkul tău de invitație și câștigă AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Până la 30% bonus la fiecare cumpărătură</string>
+  <string name="promotions_gamification_card_title_variable">Până la %s%% bonus la fiecare cumpărătură</string>
   <string name="promotions_new">NOU</string>
   <string name="promotions_tab_promotions_title">PROMOȚII</string>
   <string name="promotions_tab_poa_title">JOACĂ &amp; CÂȘTIGĂ</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
   <string name="backup_confirmation_title">Încă un pas</string>
   <string name="backup_confirmation_body">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
+  <string name="backup_confirmation_yes">DA, FINALIZEAZĂ</string>
+  <string name="backup_confirmation_no">NU, SALVEAZĂ PE DISPOZITIV</string>
   <string name="backup_done_title">Copie de rezervă efectuată!</string>
   <string name="backup_done_body">Ești sigur că fișierul copiei de rezervă este într-un loc sigur?</string>
+  <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
+  <string name="backup_confirmation_no_share_body">Fișierul tău de rezervă este în folder-ul tău de Descărcări.</string>
+  <string name="backup_save_dialogue_title">Salvează fișier de rezervă</string>
+  <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
+  <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
+  <string name="backup_confirmation_tips_1">Scoate-l la imprimantă și păstrează-l în siguranță.</string>
+  <string name="backup_confirmation_tips_2">Salvează-l pe un drive USB.</string>
+  <string name="backup_confirmation_tips_3">Copiază-l într-un cloud de stocare privat și securizat.</string>
   <string name="backup_send_via_title">Trimite copie de rezervă via:</string>
   <string name="backup_send_button">TRIMITE COPIE DE REZERVĂ</string>
-  <string name="import_wallet_title">Importă portofel</string>
+  <string name="backup_save_button">SALVEAZĂ COPIE DE REZERVĂ</string>
+  <string name="import_wallet_title">Recuperează Portofel</string>
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>
-  <string name="import_wallet_file_button">IMPORTĂ DIN FIȘIER</string>
-  <string name="import_wallet_button">IMPORTĂ PORTOFEL</string>
+  <string name="import_wallet_file_button">RECUPEREAZĂ DIN FIȘIER</string>
+  <string name="import_wallet_button">RECUPEREAZĂ PORTOFEL</string>
   <string name="import_wallet_password_body">Acest portofel este protejat cu parolă!</string>
   <string name="import_wallet_wrong_password_body">Ups, parolă greșită!</string>
   <string name="error_invalid_private_key">Cheie privată nevalidă</string>
   <string name="error_invalid_keystore">Keystore nevalid</string>
+  <string name="backup_tooltip_body">Fă-ți o copie de rezervă a portofelului tău!</string>
+  <string name="backup_tooltip_later_button">POATE MAI TÂRZIU</string>
+  <string name="backup_tooltip_backup_button">FĂ COPIE</string>
+  <string name="backup_notification_title">Fă o copie de rezervă a portofelului tău!</string>
+  <string name="backup_notification_body">Păstrează-ți fondurile în siguranță și asigură-te că ai mereu acces la portofelul tău.</string>
+  <string name="backup_choose_wallet_title">Alege portofelul pentru care vrei să faci o copie de rezervă</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portofele</string>
   <string name="wallets_total_balance_title">Balanță totală în %s</string>
@@ -553,10 +573,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Valoare totală</string>
   <string name="wallets_address_copied_body">Adresa portofelului a fost copiată pe clipboard</string>
-  <string name="wallets_imported_body">Portofel importat cu succes</string>
+  <string name="wallets_imported_body">Portofel recuperat cu succes</string>
   <string name="wallets_2nd_view_balance_title">Balanță:</string>
   <string name="wallets_2nd_view_other_wallets_title">Alte portofele</string>
-  <string name="wallets_2nd_view_import_button">IMPORTĂ PORTOFEL</string>
+  <string name="wallets_2nd_view_import_button">RECUPEREAZĂ PORTOFEL</string>
   <string name="wallets_2nd_view_create_button">CREEAZĂ NOU</string>
   <string name="wallet_view_copy_button">COPIAZĂ</string>
   <string name="wallet_view_share_button">DISTRIBUIE</string>
@@ -569,7 +589,7 @@
   <string name="remove_wallet_title">Elimină portofel</string>
   <string name="remove_wallet_body">Îți recomandăm să faci o copie de rezervă a portofelului înainte de a-l elimina. Nu vei mai putea să îl accesezi dacă nu ai o copie de rezervă.</string>
   <string name="remove_wallet_backup_button">COPIE DE REZERVĂ PORTOFEL</string>
-  <string name="remove_wallet_no_backup_button">CONTINUĂ FĂRĂ COPIE DE REZERVĂ</string>
+  <string name="remove_wallet_no_backup_button">ELIMINĂ PORTOFEL</string>
   <string name="remove_wallet_confirm_body">Ești sigur că vrei să elimini acest portofel?</string>
   <string name="remove_wallet_no_button">NU, DU-TE ÎNAPOI</string>
   <string name="remove_wallet_yes_button">DA, ELIMINĂ PORTOFEL</string>
@@ -587,6 +607,98 @@
   <string name="transfer_send_button">TRIMITE</string>
   <string name="transfer_receive_body">Distribuie adresa portofelului tău pentru a primi fonduri.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Ai un mesaj nou!</string>
+  <string name="support_new_message_button">Apasă ca să deschizi</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">Procentele bonus au fost actualizate în %s.</string>
+  <string name="pioneer_gamification_title">Ești un Pionier</string>
+  <string name="pioneer_gamification_body">Un Pionier este unul dintre primii utilizatorii, cu acces la bonusuri mai mari.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">Caută actualizări</string>
+  <string name="check_updates_settings_subtitle">Versiune curentă %s</string>
+  <string name="check_updates_checking_body">Se caută o versiune nouă</string>
+  <string name="check_updates_no_updates_body">Ești la zi!</string>
+  <string name="check_updates_updates_available_title">Versiune nouă disponibilă</string>
+  <string name="check_updates_update_button">ACTUALIZEAZĂ ACUM</string>
+  <string name="check_updates_settings_available_title">Versiune nouă disponibilă</string>
+  <string name="check_updates_settings_available_subtitle_button">Apasă ca să actualizezi</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">Gestionează abonamente</string>
+  <string name="subscriptions_title">Abonamente</string>
+  <string name="subscriptions_active_title">Active</string>
+  <string name="subscriptions_expired_title">Inactive</string>
+  <string name="subscriptions_empty_title">Fără abonamente</string>
+  <string name="subscriptions_empty_body">Abonează-te la servicii în aplicațiile și jocurile tale preferate și ne vom ocupa noi de plățile periodice.</string>
+  <string name="subscriptions_details_billing_title">Facturare:</string>
+  <string name="subscriptions_details_next_payment_title">Următoarea plată:</string>
+  <string name="subscriptions_details_payment_method_title">Metoda de plată:</string>
+  <string name="subscriptions_details_last_bill">Ultima factură:</string>
+  <string name="subscriptions_details_start_date_title">Data începerii:</string>
+  <string name="subscriptions_details_cancelled_body">Anulat - expiră pe %s</string>
+  <string name="subscriptions_expiration_body">Expiră pe %s</string>
+  <string name="subscriptions_canceled_body">Anulată</string>
+  <string name="subscriptions_details_disclaimer">Valoarea în AppCoins poate varia pentru următoarea plată din cauza cursului de schimb.</string>
+  <string name="subscriptions_details_button">DETALII</string>
+  <string name="subscriptions_manage_button">GESTIONEAZĂ ABONAMENT</string>
+  <string name="subscriptions_cancel_button">ANULEAZĂ ABONAMENT</string>
+  <string name="subscriptions_cancel_title">Anulează Abonament</string>
+  <string name="subscriptions_cancel_body">Ești sigur că vrei să anulezi acest abonament?</string>
+  <string name="subscriptions_cancel_no_button">NU, DU-TE ÎNAPOI</string>
+  <string name="subscriptions_cancel_yes_button">DA, ANULEAZĂ ABONAMENT</string>
+  <string name="subscriptions_cancel_confirmation_title">Abonament anulat!</string>
+  <string name="subscriptions_cancel_confirmation_body">Nu vei mai fi taxat pentru acest abonament și îl poți folosi până pe %s.</string>
+  <string name="subscriptions_category_title">Abonament</string>
+  <string name="subscriptions_bonus_body">Vei primi acest bonus la fiecare plată.</string>
+  <string name="subscriptions_per_day">%1$s%2$s/zi</string>
+  <string name="subscriptions_per_week">%1$s%2$s/săptămână</string>
+  <string name="subscriptions_per_month">%1$s%2$s/lună</string>
+  <string name="subscriptions_per_year">%1$s%2$s/an</string>
+  <!--New Gamification-->
+  <string name="gamif_title">Bonus de până la %s%%!</string>
+  <string name="gamif_bonus_received">Bonus primit</string>
+  <string name="gamif_spent">Sumă cheltuită pentru a atinge acest nivel</string>
+  <string name="gamif_show_previous">Arată realizări anterioare</string>
+  <string name="gamif_hide_previous">Ascunde realizări anterioare</string>
+  <string name="gamif_next_goals">Cheltuiește %s AppCoins ca să atingi nivelul următor</string>
+  <string name="gamif_achievement_start">Ți-ai început călătoria</string>
+  <string name="gamif_achievement_start_sub">Tocmai ai părăsit Pământul!</string>
+  <string name="gamif_achievement_reach">Ai ajuns pe %s</string>
+  <string name="gamif_card_start">Ești încă pe Pământ</string>
+  <string name="gamif_card_title">Ești pe %s</string>
+  <string name="gamif_card_body">Cheltuiește încă %s AppCoins ca să atingi nivelul următor.</string>
+  <string name="gamif_bonus">%s%% Bonus</string>
+  <string name="gamif_placeholder_earth">Pământ</string>
+  <string name="gamif_quote_earth">„Pământul este ceea ce avem toți în comun” - Wendell Berry</string>
+  <string name="gamif_placeholder_moon">Lună</string>
+  <string name="gamif_quote_moon">„Un pas mic pentru om, un salt uriaș pentru omenire” - Neil Armstrong</string>
+  <string name="gamif_distance_moon">384.400 km față de Pământ</string>
+  <string name="gamif_placeholder_mars">Marte</string>
+  <string name="gamif_quote_mars">„Mi-ar plăcea să mor pe Marte. Dar nu la impact.” - Elon Musk</string>
+  <string name="gamif_distance_mars">121,8 milioane km față de Pământ</string>
+  <string name="gamif_placeholder_phobos">Luna Phobos</string>
+  <string name="gamif_quote_phobos">„Fiecare este o lună și are o parte întunecată pe care nu o arată niciodată nimănui.” - Mark Twain</string>
+  <string name="gamif_distance_phobos">77,79 milioane km față de Pământ</string>
+  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_quote_jupiter">„Toate adevărurile sunt ușor de înțeles odată ce sunt descoperite; ideea este să le descoperi...” - Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">623,31 milioane km față de Pământ</string>
+  <string name="gamif_placeholder_europa">Luna Europa</string>
+  <string name="gamif_quote_europa">„Dacă găsești viață pe Europa, cum i-ai spune? Ar fi, ceva de genul, Europeni?” - Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">628,3 milioane km față de Pământ</string>
+  <string name="gamif_placeholder_saturn">Saturn</string>
+  <string name="gamif_quote_saturn">„Teoria științifică care îmi place cel mai mult este aceea că inelele lui Saturn sunt compuse în întregime din bagaje pierdute de companii aeriene.” - Mark Russell</string>
+  <string name="gamif_distance_saturn">1,35 miliarde km față de Pământ</string>
+  <string name="gamif_placeholder_titan">Luna Titan</string>
+  <string name="gamif_quote_titan">„Sunt sigur că universul este plin cu viață inteligentă. Aceasta este însă prea inteligentă ca să vină aici.” - Arthur C. Clarke</string>
+  <string name="gamif_distance_titan">1,4 miliarde km față de Pământ</string>
+  <string name="gamif_placeholder_uranus">Uranus</string>
+  <string name="gamif_quote_uranus">„Se pare că lunile lui Uranus sunt sucite.” - Sir Robert Stawell Ball</string>
+  <string name="gamif_distance_uranus">3,03 miliarde km față de Pământ</string>
+  <string name="gamif_placeholder_neptune">Neptun</string>
+  <string name="gamif_quote_neptune">„Acea stea nu este în grafic!” - Heinrich d\'Arrest la descoperirea planetei Neptun.</string>
+  <string name="gamif_distance_neptune">4,42 miliarde km față de Pământ</string>
+  <string name="gamif_placeholder_planetx">Planeta %s</string>
+  <string name="gamif_quote_planetx">„Undeva, ceva incredibil așteaptă să fie descoperit” - Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">o planetă necunoscută</string>
+  <string name="gamif_distance_unkown">Locație necunoscută</string>
+  <string name="gamif_placeholder_new_planet">o planetă nouă</string>
 </resources>

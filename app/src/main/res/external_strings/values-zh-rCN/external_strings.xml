@@ -32,16 +32,18 @@
   <string name="iab_purchase_done_reward_body">你本可以通过此次购买获得%s。</string>
   <string name="iab_purchase_done_title_long">购买完成！</string>
   <string name="iab_purchase_change_payment_method_button">更多付款方式</string>
+  <string name="iab_purchase_support_1">需要帮助？</string>
+  <string name="iab_purchase_support_2_link">与支持人员联系。</string>
   <!-- SDK - Common -->
   <string name="next_button">下一步</string>
   <string name="cancel_button">取消</string>
   <string name="buy_button">购买</string>
   <string name="iab_wallet_not_installed_popup_close_install">安装钱包</string>
   <string name="button_ok">确定</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">安装</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="title_dialog_error">错误</string>
+  <string name="purchase_error_item_owned">您已拥有此物品！</string>
   <string name="purchase_card_error_title">糟糕，出现错误。</string>
   <string name="purchase_card_error_general_1">你的卡出现问题。请重试或与我们联系。</string>
   <string name="purchase_card_error_general_2">交易已被你的银行拒绝。请尝试使用其他卡或与我们联系。</string>

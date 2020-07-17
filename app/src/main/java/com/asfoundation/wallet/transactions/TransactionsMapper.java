@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ETHER_TRANSFER;
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.TOP_UP;
@@ -49,10 +50,7 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.size() - 1; i >= 0; i--) {
       RawTransaction transaction = transactions.get(i);
-      if (isAppcoinsTransaction(transaction, address)
-          && isApprovedTransaction(transaction)
-          && i > 0
-          && isTransactionWithApprove(transactions.get(i - 1))) {
+      if (isApproveTransaction(address, transactions, i, transaction)) {
         transactionList.add(0, mapTransactionWithApprove(transaction, transactions.get(i - 1)));
         i--;
       } else if (isAdsTransaction(transaction)) {
@@ -62,6 +60,14 @@ public class TransactionsMapper {
       }
     }
     return transactionList;
+  }
+
+  private boolean isApproveTransaction(String address, List<RawTransaction> transactions, int i,
+      RawTransaction transaction) {
+    return isAppcoinsTransaction(transaction, address)
+        && isApprovedTransaction(transaction)
+        && i > 0
+        && isTransactionWithApprove(transactions.get(i - 1));
   }
 
   public List<Transaction> mapTransactionsFromWalletHistory(
@@ -133,6 +139,8 @@ public class TransactionsMapper {
         return ADS_OFFCHAIN;
       case "Ether Transfer":
         return ETHER_TRANSFER;
+      case "IAP":
+        return IAP;
       default:
         return STANDARD;
     }
@@ -247,15 +255,10 @@ public class TransactionsMapper {
         .toPlainString();
     if (approveTransaction.operations != null && approveTransaction.operations.length > 0) {
       currency = approveTransaction.operations[0].contract.symbol;
-
-      operations.add(
-          new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
-              fee));
-    } else {
-      operations.add(
-          new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
-              fee));
     }
+    operations.add(
+        new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
+            fee));
 
     fee = BalanceUtils.weiToEth(
         new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
@@ -327,7 +330,7 @@ public class TransactionsMapper {
   private Transaction.TransactionType getTransactionType(RawTransaction transaction) {
     Transaction.TransactionType type = STANDARD;
     if (isIabTransaction(transaction)) {
-      type = com.asfoundation.wallet.transactions.Transaction.TransactionType.IAB;
+      type = com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP;
     }
 
     return type;

@@ -35,6 +35,8 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
+import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_1_2
+import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_2_3
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.subscriptions.SubscriptionRepository
 import com.asfoundation.wallet.subscriptions.SubscriptionService
@@ -160,29 +162,11 @@ class RepositoryModule {
                                    transactionsNetworkRepository: OffChainTransactions,
                                    context: Context,
                                    sharedPreferences: SharedPreferences): TransactionRepositoryType {
-    val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-      override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
-            "CREATE TABLE IF NOT EXISTS TransactionEntityCopy (transactionId TEXT NOT "
-                + "NULL, relatedWallet TEXT NOT NULL, approveTransactionId TEXT, type TEXT NOT "
-                + "NULL, timeStamp INTEGER NOT NULL, processedTime INTEGER NOT NULL, status "
-                + "TEXT NOT NULL, value TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, "
-                + "currency TEXT, operations TEXT, sourceName TEXT, description TEXT, "
-                + "iconType TEXT, uri TEXT, PRIMARY KEY(transactionId, relatedWallet))")
-        database.execSQL("INSERT INTO TransactionEntityCopy (transactionId, relatedWallet, "
-            + "approveTransactionId, type, timeStamp, processedTime, status, value, `from`, `to`,"
-            + " currency, operations, sourceName, description, iconType, uri) SELECT "
-            + "transactionId, relatedWallet,approveTransactionId, type, timeStamp, processedTime,"
-            + " status, value, `from`, `to`, currency, operations, sourceName, description, "
-            + "iconType, uri FROM TransactionEntity")
-        database.execSQL("DROP TABLE TransactionEntity")
-        database.execSQL("ALTER TABLE TransactionEntityCopy RENAME TO TransactionEntity")
-      }
-    }
+
     val transactionsDao = Room.databaseBuilder(context.applicationContext,
         TransactionsDatabase::class.java,
         "transactions_database")
-        .addMigrations(MIGRATION_1_2)
+        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
         .build()
         .transactionsDao()
     val localRepository: TransactionsRepository =

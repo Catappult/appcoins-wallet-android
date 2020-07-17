@@ -4,7 +4,7 @@
   <string name="title_send">पाठवा</string>
   <string name="title_send_with_token">पाठवा %s</string>
   <string name="title_request">मिळवा</string>
-  <string name="title_import">वॉलेट इंपोर्ट करा</string>
+  <string name="title_import">वॉलेट परत मिळवा</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">पासवर्ड</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">वॉलेट्स</string>
   <string name="cancel">रद्द करा</string>
   <string name="confirm_delete_account">ह्या वॉलेटचा बॅकअप आपल्याकडे असण्याची खात्री करा.</string>
-  <string name="action_import">इंपोर्ट</string>
+  <string name="action_import">परत मिळवा</string>
   <string name="copy">क्लिपबोर्डावर कॉपी करा</string>
   <string name="close">बंद करा</string>
   <string name="title_activity_settings">सेटिंग्ज</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">आपले वॉलेट एनक्रिप्ट करण्यासाठी पासवर्ड सेट करा</string>
-  <string name="toast_message_wallet_imported">हे वॉलेट इंपोर्ट केले होते</string>
+  <string name="toast_message_wallet_imported">हे वॉलेट परत मिळविलेले होते</string>
   <string name="toast_message_wallet_exported">बॅकअप निर्माण केलेला आहे</string>
   <string name="toast_qr_code_no_address">क्युआर कोडमध्ये वैध पत्ता नाही</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">रिडीम कोड</string>
+  <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
   <string name="local_payments_inprogress_body">पेमेंट पूर्ण केल्यानंतर आपल्या वॉलेटमध्ये अॅपकॉइन्स मिळतील. नंतर खेळात परत जाऊन खरेदी करा!</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">आपल्या कार्डाचा प्रकार अजुनतरी समर्थित नाही. वेगळे वापरुन प्रयत्न करा.</string>
   <string name="purchase_card_error_security">सुरक्षा माहिती बरोबर आहे ह्याची खात्री आहे? कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
+  <string name="purchase_wallet_error_contact_us">अरेरे आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">मित्रांना आमंत्रित करुन %s पर्यंत कमवा</string>
   <string name="promotions_referral_card_body">आपली आमंत्रण लिंक सामायिक करा आणि अॅपकॉइन्स क्रेडीटस कमवा.</string>
   <string name="promotions_gamification_card_title">प्रत्येक खरेदीवर ३०% पर्यंत बोनस</string>
+  <string name="promotions_gamification_card_title_variable">प्रत्येक खरेदीवर %s%%% पर्यंत बोनस</string>
   <string name="promotions_new">नविन</string>
   <string name="promotions_tab_promotions_title">जाहिराती</string>
   <string name="promotions_tab_poa_title">खेळा &amp; कमवा</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
   <string name="backup_confirmation_title">अजुन फक्त एकच पायरी</string>
   <string name="backup_confirmation_body">आपला बॅकअप सुरक्षित राखा! आपण त्याला कुठे सेव्ह कराल?</string>
+  <string name="backup_confirmation_yes">हो, संपवा</string>
+  <string name="backup_confirmation_no">नको, डिव्हाईसवर सेव्ह करा</string>
   <string name="backup_done_title">बॅकअप झाला!</string>
   <string name="backup_done_body">बॅकअप फाईल सुरक्षित जागी आहे ह्याची खात्री आहे ना?</string>
+  <string name="backup_confirmation_no_share_title">बॅकअप झाला!</string>
+  <string name="backup_confirmation_no_share_body">आपली बॅकअप फाईल आपल्या डाऊनलोडस फोल्डरमध्ये आहे.</string>
+  <string name="backup_save_dialogue_title">बॅकअप फाईल सेव्ह करा</string>
+  <string name="backup_save_dialogue_body">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
+  <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
+  <string name="backup_confirmation_tips_1">प्रिंट करुन कुठेतरी सुरक्षित राखा.</string>
+  <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर सेव्ह करा.</string>
+  <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये कॉपी करा.</string>
   <string name="backup_send_via_title">बॅकअप ह्याद्वारे करा:</string>
   <string name="backup_send_button">बॅकअप करा</string>
-  <string name="import_wallet_title">वॉलेट इंपोर्ट करा</string>
+  <string name="backup_save_button">बॅकअप सेव्ह करा</string>
+  <string name="import_wallet_title">वॉलेट परत मिळवा</string>
   <string name="import_wallet_body">आपल्या वॉलेटचा बॅकअप खाली पेस्ट करा.</string>
   <string name="import_wallet_keystore_private_keys">की स्टोर किंवा खासगी कीज</string>
-  <string name="import_wallet_file_button">फाईलमधुन इंपोर्ट करा</string>
-  <string name="import_wallet_button">वॉलेट इंपोर्ट करा</string>
+  <string name="import_wallet_file_button">फाईलीतुन परत मिळवा</string>
+  <string name="import_wallet_button">वॉलेट परत मिळवा</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
   <string name="error_invalid_keystore">अवैध कीस्ट्रोक</string>
+  <string name="backup_tooltip_body">आपल्या वॉलेटचा बॅकअप करा!</string>
+  <string name="backup_tooltip_later_button">कदाचित नंतर</string>
+  <string name="backup_tooltip_backup_button">बॅकअप</string>
+  <string name="backup_notification_title">आपल्या वॉलेटचा बॅकअप करा!</string>
+  <string name="backup_notification_body">आपले पैसे सुरक्षित राखा आणि आपल्या वॉलेटमध्ये आपल्याला नेहमीच प्रवेश मिळेल याची खात्री करा.</string>
+  <string name="backup_choose_wallet_title">बॅकअपसाठी वॉलेट निवडा</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
@@ -556,10 +576,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">एकुण मूल्य</string>
   <string name="wallets_address_copied_body">वॉलेटचा पत्ता क्लिपबोर्डावर कॉपी केलाय</string>
-  <string name="wallets_imported_body">वॉलेट इंपोर्ट सफल झाला</string>
+  <string name="wallets_imported_body">वॉलेट यशस्वीपणे परत मिळविले</string>
   <string name="wallets_2nd_view_balance_title">शिल्लक:</string>
   <string name="wallets_2nd_view_other_wallets_title">अन्य वॉलेटस</string>
-  <string name="wallets_2nd_view_import_button">वॉलेट इंपोर्ट करा</string>
+  <string name="wallets_2nd_view_import_button">वॉलेट परत मिळवा</string>
   <string name="wallets_2nd_view_create_button">नविन तयार करा</string>
   <string name="wallet_view_copy_button">कॉपी</string>
   <string name="wallet_view_share_button">सामायिक करा</string>
@@ -572,7 +592,7 @@
   <string name="remove_wallet_title">वॉलेट काढा</string>
   <string name="remove_wallet_body">काढण्यापूर्वी वॉलेटचा बॅकअप घेण्याची आम्ही जोरदार शिफारस करतो. जर आपण बॅकअप घेतलेला नसेल तर आपण परत ह्यात प्रवेश करु शकणार नाही.</string>
   <string name="remove_wallet_backup_button">वॉलेट बॅकअप करा</string>
-  <string name="remove_wallet_no_backup_button">बॅकअपशिवाय पुढे चला</string>
+  <string name="remove_wallet_no_backup_button">वॉलेट परत मिळवा</string>
   <string name="remove_wallet_confirm_body">हे वॉलेट नक्की मिटवायचे आहे का?</string>
   <string name="remove_wallet_no_button">नाही, परत जाऊया</string>
   <string name="remove_wallet_yes_button">होय, वॉलेट काढा</string>
@@ -590,6 +610,98 @@
   <string name="transfer_send_button">पाठवा</string>
   <string name="transfer_receive_body">रक्कम मिळविण्यासाठी आपल्या वॉलेटचा पत्ता सामायिक करा.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">आपल्यासाठी नविन संदेश आहे!</string>
+  <string name="support_new_message_button">उघडण्यासाठी टॅप करा</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">%s ला बोनस टक्केवारी अद्यतन झाली.</string>
+  <string name="pioneer_gamification_title">आपण पायोनियर आहात</string>
+  <string name="pioneer_gamification_body">वाढीव बोनससह लवकर अडॉप्ट करणारे पायोनियर असतात.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">अद्यतन तपासा</string>
+  <string name="check_updates_settings_subtitle">सद्य आवृत्ती %s</string>
+  <string name="check_updates_checking_body">नविन आवृत्ती शोधताहोत</string>
+  <string name="check_updates_no_updates_body">आपण अद्ययावत आहात!</string>
+  <string name="check_updates_updates_available_title">नविन आवृत्ती उपलब्ध आहे</string>
+  <string name="check_updates_update_button">आत्ता अद्यतन करा</string>
+  <string name="check_updates_settings_available_title">नविन आवृत्ती उपलब्ध आहे</string>
+  <string name="check_updates_settings_available_subtitle_button">अद्यतन करण्यासाठी टॅप करा</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">सदस्यत्वाचे व्यवस्थापन करा</string>
+  <string name="subscriptions_title">सदस्यत्व</string>
+  <string name="subscriptions_active_title">सक्रिय</string>
+  <string name="subscriptions_expired_title">निष्क्रिय</string>
+  <string name="subscriptions_empty_title">अजुन तरी कोणतेही सदस्यत्व नाही</string>
+  <string name="subscriptions_empty_body">आपल्या आवडत्या अॅप्स आणि खेळातील सेवांचे सदस्यत्व घ्या आणि आम्ही त्यांच्या वेळशीर पैसे भरण्याची काळजी घेऊ.</string>
+  <string name="subscriptions_details_billing_title">बिलिंग:</string>
+  <string name="subscriptions_details_next_payment_title">पुढचे पेमेंट:</string>
+  <string name="subscriptions_details_payment_method_title">पेमेंट पद्धत:</string>
+  <string name="subscriptions_details_last_bill">शेवटी भरलेले बिल:</string>
+  <string name="subscriptions_details_start_date_title">सुरु केल्याची तारीख:</string>
+  <string name="subscriptions_details_cancelled_body">रद्द केले - ह्याची कालबाह्यता %s ला आहे</string>
+  <string name="subscriptions_expiration_body">ह्याची कालबाह्यता %s ला आहे</string>
+  <string name="subscriptions_canceled_body">रद्द केले</string>
+  <string name="subscriptions_details_disclaimer">विनिमय दरामुळे अॅपकॉइन्सचे मूल्य पुढच्या पेमेंटसाठी बदलु शकते.</string>
+  <string name="subscriptions_details_button">तपशील</string>
+  <string name="subscriptions_manage_button">सदस्यत्वांचे व्यवस्थापन करा</string>
+  <string name="subscriptions_cancel_button">सदस्यत्व रद्द करा</string>
+  <string name="subscriptions_cancel_title">सदस्यत्व रद्द करा</string>
+  <string name="subscriptions_cancel_body">हे सदस्यत्व नक्की रद्द करायचे आहे का?</string>
+  <string name="subscriptions_cancel_no_button">नाही, परत जाऊया</string>
+  <string name="subscriptions_cancel_yes_button">होय, सदस्यत्व रद्द करा</string>
+  <string name="subscriptions_cancel_confirmation_title">सदस्यत्व रद्द केले!</string>
+  <string name="subscriptions_cancel_confirmation_body">ह्या सदस्यत्वासाठी आपल्याला काहीही शुल्क लागू होणार नाही आणि आपण ह्याचा वापर %s पर्यंत करु शकता.</string>
+  <string name="subscriptions_category_title">सदस्यत्व</string>
+  <string name="subscriptions_bonus_body">प्रत्येक पेमेंटवर आपल्याला हा बोनस मिळेल.</string>
+  <string name="subscriptions_per_day">%1$s%2$s/प्रति दिवशी</string>
+  <string name="subscriptions_per_week">%1$s%2$s/प्रति अठवडा</string>
+  <string name="subscriptions_per_month">%1$s%2$s/प्रति महिना</string>
+  <string name="subscriptions_per_year">%1$s%2$s/प्रति वर्ष</string>
+  <!--New Gamification-->
+  <string name="gamif_title">%s%% पर्यंतचा बोनस मिळवा!</string>
+  <string name="gamif_bonus_received">बोनस मिळाला</string>
+  <string name="gamif_spent">ह्या पातळीवर पोचण्यासाठी खर्च केलेली रक्कम</string>
+  <string name="gamif_show_previous">आधीची कामगिरी दाखवा</string>
+  <string name="gamif_hide_previous">आधीची कामगिरी दृष्टीआड करा</string>
+  <string name="gamif_next_goals">पुढच्या पातळीवर पोचण्यासाठी %s अॅपकॉइन्स खर्च करा,</string>
+  <string name="gamif_achievement_start">आपण आपला प्रवास सुरु केलायत</string>
+  <string name="gamif_achievement_start_sub">आत्ताच तर पृथ्वी सोडली!</string>
+  <string name="gamif_achievement_reach">आपण %s वर पोचलायत</string>
+  <string name="gamif_card_start">आपण अजुनही पृथ्वीवरच आहात</string>
+  <string name="gamif_card_title">आपण %s वर आहात</string>
+  <string name="gamif_card_body">पुढच्या पातळीवर पोचण्यासाठी जास्त %s अॅपकॉइन्स खर्च करा.</string>
+  <string name="gamif_bonus">%s%% बोनस</string>
+  <string name="gamif_placeholder_earth">पृथ्वी</string>
+  <string name="gamif_quote_earth">\"आपल्या सगळ्यांना जोडणारी पृथ्वीच आहे\" - वेंडेल बेरी</string>
+  <string name="gamif_placeholder_moon">चंद्र</string>
+  <string name="gamif_quote_moon">\"मानवाचे एक छोटे पाऊल मानवासाठी बनले मोठी क्रांती\" - नील आर्मस्ट्राँग</string>
+  <string name="gamif_distance_moon">पृथ्वीपासुन ३८४, ४०० कि. मी. अंतरावर</string>
+  <string name="gamif_placeholder_mars">मंगळ</string>
+  <string name="gamif_quote_mars">\"मला मंगळावर मृत्यू आलेला चालेल. फक्त यान आत शिरताना होणार्‍या आघातात नको.\" - एलॉन मस्क</string>
+  <string name="gamif_distance_mars">पृथ्वीपासुन १२१.८ मिलियन किमी</string>
+  <string name="gamif_placeholder_phobos">फोबोस चंद्र</string>
+  <string name="gamif_quote_phobos">\"प्रत्येकजण चंद्रच आहे, आणि प्रत्येकाची अंधारी बाजू असते जी कधीच कुणा समोर आणली जात नाही.\" - मार्क ट्वेन</string>
+  <string name="gamif_distance_phobos">पृथ्वीपासुन ७७. ७९ मिलियन किमी</string>
+  <string name="gamif_placeholder_jupiter">गुरु</string>
+  <string name="gamif_quote_jupiter">\"गाभा समजल्यानंतर सगळीच सत्ये समजण्यास सोपी असतात; मुद्दा असतो फक्त त्यांना शोधण्याचा...\" - गॅलिलियो गॅलिलेइ</string>
+  <string name="gamif_distance_jupiter">पृथ्वीपासुन ६२३. ३१ मिलियन किमी</string>
+  <string name="gamif_placeholder_europa">युरोपा चंद्र</string>
+  <string name="gamif_quote_europa">\"जर आपणांस युरोपावर जीवन सापडले, तर आपण त्यास काय नाव द्याल? युरोपियन?\" - नील डीग्रासे टायसन</string>
+  <string name="gamif_distance_europa">पृथ्वीपासुन ६२८. ३ मिलियन किमी</string>
+  <string name="gamif_placeholder_saturn">शनी</string>
+  <string name="gamif_quote_saturn">\"मला सर्वात जास्त आवडणारा वैज्ञानिक सिद्धांत आहे, शनीची कडी पूर्णपणे हवाई कंपन्यांच्या हरविलेल्या सामानाने तयार झालेली आहेत.\" - मार्क रसेल</string>
+  <string name="gamif_distance_saturn">पृथ्वीपासुन १. ३५ बिलियन किमी</string>
+  <string name="gamif_placeholder_titan">टायटन चंद्र</string>
+  <string name="gamif_quote_titan">\"बुद्धीमान जिवांनी हे विश्र्व भरलेले आहे ह्याची मला खात्री आहे. पण ते बुद्धीमानी असल्यानेच इथे येत नाहीत.\" - आर्थर सी. क्लार्क</string>
+  <string name="gamif_distance_titan">पृथ्वीपासुन १. ४ बिलियन किमी</string>
+  <string name="gamif_placeholder_uranus">युरेनस</string>
+  <string name="gamif_quote_uranus">\"युरेनसचे चंद्र गुंफल्यासारखे वाटतात\" - सर रॉबर्ट स्टावेल बॉल</string>
+  <string name="gamif_distance_uranus">पृथ्वीपासुन ३. ०३ बिलियन किमी</string>
+  <string name="gamif_placeholder_neptune">नेपच्युन</string>
+  <string name="gamif_quote_neptune">\"तो तारा नकाशात नाहीये!\" - नेपच्युनचा शोध लागल्यानंतर हेन्रिच डीअरेस्ट यांचे उद्गार.</string>
+  <string name="gamif_distance_neptune">पृथ्वीपासुन ४. ४२ बिलियन किमी</string>
+  <string name="gamif_placeholder_planetx">%s ग्रह</string>
+  <string name="gamif_quote_planetx">\"कुठेतरी, काहीतरी आश्चर्यकारक, अस्तित्व दर्शविण्यासाठी थांबलेल असत.\" - कार्ल सेगान</string>
+  <string name="gamif_placeholder_unknown">माहिती नसलेला ग्रह</string>
+  <string name="gamif_distance_unkown">माहिती नसलेले ठिकाण</string>
+  <string name="gamif_placeholder_new_planet">ऩविन ग्रह</string>
 </resources>

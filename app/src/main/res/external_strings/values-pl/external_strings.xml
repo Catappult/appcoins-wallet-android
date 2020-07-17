@@ -32,6 +32,8 @@
   <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
   <string name="iab_purchase_done_title_long">Purchase completed!</string>
   <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">NEXT</string>
   <string name="cancel_button">Anuluj</string>

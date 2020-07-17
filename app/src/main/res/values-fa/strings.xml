@@ -4,7 +4,7 @@
   <string name="title_send">ارسال</string>
   <string name="title_send_with_token">ارسال %s</string>
   <string name="title_request">دریافت</string>
-  <string name="title_import">واردکردن کیف پول</string>
+  <string name="title_import">بازیابی کیف‌پول</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">رمزعبور</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">کیف‌های پول</string>
   <string name="cancel">لغو</string>
   <string name="confirm_delete_account">مطمئن شوید که از این کیف پول بک‌آپ دارید.</string>
-  <string name="action_import">واردکردن</string>
+  <string name="action_import">بازیابی</string>
   <string name="copy">کپی به کلیپ بورد</string>
   <string name="close">بستن</string>
   <string name="title_activity_settings">تنظیمات</string>
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">تنظیم رمز عبور برای رمزگذاری کیف پول خود</string>
-  <string name="toast_message_wallet_imported">کیف پول وارد شده است</string>
+  <string name="toast_message_wallet_imported">کیف پول بازیابی شد</string>
   <string name="toast_message_wallet_exported">یک بک‌آپ ساخته شد</string>
   <string name="toast_qr_code_no_address">کد QR آدرس معتبر ندارد</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">استفاده از کد</string>
+  <string name="settings_item_support">تماس با تیم پشتیبانی</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">در حال پیش رفتن&#8230;</string>
   <string name="local_payments_inprogress_body">هرزمان که پرداخت خود را تکمیل کنید، اعتبار AppCoins در کیف پول خود دریافت خواهید کرد. پس برای تکمیل خرید به بازی برگردید!</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">نوع کارت شما پشتیبانی نمی‌شود. با کارت دیگری امتحان کنید.</string>
   <string name="purchase_card_error_security">آیا مطمئن هستید که اطلاعات امنیتی صحیح است؟ لطفا مجدد امتحان کنید.</string>
   <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
+  <string name="purchase_wallet_error_contact_us">مشکلی برای کیف پول شما پیش آمده است. لطفا با ما تماس بگیرید.</string>
   <string name="purchase_card_error_CVV">CVV/CVC اشتباه</string>
   <string name="error_contac_us_body">اگر مشکل ادامه داشت لطفا با ما تماس بگیرید.</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">با دعوت دوستان تا %s کسب درآمد کنید</string>
   <string name="promotions_referral_card_body">لینک دعوت خود را به اشتراک بگذارید و اعتبار AppCoins کسب کنید.</string>
   <string name="promotions_gamification_card_title">برای هر خرید، تا ۳۰% پاداش دریافت کنید</string>
+  <string name="promotions_gamification_card_title_variable">برای هر خرید، تا %s%% پاداش دریافت کنید</string>
   <string name="promotions_new">جدید</string>
   <string name="promotions_tab_promotions_title">پیشنهادات تشویقی</string>
   <string name="promotions_tab_poa_title">بازی و جایزه</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
   <string name="backup_confirmation_title">فقط یک قدم دیگر</string>
   <string name="backup_confirmation_body">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
+  <string name="backup_confirmation_yes">بله، تمام شد</string>
+  <string name="backup_confirmation_no">نه، ذخیره روی دستگاه</string>
   <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
+  <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
+  <string name="backup_confirmation_no_share_body">بک‌آپ شما در پوشه دانلودهای شماست.</string>
+  <string name="backup_save_dialogue_title">ذخیره فایل بک‌آپ</string>
+  <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
+  <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
+  <string name="backup_confirmation_tips_1">آن را پرینت و در جای امنی نگه‌داری کنید.</string>
+  <string name="backup_confirmation_tips_2">آن را روی یک USB ذخیره کنید.</string>
+  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن منتقل کنید.</string>
   <string name="backup_send_via_title">ارسال بک‌آپ از طریق:</string>
   <string name="backup_send_button">ارسال بک‌آپ</string>
-  <string name="import_wallet_title">واردکردن کیف پول</string>
+  <string name="backup_save_button">ذخیره بک‌آپ</string>
+  <string name="import_wallet_title">بازیابی کیف‌پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
-  <string name="import_wallet_file_button">واردکردن فایل از</string>
-  <string name="import_wallet_button">واردکردن کیف‌پول</string>
+  <string name="import_wallet_file_button">بازیابی از فایل</string>
+  <string name="import_wallet_button">بازیابی کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
   <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
   <string name="error_invalid_keystore">keystore نامعتبر</string>
+  <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
+  <string name="backup_tooltip_later_button">شاید بعدا</string>
+  <string name="backup_tooltip_backup_button">بک‌آپ</string>
+  <string name="backup_notification_title">از کیف پول خود یک بک‌آپ بگیرید!</string>
+  <string name="backup_notification_body">پول‌های خود را امن نگه دارید و مطمئن شوید که همیشه قادر به دسترسی به کیف پول خود هستید.</string>
+  <string name="backup_choose_wallet_title">یک کیف پول برای بک‌آپ انتخاب کنید</string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>
@@ -552,10 +572,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">ارزش کلی</string>
   <string name="wallets_address_copied_body">نشانی کیف‌پول در کلیپ‌بورد کپی شد</string>
-  <string name="wallets_imported_body">کیف‌پول با موفقیت واردشده است</string>
+  <string name="wallets_imported_body">کیف‌پول با موفقیت بازیابی شد</string>
   <string name="wallets_2nd_view_balance_title">تراز:</string>
   <string name="wallets_2nd_view_other_wallets_title">سایر کیف‌پول‌ها</string>
-  <string name="wallets_2nd_view_import_button">واردکردن کیف‌پول</string>
+  <string name="wallets_2nd_view_import_button">بازیابی کیف‌پول</string>
   <string name="wallets_2nd_view_create_button">تولید جدید</string>
   <string name="wallet_view_copy_button">کپی</string>
   <string name="wallet_view_share_button">به‌اشتراک گذاری</string>
@@ -568,7 +588,7 @@
   <string name="remove_wallet_title">حذف کیف‌پول</string>
   <string name="remove_wallet_body">قویا توصیه می‌کنیم که قبل از حذف کیف‌پول از آن پشتیبان‌گیری کنید. دیگر فادر به دسترسی به آن نخواهید بود جز با داشتن پشتیانی.</string>
   <string name="remove_wallet_backup_button">پشتیبان‌گیری از کیف‌پول</string>
-  <string name="remove_wallet_no_backup_button">بدون پشتیبان‌گیری پیش روید</string>
+  <string name="remove_wallet_no_backup_button">حذف کیف‌پول</string>
   <string name="remove_wallet_confirm_body">آیا مطمئن هستید که می‌خواهید این کیف‌پول را حذف کنید؟</string>
   <string name="remove_wallet_no_button">نه، به عقب برو</string>
   <string name="remove_wallet_yes_button">بله، حذف کیف‌پول</string>
@@ -586,6 +606,98 @@
   <string name="transfer_send_button">ارسال</string>
   <string name="transfer_receive_body">برای دریافت وجه، نشانی کیف‌پول خود را به اشتراک بگذارید.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">پیام جدیدی دریافت کرده‌اید!</string>
+  <string name="support_new_message_button">برای باز کردن کلیک کنید</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">درصد پاداش روی %s بروزرسانی شد.</string>
+  <string name="pioneer_gamification_title">شما یک پیشرو هستید</string>
+  <string name="pioneer_gamification_body">یک پیشرو، یک فرزندخوانده قدیمی با پاداش افزایش یافته است.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">بررسی برای بروزرسانی</string>
+  <string name="check_updates_settings_subtitle">نسخه فعلی %s</string>
+  <string name="check_updates_checking_body">جستجو برای یک نسخه جدید</string>
+  <string name="check_updates_no_updates_body">بروز هستید!</string>
+  <string name="check_updates_updates_available_title">نسخه جدید موجود است</string>
+  <string name="check_updates_update_button">بروزرسانی همین حالا</string>
+  <string name="check_updates_settings_available_title">نسخه جدید موجود است</string>
+  <string name="check_updates_settings_available_subtitle_button">برای بروزرسانی فشار دهید</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">مدیریت آبونمان‌ها</string>
+  <string name="subscriptions_title">آبونمان‌ها</string>
+  <string name="subscriptions_active_title">فعال</string>
+  <string name="subscriptions_expired_title">غیرفعال</string>
+  <string name="subscriptions_empty_title">هنوز آبونمانی موجود نیست</string>
+  <string name="subscriptions_empty_body">برای سرویس‌ها در اپلیکیشن‌ها و بازی‌های مورد علاقه خود آبونمان شوید و پرداخت‌های دوره‌ای را ما مدیریت می‌کنیم.</string>
+  <string name="subscriptions_details_billing_title">پرداخت:</string>
+  <string name="subscriptions_details_next_payment_title">پرداخت بعدی:</string>
+  <string name="subscriptions_details_payment_method_title">روش پرداخت:</string>
+  <string name="subscriptions_details_last_bill">آخرین قبض:</string>
+  <string name="subscriptions_details_start_date_title">تاریخ شروع:</string>
+  <string name="subscriptions_details_cancelled_body">لغو شده - در %s منقضی می‌شود</string>
+  <string name="subscriptions_expiration_body">در %s منقضی می‌شود</string>
+  <string name="subscriptions_canceled_body">لغو شده‌</string>
+  <string name="subscriptions_details_disclaimer">ارزش در AppCoins ممکن است با توجه به نرخ تبدیل برای پرداخت بعدی شما تغییر کند.</string>
+  <string name="subscriptions_details_button">جزییات</string>
+  <string name="subscriptions_manage_button">مدیریت آبونمان</string>
+  <string name="subscriptions_cancel_button">لغو آبونمان</string>
+  <string name="subscriptions_cancel_title">لغو آبونمان</string>
+  <string name="subscriptions_cancel_body">آیا مطمئن هستید که می‌خواهید این آبونمان را لغو کنید؟</string>
+  <string name="subscriptions_cancel_no_button">نه، برمی‌گردم</string>
+  <string name="subscriptions_cancel_yes_button">بله، لغو آبونمان</string>
+  <string name="subscriptions_cancel_confirmation_title">آبونمان لغو شد!</string>
+  <string name="subscriptions_cancel_confirmation_body">دیگر برای این آبونمان پرداختی نخواهید داشت، تا %s می‌توانید آن را استفاده کنید.</string>
+  <string name="subscriptions_category_title">آبونمان</string>
+  <string name="subscriptions_bonus_body">این پاداش را روی همه پرداخت‌ها دریافت خواهید کرد.</string>
+  <string name="subscriptions_per_day">%1$s%2$s/روز</string>
+  <string name="subscriptions_per_week">%1$s%2$s/هفته</string>
+  <string name="subscriptions_per_month">%1$s%2$s/ماه</string>
+  <string name="subscriptions_per_year">%1$s%2$s/سال</string>
+  <!--New Gamification-->
+  <string name="gamif_title">تا %s%% پاداش!</string>
+  <string name="gamif_bonus_received">پاداش دریافت شد</string>
+  <string name="gamif_spent">مقدار پرداخت‌شده برای رسیدن به این مرحله</string>
+  <string name="gamif_show_previous">نمایش دستاوردهای پیشین</string>
+  <string name="gamif_hide_previous">مخفی کردن دستاوردهای پیشین</string>
+  <string name="gamif_next_goals">%s AppCoins پرداخت کنید تا به مرحله بعدی برسید</string>
+  <string name="gamif_achievement_start">سفر خود را شروع کرده‌اید</string>
+  <string name="gamif_achievement_start_sub">هم اکنون زمین را ترک کردید!</string>
+  <string name="gamif_achievement_reach">به %s رسیده‌اید</string>
+  <string name="gamif_card_start">هنوز روی زمین هستید</string>
+  <string name="gamif_card_title">روی %s هستید</string>
+  <string name="gamif_card_body">%s AppCoins بیشتری پرداخت کنید تا به مرحله بعدی برسید.</string>
+  <string name="gamif_bonus">%s%% پاداش</string>
+  <string name="gamif_placeholder_earth">زمین</string>
+  <string name="gamif_quote_earth">\"زمین همان نقطه اشتراک همه ماست.\" - وندل بری</string>
+  <string name="gamif_placeholder_moon">ماه</string>
+  <string name="gamif_quote_moon">\"آن قدم کوچک برای یک فرد، یک پرش بزرگ برای بشریت است\" - نیل آرمسترانگ</string>
+  <string name="gamif_distance_moon">۳۸۴۴۰۰ کیلومتر از زمین</string>
+  <string name="gamif_placeholder_mars">مریخ</string>
+  <string name="gamif_quote_mars">\"علاقه داریم در مریخ بمیرم. نه با یک ضربه.\" - ایلان ماسک</string>
+  <string name="gamif_distance_mars">۱۲۱/۸ میلیون کیلومتر از زمین</string>
+  <string name="gamif_placeholder_phobos">ماه Phobos</string>
+  <string name="gamif_quote_phobos">\"هر کس یک ماه است و یک روی تاریک دارد که هیچ وقت به کسی نمایش نمی‌دهد.\" - مارک تواین</string>
+  <string name="gamif_distance_phobos">۷۷/۷۹ میلیون کیلومتر از زمین</string>
+  <string name="gamif_placeholder_jupiter">سیاره مشتری</string>
+  <string name="gamif_quote_jupiter">\"همه واقعیات بسادگی قابل فهم اند زمانیکه کشف شوند، نکته کشف کردن آنهاست...\" - گالیله</string>
+  <string name="gamif_distance_jupiter">۶۲۳/۳۱ میلیون کیلومتر از زمین</string>
+  <string name="gamif_placeholder_europa">ماه اروپا</string>
+  <string name="gamif_quote_europa">\"اگر در اروپا حیات پیدا کنید، نام آن را چه می‌گذارید؟ آیا اروپایی خواهد بود؟\" - نیل دگراس تایسون</string>
+  <string name="gamif_distance_europa">۶۲۸/۳ میلیون کیلومتر از زمین</string>
+  <string name="gamif_placeholder_saturn">زحل</string>
+  <string name="gamif_quote_saturn">\"تئوری علمی که بسیار به آن علاقه‌مند هستم آن است که حلقه‌های زحل تماما از چمدان‌ها گمشده پروازها تشکیل شده اند.\" - مارک راسل</string>
+  <string name="gamif_distance_saturn">۱/۳۵ میلیارد کیلومتر از زمین</string>
+  <string name="gamif_placeholder_titan">ماه تیتان</string>
+  <string name="gamif_quote_titan">\"مطمئن هستم که کیهان مملو از زندگی هوشمند است. این زندگی‌ها آنقدر هوشمند هستند که به اینجا نیایند.\" آرتور سی.کلارک</string>
+  <string name="gamif_distance_titan">۱/۴ میلیارد کیلومتر از زمین</string>
+  <string name="gamif_placeholder_uranus">اورانوس</string>
+  <string name="gamif_quote_uranus">\"ماه‌های اورانوس به نظر می‌رسند که چرخش داشته‌اند.\" سر رابرت ستاول بال</string>
+  <string name="gamif_distance_uranus">۳/۰۳ میلیارد کیلومتر از زمین</string>
+  <string name="gamif_placeholder_neptune">نپتون</string>
+  <string name="gamif_quote_neptune">\"آن ستاره روی چارت قرار ندارد!\" - هنریک دارست پس از کشف نپتون.</string>
+  <string name="gamif_distance_neptune">۴/۴۲ میلیارد کیلومتر از زمین</string>
+  <string name="gamif_placeholder_planetx">سیاره %s</string>
+  <string name="gamif_quote_planetx">\"جایی چیزی فوق‌العاده منتظر شناخته شدن است\" - کارل ساگان</string>
+  <string name="gamif_placeholder_unknown">یک سیاره ناشناخته</string>
+  <string name="gamif_distance_unkown">موقعیت ناشناخته</string>
+  <string name="gamif_placeholder_new_planet">یک سیاره جدید</string>
 </resources>

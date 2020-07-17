@@ -1,11 +1,20 @@
 package com.asfoundation.wallet.support
 
+import com.asfoundation.wallet.App
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
+import io.intercom.android.sdk.push.IntercomPushClient
 import io.reactivex.Observable
 
-class SupportInteractor(private val preferences: SupportSharedPreferences) {
+
+class SupportInteractor(private val preferences: SupportSharedPreferences, val app: App) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
@@ -18,6 +27,21 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
     resetUnreadConversations()
     Intercom.client()
         .displayMessenger()
+  }
+
+  @Suppress("DEPRECATION")
+  fun displayConversationListOrChat() {
+    //this method was introduced because if the app is closed intercom returns 0 unread conversations
+    //even if there are more
+    resetUnreadConversations()
+    val handledByIntercom = getUnreadConversations() > 0
+    if (handledByIntercom) {
+      Intercom.client()
+          .displayMessenger()
+    } else {
+      Intercom.client()
+          .displayConversationsList()
+    }
   }
 
   fun registerUser(level: Int, walletAddress: String) {
@@ -35,6 +59,9 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
       val registration: Registration = Registration.create()
           .withUserId(walletAddress)
           .withUserAttributes(userAttributes)
+
+      val gpsAvailable = checkGooglePlayServices()
+      if (gpsAvailable) handleFirebaseToken()
 
       Intercom.client()
           .registerIdentifiedUser(registration)
@@ -58,5 +85,21 @@ class SupportInteractor(private val preferences: SupportSharedPreferences) {
   private fun resetUnreadConversations() = preferences.resetUnreadConversations()
 
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
+
+  private fun checkGooglePlayServices(): Boolean {
+    val availability = GoogleApiAvailability.getInstance()
+    return availability.isGooglePlayServicesAvailable(app) == ConnectionResult.SUCCESS
+  }
+
+  private fun handleFirebaseToken() {
+    FirebaseInstanceId.getInstance()
+        .instanceId
+        .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
+          override fun onComplete(task: Task<InstanceIdResult?>) {
+            if (!task.isSuccessful) return
+            IntercomPushClient().sendTokenToIntercom(app, task.result?.token!!)
+          }
+        })
+  }
 
 }

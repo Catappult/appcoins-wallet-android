@@ -4,7 +4,7 @@
   <string name="title_send">ေပးပို႔မည္</string>
   <string name="title_send_with_token">%s ကို ေပးပို႔မည္</string>
   <string name="title_request">ရယူမည္</string>
-  <string name="title_import">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="title_import">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">စကားဝွက္</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="cancel">ပယ္ဖ်က္မည္</string>
   <string name="confirm_delete_account">သင့္တြင္ ဤပိုက္ဆံအိတ္ကို အရန္ျပဳလုပ္ထားေၾကာင္း ေသခ်ာေအာင္ စစ္ေဆးပါ။</string>
-  <string name="action_import">ထည့္သြင္းမည္</string>
+  <string name="action_import">ျပန္လည္ရယူမည္</string>
   <string name="copy">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
   <string name="close">ပိတ္မည္</string>
   <string name="title_activity_settings">ဆက္တင္</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
   <string name="ok">အိုေက</string>
   <string name="barcode_error_format">ဘားကုဒ္ပံုစံ မမွန္ကန္ပါ - %s</string>
-  <string name="title_delete_account">ဤပိုက္ဆံအိတ္ကို ဖ်က္လိုသည္မွာ ေသခ်ာပါသလား။</string>
+  <string name="title_delete_account">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram အုပ္စု</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">သင့္ပိုက္ဆံအိတ္ကို ကုဒ္ဖ်က္ထားရန္ စကားဝွက္တစ္ခုကို သတ္မွတ္ပါ</string>
-  <string name="toast_message_wallet_imported">ပိုုက္ဆံအိတ္ကို ထည့္သြင္းခဲ့ပါသည္</string>
+  <string name="toast_message_wallet_imported">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူလိုက္ပါသည္</string>
   <string name="toast_message_wallet_exported">အရန္ထားရွိမႈကို ျပဳလုပ္ခဲ့ပါသည္</string>
   <string name="toast_qr_code_no_address">QR ကုဒ္တြင္ မွန္ကန္ေသာ လိပ္စာတစ္ခု မပါဝင္ပါ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
+  <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">လုပ္ေဆာင္ေနပါသည္&#8230;</string>
   <string name="local_payments_inprogress_body">ေငြေပးေခ်မႈ ျပဳလုပ္ၿပီးသည္ႏွင့္ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credit မ်ားကို ရရွိပါမည္။ ယင္းေနာက္တြင္ ၀ယ္ယူမႈျပဳလုပ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">သင့္ကဒ္အမ်ိဳးအစားကို မပံ့ပိုးေပးထားေသးပါ။ အျခားကဒ္တစ္ကဒ္ျဖင့္ ႀကိဳးစားပါ။</string>
   <string name="purchase_card_error_security">လံုၿခံဳေရး သတင္းအခ်က္အလက္ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="purchase_wallet_error_contact_us">အိုး သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚျခင္းျဖင့္ %s အထိ ရယူလိုက္ပါ</string>
   <string name="promotions_referral_card_body">ဖိတ္ေခၚသည့္လင့္ခ္ကို မွ်ေ၀ကာ AppCoins Credits မ်ားကို ရယူပါ။</string>
   <string name="promotions_gamification_card_title">၀ယ္ယူမႈတစ္ခုစီအတြက္ ၃၀% အထိ ေဘာနပ္စ္</string>
+  <string name="promotions_gamification_card_title_variable">၀ယ္ယူမႈတစ္ခုစီအတြက္ %s%% အထိ ေဘာနပ္စ္</string>
   <string name="promotions_new">အသစ္</string>
   <string name="promotions_tab_promotions_title">အေရာင္းျမႇင့္တင္မႈမ်ား</string>
   <string name="promotions_tab_poa_title">ကစားကာ&amp;ရယူပါ</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_confirmation_title">ေနာက္ထပ္တစ္ဆင့္သာ</string>
   <string name="backup_confirmation_body">သင့္အရံသိမ္းဆည္းမႈကို လံုၿခံဳေအာင္ ထားလိုက္ပါ။ မည္သည့္ေနရာတြင္ သိမ္းလိုပါသလဲ။</string>
+  <string name="backup_confirmation_yes">ဟုတ္ကဲ့ ၿပီးပါၿပီ</string>
+  <string name="backup_confirmation_no">မဟုတ္ပါ။ ကိရိယာေပၚတြင္ သိမ္းဆည္းမည္</string>
   <string name="backup_done_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_done_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ လံုၿခံဳေသာေနရာတြင္ ရွိေနေၾကာင္း ေသခ်ာပါသလား။</string>
+  <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
+  <string name="backup_confirmation_no_share_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ သင့္ Downloads ဖိုလ္ဒါတြင္ ရွိပါသည္။</string>
+  <string name="backup_save_dialogue_title">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
+  <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
+  <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
+  <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
+  <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္တစ္ခုေပၚတြင္ သိမ္းဆည္းပါ။</string>
+  <string name="backup_confirmation_tips_3">သီးသန္႔ျဖစ္ၿပီး လံုျခံဳေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ ကူးယူထားပါ။</string>
   <string name="backup_send_via_title">အရန္သိမ္းဆည္းမႈကို ေပးပို႔မည္ -</string>
   <string name="backup_send_button">အရံသိမ္းဆည္းမႈကို ေပးပို႔မည္</string>
-  <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="backup_save_button">အရံသိမ္းဆည္းမႈကို သိမ္းမည္</string>
+  <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
-  <string name="import_wallet_file_button">ဖိုင္မွထည့္သြင္းမည္</string>
-  <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ထည့္သြင္းမည္</string>
+  <string name="import_wallet_file_button">ဖိုင္မွ ျပန္လည္ရယူမည္</string>
+  <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
   <string name="error_invalid_keystore">Keystore မမွန္ကန္ပါ</string>
+  <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
+  <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
+  <string name="backup_tooltip_backup_button">အရံသိမ္းဆည္းမည္</string>
+  <string name="backup_notification_title">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
+  <string name="backup_notification_body">သင့္ေငြမ်ားကို ေဘးကင္းေအာင္ထားရွိကာ သင့္ပိုက္ဆံအိတ္ကို အၿမဲတမ္း ၀င္ေရာက္အသံုးျပဳႏိုင္ေအာင္ ျပဳလုပ္ထားပါ။</string>
+  <string name="backup_choose_wallet_title">အရံသိမ္းဆည္းရန္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ေရြးခ်ယ္ပါ</string>
   <!--Wallets Management-->
   <string name="wallets_title">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_total_balance_title">%s တြင္ စုစုေပါင္းလက္က်န္ေငြ</string>
@@ -551,10 +571,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">စုစုေပါင္းတန္ဖိုး</string>
   <string name="wallets_address_copied_body">ပိုက္ဆံအိတ္လိပ္စာကို ကလစ္ပ္ဘုတ္သို႔ ကူးယူလိုက္ပါၿပီ</string>
-  <string name="wallets_imported_body">ပိုက္ဆံအိတ္ကို ေအာင္ျမင္စြာ ထည့္သြင္းလိုက္ပါသည္</string>
+  <string name="wallets_imported_body">ပိုက္ဆံအိတ္ကို ေအာင္ျမင္စြာ ျပန္လည္ရယူလိုက္ပါသည္</string>
   <string name="wallets_2nd_view_balance_title">လက္က်န္ေငြ -</string>
   <string name="wallets_2nd_view_other_wallets_title">အျခား ပိုက္ဆံအိတ္မ်ား</string>
-  <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ထည့့္သြင္းမည္</string>
+  <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="wallets_2nd_view_create_button">အသစ္ဖန္တီးမည္</string>
   <string name="wallet_view_copy_button">ကူးမည္</string>
   <string name="wallet_view_share_button">မွ်ေ၀မည္</string>
@@ -567,7 +587,7 @@
   <string name="remove_wallet_title">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_body">ပိုက္ဆံအိတ္ကို မဖယ္ထုတ္မီတြင္ အရန္သိမ္းဆည္းထားရန္ ကၽြႏ္ုပ္တုိ႔ အေလးအနက္ တိုက္တြန္းပါသည္။ သင့္တြင္ အရန္သိမ္းဆည္းမႈ မရွိပါက ယင္းကိုျပန္လည္ရယူႏိုင္လိမ့္မည္ မဟုတ္ပါ။</string>
   <string name="remove_wallet_backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
-  <string name="remove_wallet_no_backup_button">အရန္မသိမ္းဆည္းဘဲ ဆက္လုပ္မည္</string>
+  <string name="remove_wallet_no_backup_button">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_confirm_body">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
   <string name="remove_wallet_no_button">မဟုတ္ပါ။ ေနာက္သို႔ျပန္သြားမည္</string>
   <string name="remove_wallet_yes_button">ဟုတ္ပါသည္။ ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
@@ -585,6 +605,98 @@
   <string name="transfer_send_button">ေပးပို႔မည္</string>
   <string name="transfer_receive_body">ေငြကိုလက္ခံယူရန္ သင့္ပိုက္ဆံအိတ္လိပ္စာကို မွ်ေ၀ပါ။</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">သင့္အတြက္ မက္ေဆ့ဂ်္အသစ္တစ္ခု ရွိပါသည္။</string>
+  <string name="support_new_message_button">ဖြင့္ရန္ႏွိပ္ပါ</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">ေဘာနပ္စ္ရာခိုင္ႏႈန္းမ်ားကို %s ေပၚတြင္ ျဖည့္စြက္ျပင္ဆင္ထားပါသည္။</string>
+  <string name="pioneer_gamification_title">သင္က ေရွ႔ေဆာင္လမ္းျပတစ္ဦး ျဖစ္ပါသည္</string>
+  <string name="pioneer_gamification_body">ေရွ႔ေဆာင္လမ္းျပသူဆိုသည္မွာ ေဘာနပ္စ္မ်ားမ်ားပိုရသည့္ အေစာပိုင္းသံုးစြဲသူ ျဖစ္ပါသည္။</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">အပ္ဒိတ္မ်ားကို စစ္ၾကည့္လိုက္ပါ</string>
+  <string name="check_updates_settings_subtitle">လက္ရွိဗားရွင္း %s</string>
+  <string name="check_updates_checking_body">ဗားရွင္းအသစ္ကို ရွာေနပါသည္</string>
+  <string name="check_updates_no_updates_body">သင္က အပ္ဒိတ္ျဖစ္ပါသည္။</string>
+  <string name="check_updates_updates_available_title">ဗားရွင္းအသစ္ရွိပါသည္</string>
+  <string name="check_updates_update_button">ယခုပင္ အပ္ဒိတ္လုပ္လိုက္ပါ</string>
+  <string name="check_updates_settings_available_title">ဗားရွင္းအသစ္ရွိပါသည္</string>
+  <string name="check_updates_settings_available_subtitle_button">အပ္ဒိတ္လုပ္ရန္ႏွိပ္ပါ</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
+  <string name="subscriptions_title">ပံုမွန္၀ယ္ယူမႈမ်ား</string>
+  <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
+  <string name="subscriptions_expired_title">မ၀ယ္ထားေသာ</string>
+  <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>
+  <string name="subscriptions_empty_body">သင့့္စိတ္ႀကိဳက္အက္ပ္မ်ားနွင့္ ဂိမ္မ်ားတြင္ ၀န္ေဆာင္မႈမ်ားကို ပံုမွန္၀ယ္ယူလိုက္ပါ။ ကာလအလိုက္ ေငြေပးေခ်မႈမ်ားကို ကၽြႏ္ုပ္တို႔ လုပ္ေဆာင္ေပးပါမည္။</string>
+  <string name="subscriptions_details_billing_title">က်သင့္ေငြေကာက္ခံျခင္း -</string>
+  <string name="subscriptions_details_next_payment_title">ေနာက္ထပ္ေငြေပးေခ်မႈ -</string>
+  <string name="subscriptions_details_payment_method_title">ေငြေပးေခ်မႈနည္းလမ္း -</string>
+  <string name="subscriptions_details_last_bill">ေနာက္ဆံုးက်သင့္ေငြေကာက္ခံမႈ -</string>
+  <string name="subscriptions_details_start_date_title">စတင္သည့္ေန႔စြဲ -</string>
+  <string name="subscriptions_details_cancelled_body">ပယ္ဖ်က္လိုက္ပါသည္ - %s တြင္ သက္တမ္းကုန္ပါမည္</string>
+  <string name="subscriptions_expiration_body">%s တြင္ သက္တမ္းကုန္ပါမည္</string>
+  <string name="subscriptions_canceled_body">ပယ္ဖ်က္လိုက္ပါသည္</string>
+  <string name="subscriptions_details_disclaimer">ေငြလဲႏႈန္းေၾကာင့္ ေနာက္ထပ္ေငြေပးေခ်မႈအတြက္ AppCoins တန္ဖိုးသည္ ကြဲျပားျခင္းရွိႏိုင္ပါသည္။</string>
+  <string name="subscriptions_details_button">အေသးစိတ္မ်ား</string>
+  <string name="subscriptions_manage_button">ပံုမွန္၀ယ္ယူမႈကို စီမံမည္</string>
+  <string name="subscriptions_cancel_button">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
+  <string name="subscriptions_cancel_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
+  <string name="subscriptions_cancel_body">ဤပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုပါသလား။</string>
+  <string name="subscriptions_cancel_no_button">မဟုတ္ပါ။ ေနာက္သို႔ျပန္သြားမည္</string>
+  <string name="subscriptions_cancel_yes_button">ဟုတ္ပါသည္။ ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
+  <string name="subscriptions_cancel_confirmation_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုက္ပါၿပီ။</string>
+  <string name="subscriptions_cancel_confirmation_body">ဤပံုမွန္၀ယ္ယူမႈအတြက္ သင့္အားေငြေကာက္ခံေတာ့မည္ မဟုတ္ဘဲ %s အထိ သင္အသံုးျပဳနိုင္ပါသည္။</string>
+  <string name="subscriptions_category_title">ပံုမွန္၀ယ္ယူမႈ</string>
+  <string name="subscriptions_bonus_body">ေငြေပးေခ်မႈ တစ္ခုစီတြင္ ဤေဘာနပ္စ္ကို သင္ရရွိပါမည္။</string>
+  <string name="subscriptions_per_day">တစ္ေန႔လွ်င္ %1$s%2$s</string>
+  <string name="subscriptions_per_week">တစ္ပတ္လွ်င္ %1$s%2$s</string>
+  <string name="subscriptions_per_month">တစ္လလွ်င္ %1$s%2$s</string>
+  <string name="subscriptions_per_year">တစ္ႏွစ္လွ်င္ %1$s%2$s</string>
+  <!--New Gamification-->
+  <string name="gamif_title">%s%% အထိ ေဘာနပ္စ္။</string>
+  <string name="gamif_bonus_received">ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ</string>
+  <string name="gamif_spent">ဤအဆင့္သို႔ေရာက္ရန္ အသံုးျပဳခဲ့ေသာ ပမာဏ</string>
+  <string name="gamif_show_previous">ယခင္က ရရွိခဲ့မႈမ်ားကို ေဖာ္ျပပါ</string>
+  <string name="gamif_hide_previous">ယခင္က ရရွိခဲ့မႈမ်ားကို ၀ွက္ထားပါ</string>
+  <string name="gamif_next_goals">ေနာက္အဆင့္သို႔ေရာက္ရန္ AppCoins %s ကို အသံုးျပဳပါ</string>
+  <string name="gamif_achievement_start">သင့္ခရီးကို စတင္ခဲ့ပါသည္</string>
+  <string name="gamif_achievement_start_sub">ကမာၻမွ ထြက္ခြာလိုက္ပါၿပီ။</string>
+  <string name="gamif_achievement_reach">%s သို႔ သင္ေရာက္ရွိပါၿပီ</string>
+  <string name="gamif_card_start">ကမာၻေပၚတြင္သာ သင္ရွိေနပါေသးသည္</string>
+  <string name="gamif_card_title">သင္က %s ေပၚတြင္ ျဖစ္ပါသည္</string>
+  <string name="gamif_card_body">ေနာက္အဆင့္သို႔ေရာက္ရန္ AppCoins %s ကို အသံုးျပဳပါ။</string>
+  <string name="gamif_bonus">%s%% ေဘာနပ္စ္</string>
+  <string name="gamif_placeholder_earth">ကမာၻ</string>
+  <string name="gamif_quote_earth">\"ကမာၻဆုိသည္မွာ ကၽြႏ္ုပ္တို႔အားလံုးတြင္ ဘံုပိုင္ဆိုင္ေသာအရာ ျဖစ္သည္\" – ၀န္ဒဲလ္ဘယ္ရီ</string>
+  <string name="gamif_placeholder_moon">လ</string>
+  <string name="gamif_quote_moon">\"ဒါက လူသားတစ္ေယာက္အတြက္ ေျခလွမ္းငယ္တစ္လွမ္းသာျဖစ္ၿပီး လူသားမ်ဳိးႏြယ္အတြက္ေတာ့ ႀကီးမားတဲ့ ေက်ာ္လႊားမႈတစ္ရပ္ ျဖစ္ပါတယ္\" – နီးလ္အမ္းစထေရာင္း</string>
+  <string name="gamif_distance_moon">ကမာၻမွ ၃၈၄,၄၀၀ km အကြာ</string>
+  <string name="gamif_placeholder_mars">အဂၤါၿဂိဳဟ္</string>
+  <string name="gamif_quote_mars">\"ကၽြန္ေတာ္ အဂၤါၿဂိဳဟ္ေပၚမွာ ေသခ်င္တယ္။ အဲဒီကိုေရာက္ေရာက္ခ်င္းေတာ့ မဟုတ္ဘူးေပါ့\" – အီလြန္မက္စ္</string>
+  <string name="gamif_distance_mars">ကမာၻမွ km ၁၂၁.၈ သန္းအကြာ</string>
+  <string name="gamif_placeholder_phobos">ဖိုဘိုစ္လ</string>
+  <string name="gamif_quote_phobos">\"လူတိုင္းဟာ လတစ္စင္းျဖစ္ၿပီး သူမ်ားေတြ ဘယ္ေတာ့မွမျမင္ရတဲ့ အေမွာင္ျခမ္းတစ္္ခုရွိတယ္\" – မက္ခ္တြိန္း</string>
+  <string name="gamif_distance_phobos">ကမာၻမွ km ၇၇.၇၉ သန္းအကြာ</string>
+  <string name="gamif_placeholder_jupiter">ၾကာသပေတးၿဂိဳဟ္</string>
+  <string name="gamif_quote_jupiter">\"အမွန္တရားတိုင္းဟာ ေတြ့ရွိသြားၿပီဆိုရင္ နားလည္ဖို႔လြယ္ပါတယ္။ အေရးႀကီးတာက ေတြ့ရွိဖို႔႔ပဲ...\" – ဂယ္လီလီယို ဂယ္လီလီ</string>
+  <string name="gamif_distance_jupiter">ကမာၻမွ km ၆၂၃.၃၁ သန္းအကြာ</string>
+  <string name="gamif_placeholder_europa">ယူ႐ိုပါလ</string>
+  <string name="gamif_quote_europa">\"ယူ႐ိုပါလေပၚမွာ သက္ရွိေတြကို ေတြ့မယ္ဆိုရင္ ခင္ဗ်ားတို႔ ဘယ္လိုေခၚမလဲ။ ဥေရာပသားေတြလို႔ ေခၚမယ္ထင္တယ္။\" – နီးလ္ဒီဂရက္စ္တိုင္ဆန္</string>
+  <string name="gamif_distance_europa">ကမာၻမွ km ၆၂၈.၃ သန္းအကြာ</string>
+  <string name="gamif_placeholder_saturn">စေနၿဂိဳဟ္</string>
+  <string name="gamif_quote_saturn">\"သိပၸံသီအိုရီေတြထဲမွာ ကၽြန္ေတာ္အႀကိဳက္ဆံုးက စေနၿဂိဳဟ္ရဲ႔ ကြင္းေတြကို ေလေၾကာင္းလိုင္းေတြက ေပ်ာက္ဆံုးသြားတဲ့ အိတ္ေတြသက္သက္နဲ႔ ဖြဲ့စည္းထားတယ္ ဆိုတာပါပဲ။\" – မက္ခ္ရပ္ဆဲလ္</string>
+  <string name="gamif_distance_saturn">ကမာၻမွ km ၁.၃၅ ဘီလီယမ္အကြာ</string>
+  <string name="gamif_placeholder_titan">တိုက္တန္လ</string>
+  <string name="gamif_quote_titan">\"အာကာသထဲမွာ အသိဉာဏ္ရွိတဲ့ သက္ရွိေတြ ေသခ်ာေပါက္ရွိတယ္။ အသိဉာဏ္ရွိလြန္းလို႔သာ ဒီကိုမလာျကတာ။\" – အာသာ စီ ကလက္ခ္</string>
+  <string name="gamif_distance_titan">ကမာၻမွ km ၁.၄ ဘီလီယမ္အကြာ</string>
+  <string name="gamif_placeholder_uranus">ယူေရးနတ္စ္ၿဂိဳဟ္</string>
+  <string name="gamif_quote_uranus">\"ယူေရးနတ္စ္ၿဂိဳဟ္ရဲ႔ လေတြက အလွည့္ခံရလိုက္ပံုရတယ္။\" – ဆာေရာဘတ္ စတာ၀ဲလ္ေဘာ</string>
+  <string name="gamif_distance_uranus">ကမာၻမွ km ၃.၀၃ ဘီလီယမ္အကြာ</string>
+  <string name="gamif_placeholder_neptune">နက္ပ္ကၽြန္းၿဂိဳဟ္</string>
+  <string name="gamif_quote_neptune">\"အဲဒီၾကယ္က အာကာသေျမပံုမွာ မပါဘူ။း\" – နက္ပ္ကၽြန္းၿဂိဳဟ္ကို ရွာေဖြေတြ့ရွိစဥ္က ဟဲလ္ရစ္ခ်္ဒီအာရက္စ္ေျပာေသာစကား။</string>
+  <string name="gamif_distance_neptune">ကမာၻမွ km ၄.၄၂ ဘီလီယမ္အကြာ</string>
+  <string name="gamif_placeholder_planetx">%sၿဂိဳဟ္</string>
+  <string name="gamif_quote_planetx">\"တစ္ေနရာရာမွာ ထူးျခားဆန္းၾကယ္တာ တစ္ခုခုက ရွာေဖြေတြ့ရွိတာခံရဖို႔ ေစာင့္ေနတယ္။\" – ကားလ္ဆာဂန္</string>
+  <string name="gamif_placeholder_unknown">အမည္မသိၿဂိဳဟ္တစ္လံုး</string>
+  <string name="gamif_distance_unkown">အမည္မသိ တည္ေနရာ</string>
+  <string name="gamif_placeholder_new_planet">ၿဂိဳဟ္အသစ္တစ္လံုး</string>
 </resources>

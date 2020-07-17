@@ -19,7 +19,7 @@ data class TransactionEntity(val transactionId: String,
                              val operations: List<OperationEntity>?) {
 
   enum class TransactionType {
-    STANDARD, IAB, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN,
+    STANDARD, IAP, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN,
     ETHER_TRANSFER, SUBS;
   }
 

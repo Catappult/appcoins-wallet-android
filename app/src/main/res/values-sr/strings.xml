@@ -4,7 +4,7 @@
   <string name="title_send">Pošaljite</string>
   <string name="title_send_with_token">Pošalji %s</string>
   <string name="title_request">Primite</string>
-  <string name="title_import">Uvezite novčanik</string>
+  <string name="title_import">Oporavite novčanik</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Lozinka</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Novčanici</string>
   <string name="cancel">otkaži</string>
   <string name="confirm_delete_account">Proverite da li ste napravili rezervnu kopiju ovog novčanika.</string>
-  <string name="action_import">Uvezi</string>
+  <string name="action_import">Oporavi</string>
   <string name="copy">Kopiraj u ostavu</string>
   <string name="close">Zatvori</string>
   <string name="title_activity_settings">Podešavanja</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
-  <string name="title_delete_account">Da li ste sigurni da želite da izbrišete ovaj novčanik?</string>
+  <string name="title_delete_account">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram grupa</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Podesite lozinku za šifrovanje novčanika</string>
-  <string name="toast_message_wallet_imported">Novčanik je uvezen</string>
+  <string name="toast_message_wallet_imported">Novčanik je oporavljen</string>
   <string name="toast_message_wallet_exported">Rezervna kopija je napravljena</string>
   <string name="toast_qr_code_no_address">QR kod ne sadrži ispravnu adresu</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Iskoristite kod</string>
+  <string name="settings_item_support">Obratite se timu korisničke podrške</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">U toku&#8230;</string>
   <string name="local_payments_inprogress_body">Kada dovršite plaćanje, u novčanik ćete dobiti AppCoins Credits. Zatim se vratite u igru da obavite kupovinu!</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Tip vaše kartice još nije podržan. Pokušajte sa drugom karticom.</string>
   <string name="purchase_card_error_security">Da li ste sigurni da su bezbednosne informacije tačne? Pokušajte ponovo.</string>
   <string name="purchase_card_error_wrong_CVV">Izgleda da je CVV/CVC kod pogrešan. Pokušajte ponovo.</string>
+  <string name="purchase_wallet_error_contact_us">Ups, nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
   <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">Zaradite do %s tako što ćete pozvati prijatelje</string>
   <string name="promotions_referral_card_body">Podelite pozivni link i zaradite AppCoins Credits.</string>
   <string name="promotions_gamification_card_title">Do 30% bonusa za svaku kupovinu</string>
+  <string name="promotions_gamification_card_title_variable">Do %s%% bonusa za svaku kupovinu</string>
   <string name="promotions_new">NOVO</string>
   <string name="promotions_tab_promotions_title">PROMOCIJE</string>
   <string name="promotions_tab_poa_title">IGRAJTE I ZARADITE</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">Ne čuvamo vaše privatnhe ključeve ni ostale načine pristupa. Važno je da rezervna kopija (skladište ključeva) vašeg novčanika bude na sigurnom.</string>
   <string name="backup_confirmation_title">Još samo jedan korak</string>
   <string name="backup_confirmation_body">Čuvajte rezervnu kopiju na sigurnom! Gde želite da je sačuvate?</string>
+  <string name="backup_confirmation_yes">DA, ZAVRŠI</string>
+  <string name="backup_confirmation_no">NE, SAČUVAJ NA UREĐAJU</string>
   <string name="backup_done_title">Rezervna kopija je napravljena!</string>
   <string name="backup_done_body">Da li ste sigurni da je vaša datoteka sa rezervnom kopijom na sigurnom mestu?</string>
+  <string name="backup_confirmation_no_share_title">Rezervna kopija je napravljena!</string>
+  <string name="backup_confirmation_no_share_body">Datoteka sa rezervnom kopijom se nalazi u fascikli Preuzimanja.</string>
+  <string name="backup_save_dialogue_title">Sačuvaj datoteku sa rezervnom kopijom</string>
+  <string name="backup_save_dialogue_body">Izaberite naziv za datoteku sa rezervnom kopijom.</string>
+  <string name="backup_confirmation_tips_title">Čuvajte datoteku na sigurnom:</string>
+  <string name="backup_confirmation_tips_1">Odštampajte je i čuvajte je na bezbednom mestu.</string>
+  <string name="backup_confirmation_tips_2">Sačuvajte je na USB disku.</string>
+  <string name="backup_confirmation_tips_3">Kopirajte je u privatnu, bezbednu memoriju na oblaku.</string>
   <string name="backup_send_via_title">Pošaljite rezervnu kopiju preko:</string>
   <string name="backup_send_button">POŠALJI REZERVNU KOPIJU</string>
-  <string name="import_wallet_title">Uvezite novčanik</string>
+  <string name="backup_save_button">SAČUVAJ REZERVNU KOPIJU</string>
+  <string name="import_wallet_title">Oporavite novčanik</string>
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
   <string name="import_wallet_keystore_private_keys">Skladište ključeva ili privatni ključevi</string>
-  <string name="import_wallet_file_button">UVEZI IZ DATOTEKE</string>
-  <string name="import_wallet_button">UVEZI NOVČANIK</string>
+  <string name="import_wallet_file_button">OPORAVITE IZ DATOTEKE</string>
+  <string name="import_wallet_button">OPORAVI NOVČANIK</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
   <string name="import_wallet_wrong_password_body">Ups, pogrešna lozinka!</string>
   <string name="error_invalid_private_key">Neispravan privatni ključ</string>
   <string name="error_invalid_keystore">Nevažeće skladište ključeva</string>
+  <string name="backup_tooltip_body">Napravite rezervnu kopiju novčanika!</string>
+  <string name="backup_tooltip_later_button">MOŽDA KASNIJE</string>
+  <string name="backup_tooltip_backup_button">REZERVNA KOPIJA</string>
+  <string name="backup_notification_title">Napravite rezervnu kopiju novčanika!</string>
+  <string name="backup_notification_body">Zaštitite svoja sredstva i pristupite novčaniku kad god želite.</string>
+  <string name="backup_choose_wallet_title">Odaberite novčanik za pravljenje rezervne kopije</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
@@ -553,10 +573,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Ukupna vrednost</string>
   <string name="wallets_address_copied_body">Adresa novčanika je kopirana u ostavu</string>
-  <string name="wallets_imported_body">Uvoz novčanika je uspeo</string>
+  <string name="wallets_imported_body">Oporavak novčanika je uspeo</string>
   <string name="wallets_2nd_view_balance_title">Stanje:</string>
   <string name="wallets_2nd_view_other_wallets_title">Drugi novčanici</string>
-  <string name="wallets_2nd_view_import_button">UVEZI NOVČANIK</string>
+  <string name="wallets_2nd_view_import_button">OPORAVI NOVČANIK</string>
   <string name="wallets_2nd_view_create_button">NAPRAVITE NOVI</string>
   <string name="wallet_view_copy_button">KOPIRAJ</string>
   <string name="wallet_view_share_button">PODELI</string>
@@ -569,7 +589,7 @@
   <string name="remove_wallet_title">Ukloni novčanik</string>
   <string name="remove_wallet_body">Preporučujemo vam da napravite rezervnu kopiju novčanika pre nego što ga uklonite. Ako ne budete imali rezervnu kopiju više nećete moći da mu pristupite.</string>
   <string name="remove_wallet_backup_button">NAPRAVI REZERVNU KOPIJU</string>
-  <string name="remove_wallet_no_backup_button">NASTAVI BEZ REZERVNE KOPIJE</string>
+  <string name="remove_wallet_no_backup_button">UKLONI NOVČANIK</string>
   <string name="remove_wallet_confirm_body">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
   <string name="remove_wallet_no_button">NE, VRATI SE</string>
   <string name="remove_wallet_yes_button">DA, UKLONI NOVČANIK</string>
@@ -587,6 +607,98 @@
   <string name="transfer_send_button">POŠALJI</string>
   <string name="transfer_receive_body">Podelite adresu svog novčanika da biste dobili sredstva.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Dobili ste novu poruku!</string>
+  <string name="support_new_message_button">Dodirnite da otvorite</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">Procenti za bonus su ažurirani %s.</string>
+  <string name="pioneer_gamification_title">Vi ste pionir</string>
+  <string name="pioneer_gamification_body">Pioniri su prvi korisnici koji dobijaju veće bonuse.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">Potraži ažuriranja</string>
+  <string name="check_updates_settings_subtitle">Aktuelna verzija %s</string>
+  <string name="check_updates_checking_body">Traži se nova verzija</string>
+  <string name="check_updates_no_updates_body">Koristite najnoviju verziju!</string>
+  <string name="check_updates_updates_available_title">Dostupna je nova verzija</string>
+  <string name="check_updates_update_button">AŽURIRAJ ODMAH</string>
+  <string name="check_updates_settings_available_title">Dostupna je nova verzija</string>
+  <string name="check_updates_settings_available_subtitle_button">Dodirnite da ažurirate</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">Upravljanje pretplatama</string>
+  <string name="subscriptions_title">Pretplate</string>
+  <string name="subscriptions_active_title">Aktivne</string>
+  <string name="subscriptions_expired_title">Neaktivne</string>
+  <string name="subscriptions_empty_title">Još nema pretplata</string>
+  <string name="subscriptions_empty_body">Pretplatite se na usluge u svojim omiljenim aplikacijama i igrama, a mi ćemo obraditi periodična plaćanja.</string>
+  <string name="subscriptions_details_billing_title">Naplata:</string>
+  <string name="subscriptions_details_next_payment_title">Sledeća uplata:</string>
+  <string name="subscriptions_details_payment_method_title">Način plaćanja:</string>
+  <string name="subscriptions_details_last_bill">Poslednji račun:</string>
+  <string name="subscriptions_details_start_date_title">Datum početka:</string>
+  <string name="subscriptions_details_cancelled_body">Otkazano – ističe: %s</string>
+  <string name="subscriptions_expiration_body">Ističe: %s</string>
+  <string name="subscriptions_canceled_body">Otkazano</string>
+  <string name="subscriptions_details_disclaimer">Vrednost sledeće uplate u AppCoins mogla bi da se razlikuje zbog kursa.</string>
+  <string name="subscriptions_details_button">DETALJI</string>
+  <string name="subscriptions_manage_button">UPRAVLJANJE PRETPLATOM</string>
+  <string name="subscriptions_cancel_button">OTKAŽI PRETPLATU</string>
+  <string name="subscriptions_cancel_title">Otkaži pretplatu</string>
+  <string name="subscriptions_cancel_body">Da li ste sigurni da želite da otkažete ovu pretplatu?</string>
+  <string name="subscriptions_cancel_no_button">NE, VRATI SE</string>
+  <string name="subscriptions_cancel_yes_button">DA, OTKAŽI PRETPLATU</string>
+  <string name="subscriptions_cancel_confirmation_title">Pretplata je otkazana!</string>
+  <string name="subscriptions_cancel_confirmation_body">Više vam se neće naplaćivati ova pretplata, a možete da je koristite do dana %s.</string>
+  <string name="subscriptions_category_title">Pretplata</string>
+  <string name="subscriptions_bonus_body">Dobićete ovaj bonus za svaku uplatu.</string>
+  <string name="subscriptions_per_day">%1$s%2$s dnevno</string>
+  <string name="subscriptions_per_week">%1$s%2$s nedeljno</string>
+  <string name="subscriptions_per_month">%1$s%2$s mesečno</string>
+  <string name="subscriptions_per_year">%1$s%2$s godišnje</string>
+  <!--New Gamification-->
+  <string name="gamif_title">Do %s%% bonusa!</string>
+  <string name="gamif_bonus_received">bounsa je dobijeno</string>
+  <string name="gamif_spent">potrošeno za dostizanje ovog nivoa</string>
+  <string name="gamif_show_previous">Prikaži prethodna dostignuća</string>
+  <string name="gamif_hide_previous">Sakrij prethodna dostignuća</string>
+  <string name="gamif_next_goals">Potrošite %s AppCoins da biste dostigli sledeći nivo</string>
+  <string name="gamif_achievement_start">Započeli ste putovanje</string>
+  <string name="gamif_achievement_start_sub">Krenuli ste sa Zemlje!</string>
+  <string name="gamif_achievement_reach">Stigli ste na %s</string>
+  <string name="gamif_card_start">Još ste na Zemlji</string>
+  <string name="gamif_card_title">Vaša lokacija je %s</string>
+  <string name="gamif_card_body">Potrošite još %s AppCoins da biste dostigli sledeći nivo.</string>
+  <string name="gamif_bonus">%s%% bonusa</string>
+  <string name="gamif_placeholder_earth">Zemlja</string>
+  <string name="gamif_quote_earth">„Ono što nam je svima zajedničko jeste Zemlja“, Vendel Beri</string>
+  <string name="gamif_placeholder_moon">Mesec</string>
+  <string name="gamif_quote_moon">„Ovo je mali korak za čoveka, ali veliki za čovečanstvo“, Nil Armstrong</string>
+  <string name="gamif_distance_moon">384.400 km od Zemlje</string>
+  <string name="gamif_placeholder_mars">Mars</string>
+  <string name="gamif_quote_mars">„Želim da umrem na Marsu, ali ne od sudara“, Ilon Mask</string>
+  <string name="gamif_distance_mars">121,8 miliona km od Zemlje</string>
+  <string name="gamif_placeholder_phobos">mesec Fobos</string>
+  <string name="gamif_quote_phobos">„Svi ljudi su kao mesec – imaju mračnu stranu koju nikada nikom ne pokazuju“, Mark Tven</string>
+  <string name="gamif_distance_phobos">77,79 miliona km od Zemlje</string>
+  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_quote_jupiter">„Kada se otkriju, sve istine je lako razumeti. Teško je otkriti ih“, Galileo Galilej</string>
+  <string name="gamif_distance_jupiter">623,31 miliona km od Zemlje</string>
+  <string name="gamif_placeholder_europa">mesec Evropa</string>
+  <string name="gamif_quote_europa">„Ako pronađemo živi svet na Evropi, kako ćemo ga nazvati? Da li će to biti, recimo, Evropljani?“, Nil de Gras Tajson</string>
+  <string name="gamif_distance_europa">628,3 miliona km od Zemlje</string>
+  <string name="gamif_placeholder_saturn">Saturn</string>
+  <string name="gamif_quote_saturn">„Moja omiljena naučna teorija je da su Saturnovi prstenovi sastavljeni isključivo od izgubljenog prtljaga u avio-saobraćaju“, Mark Rasel</string>
+  <string name="gamif_distance_saturn">1,35 milijardi km od Zemlje</string>
+  <string name="gamif_placeholder_titan">mesec Titan</string>
+  <string name="gamif_quote_titan">„Siguran sam da je univerzum prepun inteligentnih bića, ali su ona suviše inteligentna da bi došla ovde“, Artur Č. Klark</string>
+  <string name="gamif_distance_titan">1,4 milijarde km od Zemlje</string>
+  <string name="gamif_placeholder_uranus">Uran</string>
+  <string name="gamif_quote_uranus">„Izgleda da ima nešto neobično sa Uranovim mesecima“, Sir Robert Stol Bol</string>
+  <string name="gamif_distance_uranus">3,03 milijarde km od Zemlje</string>
+  <string name="gamif_placeholder_neptune">Neptun</string>
+  <string name="gamif_quote_neptune">„Ove zvezde nema na mapi!“, Hajrih Dare kada je otkrio Neptun</string>
+  <string name="gamif_distance_neptune">4,42 milijarde km od Zemlje</string>
+  <string name="gamif_placeholder_planetx">Planeta %s</string>
+  <string name="gamif_quote_planetx">„Negde nešto neverovatno čeka da bude otkriveno“, Karl Sagan</string>
+  <string name="gamif_placeholder_unknown">nepoznata planeta</string>
+  <string name="gamif_distance_unkown">Nepoznata lokacija</string>
+  <string name="gamif_placeholder_new_planet">nova planeta</string>
 </resources>

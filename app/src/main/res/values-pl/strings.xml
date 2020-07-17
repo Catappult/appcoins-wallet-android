@@ -4,7 +4,7 @@
   <string name="title_send">Wyślij</string>
   <string name="title_send_with_token">Wyślij %s</string>
   <string name="title_request">Odbierz</string>
-  <string name="title_import">Importuj portfel</string>
+  <string name="title_import">Recover Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Hasło</string>
   <string name="action_sign_in_short">Create</string>
@@ -16,7 +16,7 @@
   <string name="title_account_list">Portfele</string>
   <string name="cancel">Anuluj</string>
   <string name="confirm_delete_account">Upewnij się, że masz kopię zapasową tego portfela.</string>
-  <string name="action_import">Importuj</string>
+  <string name="action_import">Recover</string>
   <string name="copy">Kopiuj do schowka</string>
   <string name="close">Zamknij</string>
   <string name="title_activity_settings">Ustawienia</string>
@@ -29,7 +29,7 @@
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
-  <string name="title_delete_account">Czy na pewno chcesz usunąć ten portfel?</string>
+  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Grupa Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -97,7 +97,7 @@
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Ustaw hasło do szyfrowania Twojego portfela</string>
-  <string name="toast_message_wallet_imported">Portfel został zaimportowany</string>
+  <string name="toast_message_wallet_imported">The wallet was recovered</string>
   <string name="toast_message_wallet_exported">Kopia zapasowa została utworzona</string>
   <string name="toast_qr_code_no_address">QR kod nie zawiera prawidłowego adresu</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -403,6 +403,7 @@
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Odbierz kod</string>
+  <string name="settings_item_support">Contact Support Team</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">W trakcie&#8230;</string>
   <string name="local_payments_inprogress_body">Kiedy ukończysz płatność, otrzymasz Kredyty AppCoins w Twoim portfelu. Wróć potem do gry aby dokonać zakupu!</string>
@@ -459,6 +460,7 @@
   <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
   <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
   <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
@@ -505,6 +507,7 @@
   <string name="promotions_referral_card_title">Zarób aż %s zapraszając znajomych</string>
   <string name="promotions_referral_card_body">Udostępnij swój link i zarabiaj Kredyty AppCoins. </string>
   <string name="promotions_gamification_card_title">Aż do 30% ekstra przy każdym zakupie</string>
+  <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">NOWE</string>
   <string name="promotions_tab_promotions_title">PROMOTIONS</string>
   <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
@@ -529,19 +532,36 @@
   <string name="backup_body">Nie przechowujemy Twoich prywatnych kluczy lub innych metod dostępu. Ważne jest aby kopia zapasowa Twojego portfela była bezpieczna.</string>
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
+  <string name="backup_confirmation_yes">YES, FINISH</string>
+  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Backup done!</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
+  <string name="backup_confirmation_no_share_title">Backup done!</string>
+  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
+  <string name="backup_save_dialogue_title">Save backup file</string>
+  <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
+  <string name="backup_confirmation_tips_title">Keep the file safe:</string>
+  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
+  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
   <string name="backup_send_via_title">Wyślij kopię zapasową poprzez:</string>
   <string name="backup_send_button">SEND BACKUP</string>
-  <string name="import_wallet_title">Importuj portfel</string>
+  <string name="backup_save_button">SAVE BACKUP</string>
+  <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Wklej kopię zapasową portfela poniżej.</string>
   <string name="import_wallet_keystore_private_keys">Prywatne klucze lub keystore</string>
-  <string name="import_wallet_file_button">IMPORTUJ Z PLIKU</string>
-  <string name="import_wallet_button">IMPORTUJ PORTFEL</string>
+  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
+  <string name="import_wallet_button">RECOVER WALLET</string>
   <string name="import_wallet_password_body">Ten portfel jest chroniony hasłem!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <string name="error_invalid_private_key">Niewłaściwy klucz</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="backup_tooltip_body">Make a backup of your wallet!</string>
+  <string name="backup_tooltip_later_button">MAYBE LATER</string>
+  <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_notification_title">Make a backup of your wallet!</string>
+  <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
+  <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portfele</string>
   <string name="wallets_total_balance_title">Saldo w %s</string>
@@ -554,10 +574,10 @@
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Łączna wartość</string>
   <string name="wallets_address_copied_body">Adres portfela skopiowany do schowka</string>
-  <string name="wallets_imported_body">Portfel zaimportowany pomyślnie</string>
+  <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Stan konta:</string>
   <string name="wallets_2nd_view_other_wallets_title">Inne portfele</string>
-  <string name="wallets_2nd_view_import_button">IMPORTUJ PORTFEL</string>
+  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">UTWÓRZ NOWY</string>
   <string name="wallet_view_copy_button">KOPIUJ</string>
   <string name="wallet_view_share_button">UDOSTĘPNIJ</string>
@@ -570,7 +590,7 @@
   <string name="remove_wallet_title">Usuń portfel</string>
   <string name="remove_wallet_body">Mocno rekomendujemy stworzenie kopii zapasowej portfela przed usunięciem. Nie uzyskasz już do niego dostępu bez kopii zapasowej.</string>
   <string name="remove_wallet_backup_button">UTWÓRZ KOPIĘ ZAPASOWĄ PORTFELA</string>
-  <string name="remove_wallet_no_backup_button">KONTYNUUJ BEZ KOPII</string>
+  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
   <string name="remove_wallet_confirm_body">Czy na pewno chcesz usunąć ten portfel?</string>
   <string name="remove_wallet_no_button">NIE, WRÓĆ</string>
   <string name="remove_wallet_yes_button">TAK, USUŃ PORTFEL</string>
@@ -590,4 +610,96 @@
   <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>
   <string name="support_new_message_button">Tap to open</string>
+  <!--Pioneers-->
+  <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
+  <string name="pioneer_gamification_title">You\'re a Pioneer</string>
+  <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
+  <!--Check for Updates-->
+  <string name="check_updates_settings_title">Check for updates</string>
+  <string name="check_updates_settings_subtitle">Current version %s</string>
+  <string name="check_updates_checking_body">Searching for a new version</string>
+  <string name="check_updates_no_updates_body">You\'re up to date!</string>
+  <string name="check_updates_updates_available_title">New version available</string>
+  <string name="check_updates_update_button">UPDATE NOW</string>
+  <string name="check_updates_settings_available_title">New version available</string>
+  <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
+  <!--Subscriptions-->
+  <string name="subscriptions_settings_title">Manage subscriptions</string>
+  <string name="subscriptions_title">Subscriptions</string>
+  <string name="subscriptions_active_title">Active</string>
+  <string name="subscriptions_expired_title">Inactive</string>
+  <string name="subscriptions_empty_title">No Subscriptions Yet</string>
+  <string name="subscriptions_empty_body">Subscribe to services in your favorite apps and games and we\'ll deal with periodic payments.</string>
+  <string name="subscriptions_details_billing_title">Billing:</string>
+  <string name="subscriptions_details_next_payment_title">Next payment:</string>
+  <string name="subscriptions_details_payment_method_title">Payment method:</string>
+  <string name="subscriptions_details_last_bill">Last bill:</string>
+  <string name="subscriptions_details_start_date_title">Start date:</string>
+  <string name="subscriptions_details_cancelled_body">Cancelled - It expires on %s</string>
+  <string name="subscriptions_expiration_body">It expires on %s</string>
+  <string name="subscriptions_canceled_body">Canceled</string>
+  <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
+  <string name="subscriptions_details_button">DETAILS</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTION</string>
+  <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
+  <string name="subscriptions_cancel_title">Cancel Subscription</string>
+  <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
+  <string name="subscriptions_cancel_no_button">NO, GO BACK</string>
+  <string name="subscriptions_cancel_yes_button">YES, CANCEL SUBSCRIPTION</string>
+  <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
+  <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
+  <string name="subscriptions_category_title">Subscription</string>
+  <string name="subscriptions_bonus_body">You\'ll receive this bonus on each payment.</string>
+  <string name="subscriptions_per_day">%1$s%2$s/day</string>
+  <string name="subscriptions_per_week">%1$s%2$s/week</string>
+  <string name="subscriptions_per_month">%1$s%2$s/month</string>
+  <string name="subscriptions_per_year">%1$s%2$s/year</string>
+  <!--New Gamification-->
+  <string name="gamif_title">Up to %s%% Bonus!</string>
+  <string name="gamif_bonus_received">Bonus received</string>
+  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_show_previous">Show previous achievements</string>
+  <string name="gamif_hide_previous">Hide previous achievements</string>
+  <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
+  <string name="gamif_achievement_start">You started your journey</string>
+  <string name="gamif_achievement_start_sub">Just left Earth!</string>
+  <string name="gamif_achievement_reach">You reached %s</string>
+  <string name="gamif_card_start">You\'re still on Earth</string>
+  <string name="gamif_card_title">You\'re on %s</string>
+  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamif_bonus">%s%% Bonus</string>
+  <string name="gamif_placeholder_earth">Earth</string>
+  <string name="gamif_quote_earth">\"The Earth is what we all have in common\" – Wendell Berry</string>
+  <string name="gamif_placeholder_moon">the Moon</string>
+  <string name="gamif_quote_moon">\"That\'s one small step for a man, one giant leap for mankind\" – Neil Armstrong</string>
+  <string name="gamif_distance_moon">384,400 km from Earth</string>
+  <string name="gamif_placeholder_mars">Mars</string>
+  <string name="gamif_quote_mars">\"I would like to die on Mars. Just not on impact.\" – Elon Musk</string>
+  <string name="gamif_distance_mars">121.8 million km from Earth</string>
+  <string name="gamif_placeholder_phobos">the Phobos moon</string>
+  <string name="gamif_quote_phobos">\"Everyone is a moon, and has a dark side which he never shows to anybody.\" – Mark Twain</string>
+  <string name="gamif_distance_phobos">77.79 million km from Earth</string>
+  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_quote_jupiter">\"All truths are easy to understand once they are discovered; the point is to discover them...\" – Galileo Galilei</string>
+  <string name="gamif_distance_jupiter">623.31 million km from Earth</string>
+  <string name="gamif_placeholder_europa">Europa moon</string>
+  <string name="gamif_quote_europa">\"If you find life on Europa, what would you call it? Would it be, like, Europeans?\" – Neil DeGrasse Tyson</string>
+  <string name="gamif_distance_europa">628.3 million km from Earth</string>
+  <string name="gamif_placeholder_saturn">Saturn</string>
+  <string name="gamif_quote_saturn">\"The scientific theory I like best is that the rings of Saturn are composed entirely of lost airline luggage.\" – Mark Russell</string>
+  <string name="gamif_distance_saturn">1.35 billion km from Earth</string>
+  <string name="gamif_placeholder_titan">Titan moon</string>
+  <string name="gamif_quote_titan">\"I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here.\" – Arthur C.Clarke</string>
+  <string name="gamif_distance_titan">1.4 billion km from Earth</string>
+  <string name="gamif_placeholder_uranus">Uranus</string>
+  <string name="gamif_quote_uranus">\"The moons of Uranus seem to have got a twist.\" – Sir Robert Stawell Ball</string>
+  <string name="gamif_distance_uranus">3.03 billion km from Earth</string>
+  <string name="gamif_placeholder_neptune">Neptune</string>
+  <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
+  <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
+  <string name="gamif_placeholder_planetx">Planet %s</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
+  <string name="gamif_placeholder_unknown">an unknown planet</string>
+  <string name="gamif_distance_unkown">Unknown location</string>
+  <string name="gamif_placeholder_new_planet">a new planet</string>
 </resources>
