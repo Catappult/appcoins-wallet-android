@@ -2,7 +2,6 @@ package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 import com.appcoins.wallet.billing.repository.entity.Product
-import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -95,8 +94,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   internal fun getPaymentMethods(value: String,
                                  currency: String,
-                                 currencyType: String?): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(value, currency, currencyType)
+                                 currencyType: String?,
+                                 direct: Boolean? = null): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(value, currency, currencyType, direct)
         .map { responseMapper.map(it) }
   }
 
@@ -194,15 +194,16 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Body data: Consumed): Completable
 
     /**
-     * Returns the available payment methods
-     * @param value Value of the purchase/topup
-     * @param currency Currency of the purchase/topup
-     * @param currencyType fiat if you want to filter payments for only those that can be payed with fiat. Otherwise leave null
+     * @param value, value of purchase
+     * @param currency, currency of purchase
+     * @param currencyType, filter for appc and credits payment, use fiat if you don't want appc and credits
+     * @param direct, either if it returns non-direct payments (false) (earn appcoins and ask someone to pay) or not
+     *
      */
     @GET("broker/8.20200311/methods")
     fun getPaymentMethods(@Query("price.value") value: String, @Query("price.currency")
-    currency: String, @Query("currency.type")
-                          currencyType: String? = null): Single<GetMethodsResponse>
+    currency: String, @Query("currency.type") currencyType: String? = null,
+                          @Query("direct") direct: Boolean? = null): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")
