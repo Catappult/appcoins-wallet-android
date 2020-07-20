@@ -2,6 +2,9 @@ package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -51,6 +54,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val APPC_ENABLED_KEY = "appc_enabled"
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
+    private const val DISABLE_REASON = "disable_reason"
     private const val IS_BDS_KEY = "is_bds"
     private const val IS_DONATION_KEY = "is_donation"
     private const val SKU_ID = "sku_id"
@@ -66,7 +70,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean,
                     isDonation: Boolean, skuId: String?, transactionType: String,
-                    gamificationLevel: Int): Fragment {
+                    gamificationLevel: Int, disableReason: Int?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
         putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -82,6 +86,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         putString(SKU_ID, skuId)
         putString(TRANSACTION_TYPE, transactionType)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
+        disableReason?.let { putInt(DISABLE_REASON, it) }
       }
       fragment.arguments = bundle
       return fragment
@@ -183,6 +188,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val skuId: String? by lazy {
     arguments!!.getString(SKU_ID)
+  }
+
+  private val disableReason: Int? by lazy {
+    arguments!!.getInt(DISABLE_REASON)
   }
 
   private val transactionType: String by lazy {
@@ -294,35 +303,64 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     if (appcEnabled) {
       appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
       appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
-        if (checked) paymentSelectionSubject?.onNext(APPC)
+        if (checked) {
+          paymentSelectionSubject?.onNext(APPC)
+          appcoins_radio.title.setTextColor(
+              ContextCompat.getColor(requireContext(), R.color.details_address_text_color))
+          appcoins_radio.title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        } else {
+          appcoins_radio.title.setTextColor(
+              ContextCompat.getColor(requireContext(), R.color.grey_alpha_active_54))
+          appcoins_radio.title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+        }
         credits_radio_button.isChecked = !checked
       }
       appcoins_radio_button.isEnabled = true
     } else {
-      appcoins_radio.message.text = getString(R.string.purchase_appcoins_noavailable_body)
+      val reason = disableReason ?: R.string.purchase_appcoins_noavailable_body
+      appcoins_radio.message.text = getString(reason)
       appcoins_radio.title.setTextColor(
           ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
       appcoins_radio.message.setTextColor(
-          ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
+          ContextCompat.getColor(context!!, R.color.disable_reason))
       appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
       appcoins_radio.message.visibility = VISIBLE
       appc_balances_group.visibility = INVISIBLE
+
+      val colorMatrix = ColorMatrix()
+      colorMatrix.setSaturation(0f)
+      val filter = ColorMatrixColorFilter(colorMatrix)
+      appcoins_radio.icon.colorFilter = filter
     }
     if (creditsEnabled) {
       credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
       credits_radio_button.setOnCheckedChangeListener { _, checked ->
-        if (checked) paymentSelectionSubject?.onNext(CREDITS)
+        if (checked) {
+          paymentSelectionSubject?.onNext(CREDITS)
+          credits_radio.title.setTextColor(resources.getColor(R.color.details_address_text_color))
+          credits_radio.title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        } else {
+          credits_radio.title.setTextColor(resources.getColor(R.color.grey_alpha_active_54))
+          credits_radio.title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+        }
         appcoins_radio_button.isChecked = !checked
       }
       credits_radio_button.isEnabled = true
       credits_radio_button.isChecked = true
     } else {
       appcoins_radio_button.isChecked = true
-      credits_radio.message.text = getString(R.string.purchase_appcoins_credits_noavailable_body)
+      val reason = disableReason ?: R.string.purchase_appcoins_credits_noavailable_body
+      credits_radio.message.text = getString(reason)
+      credits_radio.message.setTextColor(resources.getColor(R.color.disable_reason))
       credits_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       credits_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       credits_radio.message.visibility = VISIBLE
       credits_balances_group.visibility = INVISIBLE
+
+      val colorMatrix = ColorMatrix()
+      colorMatrix.setSaturation(0f)
+      val filter = ColorMatrixColorFilter(colorMatrix)
+      credits_radio.icon.colorFilter = filter
     }
   }
 

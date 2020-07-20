@@ -96,6 +96,7 @@
 
   <color name="edit_text_border">@color/appc_pink</color>
   <color name="edit_text_label">@color/appc_pink</color>
+  <color name="disable_reason">#fe6e76</color>
 
   <!-- Skeletons -->
 

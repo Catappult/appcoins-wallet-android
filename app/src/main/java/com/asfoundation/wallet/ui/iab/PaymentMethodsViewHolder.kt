@@ -39,8 +39,10 @@ class PaymentMethodViewHolder(itemView: View) :
     } else {
       itemView.radio_button.visibility = View.INVISIBLE
       itemView.background = null
-      itemView.payment_method_reason.visibility = View.VISIBLE
-      itemView.payment_method_reason.text = "You need ETH to pay for the gas."
+      data.disabledReason?.let {
+        itemView.payment_method_reason.visibility = View.VISIBLE
+        itemView.payment_method_reason.text = itemView.context.getString(it)
+      }
 
       val colorMatrix = ColorMatrix()
       colorMatrix.setSaturation(0f)

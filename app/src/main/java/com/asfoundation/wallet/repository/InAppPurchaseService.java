@@ -3,6 +3,7 @@ package com.asfoundation.wallet.repository;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.repository.ApproveService.Status;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -287,5 +288,11 @@ public class InAppPurchaseService {
             return Single.just(false);
           }
         });
+  }
+
+  public Single<GetDefaultWalletBalanceInteract.BalanceState> getBalanceState(
+      TransactionBuilder transactionBuilder) {
+    return balanceService.hasEnoughBalance(transactionBuilder,
+        transactionBuilder.gasSettings().gasLimit);
   }
 }

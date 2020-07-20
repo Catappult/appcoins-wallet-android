@@ -97,7 +97,7 @@ class PaymentMethodsPresenter(
                 selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                 selectedPaymentMethod.label, gamificationLevel)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(
-                gamificationLevel)
+                gamificationLevel, selectedPaymentMethod.disabledReason)
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
             else -> return@doOnNext
           }

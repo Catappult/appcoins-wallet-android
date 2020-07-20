@@ -466,9 +466,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int) {
+  override fun showMergedAppcoins(gamificationLevel: Int, disabledReason: Int?) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel)
+        productName, appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel,
+        disabledReason)
   }
 
   override fun lockRotation() = iabView.lockRotation()
