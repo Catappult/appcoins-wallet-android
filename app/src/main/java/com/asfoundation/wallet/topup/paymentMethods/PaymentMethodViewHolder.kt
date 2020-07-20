@@ -14,19 +14,15 @@ class PaymentMethodViewHolder(itemView: View) :
     GlideApp.with(itemView.context)
         .load(data.imageSrc)
         .into(itemView.payment_method_ic)
-    itemView.payment_method_description.text = setPaymentMethodLabel(data)
+    itemView.payment_method_description.text = getPaymentMethodLabel(data)
     itemView.radio_button.isChecked = checked
     itemView.setOnClickListener(listener)
   }
 
-  private fun setPaymentMethodLabel(paymentMethod: PaymentMethodData): String {
-    if (TranslatablePaymentMethods.values()
-            .any { it.paymentMethod == paymentMethod.id }) {
-      TranslatablePaymentMethods.values()
-          .first { it.paymentMethod == paymentMethod.id }
-          .let { return itemView.context.getString(it.stringId) }
-    }
-    return paymentMethod.description
+  private fun getPaymentMethodLabel(paymentMethod: PaymentMethodData): String {
+    return TranslatablePaymentMethods.values()
+        .firstOrNull { it.paymentMethod == paymentMethod.id }
+        ?.let { itemView.context.getString(it.stringId) } ?: paymentMethod.description
   }
 }
 
