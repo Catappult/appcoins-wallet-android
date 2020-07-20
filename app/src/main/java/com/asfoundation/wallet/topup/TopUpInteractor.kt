@@ -30,7 +30,7 @@ class TopUpInteractor(private val repository: BdsRepository,
 
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethodData>> {
-    return repository.getPaymentMethods(value, currency, "fiat")
+    return repository.getPaymentMethods(value, currency, "fiat", true)
         .map { mapPaymentMethods(it) }
   }
 
