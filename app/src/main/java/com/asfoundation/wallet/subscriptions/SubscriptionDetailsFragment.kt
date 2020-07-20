@@ -56,17 +56,9 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     presenter.present(packageName)
   }
 
-  override fun getBackClicks() = RxView.clicks(back_button)
-
   override fun getCancelClicks() = RxView.clicks(cancel_subscription)
 
-  override fun cancelSubscription() {
-    activity.showCancelSubscription(packageName)
-  }
-
-  override fun navigateBack() {
-    activity.navigateBack()
-  }
+  override fun cancelSubscription() = activity.showCancelSubscription(packageName)
 
   override fun setActiveDetails(subscriptionDetails: ActiveSubscriptionDetails) {
     layout_expired_subscription_content.visibility = View.GONE

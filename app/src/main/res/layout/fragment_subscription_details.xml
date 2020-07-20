@@ -119,7 +119,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/normal_margin"
-          android:background="@drawable/view_border"
           android:textColor="@color/red"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="@id/status"
@@ -218,48 +217,24 @@
 
   </ScrollView>
 
-  <LinearLayout
-      android:id="@+id/bottom_buttons"
+  <Button
+      android:id="@+id/cancel_subscription"
+      style="@style/ButtonStyle.Light"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="8dp"
+      android:minWidth="64dp"
+      android:minHeight="36dp"
       android:orientation="vertical"
+      android:text="Cancel Subscription"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      >
-
-    <Button
-        android:id="@+id/cancel_subscription"
-        style="@style/ButtonStyle.Light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:layout_marginBottom="8dp"
-        android:minWidth="64dp"
-        android:minHeight="36dp"
-        android:text="Cancel Subscription"
-        android:visibility="gone"
-        tools:visibility="visible"
-        />
-
-    <Button
-        android:id="@+id/back_button"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:layout_marginBottom="24dp"
-        android:maxWidth="126dp"
-        android:minWidth="80dp"
-        android:text="@string/back_button"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        />
-
-  </LinearLayout>
+      tools:visibility="visible"
+      />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/layout_guideline"
