@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.topup
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -183,9 +186,25 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     selectPaymentMethod(paymentMethods)
 
     payment_methods.adapter = adapter
-    payment_methods.layoutManager = LinearLayoutManager(context)
+
+    handlePaymentListMaxHeight(paymentMethods)
+
     payments_skeleton.visibility = View.GONE
     payment_methods.visibility = View.VISIBLE
+  }
+
+  private fun handlePaymentListMaxHeight(paymentMethods: List<PaymentMethodData>) {
+    if (paymentMethods.size > 2) {
+      val orientation = resources.configuration.orientation
+      val params: LayoutParams = payment_methods.layoutParams as LayoutParams
+      if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        params.height = dpToPx(164f)
+      }
+      if (orientation == Configuration.ORIENTATION_PORTRAIT && paymentMethods.size > 3) {
+        params.height = dpToPx(228f)
+      }
+      payment_methods.layoutParams = params
+    }
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethodData>) {
@@ -566,6 +585,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       TypedValue.complexToDimensionPixelSize(this.data, resources.displayMetrics)
     }
   }
+
+  private fun dpToPx(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
+      Resources.getSystem().displayMetrics)
+      .toInt()
 
   private fun getTopUpValuesSpanCount(): Int {
     val screenWidth =
