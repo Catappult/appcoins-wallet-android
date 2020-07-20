@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
@@ -17,7 +18,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val onboardingInteract: OnboardingInteract,
                           private val viewScheduler: Scheduler,
                           private val networkScheduler: Scheduler,
-                          private val walletCreated: ReplaySubject<Boolean>) {
+                          private val walletCreated: ReplaySubject<Boolean>,
+                          private val logger: Logger) {
 
   private var hasShowedWarning = false
 
@@ -40,7 +42,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.setPaymentMethodsIcons(it) }
-        .subscribe({}, { it.printStackTrace() }))
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handleSetupUI() {
@@ -48,7 +50,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.updateUI(it.symbol + it.maxAmount.scaleToString(2), it.isActive) }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, { logger.log(TAG, it) })
     )
   }
 
@@ -61,7 +63,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         .observeOn(viewScheduler)
         .doOnNext { view.showWarningText() }
         .repeatUntil { hasShowedWarning }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -70,7 +72,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleSkipClicks() {
     disposables.add(view.getSkipClicks()
         .doOnNext { view.showViewPagerLastPage() }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -79,21 +81,21 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleRetryClicks() {
     disposables.add(view.getRetryButtonClicks()
         .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = false) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleLaterClicks() {
     disposables.add(view.getLaterButtonClicks()
         .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, false) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRedeemButtonClicks() {
     disposables.add(view.getRedeemButtonClick()
         .observeOn(viewScheduler)
         .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = true) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -120,7 +122,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         .delay(delay, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
         .doOnNext { handleValidationStatus(it, showAnimation) }
-        .subscribe())
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handleValidationStatus(walletValidationStatus: WalletValidationStatus,
@@ -135,15 +137,15 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   private fun handleNextButtonClicks() {
     disposables.add(view.getNextButtonClick()
         .doOnNext { handleWalletCreation(skipValidation = true, showAnimation = true) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleCreateWallet() {
     disposables.add(onboardingInteract.getWalletAddress()
-            .observeOn(viewScheduler)
-            .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
-            .subscribe({}, { it.printStackTrace() }))
+        .observeOn(viewScheduler)
+        .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handleSkippedOnboarding() {
@@ -157,14 +159,14 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         .delay(1, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
         .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, true) }
-        .subscribe()
+        .subscribe({}, { logger.log(TAG, it) })
     )
   }
 
   private fun handleLinkClick() {
     disposables.add(view.getLinkClick()
         .doOnNext { uri -> view.navigateToBrowser(Uri.parse(uri)) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -174,5 +176,9 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                                showAnimation: Boolean) {
     onboardingInteract.clickSkipOnboarding()
     view.finishOnboarding(walletValidationStatus, showAnimation)
+  }
+
+  companion object {
+    private val TAG = OnboardingPresenter::class.java.name
   }
 }
