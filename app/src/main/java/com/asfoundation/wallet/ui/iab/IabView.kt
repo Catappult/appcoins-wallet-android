@@ -29,7 +29,7 @@ interface IabView {
 
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                       iconUrl: String?, gamificationLevel: Int)
+                       iconUrl: String?, gamificationLevel: Int, skuDescription: String)
 
   fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int)
 

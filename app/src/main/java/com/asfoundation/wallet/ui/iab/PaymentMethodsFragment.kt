@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
 import android.view.KeyEvent
@@ -437,20 +438,22 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showPaypal(gamificationLevel: Int) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
+        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel,
+        getSkuDescription())
   }
 
   override fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
                          gamificationLevel: Int) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds, paymentType,
-          bonusMessageValue, true, iconUrl, gamificationLevel)
+          bonusMessageValue, true, iconUrl, gamificationLevel, getSkuDescription())
     }
   }
 
   override fun showCreditCard(gamificationLevel: Int) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
+        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel,
+        getSkuDescription())
   }
 
   override fun showAppCoins(gamificationLevel: Int) {
@@ -524,7 +527,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showMergedAppcoins(gamificationLevel: Int) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel)
+        getSkuDescription(), appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel)
   }
 
   override fun lockRotation() = iabView.lockRotation()
@@ -578,18 +581,19 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                     .getApplicationIcon(packageName))
           }
           .observeOn(AndroidSchedulers.mainThread())
-          .subscribe({
-            app_name?.text = it.first
-            app_icon?.setImageDrawable(it.second)
-            if (productName != null) app_sku_description.text = productName
-          }) { it.printStackTrace() })
+          .subscribe({ setHeaderInfo(it.first, it.second) }) { it.printStackTrace() })
     }
+  }
+
+  private fun setHeaderInfo(appName: String, appIcon: Drawable) {
+    app_name?.text = appName
+    app_icon?.setImageDrawable(appIcon)
+    app_sku_description.text = getSkuDescription()
   }
 
   private fun getApplicationName(packageName: String): String {
     val packageManager = context!!.packageManager
-    val packageInfo =
-        packageManager.getApplicationInfo(packageName, 0)
+    val packageInfo = packageManager.getApplicationInfo(packageName, 0)
     return packageManager.getApplicationLabel(packageInfo)
         .toString()
   }
@@ -654,7 +658,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (arguments!!.containsKey(IabActivity.URI)) {
       arguments!!.getString(IabActivity.URI, "")
     } else {
-      throw IllegalArgumentException("productName data not found")
+      throw IllegalArgumentException("uri data not found")
     }
   }
 
@@ -668,5 +672,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     appc_price_skeleton.visibility = View.GONE
     payments_skeleton.visibility = View.GONE
     removeBonusSkeletons()
+  }
+
+  private fun getSkuDescription(): String {
+    return when {
+      productName != null -> productName!!
+      transactionBuilder != null && transactionBuilder!!.skuId != null -> transactionBuilder!!.skuId
+      else -> throw IllegalArgumentException("productName and sku not found")
+    }
   }
 }
