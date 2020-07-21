@@ -68,4 +68,5 @@ interface AdyenTopUpView {
   fun showWalletValidation(@StringRes error: Int)
 
   fun set3DSComponent(uid: String, action: Action)
+  fun onAdyen3DSError(): Observable<String>
 }

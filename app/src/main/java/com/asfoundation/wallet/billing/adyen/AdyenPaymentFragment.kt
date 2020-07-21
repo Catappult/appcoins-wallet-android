@@ -101,6 +101,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private var backButton: PublishRelay<Boolean>? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
+  private var adyen3DSErrorSubject: PublishSubject<String>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
@@ -113,6 +114,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     backButton = PublishRelay.create()
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
+    adyen3DSErrorSubject = PublishSubject.create()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
@@ -315,13 +317,21 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
 
   override fun set3DSComponent(uid: String, action: Action) {
-    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
-    adyen3DS2Component.handleAction(activity!!, action)
-    adyen3DS2Component.observe(this, Observer {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
-    })
+    if (this::adyen3DS2Component.isInitialized) {
+      adyen3DS2Component.handleAction(activity!!, action)
+    } else {
+      adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
+      adyen3DS2Component.handleAction(activity!!, action)
+      adyen3DS2Component.observe(this, Observer {
+        paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
+      })
+      adyen3DS2Component.observeErrors(this, Observer {
+        adyen3DSErrorSubject?.onNext(it.errorMessage)
+      })
+    }
   }
 
+  override fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
 
   override fun forgetCardClick(): Observable<Any> {
     return if (change_card_button != null) RxView.clicks(change_card_button)
@@ -565,6 +575,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     backButton = null
     paymentDataSubject = null
     paymentDetailsSubject = null
+    adyen3DSErrorSubject = null
     super.onDestroy()
   }
 

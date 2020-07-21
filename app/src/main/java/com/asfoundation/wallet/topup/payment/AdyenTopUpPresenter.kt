@@ -6,10 +6,12 @@ import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
+import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.PENDING_USER_PAYMENT
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -70,6 +72,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     handleRedirectResponse()
     handleSupportClicks()
     handleTryAgainClicks()
+    handleAdyen3DSErrors()
   }
 
   private fun handleViewState(savedInstanceState: Bundle?) {
@@ -188,8 +191,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up",
-              paymentType)
+          topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
           adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
               returnUrl, priceAmount.toString(), priceCurrency,
               mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
@@ -197,9 +199,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(viewScheduler)
         .flatMapCompletable {
           if (it.action != null) {
-            Completable.fromAction {
-              handlePaymentModel(it, priceAmount, priceCurrency, appcValue)
-            }
+            Completable.fromAction { handlePaymentModel(it, priceAmount, priceCurrency, appcValue) }
           } else {
             handlePaymentResult(it, priceAmount, priceCurrency, currencyData.appcValue)
           }
@@ -300,6 +300,13 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               }
             }
       }
+      paymentModel.status == PENDING_USER_PAYMENT && paymentModel.action != null -> {
+        Completable.fromAction {
+          view.showLoading()
+          view.lockRotation()
+          handleAdyenAction(paymentModel)
+        }
+      }
       paymentModel.refusalReason != null -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
             paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
@@ -352,6 +359,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               handleSpecificError(error)
             })
     )
+  }
+
+  private fun handleAdyen3DSErrors() {
+    disposables.add(view.onAdyen3DSError()
+        .doOnNext { handleSpecificError(R.string.unknown_error) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun buildRefusalReason(status: Status, message: String?): String {
@@ -423,8 +436,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         view.setRedirectComponent(paymentModel.uid)
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
-      } else if (type == THREEDS2FINGERPRINT || type == THREEDS2FINGERPRINT) {
+      } else if (type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
         view.set3DSComponent(paymentModel.uid, paymentModel.action!!)
+        waitingResult = true
       } else {
         handleSpecificError(R.string.unknown_error)
       }

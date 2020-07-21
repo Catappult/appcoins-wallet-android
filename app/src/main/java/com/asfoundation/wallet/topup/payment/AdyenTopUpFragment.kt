@@ -97,6 +97,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private var adyenSaveDetailsSwitch: SwitchCompat? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
+  private var adyen3DSErrorSubject: PublishSubject<String>? = null
   private var keyboardTopUpRelay: PublishRelay<Boolean>? = null
   private var validationSubject: PublishSubject<Boolean>? = null
   private var isStored = false
@@ -107,6 +108,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     validationSubject = PublishSubject.create()
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
+    adyen3DSErrorSubject = PublishSubject.create()
 
     presenter =
         AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
@@ -268,9 +270,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     setStoredPaymentInformation(isStored)
   }
 
-  override fun lockRotation() {
-    topUpView.lockOrientation()
-  }
+  override fun lockRotation() = topUpView.lockOrientation()
 
   private fun prepareCardComponent(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, forget: Boolean,
@@ -321,12 +321,21 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun set3DSComponent(uid: String, action: Action) {
-    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
-    adyen3DS2Component.handleAction(activity!!, action)
-    adyen3DS2Component.observe(this, Observer {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
-    })
+    if (this::adyen3DS2Component.isInitialized) {
+      adyen3DS2Component.handleAction(activity!!, action)
+    } else {
+      adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
+      adyen3DS2Component.handleAction(activity!!, action)
+      adyen3DS2Component.observe(this, Observer {
+        paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
+      })
+      adyen3DS2Component.observeErrors(this, Observer {
+        adyen3DSErrorSubject?.onNext(it.errorMessage)
+      })
+    }
   }
+
+  override fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
@@ -483,6 +492,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     keyboardTopUpRelay = null
     paymentDataSubject = null
     paymentDetailsSubject = null
+    adyen3DSErrorSubject = null
     super.onDestroy()
   }
 
