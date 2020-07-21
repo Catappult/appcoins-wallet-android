@@ -324,6 +324,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handle3DSErrors() {
     disposables.add(view.onAdyen3DSError()
+        .observeOn(viewScheduler)
         .doOnNext { view.showGenericError() }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -527,6 +528,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         waitingResult = true
       } else if (type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
         view.set3DSComponent(paymentModel.uid, paymentModel.action!!)
+        waitingResult = true
       } else {
         view.showGenericError()
       }

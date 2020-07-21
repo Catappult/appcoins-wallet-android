@@ -31,6 +31,7 @@ import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -61,6 +62,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private var waitingResult = false
   private var currentError: Int = 0
+  private var paymentDisposable: Disposable? = null
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -256,7 +258,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   //Called if is paypal or 3DS
   private fun handlePaymentDetails(priceAmount: BigDecimal, priceCurrency: String) {
-    disposables.add(view.getPaymentDetails()
+    if (paymentDisposable != null) disposables.remove(paymentDisposable!!)
+    paymentDisposable = view.getPaymentDetails()
         .observeOn(viewScheduler)
         .doOnNext {
           view.hideKeyboard()
@@ -273,7 +276,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe({}, {
           handleSpecificError(R.string.unknown_error)
           logger.log(TAG, it)
-        }))
+        })
+    disposables.add(paymentDisposable!!)
   }
 
   private fun handlePaymentResult(paymentModel: PaymentModel, priceAmount: BigDecimal,
@@ -363,6 +367,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   private fun handleAdyen3DSErrors() {
     disposables.add(view.onAdyen3DSError()
+        .observeOn(viewScheduler)
         .doOnNext { handleSpecificError(R.string.unknown_error) }
         .subscribe({}, { it.printStackTrace() }))
   }

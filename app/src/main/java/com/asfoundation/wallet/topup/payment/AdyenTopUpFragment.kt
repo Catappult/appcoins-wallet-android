@@ -220,6 +220,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     topUpView.unlockRotation()
+    viewModelStore.clear()
     loading.visibility = GONE
     top_up_container.visibility = GONE
 
