@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">इटीएच ची छोटी रक्कम शुल्क भरण्यासाठी आपण वापराल.</string>
   <string name="purchase_appcoins_noavailable_body">ही खरेदी करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स किंवा इथर नाहीय.</string>
   <string name="purchase_appcoins_credits_available_body">कोणतेही शुल्क नाही आणि अतिशय जलद!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">आपल्याकडे पुरेशी एपीपीसी क्रेडीटस नाहीत, टॉप अप करण्याचा प्रयत्न करा!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपण पुरेशा अॅपकॉइन्स कमावल्यात. मजा लुटा!</string>
   <string name="purchase_poa_item">अॅप वापरुन निधी जमा करा</string>
   <string name="purchase_poa_body">अॅपकॉइन्स क्रेडीटस मिळविण्यासाठी अॅपला २ मिनीटे वापरा!</string>
