@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Anda akan menggunakan sedikit ETH untuk membayar biayanya.</string>
   <string name="purchase_appcoins_noavailable_body">AppCoin atau Ether yang Anda miliki tidak cukup untuk pembelian ini.</string>
   <string name="purchase_appcoins_credits_available_body">Tanpa biaya dan secepat kilat!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC yang Anda miliki tidak cukup, coba isi ulang!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Anda mendapatkan Kredit AppCoins yang cukup untuk pembelian ini. Silakan!</string>
   <string name="purchase_poa_item">Hasilkan dana dengan mencoba aplikasi</string>
   <string name="purchase_poa_body">Coba aplikasi selama 2 menit dan dapatkan Kredit AppCoins!</string>
