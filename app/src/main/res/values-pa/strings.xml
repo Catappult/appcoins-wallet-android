@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">ਫ਼ੀਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਥੋੜ੍ਹੇ ਜਿਹੇ ਈਥਰ ਦਾ ਇਸਤੇਮਾਲ ਕਰੋਗੇ|</string>
   <string name="purchase_appcoins_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਜਾਂ ਈਥਰ ਨਹੀਂ ਹੈ|</string>
   <string name="purchase_appcoins_credits_available_body">ਕੋਈ ਫੀਸ ਨਹੀਂ ਅਤੇ ਬਿਜਲੀ ਵਾਂਗ ਤੇਜ਼!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਕਾਫ਼ੀ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨਹੀਂ ਹਨ, ਐਪ ਸਿੱਕੇ ਭਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਲਏ| ਆਨੰਦ ਮਾਣੋ!</string>
   <string name="purchase_poa_item">ਐਪਾਂ ਇਸਤੇਮਾਲ ਕਰ ਕੇ ਪੂੰਜੀ ਕਮਾਓ</string>
   <string name="purchase_poa_body">ਇੱਕ ਐਪ 2 ਮਿੰਟ ਲਈ ਵਰਤੋ ਅਤੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!</string>
