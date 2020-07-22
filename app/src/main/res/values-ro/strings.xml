@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Vei folosi o sumă mică de ETH ca să plătești comisioanele.</string>
   <string name="purchase_appcoins_noavailable_body">Nu ai suficienți AppCoins sau Ether pentru această cumpărătură.</string>
   <string name="purchase_appcoins_credits_available_body">Fără comisioane și fulger!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Nu ai suficiente APPC Credits, încearcă să alimentezi!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Ai câștigat suficiente AppCoins Credits pentru această cumpărătură. Bucură-te de ea!</string>
   <string name="purchase_poa_item">Câștigă fonduri încercând aplicații</string>
   <string name="purchase_poa_body">Încearcă o aplicație timp de 2 minute și câștigă AppCoins Credits!</string>
