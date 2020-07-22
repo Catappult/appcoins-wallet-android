@@ -27,6 +27,11 @@ class UpdateRequiredActivity : BaseActivity(), UpdateRequiredView {
     presenter.present()
   }
 
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
+  }
+
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
   override fun updateClick() = RxView.clicks(update_button)

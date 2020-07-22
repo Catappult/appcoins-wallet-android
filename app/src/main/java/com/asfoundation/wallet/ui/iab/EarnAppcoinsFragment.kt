@@ -11,8 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.earn_appcoins_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class EarnAppcoinsFragment : DaggerFragment(), EarnAppcoinsView {
+class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
 
   private lateinit var presenter: EarnAppcoinsPresenter
   private lateinit var iabView: IabView

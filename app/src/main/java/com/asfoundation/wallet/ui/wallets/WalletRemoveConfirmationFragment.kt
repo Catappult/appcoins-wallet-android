@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.remove_wallet_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_second_layout.*
 import javax.inject.Inject
 
-class WalletRemoveConfirmationFragment : DaggerFragment(), WalletRemoveConfirmationView {
+class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveConfirmationView {
 
   @Inject
   lateinit var deleteWalletInteract: DeleteWalletInteract

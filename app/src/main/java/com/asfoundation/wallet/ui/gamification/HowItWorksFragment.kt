@@ -15,8 +15,8 @@ import androidx.core.text.HtmlCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class HowItWorksFragment : DaggerFragment(), HowItWorksView {
+class HowItWorksFragment : BasePageViewFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
 

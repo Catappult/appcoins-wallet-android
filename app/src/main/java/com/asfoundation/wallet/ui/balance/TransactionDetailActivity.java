@@ -44,6 +44,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private static final int DECIMALS = 18;
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
+  @Inject CurrencyFormatUtils formatter;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
   private boolean isSent = false;
@@ -52,7 +53,6 @@ public class TransactionDetailActivity extends BaseActivity {
   private RecyclerView detailsList;
   private Dialog dialog;
   private CompositeDisposable disposables;
-  @Inject CurrencyFormatUtils formatter;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -91,6 +91,11 @@ public class TransactionDetailActivity extends BaseActivity {
           findViewById(R.id.img).setScaleX(percentage);
           findViewById(R.id.img).setScaleY(percentage);
         });
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    sendPageViewEvent();
   }
 
   @Override protected void onStop() {

@@ -8,16 +8,16 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
-import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_validation_loading.*
 import javax.inject.Inject
 
-class ValidationLoadingDialogFragment : DaggerFragment(), ValidationLoadingDialogView {
+class ValidationLoadingDialogFragment : BasePageViewFragment(), ValidationLoadingDialogView {
 
   companion object {
     @JvmStatic

@@ -21,13 +21,13 @@ import com.asfoundation.wallet.ui.ActivityResultSharer
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
-import dagger.android.support.DaggerFragment
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -41,7 +41,7 @@ import kotlinx.android.synthetic.main.transact_fragment_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class TransferFragment : DaggerFragment(), TransferFragmentView {
+class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   companion object {
     fun newInstance(): TransferFragment {
       return TransferFragment()
