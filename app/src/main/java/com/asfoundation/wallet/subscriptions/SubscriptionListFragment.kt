@@ -60,9 +60,7 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   }
 
 
-  override fun subscriptionClicks(): Observable<String> {
-    return clickSubject!!
-  }
+  override fun subscriptionClicks(): Observable<String> = clickSubject!!
 
   override fun showSubscriptionDetails(packageName: String) {
     activity.showSubscriptionDetails(packageName)

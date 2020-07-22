@@ -28,7 +28,7 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
   }
 
   override fun showSubscriptionList() {
-    toolbar().title = "Manage Subscriptions"//TODO change when strings are available
+    toolbar().title = getString(R.string.subscriptions_settings_title)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
         .addToBackStack(SubscriptionListFragment::class.java.simpleName)
@@ -36,7 +36,7 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
   }
 
   override fun showSubscriptionDetails(packageName: String) {
-    toolbar().title = "Subscriptions"//TODO change when strings are available
+    toolbar().title = getString(R.string.subscriptions_title)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionDetailsFragment.newInstance(packageName))
         .addToBackStack(SubscriptionDetailsFragment::class.java.simpleName)
@@ -44,7 +44,7 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
   }
 
   override fun showCancelSubscription(packageName: String) {
-    toolbar().title = "Subscriptions"//TODO change when strings are available
+    toolbar().title = getString(R.string.subscriptions_title)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionCancelFragment.newInstance(packageName))
         .addToBackStack(SubscriptionCancelFragment::class.java.simpleName)
@@ -52,7 +52,7 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
   }
 
   override fun showCancelSuccess() {
-    toolbar().title = "Subscriptions"//TODO change when strings are available
+    toolbar().title = getString(R.string.subscriptions_title)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionCancelSuccessFragment.newInstance())
         .addToBackStack(SubscriptionCancelSuccessFragment::class.java.simpleName)
@@ -62,22 +62,16 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
   override fun endCancelSubscription() {
     if (sourceTransactions) {
       val intent = TransactionsActivity.newIntent(this)
-          .apply {
-            flags = FLAG_ACTIVITY_CLEAR_TOP
-          }
+          .apply { flags = FLAG_ACTIVITY_CLEAR_TOP }
       startActivity(intent)
     } else {
       close(true)
     }
   }
 
-  override fun navigateBack() {
-    close()
-  }
+  override fun navigateBack() = close()
 
-  override fun onBackPressed() {
-    close()
-  }
+  override fun onBackPressed() = close()
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     if (item?.itemId == android.R.id.home) {
