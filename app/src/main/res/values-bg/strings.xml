@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Ще използваш малко количество ETH, за да платиш таксите.</string>
   <string name="purchase_appcoins_noavailable_body">Нямаш достатъчно AppCoins или Ether за тази покупка.</string>
   <string name="purchase_appcoins_credits_available_body">Без такси и светкавично бързо!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Нямаш достатъчно APPC Credits, опитай се да качиш!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Спечели достатъчно AppCoins кредити за тази покупка. Наслади се!</string>
   <string name="purchase_poa_item">Печели средства като изпробваш приложения</string>
   <string name="purchase_poa_body">Тествай приложение 2 минути и спечели AppCoins Credits!</string>
