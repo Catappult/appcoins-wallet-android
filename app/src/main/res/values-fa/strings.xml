@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">برای پرداخت این مبلغ، مقدار اندکی از ETH را پرداخت خواهید کرد.</string>
   <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
   <string name="purchase_appcoins_credits_available_body">بدون هزینه و بسرعت!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی اعتبار APPC ندارید، اقدام به افزایش اعتبار کنید!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی اعتبار AppCoins برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
   <string name="purchase_poa_item">از طریق امتحان اپلیکیشن‌ها کسب درآمد کنید</string>
   <string name="purchase_poa_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و اعتبار AppCoins بدست آورید!</string>
