@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Użyjesz małej sumy ETH aby opłacić transakcję.</string>
   <string name="purchase_appcoins_noavailable_body">Nie masz wystarczającej ilości AppCoins lub Ether dla tego zakupu.</string>
   <string name="purchase_appcoins_credits_available_body">Bez opłat i w mgnieniu oka!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Nie masz wystarczająco Kredytów APPC, doładuj konto!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Zarobiłeś wystarczająco dużo Kredytów AppCoins dla tego zakupu!</string>
   <string name="purchase_poa_item">Zarabiaj środki próbując aplikacji</string>
   <string name="purchase_poa_body">Wypróbuj aplikację przez 2 minuty i zarabiaj Kredyty AppCoins!</string>
