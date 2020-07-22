@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Bạn sẽ dùng một ít ETH để trả phí.</string>
   <string name="purchase_appcoins_noavailable_body">Bạn không có đủ AppCoins hoặc Ether cho giao dịch mua này.</string>
   <string name="purchase_appcoins_credits_available_body">Không tốn phí và nhanh như chớp!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Bạn không có đủ APPC Credits, hãy thử nạp tiền!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Bạn đã kiếm đủ AppCoins Credits cho giao dịch mua này. Hãy thỏa thích dùng chúng!</string>
   <string name="purchase_poa_item">Kiếm tiền bằng cách trải nghiệm các ứng dụng</string>
   <string name="purchase_poa_body">Hãy trải nghiệm ứng dụng trong 2 phút và kiếm AppCoins Credits!</string>
