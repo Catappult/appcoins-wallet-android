@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">你将使用少量以太币来支付费用。</string>
   <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
   <string name="purchase_appcoins_credits_available_body">不收费且速度超快！</string>
-  <string name="purchase_appcoins_credits_noavailable_body">你的APPC积金不足，请尝试充值！</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">你获得了足够的AppCoins积金，可支付此购买。享用吧！</string>
   <string name="purchase_poa_item">通过使用应用来赢得资金</string>
   <string name="purchase_poa_body">使用应用2分钟即可赢得AppCoins积金！</string>
