@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">سترى رصيدًا قليلًا من ETH لتدفع به الرّسوم.</string>
   <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك AppCoins ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
   <string name="purchase_appcoins_credits_available_body">دون رسوم، وسرعة كالبرق!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">لا يتوفر رصيد كافٍ من APPC، جرب إضافة المزيد!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">لقد كسبت ما يكفي من رصيد الAppCoins لعملية الشراء هه. استمتع!</string>
   <string name="purchase_poa_item">اربح الأموال من خلال تجربة التطبيقات</string>
   <string name="purchase_poa_body">جرّب تطبيقًا لدقيقتين واربح رصيد AppCoins!</string>
