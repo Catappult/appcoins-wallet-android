@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">คุณจะใช้ ETH จำนวนเล็กน้อยเพื่อชำระค่าธรรมเนียม</string>
   <string name="purchase_appcoins_noavailable_body">คุณไม่จำเป็นต้องมี AppCoins หรือ. Ether. ที่เพียงพอในการซื้อนี้</string>
   <string name="purchase_appcoins_credits_available_body">ไม่มีค่าธรรมเนียม รวดเร็ว!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">คุณไม่จำเป็นต้องมีเครดิต APPC ที่เพียงพอ ลองเติมเงินดู!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">คุณรับเครดิต AppCoins ที่เพียงพอสำหรับการซื้อนี้ สนุกกัน!</string>
   <string name="purchase_poa_item">รับเงินโดยการลองแอป</string>
   <string name="purchase_poa_body">ลองแอป 2 นาทีและรับ AppCoins Credits!</string>
