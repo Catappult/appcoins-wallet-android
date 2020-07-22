@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Θα χρησιμοποιήσετε ένα μικρό ποσό ETH για την πληρωμή των χρεώσεων.</string>
   <string name="purchase_appcoins_noavailable_body">Δεν έχετε αρκετά AppCoins ή Ether για αυτήν την αγορά.</string>
   <string name="purchase_appcoins_credits_available_body">Χωρίς χρεώσεις και εξαιρετικά γρήγορα!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετά APPC Credits, δοκιμάστε να κάνετε φόρτιση!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Κερδίσατε αρκετά AppCoins Credits για αυτήν την αγορά. Απολαύστε!</string>
   <string name="purchase_poa_item">Κερδίστε χρήματα δοκιμάζοντας εφαρμογές</string>
   <string name="purchase_poa_body">Δοκιμάστε μια εφαρμογή για 2 λεπτά και κερδίστε AppCoins Credits!</string>
