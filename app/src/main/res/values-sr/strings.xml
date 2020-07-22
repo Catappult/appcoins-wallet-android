@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Malim iznosom u ETH ćete platiti naknade.</string>
   <string name="purchase_appcoins_noavailable_body">Nemate dovoljno AppCoins ili Ethera za ovu kupovinu.</string>
   <string name="purchase_appcoins_credits_available_body">Bez naknada i brzi kao munja!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Nemate dovoljno APPC Credits, dopunite ih!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Zaradili ste dovoljno AppCoins Credits za ovu kupovinu. Uživajte!</string>
   <string name="purchase_poa_item">Zaradite sredstva tako što ćete isprobati aplikacije</string>
   <string name="purchase_poa_body">Isprobajte aplikaciju 2 minuta i zaradite AppCoins Credits!</string>
