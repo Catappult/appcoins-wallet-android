@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Er zal een klein bedrag ETH worden gebruikt om de kosten te betalen.</string>
   <string name="purchase_appcoins_noavailable_body">Je hebt niet genoeg AppCoins of Ether voor deze aankoop.</string>
   <string name="purchase_appcoins_credits_available_body">Geen extra kosten en razendsnel!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Je hebt niet genoeg APPC Credits, maar je kunt opwaarderen!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Je hebt genoeg AppCoins Credits verdiend voor deze aankoop. Veel plezier!</string>
   <string name="purchase_poa_item">Verdien geld door apps te proberen</string>
   <string name="purchase_poa_body">Probeer een app 2 minuten en verdien AppCoins Credits!</string>
