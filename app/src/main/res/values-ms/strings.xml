@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Anda akan gunakan sejumlah kecil ETH untuk membayar yuran.</string>
   <string name="purchase_appcoins_noavailable_body">Anda tidak mempunyai AppCoins atau Ether yang cukup untuk pembelian ini.</string>
   <string name="purchase_appcoins_credits_available_body">Tiada yuran dan pantas!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC anda tidak cukup. Cuba tambah nilai!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Anda telah memperoleh Kredit AppCoins yang cukup untuk pembelian ini. Berseronoklah!</string>
   <string name="purchase_poa_item">Peroleh dana dengan mencuba aplikasi</string>
   <string name="purchase_poa_body">Cuba aplikasi selama 2 minit dan peroleh Kredit AppCoins!</string>
