@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">က်သင့္ေငြမ်ားကို ေပးရန္အတြက္ ETH ပမာဏအနည္းငယ္ကို သင္အသံုးျပဳမည္ ျဖစ္ပါသည္။</string>
   <string name="purchase_appcoins_noavailable_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins သို႔မဟုတ္ Ether လံုေလာက္စြာ မရွိပါ။</string>
   <string name="purchase_appcoins_credits_available_body">က်သင့္ေငြမရွိသလို အလြန္ပင္ ျမန္ဆန္ပါသည္။</string>
-  <string name="purchase_appcoins_credits_noavailable_body">သင့္တြင္ APPC Credit မ်ား လံုေလာက္စြာမရွိပါ။ ေငြျဖည့္ၾကည့္ပါ။</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">ဤ၀ယ္ယူမႈအတြက္ AppCoins Credit မ်ား သင့္ထံတြင္ လံုေလာက္စြာ ရွိပါသည္။ အသံုးျပဳလိုက္ပါ။</string>
   <string name="purchase_poa_item">အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ေငြေၾကးမ်ားကို ရယူလိုက္ပါ</string>
   <string name="purchase_poa_body">အက္ပ္တစ္ခုကို ၂ မိနစ္ၾကာေအာင္ စမ္းသံုးၾကည့္ကာ AppCoins Credit မ်ားကို ရယူလိုက္ပါ။</string>
