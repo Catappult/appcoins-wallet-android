@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">Вы используете небольшое количество ETH, чтобы оплатить операционные издержки.</string>
   <string name="purchase_appcoins_noavailable_body">У вас недостаточно AppCoins или эфира для совершения платежа.</string>
   <string name="purchase_appcoins_credits_available_body">Никаких издержек и скорость молнии!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">У вас недостаточно APPC Credits, попробуйте получить больше бонусов!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Вы заработали достаточно AppCoins Credits для этой покупки. Наслаждайтесь!</string>
   <string name="purchase_poa_item">Заработайте средства, пробуя приложения</string>
   <string name="purchase_poa_body">Проведите в приложении 2 минуты, чтобы заработать AppCoins Credits!</string>
