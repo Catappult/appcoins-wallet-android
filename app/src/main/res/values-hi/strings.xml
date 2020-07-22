@@ -441,7 +441,7 @@
   <string name="purchase_appcoins_available_body">शुल्क भुगतान के लिए आप ETH की एक अल्प राशि का उपयोग करेंगे।</string>
   <string name="purchase_appcoins_noavailable_body">आपके पास इस खरीद के लिए पर्याप्त AppCoins या Ether नहीं हैं।</string>
   <string name="purchase_appcoins_credits_available_body">कोई शुल्क नहीं और बिजली सी तेजी!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">आपके पास पर्याप्त APPC Credits नहीं हैं, टॉप अप से प्रयास करें!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">आपने इस खरीद के लिए पर्याप्त AppCoins Credits अर्जित किये। आनंद लें!</string>
   <string name="purchase_poa_item">ऐप्स परखते हुए फंड अर्जित करें</string>
   <string name="purchase_poa_body">कोई एप्प 2 मिनट तक परखें और AppCoins Credits अर्जित करें!</string>
