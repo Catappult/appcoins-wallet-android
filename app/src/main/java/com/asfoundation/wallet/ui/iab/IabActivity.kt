@@ -51,6 +51,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private lateinit var presenter: IabPresenter
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
+  private var productName: String? = null
   private var isBds: Boolean = false
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
@@ -73,8 +74,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
-            walletBlockedInteract)
-    if (savedInstanceState == null) showPaymentMethodsView()
+            walletBlockedInteract, transaction!!)
+    if (savedInstanceState == null) presenter.handleGetSkuDetails()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -112,9 +113,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun onBackPressed() {
     if (isBackEnable) {
-      val bundle = Bundle()
-      bundle.putInt(RESPONSE_CODE, RESULT_USER_CANCELED)
-      close(bundle)
+      Bundle().apply {
+        putInt(RESPONSE_CODE, RESULT_USER_CANCELED)
+        close(this)
+      }
       super.onBackPressed()
     }
   }
@@ -179,12 +181,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                                iconUrl: String?, gamificationLevel: Int, skuDescription: String) {
+                                iconUrl: String?, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, skuDescription))
+                bonus, isPreselected, gamificationLevel, getSkuDescription()))
         .commit()
   }
 
@@ -218,7 +220,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     fragment_container.visibility = View.VISIBLE
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            intent.extras!!.getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            getSkuDescription(), isBds, isDonation, developerPayload, uri,
             intent.dataString))
         .commit()
   }
@@ -234,8 +236,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                                  productName: String?, appcEnabled: Boolean,
-                                  creditsEnabled: Boolean, isBds: Boolean,
+                                  appcEnabled: Boolean, creditsEnabled: Boolean, isBds: Boolean,
                                   isDonation: Boolean, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
@@ -295,6 +296,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
 
+  override fun updateTransaction(title: String?, price: BigDecimal) {
+    transaction?.amount(price)
+    productName = title
+  }
+
   override fun navigateToUri(url: String) {
     navigateToWebViewAuthorization(url)
   }
@@ -336,6 +342,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private fun getQueryParameter(data: Intent, parameter: String): String? {
     return Uri.parse(data.dataString)
         .getQueryParameter(parameter)
+  }
+
+  private fun getSkuDescription(): String {
+    return when {
+      productName.isNullOrEmpty()
+          .not() -> productName!!
+      transaction != null && transaction!!.skuId.isNullOrEmpty()
+          .not() -> transaction!!.skuId
+      else -> throw IllegalArgumentException("productName and sku not found")
+    }
   }
 
   companion object {

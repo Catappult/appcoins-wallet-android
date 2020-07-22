@@ -342,7 +342,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (view != null) {
       view.isFocusableInTouchMode = true
       view.requestFocus()
-      view.setOnKeyListener(View.OnKeyListener { view1: View?, keyCode: Int, keyEvent: KeyEvent ->
+      view.setOnKeyListener(View.OnKeyListener { _: View?, keyCode: Int, keyEvent: KeyEvent ->
         if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
           onBackPressedSubject?.onNext(itemAlreadyOwnedError)
         }
@@ -444,22 +444,20 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showPaypal(gamificationLevel: Int) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel,
-        getSkuDescription())
+        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
   }
 
   override fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
                          gamificationLevel: Int) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds, paymentType,
-          bonusMessageValue, true, iconUrl, gamificationLevel, getSkuDescription())
+          bonusMessageValue, true, iconUrl, gamificationLevel)
     }
   }
 
   override fun showCreditCard(gamificationLevel: Int) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel,
-        getSkuDescription())
+        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
   }
 
   override fun showAppCoins(gamificationLevel: Int) {
@@ -533,7 +531,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showMergedAppcoins(gamificationLevel: Int) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        getSkuDescription(), appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel)
+        appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel)
   }
 
   override fun lockRotation() = iabView.lockRotation()
@@ -594,7 +592,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun setHeaderInfo(appName: String, appIcon: Drawable) {
     app_name?.text = appName
     app_icon?.setImageDrawable(appIcon)
-    app_sku_description.text = getSkuDescription()
+    app_sku_description.text = productName
   }
 
   private fun getApplicationName(packageName: String): String {
@@ -680,11 +678,4 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     removeBonusSkeletons()
   }
 
-  private fun getSkuDescription(): String {
-    return when {
-      productName != null -> productName!!
-      transactionBuilder != null && transactionBuilder!!.skuId != null -> transactionBuilder!!.skuId
-      else -> throw IllegalArgumentException("productName and sku not found")
-    }
-  }
 }

@@ -29,7 +29,7 @@ interface IabView {
 
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                       iconUrl: String?, gamificationLevel: Int, skuDescription: String)
+                       iconUrl: String?, gamificationLevel: Int)
 
   fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int)
 
@@ -46,8 +46,8 @@ interface IabView {
                            selectedPaymentMethod: String)
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                         productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
-                         isBds: Boolean, isDonation: Boolean, gamificationLevel: Int)
+                         appcEnabled: Boolean, creditsEnabled: Boolean, isBds: Boolean,
+                         isDonation: Boolean, gamificationLevel: Int)
 
   fun lockRotation()
 
@@ -70,4 +70,6 @@ interface IabView {
   fun getSupportClicks(): Observable<Any>
 
   fun errorDismisses(): Observable<Any>
+
+  fun updateTransaction(title: String?, price: BigDecimal)
 }
