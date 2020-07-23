@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">လံုၿခံဳေရး အေၾကာင္းရင္းမ်ားအတြက္ သင့္ပိုက္ဆံအိတ္ကို SMS ကုဒ္တစ္ခုျဖင့္ အတည္ျပဳရန္ လိုအပ္ပါသည္။</string>
   <string name="verification_insert_phone_title">သင့္ဖုန္းနံပါတ္ကိုထည့္ပါ</string>
   <string name="verification_insert_phone_body">ဆုမ်ားကို ရရွိရန္ သင့္ပိုက္္ဆံအိတ္ကို အတည္ျပဳပါ။ အတည္ျပဳရန္ ကုဒ္တစ္ခုကို ေပးပို႔ပါမည္။</string>
-  <string name="verification_insert_phone_field_country">ႏိုင္ငံ</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">ဖုန္းနံပါတ္</string>
   <string name="verification_insert_phone_field_number_error">ဖုန္းနံပါတ္ မမွန္ကန္ပါ</string>
   <string name="verification_insert_phone_field_region_error">ေဒသကို မပံ့ပိုးေပးေသးပါ။</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">အျခား ေငြေပးေခ်ရန္နည္းလမ္းမ်ား</string>
   <string name="purchase_appcoins_available_body">က်သင့္ေငြမ်ားကို ေပးရန္အတြက္ ETH ပမာဏအနည္းငယ္ကို သင္အသံုးျပဳမည္ ျဖစ္ပါသည္။</string>
   <string name="purchase_appcoins_noavailable_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins သို႔မဟုတ္ Ether လံုေလာက္စြာ မရွိပါ။</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">က်သင့္ေငြမရွိသလို အလြန္ပင္ ျမန္ဆန္ပါသည္။</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">ဤ၀ယ္ယူမႈအတြက္ AppCoins Credit မ်ား သင့္ထံတြင္ လံုေလာက္စြာ ရွိပါသည္။ အသံုးျပဳလိုက္ပါ။</string>
