@@ -272,6 +272,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                                   currency: String): Completable {
     return if (isValueInRange(limitValues, fiatAmount.toDouble())) {
       view.changeMainValueColor(true)
+      view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
       retrievePaymentMethods(fiatAmount, currency)
           .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))

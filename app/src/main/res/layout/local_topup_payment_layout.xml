@@ -77,7 +77,7 @@
       android:id="@+id/topup_pending_user_payment_view"
       layout="@layout/topup_pending_user_payment_view"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

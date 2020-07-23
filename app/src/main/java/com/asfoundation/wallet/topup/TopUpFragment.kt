@@ -486,6 +486,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     bonus_msg_skeleton.visibility = View.VISIBLE
   }
 
+  override fun hidePaymentMethods() {
+    payments_skeleton.visibility = View.VISIBLE
+    payment_methods.visibility = View.GONE
+  }
+
   private fun hideErrorViews() {
     no_network.visibility = View.GONE
     retry_button.visibility = View.GONE

@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-class LocalPayementsLinkRepository(private var api: DeepLinkApi) : InAppDeepLinkRepository {
+class LocalPaymentsLinkRepository(private var api: DeepLinkApi) : InAppDeepLinkRepository {
 
   override fun getDeepLink(domain: String, skuId: String?,
                            userWalletAddress: String, signature: String,
