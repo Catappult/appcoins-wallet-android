@@ -38,6 +38,7 @@ import com.asfoundation.wallet.ui.iab.FragmentNavigator
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.util.Adyen3DSUiUtils
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -142,6 +143,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun setup3DSComponent() {
     adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
+    adyen3DS2Component.setUiCustomization(Adyen3DSUiUtils.createUiCustomization())
     adyen3DS2Component.observe(this, Observer {
       paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
     })
