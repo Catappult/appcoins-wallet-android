@@ -49,7 +49,7 @@ interface AdyenPaymentView {
 
   fun lockRotation()
 
-  fun setRedirectComponent()
+  fun setupRedirectComponent()
 
   fun submitUriResult(uri: Uri)
 

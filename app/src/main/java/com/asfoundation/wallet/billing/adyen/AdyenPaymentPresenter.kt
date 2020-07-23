@@ -62,6 +62,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       cachedUid = it.getString(UID, "")
     }
     view.setup3DSComponent()
+    view.setupRedirectComponent()
     if (!waitingResult) loadPaymentMethodInfo(savedInstanceState)
     handleBack()
     handleErrorDismissEvent()
@@ -335,7 +336,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .observeOn(viewScheduler)
         .doOnNext {
           if (it == CHALLENGE_CANCELED) view.showMoreMethods()
-          else view.showGenericError()
+          else {
+            logger.log(TAG, it)
+            view.showGenericError()
+          }
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -538,7 +542,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       val type = paymentModel.action?.type
       if (type == REDIRECT) {
         cachedUid = paymentModel.uid
-        view.setRedirectComponent()
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
       } else if (type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {

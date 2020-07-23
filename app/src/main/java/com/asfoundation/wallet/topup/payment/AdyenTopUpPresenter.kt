@@ -69,6 +69,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     view.showLoading()
     retrieveSavedInstance(savedInstanceState)
     view.setup3DSComponent()
+    view.setupRedirectComponent()
     handleViewState(savedInstanceState)
     handleForgetCardClick()
     handleRetryClick(savedInstanceState)
@@ -372,7 +373,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(viewScheduler)
         .doOnNext {
           if (it == CHALLENGE_CANCELED) view.navigateToPaymentSelection()
-          else handleSpecificError(R.string.unknown_error)
+          else {
+            logger.log(TAG, it)
+            handleSpecificError(R.string.unknown_error)
+          }
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -448,7 +452,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       val type = paymentModel.action?.type
       if (type == REDIRECT) {
         cachedUid = paymentModel.uid
-        view.setRedirectComponent()
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
       } else if (type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {

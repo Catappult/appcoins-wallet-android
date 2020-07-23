@@ -29,7 +29,7 @@ interface AdyenTopUpView {
   fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean, forget: Boolean,
                               savedInstanceState: Bundle?)
 
-  fun setRedirectComponent()
+  fun setupRedirectComponent()
 
   fun forgetCardClick(): Observable<Any>
 
