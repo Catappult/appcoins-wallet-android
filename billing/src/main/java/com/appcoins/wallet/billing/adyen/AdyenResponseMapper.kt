@@ -6,9 +6,9 @@ import com.adyen.checkout.base.model.payments.response.RedirectAction
 import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.billing.util.Error
-import org.json.JSONObject
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import org.json.JSONObject
 import retrofit2.HttpException
 
 class AdyenResponseMapper {
@@ -43,7 +43,6 @@ class AdyenResponseMapper {
           redirectUrl = action.url
         }
         THREEDS2FINGERPRINT -> action = Threeds2FingerprintAction.SERIALIZER.deserialize(jsonAction)
-
         THREEDS2CHALLENGE -> action = Threeds2ChallengeAction.SERIALIZER.deserialize(jsonAction)
       }
     }
