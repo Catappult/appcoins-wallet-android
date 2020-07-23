@@ -333,7 +333,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handle3DSErrors() {
     disposables.add(view.onAdyen3DSError()
         .observeOn(viewScheduler)
-        .doOnNext { view.showGenericError() }
+        .doOnNext {
+          if (it == CHALLENGE_CANCELED) view.showMoreMethods()
+          else view.showGenericError()
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -555,6 +558,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val HTTP_FRAUD_CODE = 403
     private const val UID = "UID"
+    private const val CHALLENGE_CANCELED = "Challenge canceled."
     private val TAG = AdyenPaymentPresenter::class.java.name
   }
 

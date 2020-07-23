@@ -370,7 +370,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private fun handleAdyen3DSErrors() {
     disposables.add(view.onAdyen3DSError()
         .observeOn(viewScheduler)
-        .doOnNext { handleSpecificError(R.string.unknown_error) }
+        .doOnNext {
+          if (it == CHALLENGE_CANCELED) view.navigateToPaymentSelection()
+          handleSpecificError(R.string.unknown_error)
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -490,6 +493,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     private const val RETRIEVED_CURRENCY = "RETRIEVED_CURRENCY"
     private const val UID = "UID"
     private const val HTTP_FRAUD_CODE = 403
+    private const val CHALLENGE_CANCELED = "Challenge canceled."
     private val TAG = AdyenTopUpPresenter::class.java.name
   }
 
