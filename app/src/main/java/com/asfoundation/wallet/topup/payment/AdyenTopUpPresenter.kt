@@ -372,7 +372,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(viewScheduler)
         .doOnNext {
           if (it == CHALLENGE_CANCELED) view.navigateToPaymentSelection()
-          handleSpecificError(R.string.unknown_error)
+          else handleSpecificError(R.string.unknown_error)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
