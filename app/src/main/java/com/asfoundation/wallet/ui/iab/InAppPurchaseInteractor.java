@@ -254,7 +254,7 @@ public class InAppPurchaseInteractor {
     if (!paymentMethod.isEnabled()) {
       if (paymentMethod.getId()
           .equals(CREDITS_ID)) {
-        return Observable.just(R.string.purchase_card_error_CVV)
+        return Observable.just(R.string.purchase_appcoins_credits_noavailable_body)
             .map(reason -> {
               paymentMethod.setDisabledReason(reason);
               return paymentMethod;
@@ -277,13 +277,11 @@ public class InAppPurchaseInteractor {
     return getBalanceState(transaction).map(balanceState -> {
       switch (balanceState) {
         case NO_ETHER:
-          return R.string.purchase_card_error_CVV;
+          return R.string.purchase_no_eth_body;
         case NO_TOKEN:
-          return R.string.purchase_card_error_CVV;
-        case OK:
-          return R.string.purchase_card_error_CVV;
         case NO_ETHER_NO_TOKEN:
-          return R.string.purchase_card_error_CVV;
+          return R.string.purchase_no_appcoins_body;
+        case OK:
         default:
           return null;
       }
