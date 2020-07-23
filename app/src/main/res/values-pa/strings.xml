@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">ਸੁਰੱਖਿਆ ਲਈ ਸਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਇੱਕ ਐਸਐਮਐਸ ਕੋਡ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="verification_insert_phone_title">ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਭਰੋ</string>
   <string name="verification_insert_phone_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ! ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਤਸਦੀਕ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
-  <string name="verification_insert_phone_field_country">ਦੇਸ਼</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_number_error">ਗਲਤ ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_region_error">ਇਹ ਜਗ੍ਹਾ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
   <string name="purchase_appcoins_available_body">ਫ਼ੀਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਥੋੜ੍ਹੇ ਜਿਹੇ ਈਥਰ ਦਾ ਇਸਤੇਮਾਲ ਕਰੋਗੇ|</string>
   <string name="purchase_appcoins_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਜਾਂ ਈਥਰ ਨਹੀਂ ਹੈ|</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">ਕੋਈ ਫੀਸ ਨਹੀਂ ਅਤੇ ਬਿਜਲੀ ਵਾਂਗ ਤੇਜ਼!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਲਏ| ਆਨੰਦ ਮਾਣੋ!</string>
