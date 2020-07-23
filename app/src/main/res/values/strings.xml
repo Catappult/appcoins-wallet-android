@@ -474,6 +474,8 @@
   <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
   <string name="verification_settings_verified_title">Wallet Verified</string>
   <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verified_tag">Verified</string>
+  <string name="unferified_tag">Unverified</string>
 
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
@@ -785,6 +787,19 @@
   <string name="carrier_billing_terms_button">Terms and Conditions</string>
   <string name="carrier_billing_privacy_button">Privacy Policy</string>
 
+<!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_manage_title">Manage cards</string>
+  <string name="manage_cards_view_title">Manage cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
+  <string name="manage_cards_add_title">Add new card</string>
+  <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
+  <string name="manage_cards_remove_no">NO, CANCEL</string>
+  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
+  <string name="manage_cards_card_ending_body">Card ending in %s</string>
+  <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
+  <string name="manage_cards_select_title">Select payment card</string>
+  <string name="manage_cards_remember">Remember card</string>
 
 
 </resources>
