@@ -358,17 +358,18 @@ public class InAppPurchaseInteractor {
 
   private Integer mergeDisableReason(PaymentMethod appcMethod, PaymentMethod creditsMethod) {
     Integer reason = null;
-    if (!appcMethod.isEnabled()) {
-      if (appcMethod.getDisabledReason() != null) {
-        reason = appcMethod.getDisabledReason();
-      } else {
-        reason = creditsMethod.getDisabledReason();
-      }
-    } else if (!creditsMethod.isEnabled()) {
+
+    if (!creditsMethod.isEnabled()) {
       if (creditsMethod.getDisabledReason() != null) {
         reason = creditsMethod.getDisabledReason();
       } else {
         reason = appcMethod.getDisabledReason();
+      }
+    } else if (!appcMethod.isEnabled()) {
+      if (appcMethod.getDisabledReason() != null) {
+        reason = appcMethod.getDisabledReason();
+      } else {
+        reason = creditsMethod.getDisabledReason();
       }
     }
     return reason;
