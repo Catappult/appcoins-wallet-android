@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">Om veiligheidsredenen moeten we je wallet met een sms-code verifiëren.</string>
   <string name="verification_insert_phone_title">Voer je telefoonnummer in</string>
   <string name="verification_insert_phone_body">Verifieer je wallet om beloningen te ontvangen! We zullen je een verificatiecode sturen.</string>
-  <string name="verification_insert_phone_field_country">Land</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">Telefoonnummer</string>
   <string name="verification_insert_phone_field_number_error">Ongeldig telefoonnummer</string>
   <string name="verification_insert_phone_field_region_error">Regio wordt nog niet ondersteund.</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">ANDERE BETALINGSMETHODEN</string>
   <string name="purchase_appcoins_available_body">Er zal een klein bedrag ETH worden gebruikt om de kosten te betalen.</string>
   <string name="purchase_appcoins_noavailable_body">Je hebt niet genoeg AppCoins of Ether voor deze aankoop.</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">Geen extra kosten en razendsnel!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Je hebt genoeg AppCoins Credits verdiend voor deze aankoop. Veel plezier!</string>
