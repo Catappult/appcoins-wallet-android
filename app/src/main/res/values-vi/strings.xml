@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">Vì lý do bảo mật, chúng tôi cần xác minh ví của bạn bằng mã SMS.</string>
   <string name="verification_insert_phone_title">Nhập số điện thoại của bạn</string>
   <string name="verification_insert_phone_body">Xác minh ví của bạn để nhận phần thưởng! Chúng tôi sẽ gửi bạn một mã xác minh.</string>
-  <string name="verification_insert_phone_field_country">Quốc gia</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">Số điện thoại</string>
   <string name="verification_insert_phone_field_number_error">Số điện thoại không hợp lệ</string>
   <string name="verification_insert_phone_field_region_error">Khu vực chưa được hỗ trợ.</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
   <string name="purchase_appcoins_available_body">Bạn sẽ dùng một ít ETH để trả phí.</string>
   <string name="purchase_appcoins_noavailable_body">Bạn không có đủ AppCoins hoặc Ether cho giao dịch mua này.</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">Không tốn phí và nhanh như chớp!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Bạn đã kiếm đủ AppCoins Credits cho giao dịch mua này. Hãy thỏa thích dùng chúng!</string>
