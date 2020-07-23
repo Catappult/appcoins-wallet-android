@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">Demi keamanan, kami perlu memverifikasi dompet Anda dengan kode lewat SMS.</string>
   <string name="verification_insert_phone_title">Masukkan nomor telepon Anda</string>
   <string name="verification_insert_phone_body">Verifikasi dompet Anda untuk mendapatkan hadiah! Kami akan mengirimi Anda kode verifikasi.</string>
-  <string name="verification_insert_phone_field_country">Negara</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">Nomor Telepon</string>
   <string name="verification_insert_phone_field_number_error">Nomor telepon tidak valid</string>
   <string name="verification_insert_phone_field_region_error">Wilayah belum didukung.</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">METODE PEMBAYARAN LAINNYA</string>
   <string name="purchase_appcoins_available_body">Anda akan menggunakan sedikit ETH untuk membayar biayanya.</string>
   <string name="purchase_appcoins_noavailable_body">AppCoin atau Ether yang Anda miliki tidak cukup untuk pembelian ini.</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">Tanpa biaya dan secepat kilat!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Anda mendapatkan Kredit AppCoins yang cukup untuk pembelian ini. Silakan!</string>
