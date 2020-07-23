@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
   <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
   <string name="verification_insert_phone_body">बक्षिसे मिळविण्यासाठी वॉलेट सत्यापन करा! आम्ही आपल्याला सत्यापन कोड पाठवू.</string>
-  <string name="verification_insert_phone_field_country">देश</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
   <string name="verification_insert_phone_field_region_error">हा प्रांत अजुनपर्यंत समर्थित नाहीं.</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
   <string name="purchase_appcoins_available_body">इटीएच ची छोटी रक्कम शुल्क भरण्यासाठी आपण वापराल.</string>
   <string name="purchase_appcoins_noavailable_body">ही खरेदी करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स किंवा इथर नाहीय.</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">कोणतेही शुल्क नाही आणि अतिशय जलद!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपण पुरेशा अॅपकॉइन्स कमावल्यात. मजा लुटा!</string>
