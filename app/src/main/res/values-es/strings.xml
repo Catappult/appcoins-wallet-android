@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">Por motivos de seguridad, necesitamos verificar tu wallet con un código SMS.</string>
   <string name="verification_insert_phone_title">Introduce tu número de teléfono</string>
   <string name="verification_insert_phone_body">¡Verifica tu wallet para recibir recompensas! Te enviaremos un código de verificación.</string>
-  <string name="verification_insert_phone_field_country">País</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">Número de teléfono</string>
   <string name="verification_insert_phone_field_number_error">Número no válido</string>
   <string name="verification_insert_phone_field_region_error">Todavía no soportamos esta región.</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">OTROS MÉTODOS DE PAGO</string>
   <string name="purchase_appcoins_available_body">Usarás una pequeña cantidad de ETH para pagar las tasas.</string>
   <string name="purchase_appcoins_noavailable_body">No tienes suficientes AppCoins o Ether para esta compra.</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">¡Sin tasas y súper rápido!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">Has ganado suficientes AppCoins Credits para esta compra. ¡Disfruta!</string>
