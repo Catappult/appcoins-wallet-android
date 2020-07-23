@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">به دلایل امنیتی، نیازمند به تایید کیف پول شما با یک کد پیامکی هستیم.</string>
   <string name="verification_insert_phone_title">شماره تلفن خود را وارد کنید</string>
   <string name="verification_insert_phone_body">برای دریافت پاداش، کیف پول خود را تایید کنید! کد تاییدیه را برای شما ارسال خواهیم کرد.</string>
-  <string name="verification_insert_phone_field_country">کشور</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">شماره تلفن</string>
   <string name="verification_insert_phone_field_number_error">شمشماره تلفن نامعتبر</string>
   <string name="verification_insert_phone_field_region_error">منطقه جغرافیایی فعلا پشتیبانی نمی‌شود.</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">سایر روش‌های پرداخت</string>
   <string name="purchase_appcoins_available_body">برای پرداخت این مبلغ، مقدار اندکی از ETH را پرداخت خواهید کرد.</string>
   <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">بدون هزینه و بسرعت!</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی اعتبار AppCoins برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
