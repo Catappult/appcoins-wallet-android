@@ -263,13 +263,13 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   //Called if is paypal or 3DS
   private fun handlePaymentDetails() {
     disposables.add(view.getPaymentDetails()
-        .throttleLast(2, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
         .doOnNext {
           view.lockRotation()
           view.hideKeyboard()
           view.setFinishingPurchase()
         }
+        .throttleLast(2, TimeUnit.SECONDS)
         .observeOn(networkScheduler)
         .flatMapSingle {
           adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!, it.paymentData)
