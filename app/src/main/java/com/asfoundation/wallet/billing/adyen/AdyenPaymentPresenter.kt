@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
@@ -51,19 +54,25 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val logger: Logger) {
 
   private var waitingResult = false
+  private var cachedUid = ""
 
   fun present(savedInstanceState: Bundle?) {
-    savedInstanceState?.let { waitingResult = it.getBoolean(WAITING_RESULT) }
-    loadPaymentMethodInfo(savedInstanceState)
+    savedInstanceState?.let {
+      waitingResult = it.getBoolean(WAITING_RESULT)
+      cachedUid = it.getString(UID, "")
+    }
+    view.setup3DSComponent()
+    view.setupRedirectComponent()
+    if (!waitingResult) loadPaymentMethodInfo(savedInstanceState)
     handleBack()
     handleErrorDismissEvent()
     handleForgetCardClick()
-
     handleRedirectResponse()
     handlePaymentDetails()
     handleAdyenErrorBack()
     handleAdyenErrorCancel()
     handleSupportClicks()
+    handle3DSErrors()
     if (isPreSelected) handleMorePaymentsClick()
   }
 
@@ -166,10 +175,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     } else {
       view.showLoading()
       view.lockRotation()
-      view.setRedirectComponent(paymentModel.action!!, paymentModel.uid)
-      navigator.navigateToUriForResult(paymentModel.redirectUrl)
-      waitingResult = true
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
+      handleAdyenAction(paymentModel)
     }
   }
 
@@ -197,23 +204,17 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               }
         }
         .observeOn(viewScheduler)
-        .flatMapCompletable {
-          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason,
-              it.status, it.error)
-        }
+        .flatMapCompletable { handlePaymentResult(it) }
         .subscribe({}, {
           logger.log(TAG, it)
           view.showGenericError()
         }))
   }
 
-  private fun handlePaymentResult(uid: String, resultCode: String,
-                                  refusalCode: Int?, refusalReason: String?,
-                                  status: Status,
-                                  error: Error): Completable {
+  private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
     return when {
-      resultCode.equals("AUTHORISED", true) -> {
-        adyenPaymentInteractor.getTransaction(uid)
+      paymentModel.resultCode.equals("AUTHORISED", true) -> {
+        adyenPaymentInteractor.getTransaction(paymentModel.uid)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
@@ -249,9 +250,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               }
             }
       }
-      refusalReason != null -> Completable.fromAction {
-        sendPaymentErrorEvent(refusalCode, refusalReason)
-        refusalCode?.let { code ->
+      paymentModel.status == PENDING_USER_PAYMENT && paymentModel.action != null -> {
+        Completable.fromAction {
+          view.showLoading()
+          view.lockRotation()
+          handleAdyenAction(paymentModel)
+        }
+      }
+      paymentModel.refusalReason != null -> Completable.fromAction {
+        sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason)
+        paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
             FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
@@ -259,13 +267,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           }
         }
       }
-      error.hasError -> Completable.fromAction {
-        sendPaymentErrorEvent(error.code, error.message)
-        handleErrors(error)
+      paymentModel.error.hasError -> Completable.fromAction {
+        sendPaymentErrorEvent(paymentModel.error.code, paymentModel.error.message)
+        handleErrors(paymentModel.error)
       }
-      status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
+      paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
-        sendPaymentErrorEvent(error.code, "$status: Generic Error")
+        sendPaymentErrorEvent(paymentModel.error.code, "${paymentModel.status}: Generic Error")
         view.showGenericError()
       }
     }
@@ -292,8 +300,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
-              it.printStackTrace()
               view.showSpecificError(error)
+              logger.log(TAG, it)
             })
     )
   }
@@ -308,20 +316,38 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handlePaymentDetails() {
     disposables.add(view.getPaymentDetails()
-        .observeOn(networkScheduler)
-        .flatMapSingle { adyenPaymentInteractor.submitRedirect(it.uid, it.details, it.paymentData) }
+        .throttleLast(2, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
-        .flatMapCompletable {
-          handlePaymentResult(it.uid, it.resultCode, it.refusalCode, it.refusalReason, it.status,
-              it.error)
+        .doOnNext { view.lockRotation() }
+        .observeOn(networkScheduler)
+        .flatMapSingle {
+          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!, it.paymentData)
         }
+        .observeOn(viewScheduler)
+        .flatMapCompletable { handlePaymentResult(it) }
         .subscribe({}, {
           logger.log(TAG, it)
           view.showGenericError()
         }))
   }
 
-  fun onSaveInstanceState(outState: Bundle) = outState.putBoolean(WAITING_RESULT, waitingResult)
+  private fun handle3DSErrors() {
+    disposables.add(view.onAdyen3DSError()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (it == CHALLENGE_CANCELED) view.showMoreMethods()
+          else {
+            logger.log(TAG, it)
+            view.showGenericError()
+          }
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  fun onSaveInstanceState(outState: Bundle) {
+    outState.putBoolean(WAITING_RESULT, waitingResult)
+    outState.putString(UID, cachedUid)
+  }
 
   private fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
     disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
@@ -511,12 +537,31 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribe({}, { view.showGenericError() }))
   }
 
+  private fun handleAdyenAction(paymentModel: PaymentModel) {
+    if (paymentModel.action != null) {
+      val type = paymentModel.action?.type
+      if (type == REDIRECT) {
+        cachedUid = paymentModel.uid
+        navigator.navigateToUriForResult(paymentModel.redirectUrl)
+        waitingResult = true
+      } else if (type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
+        cachedUid = paymentModel.uid
+        view.handle3DSAction(paymentModel.action!!)
+        waitingResult = true
+      } else {
+        view.showGenericError()
+      }
+    }
+  }
+
   fun stop() = disposables.clear()
 
   companion object {
 
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val HTTP_FRAUD_CODE = 403
+    private const val UID = "UID"
+    private const val CHALLENGE_CANCELED = "Challenge canceled."
     private val TAG = AdyenPaymentPresenter::class.java.name
   }
 
