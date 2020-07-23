@@ -413,7 +413,7 @@
   <string name="verification_notification_verification_needed_body">出于安全原因，我们需要使用短信代码验证你的钱包。</string>
   <string name="verification_insert_phone_title">输入你的电话号码</string>
   <string name="verification_insert_phone_body">验证钱包以获取奖励！我们将向你发送验证码。</string>
-  <string name="verification_insert_phone_field_country">国家/地区</string>
+  <string name="verification_insert_phone_field_country">Region</string>
   <string name="verification_insert_phone_field_number">电话号码</string>
   <string name="verification_insert_phone_field_number_error">电话号码无效</string>
   <string name="verification_insert_phone_field_region_error">尚不支持该地区。</string>
@@ -440,6 +440,8 @@
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
   <string name="purchase_appcoins_available_body">你将使用少量以太币来支付费用。</string>
   <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">不收费且速度超快！</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">你获得了足够的AppCoins积金，可支付此购买。享用吧！</string>
