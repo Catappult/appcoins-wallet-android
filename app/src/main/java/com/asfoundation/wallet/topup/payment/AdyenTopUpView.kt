@@ -29,7 +29,7 @@ interface AdyenTopUpView {
   fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean, forget: Boolean,
                               savedInstanceState: Bundle?)
 
-  fun setRedirectComponent(uid: String)
+  fun setRedirectComponent()
 
   fun forgetCardClick(): Observable<Any>
 
@@ -67,7 +67,9 @@ interface AdyenTopUpView {
 
   fun showWalletValidation(@StringRes error: Int)
 
-  fun set3DSComponent(uid: String, action: Action)
+  fun handle3DSAction(action: Action)
 
   fun onAdyen3DSError(): Observable<String>
+
+  fun setup3DSComponent()
 }

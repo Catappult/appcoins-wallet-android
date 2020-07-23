@@ -49,7 +49,7 @@ interface AdyenPaymentView {
 
   fun lockRotation()
 
-  fun setRedirectComponent(uid: String)
+  fun setRedirectComponent()
 
   fun submitUriResult(uri: Uri)
 
@@ -69,7 +69,9 @@ interface AdyenPaymentView {
 
   fun showWalletValidation(@StringRes error: Int)
 
-  fun set3DSComponent(uid: String, action: Action)
+  fun handle3DSAction(action: Action)
 
   fun onAdyen3DSError(): Observable<String>
+
+  fun setup3DSComponent()
 }

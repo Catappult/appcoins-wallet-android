@@ -140,6 +140,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     presenter.present(savedInstanceState)
   }
 
+  override fun setup3DSComponent() {
+    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
+    adyen3DS2Component.observe(this, Observer {
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+    })
+    adyen3DS2Component.observeErrors(this, Observer {
+      adyen3DSErrorSubject?.onNext(it.errorMessage)
+    })
+  }
+
   private fun setupUi(view: View) {
     setupAdyenLayouts()
     setupTransactionCompleteAnimation()
@@ -308,27 +318,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     iabView.showPaymentMethodsView()
   }
 
-  override fun setRedirectComponent(uid: String) {
+  override fun setRedirectComponent() {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.observe(this, Observer {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
     })
   }
 
 
-  override fun set3DSComponent(uid: String, action: Action) {
-    if (this::adyen3DS2Component.isInitialized) {
-      adyen3DS2Component.handleAction(activity!!, action)
-    } else {
-      adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
-      adyen3DS2Component.handleAction(activity!!, action)
-      adyen3DS2Component.observe(this, Observer {
-        paymentDetailsSubject?.onNext(AdyenComponentResponseModel(uid, it.details, it.paymentData))
-      })
-      adyen3DS2Component.observeErrors(this, Observer {
-        adyen3DSErrorSubject?.onNext(it.errorMessage)
-      })
-    }
+  override fun handle3DSAction(action: Action) {
+    adyen3DS2Component.handleAction(activity!!, action)
   }
 
   override fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!

@@ -54,10 +54,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val logger: Logger) {
 
   private var waitingResult = false
+  private var cachedUid = ""
 
   fun present(savedInstanceState: Bundle?) {
-    savedInstanceState?.let { waitingResult = it.getBoolean(WAITING_RESULT) }
-    loadPaymentMethodInfo(savedInstanceState)
+    savedInstanceState?.let {
+      waitingResult = it.getBoolean(WAITING_RESULT)
+      cachedUid = it.getString(UID, "")
+    }
+    view.setup3DSComponent()
+    if (!waitingResult) loadPaymentMethodInfo(savedInstanceState)
     handleBack()
     handleErrorDismissEvent()
     handleForgetCardClick()
@@ -310,9 +315,12 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handlePaymentDetails() {
     disposables.add(view.getPaymentDetails()
+        .throttleLast(2, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.lockRotation() }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.submitRedirect(it.uid, it.details!!, it.paymentData)
+          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!, it.paymentData)
         }
         .observeOn(viewScheduler)
         .flatMapCompletable { handlePaymentResult(it) }
@@ -329,7 +337,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun onSaveInstanceState(outState: Bundle) = outState.putBoolean(WAITING_RESULT, waitingResult)
+  fun onSaveInstanceState(outState: Bundle) {
+    outState.putBoolean(WAITING_RESULT, waitingResult)
+    outState.putString(UID, cachedUid)
+  }
 
   private fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
     disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
@@ -523,11 +534,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     if (paymentModel.action != null) {
       val type = paymentModel.action?.type
       if (type == REDIRECT) {
-        view.setRedirectComponent(paymentModel.uid)
+        cachedUid = paymentModel.uid
+        view.setRedirectComponent()
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
       } else if (type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
-        view.set3DSComponent(paymentModel.uid, paymentModel.action!!)
+        cachedUid = paymentModel.uid
+        view.handle3DSAction(paymentModel.action!!)
         waitingResult = true
       } else {
         view.showGenericError()
@@ -541,6 +554,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val HTTP_FRAUD_CODE = 403
+    private const val UID = "UID"
     private val TAG = AdyenPaymentPresenter::class.java.name
   }
 
