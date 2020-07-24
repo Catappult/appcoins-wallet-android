@@ -435,6 +435,8 @@
   <string name="verification_settings_unverified_body">बक्षिसे मिळवा आणि मित्रांना आमंत्रण द्या</string>
   <string name="verification_settings_verified_title">वॉलेट सत्यापित झाले</string>
   <string name="verification_settings_no_internet">आपण इंटरनेटशी जुडलेले हवेत</string>
+  <string name="verified_tag">Verified</string>
+  <string name="unferified_tag">Unverified</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
@@ -464,6 +466,7 @@
   <string name="purchase_card_error_security">सुरक्षा माहिती बरोबर आहे ह्याची खात्री आहे? कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_wallet_error_contact_us">अरेरे आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये. कृपया आमच्याशी संपर्क साधा.</string>
+  <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
   <!--Async Payments-->
@@ -707,4 +710,33 @@
   <string name="gamif_placeholder_unknown">माहिती नसलेला ग्रह</string>
   <string name="gamif_distance_unkown">माहिती नसलेले ठिकाण</string>
   <string name="gamif_placeholder_new_planet">ऩविन ग्रह</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Carrier billing</string>
+  <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
+  <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
+  <string name="carrier_billing_phone_field">Your phone number...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s will charge a fee of %2$s</string>
+  <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
+  <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
+  <string name="carrier_billing_code_field">Your code...</string>
+  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
+  <string name="carrier_billing_submit_button">SUBMIT</string>
+  <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
+  <string name="carrier_billing_help_1">Need help?</string>
+  <string name="carrier_billing_help_2_button">Contact Support</string>
+  <string name="carrier_billing_terms_button">Terms and Conditions</string>
+  <string name="carrier_billing_privacy_button">Privacy Policy</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_manage_title">Manage cards</string>
+  <string name="manage_cards_view_title">Manage cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
+  <string name="manage_cards_add_title">Add new card</string>
+  <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
+  <string name="manage_cards_remove_no">NO, CANCEL</string>
+  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
+  <string name="manage_cards_card_ending_body">Card ending in %s</string>
+  <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
+  <string name="manage_cards_select_title">Select payment card</string>
+  <string name="manage_cards_remember">Remember card</string>
 </resources>
