@@ -20,9 +20,12 @@
       android:text="@string/async_steps_title"
       android:textColor="@color/black_87_alpha"
       android:textSize="16sp"
+      app:layout_constraintBottom_toTopOf="@id/top_up_in_progress_animation"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="@id/guideline_top"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintVertical_bias="0"
       />
 
   <com.airbnb.lottie.LottieAnimationView
@@ -32,6 +35,7 @@
       android:layout_marginStart="48dp"
       android:layout_marginEnd="48dp"
       android:layout_marginBottom="16dp"
+      app:layout_constraintBottom_toTopOf="@id/step_one_desc"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/next_steps_title"
@@ -72,7 +76,6 @@
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/step_one"
       app:layout_constraintTop_toBottomOf="@id/top_up_in_progress_animation"
-      app:layout_constraintVertical_chainStyle="packed"
       tools:text="@string/async_steps_1_no_notification"
       tools:visibility="visible"
       />
@@ -120,7 +123,7 @@
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"
       android:layout_gravity="center_vertical"
-      android:layout_marginTop="16dp"
+      android:layout_marginTop="32dp"
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="16dp"
       android:alpha="0.2"
@@ -132,8 +135,15 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintVertical_bias="1"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/step_two_desc"
       />
 
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline_top"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.2"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>
