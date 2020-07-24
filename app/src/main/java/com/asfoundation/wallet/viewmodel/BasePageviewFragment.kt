@@ -12,7 +12,7 @@ abstract class BasePageViewFragment : DaggerFragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    pageViewAnalytics = PageViewAnalytics((activity?.application as App).analyticsManager)
+    pageViewAnalytics = PageViewAnalytics((activity?.application as App).analyticsManager())
   }
 
   override fun onResume() {
