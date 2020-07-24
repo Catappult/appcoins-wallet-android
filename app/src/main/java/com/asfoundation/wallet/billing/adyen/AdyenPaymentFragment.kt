@@ -17,6 +17,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
+import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -96,9 +97,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
+  private lateinit var adyen3DS2Component: Adyen3DS2Component
   private var backButton: PublishRelay<Boolean>? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
-  private var paymentDetailsSubject: PublishSubject<RedirectComponentModel>? = null
+  private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
+  private var adyen3DSErrorSubject: PublishSubject<String>? = null
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
@@ -111,6 +114,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     backButton = PublishRelay.create()
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
+    adyen3DSErrorSubject = PublishSubject.create()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
@@ -134,6 +138,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     super.onViewCreated(view, savedInstanceState)
     setupUi(view)
     presenter.present(savedInstanceState)
+  }
+
+  override fun setup3DSComponent() {
+    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
+    adyen3DS2Component.observe(this, Observer {
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+    })
+    adyen3DS2Component.observeErrors(this, Observer {
+      adyen3DSErrorSubject?.onNext(it.errorMessage)
+    })
   }
 
   private fun setupUi(view: View) {
@@ -305,12 +319,19 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     iabView.showPaymentMethodsView()
   }
 
-  override fun setRedirectComponent(action: Action, uid: String) {
+  override fun setupRedirectComponent() {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
     redirectComponent.observe(this, Observer {
-      paymentDetailsSubject?.onNext(RedirectComponentModel(uid, it.details!!, it.paymentData))
+      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
     })
   }
+
+
+  override fun handle3DSAction(action: Action) {
+    adyen3DS2Component.handleAction(activity!!, action)
+  }
+
+  override fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
 
   override fun forgetCardClick(): Observable<Any> {
     return if (change_card_button != null) RxView.clicks(change_card_button)
@@ -342,7 +363,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
 
-  override fun getPaymentDetails(): Observable<RedirectComponentModel> = paymentDetailsSubject!!
+  override fun getPaymentDetails(): Observable<AdyenComponentResponseModel> =
+      paymentDetailsSubject!!
 
   override fun getAdyenSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
@@ -569,6 +591,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     backButton = null
     paymentDataSubject = null
     paymentDetailsSubject = null
+    adyen3DSErrorSubject = null
     super.onDestroy()
   }
 

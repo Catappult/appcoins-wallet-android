@@ -212,10 +212,10 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
         // we have permission, so create the camerasource
         createCameraSource(AUTO_FOCUS, USE_FLASH);
       } else {
-        Log.e(TAG, "Permission not granted: results len = "
-            + grantResults.length
-            + " Result code = "
-            + grantResults[0]);
+        Log.e(TAG, "Permission not granted: results len = " + grantResults.length);
+        if (grantResults.length > 0) {
+          Log.e(TAG, " Result code = " + grantResults[0]);
+        }
         DialogInterface.OnClickListener listener = (dialog, id) -> finish();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.no_camera_permission)

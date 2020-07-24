@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
-import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
@@ -18,14 +17,14 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val view: OnboardingView,
                           private val onboardingInteract: OnboardingInteract,
                           private val viewScheduler: Scheduler,
-                          private val smsValidationInteract: SmsValidationInteract,
                           private val networkScheduler: Scheduler,
                           private val walletCreated: ReplaySubject<Boolean>,
-                          private val referralInteractor: ReferralInteractorContract) {
+                          private val logger: Logger) {
 
   private var hasShowedWarning = false
 
   fun present() {
+    handleAvailablePaymentMethods()
     handleSetupUI()
     handleSkipClicks()
     handleSkippedOnboarding()
@@ -38,12 +37,20 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     handleWarningText()
   }
 
+  private fun handleAvailablePaymentMethods() {
+    disposables.add(onboardingInteract.getPaymentMethodsIcons()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess { view.setPaymentMethodsIcons(it) }
+        .subscribe({}, { logger.log(TAG, it) }))
+  }
+
   private fun handleSetupUI() {
-    disposables.add(referralInteractor.getReferralInfo()
+    disposables.add(onboardingInteract.getReferralInfo()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.updateUI(it.symbol + it.maxAmount.scaleToString(2), it.isActive) }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, { logger.log(TAG, it) })
     )
   }
 
@@ -52,50 +59,43 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleWarningText() {
-    disposables.add(
-        Observable.timer(5, TimeUnit.SECONDS)
-            .observeOn(viewScheduler)
-            .doOnNext { view.showWarningText() }
-            .repeatUntil { hasShowedWarning }
-            .subscribe()
+    disposables.add(Observable.timer(5, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showWarningText() }
+        .repeatUntil { hasShowedWarning }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
   private fun handleSkipClicks() {
-    disposables.add(
-        view.getSkipClicks()
-            .doOnNext { view.showViewPagerLastPage() }
-            .subscribe()
+    disposables.add(view.getSkipClicks()
+        .doOnNext { view.showViewPagerLastPage() }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun isWalletCreated() = walletCreated.filter { it }
 
   private fun handleRetryClicks() {
-    disposables.add(
-        view.getRetryButtonClicks()
-            .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = false) }
-            .subscribe()
+    disposables.add(view.getRetryButtonClicks()
+        .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = false) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleLaterClicks() {
-    disposables.add(
-        view.getLaterButtonClicks()
-            .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, false) }
-            .subscribe())
+    disposables.add(view.getLaterButtonClicks()
+        .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, false) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRedeemButtonClicks() {
-    disposables.add(
-        view.getRedeemButtonClick()
-            .observeOn(viewScheduler)
-            .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = true) }
-            .subscribe()
+    disposables.add(view.getRedeemButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = true) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -115,14 +115,14 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
           if (skipValidation) {
             Single.just(WalletValidationStatus.SUCCESS)
           } else {
-            smsValidationInteract.getValidationStatus(it)
+            onboardingInteract.isAddressValid(it)
                 .subscribeOn(networkScheduler)
           }
         }
         .delay(delay, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
         .doOnNext { handleValidationStatus(it, showAnimation) }
-        .subscribe())
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handleValidationStatus(walletValidationStatus: WalletValidationStatus,
@@ -135,52 +135,50 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleNextButtonClicks() {
-    disposables.add(
-        view.getNextButtonClick()
-            .doOnNext { handleWalletCreation(skipValidation = true, showAnimation = true) }
-            .subscribe()
+    disposables.add(view.getNextButtonClick()
+        .doOnNext { handleWalletCreation(skipValidation = true, showAnimation = true) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleCreateWallet() {
-    disposables.add(
-        onboardingInteract.getWalletAddress()
-            .observeOn(viewScheduler)
-            .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
-            .subscribe({}, { it.printStackTrace() }))
+    disposables.add(onboardingInteract.getWalletAddress()
+        .observeOn(viewScheduler)
+        .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handleSkippedOnboarding() {
-    disposables.add(
-        Observable.zip(isWalletCreated(),
-            Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
-                .filter { clicked -> clicked },
-            Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }
-                .filter { clicked -> clicked },
-            Function3 { _: Any, _: Any, _: Any -> }
-        )
-            .delay(1, TimeUnit.SECONDS)
-            .observeOn(viewScheduler)
-            .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, true) }
-            .subscribe()
+    disposables.add(Observable.zip(isWalletCreated(),
+        Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
+            .filter { clicked -> clicked },
+        Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }
+            .filter { clicked -> clicked },
+        Function3 { _: Any, _: Any, _: Any -> }
+    )
+        .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, true) }
+        .subscribe({}, { logger.log(TAG, it) })
     )
   }
 
   private fun handleLinkClick() {
-    disposables.add(
-        view.getLinkClick()
-            .doOnNext { uri -> view.navigateToBrowser(Uri.parse(uri)) }
-            .subscribe()
+    disposables.add(view.getLinkClick()
+        .doOnNext { uri -> view.navigateToBrowser(Uri.parse(uri)) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
-  fun markOnboardingCompleted() {
-    onboardingInteract.finishOnboarding()
-  }
+  fun markOnboardingCompleted() = onboardingInteract.finishOnboarding()
 
   private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus,
                                showAnimation: Boolean) {
     onboardingInteract.clickSkipOnboarding()
     view.finishOnboarding(walletValidationStatus, showAnimation)
+  }
+
+  companion object {
+    private val TAG = OnboardingPresenter::class.java.name
   }
 }
