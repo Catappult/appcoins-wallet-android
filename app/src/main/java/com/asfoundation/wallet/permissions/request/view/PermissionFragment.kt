@@ -13,8 +13,8 @@ import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.AndroidAppDataProvider
 import com.asfoundation.wallet.permissions.PermissionsInteractor
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.provide_wallet_always_allow_wallet_apps_la
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class PermissionFragment : DaggerFragment(), PermissionFragmentView {
+class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
   companion object {
     private const val CALLING_PACKAGE = "calling_package_key"
     private const val PERMISSION_KEY = "permission_key"
@@ -47,6 +47,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
   }
 
   private lateinit var appDateProvider: AndroidAppDataProvider
+
   @Inject
   lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var navigator: PermissionFragmentNavigator

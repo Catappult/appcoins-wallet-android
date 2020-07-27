@@ -300,6 +300,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     } else {
       finish();
     }
+    sendPageViewEvent();
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.WalletCreatorInteract
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.BehaviorRelay
-import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_create_wallet_layout.*
 import javax.inject.Inject
 
-class CreateWalletFragment : DaggerFragment(), CreateWalletView {
+class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
   companion object {
     fun newInstance() = CreateWalletFragment()
   }
@@ -33,6 +33,7 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
         AndroidSchedulers.mainThread())
     finishAnimationFinishEvent = BehaviorRelay.create()
   }
+
 
   override fun onAttach(context: Context) {
     super.onAttach(context)

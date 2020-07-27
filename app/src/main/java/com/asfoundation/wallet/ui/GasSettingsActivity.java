@@ -136,6 +136,7 @@ public class GasSettingsActivity extends BaseActivity {
     super.onResume();
 
     viewModel.prepare();
+    sendPageViewEvent();
   }
 
   private void onDefaultNetwork(NetworkInfo network) {

@@ -48,6 +48,11 @@ public class SendActivity extends BaseActivity {
     return intent;
   }
 
+  @Override protected void onResume() {
+    super.onResume();
+    sendPageViewEvent();
+  }
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
 
