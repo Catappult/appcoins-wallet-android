@@ -238,7 +238,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                   productName: String?, appcEnabled: Boolean,
                                   creditsEnabled: Boolean, isBds: Boolean,
                                   isDonation: Boolean, gamificationLevel: Int,
-                                  disabledReasonAppc: Int, disabledReasonCredits: Int) {
+                                  disabledReasonAppc: Int?, disabledReasonCredits: Int?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,

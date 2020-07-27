@@ -28,9 +28,9 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     } else {
       itemView.radio_button.visibility = View.INVISIBLE
       itemView.background = null
-      if (data.disabledReason != -1) {
+      data.disabledReason?.let {
         itemView.payment_method_reason.visibility = View.VISIBLE
-        itemView.payment_method_reason.text = itemView.context.getString(data.disabledReason)
+        itemView.payment_method_reason.text = itemView.context.getString(it)
       }
 
       val colorMatrix = ColorMatrix()

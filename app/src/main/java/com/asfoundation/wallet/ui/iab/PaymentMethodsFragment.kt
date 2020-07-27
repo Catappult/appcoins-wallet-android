@@ -472,8 +472,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int,
-                                  disabledReasonCredits: Int) {
+  override fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
+                                  disabledReasonCredits: Int?) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
         productName, appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel,
         disabledReasonAppc, disabledReasonCredits)

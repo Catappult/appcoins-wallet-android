@@ -257,10 +257,11 @@ public class InAppPurchaseInteractor {
         paymentMethod.setDisabledReason(R.string.purchase_appcoins_credits_noavailable_body);
       } else if (paymentMethod.getId()
           .equals(APPC_ID)) {
-        return getAppcDisableReason(transaction).map(reason -> {
-          paymentMethod.setDisabledReason(reason);
-          return paymentMethod;
-        });
+        return getAppcDisableReason(transaction).filter(reason -> reason != -1)
+            .map(reason -> {
+              paymentMethod.setDisabledReason(reason);
+              return paymentMethod;
+            });
       }
     }
     return Observable.just(paymentMethod);

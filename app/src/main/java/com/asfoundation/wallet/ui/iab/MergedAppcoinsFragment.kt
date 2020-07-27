@@ -71,8 +71,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean,
                     isDonation: Boolean, skuId: String?, transactionType: String,
-                    gamificationLevel: Int, disabledReasonAppc: Int,
-                    disabledReasonCredits: Int): Fragment {
+                    gamificationLevel: Int, disabledReasonAppc: Int?,
+                    disabledReasonCredits: Int?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
         putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -88,8 +88,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         putString(SKU_ID, skuId)
         putString(TRANSACTION_TYPE, transactionType)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        putInt(DISABLE_REASON_APPC, disabledReasonAppc)
-        putInt(DISABLE_REASON_CREDITS, disabledReasonCredits)
+        disabledReasonAppc?.let { putInt(DISABLE_REASON_APPC, it) }
+        disabledReasonCredits?.let { putInt(DISABLE_REASON_CREDITS, it) }
       }
       fragment.arguments = bundle
       return fragment
@@ -193,19 +193,19 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     arguments!!.getString(SKU_ID)
   }
 
-  private val disableReasonAppc: Int by lazy {
+  private val disableReasonAppc: Int? by lazy {
     if (arguments!!.containsKey(DISABLE_REASON_APPC)) {
       arguments!!.getInt(DISABLE_REASON_APPC)
     } else {
-      throw IllegalArgumentException("transaction type data not found")
+      null
     }
   }
 
-  private val disableReasonCredits: Int by lazy {
+  private val disableReasonCredits: Int? by lazy {
     if (arguments!!.containsKey(DISABLE_REASON_CREDITS)) {
       arguments!!.getInt(DISABLE_REASON_CREDITS)
     } else {
-      throw IllegalArgumentException("transaction type data not found")
+      null
     }
   }
 
@@ -324,7 +324,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       }
       appcoins_radio_button.isEnabled = true
     } else {
-      val reason = disableReasonAppc
+      val reason = disableReasonAppc ?: R.string.purchase_appcoins_noavailable_body
       appcoins_radio.message.text = getString(reason)
       appcoins_radio.title.setTextColor(
           ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
@@ -347,7 +347,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       credits_radio_button.isChecked = true
     } else {
       appcoins_radio_button.isChecked = true
-      val reason = disableReasonCredits
+      val reason = disableReasonCredits ?: R.string.purchase_appcoins_credits_noavailable_body
       credits_radio.message.text = getString(reason)
       credits_radio.message.setTextColor(resources.getColor(R.color.disable_reason))
       credits_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
