@@ -343,11 +343,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getCancelClick(): Observable<PaymentMethod> {
     return RxView.clicks(cancel_button)
-        .filter { _ -> this@PaymentMethodsFragment::paymentMethodsAdapter.isInitialized }
         .map { getSelectedPaymentMethod() }
   }
 
   private fun getSelectedPaymentMethod(): PaymentMethod {
+    if(::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
     val hasPreSelectedPaymentMethod =
         inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
     val checkedButtonId = paymentMethodsAdapter.getSelectedItem()
