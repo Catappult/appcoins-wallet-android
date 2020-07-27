@@ -48,7 +48,7 @@ interface IabView {
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                          productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
                          isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
-                         disableReason: Int?)
+                         disabledReasonAppc: Int, disabledReasonCredits: Int)
 
   fun lockRotation()
 

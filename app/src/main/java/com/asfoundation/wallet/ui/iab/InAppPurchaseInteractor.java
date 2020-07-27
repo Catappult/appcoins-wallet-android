@@ -243,34 +243,27 @@ public class InAppPurchaseInteractor {
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
-                .flatMap(paymentMethod -> getDisableReason(paymentMethod, transaction))
+                .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
                 .toList())
             .map(this::removePaymentMethods))
         .map(this::swapDisabledPositions);
   }
 
-  private Observable<PaymentMethod> getDisableReason(PaymentMethod paymentMethod,
+  private Observable<PaymentMethod> retrieveDisableReason(PaymentMethod paymentMethod,
       TransactionBuilder transaction) {
     if (!paymentMethod.isEnabled()) {
       if (paymentMethod.getId()
           .equals(CREDITS_ID)) {
-        return Observable.just(R.string.purchase_appcoins_credits_noavailable_body)
-            .map(reason -> {
-              paymentMethod.setDisabledReason(reason);
-              return paymentMethod;
-            });
+        paymentMethod.setDisabledReason(R.string.purchase_appcoins_credits_noavailable_body);
       } else if (paymentMethod.getId()
           .equals(APPC_ID)) {
         return getAppcDisableReason(transaction).map(reason -> {
           paymentMethod.setDisabledReason(reason);
           return paymentMethod;
         });
-      } else {
-        return Observable.just(paymentMethod);
       }
-    } else {
-      return Observable.just(paymentMethod);
     }
+    return Observable.just(paymentMethod);
   }
 
   private Observable<Integer> getAppcDisableReason(TransactionBuilder transaction) {
@@ -283,7 +276,7 @@ public class InAppPurchaseInteractor {
           return R.string.purchase_no_appcoins_body;
         case OK:
         default:
-          return null;
+          return -1;
       }
     })
         .toObservable();
@@ -346,7 +339,7 @@ public class InAppPurchaseInteractor {
         mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
             isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled(),
             appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl(),
-            disableReason));
+            disableReason, appcMethod.getDisabledReason(), creditsMethod.getDisabledReason()));
       } else if (!paymentMethod.getId()
           .equals(CREDITS_ID)) {
         //Don't add the credits method to this list
@@ -360,13 +353,13 @@ public class InAppPurchaseInteractor {
     Integer reason = null;
 
     if (!creditsMethod.isEnabled()) {
-      if (creditsMethod.getDisabledReason() != null) {
+      if (creditsMethod.getDisabledReason() != -1) {
         reason = creditsMethod.getDisabledReason();
       } else {
         reason = appcMethod.getDisabledReason();
       }
     } else if (!appcMethod.isEnabled()) {
-      if (appcMethod.getDisabledReason() != null) {
+      if (appcMethod.getDisabledReason() != -1) {
         reason = appcMethod.getDisabledReason();
       } else {
         reason = creditsMethod.getDisabledReason();
@@ -447,11 +440,11 @@ public class InAppPurchaseInteractor {
       if (paymentMethod.getId()
           .equals(availablePaymentMethod.getId())) {
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), true, null);
+            paymentMethod.getIconUrl(), true, -1);
       }
     }
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), false, null);
+        paymentMethod.getIconUrl(), false, -1);
   }
 
   boolean hasPreSelectedPaymentMethod() {

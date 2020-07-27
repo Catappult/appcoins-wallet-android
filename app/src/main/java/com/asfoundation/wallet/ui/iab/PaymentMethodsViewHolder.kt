@@ -10,8 +10,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import kotlinx.android.synthetic.main.item_payment_method.view.*
 
-class PaymentMethodViewHolder(itemView: View) :
-    RecyclerView.ViewHolder(itemView) {
+class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
   fun bind(data: PaymentMethod, checked: Boolean, listener: View.OnClickListener) {
     GlideApp.with(itemView.context)
@@ -19,35 +18,39 @@ class PaymentMethodViewHolder(itemView: View) :
         .into(itemView.payment_method_ic)
 
     val selected = data.isEnabled && checked
-    itemView.payment_method_description.text = data.label
     itemView.radio_button.isChecked = selected
     itemView.radio_button.isEnabled = data.isEnabled
 
-    if (selected) {
-      itemView.payment_method_description.setTextColor(
-          ContextCompat.getColor(itemView.context!!, R.color.details_address_text_color))
-      itemView.payment_method_description.typeface =
-          Typeface.create("sans-serif-medium", Typeface.NORMAL)
-    } else {
-      itemView.payment_method_description.setTextColor(
-          ContextCompat.getColor(itemView.context!!, R.color.grey_alpha_active_54))
-      itemView.payment_method_description.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
-    }
+    setDescription(data, selected)
 
     if (data.isEnabled) {
       itemView.setOnClickListener(listener)
     } else {
       itemView.radio_button.visibility = View.INVISIBLE
       itemView.background = null
-      data.disabledReason?.let {
+      if (data.disabledReason != -1) {
         itemView.payment_method_reason.visibility = View.VISIBLE
-        itemView.payment_method_reason.text = itemView.context.getString(it)
+        itemView.payment_method_reason.text = itemView.context.getString(data.disabledReason)
       }
 
       val colorMatrix = ColorMatrix()
       colorMatrix.setSaturation(0f)
       val filter = ColorMatrixColorFilter(colorMatrix)
       itemView.payment_method_ic.colorFilter = filter
+    }
+  }
+
+  private fun setDescription(data: PaymentMethod, selected: Boolean) {
+    itemView.payment_method_description.text = data.label
+    if (selected) {
+      itemView.payment_method_description.setTextColor(
+          ContextCompat.getColor(itemView.context, R.color.details_address_text_color))
+      itemView.payment_method_description.typeface =
+          Typeface.create("sans-serif-medium", Typeface.NORMAL)
+    } else {
+      itemView.payment_method_description.setTextColor(
+          ContextCompat.getColor(itemView.context, R.color.grey_alpha_active_54))
+      itemView.payment_method_description.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
 }

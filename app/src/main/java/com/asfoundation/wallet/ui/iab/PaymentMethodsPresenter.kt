@@ -96,8 +96,11 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                 selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                 selectedPaymentMethod.label, gamificationLevel)
-            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(
-                gamificationLevel, selectedPaymentMethod.disabledReason)
+            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> {
+              val appCoinsPaymentMethod = selectedPaymentMethod as AppCoinsPaymentMethod
+              view.showMergedAppcoins(gamificationLevel, appCoinsPaymentMethod.disabledReasonAppc,
+                  appCoinsPaymentMethod.disabledReasonCredits)
+            }
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
             else -> return@doOnNext
           }
