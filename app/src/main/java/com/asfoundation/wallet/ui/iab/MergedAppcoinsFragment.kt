@@ -12,6 +12,7 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -334,7 +335,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       appcoins_radio.message.visibility = VISIBLE
       appc_balances_group.visibility = INVISIBLE
 
-      applyAlphaScale()
+      applyAlphaScale(appcoins_radio.icon)
     }
     if (creditsEnabled) {
       credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
@@ -355,7 +356,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       credits_radio.message.visibility = VISIBLE
       credits_balances_group.visibility = INVISIBLE
 
-      applyAlphaScale()
+      applyAlphaScale(credits_radio.icon)
     }
   }
 
@@ -383,11 +384,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
-  private fun applyAlphaScale() {
+  private fun applyAlphaScale(imageView: ImageView) {
     val colorMatrix = ColorMatrix()
     colorMatrix.setSaturation(0f)
     val filter = ColorMatrixColorFilter(colorMatrix)
-    credits_radio.icon.colorFilter = filter
+    imageView.colorFilter = filter
   }
 
   private fun getApplicationName(appPackage: String): CharSequence {
