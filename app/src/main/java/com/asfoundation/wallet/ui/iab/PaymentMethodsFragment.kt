@@ -343,6 +343,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getCancelClick(): Observable<PaymentMethod> {
     return RxView.clicks(cancel_button)
+        .filter { _ -> this@PaymentMethodsFragment::paymentMethodsAdapter.isInitialized }
         .map { getSelectedPaymentMethod() }
   }
 
