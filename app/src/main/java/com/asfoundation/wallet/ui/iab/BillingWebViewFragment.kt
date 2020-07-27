@@ -13,8 +13,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.webview_fragment.*
 import kotlinx.android.synthetic.main.webview_fragment.view.*
 import java.util.concurrent.Executors
@@ -23,10 +23,12 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
 
-class BillingWebViewFragment : DaggerFragment() {
+class BillingWebViewFragment : BasePageViewFragment() {
   private val timeoutReference: AtomicReference<ScheduledFuture<*>?> = AtomicReference()
+
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   @Inject
   lateinit var analytics: BillingAnalytics
   private var currentUrl: String? = null
@@ -92,7 +94,8 @@ class BillingWebViewFragment : DaggerFragment() {
           launchActivity(Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)))
         } else if (clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
                 ORDER_ID_PARAMETER)) {
-          val orderId = Uri.parse(clickUrl).getQueryParameter(ORDER_ID_PARAMETER)
+          val orderId = Uri.parse(clickUrl)
+              .getQueryParameter(ORDER_ID_PARAMETER)
           finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
         } else {
           currentUrl = clickUrl

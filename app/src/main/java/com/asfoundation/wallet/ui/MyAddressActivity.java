@@ -64,6 +64,11 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
     return super.onOptionsItemSelected(item);
   }
 
+  @Override protected void onResume() {
+    super.onResume();
+    sendPageViewEvent();
+  }
+
   private Bitmap createQRImage(String address) {
     Point size = new Point();
     getWindowManager().getDefaultDisplay()
