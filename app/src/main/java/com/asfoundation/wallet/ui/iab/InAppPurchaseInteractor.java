@@ -441,11 +441,11 @@ public class InAppPurchaseInteractor {
       if (paymentMethod.getId()
           .equals(availablePaymentMethod.getId())) {
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), true, -1);
+            paymentMethod.getIconUrl(), true, null);
       }
     }
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), false, -1);
+        paymentMethod.getIconUrl(), false, null);
   }
 
   boolean hasPreSelectedPaymentMethod() {
