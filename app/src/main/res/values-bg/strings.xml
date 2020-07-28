@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Проверка на всички детайли: баланс, елементи, мрежа...</string>
   <string name="activity_iab_buying_message">Детайли проверени \nПолучаване на твоя елемент…</string>
   <string name="activity_iab_change_card">СМЕНИ КАРТАТА</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Обработка на твоята награда</string>
   <string name="notification_completed_poa">Наградата е получена!👌 Ще трябва да почакаш %1$sч%2$sм, за да спечелиш още награди, пробвайки приложения ⏰!</string>
   <string name="notification_poa_limit_reached">Достигна дневния си лимит за награди. ⏰ Ела пак след %1$sч%2$sм и опитай отново!</string>
