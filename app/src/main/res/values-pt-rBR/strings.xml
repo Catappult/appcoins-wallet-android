@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Verificando todos os detalhes: saldo, itens, rede…</string>
   <string name="activity_iab_buying_message">Detalhes verificados \nRecebendo seu item…</string>
   <string name="activity_iab_change_card">ALTERAR CARTÃO</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Processando sua recompensa</string>
   <string name="notification_completed_poa">Recompensa recebida! 👌 Você terá que esperar %1$sh%2$sm para ganhar mais recompensas ao experimentar apps ⏰!</string>
   <string name="notification_poa_limit_reached">Você alcançou o seu limite diário de recompensas. ⏰ Volte em %1$sh%2$sm e tente novamente!</string>
