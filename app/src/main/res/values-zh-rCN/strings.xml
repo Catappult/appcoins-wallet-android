@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">正在检查所有详细信息：余额、产品、网络…</string>
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
   <string name="activity_iab_change_card">更换卡</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
   <string name="notification_completed_poa">收到奖励！👌 你需要等待%1$s小时%2$s分钟才能使用应用来赢得更多奖励⏰！</string>
   <string name="notification_poa_limit_reached">你已达到每日奖励限制。⏰ %1$s小时%2$s分钟后再回来重试！</string>
