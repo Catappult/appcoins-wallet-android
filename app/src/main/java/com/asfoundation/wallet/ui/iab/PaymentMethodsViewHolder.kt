@@ -31,6 +31,7 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
       hideDisableReason()
       removeAlphaScale(itemView.payment_method_ic)
     } else {
+      itemView.setOnClickListener(null)
       itemView.radio_button.visibility = View.INVISIBLE
       itemView.background = null
       if (data.disabledReason != null) {

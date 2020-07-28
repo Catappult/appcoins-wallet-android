@@ -441,6 +441,7 @@ class PaymentMethodsPresenter(
       paymentMethodsInteract.getPaymentMethods(transaction, fiatValue.amount.toString(),
           fiatValue.currency)
           .map { paymentMethodsInteract.mergeAppcoins(it) }
+          .map { paymentMethodsInteract.swapDisabledPositions(it) }
           .doOnSuccess { updateBalanceDao() }
     } else {
       Single.just(listOf(PaymentMethod.APPC))

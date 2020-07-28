@@ -78,6 +78,9 @@ class PaymentMethodsInteract(private val walletService: WalletService,
   fun mergeAppcoins(paymentMethods: List<PaymentMethod>): List<PaymentMethod> =
       inAppPurchaseInteractor.mergeAppcoins(paymentMethods)
 
+  fun swapDisabledPositions(paymentMethods: List<PaymentMethod>): List<PaymentMethod> =
+      inAppPurchaseInteractor.swapDisabledPositions(paymentMethods)
+
   fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod
 
   fun getLastUsedPaymentMethod(): String = inAppPurchaseInteractor.lastUsedPaymentMethod

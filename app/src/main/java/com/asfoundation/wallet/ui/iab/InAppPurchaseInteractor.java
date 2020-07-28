@@ -389,7 +389,7 @@ public class InAppPurchaseInteractor {
     return null;
   }
 
-  private List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
+  public List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
     boolean swapped = false;
     if (paymentMethods.size() > 1) {
       for (int position = 1; position < paymentMethods.size(); position++) {
