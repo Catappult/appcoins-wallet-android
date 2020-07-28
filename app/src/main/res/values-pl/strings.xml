@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Sprawdzanie wszystkich szczegółów: bilans, pozycje, sieć…</string>
   <string name="activity_iab_buying_message">Szczegóły sprawdzone \nOdbieranie przedmiotu…</string>
   <string name="activity_iab_change_card">ZMIANA KARTY</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Przetwarzanie twojej nagrody</string>
   <string name="notification_completed_poa">Otrzymano nagrodę! Musisz zaczekać %1$s godz. %2$s min. aby zdobyć więcej nagród przez wypróbowywanie aplikacji!</string>
   <string name="notification_poa_limit_reached">Wykorzystałeś Twój dzienny limit nagród. Wróć za %1$s godz. %2$s min. i spróbuj ponownie!</string>
