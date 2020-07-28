@@ -10,6 +10,7 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -248,6 +249,15 @@ public class AsfInAppPurchaseInteractor {
             new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                 paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
+  }
+
+  Single<GetDefaultWalletBalanceInteract.BalanceState> getAppcoinsBalanceState(
+      TransactionBuilder transactionBuilder) {
+    return gasSettingsInteract.fetch(true)
+        .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
+            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                paymentGasLimit)))
+        .flatMap(__ -> inAppPurchaseService.getBalanceState(transactionBuilder));
   }
 
   private CurrentPaymentStep map(Transaction transaction, Boolean isBuyReady)

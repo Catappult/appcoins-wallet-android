@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Pair
 import android.view.KeyEvent
@@ -10,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
@@ -24,11 +20,10 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxRadioGroup
+import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -56,7 +51,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   companion object {
     private const val IS_BDS = "isBds"
     private const val APP_PACKAGE = "app_package"
-    private val TAG = PaymentMethodsFragment::class.java.simpleName
     private const val TRANSACTION = "transaction"
     private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
@@ -117,8 +111,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private lateinit var iabView: IabView
   private lateinit var fiatValue: FiatValue
   private lateinit var compositeDisposable: CompositeDisposable
-  private val paymentMethodList: MutableList<PaymentMethod> =
-      ArrayList()
+  private lateinit var paymentMethodClick: PublishRelay<Int>
+  private lateinit var paymentMethodsAdapter: PaymentMethodsAdapter
+  private val paymentMethodList: MutableList<PaymentMethod> = ArrayList()
   private var setupSubject: PublishSubject<Boolean>? = null
   private var onBackPressedSubject: PublishSubject<Boolean>? = null
   private var preSelectedPaymentMethod: BehaviorSubject<PaymentMethod>? = null
@@ -139,6 +134,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     compositeDisposable = CompositeDisposable()
     setupSubject = PublishSubject.create()
     preSelectedPaymentMethod = BehaviorSubject.create()
+    paymentMethodClick = PublishRelay.create()
     onBackPressedSubject = PublishSubject.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
     presenter = PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
@@ -176,7 +172,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                                   currency: String, paymentMethodId: String, fiatAmount: String,
-                                  appcAmount: String, frequency: String?) {
+                                  appcAmount: String, appcEnabled: Boolean,
+                                  creditsEnabled: Boolean, frequency: String?) {
+    if (isBds) {
+      this.appcEnabled = appcEnabled
+      this.creditsEnabled = creditsEnabled
+    }
     updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount, frequency)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     presenter.sendPaymentMethodsEvents()
@@ -194,73 +195,16 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun setupPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
                                   paymentMethodId: String) {
     isPreSelected = false
+    pre_selected_payment_method_group.visibility = View.GONE
     mid_separator?.visibility = View.VISIBLE
-    if (paymentMethodList.isNotEmpty()) {
+    if (paymentMethods.isNotEmpty()) {
+      paymentMethodsAdapter =
+          PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick)
+      payment_methods_radio_list.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
-      payment_methods_radio_group.clearCheck()
-      payment_methods_radio_group.removeAllViews()
+      paymentMethodList.addAll(paymentMethods)
+      paymentMethodClick.accept(paymentMethodsAdapter.getSelectedItem())
     }
-    var radioButton: AppCompatRadioButton
-    if (isBds) {
-      for (index in paymentMethods.indices) {
-        val paymentMethod = paymentMethods[index]
-        radioButton = createPaymentRadioButton(paymentMethod, index)
-        radioButton.isEnabled = paymentMethod.isEnabled
-        radioButton.isChecked = paymentMethod.id == paymentMethodId && paymentMethod.isEnabled
-        if (paymentMethod is AppCoinsPaymentMethod) {
-          appcEnabled = paymentMethod.isAppcEnabled
-          creditsEnabled = paymentMethod.isCreditsEnabled
-        }
-        paymentMethodList.add(paymentMethod)
-        payment_methods_radio_group.addView(radioButton)
-      }
-    } else {
-      for (paymentMethod in paymentMethods) {
-        if (paymentMethod.id == paymentMethodsMapper.map(SelectedPaymentMethod.APPC)) {
-          radioButton = createPaymentRadioButton(paymentMethod, 0)
-          radioButton.isEnabled = paymentMethod.isEnabled
-          radioButton.isChecked = paymentMethod.isEnabled
-          paymentMethodList.add(paymentMethod)
-          payment_methods_radio_group.addView(radioButton)
-          removeBonus()
-        }
-      }
-    }
-  }
-
-  private fun createPaymentRadioButton(paymentMethod: PaymentMethod,
-                                       index: Int): AppCompatRadioButton {
-    val radioButton = activity!!.layoutInflater.inflate(R.layout.payment_radio_button,
-        null) as AppCompatRadioButton
-    radioButton.text = paymentMethod.label
-    radioButton.id = index
-    loadIcons(paymentMethod, radioButton, false)
-    return radioButton
-  }
-
-  private fun loadIcons(paymentMethod: PaymentMethod, radioButton: RadioButton, showNew: Boolean) {
-    val iconSize = resources.getDimensionPixelSize(R.dimen.payment_method_icon_size)
-    val context = context!!
-    compositeDisposable.add(Observable.fromCallable {
-      val bitmap = GlideApp.with(context)
-          .asBitmap()
-          .load(paymentMethod.iconUrl)
-          .submit()
-          .get()
-      val drawable = BitmapDrawable(context.resources,
-          Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, true))
-      drawable.current
-    }
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext {
-          val newOptionIcon =
-              if (showNew) context.resources.getDrawable(R.drawable.ic_new_option)
-              else null
-          radioButton.setCompoundDrawablesWithIntrinsicBounds(it, null, newOptionIcon,
-              null)
-        }
-        .subscribe({ }) { it.printStackTrace() })
   }
 
   private fun updateHeaderInfo(fiatValue: FiatValue, currency: String,
@@ -278,6 +222,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     appc_price_skeleton.visibility = View.GONE
     appc_price.visibility = View.VISIBLE
     fiat_price.visibility = View.VISIBLE
+  }
+
+  private fun getPaymentMethodLabel(paymentMethod: PaymentMethod): String {
+    return TranslatablePaymentMethods.values()
+        .firstOrNull { it.paymentMethod == paymentMethod.id }
+        ?.let { getString(it.stringId) } ?: paymentMethod.label
   }
 
   override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
@@ -300,13 +250,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     mid_separator?.visibility = View.INVISIBLE
     if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
       payment_method_description.visibility = View.VISIBLE
-      payment_method_description.text = paymentMethod.label
+      payment_method_description.text = getPaymentMethodLabel(paymentMethod)
       payment_method_secondary.visibility = View.VISIBLE
       payment_method_description_single.visibility = View.GONE
       if (isBonusActive) hideBonus()
     } else {
       payment_method_description.visibility = View.VISIBLE
-      payment_method_description.text = paymentMethod.label
+      payment_method_description.text = getPaymentMethodLabel(paymentMethod)
       payment_method_secondary.visibility = View.GONE
       payment_method_description_single.visibility = View.GONE
       if (isBonusActive) {
@@ -411,12 +361,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun getSelectedPaymentMethod(): PaymentMethod {
+    if (::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
     val hasPreSelectedPaymentMethod =
         inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
-    val checkedButtonId = payment_methods_radio_group.checkedRadioButtonId
+    val checkedButtonId = paymentMethodsAdapter.getSelectedItem()
     return if (paymentMethodList.isNotEmpty() && !isPreSelected && checkedButtonId != -1) {
       paymentMethodList[checkedButtonId]
-    } else if (hasPreSelectedPaymentMethod) {
+    } else if (hasPreSelectedPaymentMethod && checkedButtonId == -1) {
       preSelectedPaymentMethod?.value ?: PaymentMethod()
     } else {
       PaymentMethod()
@@ -440,7 +391,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showProcessingLoadingDialog() {
     payment_methods.visibility = View.INVISIBLE
-
     processing_loading.visibility = View.VISIBLE
   }
 
@@ -491,10 +441,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun getPaymentSelection(): Observable<String> {
-    return Observable.merge(
-        RxRadioGroup.checkedChanges(payment_methods_radio_group)
-            .filter { checkedRadioButtonId -> checkedRadioButtonId >= 0 }
-            .map { paymentMethodList[it].id }, preSelectedPaymentMethod!!.map(
+    return Observable.merge(paymentMethodClick
+        .filter { checkedRadioButtonId -> checkedRadioButtonId >= 0 }
+        .map { paymentMethodList[it].id }, preSelectedPaymentMethod!!.map(
         PaymentMethod::id))
   }
 
@@ -540,10 +489,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int) {
+  override fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
+                                  disabledReasonCredits: Int?) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
         productName, appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel,
-        isSubscription, frequency)
+        disabledReasonAppc, disabledReasonCredits, isSubscription, frequency)
   }
 
   override fun lockRotation() = iabView.lockRotation()

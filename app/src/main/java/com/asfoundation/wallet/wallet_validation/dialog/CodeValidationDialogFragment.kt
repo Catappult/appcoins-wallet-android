@@ -12,13 +12,13 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet_validation.DeleteKeyListener
 import com.asfoundation.wallet.wallet_validation.PasteTextWatcher
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.sms_text_input_layout.*
 import javax.inject.Inject
 
 
-class CodeValidationDialogFragment : DaggerFragment(), CodeValidationDialogView {
+class CodeValidationDialogFragment : BasePageViewFragment(), CodeValidationDialogView {
 
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract

@@ -113,6 +113,22 @@
         app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
         />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/payment_methods_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
+        />
+
     <TextView
         android:id="@+id/terms_conditions_warning"
         style="@style/OnboardingTermsConditionsTextStyle.Warning"
@@ -179,7 +195,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="46dp"
         android:fontFamily="sans-serif-medium"
         android:maxWidth="126dp"
         android:minWidth="80dp"

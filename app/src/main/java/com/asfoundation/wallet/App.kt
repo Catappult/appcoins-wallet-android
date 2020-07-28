@@ -1,6 +1,7 @@
 package com.asfoundation.wallet
 
 import androidx.multidex.MultiDexApplication
+import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.ProxyService
@@ -76,6 +77,9 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
+
+  @Inject
+  lateinit var analyticsManager: AnalyticsManager
 
   @Inject
   lateinit var subscriptionBillingService: SubscriptionBillingService
@@ -155,6 +159,8 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
       preferencesRepositoryType.setWalletId(id)
     }
   }
+
+  fun analyticsManager() = analyticsManager
 
   override fun androidInjector() = androidInjector
 

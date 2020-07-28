@@ -6,20 +6,36 @@ import io.reactivex.Observable
 interface MergedAppcoinsView {
 
   fun showError(@StringRes errorMessage: Int)
+
   fun getPaymentSelection(): Observable<String>
+
   fun hideBonus()
+
   fun showBonus(@StringRes bonusText: Int)
+
   fun buyClick(): Observable<PaymentInfoWrapper>
+
   fun backClick(): Observable<PaymentInfoWrapper>
+
   fun backPressed(): Observable<PaymentInfoWrapper>
+
   fun navigateToAppcPayment()
+
   fun navigateToCreditsPayment()
+
   fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String)
+
   fun showLoading()
+
   fun hideLoading()
+
   fun errorDismisses(): Observable<Any>
+
   fun getSupportLogoClicks(): Observable<Any>
+
   fun getSupportIconClicks(): Observable<Any>
+
   fun showVolatilityInfo()
+
   fun hideVolatilityInfo()
 }

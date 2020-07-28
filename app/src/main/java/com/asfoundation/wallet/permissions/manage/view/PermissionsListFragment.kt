@@ -2,18 +2,18 @@ package com.asfoundation.wallet.permissions.manage.view
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.AndroidAppDataProvider
 import com.asfoundation.wallet.permissions.PermissionsInteractor
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
-import dagger.android.support.DaggerFragment
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_permissions_list_layout.*
 import javax.inject.Inject
 
-class PermissionsListFragment : DaggerFragment(), PermissionsListView {
+class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   companion object {
     fun newInstance(): Fragment {
       return PermissionsListFragment()

@@ -8,7 +8,6 @@ import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
-import com.appcoins.wallet.bdsbilling.repository.entity.Price;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
@@ -16,9 +15,11 @@ import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.BuildConfig;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -199,6 +200,11 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
   }
 
+  private Single<GetDefaultWalletBalanceInteract.BalanceState> getBalanceState(
+      TransactionBuilder transaction) {
+    return asfInAppPurchaseInteractor.getAppcoinsBalanceState(transaction);
+  }
+
   private List<Gateway.Name> getNewPaymentGateways(BigDecimal creditsBalance,
       Boolean hasAppcoinsFunds, BigDecimal amount) {
     List<Gateway.Name> list = new LinkedList<>();
@@ -221,25 +227,10 @@ public class InAppPurchaseInteractor {
         .map(BalanceUtils::weiToEth);
   }
 
-  Single<String> getTransactionUid(String uid) {
-    return getCompletedTransaction(uid).map(Transaction::getHash)
-        .firstOrError();
-  }
-
-  public Single<TransactionPrice> getTransactionAmount(String uid) {
-    return getCompletedTransaction(uid).map(Transaction::getPrice)
-        .firstOrError();
-  }
-
   private Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
       TransactionBuilder transaction, List<PaymentMethodEntity> paymentMethods) {
     return getFilteredGateways(transaction).map(
         filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
-  }
-
-  private Observable<Transaction> getCompletedTransaction(String uid) {
-    return getTransaction(uid).filter(transaction -> transaction.getStatus()
-        .equals(Status.COMPLETED));
   }
 
   public Observable<Transaction> getTransaction(String uid) {
@@ -255,9 +246,44 @@ public class InAppPurchaseInteractor {
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
+                .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
                 .toList())
             .map(this::removePaymentMethods))
         .map(this::swapDisabledPositions);
+  }
+
+  private Observable<PaymentMethod> retrieveDisableReason(PaymentMethod paymentMethod,
+      TransactionBuilder transaction) {
+    if (!paymentMethod.isEnabled()) {
+      if (paymentMethod.getId()
+          .equals(CREDITS_ID)) {
+        paymentMethod.setDisabledReason(R.string.purchase_appcoins_credits_noavailable_body);
+      } else if (paymentMethod.getId()
+          .equals(APPC_ID)) {
+        return getAppcDisableReason(transaction).filter(reason -> reason != -1)
+            .map(reason -> {
+              paymentMethod.setDisabledReason(reason);
+              return paymentMethod;
+            });
+      }
+    }
+    return Observable.just(paymentMethod);
+  }
+
+  private Observable<Integer> getAppcDisableReason(TransactionBuilder transaction) {
+    return getBalanceState(transaction).map(balanceState -> {
+      switch (balanceState) {
+        case NO_ETHER:
+          return R.string.purchase_no_eth_body;
+        case NO_TOKEN:
+        case NO_ETHER_NO_TOKEN:
+          return R.string.purchase_no_appcoins_body;
+        case OK:
+        default:
+          return -1;
+      }
+    })
+        .toObservable();
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
@@ -313,9 +339,11 @@ public class InAppPurchaseInteractor {
         String mergedId = "merged_appcoins";
         String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
+        Integer disableReason = mergeDisableReason(appcMethod, creditsMethod);
         mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
             isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled(),
-            appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl()));
+            appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl(),
+            disableReason, appcMethod.getDisabledReason(), creditsMethod.getDisabledReason()));
       } else if (!paymentMethod.getId()
           .equals(CREDITS_ID)) {
         //Don't add the credits method to this list
@@ -323,6 +351,25 @@ public class InAppPurchaseInteractor {
       }
     }
     return mergedList;
+  }
+
+  private Integer mergeDisableReason(PaymentMethod appcMethod, PaymentMethod creditsMethod) {
+    Integer reason = null;
+
+    if (!creditsMethod.isEnabled()) {
+      if (creditsMethod.getDisabledReason() != -1) {
+        reason = creditsMethod.getDisabledReason();
+      } else {
+        reason = appcMethod.getDisabledReason();
+      }
+    } else if (!appcMethod.isEnabled()) {
+      if (appcMethod.getDisabledReason() != -1) {
+        reason = appcMethod.getDisabledReason();
+      } else {
+        reason = creditsMethod.getDisabledReason();
+      }
+    }
+    return reason;
   }
 
   private PaymentMethod getCreditsMethod(List<PaymentMethod> paymentMethods) {
@@ -345,7 +392,7 @@ public class InAppPurchaseInteractor {
     return null;
   }
 
-  private List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
+  public List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
     boolean swapped = false;
     if (paymentMethods.size() > 1) {
       for (int position = 1; position < paymentMethods.size(); position++) {
@@ -397,11 +444,11 @@ public class InAppPurchaseInteractor {
       if (paymentMethod.getId()
           .equals(availablePaymentMethod.getId())) {
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), true);
+            paymentMethod.getIconUrl(), true, null);
       }
     }
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), false);
+        paymentMethod.getIconUrl(), false, null);
   }
 
   boolean hasPreSelectedPaymentMethod() {

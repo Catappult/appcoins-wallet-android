@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.ui.iab
 
 open class PaymentMethod(open val id: String, open val label: String,
-                         open val iconUrl: String, open val isEnabled: Boolean = true) {
+                         open val iconUrl: String, open val isEnabled: Boolean = true,
+                         open var disabledReason: Int? = null) {
   constructor() : this("", "", "", false)
 
   companion object {

@@ -15,8 +15,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -43,21 +42,26 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   lateinit var interactor: OnboardingInteract
 
   @Inject
-  lateinit var smsValidationInteract: SmsValidationInteract
-
-  @Inject
-  lateinit var referralInteractor: ReferralInteractorContract
+  lateinit var logger: Logger
 
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private lateinit var adapter: OnboardingPageAdapter
   private var linkSubject: PublishSubject<String>? = null
+  private var paymentMethodsIcons: ArrayList<String>? = null
 
   companion object {
     fun newInstance() = OnboardingActivity()
 
     private const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
     private const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
+    private const val PAYMENT_METHODS_ICONS = "paymentMethodsIcons"
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+
+    paymentMethodsIcons?.let { outState.putStringArrayList(PAYMENT_METHODS_ICONS, it) }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,10 +71,15 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     browserRouter = ExternalBrowserRouter()
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
-        AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
-        ReplaySubject.create(), referralInteractor)
-    setupUI()
+        AndroidSchedulers.mainThread(), Schedulers.io(), ReplaySubject.create(), logger)
+    setupUI(savedInstanceState)
+
     presenter.present()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
   }
 
   override fun onDestroy() {
@@ -82,7 +91,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     super.onDestroy()
   }
 
-  private fun setupUI() {
+  private fun setupUI(savedInstanceState: Bundle?) {
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
@@ -101,7 +110,15 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter
-    listener = OnboardingPageChangeListener(onboarding_content)
+    val paymentMethodsIcons =
+        if (savedInstanceState != null && savedInstanceState.containsKey(PAYMENT_METHODS_ICONS)) {
+          savedInstanceState.getStringArrayList(PAYMENT_METHODS_ICONS)!!
+              .toList()
+        } else {
+          emptyList()
+        }
+    listener =
+        OnboardingPageChangeListener(onboarding_content, paymentMethodsIcons = paymentMethodsIcons)
     onboarding_viewpager.registerOnPageChangeCallback(listener)
 
     onboarding_content.visibility = View.VISIBLE
@@ -127,6 +144,11 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun showViewPagerLastPage() {
     onboarding_viewpager.setCurrentItem(onboarding_viewpager.adapter?.itemCount ?: 0, true)
+  }
+
+  override fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>) {
+    this.paymentMethodsIcons = ArrayList(paymentMethodsIcons)
+    listener.setPaymentMethodsIcons(paymentMethodsIcons)
   }
 
   override fun getLinkClick() = linkSubject!!
@@ -212,9 +234,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
         indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
   }
 
-  override fun navigateToBrowser(uri: Uri) {
-    browserRouter.open(this, uri)
-  }
+  override fun navigateToBrowser(uri: Uri) = browserRouter.open(this, uri)
 
   override fun showNoInternetView() {
     stopRetryAnimation()

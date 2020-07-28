@@ -9,7 +9,8 @@ import java.math.BigDecimal
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                          currency: String, paymentMethodId: String, fiatAmount: String,
-                         appcAmount: String, frequency: String?)
+                         appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
+                         frequency: String?)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                    currency: String, fiatAmount: String,
@@ -70,15 +71,16 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
+  fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
+                         disabledReasonCredits: Int?)
   fun showSubscribe()
-
-  fun showMergedAppcoins(gamificationLevel: Int)
 
   fun lockRotation()
 
   fun showEarnAppcoins()
 
   fun showBonus(@StringRes bonusText: Int)
+
   fun hideBonus()
 
   fun replaceBonus()

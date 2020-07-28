@@ -18,9 +18,9 @@ import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.wallet_details_balance_layout.*
 import kotlinx.android.synthetic.main.wallet_details_layout.*
 import javax.inject.Inject
 
-class WalletDetailsFragment : DaggerFragment(), WalletDetailsView {
+class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
 
   @Inject
   lateinit var interactor: WalletDetailsInteractor

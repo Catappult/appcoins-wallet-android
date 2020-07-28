@@ -51,6 +51,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val APPC_ENABLED_KEY = "appc_enabled"
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
+    private const val DISABLE_REASON_APPC = "disable_reason_appc"
+    private const val DISABLE_REASON_CREDITS = "disable_reason_credits"
     private const val IS_BDS_KEY = "is_bds"
     private const val IS_DONATION_KEY = "is_donation"
     private const val SKU_ID = "sku_id"
@@ -68,7 +70,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean,
                     isDonation: Boolean, skuId: String?, transactionType: String,
-                    gamificationLevel: Int, isSubscription: Boolean, frequency: String?): Fragment {
+                    gamificationLevel: Int, disabledReasonAppc: Int?,
+                    disabledReasonCredits: Int?, isSubscription: Boolean,
+                    frequency: String?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
         putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -84,6 +88,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         putString(SKU_ID, skuId)
         putString(TRANSACTION_TYPE, transactionType)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
+        disabledReasonAppc?.let { putInt(DISABLE_REASON_APPC, it) }
+        disabledReasonCredits?.let { putInt(DISABLE_REASON_CREDITS, it) }
         putBoolean(IS_SUBSCRIPTION, isSubscription)
         putString(FREQUENCY, frequency)
       }
@@ -187,6 +193,22 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private val skuId: String? by lazy {
     arguments!!.getString(SKU_ID)
+  }
+
+  private val disableReasonAppc: Int? by lazy {
+    if (arguments!!.containsKey(DISABLE_REASON_APPC)) {
+      arguments!!.getInt(DISABLE_REASON_APPC)
+    } else {
+      null
+    }
+  }
+
+  private val disableReasonCredits: Int? by lazy {
+    if (arguments!!.containsKey(DISABLE_REASON_CREDITS)) {
+      arguments!!.getInt(DISABLE_REASON_CREDITS)
+    } else {
+      null
+    }
   }
 
   private val transactionType: String by lazy {
@@ -330,35 +352,75 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
       appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
         if (checked) paymentSelectionSubject?.onNext(APPC)
+        setAppcTitle(checked)
         credits_radio_button.isChecked = !checked
       }
       appcoins_radio_button.isEnabled = true
     } else {
-      appcoins_radio.message.text = getString(R.string.purchase_appcoins_noavailable_body)
+      val reason = disableReasonAppc ?: R.string.purchase_appcoins_noavailable_body
+      appcoins_radio.message.text = getString(reason)
       appcoins_radio.title.setTextColor(
           ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
       appcoins_radio.message.setTextColor(
-          ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
+          ContextCompat.getColor(context!!, R.color.disable_reason))
       appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
       appcoins_radio.message.visibility = VISIBLE
       appc_balances_group.visibility = INVISIBLE
+
+      applyAlphaScale(appcoins_radio.icon)
     }
     if (creditsEnabled) {
       credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
       credits_radio_button.setOnCheckedChangeListener { _, checked ->
         if (checked) paymentSelectionSubject?.onNext(CREDITS)
+        setCreditsTitle(checked)
         appcoins_radio_button.isChecked = !checked
       }
       credits_radio_button.isEnabled = true
       credits_radio_button.isChecked = true
     } else {
       appcoins_radio_button.isChecked = true
-      credits_radio.message.text = getString(R.string.purchase_appcoins_credits_noavailable_body)
+      val reason = disableReasonCredits ?: R.string.purchase_appcoins_credits_noavailable_body
+      credits_radio.message.text = getString(reason)
+      credits_radio.message.setTextColor(resources.getColor(R.color.disable_reason))
       credits_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       credits_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       credits_radio.message.visibility = VISIBLE
       credits_balances_group.visibility = INVISIBLE
+
+      applyAlphaScale(credits_radio.icon)
     }
+  }
+
+  private fun setAppcTitle(checked: Boolean) {
+    if (checked) {
+      paymentSelectionSubject?.onNext(APPC)
+      appcoins_radio.title.setTextColor(
+          ContextCompat.getColor(requireContext(), R.color.details_address_text_color))
+      appcoins_radio.title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+    } else {
+      appcoins_radio.title.setTextColor(
+          ContextCompat.getColor(requireContext(), R.color.grey_alpha_active_54))
+      appcoins_radio.title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+    }
+  }
+
+  private fun setCreditsTitle(checked: Boolean) {
+    if (checked) {
+      paymentSelectionSubject?.onNext(CREDITS)
+      credits_radio.title.setTextColor(resources.getColor(R.color.details_address_text_color))
+      credits_radio.title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+    } else {
+      credits_radio.title.setTextColor(resources.getColor(R.color.grey_alpha_active_54))
+      credits_radio.title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+    }
+  }
+
+  private fun applyAlphaScale(imageView: ImageView) {
+    val colorMatrix = ColorMatrix()
+    colorMatrix.setSaturation(0f)
+    val filter = ColorMatrixColorFilter(colorMatrix)
+    imageView.colorFilter = filter
   }
 
   private fun getApplicationName(appPackage: String): CharSequence {

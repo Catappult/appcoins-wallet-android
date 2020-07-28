@@ -13,8 +13,8 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,7 +29,7 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-class PromotionsFragment : DaggerFragment(), PromotionsView {
+class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   @Inject
   lateinit var gamification: GamificationInteractor

@@ -105,6 +105,11 @@ public class TransactionDetailActivity extends BaseActivity {
         });
   }
 
+  @Override protected void onResume() {
+    super.onResume();
+    sendPageViewEvent();
+  }
+
   @Override protected void onStop() {
     super.onStop();
     disposables.dispose();

@@ -39,10 +39,7 @@ import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.billing.analytics.PoaAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.billing.analytics.*
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.identification.IdsRepository
@@ -384,7 +381,8 @@ internal class AppModule {
       WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
       WalletsAnalytics.WALLET_SAVE_FILE,
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
-      WalletsAnalytics.WALLET_PASSWORD_RESTORE
+      WalletsAnalytics.WALLET_PASSWORD_RESTORE,
+      PageViewAnalytics.WALLET_PAGE_VIEW
   )
 
   @Singleton
@@ -578,6 +576,12 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun providesPageViewAnalytics(analyticsManager: AnalyticsManager): PageViewAnalytics {
+    return PageViewAnalytics(analyticsManager)
+  }
+
+  @Singleton
+  @Provides
   fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
 
   @Singleton
@@ -587,4 +591,5 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
+
 }
