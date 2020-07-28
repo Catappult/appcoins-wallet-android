@@ -5,6 +5,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment.Companion.PhoneValidationClickData
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -24,7 +25,7 @@ class PhoneValidationPresenter(
     private val TAG = PhoneValidationPresenter::class.java.simpleName
   }
 
-  private var cachedValidationStatus: Pair<WalletValidationStatus, PhoneValidationFragment.Companion.PhoneValidationClickData>? =
+  private var cachedValidationStatus: Pair<WalletValidationStatus, PhoneValidationClickData>? =
       null
 
   fun onResume(errorMessage: Int?) {
@@ -55,7 +56,7 @@ class PhoneValidationPresenter(
               view.hideKeyboard()
               activity?.finishCancelActivity()
             }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleNextAndRetryClicks() {
@@ -86,8 +87,7 @@ class PhoneValidationPresenter(
     )
   }
 
-  private fun onSuccess(status: WalletValidationStatus,
-                        submitInfo: PhoneValidationFragment.Companion.PhoneValidationClickData) {
+  private fun onSuccess(status: WalletValidationStatus, submitInfo: PhoneValidationClickData) {
     handlePhoneValidationAnalytics("submit", status, submitInfo.previousContext)
     when (status) {
       WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.countryCode,
@@ -95,6 +95,8 @@ class PhoneValidationPresenter(
         showErrorMessage(R.string.unknown_error)
         logError()
       }
+      WalletValidationStatus.TOO_MANY_ATTEMPTS -> showErrorMessage(
+          R.string.verification_insert_phone_field_phone_used_already_error)//TODO Missing strings
       WalletValidationStatus.INVALID_INPUT,
       WalletValidationStatus.INVALID_PHONE -> {
         showErrorMessage(R.string.verification_insert_phone_field_number_error)
@@ -129,13 +131,9 @@ class PhoneValidationPresenter(
     }
   }
 
-  private fun logError() {
-    logger.log(TAG, "Validation Error: Activity null")
-  }
+  private fun logError() = logger.log(TAG, "Validation Error: Activity null")
 
-  private fun showErrorMessage(@StringRes errorMessage: Int) {
-    view.setError(errorMessage)
-  }
+  private fun showErrorMessage(@StringRes errorMessage: Int) = view.setError(errorMessage)
 
   private fun handleValuesChange() {
     disposables.add(
@@ -157,8 +155,6 @@ class PhoneValidationPresenter(
     return phoneNumber.isNotBlank() && countryCode.isNotBlank()
   }
 
-  fun stop() {
-    disposables.dispose()
-  }
+  fun stop() = disposables.dispose()
 
 }

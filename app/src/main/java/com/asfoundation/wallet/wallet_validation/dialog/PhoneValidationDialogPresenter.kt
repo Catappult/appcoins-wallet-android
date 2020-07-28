@@ -35,7 +35,7 @@ class PhoneValidationDialogPresenter(
             .doOnNext {
               activity?.closeCancel(true)
             }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleSubmit() {
@@ -56,7 +56,7 @@ class PhoneValidationDialogPresenter(
                   .doOnSuccess { cachedValidationStatus = null }
             }
             .retry()
-            .subscribe { }
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -65,6 +65,8 @@ class PhoneValidationDialogPresenter(
     when (status) {
       WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.first,
           submitInfo.second)
+      WalletValidationStatus.TOO_MANY_ATTEMPTS -> showErrorMessage(
+          R.string.verification_insert_phone_field_phone_used_already_error)//TODO Missing strings
       WalletValidationStatus.INVALID_INPUT,
       WalletValidationStatus.INVALID_PHONE -> {
         showErrorMessage(R.string.verification_insert_phone_field_number_error)
@@ -95,9 +97,7 @@ class PhoneValidationDialogPresenter(
     }
   }
 
-  private fun showErrorMessage(@StringRes errorMessage: Int) {
-    view.setError(errorMessage)
-  }
+  private fun showErrorMessage(@StringRes errorMessage: Int) = view.setError(errorMessage)
 
   private fun handleValuesChange() {
     disposables.add(
@@ -119,13 +119,9 @@ class PhoneValidationDialogPresenter(
     return phoneNumber.isNotBlank() && countryCode.isNotBlank()
   }
 
-  fun stop() {
-    disposables.dispose()
-  }
+  fun stop() = disposables.dispose()
 
-  fun onResume() {
-    resumePreviousState()
-  }
+  fun onResume() = resumePreviousState()
 
   private fun resumePreviousState() {
     cachedValidationStatus?.let { onSuccess(it.first, it.second); cachedValidationStatus = null }

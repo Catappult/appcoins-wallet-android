@@ -40,9 +40,7 @@ class ValidationLoadingDialogPresenter(
             }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .subscribe { status ->
-              handleNext(status)
-            }
+            .subscribe({ status -> handleNext(status) }, { it.printStackTrace() })
     )
   }
 
@@ -50,6 +48,7 @@ class ValidationLoadingDialogPresenter(
     handleVerificationAnalytics(status)
     when (status) {
       WalletValidationStatus.SUCCESS -> activity?.showSuccess()
+      WalletValidationStatus.INVALID_CODE,
       WalletValidationStatus.INVALID_INPUT -> handleError(
           R.string.verification_insert_code_error)
       WalletValidationStatus.INVALID_PHONE ->
@@ -57,6 +56,10 @@ class ValidationLoadingDialogPresenter(
             R.string.verification_insert_code_error_common)
       WalletValidationStatus.DOUBLE_SPENT ->
         activity?.showSuccess()
+      WalletValidationStatus.TOO_MANY_ATTEMPTS -> handleError(
+          R.string.unknown_error)//TODO Missing strings
+      WalletValidationStatus.EXPIRED_CODE -> handleError(
+          R.string.unknown_error)//TODO Missing strings
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
   }
