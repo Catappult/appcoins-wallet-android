@@ -347,12 +347,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun getSelectedPaymentMethod(): PaymentMethod {
-    if(::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
+    if (::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
     val hasPreSelectedPaymentMethod =
         inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
     val checkedButtonId = paymentMethodsAdapter.getSelectedItem()
     return if (paymentMethodList.isNotEmpty() && !isPreSelected && checkedButtonId != -1) {
-      paymentMethodsAdapter.setSelectedItem(checkedButtonId)
       paymentMethodList[checkedButtonId]
     } else if (hasPreSelectedPaymentMethod && checkedButtonId == -1) {
       preSelectedPaymentMethod?.value ?: PaymentMethod()
@@ -378,7 +377,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showProcessingLoadingDialog() {
     payment_methods.visibility = View.INVISIBLE
-
     processing_loading.visibility = View.VISIBLE
   }
 

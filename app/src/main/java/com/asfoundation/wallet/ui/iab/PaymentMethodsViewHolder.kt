@@ -4,6 +4,8 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Typeface
 import android.view.View
+import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
@@ -25,18 +27,19 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
     if (data.isEnabled) {
       itemView.setOnClickListener(listener)
+      itemView.radio_button.visibility = View.VISIBLE
+      hideDisableReason()
+      removeAlphaScale(itemView.payment_method_ic)
     } else {
       itemView.radio_button.visibility = View.INVISIBLE
       itemView.background = null
-      data.disabledReason?.let {
-        itemView.payment_method_reason.visibility = View.VISIBLE
-        itemView.payment_method_reason.text = itemView.context.getString(it)
+      if (data.disabledReason != null) {
+        showDisableReason(data.disabledReason)
+      } else {
+        hideDisableReason()
       }
 
-      val colorMatrix = ColorMatrix()
-      colorMatrix.setSaturation(0f)
-      val filter = ColorMatrixColorFilter(colorMatrix)
-      itemView.payment_method_ic.colorFilter = filter
+      applyAlphaScale(itemView.payment_method_ic)
     }
   }
 
@@ -53,4 +56,32 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
       itemView.payment_method_description.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
+
+  private fun applyAlphaScale(imageView: ImageView) {
+    val colorMatrix = ColorMatrix()
+    colorMatrix.setSaturation(0f)
+    val filter = ColorMatrixColorFilter(colorMatrix)
+    imageView.colorFilter = filter
+  }
+
+  private fun removeAlphaScale(imageView: ImageView) {
+    val colorMatrix = ColorMatrix()
+    colorMatrix.setSaturation(1f)
+    val filter = ColorMatrixColorFilter(colorMatrix)
+    imageView.colorFilter = filter
+  }
+
+  private fun showDisableReason(@StringRes reason: Int?) {
+    reason?.let {
+      itemView.payment_method_reason.visibility = View.VISIBLE
+      itemView.payment_method_reason.text = itemView.context.getString(it)
+    }
+  }
+
+  private fun hideDisableReason() {
+    itemView.payment_method_reason.visibility = View.GONE
+    itemView.payment_method_reason.text = null
+  }
+
+
 }

@@ -21,11 +21,6 @@ class PaymentMethodsAdapter(
     }
   }
 
-  fun setSelectedItem(position: Int) {
-    selectedItem = position
-    notifyDataSetChanged()
-  }
-
   fun getSelectedItem() = selectedItem
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
