@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">بررسی همه جزییات: بالانس، موارد، شبکه…</string>
   <string name="activity_iab_buying_message">جزییات بررسی شد\nدرحال دریافت مورد شما…</string>
   <string name="activity_iab_change_card">تغییر کارت</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">درحال پردازش جایزه شما</string>
   <string name="notification_completed_poa">پاداش دریافت شد!👌 باید %1$sساعت و %2$sدقیقه منتظر بمانید تا بتوانید پاداش بیشتری با امتحان اپلیکیشن‌ها بدست آورید ⏰!</string>
   <string name="notification_poa_limit_reached">به حد پاداش روزانه خود رسیده‌اید. ⏰ %1$s ساعت و %2$s دقیقه دیگر بازگردید و دوباره امتحان کنید!</string>
