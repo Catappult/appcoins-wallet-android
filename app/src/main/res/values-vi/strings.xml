@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Kiểm tra tất cả các chi tiết: số dư, vật phẩm, mạng…</string>
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
   <string name="activity_iab_change_card">THAY ĐỔI THẺ</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
   <string name="notification_completed_poa">Đã nhận phần thưởng!👌 Bạn sẽ phải chờ %1$s giờ %2$s phút để có thể kiếm thêm phần thưởng bằng cách trải nghiệm các ứng dụng ⏰!</string>
   <string name="notification_poa_limit_reached">Bạn đã đạt đến giới hạn phần thưởng hàng ngày của mình. ⏰ Quay trở lại sau %1$s giờ %2$s phút và thử lại!</string>
