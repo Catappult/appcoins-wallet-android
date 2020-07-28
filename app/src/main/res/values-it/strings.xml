@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Verifica di tutti i dettagli: equilibrio, elementi, rete…</string>
   <string name="activity_iab_buying_message">Dettagli controllati \nRicezione del tuo articolo…</string>
   <string name="activity_iab_change_card">MODIFICA CARTA</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Elaborazione del tuo premio</string>
   <string name="notification_completed_poa">Premio ricevuto!👌 Dovrai attendere %1$s ore e %2$s minuti per ricevere altri premi provando app ⏰!</string>
   <string name="notification_poa_limit_reached">Hai raggiunto il tuo limite giornaliero di premi. ⏰ Torna tra %1$s ore e %2$s minuti e riprova!</string>
