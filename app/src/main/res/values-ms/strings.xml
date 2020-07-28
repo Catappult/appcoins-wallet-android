@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Menyemak semua butiran; baki, item, rangkaian…</string>
   <string name="activity_iab_buying_message">Butiran telah disemak \nMenerima item anda…</string>
   <string name="activity_iab_change_card">TUKAR KAD</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Memproses ganjaran anda</string>
   <string name="notification_completed_poa">Ganjaran diterima!👌 Anda perlu tunggu selama %1$sj%2$sm lagi untuk peroleh lebih banyak ganjaran dengan mencuba aplikasi ⏰!</string>
   <string name="notification_poa_limit_reached">Anda sudah capai had ganjaran harian anda. ⏰ Kembali dalam masa %1$sj%2$sm dan cuba lagi!</string>
