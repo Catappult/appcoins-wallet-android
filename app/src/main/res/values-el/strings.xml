@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Γίνεται έλεγχος όλων των λεπτομερειών: υπόλοιπο, αντικείμενα, δίκτυο…</string>
   <string name="activity_iab_buying_message">Οι λεπτομέρειες ελέγχθηκαν \nΓίνεται λήψη του αντικειμένου σας…</string>
   <string name="activity_iab_change_card">ΑΛΛΑΓΗ ΚΑΡΤΑΣ</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Γίνεται επεξεργασία της αμοιβής σας</string>
   <string name="notification_completed_poa">Ελήφθη αμοιβή!👌 Θα πρέπει να περιμένετε %1$s ώρα/ες και %2$s λεπτό/ά για να λάβετε περισσότερες αμοιβές δοκιμάζοντας εφαρμογές ⏰!</string>
   <string name="notification_poa_limit_reached">Έχετε φτάσει στο ημερήσιο όριο αμοιβών. ⏰Επιστρέψτε σε %1$s ώρα/ες και %2$s λεπτό/ά και προσπαθήστε ξανά!</string>
