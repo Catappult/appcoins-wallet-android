@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Alle gegevens controleren: saldo, items, netwerk…</string>
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
   <string name="activity_iab_change_card">KAART WIJZIGEN</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
   <string name="notification_completed_poa">Beloning ontvangen!👌 Je kunt over %1$s uur en %2$s min meer beloningen verdienen door apps te proberen⏰!</string>
   <string name="notification_poa_limit_reached">Je hebt je dagelijkse limiet voor beloningen bereikt. ⏰ Kom over %1$s uur en %2$s min terug om het opnieuw te proberen!</string>
