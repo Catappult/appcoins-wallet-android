@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Se verifică toate detaliile: balanță, articole, rețea…</string>
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
   <string name="activity_iab_change_card">SCHIMBĂ CARD</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
   <string name="notification_completed_poa">Recompensă primită! 👌 Va trebui să aștepți %1$sh%2$sm ca să câștigi mai multe recompense încercând aplicații ⏰!</string>
   <string name="notification_poa_limit_reached">Ai atins limita zilnică de recompense. ⏰ Revino în %1$sh%2$sm și încearcă din nou!</string>
