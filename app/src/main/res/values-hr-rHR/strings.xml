@@ -734,6 +734,7 @@
   <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
   <string name="manage_cards_card_ending_body">Card ending in %s</string>
   <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
+  <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
   <string name="manage_cards_select_title">Select payment card</string>
   <string name="manage_cards_remember">Remember card</string>
 </resources>
