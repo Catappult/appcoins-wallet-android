@@ -3,10 +3,8 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
@@ -102,9 +100,9 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideRemoteRepository(subscriptionBillingService: SubscriptionBillingService,
+  fun provideRemoteRepository(subscriptionBillingApi: SubscriptionBillingApi,
                               bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api, subscriptionBillingService)
+    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api, subscriptionBillingApi)
   }
 
   @Singleton

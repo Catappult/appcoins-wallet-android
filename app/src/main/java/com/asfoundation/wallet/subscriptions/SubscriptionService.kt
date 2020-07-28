@@ -8,5 +8,4 @@ interface SubscriptionService {
   fun getExpiredSubscriptions(walletAddress: String): Single<List<Subscription>>
   fun getSubscriptionDetails(packageName: String, address: String): Single<Subscription>
   fun getSubscriptionByTransactionId(transactionId: String): Single<Subscription>
-
 }

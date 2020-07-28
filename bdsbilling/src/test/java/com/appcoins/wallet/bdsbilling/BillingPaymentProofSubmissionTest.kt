@@ -45,7 +45,7 @@ class BillingPaymentProofSubmissionTest {
   lateinit var api: BdsApi
 
   @Mock
-  lateinit var subscriptionBillingService: SubscriptionBillingService
+  lateinit var subscriptionBillingApi: SubscriptionBillingApi
   lateinit var billing: BillingPaymentProofSubmission
   lateinit var scheduler: TestScheduler
 
@@ -61,6 +61,7 @@ class BillingPaymentProofSubmissionTest {
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
           override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
               Single.just(WalletAddressModel(walletAddress, signedContent))
+
           override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
           override fun findWalletOrCreate(): Observable<String> = Observable.just(walletAddress)
         })
@@ -69,7 +70,7 @@ class BillingPaymentProofSubmissionTest {
             return Single.just(GetWalletResponse(Data("developer_address")))
           }
         })
-        .setSubscriptionBillingService(subscriptionBillingService)
+        .setSubscriptionBillingService(subscriptionBillingApi)
         .build()
 
     `when`(

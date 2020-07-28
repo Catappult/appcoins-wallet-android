@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
@@ -14,7 +14,7 @@ import java.util.*
 class RemoteRepository(private val inAppApi: BdsApi,
                        private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary,
-                       private val subsApi: SubscriptionBillingService
+                       private val subsApi: SubscriptionBillingApi
 ) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50

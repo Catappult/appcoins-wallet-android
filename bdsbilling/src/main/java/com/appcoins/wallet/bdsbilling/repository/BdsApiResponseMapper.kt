@@ -29,12 +29,14 @@ class BdsApiResponseMapper {
   //TODO Price has currency but we need code and symbol
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
     return ArrayList(subscriptionsResponse.items.map {
+      val introPrice = it.intro?.let { intro ->
+        Price(intro.price.currency, intro.price.appc.value.toDouble(), intro.price.value.toDouble(),
+            intro.price.currency, intro.price.currency)
+      }
       Product(it.sku, it.title, it.description,
           Price(it.price.currency, it.price.appc.value.toDouble(), it.price.value.toDouble(),
               it.price.currency, it.price.currency), "subs", it.period, it.trialPeriod,
-          Price(it.intro.price.currency, it.intro.price.appc.value.toDouble(),
-              it.intro.price.value.toDouble(),
-              it.intro.price.currency, it.intro.price.currency)
+          introPrice
       )
     })
   }

@@ -91,14 +91,14 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var networkScheduler: Scheduler = Schedulers.io()
     private var api: BdsApi? = null//TODO Rename BdsInAppApi
     private var bdsApiSecondary: BdsApiSecondary? = null
-    private var subscriptionApi: SubscriptionBillingService? = null//TODO Rename BdsSubscriptionApi
+    private var subscriptionApi: SubscriptionBillingApi? = null//TODO Rename BdsSubscriptionApi
 
     fun setApi(bdsApi: BdsApi) = apply { api = bdsApi }
 
     fun setBdsApiSecondary(bdsApi: BdsApiSecondary) = apply { bdsApiSecondary = bdsApi }
 
-    fun setSubscriptionBillingService(subscriptionBillingService: SubscriptionBillingService) =
-        apply { subscriptionApi = subscriptionBillingService }
+    fun setSubscriptionBillingService(subscriptionBillingApi: SubscriptionBillingApi) =
+        apply { subscriptionApi = subscriptionBillingApi }
 
     fun setScheduler(scheduler: Scheduler) = apply { this.networkScheduler = scheduler }
 
