@@ -2,6 +2,9 @@ package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -9,6 +12,7 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment

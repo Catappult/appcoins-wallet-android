@@ -248,7 +248,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
                 productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
                 isDonation, transaction!!.skuId, transaction!!.type, gamificationLevel,
-                disabledReasonAppc, disabledReasonCredits, isSubscription: Boolean, frequency: String?))
+                disabledReasonAppc, disabledReasonCredits, isSubscription, frequency))
         .commit()
   }
 
