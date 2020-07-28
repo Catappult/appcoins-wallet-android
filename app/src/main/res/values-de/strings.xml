@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Überprüfen alle Details: Konto, Artikel, Netzwerk…</string>
   <string name="activity_iab_buying_message">Angaben geprüft \n Erhalte ihren Artikel…</string>
   <string name="activity_iab_change_card">KARTE ÄNDERN</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Verarbeite ihre Belohnung</string>
   <string name="notification_completed_poa">Belohnung erhalten!👌 Sie müssen %1$sh%2$sm lang warten, um weitere Belohnungen für das Ausprobieren von Apps zu erhalten ⏰!</string>
   <string name="notification_poa_limit_reached">Sie haben ihr tägliches Limit erreiche. ⏰ Kommen Sie in %1$sh%2$sm wieder und versuchen Sie es erneut!</string>
