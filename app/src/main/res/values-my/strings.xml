@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">အေသးစိတ္မ်ား အားလံုးကို စစ္ေဆးေနပါသည္ - ဟန္ခ်က္၊ ပစၥည္းမ်ား။ ကြန္ရက္…</string>
   <string name="activity_iab_buying_message">အေသးစိတ္မ်ားကို စစ္ေဆးၿပီးပါၿပီ \nသင့္ပစၥည္းကို ရယူေနပါသည္…</string>
   <string name="activity_iab_change_card">ကဒ္ကိုေျပာင္းမည္</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">သင့္ဆုကို စီစဥ္ေဆာင္ရြက္ေနပါသည္</string>
   <string name="notification_completed_poa">ဆုကိုရရွိပါသည္။👌 အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ဆုမ်ားကိုပိုမိုရရွိႏိုင္ရန္ %1$sh%2$sm ေစာင့္ရပါမည္ ⏰။</string>
   <string name="notification_poa_limit_reached">သင့္ေန႔စဥ္ဆုကန္႔သတ္ခ်က္သို႔ ေရာက္သြားပါၿပီ။ ⏰ %1$sh%2$sm တြင္ျပန္လာကာ ထပ္ႀကိဳးစားပါ။</string>
