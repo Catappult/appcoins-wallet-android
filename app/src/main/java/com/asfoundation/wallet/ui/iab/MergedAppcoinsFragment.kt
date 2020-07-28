@@ -15,7 +15,6 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -452,9 +451,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun navigateToAppcPayment() = iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
+  override fun navigateToAppcPayment() =
+      iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
 
-  override fun navigateToCreditsPayment() = iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
+  override fun navigateToCreditsPayment() =
+      iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =
@@ -527,11 +528,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private fun setAppcoinsDisabled(isSubscription: Boolean) {
     val reason =
-        if (isSubscription) "AppCoins support for subscriptions is coming soon"
+        if (isSubscription) "AppCoins support for subscriptions is coming soon" //TODO
         else {
-          disableReasonAppc ?: R.string.purchase_appcoins_noavailable_body
+          getString(disableReasonAppc ?: R.string.purchase_appcoins_noavailable_body)
         }
-    appcoins_radio.message.text = getString(reason)
+    appcoins_radio.message.text = reason
     appcoins_radio.title.setTextColor(
         ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
     appcoins_radio.message.setTextColor(
