@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">모든 상세내용 검토중: 잔액, 항목, 네트워크...</string>
   <string name="activity_iab_buying_message">상세내용 체크됨 \n귀하의 항목 수신중...</string>
   <string name="activity_iab_change_card">카드 변경</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">귀하의 보상 처리중</string>
   <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
   <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
