@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Проверяем все детали: баланс, товары, сеть…</string>
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="activity_iab_change_card">ИЗМЕНИТЬ КАРТУ</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
   <string name="notification_completed_poa">Награда получена! 👌 Вам нужно подождать %1$sч%2$sм, чтобы получить больше наград, пробуя приложения ⏰!</string>
   <string name="notification_poa_limit_reached">Вы достигла максимума наград на сегодня. ⏰ Возвращайтесь через %1$sч%2$sм и попробуйте снова!</string>
