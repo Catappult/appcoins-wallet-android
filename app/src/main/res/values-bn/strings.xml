@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">সকল বিবরণ পরীক্ষা করা হচ্ছে: স্থিতি, ধরণ, নেটওয়ার্ক…</string>
   <string name="activity_iab_buying_message">বিবরণ পরীক্ষাকৃত\nআপনার ধরণ গ্রহণ করছে…</string>
   <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">আপনার পুরস্কার প্রক্রিয়ারত</string>
   <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
   <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
