@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Provera svih detalja: stanje, stavke, mreža…</string>
   <string name="activity_iab_buying_message">Detalji su provereni\nPrijem vaše stavke…</string>
   <string name="activity_iab_change_card">PROMENITE KARTICU</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Obrada vaše nagrade</string>
   <string name="notification_completed_poa">Dobili ste nagradu!👌 Moraćete da sačekate %1$s č. %2$s min. da biste osvojili još nagrada isprobavanjem aplikacija ⏰!</string>
   <string name="notification_poa_limit_reached">Dostigli ste dnevno ograničenje za nagrade. ⏰ Vratite se za %1$s č. %2$s min. i pokušajte ponovo!</string>
