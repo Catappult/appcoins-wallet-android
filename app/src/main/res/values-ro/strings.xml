@@ -437,6 +437,8 @@
   <string name="verification_settings_unverified_body">Primește recompense și invită prieteni</string>
   <string name="verification_settings_verified_title">Portofel verificat</string>
   <string name="verification_settings_no_internet">Trebuie să fii conectat la internet</string>
+  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
+  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
   <string name="verified_tag">Verified</string>
   <string name="unferified_tag">Unverified</string>
   <!--Purchase Flow-->
