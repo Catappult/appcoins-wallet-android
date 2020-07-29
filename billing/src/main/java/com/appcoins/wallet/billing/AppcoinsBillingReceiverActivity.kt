@@ -52,12 +52,11 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
     window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
-    val bdsBilling = BdsBilling(BdsRepository(
-        RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+    val bdsBilling = BdsBilling(
+        BdsRepository(RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
             dependenciesProvider.bdsApiSecondary(),
             dependenciesProvider.subscriptionBillingService())),
-        dependenciesProvider.walletService(),
-        BillingThrowableCodeMapper())
+        dependenciesProvider.walletService(), BillingThrowableCodeMapper())
 
     serializer = ExternalBillingSerializer()
 
@@ -91,7 +90,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       1 -> getSkuDetails(apiVersion, packageName, billingType, args.getBundle("SKUS_BUNDLE"))
       2 -> getPurchases(apiVersion, packageName, billingType)
       3 -> getBuyIntent(apiVersion, packageName, sku, billingType, developerPayload)
-      4 -> consumePurchase(apiVersion, packageName, purchaseToken)
+      4 -> consumePurchase(apiVersion, packageName, purchaseToken, billingType)
       else -> {
         Log.w(TAG, "Unknown method id for: $methodId")
         return createReturnBundle(Bundle().apply {
@@ -102,7 +101,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   }
 
   private fun consumePurchase(apiVersion: Int, packageName: String,
-                              purchaseToken: String?): Parcelable {
+                              purchaseToken: String?, type: String?): Parcelable {
     if (apiVersion != SUPPORTED_API_VERSION) {
       return Bundle().apply {
         putInt(RESULT_VALUE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
@@ -114,8 +113,9 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       result.putInt(RESULT_VALUE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
       return result
     }
+    val billingType = type?.let { BillingSupportedType.valueOfProductType(it) }
     result.putInt(RESULT_VALUE, try {
-      billing.consumePurchases(purchaseToken, packageName)
+      billing.consumePurchases(purchaseToken, packageName, billingType)
           .map { AppcoinsBillingBinder.RESULT_OK }
           .blockingGet()
     } catch (exception: Exception) {

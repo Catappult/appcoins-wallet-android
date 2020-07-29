@@ -1,9 +1,6 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
-import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
-import com.appcoins.wallet.bdsbilling.merge
+import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -75,10 +72,9 @@ class RemoteRepository(private val inAppApi: BdsApi,
     return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
   }
 
-  internal fun getSkuPurchaseSubs(packageName: String, skuId: String?): Single<Purchase> {
-    return subsApi.getPurchases(packageName)
-        .map { it.items.filter { purchase -> purchase.sku == skuId } }
-        .map { responseMapper.map(packageName, it.first()) }
+  internal fun getSkuPurchaseSubs(packageName: String, uid: String): Single<Purchase> {
+    return subsApi.getPurchase(packageName, uid)
+        .map { responseMapper.map(packageName, it) }
   }
 
   internal fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
@@ -104,6 +100,11 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                walletSignature: String): Single<Boolean> {
     return inAppApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
+        .toSingle { true }
+  }
+
+  internal fun consumePurchaseSubs(packageName: String): Single<Boolean> {
+    return subsApi.updatePurchase(packageName, "uid", PurchaseUpdate(PurchaseState.CONSUMED))
         .toSingle { true }
   }
 

@@ -168,7 +168,7 @@ class PaymentMethodsPresenter(
         .flatMapCompletable { uid ->
           bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
               .ignoreElements()
-              .andThen(finishProcess(skuId, type))
+              .andThen(finishProcess(skuId, uid, type))
         }
   }
 
@@ -183,8 +183,9 @@ class PaymentMethodsPresenter(
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun finishProcess(skuId: String?, billingType: BillingSupportedType): Completable {
-    return billing.getSkuPurchase(appPackage, skuId, networkThread, billingType)
+  private fun finishProcess(skuId: String?, uid: String,
+                            billingType: BillingSupportedType): Completable {
+    return billing.getSkuPurchase(appPackage, skuId, uid, networkThread, billingType)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
         .ignoreElement()
@@ -299,7 +300,8 @@ class PaymentMethodsPresenter(
   }
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
-                                 paymentMethodId: String, fiatAmount: String, appcAmount: String, frequency: String?) {
+                                 paymentMethodId: String, fiatAmount: String, appcAmount: String,
+                                 frequency: String?) {
     var appcEnabled = false
     var creditsEnabled = false
     val paymentList: MutableList<PaymentMethod>
@@ -320,7 +322,7 @@ class PaymentMethodsPresenter(
           .toMutableList()
     }
     view.showPaymentMethods(paymentList, fiatValue, symbol, paymentMethodId, fiatAmount, appcAmount,
-        appcEnabled, creditsEnabled,frequency)
+        appcEnabled, creditsEnabled, frequency)
   }
 
   private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,

@@ -81,8 +81,8 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
       Status.PROCESSING -> Completable.fromAction { view.showLoading() }
       Status.COMPLETED -> {
         if (isBds && isManagedPaymentType(transactionBuilder.type)) {
-          val billingType = BillingSupportedType.valueOfProductType(transactionBuilder.type);
-          rewardsManager.getPaymentCompleted(packageName, sku, billingType)
+          val billingType = BillingSupportedType.valueOfProductType(transactionBuilder.type)
+          rewardsManager.getPaymentCompleted(packageName, sku, transaction.uid!!, billingType)
               .flatMapCompletable { purchase ->
                 Completable.fromAction { view.showTransactionCompleted() }
                     .subscribeOn(viewScheduler)

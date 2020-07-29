@@ -248,6 +248,4 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       billingMessagesMapper.mapConsumePurchasesError(exception)
     }
   }
-
-  private fun isValidType(type: String?) = type == ITEM_TYPE_INAPP || type == ITEM_TYPE_SUBS
 }

@@ -48,12 +48,12 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
-  override fun getSkuPurchase(merchantName: String, sku: String?,
+  override fun getSkuPurchase(merchantName: String, sku: String?, uid: String,
                               scheduler: Scheduler, type: BillingSupportedType): Single<Purchase> {
     return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
-          repository.getSkuPurchase(merchantName, sku, it.address, it.signedAddress, type)
+          repository.getSkuPurchase(merchantName, sku, uid, it.address, it.signedAddress, type)
         }
   }
 
@@ -63,19 +63,20 @@ class BdsBilling(private val repository: BillingRepository,
       walletService.getAndSignCurrentWalletAddress()
           .observeOn(scheduler)
           .flatMap {
-            repository.getPurchases(merchantName, it.address, it.signedAddress,
-                type)
+            repository.getPurchases(merchantName, it.address, it.signedAddress, type)
           }
           .onErrorReturn { emptyList() }
     } else Single.just(emptyList())
   }
 
   override fun consumePurchases(merchantName: String, purchaseToken: String,
-                                scheduler: Scheduler): Single<Boolean> {
+                                scheduler: Scheduler,
+                                type: BillingSupportedType?): Single<Boolean> {
     return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
-          repository.consumePurchases(merchantName, purchaseToken, it.address, it.signedAddress)
+          repository.consumePurchases(merchantName, purchaseToken, it.address, it.signedAddress,
+              type)
         }
   }
 

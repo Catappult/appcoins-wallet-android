@@ -221,7 +221,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               when {
                 it.status == COMPLETED -> {
                   sendPaymentSuccessEvent()
-                  createBundle(it.hash, it.orderReference)
+                  createBundle(it.uid, it.hash, it.orderReference)
                       .doOnSuccess {
                         sendPaymentEvent()
                         sendRevenueEvent()
@@ -484,9 +484,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
-  private fun createBundle(hash: String?, orderReference: String?): Single<Bundle> {
+  private fun createBundle(uid: String, hash: String?, orderReference: String?): Single<Bundle> {
     return transactionBuilder.flatMap {
-      adyenPaymentInteractor.getCompletePurchaseBundle(transactionType, domain, it.skuId,
+      adyenPaymentInteractor.getCompletePurchaseBundle(transactionType, domain, it.skuId, uid,
           orderReference, hash, networkScheduler)
     }
         .map { mapPaymentMethodId(it) }

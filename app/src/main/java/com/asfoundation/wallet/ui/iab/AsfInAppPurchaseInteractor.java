@@ -323,10 +323,11 @@ public class AsfInAppPurchaseInteractor {
   Single<Purchase> getCompletedPurchase(String packageName, String productName, String type) {
     BillingSupportedType billingType = BillingSupportedType.valueOfManagedType(type);
     return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType)
-        .map(Transaction::getStatus)
-        .flatMap(transactionStatus -> {
-          if (transactionStatus.equals(Transaction.Status.COMPLETED)) {
-            return billing.getSkuPurchase(packageName, productName, Schedulers.io(), billingType);
+        .flatMap(transaction -> {
+          if (transaction.getStatus()
+              .equals(Transaction.Status.COMPLETED)) {
+            return billing.getSkuPurchase(packageName, productName, transaction.getUid(),
+                Schedulers.io(), billingType);
           } else {
             return Single.error(new TransactionNotFoundException());
           }

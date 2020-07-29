@@ -1,11 +1,11 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.SubscriptionPurchasListResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import java.util.*
-import kotlin.collections.ArrayList
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
 
 class BdsApiResponseMapper {
   fun map(productDetails: DetailsResponseBody): List<Product> {
@@ -42,24 +42,19 @@ class BdsApiResponseMapper {
   }
 
   //TODO this method should be in SubscriptionsResponse mapper
-  //TODO This method does nothing. Needs to me implemented
   fun map(packageName: String,
-          purchasesResponseSubscription: SubscriptionPurchasListResponse): List<Purchase> {
+          purchasesResponseSubscription: SubscriptionPurchaseListResponse): List<Purchase> {
     return purchasesResponseSubscription.items.map { map(packageName, it) }
   }
 
   //TODO this method should be in SubscriptionsResponse mapper
-  //TODO This method does nothing. Needs to me implemented
   fun map(packageName: String,
           subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
-    val developerPurchase = DeveloperPurchase()
-    developerPurchase.packageName = packageName
-    developerPurchase.orderId = subscriptionPurchaseResponse.orderReference
-    developerPurchase.productId = subscriptionPurchaseResponse.sku
-    developerPurchase.purchaseState = 0
-    developerPurchase.purchaseTime = System.currentTimeMillis()
-    developerPurchase.purchaseToken = UUID.randomUUID()
-        .toString()
+    val objectMapper = ObjectMapper()
+    val developerPurchase =
+        objectMapper.readValue(Gson().toJson(subscriptionPurchaseResponse.verification.data),
+            DeveloperPurchase::class.java)
+
     return Purchase(subscriptionPurchaseResponse.uid,
         RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
         subscriptionPurchaseResponse.autoRenewing, Package(packageName),

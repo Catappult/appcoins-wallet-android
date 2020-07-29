@@ -32,9 +32,9 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
         }
   }
 
-  fun getPaymentCompleted(packageName: String, sku: String?,
+  fun getPaymentCompleted(packageName: String, sku: String?, uid: String,
                           billingType: BillingSupportedType): Single<Purchase> {
-    return billing.getSkuPurchase(packageName, sku, Schedulers.io(), billingType)
+    return billing.getSkuPurchase(packageName, sku, uid, Schedulers.io(), billingType)
   }
 
   fun getTransaction(packageName: String, sku: String?,
@@ -51,16 +51,17 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
   private fun map(transaction: Transaction): Observable<RewardPayment> {
     return when (transaction.status) {
       Transaction.Status.PROCESSING -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.PROCESSING))
+          RewardPayment(transaction.orderReference, transaction.txId, Status.PROCESSING))
       Transaction.Status.COMPLETED -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.COMPLETED))
+          RewardPayment(transaction.orderReference, transaction.txId, Status.COMPLETED))
       Transaction.Status.ERROR -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.ERROR, transaction.errorCode,
+          RewardPayment(transaction.orderReference, transaction.txId, Status.ERROR,
+              transaction.errorCode,
               transaction.errorMessage))
       Transaction.Status.FORBIDDEN -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.FORBIDDEN))
+          RewardPayment(transaction.orderReference, transaction.txId, Status.FORBIDDEN))
       Transaction.Status.NO_NETWORK -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.NO_NETWORK))
+          RewardPayment(transaction.orderReference, transaction.txId, Status.NO_NETWORK))
       else -> throw UnsupportedOperationException(
           "Transaction status " + transaction.status + " not supported")
     }

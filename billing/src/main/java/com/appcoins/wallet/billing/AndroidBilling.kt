@@ -25,8 +25,9 @@ class AndroidBilling(private val billing: Billing) {
     return billing.getPurchases(merchantName, type, Schedulers.io())
   }
 
-  fun consumePurchases(purchaseToken: String, merchantName: String): Single<Boolean> {
-    return billing.consumePurchases(merchantName, purchaseToken, Schedulers.io())
+  fun consumePurchases(purchaseToken: String, merchantName: String,
+                       type: BillingSupportedType? = null): Single<Boolean> {
+    return billing.consumePurchases(merchantName, purchaseToken, Schedulers.io(), type)
   }
 
   fun getDeveloperAddress(packageName: String): Single<String> {

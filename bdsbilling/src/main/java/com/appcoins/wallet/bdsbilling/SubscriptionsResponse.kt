@@ -24,7 +24,7 @@ data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
 
 data class Intro(val period: String, val cycles: String, val price: Price)
 
-data class SubscriptionPurchasListResponse(val items: List<SubscriptionPurchaseResponse>)
+data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchaseResponse>)
 
 /**
  * @param verification The subscription purchase verification object, to be used by the in-app seller to cryptographically verify the subscription purchase, in order to acknowledge and activate it.
