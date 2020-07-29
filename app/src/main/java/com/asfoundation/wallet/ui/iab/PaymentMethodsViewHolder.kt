@@ -26,7 +26,7 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     itemView.radio_button.isEnabled = data.isEnabled
 
     handleDescription(data, selected)
-    handleFee(data.fee)
+    handleFee(data.fee, data.isEnabled)
 
     if (data.isEnabled) {
       itemView.setOnClickListener(listener)
@@ -61,14 +61,25 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     }
   }
 
-  private fun handleFee(fee: PaymentMethodFee) {
+  private fun handleFee(fee: PaymentMethodFee, enabled: Boolean) {
     if (fee.active) {
       itemView.payment_method_fee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils.create()
           .formatCurrency(fee.amount, WalletCurrency.FIAT)
-      itemView.payment_method_fee_value.text = "${fee.currency}${formattedValue}"
+      itemView.payment_method_fee_value.text = "$formattedValue ${fee.currency}"
+
+      itemView.payment_method_fee_value.apply {
+        if (enabled) {
+          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.appc_pink))
+          this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        } else {
+          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey_alpha_active_54))
+          this.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+        }
+      }
+
     } else {
-      itemView.payment_method_fee.visibility = View.VISIBLE
+      itemView.payment_method_fee.visibility = View.GONE
     }
   }
 

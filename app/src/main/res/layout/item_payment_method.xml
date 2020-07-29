@@ -100,6 +100,7 @@
         android:id="@+id/payment_method_fee_label"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
+        android:layout_gravity="end"
         android:text="@string/activity_iab_fees"
         android:textColor="@color/top_up_bonus_text"
         android:textSize="11sp"
