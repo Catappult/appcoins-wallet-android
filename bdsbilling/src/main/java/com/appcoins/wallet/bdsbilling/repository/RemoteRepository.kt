@@ -72,9 +72,10 @@ class RemoteRepository(private val inAppApi: BdsApi,
     return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
   }
 
-  internal fun getSkuPurchaseSubs(packageName: String, uid: String): Single<Purchase> {
-    return subsApi.getPurchase(packageName, uid)
-        .map { responseMapper.map(packageName, it) }
+  internal fun getSkuPurchaseSubs(packageName: String, skuId: String?): Single<Purchase> {
+    return subsApi.getPurchases(packageName)
+        .map { it.items.filter { purchase -> purchase.sku == skuId } }
+        .map { responseMapper.map(packageName, it.first()) }
   }
 
   internal fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,

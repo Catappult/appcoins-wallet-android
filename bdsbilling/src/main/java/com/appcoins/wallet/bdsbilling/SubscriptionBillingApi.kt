@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface SubscriptionBillingApi {
 
-  @GET("product/8.20200701/applications/{domain}")
+  @GET("product/8.20200701/applications/{domain}/inapp")
   fun getPackage(@Path("domain") packageName: String): Single<SellerDomain>
 
   @GET("product/8.20200701/applications/{domain}/inapp/subscriptions")

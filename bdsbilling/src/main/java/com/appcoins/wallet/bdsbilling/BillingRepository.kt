@@ -16,7 +16,7 @@ interface BillingRepository {
   fun getSkuDetails(packageName: String, skus: List<String>,
                     type: BillingSupportedType): Single<List<Product>>
 
-  fun getSkuPurchase(packageName: String, skuId: String?, uid: String, walletAddress: String,
+  fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                      walletSignature: String, type: BillingSupportedType): Single<Purchase>
 
   fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,

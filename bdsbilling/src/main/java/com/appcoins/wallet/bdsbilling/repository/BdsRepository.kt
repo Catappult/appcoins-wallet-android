@@ -52,13 +52,13 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     }
   }
 
-  override fun getSkuPurchase(packageName: String, skuId: String?, uid: String,
-                              walletAddress: String, walletSignature: String,
+  override fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
+                              walletSignature: String,
                               type: BillingSupportedType): Single<Purchase> {
     return if (type == BillingSupportedType.INAPP) {
       remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
     } else {
-      remoteRepository.getSkuPurchaseSubs(packageName, uid)
+      remoteRepository.getSkuPurchaseSubs(packageName, skuId)
     }
   }
 

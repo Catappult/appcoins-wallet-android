@@ -326,8 +326,7 @@ public class AsfInAppPurchaseInteractor {
         .flatMap(transaction -> {
           if (transaction.getStatus()
               .equals(Transaction.Status.COMPLETED)) {
-            return billing.getSkuPurchase(packageName, productName, transaction.getUid(),
-                Schedulers.io(), billingType);
+            return billing.getSkuPurchase(packageName, productName, Schedulers.io(), billingType);
           } else {
             return Single.error(new TransactionNotFoundException());
           }

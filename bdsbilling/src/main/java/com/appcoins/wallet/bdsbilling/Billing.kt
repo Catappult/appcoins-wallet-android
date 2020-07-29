@@ -19,7 +19,7 @@ interface Billing {
 
   fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction>
 
-  fun getSkuPurchase(merchantName: String, sku: String?, uid: String, scheduler: Scheduler,
+  fun getSkuPurchase(merchantName: String, sku: String?, scheduler: Scheduler,
                      type: BillingSupportedType): Single<Purchase>
 
   fun getPurchases(merchantName: String, type: BillingSupportedType,

@@ -190,7 +190,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           transaction.status == Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
-    return localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId, transaction.uid,
+    return localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
         transaction.orderReference, transaction.hash, networkScheduler)
         .doOnSuccess {
           analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)

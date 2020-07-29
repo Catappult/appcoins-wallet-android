@@ -32,9 +32,9 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
         }
   }
 
-  fun getPaymentCompleted(packageName: String, sku: String?, uid: String,
+  fun getPaymentCompleted(packageName: String, sku: String?,
                           billingType: BillingSupportedType): Single<Purchase> {
-    return billing.getSkuPurchase(packageName, sku, uid, Schedulers.io(), billingType)
+    return billing.getSkuPurchase(packageName, sku, Schedulers.io(), billingType)
   }
 
   fun getTransaction(packageName: String, sku: String?,
@@ -51,17 +51,16 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
   private fun map(transaction: Transaction): Observable<RewardPayment> {
     return when (transaction.status) {
       Transaction.Status.PROCESSING -> Observable.just(
-          RewardPayment(transaction.orderReference, transaction.txId, Status.PROCESSING))
+          RewardPayment(transaction.orderReference, Status.PROCESSING))
       Transaction.Status.COMPLETED -> Observable.just(
-          RewardPayment(transaction.orderReference, transaction.txId, Status.COMPLETED))
+          RewardPayment(transaction.orderReference, Status.COMPLETED))
       Transaction.Status.ERROR -> Observable.just(
-          RewardPayment(transaction.orderReference, transaction.txId, Status.ERROR,
-              transaction.errorCode,
-              transaction.errorMessage))
+          RewardPayment(transaction.orderReference, Status.ERROR,
+              transaction.errorCode, transaction.errorMessage))
       Transaction.Status.FORBIDDEN -> Observable.just(
-          RewardPayment(transaction.orderReference, transaction.txId, Status.FORBIDDEN))
+          RewardPayment(transaction.orderReference, Status.FORBIDDEN))
       Transaction.Status.NO_NETWORK -> Observable.just(
-          RewardPayment(transaction.orderReference, transaction.txId, Status.NO_NETWORK))
+          RewardPayment(transaction.orderReference, Status.NO_NETWORK))
       else -> throw UnsupportedOperationException(
           "Transaction status " + transaction.status + " not supported")
     }

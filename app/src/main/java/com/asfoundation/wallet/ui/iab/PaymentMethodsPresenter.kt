@@ -183,9 +183,8 @@ class PaymentMethodsPresenter(
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun finishProcess(skuId: String?, uid: String,
-                            billingType: BillingSupportedType): Completable {
-    return billing.getSkuPurchase(appPackage, skuId, uid, networkThread, billingType)
+  private fun finishProcess(skuId: String?, billingType: BillingSupportedType): Completable {
+    return billing.getSkuPurchase(appPackage, skuId, networkThread, billingType)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
         .ignoreElement()
