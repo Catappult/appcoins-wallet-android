@@ -73,8 +73,8 @@ class SmsValidationRepository(
             }
           }
           throwable.code() == 429 -> {
-            //TODO what happens to DOUBLE SPENT?
-            WalletValidationStatus.TOO_MANY_ATTEMPTS
+            if (walletValidationException.status == "TOO_MANY_REQUESTS") WalletValidationStatus.TOO_MANY_ATTEMPTS
+            else WalletValidationStatus.DOUBLE_SPENT
           }
           else -> WalletValidationStatus.GENERIC_ERROR
         }
