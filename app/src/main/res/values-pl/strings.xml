@@ -437,6 +437,8 @@
   <string name="verification_settings_unverified_body">Otrzymuj nagrody i zaproś znajomych</string>
   <string name="verification_settings_verified_title">Portfel zweryfikowany</string>
   <string name="verification_settings_no_internet">Musisz mieć połączenie z internetem</string>
+  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
+  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
   <string name="verified_tag">Verified</string>
   <string name="unferified_tag">Unverified</string>
   <!--Purchase Flow-->
