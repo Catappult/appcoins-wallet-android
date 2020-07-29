@@ -57,9 +57,8 @@ class ValidationLoadingDialogPresenter(
       WalletValidationStatus.DOUBLE_SPENT ->
         activity?.showSuccess()
       WalletValidationStatus.TOO_MANY_ATTEMPTS -> handleError(
-          R.string.unknown_error)//TODO Missing strings
-      WalletValidationStatus.EXPIRED_CODE -> handleError(
-          R.string.unknown_error)//TODO Missing strings
+          R.string.verification_error_attempts_reached)
+      WalletValidationStatus.EXPIRED_CODE -> handleError(R.string.verification_error_time_expired)
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
   }

@@ -96,7 +96,7 @@ class PhoneValidationPresenter(
         logError()
       }
       WalletValidationStatus.TOO_MANY_ATTEMPTS -> showErrorMessage(
-          R.string.verification_insert_phone_field_phone_used_already_error)//TODO Missing strings
+          R.string.verification_error_attempts_reached)
       WalletValidationStatus.INVALID_INPUT,
       WalletValidationStatus.INVALID_PHONE -> {
         showErrorMessage(R.string.verification_insert_phone_field_number_error)

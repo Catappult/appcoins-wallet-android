@@ -157,10 +157,10 @@ class CodeValidationPresenter(
         activity?.showPhoneValidationView(validationInfo.countryCode, validationInfo.phoneNumber,
             R.string.verification_insert_code_error_common)
       WalletValidationStatus.DOUBLE_SPENT -> checkReferralAvailability()
-      WalletValidationStatus.TOO_MANY_ATTEMPTS -> handleError(R.string.unknown_error,
-          validationInfo)//TODO Missing strings
-      WalletValidationStatus.EXPIRED_CODE -> handleError(R.string.unknown_error,
-          validationInfo)//TODO Missing strings
+      WalletValidationStatus.TOO_MANY_ATTEMPTS -> handleError(
+          R.string.verification_error_attempts_reached, validationInfo)
+      WalletValidationStatus.EXPIRED_CODE -> handleError(R.string.verification_error_time_expired,
+          validationInfo)
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error, validationInfo)
       WalletValidationStatus.NO_NETWORK -> {
         view.hideKeyboard()
