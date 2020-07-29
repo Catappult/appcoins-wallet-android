@@ -73,6 +73,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   internal fun getSkuPurchaseSubs(packageName: String, skuId: String?): Single<Purchase> {
+    //TODO add TransactionUid later to return the specific transaction purchase (needs changes on API)
     return subsApi.getPurchases(packageName)
         .map { it.items.filter { purchase -> purchase.sku == skuId } }
         .map { responseMapper.map(packageName, it.first()) }
@@ -104,8 +105,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
         .toSingle { true }
   }
 
-  internal fun consumePurchaseSubs(packageName: String): Single<Boolean> {
-    return subsApi.updatePurchase(packageName, "uid", PurchaseUpdate(PurchaseState.CONSUMED))
+  internal fun consumePurchaseSubs(packageName: String, purchaseToken: String): Single<Boolean> {
+    return subsApi.updatePurchase(packageName, purchaseToken, PurchaseUpdate(PurchaseState.CONSUMED))
         .toSingle { true }
   }
 
