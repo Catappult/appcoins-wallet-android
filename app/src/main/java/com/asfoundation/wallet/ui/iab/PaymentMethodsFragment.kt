@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Pair
 import android.view.KeyEvent
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
@@ -242,6 +244,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_description.text = getPaymentMethodLabel(paymentMethod)
       payment_method_secondary.visibility = View.VISIBLE
       payment_method_description_single.visibility = View.GONE
+      payment_method_fee.visibility = View.GONE
       if (isBonusActive) hideBonus()
     } else {
       payment_method_description.visibility = View.VISIBLE
@@ -249,8 +252,25 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_secondary.visibility = View.GONE
       payment_method_description_single.visibility = View.GONE
       if (isBonusActive) showBonus()
+      setupFee(paymentMethod.fee)
     }
     loadIcons(paymentMethod, payment_method_ic)
+  }
+
+  private fun setupFee(fee: PaymentMethodFee) {
+    if (fee.active) {
+      payment_method_fee.visibility = View.VISIBLE
+      val formattedValue = CurrencyFormatUtils.create()
+          .formatCurrency(fee.amount, WalletCurrency.FIAT)
+      payment_method_fee_value.text = "$formattedValue ${fee.currency}"
+
+      payment_method_fee_value.apply {
+        this.setTextColor(ContextCompat.getColor(requireContext(), R.color.appc_pink))
+        this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+      }
+    } else {
+      payment_method_fee.visibility = View.GONE
+    }
   }
 
   private fun loadIcons(paymentMethod: PaymentMethod, view: ImageView?) {

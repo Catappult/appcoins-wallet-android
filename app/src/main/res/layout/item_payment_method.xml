@@ -81,7 +81,7 @@
       app:layout_constraintBottom_toBottomOf="@id/payment_method_description"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="@id/payment_method_description"
+      app:layout_constraintStart_toEndOf="@id/payment_method_description"
       app:layout_constraintTop_toTopOf="@+id/payment_method_description"
       tools:visibility="visible"
       >
