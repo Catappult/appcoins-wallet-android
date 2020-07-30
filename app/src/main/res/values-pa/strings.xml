@@ -204,7 +204,7 @@
   <string name="activity_iab_approving_message">ਸਾਰੇ ਵੇਰਵਿਆਂ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ: ਬਚੀ ਰਕਮ, ਚੀਜ਼ਾਂ, ਨੈਟਵਰਕ…</string>
   <string name="activity_iab_buying_message">ਵੇਰਵੇ ਚੈੱਕ ਕੀਤੇ ਗਏ \nਤੁਹਾਡੀ ਆਈਟਮ ਪ੍ਰਾਪਤ ਹੋ ਰਹੀ ਹੈ…</string>
   <string name="activity_iab_change_card">ਕਾਰਡ ਬਦਲੋ</string>
-  <string name="activity_iab_fees">Fees</string>
+  <string name="activity_iab_fees">ਫੀਸ</string>
   <string name="notification_ongoing_poa">ਤੁਹਾਡੇ ਇਨਾਮ ਦੀ ਪ੍ਰੋਸੈਸਿੰਗ ਹੋ ਰਹੀ ਹੈ</string>
   <string name="notification_completed_poa">ਇਨਾਮ ਮਿਲਿਆ!👌 ਹੋਰ ਇਨਾਮ ਜਿੱਤਣ ਲਈ ਤੁਹਾਨੂੰ %1$sh%2$sm ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ ⏰!</string>
   <string name="notification_poa_limit_reached">ਤੁਸੀਂ ਆਪਣੀ ਰੋਜ਼ਾਨਾ ਇਨਾਮਾਂ ਦੀ ਸੀਮਾ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ| ⏰ %1$sh%2$sm ਬਾਦ ਵਾਪਸ ਆਓ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
@@ -244,8 +244,8 @@
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
   <string name="dialog_credit_card_expiration">ਐਕਸਪਾਈਰੀ ਦੀ ਤਾਰੀਖ</string>
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
-  <string name="dialog_expiry_date">Expiry date</string>
+  <string name="dialog_bank_card">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ</string>
+  <string name="dialog_expiry_date">ਆਖਰੀ ਤਾਰੀਖ</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
   <string name="activity_airdrop_hint">ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਸ਼ਬਦਾਂ ਨੂੰ ਟਾਈਪ ਕਰੋ</string>
@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">ਸੁਰੱਖਿਆ ਲਈ ਸਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਇੱਕ ਐਸਐਮਐਸ ਕੋਡ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="verification_insert_phone_title">ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਭਰੋ</string>
   <string name="verification_insert_phone_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ! ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਤਸਦੀਕ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
-  <string name="verification_insert_phone_field_country">Region</string>
+  <string name="verification_insert_phone_field_country">ਖੇਤਰ</string>
   <string name="verification_insert_phone_field_number">ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_number_error">ਗਲਤ ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_region_error">ਇਹ ਜਗ੍ਹਾ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ</string>
@@ -437,19 +437,19 @@
   <string name="verification_settings_unverified_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ ਅਤੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
   <string name="verification_settings_verified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
   <string name="verification_settings_no_internet">ਤੁਹਾਨੂੰ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ</string>
-  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
-  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
-  <string name="verified_tag">Verified</string>
-  <string name="unferified_tag">Unverified</string>
+  <string name="verification_error_time_expired">ਓਹ ਹੋ, ਤੁਹਾਡਾ ਸਮਾਂ ਖਤਮ ਹੋ ਗਿਆ ਹੈ| ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ!</string>
+  <string name="verification_error_attempts_reached">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕੋਸ਼ਿਸ਼ਾਂ ਦੀ ਸੀਮਾ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ|. ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਉਡੀਕ ਕਰੋ ਜੀ|</string>
+  <string name="verified_tag">ਪ੍ਰਮਾਣਿਤ</string>
+  <string name="unferified_tag">ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ਇੰਝ ਲਗਦਾ ਹੈ ਕਿ ਖਰੀਦ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਪ੍ਰੋਸੈਸ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਪੂਰੀ ਹੋਣ ਤੱਕ ਰੁਕੋ ਜਾਂ ਸਾਡੀ ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_more_payment_methods_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
   <string name="purchase_appcoins_available_body">ਫ਼ੀਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਥੋੜ੍ਹੇ ਜਿਹੇ ਈਥਰ ਦਾ ਇਸਤੇਮਾਲ ਕਰੋਗੇ|</string>
   <string name="purchase_appcoins_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਜਾਂ ਈਥਰ ਨਹੀਂ ਹੈ|</string>
-  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
-  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
+  <string name="purchase_no_eth_body">ਤੁਹਾਡੇ ਕੋਲ ਗੈਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਈਟੀਐਚ ਨਹੀਂ ਹੈ|</string>
+  <string name="purchase_no_appcoins_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਲੋੜੀਂਦੇ ਐਪ ਸਿੱਕੇ ਨਹੀਂ ਹਨ</string>
   <string name="purchase_appcoins_credits_available_body">ਕੋਈ ਫੀਸ ਨਹੀਂ ਅਤੇ ਬਿਜਲੀ ਵਾਂਗ ਤੇਜ਼!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨਹੀਂ ਹਨ, ਸਿੱਕੇ ਭਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="purchase_appcoins_credits_default_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਲਏ| ਆਨੰਦ ਮਾਣੋ!</string>
   <string name="purchase_poa_item">ਐਪਾਂ ਇਸਤੇਮਾਲ ਕਰ ਕੇ ਪੂੰਜੀ ਕਮਾਓ</string>
   <string name="purchase_poa_body">ਇੱਕ ਐਪ 2 ਮਿੰਟ ਲਈ ਵਰਤੋ ਅਤੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!</string>
@@ -470,7 +470,7 @@
   <string name="purchase_card_error_security">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਸੁਰੱਖਿਆ ਜਾਣਕਾਰੀ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_wallet_error_contact_us">ਓਹ ਹੋ, ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
-  <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
+  <string name="purchase_carrier_error">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <!--Async Payments-->
@@ -711,13 +711,13 @@
   <string name="gamif_distance_unkown">ਅਣਜਾਣ ਸਥਾਨ</string>
   <string name="gamif_placeholder_new_planet">ਇਕ ਨਵਾਂ ਗ੍ਰਹਿ</string>
   <!--Carrier Billing-->
-  <string name="carrier_billing_payment_method_title">Carrier billing</string>
-  <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
-  <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
-  <string name="carrier_billing_phone_field">Your phone number...</string>
-  <string name="carrier_billing_carrier_fees_body">%1$s will charge a fee of %2$s</string>
-  <string name="carrier_billing_purchase_info_body">%1$s in %2$s.</string>
-  <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
+  <string name="carrier_billing_payment_method_title">ਕੈਰੀਅਰ ਬਿਲਿੰਗ</string>
+  <string name="carrier_billing_fees_disclaimer">ਵਾਧੂ ਫੀਸ ਲਾਗੂ ਹੋ ਸਕਦੀ ਹੈ</string>
+  <string name="carrier_billing_insert_phone_body">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਪਾਓ</string>
+  <string name="carrier_billing_phone_field">ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s ਫੀਸ %2$s ਲਵੇਗਾ</string>
+  <string name="carrier_billing_purchase_info_body">%2$s ਵਿੱਚ %1$s|</string>
+  <string name="carrier_billing_phone_confirmation_body">ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ %s ਹੈ|</string>
   <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
   <string name="carrier_billing_code_field">Your code...</string>
   <string name="carrier_billing_code_resend_button">RESEND CODE</string>
