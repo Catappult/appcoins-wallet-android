@@ -8,9 +8,7 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.*
 import io.reactivex.schedulers.Schedulers
 
 class BillingService : Service() {
@@ -30,7 +28,8 @@ class BillingService : Service() {
         object : BillingFactory {
           override fun getBilling(): Billing {
             return BdsBilling(BdsRepository(
-                RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+                RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
+                    SubscriptionsMapper(), InAppMapper()),
                     dependenciesProvider.bdsApiSecondary(),
                     dependenciesProvider.subscriptionBillingService())),
                 dependenciesProvider.walletService(),

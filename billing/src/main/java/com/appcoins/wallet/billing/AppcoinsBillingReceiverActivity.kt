@@ -11,10 +11,7 @@ import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Scheduler
@@ -53,7 +50,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val bdsBilling = BdsBilling(
-        BdsRepository(RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+        BdsRepository(RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
+            SubscriptionsMapper(), InAppMapper()),
             dependenciesProvider.bdsApiSecondary(),
             dependenciesProvider.subscriptionBillingService())),
         dependenciesProvider.walletService(), BillingThrowableCodeMapper())

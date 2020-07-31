@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
@@ -102,7 +99,8 @@ class RepositoryModule {
   @Provides
   fun provideRemoteRepository(subscriptionBillingApi: SubscriptionBillingApi,
                               bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api, subscriptionBillingApi)
+    return RemoteRepository(bdsApi, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()), api,
+        subscriptionBillingApi)
   }
 
   @Singleton
