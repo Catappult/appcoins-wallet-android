@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.dialog_buy_buttons.view.*
 import kotlinx.android.synthetic.main.iab_update_required_layout.*
 import javax.inject.Inject
 
-class IabUpdateRequiredFragment : DaggerFragment(), IabUpdateRequiredView {
+class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView {
 
   private lateinit var presenter: IabUpdateRequiredPresenter
   private lateinit var iabView: IabView

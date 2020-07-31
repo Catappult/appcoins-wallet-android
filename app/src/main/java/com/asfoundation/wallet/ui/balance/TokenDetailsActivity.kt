@@ -22,6 +22,10 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   private lateinit var token: TokenDetailsId
   private lateinit var presenter: TokenDetailsPresenter
 
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
+  }
 
   enum class TokenDetailsId {
     ETHER, APPC, APPC_CREDITS

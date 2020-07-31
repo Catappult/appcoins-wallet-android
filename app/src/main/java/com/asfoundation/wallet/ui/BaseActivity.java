@@ -10,6 +10,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.App;
+import com.asfoundation.wallet.billing.analytics.PageViewAnalytics;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.ArrayList;
@@ -19,9 +21,11 @@ import org.jetbrains.annotations.NotNull;
 public abstract class BaseActivity extends AppCompatActivity implements ActivityResultSharer {
 
   private List<ActivityResultListener> activityResultListeners;
+  private PageViewAnalytics pageViewAnalytics;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     activityResultListeners = new ArrayList<>();
+    pageViewAnalytics = new PageViewAnalytics(((App) getApplication()).analyticsManager);
     super.onCreate(savedInstanceState);
     Window window = getWindow();
 
@@ -30,6 +34,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
 
     // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+  }
+
+  protected void sendPageViewEvent() {
+    pageViewAnalytics.sendPageViewEvent(getClass().getSimpleName());
   }
 
   protected Toolbar toolbar() {

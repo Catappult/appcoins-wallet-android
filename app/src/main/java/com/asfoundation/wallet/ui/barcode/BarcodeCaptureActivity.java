@@ -33,9 +33,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.camera.CameraSource;
 import com.asfoundation.wallet.ui.camera.CameraSourcePreview;
 import com.google.android.gms.common.ConnectionResult;
@@ -46,7 +46,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
-public final class BarcodeCaptureActivity extends AppCompatActivity
+public final class BarcodeCaptureActivity extends BaseActivity
     implements BarcodeTracker.BarcodeGraphicTrackerCallback {
 
   // Constants used to pass extra data in the intent
@@ -185,6 +185,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   @Override protected void onResume() {
     super.onResume();
     startCameraSource();
+    sendPageViewEvent();
   }
 
   /**
@@ -212,10 +213,10 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
         // we have permission, so create the camerasource
         createCameraSource(AUTO_FOCUS, USE_FLASH);
       } else {
-        Log.e(TAG, "Permission not granted: results len = "
-            + grantResults.length
-            + " Result code = "
-            + grantResults[0]);
+        Log.e(TAG, "Permission not granted: results len = " + grantResults.length);
+        if (grantResults.length > 0) {
+          Log.e(TAG, " Result code = " + grantResults[0]);
+        }
         DialogInterface.OnClickListener listener = (dialog, id) -> finish();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.no_camera_permission)

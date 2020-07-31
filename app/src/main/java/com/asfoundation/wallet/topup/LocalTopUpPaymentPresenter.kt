@@ -98,7 +98,7 @@ class LocalTopUpPaymentPresenter(
         .filter { !waitingResult && it.isNotEmpty() }
         .observeOn(viewScheduler)
         .doOnSuccess {
-          analytics.sendConfirmationEvent(data.appcValue.toDouble(), paymentId)
+          analytics.sendConfirmationEvent(data.appcValue.toDouble(), "top_up", paymentId)
           navigator.navigateToUriForResult(it)
           waitingResult = true
         }

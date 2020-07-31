@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerificationView {
+class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsVerificationView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils

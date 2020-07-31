@@ -38,6 +38,11 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
     presenter.present()
   }
 
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
+  }
+
   override fun copyClick() = RxView.clicks(copy_button)
 
   override fun shareClick() = RxView.clicks(share_button)

@@ -226,7 +226,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                        index: Int): AppCompatRadioButton {
     val radioButton = activity!!.layoutInflater.inflate(R.layout.payment_radio_button,
         null) as AppCompatRadioButton
-    radioButton.text = paymentMethod.label
+    radioButton.text = getPaymentMethodLabel(paymentMethod)
     radioButton.id = index
     loadIcons(paymentMethod, radioButton, false)
     return radioButton
@@ -270,6 +270,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     fiat_price.visibility = View.VISIBLE
   }
 
+  private fun getPaymentMethodLabel(paymentMethod: PaymentMethod): String {
+    return TranslatablePaymentMethods.values()
+        .firstOrNull { it.paymentMethod == paymentMethod.id }
+        ?.let { getString(it.stringId) } ?: paymentMethod.label
+  }
+
   override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                             currency: String, fiatAmount: String,
                                             appcAmount: String, isBonusActive: Boolean) {
@@ -289,13 +295,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     mid_separator?.visibility = View.INVISIBLE
     if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
       payment_method_description.visibility = View.VISIBLE
-      payment_method_description.text = paymentMethod.label
+      payment_method_description.text = getPaymentMethodLabel(paymentMethod)
       payment_method_secondary.visibility = View.VISIBLE
       payment_method_description_single.visibility = View.GONE
       if (isBonusActive) hideBonus()
     } else {
       payment_method_description.visibility = View.VISIBLE
-      payment_method_description.text = paymentMethod.label
+      payment_method_description.text = getPaymentMethodLabel(paymentMethod)
       payment_method_secondary.visibility = View.GONE
       payment_method_description_single.visibility = View.GONE
       if (isBonusActive) showBonus()

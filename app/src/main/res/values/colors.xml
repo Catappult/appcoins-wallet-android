@@ -97,6 +97,8 @@
   <color name="edit_text_border">@color/appc_pink</color>
   <color name="edit_text_label">@color/appc_pink</color>
 
+  <color name="adyen_3DS_color">#111B3B</color>
+
   <!-- Skeletons -->
 
   <color name="skeleton_dark_base_color">#5cd8d8d8</color>

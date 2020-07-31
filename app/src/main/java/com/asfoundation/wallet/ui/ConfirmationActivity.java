@@ -197,5 +197,6 @@ public class ConfirmationActivity extends BaseActivity {
     if (transactionBuilder != null) {
       viewModel.init(transactionBuilder);
     }
+    sendPageViewEvent();
   }
 }
