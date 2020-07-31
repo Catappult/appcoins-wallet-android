@@ -60,6 +60,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private var waitingResult = false
   private var currentError: Int = 0
   private var cachedUid = ""
+  private var cachedPaymentData: String? = null
   private var retrievedAmount = amount
   private var retrievedCurrency = currency
 
@@ -270,7 +271,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .throttleLast(2, TimeUnit.SECONDS)
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!, it.paymentData)
+          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!,
+              it.paymentData ?: cachedPaymentData)
         }
         .observeOn(viewScheduler)
         .flatMapCompletable {
@@ -421,6 +423,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     outState.putString(UID, cachedUid)
     outState.putString(RETRIEVED_AMOUNT, retrievedAmount)
     outState.putString(RETRIEVED_CURRENCY, retrievedCurrency)
+    outState.putString(PAYMENT_DATA, cachedPaymentData)
   }
 
   private fun retrieveSavedInstance(savedInstanceState: Bundle?) {
@@ -428,6 +431,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       waitingResult = it.getBoolean(WAITING_RESULT)
       currentError = it.getInt(CURRENT_ERROR)
       cachedUid = it.getString(UID, "")
+      cachedPaymentData = it.getString(PAYMENT_DATA)
       retrievedAmount = it.getString(RETRIEVED_AMOUNT, amount)
       retrievedCurrency = it.getString(RETRIEVED_CURRENCY, currency)
     }
@@ -448,6 +452,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     if (paymentModel.action != null) {
       val type = paymentModel.action?.type
       if (type == REDIRECT) {
+        cachedPaymentData = paymentModel.paymentData
         cachedUid = paymentModel.uid
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
@@ -492,6 +497,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     private const val RETRIEVED_AMOUNT = "RETRIEVED_AMOUNT"
     private const val RETRIEVED_CURRENCY = "RETRIEVED_CURRENCY"
     private const val UID = "UID"
+    private const val PAYMENT_DATA = "payment_data"
     private const val HTTP_FRAUD_CODE = 403
     private const val CHALLENGE_CANCELED = "Challenge canceled."
     private val TAG = AdyenTopUpPresenter::class.java.name
