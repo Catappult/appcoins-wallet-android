@@ -244,13 +244,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     payment_method_description_single.visibility = View.GONE
     if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
       payment_method_secondary.visibility = View.VISIBLE
-      payment_method_fee.visibility = View.GONE
       if (isBonusActive) hideBonus()
     } else {
       payment_method_secondary.visibility = View.GONE
       if (isBonusActive) showBonus()
-      setupFee(paymentMethod.fee)
     }
+    setupFee(paymentMethod.fee)
     loadIcons(paymentMethod, payment_method_ic)
   }
 
