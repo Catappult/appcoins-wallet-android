@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/content_main"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/mid_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <TextView
+        android:id="@+id/phone_validation_title"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/verification_insert_phone_title"
+        android:textColor="@color/color_title"
+        app:layout_constraintEnd_toStartOf="@+id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/phone_validation_subtitle"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/referral_verification_body"
+        android:textColor="#727272"
+        app:layout_constraintEnd_toStartOf="@+id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_validation_title"
+        />
+
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:ccpDialog_backgroundColor="#FAFAFA"
+        app:ccpDialog_textColor="#000000"
+        app:ccp_arrowColor="@color/colorAccent"
+        app:ccp_arrowSize="30dp"
+        app:ccp_autoDetectCountry="true"
+        app:ccp_textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phone_number_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/verification_insert_phone_field_number"
+        android:theme="@style/TextInputLayoutAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/ccp"
+        >
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/phone_number"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+          android:inputType="phone"
+          android:maxLines="1"
+          android:textColor="#000000"
+          android:textSize="16sp"
+          />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/disclaimer_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_layout"
+        >
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="3dp"
+          app:srcCompat="@drawable/ic_info_grey"
+          />
+
+      <TextView
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="start"
+          android:text="@string/verification_insert_phone_security_disclaimer"
+          android:textSize="10sp"
+          />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_button"
+        style="@style/ButtonStyle.Alternative"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:minWidth="169dp"
+        android:text="@string/action_next"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cancel_button"
+        app:layout_constraintTop_toBottomOf="@id/disclaimer_layout"
+        />
+
+    <Button
+        android:id="@+id/cancel_button"
+        style="@style/CancelBorderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height"
+        android:minWidth="169dp"
+        android:text="@string/do_it_later_button"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/next_button"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/mid_guideline"
+        app:layout_constraintTop_toTopOf="@id/next_button"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <include
+      android:id="@+id/layout_validation_no_internet"
+      layout="@layout/layout_validation_no_internet"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:layout_marginBottom="8dp"
+      android:visibility="gone"
+      />
+
+</RelativeLayout>
