@@ -65,11 +65,12 @@
         android:layout_height="50dp"
         android:layout_marginStart="63dp"
         android:layout_marginEnd="56dp"
-        app:ccpDialog_backgroundColor="#FAFAFA"
+        app:ccpDialog_background="@drawable/ccp_background"
         app:ccpDialog_textColor="#000000"
         app:ccp_arrowColor="@color/colorAccent"
         app:ccp_arrowSize="30dp"
         app:ccp_autoDetectCountry="true"
+        app:ccp_padding="0dp"
         app:ccp_textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -184,8 +185,8 @@
       layout="@layout/layout_validation_no_internet"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="8dp"
       android:layout_centerInParent="true"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
       />
 

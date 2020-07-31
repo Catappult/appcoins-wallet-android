@@ -28,34 +28,17 @@
       app:layout_constraintTop_toBottomOf="@id/wallet_validation_toolbar"
       >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/start_guideline"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.35"
-          />
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/end_guideline"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.65"
-          />
 
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/validation_progress_animation"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
+          android:layout_width="match_parent"
+          android:layout_height="32dp"
+          android:layout_marginTop="16dp"
           android:scaleType="centerInside"
-          app:layout_constraintEnd_toStartOf="@id/end_guideline"
-          app:layout_constraintStart_toEndOf="@id/start_guideline"
-          app:layout_constraintTop_toTopOf="parent"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_rawRes="@raw/validation_progress"
           />
@@ -63,14 +46,12 @@
       <FrameLayout
           android:id="@+id/fragment_container"
           android:layout_width="match_parent"
-          android:layout_height="0dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/validation_progress_animation"
+          android:layout_height="match_parent"
+          android:layout_below="@id/validation_progress_animation"
+          android:layout_marginTop="16dp"
           />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
   </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
