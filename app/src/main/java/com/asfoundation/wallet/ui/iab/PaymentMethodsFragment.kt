@@ -239,18 +239,15 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                  isBonusActive: Boolean) {
     isPreSelected = true
     mid_separator?.visibility = View.INVISIBLE
+    payment_method_description.visibility = View.VISIBLE
+    payment_method_description.text = getPaymentMethodLabel(paymentMethod)
+    payment_method_description_single.visibility = View.GONE
     if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
-      payment_method_description.visibility = View.VISIBLE
-      payment_method_description.text = getPaymentMethodLabel(paymentMethod)
       payment_method_secondary.visibility = View.VISIBLE
-      payment_method_description_single.visibility = View.GONE
       payment_method_fee.visibility = View.GONE
       if (isBonusActive) hideBonus()
     } else {
-      payment_method_description.visibility = View.VISIBLE
-      payment_method_description.text = getPaymentMethodLabel(paymentMethod)
       payment_method_secondary.visibility = View.GONE
-      payment_method_description_single.visibility = View.GONE
       if (isBonusActive) showBonus()
       setupFee(paymentMethod.fee)
     }
@@ -260,8 +257,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun setupFee(fee: PaymentMethodFee) {
     if (fee.active) {
       payment_method_fee.visibility = View.VISIBLE
-      val formattedValue = CurrencyFormatUtils.create()
-          .formatCurrency(fee.amount, WalletCurrency.FIAT)
+      val formattedValue = formatter.formatCurrency(fee.amount, WalletCurrency.FIAT)
       payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       payment_method_fee_value.apply {
