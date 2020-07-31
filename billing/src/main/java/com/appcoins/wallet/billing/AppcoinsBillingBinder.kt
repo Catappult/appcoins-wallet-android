@@ -167,9 +167,14 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         getDeveloperAddress,
         Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
+            val product = skuDetails[0]
+            val intro = product.introductoryPrice
+            val introPrice = intro?.let { BigDecimal(it.price.appcoinsAmount) }
             intentBuilder.buildBuyIntentBundle(tokenContractAddress, iabContractAddress,
-                developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
-                BigDecimal(skuDetails[0].price.appcoinsAmount), skuDetails[0].title)
+                developerPayload, true, packageName, developerAddress, product.sku,
+                BigDecimal(product.price.appcoinsAmount), product.title, product.billingType,
+                product.subscriptionPeriod, product.trialPeriod, introPrice, intro?.period,
+                intro?.cycles)
           } catch (exception: Exception) {
             if (skuDetails.isEmpty()) {
               billingMessagesMapper.mapBuyIntentError(

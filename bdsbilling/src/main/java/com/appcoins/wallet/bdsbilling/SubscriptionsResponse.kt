@@ -22,7 +22,7 @@ data class Price(val currency: String, val value: BigDecimal, val label: String,
 
 data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
 
-data class Intro(val period: String, val cycles: String, val price: Price)
+data class Intro(val period: String, val cycles: Int, val price: Price)
 
 data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchaseResponse>)
 

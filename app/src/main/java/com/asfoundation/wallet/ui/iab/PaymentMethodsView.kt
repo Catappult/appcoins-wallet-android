@@ -9,12 +9,11 @@ import java.math.BigDecimal
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                          currency: String, paymentMethodId: String, fiatAmount: String,
-                         appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
-                         frequency: String?)
+                         appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                    currency: String, fiatAmount: String,
-                                   appcAmount: String, isBonusActive: Boolean, frequency: String?)
+                                   appcAmount: String, isBonusActive: Boolean)
 
   fun showError(message: Int)
 
@@ -44,9 +43,8 @@ interface PaymentMethodsView {
 
   fun showPaypal(gamificationLevel: Int)
 
-  fun showAdyen(fiatValue: FiatValue,
-                paymentType: PaymentType,
-                iconUrl: String?, gamificationLevel: Int)
+  fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
+                gamificationLevel: Int)
 
   fun showCreditCard(gamificationLevel: Int)
 
@@ -73,6 +71,7 @@ interface PaymentMethodsView {
 
   fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
                          disabledReasonCredits: Int?)
+
   fun showSubscribe()
 
   fun lockRotation()

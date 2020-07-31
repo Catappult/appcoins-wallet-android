@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 enum class BillingSupportedType {
-  INAPP, INAPP_UNMANAGED, SUBS, SUBS_UNMANAGED, DONATION;
+  INAPP, INAPP_UNMANAGED, INAPP_SUBSCRIPTION, SUBS_UNMANAGED, DONATION;
 
 
   companion object {
@@ -20,7 +20,7 @@ enum class BillingSupportedType {
     @JvmStatic
     fun valueOfProductType(value: String): BillingSupportedType {
       val type = valueOfInsensitive(value)
-      if (type == INAPP || type == SUBS) {
+      if (type == INAPP || type == INAPP_SUBSCRIPTION) {
         return type
       } else {
         throw IllegalArgumentException(Throwable("$value is not a product type supported"))
@@ -32,8 +32,8 @@ enum class BillingSupportedType {
         INAPP_UNMANAGED -> INAPP
         DONATION -> INAPP
         INAPP -> INAPP
-        SUBS_UNMANAGED -> SUBS
-        SUBS -> SUBS
+        SUBS_UNMANAGED -> INAPP_SUBSCRIPTION
+        INAPP_SUBSCRIPTION -> INAPP_SUBSCRIPTION
       }
     }
   }

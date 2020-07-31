@@ -63,20 +63,17 @@ public class EIPTransactionParser {
             return Single.error(new UnknownTokenException());
           }
         })
-        .map(tokenInfo -> new TransactionBuilder(tokenInfo.symbol, getIabContractAddress(payment),
-            payment.getChainId(), getReceiverAddress(payment),
-            getTokenTransferAmount(payment, tokenInfo.decimals), getSkuId(payment),
-            tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
-            getDomain(payment), getPayload(payment), null, getOrderReference(payment),
-            null).shouldSendToken(true));
-  }
-
-  private String getOrigin(ERC681 payment) {
-    return retrieveData(payment).getOrigin();
-  }
-
-  private String getOrderReference(ERC681 payment) {
-    return retrieveData(payment).getOrderReference();
+        .map(tokenInfo -> {
+          TransactionData data = retrieveData(payment);
+          return new TransactionBuilder(tokenInfo.symbol, getIabContractAddress(payment),
+              payment.getChainId(), getReceiverAddress(payment),
+              getTokenTransferAmount(payment, tokenInfo.decimals), data.getSkuId(),
+              tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
+              data.getDomain(), data.getPayload(), null, data.getOrderReference(), null,
+              data.getPeriod(), data.getTrialPeriod(),
+              getIntroAppcAmount(data.getIntroAppcAmount(), tokenInfo.decimals),
+              data.getIntroPeriod(), data.getIntroCycles()).shouldSendToken(true);
+        });
   }
 
   private String getIabContract(ERC681 payment) {
@@ -98,22 +95,6 @@ public class EIPTransactionParser {
     } else {
       return TransactionType.ETH;
     }
-  }
-
-  private String getSkuId(ERC681 payment) {
-    return retrieveData(payment).getSkuId();
-  }
-
-  private String getType(ERC681 payment) {
-    return retrieveData(payment).getType();
-  }
-
-  private String getDomain(ERC681 payment) {
-    return retrieveData(payment).getDomain();
-  }
-
-  private String getPayload(ERC681 payment) {
-    return retrieveData(payment).getPayload();
   }
 
   private TransactionData retrieveData(ERC681 payment) {
@@ -152,6 +133,13 @@ public class EIPTransactionParser {
     } catch (NumberFormatException ex) {
       return BigDecimal.ZERO;
     }
+  }
+
+  private BigDecimal getIntroAppcAmount(String introAppcAmount, int decimals) {
+    if (introAppcAmount != null) {
+      return convertToMainMetric(new BigDecimal(introAppcAmount), decimals);
+    }
+    return null;
   }
 
   private String getReceiverAddress(ERC681 payment) {

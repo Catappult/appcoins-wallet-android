@@ -21,6 +21,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.mapToSubFrequency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -570,7 +571,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     var fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
         .plus(" $currency")
     if (isSubscription && frequency != null) {
-      fiatText += "/$frequency"
+      frequency?.mapToSubFrequency(context, fiatAmount.toString(), currency)
+          ?.let { fiatText = it }
       appcText = "~$appcText"
     }
     fiat_price.text = fiatText

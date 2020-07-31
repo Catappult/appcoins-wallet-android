@@ -6,10 +6,12 @@ data class Product(
     val description: String,
     val price: Price,
     val billingType: String,
-    val subscriptionPeriod: String? = null,
-    val trialPeriod: String? = null,
-    val introductoryPrice: Price? = null
+    val subscriptionPeriod: String? = null, //Subs only
+    val trialPeriod: String? = null, //Subs only
+    val introductoryPrice: Intro? = null //Subs only
 )
+
+data class Intro(val period: String, val cycles: Int, val price: Price)
 
 data class Price(val base: String?,
                  val appcoinsAmount: Double,

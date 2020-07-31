@@ -159,6 +159,6 @@ class AdyenPaymentInteractor(
   }
 
   private fun isManagedTransaction(type: BillingSupportedType): Boolean {
-    return type == BillingSupportedType.INAPP || type == BillingSupportedType.SUBS
+    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
   }
 }

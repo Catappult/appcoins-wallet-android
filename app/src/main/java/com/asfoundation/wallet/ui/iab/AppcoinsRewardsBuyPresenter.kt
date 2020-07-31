@@ -195,6 +195,6 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   }
 
   private fun isManagedPaymentType(type: String): Boolean {
-    return type == "INAPP" || type == "SUBS"
+    return type == BillingSupportedType.INAPP.name || type == BillingSupportedType.INAPP_SUBSCRIPTION.name
   }
 }

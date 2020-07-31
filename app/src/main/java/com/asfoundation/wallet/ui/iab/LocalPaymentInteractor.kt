@@ -92,7 +92,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   private fun isManagedType(type: BillingSupportedType): Boolean {
-    return type == BillingSupportedType.INAPP || type == BillingSupportedType.SUBS
+    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
   }
 
   fun showSupport(gamificationLevel: Int): Completable {

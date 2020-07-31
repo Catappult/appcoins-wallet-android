@@ -25,7 +25,7 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
                 transferParser.parse(data)
                     .map { transactionBuilder ->
                       var callingPackage = transactionBuilder.domain
-                      if (callingPackage == null) callingPackage = view.callingPackage
+                      if (callingPackage == null) callingPackage = view.getCallingPackage()
                       transactionBuilder.domain = callingPackage
                       transactionBuilder
                     }

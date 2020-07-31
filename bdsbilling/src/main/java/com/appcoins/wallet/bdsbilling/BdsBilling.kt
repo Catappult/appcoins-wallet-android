@@ -22,7 +22,7 @@ class BdsBilling(private val repository: BillingRepository,
   }
 
   override fun isSubsSupported(merchantName: String): Single<Billing.BillingSupportType> {
-    return repository.isSupported(merchantName, BillingSupportedType.SUBS)
+    return repository.isSupported(merchantName, BillingSupportedType.INAPP_SUBSCRIPTION)
         .map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
@@ -93,6 +93,6 @@ class BdsBilling(private val repository: BillingRepository,
       if (it) Billing.BillingSupportType.SUPPORTED else Billing.BillingSupportType.MERCHANT_NOT_FOUND
 
   private fun isManagedType(billingSupportedType: BillingSupportedType): Boolean {
-    return billingSupportedType == BillingSupportedType.INAPP || billingSupportedType == BillingSupportedType.SUBS
+    return billingSupportedType == BillingSupportedType.INAPP || billingSupportedType == BillingSupportedType.INAPP_SUBSCRIPTION
   }
 }

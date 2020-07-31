@@ -41,6 +41,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.mapToSubFrequency
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -341,7 +342,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showProductPrice(amount: String, currencyCode: String) {
     var fiatText = "$amount $currencyCode"
     if (isSubscription && frequency != null) {
-      fiatText = "$fiatText/$frequency"
+      frequency?.mapToSubFrequency(context, amount, currency)
+          ?.let { fiatText = it }
       appc_price.text = "~${appc_price.text}"
     }
     fiat_price.text = fiatText
@@ -572,7 +574,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
         buy_button.setText(R.string.action_donate)
       }
-      transactionType.equals(TransactionData.TransactionType.SUBS.name, ignoreCase = true) -> {
+      transactionType.equals(TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
+          ignoreCase = true) -> {
         buy_button.text = "Subscribe"
       }
       else -> {

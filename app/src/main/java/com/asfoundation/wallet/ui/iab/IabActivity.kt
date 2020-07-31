@@ -213,18 +213,20 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showPaymentMethodsView() {
-    val isDonation = TransactionData.TransactionType.DONATION.name
-        .equals(transaction?.type, ignoreCase = true)
-    val isSubscription = true
-    //TransactionData.TransactionType.SUBS.name.equals(transaction?.type, ignoreCase = true)
+    val isDonation =
+        TransactionData.TransactionType.DONATION.name.equals(transaction?.type, ignoreCase = true)
+    val isSubscription =
+        TransactionData.TransactionType.INAPP_SUBSCRIPTION.name.equals(transaction?.type,
+            ignoreCase = true)
     presenter.handlePurchaseStartAnalytics(transaction)
+
     layout_error.visibility = View.GONE
     fragment_container.visibility = View.VISIBLE
+
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            intent.extras!!
-                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
-            intent.dataString, isSubscription, "Month"))//TODO remove hardcoded frequency
+            intent.extras!!.getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            isSubscription, transaction?.period))
         .commit()
   }
 
@@ -367,7 +369,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,
-                  isBds: Boolean?, developerPayload: String?): Intent {
+                  isBds: Boolean, developerPayload: String?): Intent {
       return Intent(activity, IabActivity::class.java)
           .apply {
             data = previousIntent.data

@@ -22,6 +22,7 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.mapToSubFrequency
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
@@ -59,10 +60,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
     @JvmStatic
     fun newInstance(transaction: TransactionBuilder?, productName: String?,
-                    isBds: Boolean, isDonation: Boolean,
-                    developerPayload: String?, uri: String?,
-                    transactionData: String?, isSubscription: Boolean,
-                    frequency: String?): Fragment {
+                    isBds: Boolean, isDonation: Boolean, developerPayload: String?, uri: String?,
+                    isSubscription: Boolean, frequency: String?): Fragment {
       val bundle = Bundle()
       bundle.apply {
         putParcelable(TRANSACTION, transaction)
@@ -73,7 +72,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         putString(IabActivity.URI, uri)
         putBoolean(IS_BDS, isBds)
         putBoolean(IS_DONATION, isDonation)
-        putString(IabActivity.TRANSACTION_DATA, transactionData)
         putString(FREQUENCY, frequency)
         putBoolean(IS_SUBSCRIPTION, isSubscription)
       }
@@ -141,7 +139,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
         bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract, isSubscription, frequency)
+        logger, paymentMethodsInteract, isSubscription)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -173,12 +171,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                                   currency: String, paymentMethodId: String, fiatAmount: String,
                                   appcAmount: String, appcEnabled: Boolean,
-                                  creditsEnabled: Boolean, frequency: String?) {
+                                  creditsEnabled: Boolean) {
     if (isBds) {
       this.appcEnabled = appcEnabled
       this.creditsEnabled = creditsEnabled
     }
-    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount, frequency)
+    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     presenter.sendPaymentMethodsEvents()
 
@@ -208,12 +206,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun updateHeaderInfo(fiatValue: FiatValue, currency: String,
-                               fiatAmount: String, appcAmount: String, frequency: String?) {
+                               fiatAmount: String, appcAmount: String) {
     this.fiatValue = fiatValue
     var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription && frequency != null) {
-      fiatPrice += "/$frequency"
+      frequency?.mapToSubFrequency(context, fiatAmount, currency)
+          ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
     }
     appc_price.text = appcPrice
@@ -233,9 +232,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                             currency: String, fiatAmount: String,
                                             appcAmount: String,
-                                            isBonusActive: Boolean, frequency: String?) {
+                                            isBonusActive: Boolean) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
-    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount, frequency)
+    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
 
     setupPaymentMethod(paymentMethod, isBonusActive)
 
@@ -650,9 +649,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private val frequency: String by lazy {
+  private val frequency: String? by lazy {
     if (arguments!!.containsKey(FREQUENCY)) {
-      arguments!!.getString(FREQUENCY, "")
+      arguments!!.getString(FREQUENCY)
     } else {
       throw IllegalArgumentException("productName data not found")
     }

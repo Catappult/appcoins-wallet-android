@@ -49,8 +49,7 @@ class PaymentMethodsPresenter(
     private val formatter: CurrencyFormatUtils,
     private val logger: Logger,
     private val paymentMethodsInteract: PaymentMethodsInteract,
-    private val isSubscription: Boolean,
-    private val frequency: String?) {
+    private val isSubscription: Boolean) {
 
   private var gamificationLevel = 0
 
@@ -168,7 +167,7 @@ class PaymentMethodsPresenter(
         .flatMapCompletable { uid ->
           bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
               .ignoreElements()
-              .andThen(finishProcess(skuId, uid, type))
+              .andThen(finishProcess(skuId, type))
         }
   }
 
@@ -213,7 +212,7 @@ class PaymentMethodsPresenter(
                       Completable.fromAction {
                         setupBonusInformation(it)
                         selectPaymentMethod(paymentMethods, fiatValue,
-                            paymentMethodsInteract.isBonusActiveAndValid(it), frequency)
+                            paymentMethodsInteract.isBonusActiveAndValid(it))
                       }
                     }
               }
@@ -244,15 +243,14 @@ class PaymentMethodsPresenter(
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
-                                  isBonusActive: Boolean, frequency: String?) {
+                                  isBonusActive: Boolean) {
     val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
     val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
     if (paymentMethodsInteract.hasAsyncLocalPayment()) {
       //After a asynchronous payment credits will be used as pre selected
       getCreditsPaymentMethod(paymentMethods)?.let {
         if (it.isEnabled) {
-          showPreSelectedPaymentMethod(fiatValue, it, fiatAmount, appcAmount, isBonusActive,
-              frequency)
+          showPreSelectedPaymentMethod(fiatValue, it, fiatAmount, appcAmount, isBonusActive)
           return
         }
       }
@@ -262,7 +260,7 @@ class PaymentMethodsPresenter(
       val paymentMethod = getPreSelectedPaymentMethod(paymentMethods)
       if (paymentMethod == null || !paymentMethod.isEnabled) {
         showPaymentMethods(fiatValue, paymentMethods,
-            PaymentMethodId.CREDIT_CARD.id, fiatAmount, appcAmount, frequency)
+            PaymentMethodId.CREDIT_CARD.id, fiatAmount, appcAmount)
       } else {
         when (paymentMethod.id) {
           PaymentMethodId.CREDIT_CARD.id -> {
@@ -272,13 +270,12 @@ class PaymentMethodsPresenter(
                 PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)
           }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
-              isBonusActive, frequency)
+              isBonusActive)
         }
       }
     } else {
       val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
-      showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount, appcAmount,
-          frequency)
+      showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount, appcAmount)
     }
   }
 
@@ -299,8 +296,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
-                                 paymentMethodId: String, fiatAmount: String, appcAmount: String,
-                                 frequency: String?) {
+                                 paymentMethodId: String, fiatAmount: String, appcAmount: String) {
     var appcEnabled = false
     var creditsEnabled = false
     val paymentList: MutableList<PaymentMethod>
@@ -316,20 +312,19 @@ class PaymentMethodsPresenter(
     } else {
       paymentList = paymentMethods
           .filter {
-            it.id == paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.APPC)
+            it.id == paymentMethodsMapper.map(APPC)
           }
           .toMutableList()
     }
     view.showPaymentMethods(paymentList, fiatValue, symbol, paymentMethodId, fiatAmount, appcAmount,
-        appcEnabled, creditsEnabled, frequency)
+        appcEnabled, creditsEnabled)
   }
 
   private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,
                                            fiatAmount: String, appcAmount: String,
-                                           isBonusActive: Boolean, frequency: String?) {
+                                           isBonusActive: Boolean) {
     view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
-        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive,
-        frequency)
+        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive)
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -381,7 +376,7 @@ class PaymentMethodsPresenter(
                       WalletCurrency.APPCOINS)
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount,
-                      appcAmount, frequency)
+                      appcAmount)
                 }
               }
               .andThen(

@@ -714,7 +714,8 @@
   <string name="subscriptions_per_week">%1$s%2$s/week</string>
   <string name="subscriptions_per_month">%1$s%2$s/month</string>
   <string name="subscriptions_per_year">%1$s%2$s/year</string>
-
+  <!--To remove, just for debug -->
+  <string name="subscriptions_every_x_month">%1$s%2$s/every %3$s month</string>
 
 <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
