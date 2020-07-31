@@ -77,6 +77,11 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     presenter.present()
   }
 
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
+  }
+
   override fun onDestroy() {
     linkSubject = null
     presenter.stop()

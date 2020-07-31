@@ -10,7 +10,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import dagger.android.support.DaggerFragment
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class GamificationFragment : DaggerFragment(), GamificationView {
+class GamificationFragment : BasePageViewFragment(), GamificationView {
 
   @Inject
   lateinit var interactor: GamificationInteractor

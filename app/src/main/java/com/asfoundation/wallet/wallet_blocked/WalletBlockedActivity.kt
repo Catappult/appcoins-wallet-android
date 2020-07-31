@@ -36,6 +36,11 @@ class WalletBlockedActivity : BaseActivity(),
     presenter.present()
   }
 
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
+  }
+
   override fun getDismissCLicks(): Observable<Any> {
     return RxView.clicks(dismiss_button)
   }

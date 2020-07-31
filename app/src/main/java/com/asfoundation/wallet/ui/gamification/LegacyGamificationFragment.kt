@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.promotions.GamificationProgressBarView
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.rewards_progress_normal.*
 import kotlinx.android.synthetic.main.rewards_progress_pioneer.*
 import javax.inject.Inject
 
-class LegacyGamificationFragment : DaggerFragment(), LegacyGamificationView {
+class LegacyGamificationFragment : BasePageViewFragment(), LegacyGamificationView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
 

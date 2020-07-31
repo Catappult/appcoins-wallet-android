@@ -10,8 +10,8 @@ import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_share_payment_link.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class SharePaymentLinkFragment : DaggerFragment(),
+class SharePaymentLinkFragment : BasePageViewFragment(),
     SharePaymentLinkFragmentView {
 
   @Inject
@@ -28,6 +28,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
   lateinit var presenter: SharePaymentLinkPresenter
   private var iabView: IabView? = null
+
   @Inject
   lateinit var analytics: BillingAnalytics
 
@@ -170,7 +171,8 @@ class SharePaymentLinkFragment : DaggerFragment(),
         .map {
           val message = if (note.text.isNotEmpty()) note.text.toString() else null
           SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
-              originalCurrency, paymentMethod, amount.toFloat().toString(), type)
+              originalCurrency, paymentMethod, amount.toFloat()
+              .toString(), type)
         }
   }
 
@@ -179,7 +181,8 @@ class SharePaymentLinkFragment : DaggerFragment(),
         .map {
           val message = if (note.text.isNotEmpty()) note.text.toString() else null
           SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
-              originalCurrency, paymentMethod, amount.toFloat().toString(), type)
+              originalCurrency, paymentMethod, amount.toFloat()
+              .toString(), type)
         }
   }
 

@@ -1,9 +1,14 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.base.model.payments.response.Action
+import com.adyen.checkout.base.model.payments.response.RedirectAction
+import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
+import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import org.json.JSONObject
 import retrofit2.HttpException
 
 class AdyenResponseMapper {
@@ -21,9 +26,29 @@ class AdyenResponseMapper {
 
   fun map(response: AdyenTransactionResponse): PaymentModel {
     val adyenResponse = response.payment
+    var actionType: String? = null
+    var jsonAction: JSONObject? = null
+    var redirectUrl: String? = null
+    var action: Action? = null
+
+    if (adyenResponse.action != null) {
+      actionType = adyenResponse.action.get("type")?.asString
+      jsonAction = JSONObject(adyenResponse.action.toString())
+    }
+
+    if (actionType != null && jsonAction != null) {
+      when (actionType) {
+        REDIRECT -> {
+          action = RedirectAction.SERIALIZER.deserialize(jsonAction)
+          redirectUrl = action.url
+        }
+        THREEDS2FINGERPRINT -> action = Threeds2FingerprintAction.SERIALIZER.deserialize(jsonAction)
+        THREEDS2CHALLENGE -> action = Threeds2ChallengeAction.SERIALIZER.deserialize(jsonAction)
+      }
+    }
     return PaymentModel(adyenResponse.resultCode, adyenResponse.refusalReason,
-        adyenResponse.refusalReasonCode?.toInt(), adyenResponse.action, adyenResponse.action?.url,
-        adyenResponse.action?.paymentData, response.uid, response.hash, response.orderReference,
+        adyenResponse.refusalReasonCode?.toInt(), action, redirectUrl,
+        action?.paymentData, response.uid, response.hash, response.orderReference,
         response.status)
   }
 
@@ -69,5 +94,11 @@ class AdyenResponseMapper {
       }
     }
     return PaymentInfoModel(Error(true))
+  }
+
+  companion object {
+    const val REDIRECT = "redirect"
+    const val THREEDS2FINGERPRINT = "threeDS2Fingerprint"
+    const val THREEDS2CHALLENGE = "threeDS2Challenge"
   }
 }

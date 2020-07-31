@@ -18,8 +18,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 156
-    versionName "1.15.1.1"
+    versionCode 158
+    versionName "1.15.2.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -222,6 +222,8 @@ dependencies {
   implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout_version"
 
   implementation "io.sentry:sentry-android:$project.sentry_version"
+
+  implementation "com.adyen.checkout:3ds2:$project.adyen_3DS_version"
 
   implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
 
