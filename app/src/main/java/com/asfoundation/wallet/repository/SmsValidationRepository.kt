@@ -51,7 +51,7 @@ class SmsValidationRepository(
     return when (throwable) {
       is HttpException -> {
         var walletValidationException = WalletValidationException("")
-        if (throwable.code() == 400) {
+        if (throwable.code() == 400 || throwable.code() == 429) {
           throwable.response()
               ?.errorBody()
               ?.charStream()
@@ -73,8 +73,11 @@ class SmsValidationRepository(
             }
           }
           throwable.code() == 429 -> {
-            if (walletValidationException.status == "TOO_MANY_REQUESTS") WalletValidationStatus.TOO_MANY_ATTEMPTS
-            else WalletValidationStatus.DOUBLE_SPENT
+            when (walletValidationException.status) {
+              "TOO_MANY_REQUESTS" -> WalletValidationStatus.TOO_MANY_ATTEMPTS
+              "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
+              else -> WalletValidationStatus.GENERIC_ERROR
+            }
           }
           else -> WalletValidationStatus.GENERIC_ERROR
         }
