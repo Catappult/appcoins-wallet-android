@@ -204,7 +204,7 @@
   <string name="activity_iab_approving_message">Überprüfen alle Details: Konto, Artikel, Netzwerk…</string>
   <string name="activity_iab_buying_message">Angaben geprüft \n Erhalte ihren Artikel…</string>
   <string name="activity_iab_change_card">KARTE ÄNDERN</string>
-  <string name="activity_iab_fees">Fees</string>
+  <string name="activity_iab_fees">Gebühren</string>
   <string name="notification_ongoing_poa">Verarbeite ihre Belohnung</string>
   <string name="notification_completed_poa">Belohnung erhalten!👌 Sie müssen %1$sh%2$sm lang warten, um weitere Belohnungen für das Ausprobieren von Apps zu erhalten ⏰!</string>
   <string name="notification_poa_limit_reached">Sie haben ihr tägliches Limit erreiche. ⏰ Kommen Sie in %1$sh%2$sm wieder und versuchen Sie es erneut!</string>
@@ -244,8 +244,8 @@
   <string name="dialog_credit_card_number">Kartennummer</string>
   <string name="dialog_credit_card_expiration">Ablaufdatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
-  <string name="dialog_expiry_date">Expiry date</string>
+  <string name="dialog_bank_card">Kredit-/Debitkarte</string>
+  <string name="dialog_expiry_date">Ablaufdatum</string>
   <string name="activity_airdrop_title">Um AppCoins zu erhalten, müssen Sie bestätigen Sie, dass Sie ein Mensch sind</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheits-Vorgang.</string>
   <string name="activity_airdrop_hint">Geben Sie die Zeichen im Bild ein</string>
@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Aus Sicherheitsgründen müssen wir ihr Wallet mit einem SMS-Code verifizieren.</string>
   <string name="verification_insert_phone_title">Geben Sie bitte ihre Telefonnummer ein</string>
   <string name="verification_insert_phone_body">Verifizieren Sie ihr Wallet um Prämien zu bekommen! Wir werden ihnen einen Verifizierungs-Code zusenden.</string>
-  <string name="verification_insert_phone_field_country">Region</string>
+  <string name="verification_insert_phone_field_country">Land</string>
   <string name="verification_insert_phone_field_number">Telefonnummer</string>
   <string name="verification_insert_phone_field_number_error">Ungültige Telefonnummer</string>
   <string name="verification_insert_phone_field_region_error">Region wird nicht unterstützt.</string>
@@ -437,19 +437,19 @@
   <string name="verification_settings_unverified_body">Erhalten Sie Prämien und laden Sie Freunde ein</string>
   <string name="verification_settings_verified_title">Wallet Verifiziert</string>
   <string name="verification_settings_no_internet">Sie benötigen eine Verbindung ins Internet</string>
-  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
-  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
-  <string name="verified_tag">Verified</string>
-  <string name="unferified_tag">Unverified</string>
+  <string name="verification_error_time_expired">Upps, ihr Zeitfenster ist abgelaufen. Bitte starten Sie erneut!</string>
+  <string name="verification_error_attempts_reached">Sie haben die maximale Anzahl von Versuchen erreicht. Bitte warten Sie bevor Sie es erneut versuchen.</string>
+  <string name="verified_tag">Überprüft</string>
+  <string name="unferified_tag">Nicht überprüft</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Wie es scheint wurde dieser Einkauf bereits verarbeitet. Bitte warten Sie ab, bis die Transaktion verarbeitet wurde oder kontaktieren Sie ihren Kunden-Support.</string>
   <string name="purchase_more_payment_methods_button">ANDERE BEZAHL-METHODEN</string>
   <string name="purchase_appcoins_available_body">Sie werden einen kleinen ETH-Betrag verwenden, um die Gebühren zu bezahlen.</string>
   <string name="purchase_appcoins_noavailable_body">Für diesen Kauf verfügen Sie über zu wenige AppCoins oder Ethereum.</string>
-  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
-  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
+  <string name="purchase_no_eth_body">Ihre ETH-Coins reichen für die Bezahlung nicht aus.</string>
+  <string name="purchase_no_appcoins_body">Ihre AppCoins reichen für diesen Einkauf nicht aus.</string>
   <string name="purchase_appcoins_credits_available_body">Keine Gebühren und blitzschnell!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Sie haben zu wenige AppCoins, bitte aufladen!</string>
   <string name="purchase_appcoins_credits_default_body">Sie haben genügend AppCoins verdient, Sie können sich diesen Einkauf leisten. Viel Spaß!</string>
   <string name="purchase_poa_item">Guthaben durch das Testen von Apps</string>
   <string name="purchase_poa_body">Testen Sie 2 Minuten lang eine App und erhalten Sie AppCoins Credits!</string>
@@ -470,7 +470,7 @@
   <string name="purchase_card_error_security">Sind Sie sicher, dass ihre Sicherheitsinformationen richtig sind? Bitte versuchen Sie es erneut.</string>
   <string name="purchase_card_error_wrong_CVV">Scheinbar ist ihr CVV/CVC-Code nicht korrekt. Bitte geben Sie ihn erneut ein.</string>
   <string name="purchase_wallet_error_contact_us">Upps, etwas ist mit dem Wallet nicht in Ordnung, bitte nehmen Sie Kontakt mit uns auf.</string>
-  <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
+  <string name="purchase_carrier_error">Ihre Telefonnummer ist nicht kompatibel zu dieser Bezahlmethode.</string>
   <string name="purchase_card_error_CVV">Falscher CVV/CVC-Code</string>
   <string name="error_contac_us_body">Nehmen Sie Kontakt zu uns auf, falls das Problem weiterbesteht.</string>
   <!--Async Payments-->
@@ -711,18 +711,18 @@
   <string name="gamif_distance_unkown">Unbekannter Standort</string>
   <string name="gamif_placeholder_new_planet">ein neuer Planet</string>
   <!--Carrier Billing-->
-  <string name="carrier_billing_payment_method_title">Carrier billing</string>
-  <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
-  <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
-  <string name="carrier_billing_phone_field">Your phone number...</string>
-  <string name="carrier_billing_carrier_fees_body">%1$s will charge a fee of %2$s</string>
-  <string name="carrier_billing_purchase_info_body">%1$s in %2$s.</string>
-  <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
-  <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
-  <string name="carrier_billing_code_field">Your code...</string>
-  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
-  <string name="carrier_billing_submit_button">SUBMIT</string>
-  <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
+  <string name="carrier_billing_payment_method_title">Telefonrechnung</string>
+  <string name="carrier_billing_fees_disclaimer">Es können zusätzliche Gebühren anfallen</string>
+  <string name="carrier_billing_insert_phone_body">Bitte geben Sie ihre Telefonnummer ein</string>
+  <string name="carrier_billing_phone_field">Ihre Telefonnummer...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s wird eine Gebühr von %2$s berechnen</string>
+  <string name="carrier_billing_purchase_info_body">%1$s bei %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Ihre Telefonnummer ist %s.</string>
+  <string name="carrier_billing_enter_pin_body">Geben Sie bitte den Pin ein, den Sie per SMS erhalten haben.</string>
+  <string name="carrier_billing_code_field">Ihren Code...</string>
+  <string name="carrier_billing_code_resend_button">CODE ERNEUT SENDEN</string>
+  <string name="carrier_billing_submit_button">ABSENDEN</string>
+  <string name="carrier_billing_terms_disclaimer">Durch das Drücken von Absenden, bestätigen Sie, dass Sie den AGBs und der Datenschutzrichtlinie zustimmen.</string>
   <string name="carrier_billing_help_1">Need help?</string>
   <string name="carrier_billing_help_2_button">Contact Support</string>
   <string name="carrier_billing_terms_button">Terms and Conditions</string>
