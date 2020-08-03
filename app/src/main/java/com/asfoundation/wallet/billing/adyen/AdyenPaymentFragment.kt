@@ -378,6 +378,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     view?.let { KeyboardUtils.hideKeyboard(view) }
   }
 
+  override fun retrieveAutoRenewing(): Boolean {
+    //TODO When this logic is implemented it should be an option from the user,
+    // but as of right now this logic is not implemented
+    return false
+  }
+
   private fun setBackListener(view: View) {
     iabView.disableBack()
     view.isFocusableInTouchMode = true

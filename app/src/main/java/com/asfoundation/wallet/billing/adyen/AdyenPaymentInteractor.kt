@@ -66,7 +66,7 @@ class AdyenPaymentInteractor(
                   value: String, currency: String, reference: String?, paymentType: String,
                   origin: String?, packageName: String, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String,
-                  developerWallet: String?): Single<PaymentModel> {
+                  developerWallet: String?, autoRenewing: Boolean?): Single<PaymentModel> {
     return walletService.getWalletAddress()
         .flatMap { address ->
           Single.zip(
@@ -79,7 +79,7 @@ class AdyenPaymentInteractor(
                 adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl,
                     value, currency, reference, paymentType, address, origin, packageName, metadata,
                     sku, callbackUrl, transactionType, developerWallet, it.first, it.second,
-                    address)
+                    address, autoRenewing)
               }
         }
   }
@@ -92,7 +92,7 @@ class AdyenPaymentInteractor(
         .flatMap {
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl,
               value, currency, null, paymentType, it, null, packageName, null, null, null,
-              transactionType, null, null, null, null)
+              transactionType, null, null, null, null, null)
         }
   }
 

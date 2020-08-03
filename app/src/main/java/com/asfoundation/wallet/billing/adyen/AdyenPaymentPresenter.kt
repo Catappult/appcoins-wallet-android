@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
@@ -154,7 +155,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       adyenPaymentInteractor.makePayment(paymentMethodInfo, false, returnUrl,
           priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-          it.skuId, it.callbackUrl, it.type, it.toAddress())
+          it.skuId, it.callbackUrl, it.type, it.toAddress(), retrieveAutoRenewing())
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -167,6 +168,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           view.showGenericError()
           logger.log(TAG, it)
         }))
+  }
+
+  private fun retrieveAutoRenewing(): Boolean? {
+    return if (transactionType.equals(BillingSupportedType.INAPP_SUBSCRIPTION.name, true)) {
+      view.retrieveAutoRenewing()
+    } else {
+      null
+    }
   }
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
@@ -200,7 +209,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
                     adyenCard.shouldStoreCard, returnUrl, priceAmount.toString(), priceCurrency,
                     it.orderReference, mapPaymentToService(paymentType).transactionType, origin,
-                    domain, it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress())
+                    domain, it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                    retrieveAutoRenewing())
               }
         }
         .observeOn(viewScheduler)
