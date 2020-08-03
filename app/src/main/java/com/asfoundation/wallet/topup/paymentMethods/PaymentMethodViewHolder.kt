@@ -21,8 +21,10 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     itemView.radio_button.isChecked = checked && data.isAvailable
     itemView.radio_button.isEnabled = data.isAvailable
     if (data.isAvailable) itemView.setOnClickListener(listener)
-    else itemView.background = null //Remove ripple effect
-
+    else {
+      itemView.setOnClickListener(null)
+      itemView.background = null //Remove ripple effect
+    }
   }
 
   private fun setDescription(data: PaymentMethodData, checked: Boolean) {
