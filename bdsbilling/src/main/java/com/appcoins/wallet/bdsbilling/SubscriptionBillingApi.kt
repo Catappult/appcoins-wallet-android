@@ -41,15 +41,21 @@ interface SubscriptionBillingApi {
    */
   @GET("product/8.20200701/applications/{domain}/inapp/subscription/purchases")
   fun getPurchases(@Path("domain") domain: String,
+                   @Query("wallet.address") walletAddress: String,
+                   @Query("wallet.signature") walletSignature: String,
                    @Query("limit") limit: Long? = null): Single<SubscriptionPurchaseListResponse>
 
   @GET("product/8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}")
   fun getPurchase(@Path("domain") domain: String,
-                  @Path("uid") uid: String): Single<SubscriptionPurchaseResponse>
+                  @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
+                  @Query("wallet.signature")
+                  walletSignature: String): Single<SubscriptionPurchaseResponse>
 
   @PATCH("product/8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}")
   fun updatePurchase(@Path("domain") domain: String,
                      @Path("uid") uid: String,
+                     @Query("wallet.address") walletAddress: String,
+                     @Query("wallet.signature") walletSignature: String,
                      @Body purchaseUpdate: PurchaseUpdate): Completable
 
 }

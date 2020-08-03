@@ -58,7 +58,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return if (type == BillingSupportedType.INAPP) {
       remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
     } else {
-      remoteRepository.getSkuPurchaseSubs(packageName, skuId)
+      remoteRepository.getSkuPurchaseSubs(packageName, skuId, walletAddress, walletSignature)
     }
   }
 
@@ -80,7 +80,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return if (type == BillingSupportedType.INAPP) {
       remoteRepository.getPurchases(packageName, walletAddress, walletSignature)
     } else {
-      remoteRepository.getPurchasesSubs(packageName)
+      remoteRepository.getPurchasesSubs(packageName, walletAddress, walletSignature)
     }
   }
 
@@ -90,12 +90,15 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return when (type) {
       null -> remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
           walletSignature)
-          .onErrorResumeNext { remoteRepository.consumePurchaseSubs(packageName, purchaseToken) }
+          .onErrorResumeNext {
+            remoteRepository.consumePurchaseSubs(packageName, purchaseToken, walletAddress,
+                walletSignature)
+          }
+      BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.consumePurchaseSubs(packageName,
+          purchaseToken, walletAddress, walletSignature)
 
-      BillingSupportedType.INAPP -> remoteRepository.consumePurchase(packageName, purchaseToken,
+      else -> remoteRepository.consumePurchase(packageName, purchaseToken,
           walletAddress, walletSignature)
-
-      else -> remoteRepository.consumePurchaseSubs(packageName, purchaseToken)
     }
   }
 
