@@ -25,8 +25,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   internal fun isBillingSupportedSubs(packageName: String): Single<Boolean> {
-    return subsApi.getPackage(packageName)
-        .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
+    return subsApi.getPackage(
+        packageName) // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 
   internal fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
@@ -106,7 +106,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   internal fun consumePurchaseSubs(packageName: String, purchaseToken: String): Single<Boolean> {
-    return subsApi.updatePurchase(packageName, purchaseToken, PurchaseUpdate(PurchaseState.CONSUMED))
+    return subsApi.updatePurchase(packageName, purchaseToken,
+        PurchaseUpdate(PurchaseState.CONSUMED))
         .toSingle { true }
   }
 
@@ -128,10 +129,10 @@ class RemoteRepository(private val inAppApi: BdsApi,
         paymentProof)
   }
 
-  internal fun getPaymentMethods(value: String?,
+  internal fun getPaymentMethods(transactionType: String?, value: String?,
                                  currency: String?, type: String?,
                                  direct: Boolean? = null): Single<List<PaymentMethodEntity>> {
-    return inAppApi.getPaymentMethods(value, currency, type, direct)
+    return inAppApi.getPaymentMethods(transactionType, value, currency, type, direct)
         .map { responseMapper.map(it) }
   }
 

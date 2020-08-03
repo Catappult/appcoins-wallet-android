@@ -10,8 +10,6 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
-import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.BuildConfig;
@@ -242,7 +240,8 @@ public class InAppPurchaseInteractor {
 
   Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
       String transactionValue, String currency) {
-    return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency)
+    return bdsInAppPurchaseInteractor.getPaymentMethods(transaction.getType(), transactionValue,
+        currency)
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
