@@ -14,13 +14,13 @@ import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.ui.wallets.WalletsViewType
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import dagger.android.support.DaggerFragment
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
 import javax.inject.Inject
 
-class SettingsWalletsBottomSheetFragment : DaggerFragment(), SettingsWalletsBottomSheetView {
+class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalletsBottomSheetView {
 
 
   @Inject

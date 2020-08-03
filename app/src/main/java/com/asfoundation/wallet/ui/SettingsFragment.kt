@@ -14,6 +14,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.fingerprint.ManageFingerprintActivity
+import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -28,6 +29,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   lateinit var settingsInteract: SettingsInteract
+
+  @Inject
+  lateinit var pageViewAnalytics: PageViewAnalytics
 
   private lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
@@ -54,6 +58,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onResume() {
     super.onResume()
+    pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
     presenter.present()
   }
 

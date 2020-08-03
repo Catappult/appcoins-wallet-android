@@ -56,7 +56,7 @@ class PaymentMethodsInteract(private val walletService: WalletService,
 
   fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
              packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean) =
+             isBds: Boolean): Completable =
       inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
           developerPayload, isBds)
 
@@ -77,6 +77,9 @@ class PaymentMethodsInteract(private val walletService: WalletService,
 
   fun mergeAppcoins(paymentMethods: List<PaymentMethod>): List<PaymentMethod> =
       inAppPurchaseInteractor.mergeAppcoins(paymentMethods)
+
+  fun swapDisabledPositions(paymentMethods: List<PaymentMethod>): List<PaymentMethod> =
+      inAppPurchaseInteractor.swapDisabledPositions(paymentMethods)
 
   fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod
 
