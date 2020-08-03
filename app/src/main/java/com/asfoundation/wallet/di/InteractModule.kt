@@ -49,6 +49,7 @@ import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
+import com.asfoundation.wallet.ui.FingerPrintInteract
 import com.asfoundation.wallet.ui.SettingsInteract
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
@@ -520,4 +521,10 @@ class InteractModule {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
         gamificationRepository)
   }
+
+  @Provides
+  fun provideFingerprintInteract(context: Context): FingerPrintInteract {
+    return FingerPrintInteract(context)
+  }
+
 }

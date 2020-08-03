@@ -14,6 +14,7 @@
   <uses-permission
       android:name="android.permission.WRITE_EXTERNAL_STORAGE"
       android:maxSdkVersion="28" />
+  <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
   <application
       android:name="com.asfoundation.wallet.App"
@@ -246,6 +247,10 @@
         android:name="com.asfoundation.wallet.ui.backup.WalletBackupActivity"
         android:label="@string/backup_title"
         android:theme="@style/MaterialAppTheme" />
+
+    <activity
+        android:name="com.asfoundation.wallet.fingerprint.ManageFingerprintActivity"
+        android:label="Fingerprint" />
 
     <service
         android:name="com.asfoundation.wallet.support.SupportMessagingService"

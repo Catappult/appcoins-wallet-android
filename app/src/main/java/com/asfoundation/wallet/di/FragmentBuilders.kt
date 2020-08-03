@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.advertise.WalletPoAService
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.fingerprint.FingerprintFragment
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -193,4 +194,10 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindGamificationFragment(): GamificationFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun fingerprintFragment(): FingerprintFragment
+
+
 }

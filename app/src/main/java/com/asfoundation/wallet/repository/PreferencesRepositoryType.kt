@@ -82,4 +82,8 @@ interface PreferencesRepositoryType {
   fun setWalletId(walletId: String)
 
   fun getWalletId(): String?
+
+  fun setAuthenticationPermission(result: Boolean)
+
+  fun hasAuthenticationPermission(): Boolean
 }
