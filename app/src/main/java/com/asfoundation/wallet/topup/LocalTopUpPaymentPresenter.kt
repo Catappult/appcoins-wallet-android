@@ -140,10 +140,10 @@ class LocalTopUpPaymentPresenter(
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     return when {
       isErrorStatus(transaction) -> Completable.fromAction { showGenericError() }
+      transaction.status == Transaction.Status.COMPLETED -> handleSyncCompletedStatus()
       localPaymentInteractor.isAsync(transaction.type) ->
         handleAsyncTransactionStatus(transaction)
             .andThen(Completable.fromAction { preparePendingUserPayment() })
-      transaction.status == Transaction.Status.COMPLETED -> handleSyncCompletedStatus()
       else -> Completable.complete()
     }
   }
