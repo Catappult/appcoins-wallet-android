@@ -202,7 +202,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_centerInParent="true"
-      android:layout_marginTop="48dp"
       android:visibility="gone"
       />
 
@@ -211,8 +210,7 @@
       layout="@layout/layout_referral_status"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_centerInParent="true"
-      android:layout_marginTop="48dp"
+      android:layout_alignParentTop="true"
       android:visibility="gone"
       />
 
@@ -222,7 +220,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_centerInParent="true"
-      android:layout_marginBottom="8dp"
+      android:layout_marginBottom="16dp"
       android:visibility="gone"
       />
 
