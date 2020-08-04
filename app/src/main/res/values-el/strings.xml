@@ -439,8 +439,8 @@
   <string name="verification_settings_no_internet">Πρέπει να συνδεθείτε στο διαδίκτυο</string>
   <string name="verification_error_time_expired">Ωχ, ο χρόνος σας έληξε. Ξεκινήστε εκ νέου!</string>
   <string name="verification_error_attempts_reached">Φαίνεται πως φτάσατε το όριο προσπαθειών. Παρακαλούμε, περιμένετε πριν προσπαθήσετε ξανά.</string>
-  <string name="verified_tag">Με πιστοποίηση</string>
-  <string name="unferified_tag">Χωρίς πιστοποίηση</string>
+  <string name="verified_tag">Επαληθευμένο</string>
+  <string name="unferified_tag">Μη επαληθευμένο</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>
   <string name="purchase_more_payment_methods_button">ΑΛΛΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>
@@ -449,7 +449,7 @@
   <string name="purchase_no_eth_body">Δεν έχετε αρκετά ETH για την πληρωμή του gas.</string>
   <string name="purchase_no_appcoins_body">Δεν έχετε αρκετά AppCoins για την ολοκλήρωση αυτής της αγοράς.</string>
   <string name="purchase_appcoins_credits_available_body">Χωρίς χρεώσεις και εξαιρετικά γρήγορα!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετά AppCoins Credits, δοκιμάστε, δοκιμάστε να κάνετε φόρτιση!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετά AppCoins Credits, δοκιμάστε να κάνετε φόρτιση!</string>
   <string name="purchase_appcoins_credits_default_body">Κερδίσατε αρκετά AppCoins Credits για αυτήν την αγορά. Απολαύστε!</string>
   <string name="purchase_poa_item">Κερδίστε χρήματα δοκιμάζοντας εφαρμογές</string>
   <string name="purchase_poa_body">Δοκιμάστε μια εφαρμογή για 2 λεπτά και κερδίστε AppCoins Credits!</string>
