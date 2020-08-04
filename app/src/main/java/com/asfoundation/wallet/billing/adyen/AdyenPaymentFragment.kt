@@ -492,15 +492,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this, Observer {
       adyenSecurityCodeLayout.error = null
-      if (it != null && it.isValid) {
-        buy_button?.isEnabled = true
-        view?.let { view -> KeyboardUtils.hideKeyboard(view) }
-        it.data.paymentMethod?.let { paymentMethod ->
-          paymentDataSubject?.onNext(
-              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false))
-        }
-      } else {
-        buy_button?.isEnabled = false
+      buy_button?.isEnabled = true
+      view?.let { view -> KeyboardUtils.hideKeyboard(view) }
+      it.data.paymentMethod?.let { paymentMethod ->
+        val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
+        paymentDataSubject?.onNext(
+            AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc))
       }
     })
     if (!forget) {

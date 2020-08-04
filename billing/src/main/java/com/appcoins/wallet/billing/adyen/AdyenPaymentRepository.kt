@@ -18,17 +18,19 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .onErrorReturn { adyenResponseMapper.mapInfoModelError(it) }
   }
 
-  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, returnUrl: String,
-                  value: String, currency: String, reference: String?, paymentType: String,
-                  walletAddress: String, origin: String?, packageName: String?, metadata: String?,
-                  sku: String?, callbackUrl: String?, transactionType: String,
+  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
+                  returnUrl: String, value: String, currency: String, reference: String?,
+                  paymentType: String, walletAddress: String, origin: String?, packageName: String?,
+                  metadata: String?, sku: String?, callbackUrl: String?, transactionType: String,
                   developerWallet: String?, storeWallet: String?, oemWallet: String?,
                   userWallet: String?): Single<PaymentModel> {
+    val shopperInteraction = if (hasCvc) "Ecommerce" else "ContAuth"
+    val recurringProcessingModel = "CardOnFile"
     return adyenApi.makePayment(walletAddress,
-        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, callbackUrl, packageName,
-            metadata, paymentType,
-            origin, sku, reference, transactionType, currency, value, developerWallet,
-            storeWallet, oemWallet, userWallet))
+        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+            recurringProcessingModel, callbackUrl, packageName, metadata, paymentType, origin, sku,
+            reference, transactionType, currency, value, developerWallet, storeWallet, oemWallet,
+            userWallet))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -98,6 +100,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
                      @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
                      @SerializedName("payment.return_url") val returnUrl: String,
+                     @SerializedName("payment.shopper_interaction") val shopperInteraction: String?,
+                     @SerializedName("payment.recurring_processing_model")
+                     val recurringProcessingModel: String?,
                      @SerializedName("callback_url") val callbackUrl: String?,
                      @SerializedName("domain") val domain: String?,
                      @SerializedName("metadata") val metadata: String?,

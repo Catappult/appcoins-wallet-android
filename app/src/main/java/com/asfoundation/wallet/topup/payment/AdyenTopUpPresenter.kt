@@ -170,7 +170,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
-    disposables.add(adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo, false,
+    disposables.add(adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo, false, false,
         returnUrl, retrievedAmount, retrievedCurrency,
         mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
         .subscribeOn(networkScheduler)
@@ -200,7 +200,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           topUpAnalytics.sendConfirmationEvent(currencyData.appcValue.toDouble(), "top_up",
               paymentType)
           adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
-              returnUrl, retrievedAmount, retrievedCurrency,
+              it.hasCvc, returnUrl, retrievedAmount, retrievedCurrency,
               mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
         }
         .observeOn(viewScheduler)

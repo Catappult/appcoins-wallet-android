@@ -149,7 +149,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun launchPaypal(paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
                            priceCurrency: String) {
     disposables.add(transactionBuilder.flatMap {
-      adyenPaymentInteractor.makePayment(paymentMethodInfo, false, returnUrl,
+      adyenPaymentInteractor.makePayment(paymentMethodInfo, false, false, returnUrl,
           priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
           it.skuId, it.callbackUrl, it.type, it.toAddress())
@@ -196,8 +196,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               .flatMap {
                 handleBuyAnalytics(it)
                 adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
-                    adyenCard.shouldStoreCard, returnUrl, priceAmount.toString(), priceCurrency,
-                    it.orderReference, mapPaymentToService(paymentType).transactionType, origin,
+                    adyenCard.shouldStoreCard, adyenCard.hasCvc, returnUrl, priceAmount.toString(),
+                    priceCurrency, it.orderReference,
+                    mapPaymentToService(paymentType).transactionType, origin,
                     domain, it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress())
               }
         }

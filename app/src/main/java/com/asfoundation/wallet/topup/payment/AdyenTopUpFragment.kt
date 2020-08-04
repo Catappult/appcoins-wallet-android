@@ -296,8 +296,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
         button.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
+          val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
           paymentDataSubject?.onNext(
-              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false))
+              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc))
         }
       } else {
         button.isEnabled = false
@@ -427,6 +428,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
     cardConfiguration = cardConfigurationBuilder.let {
       it.setEnvironment(adyenEnvironment)
+      it.setSupportedCardTypes()
+      it.setShopperReference("0x82b54C7547FF2f4De606A2270c6E8943436dA47E")
       it.build()
     }
   }
