@@ -7,6 +7,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity;
+import com.appcoins.wallet.bdsbilling.repository.entity.FeeType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -453,10 +454,15 @@ public class InAppPurchaseInteractor {
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {
     if (feeEntity == null) {
-      return new PaymentMethodFee();
+      return null;
     } else {
-      return new PaymentMethodFee(feeEntity.getExact(), feeEntity.getValue(),
-          feeEntity.getCurrency());
+      if (feeEntity.getType() == FeeType.EXACT) {
+        return new PaymentMethodFee(true, feeEntity.getCost()
+            .getValue(), feeEntity.getCost()
+            .getCurrency());
+      } else {
+        return new PaymentMethodFee(false, null, null);
+      }
     }
   }
 

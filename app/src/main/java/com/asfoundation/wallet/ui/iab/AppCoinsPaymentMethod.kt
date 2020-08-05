@@ -9,4 +9,4 @@ data class AppCoinsPaymentMethod(override val id: String, override val label: St
                                  override var disabledReason: Int? = null,
                                  val disabledReasonAppc: Int? = null,
                                  val disabledReasonCredits: Int? = null) :
-    PaymentMethod(id, label, iconUrl, PaymentMethodFee(false), isEnabled)
+    PaymentMethod(id, label, iconUrl, null, isEnabled)

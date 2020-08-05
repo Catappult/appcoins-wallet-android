@@ -10,4 +10,10 @@ data class PaymentMethodEntity(@SerializedName("name") val id: String, val label
                                val gateway: Gateway,
                                val fee: FeeEntity?)
 
-data class FeeEntity(val exact: Boolean, val value: BigDecimal, val currency: String)
+data class FeeEntity(val type: FeeType, val cost: FeeCost?)
+
+enum class FeeType {
+  EXACT, UNKNOWN
+}
+
+data class FeeCost(val value: BigDecimal, val currency: String)
