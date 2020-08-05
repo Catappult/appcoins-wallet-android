@@ -30,22 +30,6 @@
         app:layout_constraintGuide_percent="0.5"
         />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/resend_guideline"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23"
-        />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/buttons_guideline"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45"
-        />
-
     <TextView
         android:id="@+id/code_validation_title"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
@@ -114,6 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/big_margin"
         android:ellipsize="end"
         android:text="@string/verification_insert_code_resend_button"
         android:textAllCaps="true"
@@ -121,15 +106,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/mid_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/resend_guideline"
-        />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/disclaimer_guideline"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35"
+        app:layout_constraintTop_toBottomOf="@id/text_layout"
         />
 
     <LinearLayout
@@ -137,11 +114,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/half_large_margin"
+        android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/half_large_margin"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/mid_guideline"
-        app:layout_constraintTop_toBottomOf="@id/disclaimer_guideline"
+        app:layout_constraintTop_toBottomOf="@id/resend_code"
         >
 
       <ImageView
@@ -167,15 +145,14 @@
         style="@style/ButtonStyle.Alternative"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
+        android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/half_large_margin"
         android:minWidth="120dp"
         android:text="@string/submit_button"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttons_guideline"
-        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/disclaimer_layout"
         />
 
     <Button
