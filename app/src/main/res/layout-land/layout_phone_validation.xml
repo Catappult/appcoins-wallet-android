@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/phone_validation_title"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        style="@style/WalletValidationTextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/half_large_margin"
@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/phone_validation_subtitle"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        style="@style/WalletValidationTextStyle.Subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/half_large_margin"
@@ -44,7 +44,6 @@
         android:layout_marginEnd="@dimen/half_large_margin"
         android:gravity="center_horizontal"
         android:text="@string/referral_verification_body"
-        android:textColor="#727272"
         app:layout_constraintEnd_toStartOf="@+id/mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_validation_title"
@@ -115,12 +114,11 @@
           />
 
       <TextView
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          style="@style/WalletValidationTextStyle.Tooltip"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:gravity="start"
           android:text="@string/verification_insert_phone_security_disclaimer"
-          android:textSize="10sp"
           />
 
     </LinearLayout>
