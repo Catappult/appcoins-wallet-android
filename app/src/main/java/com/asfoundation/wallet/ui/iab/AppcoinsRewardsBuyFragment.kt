@@ -193,7 +193,6 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   companion object {
-    private const val PRODUCT_NAME = "product_name"
     private const val AMOUNT_KEY = "amount"
     private const val URI_KEY = "uri_key"
     private const val IS_BDS = "is_bds"
@@ -201,14 +200,13 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     private const val GAMIFICATION_LEVEL = "gamification_level"
 
     fun newInstance(amount: BigDecimal, transactionBuilder: TransactionBuilder,
-                    uri: String?, productName: String?, isBds: Boolean,
+                    uri: String?, isBds: Boolean,
                     gamificationLevel: Int): Fragment {
       return AppcoinsRewardsBuyFragment().apply {
         arguments = Bundle().apply {
           putSerializable(AMOUNT_KEY, amount)
           putParcelable(TRANSACTION_KEY, transactionBuilder)
           putString(URI_KEY, uri)
-          putString(PRODUCT_NAME, productName)
           putBoolean(IS_BDS, isBds)
           putInt(GAMIFICATION_LEVEL, gamificationLevel)
         }
