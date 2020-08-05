@@ -204,7 +204,7 @@
   <string name="activity_iab_approving_message">جاري التحقق من كل التفاصيل: التوازن، العناصر، الشبكة…</string>
   <string name="activity_iab_buying_message">تم التحقق من التفاصيل \nجاري استقبال العنصر الخاص بك…</string>
   <string name="activity_iab_change_card">تغيير البطاقة</string>
-  <string name="activity_iab_fees">Fees</string>
+  <string name="activity_iab_fees">الرسوم</string>
   <string name="notification_ongoing_poa">جاري تنفيذ مكافأتك</string>
   <string name="notification_completed_poa">تلقيت مكافأة!👌 يرجى الانتظار %1$sساعة و%2$sدقيقة للحصول على المزيد من المكافآت بتجريب التطبيقات ⏰!</string>
   <string name="notification_poa_limit_reached">لقد وصلت إلى الحد اليومي من المكافآت. ⏰ عُد بعد %1$sساعة و%2$sدقيقة وحاول مجددًا!</string>
@@ -244,8 +244,8 @@
   <string name="dialog_credit_card_number">رقم البطاقة</string>
   <string name="dialog_credit_card_expiration">تاريخ الانتهاء</string>
   <string name="dialog_credit_card_cvv">الرمز السري</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
-  <string name="dialog_expiry_date">Expiry date</string>
+  <string name="dialog_bank_card">بطاقة تأمين/ائتمان</string>
+  <string name="dialog_expiry_date">تاريخ الانتهاء</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
   <string name="activity_airdrop_details">هذه أمر أمني محض.</string>
   <string name="activity_airdrop_hint">اكتب الكلمات التي في الصورة</string>
@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">لأسباب أمنية، نحن بحاجة إلى تأكيد محفظتك برمز SMS.</string>
   <string name="verification_insert_phone_title">أدخل رقم هاتفك</string>
   <string name="verification_insert_phone_body">وثّق محفظتك للحصول على الجوائز! سنرسل إليك رمز التحقق.</string>
-  <string name="verification_insert_phone_field_country">Region</string>
+  <string name="verification_insert_phone_field_country">المنطقة</string>
   <string name="verification_insert_phone_field_number">رقم الهاتف</string>
   <string name="verification_insert_phone_field_number_error">رقم هاتف غير صالح</string>
   <string name="verification_insert_phone_field_region_error">المنطقة غير مدعومة حاليًا.</string>
@@ -437,19 +437,19 @@
   <string name="verification_settings_unverified_body">احصل على الجوائز وادعُ الأصدقاء</string>
   <string name="verification_settings_verified_title">اكتمل التحقق من المحفظة</string>
   <string name="verification_settings_no_internet">أنت بحاجة إلى الاتصال بالإنترنت</string>
-  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
-  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
-  <string name="verified_tag">Verified</string>
-  <string name="unferified_tag">Unverified</string>
+  <string name="verification_error_time_expired">يييي، انتهى وقتك. ابدأ من جديد!</string>
+  <string name="verification_error_attempts_reached">يبدو أنك وصلت الحد المسموح به. يرجى الانتظار والمحاولة مجددًا.</string>
+  <string name="verified_tag">مُصدَّق</string>
+  <string name="unferified_tag">غير مصدَّق</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
   <string name="purchase_more_payment_methods_button">طرق دفع أخرى</string>
   <string name="purchase_appcoins_available_body">سترى رصيدًا قليلًا من ETH لتدفع به الرّسوم.</string>
   <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك AppCoins ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
-  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
-  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
+  <string name="purchase_no_eth_body">لا يوجد لديك ETH كافية لتدفع رسوم عمولات التحويل.</string>
+  <string name="purchase_no_appcoins_body">لا توجد لديك AppCoins كافية لمتابعة عملية الشراء هذه.</string>
   <string name="purchase_appcoins_credits_available_body">دون رسوم، وسرعة كالبرق!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">لا يوجد لديك رصيد AppCoins كافٍ، جرب إضافة رصيد!</string>
   <string name="purchase_appcoins_credits_default_body">لقد كسبت ما يكفي من رصيد الAppCoins لعملية الشراء هه. استمتع!</string>
   <string name="purchase_poa_item">اربح الأموال من خلال تجربة التطبيقات</string>
   <string name="purchase_poa_body">جرّب تطبيقًا لدقيقتين واربح رصيد AppCoins!</string>
@@ -471,7 +471,7 @@
   <string name="purchase_card_error_security">هل أنت متأكد من أن المعلومات الأمنية صحيحة؟ يرجى المحاولة ثانية.</string>
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
   <string name="purchase_wallet_error_contact_us">يييي، هناك خطبٌ ما في محفظتك. يرجى الاتصال بنا.</string>
-  <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
+  <string name="purchase_carrier_error">يبدو أن رقم هاتفك لا يتوافق مع وسيلة الدفع هذه.</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
   <!--Async Payments-->
@@ -716,34 +716,34 @@
   <string name="gamif_distance_unkown">موقع غير معروف</string>
   <string name="gamif_placeholder_new_planet">كوكب جديد</string>
   <!--Carrier Billing-->
-  <string name="carrier_billing_payment_method_title">Carrier billing</string>
-  <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
-  <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
-  <string name="carrier_billing_phone_field">Your phone number...</string>
-  <string name="carrier_billing_carrier_fees_body">%1$s will charge a fee of %2$s</string>
-  <string name="carrier_billing_purchase_info_body">%1$s in %2$s.</string>
-  <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
-  <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
-  <string name="carrier_billing_code_field">Your code...</string>
-  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
-  <string name="carrier_billing_submit_button">SUBMIT</string>
-  <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
-  <string name="carrier_billing_help_1">Need help?</string>
-  <string name="carrier_billing_help_2_button">Contact Support</string>
-  <string name="carrier_billing_terms_button">Terms and Conditions</string>
-  <string name="carrier_billing_privacy_button">Privacy Policy</string>
+  <string name="carrier_billing_payment_method_title">الدفع من خلال وسيط</string>
+  <string name="carrier_billing_fees_disclaimer">تُطبّق تكاليف إضافية</string>
+  <string name="carrier_billing_insert_phone_body">يرجى إدخال رقم الهاتف</string>
+  <string name="carrier_billing_phone_field">رقم هاتفك...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s ستكلف رسوم %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s في %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">رقم هاتفك هو %s.</string>
+  <string name="carrier_billing_enter_pin_body">يرجى إدخال الرمز الذي تلقيته في رسالة SMS.</string>
+  <string name="carrier_billing_code_field">رمزك هو...</string>
+  <string name="carrier_billing_code_resend_button">أعد إرسال الرمز</string>
+  <string name="carrier_billing_submit_button">اعتمِد</string>
+  <string name="carrier_billing_terms_disclaimer">بالضغط على اعتمِد، أنت تُقرّ بأنك تقبل الأحكام والشروط وسياسة الخصوصية.</string>
+  <string name="carrier_billing_help_1">تحتاج مساعدة؟</string>
+  <string name="carrier_billing_help_2_button">تواصل مع فريق الدعم</string>
+  <string name="carrier_billing_terms_button">الأحكام والشروط</string>
+  <string name="carrier_billing_privacy_button">سياسة الخصوصية</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
-  <string name="manage_cards_settings_manage_title">Manage cards</string>
-  <string name="manage_cards_view_title">Manage cards</string>
-  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
-  <string name="manage_cards_add_title">Add new card</string>
-  <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
-  <string name="manage_cards_remove_no">NO, CANCEL</string>
-  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
-  <string name="manage_cards_card_ending_body">Card ending in %s</string>
-  <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
-  <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
-  <string name="manage_cards_select_title">Select payment card</string>
-  <string name="manage_cards_remember">Remember card</string>
+  <string name="manage_cards_settings_add_title">أضف بطاقة تأمين/ائتمان</string>
+  <string name="manage_cards_settings_manage_title">إدارة البطاقات</string>
+  <string name="manage_cards_view_title">إدارة البطاقات</string>
+  <string name="manage_cards_view_manage_subtitle">إدارة بطاقات الدفع لديك</string>
+  <string name="manage_cards_add_title">أضف بطاقة جديدة</string>
+  <string name="manage_cards_remove_confirmation">هل انت متأكد أنك تريد إزالة هذه البطاقة؟</string>
+  <string name="manage_cards_remove_no">لا، إلغاء</string>
+  <string name="manage_cards_remove_yes">نعم، إزالة</string>
+  <string name="manage_cards_card_ending_body">البطاقة التي آخرها %s</string>
+  <string name="manage_cards_error_details">هل أنت متأكد أن بيانات بطاقتك صحيحة؟ يرجى المحاولة مجددًا!</string>
+  <string name="manage_cards_error_card_problem">يبدو أن هناك مشكلة ببطاقتك. يرجى تجربة بطاقة أخرى.</string>
+  <string name="manage_cards_select_title">اختر بطاقة دفع</string>
+  <string name="manage_cards_remember">تذكر بطاقتي</string>
 </resources>
