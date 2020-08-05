@@ -66,7 +66,7 @@ class AdyenPaymentInteractor(
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
                   developerWallet: String?): Single<PaymentModel> {
-    return walletService.getWalletAddress()
+    return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->
           Single.zip(
               partnerAddressService.getStoreAddressForPackage(packageName),
@@ -76,9 +76,9 @@ class AdyenPaymentInteractor(
               })
               .flatMap {
                 adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
-                    returnUrl, value, currency, reference, paymentType, address, origin,
+                    returnUrl, value, currency, reference, paymentType, address.address, origin,
                     packageName, metadata, sku, callbackUrl, transactionType, developerWallet,
-                    it.first, it.second, address)
+                    it.first, it.second, address.address, address.signedAddress)
               }
         }
   }
@@ -86,18 +86,21 @@ class AdyenPaymentInteractor(
   fun makeTopUpPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
                        returnUrl: String, value: String, currency: String, paymentType: String,
                        transactionType: String, packageName: String): Single<PaymentModel> {
-    return walletService.getWalletAddress()
+    return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
-              returnUrl, value, currency, null, paymentType, it, null, packageName, null, null,
-              null, transactionType, null, null, null, null)
+              returnUrl, value, currency, null, paymentType, it.address, null, packageName, null,
+              null, null, transactionType, null, null, null, null, it.signedAddress)
         }
   }
 
   fun submitRedirect(uid: String, details: JSONObject,
                      paymentData: String?): Single<PaymentModel> {
-    return walletService.getWalletAddress()
-        .flatMap { adyenPaymentRepository.submitRedirect(uid, it, details, paymentData) }
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap {
+          adyenPaymentRepository.submitRedirect(uid, it.address, it.signedAddress, details,
+              paymentData)
+        }
   }
 
   fun disablePayments(): Single<Boolean> {

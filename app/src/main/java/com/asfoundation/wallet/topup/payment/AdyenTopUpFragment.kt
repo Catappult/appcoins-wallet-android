@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.base.model.payments.response.Action
@@ -272,10 +271,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
       isStored: Boolean, forget: Boolean, savedInstanceState: Bundle?) {
     this.isStored = isStored
-    val color = ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
-    adyenCardNumberLayout.boxStrokeColor = color
-    adyenExpiryDateLayout.boxStrokeColor = color
-    adyenSecurityCodeLayout.boxStrokeColor = color
     handleLayoutVisibility(isStored)
     prepareCardComponent(paymentMethod, forget, savedInstanceState)
     setStoredPaymentInformation(isStored)
