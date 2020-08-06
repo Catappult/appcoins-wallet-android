@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.fingerprint.FingerprintFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -50,6 +51,13 @@ class AuthenticationErrorBottomSheetFragment :
     presenter =
         AuthenticationErrorBottomSheetPresenter(this, AndroidSchedulers.mainThread(),
             Schedulers.io(), CompositeDisposable())
+  }
+
+  override fun onStart() {
+    super.onStart()
+    //behaviour needed to fix bottomsheet landscape mode
+    val behavior = BottomSheetBehavior.from(requireView().parent as View)
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
