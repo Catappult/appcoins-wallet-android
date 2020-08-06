@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
 import android.view.KeyEvent
@@ -303,7 +304,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (view != null) {
       view.isFocusableInTouchMode = true
       view.requestFocus()
-      view.setOnKeyListener(View.OnKeyListener { view1: View?, keyCode: Int, keyEvent: KeyEvent ->
+      view.setOnKeyListener(View.OnKeyListener { _: View?, keyCode: Int, keyEvent: KeyEvent ->
         if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
           onBackPressedSubject?.onNext(itemAlreadyOwnedError)
         }
@@ -492,8 +493,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
                                   disabledReasonCredits: Int?) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel,
-        disabledReasonAppc, disabledReasonCredits)
+        appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel, disabledReasonAppc,
+        disabledReasonCredits)
   }
 
   override fun lockRotation() = iabView.lockRotation()
@@ -547,18 +548,19 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                     .getApplicationIcon(packageName))
           }
           .observeOn(AndroidSchedulers.mainThread())
-          .subscribe({
-            app_name?.text = it.first
-            app_icon?.setImageDrawable(it.second)
-            if (productName != null) app_sku_description.text = productName
-          }) { it.printStackTrace() })
+          .subscribe({ setHeaderInfo(it.first, it.second) }) { it.printStackTrace() })
     }
+  }
+
+  private fun setHeaderInfo(appName: String, appIcon: Drawable) {
+    app_name?.text = appName
+    app_icon?.setImageDrawable(appIcon)
+    app_sku_description.text = productName
   }
 
   private fun getApplicationName(packageName: String): String {
     val packageManager = context!!.packageManager
-    val packageInfo =
-        packageManager.getApplicationInfo(packageName, 0)
+    val packageInfo = packageManager.getApplicationInfo(packageName, 0)
     return packageManager.getApplicationLabel(packageInfo)
         .toString()
   }
@@ -623,7 +625,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (arguments!!.containsKey(IabActivity.URI)) {
       arguments!!.getString(IabActivity.URI, "")
     } else {
-      throw IllegalArgumentException("productName data not found")
+      throw IllegalArgumentException("uri data not found")
     }
   }
 
@@ -638,4 +640,5 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     payments_skeleton.visibility = View.GONE
     removeBonusSkeletons()
   }
+
 }

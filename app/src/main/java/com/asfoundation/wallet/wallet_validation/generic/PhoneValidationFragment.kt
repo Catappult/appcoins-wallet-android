@@ -118,7 +118,7 @@ class PhoneValidationFragment : DaggerFragment(),
     stopRetryAnimation()
     content_main.visibility = View.GONE
     layout_validation_no_internet.visibility = View.VISIBLE
-    if(!hasBeenInvitedFlow) later_button.visibility = View.GONE
+    if (!hasBeenInvitedFlow) later_button.visibility = View.GONE
   }
 
   override fun hideNoInternetView() {
@@ -190,13 +190,13 @@ class PhoneValidationFragment : DaggerFragment(),
     return RxView.clicks(next_button)
         .map {
           PhoneValidationClickData(ccp.selectedCountryCodeWithPlus,
-              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext ?: "")
+              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext)
         }
   }
 
   override fun getCancelClicks(): Observable<PhoneValidationClickData> {
     return RxView.clicks(cancel_button)
-        .map { PhoneValidationClickData("", "", previousContext ?: "") }
+        .map { PhoneValidationClickData("", "", previousContext) }
   }
 
   override fun onDestroy() {
@@ -206,7 +206,7 @@ class PhoneValidationFragment : DaggerFragment(),
 
   private fun stopRetryAnimation() {
     retry_button.visibility = View.VISIBLE
-    if(!hasBeenInvitedFlow) later_button.visibility = View.VISIBLE
+    if (!hasBeenInvitedFlow) later_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
   }
 
@@ -249,8 +249,9 @@ class PhoneValidationFragment : DaggerFragment(),
         putString(PHONE_NUMBER, phoneNumber)
         putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
         putString(PREVIOUS_CONTEXT, previousContext)
+
+        errorMessage?.let { putInt(ERROR_MESSAGE, errorMessage) }
       }
-      errorMessage?.let { bundle.putInt(ERROR_MESSAGE, errorMessage) }
 
       return PhoneValidationFragment().apply { arguments = bundle }
     }
