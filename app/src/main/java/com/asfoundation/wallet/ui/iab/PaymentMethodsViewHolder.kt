@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import kotlinx.android.synthetic.main.item_payment_method.view.*
 
 class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -23,7 +25,8 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     itemView.radio_button.isChecked = selected
     itemView.radio_button.isEnabled = data.isEnabled
 
-    setDescription(data, selected)
+    handleDescription(data, selected)
+    handleFee(data.fee, data.isEnabled)
 
     if (data.isEnabled) {
       itemView.setOnClickListener(listener)
@@ -44,7 +47,7 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     }
   }
 
-  private fun setDescription(data: PaymentMethod, selected: Boolean) {
+  private fun handleDescription(data: PaymentMethod, selected: Boolean) {
     itemView.payment_method_description.text = data.label
     if (selected) {
       itemView.payment_method_description.setTextColor(
@@ -55,6 +58,28 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
       itemView.payment_method_description.setTextColor(
           ContextCompat.getColor(itemView.context, R.color.grey_alpha_active_54))
       itemView.payment_method_description.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+    }
+  }
+
+  private fun handleFee(fee: PaymentMethodFee?, enabled: Boolean) {
+    if (fee?.isValidFee() == true) {
+      itemView.payment_method_fee.visibility = View.VISIBLE
+      val formattedValue = CurrencyFormatUtils.create()
+          .formatCurrency(fee.amount!!, WalletCurrency.FIAT)
+      itemView.payment_method_fee_value.text = "$formattedValue ${fee.currency}"
+
+      itemView.payment_method_fee_value.apply {
+        if (enabled) {
+          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.appc_pink))
+          this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        } else {
+          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey_alpha_active_54))
+          this.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+        }
+      }
+
+    } else {
+      itemView.payment_method_fee.visibility = View.GONE
     }
   }
 

@@ -54,7 +54,7 @@ class CodeValidationPresenter(
               analytics.sendCodeVerificationEvent("later")
               activity?.finishCancelActivity()
             }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleResendCode() {
@@ -69,7 +69,7 @@ class CodeValidationPresenter(
                   .subscribeOn(networkScheduler)
             }
             .retry()
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -94,7 +94,7 @@ class CodeValidationPresenter(
             }
             .retry()
             .observeOn(viewScheduler)
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -105,7 +105,7 @@ class CodeValidationPresenter(
               analytics.sendCodeVerificationEvent("back")
               activity?.showPhoneValidationView(countryCode, phoneNumber)
             }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -150,12 +150,17 @@ class CodeValidationPresenter(
     handleVerificationAnalytics(status)
     when (status) {
       WalletValidationStatus.SUCCESS -> checkReferralAvailability()
+      WalletValidationStatus.INVALID_CODE,
       WalletValidationStatus.INVALID_INPUT -> handleError(
           R.string.verification_insert_code_error, validationInfo)
       WalletValidationStatus.INVALID_PHONE ->
         activity?.showPhoneValidationView(validationInfo.countryCode, validationInfo.phoneNumber,
             R.string.verification_insert_code_error_common)
       WalletValidationStatus.DOUBLE_SPENT -> checkReferralAvailability()
+      WalletValidationStatus.TOO_MANY_ATTEMPTS -> handleError(
+          R.string.verification_error_attempts_reached, validationInfo)
+      WalletValidationStatus.EXPIRED_CODE -> handleError(R.string.verification_error_time_expired,
+          validationInfo)
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error, validationInfo)
       WalletValidationStatus.NO_NETWORK -> {
         view.hideKeyboard()
@@ -172,8 +177,7 @@ class CodeValidationPresenter(
     }
   }
 
-  private fun handleError(errorMessage: Int,
-                          validationInfo: ValidationInfo) {
+  private fun handleError(errorMessage: Int, validationInfo: ValidationInfo) {
     activity?.showCodeValidationView(validationInfo, errorMessage)
   }
 
@@ -193,7 +197,7 @@ class CodeValidationPresenter(
                 view.setButtonState(false)
               }
             })
-            .subscribe { })
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun isValidInput(first: String, second: String, third: String, fourth: String,
@@ -212,42 +216,42 @@ class CodeValidationPresenter(
         .doOnNext {
           view.moveToNextView(1)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
 
     disposables.add(view.getSecondChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(2)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
 
     disposables.add(view.getThirdChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(3)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
 
     disposables.add(view.getFourthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(4)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
 
     disposables.add(view.getFifthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.moveToNextView(5)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
 
     disposables.add(view.getSixthChar()
         .filter { it.isNotBlank() }
         .doOnNext {
           view.hideKeyboard()
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() {

@@ -46,10 +46,9 @@ interface IabView {
                            selectedPaymentMethod: String)
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                         productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
-                         isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
-                         disabledReasonAppc: Int?, disabledReasonCredits: Int?, isSubscription: Boolean,
-                         frequency: String?)
+                         appcEnabled: Boolean, creditsEnabled: Boolean, isBds: Boolean,
+                         isDonation: Boolean, gamificationLevel: Int, disabledReasonAppc: Int?,
+                         disabledReasonCredits: Int?, isSubscription: Boolean, frequency: String?)
 
   fun lockRotation()
 
@@ -72,4 +71,6 @@ interface IabView {
   fun getSupportClicks(): Observable<Any>
 
   fun errorDismisses(): Observable<Any>
+
+  fun updateTransaction(title: String?, price: BigDecimal)
 }

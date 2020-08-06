@@ -35,7 +35,6 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.FragmentNavigator
-import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -65,7 +64,6 @@ import kotlinx.android.synthetic.main.support_error_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
-import java.util.*
 import javax.inject.Inject
 
 class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
@@ -208,7 +206,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     } catch (e: Exception) {
       e.printStackTrace()
     }
-    app_sku_description?.text = arguments!!.getString(IabActivity.PRODUCT_NAME)
+    app_sku_description?.text = skuDescription
     val appcValue = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
     appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
@@ -609,12 +607,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val SKU_DESCRIPTION = "sku_description"
 
     @JvmStatic
     fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
                     origin: String?, transactionData: String?, appcAmount: BigDecimal,
                     amount: BigDecimal, currency: String?, bonus: String?,
-                    isPreSelected: Boolean, gamificationLevel: Int, frequency: String?): AdyenPaymentFragment {
+                    isPreSelected: Boolean, gamificationLevel: Int,
+                    skuDescription: String, frequency: String?): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
@@ -628,6 +628,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         putString(BONUS_KEY, bonus)
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
+        putString(SKU_DESCRIPTION, skuDescription)
         putString(FREQUENCY, frequency)
         fragment.arguments = this
       }
@@ -720,6 +721,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       arguments!!.getInt(GAMIFICATION_LEVEL)
     } else {
       throw IllegalArgumentException("gamification level data not found")
+    }
+  }
+
+  private val skuDescription: String by lazy {
+    if (arguments!!.containsKey(SKU_DESCRIPTION)) {
+      arguments!!.getString(SKU_DESCRIPTION, "")
+    } else {
+      throw IllegalArgumentException("sku description data not found")
     }
   }
 

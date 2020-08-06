@@ -14,6 +14,7 @@ import io.reactivex.functions.Function5
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.*
 
 
 class OneStepTransactionParser(
@@ -32,10 +33,10 @@ class OneStepTransactionParser(
           Function5 { token: Token, iabContract: String, walletAddress: String,
                       tokenContract: String, amount: BigDecimal ->
             TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
-                walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
-                iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED,
-                null, getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
-                getOrderReference(oneStepUri), referrerUrl).shouldSendToken(true)
+                walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals, iabContract,
+                Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, null, getDomain(oneStepUri),
+                getPayload(oneStepUri), getCallback(oneStepUri), getOrderReference(oneStepUri),
+                referrerUrl).shouldSendToken(true)
           })
           .map {
             it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
@@ -55,13 +56,11 @@ class OneStepTransactionParser(
   }
 
   private fun getAmount(uri: OneStepUri): Single<BigDecimal> {
-    return getProductValue(getType(uri), getDomain(uri), getSkuId(uri))
-        .onErrorResumeNext {
-          uri.parameters[Parameters.VALUE]?.let {
-            getTransactionValue(uri)
-          } ?: Single.error(MissingProductException())
-        }
+    return uri.parameters[Parameters.VALUE]?.let {
+      getTransactionValue(uri)
+    } ?: Single.just(BigDecimal.ZERO)
   }
+
 
   private fun getToAddress(uri: OneStepUri): String? {
     return uri.parameters[Parameters.TO]
@@ -122,26 +121,13 @@ class OneStepTransactionParser(
     }
   }
 
-  private fun getProductValue(type: String, packageName: String?,
-                              skuId: String?): Single<BigDecimal> {
-    return if (packageName != null && skuId != null) {
-      val billingType = BillingSupportedType.valueOfInsensitive(type)
-      billing.getProducts(packageName, listOf(skuId), billingType)
-          .map { products -> products[0] }
-          .map { product -> BigDecimal(product.price.appcoinsAmount) }
-    } else {
-      Single.error(MissingProductException())
-    }
-  }
-
   private fun getTransactionValue(uri: OneStepUri): Single<BigDecimal> {
     return if (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) {
       Single.just(BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18))
     } else {
-      conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase())
+      conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase(Locale.ROOT))
           .map {
-            BigDecimal(uri.parameters[Parameters.VALUE])
-                .divide(it.amount, 18, RoundingMode.UP)
+            BigDecimal(uri.parameters[Parameters.VALUE]).divide(it.amount, 18, RoundingMode.UP)
           }
     }
   }
