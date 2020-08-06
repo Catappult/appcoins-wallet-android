@@ -27,6 +27,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
     private const val AUTHENTICATION_PERMISSION = "authentication_permission"
+    private const val FIRST_RUN = "first_time_entering"
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)

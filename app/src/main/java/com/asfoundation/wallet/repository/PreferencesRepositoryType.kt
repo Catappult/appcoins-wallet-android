@@ -86,4 +86,5 @@ interface PreferencesRepositoryType {
   fun setAuthenticationPermission(result: Boolean)
 
   fun hasAuthenticationPermission(): Boolean
+
 }

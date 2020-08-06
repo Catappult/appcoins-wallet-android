@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui
 
-import android.hardware.biometrics.BiometricManager
+import android.util.Log
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
@@ -11,17 +11,14 @@ import io.reactivex.schedulers.Schedulers
 
 class SplashPresenter(
     private val view: SplashView,
+    private val preferencesRepositoryType: PreferencesRepositoryType,
     private val viewScheduler: Scheduler,
     private val ioScheduler: Scheduler,
     private val disposables: CompositeDisposable,
-    private val autoUpdateInteract: AutoUpdateInteract,
-    private val fingerprintInteract: FingerPrintInteract,
-    private val preferencesRepositoryType: PreferencesRepositoryType) {
+    private val autoUpdateInteract: AutoUpdateInteract) {
 
   fun present() {
     handleAutoUpdate()
-    handleAuthenticationResult()
-    handleRetryAuthentication()
   }
 
 
@@ -35,34 +32,9 @@ class SplashPresenter(
             view.navigateToAutoUpdate()
           } else {
             if (preferencesRepositoryType.hasAuthenticationPermission()) {
-
-              when (fingerprintInteract.compatibleDevice()) {
-
-                BiometricManager.BIOMETRIC_SUCCESS -> {
-                  view.showPrompt(view.createBiometricPrompt(),
-                      fingerprintInteract.definePromptInformation())
-                }
-
-                BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.firstScreenNavigation()
-
-                BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.showBottomSheetDialogFragment(
-                    "Enable Fingerprint Authentication in your phone.")
-
-                BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                  if (view.checkBiometricSupport()) {
-                    view.showBottomSheetDialogFragment(
-                        "No fingerprints associated yet! Try again with pin.")
-                  } else {
-                    //Se nenhuma fingerprint nem pin estiverem definidos, então mudar o state do switch para false e continuar
-                    preferencesRepositoryType.setAuthenticationPermission(false)
-                    view.firstScreenNavigation()
-                  }
-
-                }
-
-              }
-
+              view.showAuthenticationActivity()
             } else {
+              Log.d("TAG123", "FIRST RUN")
               view.firstScreenNavigation()
             }
           }
@@ -70,30 +42,6 @@ class SplashPresenter(
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleAuthenticationResult() {
-    disposables.add(view.getAuthenticationResult()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          when (it.type) {
-            FingerprintResult.SUCCESS -> view.firstScreenNavigation()
-            FingerprintResult.ERROR -> view.showBottomSheetDialogFragment(it.errorString)
-            FingerprintResult.FAIL -> view.showFail()
-          }
-        }
-        .subscribe({}, { it.printStackTrace() }))
-  }
-
-  private fun handleRetryAuthentication() {
-    disposables.add(view.getRetryButtonClick()
-        .observeOn(viewScheduler)
-        .doOnNext {
-
-          view.showPrompt(view.createBiometricPrompt(),
-              fingerprintInteract.definePromptInformation())
-
-        }
-        .subscribe({}, { it.printStackTrace() }))
-  }
 
   fun stop() {
     disposables.clear()
