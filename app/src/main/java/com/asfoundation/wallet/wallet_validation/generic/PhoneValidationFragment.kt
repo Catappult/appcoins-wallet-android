@@ -249,8 +249,9 @@ class PhoneValidationFragment : DaggerFragment(),
         putString(PHONE_NUMBER, phoneNumber)
         putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
         putString(PREVIOUS_CONTEXT, previousContext)
+
+        errorMessage?.let { putInt(ERROR_MESSAGE, errorMessage) }
       }
-      errorMessage?.let { bundle.putInt(ERROR_MESSAGE, errorMessage) }
 
       return PhoneValidationFragment().apply { arguments = bundle }
     }
