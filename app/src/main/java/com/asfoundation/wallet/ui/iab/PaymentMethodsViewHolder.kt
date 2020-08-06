@@ -62,10 +62,10 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
   }
 
   private fun handleFee(fee: PaymentMethodFee?, enabled: Boolean) {
-    if (isValidFee(fee)) {
+    if (fee?.isValidFee(fee) == true) {
       itemView.payment_method_fee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils.create()
-          .formatCurrency(fee!!.amount!!, WalletCurrency.FIAT)
+          .formatCurrency(fee.amount!!, WalletCurrency.FIAT)
       itemView.payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       itemView.payment_method_fee_value.apply {
@@ -82,9 +82,6 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
       itemView.payment_method_fee.visibility = View.GONE
     }
   }
-
-  private fun isValidFee(fee: PaymentMethodFee?) =
-      fee != null && fee.isExact && fee.amount != null && fee.currency != null
 
   private fun applyAlphaScale(imageView: ImageView) {
     val colorMatrix = ColorMatrix()

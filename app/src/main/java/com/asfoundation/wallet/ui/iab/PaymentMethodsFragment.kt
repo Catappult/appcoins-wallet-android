@@ -255,9 +255,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun setupFee(fee: PaymentMethodFee?) {
-    if (isValidFee(fee)) {
+    if (fee?.isValidFee(fee) == true) {
       payment_method_fee.visibility = View.VISIBLE
-      val formattedValue = formatter.formatCurrency(fee!!.amount!!, WalletCurrency.FIAT)
+      val formattedValue = formatter.formatCurrency(fee.amount!!, WalletCurrency.FIAT)
       payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       payment_method_fee_value.apply {
@@ -268,9 +268,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       payment_method_fee.visibility = View.GONE
     }
   }
-
-  private fun isValidFee(fee: PaymentMethodFee?) =
-      fee != null && fee.isExact && fee.amount != null && fee.currency != null
 
   private fun loadIcons(paymentMethod: PaymentMethod, view: ImageView?) {
     compositeDisposable.add(Observable.fromCallable {
