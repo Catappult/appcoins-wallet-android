@@ -62,7 +62,7 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
   }
 
   private fun handleFee(fee: PaymentMethodFee?, enabled: Boolean) {
-    if (fee?.isValidFee(fee) == true) {
+    if (fee?.isValidFee() == true) {
       itemView.payment_method_fee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils.create()
           .formatCurrency(fee.amount!!, WalletCurrency.FIAT)

@@ -22,6 +22,6 @@ data class PaymentMethodFee(
     val currency: String?
 ) {
 
-  fun isValidFee(fee: PaymentMethodFee) = fee.isExact && fee.amount != null && fee.currency != null
+  fun isValidFee() = isExact && amount != null && currency != null
 
 }
