@@ -545,4 +545,20 @@
     <item name="android:letterSpacing">.009</item>
   </style>
 
+  <style name="WalletValidationTextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/color_title</item>
+    <item name="android:textSize">15sp</item>
+  </style>
+
+  <style name="WalletValidationTextStyle.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/color_inactive</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="WalletValidationTextStyle.Tooltip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">#4a4a4a</item>
+    <item name="android:textSize">10sp</item>
+  </style>
+
+
 </resources>

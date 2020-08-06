@@ -65,7 +65,7 @@
         android:layout_marginEnd="16dp"
         android:layout_weight="1.5"
         android:gravity="bottom"
-        app:ccpDialog_backgroundColor="#FAFAFA"
+        app:ccpDialog_background="@drawable/ccp_background"
         app:ccpDialog_textColor="#000000"
         app:ccp_arrowColor="@color/colorAccent"
         app:ccp_arrowSize="30dp"
