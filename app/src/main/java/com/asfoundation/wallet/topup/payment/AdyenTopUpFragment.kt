@@ -428,8 +428,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
     cardConfiguration = cardConfigurationBuilder.let {
       it.setEnvironment(adyenEnvironment)
-      it.setSupportedCardTypes()
-      it.setShopperReference("0x82b54C7547FF2f4De606A2270c6E8943436dA47E")
       it.build()
     }
   }
