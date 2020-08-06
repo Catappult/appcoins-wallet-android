@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.logging.Logger
+import com.hbb20.CountryCodePicker
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -144,6 +145,22 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun setupUI() {
     ccp.registerCarrierNumberEditText(phone_number)
+    ccp.setCustomDialogTextProvider(object : CountryCodePicker.CustomDialogTextProvider {
+      override fun getCCPDialogSearchHintText(language: CountryCodePicker.Language?,
+                                              defaultSearchHintText: String?): String {
+        return defaultSearchHintText ?: ""
+      }
+
+      override fun getCCPDialogTitle(language: CountryCodePicker.Language?,
+                                     defaultTitle: String?): String {
+        return getString(R.string.verification_insert_phone_field_country)
+      }
+
+      override fun getCCPDialogNoResultACK(language: CountryCodePicker.Language?,
+                                           defaultNoResultACK: String?): String {
+        return defaultNoResultACK ?: ""
+      }
+    })
 
     hideNoInternetView()
 
