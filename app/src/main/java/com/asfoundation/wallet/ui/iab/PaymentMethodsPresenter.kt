@@ -284,7 +284,7 @@ class PaymentMethodsPresenter(
       if (it.id == PaymentMethodId.MERGED_APPC.id) {
         val mergedPaymentMethod = it as AppCoinsPaymentMethod
         return PaymentMethod(PaymentMethodId.APPC_CREDITS.id,
-            mergedPaymentMethod.creditsLabel, mergedPaymentMethod.iconUrl,
+            mergedPaymentMethod.creditsLabel, mergedPaymentMethod.iconUrl, mergedPaymentMethod.fee,
             mergedPaymentMethod.isCreditsEnabled)
       }
       if (it.id == PaymentMethodId.APPC_CREDITS.id) {
@@ -476,14 +476,14 @@ class PaymentMethodsPresenter(
         if (preSelectedPreference == PaymentMethodId.APPC.id) {
           val mergedPaymentMethod = paymentMethod as AppCoinsPaymentMethod
           return PaymentMethod(PaymentMethodId.APPC.id,
-              mergedPaymentMethod.appcLabel, mergedPaymentMethod.iconUrl,
+              mergedPaymentMethod.appcLabel, mergedPaymentMethod.iconUrl, mergedPaymentMethod.fee,
               mergedPaymentMethod.isAppcEnabled)
         }
         if (preSelectedPreference == PaymentMethodId.APPC_CREDITS.id) {
           val mergedPaymentMethod = paymentMethod as AppCoinsPaymentMethod
           return PaymentMethod(PaymentMethodId.APPC_CREDITS.id,
               mergedPaymentMethod.creditsLabel, paymentMethod.creditsIconUrl,
-              mergedPaymentMethod.isCreditsEnabled)
+              mergedPaymentMethod.fee, mergedPaymentMethod.isCreditsEnabled)
         }
       }
       if (paymentMethod.id == preSelectedPreference) return paymentMethod

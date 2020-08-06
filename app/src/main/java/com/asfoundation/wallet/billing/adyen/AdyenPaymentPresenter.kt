@@ -56,12 +56,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private var waitingResult = false
   private var cachedUid = ""
+  private var cachedPaymentData: String? = null
 
   fun present(savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
-      waitingResult = it.getBoolean(WAITING_RESULT)
-      cachedUid = it.getString(UID, "")
-    }
+    retrieveSavedInstace(savedInstanceState)
     view.setup3DSComponent()
     view.setupRedirectComponent()
     if (!waitingResult) loadPaymentMethodInfo(savedInstanceState)
@@ -331,7 +329,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .doOnNext { view.lockRotation() }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!, it.paymentData)
+          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!,
+              it.paymentData ?: cachedPaymentData)
         }
         .observeOn(viewScheduler)
         .flatMapCompletable { handlePaymentResult(it) }
@@ -357,6 +356,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   fun onSaveInstanceState(outState: Bundle) {
     outState.putBoolean(WAITING_RESULT, waitingResult)
     outState.putString(UID, cachedUid)
+    outState.putString(PAYMENT_DATA, cachedPaymentData)
+  }
+
+  private fun retrieveSavedInstace(savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      waitingResult = it.getBoolean(WAITING_RESULT)
+      cachedUid = it.getString(UID, "")
+      cachedPaymentData = it.getString(PAYMENT_DATA)
+    }
   }
 
   private fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
@@ -551,6 +559,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     if (paymentModel.action != null) {
       val type = paymentModel.action?.type
       if (type == REDIRECT) {
+        cachedPaymentData = paymentModel.paymentData
         cachedUid = paymentModel.uid
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
@@ -571,6 +580,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val HTTP_FRAUD_CODE = 403
     private const val UID = "UID"
+    private const val PAYMENT_DATA = "payment_data"
     private const val CHALLENGE_CANCELED = "Challenge canceled."
     private val TAG = AdyenPaymentPresenter::class.java.name
   }

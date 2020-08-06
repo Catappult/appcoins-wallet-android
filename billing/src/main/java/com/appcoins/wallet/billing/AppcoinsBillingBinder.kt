@@ -9,15 +9,13 @@ import com.appcoins.billing.AppcoinsBilling
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.functions.Function4
-import java.math.BigDecimal
+import io.reactivex.functions.Function3
 import java.util.*
 
 
@@ -155,33 +153,17 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
-    val getSkuDetails = billing.getProducts(merchantName, listOf(sku), type)
-        .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
         .subscribeOn(networkScheduler)
 
-    return Single.zip(
-        getTokenContractAddress,
-        getIabContractAddress,
-        getSkuDetails,
+    return Single.zip(getTokenContractAddress, getIabContractAddress,
         getDeveloperAddress,
-        Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
+        Function3 { tokenContractAddress: String, iabContractAddress: String, developerAddress: String ->
           try {
-            val product = skuDetails[0]
-            val intro = product.introductoryPrice
-            val introPrice = intro?.let { BigDecimal(it.price.appcoinsAmount) }
             intentBuilder.buildBuyIntentBundle(tokenContractAddress, iabContractAddress,
-                developerPayload, true, packageName, developerAddress, product.sku,
-                BigDecimal(product.price.appcoinsAmount), product.title, product.billingType,
-                product.subscriptionPeriod, product.trialPeriod, introPrice, intro?.period,
-                intro?.cycles)
+                developerPayload, true, packageName, developerAddress, sku)
           } catch (exception: Exception) {
-            if (skuDetails.isEmpty()) {
-              billingMessagesMapper.mapBuyIntentError(
-                  Exception(BillingException(RESULT_ITEM_UNAVAILABLE)))
-            } else {
-              billingMessagesMapper.mapBuyIntentError(exception)
-            }
+            billingMessagesMapper.mapBuyIntentError(exception)
           }
         })
         .onErrorReturn { throwable ->

@@ -46,7 +46,7 @@
       android:ellipsize="end"
       android:gravity="start"
       app:layout_constraintBottom_toTopOf="@id/payment_method_reason"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
       app:layout_constraintTop_toTopOf="@id/payment_method_ic"
@@ -65,11 +65,48 @@
       android:textSize="11sp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
       app:layout_constraintTop_toBottomOf="@id/payment_method_description"
       tools:text="You need ETH to pay for the gas."
       />
+
+  <LinearLayout
+      android:id="@+id/payment_method_fee"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_description"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toEndOf="@id/payment_method_description"
+      app:layout_constraintTop_toTopOf="@+id/payment_method_description"
+      tools:visibility="visible"
+      >
+
+    <TextView
+        android:id="@+id/payment_method_fee_value"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="end"
+        android:textColor="@color/appc_pink"
+        android:textSize="11sp"
+        tools:text="23 €"
+        />
+
+    <TextView
+        android:id="@+id/payment_method_fee_label"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="end"
+        android:text="@string/activity_iab_fees"
+        android:textColor="@color/top_up_bonus_text"
+        android:textSize="11sp"
+        />
+
+  </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

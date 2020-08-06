@@ -40,7 +40,7 @@ class CodeValidationDialogPresenter(
                   .subscribeOn(networkScheduler)
             }
             .retry()
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -51,7 +51,7 @@ class CodeValidationDialogPresenter(
               analytics.sendCodeVerificationEvent("submit")
               activity?.showLoading(it)
             }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -62,7 +62,7 @@ class CodeValidationDialogPresenter(
               analytics.sendCodeVerificationEvent("back")
               activity?.showPhoneValidationView(countryCode, phoneNumber)
             }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -82,7 +82,7 @@ class CodeValidationDialogPresenter(
                 view.setButtonState(false)
               }
             })
-            .subscribe { })
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun isValidInput(first: String, second: String, third: String,
@@ -99,41 +99,39 @@ class CodeValidationDialogPresenter(
     disposables.add(view.getFirstChar()
         .filter { it.isNotBlank() }
         .doOnNext { view.moveToNextView(1) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
 
     disposables.add(view.getSecondChar()
         .filter { it.isNotBlank() }
         .doOnNext { view.moveToNextView(2) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
 
     disposables.add(view.getThirdChar()
         .filter { it.isNotBlank() }
         .doOnNext { view.moveToNextView(3) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
 
     disposables.add(view.getFourthChar()
         .filter { it.isNotBlank() }
         .doOnNext { view.moveToNextView(4) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
 
     disposables.add(view.getFifthChar()
         .filter { it.isNotBlank() }
         .doOnNext { view.moveToNextView(5) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
 
     disposables.add(view.getSixthChar()
         .filter { it.isNotBlank() }
         .doOnNext { view.hideKeyboard() }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
-  fun stop() {
-    disposables.dispose()
-  }
+  fun stop() = disposables.dispose()
 }

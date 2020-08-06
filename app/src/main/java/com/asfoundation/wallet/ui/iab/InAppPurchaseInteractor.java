@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity;
+import com.appcoins.wallet.bdsbilling.repository.entity.FeeType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -442,12 +444,28 @@ public class InAppPurchaseInteractor {
     for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
       if (paymentMethod.getId()
           .equals(availablePaymentMethod.getId())) {
+        PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), true, null);
+            paymentMethod.getIconUrl(), paymentMethodFee, true, null);
       }
     }
+    PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), false, null);
+        paymentMethod.getIconUrl(), paymentMethodFee, false, null);
+  }
+
+  private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {
+    if (feeEntity == null) {
+      return null;
+    } else {
+      if (feeEntity.getType() == FeeType.EXACT) {
+        return new PaymentMethodFee(true, feeEntity.getCost()
+            .getValue(), feeEntity.getCost()
+            .getCurrency());
+      } else {
+        return new PaymentMethodFee(false, null, null);
+      }
+    }
   }
 
   boolean hasPreSelectedPaymentMethod() {
