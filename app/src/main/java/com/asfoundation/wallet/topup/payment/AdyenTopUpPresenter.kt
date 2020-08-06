@@ -170,17 +170,18 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
-    disposables.add(adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo, false, false,
-        returnUrl, retrievedAmount, retrievedCurrency,
-        mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .filter { !waitingResult }
-        .doOnSuccess { handlePaymentModel(it) }
-        .subscribe({}, {
-          handleSpecificError(R.string.unknown_error)
-          logger.log(TAG, it)
-        }))
+    disposables.add(
+        adyenPaymentInteractor.makeTopUpPayment(paymentMethodInfo, false, false, emptyList(),
+            returnUrl, retrievedAmount, retrievedCurrency,
+            mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .filter { !waitingResult }
+            .doOnSuccess { handlePaymentModel(it) }
+            .subscribe({}, {
+              handleSpecificError(R.string.unknown_error)
+              logger.log(TAG, it)
+            }))
   }
 
   //Called if is card
@@ -200,8 +201,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           topUpAnalytics.sendConfirmationEvent(currencyData.appcValue.toDouble(), "top_up",
               paymentType)
           adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
-              it.hasCvc, returnUrl, retrievedAmount, retrievedCurrency,
-              mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
+              it.hasCvc, it.supportedShopperInteractions, returnUrl, retrievedAmount,
+              retrievedCurrency, mapPaymentToService(paymentType).transactionType, transactionType,
+              appPackage)
         }
         .observeOn(viewScheduler)
         .flatMapCompletable {

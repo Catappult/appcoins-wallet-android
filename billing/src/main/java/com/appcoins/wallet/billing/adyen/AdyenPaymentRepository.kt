@@ -19,12 +19,15 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
   }
 
   fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
-                  returnUrl: String, value: String, currency: String, reference: String?,
-                  paymentType: String, walletAddress: String, origin: String?, packageName: String?,
-                  metadata: String?, sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?, storeWallet: String?, oemWallet: String?,
-                  userWallet: String?, walletSignature: String): Single<PaymentModel> {
-    val shopperInteraction = if (hasCvc) "Ecommerce" else "ContAuth"
+                  supportedShopperInteractions: List<String>, returnUrl: String, value: String,
+                  currency: String, reference: String?, paymentType: String, walletAddress: String,
+                  origin: String?, packageName: String?, metadata: String?, sku: String?,
+                  callbackUrl: String?, transactionType: String, developerWallet: String?,
+                  storeWallet: String?, oemWallet: String?, userWallet: String?,
+                  walletSignature: String): Single<PaymentModel> {
+    val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
+      "ContAuth"
+    } else "Ecommerce"
     return adyenApi.makePayment(walletAddress, walletSignature,
         Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction, callbackUrl,
             packageName, metadata, paymentType, origin, sku, reference, transactionType, currency,

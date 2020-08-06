@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
+import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -279,11 +280,12 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun lockRotation() = topUpView.lockOrientation()
 
   private fun prepareCardComponent(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, forget: Boolean,
+      paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
+      forget: Boolean,
       savedInstanceState: Bundle?) {
     if (forget) viewModelStore.clear()
     val cardComponent =
-        CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
+        CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this, androidx.lifecycle.Observer {
@@ -292,8 +294,11 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
+          val supportedShopperInteractions =
+              if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
           paymentDataSubject?.onNext(
-              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc))
+              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
+                  supportedShopperInteractions))
         }
       } else {
         button.isEnabled = false
