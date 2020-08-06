@@ -223,7 +223,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getSkuDescription(), isBds, isDonation, developerPayload, uri,
-            intent.dataString), isSubscription, "Month")
+            intent.dataString, isSubscription, "Month"))
         .commit()
   }
 

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -49,7 +50,8 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
 
   fun getMissingTransactionDetails(
       transactionBuilder: TransactionBuilder): Single<Pair<String?, BigDecimal>> {
-    return billing.getProducts(transactionBuilder.domain, listOf(transactionBuilder.skuId))
+    return billing.getProducts(transactionBuilder.domain, listOf(transactionBuilder.skuId),
+        BillingSupportedType.valueOfInsensitive(transactionBuilder.type))
         .map { products -> products.first() }
         .map { product ->
           Pair<String?, BigDecimal>(product.title, BigDecimal(product.price.appcoinsAmount))

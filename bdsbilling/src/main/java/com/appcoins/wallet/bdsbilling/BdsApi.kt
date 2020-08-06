@@ -66,7 +66,7 @@ interface BdsApi {
    * @param direct, either if it returns non-direct payments (false) (earn appcoins and ask someone to pay) or not
    *
    */
-  @GET("broker/8.20200311/methods")
+  @GET("broker/8.20200720/methods")
   fun getPaymentMethods(@Query("price.value") value: String? = null,
                         @Query("price.currency") currency: String? = null,
                         @Query("currency.type") type: String? = null,
