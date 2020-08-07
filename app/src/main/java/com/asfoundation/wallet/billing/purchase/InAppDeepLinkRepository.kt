@@ -14,9 +14,9 @@ interface InAppDeepLinkRepository {
    * @param originalAmount amount of the transaction. Only needed in one step payments
    * @param originalCurrency currency of the transaction. Only needed in one step payments
    * @param paymentMethod Name of the payment method being used
-   * @param developerWalletAddress Wallet address of the apps developer
-   * @param storeWalletAddress Wallet address of the store from which the app was downloaded
-   * @param oemWalletAddress Wallet address of the original equipment manufacturer
+   * @param developerWalletAddress Wallet address of the apps developer. Null on topup
+   * @param storeWalletAddress Wallet address of the store from which the app was downloaded. Null on topup
+   * @param oemWalletAddress Wallet address of the original equipment manufacturer. Null on topup
    * @param callbackUrl url used in some purchases by the application to complete the purchase
    * @param orderReference reference used in some purchases by the application to
    * complete the purchase
@@ -24,10 +24,9 @@ interface InAppDeepLinkRepository {
    * complete the purchase
    */
   fun getDeepLink(domain: String, skuId: String?, userWalletAddress: String,
-                  signature: String,
-                  originalAmount: String?, originalCurrency: String?,
-                  paymentMethod: String, developerWalletAddress: String,
-                  storeWalletAddress: String, oemWalletAddress: String,
+                  signature: String, originalAmount: String?, originalCurrency: String?,
+                  paymentMethod: String, developerWalletAddress: String?,
+                  storeWalletAddress: String?, oemWalletAddress: String?,
                   callbackUrl: String?, orderReference: String?,
                   payload: String?): Single<String>
 

@@ -86,7 +86,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val domain: String by lazy {
     if (arguments!!.containsKey(DOMAIN_KEY)) {
-      arguments!!.getString(DOMAIN_KEY)
+      arguments!!.getString(DOMAIN_KEY)!!
     } else {
       throw IllegalArgumentException("domain data not found")
     }
@@ -118,7 +118,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val paymentId: String by lazy {
     if (arguments!!.containsKey(PAYMENT_KEY)) {
-      arguments!!.getString(PAYMENT_KEY)
+      arguments!!.getString(PAYMENT_KEY)!!
     } else {
       throw IllegalArgumentException("payment method data not found")
     }
@@ -134,7 +134,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val developerAddress: String by lazy {
     if (arguments!!.containsKey(DEV_ADDRESS_KEY)) {
-      arguments!!.getString(DEV_ADDRESS_KEY)
+      arguments!!.getString(DEV_ADDRESS_KEY)!!
     } else {
       throw IllegalArgumentException("dev address data not found")
     }
@@ -142,7 +142,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val type: String by lazy {
     if (arguments!!.containsKey(TYPE_KEY)) {
-      arguments!!.getString(TYPE_KEY)
+      arguments!!.getString(TYPE_KEY)!!
     } else {
       throw IllegalArgumentException("type data not found")
     }
@@ -267,12 +267,12 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
     if (savedInstanceState?.get(STATUS_KEY) != null) {
       status = savedInstanceState.get(STATUS_KEY) as ViewState
-      setViewState(savedInstanceState.get(STATUS_KEY) as ViewState)
+      setViewState(status)
     }
     super.onViewStateRestored(savedInstanceState)
   }
 
-  private fun setViewState(viewState: ViewState?) = when (viewState) {
+  private fun setViewState(viewState: ViewState) = when (viewState) {
     COMPLETED -> showCompletedPayment()
     PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
     // TODO we may need to improve the logic here, to handle different errors
@@ -356,13 +356,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
     step_one_desc.text = stepOneText
 
-    pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
-      when (it.id) {
-        "image_0" -> paymentMethodIcon
-        "image_1" -> applicationIcon
-        else -> null
-      }
-    }
+    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_0", paymentMethodIcon)
+    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_1", applicationIcon)
 
     playAnimation()
   }

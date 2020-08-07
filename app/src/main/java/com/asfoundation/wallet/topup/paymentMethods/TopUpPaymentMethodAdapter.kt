@@ -18,18 +18,12 @@ class TopUpPaymentMethodAdapter(private var paymentMethods: List<PaymentMethodDa
     notifyDataSetChanged()
   }
 
-  fun getSelectedItem(): Int {
-    return selectedItem
-  }
-
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
     return PaymentMethodViewHolder(LayoutInflater.from(parent.context)
         .inflate(R.layout.top_up_payment_method_item, parent, false))
   }
 
-  override fun getItemCount(): Int {
-    return paymentMethods.size
-  }
+  override fun getItemCount() = paymentMethods.size
 
   override fun onBindViewHolder(holder: PaymentMethodViewHolder, position: Int) {
     holder.bind(paymentMethods[position], selectedItem == position, View.OnClickListener {
@@ -39,7 +33,5 @@ class TopUpPaymentMethodAdapter(private var paymentMethods: List<PaymentMethodDa
     })
   }
 
-  fun getSelectedItemData(): PaymentMethodData {
-    return paymentMethods[selectedItem]
-  }
+  fun getSelectedItemData(): PaymentMethodData = paymentMethods[selectedItem]
 }

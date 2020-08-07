@@ -188,13 +188,13 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")),
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)),
         Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)));
 
     when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
         Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
