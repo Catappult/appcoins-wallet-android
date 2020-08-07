@@ -27,7 +27,7 @@ enum class BillingSupportedType {
       }
     }
 
-    private fun mapToProductType(type: BillingSupportedType): BillingSupportedType {
+    fun mapToProductType(type: BillingSupportedType): BillingSupportedType {
       return when (type) {
         INAPP_UNMANAGED -> INAPP
         DONATION -> INAPP

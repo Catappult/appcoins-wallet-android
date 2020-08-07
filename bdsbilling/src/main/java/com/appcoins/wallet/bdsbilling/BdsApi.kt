@@ -22,7 +22,8 @@ interface BdsApi {
   fun getSkuPurchase(@Path("packageName") packageName: String,
                      @Path("skuId") skuId: String?,
                      @Query("wallet.address") walletAddress: String,
-                     @Query("wallet.signature") walletSignature: String): Single<Purchase>
+                     @Query("wallet.signature")
+                     walletSignature: String): Single<InappPurchaseResponse>
 
   @GET("broker/8.20180518/transactions")
   fun getSkuTransaction(

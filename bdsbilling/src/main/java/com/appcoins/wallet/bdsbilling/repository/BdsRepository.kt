@@ -36,7 +36,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   }
 
   override fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean> {
-    return if (type == BillingSupportedType.INAPP) {
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
       remoteRepository.isBillingSupported(packageName)
     } else {
       remoteRepository.isBillingSupportedSubs(packageName)
@@ -45,7 +45,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
 
   override fun getSkuDetails(packageName: String, skus: List<String>,
                              type: BillingSupportedType): Single<List<Product>> {
-    return if (type == BillingSupportedType.INAPP) {
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
       remoteRepository.getSkuDetails(packageName, skus)
     } else {
       remoteRepository.getSkuDetailsSubs(packageName, skus)
@@ -55,7 +55,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   override fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String,
                               type: BillingSupportedType): Single<Purchase> {
-    return if (type == BillingSupportedType.INAPP) {
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
       remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
     } else {
       remoteRepository.getSkuPurchaseSubs(packageName, skuId, walletAddress, walletSignature)
@@ -77,7 +77,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
 
   override fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
-    return if (type == BillingSupportedType.INAPP) {
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
       remoteRepository.getPurchases(packageName, walletAddress, walletSignature)
     } else {
       remoteRepository.getPurchasesSubs(packageName, walletAddress, walletSignature)

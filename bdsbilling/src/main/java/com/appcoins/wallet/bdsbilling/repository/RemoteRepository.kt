@@ -70,6 +70,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
   internal fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
     return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+        .map { responseMapper.map(packageName, it) }
   }
 
   internal fun getSkuPurchaseSubs(packageName: String, skuId: String?, walletAddress: String,
@@ -91,7 +92,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
                             walletSignature: String): Single<List<Purchase>> {
     return inAppApi.getPurchases(packageName, walletAddress, walletSignature,
         BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
-        .map { responseMapper.map(it) }
+        .map { responseMapper.map(packageName, it) }
   }
 
   internal fun getPurchasesSubs(packageName: String, walletAddress: String,

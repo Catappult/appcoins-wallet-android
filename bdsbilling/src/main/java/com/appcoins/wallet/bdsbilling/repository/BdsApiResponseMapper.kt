@@ -12,8 +12,12 @@ class BdsApiResponseMapper(private val subscriptionsMapper: SubscriptionsMapper,
     return inAppMapper.map(productDetails)
   }
 
-  fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
-    return purchasesResponse.items
+  fun map(packageName: String, inappPurchaseResponse: InappPurchaseResponse): Purchase {
+    return inAppMapper.map(packageName, inappPurchaseResponse)
+  }
+
+  fun map(packageName: String, purchasesResponse: GetPurchasesResponse): List<Purchase> {
+    return inAppMapper.map(packageName, purchasesResponse)
   }
 
   fun map(gatewaysResponse: GetMethodsResponse): List<PaymentMethodEntity> {

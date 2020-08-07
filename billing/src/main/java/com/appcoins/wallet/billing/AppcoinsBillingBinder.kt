@@ -203,7 +203,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
       purchases.forEach { purchase: Purchase ->
         idsList.add(purchase.uid)
-        dataList.add(serializer.serializeSignatureData(purchase))
+        dataList.add(purchase.signature.message)
         signatureList.add(purchase.signature.value)
         skuList.add(purchase.product.name)
       }

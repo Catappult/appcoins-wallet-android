@@ -45,7 +45,7 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
   fun getPaymentStatus(packageName: String, sku: String?,
                        amount: BigDecimal): Observable<RewardPayment> {
     return appcoinsRewards.getPayment(packageName, sku, amount.toString())
-        .flatMap { this.map(it) }
+        .flatMap { map(it) }
   }
 
   private fun map(transaction: Transaction): Observable<RewardPayment> {

@@ -45,15 +45,15 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
           "application must implement ${BillingDependenciesProvider::class.java.simpleName}")
     }
     window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    serializer = ExternalBillingSerializer()
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val bdsBilling = BdsBilling(
         BdsRepository(RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
-            SubscriptionsMapper(), InAppMapper()),
+            SubscriptionsMapper(), InAppMapper(serializer)),
             dependenciesProvider.bdsApiSecondary(),
             dependenciesProvider.subscriptionBillingService())),
         dependenciesProvider.walletService(), BillingThrowableCodeMapper())
 
-    serializer = ExternalBillingSerializer()
 
     proxyService = dependenciesProvider.proxyService()
     billingMessagesMapper = dependenciesProvider.billingMessagesMapper()
@@ -204,7 +204,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
 
       purchases.forEach { purchase: Purchase ->
         idsList.add(purchase.uid)
-        dataList.add(serializer.serializeSignatureData(purchase))
+        dataList.add(purchase.signature.message)
         signatureList.add(purchase.signature.value)
         skuList.add(purchase.product.name)
       }

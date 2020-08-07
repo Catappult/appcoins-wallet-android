@@ -4,14 +4,14 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.exceptions.ApiException
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
+import com.appcoins.wallet.bdsbilling.exceptions.ServiceUnavailableException
+import com.appcoins.wallet.bdsbilling.exceptions.UnknownException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_DATA_SIGNATURE
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_DATA
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_ID
-import com.appcoins.wallet.bdsbilling.exceptions.ServiceUnavailableException
-import com.appcoins.wallet.bdsbilling.exceptions.UnknownException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import retrofit2.HttpException
@@ -115,8 +115,8 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
   }
 
   fun mapPurchase(purchase: Purchase, orderReference: String?): Bundle {
-    return mapPurchase(purchase.uid, purchase.signature.value,
-        billingSerializer.serializeSignatureData(purchase), orderReference)
+    return mapPurchase(purchase.uid, purchase.signature.value, purchase.signature.message,
+        orderReference)
   }
 
   fun genericError(): Bundle {
@@ -134,7 +134,8 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun topUpBundle(amount: String, currency: String, bonus: String, fiatCurrencySymbol: String): Bundle {
+  fun topUpBundle(amount: String, currency: String, bonus: String,
+                  fiatCurrencySymbol: String): Bundle {
     return Bundle().apply {
       putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
       putString(TOP_UP_AMOUNT, amount)

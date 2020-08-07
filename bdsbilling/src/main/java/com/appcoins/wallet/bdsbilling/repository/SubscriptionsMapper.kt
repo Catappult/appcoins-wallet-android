@@ -4,8 +4,6 @@ import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
 
 class SubscriptionsMapper {
 
@@ -35,14 +33,10 @@ class SubscriptionsMapper {
 
   fun map(packageName: String,
           subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
-    val objectMapper = ObjectMapper()
-    val developerPurchase =
-        objectMapper.readValue(Gson().toJson(subscriptionPurchaseResponse.verification.data),
-            DeveloperPurchase::class.java)
-
     return Purchase(subscriptionPurchaseResponse.uid,
         RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
         subscriptionPurchaseResponse.autoRenewing, Package(packageName),
-        Signature(subscriptionPurchaseResponse.verification.signature, developerPurchase))
+        Signature(subscriptionPurchaseResponse.verification.signature,
+            subscriptionPurchaseResponse.verification.data))
   }
 }

@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
@@ -44,7 +43,6 @@ public class InAppPurchaseInteractor {
   private static final long EARN_APPCOINS_APTOIDE_VERCODE = 9961;
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
-  private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
@@ -52,13 +50,11 @@ public class InAppPurchaseInteractor {
   private final BackupInteractContract backupInteract;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
-      SharedPreferences sharedPreferences, PackageManager packageManager,
+      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor, AppcoinsRewards appcoinsRewards,
+      Billing billing, SharedPreferences sharedPreferences, PackageManager packageManager,
       BackupInteractContract backupInteract) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
-    this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
@@ -177,8 +173,9 @@ public class InAppPurchaseInteractor {
   private Payment mapToBdsPayment(Payment transaction, Purchase purchase) {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
         purchase.getSignature()
-            .getValue(), billingSerializer.serializeSignatureData(purchase),
-        transaction.getOrderReference(), transaction.getErrorCode(), transaction.getErrorMessage());
+            .getValue(), purchase.getSignature()
+        .getMessage(), transaction.getOrderReference(), transaction.getErrorCode(),
+        transaction.getErrorMessage());
   }
 
   public Single<Boolean> isWalletFromBds(String packageName, String wallet) {

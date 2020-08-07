@@ -1,5 +1,6 @@
 package com.appcoins.wallet.bdsbilling
 
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -108,8 +109,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           bdsApiSecondary?.let { bdsApiSecondary ->
             subscriptionApi?.let { subscriptionApi ->
               BillingPaymentProofSubmissionImpl(walletService, BdsRepository(
-                  RemoteRepository(api, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-                      bdsApiSecondary, subscriptionApi)),
+                  RemoteRepository(api, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(
+                      ExternalBillingSerializer())), bdsApiSecondary, subscriptionApi)),
                   networkScheduler, ConcurrentHashMap(), ConcurrentHashMap())
             } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
           } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
