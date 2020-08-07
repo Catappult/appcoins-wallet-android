@@ -123,4 +123,6 @@
   <color name="gamification_brown">#c27200</color>
   <color name="gamification_dark_red">#bc452c</color>
   <color name="gamification_light_blue">#7acef9</color>
+
+  <color name="color_inactive">#727272</color>
 </resources>

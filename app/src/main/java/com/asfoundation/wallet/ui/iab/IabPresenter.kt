@@ -18,13 +18,27 @@ class IabPresenter(private val view: IabView,
                    private val billingAnalytics: BillingAnalytics,
                    private var firstImpression: Boolean,
                    private val iabInteract: IabInteract,
-                   private val walletBlockedInteract: WalletBlockedInteract) {
+                   private val walletBlockedInteract: WalletBlockedInteract,
+                   private val transactionBuilder: TransactionBuilder) {
 
   fun present() {
     handleAutoUpdate()
     handleUserRegistration()
     handleSupportClicks()
     handleErrorDismisses()
+  }
+
+  fun handleGetSkuDetails() {
+    disposable.add(
+        iabInteract.getMissingTransactionDetails(transactionBuilder)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              view.updateTransaction(it.first, it.second)
+              view.showPaymentMethodsView()
+            }
+            .subscribe({}, { handleError(it) })
+    )
   }
 
   private fun handleErrorDismisses() {
@@ -38,7 +52,7 @@ class IabPresenter(private val view: IabView,
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { iabInteract.showSupport() }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -105,7 +119,7 @@ class IabPresenter(private val view: IabView,
           iabInteract.isHardUpdateRequired(it.blackList, it.updateVersionCode, it.updateMinSdk)
         }
         .doOnSuccess { view.showUpdateRequiredView() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleUserRegistration() {

@@ -64,11 +64,7 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   private fun mapPaymentMethods(
       paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
-    val paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
-    paymentMethods.forEach {
-      paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)))
-    }
-    return paymentMethodsData
+    return paymentMethods.map { PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)) }
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
