@@ -7,6 +7,7 @@ import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.transactions.MissingTransactionDetails
 import com.asfoundation.wallet.util.MissingProductException
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -49,15 +50,16 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
       inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
 
   fun getMissingTransactionDetails(
-      transactionBuilder: TransactionBuilder): Single<Pair<String?, BigDecimal>> {
+      transactionBuilder: TransactionBuilder): Single<MissingTransactionDetails> {
     return billing.getProducts(transactionBuilder.domain, listOf(transactionBuilder.skuId),
         BillingSupportedType.valueOfInsensitive(transactionBuilder.type))
         .map { products -> products.first() }
         .map { product ->
-          Pair<String?, BigDecimal>(product.title, BigDecimal(product.price.appcoinsAmount))
+          MissingTransactionDetails(product.title, BigDecimal(product.price.appcoinsAmount),
+              product.subscriptionPeriod)
         }
         .onErrorResumeNext {
-          getProductAmountOnError(transactionBuilder).map { Pair<String?, BigDecimal>(null, it) }
+          getProductAmountOnError(transactionBuilder).map { MissingTransactionDetails(it) }
         }
   }
 

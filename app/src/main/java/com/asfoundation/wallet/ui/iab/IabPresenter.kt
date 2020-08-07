@@ -34,7 +34,7 @@ class IabPresenter(private val view: IabView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              view.updateTransaction(it.first, it.second)
+              view.updateTransaction(it)
               view.showPaymentMethodsView()
             }
             .subscribe({}, { handleError(it) })
@@ -138,8 +138,6 @@ class IabPresenter(private val view: IabView,
 
   fun savePreselectedPaymentMethod(bundle: Bundle) {
     bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY)
-        ?.let {
-          iabInteract.savePreSelectedPaymentMethod(it)
-        }
+        ?.let { iabInteract.savePreSelectedPaymentMethod(it) }
   }
 }

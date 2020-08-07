@@ -35,7 +35,7 @@ public class EIPTransactionParser {
     TransactionBuilder transactionBuilder = new TransactionBuilder("ETH");
     transactionBuilder.toAddress(payment.getAddress());
     transactionBuilder.amount(getEtherTransferAmount(payment));
-    transactionBuilder.setType("inapp");//TODO pre subscriptions
+    transactionBuilder.setType(retrieveData(payment).getType());
     return Single.just(transactionBuilder);
   }
 
@@ -50,8 +50,8 @@ public class EIPTransactionParser {
         })
         .map(tokenInfo -> new TransactionBuilder(tokenInfo.symbol, tokenInfo.address,
             payment.getChainId(), getReceiverAddress(payment),
-            getTokenTransferAmount(payment, tokenInfo.decimals),
-            tokenInfo.decimals).shouldSendToken(true));
+            getTokenTransferAmount(payment, tokenInfo.decimals), tokenInfo.decimals,
+            retrieveData(payment).getType()).shouldSendToken(true));
   }
 
   private Single<TransactionBuilder> buildAppcTransaction(ERC681 payment) {
@@ -69,10 +69,8 @@ public class EIPTransactionParser {
               payment.getChainId(), getReceiverAddress(payment),
               getTokenTransferAmount(payment, tokenInfo.decimals), data.getSkuId(),
               tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
-              data.getDomain(), data.getPayload(), null, data.getOrderReference(), null,
-              data.getPeriod(), data.getTrialPeriod(),
-              getIntroAppcAmount(data.getIntroAppcAmount(), tokenInfo.decimals),
-              data.getIntroPeriod(), data.getIntroCycles()).shouldSendToken(true);
+              data.getDomain(), data.getPayload(), null, data.getOrderReference(),
+              null).shouldSendToken(true);
         });
   }
 

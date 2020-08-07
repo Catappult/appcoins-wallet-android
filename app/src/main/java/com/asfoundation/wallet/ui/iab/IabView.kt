@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.transactions.MissingTransactionDetails
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -73,5 +74,5 @@ interface IabView {
 
   fun errorDismisses(): Observable<Any>
 
-  fun updateTransaction(title: String?, price: BigDecimal)
+  fun updateTransaction(missingTransactionDetails: MissingTransactionDetails)
 }

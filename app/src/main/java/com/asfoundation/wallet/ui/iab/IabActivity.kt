@@ -17,6 +17,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.transactions.MissingTransactionDetails
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
@@ -187,7 +188,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, getSkuDescription(), isSubscription, frequency, "10/12/20"))
+                bonus, isPreselected, gamificationLevel, getSkuDescription(), isSubscription,
+                frequency, "10/12/20"))
         .commit()
   }
 
@@ -227,7 +229,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getSkuDescription(), isBds, isDonation, developerPayload, uri,
-            isSubscription, transaction?.period))
+            isSubscription, "TODO"))
         .commit()
   }
 
@@ -305,9 +307,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
 
-  override fun updateTransaction(title: String?, price: BigDecimal) {
-    transaction?.amount(price)
-    productName = title
+  override fun updateTransaction(missingTransactionDetails: MissingTransactionDetails) {
+    transaction?.amount(missingTransactionDetails.appcoinsAmount)
+    transaction?.subscriptionPeriod = missingTransactionDetails.subscriptionPeriod
+    productName = missingTransactionDetails.title
   }
 
   override fun navigateToUri(url: String) {

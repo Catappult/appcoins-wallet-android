@@ -18,12 +18,12 @@ import java.util.*
 class BillingIntentBuilder(val context: Context) {
 
   @Throws(Exception::class)
-  fun buildBuyIntentBundle(tokenContractAddress: String, iabContractAddress: String,
+  fun buildBuyIntentBundle(type: String, tokenContractAddress: String, iabContractAddress: String,
                            payload: String?, bdsIap: Boolean, packageName: String,
                            developerAddress: String?, skuId: String): Bundle {
 
     val intent =
-        buildPaymentIntent(tokenContractAddress, iabContractAddress, developerAddress, skuId,
+        buildPaymentIntent(type, tokenContractAddress, iabContractAddress, developerAddress, skuId,
             packageName, payload, bdsIap)
     return Bundle().apply {
       val pendingIntent = buildPaymentPendingIntent(intent)
@@ -38,11 +38,11 @@ class BillingIntentBuilder(val context: Context) {
     return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
-  private fun buildPaymentIntent(tokenContractAddress: String,
+  private fun buildPaymentIntent(type: String, tokenContractAddress: String,
                                  iabContractAddress: String, developerAddress: String?,
                                  skuId: String, packageName: String, payload: String?,
                                  bdsIap: Boolean): Intent {
-    val uri = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress,
+    val uri = Uri.parse(buildUriString(type, tokenContractAddress, iabContractAddress,
         developerAddress, skuId, BuildConfig.NETWORK_ID, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
         PayloadHelper.getOrigin(payload)))
@@ -56,7 +56,7 @@ class BillingIntentBuilder(val context: Context) {
     }
   }
 
-  private fun buildUriString(tokenContractAddress: String, iabContractAddress: String,
+  private fun buildUriString(type: String, tokenContractAddress: String, iabContractAddress: String,
                              developerAddress: String?, skuId: String, networkId: Int,
                              packageName: String, developerPayload: String?,
                              orderReference: String?, origin: String?): String {
@@ -65,7 +65,7 @@ class BillingIntentBuilder(val context: Context) {
       Formatter(stringBuilder).use { formatter ->
         formatter.format("ethereum:%s@%d/buy?address=%s&data=%s&iabContractAddress=%s",
             tokenContractAddress, networkId, developerAddress ?: "",
-            buildUriData(skuId, packageName, developerPayload, orderReference, origin),
+            buildUriData(type, skuId, packageName, developerPayload, orderReference, origin),
             iabContractAddress)
       }
     } catch (e: UnsupportedEncodingException) {
@@ -75,15 +75,11 @@ class BillingIntentBuilder(val context: Context) {
   }
 
   private fun buildUriData(type: String, skuId: String, packageName: String,
-                           developerPayload: String?, orderReference: String?, origin: String?,
-                           subPeriod: String?, trialPeriod: String?,
-                           introAppcAmount: BigDecimal?, introPeriod: String?,
-                           introCycles: Int?): String {
+                           developerPayload: String?, orderReference: String?,
+                           origin: String?): String {
     return "0x" + Hex.toHexString(Gson().toJson(
         TransactionData(type.toUpperCase(Locale.ROOT), packageName, skuId, developerPayload,
-            orderReference,
-            origin, subPeriod, trialPeriod, introAppcAmount?.toString(), introPeriod,
-            introCycles?.toString()))
+            orderReference, origin))
         .toByteArray(charset("UTF-8")))
   }
 }

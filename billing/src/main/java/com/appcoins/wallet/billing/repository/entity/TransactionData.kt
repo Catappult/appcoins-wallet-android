@@ -12,17 +12,7 @@ class TransactionData @JvmOverloads constructor(@SerializedName("type")
                                                 @SerializedName("order_reference")
                                                 private val _orderReference: String? = null,
                                                 @SerializedName("origin")
-                                                private val _origin: String? = null,
-                                                @SerializedName("period")
-                                                private val _period: String? = null,
-                                                @SerializedName("trial_period")
-                                                private val _trialPeriod: String? = null,
-                                                @SerializedName("intro_appc_amount")
-                                                private val _introAppcAmount: String? = null,
-                                                @SerializedName("intro_period")
-                                                private val _introPeriod: String? = null,
-                                                @SerializedName("intro_cycles")
-                                                private val _introCycles: String? = null) {
+                                                private val _origin: String? = null) {
 
   val type get() = _type ?: UNKNOWN
   val domain get() = _domain ?: UNKNOWN
@@ -30,11 +20,6 @@ class TransactionData @JvmOverloads constructor(@SerializedName("type")
   val payload get() = _payload
   val orderReference get() = _orderReference
   val origin get() = _origin
-  val period get() = _period
-  val trialPeriod get() = _trialPeriod
-  val introAppcAmount get() = _introAppcAmount
-  val introPeriod get() = _introPeriod
-  val introCycles get() = _introCycles
 
   companion object {
     const val UNKNOWN = "unknown"
