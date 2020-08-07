@@ -35,7 +35,7 @@ class IabPresenter(private val view: IabView,
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
               .doOnSuccess {
-                view.updateTransaction(it.first)
+                view.updateProductName(it.first)
                 view.showPaymentMethodsView()
               }
               .subscribe({}, { handleError(it) })

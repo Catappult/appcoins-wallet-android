@@ -72,5 +72,5 @@ interface IabView {
 
   fun errorDismisses(): Observable<Any>
 
-  fun updateTransaction(title: String?)
+  fun updateProductName(title: String?)
 }

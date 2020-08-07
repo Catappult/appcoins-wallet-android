@@ -298,7 +298,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
 
-  override fun updateTransaction(title: String?) {
+  override fun updateProductName(title: String?) {
     productName = title
   }
 
