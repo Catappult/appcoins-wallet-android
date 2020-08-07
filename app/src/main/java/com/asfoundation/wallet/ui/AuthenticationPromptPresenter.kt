@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui
 
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
-import android.util.Log
 import androidx.biometric.BiometricPrompt
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
@@ -16,10 +15,20 @@ class AuthenticationPromptPresenter(
     private val fingerprintInteract: FingerPrintInteract,
     private val preferencesRepositoryType: PreferencesRepositoryType) {
 
+  private var hasBottomsheetOn = false
+
+  companion object {
+    private const val BOTTOMSHEET_KEY = "bottomsheet_key"
+
+  }
 
   fun present(savedInstanceState: Bundle?) {
-    if (savedInstanceState == null) showEverything()
-    //handleAuthenticationResult()
+    savedInstanceState?.let {
+      hasBottomsheetOn = it.getBoolean(BOTTOMSHEET_KEY)
+    }
+
+    if (!hasBottomsheetOn) showEverything()
+    handleAuthenticationResult()
     handleRetryAuthentication()
   }
 
@@ -40,14 +49,19 @@ class AuthenticationPromptPresenter(
 
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
         if (view.checkBiometricSupport()) {
-          view.showBottomSheetDialogFragment(
-              "No fingerprints associated yet! Try again with pin.")
+          view.showPrompt(view.createBiometricPrompt(),
+              fingerprintInteract.definePromptInformation())
         } else {
           preferencesRepositoryType.setAuthenticationPermission(false)
           view.closeSuccess()
         }
       }
     }
+  }
+
+  private fun setBottomsheetOn(message: String) {
+    hasBottomsheetOn = true
+    view.showBottomSheetDialogFragment(message)
   }
 
 
@@ -59,15 +73,12 @@ class AuthenticationPromptPresenter(
             FingerprintResult.SUCCESS -> view.closeSuccess()
             FingerprintResult.ERROR -> {
               if (it.errorCode == BiometricPrompt.ERROR_USER_CANCELED || it.errorCode == BiometricPrompt.ERROR_CANCELED) {
-                Log.d("TAG123", "PROMPT ERROR " + it.errorCode.toString())
                 view.closeCancel()
               } else {
-                Log.d("TAG123", "PROMPT ERROR " + it.errorCode.toString())
-                view.showBottomSheetDialogFragment(it.errorString.toString())
+                setBottomsheetOn(it.errorString.toString())
               }
             }
             FingerprintResult.FAIL -> {
-              Log.d("TAG123", "CHEGOU AO FAIL?")
               view.showFail()
             }
           }
@@ -79,31 +90,16 @@ class AuthenticationPromptPresenter(
     disposables.add(view.getRetryButtonClick()
         .observeOn(viewScheduler)
         .doOnNext {
-          view.showPrompt(view.createBiometricPrompt(),
-              fingerprintInteract.definePromptInformation())
+          hasBottomsheetOn = false
+          showEverything()
         }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun handleAuthenticationResult(result : FingerprintAuthResult){
-    when (result.type) {
-      FingerprintResult.SUCCESS -> view.closeSuccess()
-      FingerprintResult.ERROR -> {
-        if (result.errorCode == BiometricPrompt.ERROR_USER_CANCELED || result.errorCode == BiometricPrompt.ERROR_CANCELED) {
-          Log.d("TAG123", "PROMPT ERROR " + result.errorCode.toString())
-          view.closeCancel()
-        } else {
-          Log.d("TAG123", "PROMPT ERROR " + result.errorCode.toString())
-          view.showBottomSheetDialogFragment(result.errorString.toString())
-        }
-      }
-      FingerprintResult.FAIL -> {
-        Log.d("TAG123", "CHEGOU AO FAIL?")
-        view.showFail()
-      }
-    }
-
+  fun onSaveInstanceState(outState: Bundle) {
+    outState.putBoolean(BOTTOMSHEET_KEY, hasBottomsheetOn)
   }
+
 
   fun stop() {
     disposables.clear()

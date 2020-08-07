@@ -4,8 +4,6 @@ import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
@@ -74,32 +72,21 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
           override fun onAuthenticationError(errorCode: Int,
                                              errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
-            presenter.handleAuthenticationResult(FingerprintAuthResult(errorCode, errString, null, FingerprintResult.ERROR))
-            //fingerprintResultSubject?.onNext(FingerprintAuthResult(errorCode, errString, null, FingerprintResult.ERROR))
-            Toast.makeText(applicationContext,
-                "Authentication error: $errString",
-                Toast.LENGTH_SHORT)
-                .show()
-            Log.d("TAG123", "AUTHENTICATION ERROR")
+            fingerprintResultSubject?.onNext(
+                FingerprintAuthResult(errorCode, errString, null, FingerprintResult.ERROR))
           }
 
           override fun onAuthenticationSucceeded(
               result: BiometricPrompt.AuthenticationResult) {
             super.onAuthenticationSucceeded(result)
-            presenter.handleAuthenticationResult(FingerprintAuthResult(null, null, result, FingerprintResult.SUCCESS))
-            //fingerprintResultSubject?.onNext(FingerprintAuthResult(null, null, result, FingerprintResult.SUCCESS))
-            Toast.makeText(applicationContext, "Authentication succeeded!",
-                Toast.LENGTH_LONG)
-                .show()
+            fingerprintResultSubject?.onNext(
+                FingerprintAuthResult(null, null, result, FingerprintResult.SUCCESS))
           }
 
           override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
-            presenter.handleAuthenticationResult(FingerprintAuthResult(null, null, null, FingerprintResult.FAIL))
-            //fingerprintResultSubject?.onNext(FingerprintAuthResult(null, null, null, FingerprintResult.FAIL))
-            Toast.makeText(applicationContext, "Authentication failed",
-                Toast.LENGTH_LONG)
-                .show()
+            fingerprintResultSubject?.onNext(
+                FingerprintAuthResult(null, null, null, FingerprintResult.FAIL))
           }
         })
   }
@@ -148,8 +135,13 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     finishAndRemoveTask()
   }
 
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    presenter.onSaveInstanceState(outState)
+  }
 
   override fun onDestroy() {
+    fingerprintResultSubject = null
     retryClickSubject = null
     presenter.stop()
     super.onDestroy()

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.router.OnboardingRouter;
@@ -19,6 +18,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
   @Inject PreferencesRepositoryType preferencesRepositoryType;
   @Inject AutoUpdateInteract autoUpdateInteract;
 
+  private SplashPresenter presenter;
   private static final int AUTHENTICATION_REQUEST_CODE = 15;
 
   public static Intent newIntent(Context context) {
@@ -29,12 +29,10 @@ public class SplashActivity extends BaseActivity implements SplashView {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
 
-      SplashPresenter presenter =
-          new SplashPresenter(this, preferencesRepositoryType, AndroidSchedulers.mainThread(), Schedulers.io(),
-              new CompositeDisposable(), autoUpdateInteract);
+    presenter = new SplashPresenter(this, preferencesRepositoryType, AndroidSchedulers.mainThread(),
+        Schedulers.io(), new CompositeDisposable(), autoUpdateInteract);
 
-      presenter.present();
-
+    presenter.present();
   }
 
   @Override public void navigateToAutoUpdate() {
@@ -58,6 +56,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
   }
 
   @Override protected void onDestroy() {
+    presenter.stop();
     super.onDestroy();
   }
 
@@ -70,13 +69,10 @@ public class SplashActivity extends BaseActivity implements SplashView {
   @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == SplashActivity.AUTHENTICATION_REQUEST_CODE) {
-      Log.d("TAG123", "CHEGOU 1");
       if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-        Log.d("TAG123", "CHEGOU 2");
         firstScreenNavigation();
       }
       if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
-        Log.d("TAG123", "CHEGOU 3");
         finish();
       }
     }
