@@ -58,11 +58,14 @@ class OneStepTransactionParser(
   }
 
   private fun getAmount(uri: OneStepUri): Single<BigDecimal> {
-    return uri.parameters[Parameters.VALUE]?.let {
+    return if (uri.parameters[Parameters.VALUE] != null) {
       getTransactionValue(uri)
-    } ?: Single.just(BigDecimal.ZERO)
+    } else if (getDomain(uri) != null && getSkuId(uri) != null) {
+      Single.just(BigDecimal.ZERO)
+    } else {
+      Single.error(MissingProductException())
+    }
   }
-
 
   private fun getToAddress(uri: OneStepUri): String? {
     return uri.parameters[Parameters.TO]

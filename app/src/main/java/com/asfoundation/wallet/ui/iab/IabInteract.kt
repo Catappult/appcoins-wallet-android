@@ -6,7 +6,6 @@ import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.util.MissingProductException
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -52,20 +51,12 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
     return billing.getProducts(transactionBuilder.domain, listOf(transactionBuilder.skuId))
         .map { products -> products.first() }
         .map { product ->
-          Pair<String?, BigDecimal>(product.title, BigDecimal(product.price.appcoinsAmount))
+          Pair<String?, BigDecimal>(product.title,
+              BigDecimal(product.price.appcoinsAmount).setScale(transactionBuilder.decimals()))
         }
-        .onErrorResumeNext {
-          getProductAmountOnError(transactionBuilder).map { Pair<String?, BigDecimal>(null, it) }
+        .doOnSuccess {
+          transactionBuilder.amount(it.second)
         }
-  }
-
-  private fun getProductAmountOnError(transactionBuilder: TransactionBuilder): Single<BigDecimal> {
-    return if (transactionBuilder.amount()
-            .compareTo(BigDecimal.ZERO) == 0) {
-      Single.error(MissingProductException())
-    } else {
-      Single.just(transactionBuilder.amount())
-    }
   }
 
 }

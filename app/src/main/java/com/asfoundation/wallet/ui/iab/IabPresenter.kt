@@ -29,16 +29,20 @@ class IabPresenter(private val view: IabView,
   }
 
   fun handleGetSkuDetails() {
-    disposable.add(
-        iabInteract.getMissingTransactionDetails(transactionBuilder)
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.updateTransaction(it.first, it.second)
-              view.showPaymentMethodsView()
-            }
-            .subscribe({}, { handleError(it) })
-    )
+    if (transactionBuilder.skuId != null) {
+      disposable.add(
+          iabInteract.getMissingTransactionDetails(transactionBuilder)
+              .subscribeOn(networkScheduler)
+              .observeOn(viewScheduler)
+              .doOnSuccess {
+                view.updateTransaction(it.first)
+                view.showPaymentMethodsView()
+              }
+              .subscribe({}, { handleError(it) })
+      )
+    }else{
+      view.showPaymentMethodsView()
+    }
   }
 
   private fun handleErrorDismisses() {

@@ -72,5 +72,5 @@ interface IabView {
 
   fun errorDismisses(): Observable<Any>
 
-  fun updateTransaction(title: String?, price: BigDecimal)
+  fun updateTransaction(title: String?)
 }

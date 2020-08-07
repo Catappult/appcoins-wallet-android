@@ -298,8 +298,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
 
-  override fun updateTransaction(title: String?, price: BigDecimal) {
-    transaction?.amount(price)
+  override fun updateTransaction(title: String?) {
     productName = title
   }
 
@@ -352,7 +351,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
           .not() -> productName!!
       transaction != null && transaction!!.skuId.isNullOrEmpty()
           .not() -> transaction!!.skuId
-      else -> throw IllegalArgumentException("productName and sku not found")
+      else -> ""
     }
   }
 
