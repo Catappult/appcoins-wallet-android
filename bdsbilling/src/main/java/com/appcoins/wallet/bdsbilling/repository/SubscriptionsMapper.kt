@@ -35,8 +35,8 @@ class SubscriptionsMapper {
           subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
     return Purchase(subscriptionPurchaseResponse.uid,
         RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
-        subscriptionPurchaseResponse.autoRenewing, Package(packageName),
-        Signature(subscriptionPurchaseResponse.verification.signature,
-            subscriptionPurchaseResponse.verification.data))
+        subscriptionPurchaseResponse.state.name, subscriptionPurchaseResponse.autoRenewing,
+        Package(packageName), Signature(subscriptionPurchaseResponse.verification.signature,
+        subscriptionPurchaseResponse.verification.data))
   }
 }

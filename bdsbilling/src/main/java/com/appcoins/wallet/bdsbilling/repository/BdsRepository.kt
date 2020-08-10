@@ -88,10 +88,10 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                 walletSignature: String,
                                 type: BillingSupportedType?): Single<Boolean> {
     return when (type) {
-      null -> remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
+      null -> remoteRepository.consumePurchaseSubs(packageName, purchaseToken, walletAddress,
           walletSignature)
           .onErrorResumeNext {
-            remoteRepository.consumePurchaseSubs(packageName, purchaseToken, walletAddress,
+            remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
                 walletSignature)
           }
       BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.consumePurchaseSubs(packageName,

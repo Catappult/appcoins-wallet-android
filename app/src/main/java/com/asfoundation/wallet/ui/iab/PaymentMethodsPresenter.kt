@@ -409,7 +409,7 @@ class PaymentMethodsPresenter(
           if (itemAlreadyOwned) {
             val type = BillingSupportedType.valueOfInsensitive(transaction.type)
             getPurchases(type).doOnSuccess { purchases ->
-              val purchase = getRequestedSkuPurchase(purchases, transaction.skuId)
+              val purchase = getRequestedSkuPurchase(purchases, transaction.skuId, type)
               purchase?.let { finish(it, itemAlreadyOwned) } ?: view.close(Bundle())
             }
                 .ignoreElement()
@@ -563,10 +563,20 @@ class PaymentMethodsPresenter(
     return false
   }
 
-  private fun getRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Purchase? {
-    for (purchase in purchases) {
-      if (purchase.product.name == sku) {
-        return purchase
+  private fun getRequestedSkuPurchase(purchases: List<Purchase>, sku: String?,
+                                      type: BillingSupportedType): Purchase? {
+    if (type == BillingSupportedType.INAPP) {
+      for (purchase in purchases) {
+        if (purchase.product.name == sku) {
+          return purchase
+        }
+      }
+    } else {
+      //TODO To be changed when API has filter
+      for (purchase in purchases) {
+        if (purchase.product.name == sku && purchase.state != "CONSUMED") {
+          return purchase
+        }
       }
     }
     return null

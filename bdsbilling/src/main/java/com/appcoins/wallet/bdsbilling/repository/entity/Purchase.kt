@@ -1,7 +1,8 @@
 package com.appcoins.wallet.bdsbilling.repository.entity
 
 data class Purchase(val uid: String, val product: RemoteProduct, val status: String,
-                    val autoRenewing: Boolean, val packageName: Package, val signature: Signature)
+                    val state: String?, val autoRenewing: Boolean, val packageName: Package,
+                    val signature: Signature)
 
 data class RemoteProduct(val name: String)
 
