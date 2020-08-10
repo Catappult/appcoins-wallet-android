@@ -8,8 +8,6 @@ import com.appcoins.wallet.bdsbilling.repository.entity.*
 
 class SubscriptionsMapper {
 
-  //TODO current price values are wrong
-  //TODO Price has currency but we need code and symbol
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
     return ArrayList(subscriptionsResponse.items.map {
       val intro = it.intro?.let { intro ->
@@ -20,7 +18,7 @@ class SubscriptionsMapper {
       }
       Product(it.sku, it.title, it.description,
           Price(it.price.currency, it.price.appc.value.toDouble(), it.price.value.toDouble(),
-              it.price.currency, it.price.currency), BillingSupportedType.INAPP_SUBSCRIPTION.name,
+              it.price.currency, it.price.symbol), BillingSupportedType.INAPP_SUBSCRIPTION.name,
           it.period, it.trialPeriod,
           intro
       )

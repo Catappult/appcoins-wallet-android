@@ -119,7 +119,7 @@ class AdyenPaymentInteractor(
     inAppPurchaseInteractor.removePreSelectedPaymentMethod()
   }
 
-  fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?, uid: String,
+  fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
     val billingType = BillingSupportedType.valueOfInsensitive(type)

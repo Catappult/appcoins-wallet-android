@@ -17,8 +17,8 @@ data class SubscriptionResponse(val sku: String,
                                 val intro: Intro? // The subscription introductory object. If null, then no introductory period has been set in the subscription.
 )
 
-data class Price(val currency: String, val value: BigDecimal, val label: String, val micros: Long,
-                 val appc: AppcPrice)
+data class Price(val currency: String, val value: BigDecimal, val label: String, val symbol: String,
+                 val micros: Long, val appc: AppcPrice)
 
 data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
 
