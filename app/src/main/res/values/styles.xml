@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -26,12 +26,15 @@
     <item name="colorPrimary">@color/btn_end_gradient_color</item>
   </style>
 
-  <style name="ThreeDS2Theme" parent="AppTheme">
+  <style name="ThreeDS2Theme" parent="AppTheme" tools:override="true">
     <!-- Customize the SDK theme here. -->
     <item name="colorPrimary">@color/adyen_3DS_color</item>
     <item name="colorPrimaryDark">@color/adyen_3DS_color</item>
     <item name="colorAccent">@color/adyen_3DS_color</item>
+  </style>
 
+  <style name="AdyenCheckout.SwitchTheme" parent="Widget.AppCompat.CompoundButton.Switch">
+    <item name="colorControlActivated">@color/pinkish_orange</item>
   </style>
 
   <style name="AppTheme.NoActionBar" parent="AppTheme">
