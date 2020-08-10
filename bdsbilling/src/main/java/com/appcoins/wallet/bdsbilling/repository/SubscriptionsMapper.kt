@@ -1,5 +1,6 @@
 package com.appcoins.wallet.bdsbilling.repository
 
+import com.appcoins.wallet.bdsbilling.PurchaseState
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
@@ -35,8 +36,17 @@ class SubscriptionsMapper {
           subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
     return Purchase(subscriptionPurchaseResponse.uid,
         RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
-        subscriptionPurchaseResponse.state.name, subscriptionPurchaseResponse.autoRenewing,
+        mapPurchaseState(subscriptionPurchaseResponse.state),
+        subscriptionPurchaseResponse.autoRenewing,
         Package(packageName), Signature(subscriptionPurchaseResponse.verification.signature,
         subscriptionPurchaseResponse.verification.data))
+  }
+
+  private fun mapPurchaseState(state: PurchaseState): State {
+    return when (state) {
+      PurchaseState.CONSUMED -> State.CONSUMED
+      PurchaseState.PENDING -> State.PENDING
+      PurchaseState.ACKNOWLEDGED -> State.ACKNOWLEDGED
+    }
   }
 }

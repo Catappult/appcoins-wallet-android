@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.bdsbilling.repository.entity.State
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
@@ -409,7 +410,7 @@ class PaymentMethodsPresenter(
           if (itemAlreadyOwned) {
             val type = BillingSupportedType.valueOfInsensitive(transaction.type)
             getPurchases(type).doOnSuccess { purchases ->
-              val purchase = getRequestedSkuPurchase(purchases, transaction.skuId, type)
+              val purchase = getRequestedSkuPurchase(purchases, transaction.skuId)
               purchase?.let { finish(it, itemAlreadyOwned) } ?: view.close(Bundle())
             }
                 .ignoreElement()
@@ -495,17 +496,17 @@ class PaymentMethodsPresenter(
     val lastUsedPaymentMethod = paymentMethodsInteract.getLastUsedPaymentMethod()
     for (it in paymentMethods) {
       if (it.isEnabled) {
-        if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id &&
-            (lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC.id ||
-                lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)) {
-          return PaymentMethodsView.PaymentMethodId.MERGED_APPC.id
+        if (it.id == PaymentMethodId.MERGED_APPC.id &&
+            (lastUsedPaymentMethod == PaymentMethodId.APPC.id ||
+                lastUsedPaymentMethod == PaymentMethodId.APPC_CREDITS.id)) {
+          return PaymentMethodId.MERGED_APPC.id
         }
         if (it.id == lastUsedPaymentMethod) {
           return it.id
         }
       }
     }
-    return PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id
+    return PaymentMethodId.CREDIT_CARD.id
   }
 
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
@@ -556,27 +557,17 @@ class PaymentMethodsPresenter(
 
   private fun hasRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Boolean {
     for (purchase in purchases) {
-      if (purchase.product.name == sku) {
+      if (purchase.product.name == sku && (purchase.state == null || purchase.state != State.CONSUMED)) {
         return true
       }
     }
     return false
   }
 
-  private fun getRequestedSkuPurchase(purchases: List<Purchase>, sku: String?,
-                                      type: BillingSupportedType): Purchase? {
-    if (type == BillingSupportedType.INAPP) {
-      for (purchase in purchases) {
-        if (purchase.product.name == sku) {
-          return purchase
-        }
-      }
-    } else {
-      //TODO To be changed when API has filter
-      for (purchase in purchases) {
-        if (purchase.product.name == sku && purchase.state != "CONSUMED") {
-          return purchase
-        }
+  private fun getRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Purchase? {
+    for (purchase in purchases) {
+      if (purchase.product.name == sku && (purchase.state == null || purchase.state != State.CONSUMED)) {
+        return purchase
       }
     }
     return null

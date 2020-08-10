@@ -7,13 +7,10 @@ import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.exceptions.ServiceUnavailableException
 import com.appcoins.wallet.bdsbilling.exceptions.UnknownException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_DATA_SIGNATURE
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_DATA
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_ID
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -147,23 +144,13 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
 
   fun mapFinishedPurchase(purchase: Purchase, itemAlreadyOwned: Boolean): Bundle {
     val bundle = Bundle()
-    bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase))
-    bundle.putString(INAPP_DATA_SIGNATURE, purchase.signature
-        .value)
+    bundle.putString(INAPP_PURCHASE_DATA, purchase.signature.message)
+    bundle.putString(INAPP_DATA_SIGNATURE, purchase.signature.value)
     bundle.putString(INAPP_PURCHASE_ID, purchase.uid)
     if (itemAlreadyOwned) {
       bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE,
           AppcoinsBillingBinder.RESULT_ITEM_ALREADY_OWNED)
     }
     return bundle
-  }
-
-  @Throws(IOException::class)
-  private fun serializeJson(purchase: Purchase): String {
-    val objectMapper = ObjectMapper()
-    val developerPurchase = objectMapper.readValue(Gson().toJson(
-        purchase.signature
-            .message), DeveloperPurchase::class.java)
-    return objectMapper.writeValueAsString(developerPurchase)
   }
 }
