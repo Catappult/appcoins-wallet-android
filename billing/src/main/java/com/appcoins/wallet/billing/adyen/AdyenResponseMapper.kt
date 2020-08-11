@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
+import com.adyen.checkout.base.model.PaymentMethodsApiResponse
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.model.payments.response.RedirectAction
@@ -15,10 +16,15 @@ class AdyenResponseMapper {
 
   fun map(response: PaymentMethodsResponse,
           method: AdyenPaymentRepository.Methods): PaymentInfoModel {
+    //This was done due to the fact that using the PaymentMethodsApiResponse to map the response
+    // directly with retrofit was breaking when the response came with a configuration object
+    // since the Adyen lib considers configuration a string.
+    val adyenResponse: PaymentMethodsApiResponse =
+        PaymentMethodsApiResponse.SERIALIZER.deserialize(JSONObject(response.payment.toString()))
     val storedPaymentModel =
-        findPaymentMethod(response.payment.storedPaymentMethods, method, true, response.price)
+        findPaymentMethod(adyenResponse.storedPaymentMethods, method, true, response.price)
     return if (storedPaymentModel.error.hasError) {
-      findPaymentMethod(response.payment.paymentMethods, method, false, response.price)
+      findPaymentMethod(adyenResponse.paymentMethods, method, false, response.price)
     } else {
       storedPaymentModel
     }
