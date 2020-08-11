@@ -52,10 +52,11 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
           rewardsManager.pay(transaction.skuId, amount, transaction.toAddress(), packageName,
               getOrigin(isBds, transaction), transaction.type, transaction.payload,
               transaction.callbackUrl, transaction.orderReference, transaction.referrerUrl)
-              .andThen(rewardsManager.getPaymentStatus(packageName, transaction.skuId, amount))
+              .andThen(rewardsManager.getPaymentStatus(packageName, transaction.skuId,
+                  transaction.amount()))
               .observeOn(viewScheduler)
               .flatMapCompletable { paymentStatus: RewardPayment ->
-                handlePaymentStatus(paymentStatus, transaction.skuId, amount)
+                handlePaymentStatus(paymentStatus, transaction.skuId, transaction.amount())
               }
         }
         .doOnSubscribe { view.showLoading() }

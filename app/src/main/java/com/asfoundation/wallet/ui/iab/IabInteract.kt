@@ -1,19 +1,15 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.backup.NotificationNeeded
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Single
-import java.math.BigDecimal
 
 class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                   private val autoUpdateInteract: AutoUpdateInteract,
                   private val supportInteractor: SupportInteractor,
-                  private val gamificationRepository: Gamification,
-                  private val billing: Billing) {
+                  private val gamificationRepository: Gamification) {
 
   companion object {
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
@@ -45,18 +41,5 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
 
   fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> =
       inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
-
-  fun getMissingTransactionDetails(
-      transactionBuilder: TransactionBuilder): Single<Pair<String?, BigDecimal>> {
-    return billing.getProducts(transactionBuilder.domain, listOf(transactionBuilder.skuId))
-        .map { products -> products.first() }
-        .map { product ->
-          Pair<String?, BigDecimal>(product.title,
-              BigDecimal(product.price.appcoinsAmount).setScale(transactionBuilder.decimals()))
-        }
-        .doOnSuccess {
-          transactionBuilder.amount(it.second)
-        }
-  }
 
 }

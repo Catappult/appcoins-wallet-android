@@ -18,31 +18,13 @@ class IabPresenter(private val view: IabView,
                    private val billingAnalytics: BillingAnalytics,
                    private var firstImpression: Boolean,
                    private val iabInteract: IabInteract,
-                   private val walletBlockedInteract: WalletBlockedInteract,
-                   private val transactionBuilder: TransactionBuilder) {
+                   private val walletBlockedInteract: WalletBlockedInteract) {
 
   fun present() {
     handleAutoUpdate()
     handleUserRegistration()
     handleSupportClicks()
     handleErrorDismisses()
-  }
-
-  fun handleGetSkuDetails() {
-    if (transactionBuilder.skuId != null) {
-      disposable.add(
-          iabInteract.getMissingTransactionDetails(transactionBuilder)
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .doOnSuccess {
-                view.updateProductName(it.first)
-                view.showPaymentMethodsView()
-              }
-              .subscribe({}, { handleError(it) })
-      )
-    }else{
-      view.showPaymentMethodsView()
-    }
   }
 
   private fun handleErrorDismisses() {

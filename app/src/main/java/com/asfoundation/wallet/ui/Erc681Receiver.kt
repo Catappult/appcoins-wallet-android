@@ -6,6 +6,7 @@ import android.view.View
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
@@ -21,8 +22,10 @@ import javax.inject.Inject
 class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   @Inject
   lateinit var walletService: WalletService
+
   @Inject
   lateinit var transferParser: TransferParser
+
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
   private lateinit var presenter: Erc681ReceiverPresenter
@@ -36,10 +39,11 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_iab_wallet_creation)
+    val productName = intent.extras!!.getString(PRODUCT_NAME, "")
     presenter =
         Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletService,
             intent.dataString!!,
-            AndroidSchedulers.mainThread(), CompositeDisposable())
+            AndroidSchedulers.mainThread(), CompositeDisposable(), productName)
     presenter.present(savedInstanceState)
   }
 
@@ -54,7 +58,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   override fun startEipTransfer(transaction: TransactionBuilder, isBds: Boolean,
                                 developerPayload: String?) {
-    val intent: Intent = if (intent.data != null && intent.data.toString().contains("/buy?")) {
+    val intent: Intent = if (intent.data != null && intent.data.toString()
+            .contains("/buy?")) {
       newIntent(this, intent, transaction, isBds, developerPayload)
     } else {
       SendActivity.newIntent(this, intent)

@@ -71,6 +71,4 @@ interface IabView {
   fun getSupportClicks(): Observable<Any>
 
   fun errorDismisses(): Observable<Any>
-
-  fun updateProductName(title: String?)
 }

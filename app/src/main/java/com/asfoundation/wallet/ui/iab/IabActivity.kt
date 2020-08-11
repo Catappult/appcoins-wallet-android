@@ -51,7 +51,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private lateinit var presenter: IabPresenter
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
-  private var productName: String? = null
   private var isBds: Boolean = false
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
@@ -74,8 +73,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
-            walletBlockedInteract, transaction!!)
-    if (savedInstanceState == null) presenter.handleGetSkuDetails()
+            walletBlockedInteract)
+    if (savedInstanceState == null) showPaymentMethodsView()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -242,7 +241,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
-                productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
+                getSkuDescription(), transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
                 isDonation, transaction!!.skuId, transaction!!.type, gamificationLevel,
                 disabledReasonAppc, disabledReasonCredits))
         .commit()
@@ -298,10 +297,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
 
-  override fun updateProductName(title: String?) {
-    productName = title
-  }
-
   override fun navigateToUri(url: String) {
     navigateToWebViewAuthorization(url)
   }
@@ -347,8 +342,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   private fun getSkuDescription(): String {
     return when {
-      productName.isNullOrEmpty()
-          .not() -> productName!!
+      transaction?.productName.isNullOrEmpty()
+          .not() -> transaction?.productName!!
       transaction != null && transaction!!.skuId.isNullOrEmpty()
           .not() -> transaction!!.skuId
       else -> ""
