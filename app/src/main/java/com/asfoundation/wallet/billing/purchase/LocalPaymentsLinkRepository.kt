@@ -7,21 +7,20 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-class LocalPayementsLinkRepository(private var api: DeepLinkApi) : InAppDeepLinkRepository {
+class LocalPaymentsLinkRepository(private var api: DeepLinkApi) : InAppDeepLinkRepository {
 
   override fun getDeepLink(domain: String, skuId: String?,
                            userWalletAddress: String, signature: String,
                            originalAmount: String?, originalCurrency: String?,
                            paymentMethod: String,
-                           developerWalletAddress: String,
-                           storeWalletAddress: String, oemWalletAddress: String,
+                           developerWalletAddress: String?,
+                           storeWalletAddress: String?, oemWalletAddress: String?,
                            callbackUrl: String?, orderReference: String?,
                            payload: String?): Single<String> {
     return api.getDeepLink(userWalletAddress, signature,
         DeepLinkData(domain, skuId, null, originalAmount,
-            originalCurrency,
-            paymentMethod, developerWalletAddress, callbackUrl, payload, orderReference,
-            storeWalletAddress, oemWalletAddress))
+            originalCurrency, paymentMethod, developerWalletAddress, callbackUrl, payload,
+            orderReference, storeWalletAddress, oemWalletAddress))
         .map { it.url }
   }
 
@@ -38,8 +37,8 @@ data class DeepLinkData(@SerializedName("package") var packageName: String,
                         var message: String?, @SerializedName("price.value")
                         var amount: String?, @SerializedName("price.currency")
                         var currency: String?, var method: String,
-                        @SerializedName("wallets.developer") var developerWalletAddress: String,
+                        @SerializedName("wallets.developer") var developerWalletAddress: String?,
                         @SerializedName("callback_url") var callback: String?,
                         var metadata: String?, var reference: String?,
-                        @SerializedName("wallets.store") var storeWalletAddress: String,
+                        @SerializedName("wallets.store") var storeWalletAddress: String?,
                         @SerializedName("wallets.oem") var oemWalletAddress: String?)

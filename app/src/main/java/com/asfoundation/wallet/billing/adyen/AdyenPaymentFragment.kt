@@ -15,9 +15,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
+import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -35,7 +35,6 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.FragmentNavigator
-import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -169,10 +168,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
 
-    val color = ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
-    adyenCardNumberLayout.boxStrokeColor = color
-    adyenExpiryDateLayout.boxStrokeColor = color
-    adyenSecurityCodeLayout.boxStrokeColor = color
     handleLayoutVisibility(isStored)
     prepareCardComponent(paymentMethod, forget, savedInstance)
     setStoredPaymentInformation(isStored)
@@ -207,7 +202,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     } catch (e: Exception) {
       e.printStackTrace()
     }
-    app_sku_description?.text = arguments!!.getString(IabActivity.PRODUCT_NAME)
+    app_sku_description?.text = skuDescription
     val appcValue = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
     appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
@@ -484,10 +479,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun prepareCardComponent(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, forget: Boolean,
+      paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
+      forget: Boolean,
       savedInstanceState: Bundle?) {
     if (forget) viewModelStore.clear()
-    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
+    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this, Observer {
@@ -496,8 +492,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
+          val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
+          val supportedShopperInteractions =
+              if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
           paymentDataSubject?.onNext(
-              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false))
+              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
+                  supportedShopperInteractions))
         }
       } else {
         buy_button?.isEnabled = false
@@ -595,12 +595,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val CVV_KEY = "cvv_key"
     private const val SAVE_DETAILS_KEY = "save_details"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val SKU_DESCRIPTION = "sku_description"
 
     @JvmStatic
     fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
                     origin: String?, transactionData: String?, appcAmount: BigDecimal,
                     amount: BigDecimal, currency: String?, bonus: String?,
-                    isPreSelected: Boolean, gamificationLevel: Int): AdyenPaymentFragment {
+                    isPreSelected: Boolean, gamificationLevel: Int,
+                    skuDescription: String): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
@@ -614,6 +616,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         putString(BONUS_KEY, bonus)
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
+        putString(SKU_DESCRIPTION, skuDescription)
       }
       return fragment
     }
@@ -704,6 +707,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       arguments!!.getInt(GAMIFICATION_LEVEL)
     } else {
       throw IllegalArgumentException("gamification level data not found")
+    }
+  }
+
+  private val skuDescription: String by lazy {
+    if (arguments!!.containsKey(SKU_DESCRIPTION)) {
+      arguments!!.getString(SKU_DESCRIPTION, "")
+    } else {
+      throw IllegalArgumentException("sku description data not found")
     }
   }
 }

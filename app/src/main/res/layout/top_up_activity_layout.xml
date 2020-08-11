@@ -13,7 +13,7 @@
 
   <include
       android:id="@+id/layout_error"
-      layout="@layout/layout_adyen_error_top_up"
+      layout="@layout/error_top_up_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:visibility="gone"

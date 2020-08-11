@@ -19,7 +19,7 @@ import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.AnalyticsAPI
 import com.asfoundation.wallet.apps.Applications
 import com.asfoundation.wallet.billing.partners.*
-import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi
+import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository.DeepLinkApi
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider

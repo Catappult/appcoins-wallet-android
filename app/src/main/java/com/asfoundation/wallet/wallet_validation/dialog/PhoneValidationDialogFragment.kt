@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
+import com.hbb20.CountryCodePicker
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -37,6 +38,29 @@ class PhoneValidationDialogFragment : DaggerFragment(),
   private var countryCode: String? = null
   private var phoneNumber: String? = null
   private var errorMessage: Int? = null
+
+  companion object {
+
+    internal const val COUNTRY_CODE = "COUNTRY_CODE"
+    internal const val PHONE_NUMBER = "PHONE_NUMBER"
+    internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
+
+    @JvmStatic
+    fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
+                    errorMessage: Int? = null): Fragment {
+      val bundle = Bundle().apply {
+        putString(COUNTRY_CODE, countryCode)
+        putString(PHONE_NUMBER, phoneNumber)
+      }
+
+      errorMessage?.let {
+        bundle.putInt(ERROR_MESSAGE, errorMessage)
+      }
+
+      return PhoneValidationDialogFragment().apply { arguments = bundle }
+    }
+
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -75,10 +99,22 @@ class PhoneValidationDialogFragment : DaggerFragment(),
   }
 
   override fun setupUI() {
-    ccp.registerCarrierNumberEditText(phone_number)
+    country_code_picker.registerCarrierNumberEditText(phone_number)
+    country_code_picker.setCustomDialogTextProvider(object :
+        CountryCodePicker.CustomDialogTextProvider {
+      override fun getCCPDialogSearchHintText(language: CountryCodePicker.Language?,
+                                              defaultSearchHintText: String?) =
+          defaultSearchHintText ?: ""
 
+      override fun getCCPDialogTitle(language: CountryCodePicker.Language?, defaultTitle: String?) =
+          getString(R.string.verification_insert_phone_field_country)
+
+      override fun getCCPDialogNoResultACK(language: CountryCodePicker.Language?,
+                                           defaultNoResultACK: String?) = defaultNoResultACK ?: ""
+    })
+    
     countryCode?.let {
-      ccp.setCountryForPhoneCode(it.drop(0)
+      country_code_picker.setCountryForPhoneCode(it.drop(0)
           .toInt())
     }
     phoneNumber?.let { phone_number.setText(it) }
@@ -95,7 +131,7 @@ class PhoneValidationDialogFragment : DaggerFragment(),
     phone_number_layout.error = null
   }
 
-  override fun getCountryCode() = Observable.just(ccp.selectedCountryCodeWithPlus)
+  override fun getCountryCode() = Observable.just(country_code_picker.selectedCountryCodeWithPlus)
 
 
   override fun getPhoneNumber(): Observable<String> {
@@ -113,8 +149,9 @@ class PhoneValidationDialogFragment : DaggerFragment(),
   override fun getSubmitClicks(): Observable<Pair<String, String>> {
     return RxView.clicks(submit_button)
         .map {
-          Pair(ccp.selectedCountryCodeWithPlus,
-              ccp.fullNumber.substringAfter(ccp.selectedCountryCode))
+          Pair(country_code_picker.selectedCountryCodeWithPlus,
+              country_code_picker.fullNumber.substringAfter(
+                  country_code_picker.selectedCountryCode))
         }
   }
 
@@ -139,29 +176,6 @@ class PhoneValidationDialogFragment : DaggerFragment(),
   override fun onDetach() {
     super.onDetach()
     walletValidationDialogView = null
-  }
-
-  companion object {
-
-    internal const val COUNTRY_CODE = "COUNTRY_CODE"
-    internal const val PHONE_NUMBER = "PHONE_NUMBER"
-    internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
-
-    @JvmStatic
-    fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
-                    errorMessage: Int? = null): Fragment {
-      val bundle = Bundle().apply {
-        putString(COUNTRY_CODE, countryCode)
-        putString(PHONE_NUMBER, phoneNumber)
-      }
-
-      errorMessage?.let {
-        bundle.putInt(ERROR_MESSAGE, errorMessage)
-      }
-
-      return PhoneValidationDialogFragment().apply { arguments = bundle }
-    }
-
   }
 
   private fun focusAndShowKeyboard(view: EditText) {

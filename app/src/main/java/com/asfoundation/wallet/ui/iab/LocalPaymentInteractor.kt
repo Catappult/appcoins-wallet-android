@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -27,7 +28,8 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                              private val billingMessagesMapper: BillingMessagesMapper,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
-                             private val smsValidationInteract: SmsValidationInteract) {
+                             private val smsValidationInteract: SmsValidationInteract,
+                             private val remoteRepository: RemoteRepository) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
@@ -56,6 +58,17 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                     orderReference, payload)
               }
         }
+  }
+
+  fun getTopUpPaymentLink(packageName: String, fiatAmount: String,
+                          fiatCurrency: String, paymentMethod: String): Single<String> {
+
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap { walletAddressModel ->
+          remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName, fiatAmount,
+              fiatCurrency, walletAddressModel.address, walletAddressModel.signedAddress)
+        }
+        .map { it.url ?: "" }
   }
 
   fun getTransaction(uri: Uri): Observable<Transaction> =

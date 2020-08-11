@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/phone_validation_title"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        style="@style/WalletValidationTextStyle.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/phone_validation_subtitle"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        style="@style/WalletValidationTextStyle.Subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
@@ -45,7 +45,6 @@
         android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center_horizontal"
         android:text="@string/referral_verification_body"
-        android:textColor="#727272"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_validation_title"
@@ -60,16 +59,17 @@
         />
 
     <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
+        android:id="@+id/country_code_picker"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="63dp"
         android:layout_marginEnd="56dp"
-        app:ccpDialog_backgroundColor="#FAFAFA"
+        app:ccpDialog_background="@drawable/ccp_background"
         app:ccpDialog_textColor="#000000"
         app:ccp_arrowColor="@color/colorAccent"
         app:ccp_arrowSize="30dp"
         app:ccp_autoDetectCountry="true"
+        app:ccp_padding="0dp"
         app:ccp_textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +87,7 @@
         android:theme="@style/TextInputLayoutAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ccp"
+        app:layout_constraintTop_toBottomOf="@id/country_code_picker"
         >
       <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/phone_number"
@@ -131,12 +131,11 @@
           />
 
       <TextView
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          style="@style/WalletValidationTextStyle.Tooltip"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:gravity="start"
           android:text="@string/verification_insert_phone_security_disclaimer"
-          android:textSize="10sp"
           />
 
     </LinearLayout>
@@ -184,8 +183,8 @@
       layout="@layout/layout_validation_no_internet"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="8dp"
       android:layout_centerInParent="true"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
       />
 

@@ -21,8 +21,10 @@ import javax.inject.Inject
 class OneStepPaymentReceiver : BaseActivity() {
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   @Inject
   lateinit var walletService: WalletService
+
   @Inject
   lateinit var transferParser: TransferParser
   private var disposable: Disposable? = null
@@ -48,12 +50,13 @@ class OneStepPaymentReceiver : BaseActivity() {
           .flatMap {
             transferParser.parse(intent.dataString!!)
                 .flatMap { transaction: TransactionBuilder ->
-                  inAppPurchaseInteractor!!.isWalletFromBds(transaction.domain,
+                  inAppPurchaseInteractor.isWalletFromBds(transaction.domain,
                       transaction.toAddress())
                       .doOnSuccess { isBds: Boolean ->
                         startOneStepTransfer(transaction, isBds)
                       }
-                }.toObservable()
+                }
+                .toObservable()
           }
           .subscribe({ }, { throwable: Throwable -> startApp(throwable) })
     }

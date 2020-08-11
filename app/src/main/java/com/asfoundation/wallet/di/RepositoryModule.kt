@@ -18,8 +18,8 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
-import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository
-import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi
+import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository
+import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository.DeepLinkApi
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
@@ -108,7 +108,7 @@ class RepositoryModule {
   @Provides
   fun provideAdyenPaymentRepository(client: OkHttpClient): AdyenPaymentRepository {
     val api = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200701/gateways/adyen_v2/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200801/gateways/adyen_v2/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -235,7 +235,7 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
-    return LocalPayementsLinkRepository(api)
+    return LocalPaymentsLinkRepository(api)
   }
 
 }
