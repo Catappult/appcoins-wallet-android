@@ -18,25 +18,29 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .onErrorReturn { adyenResponseMapper.mapInfoModelError(it) }
   }
 
-  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, returnUrl: String,
-                  value: String, currency: String, reference: String?, paymentType: String,
-                  walletAddress: String, origin: String?, packageName: String?, metadata: String?,
-                  sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?, storeWallet: String?, oemWallet: String?,
-                  userWallet: String?): Single<PaymentModel> {
-    return adyenApi.makePayment(walletAddress,
-        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, callbackUrl, packageName,
-            metadata, paymentType,
-            origin, sku, reference, transactionType, currency, value, developerWallet,
-            storeWallet, oemWallet, userWallet))
+  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
+                  supportedShopperInteractions: List<String>, returnUrl: String, value: String,
+                  currency: String, reference: String?, paymentType: String, walletAddress: String,
+                  origin: String?, packageName: String?, metadata: String?, sku: String?,
+                  callbackUrl: String?, transactionType: String, developerWallet: String?,
+                  storeWallet: String?, oemWallet: String?, userWallet: String?,
+                  walletSignature: String): Single<PaymentModel> {
+    val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
+      "ContAuth"
+    } else "Ecommerce"
+    return adyenApi.makePayment(walletAddress, walletSignature,
+        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction, callbackUrl,
+            packageName, metadata, paymentType, origin, sku, reference, transactionType, currency,
+            value, developerWallet, storeWallet, oemWallet, userWallet))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
-  fun submitRedirect(uid: String, walletAddress: String, details: JSONObject,
-                     paymentData: String?): Single<PaymentModel> {
+  fun submitRedirect(uid: String, walletAddress: String, walletSignature: String,
+                     details: JSONObject, paymentData: String?): Single<PaymentModel> {
     val json = convertToJson(details)
-    return adyenApi.submitRedirect(uid, walletAddress, AdyenPayment(json, paymentData))
+    return adyenApi.submitRedirect(uid, walletAddress, walletSignature,
+        AdyenPayment(json, paymentData))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -84,11 +88,13 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
     @POST("transactions")
     fun makePayment(@Query("wallet.address") walletAddress: String,
+                    @Query("wallet.signature") walletSignature: String,
                     @Body payment: Payment): Single<AdyenTransactionResponse>
 
     @PATCH("transactions/{uid}")
     fun submitRedirect(@Path("uid") uid: String,
                        @Query("wallet.address") address: String,
+                       @Query("wallet.signature") signature: String,
                        @Body payment: AdyenPayment): Single<AdyenTransactionResponse>
 
     @POST("disable-recurring")
@@ -98,6 +104,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
                      @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
                      @SerializedName("payment.return_url") val returnUrl: String,
+                     @SerializedName("payment.shopper_interaction") val shopperInteraction: String?,
                      @SerializedName("callback_url") val callbackUrl: String?,
                      @SerializedName("domain") val domain: String?,
                      @SerializedName("metadata") val metadata: String?,
