@@ -446,7 +446,7 @@
   <string name="purchase_more_payment_methods_button">KAEDAH BAYARAN LAIN</string>
   <string name="purchase_appcoins_available_body">Anda akan gunakan sejumlah kecil ETH untuk membayar yuran.</string>
   <string name="purchase_appcoins_noavailable_body">Anda tidak mempunyai AppCoins atau Ether yang cukup untuk pembelian ini.</string>
-  <string name="purchase_no_eth_body">Anda tidak cukup ETH untuk bayar harga gas.</string>
+  <string name="purchase_no_eth_body">Anda tidak cukup ETH untuk bayar gas.</string>
   <string name="purchase_no_appcoins_body">Anda tidak cukup AppCoins untuk lengkapkan pembelian ini.</string>
   <string name="purchase_appcoins_credits_available_body">Tiada yuran dan pantas!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Anda tidak cukup Kredit AppCoins, cuba tambah nilai!</string>
