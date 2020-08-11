@@ -51,7 +51,7 @@ class SmsValidationRepository(
     return when (throwable) {
       is HttpException -> {
         var walletValidationException = WalletValidationException("")
-        if (throwable.code() == 400) {
+        if (throwable.code() == 400 || throwable.code() == 429) {
           throwable.response()
               ?.errorBody()
               ?.charStream()
@@ -60,12 +60,25 @@ class SmsValidationRepository(
               } ?: logger.log(TAG, throwable.message(), throwable)
         }
         when {
-          throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
-          throwable.code() == 400 && walletValidationException.status == "INVALID_PHONE" -> WalletValidationStatus.INVALID_PHONE
-          throwable.code() == 400 && walletValidationException.status == "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
-          throwable.code() == 400 && walletValidationException.status == "REGION_NOT_SUPPORTED" -> WalletValidationStatus.REGION_NOT_SUPPORTED
-          throwable.code() == 400 && walletValidationException.status == "LANDLINE_NOT_SUPPORTED" -> WalletValidationStatus.LANDLINE_NOT_SUPPORTED
-          throwable.code() == 429 -> WalletValidationStatus.DOUBLE_SPENT
+          throwable.code() == 400 -> {
+            when (walletValidationException.status) {
+              "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
+              "INVALID_CODE" -> WalletValidationStatus.INVALID_CODE
+              "INVALID_PHONE" -> WalletValidationStatus.INVALID_PHONE
+              "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
+              "REGION_NOT_SUPPORTED" -> WalletValidationStatus.REGION_NOT_SUPPORTED
+              "LANDLINE_NOT_SUPPORTED" -> WalletValidationStatus.LANDLINE_NOT_SUPPORTED
+              "EXPIRED_CODE" -> WalletValidationStatus.EXPIRED_CODE
+              else -> WalletValidationStatus.GENERIC_ERROR
+            }
+          }
+          throwable.code() == 429 -> {
+            when (walletValidationException.status) {
+              "TOO_MANY_REQUESTS" -> WalletValidationStatus.TOO_MANY_ATTEMPTS
+              "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
+              else -> WalletValidationStatus.GENERIC_ERROR
+            }
+          }
           else -> WalletValidationStatus.GENERIC_ERROR
         }
       }

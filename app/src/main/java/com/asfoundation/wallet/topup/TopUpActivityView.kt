@@ -10,11 +10,10 @@ import java.math.BigDecimal
 interface TopUpActivityView {
   fun showTopUpScreen()
 
-  fun navigateToPayment(paymentType: PaymentType,
-                        data: TopUpData,
-                        selectedCurrency: String,
-                        transactionType: String, bonusValue: BigDecimal,
-                        gamificationLevel: Int, bonusSymbol: String)
+  fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun navigateToLocalPayment(paymentId: String, icon: String, label: String,
+                             topUpData: TopUpPaymentData)
 
   fun finish(data: Bundle)
 
@@ -24,7 +23,7 @@ interface TopUpActivityView {
 
   fun navigateBack()
 
-  fun close(navigateToTransactions: Boolean)
+  fun close(navigateToTransactions: Boolean = true)
 
   fun acceptResult(uri: Uri)
 

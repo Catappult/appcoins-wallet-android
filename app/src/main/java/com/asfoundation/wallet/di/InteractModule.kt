@@ -11,6 +11,7 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.commons.MemoryCache
@@ -199,10 +200,11 @@ class InteractModule {
                                     billing: Billing, billingMessagesMapper: BillingMessagesMapper,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
-                                    smsValidationInteract: SmsValidationInteract): LocalPaymentInteractor {
+                                    smsValidationInteract: SmsValidationInteract,
+                                    remoteRepository: RemoteRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
-        walletBlockedInteract, smsValidationInteract)
+        walletBlockedInteract, smsValidationInteract, remoteRepository)
   }
 
   @Provides
@@ -517,9 +519,9 @@ class InteractModule {
   fun provideIabInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                          autoUpdateInteract: AutoUpdateInteract,
                          supportInteractor: SupportInteractor,
-                         gamificationRepository: Gamification): IabInteract {
+                         gamificationRepository: Gamification, billing: Billing): IabInteract {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
-        gamificationRepository)
+        gamificationRepository, billing)
   }
 
   @Provides

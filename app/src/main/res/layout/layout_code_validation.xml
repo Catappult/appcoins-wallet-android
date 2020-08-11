@@ -24,14 +24,13 @@
 
     <TextView
         android:id="@+id/code_validation_title"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        style="@style/WalletValidationTextStyle.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center_horizontal"
         android:text="@string/verification_insert_code_title"
-        android:textColor="@color/color_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_guideline"
@@ -39,7 +38,7 @@
 
     <TextView
         android:id="@+id/code_validation_subtitle"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        style="@style/WalletValidationTextStyle.Subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
@@ -47,7 +46,6 @@
         android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center_horizontal"
         android:text="@string/referral_verification_body"
-        android:textColor="#727272"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/code_validation_title"
@@ -145,12 +143,11 @@
           />
 
       <TextView
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          style="@style/WalletValidationTextStyle.Tooltip"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:gravity="start"
           android:text="@string/verification_insert_phone_security_disclaimer"
-          android:textSize="10sp"
           />
 
     </LinearLayout>
@@ -218,8 +215,8 @@
       layout="@layout/layout_validation_no_internet"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="8dp"
       android:layout_centerInParent="true"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
       />
 

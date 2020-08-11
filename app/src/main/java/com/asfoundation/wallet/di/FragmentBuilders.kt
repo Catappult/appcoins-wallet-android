@@ -10,6 +10,7 @@ import com.asfoundation.wallet.promotions.PromotionsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
+import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
@@ -185,15 +186,19 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector
-  abstract fun settingsFragment(): SettingsFragment
+  abstract fun bindSettingsFragment(): SettingsFragment
 
   @FragmentScope
   @ContributesAndroidInjector
-  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment?
+  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment
 
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindGamificationFragment(): GamificationFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindLocalTopUpPaymentFragment(): LocalTopUpPaymentFragment
 
   @FragmentScope
   @ContributesAndroidInjector

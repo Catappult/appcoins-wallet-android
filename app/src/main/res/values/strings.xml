@@ -454,7 +454,7 @@
   <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
   <string name="verification_insert_phone_title">Insert your phone number</string>
   <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Region</string>
+  <string name="verification_insert_phone_field_country">Select a Country/Region</string>
   <string name="verification_insert_phone_field_number">Phone Number</string>
   <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
   <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
@@ -476,6 +476,8 @@
   <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
   <string name="verification_settings_verified_title">Wallet Verified</string>
   <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
+  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
   <string name="verified_tag">Verified</string>
   <string name="unferified_tag">Unverified</string>
 

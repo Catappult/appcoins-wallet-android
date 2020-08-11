@@ -8,7 +8,7 @@
     >
 
   <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/adyen_error_animation"
+      android:id="@+id/topup_error_animation"
       android:layout_width="66dp"
       android:layout_height="66dp"
       app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/adyen_error_animation"
+      app:layout_constraintTop_toBottomOf="@+id/topup_error_animation"
       tools:visibility="visible"
       />
 

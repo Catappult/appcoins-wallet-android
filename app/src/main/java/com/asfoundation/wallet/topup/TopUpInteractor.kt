@@ -29,11 +29,9 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private var supportInteractor: SupportInteractor) {
 
 
-  fun getPaymentMethods(): Single<List<PaymentMethodData>> {
-    return repository.getPaymentMethods(type = "fiat")
-        .map { methods ->
-          mapPaymentMethods(methods)
-        }
+  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethodData>> {
+    return repository.getPaymentMethods(value, currency, "fiat", true)
+        .map { mapPaymentMethods(it) }
   }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
@@ -66,11 +64,7 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   private fun mapPaymentMethods(
       paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
-    val paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
-    paymentMethods.forEach {
-      paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id))
-    }
-    return paymentMethodsData
+    return paymentMethods.map { PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)) }
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
@@ -119,4 +113,6 @@ class TopUpInteractor(private val repository: BdsRepository,
     limitValues = TopUpLimitValues(values.minValue, values.maxValue)
   }
 
+  private fun isUnavailable(paymentMethod: PaymentMethodEntity) =
+      paymentMethod.availability == "UNAVAILABLE"
 }
