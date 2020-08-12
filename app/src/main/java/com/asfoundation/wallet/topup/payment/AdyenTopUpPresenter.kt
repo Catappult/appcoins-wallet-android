@@ -224,7 +224,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.disablePayments() }
         .observeOn(viewScheduler)
-        .doOnNext { success -> if (!success) handleSpecificError(R.string.unknown_error) }
+        .doOnNext { success ->
+          if (!success) {
+            logger.log(TAG, "Unabled to forget card")
+            handleSpecificError(R.string.unknown_error)
+          }
+        }
         .filter { it }
         .observeOn(networkScheduler)
         .flatMapSingle {
@@ -235,7 +240,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 view.hideLoading()
                 if (it.error.hasError) {
                   if (it.error.isNetworkError) view.showNetworkError()
-                  else handleSpecificError(R.string.unknown_error)
+                  else {
+                    logger.log(TAG, "Message: ${it.error.message}, code: ${it.error.code}")
+                    handleSpecificError(R.string.unknown_error)
+                  }
                 } else {
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
                 }
@@ -363,7 +371,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
-              it.printStackTrace()
+              logger.log(TAG, it)
               handleSpecificError(error)
             })
     )
@@ -463,6 +471,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         view.handle3DSAction(paymentModel.action!!)
         waitingResult = true
       } else {
+        logger.log(TAG, "Unknown adyen action: $type")
         handleSpecificError(R.string.unknown_error)
       }
     }

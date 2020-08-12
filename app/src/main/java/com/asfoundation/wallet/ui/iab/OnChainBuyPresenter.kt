@@ -58,7 +58,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
             appPackage, productName, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError { showError(it) }
-            .subscribe())
+            .subscribe({}, { showError(it) }))
   }
 
   private fun handleOkErrorClick() {
@@ -102,8 +102,8 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
 
   private fun close() = view.close(billingMessagesMapper.mapCancellation())
 
-  private fun showError(throwable: Throwable?) {
-    logger.log(TAG, throwable)
+  private fun showError(throwable: Throwable?, message: String? = null) {
+    logger.log(TAG, message, throwable)
     if (throwable is UnknownTokenException) view.showWrongNetworkError()
     else view.showError()
   }
@@ -154,10 +154,10 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       Payment.Status.FORBIDDEN -> Completable.fromAction { handleFraudFlow() }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.ERROR -> Completable.fromAction { showError(null) }
+      Payment.Status.ERROR -> Completable.fromAction { showError(null, "Payment status error") }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      else -> Completable.fromAction { showError(null) }
+      else -> Completable.fromAction { showError(null, "Payment status unknown") }
           .andThen(onChainBuyInteract.remove(transaction.uri))
     }
   }
@@ -253,7 +253,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
         }
         .observeOn(viewScheduler)
         .subscribe({}, {
-          it.printStackTrace()
+          logger.log(TAG, it)
           view.showForbiddenError()
         }))
   }

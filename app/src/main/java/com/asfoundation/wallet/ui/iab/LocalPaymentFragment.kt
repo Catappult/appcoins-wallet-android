@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
@@ -210,6 +211,9 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   @Inject
   lateinit var analytics: LocalPaymentAnalytics
 
+  @Inject
+  lateinit var logger: Logger
+
   private lateinit var iabView: IabView
   private lateinit var navigator: FragmentNavigator
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
@@ -226,7 +230,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
             paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), callbackUrl, orderReference, payload, context,
-            paymentMethodIconUrl, gamificationLevel)
+            paymentMethodIconUrl, gamificationLevel, logger)
   }
 
 
