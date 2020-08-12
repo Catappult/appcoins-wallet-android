@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणों से, हमें आपके वॉलेट को एक एसएमएस कोड से सत्यापित करना होगा।</string>
   <string name="verification_insert_phone_title">अपना फोन नंबर डालें</string>
   <string name="verification_insert_phone_body">पुरस्कार पाने के लिए अपना वॉलेट सत्यापित करें! हम आपको एक सत्यापन कोड भेजेंगे।</string>
-  <string name="verification_insert_phone_field_country">Region</string>
+  <string name="verification_insert_phone_field_country">Choose your region</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अमान्य फोन नंबर</string>
   <string name="verification_insert_phone_field_region_error">यह क्षेत्र अभी समर्थित नहीं है।</string>
