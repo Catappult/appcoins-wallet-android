@@ -141,7 +141,7 @@ public class TransactionBuilder implements Parcelable {
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
-        null, "", "", "", "", null, "");
+        null, "", "", "", "", null, null);
   }
 
   public String getIabContract() {

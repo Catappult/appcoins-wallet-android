@@ -62,12 +62,11 @@ class OneStepTransactionParser(
   }
 
   private fun getAmount(uri: OneStepUri, product: Product?): Single<BigDecimal> {
-    return getProductValue(product, getDomain(uri), getSkuId(uri))
-        .onErrorResumeNext {
-          uri.parameters[Parameters.VALUE]?.let {
-            getTransactionValue(uri)
-          } ?: Single.error(MissingProductException())
-        }
+    return when {
+      product != null -> Single.just(BigDecimal(product.price.appcoinsAmount))
+      uri.parameters[Parameters.VALUE] != null -> getTransactionValue(uri)
+      else -> Single.error(MissingAmountException())
+    }
   }
 
   private fun getToAddress(uri: OneStepUri): String? {
@@ -130,19 +129,9 @@ class OneStepTransactionParser(
     val skuId = getSkuId(uri)
     return if (domain != null && skuId != null) {
       billing.getProducts(domain, listOf(skuId))
-          .map { products -> products[0] }
-          .map { product -> SkuDetailsResponse(product) }
+          .map { products -> SkuDetailsResponse(products[0]) }
           .onErrorReturn { SkuDetailsResponse(null) }
     } else Single.just(SkuDetailsResponse(null))
-  }
-
-  private fun getProductValue(product: Product?, domain: String?,
-                              skuId: String?): Single<BigDecimal> {
-    return if (product != null && domain != null && skuId != null) {
-      Single.just(BigDecimal(product.price.appcoinsAmount))
-    } else {
-      Single.error(MissingProductException())
-    }
   }
 
   private fun getTransactionValue(uri: OneStepUri): Single<BigDecimal> {
@@ -164,6 +153,6 @@ class OneStepTransactionParser(
 
 class MissingWalletException : RuntimeException()
 
-class MissingProductException : RuntimeException()
+class MissingAmountException : RuntimeException()
 
 class SkuDetailsResponse(val product: Product?)
