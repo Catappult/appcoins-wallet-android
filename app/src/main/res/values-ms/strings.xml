@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Untuk tujuan keselamatan, kami perlu sahkan dompet anda dengan kod SMS.</string>
   <string name="verification_insert_phone_title">Masukkan nombor telefon anda</string>
   <string name="verification_insert_phone_body">Sahkan dompet anda untuk dapatkan ganjaran! Kami akan hantar kod pengesahan kepada anda.</string>
-  <string name="verification_insert_phone_field_country">Rantau</string>
+  <string name="verification_insert_phone_field_country">Choose your region</string>
   <string name="verification_insert_phone_field_number">Nombor Telefon</string>
   <string name="verification_insert_phone_field_number_error">Nombor telefon tidak sah</string>
   <string name="verification_insert_phone_field_region_error">Perkhidmatan belum tersedia di kawasan ini.</string>
