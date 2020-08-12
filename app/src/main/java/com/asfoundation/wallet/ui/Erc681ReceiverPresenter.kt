@@ -16,7 +16,8 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
                                        private val walletService: WalletService,
                                        private val data: String,
                                        private val viewScheduler: Scheduler,
-                                       private var disposables: CompositeDisposable) {
+                                       private var disposables: CompositeDisposable,
+                                       private val productName: String?) {
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposables.add(
@@ -30,6 +31,7 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
                         callingPackage = view.callingPackage
                       }
                       transactionBuilder.domain = callingPackage
+                      transactionBuilder.productName = productName
                       transactionBuilder
                     }
                     .flatMap { transactionBuilder: TransactionBuilder ->
