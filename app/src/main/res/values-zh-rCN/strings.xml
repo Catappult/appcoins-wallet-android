@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">出于安全原因，我们需要使用短信代码验证你的钱包。</string>
   <string name="verification_insert_phone_title">输入你的电话号码</string>
   <string name="verification_insert_phone_body">验证钱包以获取奖励！我们将向你发送验证码。</string>
-  <string name="verification_insert_phone_field_country">地区</string>
+  <string name="verification_insert_phone_field_country">Choose your region</string>
   <string name="verification_insert_phone_field_number">电话号码</string>
   <string name="verification_insert_phone_field_number_error">电话号码无效</string>
   <string name="verification_insert_phone_field_region_error">尚不支持该地区。</string>
