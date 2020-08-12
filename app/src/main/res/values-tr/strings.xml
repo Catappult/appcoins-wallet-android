@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Güvenlik nedeniyle cüzdanınızı bir SMS koduyla doğrulamamız gerekiyor.</string>
   <string name="verification_insert_phone_title">Telefon numaranızı girin</string>
   <string name="verification_insert_phone_body">Ödül almak için cüzdanınızı doğrulayın! Size bir doğrulama kodu göndereceğiz.</string>
-  <string name="verification_insert_phone_field_country">Bölge</string>
+  <string name="verification_insert_phone_field_country">Choose your region</string>
   <string name="verification_insert_phone_field_number">Telefon Numarası</string>
   <string name="verification_insert_phone_field_number_error">Geçersiz telefon numarası</string>
   <string name="verification_insert_phone_field_region_error">Bu bölge henüz desteklenmiyor.</string>
