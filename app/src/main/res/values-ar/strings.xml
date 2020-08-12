@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">لأسباب أمنية، نحن بحاجة إلى تأكيد محفظتك برمز SMS.</string>
   <string name="verification_insert_phone_title">أدخل رقم هاتفك</string>
   <string name="verification_insert_phone_body">وثّق محفظتك للحصول على الجوائز! سنرسل إليك رمز التحقق.</string>
-  <string name="verification_insert_phone_field_country">المنطقة</string>
+  <string name="verification_insert_phone_field_country">Choose your region</string>
   <string name="verification_insert_phone_field_number">رقم الهاتف</string>
   <string name="verification_insert_phone_field_number_error">رقم هاتف غير صالح</string>
   <string name="verification_insert_phone_field_region_error">المنطقة غير مدعومة حاليًا.</string>
