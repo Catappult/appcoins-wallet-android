@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">От съображения за сигурност трябва да верифицираме портфейла ти с SMS код.</string>
   <string name="verification_insert_phone_title">Въведи телефонния си номер</string>
   <string name="verification_insert_phone_body">Верифицирай портфейла си, за да получаваш награди! Ще ти изпратим код за потвърждение.</string>
-  <string name="verification_insert_phone_field_country">Region</string>
+  <string name="verification_insert_phone_field_country">Choose your region</string>
   <string name="verification_insert_phone_field_number">Телефонен номер</string>
   <string name="verification_insert_phone_field_number_error">Невалиден телефонен номер</string>
   <string name="verification_insert_phone_field_region_error">Регионът все още не се поддържа.</string>
