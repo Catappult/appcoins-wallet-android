@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
@@ -64,7 +65,9 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   private fun mapPaymentMethods(
       paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
-    return paymentMethods.map { PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)) }
+    // TODO, this should be removed in the release where we include fees on the local payments
+    return paymentMethods.filter { Gateway.Name.adyen_v2 == it.gateway.name }
+        .map { PaymentMethodData(it.iconUrl, it.label, it.id, !isUnavailable(it)) }
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
