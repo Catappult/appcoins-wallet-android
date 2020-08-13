@@ -430,7 +430,7 @@ public class InAppPurchaseInteractor {
       } else if (paymentMethod.getGateway() != null && (paymentMethod.getGateway()
           .getName() == (Gateway.Name.myappcoins)
           || paymentMethod.getGateway()
-          .getName() == (Gateway.Name.adyen_v2)) && paymentMethod.isAvailable()) {
+          .getName() == (Gateway.Name.adyen_v2)) && !paymentMethod.isAvailable()) {
         iterator.remove();
       }
     }
