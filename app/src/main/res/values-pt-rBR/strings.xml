@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Por razões de segurança, precisamos verificar sua wallet com um código SMS.</string>
   <string name="verification_insert_phone_title">Insira seu número de telefone</string>
   <string name="verification_insert_phone_body">Verifique sua wallet para receber recompensas! Nós enviaremos um código de verificação.</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">Número de Telefone</string>
   <string name="verification_insert_phone_field_number_error">Número de telefone inválido</string>
   <string name="verification_insert_phone_field_region_error">Região ainda sem suporte.</string>
