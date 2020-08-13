@@ -101,11 +101,17 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                   view.hideLoading()
                 }
               }
-        } else rewardsManager.getTransaction(packageName, sku, amount)
-            .firstOrError()
-            .map(Transaction::txId)
-            .doOnSuccess { view.finish(it) }
-            .ignoreElement()
+        } else {
+          rewardsManager.getTransaction(packageName, sku, amount)
+              .firstOrError()
+              .map(Transaction::txId)
+              .flatMapCompletable { transactionId ->
+                Completable.fromAction { view.showTransactionCompleted() }
+                    .subscribeOn(viewScheduler)
+                    .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                    .andThen(Completable.fromAction { view.finish(transactionId) })
+              }
+        }
       }
       Status.ERROR -> Completable.fromAction { view.showError(null) }
       Status.FORBIDDEN -> Completable.fromAction {
