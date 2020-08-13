@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Vì lý do bảo mật, chúng tôi cần xác minh ví của bạn bằng mã SMS.</string>
   <string name="verification_insert_phone_title">Nhập số điện thoại của bạn</string>
   <string name="verification_insert_phone_body">Xác minh ví của bạn để nhận phần thưởng! Chúng tôi sẽ gửi bạn một mã xác minh.</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">Số điện thoại</string>
   <string name="verification_insert_phone_field_number_error">Số điện thoại không hợp lệ</string>
   <string name="verification_insert_phone_field_region_error">Khu vực chưa được hỗ trợ.</string>
