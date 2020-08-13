@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Iz bezbednosnih razloga, moramo da potvrdimo vaš novčanik pomoću SMS koda.</string>
   <string name="verification_insert_phone_title">Unesite svoj broj telefona</string>
   <string name="verification_insert_phone_body">Potvrdite novčanik da biste dobili nagrade! Poslaćemo vam kod za potvrdu.</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">Broj telefona</string>
   <string name="verification_insert_phone_field_number_error">Neispravan broj telefona</string>
   <string name="verification_insert_phone_field_region_error">Ova regija još nije podržana.</string>
