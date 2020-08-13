@@ -24,9 +24,9 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
-import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
-import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
+import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodsAdapter
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -56,11 +56,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  private lateinit var adapter: TopUpPaymentMethodAdapter
+  private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
   private lateinit var paymentMethodClick: PublishRelay<String>
   private lateinit var fragmentContainer: ViewGroup
-  private lateinit var paymentMethods: List<PaymentMethodData>
+  private lateinit var paymentMethods: List<PaymentMethod>
   private lateinit var topUpAdapter: TopUpAdapter
   private lateinit var keyboardEvents: PublishSubject<Boolean>
   private var valueSubject: PublishSubject<FiatValue>? = null
@@ -180,21 +180,21 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethodData>) {
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
     this@TopUpFragment.paymentMethods = paymentMethods
-    adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
+    adapter = TopUpPaymentMethodsAdapter(paymentMethods, paymentMethodClick)
     selectPaymentMethod(paymentMethods)
 
     payment_methods.adapter = adapter
 
-    handlePaymentListMaxHeight(paymentMethods)
+    handlePaymentListMaxHeight(paymentMethods.size)
 
     payments_skeleton.visibility = View.GONE
     payment_methods.visibility = View.VISIBLE
   }
 
-  private fun handlePaymentListMaxHeight(paymentMethods: List<PaymentMethodData>) {
-    if (paymentMethods.size > 2) {
+  private fun handlePaymentListMaxHeight(listSize: Int) {
+    if (listSize > 2) {
       val orientation = resources.configuration.orientation
       val params: LayoutParams = payment_methods.layoutParams as LayoutParams
       if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -207,11 +207,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  private fun selectPaymentMethod(paymentMethods: List<PaymentMethodData>) {
+  private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>) {
     var selected = false
     if (selectedPaymentMethodId != null) {
       for (i in paymentMethods.indices) {
-        if (paymentMethods[i].id == selectedPaymentMethodId && paymentMethods[i].isAvailable) {
+        if (paymentMethods[i].id == selectedPaymentMethodId && paymentMethods[i].isEnabled) {
           selectedPaymentMethodId = paymentMethods[i].id
           adapter.setSelectedItem(i)
           selected = true
@@ -540,14 +540,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   private fun getSelectedPaymentMethod(): PaymentTypeInfo? {
     return if (payment_methods.adapter != null) {
-      val data = (payment_methods.adapter as TopUpPaymentMethodAdapter).getSelectedItemData()
+      val data = (payment_methods.adapter as TopUpPaymentMethodsAdapter).getSelectedItemData()
       when {
         PaymentType.PAYPAL.subTypes.contains(data.id) ->
-          PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.description, data.imageSrc)
+          PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.label, data.iconUrl)
         PaymentType.CARD.subTypes.contains(data.id) ->
-          PaymentTypeInfo(PaymentType.CARD, data.id, data.description, data.imageSrc)
-        else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.description,
-            data.imageSrc)
+          PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
+        else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,
+            data.iconUrl)
       }
     } else {
       null
