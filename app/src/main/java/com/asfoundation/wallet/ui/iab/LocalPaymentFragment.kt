@@ -268,7 +268,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
-    if (savedInstanceState != null) {
+    if (savedInstanceState?.get(STATUS_KEY) != null) {
       status = savedInstanceState.get(STATUS_KEY) as ViewState
       errorMessage = savedInstanceState.getInt(ERROR_MESSAGE_KEY, errorMessage)
       setViewState()
