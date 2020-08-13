@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">เพื่อเหตุผลด้านความปลอดภัย เราต้องยืนยันกระเป๋าสตางค์ของคุณด้วยรหัส SMS</string>
   <string name="verification_insert_phone_title">ใส่เบอร์โทรศัพท์ของคุณ</string>
   <string name="verification_insert_phone_body">ยืนยันกระเป๋าสตางค์ของคุณเพื่อรับรางวัล! เราจะส่งรหัสยืนยันให้คุณ</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">เบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_field_number_error">ไม่มีเบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_field_region_error">ภูมิภาคยังไม่สนับสนุน</string>
