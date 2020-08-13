@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Din motive de securitate, trebuie să îți verificăm portofelul cu un cod SMS.</string>
   <string name="verification_insert_phone_title">Introdu numărul tău de telefon</string>
   <string name="verification_insert_phone_body">Verifică-ți portofelul pentru a primi recompense! Îți vom trimite un cod de verificare.</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">Număr de telefon</string>
   <string name="verification_insert_phone_field_number_error">Număr de telefon nevalid</string>
   <string name="verification_insert_phone_field_region_error">Regiunea nu este încă acoperită.</string>
