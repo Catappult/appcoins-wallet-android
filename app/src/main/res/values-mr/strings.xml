@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
   <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
   <string name="verification_insert_phone_body">बक्षिसे मिळविण्यासाठी वॉलेट सत्यापन करा! आम्ही आपल्याला सत्यापन कोड पाठवू.</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
   <string name="verification_insert_phone_field_region_error">हा प्रांत अजुनपर्यंत समर्थित नाहीं.</string>
