@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">В целях безопасности, нам нужно верифицировать ваш бумажник при помощи SMS-кода.</string>
   <string name="verification_insert_phone_title">Введите свой номер телефона</string>
   <string name="verification_insert_phone_body">Подтвердите ваш кошелёк, чтобы получать награды! Мы вышлем вам код подтверждения.</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">Номер телефона</string>
   <string name="verification_insert_phone_field_number_error">Недопустимый номер телефона</string>
   <string name="verification_insert_phone_field_region_error">Регион пока не поддерживается.</string>
