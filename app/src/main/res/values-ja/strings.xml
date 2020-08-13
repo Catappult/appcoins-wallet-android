@@ -416,7 +416,7 @@
   <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
   <string name="verification_insert_phone_title">Insert your phone number</string>
   <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Choose your region</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">Phone Number</string>
   <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
   <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
