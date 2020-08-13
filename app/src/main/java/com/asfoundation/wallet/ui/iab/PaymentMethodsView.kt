@@ -88,6 +88,9 @@ interface PaymentMethodsView {
 
   fun getSupportIconClicks(): Observable<Any>
 
+  fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int)
+
+
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
     ERROR

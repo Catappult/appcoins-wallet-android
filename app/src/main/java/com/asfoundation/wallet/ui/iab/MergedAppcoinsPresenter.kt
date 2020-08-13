@@ -85,18 +85,26 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .doOnNext {
           view.showLoading()
         }
-        .flatMapCompletable { paymentMethod ->
+        .flatMapSingle { paymentMethod ->
           mergedAppcoinsInteract.isWalletBlocked()
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
-              .flatMapCompletable {
-                handleBuyClickSelection(paymentMethod.purchaseDetails)
+              .doOnSuccess {
+                view.showAuthenticationActivity(map(paymentMethod.purchaseDetails),
+                    gamificationLevel)
+                //handleBuyClickSelection(paymentMethod.purchaseDetails)
               }
         }
         .subscribe({}, {
           view.hideLoading()
           showError(it)
         }))
+  }
+
+  private fun map(purchaseDetails: String): String {
+    if (purchaseDetails == APPC) return PaymentMethodsView.PaymentMethodId.APPC.id
+    else if (purchaseDetails == CREDITS) return PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id
+    return ""
   }
 
   private fun handleSupportClicks() {

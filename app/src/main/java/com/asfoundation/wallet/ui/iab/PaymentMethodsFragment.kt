@@ -21,6 +21,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -138,7 +139,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
         bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract)
+        logger, paymentMethodsInteract, iabView)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -389,6 +390,14 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
+  override fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod,
+                                          gamificationLevel: Int) {
+    iabView.showAuthenticationActivity(
+        PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
+            selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiatValue.amount,
+            fiatValue.currency, bonusMessageValue))
+  }
+
   override fun setupUiCompleted() = setupSubject!!
 
   override fun showProcessingLoadingDialog() {
@@ -405,6 +414,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
   }
+
 
   override fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
                          gamificationLevel: Int) {

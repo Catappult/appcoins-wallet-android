@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -475,11 +476,19 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
+  override fun showAuthenticationActivity(selectedPaymentId: String,
+                                          gamificationLevel: Int) {
+    iabView.showAuthenticationActivity(
+        PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
+            currency, bonus))
+  }
+
   override fun navigateToAppcPayment() =
       iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
 
   override fun navigateToCreditsPayment() =
       iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
+
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =

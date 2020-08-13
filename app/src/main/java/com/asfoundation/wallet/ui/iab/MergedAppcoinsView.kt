@@ -35,4 +35,7 @@ interface MergedAppcoinsView {
 
   fun getSupportIconClicks(): Observable<Any>
 
+  fun showAuthenticationActivity(selectedPaymentId: String,
+                                 gamificationLevel: Int)
+
 }

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui
 
-import android.util.Log
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
@@ -34,7 +33,6 @@ class SplashPresenter(
             if (preferencesRepositoryType.hasAuthenticationPermission()) {
               view.showAuthenticationActivity()
             } else {
-              Log.d("TAG123", "FIRST RUN")
               view.firstScreenNavigation()
             }
           }

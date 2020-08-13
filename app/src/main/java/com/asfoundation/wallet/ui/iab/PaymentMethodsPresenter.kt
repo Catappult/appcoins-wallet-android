@@ -46,7 +46,8 @@ class PaymentMethodsPresenter(
     private val transactionValue: Double,
     private val formatter: CurrencyFormatUtils,
     private val logger: Logger,
-    private val paymentMethodsInteract: PaymentMethodsInteract) {
+    private val paymentMethodsInteract: PaymentMethodsInteract,
+    private val activity: IabView?) {
 
   private var gamificationLevel = 0
 
@@ -86,38 +87,26 @@ class PaymentMethodsPresenter(
         .doOnNext { handleBuyAnalytics(it) }
         .doOnNext { selectedPaymentMethod ->
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-            PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(gamificationLevel)
-            PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
-                gamificationLevel)
-            PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins(gamificationLevel)
-            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus()
-            PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
-                selectedPaymentMethod.id)
-            PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
-                selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
-                selectedPaymentMethod.label, gamificationLevel)
+            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
+            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus(
+                selectedPaymentMethod)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> {
               val appCoinsPaymentMethod = selectedPaymentMethod as AppCoinsPaymentMethod
               view.showMergedAppcoins(gamificationLevel, appCoinsPaymentMethod.disabledReasonAppc,
                   appCoinsPaymentMethod.disabledReasonCredits)
             }
-            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
-            else -> return@doOnNext
+            else -> view.showAuthenticationActivity(selectedPaymentMethod, gamificationLevel)
+
           }
         }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleWalletBlockStatus() {
+  private fun handleWalletBlockStatus(selectedPaymentMethod: PaymentMethod) {
     disposables.add(paymentMethodsInteract.isWalletBlocked()
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
-        .flatMapCompletable {
-          Completable.fromAction {
-            view.showCredits(gamificationLevel)
-          }
-        }
-        .andThen { Completable.fromAction { view.hideLoading() } }
+        .doOnSuccess { view.showAuthenticationActivity(selectedPaymentMethod, gamificationLevel) }
         .doOnSubscribe { view.showProgressBarLoading() }
         .doOnError { showError(it) }
         .subscribe({}, { it.printStackTrace() })
