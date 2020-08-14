@@ -477,8 +477,10 @@
   <string name="async_steps_title">Próximos Passos</string>
   <string name="async_steps_1">Completa o teu pagamento com %s. Serás notificado assim que receberes os AppCoins Credits na tua wallet.</string>
   <string name="async_steps_2">Volta ao jogo e faz a compra usando os AppCoins Credits como método de pagamento.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">Conclui o teu pagamento com %s.</string>
   <string name="async_steps_2_no_notification">Quando receberes os AppCoins Credits, volta ao jogo e faz a compra usando AppCoins Credits como método de pagamento.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">Os teus AppCoins Credits chegaram!</string>
   <string name="async_notification_body">Volta para %s para fazeres a compra usando AppCoins Credits.</string>
   <!--Referral Program-->
