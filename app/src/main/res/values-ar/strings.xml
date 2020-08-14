@@ -478,8 +478,10 @@
   <string name="async_steps_title">الخطوة التالية</string>
   <string name="async_steps_1">أتمّ عملية الدفع بواسطة %s. سنرسل لك إشعارًا عند استلامك رصيد AppCoins في محفظتك.</string>
   <string name="async_steps_2">عد إلى اللعبة ثانية واشترِ باستخدام رصيد AppCoins كوسيلة دفع.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">أتم عملية الدفع باستخدام %s.</string>
   <string name="async_steps_2_no_notification">حالما يصلك رصيد AppCoins، ارجع إلى اللعبة وأتمّ عملية الشراء باستخدام رصيد AppCoins كوسيلة دفع.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">لقد وصل رصيدك من AppCoins!</string>
   <string name="async_notification_body">عد إلى %s لإتمام عملية الشراء باستخدام رصيد AppCoins.</string>
   <!--Referral Program-->
