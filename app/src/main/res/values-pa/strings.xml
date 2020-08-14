@@ -477,8 +477,10 @@
   <string name="async_steps_title">ਅਗਲੇ ਕਦਮ</string>
   <string name="async_steps_1">%s ਨਾਲ ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ| ਜਦੋਂ ਤੁਸੀਂ ਆਪਣੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ ਤਾਂ ਤੁਹਾਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਜਾਵੇਗਾ|</string>
   <string name="async_steps_2">ਗੇਮ ਤੇ ਵਾਪਸ ਜਾਓ ਅਤੇ ਭੁਗਤਾਨ ਲਈ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਖਰੀਦ ਕਰੋ|</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">%s ਨਾਲ ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ|</string>
   <string name="async_steps_2_no_notification">ਇੱਕ ਵਾਰ ਜਦੋਂ ਤੁਸੀਂ ਐਪ ਸਿਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਦੇ ਹੋ, ਤਾਂ ਗੇਮ ਵਿੱਚ ਵਾਪਸ ਜਾਓ ਅਤੇ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਰੂਪ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਖਰੀਦ ਕਰੋ|</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆ ਗਏ!</string>
   <string name="async_notification_body">ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਨਾਲ ਖਰੀਦ ਕਰਨ ਲਈ %s ਤੇ ਵਾਪਸ ਜਾਓ|</string>
   <!--Referral Program-->
