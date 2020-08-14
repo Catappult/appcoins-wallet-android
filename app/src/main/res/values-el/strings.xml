@@ -477,8 +477,10 @@
   <string name="async_steps_title">Επόμενα Βήματα</string>
   <string name="async_steps_1">Ολοκληρώστε την πληρωμή σας με %s. Θα ειδοποιηθείτε μόλις λάβετε τα AppCoins Credits στο wallet σας.</string>
   <string name="async_steps_2">Επιστρέψτε στο παιχνίδι και πραγματοποιήστε την αγορά, χρησιμοποιώντας τα AppCoins Credits ως μέθοδο πληρωμής.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">Ολοκληρώστε την πληρωμή σας με %s.</string>
   <string name="async_steps_2_no_notification">Μόλις λάβετε τα AppCoins Credits, επιστρέψτε στο παιχνίδι και πραγματοποιήστε την αγορά χρησιμοποιώντας τα AppCoins Credits ως μέθοδο πληρωμής.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">Τα AppCoins Credits σας είναι εδώ!</string>
   <string name="async_notification_body">Επιστρέψτε στο %s για να πραγματοποιήσετε την αγορά μέσω AppCoins Credits.</string>
   <!--Referral Program-->
