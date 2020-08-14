@@ -477,8 +477,10 @@
   <string name="async_steps_title">Pașii următori</string>
   <string name="async_steps_1">Finalizează plata ta cu %s. Vei fi notificat când vei primi AppCoins Credits în portofelul tău.</string>
   <string name="async_steps_2">Du-te înapoi la joc și fă această cumpărătură cu AppCoins Credits ca metodă de plată.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">Finalizează plata ta cu %s.</string>
   <string name="async_steps_2_no_notification">Când vei primi AppCoins Credits, du-te înapoi la joc și fă o cumpărătură folosind AppCoins Credits ca metodă de plată.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">AppCoins Credits au sosit!</string>
   <string name="async_notification_body">Du-te înapoi la %s ca să faci cumpărătura folosind AppCoins Credits.</string>
   <!--Referral Program-->
