@@ -477,8 +477,10 @@
   <string name="async_steps_title">ေနာက္ထပ္အဆင့္မ်ား</string>
   <string name="async_steps_1">သင့္ေငြေပးေခ်မႈကို %s ျဖင့္ ၿပီးေအာင္လုပ္လိုက္ပါ။ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credits မ်ားကို ရရွိသည္ႏွင့္ သင့္အားအသိေပးပါမည္။</string>
   <string name="async_steps_2">ဂိမ္းသို႔ျပန္သြားကာ AppCoins Credits ကို ေငြေပးေခ်မႈနည္းလမ္းအျဖစ္ အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ပါ။</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">သင့္ေငြေပးေခ်မႈကို %s ျဖင့္ ၿပီးေအာင္လုပ္လိုက္ပါ။</string>
   <string name="async_steps_2_no_notification">AppCoins Credits မ်ားကို သင္ရရွိသည္ႏွင့္ ဂိမ္းသို႔ျပန္သြားကာ AppCoins Credits မ်ားကို ေငြေပးေခ်မႈနည္းလမ္းအျဖစ္ အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ပါ။</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">သင့္ AppCoins Credits မ်ား ေရာက္လာပါၿပီ။</string>
   <string name="async_notification_body">AppCoins Credits မ်ားကို အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ရန္အတြက္ %s သို့ ျပန္သြားပါ။</string>
   <!--Referral Program-->
