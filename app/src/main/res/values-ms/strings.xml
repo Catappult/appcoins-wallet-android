@@ -477,8 +477,10 @@
   <string name="async_steps_title">Langkah Seterusnya</string>
   <string name="async_steps_1">Selesaikan pembayaran anda dengan %s. Anda akan dimaklumkan setelah anda terima Kredit AppCoins dalam dompet anda.</string>
   <string name="async_steps_2">Kembali ke permainan dan buat pembelian menggunakan Kredit AppCoins sebagai kaedah pembayaran.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">Lengkapkan pembayaran anda dengan %s.</string>
   <string name="async_steps_2_no_notification">Setelah anda terima Kredit AppCoins, kembali ke permainan dan buat pembelian menggunakan Kredit AppCoins sebagai kaedah pembayaran.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">Kredit AppCoins anda sudah tiba!</string>
   <string name="async_notification_body">Kembali ke %s untuk buat pembelian menggunakan Kredit AppCoins.</string>
   <!--Referral Program-->
