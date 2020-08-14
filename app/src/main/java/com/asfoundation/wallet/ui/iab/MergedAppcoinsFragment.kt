@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -108,6 +109,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   @Inject
   lateinit var mergedAppcoinsInteract: MergedAppcoinsInteract
+
+  @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -231,7 +235,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, iabView, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
-        formatter, mergedAppcoinsInteract, gamificationLevel, navigator)
+        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, preferencesRepositoryType)
   }
 
   override fun onAttach(context: Context) {
@@ -475,10 +479,19 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun showAuthenticationActivity(selectedPaymentId: String,
                                           gamificationLevel: Int) {
-    iabView.showAuthenticationActivity(
+    val paymentNavigationData =
         PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
-            currency, bonus))
+            currency, bonus, false)
+    iabView.showAuthenticationActivity(paymentNavigationData)
   }
+
+  override fun navigateToPayment(selectedPaymentId: String, gamificationLevel: Int) {
+    val paymentNavigationData =
+        PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
+            currency, bonus, false)
+    iabView.navigateToPayment(paymentNavigationData)
+  }
+
 
   override fun navigateToAppcPayment() =
       iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)

@@ -69,6 +69,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   lateinit var formatter: CurrencyFormatUtils
 
   lateinit var navigator: TransactNavigator
+  lateinit var transferActivity: TransferActivityView
   private lateinit var activityResultSharer: ActivityResultSharer
   private lateinit var doneClick: PublishSubject<Any>
   private lateinit var qrCodeResult: BehaviorSubject<Barcode>
@@ -175,6 +176,11 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
       else -> throw IllegalArgumentException(
           "${this.javaClass.simpleName} has to be attached to an activity that implements ${ActivityResultSharer::class}")
     }
+    when (context) {
+      is TransferActivityView -> transferActivity = context
+      else -> throw IllegalArgumentException(
+          "${this.javaClass.simpleName} has to be attached to an activity that implements ${ActivityResultSharer::class}")
+    }
     activityResultSharer.addOnActivityListener(confirmationRouter)
     activityResultSharer.addOnActivityListener(object :
         ActivityResultSharer.ActivityResultListener {
@@ -191,6 +197,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
       }
     })
   }
+
 
   override fun showCameraErrorToast() {
     Toast.makeText(context, R.string.toast_qr_code_no_address, LENGTH_SHORT)

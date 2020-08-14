@@ -88,7 +88,11 @@ interface PaymentMethodsView {
 
   fun getSupportIconClicks(): Observable<Any>
 
-  fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int)
+  fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int,
+                                 isPreselected: Boolean, fiatValue: FiatValue? = null)
+
+  fun navigateToPayment(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int,
+                        isPreselected: Boolean)
 
 
   enum class SelectedPaymentMethod {

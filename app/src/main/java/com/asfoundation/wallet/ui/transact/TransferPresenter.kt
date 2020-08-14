@@ -150,6 +150,7 @@ class TransferPresenter(private val view: TransferFragmentView,
             AppcoinsRewardsRepository.Status.NO_INTERNET ->
               Completable.fromCallable { view.showUnknownError() }
             AppcoinsRewardsRepository.Status.SUCCESS -> {
+              //AQUI FAZER A AUTHENTICATION
               handleSuccess(currency, walletAddress, amount)
             }
             AppcoinsRewardsRepository.Status.INVALID_AMOUNT -> Completable.fromCallable { view.showInvalidAmountError() }

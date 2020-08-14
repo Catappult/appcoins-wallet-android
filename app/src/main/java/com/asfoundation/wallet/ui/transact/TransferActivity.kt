@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
@@ -15,10 +16,17 @@ import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import java.math.BigDecimal
 
 class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator {
+
   private lateinit var presenter: TransferActivityPresenter
+
+
+  /*@Inject
+  lateinit var walletInteract: FindDefaultWalletInteract*/
 
   companion object {
     const val BARCODE_READER_REQUEST_CODE = 1
+    const val AUTHENTICATION_REQUEST_CODE = 33
+
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, TransferActivity::class.java)
@@ -37,10 +45,43 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     toolbar()
   }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == AUTHENTICATION_REQUEST_CODE) {
+      if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
+        //handleSuccess()
+      }
+    }
+  }
+
+  /*private fun handleSuccess(
+      currency: TransferFragmentView.Currency,
+      walletAddress: String, amount: BigDecimal): Completable {
+    return when (currency) {
+      TransferFragmentView.Currency.APPC_C ->
+        view.openAppcCreditsConfirmationView(walletAddress, amount, currency)
+      TransferFragmentView.Currency.APPC -> walletInteract.find()
+          .flatMapCompletable { wallet ->
+            view.openAppcConfirmationView(wallet.address, walletAddress, amount)
+          }
+      TransferFragmentView.Currency.ETH -> walletInteract.find()
+          .flatMapCompletable { wallet ->
+            view.openEthConfirmationView(wallet.address, walletAddress, amount)
+          }
+    }
+  }*/
+
+
   override fun showTransactFragment() {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TransferFragment.newInstance())
         .commit()
+  }
+
+  override fun showAuthenticationActivity() {
+    val intent = AuthenticationPromptActivity.newIntent(this)
+    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
   override fun showLoading() {
@@ -87,6 +128,7 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     val intent = Intent(this, BarcodeCaptureActivity::class.java)
     startActivityForResult(intent, BARCODE_READER_REQUEST_CODE)
   }
+
 
   override fun hideKeyboard() {
     val inputMethodManager =

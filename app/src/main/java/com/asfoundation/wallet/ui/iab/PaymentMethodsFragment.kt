@@ -21,6 +21,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -104,7 +105,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var logger: Logger
 
   @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+
+  @Inject
   lateinit var paymentMethodsInteract: PaymentMethodsInteract
+
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
   private lateinit var fiatValue: FiatValue
@@ -139,7 +144,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
         bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract, iabView)
+        logger, paymentMethodsInteract, iabView, preferencesRepositoryType)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -343,6 +348,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun hideLoading() {
     if (processing_loading.visibility != View.VISIBLE) {
+      payment_methods.visibility = View.VISIBLE
       removeSkeletons()
       buy_button.isEnabled = true
       if (isPreSelected) {
@@ -392,11 +398,22 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod,
-                                          gamificationLevel: Int) {
-    iabView.showAuthenticationActivity(
-        PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
-            selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiatValue.amount,
-            fiatValue.currency, bonusMessageValue))
+                                          gamificationLevel: Int, isPreselected: Boolean,
+                                          fiatValue: FiatValue?) {
+    val fiat = fiatValue ?: this.fiatValue
+    val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
+        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat.amount,
+        fiat.currency, bonusMessageValue, isPreselected)
+    iabView.showAuthenticationActivity(paymentNavigationData)
+
+  }
+
+  override fun navigateToPayment(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int,
+                                 isPreselected: Boolean) {
+    val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
+        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiatValue.amount,
+        fiatValue.currency, bonusMessageValue, isPreselected)
+    iabView.navigateToPayment(paymentNavigationData)
   }
 
   override fun setupUiCompleted() = setupSubject!!

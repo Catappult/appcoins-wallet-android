@@ -33,6 +33,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_iab.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.*
@@ -51,7 +52,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
-  //ADICIONEI ISTO
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
@@ -64,12 +64,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var uri: String? = null
   private var firstImpression = true
   private var paymentNavigationData: PaymentNavigationData? = null
+  private var authenticationResultSubject: PublishSubject<PaymentAuthenticationResult>? = null
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     results = PublishRelay.create()
+    authenticationResultSubject = PublishSubject.create()
     setContentView(R.layout.activity_iab)
     isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
@@ -78,6 +80,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = true
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
+      paymentNavigationData =
+          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData
     }
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
@@ -111,7 +115,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       presenter.handleWalletBlockedCheck(errorMessage)
     } else if (requestCode == AUTHENTICATION_REQUEST_CODE) {
       if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-        navigateToPayment()
+        paymentNavigationData?.let { navigateToPayment(it) }
+      } else if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
+
+        paymentNavigationData?.let {
+          authenticationResultSubject?.onNext(PaymentAuthenticationResult(false, it))
+        }
       }
     }
   }
@@ -288,6 +297,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstance(outState)
+    outState.putSerializable(PAYMENT_NAVIGATION_DATA, paymentNavigationData)
   }
 
   private fun getOrigin(isBds: Boolean): String? {
@@ -371,26 +381,32 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(intent, TopUpActivity.AUTHENTICATION_REQUEST_CODE)
   }
 
+  override fun onAuthenticationResult(): Observable<PaymentAuthenticationResult> {
+    return authenticationResultSubject!!
+  }
 
-  override fun navigateToPayment() {
-    when (paymentMethodsMapper.map(paymentNavigationData!!.selectedPaymentId)) {
+
+  override fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
+    when (paymentMethodsMapper.map(paymentNavigationData.selectedPaymentId)) {
       PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> showAdyenPayment(
-          paymentNavigationData!!.fiatAmount,
-          paymentNavigationData!!.fiatCurrency, isBds,
-          PaymentType.PAYPAL, paymentNavigationData!!.bonusMessageValue, false, null,
-          paymentNavigationData!!.gamificationLevel)
+          paymentNavigationData.fiatAmount,
+          paymentNavigationData.fiatCurrency, isBds,
+          PaymentType.PAYPAL, paymentNavigationData.bonusMessageValue,
+          paymentNavigationData.isPreselected, null,
+          paymentNavigationData.gamificationLevel)
       PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> showAdyenPayment(
-          paymentNavigationData!!.fiatAmount,
-          paymentNavigationData!!.fiatCurrency, isBds,
-          PaymentType.CARD, paymentNavigationData!!.bonusMessageValue, false, null,
-          paymentNavigationData!!.gamificationLevel)
+          paymentNavigationData.fiatAmount,
+          paymentNavigationData.fiatCurrency, isBds,
+          PaymentType.CARD, paymentNavigationData.bonusMessageValue,
+          paymentNavigationData.isPreselected, null,
+          paymentNavigationData.gamificationLevel)
       PaymentMethodsView.SelectedPaymentMethod.APPC -> showOnChain(
-          paymentNavigationData!!.fiatAmount,
-          isBds, paymentNavigationData!!.bonusMessageValue,
-          paymentNavigationData!!.gamificationLevel)
+          paymentNavigationData.fiatAmount,
+          isBds, paymentNavigationData.bonusMessageValue,
+          paymentNavigationData.gamificationLevel)
 
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> showAppcoinsCreditsPayment(
-          transaction!!.amount(), paymentNavigationData!!.gamificationLevel)
+          transaction!!.amount(), paymentNavigationData.gamificationLevel)
 
       PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> {
         val isOneStep: Boolean = transaction!!.type
@@ -399,7 +415,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
             if (isOneStep) transaction!!.originalOneStepValue else null,
             if (isOneStep) transaction!!.originalOneStepCurrency else null,
             transaction!!.amount(),
-            transaction!!.type, paymentNavigationData!!.selectedPaymentId)
+            transaction!!.type, paymentNavigationData.selectedPaymentId)
       }
 
       PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> {
@@ -408,14 +424,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         showLocalPayment(transaction!!.domain, transaction!!.skuId,
             if (isOneStep) transaction!!.originalOneStepValue else null,
             if (isOneStep) transaction!!.originalOneStepCurrency else null,
-            paymentNavigationData!!.bonusMessageValue,
-            paymentNavigationData!!.selectedPaymentId, transaction!!.toAddress(),
+            paymentNavigationData.bonusMessageValue,
+            paymentNavigationData.selectedPaymentId, transaction!!.toAddress(),
             transaction!!.type,
             transaction!!.amount(), transaction!!.callbackUrl,
             transaction!!.orderReference, transaction!!.payload,
-            paymentNavigationData!!.selectedPaymentIcon!!,
-            paymentNavigationData!!.selectedPaymentLabel!!,
-            paymentNavigationData!!.gamificationLevel)
+            paymentNavigationData.selectedPaymentIcon!!,
+            paymentNavigationData.selectedPaymentLabel!!,
+            paymentNavigationData.gamificationLevel)
       }
 
     }
@@ -444,6 +460,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val AUTHENTICATION_REQUEST_CODE = 33
     const val IS_BDS_EXTRA = "is_bds_extra"
     const val ERROR_MESSAGE = "error_message"
+    private const val PAYMENT_NAVIGATION_DATA = "payment_navigation_data"
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,

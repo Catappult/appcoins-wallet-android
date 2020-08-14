@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.util.Log
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -24,7 +25,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val formatter: CurrencyFormatUtils,
                               private val mergedAppcoinsInteract: MergedAppcoinsInteract,
                               private val gamificationLevel: Int,
-                              private val navigator: Navigator) {
+                              private val navigator: Navigator,
+                              private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   companion object {
     private val TAG = MergedAppcoinsFragment::class.java.simpleName
@@ -37,6 +39,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     handleBackClick()
     handleSupportClicks()
     handleErrorDismiss()
+    handleAuthenticationResult()
   }
 
   fun handleStop() = disposables.clear()
@@ -73,6 +76,15 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .subscribe({}, { showError(it) }))
   }
 
+  private fun handleAuthenticationResult() {
+    disposables.add(activityView.onAuthenticationResult()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (!it.isSuccess) view.hideLoading()
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
   private fun handleBuyClick() {
     disposables.add(view.buyClick()
         .observeOn(networkScheduler)
@@ -90,10 +102,14 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
               .doOnSuccess {
-                view.showAuthenticationActivity(map(paymentMethod.purchaseDetails),
-                    gamificationLevel)
-                //handleBuyClickSelection(paymentMethod.purchaseDetails)
+                if (preferencesRepositoryType.hasAuthenticationPermission()) {
+                  view.showAuthenticationActivity(map(paymentMethod.purchaseDetails),
+                      gamificationLevel)
+                } else {
+                  handleBuyClickSelection(paymentMethod.purchaseDetails)
+                }
               }
+
         }
         .subscribe({}, {
           view.hideLoading()
