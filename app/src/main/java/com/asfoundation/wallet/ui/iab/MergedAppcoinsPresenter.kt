@@ -9,7 +9,6 @@ import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -33,13 +32,16 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   }
 
   fun present() {
-    fetchBalance()
     handlePaymentSelectionChange()
     handleBuyClick()
     handleBackClick()
     handleSupportClicks()
     handleErrorDismiss()
     handleAuthenticationResult()
+  }
+
+  fun onResume() {
+    fetchBalance()
   }
 
   fun handleStop() = disposables.clear()
@@ -109,7 +111,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                   handleBuyClickSelection(paymentMethod.purchaseDetails)
                 }
               }
-
         }
         .subscribe({}, {
           view.hideLoading()
@@ -153,14 +154,12 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun handleBuyClickSelection(selection: String): Completable {
-    return Completable.fromAction {
-      view.hideLoading()
-      when (selection) {
-        APPC -> view.navigateToAppcPayment()
-        CREDITS -> view.navigateToCreditsPayment()
-        else -> Log.w(TAG, "No appcoins payment method selected")
-      }
+  private fun handleBuyClickSelection(selection: String) {
+    view.hideLoading()
+    when (selection) {
+      APPC -> view.navigateToAppcPayment()
+      CREDITS -> view.navigateToCreditsPayment()
+      else -> Log.w(TAG, "No appcoins payment method selected")
     }
   }
 

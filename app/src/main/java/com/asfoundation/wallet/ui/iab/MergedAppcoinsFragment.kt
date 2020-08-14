@@ -512,15 +512,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun onResume() {
     super.onResume()
-    mergedAppcoinsPresenter.present()
-  }
-
-  override fun onPause() {
-    mergedAppcoinsPresenter.handleStop()
-    super.onPause()
+    mergedAppcoinsPresenter.onResume()
   }
 
   override fun onDestroyView() {
+    mergedAppcoinsPresenter.handleStop()
     iabView.enableBack()
     appcoins_radio_button.setOnCheckedChangeListener(null)
     appcoins_radio.setOnClickListener(null)
