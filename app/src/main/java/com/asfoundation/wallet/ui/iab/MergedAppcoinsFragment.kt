@@ -267,6 +267,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun hideLoading() {
     loading_view?.visibility = GONE
+    payment_methods.visibility = VISIBLE
   }
 
   private fun setBuyButtonText(): String {

@@ -117,7 +117,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
         paymentNavigationData?.let { navigateToPayment(it) }
       } else if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
-
         paymentNavigationData?.let {
           authenticationResultSubject?.onNext(PaymentAuthenticationResult(false, it))
         }

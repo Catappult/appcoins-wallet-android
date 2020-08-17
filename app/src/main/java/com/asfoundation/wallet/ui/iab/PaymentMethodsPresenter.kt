@@ -271,7 +271,6 @@ class PaymentMethodsPresenter(
       } else {
         when (paymentMethod.id) {
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> {
-            Log.d("TAG123", "CHEGOU AQUI?")
             analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
                 .toString(), transaction.type)
             if (preferencesRepositoryType.hasAuthenticationPermission()) {

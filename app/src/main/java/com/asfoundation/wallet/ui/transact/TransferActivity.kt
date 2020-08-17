@@ -45,33 +45,6 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     toolbar()
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == AUTHENTICATION_REQUEST_CODE) {
-      if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-        //handleSuccess()
-      }
-    }
-  }
-
-  /*private fun handleSuccess(
-      currency: TransferFragmentView.Currency,
-      walletAddress: String, amount: BigDecimal): Completable {
-    return when (currency) {
-      TransferFragmentView.Currency.APPC_C ->
-        view.openAppcCreditsConfirmationView(walletAddress, amount, currency)
-      TransferFragmentView.Currency.APPC -> walletInteract.find()
-          .flatMapCompletable { wallet ->
-            view.openAppcConfirmationView(wallet.address, walletAddress, amount)
-          }
-      TransferFragmentView.Currency.ETH -> walletInteract.find()
-          .flatMapCompletable { wallet ->
-            view.openEthConfirmationView(wallet.address, walletAddress, amount)
-          }
-    }
-  }*/
-
-
   override fun showTransactFragment() {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TransferFragment.newInstance())

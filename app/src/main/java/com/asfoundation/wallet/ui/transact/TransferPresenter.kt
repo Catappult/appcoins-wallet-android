@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.ui.transact
 
+import android.os.Bundle
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
@@ -18,23 +20,35 @@ import java.util.concurrent.TimeUnit
 
 class TransferPresenter(private val view: TransferFragmentView,
                         private val disposables: CompositeDisposable,
+                        private val onResumeDisposables: CompositeDisposable,
                         private val interactor: TransferInteractor,
                         private val ioScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
                         private val walletInteract: FindDefaultWalletInteract,
                         private val walletBlockedInteract: WalletBlockedInteract,
                         private val packageName: String,
-                        private val formatter: CurrencyFormatUtils) {
+                        private val formatter: CurrencyFormatUtils,
+                        private val transferActivity: TransferActivityView,
+                        private val preferencesRepositoryType: PreferencesRepositoryType) {
 
-  fun present() {
-    handleButtonClick()
-    handleQrCodeButtonClick()
+  private var cachedData: TransferFragmentView.TransferData? = null
+
+  fun onResume() {
     handleQrCodeResult()
     handleCurrencyChange()
   }
 
+  fun present(savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      cachedData = savedInstanceState.getSerializable(DATA) as TransferFragmentView.TransferData
+    }
+    handleButtonClick()
+    handleQrCodeButtonClick()
+    handleAuthenticationResult()
+  }
+
   private fun handleCurrencyChange() {
-    disposables.add(view.getCurrencyChange()
+    onResumeDisposables.add(view.getCurrencyChange()
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
         .switchMapSingle { currency ->
@@ -59,7 +73,7 @@ class TransferPresenter(private val view: TransferFragmentView,
   }
 
   private fun handleQrCodeResult() {
-    disposables.add(
+    onResumeDisposables.add(
         view.getQrCodeResult()
             .observeOn(ioScheduler)
             .map { QRUri.parse(it.displayValue) }
@@ -103,12 +117,21 @@ class TransferPresenter(private val view: TransferFragmentView,
                   Completable.fromAction { view.showWalletBlocked() }
                       .subscribeOn(viewScheduler)
                 } else {
-                  makeTransaction(data)
-                      .observeOn(viewScheduler)
-                      .flatMapCompletable { status ->
-                        handleTransferResult(data.currency, status, data.walletAddress, data.amount)
-                      }
-                }.andThen { view.hideLoading() }
+                  if (preferencesRepositoryType.hasAuthenticationPermission()) {
+                    Completable.fromAction {
+                      this.cachedData = data
+                      transferActivity.showAuthenticationActivity()
+                    }
+                  } else {
+                    makeTransaction(data)
+                        .observeOn(viewScheduler)
+                        .flatMapCompletable { status ->
+                          handleTransferResult(data.currency, status, data.walletAddress,
+                              data.amount)
+                        }
+                        .andThen { view.hideLoading() }
+                  }
+                }
               }
         }
         .doOnError { handleError(it) }
@@ -149,10 +172,8 @@ class TransferPresenter(private val view: TransferFragmentView,
             AppcoinsRewardsRepository.Status.UNKNOWN_ERROR,
             AppcoinsRewardsRepository.Status.NO_INTERNET ->
               Completable.fromCallable { view.showUnknownError() }
-            AppcoinsRewardsRepository.Status.SUCCESS -> {
-              //AQUI FAZER A AUTHENTICATION
-              handleSuccess(currency, walletAddress, amount)
-            }
+            AppcoinsRewardsRepository.Status.SUCCESS -> handleSuccess(currency, walletAddress,
+                amount)
             AppcoinsRewardsRepository.Status.INVALID_AMOUNT -> Completable.fromCallable { view.showInvalidAmountError() }
             AppcoinsRewardsRepository.Status.INVALID_WALLET_ADDRESS -> Completable.fromCallable { view.showInvalidWalletAddress() }
             AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS -> Completable.fromCallable { view.showNotEnoughFunds() }
@@ -184,7 +205,51 @@ class TransferPresenter(private val view: TransferFragmentView,
         BiFunction { _: Long, status: AppcoinsRewardsRepository.Status -> status })
   }
 
-  fun clear() {
+  private fun handleAuthenticationResult() {
+    disposables.add(view.onAuthenticationResult()
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          if (it) {
+            if (cachedData != null) {
+              makeTransaction(cachedData!!)
+                  .subscribeOn(ioScheduler)
+                  .observeOn(viewScheduler)
+                  .doOnSuccess { view.hideLoading() }
+                  .flatMapCompletable { status ->
+                    handleTransferResult(cachedData!!.currency, status, cachedData!!.walletAddress,
+                        cachedData!!.amount)
+                  }
+            } else {
+              Completable.fromAction {
+                view.hideLoading()
+                view.showUnknownError()
+              }
+            }
+          } else {
+            Completable.fromAction {
+              view.hideLoading()
+              cachedData = null
+            }
+          }
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  fun clearOnPause() {
+    onResumeDisposables.clear()
+  }
+
+  fun stop() {
     disposables.clear()
   }
+
+  fun onSaveInstance(outState: Bundle) {
+    outState.putSerializable(DATA, cachedData)
+  }
+
+  companion object {
+    const val DATA = "data_key"
+
+  }
+
 }

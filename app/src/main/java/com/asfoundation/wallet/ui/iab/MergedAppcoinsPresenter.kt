@@ -155,7 +155,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   }
 
   private fun handleBuyClickSelection(selection: String) {
-    view.hideLoading()
     when (selection) {
       APPC -> view.navigateToAppcPayment()
       CREDITS -> view.navigateToCreditsPayment()
