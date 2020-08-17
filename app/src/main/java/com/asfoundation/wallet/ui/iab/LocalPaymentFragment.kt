@@ -215,7 +215,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private lateinit var navigator: FragmentNavigator
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
   private lateinit var status: ViewState
-  private var errorMessage: Int = R.string.activity_iab_error_message
+  private var errorMessage = R.string.activity_iab_error_message
   private var minFrame = 0
   private var maxFrame = 40
 
@@ -281,8 +281,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
     ERROR -> showError()
     LOADING -> showProcessingLoading()
-    else -> {
-    }
+    else -> Unit
   }
 
   private fun setAnimationText() {
@@ -368,7 +367,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun showError(message: Int?) {
     status = ERROR
     error_message.text = getString(R.string.ok)
-    message?.let { errorMessage = message }
+    message?.let { errorMessage = it }
     error_message.text = getString(message ?: errorMessage)
     pending_user_payment_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
