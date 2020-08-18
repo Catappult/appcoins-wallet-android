@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
@@ -9,7 +9,7 @@
 
   <FrameLayout
       android:id="@+id/progress_bar"
-      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_width="match_parent"
       android:layout_height="276dp"
       android:background="@drawable/background_card"
       android:gravity="center"
@@ -36,7 +36,7 @@
 
   <FrameLayout
       android:id="@+id/complete_payment_view"
-      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_width="match_parent"
       android:layout_height="276dp"
       android:background="@drawable/background_card"
       android:gravity="center"
