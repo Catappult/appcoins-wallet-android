@@ -21,6 +21,16 @@ class TransactionTypeConverter {
   }
 
   @TypeConverter
+  fun convertSubType(type: TransactionEntity.SubType?): String? {
+    return type?.name
+  }
+
+  @TypeConverter
+  fun convertFromSubType(type: String?): TransactionEntity.SubType? {
+    return type?.let { return TransactionEntity.SubType.valueOf(it) }
+  }
+
+  @TypeConverter
   fun convertTransactionStatus(type: TransactionEntity.TransactionStatus): String {
     return type.name
   }

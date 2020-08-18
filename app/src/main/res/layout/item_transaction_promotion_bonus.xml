@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:elevation="@dimen/component_elevation"
+    >
+
+  <ImageView
+      android:id="@+id/img"
+      android:layout_width="100dp"
+      android:layout_height="96dp"
+      android:layout_marginStart="2dp"
+      android:contentDescription="@string/empty"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/transactions_promotion_bonus"
+      />
+
+  <TextView
+      android:id="@+id/bonus_title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="12dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:background="@drawable/oval_green_background"
+      android:fontFamily="sans-serif"
+      android:letterSpacing="0.01"
+      android:paddingHorizontal="12dp"
+      android:paddingVertical="5dp"
+      android:textColor="#1fcf1f"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/img"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="+100 Appcoins Credits Bonus!"
+      />
+  <TextView
+      android:id="@+id/bonus_description"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:layout_marginTop="4dp"
+      android:layout_marginEnd="16dp"
+      android:ellipsize="end"
+      android:fontFamily="sans-serif"
+      android:maxLines="3"
+      android:textColor="@color/grey_alpha_active_54"
+      android:textSize="12sp"
+      android:textStyle="normal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/img"
+      app:layout_constraintTop_toBottomOf="@id/bonus_title"
+      tools:text="Because you spent more than 200 AppCoins in the last 5 days."
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

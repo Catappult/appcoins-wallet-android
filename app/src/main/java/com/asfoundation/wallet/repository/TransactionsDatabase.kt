@@ -10,7 +10,7 @@ import com.asfoundation.wallet.repository.entity.TransactionEntity
 
 @Database(
     entities = [TransactionEntity::class, TransactionDetailsEntity::class, TransactionDetailsEntity.Icon::class],
-    version = 3)
+    version = 4)
 @TypeConverters(TransactionTypeConverter::class)
 abstract class TransactionsDatabase : RoomDatabase() {
 
@@ -46,5 +46,13 @@ abstract class TransactionsDatabase : RoomDatabase() {
       }
     }
 
+    //Adds 3 new values to the object related to promotions
+    val MIGRATION_3_4: Migration = object : Migration(3, 4) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN subType TEXT")
+        database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN title TEXT")
+        database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN cardDescription TEXT")
+      }
+    }
   }
 }

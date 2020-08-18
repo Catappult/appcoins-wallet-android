@@ -19,6 +19,9 @@ public class Transaction implements Parcelable {
     }
   };
   private final String transactionId;
+  @Nullable private final SubType subType;
+  @Nullable private final String title;
+  @Nullable private final String description;
   @Nullable private final String approveTransactionId;
   private final TransactionType type;
   private final long timeStamp;
@@ -31,11 +34,15 @@ public class Transaction implements Parcelable {
   @Nullable private final String currency;
   @Nullable private final List<Operation> operations;
 
-  public Transaction(String transactionId, TransactionType type,
-      @Nullable String approveTransactionId, long timeStamp, long processedTime,
-      TransactionStatus status, String value, String from, String to,
-      @Nullable TransactionDetails details, String currency, @Nullable List<Operation> operations) {
+  public Transaction(String transactionId, TransactionType type, @Nullable SubType subType,
+      @Nullable String title, @Nullable String description, @Nullable String approveTransactionId,
+      long timeStamp, long processedTime, TransactionStatus status, String value, String from,
+      String to, @Nullable TransactionDetails details, @Nullable String currency,
+      @Nullable List<Operation> operations) {
     this.transactionId = transactionId;
+    this.subType = subType;
+    this.title = title;
+    this.description = description;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
     this.timeStamp = timeStamp;
@@ -51,6 +58,9 @@ public class Transaction implements Parcelable {
 
   protected Transaction(Parcel in) {
     transactionId = in.readString();
+    subType = SubType.fromInt(in.readInt());
+    title = in.readString();
+    description = in.readString();
     approveTransactionId = in.readString();
     type = TransactionType.fromInt(in.readInt());
     timeStamp = in.readLong();
@@ -76,6 +86,13 @@ public class Transaction implements Parcelable {
 
   @Override public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(transactionId);
+    if (subType != null) {
+      dest.writeInt(subType.ordinal());
+    } else {
+      dest.writeInt(-1);
+    }
+    dest.writeString(title);
+    dest.writeString(description);
     dest.writeString(approveTransactionId);
     dest.writeInt(type.ordinal());
     dest.writeLong(timeStamp);
@@ -96,6 +113,9 @@ public class Transaction implements Parcelable {
 
   @Override public int hashCode() {
     int result = transactionId.hashCode();
+    result = 31 * result + (subType != null ? subType.hashCode() : 0);
+    result = 31 * result + (title != null ? title.hashCode() : 0);
+    result = 31 * result + (description != null ? description.hashCode() : 0);
     result = 31 * result + (approveTransactionId != null ? approveTransactionId.hashCode() : 0);
     result = 31 * result + type.hashCode();
     result = 31 * result + (int) (timeStamp ^ (timeStamp >>> 32));
@@ -117,9 +137,10 @@ public class Transaction implements Parcelable {
 
     if (timeStamp != that.timeStamp) return false;
     if (!transactionId.equals(that.transactionId)) return false;
-    if (!Objects.equals(approveTransactionId, that.approveTransactionId)) {
-      return false;
-    }
+    if (!Objects.equals(subType, that.subType)) return false;
+    if (!Objects.equals(title, that.title)) return false;
+    if (!Objects.equals(description, that.description)) return false;
+    if (!Objects.equals(approveTransactionId, that.approveTransactionId)) return false;
     if (type != that.type) return false;
     if (status != that.status) return false;
     if (!value.equals(that.value)) return false;
@@ -140,6 +161,15 @@ public class Transaction implements Parcelable {
         + '\''
         + ", type="
         + type
+        + '\''
+        + ", bonusSubType="
+        + subType
+        + '\''
+        + ", bonusTitle="
+        + title
+        + '\''
+        + ", bonusDescription="
+        + description
         + ", timeStamp="
         + timeStamp
         + ", status="
@@ -163,8 +193,20 @@ public class Transaction implements Parcelable {
         + '}';
   }
 
-  public String getApproveTransactionId() {
+  @Nullable public String getApproveTransactionId() {
     return approveTransactionId;
+  }
+
+  @Nullable public SubType getSubType() {
+    return subType;
+  }
+
+  @Nullable public String getTitle() {
+    return title;
+  }
+
+  @Nullable public String getDescription() {
+    return description;
   }
 
   public String getTransactionId() {
@@ -199,15 +241,15 @@ public class Transaction implements Parcelable {
     return to;
   }
 
-  public TransactionDetails getDetails() {
+  @Nullable public TransactionDetails getDetails() {
     return details;
   }
 
-  public List<Operation> getOperations() {
+  @Nullable public List<Operation> getOperations() {
     return operations;
   }
 
-  public String getCurrency() {
+  @Nullable public String getCurrency() {
     return currency;
   }
 
@@ -233,6 +275,22 @@ public class Transaction implements Parcelable {
           return TRANSFER_OFF_CHAIN;
         default:
           return STANDARD;
+      }
+    }
+  }
+
+  public enum SubType {
+    PROMOTIONS, UNKNOWN;
+
+    static SubType fromInt(int type) {
+      if (type != -1) {
+        if (type == 0) {
+          return PROMOTIONS;
+        } else {
+          return UNKNOWN;
+        }
+      } else {
+        return null;
       }
     }
   }

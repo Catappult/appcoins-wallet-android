@@ -14,9 +14,9 @@ class TransactionMapper {
   fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 
   private fun map(transaction: TransactionEntity): Transaction {
-    return Transaction(transaction.transactionId, map(transaction.type),
-        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status),
+    return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
+        transaction.title, transaction.cardDescription, transaction.approveTransactionId,
+        transaction.timeStamp, transaction.processedTime, map(transaction.status),
         transaction.value, transaction.from, transaction.to, map(transaction.details),
         transaction.currency, mapToOperations(transaction.operations))
   }
@@ -68,7 +68,8 @@ class TransactionMapper {
   fun map(transaction: Transaction, relatedWallet: String): TransactionEntity {
     return TransactionEntity(transaction.transactionId, relatedWallet,
         transaction.approveTransactionId,
-        map(transaction.type), transaction.timeStamp, transaction.processedTime,
+        map(transaction.type), map(transaction.subType), transaction.title,
+        transaction.description, transaction.timeStamp, transaction.processedTime,
         map(transaction.status), transaction.value,
         transaction.from,
         transaction.to, map(transaction.details), transaction.currency,
@@ -122,6 +123,22 @@ class TransactionMapper {
       Transaction.TransactionType.TOP_UP -> TransactionEntity.TransactionType.TOP_UP
       Transaction.TransactionType.TRANSFER_OFF_CHAIN -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
       Transaction.TransactionType.ETHER_TRANSFER -> TransactionEntity.TransactionType.ETHER_TRANSFER
+    }
+  }
+
+  private fun map(subType: TransactionEntity.SubType?): Transaction.SubType? {
+    if (subType == null) return null
+    return when (subType) {
+      TransactionEntity.SubType.PROMOTIONS -> Transaction.SubType.PROMOTIONS
+      TransactionEntity.SubType.UNKNOWN -> Transaction.SubType.UNKNOWN
+    }
+  }
+
+  private fun map(subType: Transaction.SubType?): TransactionEntity.SubType? {
+    if (subType == null) return null
+    return when (subType) {
+      Transaction.SubType.PROMOTIONS -> TransactionEntity.SubType.PROMOTIONS
+      Transaction.SubType.UNKNOWN -> TransactionEntity.SubType.UNKNOWN
     }
   }
 }

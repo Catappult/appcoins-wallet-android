@@ -39,6 +39,9 @@ public class TransactionsMapper {
       }
 
       String sourceName;
+      Transaction.SubType bonusSubType = null;
+      String bonusTitle = null;
+      String bonusDescription = null;
       if (txType.equals(BONUS)) {
         if (transaction.getBonus() == null) {
           sourceName = null;
@@ -46,19 +49,31 @@ public class TransactionsMapper {
           sourceName = transaction.getBonus()
               .stripTrailingZeros()
               .toPlainString();
+          if (transaction.getSubType() != null) {
+            if (transaction.getSubType()
+                .equals("promotion_bonus")) {
+              bonusSubType = Transaction.SubType.PROMOTIONS;
+            } else {
+              bonusSubType = Transaction.SubType.UNKNOWN;
+            }
+          }
+          bonusTitle = transaction.getTitle();
+          bonusDescription = transaction.getDescription();
         }
       } else {
         sourceName = transaction.getApp();
       }
-      transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
-          transaction.getTs()
+      transactionList.add(0,
+          new Transaction(transaction.getTxID(), txType, bonusSubType, bonusTitle, bonusDescription,
+              null, transaction.getTs()
               .getTime(), transaction.getProcessedTime()
-          .getTime(), status, transaction.getAmount()
-          .toString(), transaction.getSender(), transaction.getReceiver(),
-          new TransactionDetails(sourceName,
-              new TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.getIcon()),
-              transaction.getSku()), txType.equals(ETHER_TRANSFER) ? "ETH" : "APPC",
-          mapOperations(transaction.getOperations())));
+              .getTime(), status, transaction.getAmount()
+              .toString(), transaction.getSender(), transaction.getReceiver(),
+              new TransactionDetails(sourceName,
+                  new TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
+                      transaction.getIcon()), transaction.getSku()),
+              txType.equals(ETHER_TRANSFER) ? "ETH" : "APPC",
+              mapOperations(transaction.getOperations())));
     }
     return transactionList;
   }

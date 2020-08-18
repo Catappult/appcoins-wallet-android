@@ -22,6 +22,7 @@ import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationsListViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.PromotionsBonusViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
@@ -102,6 +103,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
         holder = new CardNotificationsListViewHolder(R.layout.item_card_notifications_list, parent,
             referralNotificationClickListener);
         break;
+      case PromotionsBonusViewHolder.VIEW_TYPE:
+        holder = new PromotionsBonusViewHolder(R.layout.item_transaction_promotion_bonus, parent);
+        break;
     }
     return holder;
   }
@@ -169,9 +173,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     }
 
     for (Transaction transaction : transactionsModel.getTransactions()) {
+      int viewType = TransactionHolder.VIEW_TYPE;
+      if (transaction.getSubType() == Transaction.SubType.PROMOTIONS) {
+        viewType = PromotionsBonusViewHolder.VIEW_TYPE;
+      }
       TransactionSortedItem sortedItem =
-          new TransactionSortedItem(TransactionHolder.VIEW_TYPE, transaction,
-              TimestampSortedItem.DESC);
+          new TransactionSortedItem(viewType, transaction, TimestampSortedItem.DESC);
       items.add(sortedItem);
       items.add(DateSortedItem.round(transaction.getTimeStamp()));
     }
