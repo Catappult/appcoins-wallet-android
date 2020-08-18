@@ -3,9 +3,4 @@
   <domain-config cleartextTrafficPermitted="true">
     <domain includeSubdomains="true">pool.img.aptoide.com</domain>
   </domain-config>
-  <debug-overrides>
-    <trust-anchors>
-      <certificates src="user" />
-    </trust-anchors>
-  </debug-overrides>
 </network-security-config>
