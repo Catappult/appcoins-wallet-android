@@ -87,6 +87,7 @@ project.ext {
   zxing_android_version = '3.6.0'
   zxing_version = '3.4.0'
   sentry_version = '1.7.30'
+  biometrics_version = '1.0.1'
 }
 
 task clean(type: Delete) {

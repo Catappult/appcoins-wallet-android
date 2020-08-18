@@ -4,7 +4,7 @@ import androidx.biometric.BiometricPrompt
 
 
 data class FingerprintAuthResult(val errorCode: Int?,
-                                 val errorString: CharSequence?,
+                                 val errorString: String?,
                                  val result: BiometricPrompt.AuthenticationResult?,
                                  val type: FingerprintResult)
 

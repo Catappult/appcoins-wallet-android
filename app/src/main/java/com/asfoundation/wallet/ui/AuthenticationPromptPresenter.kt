@@ -10,7 +10,6 @@ import io.reactivex.disposables.CompositeDisposable
 class AuthenticationPromptPresenter(
     private val view: AuthenticationPromptView,
     private val viewScheduler: Scheduler,
-    private val ioScheduler: Scheduler,
     private val disposables: CompositeDisposable,
     private val fingerprintInteract: FingerPrintInteract,
     private val preferencesRepositoryType: PreferencesRepositoryType) {
@@ -19,22 +18,18 @@ class AuthenticationPromptPresenter(
 
   companion object {
     private const val BOTTOMSHEET_KEY = "bottomsheet_key"
-
   }
 
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let {
       hasBottomsheetOn = it.getBoolean(BOTTOMSHEET_KEY)
     }
-
     if (!hasBottomsheetOn) showEverything()
     handleAuthenticationResult()
     handleRetryAuthentication()
   }
 
-
   private fun showEverything() {
-
     when (fingerprintInteract.compatibleDevice()) {
       BiometricManager.BIOMETRIC_SUCCESS -> {
         view.showPrompt(view.createBiometricPrompt(),
@@ -42,11 +37,8 @@ class AuthenticationPromptPresenter(
       }
       BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.showBottomSheetDialogFragment(
           "Enable Fingerprint Authentication in your phone.")
-      //view.firstScreenNavigation()
-
       BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.showBottomSheetDialogFragment(
           "Enable Fingerprint Authentication in your phone.")
-
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
         if (view.checkBiometricSupport()) {
           view.showPrompt(view.createBiometricPrompt(),
@@ -63,7 +55,6 @@ class AuthenticationPromptPresenter(
     hasBottomsheetOn = true
     view.showBottomSheetDialogFragment(message)
   }
-
 
   private fun handleAuthenticationResult() {
     disposables.add(view.getAuthenticationResult()
@@ -100,9 +91,6 @@ class AuthenticationPromptPresenter(
     outState.putBoolean(BOTTOMSHEET_KEY, hasBottomsheetOn)
   }
 
-
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
 }
