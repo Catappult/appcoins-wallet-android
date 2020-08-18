@@ -124,4 +124,8 @@ abstract class ActivityBuilders {
   @ContributesAndroidInjector
   abstract fun bindAdvertisingService(): AdvertisingService
 
+  @ActivityScope
+  @ContributesAndroidInjector
+  internal abstract fun bindAuthenticationPromptActivity(): AuthenticationPromptActivity
+
 }

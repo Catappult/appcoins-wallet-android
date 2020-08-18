@@ -13,6 +13,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.fingerprint.ManageFingerprintActivity
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
@@ -88,6 +89,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return true
   }
 
+  private fun openFingerprintScreen(): Boolean {
+    context?.let {
+      val intent = ManageFingerprintActivity.newIntent(it)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
+      startActivity(intent)
+    }
+    return true
+  }
+
   private fun openWalletValidationScreen(): Boolean {
     context?.let {
       val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
@@ -103,6 +115,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun setupPreferences() {
     setPermissionPreference()
+    setFingerprintPreference()
     setSourceCodePreference()
     setIssueReportPreference()
     setTwitterPreference()
@@ -193,6 +206,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       openPermissionScreen()
     }
   }
+
+  private fun setFingerprintPreference() {
+    val fingerprintPreference = findPreference<Preference>("pref_fingerprint")
+    fingerprintPreference?.setOnPreferenceClickListener { openFingerprintScreen() }
+  }
+
 
   private fun setSourceCodePreference() {
     val sourceCodePreference = findPreference<Preference>("pref_source_code")
