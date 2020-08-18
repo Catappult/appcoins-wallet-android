@@ -14,7 +14,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import kotlinx.android.synthetic.main.item_payment_method.view.*
 
-class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
   fun bind(data: PaymentMethod, checked: Boolean, listener: View.OnClickListener) {
     GlideApp.with(itemView.context)

@@ -1,27 +1,24 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.topup.paymentMethods
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.iab.PaymentMethod
+import com.asfoundation.wallet.ui.iab.PaymentMethodsViewHolder
 import com.jakewharton.rxrelay2.PublishRelay
 
 
-class PaymentMethodsAdapter(
-    private var paymentMethods: List<PaymentMethod>,
-    private var paymentMethodId: String,
-    private var paymentMethodClick: PublishRelay<Int>) :
+class TopUpPaymentMethodsAdapter(private var paymentMethods: List<PaymentMethod>,
+                                 private var paymentMethodClick: PublishRelay<String>) :
     RecyclerView.Adapter<PaymentMethodsViewHolder>() {
-  private var selectedItem = -1
+  private var selectedItem = 0
 
-  init {
-    paymentMethods.forEachIndexed { index, paymentMethod ->
-      if (paymentMethod.id == paymentMethodId) selectedItem = index
-    }
+  fun setSelectedItem(position: Int) {
+    selectedItem = position
+    notifyDataSetChanged()
   }
-
-  fun getSelectedItem() = selectedItem
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodsViewHolder {
     return PaymentMethodsViewHolder(LayoutInflater.from(parent.context)
@@ -33,9 +30,10 @@ class PaymentMethodsAdapter(
   override fun onBindViewHolder(holder: PaymentMethodsViewHolder, position: Int) {
     holder.bind(paymentMethods[position], selectedItem == position, View.OnClickListener {
       selectedItem = position
-      paymentMethodClick.accept(position)
+      paymentMethodClick.accept(paymentMethods[position].id)
       notifyDataSetChanged()
     })
   }
 
+  fun getSelectedItemData(): PaymentMethod = paymentMethods[selectedItem]
 }
