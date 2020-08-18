@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.topup
 
-import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -11,7 +11,7 @@ interface TopUpFragmentView {
   fun getEditTextChanges(): Observable<TopUpData>
   fun getPaymentMethodClick(): Observable<String>
   fun getNextClick(): Observable<TopUpData>
-  fun setupPaymentMethods(paymentMethods: List<PaymentMethodData>)
+  fun setupPaymentMethods(paymentMethods: List<PaymentMethod>)
   fun setupCurrency(localCurrency: LocalCurrency)
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()

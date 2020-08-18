@@ -13,7 +13,6 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
@@ -49,18 +48,13 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     setContentView(R.layout.authentication_prompt_activity)
     retryClickSubject = PublishSubject.create<Any>()
     fingerprintResultSubject = PublishSubject.create<FingerprintAuthResult>()
-
     presenter =
         AuthenticationPromptPresenter(this,
             AndroidSchedulers.mainThread(),
-            Schedulers.io(),
             CompositeDisposable(),
             fingerprintInteract,
             preferencesRepositoryType)
-
     presenter.present(savedInstanceState)
-
-
   }
 
 
@@ -73,7 +67,8 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
                                              errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
             fingerprintResultSubject?.onNext(
-                FingerprintAuthResult(errorCode, errString, null, FingerprintResult.ERROR))
+                FingerprintAuthResult(errorCode, errString.toString(), null,
+                    FingerprintResult.ERROR))
           }
 
           override fun onAuthenticationSucceeded(
@@ -100,7 +95,7 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
   }
 
   override fun onRetryButtonClick() {
-    retryClickSubject!!.onNext("")
+    retryClickSubject?.onNext("")
   }
 
 

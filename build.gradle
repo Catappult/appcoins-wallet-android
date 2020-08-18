@@ -41,6 +41,7 @@ project.ext {
   asf_applications_version = '6'
   asf_sdk_version = "0.4.5.19b"
   bds_sdk_version = '0.5.5.4'
+  biometrics_version = '1.0.1'
   cardview_version = '1.0.0'
   collapsingtoolbarlayout_version = '1.0.0'
   constraintlayout_version = '1.1.3'

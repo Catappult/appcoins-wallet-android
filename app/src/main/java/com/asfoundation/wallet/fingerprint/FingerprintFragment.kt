@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_fingerprint_layout.*
-import kotlinx.android.synthetic.main.fragment_permissions_list_layout.on_boarding_image
 import javax.inject.Inject
 
 
@@ -25,7 +20,7 @@ class FingerprintFragment : DaggerFragment(), FingerprintView {
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   companion object {
-    fun newInstance(): Fragment {
+    fun newInstance(): FingerprintFragment {
       return FingerprintFragment()
     }
   }
@@ -36,19 +31,7 @@ class FingerprintFragment : DaggerFragment(), FingerprintView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        FingerprintPresenter(this, AndroidSchedulers.mainThread(),
-            Schedulers.io(), CompositeDisposable(), preferencesRepositoryType)
-  }
-
-
-  override fun showClickText() {
-    val toast = Toast.makeText(context, "IT WORKED", Toast.LENGTH_SHORT)
-    toast.show()
-  }
-
-
-  override fun getImageClick(): Observable<Any> {
-    return RxView.clicks(on_boarding_image)
+        FingerprintPresenter(this, CompositeDisposable(), preferencesRepositoryType)
   }
 
   override fun getSwitchClick(): Observable<Boolean> {

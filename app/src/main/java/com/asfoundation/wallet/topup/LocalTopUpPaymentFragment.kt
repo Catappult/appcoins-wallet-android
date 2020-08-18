@@ -171,7 +171,7 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     no_network.visibility = View.GONE
     main_content.visibility = View.GONE
     topup_pending_user_payment_view.visibility = View.VISIBLE
-    val placeholder = getString(R.string.async_steps_1_no_notification)
+    val placeholder = getString(R.string.async_steps_topup_2)
     val stepOneText = String.format(placeholder, paymentLabel)
 
     step_one_desc.text = stepOneText

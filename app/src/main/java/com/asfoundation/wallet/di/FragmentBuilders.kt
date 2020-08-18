@@ -202,7 +202,7 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector
-  abstract fun fingerprintFragment(): FingerprintFragment
+  abstract fun bindFingerprintFragment(): FingerprintFragment
 
 
 }

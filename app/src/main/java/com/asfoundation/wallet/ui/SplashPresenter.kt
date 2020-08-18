@@ -3,9 +3,7 @@ package com.asfoundation.wallet.ui
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 
 class SplashPresenter(
@@ -20,11 +18,10 @@ class SplashPresenter(
     handleAutoUpdate()
   }
 
-
   private fun handleAutoUpdate() {
     disposables.add(autoUpdateInteract.getAutoUpdateModel(true)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(ioScheduler)
+        .observeOn(viewScheduler)
         .doOnSuccess { (updateVersionCode, updateMinSdk, blackList) ->
           if (autoUpdateInteract.isHardUpdateRequired(blackList,
                   updateVersionCode, updateMinSdk)) {
@@ -40,10 +37,6 @@ class SplashPresenter(
         .subscribe({}, { it.printStackTrace() }))
   }
 
-
-  fun stop() {
-    disposables.clear()
-  }
-
+  fun stop() = disposables.clear()
 
 }

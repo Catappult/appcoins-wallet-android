@@ -5,7 +5,6 @@ import io.reactivex.disposables.CompositeDisposable
 
 class AuthenticationErrorBottomSheetPresenter(private val view: AuthenticationErrorBottomSheetView,
                                               private val viewScheduler: Scheduler,
-                                              private val ioScheduler: Scheduler,
                                               private val disposables: CompositeDisposable) {
 
   fun present() {
@@ -20,9 +19,5 @@ class AuthenticationErrorBottomSheetPresenter(private val view: AuthenticationEr
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun stop() {
-    disposables.clear()
-  }
-
-
+  fun stop() = disposables.clear()
 }

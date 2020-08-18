@@ -18,8 +18,6 @@ class ManageFingerprintActivity : BaseActivity() {
     toolbar()
   }
 
-  //private lateinit var presenter: ManagePermissionsPresenter
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_fingerprint_layout)
@@ -27,7 +25,6 @@ class ManageFingerprintActivity : BaseActivity() {
     if (savedInstanceState == null) {
       showFingerprintFragment()
     }
-
   }
 
   private fun showFingerprintFragment() {
