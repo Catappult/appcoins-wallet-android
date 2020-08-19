@@ -745,4 +745,13 @@
   <string name="manage_cards_error_card_problem">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
   <string name="manage_cards_select_title">Выберите карту для платежа</string>
   <string name="manage_cards_remember">Запомнить карту</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
+  <string name="perks_title">Promotions</string>
+  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_end_in_days">The promotion ends in %s days.</string>
+  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
+  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
 </resources>
