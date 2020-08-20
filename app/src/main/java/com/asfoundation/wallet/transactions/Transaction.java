@@ -280,12 +280,12 @@ public class Transaction implements Parcelable {
   }
 
   public enum SubType {
-    PROMOTIONS, UNKNOWN;
+    PERK_PROMOTION, UNKNOWN;
 
     static SubType fromInt(int type) {
       if (type != -1) {
         if (type == 0) {
-          return PROMOTIONS;
+          return PERK_PROMOTION;
         } else {
           return UNKNOWN;
         }

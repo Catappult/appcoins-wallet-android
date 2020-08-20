@@ -27,7 +27,7 @@ data class TransactionEntity(val transactionId: String,
   }
 
   enum class SubType {
-    PROMOTIONS, UNKNOWN
+    PERK_PROMOTION, UNKNOWN
   }
 
   enum class TransactionStatus {

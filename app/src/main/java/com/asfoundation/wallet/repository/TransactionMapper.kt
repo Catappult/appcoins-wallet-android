@@ -129,7 +129,7 @@ class TransactionMapper {
   private fun map(subType: TransactionEntity.SubType?): Transaction.SubType? {
     if (subType == null) return null
     return when (subType) {
-      TransactionEntity.SubType.PROMOTIONS -> Transaction.SubType.PROMOTIONS
+      TransactionEntity.SubType.PERK_PROMOTION -> Transaction.SubType.PERK_PROMOTION
       TransactionEntity.SubType.UNKNOWN -> Transaction.SubType.UNKNOWN
     }
   }
@@ -137,7 +137,7 @@ class TransactionMapper {
   private fun map(subType: Transaction.SubType?): TransactionEntity.SubType? {
     if (subType == null) return null
     return when (subType) {
-      Transaction.SubType.PROMOTIONS -> TransactionEntity.SubType.PROMOTIONS
+      Transaction.SubType.PERK_PROMOTION -> TransactionEntity.SubType.PERK_PROMOTION
       Transaction.SubType.UNKNOWN -> TransactionEntity.SubType.UNKNOWN
     }
   }

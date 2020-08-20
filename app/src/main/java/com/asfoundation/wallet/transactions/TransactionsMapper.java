@@ -16,6 +16,8 @@ import static com.asfoundation.wallet.transactions.Transaction.TransactionType.T
 
 public class TransactionsMapper {
 
+  private static final String PERK_BONUS = "perk_bonus";
+
   public TransactionsMapper() {
   }
 
@@ -51,8 +53,8 @@ public class TransactionsMapper {
               .toPlainString();
           if (transaction.getSubType() != null) {
             if (transaction.getSubType()
-                .equals("promotion_bonus")) {
-              bonusSubType = Transaction.SubType.PROMOTIONS;
+                .equals(PERK_BONUS)) {
+              bonusSubType = Transaction.SubType.PERK_PROMOTION;
             } else {
               bonusSubType = Transaction.SubType.UNKNOWN;
             }
