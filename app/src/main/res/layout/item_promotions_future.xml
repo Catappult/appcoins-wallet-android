@@ -26,6 +26,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
+      android:alpha="0.55"
       app:layout_constraintBottom_toBottomOf="@+id/future_icon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/future_icon"

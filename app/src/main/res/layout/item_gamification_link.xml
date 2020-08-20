@@ -11,7 +11,8 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@drawable/gamification_item_background"
+      android:alpha="0.89"
+      android:background="@drawable/space_background_card"
       >
 
     <ImageView

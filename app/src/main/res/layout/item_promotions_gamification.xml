@@ -11,12 +11,12 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:background="@drawable/space_background_card"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gamification_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/space_background_card"
         android:paddingBottom="8dp"
         >
       <ImageView
@@ -97,7 +97,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/gamification_background"
-        android:background="@drawable/space_background_card"
         android:paddingBottom="8dp"
         >
 
