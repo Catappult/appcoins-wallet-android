@@ -820,6 +820,7 @@
   <string name="perks_available_soon">Promotion available soon</string>
   <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
   <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_purchase_flow">Level up with this purchase</string>
+  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
+  <string name="perks_level_up_amount_left">Spend %1$s %2$s to reach the next level.</string>
 
 </resources>
