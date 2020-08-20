@@ -50,6 +50,7 @@ import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
+import com.asfoundation.wallet.transactions.PerkBonusRepository
 import com.asfoundation.wallet.ui.SettingsInteract
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
@@ -200,10 +201,11 @@ class InteractModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     smsValidationInteract: SmsValidationInteract,
-                                    remoteRepository: RemoteRepository): LocalPaymentInteractor {
+                                    remoteRepository: RemoteRepository,
+                                    perkBonusRepository: PerkBonusRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
-        walletBlockedInteract, smsValidationInteract, remoteRepository)
+        walletBlockedInteract, smsValidationInteract, remoteRepository, perkBonusRepository)
   }
 
   @Provides
@@ -239,10 +241,12 @@ class InteractModule {
                                     walletService: WalletService,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
-                                    smsValidationInteract: SmsValidationInteract): AdyenPaymentInteractor {
+                                    smsValidationInteract: SmsValidationInteract,
+                                    perkBonusRepository: PerkBonusRepository): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, walletBlockedInteract, smsValidationInteract)
+        walletService, supportInteractor, walletBlockedInteract, smsValidationInteract,
+        perkBonusRepository)
   }
 
   @Provides
@@ -366,9 +370,10 @@ class InteractModule {
                                  supportInteractor: SupportInteractor,
                                  walletService: WalletService,
                                  walletBlockedInteract: WalletBlockedInteract,
-                                 smsValidationInteract: SmsValidationInteract): OnChainBuyInteract {
+                                 smsValidationInteract: SmsValidationInteract,
+                                 perkBonusRepository: PerkBonusRepository): OnChainBuyInteract {
     return OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService,
-        walletBlockedInteract, smsValidationInteract)
+        walletBlockedInteract, smsValidationInteract, perkBonusRepository)
   }
 
   @Singleton

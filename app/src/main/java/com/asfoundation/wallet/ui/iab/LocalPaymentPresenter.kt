@@ -201,7 +201,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .flatMapCompletable {
-          Completable.fromAction { view.showCompletedPayment() }
+          localPaymentInteractor.handlePerkTransactionNotification()
+              .andThen(Completable.fromAction { view.showCompletedPayment() })
               .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
               .andThen(Completable.fromAction { view.popView(it) })
         }

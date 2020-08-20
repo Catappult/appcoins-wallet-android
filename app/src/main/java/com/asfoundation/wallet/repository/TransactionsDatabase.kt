@@ -46,12 +46,16 @@ abstract class TransactionsDatabase : RoomDatabase() {
       }
     }
 
-    //Adds 3 new values to the object related to promotions
+    //Adds 3 new values to the object related to the perk promotions
     val MIGRATION_3_4: Migration = object : Migration(3, 4) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN subType TEXT")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN title TEXT")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN cardDescription TEXT")
+        //Delete rows created after 14th September 2020 12:00 so that every perk bonus
+        // transactions that happened after this is converted into the layout of the perk bonus
+        // processed time has milliseconds into account
+        database.execSQL("DELETE FROM TransactionEntity WHERE processedTime >= 1600084800000")
       }
     }
   }

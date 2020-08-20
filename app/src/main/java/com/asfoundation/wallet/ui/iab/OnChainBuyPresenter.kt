@@ -117,7 +117,8 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
             .observeOn(viewScheduler)
             .map { buildBundle(it, transaction.orderReference) }
             .flatMapCompletable { bundle ->
-              Completable.fromAction { view.showTransactionCompleted() }
+              onChainBuyInteract.handlePerkTransactionNotification()
+                  .andThen(Completable.fromAction { view.showTransactionCompleted() })
                   .subscribeOn(viewScheduler)
                   .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
                   .andThen(Completable.fromRunnable { view.finish(bundle) })

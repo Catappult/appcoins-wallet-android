@@ -294,13 +294,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it.status == Status.COMPLETED) {
-                Completable.fromAction {
-                  topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType,
-                      "success")
-                  val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
-                  waitingResult = false
-                  navigator.popView(bundle)
-                }
+                adyenPaymentInteractor.handlePerkTransactionNotification()
+                    .andThen(Completable.fromAction {
+                      topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType,
+                          "success")
+                      val bundle =
+                          createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
+                      waitingResult = false
+                      navigator.popView(bundle)
+                    })
               } else {
                 Completable.fromAction {
                   handleErrors(paymentModel, appcValue.toDouble())

@@ -229,7 +229,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       .subscribeOn(networkScheduler)
                       .observeOn(viewScheduler)
                       .flatMapCompletable {
-                        Completable.fromAction { view.showSuccess() }
+                        adyenPaymentInteractor.handlePerkTransactionNotification()
+                            .andThen(Completable.fromAction { view.showSuccess() })
                             .andThen(Completable.timer(view.getAnimationDuration(),
                                 TimeUnit.MILLISECONDS))
                             .andThen(Completable.fromAction { navigator.popView(it) })

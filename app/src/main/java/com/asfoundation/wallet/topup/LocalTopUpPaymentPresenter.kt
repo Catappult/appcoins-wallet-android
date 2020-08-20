@@ -144,7 +144,8 @@ class LocalTopUpPaymentPresenter(
       localPaymentInteractor.isAsync(transaction.type) ->
         Completable.fromAction {
           analytics.sendSuccessEvent(data.appcValue.toDouble(), paymentId, "pending")
-        }.andThen(Completable.fromAction { preparePendingUserPayment() })
+        }
+            .andThen(Completable.fromAction { preparePendingUserPayment() })
       else -> Completable.complete()
     }
   }
@@ -155,12 +156,13 @@ class LocalTopUpPaymentPresenter(
           transaction.status == Transaction.Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(): Completable {
-    return Completable.fromAction {
-      analytics.sendSuccessEvent(data.appcValue.toDouble(), paymentId, "success")
-      val bundle = createBundle(data.fiatValue, data.fiatCurrencyCode, data.fiatCurrencySymbol)
-      waitingResult = false
-      navigator.popView(bundle)
-    }
+    return localPaymentInteractor.handlePerkTransactionNotification()
+        .andThen(Completable.fromAction {
+          analytics.sendSuccessEvent(data.appcValue.toDouble(), paymentId, "success")
+          val bundle = createBundle(data.fiatValue, data.fiatCurrencyCode, data.fiatCurrencySymbol)
+          waitingResult = false
+          navigator.popView(bundle)
+        })
   }
 
   private fun handleSupportClicks() {

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di
 
+import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
@@ -35,6 +36,7 @@ import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATI
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_2_3
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_3_4
 import com.asfoundation.wallet.service.*
+import com.asfoundation.wallet.transactions.PerkBonusRepository
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
@@ -44,6 +46,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -239,4 +242,13 @@ class RepositoryModule {
     return LocalPaymentsLinkRepository(api)
   }
 
+  @Singleton
+  @Provides
+  fun providesPerkBonusRepository(context: Context,
+                                  notificationManager: NotificationManager,
+                                  transactionRepository: TransactionRepositoryType,
+                                  formatter: CurrencyFormatUtils): PerkBonusRepository {
+    return PerkBonusRepository(context, notificationManager, transactionRepository, formatter,
+        Schedulers.io())
+  }
 }

@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.transactions.PerkBonusRepository
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -17,7 +18,8 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
                          private val supportInteractor: SupportInteractor,
                          private val walletService: WalletService,
                          private val walletBlockedInteract: WalletBlockedInteract,
-                         private val smsValidationInteract: SmsValidationInteract) {
+                         private val smsValidationInteract: SmsValidationInteract,
+                         private val perkBonusRepository: PerkBonusRepository) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
@@ -73,4 +75,10 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
 
   fun getBillingMessagesMapper(): BillingMessagesMapper =
       inAppPurchaseInteractor.billingMessagesMapper
+
+  fun handlePerkTransactionNotification(): Completable {
+    return walletService.getWalletAddress()
+        .doOnSuccess { perkBonusRepository.handlePerkTransactionNotification(it) }
+        .ignoreElement()
+  }
 }

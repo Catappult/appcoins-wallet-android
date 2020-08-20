@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
+import android.util.Log
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
@@ -12,6 +13,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.transactions.PerkBonusRepository
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -34,7 +36,8 @@ class AdyenPaymentInteractor(
     private val walletService: WalletService,
     private val supportInteractor: SupportInteractor,
     private val walletBlockedInteract: WalletBlockedInteract,
-    private val smsValidationInteract: SmsValidationInteract
+    private val smsValidationInteract: SmsValidationInteract,
+    private val perkBonusRepository: PerkBonusRepository
 ) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
@@ -154,6 +157,13 @@ class AdyenPaymentInteractor(
         }
   }
 
+  fun handlePerkTransactionNotification(): Completable {
+    return walletService.getWalletAddress()
+        .doOnSuccess { perkBonusRepository.handlePerkTransactionNotification(it) }
+        .ignoreElement()
+  }
+
+
   private fun isEndingState(status: TransactionResponse.Status): Boolean {
     return (status == TransactionResponse.Status.COMPLETED
         || status == TransactionResponse.Status.FAILED
@@ -164,5 +174,9 @@ class AdyenPaymentInteractor(
 
   private fun isInApp(type: String): Boolean {
     return type.equals("INAPP", ignoreCase = true)
+  }
+
+  fun buildNotification() {
+    Log.d("TAG123", "HERE2: ")
   }
 }
