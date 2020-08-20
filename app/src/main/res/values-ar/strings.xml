@@ -755,6 +755,7 @@
   <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
   <string name="perks_end_in_days">The promotion ends in %s days.</string>
   <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_available_soon">Promotion available soon</string>
   <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
   <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
 </resources>
