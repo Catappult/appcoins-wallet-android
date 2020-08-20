@@ -58,6 +58,7 @@ import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract
@@ -270,9 +271,10 @@ class InteractModule {
   fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
-                                  findDefaultWalletInteract: FindDefaultWalletInteract): PromotionsInteractorContract {
+                                  findDefaultWalletInteract: FindDefaultWalletInteract,
+                                  gamificationMapper: GamificationMapper): PromotionsInteractorContract {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract)
+        promotionsRepository, findDefaultWalletInteract, gamificationMapper)
   }
 
   @Provides
@@ -465,11 +467,11 @@ class InteractModule {
   @Provides
   fun provideWalletsInteract(balanceInteract: BalanceInteract,
                              fetchWalletsInteract: FetchWalletsInteract,
-                             walletcreatorInteract: WalletCreatorInteract,
+                             walletCreatorInteract: WalletCreatorInteract,
                              supportInteractor: SupportInteractor,
                              sharedPreferencesRepository: SharedPreferencesRepository,
                              gamification: Gamification, logger: Logger): WalletsInteract {
-    return WalletsInteract(balanceInteract, fetchWalletsInteract, walletcreatorInteract,
+    return WalletsInteract(balanceInteract, fetchWalletsInteract, walletCreatorInteract,
         supportInteractor, sharedPreferencesRepository, gamification, logger)
   }
 

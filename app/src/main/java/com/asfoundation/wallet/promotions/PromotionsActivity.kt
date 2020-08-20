@@ -17,7 +17,7 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    setContentView(R.layout.promotions_activity_view)
+    setContentView(R.layout.activity_promotions)
     toolbar()
     transactionsRouter = TransactionsRouter()
     supportFragmentManager.beginTransaction()
@@ -26,11 +26,7 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      android.R.id.home -> {
-        transactionsRouter.open(this, true)
-      }
-    }
+    if (item.itemId == android.R.id.home) transactionsRouter.open(this, true)
     return super.onOptionsItemSelected(item)
   }
 

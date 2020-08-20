@@ -10,9 +10,9 @@ import java.io.IOException
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
-class BdsPromotionsRepository(private val api: GamificationApi,
-                              private val local: GamificationLocalData,
-                              private val versionCode: String) :
+class BdsPromotionsRepository(
+    private val api: GamificationApi,
+    private val local: GamificationLocalData) :
     PromotionsRepository {
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
@@ -47,8 +47,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getUserStats(wallet: String): Single<GamificationStats> {
-    return api.getUserStatus(wallet, versionCode)
-        .map { map(it) }
+    return api.getUserStatus(wallet)
+        .map { mapToGamificationStats(it) }
         .onErrorReturn { map(it) }
         .flatMap {
           local.setGamificationLevel(it.level)
@@ -65,20 +65,13 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     }
   }
 
-  private fun map(response: UserStatusResponse): GamificationStats {
-    val gamification = response.gamification
+  private fun mapToGamificationStats(response: UserStatusResponse): GamificationStats {
+    val gamification =
+        response.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse
     return GamificationStats(GamificationStats.Status.OK, gamification.level,
         gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
         gamification.totalEarned,
-        GamificationResponse.Status.ACTIVE == gamification.status,
-        map(gamification.userType))
-  }
-
-  private fun map(userType: GamificationResponse.UserType): UserType {
-    return when (userType) {
-      GamificationResponse.UserType.PIONEER -> UserType.PIONEER
-      GamificationResponse.UserType.STANDARD -> UserType.STANDARD
-    }
+        GamificationResponse.Status.ACTIVE == gamification.status)
   }
 
   override fun getLevels(wallet: String): Single<Levels> {
@@ -103,30 +96,42 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
-    return api.getUserStatus(wallet, versionCode)
-        .flatMap {
-          local.setGamificationLevel(it.gamification.level)
-              .toSingle { it }
+    return api.getUserStatus(wallet)
+        .flatMap { userStats ->
+          val gamification =
+              userStats.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse
+          local.setGamificationLevel(gamification.level)
+              .toSingle { userStats }
+        }
+        .doOnError {
+          it.printStackTrace()
         }
 
   }
 
   override fun getGamificationUserStatus(wallet: String): Single<GamificationResponse> {
-    return api.getUserStatus(wallet, versionCode)
+    return api.getUserStatus(wallet)
+        .map { userStats ->
+          userStats.promotions.first { it is GamificationResponse } as GamificationResponse
+        }
         .flatMap {
-          local.setGamificationLevel(it.gamification.level)
+          local.setGamificationLevel(it.level)
               .toSingle { it }
         }
-        .map { it.gamification }
+        .map { it }
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
-    return api.getUserStatus(wallet, versionCode)
+    return api.getUserStatus(wallet)
         .flatMap {
-          local.setGamificationLevel(it.gamification.level)
-              .toSingle { it }
+          val gamification =
+              it.promotions.first { promotions -> promotions is GamificationResponse } as GamificationResponse
+          val referral =
+              it.promotions.firstOrNull { promotions -> promotions is ReferralResponse } as ReferralResponse
+          local.setGamificationLevel(gamification.level)
+              .toSingle { referral }
         }
-        .map { it.referral }
+        .map { it }
   }
 
   override fun getReferralInfo(): Single<ReferralResponse> {

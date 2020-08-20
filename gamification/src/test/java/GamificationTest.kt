@@ -3,7 +3,10 @@ import com.appcoins.wallet.gamification.GamificationApiTest
 import com.appcoins.wallet.gamification.GamificationLocalDataTest
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.*
-import com.appcoins.wallet.gamification.repository.entity.*
+import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
+import com.appcoins.wallet.gamification.repository.entity.Level
+import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import io.reactivex.Single
 import org.junit.Assert
 import org.junit.Before
@@ -21,13 +24,12 @@ class GamificationTest {
   companion object {
     private const val WALLET = "wallet1"
     private const val PACKAGE_NAME = "packageName"
-    private const val VERSION_CODE = "version_code"
   }
 
   @Before
   @Throws(Exception::class)
   fun setUp() {
-    gamification = Gamification(BdsPromotionsRepository(api, local, VERSION_CODE))
+    gamification = Gamification(BdsPromotionsRepository(api, local))
   }
 
   @Test
@@ -42,7 +44,7 @@ class GamificationTest {
             BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UserStatusResponse(userStatsGamification, referralResponse))
+        Single.just(UsertStats(userStatsGamification, referralResponse))
     val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(
@@ -109,7 +111,7 @@ class GamificationTest {
             BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UserStatusResponse(userStatsGamification, referralResponse))
+        Single.just(UsertStats(userStatsGamification, referralResponse))
     local.lastShownLevelResponse = Single.just(0)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
@@ -130,7 +132,7 @@ class GamificationTest {
             BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UserStatusResponse(userStatsGamification, referralResponse))
+        Single.just(UsertStats(userStatsGamification, referralResponse))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()

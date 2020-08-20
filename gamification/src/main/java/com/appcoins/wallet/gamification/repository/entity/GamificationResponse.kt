@@ -3,7 +3,9 @@ package com.appcoins.wallet.gamification.repository.entity
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-data class GamificationResponse(
+class GamificationResponse(
+    id: String,
+    priority: Int?,
     val bonus: Double,
     @SerializedName("current_amount")
     val totalSpend: BigDecimal,
@@ -13,16 +15,10 @@ data class GamificationResponse(
     @SerializedName("next_level_amount")
     val nextLevelAmount: BigDecimal?,
     val status: Status,
-    val bundle: Boolean,
-    @SerializedName("user_type")
-    val userType: UserType) {
+    val bundle: Boolean) : PromotionsResponse(id, priority) {
 
   enum class Status {
     ACTIVE, INACTIVE
-  }
-
-  enum class UserType {
-    PIONEER, STANDARD
   }
 
 }

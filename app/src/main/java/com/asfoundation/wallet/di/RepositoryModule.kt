@@ -120,8 +120,7 @@ class RepositoryModule {
   @Provides
   fun providePromotionsRepository(api: GamificationApi,
                                   preferences: SharedPreferences): PromotionsRepository {
-    return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences),
-        getVersionCode())
+    return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences))
   }
 
   @Singleton
@@ -196,8 +195,6 @@ class RepositoryModule {
                            installerService: InstallerService): IdsRepository {
     return IdsRepository(context.contentResolver, sharedPreferencesRepository, installerService)
   }
-
-  private fun getVersionCode() = BuildConfig.VERSION_CODE.toString()
 
   @Singleton
   @Provides

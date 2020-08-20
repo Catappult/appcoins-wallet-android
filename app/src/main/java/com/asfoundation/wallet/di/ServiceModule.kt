@@ -11,6 +11,9 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.repository.GamificationApi
+import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
+import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
+import com.appcoins.wallet.gamification.repository.entity.PromotionsSerializer
 import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
@@ -471,6 +474,8 @@ class ServiceModule {
   fun provideGamificationApi(client: OkHttpClient): GamificationApi {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
+        .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
+        .registerTypeAdapter(PromotionsResponse::class.java, PromotionsDeserializer())
         .create()
     val baseUrl = CampaignService.SERVICE_HOST
     return Retrofit.Builder()

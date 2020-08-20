@@ -1,3 +1,4 @@
+/*
 package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.GamificationScreen
@@ -123,7 +124,7 @@ class PromotionsPresenter(private val view: PromotionsView,
         view.setLegacyLevelIcons()
         view.showLegacyGamificationCard()
       } else {
-        val currentLevelInfo = mapper.mapCurrentLevelInfo(promotionsModel.level)
+        val currentLevelInfo = mapper.mapToGamificationItem(promotionsModel.level)
         view.showGamificationCard(currentLevelInfo, promotionsModel.bonus)
       }
       handleShowLevels(legacy)
@@ -166,3 +167,4 @@ class PromotionsPresenter(private val view: PromotionsView,
   fun stop() = disposables.clear()
 
 }
+*/
