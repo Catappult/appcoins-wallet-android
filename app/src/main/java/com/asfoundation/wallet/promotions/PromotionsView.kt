@@ -20,5 +20,5 @@ interface PromotionsView {
 
   fun hidePromotions()
 
-  fun getPromotionClicks(): Observable<String>
+  fun getPromotionClicks(): Observable<PromotionClick>
 }

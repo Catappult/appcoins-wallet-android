@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promotions
 
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -66,9 +67,11 @@ class PromotionsFragmentPresenter(
         .subscribe({}, { handleError(it) }))
   }
 
-  private fun mapClickType(id: String) {
-    if (id == GAMIFICATION_ID) {
+  private fun mapClickType(promotionClick: PromotionClick) {
+    if (promotionClick.id == GAMIFICATION_ID) {
       activityView.navigateToGamification(cachedBonus)
+    } else if (promotionClick.id == REFERRAL_ID && promotionClick.extra != null) {
+      activityView.handleShare(promotionClick.extra)
     }
   }
 

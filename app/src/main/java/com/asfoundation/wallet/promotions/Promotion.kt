@@ -2,6 +2,7 @@ package com.asfoundation.wallet.promotions
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
+import java.math.BigDecimal
 
 open class Promotion(val id: String)
 
@@ -43,6 +44,13 @@ class GamificationItem(
     val phrase: String,
     var bonus: Double,
     val links: MutableList<GamificationLinkItem>
+) : Promotion(id)
+
+class ReferralItem(
+    id: String,
+    val bonus: BigDecimal,
+    val currency: String,
+    val link: String
 ) : Promotion(id)
 
 class GamificationLinkItem(

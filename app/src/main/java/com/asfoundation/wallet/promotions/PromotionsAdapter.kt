@@ -8,7 +8,7 @@ import io.reactivex.subjects.PublishSubject
 
 
 class PromotionsAdapter(private val promotions: List<Promotion>,
-                        private val clickListener: PublishSubject<String>) :
+                        private val clickListener: PublishSubject<PromotionClick>) :
     RecyclerView.Adapter<PromotionsViewHolder>() {
 
   companion object {
@@ -17,6 +17,7 @@ class PromotionsAdapter(private val promotions: List<Promotion>,
     private const val PROGRESS_VIEW_TYPE = 2
     private const val DEFAULT_VIEW_TYPE = 3
     private const val FUTURE_VIEW_TYPE = 4
+    private const val REFERRAL_VIEW_TYPE = 5
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PromotionsViewHolder {
@@ -41,6 +42,11 @@ class PromotionsAdapter(private val promotions: List<Promotion>,
             .inflate(R.layout.item_promotions_future, parent, false)
         FutureViewHolder(layout, clickListener)
       }
+      REFERRAL_VIEW_TYPE -> {
+        val layout = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_promotions_referrals, parent, false)
+        ReferralViewHolder(layout, clickListener)
+      }
       else -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_promotions_default, parent, false)
@@ -57,6 +63,7 @@ class PromotionsAdapter(private val promotions: List<Promotion>,
       is TitleItem -> TITLE_VIEW_TYPE
       is ProgressItem -> PROGRESS_VIEW_TYPE
       is FutureItem -> FUTURE_VIEW_TYPE
+      is ReferralItem -> REFERRAL_VIEW_TYPE
       else -> DEFAULT_VIEW_TYPE
     }
   }

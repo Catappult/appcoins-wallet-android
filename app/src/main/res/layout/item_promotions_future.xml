@@ -10,8 +10,8 @@
 
   <ImageView
       android:id="@+id/future_icon"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
       android:layout_marginStart="@dimen/normal_margin"
       android:layout_marginTop="@dimen/normal_margin"
       app:layout_constraintStart_toStartOf="parent"

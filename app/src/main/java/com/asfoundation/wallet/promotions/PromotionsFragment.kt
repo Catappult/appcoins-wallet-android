@@ -38,7 +38,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   private lateinit var activityView: PromotionsActivityView
   private lateinit var presenter: PromotionsFragmentPresenter
   private lateinit var adapter: PromotionsAdapter
-  private var clickListener: PublishSubject<String>? = null
+  private var clickListener: PublishSubject<PromotionClick>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.GenericResponse
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -26,6 +27,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
+    const val REFERRAL_ID = "REFERRAL"
     const val DEFAULT_VIEW_TYPE = "DEFAULT"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
@@ -73,6 +75,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToPromotionsModel(userStatus: UserStatusResponse,
                                    levels: Levels): PromotionsModel {
     var gamificationAvailable = false
+    var referralsAvailable = false
     var perksAvailable = false
     val promotions = mutableListOf<Promotion>()
     var maxBonus = 0.0
@@ -92,6 +95,10 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                     TitleItem(R.string.perks_gamif_title, R.string.perks_gamif_subtitle, true,
                         maxBonus.toString()))
               }
+            }
+            is ReferralResponse -> {
+              referralsAvailable = it.status == ReferralResponse.Status.ACTIVE
+              promotions.add(mapToReferralItem(it))
             }
             is GenericResponse -> {
               perksAvailable = true
@@ -115,7 +122,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(gamificationAvailable, promotions, maxBonus)
+    return PromotionsModel(gamificationAvailable, referralsAvailable, promotions, maxBonus)
   }
 
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,
@@ -141,6 +148,11 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     return GamificationItem(gamificationResponse.id, currentLevelInfo.planet,
         currentLevelInfo.levelColor, currentLevelInfo.title, currentLevelInfo.phrase,
         gamificationResponse.bonus, mutableListOf())
+  }
+
+  private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {
+    return ReferralItem(referralResponse.id, referralResponse.amount, referralResponse.currency,
+        referralResponse.link.orEmpty())
   }
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
