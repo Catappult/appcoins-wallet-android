@@ -33,7 +33,8 @@ files:
         el: el
         sr-CS: sr
   - source: /app/src/main/res/external_strings/values/external_strings.xml
-    translation: /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
+    translation: >-
+      /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
     languages_mapping:
       android_code:
         ar: ar
@@ -66,7 +67,8 @@ files:
         el: el
         sr-CS: sr
   - source: /app/src/main/res/external_strings/values/perks.po
-    translation: /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
+    translation: >-
+      /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
     languages_mapping:
       android_code:
         ar: ar
