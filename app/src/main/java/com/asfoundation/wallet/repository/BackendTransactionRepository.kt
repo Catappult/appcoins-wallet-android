@@ -39,7 +39,7 @@ class BackendTransactionRepository(
           .flatMapObservable { startingDate ->
             return@flatMapObservable Observable.merge(
                 fetchNewTransactions(wallet, startingDate = startingDate),
-                fetchOldTransactions(wallet))
+                fetchMissingOldTransactions(wallet))
           }
           .buffer(2, TimeUnit.SECONDS)
           .doOnNext { localRepository.insertAll(it.flatten()) }
@@ -76,7 +76,8 @@ class BackendTransactionRepository(
     return fetchTransactions(wallet, startingDate = startingDate, sort = sort)
   }
 
-  private fun fetchOldTransactions(wallet: String): Observable<MutableList<TransactionEntity>> {
+  private fun fetchMissingOldTransactions(
+      wallet: String): Observable<MutableList<TransactionEntity>> {
     return localRepository.isOldTransactionsLoaded()
         .flatMapObservable { isLoaded ->
           if (isLoaded) {

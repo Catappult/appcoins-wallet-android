@@ -50,8 +50,13 @@ class PerkBonusRepository(private val context: Context,
   }
 
   private fun getPerkBonusTransactionValue(transactions: List<Transaction>): String {
-    //TODO change for subtype = PERK_PROMOTION
-    val transaction = transactions.find { it.type == Transaction.TransactionType.BONUS }
+    //Empty validation is done in done before on the filter
+    val lastTransactionTime = transactions[0].processedTime
+    //To avoid older transactions that may have not yet been inserted in DB we give a small gap
+    val transactionGap = lastTransactionTime - 15000
+    val transaction =
+        transactions.takeWhile { it.processedTime >= transactionGap }
+            .find { it.subType == Transaction.SubType.PERK_PROMOTION }
     return getScaledValue(transaction?.value) ?: ""
   }
 
