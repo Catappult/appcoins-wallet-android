@@ -22,7 +22,7 @@
 
   <TextView
       android:id="@+id/bonus_title"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="12dp"
       android:layout_marginTop="16dp"
@@ -35,7 +35,9 @@
       android:textColor="#1fcf1f"
       android:textSize="14sp"
       android:textStyle="bold"
+      app:layout_constrainedWidth="true"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/img"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="+100 Appcoins Credits Bonus!"
@@ -57,5 +59,12 @@
       app:layout_constraintStart_toEndOf="@id/img"
       app:layout_constraintTop_toBottomOf="@id/bonus_title"
       tools:text="Because you spent more than 200 AppCoins in the last 5 days."
+      />
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/list_separator_color"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,20 +1,29 @@
 package com.asfoundation.wallet.ui.widget.holder
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
+import com.asfoundation.wallet.ui.widget.OnTransactionClickListener
 import kotlinx.android.synthetic.main.item_transaction_promotion_bonus.view.*
 
-class PromotionsBonusViewHolder(resId: Int, parent: ViewGroup) :
+class PromotionsBonusViewHolder(resId: Int,
+                                parent: ViewGroup,
+                                private val onTransactionClickListener: OnTransactionClickListener) :
     BinderViewHolder<Transaction>(resId, parent) {
 
   override fun bind(data: Transaction?, addition: Bundle) {
     handleIcon(data?.details)
-    itemView.bonus_title.text = data?.title
+    if (!data?.title.isNullOrEmpty()) {
+      itemView.bonus_title.text = data?.title
+    } else {
+      itemView.bonus_title.visibility = View.GONE
+    }
     itemView.bonus_description.text = data?.description
+    itemView.setOnClickListener { onClick(it, data) }
   }
 
   private fun handleIcon(details: TransactionDetails?) {
@@ -31,6 +40,10 @@ class PromotionsBonusViewHolder(resId: Int, parent: ViewGroup) :
         .load(uri)
         .error(R.drawable.transactions_promotion_bonus)
         .into(itemView.img)
+  }
+
+  private fun onClick(view: View, transaction: Transaction?) {
+    transaction?.let { onTransactionClickListener.onTransactionClick(view, transaction) }
   }
 
   companion object {
