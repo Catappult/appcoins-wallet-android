@@ -17,11 +17,10 @@ class PromotionsBonusViewHolder(resId: Int,
 
   override fun bind(data: Transaction?, addition: Bundle) {
     handleIcon(data?.details)
-    if (!data?.title.isNullOrEmpty()) {
-      itemView.bonus_title.text = data?.title
-    } else {
-      itemView.bonus_title.visibility = View.GONE
-    }
+
+    if (!data?.title.isNullOrEmpty()) itemView.bonus_title.text = data?.title
+    else itemView.bonus_title.visibility = View.GONE
+
     itemView.bonus_description.text = data?.description
     itemView.setOnClickListener { onClick(it, data) }
   }
