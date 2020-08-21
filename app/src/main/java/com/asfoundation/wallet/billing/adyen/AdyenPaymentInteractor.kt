@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
-import android.util.Log
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
@@ -174,9 +173,5 @@ class AdyenPaymentInteractor(
 
   private fun isInApp(type: String): Boolean {
     return type.equals("INAPP", ignoreCase = true)
-  }
-
-  fun buildNotification() {
-    Log.d("TAG123", "HERE2: ")
   }
 }
