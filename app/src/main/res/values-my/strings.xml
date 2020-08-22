@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">လံုၿခံဳေရး အေၾကာင္းရင္းမ်ားအတြက္ သင့္ပိုက္ဆံအိတ္ကို SMS ကုဒ္တစ္ခုျဖင့္ အတည္ျပဳရန္ လိုအပ္ပါသည္။</string>
   <string name="verification_insert_phone_title">သင့္ဖုန္းနံပါတ္ကိုထည့္ပါ</string>
   <string name="verification_insert_phone_body">ဆုမ်ားကို ရရွိရန္ သင့္ပိုက္္ဆံအိတ္ကို အတည္ျပဳပါ။ အတည္ျပဳရန္ ကုဒ္တစ္ခုကို ေပးပို႔ပါမည္။</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">သင့္ႏိုင္ငံ/ေဒသကို ေရြးခ်ယ္ပါ</string>
   <string name="verification_insert_phone_field_number">ဖုန္းနံပါတ္</string>
   <string name="verification_insert_phone_field_number_error">ဖုန္းနံပါတ္ မမွန္ကန္ပါ</string>
   <string name="verification_insert_phone_field_region_error">ေဒသကို မပံ့ပိုးေပးေသးပါ။</string>
@@ -477,10 +477,10 @@
   <string name="async_steps_title">ေနာက္ထပ္အဆင့္မ်ား</string>
   <string name="async_steps_1">သင့္ေငြေပးေခ်မႈကို %s ျဖင့္ ၿပီးေအာင္လုပ္လိုက္ပါ။ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credits မ်ားကို ရရွိသည္ႏွင့္ သင့္အားအသိေပးပါမည္။</string>
   <string name="async_steps_2">ဂိမ္းသို႔ျပန္သြားကာ AppCoins Credits ကို ေငြေပးေခ်မႈနည္းလမ္းအျဖစ္ အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ပါ။</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">သင့္စိတ္ႀကိဳက္ဂိမ္းမ်ားတြင္ ဝယ္ယူမႈမ်ား ျပဳလုပ္ရန္အတြက္ ဤ AppCoins Credits မ်ားကို အသံုးျပဳပါ။</string>
   <string name="async_steps_1_no_notification">သင့္ေငြေပးေခ်မႈကို %s ျဖင့္ ၿပီးေအာင္လုပ္လိုက္ပါ။</string>
   <string name="async_steps_2_no_notification">AppCoins Credits မ်ားကို သင္ရရွိသည္ႏွင့္ ဂိမ္းသို႔ျပန္သြားကာ AppCoins Credits မ်ားကို ေငြေပးေခ်မႈနည္းလမ္းအျဖစ္ အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ပါ။</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">AppCoins Credits မ်ားကို သင္ရရွိသည္ႏွင့္ သင့္စိတ္ႀကိဳက္ဂိ္မ္းမ်ားတြင္ ဝယ္ယူမႈမ်ားျပဳလုပ္ရန္ အသံုးျပဳလိုက္ပါ။</string>
   <string name="async_notification_title">သင့္ AppCoins Credits မ်ား ေရာက္လာပါၿပီ။</string>
   <string name="async_notification_body">AppCoins Credits မ်ားကို အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ရန္အတြက္ %s သို့ ျပန္သြားပါ။</string>
   <!--Referral Program-->
@@ -743,15 +743,15 @@
   <string name="manage_cards_select_title">ေငြေပးေခ်မည့္ကဒ္ကို ေရြးခ်ယ္ပါ</string>
   <string name="manage_cards_remember">ကဒ္ကို သတိရပါ</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
-  <string name="perks_end_in_days">The promotion ends in %s days.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_gamif_title">ဝယ္ယူမႈတိုင္းအတြက္ %s%% ေဘာနပ္စ္ရယူလိုက္ပါ</string>
+  <string name="perks_gamif_subtitle">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ မ်ားမ်ားပို၍ သံုးစြဲေလ ေဘာနပ္စ္ပိုမ်ားေလ ျဖစ္ပါသည္။</string>
+  <string name="perks_title">ပ႐ိုမိုးရွင္းမ်ား</string>
+  <string name="perks_body">နားစြင့္ထားလိုက္ပါ။ သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား ရွိပါသည္။</string>
+  <string name="perks_end_in_days">ပ႐ိုမိုးရွင္းသည္ %s ရက္ၾကာလွ်င္ သက္တမ္းကုန္ပါမည္။</string>
+  <string name="perks_end_in_date">ပ႐ိုမိုးရွင္းသည္ %s တြင္ သက္တမ္းကုန္ပါမည္။</string>
+  <string name="perks_available_soon">မၾကာမီ ပ႐ိုမိုးရွင္းမ်ား ရရွိပါမည္</string>
+  <string name="perks_next_level_reward">%s AppCoins Credits မ်ားကို ရယူရန္ ေနာက္တစ္ဆင့္သို႔ ေရာက္ေအာင္သြားလိုက္ပါ။</string>
+  <string name="perks_notification">ေဘာနပ္စ္အျဖစ္ %s AppCoins Credits ကို သင္ရရွိပါသည္</string>
+  <string name="perks_level_up_on_this_purchase">ဤဝယ္ယူမႈျဖင့္ အဆင့္တက္လိုက္ပါ</string>
+  <string name="perks_level_up_amount_left">ေနာက္တစ္ဆင့္သို႔ သင္ေရာက္ရွိရန္ %1$s %2$s သာ လိုအပ္ပါသည္။</string>
 </resources>
