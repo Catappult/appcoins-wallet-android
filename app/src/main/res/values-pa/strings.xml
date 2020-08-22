@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">ਸੁਰੱਖਿਆ ਲਈ ਸਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਇੱਕ ਐਸਐਮਐਸ ਕੋਡ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="verification_insert_phone_title">ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਭਰੋ</string>
   <string name="verification_insert_phone_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ! ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਤਸਦੀਕ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">ਆਪਣਾ ਦੇਸ਼/ਖੇਤਰ ਚੁਣੋ</string>
   <string name="verification_insert_phone_field_number">ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_number_error">ਗਲਤ ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_region_error">ਇਹ ਜਗ੍ਹਾ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ</string>
@@ -477,10 +477,10 @@
   <string name="async_steps_title">ਅਗਲੇ ਕਦਮ</string>
   <string name="async_steps_1">%s ਨਾਲ ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ| ਜਦੋਂ ਤੁਸੀਂ ਆਪਣੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ ਤਾਂ ਤੁਹਾਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਜਾਵੇਗਾ|</string>
   <string name="async_steps_2">ਗੇਮ ਤੇ ਵਾਪਸ ਜਾਓ ਅਤੇ ਭੁਗਤਾਨ ਲਈ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਖਰੀਦ ਕਰੋ|</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਗੇਮਾਂ ਵਿੱਚ ਖਰੀਦਾਰੀ ਕਰਨ ਲਈ ਇਹ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਰਤੋ!</string>
   <string name="async_steps_1_no_notification">%s ਨਾਲ ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ|</string>
   <string name="async_steps_2_no_notification">ਇੱਕ ਵਾਰ ਜਦੋਂ ਤੁਸੀਂ ਐਪ ਸਿਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਦੇ ਹੋ, ਤਾਂ ਗੇਮ ਵਿੱਚ ਵਾਪਸ ਜਾਓ ਅਤੇ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਰੂਪ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਖਰੀਦ ਕਰੋ|</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">ਇੱਕ ਵਾਰ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਨ ਤੇ, ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਗੇਮਾਂ ਵਿੱਚ ਖਰੀਦਾਰੀ ਕਰਨ ਲਈ ਇਹ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਰਤੋ!</string>
   <string name="async_notification_title">ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆ ਗਏ!</string>
   <string name="async_notification_body">ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਨਾਲ ਖਰੀਦ ਕਰਨ ਲਈ %s ਤੇ ਵਾਪਸ ਜਾਓ|</string>
   <!--Referral Program-->
@@ -744,15 +744,15 @@
   <string name="manage_cards_select_title">ਭੁਗਤਾਨ ਕਾਰਡ ਦੀ ਚੋਣ ਕਰੋ</string>
   <string name="manage_cards_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
-  <string name="perks_end_in_days">The promotion ends in %s days.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_gamif_title">ਹਰ ਖਰੀਦ ਤੇ %s%% ਬੋਨਸ ਕਮਾਓ</string>
+  <string name="perks_gamif_subtitle">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨਾ ਜ਼ਿਆਦਾ ਖਰਚੋਗੇ, ਓਨਾ ਵੱਡਾ ਬੋਨਸ ਹੋਵੇਗਾ!</string>
+  <string name="perks_title">ਪ੍ਰਚਾਰ</string>
+  <string name="perks_body">ਸਾਡੇ ਨਾਲ ਜੁੜੇ ਰਹੇ! ਸਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਲਈ ਵਿਸ਼ੇਸ਼ ਆਫਰਾਂ ਹਨ|</string>
+  <string name="perks_end_in_days">ਆਫਰ %s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
+  <string name="perks_end_in_date">ਆਫਰ %s ਨੂੰ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
+  <string name="perks_available_soon">ਆਫਰ ਜਲਦੀ ਉਪਲਬਧ ਹੋਵੇਗੀ</string>
+  <string name="perks_next_level_reward">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚੋ!</string>
+  <string name="perks_notification">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਬੋਨਸ ਦੇ ਰੂਪ ਵਿੱਚ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
+  <string name="perks_level_up_on_this_purchase">ਇਸ ਖਰੀਦ ਨਾਲ ਪੱਧਰ ਵਧਿਆ</string>
+  <string name="perks_level_up_amount_left">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੋਂ %1$s %2$s ਦੂਰ ਹੋ!</string>
 </resources>
