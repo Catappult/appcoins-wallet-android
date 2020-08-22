@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Om veiligheidsredenen moeten we je wallet met een sms-code verifiëren.</string>
   <string name="verification_insert_phone_title">Voer je telefoonnummer in</string>
   <string name="verification_insert_phone_body">Verifieer je wallet om beloningen te ontvangen! We zullen je een verificatiecode sturen.</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">Kies je land/regio</string>
   <string name="verification_insert_phone_field_number">Telefoonnummer</string>
   <string name="verification_insert_phone_field_number_error">Ongeldig telefoonnummer</string>
   <string name="verification_insert_phone_field_region_error">Regio wordt nog niet ondersteund.</string>
@@ -477,10 +477,10 @@
   <string name="async_steps_title">Volgende stappen</string>
   <string name="async_steps_1">Voltooi je betaling met %s. Je ontvangt een bericht zodra de AppCoins Credits aan je wallet zijn toegevoegd.</string>
   <string name="async_steps_2">Ga terug naar het spel en voltooi de aankoop door AppCoins Credits als betaalmethode te gebruiken.</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">Gebruik deze AppCoins Credits om aankopen in je favoriete games te doen!</string>
   <string name="async_steps_1_no_notification">Voltooi je betaling met %s.</string>
   <string name="async_steps_2_no_notification">Zodra je de AppCoins Credits hebt ontvangen, kun je terug naar het spel gaan en de aankoop voltooien door AppCoins Credits als betaalmethode te gebruiken.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">Zodra je de AppCoins Credits hebt ontvangen, kun je ze gebruiken om aankopen in je favoriete games te doen!</string>
   <string name="async_notification_title">Je AppCoins Credits zijn toegevoegd!</string>
   <string name="async_notification_body">Ga terug naar %s om de aankoop met AppCoins Credits te voltooien.</string>
   <!--Referral Program-->
@@ -744,15 +744,15 @@
   <string name="manage_cards_select_title">Betaalkaart selecteren</string>
   <string name="manage_cards_remember">Kaart onthouden</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
-  <string name="perks_end_in_days">The promotion ends in %s days.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_gamif_title">Ontvang %s%% bonus bij elke aankoop</string>
+  <string name="perks_gamif_subtitle">Hoe meer je in je favoriete apps besteedt, hoe groter de bonus!</string>
+  <string name="perks_title">Acties</string>
+  <string name="perks_body">Blijf ons volgen! We hebben speciale acties voor je.</string>
+  <string name="perks_end_in_days">De actie eindigt over %s dagen.</string>
+  <string name="perks_end_in_date">De actie eindigt op %s.</string>
+  <string name="perks_available_soon">Actie binnenkort beschikbaar</string>
+  <string name="perks_next_level_reward">Bereik het volgende niveau om %s AppCoins Credits te ontvangen!</string>
+  <string name="perks_notification">Je hebt zojuist een bonus van %s ontvangen</string>
+  <string name="perks_level_up_on_this_purchase">Bereik het volgende niveau met deze aankoop</string>
+  <string name="perks_level_up_amount_left">Je bent %1$s %2$s verwijderd van het volgende niveau!</string>
 </resources>
