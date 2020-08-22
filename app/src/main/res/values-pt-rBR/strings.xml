@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Por razões de segurança, precisamos verificar sua wallet com um código SMS.</string>
   <string name="verification_insert_phone_title">Insira seu número de telefone</string>
   <string name="verification_insert_phone_body">Verifique sua wallet para receber recompensas! Nós enviaremos um código de verificação.</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">Selecione seu país/região</string>
   <string name="verification_insert_phone_field_number">Número de Telefone</string>
   <string name="verification_insert_phone_field_number_error">Número de telefone inválido</string>
   <string name="verification_insert_phone_field_region_error">Região ainda sem suporte.</string>
@@ -477,10 +477,10 @@
   <string name="async_steps_title">Próximos Passos</string>
   <string name="async_steps_1">Complete seu pagamento com %s. Você será notificado assim que receber os Créditos AppCoins na sua wallet.</string>
   <string name="async_steps_2">Volte ao jogo e realize a compra usando os Créditos AppCoins como forma de pagamento.</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">Use esses Créditos AppCoins para fazer compras em seus jogos favoritos!</string>
   <string name="async_steps_1_no_notification">Complete seu pagamento com %s.</string>
   <string name="async_steps_2_no_notification">Assim que receber os Créditos AppCoins, volte ao jogo e faça a compra usando os Créditos AppCoins como forma de pagamento.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">Assim que receber os Créditos AppCoins, utilize-os para fazer compras em seus jogos favoritos!</string>
   <string name="async_notification_title">Seus Créditos AppCoins chegaram!</string>
   <string name="async_notification_body">Volte ao %s para fazer a compra usando Créditos AppCoins.</string>
   <!--Referral Program-->
@@ -744,15 +744,15 @@
   <string name="manage_cards_select_title">Selecione o cartão de pagamento</string>
   <string name="manage_cards_remember">Memorizar cartão</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
-  <string name="perks_end_in_days">The promotion ends in %s days.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_gamif_title">Ganhe %s%% de bônus a cada compra</string>
+  <string name="perks_gamif_subtitle">Quanto mais gastar em seus apps favoritos, maior o bônus!</string>
+  <string name="perks_title">Promoções</string>
+  <string name="perks_body">Fique ligado! Temos promoções especiais para você.</string>
+  <string name="perks_end_in_days">A promoção termina em %s dias.</string>
+  <string name="perks_end_in_date">A promoção termina em %s.</string>
+  <string name="perks_available_soon">Promoção disponível em breve</string>
+  <string name="perks_next_level_reward">Alcance o próximo nível para receber %s Créditos AppCoins!</string>
+  <string name="perks_notification">Você ganhou %s Créditos AppCoins como Bônus</string>
+  <string name="perks_level_up_on_this_purchase">Suba de nível com esta compra</string>
+  <string name="perks_level_up_amount_left">Falta %1$s %2$s para o próximo nível!</string>
 </resources>
