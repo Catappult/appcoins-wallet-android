@@ -23,8 +23,6 @@ import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.balance.RestoreWalletFragment
 import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
-import com.asfoundation.wallet.ui.gamification.HowItWorksFragment
-import com.asfoundation.wallet.ui.gamification.LegacyGamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
@@ -53,12 +51,6 @@ abstract class FragmentBuilders {
 
   @ContributesAndroidInjector
   abstract fun bindRegularBuyFragment(): OnChainBuyFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindHowItWorksFragment(): HowItWorksFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindLegacyGamificationFragment(): LegacyGamificationFragment
 
   @ContributesAndroidInjector
   abstract fun bindWebViewFragment(): BillingWebViewFragment

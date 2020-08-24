@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
@@ -33,7 +32,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     infoButtonSubject = PublishSubject.create()
     presenter =
         GamificationActivityPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
-    presenter.present(legacy)
+    presenter.present()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -54,7 +53,6 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_info, menu)
     this.menu = menu
-    if (legacy) this.menu.findItem(R.id.action_info).isVisible = true
     return super.onCreateOptionsMenu(menu)
   }
 
@@ -62,11 +60,11 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   override fun retryClick() = RxView.clicks(retry_button)
 
-  override fun loadLegacyGamificationView() = navigateTo(LegacyGamificationFragment())
-
   override fun loadGamificationView() {
     toolbar?.menu?.removeItem(R.id.action_info)
-    navigateTo(GamificationFragment())
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, GamificationFragment())
+        .commit()
   }
 
   override fun showNetworkErrorView() {
@@ -92,31 +90,17 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     super.onDestroy()
   }
 
-  private fun navigateTo(fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment)
-        .commit()
-  }
-
-  private val legacy: Boolean by lazy {
-    intent.getBooleanExtra(LEGACY, false)
-  }
-
   private val bonus: Int by lazy {
     intent.getDoubleExtra(BONUS, 25.0)
         .toInt()
   }
 
-
   companion object {
-
-    const val LEGACY = "legacy"
     const val BONUS = "bonus"
 
     @JvmStatic
-    fun newIntent(context: Context, legacy: Boolean, bonus: Double): Intent {
+    fun newIntent(context: Context, bonus: Double): Intent {
       return Intent(context, GamificationActivity::class.java).apply {
-        putExtra(LEGACY, legacy)
         putExtra(BONUS, bonus)
       }
     }

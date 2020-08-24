@@ -135,7 +135,7 @@ class BdsPromotionsRepository(
     return getUserStats(wallet)
         .flatMap {
           val gamification =
-              it.promotions.first { promotions -> promotions is GamificationResponse } as GamificationResponse
+              it.promotions.firstOrNull { promotions -> promotions is GamificationResponse } as GamificationResponse
           val referral =
               it.promotions.firstOrNull { promotions -> promotions is ReferralResponse } as ReferralResponse
           local.setGamificationLevel(gamification.level)

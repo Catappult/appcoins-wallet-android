@@ -44,7 +44,37 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   override fun hasAnyPromotionUpdate(referralsScreen: ReferralsScreen,
                                      gamificationScreen: GamificationScreen): Single<Boolean> {
-    return Single.just(false)
+    return findWalletInteract.find()
+        .flatMap { wallet ->
+          promotionsRepo.getUserStatus(wallet.address)
+              .flatMap {
+                val gamification =
+                    it.promotions.firstOrNull { promotionsResponse -> promotionsResponse is GamificationResponse } as GamificationResponse?
+                val referral =
+                    it.promotions.firstOrNull { referralResponse -> referralResponse is ReferralResponse } as ReferralResponse?
+
+                val gamificationAvailable = gamification?.status == PromotionsResponse.Status.ACTIVE
+                val referralsAvailable = referral?.status == PromotionsResponse.Status.ACTIVE
+
+                when {
+                  gamificationAvailable && referralsAvailable -> {
+                    Single.zip(
+                        hasReferralUpdate(referral!!.completed, referral.link != null,
+                            ReferralsScreen.PROMOTIONS),
+                        gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS),
+                        BiFunction { hasReferralUpdate: Boolean, hasNewLevel: Boolean ->
+                          hasReferralUpdate || hasNewLevel
+                        })
+                  }
+                  gamificationAvailable -> gamificationInteractor.hasNewLevel(
+                      GamificationScreen.PROMOTIONS)
+                  referralsAvailable -> hasReferralUpdate(referral!!.completed,
+                      referral.link != null,
+                      ReferralsScreen.PROMOTIONS)
+                  else -> Single.just(false)
+                }
+              }
+        }
   }
 
   //Referrals

@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
-import java.math.BigDecimal
 
 interface TopUpActivityView {
   fun showTopUpScreen()

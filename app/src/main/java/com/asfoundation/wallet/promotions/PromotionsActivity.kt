@@ -30,11 +30,8 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     return super.onOptionsItemSelected(item)
   }
 
-  override fun navigateToLegacyGamification(bonus: Double) =
-      startActivity(GamificationActivity.newIntent(this, true, bonus))
-
   override fun navigateToGamification(bonus: Double) =
-      startActivity(GamificationActivity.newIntent(this, false, bonus))
+      startActivity(GamificationActivity.newIntent(this, bonus))
 
   override fun handleShare(link: String) {
     ShareCompat.IntentBuilder.from(this)

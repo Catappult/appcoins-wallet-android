@@ -79,7 +79,4 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.shownLevel(wallet, level, screen)
   }
 
-  fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
-    return repository.getLastShownLevel(wallet, screen)
-  }
 }

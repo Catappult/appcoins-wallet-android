@@ -1,12 +1,7 @@
-import com.appcoins.wallet.gamification.Gamification
-import com.appcoins.wallet.gamification.GamificationApiTest
-import com.appcoins.wallet.gamification.GamificationLocalDataTest
-import com.appcoins.wallet.gamification.GamificationScreen
+package com.appcoins.wallet.gamification
+
 import com.appcoins.wallet.gamification.repository.*
-import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
-import com.appcoins.wallet.gamification.repository.entity.Level
-import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Single
 import org.junit.Assert
 import org.junit.Before
@@ -24,6 +19,8 @@ class GamificationTest {
   companion object {
     private const val WALLET = "wallet1"
     private const val PACKAGE_NAME = "packageName"
+    private const val GAMIFICATION_ID = "GAMIFICATION"
+    private const val REFERRAL_ID = "REFERRAL"
   }
 
   @Before
@@ -35,22 +32,21 @@ class GamificationTest {
   @Test
   fun getUserStatsTest() {
     val userStatsGamification =
-        GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
-            PromotionResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
+        GamificationResponse("GAMIFICATION", 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 1,
+            BigDecimal.TEN,
+            PromotionsResponse.Status.ACTIVE, true)
     val referralResponse =
-        ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-            ReferralResponse.Status.ACTIVE,
-            BigDecimal.ONE)
+        ReferralResponse("REFERRAL", 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+            BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
+            PromotionsResponse.Status.ACTIVE, BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UsertStats(userStatsGamification, referralResponse))
+        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse)))
     val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(
         GamificationStats(GamificationStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
-            BigDecimal.ZERO,
-            isActive = true, userType = UserType.PIONEER))
+            BigDecimal.ZERO, isActive = true))
   }
 
   @Test
@@ -102,16 +98,18 @@ class GamificationTest {
   @Test
   fun hasNewLevelNoNewLevel() {
     val userStatsGamification =
-        GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            PromotionResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
+        GamificationResponse(GAMIFICATION_ID, 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
+            BigDecimal.TEN,
+            PromotionsResponse.Status.ACTIVE, true)
     val referralResponse =
-        ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
+        ReferralResponse(REFERRAL_ID, 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+            BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-            ReferralResponse.Status.ACTIVE,
+            PromotionsResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UsertStats(userStatsGamification, referralResponse))
+        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse)))
     local.lastShownLevelResponse = Single.just(0)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
@@ -123,16 +121,18 @@ class GamificationTest {
   @Test
   fun hasNewLevelNewLevel() {
     val userStatsGamification =
-        GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            PromotionResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
+        GamificationResponse(GAMIFICATION_ID, 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
+            BigDecimal.TEN,
+            PromotionsResponse.Status.ACTIVE, true)
     val referralResponse =
-        ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
+        ReferralResponse(REFERRAL_ID, 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+            BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-            ReferralResponse.Status.ACTIVE,
+            PromotionsResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UsertStats(userStatsGamification, referralResponse))
+        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse)))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()

@@ -80,11 +80,6 @@ class GamificationInteractor(
         .flatMapCompletable { gamification.levelShown(it.address, level, screen.toString()) }
   }
 
-  fun getLastShownLevel(screen: GamificationScreen): Single<Int> {
-    return defaultWallet.find()
-        .flatMap { gamification.getLastShownLevel(it.address, screen.toString()) }
-  }
-
   fun getAppcToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale)
         .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
