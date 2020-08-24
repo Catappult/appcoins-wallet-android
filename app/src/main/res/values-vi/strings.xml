@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Kiểm tra tất cả các chi tiết: số dư, vật phẩm, mạng…</string>
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
   <string name="activity_iab_change_card">THAY ĐỔI THẺ</string>
+  <string name="activity_iab_fees">Phí</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
   <string name="notification_completed_poa">Đã nhận phần thưởng!👌 Bạn sẽ phải chờ %1$s giờ %2$s phút để có thể kiếm thêm phần thưởng bằng cách trải nghiệm các ứng dụng ⏰!</string>
   <string name="notification_poa_limit_reached">Bạn đã đạt đến giới hạn phần thưởng hàng ngày của mình. ⏰ Quay trở lại sau %1$s giờ %2$s phút và thử lại!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">Số thẻ</string>
   <string name="dialog_credit_card_expiration">Ngày hết hạn</string>
   <string name="dialog_credit_card_cvv">Mã CVV</string>
+  <string name="dialog_bank_card">Thẻ tín dụng/ghi nợ</string>
+  <string name="dialog_expiry_date">Ngày hết hạn</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
   <string name="activity_airdrop_details">Đây chỉ là yếu tố bảo mật.</string>
   <string name="activity_airdrop_hint">Nhập từ trong ảnh</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Vì lý do bảo mật, chúng tôi cần xác minh ví của bạn bằng mã SMS.</string>
   <string name="verification_insert_phone_title">Nhập số điện thoại của bạn</string>
   <string name="verification_insert_phone_body">Xác minh ví của bạn để nhận phần thưởng! Chúng tôi sẽ gửi bạn một mã xác minh.</string>
-  <string name="verification_insert_phone_field_country">Quốc gia</string>
+  <string name="verification_insert_phone_field_country">Chọn quốc gia / khu vực của bạn</string>
   <string name="verification_insert_phone_field_number">Số điện thoại</string>
   <string name="verification_insert_phone_field_number_error">Số điện thoại không hợp lệ</string>
   <string name="verification_insert_phone_field_region_error">Khu vực chưa được hỗ trợ.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Mời bạn bè và Nhận phần thưởng</string>
   <string name="verification_settings_verified_title">Ví đã được xác minh</string>
   <string name="verification_settings_no_internet">Bạn cần kết nối với Internet</string>
+  <string name="verification_error_time_expired">Rất tiếc, thời gian của bạn đã hết. Hãy bắt đầu lại!</string>
+  <string name="verification_error_attempts_reached">Có vẻ như bạn đã đạt đến giới hạn số lần thử. Vui lòng chờ để thử lại.</string>
+  <string name="verified_tag">Đã xác minh</string>
+  <string name="unferified_tag">Chưa xác minh</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
   <string name="purchase_appcoins_available_body">Bạn sẽ dùng một ít ETH để trả phí.</string>
   <string name="purchase_appcoins_noavailable_body">Bạn không có đủ AppCoins hoặc Ether cho giao dịch mua này.</string>
+  <string name="purchase_no_eth_body">Bạn không có đủ ETH để trả tiền xăng.</string>
+  <string name="purchase_no_appcoins_body">Bạn không có đủ AppCoins để hoàn tất giao dịch này.</string>
   <string name="purchase_appcoins_credits_available_body">Không tốn phí và nhanh như chớp!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Bạn không có đủ APPC Credits, hãy thử nạp tiền!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Bạn không có đủ AppCoins Credits, hãy thử nạp ngay!</string>
   <string name="purchase_appcoins_credits_default_body">Bạn đã kiếm đủ AppCoins Credits cho giao dịch mua này. Hãy thỏa thích dùng chúng!</string>
   <string name="purchase_poa_item">Kiếm tiền bằng cách trải nghiệm các ứng dụng</string>
   <string name="purchase_poa_body">Hãy trải nghiệm ứng dụng trong 2 phút và kiếm AppCoins Credits!</string>
@@ -461,14 +470,17 @@
   <string name="purchase_card_error_security">Bạn có chắc chắn thông tin bảo mật đúng không? Vui lòng thử lại lần nữa.</string>
   <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
   <string name="purchase_wallet_error_contact_us">Rất tiếc, có điều gì đó không ổn với ví của bạn. Vui lòng liên hệ ngay với chúng tôi.</string>
+  <string name="purchase_carrier_error">Có vẻ như số điện thoại của bạn không tương thích với phương thức thanh toán này.</string>
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
   <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Bước kế tiếp</string>
   <string name="async_steps_1">Hoàn tất thanh toán của bạn bằng %s. Bạn sẽ nhận được thông báo ngay khi nhận được AppCoins Credits vào ví của mình.</string>
   <string name="async_steps_2">Quay trở lại trò chơi và sử dụng AppCoins Credits để mua hàng như một phương thức thanh toán.</string>
+  <string name="async_steps_topup_2">Sử dụng AppCoins Credits này để mua vật phẩm trong các trò chơi yêu thích của mình!</string>
   <string name="async_steps_1_no_notification">Hoàn tất thanh toán của bạn bằng %s.</string>
   <string name="async_steps_2_no_notification">Ngay khi bạn nhận được AppCoins Credits, hãy quay lại trò chơi và sử dụng AppCoins Credits để mua hàng như một phương thức thanh toán.</string>
+  <string name="async_steps_2_toptup_no_notification">Ngay khi bạn nhận được AppCoins Credits, hãy dùng chúng để mua vật phẩm trong các trò chơi yêu thích của mình!</string>
   <string name="async_notification_title">Đã nhận được AppCoins Credits!</string>
   <string name="async_notification_body">Quay trở lại %s và sử dụng AppCoins Credits để mua hàng.</string>
   <!--Referral Program-->
@@ -699,4 +711,47 @@
   <string name="gamif_placeholder_unknown">một hành tinh không xác định</string>
   <string name="gamif_distance_unkown">Vị trí không xác định</string>
   <string name="gamif_placeholder_new_planet">một hành tinh mới</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Thanh toán thông qua tài khoản điện thoại</string>
+  <string name="carrier_billing_fees_disclaimer">Phí bổ sung có thể được áp dụng</string>
+  <string name="carrier_billing_insert_phone_body">Vui lòng nhập số điện thoại của bạn</string>
+  <string name="carrier_billing_phone_field">Số điện thoại của bạn...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s sẽ tính một khoản phí %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s trong %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Số điện thoại của bạn là %s.</string>
+  <string name="carrier_billing_enter_pin_body">Vui lòng nhập mã PIN nhận được qua SMS.</string>
+  <string name="carrier_billing_code_field">Mã của bạn...</string>
+  <string name="carrier_billing_code_resend_button">GỬI LẠI MÃ</string>
+  <string name="carrier_billing_submit_button">GỬI</string>
+  <string name="carrier_billing_terms_disclaimer">Bằng việc nhấn vào Gửi, bạn xác nhận rằng bạn chấp nhận Điều khoản và Điều kiện và Chính sách Quyền riêng tư.</string>
+  <string name="carrier_billing_help_1">Cần trợ giúp?</string>
+  <string name="carrier_billing_help_2_button">Liên hệ bộ phận hỗ trợ</string>
+  <string name="carrier_billing_terms_button">Điều khoản và Điều kiện</string>
+  <string name="carrier_billing_privacy_button">Chính sách Quyền riêng tư</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Thêm thẻ tín dụng/ghi nợ</string>
+  <string name="manage_cards_settings_manage_title">Quản lý thẻ</string>
+  <string name="manage_cards_view_title">Quản lý thẻ</string>
+  <string name="manage_cards_view_manage_subtitle">Quản lý thẻ thanh toán của bạn</string>
+  <string name="manage_cards_add_title">Thêm thẻ mới</string>
+  <string name="manage_cards_remove_confirmation">Bạn có chắc muốn xóa thẻ này?</string>
+  <string name="manage_cards_remove_no">KHÔNG, HỦY BỎ</string>
+  <string name="manage_cards_remove_yes">CÓ, XÓA NÓ</string>
+  <string name="manage_cards_card_ending_body">Thẻ kết thúc bằng %s</string>
+  <string name="manage_cards_error_details">Bạn có chắc chi tiết thẻ của mình đúng? Vui lòng thử lại!</string>
+  <string name="manage_cards_error_card_problem">Có vẻ như có vấn đề với thẻ của bạn. Vui lòng thử một thẻ khác.</string>
+  <string name="manage_cards_select_title">Chọn thẻ thanh toán</string>
+  <string name="manage_cards_remember">Nhớ thẻ</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Nhận %s%% tiền thưởng trên mỗi lượt mua</string>
+  <string name="perks_gamif_subtitle">Bạn càng dùng nhiều tiền trong các ứng dụng yêu thích, tiền thưởng cũng sẽ càng lớn!</string>
+  <string name="perks_title">Khuyến mãi</string>
+  <string name="perks_body">Cùng đón chờ! Chúng tôi có chương trình khuyến mãi đặc biệt dành cho bạn.</string>
+  <string name="perks_end_in_days">Chương trình khuyến mãi sẽ kết thúc trong %s ngày.</string>
+  <string name="perks_end_in_date">Chương trình khuyến mãi sẽ kết thúc vào %s.</string>
+  <string name="perks_available_soon">Chương trình khuyến mãi sẽ diễn ra sớm thôi</string>
+  <string name="perks_next_level_reward">Đạt cấp kế tiếp để nhận được %s AppCoins Credits!</string>
+  <string name="perks_notification">Bạn vừa nhận được số tiền thưởng là %s AppCoins Credits</string>
+  <string name="perks_level_up_on_this_purchase">Thăng cấp với giao dịch mua này</string>
+  <string name="perks_level_up_amount_left">Bạn còn %1$s %2$s nữa để đạt được cấp kế tiếp!</string>
 </resources>
