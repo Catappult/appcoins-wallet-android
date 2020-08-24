@@ -36,7 +36,7 @@ class GamificationTest {
   fun getUserStatsTest() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
+            PromotionResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
@@ -103,7 +103,7 @@ class GamificationTest {
   fun hasNewLevelNoNewLevel() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
+            PromotionResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
@@ -124,7 +124,7 @@ class GamificationTest {
   fun hasNewLevelNewLevel() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
+            PromotionResponse.Status.ACTIVE, true, GamificationResponse.UserType.PIONEER)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
             BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,

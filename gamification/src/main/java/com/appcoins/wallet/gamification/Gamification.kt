@@ -20,7 +20,7 @@ class Gamification(private val repository: PromotionsRepository) {
   }
 
   fun getUserStats(wallet: String): Single<GamificationStats> {
-    return repository.getUserStats(wallet)
+    return repository.getGamificationStats(wallet)
   }
 
   fun getLevels(wallet: String): Single<Levels> {

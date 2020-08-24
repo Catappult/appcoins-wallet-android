@@ -3,10 +3,7 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
-import com.appcoins.wallet.gamification.repository.entity.GenericResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
+import com.appcoins.wallet.gamification.repository.entity.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
@@ -83,7 +80,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         .forEach {
           when (it) {
             is GamificationResponse -> {
-              gamificationAvailable = it.status == GamificationResponse.Status.ACTIVE
+              gamificationAvailable = it.status == PromotionsResponse.Status.ACTIVE
               promotions.add(mapToGamificationItem(it))
 
               if (levels.isActive) {
@@ -97,7 +94,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
             }
             is ReferralResponse -> {
-              referralsAvailable = it.status == ReferralResponse.Status.ACTIVE
+              referralsAvailable = it.status == PromotionsResponse.Status.ACTIVE
               promotions.add(mapToReferralItem(it))
             }
             is GenericResponse -> {
@@ -105,8 +102,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
               when {
                 isFuturePromotion(it) -> mapToFutureItem(it)
-                it.viewType == DEFAULT_VIEW_TYPE -> promotions.add(mapToDefaultItem(it))
-                else -> promotions.add(mapToProgressItem(it))
+                it.viewType == PROGRESS_VIEW_TYPE -> promotions.add(mapToProgressItem(it))
+                else -> promotions.add(mapToDefaultItem(it))
               }
 
               if (isValidGamificationLink(it.linkedPromotionId, gamificationAvailable,

@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 class ReferralResponse(
     id: String,
-    priority: Int?,
+    priority: Int,
     @SerializedName("max_amount")
     val maxAmount: BigDecimal,
     val available: Int,
@@ -30,10 +30,5 @@ class ReferralResponse(
   @Suppress("unused")
   enum class UserStatus {
     RESERVED, VERIFIED, REDEEMED
-  }
-
-  @Suppress("unused")
-  enum class Status {
-    ACTIVE, INACTIVE
   }
 }

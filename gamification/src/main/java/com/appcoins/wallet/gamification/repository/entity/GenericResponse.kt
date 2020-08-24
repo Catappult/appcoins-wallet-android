@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class GenericResponse(
     id: String,
-    priority: Int?,
+    priority: Int,
     @SerializedName("current_progress")
     val currentProgress: Double?,
     val description: String,

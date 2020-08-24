@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 class GamificationResponse(
     id: String,
-    priority: Int?,
+    priority: Int,
     val bonus: Double,
     @SerializedName("current_amount")
     val totalSpend: BigDecimal,
@@ -15,10 +15,4 @@ class GamificationResponse(
     @SerializedName("next_level_amount")
     val nextLevelAmount: BigDecimal?,
     val status: Status,
-    val bundle: Boolean) : PromotionsResponse(id, priority) {
-
-  enum class Status {
-    ACTIVE, INACTIVE
-  }
-
-}
+    val bundle: Boolean) : PromotionsResponse(id, priority)

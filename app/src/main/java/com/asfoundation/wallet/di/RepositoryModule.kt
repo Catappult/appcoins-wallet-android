@@ -13,6 +13,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository
 import com.appcoins.wallet.gamification.repository.GamificationApi
+import com.appcoins.wallet.gamification.repository.PromotionDao
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.RakamAnalytics
@@ -118,9 +119,10 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providePromotionsRepository(api: GamificationApi,
-                                  preferences: SharedPreferences): PromotionsRepository {
-    return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences))
+  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences,
+                                  promotionDao: PromotionDao): PromotionsRepository {
+    return BdsPromotionsRepository(api,
+        SharedPreferencesGamificationLocalData(preferences, promotionDao))
   }
 
   @Singleton

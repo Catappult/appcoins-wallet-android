@@ -1,9 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
-import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
-import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
+import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.IOException
@@ -14,6 +11,19 @@ class BdsPromotionsRepository(
     private val api: GamificationApi,
     private val local: GamificationLocalData) :
     PromotionsRepository {
+
+  private fun getUserStats(wallet: String): Single<UserStatusResponse> {
+    return api.getUserStats(wallet)
+        .flatMap { userStats ->
+          local.deletePromotions()
+              .andThen(local.insertPromotions(userStats.promotions))
+              .toSingle { userStats }
+        }
+        .onErrorResumeNext {
+          local.getPromotions()
+              .map { UserStatusResponse(it) }
+        }
+  }
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
     return local.getLastShownLevel(wallet, screen)
@@ -46,8 +56,8 @@ class BdsPromotionsRepository(
     return ForecastBonus(ForecastBonus.Status.INACTIVE)
   }
 
-  override fun getUserStats(wallet: String): Single<GamificationStats> {
-    return api.getUserStatus(wallet)
+  override fun getGamificationStats(wallet: String): Single<GamificationStats> {
+    return getUserStats(wallet)
         .map { mapToGamificationStats(it) }
         .onErrorReturn { map(it) }
         .flatMap {
@@ -71,7 +81,7 @@ class BdsPromotionsRepository(
     return GamificationStats(GamificationStats.Status.OK, gamification.level,
         gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
         gamification.totalEarned,
-        GamificationResponse.Status.ACTIVE == gamification.status)
+        PromotionsResponse.Status.ACTIVE == gamification.status)
   }
 
   override fun getLevels(wallet: String): Single<Levels> {
@@ -96,7 +106,7 @@ class BdsPromotionsRepository(
   }
 
   override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
-    return api.getUserStatus(wallet)
+    return getUserStats(wallet)
         .flatMap { userStats ->
           val gamification =
               userStats.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse
@@ -110,7 +120,7 @@ class BdsPromotionsRepository(
   }
 
   override fun getGamificationUserStatus(wallet: String): Single<GamificationResponse> {
-    return api.getUserStatus(wallet)
+    return getUserStats(wallet)
         .map { userStats ->
           userStats.promotions.first { it is GamificationResponse } as GamificationResponse
         }
@@ -122,7 +132,7 @@ class BdsPromotionsRepository(
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
-    return api.getUserStatus(wallet)
+    return getUserStats(wallet)
         .flatMap {
           val gamification =
               it.promotions.first { promotions -> promotions is GamificationResponse } as GamificationResponse

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.referrals
 
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
@@ -124,8 +125,8 @@ class ReferralInteractor(
     return userStatus?.let { it == ReferralResponse.UserStatus.REDEEMED } ?: false
   }
 
-  private fun isAvailable(status: ReferralResponse.Status): Boolean {
-    return status == ReferralResponse.Status.ACTIVE
+  private fun isAvailable(status: PromotionsResponse.Status): Boolean {
+    return status == PromotionsResponse.Status.ACTIVE
   }
 
   private fun mapResponse(referralResponse: ReferralResponse): ReferralModel {

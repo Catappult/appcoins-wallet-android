@@ -10,8 +10,8 @@ import java.math.BigDecimal
 
 interface GamificationApi {
   @GET("gamification/1.20200720/user_stats")
-  fun getUserStatus(@Query("address") address: String,
-                    @Query("language") language: String = "en"): Single<UserStatusResponse>
+  fun getUserStats(@Query("address") address: String,
+                   @Query("language") language: String = "en"): Single<UserStatusResponse>
 
   @GET("gamification/levels")
   fun getLevels(@Query("address") address: String): Single<LevelsResponse>

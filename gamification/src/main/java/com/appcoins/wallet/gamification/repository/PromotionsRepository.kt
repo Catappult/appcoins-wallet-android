@@ -9,7 +9,7 @@ import java.math.BigDecimal
 
 interface PromotionsRepository {
 
-  fun getUserStats(wallet: String): Single<GamificationStats>
+  fun getGamificationStats(wallet: String): Single<GamificationStats>
 
   fun getLevels(wallet: String): Single<Levels>
 
