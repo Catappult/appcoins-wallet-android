@@ -415,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Vì lý do bảo mật, chúng tôi cần xác minh ví của bạn bằng mã SMS.</string>
   <string name="verification_insert_phone_title">Nhập số điện thoại của bạn</string>
   <string name="verification_insert_phone_body">Xác minh ví của bạn để nhận phần thưởng! Chúng tôi sẽ gửi bạn một mã xác minh.</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">Chọn quốc gia / khu vực của bạn</string>
   <string name="verification_insert_phone_field_number">Số điện thoại</string>
   <string name="verification_insert_phone_field_number_error">Số điện thoại không hợp lệ</string>
   <string name="verification_insert_phone_field_region_error">Khu vực chưa được hỗ trợ.</string>
@@ -477,10 +477,10 @@
   <string name="async_steps_title">Bước kế tiếp</string>
   <string name="async_steps_1">Hoàn tất thanh toán của bạn bằng %s. Bạn sẽ nhận được thông báo ngay khi nhận được AppCoins Credits vào ví của mình.</string>
   <string name="async_steps_2">Quay trở lại trò chơi và sử dụng AppCoins Credits để mua hàng như một phương thức thanh toán.</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">Sử dụng AppCoins Credits này để mua vật phẩm trong các trò chơi yêu thích của mình!</string>
   <string name="async_steps_1_no_notification">Hoàn tất thanh toán của bạn bằng %s.</string>
   <string name="async_steps_2_no_notification">Ngay khi bạn nhận được AppCoins Credits, hãy quay lại trò chơi và sử dụng AppCoins Credits để mua hàng như một phương thức thanh toán.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">Ngay khi bạn nhận được AppCoins Credits, hãy dùng chúng để mua vật phẩm trong các trò chơi yêu thích của mình!</string>
   <string name="async_notification_title">Đã nhận được AppCoins Credits!</string>
   <string name="async_notification_body">Quay trở lại %s và sử dụng AppCoins Credits để mua hàng.</string>
   <!--Referral Program-->
@@ -743,15 +743,15 @@
   <string name="manage_cards_select_title">Chọn thẻ thanh toán</string>
   <string name="manage_cards_remember">Nhớ thẻ</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
-  <string name="perks_end_in_days">The promotion ends in %s days.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_gamif_title">Nhận %s%% tiền thưởng trên mỗi lượt mua</string>
+  <string name="perks_gamif_subtitle">Bạn càng dùng nhiều tiền trong các ứng dụng yêu thích, tiền thưởng cũng sẽ càng lớn!</string>
+  <string name="perks_title">Khuyến mãi</string>
+  <string name="perks_body">Cùng đón chờ! Chúng tôi có chương trình khuyến mãi đặc biệt dành cho bạn.</string>
+  <string name="perks_end_in_days">Chương trình khuyến mãi sẽ kết thúc trong %s ngày.</string>
+  <string name="perks_end_in_date">Chương trình khuyến mãi sẽ kết thúc vào %s.</string>
+  <string name="perks_available_soon">Chương trình khuyến mãi sẽ diễn ra sớm thôi</string>
+  <string name="perks_next_level_reward">Đạt cấp kế tiếp để nhận được %s AppCoins Credits!</string>
+  <string name="perks_notification">Bạn vừa nhận được số tiền thưởng là %s AppCoins Credits</string>
+  <string name="perks_level_up_on_this_purchase">Thăng cấp với giao dịch mua này</string>
+  <string name="perks_level_up_amount_left">Bạn còn %1$s %2$s nữa để đạt được cấp kế tiếp!</string>
 </resources>
