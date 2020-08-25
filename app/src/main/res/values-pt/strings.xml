@@ -471,6 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">O teu código CVV/CVC parece estar errado. Por favor tenta novamente.</string>
   <string name="purchase_wallet_error_contact_us">Ups, algo não está bem com tua wallet. Por favor, entra em contacto connosco.</string>
   <string name="purchase_carrier_error">Parece que o teu número de telemóvel não é compatível com este método de pagamento.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC errado</string>
   <string name="error_contac_us_body">Se o problema persistir entra em contacto connosco.</string>
   <!--Async Payments-->
@@ -755,4 +757,6 @@
   <string name="perks_notification">Acabaste de receber %s AppCoins Credits como Bónus</string>
   <string name="perks_level_up_on_this_purchase">Sobe de nível com esta compra</string>
   <string name="perks_level_up_amount_left">Estás a %1$s %2$s de distância do próximo nível!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
 </resources>
