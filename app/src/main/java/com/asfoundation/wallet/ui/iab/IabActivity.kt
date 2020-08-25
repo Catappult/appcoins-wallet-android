@@ -81,7 +81,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
       paymentNavigationData =
-          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData
+          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
     }
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),

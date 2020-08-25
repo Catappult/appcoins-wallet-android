@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -23,6 +24,8 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -39,6 +42,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
+import kotlinx.android.synthetic.main.level_up_bonus_layout.view.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.payment_methods_layout.*
 import kotlinx.android.synthetic.main.payment_methods_layout.error_message
@@ -110,6 +114,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   @Inject
   lateinit var paymentMethodsInteract: PaymentMethodsInteract
 
+  @Inject
+  lateinit var mapper: GamificationMapper
+
+  @Inject
+  lateinit var gamificationInteractor: GamificationInteractor
+
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
   private lateinit var fiatValue: FiatValue
@@ -144,7 +154,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
         bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract, iabView, preferencesRepositoryType)
+        logger, paymentMethodsInteract, iabView, preferencesRepositoryType, gamificationInteractor,
+        mapper)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -527,6 +538,31 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showEarnAppcoins() {
     iabView.showEarnAppcoins(transactionBuilder!!.domain, transactionBuilder!!.skuId,
         transactionBuilder!!.amount(), transactionBuilder!!.type)
+  }
+
+  override fun setLevelUpInformation(gamificationLevel: Int, progress: Double,
+                                     currentLevelBackground: Drawable,
+                                     nextLevelBackground: Drawable,
+                                     levelColor: Int) {
+    level_up_bonus_layout.bonus_value.text =
+        getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+    level_up_bonus_layout.current_level.background = currentLevelBackground
+    level_up_bonus_layout.current_level.text = "Lvl " + gamificationLevel.toString()
+    level_up_bonus_layout.next_level.text = "Lvl " + (gamificationLevel + 1).toString()
+    level_up_bonus_layout.next_level.background = nextLevelBackground
+    level_up_bonus_layout.current_level_progress_bar.progress = progress.toInt()
+    level_up_bonus_layout.current_level_progress_bar.progressTintList =
+        ColorStateList.valueOf(levelColor)
+  }
+
+  override fun showLevelUp() {
+    level_up_bonus_layout.visibility = View.VISIBLE
+    bottom_separator?.visibility = View.VISIBLE
+  }
+
+  override fun hideLevelUp() {
+    level_up_bonus_layout.visibility = View.GONE
+    bottom_separator?.visibility = View.INVISIBLE
   }
 
   override fun showBonus() {

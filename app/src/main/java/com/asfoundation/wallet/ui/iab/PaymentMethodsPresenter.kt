@@ -1,13 +1,14 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
-import android.util.Log
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.appcoins.wallet.gamification.repository.GamificationStats
+import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.AnalyticsSetUp
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -16,6 +17,8 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -26,6 +29,8 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -50,9 +55,12 @@ class PaymentMethodsPresenter(
     private val logger: Logger,
     private val paymentMethodsInteract: PaymentMethodsInteract,
     private val activity: IabView?,
-    private val preferencesRepositoryType: PreferencesRepositoryType) {
+    private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val gamificationInteractor: GamificationInteractor,
+    private val mapper: GamificationMapper) {
 
   private var gamificationLevel = 0
+  private var closeToLevelUp: Boolean = false
 
   companion object {
     private val TAG = PaymentMethodsPresenter::class.java.name
@@ -219,13 +227,21 @@ class PaymentMethodsPresenter(
         .flatMapCompletable { fiatValue ->
           getPaymentMethods(fiatValue)
               .flatMapCompletable { paymentMethods ->
-                paymentMethodsInteract.getEarningBonus(transaction.domain, transaction.amount())
+                Single.zip(paymentMethodsInteract.getEarningBonus(transaction.domain,
+                    transaction.amount()), paymentMethodsInteract.getUserStatus(),
+                    gamificationInteractor.getLevels(),
+                    Function3 { earningBonus: ForecastBonusAndLevel, userStats: GamificationStats, levels: Levels ->
+                      Triple(earningBonus, userStats, levels)
+                    })
                     .observeOn(viewScheduler)
                     .flatMapCompletable {
                       Completable.fromAction {
-                        setupBonusInformation(it)
+                        setupBonusInformation(it.first)
+                        if (paymentMethodsInteract.isBonusActiveAndValid(it.first)) {
+                          setUpNextLevelInformation(it.second, it.third)
+                        }
                         selectPaymentMethod(paymentMethods, fiatValue,
-                            paymentMethodsInteract.isBonusActiveAndValid(it))
+                            paymentMethodsInteract.isBonusActiveAndValid(it.first))
                       }
                     }
               }
@@ -237,6 +253,41 @@ class PaymentMethodsPresenter(
           if (!firstRun) view.hideLoading()
         }
         .subscribe({ }, { this.showError(it) }))
+  }
+
+  private fun setUpNextLevelInformation(userStats: GamificationStats, levels: Levels) {
+    val progress = getProgressPercentage(userStats, levels.list)
+    if (shouldShowNextLevel(levels, progress, userStats)) {
+      closeToLevelUp = true
+      val currentLevelInfo = mapper.mapCurrentLevelInfo(gamificationLevel)
+      val nextLevelInfo = mapper.mapCurrentLevelInfo(gamificationLevel + 1)
+      view.setLevelUpInformation(gamificationLevel, progress,
+          mapper.getRectangleGamificationBackground(currentLevelInfo.levelColor)!!,
+          mapper.getRectangleGamificationBackground(nextLevelInfo.levelColor)!!,
+          currentLevelInfo.levelColor)
+    } else {
+      closeToLevelUp = false
+    }
+  }
+
+  private fun shouldShowNextLevel(levels: Levels, progress: Double,
+                                  userStats: GamificationStats): Boolean {
+    return mapper.mapLevelUpPercentage(gamificationLevel) <= progress &&
+        gamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK
+  }
+
+  private fun getProgressPercentage(userStats: GamificationStats,
+                                    list: List<Levels.Level>): Double {
+    return if (gamificationLevel <= list.size - 1) {
+      var levelRange = userStats.nextLevelAmount?.minus(list[gamificationLevel].amount)
+      if (levelRange?.toDouble() == 0.0) {
+        levelRange = BigDecimal.ONE
+      }
+      val amountSpentInLevel = userStats.totalSpend - list[gamificationLevel].amount
+      amountSpentInLevel.divide(levelRange, 2, RoundingMode.HALF_EVEN)
+          .multiply(BigDecimal(100))
+          .toDouble()
+    } else 0.0
   }
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
@@ -277,7 +328,6 @@ class PaymentMethodsPresenter(
               view.showAuthenticationActivity(paymentMethod, gamificationLevel, true, fiatValue)
             } else {
               view.showAdyen(fiatValue, PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)
-              //view.navigateToPayment(paymentMethod, gamificationLevel, true, fiatValue)
             }
 
           }
@@ -528,12 +578,24 @@ class PaymentMethodsPresenter(
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
     when (selectedPaymentMethod) {
       paymentMethodsMapper
-          .map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> view.replaceBonus()
+          .map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> {
+        view.replaceBonus()
+        view.hideLevelUp()
+      }
       paymentMethodsMapper
-          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
+          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> {
+        view.hideBonus()
+        view.hideLevelUp()
+      }
       paymentMethodsMapper
-          .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
-      else -> view.showBonus()
+          .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> {
+        view.hideBonus()
+        view.hideLevelUp()
+      }
+      else -> {
+        if (closeToLevelUp) view.showLevelUp()
+        else view.showBonus()
+      }
     }
   }
 

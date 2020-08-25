@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.support.SupportInteractor
@@ -84,4 +85,8 @@ class PaymentMethodsInteract(private val walletService: WalletService,
   fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod
 
   fun getLastUsedPaymentMethod(): String = inAppPurchaseInteractor.lastUsedPaymentMethod
+
+  fun getUserStatus(): Single<GamificationStats> {
+    return gamificationInteractor.getUserStats()
+  }
 }

@@ -133,6 +133,18 @@ class GamificationMapper(private val context: Context) {
     }
   }
 
+  fun mapLevelUpPercentage(level: Int): Int {
+    return when (level) {
+      0, 1, 2, 3 -> 80
+      4 -> 90
+      5 -> 93
+      6 -> 94
+      7 -> 98
+      8, 9 -> 95
+      else -> 98
+    }
+  }
+
   fun getOvalBackground(levelColor: Int): Drawable? {
     val ovalBackground =
         ResourcesCompat.getDrawable(context.resources, R.drawable.oval_grey_background, null)
@@ -140,6 +152,16 @@ class GamificationMapper(private val context: Context) {
       DrawableCompat.setTint(drawable.mutate(), levelColor)
     }
     return ovalBackground
+  }
+
+  fun getRectangleGamificationBackground(levelColor: Int): Drawable? {
+    val rectangleGamificationLevel =
+        ResourcesCompat.getDrawable(context.resources, R.drawable.rectangle_gamification_level,
+            null)
+    rectangleGamificationLevel?.let { drawable ->
+      DrawableCompat.setTint(drawable.mutate(), levelColor)
+    }
+    return rectangleGamificationLevel
   }
 
   private fun getDrawable(@DrawableRes drawable: Int) =

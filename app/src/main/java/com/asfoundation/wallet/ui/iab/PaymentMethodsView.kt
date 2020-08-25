@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
@@ -93,6 +94,15 @@ interface PaymentMethodsView {
 
   fun navigateToPayment(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int,
                         isPreselected: Boolean)
+
+  fun setLevelUpInformation(gamificationLevel: Int, progress: Double,
+                            currentLevelBackground: Drawable,
+                            nextLevelBackground: Drawable,
+                            levelColor: Int)
+
+  fun showLevelUp()
+
+  fun hideLevelUp()
 
 
   enum class SelectedPaymentMethod {
