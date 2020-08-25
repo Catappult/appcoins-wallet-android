@@ -14,6 +14,10 @@ interface GamificationLocalData {
 
   fun setGamificationLevel(gamificationLevel: Int): Completable
 
+  fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean
+
+  fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable
+
   fun getPromotions(): Single<List<PromotionsResponse>>
 
   fun deletePromotions(): Completable

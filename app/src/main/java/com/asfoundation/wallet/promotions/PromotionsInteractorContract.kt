@@ -9,6 +9,7 @@ interface PromotionsInteractorContract {
   fun retrievePromotions(): Single<PromotionsModel>
 
   fun hasAnyPromotionUpdate(referralsScreen: ReferralsScreen,
-                            gamificationScreen: GamificationScreen): Single<Boolean>
+                            gamificationScreen: GamificationScreen,
+                            promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean>
 
 }

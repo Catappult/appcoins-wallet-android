@@ -33,6 +33,14 @@ class BdsPromotionsRepository(
     return local.saveShownLevel(wallet, level, screen)
   }
 
+  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
+    return local.getSeenGenericPromotion(wallet, id, screen)
+  }
+
+  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
+    return local.setSeenGenericPromotion(wallet, id, screen)
+  }
+
   override fun getForecastBonus(wallet: String, packageName: String,
                                 amount: BigDecimal): Single<ForecastBonus> {
     return api.getForecastBonus(wallet, packageName, amount, "APPC")

@@ -6,6 +6,8 @@ import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
+import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
@@ -70,9 +72,14 @@ class GamificationInteractor(
     }
   }
 
-  fun hasNewLevel(screen: GamificationScreen): Single<Boolean> {
-    return defaultWallet.find()
-        .flatMap { gamification.hasNewLevel(it.address, screen.toString()) }
+  fun hasNewLevel(gamificationResponse: GamificationResponse?,
+                  screen: GamificationScreen): Single<Boolean> {
+    return if (gamificationResponse == null || gamificationResponse.status != PromotionsResponse.Status.ACTIVE) {
+      Single.just(false)
+    } else {
+      defaultWallet.find()
+          .flatMap { gamification.hasNewLevel(it.address, screen.toString()) }
+    }
   }
 
   fun levelShown(level: Int, screen: GamificationScreen): Completable {

@@ -24,7 +24,8 @@ class DefaultItem(
 class FutureItem(
     id: String,
     val title: String,
-    val icon: String?
+    val icon: String?,
+    val endDate: Long
 ) : Promotion(id)
 
 class ProgressItem(

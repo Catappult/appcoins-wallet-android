@@ -19,14 +19,20 @@ class ReferralInteractor(
     private val promotionsRepository: PromotionsRepository) :
     ReferralInteractorContract {
 
-  override fun hasReferralUpdate(friendsInvited: Int, isVerified: Boolean,
+  override fun hasReferralUpdate(referralResponse: ReferralResponse?,
                                  screen: ReferralsScreen): Single<Boolean> {
-    return defaultWallet.find()
-        .flatMap { wallet ->
-          getReferralInformation(wallet.address, screen)
-              .map { hasDifferentInformation(friendsInvited.toString() + isVerified, it) }
-        }
-
+    return if (referralResponse == null || referralResponse.status != PromotionsResponse.Status.ACTIVE) {
+      Single.just(false)
+    } else {
+      defaultWallet.find()
+          .flatMap { wallet ->
+            getReferralInformation(wallet.address, screen)
+                .map {
+                  val verified = referralResponse.link != null
+                  hasDifferentInformation(referralResponse.completed.toString() + verified, it)
+                }
+          }
+    }
   }
 
   override fun retrieveReferral(): Single<ReferralModel> {

@@ -19,6 +19,10 @@ interface PromotionsRepository {
 
   fun shownLevel(wallet: String, level: Int, screen: String): Completable
 
+  fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean
+
+  fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable
+
   fun getUserStatus(wallet: String): Single<UserStatusResponse>
 
   fun getReferralUserStatus(wallet: String): Single<ReferralResponse>

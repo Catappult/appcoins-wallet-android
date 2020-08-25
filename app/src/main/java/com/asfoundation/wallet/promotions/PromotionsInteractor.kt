@@ -10,8 +10,11 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.util.concurrent.TimeUnit
 
 class PromotionsInteractor(private val referralInteractor: ReferralInteractorContract,
@@ -38,11 +41,18 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                 mapToPromotionsModel(userStatsResponse, level)
               }
           )
+              .flatMap { model ->
+                setSeenGenericPromotion(model.promotions, it.address,
+                    PromotionUpdateScreen.PROMOTIONS)
+                    .toSingle { model }
+              }
         }
+
   }
 
   override fun hasAnyPromotionUpdate(referralsScreen: ReferralsScreen,
-                                     gamificationScreen: GamificationScreen): Single<Boolean> {
+                                     gamificationScreen: GamificationScreen,
+                                     promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
     return findWalletInteract.find()
         .flatMap { wallet ->
           promotionsRepo.getUserStatus(wallet.address)
@@ -51,28 +61,45 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                     it.promotions.firstOrNull { promotionsResponse -> promotionsResponse is GamificationResponse } as GamificationResponse?
                 val referral =
                     it.promotions.firstOrNull { referralResponse -> referralResponse is ReferralResponse } as ReferralResponse?
-
-                val gamificationAvailable = gamification?.status == PromotionsResponse.Status.ACTIVE
-                val referralsAvailable = referral?.status == PromotionsResponse.Status.ACTIVE
-
-                when {
-                  gamificationAvailable && referralsAvailable -> {
-                    Single.zip(
-                        referralInteractor.hasReferralUpdate(referral!!.completed,
-                            referral.link != null, ReferralsScreen.PROMOTIONS),
-                        gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS),
-                        BiFunction { hasReferralUpdate: Boolean, hasNewLevel: Boolean ->
-                          hasReferralUpdate || hasNewLevel
-                        })
-                  }
-                  gamificationAvailable -> gamificationInteractor.hasNewLevel(
-                      GamificationScreen.PROMOTIONS)
-                  referralsAvailable -> referralInteractor.hasReferralUpdate(referral!!.completed,
-                      referral.link != null,
-                      ReferralsScreen.PROMOTIONS)
-                  else -> Single.just(false)
-                }
+                val generic =
+                    it.promotions.filter { promotionsResponse -> promotionsResponse !is GamificationResponse && promotionsResponse !is ReferralResponse }
+                Single.zip(
+                    referralInteractor.hasReferralUpdate(referral, ReferralsScreen.PROMOTIONS),
+                    gamificationInteractor.hasNewLevel(gamification, GamificationScreen.PROMOTIONS),
+                    hasGenericUpdate(generic, wallet.address, promotionUpdateScreen),
+                    Function3 { hasReferralUpdate: Boolean, hasNewLevel: Boolean, hasGenericUpdate: Boolean ->
+                      hasReferralUpdate || hasNewLevel || hasGenericUpdate
+                    })
               }
+        }
+  }
+
+  private fun hasGenericUpdate(promotions: List<PromotionsResponse>, wallet: String,
+                               screen: PromotionUpdateScreen): Single<Boolean> {
+    return Single.create {
+      val hasUpdate = promotions.any { promotion ->
+        val genericResponse = promotion as GenericResponse
+        promotionsRepo.getSeenGenericPromotion(wallet, genericResponse.id + "_" + promotion.endDate,
+            screen.name)
+            .not()
+      }
+      it.onSuccess(hasUpdate)
+    }
+  }
+
+  private fun setSeenGenericPromotion(promotions: List<Promotion>, wallet: String,
+                                      screen: PromotionUpdateScreen): Completable {
+    return Observable.fromIterable(promotions)
+        .flatMapCompletable {
+          when (it) {
+            is FutureItem -> promotionsRepo.setSeenGenericPromotion(wallet,
+                it.id + "_" + it.endDate, screen.name)
+            is DefaultItem -> promotionsRepo.setSeenGenericPromotion(wallet,
+                it.id + "_" + it.endDate, screen.name)
+            is ProgressItem -> promotionsRepo.setSeenGenericPromotion(wallet,
+                it.id + "_" + it.endDate, screen.name)
+            else -> Completable.complete()
+          }
         }
   }
 
@@ -161,7 +188,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
-    return FutureItem(genericResponse.id, genericResponse.title, genericResponse.icon)
+    return FutureItem(genericResponse.id, genericResponse.title, genericResponse.icon,
+        genericResponse.endDate)
   }
 
   private fun isValidGamificationLink(linkedPromotionId: String?,

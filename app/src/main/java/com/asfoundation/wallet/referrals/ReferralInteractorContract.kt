@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.referrals
 
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 
 interface ReferralInteractorContract {
 
-  fun hasReferralUpdate(friendsInvited: Int, isVerified: Boolean,
+  fun hasReferralUpdate(referralResponse: ReferralResponse?,
                         screen: ReferralsScreen): Single<Boolean>
 
   fun retrieveReferral(): Single<ReferralModel>

@@ -16,7 +16,9 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
 
   companion object {
     private const val SHOWN_LEVEL = "shown_level"
+    private const val SHOWN_GENERIC = "shown_generic"
     private const val SCREEN = "screen_"
+    private const val ID = "id_"
     private const val GAMIFICATION_LEVEL = "gamification_level"
   }
 
@@ -28,6 +30,19 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     return Completable.fromCallable {
       preferences.edit()
           .putInt(getKey(wallet, screen), level)
+          .apply()
+    }
+  }
+
+  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
+    return preferences.getBoolean(getKeyGeneric(wallet, screen, id),
+        false)
+  }
+
+  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
+    return Completable.fromCallable {
+      preferences.edit()
+          .putBoolean(getKeyGeneric(wallet, screen, id), true)
           .apply()
     }
   }
@@ -48,6 +63,9 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
       SHOWN_LEVEL + wallet + SCREEN + screen
     }
   }
+
+  private fun getKeyGeneric(wallet: String, screen: String, id: String) =
+      SHOWN_GENERIC + wallet + SCREEN + screen + ID + id
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     return promotionDao.getAll()
