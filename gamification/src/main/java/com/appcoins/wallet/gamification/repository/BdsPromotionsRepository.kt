@@ -9,8 +9,7 @@ import java.net.UnknownHostException
 
 class BdsPromotionsRepository(
     private val api: GamificationApi,
-    private val local: GamificationLocalData) :
-    PromotionsRepository {
+    private val local: GamificationLocalData) : PromotionsRepository {
 
   private fun getUserStats(wallet: String): Single<UserStatusResponse> {
     return api.getUserStats(wallet)
@@ -19,9 +18,10 @@ class BdsPromotionsRepository(
               .andThen(local.insertPromotions(userStats.promotions))
               .toSingle { userStats }
         }
-        .onErrorResumeNext {
+        .onErrorResumeNext { t ->
           local.getPromotions()
-              .map { UserStatusResponse(it) }
+              .map { mapErrorToUserStatsModel(it, t) }
+              .onErrorReturn { mapErrorToUserStatsModel(t) }
         }
   }
 
@@ -59,29 +59,58 @@ class BdsPromotionsRepository(
   override fun getGamificationStats(wallet: String): Single<GamificationStats> {
     return getUserStats(wallet)
         .map { mapToGamificationStats(it) }
-        .onErrorReturn { map(it) }
         .flatMap {
           local.setGamificationLevel(it.level)
               .toSingle { it }
         }
   }
 
-  private fun map(throwable: Throwable): GamificationStats {
-    throwable.printStackTrace()
-    return if (isNoNetworkException(throwable)) {
+  private fun map(status: Status): GamificationStats {
+    return if (status == Status.NO_NETWORK) {
       GamificationStats(GamificationStats.Status.NO_NETWORK)
     } else {
       GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
     }
   }
 
+  private fun mapErrorToUserStatsModel(throwable: Throwable): UserStatusResponse {
+    throwable.printStackTrace()
+    return if (isNoNetworkException(throwable)) {
+      UserStatusResponse(emptyList(), Status.NO_NETWORK)
+    } else {
+      UserStatusResponse(emptyList(), Status.UNKNOWN_ERROR)
+    }
+  }
+
+  private fun mapErrorToUserStatsModel(promotions: List<PromotionsResponse>,
+                                       throwable: Throwable): UserStatusResponse {
+    return if (promotions.isEmpty()) {
+      throwable.printStackTrace()
+      return if (isNoNetworkException(throwable)) {
+        UserStatusResponse(emptyList(), Status.NO_NETWORK)
+      } else {
+        UserStatusResponse(emptyList(), Status.UNKNOWN_ERROR)
+      }
+    } else {
+      UserStatusResponse(promotions, null)
+    }
+  }
+
   private fun mapToGamificationStats(response: UserStatusResponse): GamificationStats {
-    val gamification =
-        response.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse
-    return GamificationStats(GamificationStats.Status.OK, gamification.level,
-        gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
-        gamification.totalEarned,
-        PromotionsResponse.Status.ACTIVE == gamification.status)
+    return if (response.error != null) {
+      map(response.error)
+    } else {
+      val gamification =
+          response.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
+      if (gamification == null) {
+        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
+      } else {
+        GamificationStats(GamificationStats.Status.OK, gamification.level,
+            gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
+            gamification.totalEarned,
+            PromotionsResponse.Status.ACTIVE == gamification.status)
+      }
+    }
   }
 
   override fun getLevels(wallet: String): Single<Levels> {
@@ -107,39 +136,34 @@ class BdsPromotionsRepository(
 
   override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
     return getUserStats(wallet)
-        .flatMap { userStats ->
+        .flatMap { userStatusResponse ->
           val gamification =
-              userStats.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse
-          local.setGamificationLevel(gamification.level)
-              .toSingle { userStats }
+              userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
+          if (userStatusResponse.error != null || gamification == null) {
+            Single.just(userStatusResponse)
+          } else {
+            local.setGamificationLevel(gamification.level)
+                .toSingle { userStatusResponse }
+          }
         }
         .doOnError {
           it.printStackTrace()
         }
-
-  }
-
-  override fun getGamificationUserStatus(wallet: String): Single<GamificationResponse> {
-    return getUserStats(wallet)
-        .map { userStats ->
-          userStats.promotions.first { it is GamificationResponse } as GamificationResponse
-        }
-        .flatMap {
-          local.setGamificationLevel(it.level)
-              .toSingle { it }
-        }
-        .map { it }
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
     return getUserStats(wallet)
         .flatMap {
           val gamification =
-              it.promotions.firstOrNull { promotions -> promotions is GamificationResponse } as GamificationResponse
+              it.promotions.firstOrNull { promotions -> promotions is GamificationResponse } as GamificationResponse?
           val referral =
-              it.promotions.firstOrNull { promotions -> promotions is ReferralResponse } as ReferralResponse
-          local.setGamificationLevel(gamification.level)
-              .toSingle { referral }
+              it.promotions.firstOrNull { promotions -> promotions is ReferralResponse } as ReferralResponse?
+          if (gamification != null) {
+            local.setGamificationLevel(gamification.level)
+                .toSingle { referral }
+          } else {
+            Single.just(referral)
+          }
         }
         .map { it }
   }

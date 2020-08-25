@@ -85,6 +85,10 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     retry_animation.visibility = GONE
   }
 
+  override fun hideNetworkErrorView() {
+    no_network.visibility = GONE
+  }
+
   override fun showNoPromotionsScreen() {
     no_network.visibility = GONE
     retry_animation.visibility = GONE

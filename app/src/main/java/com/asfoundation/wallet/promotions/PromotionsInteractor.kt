@@ -149,7 +149,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(gamificationAvailable, referralsAvailable, promotions, maxBonus)
+    return PromotionsModel(gamificationAvailable, referralsAvailable, promotions, maxBonus,
+        userStatus.error)
   }
 
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions
 
+import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -29,6 +30,7 @@ class PromotionsFragmentPresenter(
         .observeOn(viewScheduler)
         .doOnSubscribe {
           view.hidePromotions()
+          view.hideNetworkErrorView()
           view.showLoading()
         }
         .doOnSuccess { onPromotions(it) }
@@ -37,11 +39,13 @@ class PromotionsFragmentPresenter(
 
   private fun onPromotions(promotionsModel: PromotionsModel) {
     view.hideLoading()
-    if (promotionsModel.promotions.isNotEmpty()) {
-      cachedBonus = promotionsModel.maxBonus
-      view.showPromotions(promotionsModel)
-    } else {
-      view.showNoPromotionsScreen()
+    when {
+      promotionsModel.error == Status.NO_NETWORK -> view.showNetworkErrorView()
+      promotionsModel.promotions.isNotEmpty() -> {
+        cachedBonus = promotionsModel.maxBonus
+        view.showPromotions(promotionsModel)
+      }
+      else -> view.showNoPromotionsScreen()
     }
   }
 
@@ -56,6 +60,7 @@ class PromotionsFragmentPresenter(
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
         .doOnNext { retrievePromotions() }
         .subscribe({}, { handleError(it) }))
   }
