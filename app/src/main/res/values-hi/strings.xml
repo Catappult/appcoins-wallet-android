@@ -29,7 +29,7 @@
   <string name="no_camera_permission">क्यूआर कोड स्कैन के लिए AppCoins BDS Wallet को आपका कैमरा उपयोग करने की अनुमति की जरूरत है।</string>
   <string name="ok">ठीक</string>
   <string name="barcode_error_format">अमान्य बारकोड प्रारूप: %s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">आप निश्चित रूप से यह वॉलेट हटाना चाहते हैं?</string>
   <string name="twitter">ट्विटर</string>
   <string name="telegram">टेलीग्राम समूह</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">सभी विवरण जाँच रहा है: शेष राशि, वस्तुएं, नेटवर्क…</string>
   <string name="activity_iab_buying_message">विवरण जांचे गए \nआपकी वस्तु प्राप्त कर रहा है…</string>
   <string name="activity_iab_change_card">कार्ड बदलें</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">आपका इनाम संसाधित कर रहा है</string>
   <string name="notification_completed_poa">इनाम प्राप्त हुआ!👌 आपको ऐप्स परखते हुए इनाम जीतने के लिए %1$sघं%2$sमि तक प्रतीक्षा करनी होगी ⏰!</string>
   <string name="notification_poa_limit_reached">आप अपनी दैनिक इनाम सीमा तक पहुँच गए। %1$sघं%2$sमि में वापस आ कर पुनः प्रयास करें!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">कार्ड नंबर</string>
   <string name="dialog_credit_card_expiration">समाप्ति तिथि</string>
   <string name="dialog_credit_card_cvv">सीवीवी</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_expiry_date">Expiry date</string>
   <string name="activity_airdrop_title">AppCoins प्राप्त करने के लिए पुष्टि करें कि आप एक मानव हैं</string>
   <string name="activity_airdrop_details">यह केवल एक सुरक्षा की बात है।</string>
   <string name="activity_airdrop_hint">छवि में दिए गए शब्द लिखें</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणों से, हमें आपके वॉलेट को एक एसएमएस कोड से सत्यापित करना होगा।</string>
   <string name="verification_insert_phone_title">अपना फोन नंबर डालें</string>
   <string name="verification_insert_phone_body">पुरस्कार पाने के लिए अपना वॉलेट सत्यापित करें! हम आपको एक सत्यापन कोड भेजेंगे।</string>
-  <string name="verification_insert_phone_field_country">देश</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अमान्य फोन नंबर</string>
   <string name="verification_insert_phone_field_region_error">यह क्षेत्र अभी समर्थित नहीं है।</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">पुरस्कार पाएँ और मित्रों को आमंत्रित करें</string>
   <string name="verification_settings_verified_title">वॉलेट सत्यापित</string>
   <string name="verification_settings_no_internet">आपको इंटरनेट से जुड़े रहना चाहिए</string>
+  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
+  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
+  <string name="verified_tag">Verified</string>
+  <string name="unferified_tag">Unverified</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">संभवतः यह खरीद पहले से ही संसाधित की जा रही है। कृपया लेनदेन पूरा होने तक होल्ड करें या हमारी सहायता टीम से संपर्क करें।</string>
   <string name="purchase_more_payment_methods_button">अन्य भुगतान विधि</string>
   <string name="purchase_appcoins_available_body">शुल्क भुगतान के लिए आप ETH की एक अल्प राशि का उपयोग करेंगे।</string>
   <string name="purchase_appcoins_noavailable_body">आपके पास इस खरीद के लिए पर्याप्त AppCoins या Ether नहीं हैं।</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">कोई शुल्क नहीं और बिजली सी तेजी!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">आपके पास पर्याप्त APPC Credits नहीं हैं, टॉप अप से प्रयास करें!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">आपने इस खरीद के लिए पर्याप्त AppCoins Credits अर्जित किये। आनंद लें!</string>
   <string name="purchase_poa_item">ऐप्स परखते हुए फंड अर्जित करें</string>
   <string name="purchase_poa_body">कोई एप्प 2 मिनट तक परखें और AppCoins Credits अर्जित करें!</string>
@@ -461,14 +470,17 @@
   <string name="purchase_card_error_security">क्या आपकी सुरक्षा जानकारी बिलकुल सही है? कृपया पुनः प्रयास करें।</string>
   <string name="purchase_card_error_wrong_CVV">आपका सीवीवी/सीवीसी कोड गलत लग रहा है। कृपया पुनः प्रयास करें।</string>
   <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
+  <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
   <string name="purchase_card_error_CVV">गलत सीवीवी/सीवीसी</string>
   <string name="error_contac_us_body">अगर समस्या रहती है तो कृपया हमसे संपर्क करें।</string>
   <!--Async Payments-->
   <string name="async_steps_title">अगले चरण</string>
   <string name="async_steps_1">%s के साथ अपना भुगतान पूरा करें। आपके वॉलेट में AppCoins Credits मिलने के बाद आपको सूचित किया जाएगा।</string>
   <string name="async_steps_2">गेम में वापस जाएँ और AppCoins Credits का उपयोग भुगतान विधि के रूप में करके खरीदारी करें।</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">%s के साथ अपना भुगतान पूरा करें।</string>
   <string name="async_steps_2_no_notification">जब आप AppCoins Credits प्राप्त कर लेते हैं, तो गेम में वापस जाएँ और AppCoins Credits का उपयोग भुगतान विधि के रूप में करके खरीदारी करें।</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">आपके AppCoins Credits आ गए!</string>
   <string name="async_notification_body">AppCoins Credits का उपयोग करके खरीदारी करने के लिए %s पर वापस जाएँ।</string>
   <!--Referral Program-->
@@ -558,7 +570,7 @@
   <string name="error_invalid_keystore">अमान्य कीस्टोर</string>
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_tooltip_backup_button">बैकअप लें</string>
   <string name="backup_notification_title">Make a backup of your wallet!</string>
   <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
   <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
@@ -588,7 +600,7 @@
   <string name="remove_wallet_title">वॉलेट हटाएँ</string>
   <string name="remove_wallet_body">हम इसे हटाने से पहले वॉलेट का बैकअप लेने की अनुशंसा करते हैं। बैकअप नहीं लिए जाने पर आप इसे फिर से उपयोग नहीं कर पाएंगे।</string>
   <string name="remove_wallet_backup_button">वॉलेट का बैकअप लें</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_no_backup_button">वॉलेट हटाएँ</string>
   <string name="remove_wallet_confirm_body">आप निश्चित रूप से यह वॉलेट हटाना चाहते हैं?</string>
   <string name="remove_wallet_no_button">नहीं, पीछे जाएँ</string>
   <string name="remove_wallet_yes_button">हाँ, वॉलेट हटाएँ</string>
@@ -642,7 +654,7 @@
   <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
-  <string name="subscriptions_cancel_no_button">NO, GO BACK</string>
+  <string name="subscriptions_cancel_no_button">नहीं, पीछे जाएँ</string>
   <string name="subscriptions_cancel_yes_button">YES, CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
@@ -654,8 +666,8 @@
   <string name="subscriptions_per_year">%1$s%2$s/year</string>
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
-  <string name="gamif_bonus_received">Bonus received</string>
-  <string name="gamif_spent">Amount spent to reach this level</string>
+  <string name="gamif_bonus_received">बोनस प्राप्त हुआ</string>
+  <string name="gamif_spent">यह लेवल पाने के लिए खर्च राशि</string>
   <string name="gamif_show_previous">Show previous achievements</string>
   <string name="gamif_hide_previous">Hide previous achievements</string>
   <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
@@ -696,8 +708,51 @@
   <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
   <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
   <string name="gamif_placeholder_planetx">Planet %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">an unknown planet</string>
   <string name="gamif_distance_unkown">Unknown location</string>
   <string name="gamif_placeholder_new_planet">a new planet</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Carrier billing</string>
+  <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
+  <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
+  <string name="carrier_billing_phone_field">Your phone number...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s will charge a fee of %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s in %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
+  <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
+  <string name="carrier_billing_code_field">Your code...</string>
+  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
+  <string name="carrier_billing_submit_button">SUBMIT</string>
+  <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
+  <string name="carrier_billing_help_1">Need help?</string>
+  <string name="carrier_billing_help_2_button">Contact Support</string>
+  <string name="carrier_billing_terms_button">Terms and Conditions</string>
+  <string name="carrier_billing_privacy_button">Privacy Policy</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_manage_title">Manage cards</string>
+  <string name="manage_cards_view_title">Manage cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
+  <string name="manage_cards_add_title">Add new card</string>
+  <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
+  <string name="manage_cards_remove_no">NO, CANCEL</string>
+  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
+  <string name="manage_cards_card_ending_body">Card ending in %s</string>
+  <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
+  <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
+  <string name="manage_cards_select_title">Select payment card</string>
+  <string name="manage_cards_remember">Remember card</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
+  <string name="perks_title">Promotions</string>
+  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_end_in_days">The promotion ends in %s days.</string>
+  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_available_soon">Promotion available soon</string>
+  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
+  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
+  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
+  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
 </resources>

@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">ਸਾਰੇ ਵੇਰਵਿਆਂ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ: ਬਚੀ ਰਕਮ, ਚੀਜ਼ਾਂ, ਨੈਟਵਰਕ…</string>
   <string name="activity_iab_buying_message">ਵੇਰਵੇ ਚੈੱਕ ਕੀਤੇ ਗਏ \nਤੁਹਾਡੀ ਆਈਟਮ ਪ੍ਰਾਪਤ ਹੋ ਰਹੀ ਹੈ…</string>
   <string name="activity_iab_change_card">ਕਾਰਡ ਬਦਲੋ</string>
+  <string name="activity_iab_fees">ਫੀਸ</string>
   <string name="notification_ongoing_poa">ਤੁਹਾਡੇ ਇਨਾਮ ਦੀ ਪ੍ਰੋਸੈਸਿੰਗ ਹੋ ਰਹੀ ਹੈ</string>
   <string name="notification_completed_poa">ਇਨਾਮ ਮਿਲਿਆ!👌 ਹੋਰ ਇਨਾਮ ਜਿੱਤਣ ਲਈ ਤੁਹਾਨੂੰ %1$sh%2$sm ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ ⏰!</string>
   <string name="notification_poa_limit_reached">ਤੁਸੀਂ ਆਪਣੀ ਰੋਜ਼ਾਨਾ ਇਨਾਮਾਂ ਦੀ ਸੀਮਾ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ| ⏰ %1$sh%2$sm ਬਾਦ ਵਾਪਸ ਆਓ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
   <string name="dialog_credit_card_expiration">ਐਕਸਪਾਈਰੀ ਦੀ ਤਾਰੀਖ</string>
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
+  <string name="dialog_bank_card">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ</string>
+  <string name="dialog_expiry_date">ਆਖਰੀ ਤਾਰੀਖ</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
   <string name="activity_airdrop_hint">ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਸ਼ਬਦਾਂ ਨੂੰ ਟਾਈਪ ਕਰੋ</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">ਸੁਰੱਖਿਆ ਲਈ ਸਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਇੱਕ ਐਸਐਮਐਸ ਕੋਡ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="verification_insert_phone_title">ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਭਰੋ</string>
   <string name="verification_insert_phone_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ! ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਤਸਦੀਕ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
-  <string name="verification_insert_phone_field_country">ਦੇਸ਼</string>
+  <string name="verification_insert_phone_field_country">ਆਪਣਾ ਦੇਸ਼/ਖੇਤਰ ਚੁਣੋ</string>
   <string name="verification_insert_phone_field_number">ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_number_error">ਗਲਤ ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_region_error">ਇਹ ਜਗ੍ਹਾ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ ਅਤੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
   <string name="verification_settings_verified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
   <string name="verification_settings_no_internet">ਤੁਹਾਨੂੰ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ</string>
+  <string name="verification_error_time_expired">ਓਹ ਹੋ, ਤੁਹਾਡਾ ਸਮਾਂ ਖਤਮ ਹੋ ਗਿਆ ਹੈ| ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ!</string>
+  <string name="verification_error_attempts_reached">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕੋਸ਼ਿਸ਼ਾਂ ਦੀ ਸੀਮਾ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ|. ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਉਡੀਕ ਕਰੋ ਜੀ|</string>
+  <string name="verified_tag">ਪ੍ਰਮਾਣਿਤ</string>
+  <string name="unferified_tag">ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ਇੰਝ ਲਗਦਾ ਹੈ ਕਿ ਖਰੀਦ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਪ੍ਰੋਸੈਸ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਪੂਰੀ ਹੋਣ ਤੱਕ ਰੁਕੋ ਜਾਂ ਸਾਡੀ ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_more_payment_methods_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
   <string name="purchase_appcoins_available_body">ਫ਼ੀਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਥੋੜ੍ਹੇ ਜਿਹੇ ਈਥਰ ਦਾ ਇਸਤੇਮਾਲ ਕਰੋਗੇ|</string>
   <string name="purchase_appcoins_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਜਾਂ ਈਥਰ ਨਹੀਂ ਹੈ|</string>
+  <string name="purchase_no_eth_body">ਤੁਹਾਡੇ ਕੋਲ ਗੈਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਈਟੀਐਚ ਨਹੀਂ ਹੈ|</string>
+  <string name="purchase_no_appcoins_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਲੋੜੀਂਦੇ ਐਪ ਸਿੱਕੇ ਨਹੀਂ ਹਨ</string>
   <string name="purchase_appcoins_credits_available_body">ਕੋਈ ਫੀਸ ਨਹੀਂ ਅਤੇ ਬਿਜਲੀ ਵਾਂਗ ਤੇਜ਼!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਕਾਫ਼ੀ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨਹੀਂ ਹਨ, ਐਪ ਸਿੱਕੇ ਭਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨਹੀਂ ਹਨ, ਸਿੱਕੇ ਭਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="purchase_appcoins_credits_default_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਲਏ| ਆਨੰਦ ਮਾਣੋ!</string>
   <string name="purchase_poa_item">ਐਪਾਂ ਇਸਤੇਮਾਲ ਕਰ ਕੇ ਪੂੰਜੀ ਕਮਾਓ</string>
   <string name="purchase_poa_body">ਇੱਕ ਐਪ 2 ਮਿੰਟ ਲਈ ਵਰਤੋ ਅਤੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!</string>
@@ -460,15 +469,18 @@
   <string name="purchase_card_error_not_supported">ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਕਿਸਮ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ| ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="purchase_card_error_security">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਸੁਰੱਖਿਆ ਜਾਣਕਾਰੀ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
-  <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
+  <string name="purchase_wallet_error_contact_us">ਓਹ ਹੋ, ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_carrier_error">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <!--Async Payments-->
   <string name="async_steps_title">ਅਗਲੇ ਕਦਮ</string>
   <string name="async_steps_1">%s ਨਾਲ ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ| ਜਦੋਂ ਤੁਸੀਂ ਆਪਣੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ ਤਾਂ ਤੁਹਾਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਜਾਵੇਗਾ|</string>
   <string name="async_steps_2">ਗੇਮ ਤੇ ਵਾਪਸ ਜਾਓ ਅਤੇ ਭੁਗਤਾਨ ਲਈ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਖਰੀਦ ਕਰੋ|</string>
+  <string name="async_steps_topup_2">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਗੇਮਾਂ ਵਿੱਚ ਖਰੀਦਾਰੀ ਕਰਨ ਲਈ ਇਹ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਰਤੋ!</string>
   <string name="async_steps_1_no_notification">%s ਨਾਲ ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ|</string>
   <string name="async_steps_2_no_notification">ਇੱਕ ਵਾਰ ਜਦੋਂ ਤੁਸੀਂ ਐਪ ਸਿਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਦੇ ਹੋ, ਤਾਂ ਗੇਮ ਵਿੱਚ ਵਾਪਸ ਜਾਓ ਅਤੇ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਰੂਪ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਖਰੀਦ ਕਰੋ|</string>
+  <string name="async_steps_2_toptup_no_notification">ਇੱਕ ਵਾਰ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਨ ਤੇ, ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਗੇਮਾਂ ਵਿੱਚ ਖਰੀਦਾਰੀ ਕਰਨ ਲਈ ਇਹ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਰਤੋ!</string>
   <string name="async_notification_title">ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆ ਗਏ!</string>
   <string name="async_notification_body">ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੀ ਵਰਤੋਂ ਨਾਲ ਖਰੀਦ ਕਰਨ ਲਈ %s ਤੇ ਵਾਪਸ ਜਾਓ|</string>
   <!--Referral Program-->
@@ -653,51 +665,94 @@
   <string name="subscriptions_per_month">%1$s%2$s/ਮਹੀਨਾ</string>
   <string name="subscriptions_per_year">%1$s%2$s/ਸਾਲ</string>
   <!--New Gamification-->
-  <string name="gamif_title">Up to %s%% Bonus!</string>
-  <string name="gamif_bonus_received">Bonus received</string>
-  <string name="gamif_spent">Amount spent to reach this level</string>
-  <string name="gamif_show_previous">Show previous achievements</string>
-  <string name="gamif_hide_previous">Hide previous achievements</string>
-  <string name="gamif_next_goals">Spend %s AppCoins to reach next level</string>
-  <string name="gamif_achievement_start">You started your journey</string>
-  <string name="gamif_achievement_start_sub">Just left Earth!</string>
-  <string name="gamif_achievement_reach">You reached %s</string>
-  <string name="gamif_card_start">You\'re still on Earth</string>
-  <string name="gamif_card_title">You\'re on %s</string>
-  <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
-  <string name="gamif_bonus">%s%% Bonus</string>
-  <string name="gamif_placeholder_earth">Earth</string>
-  <string name="gamif_quote_earth">\"The Earth is what we all have in common\" – Wendell Berry</string>
-  <string name="gamif_placeholder_moon">the Moon</string>
-  <string name="gamif_quote_moon">\"That\'s one small step for a man, one giant leap for mankind\" – Neil Armstrong</string>
-  <string name="gamif_distance_moon">384,400 km from Earth</string>
-  <string name="gamif_placeholder_mars">Mars</string>
-  <string name="gamif_quote_mars">\"I would like to die on Mars. Just not on impact.\" – Elon Musk</string>
-  <string name="gamif_distance_mars">121.8 million km from Earth</string>
-  <string name="gamif_placeholder_phobos">the Phobos moon</string>
-  <string name="gamif_quote_phobos">\"Everyone is a moon, and has a dark side which he never shows to anybody.\" – Mark Twain</string>
-  <string name="gamif_distance_phobos">77.79 million km from Earth</string>
-  <string name="gamif_placeholder_jupiter">Jupiter</string>
-  <string name="gamif_quote_jupiter">\"All truths are easy to understand once they are discovered; the point is to discover them...\" – Galileo Galilei</string>
-  <string name="gamif_distance_jupiter">623.31 million km from Earth</string>
-  <string name="gamif_placeholder_europa">Europa moon</string>
-  <string name="gamif_quote_europa">\"If you find life on Europa, what would you call it? Would it be, like, Europeans?\" – Neil DeGrasse Tyson</string>
-  <string name="gamif_distance_europa">628.3 million km from Earth</string>
-  <string name="gamif_placeholder_saturn">Saturn</string>
-  <string name="gamif_quote_saturn">\"The scientific theory I like best is that the rings of Saturn are composed entirely of lost airline luggage.\" – Mark Russell</string>
-  <string name="gamif_distance_saturn">1.35 billion km from Earth</string>
-  <string name="gamif_placeholder_titan">Titan moon</string>
-  <string name="gamif_quote_titan">\"I\'m sure the universe is full of intelligent life. It\'s just been too intelligent to come here.\" – Arthur C.Clarke</string>
-  <string name="gamif_distance_titan">1.4 billion km from Earth</string>
-  <string name="gamif_placeholder_uranus">Uranus</string>
-  <string name="gamif_quote_uranus">\"The moons of Uranus seem to have got a twist.\" – Sir Robert Stawell Ball</string>
-  <string name="gamif_distance_uranus">3.03 billion km from Earth</string>
-  <string name="gamif_placeholder_neptune">Neptune</string>
-  <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
-  <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
-  <string name="gamif_placeholder_planetx">Planet %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
-  <string name="gamif_placeholder_unknown">an unknown planet</string>
-  <string name="gamif_distance_unkown">Unknown location</string>
-  <string name="gamif_placeholder_new_planet">a new planet</string>
+  <string name="gamif_title">%s%% ਤੱਕ ਦਾ ਬੋਨਸ!</string>
+  <string name="gamif_bonus_received">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
+  <string name="gamif_spent">ਇਸ ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਖਰਚ ਕੀਤੀ ਰਕਮ</string>
+  <string name="gamif_show_previous">ਪਿਛਲੀਆਂ ਪ੍ਰਾਪਤੀਆਂ ਦਿਖਾਓ</string>
+  <string name="gamif_hide_previous">ਪਿਛਲੀਆਂ ਪ੍ਰਾਪਤੀਆਂ ਨੂੰ ਲੁਕਾਓ</string>
+  <string name="gamif_next_goals">ਅਗਲੇ ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ %s ਐਪਸਿੱਕੇ ਖਰਚ ਕਰੋ|</string>
+  <string name="gamif_achievement_start">ਤੁਸੀਂ ਆਪਣੀ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕੀਤੀ</string>
+  <string name="gamif_achievement_start_sub">ਹੁਣੇ ਧਰਤੀ ਛੱਡੀ!</string>
+  <string name="gamif_achievement_reach">ਤੁਸੀਂ %s ਤੱਕ ਪਹੁੰਚ ਗਏ</string>
+  <string name="gamif_card_start">ਤੁਸੀਂ ਅਜੇ ਵੀ ਧਰਤੀ ਤੇ ਹੋ</string>
+  <string name="gamif_card_title">ਤੁਸੀਂ %s ਤੇ ਹੋ</string>
+  <string name="gamif_card_body">ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ %s ਹੋਰ ਐਪਸਿੱਕੇ ਖਰਚ ਕਰੋ|</string>
+  <string name="gamif_bonus">%s%% ਬੋਨਸ</string>
+  <string name="gamif_placeholder_earth">ਧਰਤੀ</string>
+  <string name="gamif_quote_earth">\"ਧਰਤੀ ਉਹ ਹੈ ਜੋ ਸਾਡੇ ਸਾਰਿਆਂ ਵਿੱਚ ਸਾਂਝੀ ਹੈ\" - ਵੈਂਡਲ ਬੇਰੀ</string>
+  <string name="gamif_placeholder_moon">ਚੰਦਰਮਾ</string>
+  <string name="gamif_quote_moon">\"ਉਹ ਮਨੁੱਖ ਲਈ ਇੱਕ ਛੋਟਾ ਜਿਹਾ ਕਦਮ ਹੈ, ਮਨੁੱਖਜਾਤੀ ਲਈ ਇਕ ਵਿਸ਼ਾਲ ਛਾਲ\" - ਨੀਲ ਆਰਮਸਟ੍ਰਾਂਗ</string>
+  <string name="gamif_distance_moon">ਧਰਤੀ ਤੋਂ 384,400 ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_mars">ਮੰਗਲ</string>
+  <string name="gamif_quote_mars">\"ਮੈਂ ਮੰਗਲ ਤੇ ਮਰਨਾ ਚਾਹਾਂਗਾ। ਪ੍ਰਭਾਵ ਤੇ ਬਿਲਕੁਲ ਨਹੀਂ.\" - ਇਲੋਨ ਮਸਕ</string>
+  <string name="gamif_distance_mars">ਧਰਤੀ ਤੋਂ 12.18 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_phobos">ਫੋਬੋਸ ਚੰਦਰਮਾ</string>
+  <string name="gamif_quote_phobos">\"ਹਰ ਕੋਈ ਇੱਕ ਚੰਦਰਮਾ ਹੈ, ਅਤੇ ਉਸ ਦਾ ਇੱਕ ਹਨੇਰੇ ਵਾਲਾ ਪਾਸਾ ਹੁੰਦਾ ਹੈ ਜੋ ਉਹ ਕਦੇ ਕਿਸੇ ਨੂੰ ਨਹੀਂ ਦਿਖਾਉਂਦਾ.\" - ਮਾਰਕ ਟਵੇਨ</string>
+  <string name="gamif_distance_phobos">ਧਰਤੀ ਤੋਂ 7.779 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_jupiter">ਬ੍ਰਿਹਸ੍ਪਤਿ</string>
+  <string name="gamif_quote_jupiter">“ਸਾਰੀਆਂ ਸੱਚਾਈਆਂ ਇਕ ਵਾਰ ਪਤਾ ਲੱਗ ਜਾਣ ਤੇ ਸਮਝਣੀਆਂ ਅਸਾਨ ਹਨ; ਗੱਲ ਹੈ ਉਨ੍ਹਾਂ ਨੂੰ ਖੋਜਣ ਦੀ...\" - ਗੈਲੀਲੀਓ ਗੈਲੀਲੀ</string>
+  <string name="gamif_distance_jupiter">ਧਰਤੀ ਤੋਂ 62.331 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_europa">ਯੂਰੋਪਾ ਚੰਦਰਮਾ</string>
+  <string name="gamif_quote_europa">\"ਜੇ ਤੁਹਾਨੂੰ ਯੂਰੋਪਾ ਤੇ ਜ਼ਿੰਦਗੀ ਮਿਲਦੀ ਹੈ, ਤੁਸੀਂ ਉਸ ਨੂੰ ਕੀ ਕਹੋਗੇ? ਕੀ ਉਹ ਯੂਰਪੀਅਨ ਲੋਕਾਂ ਵਰਗੀ ਹੋਵੇਗੀ?\" - ਨੀਲ ਡੀਗ੍ਰੈਸ ਟਾਇਸਨ</string>
+  <string name="gamif_distance_europa">ਧਰਤੀ ਤੋਂ 62.83 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_saturn">ਸ਼ਨੀ</string>
+  <string name="gamif_quote_saturn">\"ਵਿਗਿਆਨਕ ਸਿਧਾਂਤ ਜੋ ਮੈਂ ਸਭ ਤੋਂ ਵੱਧ ਪਸੰਦ ਕਰਦਾ ਹਾਂ ਉਹ ਇਹ ਹੈ ਕਿ ਸ਼ਨੀ ਦੇ ਚੱਕਰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਹਵਾਈ ਏਅਰ ਲਾਈਨ ਦੇ ਗੁੰਮ ਹੋਏ ਸਮਾਨ ਦੇ ਬਣੇ ਹੁੰਦੇ ਹਨ|\" - ਮਾਰਕ ਰਸਲ</string>
+  <string name="gamif_distance_saturn">ਧਰਤੀ ਤੋਂ 135 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_titan">ਟਾਈਟਨ ਚੰਦਰਮਾ</string>
+  <string name="gamif_quote_titan">\"ਮੈਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਬ੍ਰਹਿਮੰਡ ਬੁੱਧੀਮਾਨ ਜ਼ਿੰਦਗੀ ਨਾਲ ਭਰਪੂਰ ਹੈ| ਇਥੇ ਆਉਣਾ ਇੰਨਾ ਬੁੱਧੀਮਾਨ ਹੋਣਾ ਰਿਹਾ|\" - ਆਰਥਰ ਸੀ. ਕਲਾਰਕ</string>
+  <string name="gamif_distance_titan">ਧਰਤੀ ਤੋਂ 140 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_uranus">ਯੂਰੇਨਸ</string>
+  <string name="gamif_quote_uranus">\"ਯੂਰੇਨਸ ਦੇ ਚੰਦਰਮਾ ਨੂੰ ਇਕ ਮਰੋੜ ਆਇਆ ਜਾਪਦਾ ਹੈ|\"- ਸਰ ਰੌਬਰਟ ਸਟਾਵੈਲ ਬਾਲ</string>
+  <string name="gamif_distance_uranus">ਧਰਤੀ ਤੋਂ 303 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_neptune">ਨੈਪਚਿਊਨ</string>
+  <string name="gamif_quote_neptune">\"ਉਹ ਤਾਰਾ ਚਾਰਟ ਤੇ ਨਹੀਂ ਹੈ!\" - ਨੈਪਚਿਊਨ ਦੀ ਖੋਜ ਕਰਨ ਤੇ ਹੇਨਰਿਕ ਡੀ ਆਰਸਟ|</string>
+  <string name="gamif_distance_neptune">ਧਰਤੀ ਤੋਂ 442 ਕਰੋੜ ਕਿਲੋਮੀਟਰ</string>
+  <string name="gamif_placeholder_planetx">ਗ੍ਰਹਿ %s</string>
+  <string name="gamif_quote_planetx">\"ਕਿਤੇ, ਕੋਈ ਅਸਚਰਜ ਚੀਜ਼ ਜਾਣਨ ਦੀ ਉਡੀਕ ਵਿੱਚ ਹੈ\" - ਕਾਰਲ ਸਾਗਨ</string>
+  <string name="gamif_placeholder_unknown">ਇੱਕ ਅਣਜਾਣ ਗ੍ਰਹਿ</string>
+  <string name="gamif_distance_unkown">ਅਣਜਾਣ ਸਥਾਨ</string>
+  <string name="gamif_placeholder_new_planet">ਇਕ ਨਵਾਂ ਗ੍ਰਹਿ</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">ਕੈਰੀਅਰ ਬਿਲਿੰਗ</string>
+  <string name="carrier_billing_fees_disclaimer">ਵਾਧੂ ਫੀਸ ਲਾਗੂ ਹੋ ਸਕਦੀ ਹੈ</string>
+  <string name="carrier_billing_insert_phone_body">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਪਾਓ</string>
+  <string name="carrier_billing_phone_field">ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s ਫੀਸ %2$s ਲਵੇਗਾ</string>
+  <string name="carrier_billing_purchase_info_body">%2$s ਵਿੱਚ %1$s|</string>
+  <string name="carrier_billing_phone_confirmation_body">ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ %s ਹੈ|</string>
+  <string name="carrier_billing_enter_pin_body">ਕਿਰਪਾ ਕਰਕੇ ਐਸਐਮਐਸ ਦੁਆਰਾ ਪ੍ਰਾਪਤ ਕੀਤਾ ਕੋਡ ਭਰੋ|</string>
+  <string name="carrier_billing_code_field">ਤੁਹਾਡਾ ਕੋਡ...</string>
+  <string name="carrier_billing_code_resend_button">ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ</string>
+  <string name="carrier_billing_submit_button">ਜਮ੍ਹਾਂ ਕਰੋ</string>
+  <string name="carrier_billing_terms_disclaimer">ਜਮ੍ਹਾਂ ਕਰੋ ਤੇ ਦੱਬ ਕੇ, ਤੁਸੀਂ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰਦੇ ਹੋ|</string>
+  <string name="carrier_billing_help_1">ਮਦਦ ਦੀ ਲੋੜ ਹੈ?</string>
+  <string name="carrier_billing_help_2_button">ਸਹਾਇਤਾ ਸੰਪਰਕ</string>
+  <string name="carrier_billing_terms_button">ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ</string>
+  <string name="carrier_billing_privacy_button">ਗੋਪਨੀਯਤਾ ਨੀਤੀ</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਸ਼ਾਮਲ ਕਰੋ</string>
+  <string name="manage_cards_settings_manage_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+  <string name="manage_cards_view_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+  <string name="manage_cards_view_manage_subtitle">ਆਪਣੇ ਭੁਗਤਾਨ ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+  <string name="manage_cards_add_title">ਨਵਾਂ ਕਾਰਡ ਸ਼ਾਮਲ ਕਰੋ</string>
+  <string name="manage_cards_remove_confirmation">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਕਾਰਡ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="manage_cards_remove_no">ਨਹੀਂ, ਰੱਦ ਕਰੋ</string>
+  <string name="manage_cards_remove_yes">ਹਾਂ, ਇਸਨੂੰ ਹਟਾਓ</string>
+  <string name="manage_cards_card_ending_body">%s ਨਾਲ ਖਤਮ ਹੋ ਰਿਹਾ ਕਾਰਡ</string>
+  <string name="manage_cards_error_details">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਦਾ ਵੇਰਵਾ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ!</string>
+  <string name="manage_cards_error_card_problem">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਨਾਲ ਕੋਈ ਸਮੱਸਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="manage_cards_select_title">ਭੁਗਤਾਨ ਕਾਰਡ ਦੀ ਚੋਣ ਕਰੋ</string>
+  <string name="manage_cards_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">ਹਰ ਖਰੀਦ ਤੇ %s%% ਬੋਨਸ ਕਮਾਓ</string>
+  <string name="perks_gamif_subtitle">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨਾ ਜ਼ਿਆਦਾ ਖਰਚੋਗੇ, ਓਨਾ ਵੱਡਾ ਬੋਨਸ ਹੋਵੇਗਾ!</string>
+  <string name="perks_title">ਪ੍ਰਚਾਰ</string>
+  <string name="perks_body">ਸਾਡੇ ਨਾਲ ਜੁੜੇ ਰਹੇ! ਸਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਲਈ ਵਿਸ਼ੇਸ਼ ਆਫਰਾਂ ਹਨ|</string>
+  <string name="perks_end_in_days">ਆਫਰ %s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
+  <string name="perks_end_in_date">ਆਫਰ %s ਨੂੰ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
+  <string name="perks_available_soon">ਆਫਰ ਜਲਦੀ ਉਪਲਬਧ ਹੋਵੇਗੀ</string>
+  <string name="perks_next_level_reward">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚੋ!</string>
+  <string name="perks_notification">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਬੋਨਸ ਦੇ ਰੂਪ ਵਿੱਚ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
+  <string name="perks_level_up_on_this_purchase">ਇਸ ਖਰੀਦ ਨਾਲ ਪੱਧਰ ਵਧਿਆ</string>
+  <string name="perks_level_up_amount_left">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੋਂ %1$s %2$s ਦੂਰ ਹੋ!</string>
 </resources>

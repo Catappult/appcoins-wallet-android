@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">အေသးစိတ္မ်ား အားလံုးကို စစ္ေဆးေနပါသည္ - ဟန္ခ်က္၊ ပစၥည္းမ်ား။ ကြန္ရက္…</string>
   <string name="activity_iab_buying_message">အေသးစိတ္မ်ားကို စစ္ေဆးၿပီးပါၿပီ \nသင့္ပစၥည္းကို ရယူေနပါသည္…</string>
   <string name="activity_iab_change_card">ကဒ္ကိုေျပာင္းမည္</string>
+  <string name="activity_iab_fees">ေၾကးမ်ား</string>
   <string name="notification_ongoing_poa">သင့္ဆုကို စီစဥ္ေဆာင္ရြက္ေနပါသည္</string>
   <string name="notification_completed_poa">ဆုကိုရရွိပါသည္။👌 အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ဆုမ်ားကိုပိုမိုရရွိႏိုင္ရန္ %1$sh%2$sm ေစာင့္ရပါမည္ ⏰။</string>
   <string name="notification_poa_limit_reached">သင့္ေန႔စဥ္ဆုကန္႔သတ္ခ်က္သို႔ ေရာက္သြားပါၿပီ။ ⏰ %1$sh%2$sm တြင္ျပန္လာကာ ထပ္ႀကိဳးစားပါ။</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">ကဒ္နံပါတ္</string>
   <string name="dialog_credit_card_expiration">သက္တမ္းကုန္သည့္ရက္</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္</string>
+  <string name="dialog_expiry_date">သက္တမ္းကုန္ရက္</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
   <string name="activity_airdrop_details">ယင္းသည္ လံုၿခံဳေရးကိစၥအတြက္သာ ျဖစ္ပါသည္။</string>
   <string name="activity_airdrop_hint">ပံုတြင္ စကားလံုးမ်ားကို ႐ိုက္ထည့္ပါ</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">လံုၿခံဳေရး အေၾကာင္းရင္းမ်ားအတြက္ သင့္ပိုက္ဆံအိတ္ကို SMS ကုဒ္တစ္ခုျဖင့္ အတည္ျပဳရန္ လိုအပ္ပါသည္။</string>
   <string name="verification_insert_phone_title">သင့္ဖုန္းနံပါတ္ကိုထည့္ပါ</string>
   <string name="verification_insert_phone_body">ဆုမ်ားကို ရရွိရန္ သင့္ပိုက္္ဆံအိတ္ကို အတည္ျပဳပါ။ အတည္ျပဳရန္ ကုဒ္တစ္ခုကို ေပးပို႔ပါမည္။</string>
-  <string name="verification_insert_phone_field_country">ႏိုင္ငံ</string>
+  <string name="verification_insert_phone_field_country">သင့္ႏိုင္ငံ/ေဒသကို ေရြးခ်ယ္ပါ</string>
   <string name="verification_insert_phone_field_number">ဖုန္းနံပါတ္</string>
   <string name="verification_insert_phone_field_number_error">ဖုန္းနံပါတ္ မမွန္ကန္ပါ</string>
   <string name="verification_insert_phone_field_region_error">ေဒသကို မပံ့ပိုးေပးေသးပါ။</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">ဆုမ်ားကို ရယူကာ သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚလိုက္ပါ</string>
   <string name="verification_settings_verified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳၿပီးပါၿပီ</string>
   <string name="verification_settings_no_internet">အင္တာနက္ခ်ိတ္ဆက္ထားရန္ လိုအပ္ပါသည္</string>
+  <string name="verification_error_time_expired">အိုုး သင့္အခ်ိန္ကုန္သြားပါၿပီ။ ျပန္လည္စတင္ပါ။</string>
+  <string name="verification_error_attempts_reached">ျပန္လည္ႀကိဳးစားမႈ အကန္႔အသတ္သို႔ သင္ေရာက္ရွိသြားပံုရပါသည္။ ထပ္ႀကိဳးစားရန္ ေစာင့္ေပးပါ။</string>
+  <string name="verified_tag">အတည္ျပဳထားေသာ</string>
+  <string name="unferified_tag">အတည္မျပဳထားေသာ</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ဤ၀ယ္ယူမႈကို ေဆာင္ရြက္ေပးၿပီး ျဖစ္ပံုရပါသည္။ ေငြလႊဲေျပာင္းမႈ ၿပီးစီးသည္အထိ ေစာင့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔၏ ပံ့ပိုးေရးအဖြဲ႕သို႔ ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_more_payment_methods_button">အျခား ေငြေပးေခ်ရန္နည္းလမ္းမ်ား</string>
   <string name="purchase_appcoins_available_body">က်သင့္ေငြမ်ားကို ေပးရန္အတြက္ ETH ပမာဏအနည္းငယ္ကို သင္အသံုးျပဳမည္ ျဖစ္ပါသည္။</string>
   <string name="purchase_appcoins_noavailable_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins သို႔မဟုတ္ Ether လံုေလာက္စြာ မရွိပါ။</string>
+  <string name="purchase_no_eth_body">ဂက္စ္အတြက္ ေပးေခ်ရန္ သင့္တြင္ ETH လံုေလာက္စြာ မရွိပါ။</string>
+  <string name="purchase_no_appcoins_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins လံုေလာက္စြာ မရွိပါ။</string>
   <string name="purchase_appcoins_credits_available_body">က်သင့္ေငြမရွိသလို အလြန္ပင္ ျမန္ဆန္ပါသည္။</string>
-  <string name="purchase_appcoins_credits_noavailable_body">သင့္တြင္ APPC Credit မ်ား လံုေလာက္စြာမရွိပါ။ ေငြျဖည့္ၾကည့္ပါ။</string>
+  <string name="purchase_appcoins_credits_noavailable_body">သင့္တြင္ AppCoins Credit မ်ား လံုေလာက္စြာမရွိပါ။ ေငြျဖည့္ၾကည့္ပါ။</string>
   <string name="purchase_appcoins_credits_default_body">ဤ၀ယ္ယူမႈအတြက္ AppCoins Credit မ်ား သင့္ထံတြင္ လံုေလာက္စြာ ရွိပါသည္။ အသံုးျပဳလိုက္ပါ။</string>
   <string name="purchase_poa_item">အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ေငြေၾကးမ်ားကို ရယူလိုက္ပါ</string>
   <string name="purchase_poa_body">အက္ပ္တစ္ခုကို ၂ မိနစ္ၾကာေအာင္ စမ္းသံုးၾကည့္ကာ AppCoins Credit မ်ားကို ရယူလိုက္ပါ။</string>
@@ -461,14 +470,17 @@
   <string name="purchase_card_error_security">လံုၿခံဳေရး သတင္းအခ်က္အလက္ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_wallet_error_contact_us">အိုး သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
+  <string name="purchase_carrier_error">သင့္ဖုန္းနံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <!--Async Payments-->
   <string name="async_steps_title">ေနာက္ထပ္အဆင့္မ်ား</string>
   <string name="async_steps_1">သင့္ေငြေပးေခ်မႈကို %s ျဖင့္ ၿပီးေအာင္လုပ္လိုက္ပါ။ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credits မ်ားကို ရရွိသည္ႏွင့္ သင့္အားအသိေပးပါမည္။</string>
   <string name="async_steps_2">ဂိမ္းသို႔ျပန္သြားကာ AppCoins Credits ကို ေငြေပးေခ်မႈနည္းလမ္းအျဖစ္ အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ပါ။</string>
+  <string name="async_steps_topup_2">သင့္စိတ္ႀကိဳက္ဂိမ္းမ်ားတြင္ ဝယ္ယူမႈမ်ား ျပဳလုပ္ရန္အတြက္ ဤ AppCoins Credits မ်ားကို အသံုးျပဳပါ။</string>
   <string name="async_steps_1_no_notification">သင့္ေငြေပးေခ်မႈကို %s ျဖင့္ ၿပီးေအာင္လုပ္လိုက္ပါ။</string>
   <string name="async_steps_2_no_notification">AppCoins Credits မ်ားကို သင္ရရွိသည္ႏွင့္ ဂိမ္းသို႔ျပန္သြားကာ AppCoins Credits မ်ားကို ေငြေပးေခ်မႈနည္းလမ္းအျဖစ္ အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ပါ။</string>
+  <string name="async_steps_2_toptup_no_notification">AppCoins Credits မ်ားကို သင္ရရွိသည္ႏွင့္ သင့္စိတ္ႀကိဳက္ဂိ္မ္းမ်ားတြင္ ဝယ္ယူမႈမ်ားျပဳလုပ္ရန္ အသံုးျပဳလိုက္ပါ။</string>
   <string name="async_notification_title">သင့္ AppCoins Credits မ်ား ေရာက္လာပါၿပီ။</string>
   <string name="async_notification_body">AppCoins Credits မ်ားကို အသံုးျပဳ၍ ၀ယ္ယူမႈကို ျပဳလုပ္ရန္အတြက္ %s သို့ ျပန္သြားပါ။</string>
   <!--Referral Program-->
@@ -699,4 +711,47 @@
   <string name="gamif_placeholder_unknown">အမည္မသိၿဂိဳဟ္တစ္လံုး</string>
   <string name="gamif_distance_unkown">အမည္မသိ တည္ေနရာ</string>
   <string name="gamif_placeholder_new_planet">ၿဂိဳဟ္အသစ္တစ္လံုး</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">ဖုန္း၀န္ေဆာင္မႈေပးသူ ေငြေကာက္ခံျခင္း</string>
+  <string name="carrier_billing_fees_disclaimer">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္</string>
+  <string name="carrier_billing_insert_phone_body">သင့္ဖုန္းနံပါတ္ကို ထည့္ေပးပါ</string>
+  <string name="carrier_billing_phone_field">သင့္ဖုန္းနံပါတ္...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s သည္ အခေၾကးေငြအျဖစ္ %2$s ေကာက္ခံပါမည္</string>
+  <string name="carrier_billing_purchase_info_body">%2$s တြင္ %1$s။</string>
+  <string name="carrier_billing_phone_confirmation_body">သင့္ဖုန္းနံပါတ္မွာ %s ျဖစ္ပါသည္။</string>
+  <string name="carrier_billing_enter_pin_body">SMS မွတဆင့္ရရွိေသာ PIN ကို ထည့္ေပးပါ။</string>
+  <string name="carrier_billing_code_field">သင့္ကုဒ္...</string>
+  <string name="carrier_billing_code_resend_button">ကုဒ္ျပန္ပို႔ပါ</string>
+  <string name="carrier_billing_submit_button">ေပးပို႔မည္</string>
+  <string name="carrier_billing_terms_disclaimer">ေပးပို႔မည္တြင္ ႏွိပ္ျခင္းျဖင့္ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကိုယ္ေရးလံုျခံဳမႈ မူ၀ါဒတို႔ကို သင္လက္ခံေၾကာင္း အတည္ျပဳျခင္း ျဖစ္ပါသည္။</string>
+  <string name="carrier_billing_help_1">အကူအညီ လိုအပ္ပါသလား။</string>
+  <string name="carrier_billing_help_2_button">ပံ့ပိုးမႈအား ဆက္သြယ္ပါ။</string>
+  <string name="carrier_billing_terms_button">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
+  <string name="carrier_billing_privacy_button">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
+  <string name="manage_cards_settings_manage_title">ကဒ္မ်ားကို စီမံမည္</string>
+  <string name="manage_cards_view_title">ကဒ္မ်ားကို စီမံမည္</string>
+  <string name="manage_cards_view_manage_subtitle">သင့္ေငြေပးေခ်မႈ ကဒ္မ်ားကို စီမံမည္</string>
+  <string name="manage_cards_add_title">ကဒ္အသစ္ကိုထည့္မည္</string>
+  <string name="manage_cards_remove_confirmation">ဤကဒ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
+  <string name="manage_cards_remove_no">မဟုတ္ပါ။ ပယ္ဖ်က္မည္</string>
+  <string name="manage_cards_remove_yes">ဟုတ္ပါသည္။ ဖယ္ထုတ္မည္</string>
+  <string name="manage_cards_card_ending_body">%s ျဖင့္ဆံုးေသာကဒ္</string>
+  <string name="manage_cards_error_details">သင့္ကဒ္အေသးစိတ္အခ်က္မ်ား မွန္ကန္သည္မွာ ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="manage_cards_error_card_problem">သင့္ကဒ္တြင္ ျပႆနာတစ္ခု ရွိပံုရပါသည္။ အျခားတစ္ကဒ္ျဖင့္ စမ္းသံုးၾကည့္ပါ။</string>
+  <string name="manage_cards_select_title">ေငြေပးေခ်မည့္ကဒ္ကို ေရြးခ်ယ္ပါ</string>
+  <string name="manage_cards_remember">ကဒ္ကို သတိရပါ</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">ဝယ္ယူမႈတိုင္းအတြက္ %s%% ေဘာနပ္စ္ရယူလိုက္ပါ</string>
+  <string name="perks_gamif_subtitle">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ မ်ားမ်ားပို၍ သံုးစြဲေလ ေဘာနပ္စ္ပိုမ်ားေလ ျဖစ္ပါသည္။</string>
+  <string name="perks_title">ပ႐ိုမိုးရွင္းမ်ား</string>
+  <string name="perks_body">နားစြင့္ထားလိုက္ပါ။ သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား ရွိပါသည္။</string>
+  <string name="perks_end_in_days">ပ႐ိုမိုးရွင္းသည္ %s ရက္ၾကာလွ်င္ သက္တမ္းကုန္ပါမည္။</string>
+  <string name="perks_end_in_date">ပ႐ိုမိုးရွင္းသည္ %s တြင္ သက္တမ္းကုန္ပါမည္။</string>
+  <string name="perks_available_soon">မၾကာမီ ပ႐ိုမိုးရွင္းမ်ား ရရွိပါမည္</string>
+  <string name="perks_next_level_reward">%s AppCoins Credits မ်ားကို ရယူရန္ ေနာက္တစ္ဆင့္သို႔ ေရာက္ေအာင္သြားလိုက္ပါ။</string>
+  <string name="perks_notification">ေဘာနပ္စ္အျဖစ္ %s AppCoins Credits ကို သင္ရရွိပါသည္</string>
+  <string name="perks_level_up_on_this_purchase">ဤဝယ္ယူမႈျဖင့္ အဆင့္တက္လိုက္ပါ</string>
+  <string name="perks_level_up_amount_left">ေနာက္တစ္ဆင့္သို႔ သင္ေရာက္ရွိရန္ %1$s %2$s သာ လိုအပ္ပါသည္။</string>
 </resources>

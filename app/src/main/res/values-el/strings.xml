@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Γίνεται έλεγχος όλων των λεπτομερειών: υπόλοιπο, αντικείμενα, δίκτυο…</string>
   <string name="activity_iab_buying_message">Οι λεπτομέρειες ελέγχθηκαν \nΓίνεται λήψη του αντικειμένου σας…</string>
   <string name="activity_iab_change_card">ΑΛΛΑΓΗ ΚΑΡΤΑΣ</string>
+  <string name="activity_iab_fees">Χρεώσεις</string>
   <string name="notification_ongoing_poa">Γίνεται επεξεργασία της αμοιβής σας</string>
   <string name="notification_completed_poa">Ελήφθη αμοιβή!👌 Θα πρέπει να περιμένετε %1$s ώρα/ες και %2$s λεπτό/ά για να λάβετε περισσότερες αμοιβές δοκιμάζοντας εφαρμογές ⏰!</string>
   <string name="notification_poa_limit_reached">Έχετε φτάσει στο ημερήσιο όριο αμοιβών. ⏰Επιστρέψτε σε %1$s ώρα/ες και %2$s λεπτό/ά και προσπαθήστε ξανά!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">Αριθμός Κάρτας</string>
   <string name="dialog_credit_card_expiration">Ημερομηνία Λήξης</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Πιστωτική/χρεωστική κάρτα</string>
+  <string name="dialog_expiry_date">Ημερομηνία λήξης</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
   <string name="activity_airdrop_details">Αυτό γίνεται για λόγους ασφαλείας.</string>
   <string name="activity_airdrop_hint">Πληκτρολογήστε ό,τι βλέπετε στην εικόνα</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Για λόγους ασφαλείας, πρέπει να επαληθεύσουμε το wallet σας με έναν κωδικό SMS.</string>
   <string name="verification_insert_phone_title">Εισαγάγετε τον αριθμό τηλεφώνου σας</string>
   <string name="verification_insert_phone_body">Επαληθεύστε το wallet σας για να λαμβάνετε αμοιβές! Θα σας στείλουμε έναν κωδικό επαλήθευσης.</string>
-  <string name="verification_insert_phone_field_country">Χώρα</string>
+  <string name="verification_insert_phone_field_country">Επιλέξτε τη χώρα/περιοχή σας</string>
   <string name="verification_insert_phone_field_number">Αριθμός Τηλεφώνου</string>
   <string name="verification_insert_phone_field_number_error">Μη έγκυρος αριθμός τηλεφώνου</string>
   <string name="verification_insert_phone_field_region_error">Η περιοχή δεν υποστηρίζεται ακόμη.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Λάβετε αμοιβές και προσκαλέστε φίλους</string>
   <string name="verification_settings_verified_title">Το Wallet επαληθεύθηκε</string>
   <string name="verification_settings_no_internet">Πρέπει να συνδεθείτε στο διαδίκτυο</string>
+  <string name="verification_error_time_expired">Ωχ, ο χρόνος σας έληξε. Ξεκινήστε εκ νέου!</string>
+  <string name="verification_error_attempts_reached">Φαίνεται πως φτάσατε το όριο προσπαθειών. Παρακαλούμε, περιμένετε πριν προσπαθήσετε ξανά.</string>
+  <string name="verified_tag">Επαληθευμένο</string>
+  <string name="unferified_tag">Μη επαληθευμένο</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>
   <string name="purchase_more_payment_methods_button">ΑΛΛΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>
   <string name="purchase_appcoins_available_body">Θα χρησιμοποιήσετε ένα μικρό ποσό ETH για την πληρωμή των χρεώσεων.</string>
   <string name="purchase_appcoins_noavailable_body">Δεν έχετε αρκετά AppCoins ή Ether για αυτήν την αγορά.</string>
+  <string name="purchase_no_eth_body">Δεν έχετε αρκετά ETH για την πληρωμή του gas.</string>
+  <string name="purchase_no_appcoins_body">Δεν έχετε αρκετά AppCoins για την ολοκλήρωση αυτής της αγοράς.</string>
   <string name="purchase_appcoins_credits_available_body">Χωρίς χρεώσεις και εξαιρετικά γρήγορα!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετά APPC Credits, δοκιμάστε να κάνετε φόρτιση!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετά AppCoins Credits, δοκιμάστε να κάνετε φόρτιση!</string>
   <string name="purchase_appcoins_credits_default_body">Κερδίσατε αρκετά AppCoins Credits για αυτήν την αγορά. Απολαύστε!</string>
   <string name="purchase_poa_item">Κερδίστε χρήματα δοκιμάζοντας εφαρμογές</string>
   <string name="purchase_poa_body">Δοκιμάστε μια εφαρμογή για 2 λεπτά και κερδίστε AppCoins Credits!</string>
@@ -461,14 +470,17 @@
   <string name="purchase_card_error_security">Είστε βέβαιοι ότι οι πληροφορίες ασφαλείας είναι σωστές; Παρακαλούμε, δοκιμάστε ξανά.</string>
   <string name="purchase_card_error_wrong_CVV">Φαίνεται ότι ο κωδικός CVV/CVC είναι λανθασμένος. Παρακαλούμε, δοκιμάστε ξανά.</string>
   <string name="purchase_wallet_error_contact_us">Ωχ, κάτι δεν πάει καλά με το wallet σας. Παρακαλούμε, επικοινωνήστε μαζί μας.</string>
+  <string name="purchase_carrier_error">Φαίνεται πως ο αριθμός του τηλεφώνου σας δεν είναι συμβατός με αυτή τη μέθοδο πληρωμής.</string>
   <string name="purchase_card_error_CVV">Εσφαλμένο CVV/CVC</string>
   <string name="error_contac_us_body">Εάν το πρόβλημα επιμένει, παρακαλούμε επικοινωνήστε μαζί μας.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Επόμενα Βήματα</string>
   <string name="async_steps_1">Ολοκληρώστε την πληρωμή σας με %s. Θα ειδοποιηθείτε μόλις λάβετε τα AppCoins Credits στο wallet σας.</string>
   <string name="async_steps_2">Επιστρέψτε στο παιχνίδι και πραγματοποιήστε την αγορά, χρησιμοποιώντας τα AppCoins Credits ως μέθοδο πληρωμής.</string>
+  <string name="async_steps_topup_2">Χρησιμοποιήστε αυτά τα AppCoins Credits για να πραγματοποιήσετε αγορές στα αγαπημένα σας παιχνίδια!</string>
   <string name="async_steps_1_no_notification">Ολοκληρώστε την πληρωμή σας με %s.</string>
   <string name="async_steps_2_no_notification">Μόλις λάβετε τα AppCoins Credits, επιστρέψτε στο παιχνίδι και πραγματοποιήστε την αγορά χρησιμοποιώντας τα AppCoins Credits ως μέθοδο πληρωμής.</string>
+  <string name="async_steps_2_toptup_no_notification">Μόλις λάβετε τα AppCoins Credits, χρησιμοποιήστε τα για να πραγματοποιήσετε αγορές στα αγαπημένα σας παιχνίδια!</string>
   <string name="async_notification_title">Τα AppCoins Credits σας είναι εδώ!</string>
   <string name="async_notification_body">Επιστρέψτε στο %s για να πραγματοποιήσετε την αγορά μέσω AppCoins Credits.</string>
   <!--Referral Program-->
@@ -700,4 +712,47 @@
   <string name="gamif_placeholder_unknown">σε έναν άγνωστο πλανήτη</string>
   <string name="gamif_distance_unkown">Άγνωστη τοποθεσία</string>
   <string name="gamif_placeholder_new_planet">σε έναν νέο πλανήτη</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Χρέωση μέσω παρόχου</string>
+  <string name="carrier_billing_fees_disclaimer">Ενδέχεται να ισχύουν επιπλέον χρεώσεις</string>
+  <string name="carrier_billing_insert_phone_body">Παρακαλούμε, εισαγάγετε τον αριθμό του τηλεφώνου σας</string>
+  <string name="carrier_billing_phone_field">Ο αριθμός του τηλεφώνου σας...</string>
+  <string name="carrier_billing_carrier_fees_body">Η %1$s θα επιβάλλει τέλος %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s για %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Ο αριθμός του τηλεφώνου σας είναι %s.</string>
+  <string name="carrier_billing_enter_pin_body">Παρακαλούμε, εισαγάγετε το PIN που ελήφθη μέσω SMS.</string>
+  <string name="carrier_billing_code_field">Ο κωδικός σας...</string>
+  <string name="carrier_billing_code_resend_button">ΝΕΑ ΑΠΟΣΤΟΛΗ ΚΩΔΙΚΟΥ</string>
+  <string name="carrier_billing_submit_button">ΥΠΟΒΟΛΗ</string>
+  <string name="carrier_billing_terms_disclaimer">Πατώντας Υποβολή, επιβεβαιώνετε ότι αποδέχεστε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου.</string>
+  <string name="carrier_billing_help_1">Χρειάζεστε βοήθεια;</string>
+  <string name="carrier_billing_help_2_button">Επικοινωνία με την Υποστήριξη</string>
+  <string name="carrier_billing_terms_button">Όροι και Προϋποθέσεις</string>
+  <string name="carrier_billing_privacy_button">Πολιτική Απορρήτου</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Προσθήκη πιστωτικής/χρεωστικής κάρτας</string>
+  <string name="manage_cards_settings_manage_title">Διαχείριση καρτών</string>
+  <string name="manage_cards_view_title">Διαχείριση καρτών</string>
+  <string name="manage_cards_view_manage_subtitle">Διαχειριστείτε τις κάρτες πληρωμής σας</string>
+  <string name="manage_cards_add_title">Προσθήκη νέας κάρτας</string>
+  <string name="manage_cards_remove_confirmation">Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτήν την κάρτα;</string>
+  <string name="manage_cards_remove_no">ΟΧΙ, ΑΚΥΡΩΣΗ</string>
+  <string name="manage_cards_remove_yes">ΝΑΙ, ΑΦΑΙΡΕΣΗ</string>
+  <string name="manage_cards_card_ending_body">Κάρτα που τελειώνει σε %s</string>
+  <string name="manage_cards_error_details">Είστε σίγουροι ότι οι πληροφορίες της κάρτας σας είναι σωστές; Παρακαλούμε προσπαθήστε ξανά!</string>
+  <string name="manage_cards_error_card_problem">Φαίνεται πως υπάρχει πρόβλημα με την κάρτα σας. Παρακαλούμε προσπαθήστε με μία άλλη.</string>
+  <string name="manage_cards_select_title">Επιλογή κάρτας πληρωμής</string>
+  <string name="manage_cards_remember">Αποθήκευση κάρτας</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Κερδίστε %s%% Bonus σε κάθε αγορά</string>
+  <string name="perks_gamif_subtitle">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το bonus!</string>
+  <string name="perks_title">Προωθήσεις</string>
+  <string name="perks_body">Μείνετε συντονισμένοι! Έχουμε ειδικές προωθήσεις για εσάς.</string>
+  <string name="perks_end_in_days">Η προώθηση τελειώνει σε %s ημέρες.</string>
+  <string name="perks_end_in_date">Η προώθηση τελειώνει στις %s.</string>
+  <string name="perks_available_soon">Η προώθηση θα είναι διαθέσιμη σύντομα</string>
+  <string name="perks_next_level_reward">Φτάστε στο επόμενο επίπεδο για να λάβετε %s AppCoins Credits!</string>
+  <string name="perks_notification">Μόλις λάβατε %s AppCoins Credits ως Bonus</string>
+  <string name="perks_level_up_on_this_purchase">Ανεβείτε στο επόμενο επίπεδο με αυτήν την αγορά</string>
+  <string name="perks_level_up_amount_left">Είστε %1$s %2$s μακριά από το επόμενο επίπεδο!</string>
 </resources>
