@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
+import android.content.Context
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
@@ -12,7 +13,6 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.transactions.PerkBonusRepository
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -27,6 +27,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(
+    private val context: Context,
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
     private val billingMessagesMapper: BillingMessagesMapper,
@@ -35,8 +36,7 @@ class AdyenPaymentInteractor(
     private val walletService: WalletService,
     private val supportInteractor: SupportInteractor,
     private val walletBlockedInteract: WalletBlockedInteract,
-    private val smsValidationInteract: SmsValidationInteract,
-    private val perkBonusRepository: PerkBonusRepository
+    private val smsValidationInteract: SmsValidationInteract
 ) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
@@ -156,12 +156,7 @@ class AdyenPaymentInteractor(
         }
   }
 
-  fun handlePerkTransactionNotification(): Completable {
-    return walletService.getWalletAddress()
-        .doOnSuccess { perkBonusRepository.handlePerkTransactionNotification(it) }
-        .ignoreElement()
-  }
-
+  fun getWalletAddress() = walletService.getWalletAddress()
 
   private fun isEndingState(status: TransactionResponse.Status): Boolean {
     return (status == TransactionResponse.Status.COMPLETED

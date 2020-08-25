@@ -172,7 +172,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
 
     for (Transaction transaction : transactionsModel.getTransactions()) {
       int viewType = TransactionHolder.VIEW_TYPE;
-      if (transaction.getType() == Transaction.TransactionType.BONUS) {
+      if (transaction.getSubType() == Transaction.SubType.PERK_PROMOTION) {
         viewType = PromotionsBonusViewHolder.VIEW_TYPE;
       }
       TransactionSortedItem sortedItem =

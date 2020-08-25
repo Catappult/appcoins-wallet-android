@@ -167,6 +167,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     })
   }
 
+  override fun launchPerkBonusService(address: String) {
+    topUpView.launchPerkBonusService(address)
+  }
+
   override fun showValues(value: String, currency: String) {
     main_value.visibility = VISIBLE
     val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)

@@ -274,6 +274,10 @@
       </intent-filter>
     </service>
 
+    <service
+        android:name="com.asfoundation.wallet.transactions.PerkBonusService"
+        android:exported="false" />
+
     <receiver
         android:name="com.asfoundation.wallet.advertise.PoAHandshakeReceiver"
         android:enabled="true"

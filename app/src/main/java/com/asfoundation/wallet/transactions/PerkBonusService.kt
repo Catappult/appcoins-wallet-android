@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.transactions
 
 import android.annotation.SuppressLint
+import android.app.IntentService
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.asf.wallet.R
@@ -13,30 +15,50 @@ import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import io.reactivex.Scheduler
+import dagger.android.AndroidInjection
 import java.math.BigDecimal
+import javax.inject.Inject
 import kotlin.math.pow
 
-class PerkBonusRepository(private val context: Context,
-                          private val notificationManager: NotificationManager,
-                          private val transactionRepository: TransactionRepositoryType,
-                          private val formatter: CurrencyFormatUtils,
-                          private val scheduler: Scheduler) {
+class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) {
+
+  @Inject
+  lateinit var transactionRepository: TransactionRepositoryType
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
+
+  private lateinit var notificationManager: NotificationManager
+
+  override fun onCreate() {
+    super.onCreate()
+    AndroidInjection.inject(this)
+  }
+
+  override fun onHandleIntent(intent: Intent?) {
+    val address = intent?.getStringExtra(ADDRESS_KEY)
+    address?.let {
+      notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+      handlePerkTransactionNotification(it)
+    }
+  }
 
   @SuppressLint("CheckResult")
   fun handlePerkTransactionNotification(address: String, timesCalled: Int = 0) {
-    transactionRepository.fetchNewTransactions(address)
-        .subscribeOn(scheduler)
-        .doOnSuccess {
-          if (it.isEmpty() && timesCalled < 4) {
-            handlePerkTransactionNotification(address, timesCalled + 1)
-          }
+    try {
+      val transactions = transactionRepository.fetchNewTransactions(address)
+          .blockingGet()
+      if (transactions.isEmpty() && timesCalled < 4) {
+        handlePerkTransactionNotification(address, timesCalled + 1)
+      } else {
+        val transactionValue = getPerkBonusTransactionValue(transactions)
+        if (transactionValue.isNotEmpty()) {
+          buildNotification(transactionValue)
         }
-        .filter { it.isNotEmpty() }
-        .map { getPerkBonusTransactionValue(it) }
-        .filter { it.isNotEmpty() }
-        .doOnSuccess { buildNotification(it) }
-        .subscribe({}, { it.printStackTrace() })
+      }
+    } catch (exception: Exception) {
+      exception.printStackTrace()
+    }
   }
 
   private fun buildNotification(value: String) {
@@ -45,8 +67,8 @@ class PerkBonusRepository(private val context: Context,
   }
 
   private fun createPositiveNotificationIntent(): PendingIntent {
-    val intent = TransactionsActivity.newIntent(context)
-    return PendingIntent.getActivity(context, 0, intent, 0)
+    val intent = TransactionsActivity.newIntent(this)
+    return PendingIntent.getActivity(this, 0, intent, 0)
   }
 
   private fun getPerkBonusTransactionValue(transactions: List<Transaction>): String {
@@ -69,10 +91,10 @@ class PerkBonusRepository(private val context: Context,
       val importance = NotificationManager.IMPORTANCE_HIGH
       val notificationChannel =
           NotificationChannel(channelId, channelName, importance)
-      builder = NotificationCompat.Builder(context, channelId)
+      builder = NotificationCompat.Builder(this, channelId)
       notificationManager.createNotificationChannel(notificationChannel)
     } else {
-      builder = NotificationCompat.Builder(context, channelId)
+      builder = NotificationCompat.Builder(this, channelId)
       builder.setVibrate(LongArray(0))
     }
     return builder.setContentTitle("You've earned $value APPC")
@@ -80,7 +102,7 @@ class PerkBonusRepository(private val context: Context,
         .setContentIntent(positiveIntent)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentText(context.getString(R.string.support_new_message_button))
+        .setContentText(getString(R.string.support_new_message_button))
   }
 
   private fun getScaledValue(valueStr: String?): String? {
@@ -93,5 +115,14 @@ class PerkBonusRepository(private val context: Context,
 
   companion object {
     private const val NOTIFICATION_SERVICE_ID = 77796
+    private const val ADDRESS_KEY = "ADDRESS_KEY"
+
+    @JvmStatic
+    fun buildService(context: Context, address: String) {
+      Intent(context, PerkBonusService::class.java).also { intent ->
+        intent.putExtra(ADDRESS_KEY, address)
+        context.startService(intent)
+      }
+    }
   }
 }

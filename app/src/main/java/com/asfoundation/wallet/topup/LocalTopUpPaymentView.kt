@@ -27,6 +27,8 @@ interface LocalTopUpPaymentView {
   fun showNetworkError()
 
   fun showRetryAnimation()
+
+  fun launchPerkBonusService(address: String)
 }
 
 enum class ViewState {

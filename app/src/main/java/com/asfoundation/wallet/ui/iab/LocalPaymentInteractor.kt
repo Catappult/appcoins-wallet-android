@@ -12,7 +12,6 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.transactions.PerkBonusRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -30,8 +29,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val smsValidationInteract: SmsValidationInteract,
-                             private val remoteRepository: RemoteRepository,
-                             private val perkBonusRepository: PerkBonusRepository) {
+                             private val remoteRepository: RemoteRepository) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
@@ -119,9 +117,5 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun isAsync(type: String) = type == "TOPUP"
 
-  fun handlePerkTransactionNotification(): Completable {
-    return walletService.getWalletAddress()
-        .doOnSuccess { perkBonusRepository.handlePerkTransactionNotification(it) }
-        .ignoreElement()
-  }
+  fun getWalletAddress() = walletService.getWalletAddress()
 }

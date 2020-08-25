@@ -116,13 +116,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
         onChainBuyInteract.getCompletedPurchase(transaction, isBds)
             .observeOn(viewScheduler)
             .map { buildBundle(it, transaction.orderReference) }
-            .flatMapCompletable { bundle ->
-              onChainBuyInteract.handlePerkTransactionNotification()
-                  .andThen(Completable.fromAction { view.showTransactionCompleted() })
-                  .subscribeOn(viewScheduler)
-                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                  .andThen(Completable.fromRunnable { view.finish(bundle) })
-            }
+            .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
             .onErrorResumeNext { Completable.fromAction { showError(it) } }
       }
       Payment.Status.NO_FUNDS -> Completable.fromAction { view.showNoFundsError() }
@@ -161,6 +155,17 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       else -> Completable.fromAction { showError(null) }
           .andThen(onChainBuyInteract.remove(transaction.uri))
     }
+  }
+
+  private fun handleSuccessTransaction(bundle: Bundle): Completable {
+    return onChainBuyInteract.getWalletAddress()
+        .flatMapCompletable {
+          Completable.fromAction { view.launchPerkBonusService(it) }
+        }
+        .andThen(Completable.fromAction { view.showTransactionCompleted() })
+        .subscribeOn(viewScheduler)
+        .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+        .andThen(Completable.fromRunnable { view.finish(bundle) })
   }
 
   private fun buildBundle(payment: Payment, orderReference: String?): Bundle {

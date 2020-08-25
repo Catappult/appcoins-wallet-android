@@ -228,13 +228,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       }
                       .subscribeOn(networkScheduler)
                       .observeOn(viewScheduler)
-                      .flatMapCompletable {
-                        adyenPaymentInteractor.handlePerkTransactionNotification()
-                            .andThen(Completable.fromAction { view.showSuccess() })
-                            .andThen(Completable.timer(view.getAnimationDuration(),
-                                TimeUnit.MILLISECONDS))
-                            .andThen(Completable.fromAction { navigator.popView(it) })
-                      }
+                      .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
                 }
                 isPaymentFailed(it.status) -> {
                   Completable.fromAction {
@@ -278,6 +272,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         view.showGenericError()
       }
     }
+  }
+
+  private fun handleSuccessTransaction(bundle: Bundle): Completable {
+    return adyenPaymentInteractor.getWalletAddress()
+        .flatMapCompletable { Completable.fromAction { view.launchPerkBonusService(it) } }
+        .andThen(Completable.fromAction { view.showSuccess() })
+        .andThen(Completable.timer(view.getAnimationDuration(),
+            TimeUnit.MILLISECONDS))
+        .andThen(Completable.fromAction { navigator.popView(bundle) })
   }
 
   private fun handleFraudFlow(@StringRes error: Int) {
