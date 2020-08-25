@@ -128,11 +128,30 @@ class ReferralViewHolder(itemView: View,
                          private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsViewHolder(itemView) {
 
+  companion object {
+    const val KEY_ACTION = "ACTION"
+    const val KEY_LINK = "LINK"
+    const val ACTION_DETAILS = "DETAILS"
+    const val ACTION_SHARE = "SHARE"
+  }
+
   override fun bind(promotion: Promotion) {
     val referralItem = promotion as ReferralItem
 
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      val extras = mapOf(
+          Pair(KEY_LINK, referralItem.link),
+          Pair(KEY_ACTION, ACTION_DETAILS)
+      )
+      clickListener.onNext(PromotionClick(promotion.id, extras))
+    }
+
+    itemView.share_container.setOnClickListener {
+      val extras = mapOf(
+          Pair(KEY_LINK, referralItem.link),
+          Pair(KEY_ACTION, ACTION_SHARE)
+      )
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     val formatter = CurrencyFormatUtils.create()

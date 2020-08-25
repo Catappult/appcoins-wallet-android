@@ -75,8 +75,13 @@ class PromotionsFragmentPresenter(
   private fun mapClickType(promotionClick: PromotionClick) {
     if (promotionClick.id == GAMIFICATION_ID) {
       activityView.navigateToGamification(cachedBonus)
-    } else if (promotionClick.id == REFERRAL_ID && promotionClick.extra != null) {
-      activityView.handleShare(promotionClick.extra)
+    } else if (promotionClick.id == REFERRAL_ID && promotionClick.extras != null) {
+      val link = promotionClick.extras[ReferralViewHolder.KEY_LINK]
+      if (promotionClick.extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
+        activityView.navigateToInviteFriends()
+      } else if (promotionClick.extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_SHARE && link != null) {
+        activityView.handleShare(link)
+      }
     }
   }
 

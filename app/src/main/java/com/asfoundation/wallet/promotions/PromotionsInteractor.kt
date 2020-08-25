@@ -10,7 +10,6 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
@@ -59,8 +58,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                 when {
                   gamificationAvailable && referralsAvailable -> {
                     Single.zip(
-                        hasReferralUpdate(referral!!.completed, referral.link != null,
-                            ReferralsScreen.PROMOTIONS),
+                        referralInteractor.hasReferralUpdate(referral!!.completed,
+                            referral.link != null, ReferralsScreen.PROMOTIONS),
                         gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS),
                         BiFunction { hasReferralUpdate: Boolean, hasNewLevel: Boolean ->
                           hasReferralUpdate || hasNewLevel
@@ -68,35 +67,13 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                   }
                   gamificationAvailable -> gamificationInteractor.hasNewLevel(
                       GamificationScreen.PROMOTIONS)
-                  referralsAvailable -> hasReferralUpdate(referral!!.completed,
+                  referralsAvailable -> referralInteractor.hasReferralUpdate(referral!!.completed,
                       referral.link != null,
                       ReferralsScreen.PROMOTIONS)
                   else -> Single.just(false)
                 }
               }
         }
-  }
-
-  //Referrals
-  override fun hasReferralUpdate(friendsInvited: Int, isVerified: Boolean,
-                                 screen: ReferralsScreen): Single<Boolean> {
-    return findWalletInteract.find()
-        .flatMap {
-          referralInteractor.hasReferralUpdate(it.address, friendsInvited, isVerified, screen)
-        }
-  }
-
-  override fun saveReferralInformation(friendsInvited: Int, isVerified: Boolean,
-                                       screen: ReferralsScreen): Completable {
-    return referralInteractor.saveReferralInformation(friendsInvited, isVerified, screen)
-  }
-
-  override fun hasGamificationNewLevel(screen: GamificationScreen): Single<Boolean> {
-    return gamificationInteractor.hasNewLevel(screen)
-  }
-
-  override fun levelShown(level: Int, promotions: GamificationScreen): Completable {
-    return gamificationInteractor.levelShown(level, promotions)
   }
 
   private fun mapToPromotionsModel(userStatus: UserStatusResponse,
