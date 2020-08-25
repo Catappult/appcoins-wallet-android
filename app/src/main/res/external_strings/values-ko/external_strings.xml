@@ -42,7 +42,7 @@
   <string name="button_ok">OK</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
+  <string name="title_dialog_error">오류</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
   <string name="purchase_card_error_title">Oops, something went wrong.</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>

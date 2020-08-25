@@ -42,7 +42,7 @@
   <string name="button_ok">OK</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
+  <string name="title_dialog_error">Грешка</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
   <string name="purchase_card_error_title">Опа, нещо се обърка.</string>
   <string name="purchase_card_error_general_1">Възникна проблем с картата ти. Моля, опитай отново или се свържи с нас.</string>

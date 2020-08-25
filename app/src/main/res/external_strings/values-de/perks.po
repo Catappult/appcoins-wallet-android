@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: appcoins-bds-wallet\n"
+"X-Crowdin-Project-ID: 314965\n"
+"X-Crowdin-Language: de\n"
+"X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 3840\n"
+"Project-Id-Version: appcoins-bds-wallet\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"PO-Revision-Date: 2020-08-23 17:03\n"
+
+#. Card copy for the Purchase Promotion.
+#:
+msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
+msgstr "Kaufe bei %1$s ein und erhalte %2$s AppCoinsCredits."
+
+#. Body for Purchase bonus receipt.
+#:
+msgid "Because you made a purchase in %1$s."
+msgstr "Weil Sie in %1$s etwas eingekauft haben."
+
+#. Card copy for the Expenditure Promotion.
+#:
+msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
+msgstr "Geben Sie %1$s %2$s in %3$s Tagen und erhalten Sie %4$s AppCoins Credits."
+
+#. Body for Expenditure bonus receipt.
+#:
+msgid "Because you spent more than %1$s %2$s in the last %3$s days."
+msgstr "Da Sie in den letzten %3$s Tagen mehr als %1$s %2$s ausgegeben haben."
+
+#. Card copy for the Next Level Promotion.
+#:
+msgid "Reach the next level and receive %1$s AppCoins Credits!"
+msgstr "Erreichen Sie den nächsten Level und erhalten Sie %1$s AppCoins Credits!"
+
+#. Body for Purchase bonus receipt.
+#:
+msgid ""
+msgstr ""
+""
+
+#. Body for Expenditure bonus receipt.
+#:
+msgid "Because you reached the next level."
+msgstr "Weil Sie den nächsten erreicht haben."
+
+#. Card copy for Extra Gamification Bonus.
+#:
+msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
+msgstr "Erhalten Sie einen zusätzlichen %1$s%% Bonus auf alle ihre Einkäufe in %2$s."
+
+#. Title for bonus receipt.
+#:
+msgid "+%1$s AppCoins Credits Bonus!"
+msgstr "+%1$s AppCoins Credits Bonus!"
+
