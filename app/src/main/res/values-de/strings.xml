@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Überprüfen alle Details: Konto, Artikel, Netzwerk…</string>
   <string name="activity_iab_buying_message">Angaben geprüft \n Erhalte ihren Artikel…</string>
   <string name="activity_iab_change_card">KARTE ÄNDERN</string>
+  <string name="activity_iab_fees">Gebühren</string>
   <string name="notification_ongoing_poa">Verarbeite ihre Belohnung</string>
   <string name="notification_completed_poa">Belohnung erhalten!👌 Sie müssen %1$sh%2$sm lang warten, um weitere Belohnungen für das Ausprobieren von Apps zu erhalten ⏰!</string>
   <string name="notification_poa_limit_reached">Sie haben ihr tägliches Limit erreiche. ⏰ Kommen Sie in %1$sh%2$sm wieder und versuchen Sie es erneut!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">Kartennummer</string>
   <string name="dialog_credit_card_expiration">Ablaufdatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Kredit-/Debitkarte</string>
+  <string name="dialog_expiry_date">Ablaufdatum</string>
   <string name="activity_airdrop_title">Um AppCoins zu erhalten, müssen Sie bestätigen Sie, dass Sie ein Mensch sind</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheits-Vorgang.</string>
   <string name="activity_airdrop_hint">Geben Sie die Zeichen im Bild ein</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Aus Sicherheitsgründen müssen wir ihr Wallet mit einem SMS-Code verifizieren.</string>
   <string name="verification_insert_phone_title">Geben Sie bitte ihre Telefonnummer ein</string>
   <string name="verification_insert_phone_body">Verifizieren Sie ihr Wallet um Prämien zu bekommen! Wir werden ihnen einen Verifizierungs-Code zusenden.</string>
-  <string name="verification_insert_phone_field_country">Land</string>
+  <string name="verification_insert_phone_field_country">Wählen Sie ihr Land/Region</string>
   <string name="verification_insert_phone_field_number">Telefonnummer</string>
   <string name="verification_insert_phone_field_number_error">Ungültige Telefonnummer</string>
   <string name="verification_insert_phone_field_region_error">Region wird nicht unterstützt.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Erhalten Sie Prämien und laden Sie Freunde ein</string>
   <string name="verification_settings_verified_title">Wallet Verifiziert</string>
   <string name="verification_settings_no_internet">Sie benötigen eine Verbindung ins Internet</string>
+  <string name="verification_error_time_expired">Upps, ihr Zeitfenster ist abgelaufen. Bitte starten Sie erneut!</string>
+  <string name="verification_error_attempts_reached">Sie haben die maximale Anzahl von Versuchen erreicht. Bitte warten Sie bevor Sie es erneut versuchen.</string>
+  <string name="verified_tag">Überprüft</string>
+  <string name="unferified_tag">Nicht überprüft</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Wie es scheint wurde dieser Einkauf bereits verarbeitet. Bitte warten Sie ab, bis die Transaktion verarbeitet wurde oder kontaktieren Sie ihren Kunden-Support.</string>
   <string name="purchase_more_payment_methods_button">ANDERE BEZAHL-METHODEN</string>
   <string name="purchase_appcoins_available_body">Sie werden einen kleinen ETH-Betrag verwenden, um die Gebühren zu bezahlen.</string>
   <string name="purchase_appcoins_noavailable_body">Für diesen Kauf verfügen Sie über zu wenige AppCoins oder Ethereum.</string>
+  <string name="purchase_no_eth_body">Ihre ETH-Coins reichen für die Bezahlung nicht aus.</string>
+  <string name="purchase_no_appcoins_body">Ihre AppCoins reichen für diesen Einkauf nicht aus.</string>
   <string name="purchase_appcoins_credits_available_body">Keine Gebühren und blitzschnell!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Sie haben zu wenige AppCoins, bitte auffladen!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Sie haben zu wenige AppCoins, bitte aufladen!</string>
   <string name="purchase_appcoins_credits_default_body">Sie haben genügend AppCoins verdient, Sie können sich diesen Einkauf leisten. Viel Spaß!</string>
   <string name="purchase_poa_item">Guthaben durch das Testen von Apps</string>
   <string name="purchase_poa_body">Testen Sie 2 Minuten lang eine App und erhalten Sie AppCoins Credits!</string>
@@ -461,14 +470,17 @@
   <string name="purchase_card_error_security">Sind Sie sicher, dass ihre Sicherheitsinformationen richtig sind? Bitte versuchen Sie es erneut.</string>
   <string name="purchase_card_error_wrong_CVV">Scheinbar ist ihr CVV/CVC-Code nicht korrekt. Bitte geben Sie ihn erneut ein.</string>
   <string name="purchase_wallet_error_contact_us">Upps, etwas ist mit dem Wallet nicht in Ordnung, bitte nehmen Sie Kontakt mit uns auf.</string>
+  <string name="purchase_carrier_error">Ihre Telefonnummer ist nicht kompatibel zu dieser Bezahlmethode.</string>
   <string name="purchase_card_error_CVV">Falscher CVV/CVC-Code</string>
   <string name="error_contac_us_body">Nehmen Sie Kontakt zu uns auf, falls das Problem weiterbesteht.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Weitere Schritte</string>
   <string name="async_steps_1">Schließen Sie ihre Bezahlung mit %s ab. Sie werden benachrichtigt sobald die AppCoins Credits auf ihrem Wallet gutgeschrieben wurden.</string>
   <string name="async_steps_2">Zurück zum Spiel und Zurück zum Spiel und kaufe mit AppCoins Credits als Bezahlmethode ein.</string>
+  <string name="async_steps_topup_2">Verwenden Sie diese AppCoins und kaufen Sie bei ihren Lieblingsspielen ein!</string>
   <string name="async_steps_1_no_notification">Schließen Sie ihre Bezahlung mit %s ab.</string>
   <string name="async_steps_2_no_notification">Sobald Sie die AppCoins Credits erhalten haben, gehen Sie zurück zum Spiel und kaufen Sie, mit AppCoins Credits als Bezahlmethode, ein.</string>
+  <string name="async_steps_2_toptup_no_notification">So bald Sie AppCoins erhalten, sollten Sie dazu einsetzen Einkäufe in ihren Lieblingsspielen damit zu bezahlen!</string>
   <string name="async_notification_title">Ihre AppCoins Credits sind eingetroffen!</string>
   <string name="async_notification_body">Zurück zu %s und kaufen Sie mit AppCoins Credits ein.</string>
   <!--Referral Program-->
@@ -700,4 +712,47 @@
   <string name="gamif_placeholder_unknown">ein unbekannter Planet</string>
   <string name="gamif_distance_unkown">Unbekannter Standort</string>
   <string name="gamif_placeholder_new_planet">ein neuer Planet</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Telefonrechnung</string>
+  <string name="carrier_billing_fees_disclaimer">Es können zusätzliche Gebühren anfallen</string>
+  <string name="carrier_billing_insert_phone_body">Bitte geben Sie ihre Telefonnummer ein</string>
+  <string name="carrier_billing_phone_field">Ihre Telefonnummer...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s wird eine Gebühr von %2$s berechnen</string>
+  <string name="carrier_billing_purchase_info_body">%1$s bei %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Ihre Telefonnummer ist %s.</string>
+  <string name="carrier_billing_enter_pin_body">Geben Sie bitte den Pin ein, den Sie per SMS erhalten haben.</string>
+  <string name="carrier_billing_code_field">Ihren Code...</string>
+  <string name="carrier_billing_code_resend_button">CODE ERNEUT SENDEN</string>
+  <string name="carrier_billing_submit_button">ABSENDEN</string>
+  <string name="carrier_billing_terms_disclaimer">Durch das Drücken von Absenden, bestätigen Sie, dass Sie den AGBs und der Datenschutzrichtlinie zustimmen.</string>
+  <string name="carrier_billing_help_1">Benötigen Sie Hilfe?</string>
+  <string name="carrier_billing_help_2_button">Support Kontaktieren</string>
+  <string name="carrier_billing_terms_button">Allgemeinen Geschäftsbedingungen</string>
+  <string name="carrier_billing_privacy_button">Datenschutzrichtlinie</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Kredit-/Debitkarte hinzufügen</string>
+  <string name="manage_cards_settings_manage_title">Karten verwalten</string>
+  <string name="manage_cards_view_title">Karten verwalten</string>
+  <string name="manage_cards_view_manage_subtitle">Verwalten Sie ihre Bezahlkarten</string>
+  <string name="manage_cards_add_title">Neue Karte hinzufügen</string>
+  <string name="manage_cards_remove_confirmation">Sind Sie sich sicher, dass Sie diese Karte entfernen möchten?</string>
+  <string name="manage_cards_remove_no">NEIN, ABBRECHEN</string>
+  <string name="manage_cards_remove_yes">JA, ENTFERNEN</string>
+  <string name="manage_cards_card_ending_body">Karte endet %s</string>
+  <string name="manage_cards_error_details">Sind Sie sicher, dass ihre Kartendaten korrekt sind? Bitte versuchen Sie es erneut!</string>
+  <string name="manage_cards_error_card_problem">Es scheint ein Problem mit ihrer Karte zu geben. Bitte versuchen Sie es mit einer anderen Karte.</string>
+  <string name="manage_cards_select_title">Karte für Bezahlung auswählen</string>
+  <string name="manage_cards_remember">An diese Karte erinnern</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Erhalten Sie %s%% Bonus bei jedem Einkauf</string>
+  <string name="perks_gamif_subtitle">Je mehr Sie in ihren Lieblings-Apps ausgeben, um so größer ist der Bonus!</string>
+  <string name="perks_title">Aktionen</string>
+  <string name="perks_body">Bleiben Sie dran! Wir haben besondere Aktionen für Sie.</string>
+  <string name="perks_end_in_days">Die Aktion endet in %s Tagen.</string>
+  <string name="perks_end_in_date">Die Aktion endet am %s.</string>
+  <string name="perks_available_soon">Aktion startet in Kürze</string>
+  <string name="perks_next_level_reward">Erreichen Sie den nächsten Level und erhalten Sie %s AppCoins Credits!</string>
+  <string name="perks_notification">Sie haben gerade %s AppCoins Credits als Bonus erhalten</string>
+  <string name="perks_level_up_on_this_purchase">Erreichen Sie mit diesem Einkauf ein höheres Level</string>
+  <string name="perks_level_up_amount_left">Sie sind %1$s %2$s vom nächsten Level entfernt!</string>
 </resources>

@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: appcoins-bds-wallet\n"
+"X-Crowdin-Project-ID: 314965\n"
+"X-Crowdin-Language: vi\n"
+"X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 3840\n"
+"Project-Id-Version: appcoins-bds-wallet\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Vietnamese\n"
+"Language: vi_VN\n"
+"PO-Revision-Date: 2020-08-24 11:29\n"
+
+#. Card copy for the Purchase Promotion.
+#:
+msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
+msgstr "Mua hàng trong %1$s và nhận %2$s AppCoins Credits."
+
+#. Body for Purchase bonus receipt.
+#:
+msgid "Because you made a purchase in %1$s."
+msgstr "Bởi vì bạn đã mua hàng trong%1$s."
+
+#. Card copy for the Expenditure Promotion.
+#:
+msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
+msgstr "Dùng %1$s %2$s trong %3$s ngày và nhận %4$s AppCoins Credits."
+
+#. Body for Expenditure bonus receipt.
+#:
+msgid "Because you spent more than %1$s %2$s in the last %3$s days."
+msgstr "Bởi vì bạn đã dùng hơn %1$s %2$s trong %3$s ngày qua."
+
+#. Card copy for the Next Level Promotion.
+#:
+msgid "Reach the next level and receive %1$s AppCoins Credits!"
+msgstr "Đạt cấp kế tiếp và nhận %1$s AppCoins Credits!"
+
+#. Body for Purchase bonus receipt.
+#:
+msgid ""
+msgstr ""
+""
+
+#. Body for Expenditure bonus receipt.
+#:
+msgid "Because you reached the next level."
+msgstr "Bởi vì bạn đã đạt đến cấp kế tiếp."
+
+#. Card copy for Extra Gamification Bonus.
+#:
+msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
+msgstr "Nhận thêm %1$s%% tiền thưởng trên tất cả các giao dịch mua hàng trong %2$s."
+
+#. Title for bonus receipt.
+#:
+msgid "+%1$s AppCoins Credits Bonus!"
+msgstr "+%1$s AppCoins Credits tiền thưởng!"
+
