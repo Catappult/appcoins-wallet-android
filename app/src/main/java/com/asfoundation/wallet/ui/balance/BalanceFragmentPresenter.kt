@@ -5,6 +5,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -31,7 +32,6 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   fun present() {
     view.setupUI()
-    requestActiveWalletAddress()
     requestBalances()
     handleTokenDetailsClick()
     handleCopyClick()
@@ -41,6 +41,8 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleSetupTooltip()
     handleTooltipBackupClick()
     handleTooltipLaterClick()
+    handleVerifyWalletClick()
+    handleWalletInfoDisplay()
   }
 
   private fun handleTooltipLaterClick() {
@@ -89,11 +91,25 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun requestActiveWalletAddress() {
-    disposables.add(balanceInteract.requestActiveWalletAddress()
+  private fun handleVerifyWalletClick() {
+    disposables.add(view.getVerifyWalletClick()
+        .map { view.openWalletValidationScreen() }
+        .observeOn(viewScheduler)
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleWalletInfoDisplay() {
+    disposables.add(balanceInteract.isWalletValid()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setWalletAddress(it) }
+        .doOnSuccess { view.setWalletAddress(it.first) }
+        .doOnSuccess {
+          when (it.second) {
+            WalletValidationStatus.SUCCESS -> displayWalletVerifiedStatus()
+            WalletValidationStatus.GENERIC_ERROR -> displayWalletUnverifiedStatus()
+            else -> handleValidationCache(it.first)
+          }
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -170,6 +186,31 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
               WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_FAIL)
         }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleValidationCache(address: String) {
+    if (balanceInteract.isWalletValidated(address)) displayWalletVerifiedStatus()
+    else displayNoNetworkStatus()
+  }
+
+  private fun displayWalletVerifiedStatus() {
+    view.showVerifiedWalletChip()
+    view.hideUnverifiedWalletChip()
+    view.hideVerifyWalletButton()
+  }
+
+  private fun displayWalletUnverifiedStatus() {
+    view.showUnverifiedWalletChip()
+    view.hideVerifiedWalletChip()
+    view.showVerifyWalletButton()
+    view.enableVerifyWalletButton()
+  }
+
+  private fun displayNoNetworkStatus() {
+    view.showUnverifiedWalletChip()
+    view.hideVerifiedWalletChip()
+    view.showVerifyWalletButton()
+    view.disableVerifyWalletButton()
   }
 
   fun saveSeenToolTip() {

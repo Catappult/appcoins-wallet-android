@@ -312,9 +312,10 @@ class InteractModule {
   @Provides
   fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                              balanceRepository: BalanceRepository,
-                             preferencesRepositoryType: PreferencesRepositoryType) =
+                             preferencesRepositoryType: PreferencesRepositoryType,
+                             smsValidationInteract: SmsValidationInteract) =
       BalanceInteract(findDefaultWalletInteract, balanceRepository,
-          preferencesRepositoryType)
+          preferencesRepositoryType, smsValidationInteract)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
