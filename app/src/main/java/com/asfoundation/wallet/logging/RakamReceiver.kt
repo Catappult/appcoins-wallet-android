@@ -36,12 +36,35 @@ class RakamReceiver : LogReceiver {
       }
       throwable?.let {
         properties.put("throwable_message", it.message ?: DEFAULT_MSG)
-        properties.put("throwable_stacktrace",
-            if (it.stackTrace != null) it.stackTrace!!.contentToString() else DEFAULT_THROWABLE_STATCKTRACE)
+        properties.put("throwable_stacktrace", getStacktrace(it.stackTrace))
       }
     } catch (e: JSONException) {
       e.printStackTrace()
     }
     return properties
+  }
+
+  private fun getStacktrace(stackTrace: Array<StackTraceElement>?): String {
+    return if (stackTrace != null) {
+      //This is done because rakam has a limit of characters and if we pass the entire stacktrace
+      // the critical information doesn't show up
+      buildStackTraceString(stackTrace)
+    } else {
+      DEFAULT_THROWABLE_STATCKTRACE
+    }
+  }
+
+  private fun buildStackTraceString(stackTrace: Array<StackTraceElement>): String {
+    var firstTraceString = ""
+    var secondTraceString = ""
+    if (stackTrace.isNotEmpty()) {
+      firstTraceString =
+          "M:${stackTrace[0].methodName},L:${stackTrace[0].lineNumber}"
+    }
+    if (stackTrace.size > 1) {
+      secondTraceString =
+          "C:${stackTrace[1].className},M:${stackTrace[1].methodName},L:${stackTrace[1].lineNumber}"
+    }
+    return "$firstTraceString / $secondTraceString"
   }
 }
