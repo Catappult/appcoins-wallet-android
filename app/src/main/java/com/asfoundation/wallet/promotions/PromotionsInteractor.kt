@@ -98,6 +98,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                 it.id + "_" + it.endDate, screen.name)
             is ProgressItem -> promotionsRepo.setSeenGenericPromotion(wallet,
                 it.id + "_" + it.endDate, screen.name)
+            is GamificationItem -> promotionsRepo.shownLevel(wallet, it.level,
+                GamificationScreen.PROMOTIONS.name)
             else -> Completable.complete()
           }
         }
@@ -178,8 +180,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     val currentLevelInfo = mapper.mapCurrentLevelInfo(gamificationResponse.level)
 
     return GamificationItem(gamificationResponse.id, currentLevelInfo.planet,
-        currentLevelInfo.levelColor, currentLevelInfo.title, currentLevelInfo.phrase,
-        gamificationResponse.bonus, mutableListOf())
+        gamificationResponse.level, currentLevelInfo.levelColor, currentLevelInfo.title,
+        currentLevelInfo.phrase, gamificationResponse.bonus, mutableListOf())
   }
 
   private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {

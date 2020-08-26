@@ -180,7 +180,7 @@ class GamificationViewHolder(itemView: View,
     }
 
     itemView.planet.setImageDrawable(gamificationItem.planet)
-    itemView.current_level_bonus.background = mapper.getOvalBackground(gamificationItem.level)
+    itemView.current_level_bonus.background = mapper.getOvalBackground(gamificationItem.levelColor)
     itemView.current_level_bonus.text =
         itemView.context?.getString(R.string.gamif_bonus, df.format(gamificationItem.bonus))
     itemView.planet_title.text = gamificationItem.title

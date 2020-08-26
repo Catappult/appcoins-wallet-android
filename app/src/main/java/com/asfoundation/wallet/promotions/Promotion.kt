@@ -41,6 +41,7 @@ class GamificationItem(
     id: String,
     val planet: Drawable?,
     val level: Int,
+    val levelColor: Int,
     val title: String,
     val phrase: String,
     var bonus: Double,
