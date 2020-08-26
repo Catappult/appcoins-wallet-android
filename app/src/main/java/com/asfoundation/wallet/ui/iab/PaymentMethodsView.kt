@@ -96,9 +96,11 @@ interface PaymentMethodsView {
                         isPreselected: Boolean)
 
   fun setLevelUpInformation(gamificationLevel: Int, progress: Double,
-                            currentLevelBackground: Drawable,
-                            nextLevelBackground: Drawable,
-                            levelColor: Int)
+                            currentLevelBackground: Drawable?,
+                            nextLevelBackground: Drawable?,
+                            levelColor: Int,
+                            willLevelUp: Boolean,
+                            leftAmount: BigDecimal?)
 
   fun showLevelUp()
 

@@ -238,7 +238,7 @@ class PaymentMethodsPresenter(
                       Completable.fromAction {
                         setupBonusInformation(it.first)
                         if (paymentMethodsInteract.isBonusActiveAndValid(it.first)) {
-                          setUpNextLevelInformation(it.second, it.third)
+                          setUpNextLevelInformation(it.second, it.third, transactionValue)
                         }
                         selectPaymentMethod(paymentMethods, fiatValue,
                             paymentMethodsInteract.isBonusActiveAndValid(it.first))
@@ -255,19 +255,27 @@ class PaymentMethodsPresenter(
         .subscribe({ }, { this.showError(it) }))
   }
 
-  private fun setUpNextLevelInformation(userStats: GamificationStats, levels: Levels) {
+  private fun setUpNextLevelInformation(
+      userStats: GamificationStats,
+      levels: Levels,
+      transactionValue: Double) {
     val progress = getProgressPercentage(userStats, levels.list)
     if (shouldShowNextLevel(levels, progress, userStats)) {
       closeToLevelUp = true
       val currentLevelInfo = mapper.mapCurrentLevelInfo(gamificationLevel)
       val nextLevelInfo = mapper.mapCurrentLevelInfo(gamificationLevel + 1)
       view.setLevelUpInformation(gamificationLevel, progress,
-          mapper.getRectangleGamificationBackground(currentLevelInfo.levelColor)!!,
-          mapper.getRectangleGamificationBackground(nextLevelInfo.levelColor)!!,
-          currentLevelInfo.levelColor)
+          mapper.getRectangleGamificationBackground(currentLevelInfo.levelColor),
+          mapper.getRectangleGamificationBackground(nextLevelInfo.levelColor),
+          currentLevelInfo.levelColor, willLevelUp(userStats, transactionValue),
+          userStats.nextLevelAmount?.minus(userStats.totalSpend))
     } else {
       closeToLevelUp = false
     }
+  }
+
+  private fun willLevelUp(userStats: GamificationStats, transactionValue: Double): Boolean {
+    return userStats.totalSpend + BigDecimal(transactionValue) >= userStats.nextLevelAmount
   }
 
   private fun shouldShowNextLevel(levels: Levels, progress: Double,
@@ -289,6 +297,7 @@ class PaymentMethodsPresenter(
           .toDouble()
     } else 0.0
   }
+
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
     if (paymentMethodsInteract.isBonusActiveAndValid(forecastBonus)) {
