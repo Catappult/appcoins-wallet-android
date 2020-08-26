@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -88,6 +89,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var analyticsSetup: RakamAnalytics
 
   @Inject
+  lateinit var amplitudeAnalytics: AmplitudeAnalytics
+
+  @Inject
   lateinit var bdsPendingTransactionService: BdsPendingTransactionService
 
   @Inject
@@ -136,7 +140,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
     presenter = PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
-        bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
+        bdsPendingTransactionService, billing, analytics, analyticsSetup, amplitudeAnalytics, isBds,
+        developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
         logger, paymentMethodsInteract)
   }

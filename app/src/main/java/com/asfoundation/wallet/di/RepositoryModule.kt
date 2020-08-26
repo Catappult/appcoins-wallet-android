@@ -15,6 +15,7 @@ import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository
 import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
@@ -204,9 +205,10 @@ class RepositoryModule {
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
                               accountKeystoreService: AccountKeystoreService,
                               walletBalanceService: WalletBalanceService,
-                              analyticsSetup: RakamAnalytics): WalletRepositoryType {
+                              analyticsSetup: RakamAnalytics,
+                              amplitudeAnalytics: AmplitudeAnalytics): WalletRepositoryType {
     return WalletRepository(preferencesRepositoryType, accountKeystoreService,
-        walletBalanceService, Schedulers.io(), analyticsSetup)
+        walletBalanceService, Schedulers.io(), analyticsSetup, amplitudeAnalytics)
   }
 
   @Singleton
