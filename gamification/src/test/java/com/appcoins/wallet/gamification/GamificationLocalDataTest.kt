@@ -8,6 +8,7 @@ import io.reactivex.Single
 class GamificationLocalDataTest : GamificationLocalData {
 
   var lastShownLevelResponse: Single<Int>? = null
+  var seenGenericPromotionResponse: Boolean? = null
   var userStatusResponse: Single<List<PromotionsResponse>>? = null
   private var wallet: String? = null
   private var gamificationLevel: Int? = -1
@@ -29,6 +30,19 @@ class GamificationLocalDataTest : GamificationLocalData {
     val aux = lastShownLevelResponse!!
     lastShownLevelResponse = null
     return aux
+  }
+
+  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
+    val aux = seenGenericPromotionResponse!!
+    seenGenericPromotionResponse = null
+    return aux
+  }
+
+  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
+    return Completable.fromAction {
+      this.wallet = wallet
+      seenGenericPromotionResponse = true
+    }
   }
 
   override fun setGamificationLevel(gamificationLevel: Int): Completable {

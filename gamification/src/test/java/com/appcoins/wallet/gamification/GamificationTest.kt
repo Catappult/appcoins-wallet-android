@@ -51,7 +51,7 @@ class GamificationTest {
 
   @Test
   fun getUserStatsNoNetworkTest() {
-    api.userStatusResponse = Single.error(UnknownHostException())
+    api.userStatusResponse = Single.just(UserStatusResponse(emptyList(), Status.NO_NETWORK))
     val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(GamificationStats(GamificationStats.Status.NO_NETWORK))
@@ -143,7 +143,7 @@ class GamificationTest {
 
   @Test
   fun hasNewLevelNetworkError() {
-    api.userStatusResponse = Single.error(UnknownHostException())
+    api.userStatusResponse = Single.just(UserStatusResponse(emptyList(), Status.NO_NETWORK))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
