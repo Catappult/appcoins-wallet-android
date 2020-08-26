@@ -155,12 +155,12 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
       Payment.Status.ERROR -> Completable.fromAction {
-        showError(null, "Payment status: ${transaction.status}")
+        showError(null, "Payment status: ${transaction.status.name}")
       }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
       else -> Completable.fromAction {
-        showError(null, "Payment status unknown: ${transaction.status}")
+        showError(null, "Payment status: UNKNOWN")
       }
           .andThen(onChainBuyInteract.remove(transaction.uri))
     }
