@@ -66,13 +66,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     const val CREDITS = "credits"
 
     @JvmStatic
-    fun newInstance(fiatAmount: BigDecimal,
-                    currency: String, bonus: String, appName: String,
-                    productName: String?,
-                    appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean,
-                    isDonation: Boolean, skuId: String?, transactionType: String,
-                    gamificationLevel: Int, disabledReasonAppc: Int?,
+    fun newInstance(fiatAmount: BigDecimal, currency: String, bonus: String, appName: String,
+                    productName: String?, appcAmount: BigDecimal, appcEnabled: Boolean,
+                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean, skuId: String?,
+                    transactionType: String, gamificationLevel: Int, disabledReasonAppc: Int?,
                     disabledReasonCredits: Int?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {

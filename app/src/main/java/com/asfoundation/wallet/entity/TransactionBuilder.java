@@ -21,6 +21,7 @@ public class TransactionBuilder implements Parcelable {
       return new TransactionBuilder[size];
     }
   };
+  private final long chainId;
   private String contractAddress;
   private int decimals;
   private String symbol;
@@ -31,7 +32,6 @@ public class TransactionBuilder implements Parcelable {
   private byte[] data;
   private byte[] appcoinsData;
   private GasSettings gasSettings;
-  private long chainId;
   private String skuId;
   private String type;
   private String origin;
@@ -43,6 +43,7 @@ public class TransactionBuilder implements Parcelable {
   private String originalOneStepValue;
   private String originalOneStepCurrency;
   private String referrerUrl;
+  private String productName;
 
   public TransactionBuilder(TransactionBuilder transactionBuilder) {
     this.contractAddress = transactionBuilder.contractAddress;
@@ -67,6 +68,7 @@ public class TransactionBuilder implements Parcelable {
     this.originalOneStepValue = transactionBuilder.originalOneStepValue;
     this.originalOneStepCurrency = transactionBuilder.originalOneStepCurrency;
     this.referrerUrl = transactionBuilder.referrerUrl;
+    this.productName = transactionBuilder.productName;
   }
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
@@ -102,11 +104,13 @@ public class TransactionBuilder implements Parcelable {
     originalOneStepValue = in.readString();
     originalOneStepCurrency = in.readString();
     referrerUrl = in.readString();
+    productName = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
       BigDecimal amount, String skuId, int decimals, String type, String origin, String domain,
-      String payload, String callbackUrl, String orderReference, String referrerUrl) {
+      String payload, String callbackUrl, String orderReference, String referrerUrl,
+      String productName) {
     this.symbol = symbol;
     this.contractAddress = contractAddress;
     this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
@@ -122,21 +126,22 @@ public class TransactionBuilder implements Parcelable {
     this.callbackUrl = callbackUrl;
     this.orderReference = orderReference;
     this.referrerUrl = referrerUrl;
+    this.productName = productName;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
       String iabContract, String type, String origin, String domain, String payload,
-      String callbackUrl, String orderReference, String referrerUrl) {
+      String callbackUrl, String orderReference, String referrerUrl, String productName) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
-        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl);
+        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
     this.iabContract = iabContract;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
-        null, "", "", "", "", null);
+        null, "", "", "", "", null, null);
   }
 
   public String getIabContract() {
@@ -269,6 +274,14 @@ public class TransactionBuilder implements Parcelable {
     this.domain = domain;
   }
 
+  public String getProductName() {
+    return productName;
+  }
+
+  public void setProductName(String productName) {
+    this.productName = productName;
+  }
+
   public String getPayload() {
     return payload;
   }
@@ -334,6 +347,9 @@ public class TransactionBuilder implements Parcelable {
         + ", referrerUrl='"
         + referrerUrl
         + '\''
+        + ", productName='"
+        + productName
+        + '\''
         + '}';
   }
 
@@ -390,6 +406,7 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(originalOneStepValue);
     dest.writeString(originalOneStepCurrency);
     dest.writeString(referrerUrl);
+    dest.writeString(productName);
   }
 
   public byte[] approveData() {

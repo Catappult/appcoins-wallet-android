@@ -8,7 +8,10 @@ data class PaymentMethodEntity(@SerializedName("name") val id: String, val label
                                @SerializedName("status")
                                val availability: String,
                                val gateway: Gateway,
-                               val fee: FeeEntity?)
+                               val fee: FeeEntity?) {
+
+  fun isAvailable(): Boolean = this.availability != "UNAVAILABLE"
+}
 
 data class FeeEntity(val type: FeeType, val cost: FeeCost?)
 

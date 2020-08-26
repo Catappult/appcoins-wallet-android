@@ -201,14 +201,14 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param direct, either if it returns non-direct payments (false) (earn appcoins and ask someone to pay) or not
      *
      */
-    @GET("broker/8.20200720/methods")
+    @GET("broker/8.20200810/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null,
                           @Query("price.currency") currency: String? = null,
                           @Query("currency.type") currencyType: String? = null,
                           @Query("direct") direct: Boolean? = null): Single<GetMethodsResponse>
 
     @FormUrlEncoded
-    @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")
+    @PATCH("broker/8.20200810/gateways/{gateway}/transactions/{uid}")
     fun patchTransaction(
         @Path("gateway") gateway: String,
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
@@ -241,7 +241,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * complete the purchase
      */
     @FormUrlEncoded
-    @POST("broker/8.20180518/gateways/{gateway}/transactions")
+    @POST("broker/8.20200810/gateways/{gateway}/transactions")
     fun createTransaction(@Path("gateway") gateway: String,
                           @Field("origin") origin: String?,
                           @Field("domain") domain: String,
@@ -265,7 +265,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * Overload of createTransaction to receive Body, since only myappcoins receive Body.
      * This is the recommendation from Retrofit when there's a possibility of not having an empty body
      */
-    @POST("broker/8.20180518/gateways/myappcoins/transactions")
+    @POST("broker/8.20200810/gateways/myappcoins/transactions")
     fun createTransaction(@Query("origin") origin: String?,
                           @Query("domain") domain: String,
                           @Query("price.value") priceValue: String?,
