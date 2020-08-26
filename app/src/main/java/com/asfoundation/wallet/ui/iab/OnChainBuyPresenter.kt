@@ -154,10 +154,14 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       Payment.Status.FORBIDDEN -> Completable.fromAction { handleFraudFlow() }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.ERROR -> Completable.fromAction { showError(null, "Payment status error") }
+      Payment.Status.ERROR -> Completable.fromAction {
+        showError(null, "Payment status: ${transaction.status}")
+      }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      else -> Completable.fromAction { showError(null, "Payment status unknown") }
+      else -> Completable.fromAction {
+        showError(null, "Payment status unknown: ${transaction.status}")
+      }
           .andThen(onChainBuyInteract.remove(transaction.uri))
     }
   }

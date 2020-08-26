@@ -162,10 +162,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             loadBonusIntoView()
           }
         }
-        .subscribe({}, {
-          handleSpecificError(R.string.unknown_error)
-          logger.log(TAG, it)
-        }))
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) }))
   }
 
   private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
@@ -177,10 +174,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .observeOn(viewScheduler)
             .filter { !waitingResult }
             .doOnSuccess { handlePaymentModel(it) }
-            .subscribe({}, {
-              handleSpecificError(R.string.unknown_error)
-              logger.log(TAG, it)
-            }))
+            .subscribe({}, { handleSpecificError(R.string.unknown_error, it) }))
   }
 
   //Called if is card
@@ -226,8 +220,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(viewScheduler)
         .doOnNext { success ->
           if (!success) {
-            logger.log(TAG, "Unabled to forget card")
-            handleSpecificError(R.string.unknown_error)
+            handleSpecificError(R.string.unknown_error, logMessage = "Unable to forget card")
           }
         }
         .filter { it }
@@ -241,18 +234,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 if (it.error.hasError) {
                   if (it.error.isNetworkError) view.showNetworkError()
                   else {
-                    logger.log(TAG, "Message: ${it.error.message}, code: ${it.error.code}")
-                    handleSpecificError(R.string.unknown_error)
+                    handleSpecificError(R.string.unknown_error,
+                        logMessage = "Message: ${it.error.message}, code: ${it.error.code}")
                   }
                 } else {
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
                 }
               }
         }
-        .subscribe({}, {
-          logger.log(TAG, it)
-          handleSpecificError(R.string.unknown_error)
-        }))
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) }))
   }
 
   private fun handleRedirectResponse() {
@@ -263,10 +253,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         }
         .observeOn(viewScheduler)
         .doOnNext { view.submitUriResult(it) }
-        .subscribe({}, {
-          logger.log(TAG, it)
-          handleSpecificError(R.string.unknown_error)
-        }))
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) }))
   }
 
   //Called if is paypal or 3DS
@@ -285,13 +272,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               it.paymentData ?: cachedPaymentData)
         }
         .observeOn(viewScheduler)
-        .flatMapCompletable {
-          handlePaymentResult(it)
-        }
-        .subscribe({}, {
-          handleSpecificError(R.string.unknown_error)
-          logger.log(TAG, it)
-        }))
+        .flatMapCompletable { handlePaymentResult(it) }
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) }))
   }
 
   private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
@@ -310,9 +292,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                   navigator.popView(bundle)
                 }
               } else {
-                Completable.fromAction {
-                  handleErrors(paymentModel, appcValue.toDouble())
-                }
+                Completable.fromAction { handleErrors(paymentModel, appcValue.toDouble()) }
               }
             }
       }
@@ -370,10 +350,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               }
             }
             .observeOn(viewScheduler)
-            .subscribe({}, {
-              logger.log(TAG, it)
-              handleSpecificError(error)
-            })
+            .subscribe({}, { handleSpecificError(error, it) })
     )
   }
 
@@ -382,10 +359,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(viewScheduler)
         .doOnNext {
           if (it == CHALLENGE_CANCELED) view.navigateToPaymentSelection()
-          else {
-            logger.log(TAG, it)
-            handleSpecificError(R.string.unknown_error)
-          }
+          else handleSpecificError(R.string.unknown_error, logMessage = it)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -447,7 +421,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
   }
 
-  private fun handleSpecificError(@StringRes message: Int) {
+  private fun handleSpecificError(@StringRes message: Int, throwable: Throwable? = null,
+                                  logMessage: String? = null) {
+    if (throwable != null) logger.log(TAG, throwable)
+    if (logMessage != null) logger.log(TAG, logMessage)
     currentError = message
     waitingResult = false
     view.showSpecificError(message)
@@ -471,8 +448,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         view.handle3DSAction(paymentModel.action!!)
         waitingResult = true
       } else {
-        logger.log(TAG, "Unknown adyen action: $type")
-        handleSpecificError(R.string.unknown_error)
+        handleSpecificError(R.string.unknown_error, logMessage = "Unknown adyen action: $type")
       }
     }
   }
