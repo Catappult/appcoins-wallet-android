@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup
 
 import android.util.Log
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -23,13 +24,15 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val networkScheduler: Scheduler,
                              private val topUpAnalytics: TopUpAnalytics,
                              private val formatter: CurrencyFormatUtils,
-                             private val selectedValue: String?) {
+                             private val selectedValue: String?,
+                             private val logger: Logger) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
   private var hasDefaultValues = false
 
   companion object {
+    private val TAG = TopUpFragmentPresenter::class.java.name
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
   }
 
@@ -99,12 +102,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           else view.hideValuesAdapter()
         }
         .subscribeOn(viewScheduler)
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
+    logger.log(TAG, throwable)
     if (throwable.isNoNetworkException()) view.showNoNetworkError()
   }
 
@@ -137,7 +141,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     navigateToPayment(topUpData, gamificationLevel)
                   }
             }
-            .subscribe())
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
@@ -229,10 +233,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handlePaymentMethodSelected() {
-    disposables.add(
-        view.getPaymentMethodClick()
-            .doOnNext { view.paymentMethodsFocusRequest() }
-            .subscribe())
+    disposables.add(view.getPaymentMethodClick()
+        .doOnNext { view.paymentMethodsFocusRequest() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun loadBonusIntoView(appPackage: String, amount: String,
@@ -353,7 +356,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         }
         .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
         .doOnNext { view.enableSwapCurrencyButton() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun convertAndChangeMainValue(currency: String, amount: BigDecimal) {

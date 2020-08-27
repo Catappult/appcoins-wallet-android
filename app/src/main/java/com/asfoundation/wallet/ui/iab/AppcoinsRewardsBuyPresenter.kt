@@ -33,6 +33,11 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                                   private val gamificationLevel: Int,
                                   private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
                                   private val logger: Logger) {
+
+  companion object {
+    private val TAG = AppcoinsRewardsBuyPresenter::class.java.name
+  }
+
   fun present() {
     view.lockRotation()
     handleBuyClick()
@@ -43,7 +48,10 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   private fun handleOkErrorClick() {
     disposables.add(view.getOkErrorClick()
         .doOnNext { view.errorClose() }
-        .subscribe({}, { view.errorClose() }))
+        .subscribe({}, {
+          logger.log(TAG, "Ok error click", it)
+          view.errorClose()
+        }))
   }
 
   private fun handleBuyClick() {
@@ -61,8 +69,8 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         }
         .doOnSubscribe { view.showLoading() }
         .subscribe({}, {
+          logger.log(TAG, it)
           view.showError(null)
-          logger.log("AppcoinsRewardsBuyPresenter", it)
         }))
   }
 
@@ -96,7 +104,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               .observeOn(viewScheduler)
               .onErrorResumeNext {
                 Completable.fromAction {
-                  it.printStackTrace()
+                  logger.log(TAG, "Error after completing the transaction", it)
                   view.showError(null)
                   view.hideLoading()
                 }
@@ -113,7 +121,10 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               }
         }
       }
-      Status.ERROR -> Completable.fromAction { view.showError(null) }
+      Status.ERROR -> Completable.fromAction {
+        logger.log(TAG, "Credits transaction returned with error")
+        view.showError(null)
+      }
       Status.FORBIDDEN -> Completable.fromAction {
         handleFraudFlow()
       }
@@ -145,7 +156,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
-              it.printStackTrace()
+              logger.log(TAG, it)
               view.showError(R.string.purchase_wallet_error_contact_us)
             })
     )
@@ -197,6 +208,6 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 }
