@@ -87,11 +87,36 @@ class TransactionsMapperTest {
             TransactionDetails("11.5", TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "https://apichain-dev.blockchainds.com/appc/icons/bonus.png"),
                 "gas"), "APPC", Collections.emptyList())
-    Assert.assertTrue(transactions[4] == topUpTransaction)
-    Assert.assertTrue(transactions[3] == topUpBonusTransaction)
-    Assert.assertTrue(transactions[2] == perkBonusTransaction)
-    Assert.assertTrue(transactions[1] == iapTransaction)
-    Assert.assertTrue(transactions[0] == iapBonusTransaction)
+    val iterator = transactions.iterator()
+    for ((index, transaction) in iterator.withIndex()) {
+      val testTransaction = when (index) {
+        0 -> iapBonusTransaction
+        1 -> iapTransaction
+        2 -> perkBonusTransaction
+        3 -> topUpBonusTransaction
+        4 -> topUpTransaction
+        else -> null
+      }
+      Assert.assertNotNull(testTransaction)
+      Assert.assertEquals(transaction.transactionId, testTransaction!!.transactionId)
+      Assert.assertEquals(transaction.type, testTransaction.type)
+      Assert.assertEquals(transaction.subType, testTransaction.subType)
+      Assert.assertEquals(transaction.title, testTransaction.title)
+      Assert.assertEquals(transaction.description, testTransaction.description)
+      Assert.assertEquals(transaction.perk, testTransaction.perk)
+      Assert.assertEquals(transaction.approveTransactionId, testTransaction.approveTransactionId)
+      Assert.assertEquals(transaction.timeStamp, testTransaction.timeStamp)
+      Assert.assertEquals(transaction.processedTime, testTransaction.processedTime)
+      Assert.assertEquals(transaction.status, testTransaction.status)
+      Assert.assertEquals(transaction.value, testTransaction.value)
+      Assert.assertEquals(transaction.from, testTransaction.from)
+      Assert.assertEquals(transaction.to, testTransaction.to)
+      Assert.assertEquals(transaction.details!!.sourceName, testTransaction.details!!.sourceName)
+      Assert.assertEquals(transaction.details!!.icon, testTransaction.details!!.icon)
+      Assert.assertEquals(transaction.details!!.description, testTransaction.details!!.description)
+      Assert.assertEquals(transaction.currency, testTransaction.currency)
+      Assert.assertEquals(transaction.operations!!.size, testTransaction.operations!!.size)
+    }
   }
 
   @Test
