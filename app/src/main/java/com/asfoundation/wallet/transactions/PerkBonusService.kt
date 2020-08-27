@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.transactions
 
-import android.annotation.SuppressLint
 import android.app.IntentService
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -43,8 +42,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
     }
   }
 
-  @SuppressLint("CheckResult")
-  fun handlePerkTransactionNotification(address: String, timesCalled: Int = 0) {
+  private fun handlePerkTransactionNotification(address: String, timesCalled: Int = 0) {
     try {
       val transactions = transactionRepository.fetchNewTransactions(address)
           .blockingGet()
@@ -110,6 +108,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
     val walletCurrency = WalletCurrency.CREDITS
     var value = BigDecimal(valueStr)
     value = value.divide(BigDecimal(10.0.pow(C.ETHER_DECIMALS.toDouble())))
+    if (value <= BigDecimal.ZERO) return null
     return formatter.formatCurrency(value, walletCurrency)
   }
 

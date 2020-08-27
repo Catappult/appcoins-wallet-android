@@ -40,6 +40,7 @@ import java.util.List;
     @JsonProperty("subtype") private String subType;
     @JsonProperty("title") private String title;
     @JsonProperty("description") private String description;
+    @JsonProperty("perk") private String perk;
     @JsonProperty("status") private Status status;
     @JsonProperty("operations") private List<Operation> operations;
 
@@ -201,6 +202,14 @@ import java.util.List;
 
     public void setDescription(String description) {
       this.description = description;
+    }
+
+    public String getPerk() {
+      return perk;
+    }
+
+    public void setPerk(String perk) {
+      this.perk = perk;
     }
   }
 

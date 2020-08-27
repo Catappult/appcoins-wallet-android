@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "8aa4bbfccd2c40c1a01de03624447371",
+    "identityHash": "9f29fec227086eb127928bad729f361a",
     "entities": [
       {
         "tableName": "TransactionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` TEXT NOT NULL, `relatedWallet` TEXT NOT NULL, `approveTransactionId` TEXT, `type` TEXT NOT NULL, `subType` TEXT, `title` TEXT, `cardDescription` TEXT, `timeStamp` INTEGER NOT NULL, `processedTime` INTEGER NOT NULL, `status` TEXT NOT NULL, `value` TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, `currency` TEXT, `operations` TEXT, `sourceName` TEXT, `description` TEXT, `iconType` TEXT, `uri` TEXT, PRIMARY KEY(`transactionId`, `relatedWallet`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` TEXT NOT NULL, `relatedWallet` TEXT NOT NULL, `approveTransactionId` TEXT, `perk` TEXT, `type` TEXT NOT NULL, `subType` TEXT, `title` TEXT, `cardDescription` TEXT, `timeStamp` INTEGER NOT NULL, `processedTime` INTEGER NOT NULL, `status` TEXT NOT NULL, `value` TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, `currency` TEXT, `operations` TEXT, `sourceName` TEXT, `description` TEXT, `iconType` TEXT, `uri` TEXT, PRIMARY KEY(`transactionId`, `relatedWallet`))",
         "fields": [
           {
             "fieldPath": "transactionId",
@@ -23,6 +23,12 @@
           {
             "fieldPath": "approveTransactionId",
             "columnName": "approveTransactionId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "perk",
+            "columnName": "perk",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -202,7 +208,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8aa4bbfccd2c40c1a01de03624447371')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9f29fec227086eb127928bad729f361a')"
     ]
   }
 }

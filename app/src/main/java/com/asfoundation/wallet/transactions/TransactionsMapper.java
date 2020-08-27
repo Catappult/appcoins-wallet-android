@@ -17,6 +17,8 @@ import static com.asfoundation.wallet.transactions.Transaction.TransactionType.T
 public class TransactionsMapper {
 
   private static final String PERK_BONUS = "perk_bonus";
+  private static final String GAMIFICATION_LEVEL_UP = "GAMIFICATION_LEVEL_UP";
+  private static final String PACKAGE_PERK = "PACKAGE_PERK";
 
   public TransactionsMapper() {
   }
@@ -42,8 +44,7 @@ public class TransactionsMapper {
 
       String sourceName;
       Transaction.SubType bonusSubType = null;
-      String bonusTitle = null;
-      String bonusDescription = null;
+      Transaction.Perk perk = null;
       if (txType.equals(BONUS)) {
         if (transaction.getBonus() == null) {
           sourceName = null;
@@ -51,23 +52,15 @@ public class TransactionsMapper {
           sourceName = transaction.getBonus()
               .stripTrailingZeros()
               .toPlainString();
-          if (transaction.getSubType() != null) {
-            if (transaction.getSubType()
-                .equals(PERK_BONUS)) {
-              bonusSubType = Transaction.SubType.PERK_PROMOTION;
-            } else {
-              bonusSubType = Transaction.SubType.UNKNOWN;
-            }
-          }
-          bonusTitle = transaction.getTitle();
-          bonusDescription = transaction.getDescription();
         }
       } else {
         sourceName = transaction.getApp();
       }
+      bonusSubType = mapSubtype(transaction.getSubType());
+      perk = mapPerk(transaction.getPerk());
       transactionList.add(0,
-          new Transaction(transaction.getTxID(), txType, bonusSubType, bonusTitle, bonusDescription,
-              null, transaction.getTs()
+          new Transaction(transaction.getTxID(), txType, bonusSubType, transaction.getTitle(),
+              transaction.getDescription(), perk, null, transaction.getTs()
               .getTime(), transaction.getProcessedTime()
               .getTime(), status, transaction.getAmount()
               .toString(), transaction.getSender(), transaction.getReceiver(),
@@ -78,6 +71,36 @@ public class TransactionsMapper {
               mapOperations(transaction.getOperations())));
     }
     return transactionList;
+  }
+
+  private Transaction.Perk mapPerk(String perk) {
+    Transaction.Perk perkType = null;
+    if (perk != null) {
+      switch (perk) {
+        case GAMIFICATION_LEVEL_UP:
+          perkType = Transaction.Perk.GAMIFICATION_LEVEL_UP;
+          break;
+        case PACKAGE_PERK:
+          perkType = Transaction.Perk.PACKAGE_PERK;
+          break;
+        default:
+          perkType = Transaction.Perk.UNKNOWN;
+          break;
+      }
+    }
+    return perkType;
+  }
+
+  private Transaction.SubType mapSubtype(String subType) {
+    Transaction.SubType bonusSubType = null;
+    if (subType != null) {
+      if (subType.equals(PERK_BONUS)) {
+        bonusSubType = Transaction.SubType.PERK_PROMOTION;
+      } else {
+        bonusSubType = Transaction.SubType.UNKNOWN;
+      }
+    }
+    return bonusSubType;
   }
 
   private List<Operation> mapOperations(List<WalletHistory.Operation> operations) {

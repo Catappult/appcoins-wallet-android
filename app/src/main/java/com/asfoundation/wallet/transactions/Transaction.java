@@ -22,7 +22,8 @@ public class Transaction implements Parcelable {
   @Nullable private final SubType subType;
   @Nullable private final String title;
   @Nullable private final String description;
-  @Nullable private final String approveTransactionId;
+  @Nullable private final Perk perk;
+  private final String approveTransactionId;
   private final TransactionType type;
   private final long timeStamp;
   private final long processedTime;
@@ -35,14 +36,16 @@ public class Transaction implements Parcelable {
   @Nullable private final List<Operation> operations;
 
   public Transaction(String transactionId, TransactionType type, @Nullable SubType subType,
-      @Nullable String title, @Nullable String description, @Nullable String approveTransactionId,
-      long timeStamp, long processedTime, TransactionStatus status, String value, String from,
-      String to, @Nullable TransactionDetails details, @Nullable String currency,
+      @Nullable String title, @Nullable String description, @Nullable Perk perk,
+      @Nullable String approveTransactionId, long timeStamp, long processedTime,
+      TransactionStatus status, String value, String from, String to,
+      @Nullable TransactionDetails details, @Nullable String currency,
       @Nullable List<Operation> operations) {
     this.transactionId = transactionId;
     this.subType = subType;
     this.title = title;
     this.description = description;
+    this.perk = perk;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
     this.timeStamp = timeStamp;
@@ -61,6 +64,7 @@ public class Transaction implements Parcelable {
     subType = SubType.fromInt(in.readInt());
     title = in.readString();
     description = in.readString();
+    perk = Perk.fromInt(in.readInt());
     approveTransactionId = in.readString();
     type = TransactionType.fromInt(in.readInt());
     timeStamp = in.readLong();
@@ -93,6 +97,11 @@ public class Transaction implements Parcelable {
     }
     dest.writeString(title);
     dest.writeString(description);
+    if (perk != null) {
+      dest.writeInt(perk.ordinal());
+    } else {
+      dest.writeInt(-1);
+    }
     dest.writeString(approveTransactionId);
     dest.writeInt(type.ordinal());
     dest.writeLong(timeStamp);
@@ -116,6 +125,7 @@ public class Transaction implements Parcelable {
     result = 31 * result + (subType != null ? subType.hashCode() : 0);
     result = 31 * result + (title != null ? title.hashCode() : 0);
     result = 31 * result + (description != null ? description.hashCode() : 0);
+    result = 31 * result + (perk != null ? perk.hashCode() : 0);
     result = 31 * result + (approveTransactionId != null ? approveTransactionId.hashCode() : 0);
     result = 31 * result + type.hashCode();
     result = 31 * result + (int) (timeStamp ^ (timeStamp >>> 32));
@@ -140,6 +150,7 @@ public class Transaction implements Parcelable {
     if (!Objects.equals(subType, that.subType)) return false;
     if (!Objects.equals(title, that.title)) return false;
     if (!Objects.equals(description, that.description)) return false;
+    if (!Objects.equals(perk, that.perk)) return false;
     if (!Objects.equals(approveTransactionId, that.approveTransactionId)) return false;
     if (type != that.type) return false;
     if (status != that.status) return false;
@@ -162,14 +173,17 @@ public class Transaction implements Parcelable {
         + ", type="
         + type
         + '\''
-        + ", bonusSubType="
+        + ", subType="
         + subType
         + '\''
-        + ", bonusTitle="
+        + ", title="
         + title
         + '\''
-        + ", bonusDescription="
+        + ", description="
         + description
+        + '\''
+        + ", perk="
+        + perk
         + ", timeStamp="
         + timeStamp
         + ", status="
@@ -199,6 +213,10 @@ public class Transaction implements Parcelable {
 
   @Nullable public SubType getSubType() {
     return subType;
+  }
+
+  @Nullable public Perk getPerk() {
+    return perk;
   }
 
   @Nullable public String getTitle() {
@@ -286,6 +304,24 @@ public class Transaction implements Parcelable {
       if (type != -1) {
         if (type == 0) {
           return PERK_PROMOTION;
+        } else {
+          return UNKNOWN;
+        }
+      } else {
+        return null;
+      }
+    }
+  }
+
+  public enum Perk {
+    GAMIFICATION_LEVEL_UP, PACKAGE_PERK, UNKNOWN;
+
+    static Perk fromInt(int type) {
+      if (type != -1) {
+        if (type == 0) {
+          return GAMIFICATION_LEVEL_UP;
+        } else if (type == 1) {
+          return PACKAGE_PERK;
         } else {
           return UNKNOWN;
         }

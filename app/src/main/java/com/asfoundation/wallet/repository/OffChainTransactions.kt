@@ -19,8 +19,7 @@ class OffChainTransactions(private val repository: OffChainTransactionsRepositor
             .execute()
 
     if (transactions.isSuccessful) {
-      return mapper.mapTransactionsFromWalletHistory(
-          transactions.body()?.result)
+      return mapper.mapTransactionsFromWalletHistory(transactions.body()?.result)
     }
     throw HttpException(transactions)
   }

@@ -31,6 +31,16 @@ class TransactionTypeConverter {
   }
 
   @TypeConverter
+  fun convertPerk(perk: TransactionEntity.Perk?): String? {
+    return perk?.name
+  }
+
+  @TypeConverter
+  fun convertFromPerk(perk: String?): TransactionEntity.Perk? {
+    return perk?.let { return TransactionEntity.Perk.valueOf(it) }
+  }
+
+  @TypeConverter
   fun convertTransactionStatus(type: TransactionEntity.TransactionStatus): String {
     return type.name
   }

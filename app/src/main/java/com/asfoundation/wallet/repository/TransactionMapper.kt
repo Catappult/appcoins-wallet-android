@@ -15,10 +15,10 @@ class TransactionMapper {
 
   private fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        transaction.title, transaction.cardDescription, transaction.approveTransactionId,
-        transaction.timeStamp, transaction.processedTime, map(transaction.status),
-        transaction.value, transaction.from, transaction.to, map(transaction.details),
-        transaction.currency, mapToOperations(transaction.operations))
+        transaction.title, transaction.cardDescription, map(transaction.perk),
+        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
+        map(transaction.status), transaction.value, transaction.from, transaction.to,
+        map(transaction.details), transaction.currency, mapToOperations(transaction.operations))
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
@@ -67,12 +67,11 @@ class TransactionMapper {
 
   fun map(transaction: Transaction, relatedWallet: String): TransactionEntity {
     return TransactionEntity(transaction.transactionId, relatedWallet,
-        transaction.approveTransactionId,
+        transaction.approveTransactionId, map(transaction.perk),
         map(transaction.type), map(transaction.subType), transaction.title,
-        transaction.description, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value,
-        transaction.from,
-        transaction.to, map(transaction.details), transaction.currency,
+        transaction.description, transaction.timeStamp,
+        transaction.processedTime, map(transaction.status), transaction.value,
+        transaction.from, transaction.to, map(transaction.details), transaction.currency,
         mapToOperationEntities(transaction.operations))
   }
 
@@ -139,6 +138,25 @@ class TransactionMapper {
     return when (subType) {
       Transaction.SubType.PERK_PROMOTION -> TransactionEntity.SubType.PERK_PROMOTION
       Transaction.SubType.UNKNOWN -> TransactionEntity.SubType.UNKNOWN
+    }
+  }
+
+
+  private fun map(perk: TransactionEntity.Perk?): Transaction.Perk? {
+    if (perk == null) return null
+    return when (perk) {
+      TransactionEntity.Perk.GAMIFICATION_LEVEL_UP -> Transaction.Perk.GAMIFICATION_LEVEL_UP
+      TransactionEntity.Perk.PACKAGE_PERK -> Transaction.Perk.PACKAGE_PERK
+      TransactionEntity.Perk.UNKNOWN -> Transaction.Perk.UNKNOWN
+    }
+  }
+
+  private fun map(perk: Transaction.Perk?): TransactionEntity.Perk? {
+    if (perk == null) return null
+    return when (perk) {
+      Transaction.Perk.GAMIFICATION_LEVEL_UP -> TransactionEntity.Perk.GAMIFICATION_LEVEL_UP
+      Transaction.Perk.PACKAGE_PERK -> TransactionEntity.Perk.PACKAGE_PERK
+      Transaction.Perk.UNKNOWN -> TransactionEntity.Perk.UNKNOWN
     }
   }
 }
