@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="70dp"
     android:layout_height="16dp"
-    android:background="@color/balance_verify_chip_background"
+    app:cardBackgroundColor="@color/balance_verify_chip_background"
     app:cardCornerRadius="9dp"
+    app:cardElevation="0dp"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout

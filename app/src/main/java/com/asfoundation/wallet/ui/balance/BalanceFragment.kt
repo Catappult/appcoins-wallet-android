@@ -113,6 +113,11 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
         })
   }
 
+  override fun onResume() {
+    super.onResume()
+    presenter.onResume()
+  }
+
   override fun setTooltip() {
     popup = PopupWindow(tooltip)
     popup?.height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -269,7 +274,7 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
   override fun openWalletValidationScreen(): Boolean {
     context?.let {
       val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
-          navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = false,
+          navigateToTransactionsOnSuccess = false, navigateToTransactionsOnCancel = false,
           showToolbar = true, previousContext = "settings")
           .apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP

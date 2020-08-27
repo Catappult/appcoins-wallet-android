@@ -42,8 +42,9 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleTooltipBackupClick()
     handleTooltipLaterClick()
     handleVerifyWalletClick()
-    handleWalletInfoDisplay()
   }
+
+  fun onResume() = handleWalletInfoDisplay()
 
   private fun handleTooltipLaterClick() {
     disposables.add(view.getTooltipDismissClick()

@@ -201,7 +201,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/active_wallet_text"
                 app:layout_constraintStart_toEndOf="@id/active_wallet_text"
                 app:layout_constraintTop_toTopOf="@id/active_wallet_text"
-                tools:visibility="visible"
+                tools:visibility="gone"
                 />
 
             <include
@@ -214,7 +214,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/active_wallet_text"
                 app:layout_constraintStart_toEndOf="@id/active_wallet_text"
                 app:layout_constraintTop_toTopOf="@id/active_wallet_text"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 />
 
             <TextView
