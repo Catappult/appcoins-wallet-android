@@ -244,9 +244,11 @@
                 android:layout_marginBottom="12dp"
                 android:text="@string/referral_view_verify_button"
                 android:textSize="11sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/active_wallet_info"
                 app:layout_constraintStart_toStartOf="@id/wallet_icon"
                 app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
+                tools:visibility="visible"
                 />
 
             <ImageView
