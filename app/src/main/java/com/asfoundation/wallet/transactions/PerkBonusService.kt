@@ -13,7 +13,6 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
 import dagger.android.AndroidInjection
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -95,7 +94,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
       builder = NotificationCompat.Builder(this, channelId)
       builder.setVibrate(LongArray(0))
     }
-    return builder.setContentTitle("You've earned $value APPC")
+    return builder.setContentTitle(getString(R.string.perks_notification, value))
         .setAutoCancel(true)
         .setContentIntent(positiveIntent)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -105,11 +104,10 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
 
   private fun getScaledValue(valueStr: String?): String? {
     if (valueStr == null) return null
-    val walletCurrency = WalletCurrency.CREDITS
     var value = BigDecimal(valueStr)
     value = value.divide(BigDecimal(10.0.pow(C.ETHER_DECIMALS.toDouble())))
     if (value <= BigDecimal.ZERO) return null
-    return formatter.formatCurrency(value, walletCurrency)
+    return formatter.formatGamificationValues(value)
   }
 
   companion object {
