@@ -8,11 +8,11 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener
-import kotlinx.android.synthetic.main.item_transaction_promotion_bonus.view.*
+import kotlinx.android.synthetic.main.item_transaction_perk_bonus.view.*
 
-class PromotionsBonusViewHolder(resId: Int,
-                                parent: ViewGroup,
-                                private val onTransactionClickListener: OnTransactionClickListener) :
+class PerkBonusViewHolder(resId: Int,
+                          parent: ViewGroup,
+                          private val onTransactionClickListener: OnTransactionClickListener) :
     BinderViewHolder<Transaction>(resId, parent) {
 
   override fun bind(data: Transaction?, addition: Bundle) {
