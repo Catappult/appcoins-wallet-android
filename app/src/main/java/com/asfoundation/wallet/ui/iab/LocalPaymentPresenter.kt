@@ -10,6 +10,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -42,7 +43,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val payload: String?,
                             private val context: Context?,
                             private val paymentMethodIconUrl: String?,
-                            private val gamificationLevel: Int) {
+                            private val gamificationLevel: Int,
+                            private val logger: Logger) {
 
   private var waitingResult: Boolean = false
 
@@ -128,13 +130,13 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun handleOkErrorButtonClick() {
     disposables.add(view.getErrorDismissClick()
         .doOnNext { view.dismissError() }
-        .subscribe())
+        .subscribe({}, { view.dismissError() }))
   }
 
   private fun handleOkBuyButtonClick() {
     disposables.add(view.getGotItClick()
         .doOnNext { view.close() }
-        .subscribe()
+        .subscribe({}, { view.close() })
     )
   }
 
@@ -159,7 +161,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
-              it.printStackTrace()
+              logger.log(TAG, it)
               view.showError(R.string.purchase_wallet_error_contact_us)
             })
     )
@@ -169,6 +171,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     view.hideLoading()
     return when {
       isErrorStatus(transaction) -> Completable.fromAction {
+        logger.log(TAG, "Transaction came with error status: ${transaction.status}")
         view.showError()
       }
           .subscribeOn(viewScheduler)
@@ -233,12 +236,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { localPaymentInteractor.showSupport(gamificationLevel) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun showError(throwable: Throwable) {
-    throwable.printStackTrace()
+    logger.log(TAG, throwable)
     if (throwable is HttpException && throwable.code() == FORBIDDEN_CODE) handleFraudFlow()
     else view.showError(mapError(throwable))
   }
@@ -270,6 +273,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         .toInt()
 
   companion object {
+    private val TAG = LocalPaymentPresenter::class.java.simpleName
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val FORBIDDEN_CODE = 403
   }

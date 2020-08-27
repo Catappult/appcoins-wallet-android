@@ -7,6 +7,7 @@ import android.util.TypedValue
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -34,7 +35,8 @@ class LocalTopUpPaymentPresenter(
     private val data: TopUpPaymentData,
     private val paymentId: String,
     private val paymentIcon: String,
-    private val packageName: String) {
+    private val packageName: String,
+    private val logger: Logger) {
 
   private var waitingResult: Boolean = false
   private var status: ViewState = ViewState.NONE
@@ -127,19 +129,22 @@ class LocalTopUpPaymentPresenter(
     disposables.add(view.getTryAgainClick()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .doOnNext { view.navigateToPaymentSelection() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleGotItClick() {
     disposables.add(view.getGotItClick()
         .doOnNext { activityView.close() }
-        .subscribe()
+        .subscribe({}, { activityView.close() })
     )
   }
 
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     return when {
-      isErrorStatus(transaction) -> Completable.fromAction { showGenericError() }
+      isErrorStatus(transaction) -> Completable.fromAction {
+        logger.log(TAG, "Transaction came with error status: ${transaction.status}")
+        showGenericError()
+      }
       transaction.status == Transaction.Status.COMPLETED -> handleSyncCompletedStatus()
       localPaymentInteractor.isAsync(transaction.type) ->
         Completable.fromAction {
@@ -170,12 +175,12 @@ class LocalTopUpPaymentPresenter(
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun showError(throwable: Throwable) {
-    throwable.printStackTrace()
+    logger.log(TAG, throwable)
     if (throwable.isNoNetworkException()) {
       status = ViewState.NO_NETWORK
       view.showNetworkError()
@@ -225,6 +230,7 @@ class LocalTopUpPaymentPresenter(
   }
 
   companion object {
+    private val TAG = LocalTopUpPaymentPresenter::class.java.simpleName
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val STATUS_KEY = "status"
   }

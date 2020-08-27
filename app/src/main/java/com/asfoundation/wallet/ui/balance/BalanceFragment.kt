@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.TypedValue
@@ -20,6 +21,7 @@ import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
@@ -109,6 +111,11 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
             setAlpha(balance_value_placeholder, percentage)
           }
         })
+  }
+
+  override fun onResume() {
+    super.onResume()
+    presenter.onResume()
   }
 
   override fun setTooltip() {
@@ -221,6 +228,8 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     activityView?.showTokenDetailsScreen(tokenId, view.token_icon, view.token_name, view)
   }
 
+  override fun getVerifyWalletClick() = RxView.clicks(verify_wallet_button)
+
   override fun getCopyClick() = RxView.clicks(copy_address)
 
   override fun getQrCodeClick() = RxView.clicks(wallet_qr_code)
@@ -260,6 +269,51 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     } else {
       activityView?.navigateToTransactions()
     }
+  }
+
+  override fun openWalletValidationScreen(): Boolean {
+    context?.let {
+      val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
+          navigateToTransactionsOnSuccess = false, navigateToTransactionsOnCancel = false,
+          showToolbar = true, previousContext = "settings")
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
+      startActivity(intent)
+    }
+    return true
+  }
+
+  override fun showVerifiedWalletChip() {
+    verified_wallet_chip.visibility = View.VISIBLE
+  }
+
+  override fun hideVerifiedWalletChip() {
+    verified_wallet_chip.visibility = View.GONE
+  }
+
+  override fun showUnverifiedWalletChip() {
+    unverified_wallet_chip.visibility = View.VISIBLE
+  }
+
+  override fun hideUnverifiedWalletChip() {
+    unverified_wallet_chip.visibility = View.GONE
+  }
+
+  override fun showVerifyWalletButton() {
+    verify_wallet_button.visibility = View.VISIBLE
+  }
+
+  override fun hideVerifyWalletButton() {
+    verify_wallet_button.visibility = View.GONE
+  }
+
+  override fun disableVerifyWalletButton() {
+    verify_wallet_button.isEnabled = false
+  }
+
+  override fun enableVerifyWalletButton() {
+    verify_wallet_button.isEnabled = true
   }
 
   override fun showCreatingAnimation() {

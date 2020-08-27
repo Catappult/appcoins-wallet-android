@@ -24,8 +24,8 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/guideline_top"
-      app:layout_constraintVertical_chainStyle="packed"
       app:layout_constraintVertical_bias="0"
+      app:layout_constraintVertical_chainStyle="packed"
       />
 
   <com.airbnb.lottie.LottieAnimationView
@@ -76,7 +76,7 @@
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/step_one"
       app:layout_constraintTop_toBottomOf="@id/top_up_in_progress_animation"
-      tools:text="@string/async_steps_1_no_notification"
+      tools:text="@string/async_steps_topup_2"
       tools:visibility="visible"
       />
 
@@ -106,7 +106,7 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:text="@string/async_steps_2_no_notification"
+      android:text="@string/async_steps_2_toptup_no_notification"
       android:textColor="@color/pending_payment_text_color"
       android:textSize="12sp"
       android:visibility="invisible"
