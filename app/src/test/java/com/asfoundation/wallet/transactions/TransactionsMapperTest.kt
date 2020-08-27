@@ -87,11 +87,11 @@ class TransactionsMapperTest {
             TransactionDetails("11.5", TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "https://apichain-dev.blockchainds.com/appc/icons/bonus.png"),
                 "gas"), "APPC", Collections.emptyList())
-    Assert.assertTrue(Objects.equals(transactions[4], topUpTransaction))
-    Assert.assertTrue(Objects.equals(transactions[3], topUpBonusTransaction))
-    Assert.assertTrue(Objects.equals(transactions[2], perkBonusTransaction))
-    Assert.assertTrue(Objects.equals(transactions[1], iapTransaction))
-    Assert.assertTrue(Objects.equals(transactions[0], iapBonusTransaction))
+    Assert.assertTrue(transactions[4] == topUpTransaction)
+    Assert.assertTrue(transactions[3] == topUpBonusTransaction)
+    Assert.assertTrue(transactions[2] == perkBonusTransaction)
+    Assert.assertTrue(transactions[1] == iapTransaction)
+    Assert.assertTrue(transactions[0] == iapBonusTransaction)
   }
 
   @Test
