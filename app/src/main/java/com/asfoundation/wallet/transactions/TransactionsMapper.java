@@ -43,8 +43,8 @@ public class TransactionsMapper {
       }
 
       String sourceName;
-      Transaction.SubType bonusSubType = null;
-      Transaction.Perk perk = null;
+      Transaction.SubType bonusSubType;
+      Transaction.Perk perk;
       if (txType.equals(BONUS)) {
         if (transaction.getBonus() == null) {
           sourceName = null;
