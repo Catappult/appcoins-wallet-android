@@ -35,9 +35,9 @@ class AuthenticationPromptPresenter(
         view.showPrompt(view.createBiometricPrompt(),
             fingerprintInteract.definePromptInformation())
       }
-      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.showBottomSheetDialogFragment(
+      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.showAuthenticationBottomSheet(
           "Enable Fingerprint Authentication in your phone.")
-      BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.showBottomSheetDialogFragment(
+      BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.showAuthenticationBottomSheet(
           "Enable Fingerprint Authentication in your phone.")
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
         if (view.checkBiometricSupport()) {
@@ -53,7 +53,7 @@ class AuthenticationPromptPresenter(
 
   private fun setBottomsheetOn(message: String) {
     hasBottomsheetOn = true
-    view.showBottomSheetDialogFragment(message)
+    view.showAuthenticationBottomSheet(message)
   }
 
   private fun handleAuthenticationResult() {
@@ -66,6 +66,7 @@ class AuthenticationPromptPresenter(
               if (it.errorCode == BiometricPrompt.ERROR_USER_CANCELED || it.errorCode == BiometricPrompt.ERROR_CANCELED) {
                 view.closeCancel()
               } else {
+                setAuthenticationTimer()
                 setBottomsheetOn(it.errorString.toString())
               }
             }
@@ -82,9 +83,21 @@ class AuthenticationPromptPresenter(
         .observeOn(viewScheduler)
         .doOnNext {
           hasBottomsheetOn = false
-          showEverything()
+          view.closeCancel()
         }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun setAuthenticationTimer() {
+    val lastAuthenticationErrorTime = preferencesRepositoryType.getAuthenticationErrorTime()
+    val currentTime = System.currentTimeMillis()
+    if (currentTime - lastAuthenticationErrorTime >= 30000) {
+      preferencesRepositoryType.setAuthenticationErrorTime(currentTime)
+      view.setOnErrorTimer(30)
+    } else {
+      val time = 30000 - (currentTime - lastAuthenticationErrorTime)
+      view.setOnErrorTimer(time)
+    }
   }
 
   fun onSaveInstanceState(outState: Bundle) {

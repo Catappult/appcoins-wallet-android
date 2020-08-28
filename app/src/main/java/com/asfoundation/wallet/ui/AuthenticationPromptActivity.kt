@@ -4,6 +4,7 @@ import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
@@ -26,14 +27,16 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   private lateinit var presenter: AuthenticationPromptPresenter
 
+  private var last_error_timer: Long = 0
+
   private var fingerprintResultSubject: PublishSubject<FingerprintAuthResult>? = null
 
   private var retryClickSubject: PublishSubject<Any>? = null
 
-
   companion object {
     const val RESULT_OK = 0
     const val RESULT_CANCELED = 1
+    const val ERROR_TIME = "error_time"
 
     @JvmStatic
     fun newIntent(context: Context): Intent {
@@ -48,6 +51,7 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     setContentView(R.layout.authentication_prompt_activity)
     retryClickSubject = PublishSubject.create<Any>()
     fingerprintResultSubject = PublishSubject.create<FingerprintAuthResult>()
+    last_error_timer = 0
     presenter =
         AuthenticationPromptPresenter(this,
             AndroidSchedulers.mainThread(),
@@ -55,6 +59,9 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
             fingerprintInteract,
             preferencesRepositoryType)
     presenter.present(savedInstanceState)
+    if (savedInstanceState != null && savedInstanceState.containsKey(ERROR_TIME)) {
+      last_error_timer = savedInstanceState.getLong(ERROR_TIME)
+    }
   }
 
 
@@ -98,16 +105,22 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     retryClickSubject?.onNext("")
   }
 
-
-  override fun showBottomSheetDialogFragment(message: String) {
-    val bottomSheetFragment =
-        AuthenticationErrorBottomSheetFragment.newInstance(message)
-    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+  override fun showAuthenticationBottomSheet(message: String) {
+    supportFragmentManager.beginTransaction()
+        .setCustomAnimations(R.anim.fade_in_animation, R.anim.fragment_slide_down,
+            R.anim.fade_in_animation, R.anim.fragment_slide_down)
+        .replace(R.id.bottom_sheet_error_fragment_container,
+            AuthenticationErrorFragment.newInstance(message))
+        .commit()
   }
 
   override fun showPrompt(biometricPrompt: BiometricPrompt,
                           promptInfo: PromptInfo) {
     biometricPrompt.authenticate(promptInfo)
+  }
+
+  override fun setOnErrorTimer(timer: Long) {
+
   }
 
   override fun showFail() {}
@@ -130,9 +143,19 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     finishAndRemoveTask()
   }
 
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstanceState(outState)
+  }
+
+  override fun onBackPressed() {
+    closeCancel()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    super.onSaveInstanceState(outState, outPersistentState)
+    outState.putLong(ERROR_TIME, last_error_timer)
   }
 
   override fun onDestroy() {

@@ -255,7 +255,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.AuthenticationPromptActivity"
         android:launchMode="singleInstance"
-        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay" />
+        android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
 
     <service
         android:name="com.asfoundation.wallet.support.SupportMessagingService"

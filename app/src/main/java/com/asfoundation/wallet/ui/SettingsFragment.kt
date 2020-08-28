@@ -13,8 +13,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.fingerprint.ManageFingerprintActivity
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
+import com.asfoundation.wallet.fingerprint.ManageFingerprintActivity
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -211,7 +211,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val fingerprintPreference = findPreference<Preference>("pref_fingerprint")
     fingerprintPreference?.setOnPreferenceClickListener { openFingerprintScreen() }
   }
-
 
   private fun setSourceCodePreference() {
     val sourceCodePreference = findPreference<Preference>("pref_source_code")
