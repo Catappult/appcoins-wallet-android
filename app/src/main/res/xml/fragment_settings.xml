@@ -5,13 +5,6 @@
     android:layout_height="match_parent">
 
   <Preference
-      android:icon="@drawable/ic_settings_verification"
-      android:key="pref_verification"
-      android:layout="@layout/preference_with_summary_layout"
-      android:summary="@string/verification_settings_unverified_body"
-      android:title="@string/verification_settings_unverified_title" />
-
-  <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
       android:layout="@layout/preference_without_summary_layout"

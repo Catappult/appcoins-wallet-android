@@ -16,6 +16,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -53,6 +54,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
   @Inject
+  lateinit var logger: Logger
+
+  @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
   private lateinit var presenter: IabPresenter
@@ -86,7 +90,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
-            walletBlockedInteract)
+            walletBlockedInteract, logger)
     if (savedInstanceState == null) showPaymentMethodsView()
   }
 

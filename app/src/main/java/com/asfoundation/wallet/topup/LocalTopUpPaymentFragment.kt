@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.payment.PaymentFragmentNavigator
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -45,6 +46,9 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
+  @Inject
+  lateinit var logger: Logger
 
   private lateinit var activityView: TopUpActivityView
   private lateinit var presenter: LocalTopUpPaymentPresenter
@@ -91,7 +95,7 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     presenter = LocalTopUpPaymentPresenter(this, activityView, context, localPaymentInteractor,
         topUpAnalytics, navigator, formatter, inAppPurchaseInteractor.billingMessagesMapper,
         AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), data, paymentId,
-        paymentIcon, activity!!.packageName)
+        paymentIcon, activity!!.packageName, logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

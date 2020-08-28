@@ -313,9 +313,10 @@ class InteractModule {
   @Provides
   fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                              balanceRepository: BalanceRepository,
-                             preferencesRepositoryType: PreferencesRepositoryType) =
+                             preferencesRepositoryType: PreferencesRepositoryType,
+                             smsValidationInteract: SmsValidationInteract) =
       BalanceInteract(findDefaultWalletInteract, balanceRepository,
-          preferencesRepositoryType)
+          preferencesRepositoryType, smsValidationInteract)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
@@ -504,14 +505,12 @@ class InteractModule {
 
   @Provides
   fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
-                               smsValidationInteract: SmsValidationInteract,
-                               preferencesRepositoryType: PreferencesRepositoryType,
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
                                autoUpdateInteract: AutoUpdateInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
-    return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, supportInteractor, walletsInteract, autoUpdateInteract,
+    return SettingsInteract(findDefaultWalletInteract, supportInteractor, walletsInteract,
+        autoUpdateInteract,
         walletsEventSender)
   }
 

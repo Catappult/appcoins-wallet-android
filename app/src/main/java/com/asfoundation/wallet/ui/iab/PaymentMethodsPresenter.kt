@@ -139,7 +139,7 @@ class PaymentMethodsPresenter(
         }
         .doOnSubscribe { view.showProgressBarLoading() }
         .doOnError { showError(it) }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, { showError(it) })
     )
   }
 
