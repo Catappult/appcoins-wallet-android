@@ -141,8 +141,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               }
             }
             .subscribe({}, {
-              view.showGenericError()
               logger.log(TAG, it)
+              view.showGenericError()
             }))
   }
 
@@ -162,8 +162,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           handlePaymentModel(it)
         }
         .subscribe({}, {
-          view.showGenericError()
           logger.log(TAG, it)
+          view.showGenericError()
         }))
   }
 
@@ -420,8 +420,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .observeOn(viewScheduler)
         .doOnNext { view.submitUriResult(it) }
         .subscribe({}, {
-          view.showGenericError()
           logger.log(TAG, it)
+          view.showGenericError()
         }))
   }
 
@@ -537,14 +537,21 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             view.showMoreMethods()
           }
         }
-        .subscribe({}, { view.showGenericError() }))
+        .subscribe({}, {
+          logger.log(TAG, it)
+          view.showGenericError()
+        }
+        ))
   }
 
   private fun handleAdyenErrorCancel() {
     disposables.add(view.adyenErrorCancelClicks()
         .observeOn(viewScheduler)
         .doOnNext { view.close(adyenPaymentInteractor.mapCancellation()) }
-        .subscribe({}, { view.showGenericError() }))
+        .subscribe({}, {
+          logger.log(TAG, it)
+          view.showGenericError()
+        }))
   }
 
   private fun handleAdyenAction(paymentModel: PaymentModel) {
@@ -560,6 +567,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         view.handle3DSAction(paymentModel.action!!)
         waitingResult = true
       } else {
+        logger.log(TAG, "Unknown adyen action: $type")
         view.showGenericError()
       }
     }
