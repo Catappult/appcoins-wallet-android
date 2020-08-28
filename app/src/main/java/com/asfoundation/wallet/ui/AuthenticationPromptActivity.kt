@@ -4,7 +4,6 @@ import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
@@ -148,6 +147,5 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     presenter.stop()
     super.onDestroy()
   }
-
 
 }

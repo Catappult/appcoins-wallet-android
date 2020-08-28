@@ -32,7 +32,7 @@
       android:icon="@drawable/ic_settings_fingerprint"
       android:key="pref_fingerprint"
       android:layout="@layout/preference_without_summary_layout"
-      android:title="Fingerprint" />
+      android:title="@string/fingerprint_settings" />
 
   <PreferenceCategory
       android:key="pref_opensource_links"

@@ -57,7 +57,7 @@ class AuthenticationErrorBottomSheetFragment :
   }
 
   override fun setMessage() {
-    authentication_error_message.text = errorTimer.toString()
+    authentication_error_message.text = getString(R.string.fingerprint_failed_body, errorTimer.toString())
   }
 
   override fun setupUi() {
