@@ -471,6 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_wallet_error_contact_us">ਓਹ ਹੋ, ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_carrier_error">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <!--Async Payments-->
@@ -755,4 +757,12 @@
   <string name="perks_notification">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਬੋਨਸ ਦੇ ਰੂਪ ਵਿੱਚ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
   <string name="perks_level_up_on_this_purchase">ਇਸ ਖਰੀਦ ਨਾਲ ਪੱਧਰ ਵਧਿਆ</string>
   <string name="perks_level_up_amount_left">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੋਂ %1$s %2$s ਦੂਰ ਹੋ!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

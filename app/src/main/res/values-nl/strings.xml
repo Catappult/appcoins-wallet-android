@@ -471,6 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">Het lijkt erop dat de CVV/CVC-code onjuist is. Probeer het opnieuw.</string>
   <string name="purchase_wallet_error_contact_us">Oeps, er is iets mis met je wallet. Neem contact met ons op.</string>
   <string name="purchase_carrier_error">Het lijkt erop dat je telefoonnummer niet compatibel met deze betaalmethode is.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Onjuiste CVV/CVC</string>
   <string name="error_contac_us_body">Neem contact met ons op als het probleem zich blijft voordoen.</string>
   <!--Async Payments-->
@@ -755,4 +757,12 @@
   <string name="perks_notification">Je hebt zojuist een bonus van %s ontvangen</string>
   <string name="perks_level_up_on_this_purchase">Bereik het volgende niveau met deze aankoop</string>
   <string name="perks_level_up_amount_left">Je bent %1$s %2$s verwijderd van het volgende niveau!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>
