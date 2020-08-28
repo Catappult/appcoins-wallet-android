@@ -27,7 +27,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
     const val REFERRAL_ID = "REFERRAL"
-    const val DEFAULT_VIEW_TYPE = "DEFAULT"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
@@ -39,8 +38,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               promotionsRepo.getUserStatus(it.address),
               BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
                 mapToPromotionsModel(userStatsResponse, level)
-              }
-          )
+              })
               .flatMap { model ->
                 setSeenGenericPromotion(model.promotions, it.address,
                     PromotionUpdateScreen.PROMOTIONS)
@@ -64,8 +62,10 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                 val generic =
                     it.promotions.filter { promotionsResponse -> promotionsResponse !is GamificationResponse && promotionsResponse !is ReferralResponse }
                 Single.zip(
-                    referralInteractor.hasReferralUpdate(referral, ReferralsScreen.PROMOTIONS),
-                    gamificationInteractor.hasNewLevel(gamification, GamificationScreen.PROMOTIONS),
+                    referralInteractor.hasReferralUpdate(wallet.address, referral,
+                        ReferralsScreen.PROMOTIONS),
+                    gamificationInteractor.hasNewLevel(wallet.address, gamification,
+                        GamificationScreen.PROMOTIONS),
                     hasGenericUpdate(generic, wallet.address, promotionUpdateScreen),
                     Function3 { hasReferralUpdate: Boolean, hasNewLevel: Boolean, hasGenericUpdate: Boolean ->
                       hasReferralUpdate || hasNewLevel || hasGenericUpdate

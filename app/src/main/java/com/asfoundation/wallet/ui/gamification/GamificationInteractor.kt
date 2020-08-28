@@ -72,13 +72,13 @@ class GamificationInteractor(
     }
   }
 
-  fun hasNewLevel(gamificationResponse: GamificationResponse?,
+  fun hasNewLevel(walletAddress: String,
+                  gamificationResponse: GamificationResponse?,
                   screen: GamificationScreen): Single<Boolean> {
     return if (gamificationResponse == null || gamificationResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
-      defaultWallet.find()
-          .flatMap { gamification.hasNewLevel(it.address, screen.toString()) }
+      gamification.hasNewLevel(walletAddress, screen.toString())
     }
   }
 

@@ -16,9 +16,7 @@ class PromotionTypeConverter {
 
   @TypeConverter
   fun convertFromPromotionStatus(type: String?): PromotionsResponse.Status? {
-    return type?.let {
-      PromotionsResponse.Status.valueOf(it)
-    }
+    return type?.let { PromotionsResponse.Status.valueOf(it) }
   }
 
   @TypeConverter
@@ -28,9 +26,7 @@ class PromotionTypeConverter {
 
   @TypeConverter
   fun convertFromUserStatus(type: String?): ReferralResponse.UserStatus? {
-    return type?.let {
-      ReferralResponse.UserStatus.valueOf(it)
-    }
+    return type?.let { ReferralResponse.UserStatus.valueOf(it) }
   }
 
   @TypeConverter

@@ -92,15 +92,16 @@ class BdsPromotionsRepository(
 
   private fun mapErrorToUserStatsModel(promotions: List<PromotionsResponse>,
                                        throwable: Throwable): UserStatusResponse {
-    return if (promotions.isEmpty()) {
-      throwable.printStackTrace()
-      return if (isNoNetworkException(throwable)) {
+    return when {
+      promotions.isEmpty() && isNoNetworkException(throwable) -> {
+        throwable.printStackTrace()
         UserStatusResponse(emptyList(), Status.NO_NETWORK)
-      } else {
+      }
+      promotions.isEmpty() -> {
+        throwable.printStackTrace()
         UserStatusResponse(emptyList(), Status.UNKNOWN_ERROR)
       }
-    } else {
-      UserStatusResponse(promotions, null)
+      else -> UserStatusResponse(promotions, null)
     }
   }
 
@@ -115,8 +116,7 @@ class BdsPromotionsRepository(
       } else {
         GamificationStats(GamificationStats.Status.OK, gamification.level,
             gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
-            gamification.totalEarned,
-            PromotionsResponse.Status.ACTIVE == gamification.status)
+            gamification.totalEarned, PromotionsResponse.Status.ACTIVE == gamification.status)
       }
     }
   }
@@ -154,9 +154,7 @@ class BdsPromotionsRepository(
                 .toSingle { userStatusResponse }
           }
         }
-        .doOnError {
-          it.printStackTrace()
-        }
+        .doOnError { it.printStackTrace() }
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {

@@ -15,7 +15,6 @@ class Gamification(private val repository: PromotionsRepository) {
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
     const val REFERRAL_ID = "REFERRAL"
-    const val DEFAULT_VIEW_TYPE = "DEFAULT"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
@@ -34,13 +33,16 @@ class Gamification(private val repository: PromotionsRepository) {
   }
 
   private fun map(userStats: UserStatusResponse): ForecastBonusAndLevel {
-    val gamification = userStats.promotions.firstOrNull {
-      it is GamificationResponse && it.id == GAMIFICATION_ID
-    } as GamificationResponse?
+    val gamification = userStats.promotions
+        .firstOrNull {
+          it is GamificationResponse && it.id == GAMIFICATION_ID
+        } as GamificationResponse?
 
-    val referral = userStats.promotions.firstOrNull {
-      it is GamificationResponse && it.id == REFERRAL_ID
-    } as ReferralResponse?
+    val referral = userStats.promotions
+        .firstOrNull {
+          it is GamificationResponse && it.id == REFERRAL_ID
+        } as ReferralResponse?
+
     return if (referral == null || referral.pendingAmount.compareTo(BigDecimal.ZERO) == 0) {
       ForecastBonusAndLevel(status = ForecastBonus.Status.INACTIVE,
           level = gamification?.level ?: 0)

@@ -58,9 +58,7 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
-    }
+    itemView.setOnClickListener { clickListener.onNext(PromotionClick((promotion.id))) }
 
     GlideApp.with(itemView.context)
         .load(progressItem.icon)

@@ -45,8 +45,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     clickListener = PublishSubject.create()
     presenter =
         PromotionsFragmentPresenter(this, activityView, promotionsInteractor, CompositeDisposable(),
-            Schedulers.io(),
-            AndroidSchedulers.mainThread())
+            Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {

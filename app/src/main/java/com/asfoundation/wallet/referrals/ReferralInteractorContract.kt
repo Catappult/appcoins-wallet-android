@@ -7,7 +7,8 @@ import io.reactivex.Single
 
 interface ReferralInteractorContract {
 
-  fun hasReferralUpdate(referralResponse: ReferralResponse?,
+  fun hasReferralUpdate(walletAddress: String,
+                        referralResponse: ReferralResponse?,
                         screen: ReferralsScreen): Single<Boolean>
 
   fun retrieveReferral(): Single<ReferralModel>

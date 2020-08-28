@@ -35,8 +35,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
   }
 
   override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
-    return preferences.getBoolean(getKeyGeneric(wallet, screen, id),
-        false)
+    return preferences.getBoolean(getKeyGeneric(wallet, screen, id), false)
   }
 
   override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
@@ -69,9 +68,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     return promotionDao.getAll()
-        .map {
-          mapToPromotionResponse(it)
-        }
+        .map { mapToPromotionResponse(it) }
   }
 
   private fun mapToPromotionResponse(promotions: List<PromotionEntity>): List<PromotionsResponse> {
@@ -87,8 +84,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
         else ->
           GenericResponse(it.id, it.priority, it.currentProgress, it.description!!, it.endDate!!,
               it.icon,
-              it.linkedPromotionId, it.objectiveProgress, it.startDate, it.title!!, it.viewType!!
-          )
+              it.linkedPromotionId, it.objectiveProgress, it.startDate, it.title!!, it.viewType!!)
       }
     }
   }
