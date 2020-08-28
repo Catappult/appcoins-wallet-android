@@ -246,7 +246,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                   if (verified) {
                     view.showForbiddenError()
                   } else {
-                    view.showWalletValidation(R.string.purchase_wallet_error_contact_us)
+                    view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
                   }
                 }
           } else {

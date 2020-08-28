@@ -150,19 +150,19 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                 localPaymentInteractor.isWalletVerified()
                     .observeOn(viewScheduler)
                     .doOnSuccess {
-                      if (it) view.showError(R.string.purchase_wallet_error_contact_us)
-                      else view.showWalletValidation(R.string.purchase_wallet_error_contact_us)
+                      if (it) view.showError(R.string.purchase_error_wallet_block_code_403)
+                      else view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
                     }
               } else {
                 Single.just(true)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { view.showError(R.string.purchase_wallet_error_contact_us) }
+                    .doOnSuccess { view.showError(R.string.purchase_error_wallet_block_code_403) }
               }
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
               logger.log(TAG, it)
-              view.showError(R.string.purchase_wallet_error_contact_us)
+              view.showError(R.string.purchase_error_wallet_block_code_403)
             })
     )
   }
@@ -287,7 +287,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   @StringRes
   private fun mapHttpError(exceptiont: HttpException): Int {
     return when (exceptiont.code()) {
-      FORBIDDEN_CODE -> R.string.purchase_wallet_error_contact_us
+      FORBIDDEN_CODE -> R.string.purchase_error_wallet_block_code_403
       else -> R.string.unknown_error
     }
   }
