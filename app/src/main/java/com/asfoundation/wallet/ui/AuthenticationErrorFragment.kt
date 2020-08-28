@@ -20,21 +20,21 @@ class AuthenticationErrorFragment : Fragment(), AuthenticationErrorView {
   private lateinit var activityView: AuthenticationPromptView
   private lateinit var authenticationBottomSheet: BottomSheetBehavior<View>
 
-  private val errorMessage: String by lazy {
-    if (arguments!!.containsKey(ERROR_MESSAGE_KEY)) {
-      arguments!!.getString(ERROR_MESSAGE_KEY, "")
+  private val errorTimer: Long by lazy {
+    if (arguments!!.containsKey(ERROR_TIMER_KEY)) {
+      arguments!!.getLong(ERROR_TIMER_KEY, 0)
     } else {
       throw IllegalArgumentException("Error message not found")
     }
   }
 
   companion object {
-    private const val ERROR_MESSAGE_KEY = "error_message"
+    private const val ERROR_TIMER_KEY = "error_message"
 
-    fun newInstance(message: String): AuthenticationErrorFragment {
+    fun newInstance(timer: Long): AuthenticationErrorFragment {
       val fragment = AuthenticationErrorFragment()
       fragment.arguments = Bundle().apply {
-        putString(ERROR_MESSAGE_KEY, message)
+        putLong(ERROR_TIMER_KEY, timer)
       }
       return fragment
     }
@@ -60,7 +60,7 @@ class AuthenticationErrorFragment : Fragment(), AuthenticationErrorView {
         .setCustomAnimations(R.anim.fragment_slide_up, R.anim.fragment_slide_down,
             R.anim.fragment_slide_up, R.anim.fragment_slide_down)
         .replace(R.id.bottom_error_fragment_container,
-            AuthenticationErrorBottomSheetFragment.newInstance(errorMessage))
+            AuthenticationErrorBottomSheetFragment.newInstance(errorTimer))
         .commit()
     return inflater.inflate(R.layout.authentication_error_fragment, container, false)
   }
