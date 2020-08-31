@@ -10,32 +10,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2020-08-21 17:06\n"
+"PO-Revision-Date: 2020-08-31 06:04\n"
 
 #. Card copy for the Purchase Promotion.
 #:
 msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
-msgstr ""
+msgstr "ดำเนินการซื้อใน %1$s และรับ %2$s AppCoins Credits"
 
 #. Body for Purchase bonus receipt.
 #:
 msgid "Because you made a purchase in %1$s."
-msgstr ""
+msgstr "เนื่องจากคุณทำการซื้อใน %1$s"
 
 #. Card copy for the Expenditure Promotion.
 #:
 msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
-msgstr ""
+msgstr "ใช้จ่าย %1$s %2$s ใน %3$s วันและรับ %4$s AppCoins Credits"
 
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you spent more than %1$s %2$s in the last %3$s days."
-msgstr ""
+msgstr "เนื่องจากคุณใช้จ่ายมากกว่า %1$s %2$s ในช่วง %3$s วันที่ผ่านมา"
 
 #. Card copy for the Next Level Promotion.
 #:
 msgid "Reach the next level and receive %1$s AppCoins Credits!"
-msgstr ""
+msgstr "ไปถึงระดับถัดไปและรับ %1$s AppCoins Credits!"
 
 #. Body for Purchase bonus receipt.
 #:
@@ -46,15 +46,15 @@ msgstr ""
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "เพราะคุณถึงเลเวลถัดไป"
 
 #. Card copy for Extra Gamification Bonus.
 #:
 msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
-msgstr ""
+msgstr "รับโบนัสพิเศษ %1$s%% สำหรับการซื้อทั้งหมดของคุณใน %2$s"
 
 #. Title for bonus receipt.
 #:
 msgid "+%1$s AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+%1$sโบนัส AppCoins Credits!"
 
