@@ -51,8 +51,6 @@
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
-        android:max="100"
-        android:progress="80"
         android:progressDrawable="@drawable/promotions_progress_bar"
         app:layout_constraintEnd_toStartOf="@id/progress_label"
         app:layout_constraintStart_toStartOf="parent"
