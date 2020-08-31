@@ -33,8 +33,8 @@ class ProgressItem(
     val title: String,
     val icon: String?,
     val endDate: Long,
-    val current: Double,
-    val objective: Double
+    val current: BigDecimal,
+    val objective: BigDecimal
 ) : Promotion(id)
 
 class GamificationItem(

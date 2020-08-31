@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "698c6be0519dafb07a454ff067b4fe5d",
+    "identityHash": "5f54f72f1a7c0dc3af063bf159379a1c",
     "entities": [
       {
         "tableName": "PromotionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `priority` INTEGER NOT NULL, `bonus` REAL, `total_spend` TEXT, `total_earned` TEXT, `level` INTEGER, `next_level_amount` TEXT, `status` TEXT, `max_amount` TEXT, `available` INTEGER, `bundle` INTEGER, `completed` INTEGER, `currency` TEXT, `symbol` TEXT, `invited` INTEGER, `link` TEXT, `pending_amount` TEXT, `received_amount` TEXT, `user_status` TEXT, `min_amount` TEXT, `amount` TEXT, `current_progress` REAL, `description` TEXT, `end_date` INTEGER, `icon` TEXT, `linked_promotion_id` TEXT, `objective_progress` REAL, `start_date` INTEGER, `title` TEXT, `view_type` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `priority` INTEGER NOT NULL, `bonus` REAL, `total_spend` TEXT, `total_earned` TEXT, `level` INTEGER, `next_level_amount` TEXT, `status` TEXT, `max_amount` TEXT, `available` INTEGER, `bundle` INTEGER, `completed` INTEGER, `currency` TEXT, `symbol` TEXT, `invited` INTEGER, `link` TEXT, `pending_amount` TEXT, `received_amount` TEXT, `user_status` TEXT, `min_amount` TEXT, `amount` TEXT, `current_progress` TEXT, `description` TEXT, `end_date` INTEGER, `icon` TEXT, `linked_promotion_id` TEXT, `objective_progress` TEXT, `start_date` INTEGER, `title` TEXT, `view_type` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -137,7 +137,7 @@
           {
             "fieldPath": "currentProgress",
             "columnName": "current_progress",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -167,7 +167,7 @@
           {
             "fieldPath": "objectiveProgress",
             "columnName": "objective_progress",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -272,7 +272,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '698c6be0519dafb07a454ff067b4fe5d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f54f72f1a7c0dc3af063bf159379a1c')"
     ]
   }
 }

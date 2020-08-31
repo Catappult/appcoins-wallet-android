@@ -72,7 +72,8 @@ class ProgressViewHolder(itemView: View,
     itemView.progress_title.text = progressItem.title
     itemView.progress_current.progress = progressItem.current.toInt()
     itemView.progress_current.max = progressItem.objective.toInt()
-
+    val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
+    itemView.progress_label.text = progress
     handleExpiryDate(itemView.progress_expiry_date, itemView.progress_container_date,
         progressItem.endDate)
   }
