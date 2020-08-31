@@ -145,14 +145,14 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     return Single.zip(
         levelDao.getLevels(),
         levelsDao.getLevels(),
-        BiFunction { t1, t2 -> mapToLevelsResponse(t1, t2) }
+        BiFunction { levelList, levels -> mapToLevelsResponse(levelList, levels) }
     )
   }
 
-  override fun insertLevels(levelsResponse: LevelsResponse): Completable {
-    val levelsEntity = LevelsEntity(null, levelsResponse.status, levelsResponse.updateDate)
+  override fun insertLevels(levels: LevelsResponse): Completable {
+    val levelsEntity = LevelsEntity(null, levels.status, levels.updateDate)
     val levelEntityList =
-        levelsResponse.list.map { LevelEntity(null, it.amount, it.bonus, it.level) }
+        levels.list.map { LevelEntity(null, it.amount, it.bonus, it.level) }
     return levelsDao.insertLevels(levelsEntity)
         .andThen(levelDao.insertLevels(levelEntityList))
   }
