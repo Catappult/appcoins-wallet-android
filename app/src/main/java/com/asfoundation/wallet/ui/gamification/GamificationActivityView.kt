@@ -14,7 +14,5 @@ interface GamificationActivityView {
 
   fun retryClick(): Observable<Any>
 
-  fun loadLegacyGamificationView()
-
   fun loadGamificationView()
 }

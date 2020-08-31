@@ -6,6 +6,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractorContract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralsScreen
@@ -51,7 +52,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   fun hasPromotionUpdate(): Single<Boolean> {
     return promotionsInteractor.hasAnyPromotionUpdate(ReferralsScreen.PROMOTIONS,
-        GamificationScreen.PROMOTIONS)
+        GamificationScreen.PROMOTIONS, PromotionUpdateScreen.PROMOTIONS)
   }
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {

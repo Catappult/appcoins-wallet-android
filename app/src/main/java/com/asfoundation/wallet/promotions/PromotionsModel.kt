@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.promotions
 
-import com.appcoins.wallet.gamification.repository.UserType
-import java.math.BigDecimal
+import com.appcoins.wallet.gamification.repository.entity.Status
 
-data class PromotionsModel(val gamificationAvailable: Boolean, val referralsAvailable: Boolean,
-                           val level: Int, val nextLevelAmount: BigDecimal? = BigDecimal(-1),
-                           val totalSpend: BigDecimal, val userType: UserType, val bonus: Double,
-                           val link: String, val maxValue: BigDecimal,
-                           val numberOfInvitations: Int, val receivedValue: BigDecimal,
-                           val isValidated: Boolean, val currency: String)
+data class PromotionsModel(val gamificationAvailable: Boolean,
+                           val referralsAvailable: Boolean,
+                           val promotions: List<Promotion>,
+                           val maxBonus: Double,
+                           val error: Status? = null)
 

@@ -1,7 +1,7 @@
 package com.appcoins.wallet.gamification.repository.entity
 
-import com.google.gson.annotations.SerializedName
+data class UserStatusResponse(val promotions: List<PromotionsResponse>, val error: Status? = null)
 
-data class UserStatusResponse(
-    @SerializedName("GAMIFICATION") val gamification: GamificationResponse,
-    @SerializedName("REFERRAL") val referral: ReferralResponse)
+enum class Status {
+  NO_NETWORK, UNKNOWN_ERROR
+}

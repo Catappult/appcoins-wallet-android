@@ -11,9 +11,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
-import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository
-import com.appcoins.wallet.gamification.repository.GamificationApi
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
@@ -118,10 +116,11 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providePromotionsRepository(api: GamificationApi,
-                                  preferences: SharedPreferences): PromotionsRepository {
-    return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences),
-        getVersionCode())
+  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences,
+                                  promotionDao: PromotionDao, levelsDao: LevelsDao,
+                                  levelDao: LevelDao): PromotionsRepository {
+    return BdsPromotionsRepository(api,
+        SharedPreferencesGamificationLocalData(preferences, promotionDao, levelsDao, levelDao))
   }
 
   @Singleton
@@ -196,8 +195,6 @@ class RepositoryModule {
                            installerService: InstallerService): IdsRepository {
     return IdsRepository(context.contentResolver, sharedPreferencesRepository, installerService)
   }
-
-  private fun getVersionCode() = BuildConfig.VERSION_CODE.toString()
 
   @Singleton
   @Provides

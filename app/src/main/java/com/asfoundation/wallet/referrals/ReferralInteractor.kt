@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.referrals
 
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
@@ -18,10 +19,19 @@ class ReferralInteractor(
     private val promotionsRepository: PromotionsRepository) :
     ReferralInteractorContract {
 
-  override fun hasReferralUpdate(address: String, friendsInvited: Int, isVerified: Boolean,
+  override fun hasReferralUpdate(walletAddress: String,
+                                 referralResponse: ReferralResponse?,
                                  screen: ReferralsScreen): Single<Boolean> {
-    return getReferralInformation(address, screen)
-        .map { hasDifferentInformation(friendsInvited.toString() + isVerified, it) }
+    return if (referralResponse == null || referralResponse.status != PromotionsResponse.Status.ACTIVE) {
+      Single.just(false)
+    } else {
+      getReferralInformation(walletAddress, screen)
+          .map {
+            val verified = referralResponse.link != null
+            hasDifferentInformation(referralResponse.completed.toString() + verified, it)
+          }
+
+    }
   }
 
   override fun retrieveReferral(): Single<ReferralModel> {
@@ -124,8 +134,8 @@ class ReferralInteractor(
     return userStatus?.let { it == ReferralResponse.UserStatus.REDEEMED } ?: false
   }
 
-  private fun isAvailable(status: ReferralResponse.Status): Boolean {
-    return status == ReferralResponse.Status.ACTIVE
+  private fun isAvailable(status: PromotionsResponse.Status): Boolean {
+    return status == PromotionsResponse.Status.ACTIVE
   }
 
   private fun mapResponse(referralResponse: ReferralResponse): ReferralModel {
