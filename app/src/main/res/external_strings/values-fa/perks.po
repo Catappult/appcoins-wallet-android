@@ -10,32 +10,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2020-08-21 17:06\n"
+"PO-Revision-Date: 2020-08-31 06:04\n"
 
 #. Card copy for the Purchase Promotion.
 #:
 msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
-msgstr ""
+msgstr "در %1$s خریدی انجام دهید و %2$s AppCoins Credits دریافت کنید."
 
 #. Body for Purchase bonus receipt.
 #:
 msgid "Because you made a purchase in %1$s."
-msgstr ""
+msgstr "زیرا شما در %1$s خریدی انجام داده اید."
 
 #. Card copy for the Expenditure Promotion.
 #:
 msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
-msgstr ""
+msgstr "در%3$s روز، %1$s %2$s خرج کنید و %4$s AppCoins Credits بدست آورید."
 
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you spent more than %1$s %2$s in the last %3$s days."
-msgstr ""
+msgstr "زیرا در%3$s روز اخیر، بیش از %1$s %2$s خرج کرده‌اید."
 
 #. Card copy for the Next Level Promotion.
 #:
 msgid "Reach the next level and receive %1$s AppCoins Credits!"
-msgstr ""
+msgstr "به مرحله بعدی برسید و %1$s AppCoins Credits بدست آورید!"
 
 #. Body for Purchase bonus receipt.
 #:
@@ -46,15 +46,15 @@ msgstr ""
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "زیرا به مرحله بعد رسیده‌اید."
 
 #. Card copy for Extra Gamification Bonus.
 #:
 msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
-msgstr ""
+msgstr "در همه خریدهای خود در %2$s، %1$s%% پاداش بیشتر دریافت کنید."
 
 #. Title for bonus receipt.
 #:
 msgid "+%1$s AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+%1$s پاداش AppCoins Credits!"
 
