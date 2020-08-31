@@ -284,13 +284,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               if (it.status == Status.COMPLETED) {
-                Completable.fromAction {
-                  topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType,
-                      "success")
-                  val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
-                  waitingResult = false
-                  navigator.popView(bundle)
-                }
+                handleSuccessTransaction()
               } else {
                 Completable.fromAction { handleErrors(paymentModel, appcValue.toDouble()) }
               }
@@ -328,6 +322,17 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         handleSpecificError(R.string.unknown_error)
       }
     }
+  }
+
+  private fun handleSuccessTransaction(): Completable {
+    return adyenPaymentInteractor.getWalletAddress()
+        .flatMapCompletable { Completable.fromAction { view.launchPerkBonusService(it) } }
+        .andThen(Completable.fromAction {
+          topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType, "success")
+          val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
+          waitingResult = false
+          navigator.popView(bundle)
+        })
   }
 
   private fun handleFraudFlow(@StringRes error: Int) {

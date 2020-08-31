@@ -18,6 +18,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
@@ -275,6 +276,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)
+
+  override fun launchPerkBonusService(address: String) {
+    PerkBonusService.buildService(this, address)
+  }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)

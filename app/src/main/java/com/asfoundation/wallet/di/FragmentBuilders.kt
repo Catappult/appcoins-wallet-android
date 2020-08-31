@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.di
 
-import com.asfoundation.wallet.advertise.WalletPoAService
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
@@ -42,9 +41,6 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class FragmentBuilders {
-
-  @ContributesAndroidInjector
-  abstract fun bindWalletPoAService(): WalletPoAService
 
   @ContributesAndroidInjector
   abstract fun bindAirdropFragment(): AirdropFragment

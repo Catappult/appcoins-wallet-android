@@ -31,6 +31,7 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_1_2
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_2_3
+import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_3_4
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
@@ -158,7 +159,7 @@ class RepositoryModule {
     val transactionsDao = Room.databaseBuilder(context.applicationContext,
         TransactionsDatabase::class.java,
         "transactions_database")
-        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
         .build()
         .transactionsDao()
     val localRepository: TransactionsRepository =
@@ -234,5 +235,4 @@ class RepositoryModule {
   fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
     return LocalPaymentsLinkRepository(api)
   }
-
 }

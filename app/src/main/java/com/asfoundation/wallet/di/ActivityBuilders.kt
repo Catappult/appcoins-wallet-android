@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.di
 
-import com.asfoundation.wallet.advertise.AdvertisingService
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.topup.TopUpActivity
@@ -119,9 +118,4 @@ abstract class ActivityBuilders {
   @ActivityScope
   @ContributesAndroidInjector
   abstract fun bindOneStepPaymentReceiver(): OneStepPaymentReceiver
-
-  @ActivityScope
-  @ContributesAndroidInjector
-  abstract fun bindAdvertisingService(): AdvertisingService
-
 }

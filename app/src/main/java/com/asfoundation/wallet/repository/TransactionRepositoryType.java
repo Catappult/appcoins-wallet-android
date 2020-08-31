@@ -7,6 +7,9 @@ import io.reactivex.Single;
 import java.util.List;
 
 public interface TransactionRepositoryType {
+
+  Single<List<Transaction>> fetchNewTransactions(String wallet);
+
   Observable<List<Transaction>> fetchTransaction(String wallet);
 
   Single<String> createTransaction(TransactionBuilder transactionBuilder, String password);

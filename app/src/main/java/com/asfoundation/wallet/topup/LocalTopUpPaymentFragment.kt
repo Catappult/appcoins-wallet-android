@@ -186,6 +186,10 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     playAnimation()
   }
 
+  override fun launchPerkBonusService(address: String) {
+    activityView.launchPerkBonusService(address)
+  }
+
   private fun playAnimation() {
     topup_pending_user_payment_view?.top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
         maxFrame)

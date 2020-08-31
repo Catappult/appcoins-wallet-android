@@ -45,4 +45,6 @@ interface TopUpActivityView {
   fun getTryAgainClicks(): Observable<Any>
 
   fun popBackStack()
+
+  fun launchPerkBonusService(address: String)
 }

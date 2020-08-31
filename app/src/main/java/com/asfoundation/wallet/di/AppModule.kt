@@ -481,10 +481,7 @@ internal class AppModule {
     get() = BuildConfig.VERSION_CODE.toString()
 
   @Provides
-  fun provideTransactionsMapper(defaultTokenProvider: DefaultTokenProvider,
-                                appCoinsOperationRepository: AppCoinsOperationRepository): TransactionsMapper {
-    return TransactionsMapper(defaultTokenProvider, appCoinsOperationRepository, Schedulers.io())
-  }
+  fun provideTransactionsMapper() = TransactionsMapper()
 
   @Singleton
   @Provides

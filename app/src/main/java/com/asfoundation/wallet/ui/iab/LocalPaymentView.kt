@@ -37,6 +37,8 @@ interface LocalPaymentView {
 
   fun showWalletValidation(@StringRes error: Int)
 
+  fun launchPerkBonusService(address: String)
+
   enum class ViewState {
     NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING
   }

@@ -73,4 +73,6 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
 
   fun getBillingMessagesMapper(): BillingMessagesMapper =
       inAppPurchaseInteractor.billingMessagesMapper
+
+  fun getWalletAddress() = walletService.getWalletAddress()
 }

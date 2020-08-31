@@ -16,6 +16,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
+import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -164,6 +165,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     if (supportFragmentManager.backStackEntryCount != 0) {
       supportFragmentManager.popBackStack()
     }
+  }
+
+  override fun launchPerkBonusService(address: String) {
+    PerkBonusService.buildService(this, address)
   }
 
   override fun finishActivity(data: Bundle) {
