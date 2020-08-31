@@ -15,7 +15,8 @@ import javax.inject.Singleton
       FragmentBuilders::class,
       InteractModule::class,
       ServiceModule::class,
-      BroadcastReceiverModule::class])
+      BroadcastReceiverBuilders::class,
+      ServiceBuilders::class])
 interface AppComponent {
 
   fun inject(app: App?)

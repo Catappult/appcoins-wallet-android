@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.billing.adyen
 
-import android.content.Context
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
@@ -27,7 +26,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(
-    private val context: Context,
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
     private val billingMessagesMapper: BillingMessagesMapper,

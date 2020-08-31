@@ -241,7 +241,7 @@ class InteractModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     smsValidationInteract: SmsValidationInteract): AdyenPaymentInteractor {
-    return AdyenPaymentInteractor(context, adyenPaymentRepository, inAppPurchaseInteractor,
+    return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
         walletService, supportInteractor, walletBlockedInteract, smsValidationInteract)
   }
