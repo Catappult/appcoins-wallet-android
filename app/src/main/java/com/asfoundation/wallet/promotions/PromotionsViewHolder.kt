@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
 import kotlinx.android.synthetic.main.item_promotions_title.view.*
+import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
@@ -43,7 +44,9 @@ class TitleViewHolder(itemView: View) : PromotionsViewHolder(itemView) {
     val titleItem = promotion as TitleItem
 
     val title = if (titleItem.isGamificationTitle) {
-      itemView.context.getString(titleItem.title, titleItem.bonus)
+      val formatter = CurrencyFormatUtils.create()
+      val bonus = formatter.formatGamificationValues(BigDecimal(titleItem.bonus))
+      itemView.context.getString(titleItem.title, bonus)
     } else itemView.context.getString(titleItem.title)
     itemView.promotions_title.text = title
     itemView.promotions_subtitle.setText(titleItem.subtitle)
@@ -182,7 +185,7 @@ class GamificationViewHolder(itemView: View,
     itemView.current_level_bonus.text =
         itemView.context?.getString(R.string.gamif_bonus, df.format(gamificationItem.bonus))
     itemView.planet_title.text = gamificationItem.title
-    itemView.planet_subtitle.text = gamificationItem.phrase//TODO replace with
+    itemView.planet_subtitle.text = gamificationItem.phrase
 
     handleLinks(gamificationItem.links, itemView)
   }
