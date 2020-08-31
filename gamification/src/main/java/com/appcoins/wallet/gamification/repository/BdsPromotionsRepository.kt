@@ -6,6 +6,7 @@ import io.reactivex.Single
 import java.io.IOException
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import java.util.concurrent.TimeUnit
 
 class BdsPromotionsRepository(
     private val api: GamificationApi,
@@ -13,6 +14,7 @@ class BdsPromotionsRepository(
 
   private fun getUserStats(wallet: String): Single<UserStatusResponse> {
     return api.getUserStats(wallet)
+        .map { filterByDate(it) }
         .flatMap { userStats ->
           local.deletePromotions()
               .andThen(local.insertPromotions(userStats.promotions))
@@ -23,6 +25,18 @@ class BdsPromotionsRepository(
               .map { mapErrorToUserStatsModel(it, t) }
               .onErrorReturn { mapErrorToUserStatsModel(t) }
         }
+  }
+
+  private fun filterByDate(userStatusResponse: UserStatusResponse): UserStatusResponse {
+    val validPromotions = userStatusResponse.promotions.filter { hasValidDate(it) }
+    return UserStatusResponse(validPromotions)
+  }
+
+  private fun hasValidDate(promotionsResponse: PromotionsResponse): Boolean {
+    return if (promotionsResponse is GenericResponse) {
+      val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+      currentTime < promotionsResponse.endDate
+    } else true
   }
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
@@ -123,8 +137,17 @@ class BdsPromotionsRepository(
 
   override fun getLevels(wallet: String): Single<Levels> {
     return api.getLevels(wallet)
+        .flatMap {
+          local.deleteLevels()
+              .andThen(local.insertLevels(it))
+              .toSingle { it }
+        }
         .map { map(it) }
-        .onErrorReturn { mapLevelsError(it) }
+        .onErrorResumeNext { t ->
+          local.getLevels()
+              .map { map(it) }
+              .onErrorReturn { mapLevelsError(t) }
+        }
   }
 
   private fun mapLevelsError(throwable: Throwable): Levels {

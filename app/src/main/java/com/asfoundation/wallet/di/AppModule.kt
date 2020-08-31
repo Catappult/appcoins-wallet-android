@@ -445,6 +445,16 @@ internal class AppModule {
   fun providesPromotionDao(promotionDatabase: PromotionDatabase) =
       promotionDatabase.promotionDao()
 
+  @Singleton
+  @Provides
+  fun providesLevelsDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.levelsDao()
+
+  @Singleton
+  @Provides
+  fun providesLevelDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.levelDao()
+
   @Provides
   fun providesObjectMapper(): ObjectMapper {
     return ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)

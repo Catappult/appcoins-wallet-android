@@ -12,12 +12,12 @@ import io.reactivex.Single
 interface PromotionDao {
 
   @Query("select * from PromotionEntity")
-  fun getAll(): Single<List<PromotionEntity>>
+  fun getPromotions(): Single<List<PromotionEntity>>
 
   @Query("DELETE FROM PromotionEntity")
-  fun deleteAll(): Completable
+  fun deletePromotions(): Completable
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insert(promotions: List<PromotionEntity>): Completable
+  fun insertPromotions(promotions: List<PromotionEntity>): Completable
 
 }

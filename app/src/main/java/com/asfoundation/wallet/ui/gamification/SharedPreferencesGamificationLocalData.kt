@@ -3,15 +3,21 @@ package com.asfoundation.wallet.ui.gamification
 import android.content.SharedPreferences
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.GamificationLocalData
+import com.appcoins.wallet.gamification.repository.LevelDao
+import com.appcoins.wallet.gamification.repository.LevelsDao
 import com.appcoins.wallet.gamification.repository.PromotionDao
 import com.appcoins.wallet.gamification.repository.entity.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
+import java.util.concurrent.TimeUnit
 
 class SharedPreferencesGamificationLocalData(private val preferences: SharedPreferences,
-                                             private val promotionDao: PromotionDao) :
+                                             private val promotionDao: PromotionDao,
+                                             private val levelsDao: LevelsDao,
+                                             private val levelDao: LevelDao) :
     GamificationLocalData {
 
   companion object {
@@ -67,8 +73,14 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
       SHOWN_GENERIC + wallet + SCREEN + screen + ID + id
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
-    return promotionDao.getAll()
+    return promotionDao.getPromotions()
+        .map { filterByDate(it) }
         .map { mapToPromotionResponse(it) }
+  }
+
+  private fun filterByDate(promotions: List<PromotionEntity>): List<PromotionEntity> {
+    val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+    return promotions.filter { it.endDate == null || currentTime < it.endDate!! }
   }
 
   private fun mapToPromotionResponse(promotions: List<PromotionEntity>): List<PromotionsResponse> {
@@ -89,7 +101,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     }
   }
 
-  override fun deletePromotions() = promotionDao.deleteAll()
+  override fun deletePromotions() = promotionDao.deletePromotions()
 
   override fun insertPromotions(promotions: List<PromotionsResponse>): Completable {
     return Single.create<List<PromotionEntity>> { emitter ->
@@ -121,7 +133,33 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
       }
       emitter.onSuccess(results)
     }
-        .flatMapCompletable { promotionDao.insert(it) }
+        .flatMapCompletable { promotionDao.insertPromotions(it) }
+  }
 
+  override fun deleteLevels(): Completable {
+    return levelDao.deleteLevels()
+        .andThen(levelsDao.deleteLevels())
+  }
+
+  override fun getLevels(): Single<LevelsResponse> {
+    return Single.zip(
+        levelDao.getLevels(),
+        levelsDao.getLevels(),
+        BiFunction { t1, t2 -> mapToLevelsResponse(t1, t2) }
+    )
+  }
+
+  override fun insertLevels(levelsResponse: LevelsResponse): Completable {
+    val levelsEntity = LevelsEntity(null, levelsResponse.status, levelsResponse.updateDate)
+    val levelEntityList =
+        levelsResponse.list.map { LevelEntity(null, it.amount, it.bonus, it.level) }
+    return levelsDao.insertLevels(levelsEntity)
+        .andThen(levelDao.insertLevels(levelEntityList))
+  }
+
+  private fun mapToLevelsResponse(levelEntity: List<LevelEntity>,
+                                  levelsEntity: LevelsEntity): LevelsResponse {
+    val levels = levelEntity.map { Level(it.amount, it.bonus, it.level) }
+    return LevelsResponse(levels, levelsEntity.status, levelsEntity.updateDate)
   }
 }

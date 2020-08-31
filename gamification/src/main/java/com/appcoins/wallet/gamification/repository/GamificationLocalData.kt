@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -23,4 +24,10 @@ interface GamificationLocalData {
   fun deletePromotions(): Completable
 
   fun insertPromotions(promotions: List<PromotionsResponse>): Completable
+
+  fun deleteLevels(): Completable
+
+  fun getLevels(): Single<LevelsResponse>
+
+  fun insertLevels(levels: LevelsResponse): Completable
 }
