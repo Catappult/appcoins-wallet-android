@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/normal_margin"
     android:layout_marginEnd="@dimen/normal_margin"
-    app:cardBackgroundColor="#f8f8f8"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
