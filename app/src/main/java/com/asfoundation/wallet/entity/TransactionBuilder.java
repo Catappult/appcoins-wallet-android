@@ -77,6 +77,11 @@ public class TransactionBuilder implements Parcelable {
     this.originalOneStepCurrency = transactionBuilder.originalOneStepCurrency;
     this.referrerUrl = transactionBuilder.referrerUrl;
     this.productName = transactionBuilder.productName;
+    this.subscriptionPeriod = transactionBuilder.subscriptionPeriod;
+    this.trialPeriod = transactionBuilder.trialPeriod;
+    this.introAppcAmount = transactionBuilder.introAppcAmount;
+    this.introPeriod = transactionBuilder.introPeriod;
+    this.introCycles = transactionBuilder.introCycles;
   }
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
@@ -113,6 +118,14 @@ public class TransactionBuilder implements Parcelable {
     originalOneStepCurrency = in.readString();
     referrerUrl = in.readString();
     productName = in.readString();
+    subscriptionPeriod = in.readString();
+    trialPeriod = in.readString();
+    String introAmount = in.readString();
+    if (introAmount != null) {
+      introAppcAmount = new BigDecimal(introAmount);
+    }
+    introPeriod = in.readString();
+    introCycles = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
@@ -144,6 +157,24 @@ public class TransactionBuilder implements Parcelable {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
         type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
     this.iabContract = iabContract;
+  }
+
+  //Subs
+  public TransactionBuilder(String symbol, String contractAddress, Long chainId,
+      String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
+      String iabContract, String type, String origin, String domain, String payload,
+      String callbackUrl, String orderReference, String referrerUrl, String productName,
+      @Nullable String subscriptionPeriod, @Nullable String trialPeriod,
+      @Nullable BigDecimal introAppcAmount, @Nullable String introPeriod,
+      @Nullable String introCycles) {
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
+        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
+    this.iabContract = iabContract;
+    this.subscriptionPeriod = subscriptionPeriod;
+    this.trialPeriod = trialPeriod;
+    this.introAppcAmount = introAppcAmount;
+    this.introPeriod = introPeriod;
+    this.introCycles = introCycles;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
@@ -419,6 +450,15 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(originalOneStepCurrency);
     dest.writeString(referrerUrl);
     dest.writeString(productName);
+    dest.writeString(subscriptionPeriod);
+    dest.writeString(trialPeriod);
+    String introAmount = null;
+    if (introAppcAmount != null) {
+      introAmount = introAppcAmount.toString();
+    }
+    dest.writeString(introAmount);
+    dest.writeString(introPeriod);
+    dest.writeString(introCycles);
   }
 
   public byte[] approveData() {
@@ -436,5 +476,37 @@ public class TransactionBuilder implements Parcelable {
 
   public void setSubscriptionPeriod(String subscriptionPeriod) {
     this.subscriptionPeriod = subscriptionPeriod;
+  }
+
+  public String getTrialPeriod() {
+    return trialPeriod;
+  }
+
+  public void setTrialPeriod(String trialPeriod) {
+    this.trialPeriod = trialPeriod;
+  }
+
+  public BigDecimal getIntroAppcAmount() {
+    return introAppcAmount;
+  }
+
+  public void setIntroAppcAmount(BigDecimal introAppcAmount) {
+    this.introAppcAmount = introAppcAmount;
+  }
+
+  public String getIntroPeriod() {
+    return introPeriod;
+  }
+
+  public void setIntroPeriod(String introPeriod) {
+    this.introPeriod = introPeriod;
+  }
+
+  public String getIntroCycles() {
+    return introCycles;
+  }
+
+  public void setIntroCycles(String introCycles) {
+    this.introCycles = introCycles;
   }
 }

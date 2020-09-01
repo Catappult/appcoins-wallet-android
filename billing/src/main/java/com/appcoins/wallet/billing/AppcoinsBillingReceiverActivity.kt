@@ -156,10 +156,11 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
             getDeveloperAddress,
             Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
               try {
+                val product = skuDetails[0]
                 intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress,
-                    iabContractAddress,
-                    developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
-                    BigDecimal(skuDetails[0].price.appcoinsAmount), skuDetails[0].title)
+                    iabContractAddress, developerPayload, true, packageName, developerAddress,
+                    product.sku, BigDecimal(product.price.appcoinsAmount), product.title,
+                    product.subscriptionPeriod, product.trialPeriod, product.introductoryPrice)
               } catch (exception: Exception) {
                 if (skuDetails.isEmpty()) {
                   billingMessagesMapper.mapBuyIntentError(

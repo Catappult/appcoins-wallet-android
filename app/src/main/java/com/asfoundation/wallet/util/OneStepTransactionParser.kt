@@ -34,12 +34,16 @@ class OneStepTransactionParser(
                 getAmount(oneStepUri, skuDetailsResponse.product),
                 Function5 { token: Token, iabContract: String, walletAddress: String,
                             tokenContract: String, amount: BigDecimal ->
+                  val product = skuDetailsResponse.product
                   TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
                       walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
                       iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, null,
                       getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
                       getOrderReference(oneStepUri), referrerUrl,
-                      skuDetailsResponse.product?.title.orEmpty()).shouldSendToken(true)
+                      product?.title.orEmpty(), product?.subscriptionPeriod, product?.trialPeriod,
+                      getIntroAppcAmount(product?.introductoryPrice?.price?.appcoinsAmount),
+                      product?.introductoryPrice?.period,
+                      product?.introductoryPrice?.cycles.toString()).shouldSendToken(true)
                 })
                 .map {
                   it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
@@ -53,6 +57,11 @@ class OneStepTransactionParser(
           }
           .subscribeOn(Schedulers.io())
     }
+  }
+
+  private fun getIntroAppcAmount(appcoinsAmount: Double?): BigDecimal? {
+    if (appcoinsAmount == null) return null
+    return BigDecimal(appcoinsAmount)
   }
 
   private fun getOrderReference(uri: OneStepUri): String? {

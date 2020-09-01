@@ -69,9 +69,18 @@ public class EIPTransactionParser {
               payment.getChainId(), getReceiverAddress(payment),
               getTokenTransferAmount(payment, tokenInfo.decimals), data.getSkuId(),
               tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
-              data.getDomain(), data.getPayload(), null, data.getOrderReference(), null,
-              null).shouldSendToken(true);
+              data.getDomain(), data.getPayload(), null, data.getOrderReference(), null, null,
+              data.getPeriod(), data.getTrialPeriod(),
+              getIntroAppcAmount(data.getIntroAppcAmount(), tokenInfo.decimals),
+              data.getIntroPeriod(), getIntroCycles(data.getIntroCycles())).shouldSendToken(true);
         });
+  }
+
+  private String getIntroCycles(Integer introCycles) {
+    if (introCycles == null) {
+      return null;
+    }
+    return introCycles.toString();
   }
 
   private String getIabContract(ERC681 payment) {
