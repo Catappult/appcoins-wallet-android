@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class TokenPayment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
                         @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
                         @SerializedName("payment.return_url") val returnUrl: String,
+                        @SerializedName("payment.shopper_interaction")
+                        val shopperInteraction: String?,
                         @SerializedName("callback_url") val callbackUrl: String?,
                         @SerializedName("metadata") val metadata: String?,
                         @SerializedName("method") val method: String?,

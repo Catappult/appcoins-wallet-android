@@ -106,7 +106,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                  currency: String?,
                                  currencyType: String?,
                                  direct: Boolean?): Single<List<PaymentMethodEntity>> {
-    return remoteRepository.getPaymentMethods(value, currency, currencyType, direct)
+    return remoteRepository.getPaymentMethods(transactionType, value, currency, currencyType,
+        direct)
         .onErrorReturn {
           it.printStackTrace()
           ArrayList()

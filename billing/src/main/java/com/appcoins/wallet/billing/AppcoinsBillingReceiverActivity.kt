@@ -12,6 +12,7 @@ import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -155,7 +156,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
             getDeveloperAddress,
             Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
               try {
-                intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress, iabContractAddress,
+                intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress,
+                    iabContractAddress,
                     developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
                     BigDecimal(skuDetails[0].price.appcoinsAmount), skuDetails[0].title)
               } catch (exception: Exception) {
