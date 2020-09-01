@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -68,13 +69,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     const val CREDITS = "credits"
 
     @JvmStatic
-    fun newInstance(fiatAmount: BigDecimal,
-                    currency: String, bonus: String, appName: String,
-                    productName: String?,
-                    appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean,
-                    isDonation: Boolean, skuId: String?, transactionType: String,
-                    gamificationLevel: Int, disabledReasonAppc: Int?,
+    fun newInstance(fiatAmount: BigDecimal, currency: String, bonus: String, appName: String,
+                    productName: String?, appcAmount: BigDecimal, appcEnabled: Boolean,
+                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean, skuId: String?,
+                    transactionType: String, gamificationLevel: Int, disabledReasonAppc: Int?,
                     disabledReasonCredits: Int?, isSubscription: Boolean,
                     frequency: String?): Fragment {
       val fragment = MergedAppcoinsFragment()
@@ -115,6 +113,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   @Inject
   lateinit var mergedAppcoinsInteract: MergedAppcoinsInteract
+
+  @Inject
+  lateinit var logger: Logger
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -254,7 +255,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, iabView, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
-        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, isSubscription)
+        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, logger, isSubscription)
   }
 
   override fun onAttach(context: Context) {

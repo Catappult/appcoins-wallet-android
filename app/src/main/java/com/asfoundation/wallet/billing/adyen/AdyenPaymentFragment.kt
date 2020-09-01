@@ -15,9 +15,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
+import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
@@ -149,6 +149,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     })
   }
 
+  override fun launchPerkBonusService(address: String) {
+    iabView.launchPerkBonusService(address)
+  }
+
   private fun setupUi(view: View) {
     setupAdyenLayouts()
     setupTransactionCompleteAnimation()
@@ -168,10 +172,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
 
-    val color = ResourcesCompat.getColor(resources, R.color.btn_end_gradient_color, null)
-    adyenCardNumberLayout.boxStrokeColor = color
-    adyenExpiryDateLayout.boxStrokeColor = color
-    adyenSecurityCodeLayout.boxStrokeColor = color
     handleLayoutVisibility(isStored)
     prepareCardComponent(paymentMethod, forget, savedInstance)
     setStoredPaymentInformation(isStored)
@@ -489,10 +489,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun prepareCardComponent(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, forget: Boolean,
+      paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
+      forget: Boolean,
       savedInstanceState: Bundle?) {
     if (forget) viewModelStore.clear()
-    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethod, cardConfiguration)
+    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this, Observer {
@@ -501,8 +502,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
+          val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
+          val supportedShopperInteractions =
+              if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
           paymentDataSubject?.onNext(
-              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false))
+              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
+                  supportedShopperInteractions))
         }
       } else {
         buy_button?.isEnabled = false

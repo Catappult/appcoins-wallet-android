@@ -122,7 +122,7 @@ class PaymentMethodsPresenter(
         .andThen { Completable.fromAction { view.hideLoading() } }
         .doOnSubscribe { view.showProgressBarLoading() }
         .doOnError { showError(it) }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, { showError(it) })
     )
   }
 

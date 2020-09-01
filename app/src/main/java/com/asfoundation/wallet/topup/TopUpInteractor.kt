@@ -1,15 +1,18 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity
+import com.appcoins.wallet.bdsbilling.repository.entity.FeeType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethod
+import com.asfoundation.wallet.ui.iab.PaymentMethodFee
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -29,9 +32,9 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private var supportInteractor: SupportInteractor) {
 
 
-  fun getPaymentMethods(): Single<List<PaymentMethodData>> {
-    return repository.getPaymentMethods(type = "fiat")
-        .map { methods -> mapPaymentMethods(methods) }
+  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> {
+    return repository.getPaymentMethods(value, currency, "fiat", true)
+        .map { mapPaymentMethods(it) }
   }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
@@ -63,8 +66,21 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   private fun mapPaymentMethods(
-      paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
-    return paymentMethods.map { PaymentMethodData(it.iconUrl, it.label, it.id) }
+      paymentMethods: List<PaymentMethodEntity>): List<PaymentMethod> {
+    return paymentMethods.map {
+      PaymentMethod(it.id, it.label, it.iconUrl,
+          mapPaymentMethodFee(it.fee), it.isAvailable(), null)
+    }
+  }
+
+  private fun mapPaymentMethodFee(feeEntity: FeeEntity?): PaymentMethodFee? {
+    return feeEntity?.let {
+      if (feeEntity.type === FeeType.EXACT) {
+        PaymentMethodFee(true, feeEntity.cost?.value, feeEntity.cost?.currency)
+      } else {
+        PaymentMethodFee(false, null, null)
+      }
+    }
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
@@ -112,5 +128,4 @@ class TopUpInteractor(private val repository: BdsRepository,
   private fun cacheLimitValues(values: TopUpLimitValues) {
     limitValues = TopUpLimitValues(values.minValue, values.maxValue)
   }
-
 }

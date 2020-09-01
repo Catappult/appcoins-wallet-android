@@ -31,24 +31,17 @@
           app:layout_constraintGuide_percent="0.5"
           />
 
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/guideline_top_margin"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          app:layout_constraintGuide_percent="0.09"
-          />
-
       <TextView
           android:id="@+id/main_currency_code"
           style="@style/TopUpTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginTop="26dp"
           android:text="--"
           app:autoSizeStepGranularity="2sp"
           app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@id/guideline_top_margin"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
       <com.asfoundation.wallet.ui.widget.AutoFitEditText
@@ -227,7 +220,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
             >
@@ -236,9 +228,12 @@
               android:id="@+id/payment_methods"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:clipToPadding="false"
               android:focusable="true"
               android:overScrollMode="never"
-              android:visibility="visible"
+              android:paddingTop="4dp"
+              android:paddingBottom="4dp"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
@@ -307,7 +302,7 @@
 
       <include
           android:id="@+id/fragment_adyen_error"
-          layout="@layout/layout_adyen_error_top_up"
+          layout="@layout/error_top_up_layout"
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:layout_marginStart="32dp"

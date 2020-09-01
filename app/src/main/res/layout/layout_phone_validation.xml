@@ -59,7 +59,7 @@
         />
 
     <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
+        android:id="@+id/country_code_picker"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="63dp"
@@ -87,7 +87,7 @@
         android:theme="@style/TextInputLayoutAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ccp"
+        app:layout_constraintTop_toBottomOf="@id/country_code_picker"
         >
       <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/phone_number"

@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Menyemak semua butiran; baki, item, rangkaian…</string>
   <string name="activity_iab_buying_message">Butiran telah disemak \nMenerima item anda…</string>
   <string name="activity_iab_change_card">TUKAR KAD</string>
+  <string name="activity_iab_fees">Yuran</string>
   <string name="notification_ongoing_poa">Memproses ganjaran anda</string>
   <string name="notification_completed_poa">Ganjaran diterima!👌 Anda perlu tunggu selama %1$sj%2$sm lagi untuk peroleh lebih banyak ganjaran dengan mencuba aplikasi ⏰!</string>
   <string name="notification_poa_limit_reached">Anda sudah capai had ganjaran harian anda. ⏰ Kembali dalam masa %1$sj%2$sm dan cuba lagi!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">Nombor Kad</string>
   <string name="dialog_credit_card_expiration">Tarikh Luput</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Kad kredit/debit</string>
+  <string name="dialog_expiry_date">Tarikh luput</string>
   <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima AppCoins</string>
   <string name="activity_airdrop_details">Ini hanyalah ciri keselamatan.</string>
   <string name="activity_airdrop_hint">Taipkan perkataan di dalam imej</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Untuk tujuan keselamatan, kami perlu sahkan dompet anda dengan kod SMS.</string>
   <string name="verification_insert_phone_title">Masukkan nombor telefon anda</string>
   <string name="verification_insert_phone_body">Sahkan dompet anda untuk dapatkan ganjaran! Kami akan hantar kod pengesahan kepada anda.</string>
-  <string name="verification_insert_phone_field_country">Negara</string>
+  <string name="verification_insert_phone_field_country">Pilih negara/rantau anda</string>
   <string name="verification_insert_phone_field_number">Nombor Telefon</string>
   <string name="verification_insert_phone_field_number_error">Nombor telefon tidak sah</string>
   <string name="verification_insert_phone_field_region_error">Perkhidmatan belum tersedia di kawasan ini.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Dapatkan ganjaran dan jemput rakan</string>
   <string name="verification_settings_verified_title">Dompet Disahkan</string>
   <string name="verification_settings_no_internet">Anda perlu sambungan Internet</string>
+  <string name="verification_error_time_expired">Alamak, masa anda telah tamat. Buat semula!</string>
+  <string name="verification_error_attempts_reached">Anda telah capai had percubaan. Sila tunggu sebentar sebelum cuba lagi.</string>
+  <string name="verified_tag">Disahkan</string>
+  <string name="unferified_tag">Tidak disahkan</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Nampaknya pembelian ini sedang diproses. Sila tunggu sehingga transaksi selesai atau hubungi Pasukan Sokongan kami.</string>
   <string name="purchase_more_payment_methods_button">KAEDAH BAYARAN LAIN</string>
   <string name="purchase_appcoins_available_body">Anda akan gunakan sejumlah kecil ETH untuk membayar yuran.</string>
   <string name="purchase_appcoins_noavailable_body">Anda tidak mempunyai AppCoins atau Ether yang cukup untuk pembelian ini.</string>
+  <string name="purchase_no_eth_body">Anda tidak cukup ETH untuk bayar gas.</string>
+  <string name="purchase_no_appcoins_body">Anda tidak cukup AppCoins untuk lengkapkan pembelian ini.</string>
   <string name="purchase_appcoins_credits_available_body">Tiada yuran dan pantas!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC anda tidak cukup. Cuba tambah nilai!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Anda tidak cukup Kredit AppCoins, cuba tambah nilai!</string>
   <string name="purchase_appcoins_credits_default_body">Anda telah memperoleh Kredit AppCoins yang cukup untuk pembelian ini. Berseronoklah!</string>
   <string name="purchase_poa_item">Peroleh dana dengan mencuba aplikasi</string>
   <string name="purchase_poa_body">Cuba aplikasi selama 2 minit dan peroleh Kredit AppCoins!</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">Anda pasti butiran keselamatan ini betul? Sila cuba lagi.</string>
   <string name="purchase_card_error_wrong_CVV">Kod CVV/CVC anda mungkin tidak betul. Sila cuba lagi.</string>
   <string name="purchase_wallet_error_contact_us">Alamak, dompet anda ada masalah. Sila hubungi kami.</string>
+  <string name="purchase_carrier_error">Nampaknya nombor telefon anda tidak serasi dengan kaedah pembayaran ini.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Salah CVV/CVC</string>
   <string name="error_contac_us_body">Jika masalah berlanjutan, sila hubungi kami.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Langkah Seterusnya</string>
   <string name="async_steps_1">Selesaikan pembayaran anda dengan %s. Anda akan dimaklumkan setelah anda terima Kredit AppCoins dalam dompet anda.</string>
   <string name="async_steps_2">Kembali ke permainan dan buat pembelian menggunakan Kredit AppCoins sebagai kaedah pembayaran.</string>
+  <string name="async_steps_topup_2">Guna Kredit AppCoins untuk buat pembelian dalam permainan kegemaran anda!</string>
   <string name="async_steps_1_no_notification">Lengkapkan pembayaran anda dengan %s.</string>
   <string name="async_steps_2_no_notification">Setelah anda terima Kredit AppCoins, kembali ke permainan dan buat pembelian menggunakan Kredit AppCoins sebagai kaedah pembayaran.</string>
+  <string name="async_steps_2_toptup_no_notification">Setelah anda terima Kredit AppCoins, gunakan ia untuk buat pembelian dalam permainan kegemaran anda!</string>
   <string name="async_notification_title">Kredit AppCoins anda sudah tiba!</string>
   <string name="async_notification_body">Kembali ke %s untuk buat pembelian menggunakan Kredit AppCoins.</string>
   <!--Referral Program-->
@@ -699,4 +713,55 @@
   <string name="gamif_placeholder_unknown">planet tidak diketahui</string>
   <string name="gamif_distance_unkown">Lokasi tidak diketahui</string>
   <string name="gamif_placeholder_new_planet">planet baharu</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Caj syarikat telekomunikasi</string>
+  <string name="carrier_billing_fees_disclaimer">Bayaran tambahan mungkin dikenakan</string>
+  <string name="carrier_billing_insert_phone_body">Sila masukkan nombor telefon anda</string>
+  <string name="carrier_billing_phone_field">Nombor telefon anda...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s akan mengenakan bayaran sebanyak %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s dalam %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Nombor telefon anda ialah %s.</string>
+  <string name="carrier_billing_enter_pin_body">Sila masukkan PIN yang diterima melalui SMS.</string>
+  <string name="carrier_billing_code_field">Kod anda...</string>
+  <string name="carrier_billing_code_resend_button">HANTAR SEMULA KOD</string>
+  <string name="carrier_billing_submit_button">HANTAR</string>
+  <string name="carrier_billing_terms_disclaimer">Dengan mengetik Hantar, anda mengesahkan bahawa anda bersetuju dengan Terma dan Syarat serta Dasar Privasi.</string>
+  <string name="carrier_billing_help_1">Perlu bantuan?</string>
+  <string name="carrier_billing_help_2_button">Hubungi Sokongan</string>
+  <string name="carrier_billing_terms_button">Terma dan Syarat</string>
+  <string name="carrier_billing_privacy_button">Dasar Privasi</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Tambah kad kredit/debit</string>
+  <string name="manage_cards_settings_manage_title">Urus kad</string>
+  <string name="manage_cards_view_title">Urus kad</string>
+  <string name="manage_cards_view_manage_subtitle">Urus kad pembayaran anda</string>
+  <string name="manage_cards_add_title">Tambah kad baru</string>
+  <string name="manage_cards_remove_confirmation">Anda pasti mahu alih keluar kad ini?</string>
+  <string name="manage_cards_remove_no">TIDAK, BATALKAN</string>
+  <string name="manage_cards_remove_yes">YA, ALIH KELUAR</string>
+  <string name="manage_cards_card_ending_body">Kad tamat dengan %s</string>
+  <string name="manage_cards_error_details">Anda pasti butiran kad anda betul? Sila cuba lagi!</string>
+  <string name="manage_cards_error_card_problem">Nampaknya ada masalah dengan kad anda. Sila cuba kad lain.</string>
+  <string name="manage_cards_select_title">Pilih kad pembayaran</string>
+  <string name="manage_cards_remember">Ingat kad</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Peroleh Bonus %s%% bagi setiap pembelian</string>
+  <string name="perks_gamif_subtitle">Lebih banyak anda berbelanja dalam aplikasi kegemaran anda, lebih besar bonusnya!</string>
+  <string name="perks_title">Promosi</string>
+  <string name="perks_body">Jangan ke mana-mana! Kami ada promosi istimewa untuk anda.</string>
+  <string name="perks_end_in_days">Promosi tamat dalam tempoh %s hari.</string>
+  <string name="perks_end_in_date">Promosi tamat pada %s.</string>
+  <string name="perks_available_soon">Promosi akan tiba tak lama lagi</string>
+  <string name="perks_next_level_reward">Capai tahap seterusnya untuk dapat %s Kredit AppCoins!</string>
+  <string name="perks_notification">Anda baru saja terima %s Kredit AppCoins sebagai Bonus</string>
+  <string name="perks_level_up_on_this_purchase">Naik tahap dengan pembelian ini</string>
+  <string name="perks_level_up_amount_left">Anda perlu %1$s%2$s untuk ke tahap seterusnya!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

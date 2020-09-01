@@ -46,4 +46,6 @@ interface OnChainBuyView {
   fun lockRotation()
 
   fun showWalletValidation(@StringRes error: Int)
+
+  fun launchPerkBonusService(address: String)
 }

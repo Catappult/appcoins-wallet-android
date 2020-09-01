@@ -37,6 +37,10 @@ import java.util.List;
     @JsonProperty("ts") private Date ts;
     @JsonProperty("processed_time") private Date processedTime;
     @JsonProperty("type") private String type;
+    @JsonProperty("subtype") private String subType;
+    @JsonProperty("title") private String title;
+    @JsonProperty("description") private String description;
+    @JsonProperty("perk") private String perk;
     @JsonProperty("status") private Status status;
     @JsonProperty("operations") private List<Operation> operations;
 
@@ -132,12 +136,16 @@ import java.util.List;
       return ts;
     }
 
+    public void setTs(Date ts) {
+      this.ts = ts;
+    }
+
     public Date getProcessedTime() {
       return processedTime;
     }
 
-    public void setTs(Date ts) {
-      this.ts = ts;
+    public void setProcessedTime(Date processedTime) {
+      this.processedTime = processedTime;
     }
 
     public String getType() {
@@ -146,10 +154,6 @@ import java.util.List;
 
     public void setType(String type) {
       this.type = type;
-    }
-
-    public void setProcessedTime(Date processedTime) {
-      this.processedTime = processedTime;
     }
 
     @Override public String toString() {
@@ -174,6 +178,38 @@ import java.util.List;
           + type
           + '\''
           + '}';
+    }
+
+    public String getSubType() {
+      return subType;
+    }
+
+    public void setSubType(String subType) {
+      this.subType = subType;
+    }
+
+    public String getTitle() {
+      return title;
+    }
+
+    public void setTitle(String title) {
+      this.title = title;
+    }
+
+    public String getDescription() {
+      return description;
+    }
+
+    public void setDescription(String description) {
+      this.description = description;
+    }
+
+    public String getPerk() {
+      return perk;
+    }
+
+    public void setPerk(String perk) {
+      this.perk = perk;
     }
   }
 

@@ -2,8 +2,6 @@ package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.asfoundation.wallet.referrals.ReferralsScreen
-import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
-import io.reactivex.Completable
 import io.reactivex.Single
 
 interface PromotionsInteractorContract {
@@ -11,17 +9,7 @@ interface PromotionsInteractorContract {
   fun retrievePromotions(): Single<PromotionsModel>
 
   fun hasAnyPromotionUpdate(referralsScreen: ReferralsScreen,
-                            gamificationScreen: GamificationScreen): Single<Boolean>
+                            gamificationScreen: GamificationScreen,
+                            promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean>
 
-  fun saveReferralInformation(friendsInvited: Int, isVerified: Boolean,
-                              screen: ReferralsScreen): Completable
-
-  fun hasReferralUpdate(friendsInvited: Int, isVerified: Boolean,
-                        screen: ReferralsScreen): Single<Boolean>
-
-  fun hasGamificationNewLevel(screen: GamificationScreen): Single<Boolean>
-
-  fun retrieveGamificationRewardStatus(screen: GamificationScreen): Single<UserRewardsStatus>
-
-  fun levelShown(level: Int, promotions: GamificationScreen): Completable
 }

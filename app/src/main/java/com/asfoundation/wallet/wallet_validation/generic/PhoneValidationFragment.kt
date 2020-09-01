@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.logging.Logger
+import com.hbb20.CountryCodePicker
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -96,7 +97,7 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
 
-    outState.putString(COUNTRY_CODE, ccp.selectedCountryCode)
+    outState.putString(COUNTRY_CODE, country_code_picker.selectedCountryCode)
     errorMessage?.let { outState.putInt(ERROR_MESSAGE, it) }
   }
 
@@ -130,8 +131,9 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun getRetryButtonClicks(): Observable<PhoneValidationClickData> {
     return RxView.clicks(retry_button)
         .map {
-          PhoneValidationClickData(ccp.selectedCountryCodeWithPlus,
-              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext)
+          PhoneValidationClickData(country_code_picker.selectedCountryCodeWithPlus,
+              country_code_picker.fullNumber.substringAfter(
+                  country_code_picker.selectedCountryCode), previousContext)
         }
         .doOnNext { playRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
@@ -143,12 +145,24 @@ class PhoneValidationFragment : DaggerFragment(),
   }
 
   override fun setupUI() {
-    ccp.registerCarrierNumberEditText(phone_number)
+    country_code_picker.registerCarrierNumberEditText(phone_number)
+    country_code_picker.setCustomDialogTextProvider(object :
+        CountryCodePicker.CustomDialogTextProvider {
+      override fun getCCPDialogSearchHintText(language: CountryCodePicker.Language?,
+                                              defaultSearchHintText: String?) =
+          defaultSearchHintText ?: ""
+
+      override fun getCCPDialogTitle(language: CountryCodePicker.Language?, defaultTitle: String?) =
+          getString(R.string.verification_insert_phone_field_country)
+
+      override fun getCCPDialogNoResultACK(language: CountryCodePicker.Language?,
+                                           defaultNoResultACK: String?) = defaultNoResultACK ?: ""
+    })
 
     hideNoInternetView()
 
     countryCode?.let {
-      ccp.setCountryForPhoneCode(it.drop(0)
+      country_code_picker.setCountryForPhoneCode(it.drop(0)
           .toInt())
     }
     phoneNumber?.let { phone_number.setText(it) }
@@ -171,7 +185,7 @@ class PhoneValidationFragment : DaggerFragment(),
   }
 
   override fun getCountryCode(): Observable<String> {
-    return Observable.just(ccp.selectedCountryCodeWithPlus)
+    return Observable.just(country_code_picker.selectedCountryCodeWithPlus)
   }
 
   override fun getPhoneNumber(): Observable<String> {
@@ -189,8 +203,9 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun getNextClicks(): Observable<PhoneValidationClickData> {
     return RxView.clicks(next_button)
         .map {
-          PhoneValidationClickData(ccp.selectedCountryCodeWithPlus,
-              ccp.fullNumber.substringAfter(ccp.selectedCountryCode), previousContext)
+          PhoneValidationClickData(country_code_picker.selectedCountryCodeWithPlus,
+              country_code_picker.fullNumber.substringAfter(
+                  country_code_picker.selectedCountryCode), previousContext)
         }
   }
 

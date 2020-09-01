@@ -58,7 +58,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
             appPackage, productName, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError { showError(it) }
-            .subscribe())
+            .subscribe({}, { showError(it) }))
   }
 
   private fun handleOkErrorClick() {
@@ -102,8 +102,8 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
 
   private fun close() = view.close(billingMessagesMapper.mapCancellation())
 
-  private fun showError(throwable: Throwable?) {
-    logger.log(TAG, throwable)
+  private fun showError(throwable: Throwable?, message: String? = null) {
+    logger.log(TAG, message, throwable)
     if (throwable is UnknownTokenException) view.showWrongNetworkError()
     else view.showError()
   }
@@ -116,12 +116,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
         onChainBuyInteract.getCompletedPurchase(transaction, isBds)
             .observeOn(viewScheduler)
             .map { buildBundle(it, transaction.orderReference) }
-            .flatMapCompletable { bundle ->
-              Completable.fromAction { view.showTransactionCompleted() }
-                  .subscribeOn(viewScheduler)
-                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                  .andThen(Completable.fromRunnable { view.finish(bundle) })
-            }
+            .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
             .onErrorResumeNext { Completable.fromAction { showError(it) } }
       }
       Payment.Status.NO_FUNDS -> Completable.fromAction { view.showNoFundsError() }
@@ -154,12 +149,27 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       Payment.Status.FORBIDDEN -> Completable.fromAction { handleFraudFlow() }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.ERROR -> Completable.fromAction { showError(null) }
+      Payment.Status.ERROR -> Completable.fromAction {
+        showError(null, "Payment status: ${transaction.status.name}")
+      }
           .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      else -> Completable.fromAction { showError(null) }
+      else -> Completable.fromAction {
+        showError(null, "Payment status: UNKNOWN")
+      }
           .andThen(onChainBuyInteract.remove(transaction.uri))
     }
+  }
+
+  private fun handleSuccessTransaction(bundle: Bundle): Completable {
+    return onChainBuyInteract.getWalletAddress()
+        .flatMapCompletable {
+          Completable.fromAction { view.launchPerkBonusService(it) }
+        }
+        .andThen(Completable.fromAction { view.showTransactionCompleted() })
+        .subscribeOn(viewScheduler)
+        .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+        .andThen(Completable.fromRunnable { view.finish(bundle) })
   }
 
   private fun buildBundle(payment: Payment, orderReference: String?): Bundle {
@@ -242,7 +252,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                   if (verified) {
                     view.showForbiddenError()
                   } else {
-                    view.showWalletValidation(R.string.purchase_wallet_error_contact_us)
+                    view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
                   }
                 }
           } else {
@@ -253,7 +263,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
         }
         .observeOn(viewScheduler)
         .subscribe({}, {
-          it.printStackTrace()
+          logger.log(TAG, it)
           view.showForbiddenError()
         }))
   }

@@ -5,6 +5,8 @@ import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.billing.repository.entity.Product
+import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -114,9 +116,9 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                  developerPayload: String?, callback: String?,
                                  orderReference: String?,
                                  referrerUrl: String?): Single<Transaction> {
-    return inAppApi.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
-        "APPC", productName, type, null, developerWallet, storeWallet, oemWallet, id,
-        developerPayload, callback, orderReference, referrerUrl, walletAddress, walletSignature)
+    return createTransaction(null, developerWallet, storeWallet, oemWallet, id, developerPayload,
+        callback, orderReference, referrerUrl, origin, type, gateway, walletAddress,
+        walletSignature, packageName, priceValue.toPlainString(), "APPC", productName)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -126,9 +128,10 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   internal fun getPaymentMethods(value: String?,
-                                 currency: String?, type: String?,
+                                 currency: String?,
+                                 currencyType: String?,
                                  direct: Boolean? = null): Single<List<PaymentMethodEntity>> {
-    return inAppApi.getPaymentMethods(value, currency, type, direct)
+    return inAppApi.getPaymentMethods(value, currency, currencyType, direct)
         .map { responseMapper.map(it) }
   }
 
@@ -144,12 +147,42 @@ class RemoteRepository(private val inAppApi: BdsApi,
   fun transferCredits(toWallet: String, origin: String, type: String, gateway: String,
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
-    return inAppApi.createTransaction(gateway, origin, packageName, amount.toPlainString(),
-        "APPC", null, type, toWallet, null, null,
-        null, null, null, null, null, null,
-        walletAddress, signature)
-        .ignoreElement()
+    return createTransaction(toWallet, null, null, null, null, null, null, null, null, origin, type,
+        gateway, walletAddress, signature, packageName, amount.toPlainString(), "APPC",
+        null).ignoreElement()
+  }
+
+  fun createLocalPaymentTransaction(paymentId: String, packageName: String, price: String,
+                                    currency: String, walletAddress: String,
+                                    walletSignature: String): Single<Transaction> {
+    return createTransaction(walletAddress, null, null, null, null, null, null, null, null, null,
+        "TOPUP", "myappcoins", walletAddress, walletSignature, packageName, price, currency, null,
+        LocalPaymentBody(price, currency, packageName, "TOPUP", paymentId))
+  }
+
+  private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
+                                oemWallet: String?, token: String?, developerPayload: String?,
+                                callback: String?, orderReference: String?, referrerUrl: String?,
+                                origin: String?, type: String, gateway: String,
+                                walletAddress: String, signature: String, packageName: String,
+                                amount: String, currency: String, productName: String?,
+                                localPaymentBody: LocalPaymentBody = LocalPaymentBody()): Single<Transaction> {
+    return if (gateway == "myappcoins") {
+      inAppApi.createTransaction(null, packageName, amount, currency, null,
+          type, walletAddress, null, null, null, null, null, null, null, null, walletAddress,
+          signature, localPaymentBody)
+    } else {
+      inAppApi.createTransaction(gateway, origin, packageName, amount,
+          currency, productName, type, userWallet, developerWallet, storeWallet, oemWallet, token,
+          developerPayload, callback, orderReference, referrerUrl, walletAddress, signature)
+    }
   }
 
   data class Consumed(val status: String = "CONSUMED")
+
+  data class LocalPaymentBody(@SerializedName("price.value") val price: String,
+                              @SerializedName("price.currency") val currency: String,
+                              val domain: String, val type: String, val method: String) {
+    constructor() : this("", "", "", "", "")
+  }
 }

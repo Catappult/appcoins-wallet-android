@@ -23,6 +23,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
+import com.appcoins.wallet.gamification.repository.PromotionDatabase
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.permissions.Permissions
 import com.aptoide.apk.injector.extractor.data.Extractor
@@ -429,6 +430,30 @@ internal class AppModule {
         .permissionsDao()))
   }
 
+  @Singleton
+  @Provides
+  fun providesPromotionDatabase(context: Context): PromotionDatabase {
+    return Room.databaseBuilder(context,
+        PromotionDatabase::class.java,
+        "promotion_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesPromotionDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.promotionDao()
+
+  @Singleton
+  @Provides
+  fun providesLevelsDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.levelsDao()
+
+  @Singleton
+  @Provides
+  fun providesLevelDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.levelDao()
+
   @Provides
   fun providesObjectMapper(): ObjectMapper {
     return ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -455,10 +480,7 @@ internal class AppModule {
     get() = BuildConfig.VERSION_CODE.toString()
 
   @Provides
-  fun provideTransactionsMapper(defaultTokenProvider: DefaultTokenProvider,
-                                appCoinsOperationRepository: AppCoinsOperationRepository): TransactionsMapper {
-    return TransactionsMapper(defaultTokenProvider, appCoinsOperationRepository, Schedulers.io())
-  }
+  fun provideTransactionsMapper() = TransactionsMapper()
 
   @Singleton
   @Provides

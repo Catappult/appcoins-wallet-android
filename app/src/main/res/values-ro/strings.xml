@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Se verifică toate detaliile: balanță, articole, rețea…</string>
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
   <string name="activity_iab_change_card">SCHIMBĂ CARD</string>
+  <string name="activity_iab_fees">Comisioane</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
   <string name="notification_completed_poa">Recompensă primită! 👌 Va trebui să aștepți %1$sh%2$sm ca să câștigi mai multe recompense încercând aplicații ⏰!</string>
   <string name="notification_poa_limit_reached">Ai atins limita zilnică de recompense. ⏰ Revino în %1$sh%2$sm și încearcă din nou!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">Număr card</string>
   <string name="dialog_credit_card_expiration">Data de expirare</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Card de credit/debit</string>
+  <string name="dialog_expiry_date">Data expirării</string>
   <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
   <string name="activity_airdrop_hint">Introdu cuvintele din imagine</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Din motive de securitate, trebuie să îți verificăm portofelul cu un cod SMS.</string>
   <string name="verification_insert_phone_title">Introdu numărul tău de telefon</string>
   <string name="verification_insert_phone_body">Verifică-ți portofelul pentru a primi recompense! Îți vom trimite un cod de verificare.</string>
-  <string name="verification_insert_phone_field_country">Țară</string>
+  <string name="verification_insert_phone_field_country">Alege țara/regiunea ta</string>
   <string name="verification_insert_phone_field_number">Număr de telefon</string>
   <string name="verification_insert_phone_field_number_error">Număr de telefon nevalid</string>
   <string name="verification_insert_phone_field_region_error">Regiunea nu este încă acoperită.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Primește recompense și invită prieteni</string>
   <string name="verification_settings_verified_title">Portofel verificat</string>
   <string name="verification_settings_no_internet">Trebuie să fii conectat la internet</string>
+  <string name="verification_error_time_expired">Ups, timpul tău a expirat. Începe din nou!</string>
+  <string name="verification_error_attempts_reached">Se pare că ai atins limita maximă de încercări. Așteaptă ca să încerci din nou.</string>
+  <string name="verified_tag">Verificat</string>
+  <string name="unferified_tag">Neverificat</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Se pare că această cumpărătură este deja în curs de procesare. Te rugăm să aștepți până când tranzacția este finalizată sau contactează Echipa de asistență.</string>
   <string name="purchase_more_payment_methods_button">ALTE METODE DE PLATĂ</string>
   <string name="purchase_appcoins_available_body">Vei folosi o sumă mică de ETH ca să plătești comisioanele.</string>
   <string name="purchase_appcoins_noavailable_body">Nu ai suficienți AppCoins sau Ether pentru această cumpărătură.</string>
+  <string name="purchase_no_eth_body">Nu ai suficienți ETH ca să plătești pentru benzină.</string>
+  <string name="purchase_no_appcoins_body">Nu ai suficienți AppCoins pentru a finaliza această cumpărătură.</string>
   <string name="purchase_appcoins_credits_available_body">Fără comisioane și fulger!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Nu ai suficiente APPC Credits, încearcă să alimentezi!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Nu ai suficiente AppCoins Credits, încearcă să alimentezi!</string>
   <string name="purchase_appcoins_credits_default_body">Ai câștigat suficiente AppCoins Credits pentru această cumpărătură. Bucură-te de ea!</string>
   <string name="purchase_poa_item">Câștigă fonduri încercând aplicații</string>
   <string name="purchase_poa_body">Încearcă o aplicație timp de 2 minute și câștigă AppCoins Credits!</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">Ești sigur că informațiile de securitate sunt corecte? Încearcă din nou.</string>
   <string name="purchase_card_error_wrong_CVV">Codul tău CVV/CVC pare a fi greșit. Încearcă din nou.</string>
   <string name="purchase_wallet_error_contact_us">Ups, ceva nu e în regulă cu portofelul tău. Te rugăm să ne contactezi.</string>
+  <string name="purchase_carrier_error">Se pare că numărul tău de telefon nu este compatibil cu această metodă de plată.</string>
+  <string name="purchase_error_fraud_code_20">Ups, avem probleme cu această cumpărătură. Te rugăm să ne contactezi.</string>
+  <string name="purchase_error_wallet_block_code_403">Se pare că ceva nu este în regulă cu portofelul tău. Te rugăm să ne contactezi.</string>
   <string name="purchase_card_error_CVV">CVV/CVC greșit</string>
   <string name="error_contac_us_body">Dacă problema continuă, te rugăm să ne contactezi.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Pașii următori</string>
   <string name="async_steps_1">Finalizează plata ta cu %s. Vei fi notificat când vei primi AppCoins Credits în portofelul tău.</string>
   <string name="async_steps_2">Du-te înapoi la joc și fă această cumpărătură cu AppCoins Credits ca metodă de plată.</string>
+  <string name="async_steps_topup_2">Folosește aceste AppCoins Credits pentru a face cumpărături în jocurile tale preferate!</string>
   <string name="async_steps_1_no_notification">Finalizează plata ta cu %s.</string>
   <string name="async_steps_2_no_notification">Când vei primi AppCoins Credits, du-te înapoi la joc și fă o cumpărătură folosind AppCoins Credits ca metodă de plată.</string>
+  <string name="async_steps_2_toptup_no_notification">Odată ce primești AppCoins Credits, folosește-le să faci cumpărături în jocurile tale preferate!</string>
   <string name="async_notification_title">AppCoins Credits au sosit!</string>
   <string name="async_notification_body">Du-te înapoi la %s ca să faci cumpărătura folosind AppCoins Credits.</string>
   <!--Referral Program-->
@@ -701,4 +715,55 @@
   <string name="gamif_placeholder_unknown">o planetă necunoscută</string>
   <string name="gamif_distance_unkown">Locație necunoscută</string>
   <string name="gamif_placeholder_new_planet">o planetă nouă</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Facturare operator</string>
+  <string name="carrier_billing_fees_disclaimer">Este posibil să se aplice comisioane suplimentare</string>
+  <string name="carrier_billing_insert_phone_body">Te rugăm să introduci numărul tău de telefon</string>
+  <string name="carrier_billing_phone_field">Numărul tău de telefon...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s te va taxa un comision de %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s în %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Numărul tău de telefon este %s.</string>
+  <string name="carrier_billing_enter_pin_body">Introdu PIN-ul primit prin SMS.</string>
+  <string name="carrier_billing_code_field">Codul tău...</string>
+  <string name="carrier_billing_code_resend_button">RETRIMITE COD</string>
+  <string name="carrier_billing_submit_button">TRIMITE</string>
+  <string name="carrier_billing_terms_disclaimer">Apăsând Trimite, confirmi că accepți Termenii și condițiile și Politica de confidențialitate.</string>
+  <string name="carrier_billing_help_1">Ai nevoie de ajutor?</string>
+  <string name="carrier_billing_help_2_button">Contactează echipa de asistență</string>
+  <string name="carrier_billing_terms_button">Termeni și condiții</string>
+  <string name="carrier_billing_privacy_button">Politica de confidențialitate</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Adaugă card de credit/debit</string>
+  <string name="manage_cards_settings_manage_title">Gestionează carduri</string>
+  <string name="manage_cards_view_title">Gestionează carduri</string>
+  <string name="manage_cards_view_manage_subtitle">Gestionează cardurile tale de plată</string>
+  <string name="manage_cards_add_title">Adaugă card nou</string>
+  <string name="manage_cards_remove_confirmation">Ești sigur că vrei să elimini acest card?</string>
+  <string name="manage_cards_remove_no">NU, ANULEAZĂ</string>
+  <string name="manage_cards_remove_yes">DA, ELIMINĂ</string>
+  <string name="manage_cards_card_ending_body">Card cu ultimele cifre %s</string>
+  <string name="manage_cards_error_details">Ești sigur că detaliile cardului tău sunt corecte? Te rugăm să încerci din nou!</string>
+  <string name="manage_cards_error_card_problem">Se pare că este o problemă cu cardul tău. Încearcă cu un alt card.</string>
+  <string name="manage_cards_select_title">Selectează card de plată</string>
+  <string name="manage_cards_remember">Ține minte card</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Câștigă %s%% bonus la fiecare cumpărătură</string>
+  <string name="perks_gamif_subtitle">Cu cât cheltuiești mai mult în aplicațiile tale preferate, cu atât mai mare va fi bonusul!</string>
+  <string name="perks_title">Promoții</string>
+  <string name="perks_body">Fii pe fază! Avem promoții speciale pentru tine.</string>
+  <string name="perks_end_in_days">Promoțiile se încheie în %s zile.</string>
+  <string name="perks_end_in_date">Promoția se încheie pe %s.</string>
+  <string name="perks_available_soon">Promoție disponibilă în curând</string>
+  <string name="perks_next_level_reward">Urcă la nivelul următor ca să primești %s AppCoins Credits!</string>
+  <string name="perks_notification">Tocmai ai primit %s AppCoins Credits ca bonus</string>
+  <string name="perks_level_up_on_this_purchase">Treci la nivelul următor cu această cumpărătură</string>
+  <string name="perks_level_up_amount_left">Mai ai %1$s %2$s până la nivelul următor!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s în AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Blocare cu amprentă</string>
+  <string name="fingerprint_failed_title">Autentificare eșuată!</string>
+  <string name="fingerprint_failed_body">Încearcă din nou în %s secunde.</string>
+  <string name="fingerprint_authentication_required_title">Autentificare necesară!</string>
+  <string name="fingerprint_authentication_required_body">Folosește-ți degetul sau parola pentru a continua.</string>
 </resources>

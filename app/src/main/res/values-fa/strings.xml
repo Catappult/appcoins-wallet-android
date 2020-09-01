@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">بررسی همه جزییات: بالانس، موارد، شبکه…</string>
   <string name="activity_iab_buying_message">جزییات بررسی شد\nدرحال دریافت مورد شما…</string>
   <string name="activity_iab_change_card">تغییر کارت</string>
+  <string name="activity_iab_fees">هزینه‌ها</string>
   <string name="notification_ongoing_poa">درحال پردازش جایزه شما</string>
   <string name="notification_completed_poa">پاداش دریافت شد!👌 باید %1$sساعت و %2$sدقیقه منتظر بمانید تا بتوانید پاداش بیشتری با امتحان اپلیکیشن‌ها بدست آورید ⏰!</string>
   <string name="notification_poa_limit_reached">به حد پاداش روزانه خود رسیده‌اید. ⏰ %1$s ساعت و %2$s دقیقه دیگر بازگردید و دوباره امتحان کنید!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">شماره کارت</string>
   <string name="dialog_credit_card_expiration">تاریخ انقضا</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">کارت اعتباری / بانکی</string>
+  <string name="dialog_expiry_date">تاریخ انقضا</string>
   <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
   <string name="activity_airdrop_details">این فقط یک کار امنیتی است.</string>
   <string name="activity_airdrop_hint">کلمات داخل تصویر را تایپ کنید</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">به دلایل امنیتی، نیازمند به تایید کیف پول شما با یک کد پیامکی هستیم.</string>
   <string name="verification_insert_phone_title">شماره تلفن خود را وارد کنید</string>
   <string name="verification_insert_phone_body">برای دریافت پاداش، کیف پول خود را تایید کنید! کد تاییدیه را برای شما ارسال خواهیم کرد.</string>
-  <string name="verification_insert_phone_field_country">کشور</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">شماره تلفن</string>
   <string name="verification_insert_phone_field_number_error">شمشماره تلفن نامعتبر</string>
   <string name="verification_insert_phone_field_region_error">منطقه جغرافیایی فعلا پشتیبانی نمی‌شود.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">پاداش دریافت کنید و دوستان را دعوت کنید</string>
   <string name="verification_settings_verified_title">کیف پول تاییدشد</string>
   <string name="verification_settings_no_internet">نیاز به ارتباط با اینترنت دارید</string>
+  <string name="verification_error_time_expired">اوه، زمان شما به پایان رسید. دوباره شروع کنید!</string>
+  <string name="verification_error_attempts_reached">تعداد تلاش‌های شما به پایان رسیده است. برای تکرار مدتی صبر کنید.</string>
+  <string name="verified_tag">تاییدشده</string>
+  <string name="unferified_tag">تاییدنشده</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
   <string name="purchase_more_payment_methods_button">سایر روش‌های پرداخت</string>
   <string name="purchase_appcoins_available_body">برای پرداخت این مبلغ، مقدار اندکی از ETH را پرداخت خواهید کرد.</string>
   <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
+  <string name="purchase_no_eth_body">به اندازه کافی ETH برای پرداخت گاز نداری.</string>
+  <string name="purchase_no_appcoins_body">به مقدار کافی AppCoins برای تکمیل این خرید ندارید.</string>
   <string name="purchase_appcoins_credits_available_body">بدون هزینه و بسرعت!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی اعتبار APPC ندارید، اقدام به افزایش اعتبار کنید!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی AppCoins Credits ندارید، اقدام به افزایش اعتبار کنید!</string>
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی اعتبار AppCoins برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
   <string name="purchase_poa_item">از طریق امتحان اپلیکیشن‌ها کسب درآمد کنید</string>
   <string name="purchase_poa_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و اعتبار AppCoins بدست آورید!</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">آیا مطمئن هستید که اطلاعات امنیتی صحیح است؟ لطفا مجدد امتحان کنید.</string>
   <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
   <string name="purchase_wallet_error_contact_us">مشکلی برای کیف پول شما پیش آمده است. لطفا با ما تماس بگیرید.</string>
+  <string name="purchase_carrier_error">شماره موبایل شما برای این روش پرداخت سازگار نیست.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC اشتباه</string>
   <string name="error_contac_us_body">اگر مشکل ادامه داشت لطفا با ما تماس بگیرید.</string>
   <!--Async Payments-->
   <string name="async_steps_title">قدم‌های بعدی</string>
   <string name="async_steps_1">پرداخت خود را با %s تکمیل کنید. زمانی که اعتبار AppCoins در کیف پول شما دریافت شد مطلع خواهید شد.</string>
   <string name="async_steps_2">به بازی برگردید و خرید را از طریق AppCoins Credits به عنوان روش پرداخت تکمیل کنید.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">پرداخت خود را با %s تکمیل کنید.</string>
   <string name="async_steps_2_no_notification">هر زمان که AppCoins Credits را دریافت کردید، به بازی برگردید و خرید را با استفاده از AppCoins Credits به عنوان روش پرداخت تکمیل کنید.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">AppCoins Credits شما رسید!</string>
   <string name="async_notification_body">برای پرداخت با استفاده از AppCoins Credits به %s برگردید.</string>
   <!--Referral Program-->
@@ -700,4 +714,55 @@
   <string name="gamif_placeholder_unknown">یک سیاره ناشناخته</string>
   <string name="gamif_distance_unkown">موقعیت ناشناخته</string>
   <string name="gamif_placeholder_new_planet">یک سیاره جدید</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">پرداخت از طریق سرویس مخابراتی</string>
+  <string name="carrier_billing_fees_disclaimer">ممکن است هزینه‌های جانبی وارد شود</string>
+  <string name="carrier_billing_insert_phone_body">لطفا شماره تلفن خود را وارد کنید</string>
+  <string name="carrier_billing_phone_field">شماره تلفن شما...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s هزینه %2$s را کسر می کند</string>
+  <string name="carrier_billing_purchase_info_body">%1$s در %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">شماره تلفن شما %s است.</string>
+  <string name="carrier_billing_enter_pin_body">لطفا PIN را که از طریق SMS دریافت کردید وارد کنید.</string>
+  <string name="carrier_billing_code_field">کد شما...</string>
+  <string name="carrier_billing_code_resend_button">ارسال مجدد کد</string>
+  <string name="carrier_billing_submit_button">ارسال</string>
+  <string name="carrier_billing_terms_disclaimer">با کلیک روی ارسال، تایید می‌کنید که شرایط و ضوابط سیاست حفظ حریم خصوصی را قبول کرده‌اید.</string>
+  <string name="carrier_billing_help_1">نیاز به کمک دارید؟</string>
+  <string name="carrier_billing_help_2_button">تماس با پشتیبانی</string>
+  <string name="carrier_billing_terms_button">شرایط و ضوابط</string>
+  <string name="carrier_billing_privacy_button">سیاست حفظ حریم خصوصی</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">افزودن کارت اعتباری / بانکی</string>
+  <string name="manage_cards_settings_manage_title">مدیریت کارت‌ها</string>
+  <string name="manage_cards_view_title">مدیریت کارت‌ها</string>
+  <string name="manage_cards_view_manage_subtitle">مدیریت کارت‌های پرداختی خود</string>
+  <string name="manage_cards_add_title">افزودن کارت جدید</string>
+  <string name="manage_cards_remove_confirmation">آیا مطمئن هستید که می‌خواهید این کارت را حذف کنید؟</string>
+  <string name="manage_cards_remove_no">نه، لغو</string>
+  <string name="manage_cards_remove_yes">بله، حذف</string>
+  <string name="manage_cards_card_ending_body">کارت با انتهای %s</string>
+  <string name="manage_cards_error_details">آیا مطمئن هستید که اطلاعات کارت شما صحیح است؟ لطفا مجدد امتحان کنید!</string>
+  <string name="manage_cards_error_card_problem">به نظر می‌رسد مشکلی برای کارت شما وجود دارد. لطفا کارت دیگری را امتحان کنید.</string>
+  <string name="manage_cards_select_title">انتخاب کارت پرداخت</string>
+  <string name="manage_cards_remember">کارت را به یاد داشته باش</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
+  <string name="perks_title">Promotions</string>
+  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_end_in_days">The promotion ends in %s days.</string>
+  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_available_soon">Promotion available soon</string>
+  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
+  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
+  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
+  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

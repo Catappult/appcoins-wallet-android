@@ -14,11 +14,11 @@ class TransactionMapper {
   fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 
   private fun map(transaction: TransactionEntity): Transaction {
-    return Transaction(transaction.transactionId, map(transaction.type),
+    return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
+        transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status),
-        transaction.value, transaction.from, transaction.to, map(transaction.details),
-        transaction.currency, mapToOperations(transaction.operations))
+        map(transaction.status), transaction.value, transaction.from, transaction.to,
+        map(transaction.details), transaction.currency, mapToOperations(transaction.operations))
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
@@ -68,11 +68,11 @@ class TransactionMapper {
 
   fun map(transaction: Transaction, relatedWallet: String): TransactionEntity {
     return TransactionEntity(transaction.transactionId, relatedWallet,
-        transaction.approveTransactionId,
-        map(transaction.type), transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value,
-        transaction.from,
-        transaction.to, map(transaction.details), transaction.currency,
+        transaction.approveTransactionId, map(transaction.perk),
+        map(transaction.type), map(transaction.subType), transaction.title,
+        transaction.description, transaction.timeStamp,
+        transaction.processedTime, map(transaction.status), transaction.value,
+        transaction.from, transaction.to, map(transaction.details), transaction.currency,
         mapToOperationEntities(transaction.operations))
   }
 
@@ -124,6 +124,41 @@ class TransactionMapper {
       Transaction.TransactionType.TRANSFER_OFF_CHAIN -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
       Transaction.TransactionType.ETHER_TRANSFER -> TransactionEntity.TransactionType.ETHER_TRANSFER
       Transaction.TransactionType.SUBS -> TransactionEntity.TransactionType.SUBS
+    }
+  }
+
+  private fun map(subType: TransactionEntity.SubType?): Transaction.SubType? {
+    if (subType == null) return null
+    return when (subType) {
+      TransactionEntity.SubType.PERK_PROMOTION -> Transaction.SubType.PERK_PROMOTION
+      TransactionEntity.SubType.UNKNOWN -> Transaction.SubType.UNKNOWN
+    }
+  }
+
+  private fun map(subType: Transaction.SubType?): TransactionEntity.SubType? {
+    if (subType == null) return null
+    return when (subType) {
+      Transaction.SubType.PERK_PROMOTION -> TransactionEntity.SubType.PERK_PROMOTION
+      Transaction.SubType.UNKNOWN -> TransactionEntity.SubType.UNKNOWN
+    }
+  }
+
+
+  private fun map(perk: TransactionEntity.Perk?): Transaction.Perk? {
+    if (perk == null) return null
+    return when (perk) {
+      TransactionEntity.Perk.GAMIFICATION_LEVEL_UP -> Transaction.Perk.GAMIFICATION_LEVEL_UP
+      TransactionEntity.Perk.PACKAGE_PERK -> Transaction.Perk.PACKAGE_PERK
+      TransactionEntity.Perk.UNKNOWN -> Transaction.Perk.UNKNOWN
+    }
+  }
+
+  private fun map(perk: Transaction.Perk?): TransactionEntity.Perk? {
+    if (perk == null) return null
+    return when (perk) {
+      Transaction.Perk.GAMIFICATION_LEVEL_UP -> TransactionEntity.Perk.GAMIFICATION_LEVEL_UP
+      Transaction.Perk.PACKAGE_PERK -> TransactionEntity.Perk.PACKAGE_PERK
+      Transaction.Perk.UNKNOWN -> TransactionEntity.Perk.UNKNOWN
     }
   }
 }

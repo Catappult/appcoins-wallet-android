@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.topup
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -13,17 +15,19 @@ import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
-import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
-import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
+import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodsAdapter
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -53,11 +57,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  private lateinit var adapter: TopUpPaymentMethodAdapter
+  @Inject
+  lateinit var logger: Logger
+
+  private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
   private lateinit var paymentMethodClick: PublishRelay<String>
   private lateinit var fragmentContainer: ViewGroup
-  private lateinit var paymentMethods: List<PaymentMethodData>
+  private lateinit var paymentMethods: List<PaymentMethod>
   private lateinit var topUpAdapter: TopUpAdapter
   private lateinit var keyboardEvents: PublishSubject<Boolean>
   private var valueSubject: PublishSubject<FiatValue>? = null
@@ -66,7 +73,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var switchingCurrency = false
   private var bonusValue = BigDecimal.ZERO
   private var localCurrency = LocalCurrency()
-  private var selectedPaymentMethod = 0
+  private var selectedPaymentMethodId: String? = null
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -131,7 +138,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
             Schedulers.io(), topUpAnalytics, formatter,
-            savedInstanceState?.getString(SELECTED_VALUE_PARAM))
+            savedInstanceState?.getString(SELECTED_VALUE_PARAM), logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -146,7 +153,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
-    savedInstanceState?.let { selectedPaymentMethod = it.getInt(SELECTED_PAYMENT_METHOD_PARAM) }
+    savedInstanceState?.let {
+      selectedPaymentMethodId = it.getString(SELECTED_PAYMENT_METHOD_PARAM)
+    }
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
 
@@ -160,7 +169,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun onResume() {
-    //added since this fragment continues active after navigating to AdyenToUpFragment
+    //added since this fragment continues active after navigating to the payment fragment
     if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(main_value)
     super.onResume()
   }
@@ -169,25 +178,63 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     super.onSaveInstanceState(outState)
     outState.putString(SELECTED_VALUE_PARAM, main_value.text.toString())
     if (::adapter.isInitialized) {
-      outState.putInt(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItem())
+      outState.putString(SELECTED_PAYMENT_METHOD_PARAM, adapter.getSelectedItemData().id)
     }
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
 
-  override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
-                               localCurrency: LocalCurrency) {
-    hideNoNetwork()
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
+    this@TopUpFragment.paymentMethods = paymentMethods
+    adapter = TopUpPaymentMethodsAdapter(paymentMethods, paymentMethodClick)
+    selectPaymentMethod(paymentMethods)
+
+    payment_methods.adapter = adapter
+
+    handlePaymentListMaxHeight(paymentMethods.size)
+
+    payments_skeleton.visibility = View.GONE
+    payment_methods.visibility = View.VISIBLE
+  }
+
+  private fun handlePaymentListMaxHeight(listSize: Int) {
+    if (listSize > 2) {
+      val orientation = resources.configuration.orientation
+      val params: LayoutParams = payment_methods.layoutParams as LayoutParams
+      if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        params.height = dpToPx(164f)
+      }
+      if (orientation == Configuration.ORIENTATION_PORTRAIT && paymentMethods.size > 3) {
+        params.height = dpToPx(228f)
+      }
+      payment_methods.layoutParams = params
+    }
+  }
+
+  private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>) {
+    var selected = false
+    if (selectedPaymentMethodId != null) {
+      for (i in paymentMethods.indices) {
+        if (paymentMethods[i].id == selectedPaymentMethodId && paymentMethods[i].isEnabled) {
+          selectedPaymentMethodId = paymentMethods[i].id
+          adapter.setSelectedItem(i)
+          selected = true
+        }
+      }
+    }
+    if (!selected) adapter.setSelectedItem(0)
+  }
+
+  override fun setupCurrency(localCurrency: LocalCurrency) {
+    hideErrorViews()
     if (isLocalCurrencyValid(localCurrency)) {
       this@TopUpFragment.localCurrency = localCurrency
       setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
           DEFAULT_VALUE)
     }
-    this@TopUpFragment.paymentMethods = paymentMethods
     main_value.isEnabled = true
-    main_value.setMinTextSize(
-        resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
-            .toFloat())
+    main_value.setMinTextSize(resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
+        .toFloat())
     main_value.setOnEditorActionListener { _, actionId, _ ->
       if (EditorInfo.IME_ACTION_NEXT == actionId) {
         hideKeyboard()
@@ -195,19 +242,11 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       }
       true
     }
-    adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
-    adapter.setSelectedItem(selectedPaymentMethod)
-
-    payment_methods.adapter = adapter
-    payment_methods.layoutManager = LinearLayoutManager(context)
-    payments_skeleton.visibility = View.GONE
-    payment_methods.visibility = View.VISIBLE
     top_separator_topup.visibility = View.VISIBLE
     bot_separator.visibility = View.VISIBLE
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
     swap_value_label.visibility = View.VISIBLE
-
   }
 
   private fun focusAndShowKeyboard(view: EditText) {
@@ -300,20 +339,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun paymentMethodsFocusRequest() {
     hideKeyboard()
     payment_methods.requestFocus()
-  }
-
-  override fun showPaymentDetailsForm() {
-    payment_methods.visibility = View.GONE
-    bonus_layout.visibility = View.GONE
-    bonus_msg.visibility = View.GONE
-    top_separator_topup.visibility = View.VISIBLE
-    bot_separator.visibility = View.INVISIBLE
-  }
-
-  override fun showPaymentMethods() {
-    payment_methods.visibility = View.VISIBLE
-    top_separator_topup.visibility = View.VISIBLE
-    bot_separator.visibility = View.VISIBLE
+    selectedPaymentMethodId = adapter.getSelectedItemData().id
   }
 
   override fun rotateChangeCurrencyButton() {
@@ -339,7 +365,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun setConversionValue(topUpData: TopUpData) {
-    if (topUpData.selectedCurrency == selectedCurrency) {
+    if (topUpData.selectedCurrencyType == selectedCurrency) {
       when (selectedCurrency) {
         FIAT_CURRENCY -> {
           converted_value.text = "${topUpData.currency.appcValue} ${WalletCurrency.CREDITS.symbol}"
@@ -435,20 +461,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return selectedCurrency
   }
 
-  override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: BigDecimal) {
-    hideKeyboard()
-    if (preselectedChipValue.toDouble() > 0) {
-      changeMainValueText(preselectedChipValue.toString())
-    }
-  }
-
   override fun showNoNetworkError() {
     hideKeyboard()
-    no_network.visibility = View.VISIBLE
-    retry_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
     top_up_container.visibility = View.GONE
     rv_default_values.visibility = View.GONE
+    no_network.visibility = View.VISIBLE
+    retry_button.visibility = View.VISIBLE
   }
 
   override fun showRetryAnimation() {
@@ -464,7 +483,19 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     bonus_msg_skeleton.visibility = View.VISIBLE
   }
 
-  private fun hideNoNetwork() {
+  override fun showBonusSkeletons() {
+    bonus_msg.visibility = View.INVISIBLE
+    bonus_layout.visibility = View.INVISIBLE
+    bonus_layout_skeleton.visibility = View.VISIBLE
+    bonus_msg_skeleton.visibility = View.VISIBLE
+  }
+
+  override fun hidePaymentMethods() {
+    payments_skeleton.visibility = View.VISIBLE
+    payment_methods.visibility = View.GONE
+  }
+
+  private fun hideErrorViews() {
     no_network.visibility = View.GONE
     retry_button.visibility = View.GONE
     retry_animation.visibility = View.GONE
@@ -511,16 +542,19 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     converted_value.text = conversionValue
   }
 
-  private fun getSelectedPaymentMethod(): PaymentType {
+  private fun getSelectedPaymentMethod(): PaymentTypeInfo? {
     return if (payment_methods.adapter != null) {
-      val data = (payment_methods.adapter as TopUpPaymentMethodAdapter).getSelectedItemData()
-      if (PaymentType.PAYPAL.subTypes.contains(data.id)) {
-        PaymentType.PAYPAL
-      } else {
-        PaymentType.CARD
+      val data = (payment_methods.adapter as TopUpPaymentMethodsAdapter).getSelectedItemData()
+      when {
+        PaymentType.PAYPAL.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.label, data.iconUrl)
+        PaymentType.CARD.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
+        else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,
+            data.iconUrl)
       }
     } else {
-      PaymentType.CARD
+      null
     }
   }
 
@@ -560,6 +594,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       TypedValue.complexToDimensionPixelSize(this.data, resources.displayMetrics)
     }
   }
+
+  private fun dpToPx(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
+      Resources.getSystem().displayMetrics)
+      .toInt()
 
   private fun getTopUpValuesSpanCount(): Int {
     val screenWidth =

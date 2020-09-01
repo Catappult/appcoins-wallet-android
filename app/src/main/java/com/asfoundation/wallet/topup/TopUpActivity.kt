@@ -16,6 +16,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
+import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -27,12 +28,11 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.layout_adyen_error_top_up.*
+import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.error_message
 import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
 import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
 import kotlinx.android.synthetic.main.top_up_activity_layout.*
-import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -112,22 +112,26 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
   }
 
-  override fun navigateToPayment(paymentType: PaymentType,
-                                 data: TopUpData,
-                                 selectedCurrency: String, transactionType: String,
-                                 bonusValue: BigDecimal, gamificationLevel: Int,
-                                 bonusSymbol: String) {
+  override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
-            AdyenTopUpFragment.newInstance(paymentType, data, selectedCurrency,
-                transactionType, bonusValue, bonusSymbol, gamificationLevel))
+            AdyenTopUpFragment.newInstance(paymentType, data))
         .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+        .commit()
+  }
+
+  override fun navigateToLocalPayment(paymentId: String, icon: String, label: String,
+                                      topUpData: TopUpPaymentData) {
+    supportFragmentManager.beginTransaction()
+        .add(R.id.fragment_container,
+            LocalTopUpPaymentFragment.newInstance(paymentId, icon, label, topUpData))
+        .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
         .commit()
   }
 
   override fun onBackPressed() {
     when {
-      isFinishingPurchase -> close(true)
+      isFinishingPurchase -> close()
       supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
       else -> super.onBackPressed()
     }
@@ -136,7 +140,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
       when {
-        isFinishingPurchase -> close(true)
+        isFinishingPurchase -> close()
         supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
         else -> super.onBackPressed()
       }
@@ -149,7 +153,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     if (supportFragmentManager.backStackEntryCount != 0) {
       supportFragmentManager.popBackStack()
     } else {
-      close(true)
+      close()
     }
   }
 
@@ -163,12 +167,16 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     }
   }
 
+  override fun launchPerkBonusService(address: String) {
+    PerkBonusService.buildService(this, address)
+  }
+
   override fun finishActivity(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
-                data.getString(TOP_UP_CURRENCY), data.getString(BONUS), data.getString(
-                TOP_UP_CURRENCY_SYMBOL)),
+            TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT, ""),
+                data.getString(TOP_UP_CURRENCY, ""), data.getString(BONUS, ""),
+                data.getString(TOP_UP_CURRENCY_SYMBOL, "")),
             TopUpSuccessFragment::class.java.simpleName)
         .commit()
     unlockRotation()

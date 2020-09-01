@@ -16,7 +16,9 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
@@ -48,10 +50,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
+  @Inject
+  lateinit var logger: Logger
+
   private lateinit var presenter: IabPresenter
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
-  private var productName: String? = null
   private var isBds: Boolean = false
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
@@ -74,8 +78,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
-            walletBlockedInteract, transaction!!)
-    if (savedInstanceState == null) presenter.handleGetSkuDetails()
+            walletBlockedInteract, logger)
+    if (savedInstanceState == null) showPaymentMethodsView()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -245,7 +249,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
-                productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
+                getSkuDescription(), transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
                 isDonation, transaction!!.skuId, transaction!!.type, gamificationLevel,
                 disabledReasonAppc, disabledReasonCredits, isSubscription, frequency))
         .commit()
@@ -276,6 +280,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)
 
+  override fun launchPerkBonusService(address: String) {
+    PerkBonusService.buildService(this, address)
+  }
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstance(outState)
@@ -300,11 +308,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
-
-  override fun updateTransaction(title: String?, price: BigDecimal) {
-    transaction?.amount(price)
-    productName = title
-  }
 
   override fun navigateToUri(url: String) {
     navigateToWebViewAuthorization(url)
@@ -351,11 +354,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   private fun getSkuDescription(): String {
     return when {
-      productName.isNullOrEmpty()
-          .not() -> productName!!
+      transaction?.productName.isNullOrEmpty()
+          .not() -> transaction?.productName!!
       transaction != null && transaction!!.skuId.isNullOrEmpty()
           .not() -> transaction!!.skuId
-      else -> throw IllegalArgumentException("productName and sku not found")
+      else -> ""
     }
   }
 

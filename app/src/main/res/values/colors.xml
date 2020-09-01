@@ -10,7 +10,8 @@
   <color name="colorPrimary">#fc9d48</color>
   <color name="colorPrimaryDark">#e44b46</color>
   <color name="colorAccent">#e44b46</color>
-
+  <color name="primaryColor">@color/btn_end_gradient_color</color>
+  <color name="pinkish_orange">#fe6446</color>
   <color name="statusBarColor">#154868</color>
   <color name="activity_background_color">#fafafa</color>
 
@@ -86,6 +87,8 @@
   <color name="gamification_how_it_works">#33eaeaea</color>
 
   <color name="balance_active_wallet_grey">#a6a6a6</color>
+  <color name="balance_verify_chip_background">#f7f7f7</color>
+  <color name="balance_wallet_verified_chip">#58ab00</color>
 
   <color name="remove_wallet_red">#e44b46</color>
 

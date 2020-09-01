@@ -59,7 +59,7 @@
       >
 
     <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
+        android:id="@+id/country_code_picker"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="16dp"
