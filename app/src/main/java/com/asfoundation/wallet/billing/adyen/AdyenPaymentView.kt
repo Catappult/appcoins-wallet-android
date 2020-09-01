@@ -75,5 +75,7 @@ interface AdyenPaymentView {
 
   fun setup3DSComponent()
 
+  fun launchPerkBonusService(address: String)
+
   fun retrieveAutoRenewing(): Boolean?
 }

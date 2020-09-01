@@ -33,6 +33,11 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                                   private val gamificationLevel: Int,
                                   private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
                                   private val logger: Logger) {
+
+  companion object {
+    private val TAG = AppcoinsRewardsBuyPresenter::class.java.name
+  }
+
   fun present() {
     view.lockRotation()
     handleBuyClick()
@@ -43,7 +48,10 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   private fun handleOkErrorClick() {
     disposables.add(view.getOkErrorClick()
         .doOnNext { view.errorClose() }
-        .subscribe({}, { view.errorClose() }))
+        .subscribe({}, {
+          logger.log(TAG, "Ok error click", it)
+          view.errorClose()
+        }))
   }
 
   private fun handleBuyClick() {
@@ -61,8 +69,8 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         }
         .doOnSubscribe { view.showLoading() }
         .subscribe({}, {
+          logger.log(TAG, it)
           view.showError(null)
-          logger.log("AppcoinsRewardsBuyPresenter", it)
         }))
   }
 
@@ -96,18 +104,27 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               .observeOn(viewScheduler)
               .onErrorResumeNext {
                 Completable.fromAction {
-                  it.printStackTrace()
+                  logger.log(TAG, "Error after completing the transaction", it)
                   view.showError(null)
                   view.hideLoading()
                 }
               }
-        } else rewardsManager.getTransaction(packageName, sku, amount)
-            .firstOrError()
-            .map(Transaction::txId)
-            .doOnSuccess { view.finish(it) }
-            .ignoreElement()
+        } else {
+          rewardsManager.getTransaction(packageName, sku, amount)
+              .firstOrError()
+              .map(Transaction::txId)
+              .flatMapCompletable { transactionId ->
+                Completable.fromAction { view.showTransactionCompleted() }
+                    .subscribeOn(viewScheduler)
+                    .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                    .andThen(Completable.fromAction { view.finish(transactionId) })
+              }
+        }
       }
-      Status.ERROR -> Completable.fromAction { view.showError(null) }
+      Status.ERROR -> Completable.fromAction {
+        logger.log(TAG, "Credits transaction returned with error")
+        view.showError(null)
+      }
       Status.FORBIDDEN -> Completable.fromAction {
         handleFraudFlow()
       }
@@ -128,19 +145,19 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                 appcoinsRewardsBuyInteract.isWalletVerified()
                     .observeOn(viewScheduler)
                     .doOnSuccess {
-                      if (it) view.showError(R.string.purchase_wallet_error_contact_us)
+                      if (it) view.showError(R.string.purchase_error_wallet_block_code_403)
                       else view.showWalletValidation(R.string.unknown_error)
                     }
               } else {
                 Single.just(true)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { view.showError(R.string.purchase_wallet_error_contact_us) }
+                    .doOnSuccess { view.showError(R.string.purchase_error_wallet_block_code_403) }
               }
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
-              it.printStackTrace()
-              view.showError(R.string.purchase_wallet_error_contact_us)
+              logger.log(TAG, it)
+              view.showError(R.string.purchase_error_wallet_block_code_403)
             })
     )
   }
@@ -191,7 +208,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun isManagedPaymentType(type: String): Boolean {

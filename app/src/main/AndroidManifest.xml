@@ -216,8 +216,7 @@
         android:label="" />
     <activity
         android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
-        android:label="@string/promotions_title"
-        android:screenOrientation="portrait" />
+        android:label="@string/promotions_title" />
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
         android:label="Subscriptions"
@@ -278,6 +277,10 @@
         <action android:name="com.appcoins.wallet.advertising.action.BIND" />
       </intent-filter>
     </service>
+
+    <service
+        android:name="com.asfoundation.wallet.transactions.PerkBonusService"
+        android:exported="false" />
 
     <receiver
         android:name="com.asfoundation.wallet.advertise.PoAHandshakeReceiver"

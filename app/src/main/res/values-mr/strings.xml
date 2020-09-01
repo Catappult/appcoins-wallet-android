@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">तपशील तपासत आहे: शिल्लक, वस्तु, नेटवर्क…</string>
   <string name="activity_iab_buying_message">तपशील तपासले \nआपली वस्तु मिळवित आहे…</string>
   <string name="activity_iab_change_card">कार्ड बदला</string>
+  <string name="activity_iab_fees">शुल्क</string>
   <string name="notification_ongoing_poa">आपले बक्षीस प्रक्रियारत आहे</string>
   <string name="notification_completed_poa">बक्षिस मिळाले!👌 अॅप वापरुन आणखीन बक्षिसे मिळविण्यासाठी आपल्याला %1$sतास%2$sमि. थांबावे लागेल👌!</string>
   <string name="notification_poa_limit_reached">आपण दिवसाची बक्षिसे मर्यादा पूर्ण केली आहे. 👌 %1$sता.%2$sमि. परत येऊन पुन्हा प्रयत्न करा!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">कार्ड क्रमांक</string>
   <string name="dialog_credit_card_expiration">कालबाह्य तारीख</string>
   <string name="dialog_credit_card_cvv">सीव्हीव्ही</string>
+  <string name="dialog_bank_card">क्रेडीट/डेबीट कार्ड</string>
+  <string name="dialog_expiry_date">कालबाह्यता तारीख</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
   <string name="activity_airdrop_details">हे फक्त सुरक्षिततेबाबत आहे.</string>
   <string name="activity_airdrop_hint">चित्रातील शब्द लिहा</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
   <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
   <string name="verification_insert_phone_body">बक्षिसे मिळविण्यासाठी वॉलेट सत्यापन करा! आम्ही आपल्याला सत्यापन कोड पाठवू.</string>
-  <string name="verification_insert_phone_field_country">देश</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
   <string name="verification_insert_phone_field_region_error">हा प्रांत अजुनपर्यंत समर्थित नाहीं.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">बक्षिसे मिळवा आणि मित्रांना आमंत्रण द्या</string>
   <string name="verification_settings_verified_title">वॉलेट सत्यापित झाले</string>
   <string name="verification_settings_no_internet">आपण इंटरनेटशी जुडलेले हवेत</string>
+  <string name="verification_error_time_expired">अरेरे, आपली वेळ संपली. परत सुरु करा!</string>
+  <string name="verification_error_attempts_reached">प्रयत्नांची शिकस्त झालीसे दिसतेय. कृपया पुन्हा प्रयत्न करण्यापूर्वी थोड थांबा.</string>
+  <string name="verified_tag">तपासले</string>
+  <string name="unferified_tag">तपासलेले नाही</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
   <string name="purchase_appcoins_available_body">इटीएच ची छोटी रक्कम शुल्क भरण्यासाठी आपण वापराल.</string>
   <string name="purchase_appcoins_noavailable_body">ही खरेदी करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स किंवा इथर नाहीय.</string>
+  <string name="purchase_no_eth_body">इंधनाचे मूल्य देण्याइतके इटीएच आपल्याकडे नाहीत.</string>
+  <string name="purchase_no_appcoins_body">ही खरेदी पूर्ण करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स नाहीत.</string>
   <string name="purchase_appcoins_credits_available_body">कोणतेही शुल्क नाही आणि अतिशय जलद!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">आपल्याकडे पुरेशी एपीपीसी क्रेडीटस नाहीत, टॉप अप करण्याचा प्रयत्न करा!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">आपल्याकडे पुरेशा अॅपकॉईन्स नाहीत, टॉप अप करण्याचा प्रयत्न करा!</string>
   <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपण पुरेशा अॅपकॉइन्स कमावल्यात. मजा लुटा!</string>
   <string name="purchase_poa_item">अॅप वापरुन निधी जमा करा</string>
   <string name="purchase_poa_body">अॅपकॉइन्स क्रेडीटस मिळविण्यासाठी अॅपला २ मिनीटे वापरा!</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">सुरक्षा माहिती बरोबर आहे ह्याची खात्री आहे? कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_wallet_error_contact_us">अरेरे आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये. कृपया आमच्याशी संपर्क साधा.</string>
+  <string name="purchase_carrier_error">ह्या पेमेंट पद्धतीशी आपला फोन नंबर सुसंगत नाही असे दिसतेय.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
   <!--Async Payments-->
   <string name="async_steps_title">पुढचे चरण</string>
   <string name="async_steps_1">आपले पेमेंट %s सह पूर्ण करा. आपल्या वॉलेटमध्ये अॅपकॉइन्स क्रेडीट मिळाल्यानंतर आपल्याला कळविण्यात येईल.</string>
   <string name="async_steps_2">खेळात परत जा आणि अॅपकॉइन्स क्रेडीटसना पेमेंट पद्धत म्हणुन वापरुन खरेदी करा.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">%s सह आपले पेमेंट पूर्ण करा.</string>
   <string name="async_steps_2_no_notification">अॅपकॉइन्स क्रेडीटस मिळाल्यानंतर खेळात परत जा आणि अॅपकॉइन्स क्रेडीटसना पेमेंट पद्धत म्हणुन वापरुन खरेदी करा.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">आपली अॅपकॉइन्स क्रेडीटस आलेली आहेत!</string>
   <string name="async_notification_body">%s परत जाऊन खरेदीसाठी अॅपकॉइन्स क्रेडीटस वापरा.</string>
   <!--Referral Program-->
@@ -704,4 +718,55 @@
   <string name="gamif_placeholder_unknown">माहिती नसलेला ग्रह</string>
   <string name="gamif_distance_unkown">माहिती नसलेले ठिकाण</string>
   <string name="gamif_placeholder_new_planet">ऩविन ग्रह</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">कॅरियर बिलींग</string>
+  <string name="carrier_billing_fees_disclaimer">अतिरिक्त शुल्क लागू होऊ शकते</string>
+  <string name="carrier_billing_insert_phone_body">कृपया आपला फोन नंबर घाला</string>
+  <string name="carrier_billing_phone_field">आपला फोन नंबर...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s आपणांस %2$s शुल्क लागू करतील</string>
+  <string name="carrier_billing_purchase_info_body">%1$s मध्ये %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">आपला फोन नंबर आहे %s.</string>
+  <string name="carrier_billing_enter_pin_body">एसएमएसद्वारे मिळालेली पिन कृपया इथे घाला.</string>
+  <string name="carrier_billing_code_field">आपला कोड...</string>
+  <string name="carrier_billing_code_resend_button">कोड परत पाठवा</string>
+  <string name="carrier_billing_submit_button">सबमिट करा</string>
+  <string name="carrier_billing_terms_disclaimer">सबमिटवर टॅप करण्याने आपणांस गोपनीयता धोरण आणि अटी व शर्ती मंजूर आहेत ह्याची पुष्टी आपण कराल.</string>
+  <string name="carrier_billing_help_1">मदत हवीय?</string>
+  <string name="carrier_billing_help_2_button">समर्थनाशी संपर्क साधा</string>
+  <string name="carrier_billing_terms_button">अटी आणि शर्ती</string>
+  <string name="carrier_billing_privacy_button">गोपनीयता धोरण</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">क्रेडीट/डेबीट कार्ड जोडा</string>
+  <string name="manage_cards_settings_manage_title">कार्डांचे व्यवस्थापन करा</string>
+  <string name="manage_cards_view_title">कार्डांचे व्यवस्थापन करा</string>
+  <string name="manage_cards_view_manage_subtitle">आपल्या पेमेंट कार्डांचे व्यवस्थापन करा</string>
+  <string name="manage_cards_add_title">नविन कार्ड जोडा</string>
+  <string name="manage_cards_remove_confirmation">हे कार्ड नक्की मिटवायचे आहे का?</string>
+  <string name="manage_cards_remove_no">नाही, रद्द करा</string>
+  <string name="manage_cards_remove_yes">होय, काढा</string>
+  <string name="manage_cards_card_ending_body">शेवटची संख्या %s असणारे कार्ड</string>
+  <string name="manage_cards_error_details">आपल्या कार्डाचा तपशील बरोबर असण्याची खात्री आहे ना? कृपया पुन्हा प्रयत्न करा!</string>
+  <string name="manage_cards_error_card_problem">आपल्या कार्डाची काही समस्या आहे असे वाटते. कृपया दूसरे वापरा.</string>
+  <string name="manage_cards_select_title">पेमेंट कार्ड निवडा</string>
+  <string name="manage_cards_remember">कार्ड ध्यानात ठेवा</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
+  <string name="perks_title">Promotions</string>
+  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_end_in_days">The promotion ends in %s days.</string>
+  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_available_soon">Promotion available soon</string>
+  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
+  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
+  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
+  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

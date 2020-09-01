@@ -10,6 +10,7 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.commons.MemoryCache
@@ -58,6 +59,7 @@ import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract
@@ -198,10 +200,11 @@ class InteractModule {
                                     billing: Billing, billingMessagesMapper: BillingMessagesMapper,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
-                                    smsValidationInteract: SmsValidationInteract): LocalPaymentInteractor {
+                                    smsValidationInteract: SmsValidationInteract,
+                                    remoteRepository: RemoteRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
-        walletBlockedInteract, smsValidationInteract)
+        walletBlockedInteract, smsValidationInteract, remoteRepository)
   }
 
   @Provides
@@ -231,7 +234,8 @@ class InteractModule {
   }
 
   @Provides
-  fun provideAdyenPaymentInteractor(adyenPaymentRepository: AdyenPaymentRepository,
+  fun provideAdyenPaymentInteractor(context: Context,
+                                    adyenPaymentRepository: AdyenPaymentRepository,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
                                     walletService: WalletService,
@@ -268,9 +272,10 @@ class InteractModule {
   fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
-                                  findDefaultWalletInteract: FindDefaultWalletInteract): PromotionsInteractorContract {
+                                  findDefaultWalletInteract: FindDefaultWalletInteract,
+                                  gamificationMapper: GamificationMapper): PromotionsInteractorContract {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract)
+        promotionsRepository, findDefaultWalletInteract, gamificationMapper)
   }
 
   @Provides
@@ -310,9 +315,10 @@ class InteractModule {
   @Provides
   fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                              balanceRepository: BalanceRepository,
-                             preferencesRepositoryType: PreferencesRepositoryType) =
+                             preferencesRepositoryType: PreferencesRepositoryType,
+                             smsValidationInteract: SmsValidationInteract) =
       BalanceInteract(findDefaultWalletInteract, balanceRepository,
-          preferencesRepositoryType)
+          preferencesRepositoryType, smsValidationInteract)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
@@ -463,11 +469,11 @@ class InteractModule {
   @Provides
   fun provideWalletsInteract(balanceInteract: BalanceInteract,
                              fetchWalletsInteract: FetchWalletsInteract,
-                             walletcreatorInteract: WalletCreatorInteract,
+                             walletCreatorInteract: WalletCreatorInteract,
                              supportInteractor: SupportInteractor,
                              sharedPreferencesRepository: SharedPreferencesRepository,
                              gamification: Gamification, logger: Logger): WalletsInteract {
-    return WalletsInteract(balanceInteract, fetchWalletsInteract, walletcreatorInteract,
+    return WalletsInteract(balanceInteract, fetchWalletsInteract, walletCreatorInteract,
         supportInteractor, sharedPreferencesRepository, gamification, logger)
   }
 
@@ -501,14 +507,12 @@ class InteractModule {
 
   @Provides
   fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
-                               smsValidationInteract: SmsValidationInteract,
-                               preferencesRepositoryType: PreferencesRepositoryType,
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
                                autoUpdateInteract: AutoUpdateInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
-    return SettingsInteract(findDefaultWalletInteract, smsValidationInteract,
-        preferencesRepositoryType, supportInteractor, walletsInteract, autoUpdateInteract,
+    return SettingsInteract(findDefaultWalletInteract, supportInteractor, walletsInteract,
+        autoUpdateInteract,
         walletsEventSender)
   }
 
@@ -516,9 +520,9 @@ class InteractModule {
   fun provideIabInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                          autoUpdateInteract: AutoUpdateInteract,
                          supportInteractor: SupportInteractor,
-                         gamificationRepository: Gamification, billing: Billing): IabInteract {
+                         gamificationRepository: Gamification): IabInteract {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
-        gamificationRepository, billing)
+        gamificationRepository)
   }
 
   @Provides

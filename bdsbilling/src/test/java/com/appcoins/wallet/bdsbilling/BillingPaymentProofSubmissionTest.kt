@@ -77,10 +77,9 @@ class BillingPaymentProofSubmissionTest {
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
             type, null, developerAddress, storeAddress, oemAddress, paymentId,
             developerPayload, callback, orderReference, referrerUrl, walletAddress,
-            signedContent)).thenReturn(
-        Single.just(Transaction(paymentId, Transaction.Status.FAILED,
-            Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
-            "orderReference", null, "")))
+            signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
+        Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
+        "orderReference", null, "", "")))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())

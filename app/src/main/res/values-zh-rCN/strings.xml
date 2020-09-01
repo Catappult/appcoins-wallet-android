@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">正在检查所有详细信息：余额、产品、网络…</string>
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
   <string name="activity_iab_change_card">更换卡</string>
+  <string name="activity_iab_fees">服务费</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
   <string name="notification_completed_poa">收到奖励！👌 你需要等待%1$s小时%2$s分钟才能使用应用来赢得更多奖励⏰！</string>
   <string name="notification_poa_limit_reached">你已达到每日奖励限制。⏰ %1$s小时%2$s分钟后再回来重试！</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">卡号</string>
   <string name="dialog_credit_card_expiration">到期日</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">信用卡/借记卡</string>
+  <string name="dialog_expiry_date">到期日期</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
   <string name="activity_airdrop_hint">输入图片中的字母</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">出于安全原因，我们需要使用短信代码验证你的钱包。</string>
   <string name="verification_insert_phone_title">输入你的电话号码</string>
   <string name="verification_insert_phone_body">验证钱包以获取奖励！我们将向你发送验证码。</string>
-  <string name="verification_insert_phone_field_country">国家/地区</string>
+  <string name="verification_insert_phone_field_country">选择国家/地区</string>
   <string name="verification_insert_phone_field_number">电话号码</string>
   <string name="verification_insert_phone_field_number_error">电话号码无效</string>
   <string name="verification_insert_phone_field_region_error">尚不支持该地区。</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">获取奖励和邀请好友</string>
   <string name="verification_settings_verified_title">已验证钱包</string>
   <string name="verification_settings_no_internet">你需要连接到互联网</string>
+  <string name="verification_error_time_expired">糟糕，您的时间已到。请重新开始！</string>
+  <string name="verification_error_attempts_reached">您似乎已达到尝试次数限制。请稍后重试。</string>
+  <string name="verified_tag">已验证</string>
+  <string name="unferified_tag">未验证</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
   <string name="purchase_appcoins_available_body">你将使用少量以太币来支付费用。</string>
   <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
+  <string name="purchase_no_eth_body">您的ETH不足，无法支付汽油费用。</string>
+  <string name="purchase_no_appcoins_body">您的AppCoins不足，无法完成此购买。</string>
   <string name="purchase_appcoins_credits_available_body">不收费且速度超快！</string>
-  <string name="purchase_appcoins_credits_noavailable_body">你的APPC积金不足，请尝试充值！</string>
+  <string name="purchase_appcoins_credits_noavailable_body">您的AppCoins积金不足，请尝试充值！</string>
   <string name="purchase_appcoins_credits_default_body">你获得了足够的AppCoins积金，可支付此购买。享用吧！</string>
   <string name="purchase_poa_item">通过使用应用来赢得资金</string>
   <string name="purchase_poa_body">使用应用2分钟即可赢得AppCoins积金！</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">你确定安全信息正确吗？请重试。</string>
   <string name="purchase_card_error_wrong_CVV">你的CVV/CVC代码似乎有误。请重试。</string>
   <string name="purchase_wallet_error_contact_us">糟糕，您的钱包出现问题。请与我们联系。</string>
+  <string name="purchase_carrier_error">您的电话号码似乎与此付款方式不兼容。</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC错误</string>
   <string name="error_contac_us_body">如果问题仍然存在，请与我们联系。</string>
   <!--Async Payments-->
   <string name="async_steps_title">后续步骤</string>
   <string name="async_steps_1">使用%s完成付款。钱包中收到AppCoins积金后，你会获得通知。</string>
   <string name="async_steps_2">返回游戏，使用AppCoins积金付款进行购买。</string>
+  <string name="async_steps_topup_2">使用这些AppCoins积金在你最喜欢的游戏中消费！</string>
   <string name="async_steps_1_no_notification">使用%s完成付款。</string>
   <string name="async_steps_2_no_notification">收到AppCoins积金后，返回游戏，使用AppCoins积金付款进行购买。</string>
+  <string name="async_steps_2_toptup_no_notification">获得AppCoins积金后，用它在你最喜欢的游戏中消费！</string>
   <string name="async_notification_title">你的AppCoins积金已到账！</string>
   <string name="async_notification_body">返回%s，使用AppCoins积金进行购买。</string>
   <!--Referral Program-->
@@ -699,4 +713,55 @@
   <string name="gamif_placeholder_unknown">未知星球</string>
   <string name="gamif_distance_unkown">未知位置</string>
   <string name="gamif_placeholder_new_planet">新星球</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">运营商代扣</string>
+  <string name="carrier_billing_fees_disclaimer">可能需要支付额外费用</string>
+  <string name="carrier_billing_insert_phone_body">请输入您的电话号码</string>
+  <string name="carrier_billing_phone_field">您的电话号码...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s将收取%2$s的费用</string>
+  <string name="carrier_billing_purchase_info_body">%2$s中的%1$s。</string>
+  <string name="carrier_billing_phone_confirmation_body">您的电话号码是%s。</string>
+  <string name="carrier_billing_enter_pin_body">请输入通过短信收到的PIN码。</string>
+  <string name="carrier_billing_code_field">您的代码...</string>
+  <string name="carrier_billing_code_resend_button">重新发送代码</string>
+  <string name="carrier_billing_submit_button">提交</string>
+  <string name="carrier_billing_terms_disclaimer">点击“提交”即表示，您确认接受条款与条件以及隐私政策。</string>
+  <string name="carrier_billing_help_1">需要帮助？</string>
+  <string name="carrier_billing_help_2_button">联系支持人员</string>
+  <string name="carrier_billing_terms_button">条款与条件</string>
+  <string name="carrier_billing_privacy_button">隐私政策</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">添加信用卡/借记卡</string>
+  <string name="manage_cards_settings_manage_title">管理支付卡</string>
+  <string name="manage_cards_view_title">管理支付卡</string>
+  <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
+  <string name="manage_cards_add_title">添加新卡</string>
+  <string name="manage_cards_remove_confirmation">确实要删除此卡？</string>
+  <string name="manage_cards_remove_no">不，取消</string>
+  <string name="manage_cards_remove_yes">是，删除</string>
+  <string name="manage_cards_card_ending_body">卡尾号为%s</string>
+  <string name="manage_cards_error_details">确定信用卡详细信息正确无误吗？请重试！</string>
+  <string name="manage_cards_error_card_problem">您的信用卡似乎存在问题。请尝试使用其他信用卡。</string>
+  <string name="manage_cards_select_title">选择支付卡</string>
+  <string name="manage_cards_remember">记住卡信息</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">每次购买可享%s%%的奖励</string>
+  <string name="perks_gamif_subtitle">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
+  <string name="perks_title">促销</string>
+  <string name="perks_body">敬请关注！我们为您推出了特别促销。</string>
+  <string name="perks_end_in_days">促销将在%s天内结束。</string>
+  <string name="perks_end_in_date">促销将在%s结束。</string>
+  <string name="perks_available_soon">促销即将推出</string>
+  <string name="perks_next_level_reward">达到下一关可获取%s AppCoins积金！</string>
+  <string name="perks_notification">你刚刚收到了%s AppCoins积金奖励</string>
+  <string name="perks_level_up_on_this_purchase">通过此次消费来升级</string>
+  <string name="perks_level_up_amount_left">您还要%1$s %2$s升到下一级！</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

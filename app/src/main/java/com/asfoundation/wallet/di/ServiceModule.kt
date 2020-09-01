@@ -7,6 +7,9 @@ import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.repository.GamificationApi
+import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
+import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
+import com.appcoins.wallet.gamification.repository.entity.PromotionsSerializer
 import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
@@ -15,7 +18,7 @@ import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.AnalyticsAPI
 import com.asfoundation.wallet.apps.Applications
 import com.asfoundation.wallet.billing.partners.*
-import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi
+import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository.DeepLinkApi
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -469,6 +472,8 @@ class ServiceModule {
   fun provideGamificationApi(client: OkHttpClient): GamificationApi {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
+        .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
+        .registerTypeAdapter(PromotionsResponse::class.java, PromotionsDeserializer())
         .create()
     val baseUrl = CampaignService.SERVICE_HOST
     return Retrofit.Builder()

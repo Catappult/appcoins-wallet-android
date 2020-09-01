@@ -1,36 +1,26 @@
 package com.asfoundation.wallet.promotions
 
-import com.appcoins.wallet.gamification.GamificationScreen
-import com.appcoins.wallet.gamification.repository.UserType
-import com.asfoundation.wallet.referrals.ReferralsScreen
-import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.asfoundation.wallet.ui.gamification.Status
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.gamification.repository.entity.Status
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import com.asfoundation.wallet.util.isNoNetworkException
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class PromotionsPresenter(private val view: PromotionsView,
-                          private val activityView: PromotionsActivityView,
-                          private val promotionsInteractor: PromotionsInteractorContract,
-                          private val mapper: GamificationMapper,
-                          private val disposables: CompositeDisposable,
-                          private val networkScheduler: Scheduler,
-                          private val viewScheduler: Scheduler,
-                          private val formatter: CurrencyFormatUtils) {
+class PromotionsPresenter(
+    private val view: PromotionsView,
+    private val activityView: PromotionsActivityView,
+    private val promotionsInteractor: PromotionsInteractorContract,
+    private val disposables: CompositeDisposable,
+    private val networkScheduler: Scheduler,
+    private val viewScheduler: Scheduler) {
 
-  var cachedUserType = UserType.STANDARD
-  var cachedLink = ""
   var cachedBonus = 0.0
 
   fun present() {
     retrievePromotions()
-    handleGamificationNavigationClicks()
-    handleDetailsClick()
-    handleShareClick()
+    handlePromotionClicks()
     handleRetryClick()
   }
 
@@ -38,113 +28,26 @@ class PromotionsPresenter(private val view: PromotionsView,
     disposables.add(promotionsInteractor.retrievePromotions()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
+        .doOnSubscribe {
+          view.hidePromotions()
+          view.hideNetworkErrorView()
+          view.showLoading()
+        }
         .doOnSuccess { onPromotions(it) }
         .subscribe({}, { handleError(it) }))
   }
 
   private fun onPromotions(promotionsModel: PromotionsModel) {
     view.hideLoading()
-    if (promotionsModel.gamificationAvailable || promotionsModel.referralsAvailable) {
-      showPromotions(promotionsModel)
-    } else {
-      view.showNoPromotionsScreen()
-    }
-  }
-
-  private fun handleNewLevel(legacy: Boolean) {
-    disposables.add(promotionsInteractor.hasGamificationNewLevel(GamificationScreen.MY_LEVEL)
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (legacy) view.showLegacyGamificationUpdate(it)
-          else view.showGamificationUpdate(it)
-        }
-        .subscribe({}, { handleError(it) }))
-  }
-
-  private fun handleShareClick() {
-    disposables.add(view.shareClick()
-        .doOnNext { activityView.handleShare(cachedLink) }
-        .subscribe({}, { handleError(it) }))
-  }
-
-  private fun handleDetailsClick() {
-    disposables.add(Observable.merge(view.detailsClick(), view.referralCardClick())
-        .doOnNext { activityView.navigateToInviteFriends() }
-        .subscribe({}, { handleError(it) }))
-  }
-
-  private fun handleGamificationNavigationClicks() {
-    disposables.add(Observable.merge(view.seeMoreClick(), view.gamificationCardClick(),
-        view.legacySeeMoreClick(), view.legacyGamificationCardClick())
-        .doOnNext {
-          if (isLegacyUser(cachedUserType)) activityView.navigateToLegacyGamification(cachedBonus)
-          else activityView.navigateToGamification(cachedBonus)
-        }
-        .subscribe({}, { handleError(it) }))
-  }
-
-  private fun handleShowLevels(legacy: Boolean) {
-    disposables.add(
-        promotionsInteractor.retrieveGamificationRewardStatus(GamificationScreen.PROMOTIONS)
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess {
-              if (it.status == Status.NO_NETWORK) {
-                view.showNetworkErrorView()
-              } else {
-                cachedBonus = it.bonus.last()
-                if ((it.lastShownLevel > 0 || it.lastShownLevel == 0 && it.level == 0) && legacy) {
-                  view.setLegacyStaringLevel(it)
-                }
-                view.setLevelInformation(it, legacy)
-              }
-            }
-            .flatMapCompletable {
-              promotionsInteractor.levelShown(it.level, GamificationScreen.PROMOTIONS)
-            }
-            .subscribe({}, { handleError(it) }))
-  }
-
-
-  private fun showPromotions(promotionsModel: PromotionsModel) {
-    if (promotionsModel.referralsAvailable) {
-      cachedLink = promotionsModel.link
-      view.setReferralBonus(formatter.formatCurrency(promotionsModel.maxValue, WalletCurrency.FIAT),
-          promotionsModel.currency)
-      view.toggleShareAvailability(promotionsModel.isValidated)
-      view.showReferralCard()
-      checkForReferralsUpdates(promotionsModel)
-    }
-    if (promotionsModel.gamificationAvailable) {
-      cachedUserType = promotionsModel.userType
-      val legacy = promotionsModel.userType == UserType.PIONEER
-      if (legacy) {
-        view.setLegacyLevelIcons()
-        view.showLegacyGamificationCard()
-      } else {
-        val currentLevelInfo = mapper.mapCurrentLevelInfo(promotionsModel.level)
-        view.showGamificationCard(currentLevelInfo, promotionsModel.bonus)
+    when {
+      promotionsModel.error == Status.NO_NETWORK -> view.showNetworkErrorView()
+      promotionsModel.promotions.isNotEmpty() -> {
+        cachedBonus = promotionsModel.maxBonus
+        view.showPromotions(promotionsModel)
       }
-      handleShowLevels(legacy)
-      handleNewLevel(legacy)
+      else -> view.showNoPromotionsScreen()
     }
   }
-
-  private fun checkForReferralsUpdates(promotionsModel: PromotionsModel) {
-    disposables.add(promotionsInteractor.hasReferralUpdate(promotionsModel.numberOfInvitations,
-        promotionsModel.isValidated, ReferralsScreen.INVITE_FRIENDS)
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess { view.showReferralUpdate(it) }
-        .flatMapCompletable {
-          promotionsInteractor.saveReferralInformation(promotionsModel.numberOfInvitations,
-              promotionsModel.isValidated, ReferralsScreen.PROMOTIONS)
-        }
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { handleError(it) }))
-  }
-
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
@@ -157,11 +60,30 @@ class PromotionsPresenter(private val view: PromotionsView,
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
         .doOnNext { retrievePromotions() }
         .subscribe({}, { handleError(it) }))
   }
 
-  private fun isLegacyUser(userType: UserType) = userType == UserType.PIONEER
+  private fun handlePromotionClicks() {
+    disposables.add(view.getPromotionClicks()
+        .observeOn(viewScheduler)
+        .doOnNext { mapClickType(it) }
+        .subscribe({}, { handleError(it) }))
+  }
+
+  private fun mapClickType(promotionClick: PromotionClick) {
+    if (promotionClick.id == GAMIFICATION_ID) {
+      activityView.navigateToGamification(cachedBonus)
+    } else if (promotionClick.id == REFERRAL_ID && promotionClick.extras != null) {
+      val link = promotionClick.extras[ReferralViewHolder.KEY_LINK]
+      if (promotionClick.extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
+        activityView.navigateToInviteFriends()
+      } else if (promotionClick.extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_SHARE && link != null) {
+        activityView.handleShare(link)
+      }
+    }
+  }
 
   fun stop() = disposables.clear()
 

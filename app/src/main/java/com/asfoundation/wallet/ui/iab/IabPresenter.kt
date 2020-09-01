@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -19,26 +20,17 @@ class IabPresenter(private val view: IabView,
                    private var firstImpression: Boolean,
                    private val iabInteract: IabInteract,
                    private val walletBlockedInteract: WalletBlockedInteract,
-                   private val transactionBuilder: TransactionBuilder) {
+                   private val logger: Logger) {
+
+  companion object {
+    private val TAG = IabActivity::class.java.name
+  }
 
   fun present() {
     handleAutoUpdate()
     handleUserRegistration()
     handleSupportClicks()
     handleErrorDismisses()
-  }
-
-  fun handleGetSkuDetails() {
-    disposable.add(
-        iabInteract.getMissingTransactionDetails(transactionBuilder)
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.updateTransaction(it)
-              view.showPaymentMethodsView()
-            }
-            .subscribe({}, { handleError(it) })
-    )
   }
 
   private fun handleErrorDismisses() {
@@ -70,7 +62,7 @@ class IabPresenter(private val view: IabView,
   }
 
   private fun handleError(throwable: Throwable) {
-    throwable.printStackTrace()
+    logger.log(TAG, throwable)
     view.finishWithError()
   }
 
@@ -128,9 +120,7 @@ class IabPresenter(private val view: IabView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun stop() {
-    disposable.clear()
-  }
+  fun stop() = disposable.clear()
 
   fun onSaveInstance(outState: Bundle) {
     outState.putBoolean(IabActivity.FIRST_IMPRESSION, firstImpression)

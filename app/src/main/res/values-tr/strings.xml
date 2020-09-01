@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Tüm bilgiler kontrol ediliyor: Bakiye, öğeler, ağ…</string>
   <string name="activity_iab_buying_message">Bilgiler kontrol edildi \nÖğeniz alınıyor…</string>
   <string name="activity_iab_change_card">KARTI DEĞİŞTİR</string>
+  <string name="activity_iab_fees">Ücretler</string>
   <string name="notification_ongoing_poa">Ödülünüz işleniyor</string>
   <string name="notification_completed_poa">Ödül alındı!👌 Uygulamaları deneyerek daha fazla ödül kazanmak için %1$s sa%2$s dk beklemen gerekiyor ⏰!</string>
   <string name="notification_poa_limit_reached">Günlük ödül limitine ulaştın. ⏰ %1$s sa%2$s dk içinde geri dön ve tekrar dene!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">Kart Numarası</string>
   <string name="dialog_credit_card_expiration">Son Kullanma Tarihi</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Kredi/banka kartı</string>
+  <string name="dialog_expiry_date">Son kullanma tarihi</string>
   <string name="activity_airdrop_title">AppCoin\'leri almak için insan olduğunuzu doğrulayın</string>
   <string name="activity_airdrop_details">Bu sadece güvenlik içindir.</string>
   <string name="activity_airdrop_hint">Görseldeki kelimeleri girin</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">Güvenlik nedeniyle cüzdanınızı bir SMS koduyla doğrulamamız gerekiyor.</string>
   <string name="verification_insert_phone_title">Telefon numaranızı girin</string>
   <string name="verification_insert_phone_body">Ödül almak için cüzdanınızı doğrulayın! Size bir doğrulama kodu göndereceğiz.</string>
-  <string name="verification_insert_phone_field_country">Ülke</string>
+  <string name="verification_insert_phone_field_country">Ülkenizi/bölgenizi seçin</string>
   <string name="verification_insert_phone_field_number">Telefon Numarası</string>
   <string name="verification_insert_phone_field_number_error">Geçersiz telefon numarası</string>
   <string name="verification_insert_phone_field_region_error">Bu bölge henüz desteklenmiyor.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Ödül kazanın ve arkadaşlarınızı davet edin</string>
   <string name="verification_settings_verified_title">Cüzdan Doğrulandı</string>
   <string name="verification_settings_no_internet">İnternete bağlı olmanız gerekiyor</string>
+  <string name="verification_error_time_expired">Hay aksi, süreniz doldu. Tekrar başlayın!</string>
+  <string name="verification_error_attempts_reached">Deneme limitine ulaşmışsınız gibi görünüyor. Tekrar denemek için lütfen bekleyin.</string>
+  <string name="verified_tag">Doğrulanmış</string>
+  <string name="unferified_tag">Doğrulanmamış</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Bu satın alma işlemi zaten işlenmiş gibi görünüyor. Lütfen işlem tamamlanana kadar bekleyin veya Destek Ekibimizle iletişime geçin.</string>
   <string name="purchase_more_payment_methods_button">DİĞER ÖDEME YÖNTEMLERİ</string>
   <string name="purchase_appcoins_available_body">Ücretleri ödemek için küçük bir miktarda ETH kullanacaksınız.</string>
   <string name="purchase_appcoins_noavailable_body">Bu satın alma işlemi için yeterli AppCoins veya Ether\'iniz yok.</string>
+  <string name="purchase_no_eth_body">Benzin ücretini ödemek için yeterince ETH\'niz yok.</string>
+  <string name="purchase_no_appcoins_body">Bu satın alma işlemini tamamlamak için yeterli AppCoins\'iniz yok.</string>
   <string name="purchase_appcoins_credits_available_body">Ücret yok ve çok hızlı!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Yeterli APPC Krediniz yok, yükleme yapmayı deneyin!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Yeterli AppCoins Credits\'iniz yok, yükleme yapmayı deneyin!</string>
   <string name="purchase_appcoins_credits_default_body">Bu satın alma işlemi için yeterli AppCoins Credits kazandınız. Keyfini çıkarın!</string>
   <string name="purchase_poa_item">Uygulamaları deneyerek fon kazan</string>
   <string name="purchase_poa_body">Bir uygulamayı 2 dakika dene ve AppCoins Credits kazan!</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">Güvenlik bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin.</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVC kodunuz yanlış gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_wallet_error_contact_us">Hay aksi, cüzdanınızla ilgili bir sorun var. Lütfen bizimle iletişime geçin.</string>
+  <string name="purchase_carrier_error">Telefon numaranız bu ödeme yöntemine uygun değil gibi görünüyor.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Yanlış CVV/CVC</string>
   <string name="error_contac_us_body">Sorun devam ederse lütfen bizimle iletişime geçin.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Sonraki Adımlar</string>
   <string name="async_steps_1">%s ile ödemenizi tamamlayın. AppCoins Credits cüzdanınıza geldiğinde bildirim alacaksınız.</string>
   <string name="async_steps_2">Oyuna dönün ve satın alma işlemini ödeme yöntemi olarak AppCoins Credits kullanarak gerçekleştirin.</string>
+  <string name="async_steps_topup_2">Bu AppCoins Credits\'i en sevdiğiniz oyunlarda satın alma işlemleri gerçekleştirmek için kullanın!</string>
   <string name="async_steps_1_no_notification">Ödemenizi %s ile tamamlayın.</string>
   <string name="async_steps_2_no_notification">AppCoins Credits\'i aldıktan sonra oyuna dönün ve satın alma işlemini ödeme yöntemi olarak AppCoins Credits\'i kullanarak gerçekleştirin.</string>
+  <string name="async_steps_2_toptup_no_notification">AppCoins Credits aldığınızda, bunları en sevdiğiniz oyunlarda satın alma işlemleri gerçekleştirmek için kullanın!</string>
   <string name="async_notification_title">AppCoins Credits\'iniz geldi!</string>
   <string name="async_notification_body">%s oyununa dönün ve satın alma işlemini ödeme yöntemi olarak AppCoins Credits kullanarak gerçekleştirin.</string>
   <!--Referral Program-->
@@ -700,4 +714,55 @@
   <string name="gamif_placeholder_unknown">bilinmeyen bir gezegen</string>
   <string name="gamif_distance_unkown">Bilinmeyen konum</string>
   <string name="gamif_placeholder_new_planet">yeni bir gezegen</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Operatör faturalandırması</string>
+  <string name="carrier_billing_fees_disclaimer">Ek ücretler uygulanabilir</string>
+  <string name="carrier_billing_insert_phone_body">Lütfen telefon numaranızı girin</string>
+  <string name="carrier_billing_phone_field">Telefon numaranız...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s sizden %2$s ücret alacak</string>
+  <string name="carrier_billing_purchase_info_body">%2$s uygulamasında %1$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Telefon numaranız %s.</string>
+  <string name="carrier_billing_enter_pin_body">Lütfen SMS yoluyla aldığınız PIN\'i girin.</string>
+  <string name="carrier_billing_code_field">Kodunuz...</string>
+  <string name="carrier_billing_code_resend_button">KODU TEKRAR GÖNDER</string>
+  <string name="carrier_billing_submit_button">GÖNDER</string>
+  <string name="carrier_billing_terms_disclaimer">Gönder\'e dokunarak, Şartlar ve Koşullar ile Gizlilik Politikası\'nı kabul etmiş olursunuz.</string>
+  <string name="carrier_billing_help_1">Yardım mı gerekiyor?</string>
+  <string name="carrier_billing_help_2_button">Destekle İletişime Geçin</string>
+  <string name="carrier_billing_terms_button">Şartlar ve Koşullar</string>
+  <string name="carrier_billing_privacy_button">Gizlilik Politikası</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Kredi/banka kartı ekleyin</string>
+  <string name="manage_cards_settings_manage_title">Kartları yönetin</string>
+  <string name="manage_cards_view_title">Kartları yönetin</string>
+  <string name="manage_cards_view_manage_subtitle">Ödeme kartlarınızı yönetin</string>
+  <string name="manage_cards_add_title">Yeni kart ekleyin</string>
+  <string name="manage_cards_remove_confirmation">Bu kartı kaldırmak istediğinizden emin misiniz?</string>
+  <string name="manage_cards_remove_no">HAYIR, İPTAL ET</string>
+  <string name="manage_cards_remove_yes">EVET, KALDIR</string>
+  <string name="manage_cards_card_ending_body">%s ile biten kart</string>
+  <string name="manage_cards_error_details">Kart bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin!</string>
+  <string name="manage_cards_error_card_problem">Kartınızla ilgili bir sorun var gibi görünüyor. Lütfen farklı bir kartla deneyin.</string>
+  <string name="manage_cards_select_title">Ödeme kartı seçin</string>
+  <string name="manage_cards_remember">Kartı hatırla</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Her satın alma işleminde %%%s Bonus kazanın</string>
+  <string name="perks_gamif_subtitle">Favori uygulamalarınızda ne kadar fazla harcarsanız o kadar fazla bonus kazanırsınız!</string>
+  <string name="perks_title">Promosyonlar</string>
+  <string name="perks_body">Takipte kalın! Sizin için özel promosyonlarımız var.</string>
+  <string name="perks_end_in_days">Promosyon %s gün içinde sona eriyor.</string>
+  <string name="perks_end_in_date">Promosyon %s tarihinde sona eriyor.</string>
+  <string name="perks_available_soon">Promosyon yakında kullanılabilir</string>
+  <string name="perks_next_level_reward">%s AppCoins Credits kazanmak için bir sonraki seviyeye ulaşın!</string>
+  <string name="perks_notification">Bonus olarak %s AppCoins Credits aldınız</string>
+  <string name="perks_level_up_on_this_purchase">Bu satın alma işlemiyle seviye atlayın</string>
+  <string name="perks_level_up_amount_left">Bir sonraki seviyeden %1$s %2$s uzaksınız!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

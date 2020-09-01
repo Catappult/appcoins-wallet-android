@@ -10,15 +10,13 @@ import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
-import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository
-import com.appcoins.wallet.gamification.repository.GamificationApi
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
-import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository
-import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository.DeepLinkApi
+import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository
+import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository.DeepLinkApi
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
@@ -33,6 +31,7 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_1_2
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_2_3
+import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_3_4
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.subscriptions.SubscriptionRepository
 import com.asfoundation.wallet.subscriptions.SubscriptionService
@@ -113,7 +112,7 @@ class RepositoryModule {
   fun provideAdyenPaymentRepository(client: OkHttpClient,
                                     subscriptionBillingApi: SubscriptionBillingApi): AdyenPaymentRepository {
     val api = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200701/gateways/adyen_v2/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -123,10 +122,11 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providePromotionsRepository(api: GamificationApi,
-                                  preferences: SharedPreferences): PromotionsRepository {
-    return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences),
-        getVersionCode())
+  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences,
+                                  promotionDao: PromotionDao, levelsDao: LevelsDao,
+                                  levelDao: LevelDao): PromotionsRepository {
+    return BdsPromotionsRepository(api,
+        SharedPreferencesGamificationLocalData(preferences, promotionDao, levelsDao, levelDao))
   }
 
   @Singleton
@@ -164,7 +164,7 @@ class RepositoryModule {
     val transactionsDao = Room.databaseBuilder(context.applicationContext,
         TransactionsDatabase::class.java,
         "transactions_database")
-        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
         .build()
         .transactionsDao()
     val localRepository: TransactionsRepository =
@@ -202,8 +202,6 @@ class RepositoryModule {
     return IdsRepository(context.contentResolver, sharedPreferencesRepository, installerService)
   }
 
-  private fun getVersionCode() = BuildConfig.VERSION_CODE.toString()
-
   @Singleton
   @Provides
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
@@ -240,7 +238,7 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
-    return LocalPayementsLinkRepository(api)
+    return LocalPaymentsLinkRepository(api)
   }
 
   @Provides

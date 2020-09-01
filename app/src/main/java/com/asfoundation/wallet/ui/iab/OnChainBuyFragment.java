@@ -222,7 +222,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   }
 
   @Override public void showForbiddenError() {
-    showError(R.string.purchase_wallet_error_contact_us);
+    showError(R.string.purchase_error_wallet_block_code_403);
   }
 
   @Override public void showRaidenChannelValues(@NotNull List<? extends BigDecimal> values) {
@@ -241,6 +241,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void showWalletValidation(@StringRes int error) {
     iabView.showWalletValidation(error);
+  }
+
+  @Override public void launchPerkBonusService(@NotNull String address) {
+    iabView.launchPerkBonusService(address);
   }
 
   @Override public void onAttach(Context context) {

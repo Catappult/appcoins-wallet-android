@@ -69,7 +69,7 @@ public class EIPTransactionParser {
               payment.getChainId(), getReceiverAddress(payment),
               getTokenTransferAmount(payment, tokenInfo.decimals), data.getSkuId(),
               tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
-              data.getDomain(), data.getPayload(), null, data.getOrderReference(),
+              data.getDomain(), data.getPayload(), null, data.getOrderReference(), null,
               null).shouldSendToken(true);
         });
   }

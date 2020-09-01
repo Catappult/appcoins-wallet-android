@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">Проверяем все детали: баланс, товары, сеть…</string>
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="activity_iab_change_card">ИЗМЕНИТЬ КАРТУ</string>
+  <string name="activity_iab_fees">Сборы</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
   <string name="notification_completed_poa">Награда получена! 👌 Вам нужно подождать %1$sч%2$sм, чтобы получить больше наград, пробуя приложения ⏰!</string>
   <string name="notification_poa_limit_reached">Вы достигла максимума наград на сегодня. ⏰ Возвращайтесь через %1$sч%2$sм и попробуйте снова!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">Номер карты</string>
   <string name="dialog_credit_card_expiration">Дата окончания срока действия</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Кредитная/дебитовая карта</string>
+  <string name="dialog_expiry_date">Дата окончания действия</string>
   <string name="activity_airdrop_title">Подтвердите, что вы человек, чтобы получить AppCoins</string>
   <string name="activity_airdrop_details">Это просто для обеспечения безопасности.</string>
   <string name="activity_airdrop_hint">Введите слова на картинке</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">В целях безопасности, нам нужно верифицировать ваш бумажник при помощи SMS-кода.</string>
   <string name="verification_insert_phone_title">Введите свой номер телефона</string>
   <string name="verification_insert_phone_body">Подтвердите ваш кошелёк, чтобы получать награды! Мы вышлем вам код подтверждения.</string>
-  <string name="verification_insert_phone_field_country">Страна</string>
+  <string name="verification_insert_phone_field_country">Выберите свою страну/регион</string>
   <string name="verification_insert_phone_field_number">Номер телефона</string>
   <string name="verification_insert_phone_field_number_error">Недопустимый номер телефона</string>
   <string name="verification_insert_phone_field_region_error">Регион пока не поддерживается.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Получить награды и пригласить друзей</string>
   <string name="verification_settings_verified_title">Кошелёк подтвержден</string>
   <string name="verification_settings_no_internet">Вы должны быть подключены к интернету</string>
+  <string name="verification_error_time_expired">Ой, ваше время истекло. Начните заново!</string>
+  <string name="verification_error_attempts_reached">Похоже, вы достигли лимита попыток. Пожалуйста, подождите, чтобы попробовать снова.</string>
+  <string name="verified_tag">Подтверждено</string>
+  <string name="unferified_tag">Не подтверждено</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Кажется, покупка уже обрабатывается. Пожалуйста, подождите пока транзакция не завершится, или свяжитесь с командой поддержки.</string>
   <string name="purchase_more_payment_methods_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>
   <string name="purchase_appcoins_available_body">Вы используете небольшое количество ETH, чтобы оплатить операционные издержки.</string>
   <string name="purchase_appcoins_noavailable_body">У вас недостаточно AppCoins или эфира для совершения платежа.</string>
+  <string name="purchase_no_eth_body">У вас недостаточно ETH, чтобы оплатить транзакцию.</string>
+  <string name="purchase_no_appcoins_body">У вас недостаточно AppCoins для совершения платежа.</string>
   <string name="purchase_appcoins_credits_available_body">Никаких издержек и скорость молнии!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">У вас недостаточно APPC Credits, попробуйте получить больше бонусов!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">У вас недостаточно AppCoins Credits, попробуйте получить больше бонусов!</string>
   <string name="purchase_appcoins_credits_default_body">Вы заработали достаточно AppCoins Credits для этой покупки. Наслаждайтесь!</string>
   <string name="purchase_poa_item">Заработайте средства, пробуя приложения</string>
   <string name="purchase_poa_body">Проведите в приложении 2 минуты, чтобы заработать AppCoins Credits!</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">Вы уверены, что правильно ввели атрибуты безопасности? Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_wallet_error_contact_us">Ой, с вашим бумажником что-то не так. Пожалуйста, свяжитесь с нами.</string>
+  <string name="purchase_carrier_error">Похоже, ваш номер телефона несовместим с этим способом оплаты.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
   <string name="error_contac_us_body">Если проблема не исчезнет – пожалуйста, свяжитесь с нами.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Следующие шаги</string>
   <string name="async_steps_1">Завершите ваш платеж с %s. Вы получите уведомление как только AppCoins Credits поступят на ваш кошелёк.</string>
   <string name="async_steps_2">Вернитесь в игру и совершите покупку, оплатив её AppCoins Credits.</string>
+  <string name="async_steps_topup_2">Используйте эти AppCoins Credits для покупок в ваших любимых играх!</string>
   <string name="async_steps_1_no_notification">Завершите ваш платеж с %s.</string>
   <string name="async_steps_2_no_notification">Как только вы получите AppCoins Credits – вернитесь в игру и совершите покупку, оплатив её AppCoins Credits.</string>
+  <string name="async_steps_2_toptup_no_notification">Когда получаете AppCoins Credits – используйте их для покупок в ваших любимых играх!</string>
   <string name="async_notification_title">Ваши AppCoins Credits прибыли!</string>
   <string name="async_notification_body">Вернитесь в %s и совершите покупку при помощи AppCoins Credits.</string>
   <!--Referral Program-->
@@ -702,4 +716,55 @@
   <string name="gamif_placeholder_unknown">неизветная планета</string>
   <string name="gamif_distance_unkown">Местонахождение неизвестно</string>
   <string name="gamif_placeholder_new_planet">новая планета</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Оплата через провайдера связи</string>
+  <string name="carrier_billing_fees_disclaimer">Возможны дополнительные комиссии</string>
+  <string name="carrier_billing_insert_phone_body">Пожалуйста, введите свой номер телефона</string>
+  <string name="carrier_billing_phone_field">Ваш номер телефона...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s возьмёт комиссию в %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s в %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Ваш номер телефона: %s.</string>
+  <string name="carrier_billing_enter_pin_body">Пожалуйста, введите PIN, полученный в SMS.</string>
+  <string name="carrier_billing_code_field">Ваш код...</string>
+  <string name="carrier_billing_code_resend_button">ОТПРАВИТЬ КОД СНОВА</string>
+  <string name="carrier_billing_submit_button">ПОДТВЕРДИТЬ</string>
+  <string name="carrier_billing_terms_disclaimer">Нажимая \"Подтвердить\", вы принимаете Условия и ограничения, а также Политику конфиденциальности.</string>
+  <string name="carrier_billing_help_1">Нужна помощь?</string>
+  <string name="carrier_billing_help_2_button">Свяжитесь с поддержкой</string>
+  <string name="carrier_billing_terms_button">Условия и ограничения</string>
+  <string name="carrier_billing_privacy_button">Политика конфиденциальности</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Добавить кредитную/дебитовую карту</string>
+  <string name="manage_cards_settings_manage_title">Управление картами</string>
+  <string name="manage_cards_view_title">Управление картами</string>
+  <string name="manage_cards_view_manage_subtitle">Управляйте вашими платежными картами</string>
+  <string name="manage_cards_add_title">Добавить новую карту</string>
+  <string name="manage_cards_remove_confirmation">Вы уверены, что хотите удалить эту карту?</string>
+  <string name="manage_cards_remove_no">НЕТ, ОТМЕНИТЬ</string>
+  <string name="manage_cards_remove_yes">ДА, УДАЛИТЬ</string>
+  <string name="manage_cards_card_ending_body">Карта заканчивается на %s</string>
+  <string name="manage_cards_error_details">Вы уверены, что детали карты введены правильно? Пожалуйста, попробуйте снова!</string>
+  <string name="manage_cards_error_card_problem">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
+  <string name="manage_cards_select_title">Выберите карту для платежа</string>
+  <string name="manage_cards_remember">Запомнить карту</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Заработай бонус %s%% за каждую покупку</string>
+  <string name="perks_gamif_subtitle">Чем больше вы тратите в ваших любимых приложениях – тем больше бонус!</string>
+  <string name="perks_title">Продвижения</string>
+  <string name="perks_body">Будьте в курсе! У нас есть специальные предложения для вас.</string>
+  <string name="perks_end_in_days">Акция заканчивается через %s дн.</string>
+  <string name="perks_end_in_date">Акция заканчивается %s.</string>
+  <string name="perks_available_soon">Акция скоро появится</string>
+  <string name="perks_next_level_reward">Достигните следующего уровня и получите %s AppCoins Credits!</string>
+  <string name="perks_notification">Вы только что получили бонус в %s AppCoins Credits</string>
+  <string name="perks_level_up_on_this_purchase">Повышение уровня с этой покупкой</string>
+  <string name="perks_level_up_amount_left">Вы в %1$s%2$s от следующего уровня!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

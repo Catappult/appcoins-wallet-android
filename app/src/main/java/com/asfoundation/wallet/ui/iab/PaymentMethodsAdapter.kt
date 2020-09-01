@@ -12,7 +12,7 @@ class PaymentMethodsAdapter(
     private var paymentMethods: List<PaymentMethod>,
     private var paymentMethodId: String,
     private var paymentMethodClick: PublishRelay<Int>) :
-    RecyclerView.Adapter<PaymentMethodViewHolder>() {
+    RecyclerView.Adapter<PaymentMethodsViewHolder>() {
   private var selectedItem = -1
 
   init {
@@ -23,14 +23,14 @@ class PaymentMethodsAdapter(
 
   fun getSelectedItem() = selectedItem
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
-    return PaymentMethodViewHolder(LayoutInflater.from(parent.context)
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodsViewHolder {
+    return PaymentMethodsViewHolder(LayoutInflater.from(parent.context)
         .inflate(R.layout.item_payment_method, parent, false))
   }
 
   override fun getItemCount() = paymentMethods.size
 
-  override fun onBindViewHolder(holder: PaymentMethodViewHolder, position: Int) {
+  override fun onBindViewHolder(holder: PaymentMethodsViewHolder, position: Int) {
     holder.bind(paymentMethods[position], selectedItem == position, View.OnClickListener {
       selectedItem = position
       paymentMethodClick.accept(position)

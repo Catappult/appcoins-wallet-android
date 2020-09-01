@@ -18,8 +18,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 158
-    versionName "1.15.2.1"
+    versionCode 160
+    versionName "1.15.3.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -194,6 +194,7 @@ dependencies {
 
   implementation "com.adyen.checkout:card-ui:$project.adyen_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
+  implementation "com.adyen.checkout:3ds2:$project.adyen_version"
 
   implementation "io.intercom.android:intercom-sdk:$project.intercom_version"
 
@@ -226,8 +227,6 @@ dependencies {
   implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout_version"
 
   implementation "io.sentry:sentry-android:$project.sentry_version"
-
-  implementation "com.adyen.checkout:3ds2:$project.adyen_3DS_version"
 
   implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
 

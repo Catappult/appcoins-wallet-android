@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
@@ -40,6 +41,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val PAYMENT_KEY = "payment_name"
     private const val BONUS_KEY = "bonus"
     private const val STATUS_KEY = "status"
+    private const val ERROR_MESSAGE_KEY = "error_message"
     private const val TYPE_KEY = "type"
     private const val DEV_ADDRESS_KEY = "dev_address"
     private const val AMOUNT_KEY = "amount"
@@ -86,7 +88,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val domain: String by lazy {
     if (arguments!!.containsKey(DOMAIN_KEY)) {
-      arguments!!.getString(DOMAIN_KEY)
+      arguments!!.getString(DOMAIN_KEY)!!
     } else {
       throw IllegalArgumentException("domain data not found")
     }
@@ -118,7 +120,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val paymentId: String by lazy {
     if (arguments!!.containsKey(PAYMENT_KEY)) {
-      arguments!!.getString(PAYMENT_KEY)
+      arguments!!.getString(PAYMENT_KEY)!!
     } else {
       throw IllegalArgumentException("payment method data not found")
     }
@@ -134,7 +136,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val developerAddress: String by lazy {
     if (arguments!!.containsKey(DEV_ADDRESS_KEY)) {
-      arguments!!.getString(DEV_ADDRESS_KEY)
+      arguments!!.getString(DEV_ADDRESS_KEY)!!
     } else {
       throw IllegalArgumentException("dev address data not found")
     }
@@ -142,7 +144,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   private val type: String by lazy {
     if (arguments!!.containsKey(TYPE_KEY)) {
-      arguments!!.getString(TYPE_KEY)
+      arguments!!.getString(TYPE_KEY)!!
     } else {
       throw IllegalArgumentException("type data not found")
     }
@@ -210,10 +212,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   @Inject
   lateinit var analytics: LocalPaymentAnalytics
 
+  @Inject
+  lateinit var logger: Logger
+
   private lateinit var iabView: IabView
   private lateinit var navigator: FragmentNavigator
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
   private lateinit var status: ViewState
+  private var errorMessage = R.string.activity_iab_error_message
   private var minFrame = 0
   private var maxFrame = 40
 
@@ -226,13 +232,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
             paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), callbackUrl, orderReference, payload, context,
-            paymentMethodIconUrl, gamificationLevel)
+            paymentMethodIconUrl, gamificationLevel, logger)
   }
 
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putSerializable(STATUS_KEY, status)
+    outState.putInt(ERROR_MESSAGE_KEY, errorMessage)
     localPaymentPresenter.onSaveInstanceState(outState)
   }
 
@@ -267,19 +274,18 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
     if (savedInstanceState?.get(STATUS_KEY) != null) {
       status = savedInstanceState.get(STATUS_KEY) as ViewState
-      setViewState(savedInstanceState.get(STATUS_KEY) as ViewState)
+      errorMessage = savedInstanceState.getInt(ERROR_MESSAGE_KEY, errorMessage)
+      setViewState()
     }
     super.onViewStateRestored(savedInstanceState)
   }
 
-  private fun setViewState(viewState: ViewState?) = when (viewState) {
+  private fun setViewState() = when (status) {
     COMPLETED -> showCompletedPayment()
     PENDING_USER_PAYMENT -> localPaymentPresenter.preparePendingUserPayment()
-    // TODO we may need to improve the logic here, to handle different errors
     ERROR -> showError()
     LOADING -> showProcessingLoading()
-    else -> {
-    }
+    else -> Unit
   }
 
   private fun setAnimationText() {
@@ -314,6 +320,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun getGotItClick() = RxView.clicks(got_it_button)
 
   override fun showWalletValidation(error: Int) = iabView.showWalletValidation(error)
+
+  override fun launchPerkBonusService(address: String) {
+    iabView.launchPerkBonusService(address)
+  }
 
   override fun showProcessingLoading() {
     status = LOADING
@@ -356,13 +366,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
     step_one_desc.text = stepOneText
 
-    pending_user_payment_view?.in_progress_animation?.setImageAssetDelegate {
-      when (it.id) {
-        "image_0" -> paymentMethodIcon
-        "image_1" -> applicationIcon
-        else -> null
-      }
-    }
+    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_0", paymentMethodIcon)
+    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_1", applicationIcon)
 
     playAnimation()
   }
@@ -370,7 +375,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun showError(message: Int?) {
     status = ERROR
     error_message.text = getString(R.string.ok)
-    error_message.text = getString(message ?: R.string.activity_iab_error_message)
+    message?.let { errorMessage = it }
+    error_message.text = getString(message ?: errorMessage)
     pending_user_payment_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()

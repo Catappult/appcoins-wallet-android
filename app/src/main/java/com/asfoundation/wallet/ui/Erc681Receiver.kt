@@ -6,6 +6,7 @@ import android.view.View
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
@@ -38,9 +39,11 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_iab_wallet_creation)
+    val productName = intent.extras!!.getString(PRODUCT_NAME, "")
     presenter =
         Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletService,
-            intent.dataString!!, AndroidSchedulers.mainThread(), CompositeDisposable())
+            intent.dataString!!,
+            AndroidSchedulers.mainThread(), CompositeDisposable(), productName)
     presenter.present(savedInstanceState)
   }
 

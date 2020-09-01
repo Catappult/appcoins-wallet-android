@@ -376,10 +376,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun getSelectedPaymentMethod(): PaymentMethod {
-    if (::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
+    if (!isPreSelected && ::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
     val hasPreSelectedPaymentMethod =
         inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
-    val checkedButtonId = paymentMethodsAdapter.getSelectedItem()
+    val checkedButtonId =
+        if (::paymentMethodsAdapter.isInitialized) paymentMethodsAdapter.getSelectedItem() else -1
     return if (paymentMethodList.isNotEmpty() && !isPreSelected && checkedButtonId != -1) {
       paymentMethodList[checkedButtonId]
     } else if (hasPreSelectedPaymentMethod && checkedButtonId == -1) {

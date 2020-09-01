@@ -126,4 +126,29 @@ interface BdsApi {
                         @Field("referrer_url") referrerUrl: String?,
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String): Single<Transaction>
+
+  /**
+   * Overload of createTransaction to receive Body, since only myappcoins receive Body.
+   * This is the recommendation from Retrofit when there's a possibility of not having an empty body
+   */
+  @POST("broker/8.20200810/gateways/myappcoins/transactions")
+  fun createTransaction(@Query("origin") origin: String?,
+                        @Query("domain") domain: String,
+                        @Query("price.value") priceValue: String?,
+                        @Query("price.currency") priceCurrency: String,
+                        @Query("product") product: String?,
+                        @Query("type") type: String,
+                        @Query("wallets.user") userWallet: String?,
+                        @Query("wallets.developer") walletsDeveloper: String?,
+                        @Query("wallets.store") walletsStore: String?,
+                        @Query("wallets.oem") walletsOem: String?,
+                        @Query("token") token: String?,
+                        @Query("metadata") developerPayload: String?,
+                        @Query("callback_url") callback: String?,
+                        @Query("reference") orderReference: String?,
+                        @Query("referrer_url") referrerUrl: String?,
+                        @Query("wallet.address") walletAddress: String,
+                        @Query("wallet.signature") walletSignature: String,
+                        @Body
+                        localPaymentBody: RemoteRepository.LocalPaymentBody): Single<Transaction>
 }

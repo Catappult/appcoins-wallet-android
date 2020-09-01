@@ -204,6 +204,7 @@
   <string name="activity_iab_approving_message">모든 상세내용 검토중: 잔액, 항목, 네트워크...</string>
   <string name="activity_iab_buying_message">상세내용 체크됨 \n귀하의 항목 수신중...</string>
   <string name="activity_iab_change_card">카드 변경</string>
+  <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">귀하의 보상 처리중</string>
   <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
   <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
@@ -243,6 +244,8 @@
   <string name="dialog_credit_card_number">카드번호</string>
   <string name="dialog_credit_card_expiration">만료일</string>
   <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_expiry_date">Expiry date</string>
   <string name="activity_airdrop_title">AppCoins를 받으려면 귀하가 사람인지 확인해주십시오</string>
   <string name="activity_airdrop_details">이것은 보안일 뿐입니다.</string>
   <string name="activity_airdrop_hint">이미지에 있는 단어를 입력하십시오</string>
@@ -412,7 +415,7 @@
   <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
   <string name="verification_insert_phone_title">Insert your phone number</string>
   <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Country</string>
+  <string name="verification_insert_phone_field_country">Choose your country/region</string>
   <string name="verification_insert_phone_field_number">Phone Number</string>
   <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
   <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
@@ -434,13 +437,19 @@
   <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
   <string name="verification_settings_verified_title">Wallet Verified</string>
   <string name="verification_settings_no_internet">You need to be connected to the internet</string>
+  <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
+  <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
+  <string name="verified_tag">Verified</string>
+  <string name="unferified_tag">Unverified</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
   <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
   <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
   <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Earn funds by trying apps</string>
   <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
@@ -461,14 +470,19 @@
   <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
   <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
   <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
+  <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
   <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
+  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
   <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">Your AppCoins Credits arrived!</string>
   <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
   <!--Referral Program-->
@@ -695,8 +709,59 @@
   <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
   <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
   <string name="gamif_placeholder_planetx">Planet %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be know\" – Carl Sagan</string>
+  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">an unknown planet</string>
   <string name="gamif_distance_unkown">Unknown location</string>
   <string name="gamif_placeholder_new_planet">a new planet</string>
+  <!--Carrier Billing-->
+  <string name="carrier_billing_payment_method_title">Carrier billing</string>
+  <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
+  <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
+  <string name="carrier_billing_phone_field">Your phone number...</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s will charge a fee of %2$s</string>
+  <string name="carrier_billing_purchase_info_body">%1$s in %2$s.</string>
+  <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
+  <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
+  <string name="carrier_billing_code_field">Your code...</string>
+  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
+  <string name="carrier_billing_submit_button">SUBMIT</string>
+  <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
+  <string name="carrier_billing_help_1">Need help?</string>
+  <string name="carrier_billing_help_2_button">Contact Support</string>
+  <string name="carrier_billing_terms_button">Terms and Conditions</string>
+  <string name="carrier_billing_privacy_button">Privacy Policy</string>
+  <!--Manage Cards-->
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_manage_title">Manage cards</string>
+  <string name="manage_cards_view_title">Manage cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
+  <string name="manage_cards_add_title">Add new card</string>
+  <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
+  <string name="manage_cards_remove_no">NO, CANCEL</string>
+  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
+  <string name="manage_cards_card_ending_body">Card ending in %s</string>
+  <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
+  <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
+  <string name="manage_cards_select_title">Select payment card</string>
+  <string name="manage_cards_remember">Remember card</string>
+  <!--Perks-->
+  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
+  <string name="perks_title">Promotions</string>
+  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_end_in_days">The promotion ends in %s days.</string>
+  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_available_soon">Promotion available soon</string>
+  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
+  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
+  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
+  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

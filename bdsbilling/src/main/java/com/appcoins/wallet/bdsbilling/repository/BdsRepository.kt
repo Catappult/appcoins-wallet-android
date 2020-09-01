@@ -96,16 +96,21 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
           }
       BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.consumePurchaseSubs(packageName,
           purchaseToken, walletAddress, walletSignature)
-
       else -> remoteRepository.consumePurchase(packageName, purchaseToken,
           walletAddress, walletSignature)
     }
   }
 
-  override fun getPaymentMethods(transactionType: String?, value: String?, currency: String?,
-                                 type: String?,
+  override fun getPaymentMethods(transactionType: String?,
+                                 value: String?,
+                                 currency: String?,
+                                 currencyType: String?,
                                  direct: Boolean?): Single<List<PaymentMethodEntity>> {
-    return remoteRepository.getPaymentMethods(transactionType, value, currency, type, direct)
+    return remoteRepository.getPaymentMethods(value, currency, currencyType, direct)
+        .onErrorReturn {
+          it.printStackTrace()
+          ArrayList()
+        }
   }
 
   override fun getAppcoinsTransaction(uid: String, address: String,

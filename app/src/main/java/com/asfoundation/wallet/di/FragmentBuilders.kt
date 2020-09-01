@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.di
 
-import com.asfoundation.wallet.advertise.WalletPoAService
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
@@ -9,6 +8,7 @@ import com.asfoundation.wallet.promotions.PromotionsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
+import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.subscriptions.SubscriptionCancelFragment
 import com.asfoundation.wallet.subscriptions.SubscriptionCancelSuccessFragment
 import com.asfoundation.wallet.subscriptions.SubscriptionDetailsFragment
@@ -26,8 +26,6 @@ import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.balance.RestoreWalletFragment
 import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
-import com.asfoundation.wallet.ui.gamification.HowItWorksFragment
-import com.asfoundation.wallet.ui.gamification.LegacyGamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
@@ -50,19 +48,10 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentBuilders {
 
   @ContributesAndroidInjector
-  abstract fun bindWalletPoAService(): WalletPoAService
-
-  @ContributesAndroidInjector
   abstract fun bindAirdropFragment(): AirdropFragment
 
   @ContributesAndroidInjector
   abstract fun bindRegularBuyFragment(): OnChainBuyFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindHowItWorksFragment(): HowItWorksFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindLegacyGamificationFragment(): LegacyGamificationFragment
 
   @ContributesAndroidInjector
   abstract fun bindWebViewFragment(): BillingWebViewFragment
@@ -189,15 +178,19 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector
-  abstract fun settingsFragment(): SettingsFragment
+  abstract fun bindSettingsFragment(): SettingsFragment
 
   @FragmentScope
   @ContributesAndroidInjector
-  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment?
+  abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment
 
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindGamificationFragment(): GamificationFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindLocalTopUpPaymentFragment(): LocalTopUpPaymentFragment
 
   @FragmentScope
   @ContributesAndroidInjector()

@@ -19,7 +19,11 @@ public class Transaction implements Parcelable {
     }
   };
   private final String transactionId;
-  @Nullable private final String approveTransactionId;
+  @Nullable private final SubType subType;
+  @Nullable private final String title;
+  @Nullable private final String description;
+  @Nullable private final Perk perk;
+  private final String approveTransactionId;
   private final TransactionType type;
   private final long timeStamp;
   private final long processedTime;
@@ -31,11 +35,17 @@ public class Transaction implements Parcelable {
   @Nullable private final String currency;
   @Nullable private final List<Operation> operations;
 
-  public Transaction(String transactionId, TransactionType type,
+  public Transaction(String transactionId, TransactionType type, @Nullable SubType subType,
+      @Nullable String title, @Nullable String description, @Nullable Perk perk,
       @Nullable String approveTransactionId, long timeStamp, long processedTime,
       TransactionStatus status, String value, String from, String to,
-      @Nullable TransactionDetails details, String currency, @Nullable List<Operation> operations) {
+      @Nullable TransactionDetails details, @Nullable String currency,
+      @Nullable List<Operation> operations) {
     this.transactionId = transactionId;
+    this.subType = subType;
+    this.title = title;
+    this.description = description;
+    this.perk = perk;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
     this.timeStamp = timeStamp;
@@ -51,6 +61,10 @@ public class Transaction implements Parcelable {
 
   protected Transaction(Parcel in) {
     transactionId = in.readString();
+    subType = SubType.fromInt(in.readInt());
+    title = in.readString();
+    description = in.readString();
+    perk = Perk.fromInt(in.readInt());
     approveTransactionId = in.readString();
     type = TransactionType.fromInt(in.readInt());
     timeStamp = in.readLong();
@@ -76,6 +90,18 @@ public class Transaction implements Parcelable {
 
   @Override public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(transactionId);
+    if (subType != null) {
+      dest.writeInt(subType.ordinal());
+    } else {
+      dest.writeInt(-1);
+    }
+    dest.writeString(title);
+    dest.writeString(description);
+    if (perk != null) {
+      dest.writeInt(perk.ordinal());
+    } else {
+      dest.writeInt(-1);
+    }
     dest.writeString(approveTransactionId);
     dest.writeInt(type.ordinal());
     dest.writeLong(timeStamp);
@@ -96,6 +122,10 @@ public class Transaction implements Parcelable {
 
   @Override public int hashCode() {
     int result = transactionId.hashCode();
+    result = 31 * result + (subType != null ? subType.hashCode() : 0);
+    result = 31 * result + (title != null ? title.hashCode() : 0);
+    result = 31 * result + (description != null ? description.hashCode() : 0);
+    result = 31 * result + (perk != null ? perk.hashCode() : 0);
     result = 31 * result + (approveTransactionId != null ? approveTransactionId.hashCode() : 0);
     result = 31 * result + type.hashCode();
     result = 31 * result + (int) (timeStamp ^ (timeStamp >>> 32));
@@ -117,9 +147,11 @@ public class Transaction implements Parcelable {
 
     if (timeStamp != that.timeStamp) return false;
     if (!transactionId.equals(that.transactionId)) return false;
-    if (!Objects.equals(approveTransactionId, that.approveTransactionId)) {
-      return false;
-    }
+    if (!Objects.equals(subType, that.subType)) return false;
+    if (!Objects.equals(title, that.title)) return false;
+    if (!Objects.equals(description, that.description)) return false;
+    if (!Objects.equals(perk, that.perk)) return false;
+    if (!Objects.equals(approveTransactionId, that.approveTransactionId)) return false;
     if (type != that.type) return false;
     if (status != that.status) return false;
     if (!value.equals(that.value)) return false;
@@ -140,6 +172,18 @@ public class Transaction implements Parcelable {
         + '\''
         + ", type="
         + type
+        + '\''
+        + ", subType="
+        + subType
+        + '\''
+        + ", title="
+        + title
+        + '\''
+        + ", description="
+        + description
+        + '\''
+        + ", perk="
+        + perk
         + ", timeStamp="
         + timeStamp
         + ", status="
@@ -163,8 +207,24 @@ public class Transaction implements Parcelable {
         + '}';
   }
 
-  public String getApproveTransactionId() {
+  @Nullable public String getApproveTransactionId() {
     return approveTransactionId;
+  }
+
+  @Nullable public SubType getSubType() {
+    return subType;
+  }
+
+  @Nullable public Perk getPerk() {
+    return perk;
+  }
+
+  @Nullable public String getTitle() {
+    return title;
+  }
+
+  @Nullable public String getDescription() {
+    return description;
   }
 
   public String getTransactionId() {
@@ -199,15 +259,15 @@ public class Transaction implements Parcelable {
     return to;
   }
 
-  public TransactionDetails getDetails() {
+  @Nullable public TransactionDetails getDetails() {
     return details;
   }
 
-  public List<Operation> getOperations() {
+  @Nullable public List<Operation> getOperations() {
     return operations;
   }
 
-  public String getCurrency() {
+  @Nullable public String getCurrency() {
     return currency;
   }
 
@@ -235,6 +295,40 @@ public class Transaction implements Parcelable {
           return INAPP_SUBSCRIPTION;
         default:
           return STANDARD;
+      }
+    }
+  }
+
+  public enum SubType {
+    PERK_PROMOTION, UNKNOWN;
+
+    static SubType fromInt(int type) {
+      if (type != -1) {
+        if (type == 0) {
+          return PERK_PROMOTION;
+        } else {
+          return UNKNOWN;
+        }
+      } else {
+        return null;
+      }
+    }
+  }
+
+  public enum Perk {
+    GAMIFICATION_LEVEL_UP, PACKAGE_PERK, UNKNOWN;
+
+    static Perk fromInt(int type) {
+      if (type != -1) {
+        if (type == 0) {
+          return GAMIFICATION_LEVEL_UP;
+        } else if (type == 1) {
+          return PACKAGE_PERK;
+        } else {
+          return UNKNOWN;
+        }
+      } else {
+        return null;
       }
     }
   }
