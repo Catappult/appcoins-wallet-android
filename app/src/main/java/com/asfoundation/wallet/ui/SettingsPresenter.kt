@@ -60,5 +60,6 @@ class SettingsPresenter(private val view: SettingsView,
     throwable.printStackTrace()
     view.showError()
   }
+
 }
 

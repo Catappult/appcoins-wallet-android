@@ -9,11 +9,12 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
-import com.asfoundation.wallet.fingerprint.ManageFingerprintActivity
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -29,6 +30,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   lateinit var pageViewAnalytics: PageViewAnalytics
+
+  @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
@@ -78,17 +82,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun openPermissionScreen(): Boolean {
     context?.let {
       val intent = ManagePermissionsActivity.newIntent(it)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
-      startActivity(intent)
-    }
-    return true
-  }
-
-  private fun openFingerprintScreen(): Boolean {
-    context?.let {
-      val intent = ManageFingerprintActivity.newIntent(it)
           .apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
           }
@@ -159,8 +152,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   private fun setFingerprintPreference() {
-    val fingerprintPreference = findPreference<Preference>("pref_fingerprint")
-    fingerprintPreference?.setOnPreferenceClickListener { openFingerprintScreen() }
+    val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
+    fingerprintPreference?.isChecked = preferencesRepositoryType.hasAuthenticationPermission()
+    fingerprintPreference?.setOnPreferenceChangeListener { preference, newValue ->
+      preferencesRepositoryType.setAuthenticationPermission(newValue as Boolean)
+      true
+    }
   }
 
   private fun setSourceCodePreference() {
