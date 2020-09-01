@@ -14,7 +14,6 @@ import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.Function4
@@ -156,7 +155,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
-    val getSkuDetails = billing.getProducts(merchantName, listOf(sku))
+    val getSkuDetails = billing.getProducts(merchantName, listOf(sku), type)
         .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
         .subscribeOn(networkScheduler)

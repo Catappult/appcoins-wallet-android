@@ -2,7 +2,8 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.commons.Repository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
@@ -129,7 +130,7 @@ class OneStepTransactionParser(
     val domain = getDomain(uri)
     val skuId = getSkuId(uri)
     return if (domain != null && skuId != null) {
-      billing.getProducts(domain, listOf(skuId))
+      billing.getProducts(domain, listOf(skuId), BillingSupportedType.INAPP)
           .map { products -> SkuDetailsResponse(products[0]) }
           .onErrorReturn { SkuDetailsResponse(null) }
     } else Single.just(SkuDetailsResponse(null))

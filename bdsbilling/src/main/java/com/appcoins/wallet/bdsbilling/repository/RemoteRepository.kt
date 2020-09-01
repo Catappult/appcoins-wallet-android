@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.billing.repository.entity.Product
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
