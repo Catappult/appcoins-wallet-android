@@ -163,12 +163,11 @@ class PaymentMethodsPresenter(
         .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }
         .doOnSuccess { handleProcessing() }
-        .map { it.uid }
         .observeOn(networkThread)
-        .flatMapCompletable { uid ->
-          bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
+        .flatMapCompletable { transaction ->
+          bdsPendingTransactionService.checkTransactionStateFromTransactionId(transaction.uid)
               .ignoreElements()
-              .andThen(finishProcess(skuId, type))
+              .andThen(finishProcess(skuId, transaction.metadata?.purchaseUid, type))
         }
   }
 
@@ -183,8 +182,9 @@ class PaymentMethodsPresenter(
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun finishProcess(skuId: String?, billingType: BillingSupportedType): Completable {
-    return billing.getSkuPurchase(appPackage, skuId, networkThread, billingType)
+  private fun finishProcess(skuId: String?, purchaseUid: String?,
+                            billingType: BillingSupportedType): Completable {
+    return billing.getSkuPurchase(appPackage, skuId, purchaseUid, networkThread, billingType)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
         .ignoreElement()

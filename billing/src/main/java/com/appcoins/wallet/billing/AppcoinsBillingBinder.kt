@@ -164,6 +164,9 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
             val product = skuDetails[0]
+            if (type == BillingSupportedType.INAPP_SUBSCRIPTION && product.subscriptionPeriod == null) {
+              billingMessagesMapper.mapInvalidSubscriptionData()
+            }
             intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress, iabContractAddress,
                 developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
                 BigDecimal(product.price.appcoinsAmount), product.title, product.subscriptionPeriod,

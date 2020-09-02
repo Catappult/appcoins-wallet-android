@@ -32,9 +32,9 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
         }
   }
 
-  fun getPaymentCompleted(packageName: String, sku: String?,
+  fun getPaymentCompleted(packageName: String, sku: String?, purchaseUid: String?,
                           billingType: BillingSupportedType): Single<Purchase> {
-    return billing.getSkuPurchase(packageName, sku, Schedulers.io(), billingType)
+    return billing.getSkuPurchase(packageName, sku, purchaseUid, Schedulers.io(), billingType)
   }
 
   fun getTransaction(packageName: String, sku: String?,
@@ -53,10 +53,10 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
       Transaction.Status.PROCESSING -> Observable.just(
           RewardPayment(transaction.orderReference, Status.PROCESSING))
       Transaction.Status.COMPLETED -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.COMPLETED))
+          RewardPayment(transaction.orderReference, Status.COMPLETED, transaction.purchaseUid))
       Transaction.Status.ERROR -> Observable.just(
           RewardPayment(transaction.orderReference, Status.ERROR,
-              transaction.errorCode, transaction.errorMessage))
+              errorCode = transaction.errorCode, errorMessage = transaction.errorMessage))
       Transaction.Status.FORBIDDEN -> Observable.just(
           RewardPayment(transaction.orderReference, Status.FORBIDDEN))
       Transaction.Status.NO_NETWORK -> Observable.just(

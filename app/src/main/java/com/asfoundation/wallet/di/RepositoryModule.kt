@@ -109,7 +109,7 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideAdyenPaymentRepository(client: OkHttpClient,
+  fun provideAdyenPaymentRepository(client: OkHttpClient, bdsApi: BdsApi,
                                     subscriptionBillingApi: SubscriptionBillingApi): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/")
@@ -118,7 +118,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AdyenApi::class.java)
-    return AdyenPaymentRepository(api, subscriptionBillingApi, AdyenResponseMapper())
+    return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi, AdyenResponseMapper())
   }
 
   @Provides

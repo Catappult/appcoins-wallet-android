@@ -12,6 +12,7 @@ data class Transaction(val sku: String?,
                        val origin: String?,
                        val status: Status,
                        var txId: String?,
+                       var purchaseUid: String?,
                        val payload: String?,
                        val callback: String?,
                        val orderReference: String?,
@@ -22,8 +23,8 @@ data class Transaction(val sku: String?,
               errorMessage: String? = null) : this(transaction.sku, transaction.type,
       transaction.developerAddress, transaction.oemAddress, transaction.storeAddress,
       transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId,
-      transaction.payload, transaction.callback, transaction.orderReference,
-      transaction.referrerUrl, errorCode, errorMessage)
+      transaction.purchaseUid, transaction.payload, transaction.callback,
+      transaction.orderReference, transaction.referrerUrl, errorCode, errorMessage)
 
   fun isBds(): Boolean = this.origin == "BDS" || this.origin == "UNITY"
 

@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
+import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.google.gson.JsonObject
@@ -11,6 +12,7 @@ import org.json.JSONObject
 import retrofit2.http.*
 
 class AdyenPaymentRepository(private val adyenApi: AdyenApi,
+                             private val bdsApi: BdsApi,
                              private val subscriptionsApi: SubscriptionBillingApi,
                              private val adyenResponseMapper: AdyenResponseMapper) {
 
@@ -57,7 +59,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun getTransaction(uid: String, walletAddress: String,
                      signedWalletAddress: String): Single<PaymentModel> {
-    return adyenApi.getTransaction(uid, walletAddress, signedWalletAddress)
+    return bdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }

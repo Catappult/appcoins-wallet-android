@@ -82,6 +82,12 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
+  fun mapInvalidSubscriptionData(): Bundle {
+    val bundle = Bundle()
+    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
+    return bundle
+  }
+
   fun mapPurchase(purchaseId: String, signature: String, signatureData: String,
                   orderReference: String?): Bundle {
     val intent = Bundle()

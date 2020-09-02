@@ -9,9 +9,8 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.PENDING_USER_PAYMENT
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.COMPLETED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.PENDING_USER_PAYMENT
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -283,7 +282,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              if (it.status == Status.COMPLETED) {
+              if (it.status == COMPLETED) {
                 handleSuccessTransaction()
               } else {
                 Completable.fromAction { handleErrors(paymentModel, appcValue.toDouble()) }
@@ -311,7 +310,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       paymentModel.error.hasError -> Completable.fromAction {
         handleErrors(paymentModel, appcValue.toDouble())
       }
-      paymentModel.status == CANCELED -> Completable.fromAction {
+      paymentModel.status == PaymentModel.Status.CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",
             "canceled")
         view.cancelPayment()
@@ -369,7 +368,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun buildRefusalReason(status: Status, message: String?): String {
+  private fun buildRefusalReason(status: PaymentModel.Status, message: String?): String {
     return message?.let { "$status : $it" } ?: status.toString()
   }
 

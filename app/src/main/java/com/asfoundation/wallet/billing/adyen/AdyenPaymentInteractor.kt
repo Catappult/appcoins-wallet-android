@@ -9,7 +9,6 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
@@ -126,11 +125,11 @@ class AdyenPaymentInteractor(
   }
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
-                                orderReference: String?, hash: String?,
+                                purchaseUid: String?, orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
     val billingType = BillingSupportedType.valueOfInsensitive(type)
     return if (isManagedTransaction(billingType) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
+      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
@@ -158,12 +157,12 @@ class AdyenPaymentInteractor(
 
   fun getWalletAddress() = walletService.getWalletAddress()
 
-  private fun isEndingState(status: TransactionResponse.Status): Boolean {
-    return (status == TransactionResponse.Status.COMPLETED
-        || status == TransactionResponse.Status.FAILED
-        || status == TransactionResponse.Status.CANCELED
-        || status == TransactionResponse.Status.INVALID_TRANSACTION
-        || status == TransactionResponse.Status.FRAUD)
+  private fun isEndingState(status: PaymentModel.Status): Boolean {
+    return (status == PaymentModel.Status.COMPLETED
+        || status == PaymentModel.Status.FAILED
+        || status == PaymentModel.Status.CANCELED
+        || status == PaymentModel.Status.INVALID_TRANSACTION
+        || status == PaymentModel.Status.FRAUD)
   }
 
   private fun isManagedTransaction(type: BillingSupportedType): Boolean {

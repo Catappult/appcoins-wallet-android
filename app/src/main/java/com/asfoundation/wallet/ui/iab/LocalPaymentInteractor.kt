@@ -4,8 +4,8 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -85,11 +85,12 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
           status == INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
+                                purchaseUid: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
     val billingType = BillingSupportedType.valueOfInsensitive(type)
     return if (isManagedType(billingType) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
+      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))

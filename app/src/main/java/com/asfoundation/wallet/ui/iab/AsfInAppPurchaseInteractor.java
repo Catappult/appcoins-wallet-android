@@ -104,9 +104,14 @@ public class AsfInAppPurchaseInteractor {
             new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVED,
                 approveKey));
       case PROCESSING:
+        String purchaseUid = null;
+        if (transaction.getMetadata() != null) {
+          purchaseUid = transaction.getMetadata()
+              .getPurchaseUid();
+        }
         return trackTransactionService.trackTransaction(paymentTransaction.getUri(),
             paymentTransaction.getPackageName(), paymentTransaction.getTransactionBuilder()
-                .getSkuId(), transaction.getUid(), transaction.getOrderReference());
+                .getSkuId(), transaction.getUid(), purchaseUid, transaction.getOrderReference());
       case PENDING:
       case COMPLETED:
       case INVALID_TRANSACTION:
@@ -320,13 +325,15 @@ public class AsfInAppPurchaseInteractor {
     });
   }
 
-  Single<Purchase> getCompletedPurchase(String packageName, String productName, String type) {
+  Single<Purchase> getCompletedPurchase(String packageName, String productName, String purchaseUid,
+      String type) {
     BillingSupportedType billingType = BillingSupportedType.valueOfManagedType(type);
     return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType)
         .flatMap(transaction -> {
           if (transaction.getStatus()
               .equals(Transaction.Status.COMPLETED)) {
-            return billing.getSkuPurchase(packageName, productName, Schedulers.io(), billingType);
+            return billing.getSkuPurchase(packageName, productName, purchaseUid, Schedulers.io(),
+                billingType);
           } else {
             return Single.error(new TransactionNotFoundException());
           }

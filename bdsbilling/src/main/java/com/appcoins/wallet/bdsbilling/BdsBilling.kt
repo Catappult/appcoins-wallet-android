@@ -48,12 +48,13 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
-  override fun getSkuPurchase(merchantName: String, sku: String?, scheduler: Scheduler,
-                              type: BillingSupportedType): Single<Purchase> {
+  override fun getSkuPurchase(merchantName: String, sku: String?, purchaseUid: String?,
+                              scheduler: Scheduler, type: BillingSupportedType): Single<Purchase> {
     return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
-          repository.getSkuPurchase(merchantName, sku, it.address, it.signedAddress, type)
+          repository.getSkuPurchase(merchantName, sku, purchaseUid, it.address, it.signedAddress,
+              type)
         }
   }
 

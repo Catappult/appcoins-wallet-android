@@ -151,8 +151,9 @@ public class InAppPurchaseInteractor {
   }
 
   private Single<Purchase> getCompletedPurchase(String packageName, String productName,
-      String type) {
-    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName, type);
+      String purchaseUid, String type) {
+    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName, purchaseUid,
+        type);
   }
 
   Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
@@ -160,7 +161,8 @@ public class InAppPurchaseInteractor {
       if (isBds && transactionBuilder.getType()
           .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
         return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId(),
-            transactionBuilder.getType()).map(purchase -> mapToBdsPayment(transaction, purchase))
+            transaction.getPurchaseUid(), transactionBuilder.getType()).map(
+            purchase -> mapToBdsPayment(transaction, purchase))
             .observeOn(AndroidSchedulers.mainThread())
             .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
       } else {
@@ -172,8 +174,8 @@ public class InAppPurchaseInteractor {
 
   private Payment mapToBdsPayment(Payment transaction, Purchase purchase) {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
-        purchase.getSignature()
-            .getValue(), purchase.getSignature()
+        transaction.getPurchaseUid(), purchase.getSignature()
+        .getValue(), purchase.getSignature()
         .getMessage(), transaction.getOrderReference(), transaction.getErrorCode(),
         transaction.getErrorMessage());
   }

@@ -16,8 +16,9 @@ interface BillingRepository {
   fun getSkuDetails(packageName: String, skus: List<String>,
                     type: BillingSupportedType): Single<List<Product>>
 
-  fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
-                     walletSignature: String, type: BillingSupportedType): Single<Purchase>
+  fun getSkuPurchase(packageName: String, skuId: String?, purchaseUid: String?,
+                     walletAddress: String, walletSignature: String,
+                     type: BillingSupportedType): Single<Purchase>
 
   fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
                         walletSignature: String, type: BillingSupportedType): Single<Transaction>
@@ -38,7 +39,8 @@ interface BillingRepository {
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable
 
-  fun getPaymentMethods(transactionType: String? = null, value: String? = null, currency: String? = null,
+  fun getPaymentMethods(transactionType: String? = null, value: String? = null,
+                        currency: String? = null,
                         currencyType: String? = null,
                         direct: Boolean? = null): Single<List<PaymentMethodEntity>>
 

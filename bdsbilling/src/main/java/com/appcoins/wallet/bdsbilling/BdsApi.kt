@@ -25,7 +25,7 @@ interface BdsApi {
                      @Query("wallet.signature")
                      walletSignature: String): Single<InappPurchaseResponse>
 
-  @GET("broker/8.20180518/transactions")
+  @GET("broker/8.20200101/transactions")
   fun getSkuTransaction(
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String,
@@ -38,7 +38,7 @@ interface BdsApi {
       @Query("domain") packageName: String
   ): Single<TransactionsResponse>
 
-  @GET("broker/8.20180518/transactions/{uId}")
+  @GET("broker/8.20200101/transactions/{uId}")
   fun getAppcoinsTransaction(@Path("uId") uId: String,
                              @Query("wallet.address") walletAddress: String,
                              @Query("wallet.signature")

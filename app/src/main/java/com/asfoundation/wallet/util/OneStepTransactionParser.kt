@@ -40,10 +40,7 @@ class OneStepTransactionParser(
                       iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, null,
                       getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
                       getOrderReference(oneStepUri), referrerUrl,
-                      product?.title.orEmpty(), product?.subscriptionPeriod, product?.trialPeriod,
-                      getIntroAppcAmount(product?.introductoryPrice?.price?.appcoinsAmount),
-                      product?.introductoryPrice?.period,
-                      product?.introductoryPrice?.cycles.toString()).shouldSendToken(true)
+                      product?.title.orEmpty()).shouldSendToken(true)
                 })
                 .map {
                   it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
