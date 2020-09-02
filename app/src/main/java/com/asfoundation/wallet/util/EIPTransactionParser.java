@@ -35,7 +35,7 @@ public class EIPTransactionParser {
     TransactionBuilder transactionBuilder = new TransactionBuilder("ETH");
     transactionBuilder.toAddress(payment.getAddress());
     transactionBuilder.amount(getEtherTransferAmount(payment));
-    transactionBuilder.setType(retrieveData(payment).getType());
+    transactionBuilder.setType("inapp"); //Transfer only so it doesn't matter
     return Single.just(transactionBuilder);
   }
 
@@ -50,8 +50,8 @@ public class EIPTransactionParser {
         })
         .map(tokenInfo -> new TransactionBuilder(tokenInfo.symbol, tokenInfo.address,
             payment.getChainId(), getReceiverAddress(payment),
-            getTokenTransferAmount(payment, tokenInfo.decimals), tokenInfo.decimals,
-            retrieveData(payment).getType()).shouldSendToken(true));
+            getTokenTransferAmount(payment, tokenInfo.decimals),
+            tokenInfo.decimals).shouldSendToken(true));
   }
 
   private Single<TransactionBuilder> buildAppcTransaction(ERC681 payment) {

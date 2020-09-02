@@ -104,14 +104,9 @@ public class AsfInAppPurchaseInteractor {
             new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVED,
                 approveKey));
       case PROCESSING:
-        String purchaseUid = null;
-        if (transaction.getMetadata() != null) {
-          purchaseUid = transaction.getMetadata()
-              .getPurchaseUid();
-        }
         return trackTransactionService.trackTransaction(paymentTransaction.getUri(),
             paymentTransaction.getPackageName(), paymentTransaction.getTransactionBuilder()
-                .getSkuId(), transaction.getUid(), purchaseUid, transaction.getOrderReference());
+                .getSkuId(), transaction.getUid(), null, transaction.getOrderReference());
       case PENDING:
       case COMPLETED:
       case INVALID_TRANSACTION:
