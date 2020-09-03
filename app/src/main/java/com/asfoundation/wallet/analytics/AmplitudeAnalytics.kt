@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.analytics
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.amplitude.api.Amplitude
 import com.amplitude.api.Identify
@@ -11,7 +12,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 import io.reactivex.schedulers.Schedulers
 
 class AmplitudeAnalytics(private val context: Context, private val idsRepository: IdsRepository) :
-    AnalyticsSetUp {
+    AnalyticsSetup {
 
   private val amplitudeClient = Amplitude.getInstance()
   private lateinit var entryPoint: String
@@ -22,8 +23,7 @@ class AmplitudeAnalytics(private val context: Context, private val idsRepository
 
   override fun setGamificationLevel(level: Int) {
     val identify = Identify().append(AmplitudeEventLogger.USER_LEVEL, level)
-        .append(AmplitudeEventLogger.APTOIDE_PACKAGE,
-            BuildConfig.APPLICATION_ID)
+        .append(AmplitudeEventLogger.APTOIDE_PACKAGE, BuildConfig.APPLICATION_ID)
         .append(AmplitudeEventLogger.VERSION_CODE, BuildConfig.VERSION_CODE)
         .append(AmplitudeEventLogger.ENTRY_POINT,
             if (entryPoint.isEmpty()) "other" else entryPoint)
@@ -32,6 +32,7 @@ class AmplitudeAnalytics(private val context: Context, private val idsRepository
     amplitudeClient.identify(identify)
   }
 
+  @SuppressLint("CheckResult")
   fun start() {
     idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
         .doOnSuccess { installerPackage ->
@@ -42,18 +43,16 @@ class AmplitudeAnalytics(private val context: Context, private val idsRepository
           setAmplitudeSuperProperties(installerPackage, userLevel)
         }
         .subscribeOn(Schedulers.io())
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
   }
 
   private fun setAmplitudeSuperProperties(installerPackage: String,
                                           userLevel: Int) {
     entryPoint = if (installerPackage.isEmpty()) "other" else installerPackage
     val identify = Identify().append(AmplitudeEventLogger.USER_LEVEL, userLevel)
-        .append(AmplitudeEventLogger.APTOIDE_PACKAGE,
-            BuildConfig.APPLICATION_ID)
+        .append(AmplitudeEventLogger.APTOIDE_PACKAGE, BuildConfig.APPLICATION_ID)
         .append(AmplitudeEventLogger.VERSION_CODE, BuildConfig.VERSION_CODE)
-        .append(AmplitudeEventLogger.ENTRY_POINT,
-            entryPoint)
+        .append(AmplitudeEventLogger.ENTRY_POINT, entryPoint)
         .append(AmplitudeEventLogger.HAS_GMS, hasGms())
 
     amplitudeClient.identify(identify)

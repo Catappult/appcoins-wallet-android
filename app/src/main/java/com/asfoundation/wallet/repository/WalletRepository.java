@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics;
-import com.asfoundation.wallet.analytics.AnalyticsSetUp;
+import com.asfoundation.wallet.analytics.AnalyticsSetup;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.WalletBalanceService;
@@ -17,12 +17,12 @@ public class WalletRepository implements WalletRepositoryType {
   private final AccountKeystoreService accountKeystoreService;
   private final WalletBalanceService walletBalanceService;
   private final Scheduler networkScheduler;
-  private final AnalyticsSetUp analyticsSetUp;
+  private final AnalyticsSetup analyticsSetUp;
   private final AmplitudeAnalytics amplitudeAnalytics;
 
   public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
       AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService,
-      Scheduler networkScheduler, AnalyticsSetUp analyticsSetUp,
+      Scheduler networkScheduler, AnalyticsSetup analyticsSetUp,
       AmplitudeAnalytics amplitudeAnalytics) {
     this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
