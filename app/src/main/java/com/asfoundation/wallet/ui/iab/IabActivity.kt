@@ -147,6 +147,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun finish(bundle: Bundle) {
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       presenter.handleBackupNotifications(bundle)
+      presenter.handlePerkNotifications(bundle)
     } else {
       finishActivity(bundle)
     }

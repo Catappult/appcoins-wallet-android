@@ -189,6 +189,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun finish(data: Bundle) {
     if (data.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       presenter.handleBackupNotifications(data)
+      presenter.handlePerkNotifications(data)
     } else {
       finishActivity(data)
     }

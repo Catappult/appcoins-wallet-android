@@ -74,6 +74,4 @@ interface AdyenPaymentView {
   fun onAdyen3DSError(): Observable<String>
 
   fun setup3DSComponent()
-
-  fun launchPerkBonusService(address: String)
 }

@@ -325,14 +325,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun handleSuccessTransaction(): Completable {
-    return adyenPaymentInteractor.getWalletAddress()
-        .flatMapCompletable { Completable.fromAction { view.launchPerkBonusService(it) } }
-        .andThen(Completable.fromAction {
-          topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType, "success")
-          val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
-          waitingResult = false
-          navigator.popView(bundle)
-        })
+    return Completable.fromAction {
+      topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType, "success")
+      val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
+      waitingResult = false
+      navigator.popView(bundle)
+    }
   }
 
   private fun handleFraudFlow(@StringRes error: Int) {

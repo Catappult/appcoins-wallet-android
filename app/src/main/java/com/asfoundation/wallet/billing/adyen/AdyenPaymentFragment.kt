@@ -149,10 +149,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     })
   }
 
-  override fun launchPerkBonusService(address: String) {
-    iabView.launchPerkBonusService(address)
-  }
-
   private fun setupUi(view: View) {
     setupAdyenLayouts()
     setupTransactionCompleteAnimation()
