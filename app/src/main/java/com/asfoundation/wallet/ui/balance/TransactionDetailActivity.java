@@ -245,7 +245,7 @@ public class TransactionDetailActivity extends BaseActivity {
         manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
-      case INAPP_SUBSCRIPTION:
+      case SUBS_OFFCHAIN:
         typeStr = R.string.subscriptions_category_title;
         typeIcon = R.drawable.ic_transaction_subscription;
         categoryBackground.setBackground(null);

@@ -75,7 +75,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   private fun getActiveMockedTransaction(address: String): Transaction {
     return Transaction("0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1",
-        Transaction.TransactionType.INAPP_SUBSCRIPTION, null, null, null, null, null, System.currentTimeMillis(),
+        Transaction.TransactionType.SUBS_OFFCHAIN, null, null, null, null, null,
+        System.currentTimeMillis(),
         System.currentTimeMillis(), Transaction.TransactionStatus.SUCCESS, "10000000000000000000",
         address, "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
         TransactionDetails("Real Boxing",
@@ -86,7 +87,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   private fun getExpiringMockedTransaction(address: String): Transaction {
     return Transaction("0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9-2",
-        Transaction.TransactionType.INAPP_SUBSCRIPTION, null, null, null, null, null, System.currentTimeMillis(),
+        Transaction.TransactionType.SUBS_OFFCHAIN, null, null, null, null, null,
+        System.currentTimeMillis(),
         System.currentTimeMillis(), Transaction.TransactionStatus.SUCCESS, "10000000000000000000",
         address, "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
         TransactionDetails("Cuties",
@@ -97,7 +99,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   private fun getExpiredMockedTransaction(address: String): Transaction {
     return Transaction("0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98",
-        Transaction.TransactionType.INAPP_SUBSCRIPTION, null, null, null, null, null, System.currentTimeMillis(),
+        Transaction.TransactionType.SUBS_OFFCHAIN, null, null, null, null, null,
+        System.currentTimeMillis(),
         System.currentTimeMillis(), Transaction.TransactionStatus.SUCCESS, "12200000000000000000",
         address, "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
         TransactionDetails("Creative Destruction",

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.transactions
 
 import com.asfoundation.wallet.entity.WalletHistory
-import com.asfoundation.wallet.transactions.TransactionDetails
 import java.util.*
 
 class TransactionsMapper {
@@ -89,6 +88,7 @@ class TransactionsMapper {
       "PoA OffChain" -> Transaction.TransactionType.ADS_OFFCHAIN
       "Ether Transfer" -> Transaction.TransactionType.ETHER_TRANSFER
       "IAP" -> Transaction.TransactionType.IAP
+      "Subscription OffChain" -> Transaction.TransactionType.SUBS_OFFCHAIN
       else -> Transaction.TransactionType.STANDARD
     }
   }
