@@ -42,7 +42,8 @@ interface PaymentMethodsView {
 
   fun showPaypal(gamificationLevel: Int)
 
-  fun showAdyen(fiatValue: FiatValue,
+  fun showAdyen(fiatAmount: BigDecimal,
+                fiatCurrency: String,
                 paymentType: PaymentType,
                 iconUrl: String?, gamificationLevel: Int)
 
@@ -90,10 +91,6 @@ interface PaymentMethodsView {
 
   fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int,
                                  isPreselected: Boolean, fiatValue: FiatValue? = null)
-
-  fun navigateToPayment(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int,
-                        isPreselected: Boolean)
-
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,

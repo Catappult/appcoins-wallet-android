@@ -47,6 +47,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handlePaymentMethodSelected()
     handleValuesClicks()
     handleKeyboardEvents()
+    handleAuthenticationResult()
   }
 
   fun stop() {
@@ -143,7 +144,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     if (preferencesRepositoryType.hasAuthenticationPermission()) {
                       activity?.showAuthenticationActivity(topUpData, gamificationLevel)
                     } else {
-                      activity?.navigateToPayment(topUpData, gamificationLevel)
+                      navigateToPayment(topUpData, gamificationLevel)
                     }
                   }
             }
@@ -362,6 +363,34 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnNext { view.changeMainValueText(it.amount.toString()) }
         .doOnError { handleError(it) }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleAuthenticationResult() {
+    disposables.add(activity!!.onAuthenticationResult()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (it.isSuccess) {
+            navigateToPayment(it.topUpData, it.gamificationLevel)
+          }
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+ private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
+    val paymentMethod = topUpData.paymentMethod!!
+    when (paymentMethod.paymentType) {
+      PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(
+          paymentMethod.paymentType, mapTopUpPaymentData(topUpData, gamificationLevel))
+      PaymentType.LOCAL_PAYMENTS ->
+        activity?.navigateToLocalPayment(paymentMethod.paymentId, paymentMethod.icon,
+            paymentMethod.label, mapTopUpPaymentData(topUpData, gamificationLevel))
+    }
+  }
+
+  private fun mapTopUpPaymentData(topUpData: TopUpData, gamificationLevel: Int): TopUpPaymentData {
+    return TopUpPaymentData(topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode,
+        topUpData.selectedCurrencyType, topUpData.bonusValue, topUpData.currency.fiatCurrencySymbol,
+        topUpData.currency.appcValue, "TOPUP", gamificationLevel)
   }
 
 }

@@ -27,12 +27,12 @@ class AuthenticationPromptPresenter(
     savedInstanceState?.let {
       hasBottomsheetOn = it.getBoolean(BOTTOMSHEET_KEY)
     }
-    if (!hasBottomsheetOn) showEverything()
+    if (!hasBottomsheetOn) showBiometricPrompt()
     handleAuthenticationResult()
     handleRetryAuthentication()
   }
 
-  private fun showEverything() {
+  private fun showBiometricPrompt() {
     when (fingerprintInteract.compatibleDevice()) {
       BiometricManager.BIOMETRIC_SUCCESS -> {
         view.showPrompt(view.createBiometricPrompt(),

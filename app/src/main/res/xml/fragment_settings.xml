@@ -28,10 +28,9 @@
       android:title="@string/import_wallet_title" />
 
   <SwitchPreference
-      android:id="@+id/fingerprint_preference"
+      android:id="@+id/preference_fingerprint"
       android:icon="@drawable/ic_settings_fingerprint"
       android:key="pref_fingerprint"
-      android:layout="@layout/preference_fingerprint"
       android:title="@string/fingerprint_settings" />
 
   <PreferenceCategory
@@ -66,7 +65,7 @@
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/twitter" />
 
-    <SwitchPreference
+    <Preference
         android:icon="@drawable/ic_settings_telegram"
         android:key="pref_telegram"
         android:layout="@layout/preference_without_summary_layout"

@@ -21,6 +21,7 @@ import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.preference_fingerprint.*
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -154,7 +155,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun setFingerprintPreference() {
     val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
     fingerprintPreference?.isChecked = preferencesRepositoryType.hasAuthenticationPermission()
+    if (preferencesRepositoryType.hasAuthenticationPermission()) {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
+    }
+    else {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
+    }
     fingerprintPreference?.setOnPreferenceChangeListener { preference, newValue ->
+      pref_authentication_switch.isChecked = newValue as Boolean
       preferencesRepositoryType.setAuthenticationPermission(newValue as Boolean)
       true
     }

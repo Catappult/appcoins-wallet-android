@@ -18,6 +18,7 @@ import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.iab.PaymentAuthenticationResult
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -28,6 +29,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.error_message
 import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
@@ -54,6 +56,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   private var topUpData: TopUpData? = null
   private var gamificationLevel = 0
+  private var authenticationResultSubject: PublishSubject<TopUpResult>? = null
 
   companion object {
     @JvmStatic
@@ -75,6 +78,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
+    authenticationResultSubject = PublishSubject.create()
     setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(this, topUpInteractor, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable())
@@ -92,7 +96,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     presenter.processActivityResult(requestCode, resultCode, data)
     if (requestCode == AUTHENTICATION_REQUEST_CODE) {
       if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-        topUpData?.let { navigateToPayment(it, gamificationLevel) }
+        topUpData?.let { authenticationResultSubject?.onNext(TopUpResult(true,it, gamificationLevel)) }
+        //topUpData?.let { navigateToPayment(it, gamificationLevel) }
       }
     }
   }
@@ -284,5 +289,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         topUpData.currency.appcValue, "TOPUP", gamificationLevel)
   }
 
+  override fun onAuthenticationResult(): Observable<TopUpResult> {
+    return authenticationResultSubject!!
+  }
 
 }

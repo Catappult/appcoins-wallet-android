@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:clickable="false"
         android:focusable="false"
-        android:checked="true"
+        android:checked="false"
         />
 
     <androidx.constraintlayout.widget.Guideline

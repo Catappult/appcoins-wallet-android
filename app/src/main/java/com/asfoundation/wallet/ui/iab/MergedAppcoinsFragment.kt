@@ -115,6 +115,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   lateinit var logger: Logger
 
   @Inject
+  lateinit var paymentMethodsMapper: PaymentMethodsMapper
+
+  @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private val fiatAmount: BigDecimal by lazy {
@@ -239,7 +242,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, iabView, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
-        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, logger, preferencesRepositoryType)
+        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, logger,
+        paymentMethodsMapper, preferencesRepositoryType)
   }
 
   override fun onAttach(context: Context) {
@@ -489,14 +493,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
             currency, bonus, false)
     iabView.showAuthenticationActivity(paymentNavigationData)
   }
-
-  override fun navigateToPayment(selectedPaymentId: String, gamificationLevel: Int) {
-    val paymentNavigationData =
-        PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
-            currency, bonus, false)
-    iabView.navigateToPayment(paymentNavigationData)
-  }
-
 
   override fun navigateToAppcPayment() =
       iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)

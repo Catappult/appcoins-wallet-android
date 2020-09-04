@@ -19,10 +19,6 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
 
   private lateinit var presenter: TransferActivityPresenter
 
-
-  /*@Inject
-  lateinit var walletInteract: FindDefaultWalletInteract*/
-
   companion object {
     const val BARCODE_READER_REQUEST_CODE = 1
     const val AUTHENTICATION_REQUEST_CODE = 33
