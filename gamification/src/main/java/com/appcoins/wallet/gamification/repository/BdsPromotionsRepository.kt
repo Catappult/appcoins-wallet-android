@@ -6,6 +6,7 @@ import io.reactivex.Single
 import java.io.IOException
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class BdsPromotionsRepository(
@@ -13,7 +14,7 @@ class BdsPromotionsRepository(
     private val local: GamificationLocalData) : PromotionsRepository {
 
   private fun getUserStats(wallet: String): Single<UserStatusResponse> {
-    return api.getUserStats(wallet)
+    return api.getUserStats(wallet, Locale.getDefault().language)
         .map { filterByDate(it) }
         .flatMap { userStats ->
           local.deletePromotions()
