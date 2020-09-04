@@ -7,7 +7,7 @@ import java.util.*
 
 interface GamificationView {
 
-  fun displayGamificationInfo(currentLevel: Int, nextLevelAmount: BigDecimal,
+  fun displayGamificationInfo(currentLevel: Int, nextLevelAmount: BigDecimal?,
                               hiddenLevels: List<LevelModel>,
                               shownLevels: List<LevelModel>,
                               totalSpend: BigDecimal,

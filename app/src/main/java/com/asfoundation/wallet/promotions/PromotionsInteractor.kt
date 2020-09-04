@@ -117,7 +117,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           when (it) {
             is GamificationResponse -> {
               gamificationAvailable = it.status == PromotionsResponse.Status.ACTIVE
-              promotions.add(mapToGamificationItem(it))
 
               if (levels.isActive) {
                 maxBonus = levels.list.maxBy { level -> level.bonus }?.bonus ?: 0.0
@@ -127,21 +126,22 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                 promotions.add(0,
                     TitleItem(R.string.perks_gamif_title, R.string.perks_gamif_subtitle, true,
                         maxBonus.toString()))
+                promotions.add(1, mapToGamificationItem(it))
               }
             }
             is ReferralResponse -> {
               referralsAvailable = it.status == PromotionsResponse.Status.ACTIVE
-              promotions.add(mapToReferralItem(it))
+              if (referralsAvailable) promotions.add(mapToReferralItem(it))
             }
             is GenericResponse -> {
-              perksAvailable = true
-
-              when {
-                isFuturePromotion(it) -> mapToFutureItem(it)
-                it.viewType == PROGRESS_VIEW_TYPE -> promotions.add(mapToProgressItem(it))
-                else -> promotions.add(mapToDefaultItem(it))
+              if (it.linkedPromotionId != GAMIFICATION_ID) {
+                perksAvailable = true
+                when {
+                  isFuturePromotion(it) -> promotions.add(mapToFutureItem(it))
+                  it.viewType == PROGRESS_VIEW_TYPE -> promotions.add(mapToProgressItem(it))
+                  else -> promotions.add(mapToDefaultItem(it))
+                }
               }
-
               if (isValidGamificationLink(it.linkedPromotionId, gamificationAvailable,
                       it.startDate ?: 0)) {
                 mapToGamificationLinkItem(promotions, it)
@@ -155,8 +155,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(gamificationAvailable, referralsAvailable, promotions, maxBonus,
-        userStatus.error)
+    return PromotionsModel(promotions, maxBonus, userStatus.error)
   }
 
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,
@@ -168,7 +167,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
     return ProgressItem(genericResponse.id, genericResponse.title, genericResponse.icon,
         genericResponse.endDate, genericResponse.currentProgress!!,
-        genericResponse.objectiveProgress!!)
+        genericResponse.objectiveProgress)
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
@@ -178,10 +177,12 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   private fun mapToGamificationItem(gamificationResponse: GamificationResponse): GamificationItem {
     val currentLevelInfo = mapper.mapCurrentLevelInfo(gamificationResponse.level)
+    val toNextLevelAmount =
+        gamificationResponse.nextLevelAmount?.minus(gamificationResponse.totalSpend)
 
     return GamificationItem(gamificationResponse.id, currentLevelInfo.planet,
         gamificationResponse.level, currentLevelInfo.levelColor, currentLevelInfo.title,
-        currentLevelInfo.phrase, gamificationResponse.bonus, mutableListOf())
+        toNextLevelAmount, gamificationResponse.bonus, mutableListOf())
   }
 
   private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {
