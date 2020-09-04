@@ -65,7 +65,8 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
-          remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName, fiatAmount,
+          remoteRepository.createLocalPaymentTopUpTransaction(paymentMethod, packageName,
+              fiatAmount,
               fiatCurrency, walletAddressModel.address, walletAddressModel.signedAddress)
         }
         .map { it.url ?: "" }
