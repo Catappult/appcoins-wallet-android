@@ -119,11 +119,12 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   }
 
   fun createLocalPaymentTopUpTransaction(paymentId: String, packageName: String, price: String,
-                                         currency: String, walletAddress: String,
+                                         currency: String, productName: String,
+                                         walletAddress: String,
                                          walletSignature: String): Single<Transaction> {
     return createTransaction(walletAddress, null, null, null, null, null, null, null, null, null,
         "TOPUP", "myappcoins", walletAddress, walletSignature, packageName, price, currency,
-        null, LocalPaymentBody(price, currency, packageName, "TOPUP", paymentId, "Top Up"))
+        null, LocalPaymentBody(price, currency, packageName, "TOPUP", paymentId, productName))
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,

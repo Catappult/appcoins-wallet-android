@@ -61,13 +61,14 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   fun getTopUpPaymentLink(packageName: String, fiatAmount: String,
-                          fiatCurrency: String, paymentMethod: String): Single<String> {
+                          fiatCurrency: String, paymentMethod: String,
+                          productName: String): Single<String> {
 
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
           remoteRepository.createLocalPaymentTopUpTransaction(paymentMethod, packageName,
-              fiatAmount,
-              fiatCurrency, walletAddressModel.address, walletAddressModel.signedAddress)
+              fiatAmount, fiatCurrency, productName, walletAddressModel.address,
+              walletAddressModel.signedAddress)
         }
         .map { it.url ?: "" }
   }
