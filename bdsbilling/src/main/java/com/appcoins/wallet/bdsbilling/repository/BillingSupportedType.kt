@@ -27,6 +27,18 @@ enum class BillingSupportedType {
       }
     }
 
+    //Use this method on methods that communicate with SDK
+    @JvmStatic
+    fun valueOfItemType(value: String): BillingSupportedType {
+      return when {
+        value.equals(INAPP.name, true) -> INAPP
+        value.equals("subs", true) -> INAPP_SUBSCRIPTION
+        else -> {
+          throw IllegalArgumentException(Throwable("$value is not a product type supported"))
+        }
+      }
+    }
+
     fun mapToProductType(type: BillingSupportedType): BillingSupportedType {
       return when (type) {
         INAPP_UNMANAGED -> INAPP

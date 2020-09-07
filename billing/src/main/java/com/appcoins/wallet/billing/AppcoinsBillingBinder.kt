@@ -54,7 +54,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID"
 
     internal const val ITEM_TYPE_INAPP = "inapp"
-    internal const val ITEM_TYPE_SUBS = "inapp_subscription"
+    internal const val ITEM_TYPE_SUBS = "subs"
     internal const val DETAILS_LIST = "DETAILS_LIST"
     internal const val ITEM_ID_LIST = "ITEM_ID_LIST"
     internal const val BUY_INTENT = "BUY_INTENT"
@@ -111,7 +111,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     val type = try {
-      BillingSupportedType.valueOfProductType(billingType)
+      BillingSupportedType.valueOfItemType(billingType)
     } catch (e: Exception) {
       with(result) { putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR) }
       return result
@@ -144,7 +144,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     requireNotNull(sku!!)
 
     val type = try {
-      BillingSupportedType.valueOfProductType(billingType)
+      BillingSupportedType.valueOfItemType(billingType)
     } catch (e: Exception) {
       return Bundle().apply {
         putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
@@ -211,7 +211,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     try {
       val type =
-          billingType?.let { BillingSupportedType.valueOfProductType(it) }
+          billingType?.let { BillingSupportedType.valueOfItemType(it) }
               ?: BillingSupportedType.INAPP
       val purchases = billing.getPurchases(merchantName, type)
           .blockingGet()

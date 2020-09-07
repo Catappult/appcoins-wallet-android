@@ -111,7 +111,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       result.putInt(RESULT_VALUE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
       return result
     }
-    val billingType = type?.let { BillingSupportedType.valueOfProductType(it) }
+    val billingType = type?.let { BillingSupportedType.valueOfItemType(it) }
     result.putInt(RESULT_VALUE, try {
       billing.consumePurchases(purchaseToken, packageName, billingType)
           .map { AppcoinsBillingBinder.RESULT_OK }
@@ -135,7 +135,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     requireNotNull(sku!!)
 
     val type = try {
-      BillingSupportedType.valueOfProductType(billingType)
+      BillingSupportedType.valueOfItemType(billingType)
     } catch (e: Exception) {
       return Bundle().apply {
         putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
@@ -202,7 +202,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val type =
         billingType?.let {
           try {
-            BillingSupportedType.valueOfProductType(billingType)
+            BillingSupportedType.valueOfItemType(billingType)
           } catch (e: Exception) {
             return Bundle().apply {
               putInt(
@@ -256,7 +256,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
 
     val type = try {
-      BillingSupportedType.valueOfProductType(billingType)
+      BillingSupportedType.valueOfItemType(billingType)
     } catch (e: Exception) {
       with(result) {
         putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
