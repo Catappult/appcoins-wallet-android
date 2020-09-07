@@ -44,13 +44,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
-        android:switchMinWidth="52dp"
+        android:checked="true"
+        android:clickable="false"
+        android:focusable="false"
+        android:thumb="@drawable/round_thumb"
+        android:track="@drawable/round_track"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="false"
-        android:focusable="false"
-        android:checked="true"
         />
 
     <androidx.constraintlayout.widget.Guideline
