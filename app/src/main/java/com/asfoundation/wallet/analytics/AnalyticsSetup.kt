@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.analytics
 
-interface AnalyticsSetUp {
+interface AnalyticsSetup {
 
   fun setUserId(walletAddress: String)
 
