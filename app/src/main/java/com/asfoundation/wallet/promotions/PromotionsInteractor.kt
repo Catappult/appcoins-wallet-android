@@ -108,7 +108,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToPromotionsModel(userStatus: UserStatusResponse,
                                    levels: Levels): PromotionsModel {
     var gamificationAvailable = false
-    var referralsAvailable = false
     var perksAvailable = false
     val promotions = mutableListOf<Promotion>()
     var maxBonus = 0.0
@@ -130,8 +129,9 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
             }
             is ReferralResponse -> {
-              referralsAvailable = it.status == PromotionsResponse.Status.ACTIVE
-              if (referralsAvailable) promotions.add(mapToReferralItem(it))
+              if (it.status == PromotionsResponse.Status.ACTIVE) {
+                promotions.add(mapToReferralItem(it))
+              }
             }
             is GenericResponse -> {
               if (it.linkedPromotionId != GAMIFICATION_ID) {
