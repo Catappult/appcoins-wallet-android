@@ -1,12 +1,11 @@
 package com.asfoundation.wallet.promotions
 
-import androidx.annotation.StringRes
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 
-data class PromotionNotification(@StringRes override val positiveButtonText: Int,
-                                 override val positiveAction: CardNotificationAction,
+data class PromotionNotification(override val positiveAction: CardNotificationAction,
                                  val noResTitle: String?,
                                  val noResBody: String?,
-                                 val noResIcon: String?) :
-    CardNotification(null, null, null, positiveButtonText, positiveAction)
+                                 val noResIcon: String?,
+                                 val id: String) :
+    CardNotification(null, null, null, null, positiveAction)

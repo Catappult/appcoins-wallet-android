@@ -183,7 +183,6 @@ public class TransactionsViewModel extends BaseViewModel {
   public void fetchTransactions(boolean shouldShowProgress) {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
-    /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
     if (fetchTransactionsDisposable != null && !fetchTransactionsDisposable.isDisposed()) {
       fetchTransactionsDisposable.dispose();
     }
@@ -424,9 +423,7 @@ public class TransactionsViewModel extends BaseViewModel {
               WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
         }
         break;
-      case PROMOTION:
-        navigateToPromotions(context);
-        dismissNotification(cardNotification);
+      case NONE:
         break;
     }
   }

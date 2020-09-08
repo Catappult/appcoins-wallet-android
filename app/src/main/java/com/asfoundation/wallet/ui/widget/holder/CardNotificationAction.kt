@@ -5,5 +5,5 @@ enum class CardNotificationAction {
   DISCOVER,
   UPDATE,
   BACKUP,
-  PROMOTION
+  NONE
 }

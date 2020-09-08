@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promotions
 
-import android.content.Intent
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralsScreen
@@ -17,7 +16,5 @@ interface PromotionsInteractorContract {
 
   fun getUnwatchedPromotionNotification(): Single<CardNotification>
 
-  fun dismissNotification(): Completable
-
-  fun hasPerksUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean>
+  fun dismissNotification(id: String): Completable
 }

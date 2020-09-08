@@ -38,7 +38,8 @@ class CardNotificationsInteractor(
       is ReferralNotification -> referralInteractor.dismissNotification(cardNotification)
       is UpdateNotification -> autoUpdateInteract.dismissNotification()
       is BackupNotification -> backupInteract.dismissNotification()
-      is PromotionNotification -> promotionsInteractorContract.dismissNotification()
+      is PromotionNotification -> promotionsInteractorContract.dismissNotification(
+          cardNotification.id)
       else -> Completable.complete()
     }
   }

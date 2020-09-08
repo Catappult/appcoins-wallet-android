@@ -40,16 +40,14 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     }
   }
 
-  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
-    return preferences.getBoolean(getKeyGeneric(wallet, screen, id), false)
+  override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
+    return preferences.getBoolean(getKeyGeneric(screen, id), false)
   }
 
-  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
-    return Completable.fromCallable {
-      preferences.edit()
-          .putBoolean(getKeyGeneric(wallet, screen, id), true)
-          .apply()
-    }
+  override fun setSeenGenericPromotion(id: String, screen: String) {
+    return preferences.edit()
+        .putBoolean(getKeyGeneric(screen, id), true)
+        .apply()
   }
 
   override fun setGamificationLevel(gamificationLevel: Int): Completable {
@@ -69,8 +67,8 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     }
   }
 
-  private fun getKeyGeneric(wallet: String, screen: String, id: String) =
-      SHOWN_GENERIC + wallet + SCREEN + screen + ID + id
+  private fun getKeyGeneric(screen: String, id: String) =
+      SHOWN_GENERIC + SCREEN + screen + ID + id
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     return promotionDao.getPromotions()

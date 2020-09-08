@@ -8,9 +8,8 @@ import java.math.BigDecimal
 import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
 
-class BdsPromotionsRepository(
-    private val api: GamificationApi,
-    private val local: GamificationLocalData) : PromotionsRepository {
+class BdsPromotionsRepository(private val api: GamificationApi,
+                              private val local: GamificationLocalData) : PromotionsRepository {
 
   private fun getUserStats(wallet: String): Single<UserStatusResponse> {
     return api.getUserStats(wallet)
@@ -47,12 +46,12 @@ class BdsPromotionsRepository(
     return local.saveShownLevel(wallet, level, screen)
   }
 
-  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
-    return local.getSeenGenericPromotion(wallet, id, screen)
+  override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
+    return local.getSeenGenericPromotion(id, screen)
   }
 
-  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
-    return local.setSeenGenericPromotion(wallet, id, screen)
+  override fun setSeenGenericPromotion(id: String, screen: String) {
+    return local.setSeenGenericPromotion(id, screen)
   }
 
   override fun getForecastBonus(wallet: String, packageName: String,
