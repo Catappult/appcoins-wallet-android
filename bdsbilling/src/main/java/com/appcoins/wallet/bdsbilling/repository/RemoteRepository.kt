@@ -118,12 +118,13 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         null).ignoreElement()
   }
 
-  fun createLocalPaymentTransaction(paymentId: String, packageName: String, price: String,
-                                    currency: String, walletAddress: String,
-                                    walletSignature: String): Single<Transaction> {
+  fun createLocalPaymentTopUpTransaction(paymentId: String, packageName: String, price: String,
+                                         currency: String, productName: String,
+                                         walletAddress: String,
+                                         walletSignature: String): Single<Transaction> {
     return createTransaction(walletAddress, null, null, null, null, null, null, null, null, null,
-        "TOPUP", "myappcoins", walletAddress, walletSignature, packageName, price, currency, null,
-        LocalPaymentBody(price, currency, packageName, "TOPUP", paymentId))
+        "TOPUP", "myappcoins", walletAddress, walletSignature, packageName, price, currency,
+        null, LocalPaymentBody(price, currency, packageName, "TOPUP", paymentId, productName))
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
@@ -134,7 +135,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 amount: String, currency: String, productName: String?,
                                 localPaymentBody: LocalPaymentBody = LocalPaymentBody()): Single<Transaction> {
     return if (gateway == "myappcoins") {
-      api.createTransaction(null, packageName, amount, currency, null,
+      api.createTransaction(null, packageName, amount, currency, productName,
           type, walletAddress, null, null, null, null, null, null, null, null, walletAddress,
           signature, localPaymentBody)
     } else {
@@ -290,7 +291,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   data class LocalPaymentBody(@SerializedName("price.value") val price: String,
                               @SerializedName("price.currency") val currency: String,
-                              val domain: String, val type: String, val method: String) {
-    constructor() : this("", "", "", "", "")
+                              val domain: String, val type: String, val method: String,
+                              val product: String) {
+    constructor() : this("", "", "", "", "", "")
   }
 }
