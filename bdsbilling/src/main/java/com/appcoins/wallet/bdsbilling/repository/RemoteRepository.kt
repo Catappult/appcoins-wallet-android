@@ -57,10 +57,12 @@ class RemoteRepository(private val inAppApi: BdsApi,
   private fun requestSkusDetailsSubs(packageName: String,
                                      skus: List<String>): Single<SubscriptionsResponse> {
     return if (skus.size <= SKUS_SUBS_DETAILS_REQUEST_LIMIT) {
-      subsApi.getSubscriptions(packageName, skus)
+      subsApi.getSubscriptions(Locale.getDefault()
+          .toLanguageTag(), packageName, skus)
     } else {
       Single.zip(
-          subsApi.getSubscriptions(packageName, skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
+          subsApi.getSubscriptions(Locale.getDefault()
+              .toLanguageTag(), packageName, skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
           requestSkusDetailsSubs(packageName, skus.drop(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
           BiFunction { firstResponse: SubscriptionsResponse, secondResponse: SubscriptionsResponse ->
             firstResponse.merge(secondResponse)

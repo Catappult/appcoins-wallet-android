@@ -10,7 +10,8 @@ interface SubscriptionBillingApi {
   fun getPackage(@Path("domain") packageName: String): Single<Boolean>
 
   @GET("product/8.20200701/applications/{domain}/inapp/subscriptions")
-  fun getSubscriptions(@Path("domain") domain: String,
+  fun getSubscriptions(@Header("Accept-Language") language: String,
+                       @Path("domain") domain: String,
                        @Query("skus") skus: List<String>?,
                        @Query("limit") limit: Long? = null): Single<SubscriptionsResponse>
 
@@ -20,7 +21,8 @@ interface SubscriptionBillingApi {
    * @param sku the product of the subscription
    */
   @GET("product/8.20200701/applications/{domain}/inapp/subscriptions/{sku}")
-  fun getSkuSubscription(@Path("domain") domain: String,
+  fun getSkuSubscription(@Header("Accept-Language") language: String,
+                         @Path("domain") domain: String,
                          @Path("sku") sku: String): Single<SubscriptionResponse>
 
   /**
