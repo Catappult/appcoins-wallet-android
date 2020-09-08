@@ -565,14 +565,11 @@
 
   <style name="BalanceVerifyWalletChip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">10sp</item>
-  </style>
-
-  <style name="BalanceVerifyWalletChip.Unverified" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/appc_pink</item>
-  </style>
-
-  <style name="BalanceVerifyWalletChip.Verified" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">@color/balance_wallet_verified_chip</item>
+  </style>
+
+  <style name="BalanceVerifyWalletChip.Unverified">
+    <item name="android:textColor">@color/appc_pink</item>
   </style>
 
   <style name="Promotions.TextStyle.Category.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
