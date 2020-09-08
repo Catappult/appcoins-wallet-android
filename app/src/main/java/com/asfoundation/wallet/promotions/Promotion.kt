@@ -18,6 +18,7 @@ class DefaultItem(
     id: String,
     val title: String,
     val icon: String?,
+    val startDate: Long?,
     val endDate: Long
 ) : Promotion(id)
 
@@ -25,6 +26,7 @@ class FutureItem(
     id: String,
     val title: String,
     val icon: String?,
+    val startDate: Long?,
     val endDate: Long
 ) : Promotion(id)
 
@@ -32,6 +34,7 @@ class ProgressItem(
     id: String,
     val title: String,
     val icon: String?,
+    val startDate: Long?,
     val endDate: Long,
     val current: BigDecimal,
     val objective: BigDecimal?
