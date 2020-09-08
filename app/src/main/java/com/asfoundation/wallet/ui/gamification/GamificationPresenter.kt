@@ -57,7 +57,7 @@ class GamificationPresenter(private val view: GamificationView,
     var status = Status.UNKNOWN_ERROR
     if (levels.status == Levels.Status.OK && gamificationStats.status == GamificationStats.Status.OK) {
       return GamificationInfo(gamificationStats.level, gamificationStats.totalSpend,
-          gamificationStats.nextLevelAmount ?: BigDecimal.ZERO, levels.list, levels.updateDate,
+          gamificationStats.nextLevelAmount, levels.list, levels.updateDate,
           Status.OK)
     }
     if (levels.status == Levels.Status.NO_NETWORK || gamificationStats.status == GamificationStats.Status.NO_NETWORK) {

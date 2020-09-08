@@ -34,7 +34,7 @@
         style="@style/Promotions.TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="@dimen/big_margin"
         app:layout_constraintBottom_toBottomOf="@+id/progress_icon"
         app:layout_constraintEnd_toEndOf="parent"

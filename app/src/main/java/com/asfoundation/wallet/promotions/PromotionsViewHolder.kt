@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.subjects.PublishSubject
@@ -70,10 +71,16 @@ class ProgressViewHolder(itemView: View,
         .into(itemView.progress_icon)
 
     itemView.progress_title.text = progressItem.title
-    itemView.progress_current.progress = progressItem.current.toInt()
-    itemView.progress_current.max = progressItem.objective.toInt()
-    val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
-    itemView.progress_label.text = progress
+    if (progressItem.objective != null) {
+      itemView.progress_current.max = progressItem.objective.toInt()
+      itemView.progress_current.progress = progressItem.current.toInt()
+      val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
+      itemView.progress_label.text = progress
+    } else {
+      itemView.progress_current.max = progressItem.current.toInt()
+      itemView.progress_current.progress = progressItem.current.toInt()
+      itemView.progress_label.text = "${progressItem.current.toInt()}"
+    }
     handleExpiryDate(itemView.progress_expiry_date, itemView.progress_container_date,
         progressItem.endDate)
   }
@@ -175,6 +182,7 @@ class GamificationViewHolder(itemView: View,
 
   override fun bind(promotion: Promotion) {
     val gamificationItem = promotion as GamificationItem
+    val formatter = CurrencyFormatUtils.create()
     val df = DecimalFormat("###.#")
 
     itemView.setOnClickListener {
@@ -186,7 +194,12 @@ class GamificationViewHolder(itemView: View,
     itemView.current_level_bonus.text =
         itemView.context?.getString(R.string.gamif_bonus, df.format(gamificationItem.bonus))
     itemView.planet_title.text = gamificationItem.title
-    itemView.planet_subtitle.text = gamificationItem.phrase
+    if (gamificationItem.toNextLevelAmount != null) {
+      itemView.planet_subtitle.text = itemView.context.getString(R.string.gamif_card_body,
+          formatter.formatGamificationValues(gamificationItem.toNextLevelAmount))
+    } else {
+      itemView.planet_subtitle.visibility = View.INVISIBLE
+    }
 
     handleLinks(gamificationItem.links, itemView)
   }
@@ -197,6 +210,9 @@ class GamificationViewHolder(itemView: View,
     } else {
       itemView.linked_perks.visibility = View.VISIBLE
       val adapter = PromotionsGamificationAdapter(links)
+      itemView.linked_perks.addItemDecoration(
+          MarginItemDecoration(itemView.resources.getDimension(R.dimen.promotions_item_margin)
+              .toInt()))
       itemView.linked_perks.adapter = adapter
     }
   }

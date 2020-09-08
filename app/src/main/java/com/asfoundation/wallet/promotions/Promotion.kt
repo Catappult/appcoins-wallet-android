@@ -34,7 +34,7 @@ class ProgressItem(
     val icon: String?,
     val endDate: Long,
     val current: BigDecimal,
-    val objective: BigDecimal
+    val objective: BigDecimal?
 ) : Promotion(id)
 
 class GamificationItem(
@@ -43,7 +43,7 @@ class GamificationItem(
     val level: Int,
     val levelColor: Int,
     val title: String,
-    val phrase: String,
+    val toNextLevelAmount: BigDecimal?,
     var bonus: Double,
     val links: MutableList<GamificationLinkItem>
 ) : Promotion(id)
