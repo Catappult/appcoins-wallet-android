@@ -65,13 +65,13 @@ public class TransactionsViewModel extends BaseViewModel {
   private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
   private final WalletsEventSender walletsEventSender;
+  private final PublishSubject<Context> topUpClicks = PublishSubject.create();
+  private final CurrencyFormatUtils formatter;
   private CompositeDisposable disposables;
+  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
-  private final PublishSubject<Context> topUpClicks = PublishSubject.create();
-  private final CurrencyFormatUtils formatter;
-  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
@@ -423,6 +423,10 @@ public class TransactionsViewModel extends BaseViewModel {
           walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
               WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
         }
+        break;
+      case PROMOTION:
+        navigateToPromotions(context);
+        dismissNotification(cardNotification);
         break;
     }
   }

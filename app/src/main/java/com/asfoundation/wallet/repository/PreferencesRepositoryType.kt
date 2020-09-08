@@ -82,4 +82,6 @@ interface PreferencesRepositoryType {
   fun setWalletId(walletId: String)
 
   fun getWalletId(): String?
+  fun setPromotionNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
+  fun removePromotionNotificationSeenTime(walletAddress: String): Completable
 }

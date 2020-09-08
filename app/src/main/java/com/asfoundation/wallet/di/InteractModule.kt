@@ -272,9 +272,11 @@ class InteractModule {
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
-                                  gamificationMapper: GamificationMapper): PromotionsInteractorContract {
+                                  gamificationMapper: GamificationMapper,
+                                  sharedPreferencesRepository: PreferencesRepositoryType): PromotionsInteractorContract {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, gamificationMapper)
+        promotionsRepository, findDefaultWalletInteract, gamificationMapper,
+        sharedPreferencesRepository)
   }
 
   @Provides
@@ -430,9 +432,10 @@ class InteractModule {
   @Provides
   fun provideCardNotificationInteractor(referralInteractor: ReferralInteractorContract,
                                         autoUpdateInteract: AutoUpdateInteract,
-                                        backupInteract: BackupInteractContract): CardNotificationsInteractor {
+                                        backupInteract: BackupInteractContract,
+                                        promotionsInteractorContract: PromotionsInteractorContract): CardNotificationsInteractor {
     return CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        backupInteract)
+        backupInteract, promotionsInteractorContract)
   }
 
   @Singleton
