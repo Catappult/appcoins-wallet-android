@@ -234,7 +234,8 @@ class InteractModule {
   }
 
   @Provides
-  fun provideAdyenPaymentInteractor(adyenPaymentRepository: AdyenPaymentRepository,
+  fun provideAdyenPaymentInteractor(context: Context,
+                                    adyenPaymentRepository: AdyenPaymentRepository,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
                                     walletService: WalletService,

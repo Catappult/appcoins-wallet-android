@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.widget.adapter;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +22,7 @@ import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationsListViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.PerkBonusViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
@@ -66,7 +66,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   private final OnTransactionClickListener onTransactionClickListener;
   private final Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener;
   private final Action2<CardNotification, CardNotificationAction> referralNotificationClickListener;
-  private final Resources resources;
   private final CurrencyFormatUtils formatter;
   private Wallet wallet;
   private NetworkInfo network;
@@ -74,11 +73,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
       Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener,
       Action2<CardNotification, CardNotificationAction> referralNotificationClickListener,
-      Resources resources, CurrencyFormatUtils formatter) {
+      CurrencyFormatUtils formatter) {
     this.onTransactionClickListener = onTransactionClickListener;
     this.applicationClickListener = applicationClickListener;
     this.referralNotificationClickListener = referralNotificationClickListener;
-    this.resources = resources;
     this.formatter = formatter;
   }
 
@@ -102,6 +100,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
       case CardNotificationsListViewHolder.VIEW_TYPE:
         holder = new CardNotificationsListViewHolder(R.layout.item_card_notifications_list, parent,
             referralNotificationClickListener);
+        break;
+      case PerkBonusViewHolder.VIEW_TYPE:
+        holder = new PerkBonusViewHolder(R.layout.item_transaction_perk_bonus, parent,
+            onTransactionClickListener);
         break;
     }
     return holder;
@@ -170,9 +172,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     }
 
     for (Transaction transaction : transactionsModel.getTransactions()) {
+      int viewType = TransactionHolder.VIEW_TYPE;
+      if (transaction.getSubType() == Transaction.SubType.PERK_PROMOTION) {
+        viewType = PerkBonusViewHolder.VIEW_TYPE;
+      }
       TransactionSortedItem sortedItem =
-          new TransactionSortedItem(TransactionHolder.VIEW_TYPE, transaction,
-              TimestampSortedItem.DESC);
+          new TransactionSortedItem(viewType, transaction, TimestampSortedItem.DESC);
       items.add(sortedItem);
       items.add(DateSortedItem.round(transaction.getTimeStamp()));
     }

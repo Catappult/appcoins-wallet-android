@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class BroadcastReceiverModule {
+abstract class BroadcastReceiverBuilders {
 
   @ContributesAndroidInjector
   abstract fun contributesAlarmManagerBroadcastReceiver(): AlarmManagerBroadcastReceiver

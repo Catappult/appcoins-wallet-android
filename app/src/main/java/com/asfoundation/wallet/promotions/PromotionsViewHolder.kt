@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.subjects.PublishSubject
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
 import kotlinx.android.synthetic.main.item_promotions_title.view.*
+import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
@@ -43,7 +45,9 @@ class TitleViewHolder(itemView: View) : PromotionsViewHolder(itemView) {
     val titleItem = promotion as TitleItem
 
     val title = if (titleItem.isGamificationTitle) {
-      itemView.context.getString(titleItem.title, titleItem.bonus)
+      val formatter = CurrencyFormatUtils.create()
+      val bonus = formatter.formatGamificationValues(BigDecimal(titleItem.bonus))
+      itemView.context.getString(titleItem.title, bonus)
     } else itemView.context.getString(titleItem.title)
     itemView.promotions_title.text = title
     itemView.promotions_subtitle.setText(titleItem.subtitle)
@@ -67,9 +71,16 @@ class ProgressViewHolder(itemView: View,
         .into(itemView.progress_icon)
 
     itemView.progress_title.text = progressItem.title
-    itemView.progress_current.progress = progressItem.current.toInt()
-    itemView.progress_current.max = progressItem.objective.toInt()
-
+    if (progressItem.objective != null) {
+      itemView.progress_current.max = progressItem.objective.toInt()
+      itemView.progress_current.progress = progressItem.current.toInt()
+      val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
+      itemView.progress_label.text = progress
+    } else {
+      itemView.progress_current.max = progressItem.current.toInt()
+      itemView.progress_current.progress = progressItem.current.toInt()
+      itemView.progress_label.text = "${progressItem.current.toInt()}"
+    }
     handleExpiryDate(itemView.progress_expiry_date, itemView.progress_container_date,
         progressItem.endDate)
   }
@@ -171,6 +182,7 @@ class GamificationViewHolder(itemView: View,
 
   override fun bind(promotion: Promotion) {
     val gamificationItem = promotion as GamificationItem
+    val formatter = CurrencyFormatUtils.create()
     val df = DecimalFormat("###.#")
 
     itemView.setOnClickListener {
@@ -182,7 +194,12 @@ class GamificationViewHolder(itemView: View,
     itemView.current_level_bonus.text =
         itemView.context?.getString(R.string.gamif_bonus, df.format(gamificationItem.bonus))
     itemView.planet_title.text = gamificationItem.title
-    itemView.planet_subtitle.text = gamificationItem.phrase//TODO replace with
+    if (gamificationItem.toNextLevelAmount != null) {
+      itemView.planet_subtitle.text = itemView.context.getString(R.string.gamif_card_body,
+          formatter.formatGamificationValues(gamificationItem.toNextLevelAmount))
+    } else {
+      itemView.planet_subtitle.visibility = View.INVISIBLE
+    }
 
     handleLinks(gamificationItem.links, itemView)
   }
@@ -193,6 +210,9 @@ class GamificationViewHolder(itemView: View,
     } else {
       itemView.linked_perks.visibility = View.VISIBLE
       val adapter = PromotionsGamificationAdapter(links)
+      itemView.linked_perks.addItemDecoration(
+          MarginItemDecoration(itemView.resources.getDimension(R.dimen.promotions_item_margin)
+              .toInt()))
       itemView.linked_perks.adapter = adapter
     }
   }

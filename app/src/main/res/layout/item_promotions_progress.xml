@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/normal_margin"
     android:layout_marginEnd="@dimen/normal_margin"
-    app:cardBackgroundColor="#f8f8f8"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
@@ -34,7 +34,7 @@
         style="@style/Promotions.TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="@dimen/big_margin"
         app:layout_constraintBottom_toBottomOf="@+id/progress_icon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,11 +50,25 @@
         android:layout_height="4dp"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginTop="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
         android:progressDrawable="@drawable/promotions_progress_bar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/progress_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_icon"
+        />
+
+    <TextView
+        android:id="@+id/progress_label"
+        style="@style/Promotions.TextStyle.Progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:gravity="end|center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/progress_current"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/progress_current"
+        app:layout_constraintTop_toTopOf="@id/progress_current"
+        tools:text="200/200"
         />
 
     <LinearLayout

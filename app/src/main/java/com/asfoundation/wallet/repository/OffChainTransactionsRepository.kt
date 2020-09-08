@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.text.DateFormat
+import java.util.*
 
 class OffChainTransactionsRepository(private val api: TransactionsApi,
                                      private val dateFormatter: DateFormat) {
@@ -17,7 +18,7 @@ class OffChainTransactionsRepository(private val api: TransactionsApi,
     return api.transactionHistorySync(wallet, versionCode,
         startingDate = startingDate?.let { dateFormatter.format(it) },
         endingDate = endingDate?.let { dateFormatter.format(it) }, offset = offset, sort = sort,
-        limit = limit)
+        limit = limit, languageCode = Locale.getDefault().language)
   }
 
   interface TransactionsApi {
@@ -30,6 +31,7 @@ class OffChainTransactionsRepository(private val api: TransactionsApi,
         @Query("from") startingDate: String? = null,
         @Query("to") endingDate: String? = null,
         @Query("sort") sort: String? = "desc",
-        @Query("limit") limit: Int): Call<WalletHistory>
+        @Query("limit") limit: Int,
+        @Query("lang_code") languageCode: String): Call<WalletHistory>
   }
 }

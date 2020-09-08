@@ -37,7 +37,7 @@ data class PromotionEntity(
     val minAmount: BigDecimal? = null,
     val amount: BigDecimal? = null,
     @ColumnInfo(name = "current_progress")
-    val currentProgress: Double? = null,
+    val currentProgress: BigDecimal? = null,
     val description: String? = null,
     @ColumnInfo(name = "end_date")
     val endDate: Long? = null,
@@ -45,7 +45,7 @@ data class PromotionEntity(
     @ColumnInfo(name = "linked_promotion_id")
     val linkedPromotionId: String? = null,
     @ColumnInfo(name = "objective_progress")
-    val objectiveProgress: Double? = null,
+    val objectiveProgress: BigDecimal? = null,
     @ColumnInfo(name = "start_date")
     val startDate: Long? = null,
     val title: String? = null,

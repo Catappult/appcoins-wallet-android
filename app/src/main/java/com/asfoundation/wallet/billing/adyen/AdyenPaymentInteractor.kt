@@ -154,6 +154,8 @@ class AdyenPaymentInteractor(
         }
   }
 
+  fun getWalletAddress() = walletService.getWalletAddress()
+
   private fun isEndingState(status: TransactionResponse.Status): Boolean {
     return (status == TransactionResponse.Status.COMPLETED
         || status == TransactionResponse.Status.FAILED

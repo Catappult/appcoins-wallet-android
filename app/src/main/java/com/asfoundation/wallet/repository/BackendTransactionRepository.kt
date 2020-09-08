@@ -9,6 +9,7 @@ import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
@@ -38,12 +39,10 @@ class BackendTransactionRepository(
           .flatMapObservable { startingDate ->
             return@flatMapObservable Observable.merge(
                 fetchNewTransactions(wallet, startingDate = startingDate),
-                fetchOldTransactions(wallet))
+                fetchMissingOldTransactions(wallet))
           }
           .buffer(2, TimeUnit.SECONDS)
-          .doOnNext {
-            localRepository.insertAll(it.flatten())
-          }
+          .doOnNext { localRepository.insertAll(it.flatten()) }
           .subscribe({}, { it.printStackTrace() })
     }
     disposables.add(disposable)
@@ -54,6 +53,19 @@ class BackendTransactionRepository(
         .distinctUntilChanged()
   }
 
+  override fun fetchNewTransactions(wallet: String): Single<List<Transaction>> {
+    return localRepository.getNewestTransaction(wallet)
+        .map { it.processedTime }
+        .defaultIfEmpty(0)
+        .subscribeOn(ioScheduler)
+        .flatMapSingle { startingDate ->
+          //We need +1 otherwise since the transaction on the backend is stored with 6 milliseconds
+          // and we store with 3, so the last transaction will always be returned
+          fetchNewTransactions(wallet, startingDate + 1).firstOrError()
+        }
+        .doOnSuccess { localRepository.insertAll(it) }
+        .map { mapper.map(it) }
+  }
 
   private fun fetchNewTransactions(wallet: String,
                                    startingDate: Long): Observable<MutableList<TransactionEntity>> {
@@ -64,7 +76,8 @@ class BackendTransactionRepository(
     return fetchTransactions(wallet, startingDate = startingDate, sort = sort)
   }
 
-  private fun fetchOldTransactions(wallet: String): Observable<MutableList<TransactionEntity>> {
+  private fun fetchMissingOldTransactions(
+      wallet: String): Observable<MutableList<TransactionEntity>> {
     return localRepository.isOldTransactionsLoaded()
         .flatMapObservable { isLoaded ->
           if (isLoaded) {
