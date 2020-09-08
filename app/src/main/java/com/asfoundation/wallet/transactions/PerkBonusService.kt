@@ -15,6 +15,7 @@ import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.android.AndroidInjection
 import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 import kotlin.math.pow
 
@@ -105,7 +106,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
   private fun getScaledValue(valueStr: String?): String? {
     if (valueStr == null) return null
     var value = BigDecimal(valueStr)
-    value = value.divide(BigDecimal(10.0.pow(C.ETHER_DECIMALS.toDouble())))
+    value = value.divide(BigDecimal(10.0.pow(C.ETHER_DECIMALS.toDouble())), 2, RoundingMode.FLOOR)
     if (value <= BigDecimal.ZERO) return null
     return formatter.formatGamificationValues(value)
   }

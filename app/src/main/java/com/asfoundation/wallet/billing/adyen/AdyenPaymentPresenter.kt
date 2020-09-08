@@ -275,9 +275,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleSuccessTransaction(bundle: Bundle): Completable {
-    return adyenPaymentInteractor.getWalletAddress()
-        .flatMapCompletable { Completable.fromAction { view.launchPerkBonusService(it) } }
-        .andThen(Completable.fromAction { view.showSuccess() })
+    return Completable.fromAction { view.showSuccess() }
         .andThen(Completable.timer(view.getAnimationDuration(),
             TimeUnit.MILLISECONDS))
         .andThen(Completable.fromAction { navigator.popView(bundle) })

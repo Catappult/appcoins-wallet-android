@@ -321,10 +321,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun showWalletValidation(error: Int) = iabView.showWalletValidation(error)
 
-  override fun launchPerkBonusService(address: String) {
-    iabView.launchPerkBonusService(address)
-  }
-
   override fun showProcessingLoading() {
     status = LOADING
     progress_bar.visibility = View.VISIBLE
