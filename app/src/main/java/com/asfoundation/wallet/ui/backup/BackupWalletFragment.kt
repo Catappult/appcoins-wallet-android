@@ -59,8 +59,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
     super.onCreate(savedInstanceState)
     presenter =
         BackupWalletPresenter(balanceInteract, walletsEventSender, this, activityView,
-            CompositeDisposable(),
-            Schedulers.io(), AndroidSchedulers.mainThread())
+            CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
