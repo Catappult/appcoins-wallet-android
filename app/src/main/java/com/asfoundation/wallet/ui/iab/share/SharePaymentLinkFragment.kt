@@ -61,10 +61,8 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   val domain: String by lazy {
-    if (arguments!!.containsKey(
-            PARAM_DOMAIN)) {
-      arguments!!.getString(
-          PARAM_DOMAIN)
+    if (arguments!!.containsKey(PARAM_DOMAIN)) {
+      arguments!!.getString(PARAM_DOMAIN)!!
     } else {
       throw IllegalArgumentException("Domain not found")
     }
@@ -72,7 +70,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
 
   val paymentMethod: String by lazy {
     if (arguments!!.containsKey(PARAM_PAYMENT_KEY)) {
-      arguments!!.getString(PARAM_PAYMENT_KEY)
+      arguments!!.getString(PARAM_PAYMENT_KEY)!!
     } else {
       throw IllegalArgumentException("paymentMethod not found")
     }
@@ -80,7 +78,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
 
   val type: String by lazy {
     if (arguments!!.containsKey(PARAM_TRANSACTION_TYPE)) {
-      arguments!!.getString(PARAM_TRANSACTION_TYPE)
+      arguments!!.getString(PARAM_TRANSACTION_TYPE)!!
     } else {
       throw IllegalArgumentException("type not found")
     }
@@ -209,7 +207,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
 
-    ShareCompat.IntentBuilder.from(activity)
+    ShareCompat.IntentBuilder.from(activity!!)
         .setText(url)
         .setType("text/plain")
         .setChooserTitle(R.string.askafriend_share_popup_title)

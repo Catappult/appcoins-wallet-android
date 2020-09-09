@@ -102,7 +102,7 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
   }
 
   override fun showShare(walletAddress: String) {
-    ShareCompat.IntentBuilder.from(activity)
+    ShareCompat.IntentBuilder.from(activity!!)
         .setText(walletAddress)
         .setType("text/plain")
         .setChooserTitle(resources.getString(R.string.share_via))

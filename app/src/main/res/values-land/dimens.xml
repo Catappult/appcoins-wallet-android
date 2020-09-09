@@ -5,4 +5,8 @@
   <dimen name="item_wallet_addr_height">56dp</dimen>
   <dimen name="item_wallet_icon_height">25dp</dimen>
   <dimen name="item_wallet_icon_width">23dp</dimen>
+  <dimen name="backup_success_icon_size">96dp</dimen>
+  <dimen name="backup_success_icon_margin_top">28dp</dimen>
+  <dimen name="backup_success_text_margin_top">12dp</dimen>
+  <dimen name="backup_success_text_box_horizontal_margin">128dp</dimen>
 </resources>
