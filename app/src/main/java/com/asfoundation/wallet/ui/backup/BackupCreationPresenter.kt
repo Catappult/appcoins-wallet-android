@@ -32,6 +32,7 @@ class BackupCreationPresenter(
     private const val FILE_SHARED_KEY = "FILE_SHARED"
     private const val KEYSTORE_KEY = "KEYSTORE"
     private const val FILE_NAME_KEY = "FILE_NAME"
+    private val TAG = BackupCreationPresenter::class.java.name
   }
 
   private var fileShared = false
@@ -45,7 +46,8 @@ class BackupCreationPresenter(
       cachedFileName = it.getString(FILE_NAME_KEY)
     }
     createBackUpFile()
-    handlePositiveButtonClick()
+    handleFinishClick()
+    handleFirstSaveClick()
     handleSaveAgainClick()
     handlePermissionGiven()
     handleDialogCancelClick()
@@ -82,7 +84,7 @@ class BackupCreationPresenter(
           walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
               WalletsAnalytics.STATUS_FAIL, it.message)
         }
-        .subscribe())
+        .subscribe({}, { showError(it) }))
   }
 
   private fun handleDialogSaveClickBelowAndroidQ(fileName: String) {
@@ -108,7 +110,7 @@ class BackupCreationPresenter(
           walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_CANCEL,
               WalletsAnalytics.STATUS_FAIL, t.message)
         }
-        .subscribe())
+        .subscribe({}, { view.closeDialog() }))
   }
 
   private fun createBackUpFile() {
@@ -122,24 +124,31 @@ class BackupCreationPresenter(
         .subscribe({}, { showError(it) }))
   }
 
-  private fun handlePositiveButtonClick() {
-    disposables.add(view.getPositiveButtonClick()
+  private fun handleFinishClick() {
+    disposables.add(view.getFinishClick()
         .observeOn(viewScheduler)
         .doOnNext {
-          if (fileShared) {
-            activityView.closeScreen()
-            walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH) } else {
-            val file = fileInteractor.getCachedFile()
-            if (file == null) {
-              showError("Error retrieving file")
-            } else {
-              view.shareFile(fileInteractor.getUriFromFile(file))
-              fileShared = true
-              walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
-            }
+          activityView.closeScreen()
+          walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH)
+        }
+        .subscribe({}, { activityView.closeScreen() })
+    )
+  }
+
+  private fun handleFirstSaveClick() {
+    disposables.add(view.getFirstSaveClick()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          val file = fileInteractor.getCachedFile()
+          if (file == null) {
+            showError("Error retrieving file")
+          } else {
+            fileShared = true
+            view.shareFile(fileInteractor.getUriFromFile(file))
+            walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
           }
         }
-        .subscribe())
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handleSaveAgainClick() {
@@ -148,7 +157,7 @@ class BackupCreationPresenter(
         .doOnNext {
           walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_SAVE)
         }
-        .subscribe())
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handlePermissionGiven() {
@@ -191,12 +200,12 @@ class BackupCreationPresenter(
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    logger.log("BackupCreationPresenter", throwable)
+    logger.log(TAG, throwable)
     view.showError()
   }
 
   private fun showError(message: String) {
-    logger.log("BackupCreationPresenter", message)
+    logger.log(TAG, message)
     view.showError()
   }
 }
