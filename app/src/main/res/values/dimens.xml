@@ -46,4 +46,5 @@
   <dimen name="bottom_sheet_corner_radius">8dp</dimen>
   <dimen name="promotions_item_margin">8dp</dimen>
   <dimen name="bottom_sheet_peek_height">96dp</dimen>
+  <dimen name="wallets_button_size">32dp</dimen>
 </resources>
