@@ -182,19 +182,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/wallet_icon"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
+                android:maxLines="2"
                 android:text="@string/wallets_active_wallet_title"
                 android:textColor="@color/black"
                 android:textSize="10sp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                app:layout_constraintWidth_default="wrap"
                 app:layout_constraintBottom_toBottomOf="@id/wallet_icon"
+                app:layout_constraintEnd_toStartOf="@id/verification_status"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@id/wallet_icon"
                 app:layout_constraintTop_toTopOf="@id/wallet_icon"
-                app:layout_constraintEnd_toStartOf="@id/verification_status"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintWidth_default="wrap"
                 />
 
             <RelativeLayout
@@ -361,7 +361,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="96dp"
+        app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
         app:layout_behavior="@string/bottom_sheet_behavior"
         />
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
