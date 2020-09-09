@@ -8,6 +8,8 @@
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="0dp"
+      android:clipToPadding="false"
+      android:paddingBottom="8dp"
       app:layout_constraintBottom_toTopOf="@id/button_container"
       app:layout_constraintTop_toTopOf="parent"
       >
@@ -77,8 +79,6 @@
       android:id="@+id/button_container"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:clipChildren="false"
-      android:clipToPadding="false"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHeight_max="94dp"
@@ -89,9 +89,7 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@id/proceed_button"
         android:background="@color/list_separator_color"
-        app:layout_constraintBottom_toTopOf="@id/proceed_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

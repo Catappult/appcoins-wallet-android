@@ -152,6 +152,8 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     description.visibility = View.INVISIBLE
     proceed_button.visibility = View.INVISIBLE
     file_shared_buttons.visibility = View.VISIBLE
+    //Fix for bug related with group layout
+    file_shared_buttons.requestLayout()
   }
 
   override fun getDialogCancelClick() = RxView.clicks(dialogView.backup_cancel)
