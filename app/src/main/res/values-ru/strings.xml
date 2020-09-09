@@ -471,6 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_wallet_error_contact_us">Ой, с вашим бумажником что-то не так. Пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_carrier_error">Похоже, ваш номер телефона несовместим с этим способом оплаты.</string>
+  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
   <string name="error_contac_us_body">Если проблема не исчезнет – пожалуйста, свяжитесь с нами.</string>
   <!--Async Payments-->
@@ -757,4 +759,12 @@
   <string name="perks_notification">Вы только что получили бонус в %s AppCoins Credits</string>
   <string name="perks_level_up_on_this_purchase">Повышение уровня с этой покупкой</string>
   <string name="perks_level_up_amount_left">Вы в %1$s%2$s от следующего уровня!</string>
+  <string name="perks_level_up_level_tag">Lv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <!--Fingerprint Authentication-->
+  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_failed_title">Authentication failed!</string>
+  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
+  <string name="fingerprint_authentication_required_title">Authentication required!</string>
+  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
 </resources>

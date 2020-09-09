@@ -73,8 +73,6 @@ interface IabView {
 
   fun errorDismisses(): Observable<Any>
 
-  fun navigateToPayment(paymentNavigationData: PaymentNavigationData)
-
   fun showAuthenticationActivity(paymentNavigationData: PaymentNavigationData)
 
   fun onAuthenticationResult(): Observable<PaymentAuthenticationResult>

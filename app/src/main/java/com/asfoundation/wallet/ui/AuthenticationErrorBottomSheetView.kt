@@ -6,4 +6,5 @@ interface AuthenticationErrorBottomSheetView {
   fun getButtonClick(): Observable<Any>
   fun retryAuthentication()
   fun setMessage()
+  fun setupUi()
 }

@@ -27,7 +27,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
     private const val AUTHENTICATION_PERMISSION = "authentication_permission"
-    private const val FIRST_RUN = "first_time_entering"
+    private const val AUTHENTICATION_ERROR_TIME = "authentication_error_time"
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
@@ -224,5 +224,14 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   override fun hasAuthenticationPermission(): Boolean {
     return pref.getBoolean(AUTHENTICATION_PERMISSION, false)
   }
+
+  override fun setAuthenticationErrorTime(timer: Long) {
+    pref.edit()
+        .putLong(AUTHENTICATION_ERROR_TIME, timer)
+        .apply()
+  }
+
+  override fun getAuthenticationErrorTime() = pref.getLong(AUTHENTICATION_ERROR_TIME, 0)
+
 
 }

@@ -412,20 +412,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod,
                                           gamificationLevel: Int, isPreselected: Boolean,
                                           fiatValue: FiatValue?) {
+    if (fiatValue != null) this.fiatValue = fiatValue
     val fiat = fiatValue ?: this.fiatValue
     val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
         selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat.amount,
         fiat.currency, bonusMessageValue, isPreselected)
     iabView.showAuthenticationActivity(paymentNavigationData)
-
-  }
-
-  override fun navigateToPayment(selectedPaymentMethod: PaymentMethod, gamificationLevel: Int,
-                                 isPreselected: Boolean) {
-    val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
-        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiatValue.amount,
-        fiatValue.currency, bonusMessageValue, isPreselected)
-    iabView.navigateToPayment(paymentNavigationData)
   }
 
   override fun setupUiCompleted() = setupSubject!!
@@ -446,10 +438,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
 
-  override fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
+  override fun showAdyen(fiatAmount: BigDecimal, fiatCurrency: String, paymentType: PaymentType,
+                         iconUrl: String?,
                          gamificationLevel: Int) {
     if (!itemAlreadyOwnedError) {
-      iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds, paymentType,
+      iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType,
           bonusMessageValue, true, iconUrl, gamificationLevel)
     }
   }

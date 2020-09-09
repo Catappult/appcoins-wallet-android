@@ -3,12 +3,14 @@ package com.asfoundation.wallet.ui.balance
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.annotations.Nullable
@@ -18,7 +20,8 @@ import java.math.BigDecimal
 class BalanceInteract(
     private val walletInteract: FindDefaultWalletInteract,
     private val balanceRepository: BalanceRepository,
-    private val preferencesRepositoryType: PreferencesRepositoryType) {
+    private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val smsValidationInteract: SmsValidationInteract) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
@@ -101,6 +104,16 @@ class BalanceInteract(
         }
     )
   }
+
+  fun isWalletValid(): Single<Pair<String, WalletValidationStatus>> {
+    return walletInteract.find()
+        .flatMap { wallet ->
+          smsValidationInteract.getValidationStatus(wallet.address)
+              .map { Pair(wallet.address, it) }
+        }
+  }
+
+  fun isWalletValidated(address: String) = preferencesRepositoryType.isWalletValidated(address)
 
   fun hasSeenBackupTooltip() = preferencesRepositoryType.getSeenBackupTooltip()
 

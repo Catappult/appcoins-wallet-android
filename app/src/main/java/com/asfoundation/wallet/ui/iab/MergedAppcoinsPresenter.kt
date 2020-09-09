@@ -3,7 +3,9 @@ package com.asfoundation.wallet.ui.iab
 import android.util.Log
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -25,6 +27,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val mergedAppcoinsInteract: MergedAppcoinsInteract,
                               private val gamificationLevel: Int,
                               private val navigator: Navigator,
+                              private val logger: Logger,
+                              private val paymentMethodsMapper: PaymentMethodsMapper,
                               private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   companion object {
@@ -82,9 +86,25 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     disposables.add(activityView.onAuthenticationResult()
         .observeOn(viewScheduler)
         .doOnNext {
-          if (!it.isSuccess) view.hideLoading()
+          if (!it.isSuccess) {
+            view.hideLoading()
+          }
+          else{
+            navigateToPayment(it.paymentNavigationData)
+          }
         }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
+    when (paymentMethodsMapper.map(paymentNavigationData.selectedPaymentId)) {
+      PaymentMethodsView.SelectedPaymentMethod.APPC -> view.navigateToAppcPayment()
+      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.navigateToCreditsPayment()
+      else -> {
+        view.showError(R.string.unknown_error)
+        logger.log(TAG, "Wrong payment method after authentication.")
+      }
+    }
   }
 
   private fun handleBuyClick() {
@@ -128,7 +148,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapCompletable { mergedAppcoinsInteract.showSupport(gamificationLevel) }
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -136,7 +156,10 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     disposables.add(view.errorDismisses()
         .observeOn(viewScheduler)
         .doOnNext { navigator.popViewWithError() }
-        .subscribe())
+        .subscribe({}, {
+          it.printStackTrace()
+          navigator.popViewWithError()
+        }))
   }
 
   private fun handlePaymentSelectionChange() {
@@ -146,7 +169,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   }
 
   private fun showError(t: Throwable) {
-    t.printStackTrace()
+    logger.log(TAG, t)
     if (t.isNoNetworkException()) {
       view.showError(R.string.notification_no_network_poa)
     } else {

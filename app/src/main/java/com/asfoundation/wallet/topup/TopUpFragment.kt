@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
@@ -56,6 +57,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var logger: Logger
 
   @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
@@ -139,7 +143,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
         TopUpFragmentPresenter(this, topUpActivityView, interactor, preferencesRepositoryType,
             AndroidSchedulers.mainThread(),
             Schedulers.io(), topUpAnalytics, formatter,
-            savedInstanceState?.getString(SELECTED_VALUE_PARAM))
+            savedInstanceState?.getString(SELECTED_VALUE_PARAM), logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

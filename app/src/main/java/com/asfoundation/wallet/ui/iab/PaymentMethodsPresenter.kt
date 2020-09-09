@@ -19,6 +19,7 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -61,6 +62,7 @@ class PaymentMethodsPresenter(
 
   private var gamificationLevel = 0
   private var closeToLevelUp: Boolean = false
+  private var shouldHandlePreselected = true
 
   companion object {
     private val TAG = PaymentMethodsPresenter::class.java.name
@@ -111,7 +113,20 @@ class PaymentMethodsPresenter(
               if (preferencesRepositoryType.hasAuthenticationPermission()) {
                 view.showAuthenticationActivity(selectedPaymentMethod, gamificationLevel, false)
               } else {
-                view.navigateToPayment(selectedPaymentMethod, gamificationLevel, false)
+                when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
+                  PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(
+                      gamificationLevel)
+                  PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
+                      gamificationLevel)
+                  PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins(
+                      gamificationLevel)
+                  PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
+                      selectedPaymentMethod.id)
+                  PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
+                      selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
+                      selectedPaymentMethod.label, gamificationLevel)
+                  else -> return@doOnNext
+                }
               }
             }
           }
@@ -129,6 +144,8 @@ class PaymentMethodsPresenter(
                     it.paymentNavigationData.selectedPaymentId) == PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD) {
               close()
             }
+          } else {
+            navigateToPayment(it.paymentNavigationData)
           }
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -142,12 +159,12 @@ class PaymentMethodsPresenter(
           if (preferencesRepositoryType.hasAuthenticationPermission()) {
             view.showAuthenticationActivity(selectedPaymentMethod, gamificationLevel, false)
           } else {
-            view.navigateToPayment(selectedPaymentMethod, gamificationLevel, false)
+            view.showCredits(gamificationLevel)
           }
         }
         .doOnSubscribe { view.showProgressBarLoading() }
         .doOnError { showError(it) }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, { showError(it) })
     )
   }
 
@@ -164,6 +181,37 @@ class PaymentMethodsPresenter(
         .doOnComplete { view.hideLoading() }
         .subscribe({ }, { showError(it) }))
   }
+
+  private fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
+    when (paymentMethodsMapper.map(paymentNavigationData.selectedPaymentId)) {
+      PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(
+          paymentNavigationData.gamificationLevel)
+      PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> {
+        if (paymentNavigationData.isPreselected) {
+          view.showAdyen(paymentNavigationData.fiatAmount,
+              paymentNavigationData.fiatCurrency, PaymentType.CARD,
+              paymentNavigationData.selectedPaymentIcon, paymentNavigationData.gamificationLevel)
+        } else view.showCreditCard(paymentNavigationData.gamificationLevel)
+      }
+      PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins(
+          paymentNavigationData.gamificationLevel)
+      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.showCredits(
+          paymentNavigationData.gamificationLevel)
+      PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
+          paymentNavigationData.selectedPaymentId)
+      PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> {
+        view.showLocalPayment(paymentNavigationData.selectedPaymentId,
+            paymentNavigationData.selectedPaymentIcon!!,
+            paymentNavigationData.selectedPaymentLabel!!,
+            paymentNavigationData.gamificationLevel)
+      }
+      else -> {
+        view.showError(R.string.unknown_error)
+        logger.log(TAG, "Wrong payment method after authentication.")
+      }
+    }
+  }
+
 
   private fun isSetupCompleted(): Completable {
     return view.setupUiCompleted()
@@ -240,8 +288,11 @@ class PaymentMethodsPresenter(
                         if (paymentMethodsInteract.isBonusActiveAndValid(it.first)) {
                           setUpNextLevelInformation(it.second, it.third, transactionValue)
                         }
-                        selectPaymentMethod(paymentMethods, fiatValue,
-                            paymentMethodsInteract.isBonusActiveAndValid(it.first))
+                        if (shouldHandlePreselected) {
+                          selectPaymentMethod(paymentMethods, fiatValue,
+                              paymentMethodsInteract.isBonusActiveAndValid(it.first))
+                          shouldHandlePreselected = false
+                        }
                       }
                     }
               }
@@ -336,9 +387,9 @@ class PaymentMethodsPresenter(
             if (preferencesRepositoryType.hasAuthenticationPermission()) {
               view.showAuthenticationActivity(paymentMethod, gamificationLevel, true, fiatValue)
             } else {
-              view.showAdyen(fiatValue, PaymentType.CARD, paymentMethod.iconUrl, gamificationLevel)
+              view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
+                  paymentMethod.iconUrl, gamificationLevel)
             }
-
           }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
               isBonusActive)

@@ -2,10 +2,12 @@ package com.asfoundation.wallet.ui
 
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
+import android.util.Log
 import androidx.biometric.BiometricPrompt
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import kotlin.math.ceil
 
 class AuthenticationPromptPresenter(
     private val view: AuthenticationPromptView,
@@ -18,27 +20,26 @@ class AuthenticationPromptPresenter(
 
   companion object {
     private const val BOTTOMSHEET_KEY = "bottomsheet_key"
+    private const val ERROR_RETRY_TIME_IN_MILLIS = 30000
   }
 
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let {
       hasBottomsheetOn = it.getBoolean(BOTTOMSHEET_KEY)
     }
-    if (!hasBottomsheetOn) showEverything()
+    if (!hasBottomsheetOn) showBiometricPrompt()
     handleAuthenticationResult()
     handleRetryAuthentication()
   }
 
-  private fun showEverything() {
+  private fun showBiometricPrompt() {
     when (fingerprintInteract.compatibleDevice()) {
       BiometricManager.BIOMETRIC_SUCCESS -> {
         view.showPrompt(view.createBiometricPrompt(),
             fingerprintInteract.definePromptInformation())
       }
-      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.showBottomSheetDialogFragment(
-          "Enable Fingerprint Authentication in your phone.")
-      BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.showBottomSheetDialogFragment(
-          "Enable Fingerprint Authentication in your phone.")
+      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.closeSuccess()
+      BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.closeSuccess()
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
         if (view.checkBiometricSupport()) {
           view.showPrompt(view.createBiometricPrompt(),
@@ -51,9 +52,9 @@ class AuthenticationPromptPresenter(
     }
   }
 
-  private fun setBottomsheetOn(message: String) {
+  private fun setBottomsheetOn(timer: Long) {
     hasBottomsheetOn = true
-    view.showBottomSheetDialogFragment(message)
+    view.showAuthenticationBottomSheet(timer)
   }
 
   private fun handleAuthenticationResult() {
@@ -66,12 +67,12 @@ class AuthenticationPromptPresenter(
               if (it.errorCode == BiometricPrompt.ERROR_USER_CANCELED || it.errorCode == BiometricPrompt.ERROR_CANCELED) {
                 view.closeCancel()
               } else {
-                setBottomsheetOn(it.errorString.toString())
+                setBottomsheetOn(getAuthenticationTimer())
               }
             }
-            FingerprintResult.FAIL -> {
-              view.showFail()
-            }
+            /*FingerprintResult.Fail happens when user fails authentication using, for example, a fingerprint that isn't associated yet
+            * Also, the Biometric library already shows a fail message withing the prompt.*/
+            FingerprintResult.FAIL -> Unit
           }
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -82,9 +83,21 @@ class AuthenticationPromptPresenter(
         .observeOn(viewScheduler)
         .doOnNext {
           hasBottomsheetOn = false
-          showEverything()
+          view.closeCancel()
         }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun getAuthenticationTimer(): Long {
+    val lastAuthenticationErrorTime = preferencesRepositoryType.getAuthenticationErrorTime()
+    val currentTime = System.currentTimeMillis()
+    return if (currentTime - lastAuthenticationErrorTime >= ERROR_RETRY_TIME_IN_MILLIS) {
+      preferencesRepositoryType.setAuthenticationErrorTime(currentTime)
+      30
+    } else {
+      val time = (ERROR_RETRY_TIME_IN_MILLIS - (currentTime - lastAuthenticationErrorTime)).toDouble()
+      ceil(time/1000).toLong()
+    }
   }
 
   fun onSaveInstanceState(outState: Bundle) {

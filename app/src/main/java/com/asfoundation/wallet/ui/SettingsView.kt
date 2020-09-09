@@ -7,15 +7,11 @@ interface SettingsView {
 
   fun setupPreferences()
 
-  fun setVerifiedWalletPreference()
-
-  fun setUnverifiedWalletPreference()
-
-  fun setWalletValidationNoNetwork()
-
   fun setRedeemCodePreference(walletAddress: String)
 
   fun showError()
 
   fun navigateToIntent(intent: Intent)
+
+  //fun getSwitchClick(): Observable<Boolean>
 }

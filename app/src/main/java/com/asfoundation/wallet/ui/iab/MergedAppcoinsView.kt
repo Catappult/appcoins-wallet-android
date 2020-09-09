@@ -38,7 +38,4 @@ interface MergedAppcoinsView {
   fun showAuthenticationActivity(selectedPaymentId: String,
                                  gamificationLevel: Int)
 
-  fun navigateToPayment(selectedPaymentId: String,
-                        gamificationLevel: Int)
-
 }

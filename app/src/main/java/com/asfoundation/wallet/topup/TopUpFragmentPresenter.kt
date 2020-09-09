@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.topup
 
 import android.util.Log
+import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -24,13 +26,15 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val networkScheduler: Scheduler,
                              private val topUpAnalytics: TopUpAnalytics,
                              private val formatter: CurrencyFormatUtils,
-                             private val selectedValue: String?) {
+                             private val selectedValue: String?,
+                             private val logger: Logger) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var gamificationLevel = 0
   private var hasDefaultValues = false
 
   companion object {
+    private val TAG = TopUpFragmentPresenter::class.java.name
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
   }
 
@@ -43,6 +47,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handlePaymentMethodSelected()
     handleValuesClicks()
     handleKeyboardEvents()
+    handleAuthenticationResult()
   }
 
   fun stop() {
@@ -100,12 +105,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           else view.hideValuesAdapter()
         }
         .subscribeOn(viewScheduler)
-        .subscribe()
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
+    logger.log(TAG, throwable)
     if (throwable.isNoNetworkException()) view.showNoNetworkError()
   }
 
@@ -138,11 +144,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     if (preferencesRepositoryType.hasAuthenticationPermission()) {
                       activity?.showAuthenticationActivity(topUpData, gamificationLevel)
                     } else {
-                      activity?.navigateToPayment(topUpData, gamificationLevel)
+                      navigateToPayment(topUpData, gamificationLevel)
                     }
                   }
             }
-            .subscribe())
+            .subscribe({}, { handleError(it) }))
   }
 
 
@@ -224,10 +230,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handlePaymentMethodSelected() {
-    disposables.add(
-        view.getPaymentMethodClick()
-            .doOnNext { view.paymentMethodsFocusRequest() }
-            .subscribe())
+    disposables.add(view.getPaymentMethodClick()
+        .doOnNext { view.paymentMethodsFocusRequest() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun loadBonusIntoView(appPackage: String, amount: String,
@@ -348,7 +353,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         }
         .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
         .doOnNext { view.enableSwapCurrencyButton() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun convertAndChangeMainValue(currency: String, amount: BigDecimal) {
@@ -358,6 +363,34 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnNext { view.changeMainValueText(it.amount.toString()) }
         .doOnError { handleError(it) }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleAuthenticationResult() {
+    disposables.add(activity!!.onAuthenticationResult()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          if (it.isSuccess) {
+            navigateToPayment(it.topUpData, it.gamificationLevel)
+          }
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+ private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
+    val paymentMethod = topUpData.paymentMethod!!
+    when (paymentMethod.paymentType) {
+      PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(
+          paymentMethod.paymentType, mapTopUpPaymentData(topUpData, gamificationLevel))
+      PaymentType.LOCAL_PAYMENTS ->
+        activity?.navigateToLocalPayment(paymentMethod.paymentId, paymentMethod.icon,
+            paymentMethod.label, mapTopUpPaymentData(topUpData, gamificationLevel))
+    }
+  }
+
+  private fun mapTopUpPaymentData(topUpData: TopUpData, gamificationLevel: Int): TopUpPaymentData {
+    return TopUpPaymentData(topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode,
+        topUpData.selectedCurrencyType, topUpData.bonusValue, topUpData.currency.fiatCurrencySymbol,
+        topUpData.currency.appcValue, "TOPUP", gamificationLevel)
   }
 
 }

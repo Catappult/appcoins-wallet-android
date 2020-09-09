@@ -30,7 +30,6 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   private var retryClickSubject: PublishSubject<Any>? = null
 
-
   companion object {
     const val RESULT_OK = 0
     const val RESULT_CANCELED = 1
@@ -98,11 +97,13 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     retryClickSubject?.onNext("")
   }
 
-
-  override fun showBottomSheetDialogFragment(message: String) {
-    val bottomSheetFragment =
-        AuthenticationErrorBottomSheetFragment.newInstance(message)
-    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+  override fun showAuthenticationBottomSheet(timer: Long) {
+    supportFragmentManager.beginTransaction()
+        .setCustomAnimations(R.anim.fade_in_animation, R.anim.fragment_slide_down,
+            R.anim.fade_in_animation, R.anim.fragment_slide_down)
+        .replace(R.id.bottom_sheet_error_fragment_container,
+            AuthenticationErrorFragment.newInstance(timer))
+        .commit()
   }
 
   override fun showPrompt(biometricPrompt: BiometricPrompt,
@@ -130,9 +131,14 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     finishAndRemoveTask()
   }
 
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstanceState(outState)
+  }
+
+  override fun onBackPressed() {
+    closeCancel()
   }
 
   override fun onDestroy() {
@@ -141,6 +147,5 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     presenter.stop()
     super.onDestroy()
   }
-
 
 }

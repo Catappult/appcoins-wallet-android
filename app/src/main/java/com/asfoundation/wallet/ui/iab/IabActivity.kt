@@ -16,8 +16,8 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.PaymentNavigationData
@@ -53,6 +53,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
   @Inject
+  lateinit var logger: Logger
+
+  @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
   private lateinit var presenter: IabPresenter
@@ -86,7 +89,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
-            walletBlockedInteract)
+            walletBlockedInteract, logger)
     if (savedInstanceState == null) showPaymentMethodsView()
   }
 
@@ -115,7 +118,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       presenter.handleWalletBlockedCheck(errorMessage)
     } else if (requestCode == AUTHENTICATION_REQUEST_CODE) {
       if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-        paymentNavigationData?.let { navigateToPayment(it) }
+        paymentNavigationData?.let {
+          authenticationResultSubject?.onNext(
+              PaymentAuthenticationResult(true, it))
+        }
       } else if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
         paymentNavigationData?.let {
           authenticationResultSubject?.onNext(PaymentAuthenticationResult(false, it))
@@ -372,72 +378,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
-
   override fun showAuthenticationActivity(paymentNavigationData: PaymentNavigationData) {
     this.paymentNavigationData = paymentNavigationData
     val intent = AuthenticationPromptActivity.newIntent(this)
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-    startActivityForResult(intent, TopUpActivity.AUTHENTICATION_REQUEST_CODE)
+        .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
   override fun onAuthenticationResult(): Observable<PaymentAuthenticationResult> {
     return authenticationResultSubject!!
   }
-
-
-  override fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
-    when (paymentMethodsMapper.map(paymentNavigationData.selectedPaymentId)) {
-      PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> showAdyenPayment(
-          paymentNavigationData.fiatAmount,
-          paymentNavigationData.fiatCurrency, isBds,
-          PaymentType.PAYPAL, paymentNavigationData.bonusMessageValue,
-          paymentNavigationData.isPreselected, null,
-          paymentNavigationData.gamificationLevel)
-      PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> showAdyenPayment(
-          paymentNavigationData.fiatAmount,
-          paymentNavigationData.fiatCurrency, isBds,
-          PaymentType.CARD, paymentNavigationData.bonusMessageValue,
-          paymentNavigationData.isPreselected, null,
-          paymentNavigationData.gamificationLevel)
-      PaymentMethodsView.SelectedPaymentMethod.APPC -> showOnChain(
-          paymentNavigationData.fiatAmount,
-          isBds, paymentNavigationData.bonusMessageValue,
-          paymentNavigationData.gamificationLevel)
-
-      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> showAppcoinsCreditsPayment(
-          transaction!!.amount(), paymentNavigationData.gamificationLevel)
-
-      PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> {
-        val isOneStep: Boolean = transaction!!.type
-            .equals("INAPP_UNMANAGED", ignoreCase = true)
-        showShareLinkPayment(transaction!!.domain, transaction!!.skuId,
-            if (isOneStep) transaction!!.originalOneStepValue else null,
-            if (isOneStep) transaction!!.originalOneStepCurrency else null,
-            transaction!!.amount(),
-            transaction!!.type, paymentNavigationData.selectedPaymentId)
-      }
-
-      PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> {
-        val isOneStep: Boolean = transaction!!.type
-            .equals("INAPP_UNMANAGED", ignoreCase = true)
-        showLocalPayment(transaction!!.domain, transaction!!.skuId,
-            if (isOneStep) transaction!!.originalOneStepValue else null,
-            if (isOneStep) transaction!!.originalOneStepCurrency else null,
-            paymentNavigationData.bonusMessageValue,
-            paymentNavigationData.selectedPaymentId, transaction!!.toAddress(),
-            transaction!!.type,
-            transaction!!.amount(), transaction!!.callbackUrl,
-            transaction!!.orderReference, transaction!!.payload,
-            paymentNavigationData.selectedPaymentIcon!!,
-            paymentNavigationData.selectedPaymentLabel!!,
-            paymentNavigationData.gamificationLevel)
-      }
-
-    }
-
-
-  }
-
 
   companion object {
 
