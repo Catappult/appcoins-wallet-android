@@ -1,7 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.*
-import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.IOException
 import java.math.BigDecimal
@@ -43,7 +42,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return local.getLastShownLevel(wallet, screen)
   }
 
-  override fun shownLevel(wallet: String, level: Int, screen: String): Completable {
+  override fun shownLevel(wallet: String, level: Int, screen: String) {
     return local.saveShownLevel(wallet, level, screen)
   }
 
