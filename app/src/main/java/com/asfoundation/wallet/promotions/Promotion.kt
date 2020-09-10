@@ -62,7 +62,7 @@ class ReferralItem(
 
 class GamificationLinkItem(
     id: String,
-    val title: String,
+    val description: String,
     val icon: String?,
     startDate: Long?,
     endDate: Long
