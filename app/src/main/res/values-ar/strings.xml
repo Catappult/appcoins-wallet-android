@@ -756,7 +756,14 @@
   <string name="perks_gamif_subtitle">كلما أنفقت أكثر في تطبيقاتك المفضلة، كانت المكافأة أكبر!</string>
   <string name="perks_title">ترقيات</string>
   <string name="perks_body">ترقّبوا! لدينا ترقيات خاصة من أجلك.</string>
-  <string name="perks_end_in_days">تنتهي الترقيات في %s يومًا.</string>
+  <plurals name="promotion_ends">
+    <item quantity="zero">The promotion ends in %s days.</item>
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="two">The promotion ends in %s days.</item>
+    <item quantity="few">The promotion ends in %s days.</item>
+    <item quantity="many">The promotion ends in %s days.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">تنتهي الترقية في %s.</string>
   <string name="perks_available_soon">ترقيات متوفرة قريبًا</string>
   <string name="perks_next_level_reward">إذا وصلت المستوى التالي تحصل على رصيد %s AppCoins!</string>
