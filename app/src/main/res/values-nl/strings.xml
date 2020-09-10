@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Wallet herstellen</string>
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">VIA BESTAND HERSTELLEN</string>
   <string name="import_wallet_button">WALLET HERSTELLEN</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
