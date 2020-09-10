@@ -564,6 +564,7 @@
   <string name="import_wallet_title">กู้คืน Wallet</string>
   <string name="import_wallet_body">วางข้อมูลสำรองของกระเป๋าสตางค์ของคุณด้านล่าง</string>
   <string name="import_wallet_keystore_private_keys">Keystore หรือคีย์ส่วนตัว</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">ลบจากไฟล์</string>
   <string name="import_wallet_button">กู้ค่ากระเป๋าสตางค์</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
