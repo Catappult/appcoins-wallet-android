@@ -12,6 +12,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_promotions_default.view.*
+import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
@@ -132,9 +133,9 @@ class FutureViewHolder(itemView: View,
         .load(futureItem.icon)
         .error(R.drawable.ic_promotions_default)
         .circleCrop()
-        .into(itemView.default_icon)
+        .into(itemView.future_icon)
 
-    itemView.default_title.text = futureItem.description
+    itemView.future_title.text = futureItem.description
   }
 
 }
