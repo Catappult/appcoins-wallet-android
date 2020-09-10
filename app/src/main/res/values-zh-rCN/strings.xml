@@ -750,7 +750,9 @@
   <string name="perks_gamif_subtitle">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="perks_title">促销</string>
   <string name="perks_body">敬请关注！我们为您推出了特别促销。</string>
-  <string name="perks_end_in_days">促销将在%s天内结束。</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">促销将在%s结束。</string>
   <string name="perks_available_soon">促销即将推出</string>
   <string name="perks_next_level_reward">达到下一关可获取%s AppCoins积金！</string>
