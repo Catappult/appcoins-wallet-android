@@ -22,6 +22,10 @@ import java.util.concurrent.TimeUnit
 
 abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+  companion object {
+    const val DAYS_TO_SHOW_EXPIRATION_DATE = 3
+  }
+
   abstract fun bind(promotion: Promotion)
 
   protected fun handleExpiryDate(textView: TextView, containerDate: LinearLayout, endDate: Long) {
@@ -29,11 +33,13 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     val diff: Long = endDate - currentTime
     val days = TimeUnit.DAYS.convert(diff, TimeUnit.SECONDS)
 
-    if (days > 3) {
+    if (days > DAYS_TO_SHOW_EXPIRATION_DATE) {
       containerDate.visibility = View.GONE
     } else {
       containerDate.visibility = View.VISIBLE
-      textView.text = itemView.context.getString(R.string.perks_end_in_days, days.toString())
+      textView.text =
+          itemView.context.resources.getQuantityString(R.plurals.promotion_ends, days.toInt(),
+              days.toString())
     }
   }
 

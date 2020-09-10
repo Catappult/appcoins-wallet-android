@@ -14,27 +14,27 @@ msgstr ""
 
 #. Card copy for the Purchase Promotion.
 #:
-msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
+msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
 msgstr "在%1$s消费，获取%2$s AppCoins积金。"
 
 #. Body for Purchase bonus receipt.
 #:
-msgid "Because you made a purchase in %1$s."
+msgid "Because you made a purchase in {0}."
 msgstr "因为你在%1$s消费了。"
 
 #. Card copy for the Expenditure Promotion.
 #:
-msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
 msgstr "在%3$s天内消费%1$s %2$s，获取%4$s AppCoins积金。"
 
 #. Body for Expenditure bonus receipt.
 #:
-msgid "Because you spent more than %1$s %2$s in the last %3$s days."
+msgid "Because you spent more than {0} {1} in the last {2} days."
 msgstr "因为你在过去%3$s天消费了%1$s以上的%2$s。"
 
 #. Card copy for the Next Level Promotion.
 #:
-msgid "Reach the next level and receive %1$s AppCoins Credits!"
+msgid "Reach the next level and receive {0} AppCoins Credits!"
 msgstr "达到下一关可获取%1$s AppCoins积金！"
 
 #. Body for Purchase bonus receipt.
@@ -50,11 +50,11 @@ msgstr "因为你已达到下一级。"
 
 #. Card copy for Extra Gamification Bonus.
 #:
-msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
 msgstr "%2$s的所有消费中，额外获取%1$s%%奖励。"
 
 #. Title for bonus receipt.
 #:
-msgid "+%1$s AppCoins Credits Bonus!"
+msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+%1$s AppCoins积金奖励！"
 
