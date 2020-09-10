@@ -70,7 +70,7 @@ class ProgressViewHolder(itemView: View,
         .circleCrop()
         .into(itemView.progress_icon)
 
-    itemView.progress_title.text = progressItem.title
+    itemView.progress_title.text = progressItem.description
     if (progressItem.objective != null) {
       itemView.progress_current.max = progressItem.objective.toInt()
       itemView.progress_current.progress = progressItem.current.toInt()
@@ -104,7 +104,7 @@ class DefaultViewHolder(itemView: View,
         .circleCrop()
         .into(itemView.default_icon)
 
-    itemView.default_title.text = defaultItem.title
+    itemView.default_title.text = defaultItem.description
     handleExpiryDate(itemView.default_expiry_date, itemView.default_container_date,
         defaultItem.endDate)
   }
@@ -128,7 +128,7 @@ class FutureViewHolder(itemView: View,
         .circleCrop()
         .into(itemView.default_icon)
 
-    itemView.default_title.text = futureItem.title
+    itemView.default_title.text = futureItem.description
   }
 
 }
