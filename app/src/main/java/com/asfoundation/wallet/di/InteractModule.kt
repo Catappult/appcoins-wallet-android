@@ -273,11 +273,9 @@ class InteractModule {
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
-                                  gamificationMapper: GamificationMapper,
-                                  sharedPreferencesRepository: PreferencesRepositoryType): PromotionsInteractorContract {
+                                  gamificationMapper: GamificationMapper): PromotionsInteractorContract {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, gamificationMapper,
-        sharedPreferencesRepository)
+        promotionsRepository, findDefaultWalletInteract, gamificationMapper)
   }
 
   @Provides

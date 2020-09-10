@@ -10,7 +10,6 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
@@ -24,8 +23,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val gamificationInteractor: GamificationInteractor,
                            private val promotionsRepo: PromotionsRepository,
                            private val findWalletInteract: FindDefaultWalletInteract,
-                           private val mapper: GamificationMapper,
-                           private val sharedPreferencesRepository: PreferencesRepositoryType) :
+                           private val mapper: GamificationMapper) :
     PromotionsInteractorContract {
 
   companion object {
@@ -131,14 +129,16 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                                       screen: PromotionUpdateScreen) {
     promotions.forEach {
       when (it) {
-        is FutureItem -> promotionsRepo.setSeenGenericPromotion(
+        is GamificationItem -> {
+          promotionsRepo.shownLevel(wallet, it.level, GamificationScreen.PROMOTIONS.name)
+          it.links.forEach { gamificationLinkItem ->
+            promotionsRepo.setSeenGenericPromotion(
+                getPromotionIdKey(gamificationLinkItem.id, gamificationLinkItem.startDate,
+                    gamificationLinkItem.endDate), screen.name)
+          }
+        }
+        is PerkPromotion -> promotionsRepo.setSeenGenericPromotion(
             getPromotionIdKey(it.id, it.startDate, it.endDate), screen.name)
-        is DefaultItem -> promotionsRepo.setSeenGenericPromotion(
-            getPromotionIdKey(it.id, it.startDate, it.endDate), screen.name)
-        is ProgressItem -> promotionsRepo.setSeenGenericPromotion(
-            getPromotionIdKey(it.id, it.startDate, it.endDate), screen.name)
-        is GamificationItem -> promotionsRepo.shownLevel(wallet, it.level,
-            GamificationScreen.PROMOTIONS.name)
       }
     }
   }
@@ -199,7 +199,9 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,
                                         genericResponse: GenericResponse) {
     val gamificationItem = promotions[1] as GamificationItem
-    gamificationItem.links.add(GamificationLinkItem(genericResponse.description, genericResponse.icon))
+    gamificationItem.links.add(
+        GamificationLinkItem(genericResponse.id, genericResponse.description, genericResponse.icon,
+            genericResponse.startDate, genericResponse.endDate))
   }
 
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
