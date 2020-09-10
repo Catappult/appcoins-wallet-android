@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- SDK - Purchasing when wallet is not installed -->
+  <string name="iab_wallet_not_installed_popup_body">要购买此物品，你需要先获取%s。</string>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="iab_wallet_not_installed_popup_close_button">关闭</string>
+  <!-- SDK - Purchasing when neither wallet or app store are installed -->
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">你需要使用AppCoins Wallet来进行此次购买。请从Aptoide或Play Store下载，然后回来完成购买！</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">明白了！</string>
+  <!-- SDK - PoA when wallet is not installed -->
+  <string name="poa_wallet_not_installed_notification_title">你需要AppCoins钱包！</string>
+  <string name="poa_wallet_not_installed_notification_body">要获取奖励，你需要AppCoins钱包。</string>
+  <!-- SDK - Pay as a guest-->
+  <string name="iab_pay_as_guest_title">以访客身份付款</string>
+  <string name="iab_pay_as_guest_credit_card">信用卡</string>
+  <string name="iab_pay_as_guest_paypal">PayPal</string>
+  <string name="iab_switch_to_paypal">使用PAYPAL付款</string>
+  <string name="iab_switch_to_credit_card">使用信用卡付款</string>
+  <string name="iab_card_number">卡号</string>
+  <string name="iab_card_expiry">MM/YY</string>
+  <string name="iab_card_cvv">CVV</string>
+  <string name="iab_card_cvv_cvc">CVC/CVV</string>
+  <string name="iab_change_card_button">更换卡</string>
+  <string name="iab_pay_with_wallet_title">使用AppCoins Wallet付款</string>
+  <string name="iab_pay_with_wallet_reward_title">获取高达%s%%的奖励！</string>
+  <string name="iab_pay_with_wallet_reward_body">你通过此次购买将获得%s。</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">你将通过此次购买获得奖励。</string>
+  <string name="iab_best_deal">最佳优惠</string>
+  <string name="iab_purchase_done_title">完成！</string>
+  <string name="iab_purchase_done_reward_title">下次使用AppCoins Wallet付款，获取高达%s%%的奖励！</string>
+  <string name="iab_purchase_done_reward_no_connection_title">下次使用AppCoins Wallet付款，可以获得奖励！</string>
+  <string name="iab_purchase_done_reward_body">你本可以通过此次购买获得%s。</string>
+  <string name="iab_purchase_done_title_long">购买完成！</string>
+  <string name="iab_purchase_change_payment_method_button">更多付款方式</string>
+  <string name="iab_purchase_support_1">需要帮助？</string>
+  <string name="iab_purchase_support_2_link">与支持人员联系。</string>
+  <!-- SDK - Common -->
+  <string name="next_button">下一步</string>
+  <string name="cancel_button">取消</string>
+  <string name="buy_button">购买</string>
+  <string name="iab_wallet_not_installed_popup_close_install">安装钱包</string>
+  <string name="button_ok">确定</string>
+  <string name="install_button">安装</string>
+  <!-- Error messages -->
+  <string name="title_dialog_error">错误</string>
+  <string name="purchase_error_item_owned">您已拥有此物品！</string>
+  <string name="purchase_card_error_title">糟糕，出现错误。</string>
+  <string name="purchase_card_error_general_1">你的卡出现问题。请重试或与我们联系。</string>
+  <string name="purchase_card_error_general_2">交易已被你的银行拒绝。请尝试使用其他卡或与我们联系。</string>
+  <string name="purchase_card_error_no_funds">你的卡似乎资金不足或存在限制。请尝试使用其他卡。</string>
+  <string name="purchase_card_error_expired">你的卡似乎已经过期。请尝试使用其他卡。</string>
+  <string name="purchase_card_error_invalid_details">你确定卡号正确吗？请检查，然后重试。</string>
+  <string name="purchase_card_error_not_supported">尚不支持你的卡类型。请尝试使用其他卡。</string>
+  <string name="purchase_card_error_security">你确定安全信息正确吗？请重试。</string>
+  <string name="purchase_card_error_wrong_CVV">你的CVV/CVC代码似乎有误。请重试。</string>
+  <string name="purchase_card_error_CVV">CVV/CVC错误</string>
+  <string name="error_contac_us_body">如果问题仍然存在，请与我们联系。</string>
+</resources>
