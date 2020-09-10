@@ -199,17 +199,17 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,
                                         genericResponse: GenericResponse) {
     val gamificationItem = promotions[1] as GamificationItem
-    gamificationItem.links.add(GamificationLinkItem(genericResponse.title, genericResponse.icon))
+    gamificationItem.links.add(GamificationLinkItem(genericResponse.description, genericResponse.icon))
   }
 
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
-    return ProgressItem(genericResponse.id, genericResponse.title, genericResponse.icon,
+    return ProgressItem(genericResponse.id, genericResponse.description, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate, genericResponse.currentProgress!!,
         genericResponse.objectiveProgress)
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
-    return DefaultItem(genericResponse.id, genericResponse.title, genericResponse.icon,
+    return DefaultItem(genericResponse.id, genericResponse.description, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate)
   }
 
@@ -230,7 +230,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
-    return FutureItem(genericResponse.id, genericResponse.title, genericResponse.icon,
+    return FutureItem(genericResponse.id, genericResponse.description, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate)
   }
 

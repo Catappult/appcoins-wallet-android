@@ -16,7 +16,7 @@ class TitleItem(
 
 class DefaultItem(
     id: String,
-    val title: String,
+    val description: String,
     val icon: String?,
     val startDate: Long?,
     val endDate: Long
@@ -24,7 +24,7 @@ class DefaultItem(
 
 class FutureItem(
     id: String,
-    val title: String,
+    val description: String,
     val icon: String?,
     val startDate: Long?,
     val endDate: Long
@@ -32,7 +32,7 @@ class FutureItem(
 
 class ProgressItem(
     id: String,
-    val title: String,
+    val description: String,
     val icon: String?,
     val startDate: Long?,
     val endDate: Long,
