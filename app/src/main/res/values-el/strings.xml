@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Ανάκτηση Wallet</string>
   <string name="import_wallet_body">Επικολλήστε το αντίγραφο ασφαλείας του wallet σας παρακάτω.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ή ιδιωτικά κλειδιά</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">ΑΝΑΚΤΗΣΗ ΑΠΟ ΑΡΧΕΙΟ</string>
   <string name="import_wallet_button">ΑΝΑΚΤΗΣΗ WALLET</string>
   <string name="import_wallet_password_body">Αυτό το wallet προστατεύεται από κωδικό!</string>
