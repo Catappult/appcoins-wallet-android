@@ -6,7 +6,7 @@
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/restore_button_layout"
-      android:layout_width="wrap_content"
+      android:layout_width="150dp"
       android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@id/vertical_guideline2"
@@ -43,7 +43,7 @@
   </androidx.constraintlayout.widget.ConstraintLayout>
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/create_new_button_layout"
-      android:layout_width="wrap_content"
+      android:layout_width="150dp"
       android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
