@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Cüzdanı geri yükle</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">DOSYADAN GERİ YÜKLE</string>
   <string name="import_wallet_button">CÜZDANI GERİ YÜKLE</string>
   <string name="import_wallet_password_body">Bu cüzdan şifre korumalıdır!</string>
