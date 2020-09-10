@@ -753,7 +753,12 @@
   <string name="perks_gamif_subtitle">Чем больше вы тратите в ваших любимых приложениях – тем больше бонус!</string>
   <string name="perks_title">Продвижения</string>
   <string name="perks_body">Будьте в курсе! У нас есть специальные предложения для вас.</string>
-  <string name="perks_end_in_days">Акция заканчивается через %s дн.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="few">The promotion ends in %s days.</item>
+    <item quantity="many">The promotion ends in %s days.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Акция заканчивается %s.</string>
   <string name="perks_available_soon">Акция скоро появится</string>
   <string name="perks_next_level_reward">Достигните следующего уровня и получите %s AppCoins Credits!</string>
