@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Dapatkan Semula Dompet</string>
   <string name="import_wallet_body">Tampal sandaran dompet anda di bawah.</string>
   <string name="import_wallet_keystore_private_keys">Kunci gedung atau kunci peribadi</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">DAPATKAN DARIPADA FAIL</string>
   <string name="import_wallet_button">DAPATKAN SEMULA DOMPET</string>
   <string name="import_wallet_password_body">Dompet ini dilindungi kata laluan!</string>
@@ -749,7 +750,9 @@
   <string name="perks_gamif_subtitle">Lebih banyak anda berbelanja dalam aplikasi kegemaran anda, lebih besar bonusnya!</string>
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan ke mana-mana! Kami ada promosi istimewa untuk anda.</string>
-  <string name="perks_end_in_days">Promosi tamat dalam tempoh %s hari.</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promosi tamat pada %s.</string>
   <string name="perks_available_soon">Promosi akan tiba tak lama lagi</string>
   <string name="perks_next_level_reward">Capai tahap seterusnya untuk dapat %s Kredit AppCoins!</string>
