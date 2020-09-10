@@ -103,12 +103,14 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   }
 
   override fun shareFile(uri: Uri) {
-    ShareCompat.IntentBuilder.from(activity!!)
-        .setStream(uri)
-        .setType("text/json")
-        .setSubject(getString(R.string.tab_keystore))
-        .setChooserTitle(R.string.share_via)
-        .startChooser()
+    activity?.let {
+      ShareCompat.IntentBuilder.from(it)
+          .setStream(uri)
+          .setType("text/json")
+          .setSubject(getString(R.string.tab_keystore))
+          .setChooserTitle(R.string.share_via)
+          .startChooser()
+    }
   }
 
   override fun getFirstSaveClick() = RxView.clicks(proceed_button)

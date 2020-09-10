@@ -22,15 +22,13 @@
         >
       <TextView
           android:id="@+id/import_title"
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          style="@style/RestoreTitleTextStyle"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
           android:layout_marginTop="12dp"
           android:layout_marginEnd="8dp"
           android:text="@string/import_wallet_body"
-          android:textColor="@color/black_87_alpha"
-          android:textSize="14sp"
           app:layout_constraintEnd_toEndOf="@id/half_vertical_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -64,14 +62,12 @@
 
       <TextView
           android:id="@+id/import_from_file_title"
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          style="@style/RestoreTitleTextStyle"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp"
           android:text="@string/import_wallet_body"
-          android:textColor="@color/black_87_alpha"
-          android:textSize="14sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/half_vertical_guideline"
           app:layout_constraintTop_toTopOf="@id/import_title"
@@ -151,7 +147,7 @@
         />
     <Button
         android:id="@+id/import_wallet_button"
-        style="@style/ButtonStyle.Alternative"
+        style="@style/ButtonStyle.Alternative.Backup"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentTop="true"
@@ -161,8 +157,6 @@
         android:enabled="false"
         android:letterSpacing="0.09"
         android:lineSpacingExtra="2sp"
-        android:paddingStart="78dp"
-        android:paddingEnd="78dp"
         android:text="@string/import_wallet_button"
         android:textSize="14sp"
         />

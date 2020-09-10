@@ -35,7 +35,6 @@
           android:layout_marginStart="56dp"
           android:layout_marginTop="@dimen/backup_success_text_margin_top"
           android:layout_marginEnd="56dp"
-          android:gravity="center"
           android:text="@string/backup_confirmation_no_share_title"
           app:layout_constraintBottom_toTopOf="@id/description"
           app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +50,6 @@
           android:layout_marginStart="56dp"
           android:layout_marginTop="8dp"
           android:layout_marginEnd="56dp"
-          android:gravity="center"
           android:text="@string/backup_confirmation_no_share_body"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -117,15 +115,13 @@
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/close_btn"
-        style="@style/MaterialButtonStyle"
+        style="@style/MaterialButtonStyle.Backup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:paddingStart="58dp"
-        android:paddingEnd="58dp"
         android:text="@string/got_it_button"
         />
 

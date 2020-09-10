@@ -166,15 +166,13 @@
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backup_btn"
-        style="@style/MaterialButtonStyle"
+        style="@style/MaterialButtonStyle.Backup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:paddingStart="58dp"
-        android:paddingEnd="58dp"
         android:text="@string/backup_button"
         />
 

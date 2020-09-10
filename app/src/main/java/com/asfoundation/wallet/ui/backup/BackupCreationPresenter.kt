@@ -128,8 +128,8 @@ class BackupCreationPresenter(
     disposables.add(view.getFinishClick()
         .observeOn(viewScheduler)
         .doOnNext {
-          activityView.closeScreen()
           walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH)
+          activityView.closeScreen()
         }
         .subscribe({}, { activityView.closeScreen() })
     )
@@ -138,17 +138,18 @@ class BackupCreationPresenter(
   private fun handleFirstSaveClick() {
     disposables.add(view.getFirstSaveClick()
         .observeOn(viewScheduler)
-        .doOnNext {
-          val file = fileInteractor.getCachedFile()
-          if (file == null) {
-            showError("Error retrieving file")
-          } else {
-            fileShared = true
-            view.shareFile(fileInteractor.getUriFromFile(file))
-            walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
-          }
-        }
+        .doOnNext { shareFile(fileInteractor.getCachedFile()) }
         .subscribe({}, { logger.log(TAG, it) }))
+  }
+
+  private fun shareFile(file: File?) {
+    if (file == null) {
+      showError("Error retrieving file")
+    } else {
+      fileShared = true
+      view.shareFile(fileInteractor.getUriFromFile(file))
+      walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
+    }
   }
 
   private fun handleSaveAgainClick() {

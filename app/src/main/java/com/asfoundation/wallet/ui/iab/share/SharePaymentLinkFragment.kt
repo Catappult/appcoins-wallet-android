@@ -207,11 +207,13 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
 
-    ShareCompat.IntentBuilder.from(activity!!)
-        .setText(url)
-        .setType("text/plain")
-        .setChooserTitle(R.string.askafriend_share_popup_title)
-        .startChooser()
+    activity?.let {
+      ShareCompat.IntentBuilder.from(it)
+          .setText(url)
+          .setType("text/plain")
+          .setChooserTitle(R.string.askafriend_share_popup_title)
+          .startChooser()
+    }
   }
 
   override fun close() {

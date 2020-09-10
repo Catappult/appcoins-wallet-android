@@ -6,6 +6,7 @@
   <dimen name="small_padding">4dp</dimen>
   <dimen name="normal_padding">8dp</dimen>
   <dimen name="big_padding">16dp</dimen>
+  <dimen name="half_large_padding">38dp</dimen>
   <dimen name="large_padding">76dp</dimen>
 
   <dimen name="small_margin">4dp</dimen>
