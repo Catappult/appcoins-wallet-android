@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Recupera wallet</string>
   <string name="import_wallet_body">Incolla il backup del tuo wallet di seguito.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o chiavi private</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">RECUPERA DA FILE</string>
   <string name="import_wallet_button">RECUPERA WALLET</string>
   <string name="import_wallet_password_body">Questo wallet è protetto da password!</string>
