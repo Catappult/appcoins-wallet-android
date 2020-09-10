@@ -751,7 +751,10 @@
   <string name="perks_gamif_subtitle">هر چه بیشتر در اپلیکیشن‌های محبوب خود خرج کنید، پاداش بزرگتر خواهد بود!</string>
   <string name="perks_title">پیشنهادات تشویقی</string>
   <string name="perks_body">منتظر باشید! پیشنهادات تشویقی ویژه‌ای برای شما دارید.</string>
-  <string name="perks_end_in_days">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">پیشنهاد تشویقی در %s به پایان می‌رسد.</string>
   <string name="perks_available_soon">پیشهاد تشویقی بزودی</string>
   <string name="perks_next_level_reward">به مرحله بعدی برسید تا %s AppCoins Credits بدست آورید!</string>
