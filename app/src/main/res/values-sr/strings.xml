@@ -752,7 +752,11 @@
   <string name="perks_gamif_subtitle">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="perks_title">Promocije</string>
   <string name="perks_body">Pratite nas! Pripremili smo vam posebne promocije.</string>
-  <string name="perks_end_in_days">Promocija će se završiti u roku od %s dana.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="few">The promotion ends in %s days.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promocija će se završiti %s.</string>
   <string name="perks_available_soon">Promocija će uskoro biti dostupna</string>
   <string name="perks_next_level_reward">Pređite na sledeći nivo da biste dobili %s AppCoins Credits!</string>
