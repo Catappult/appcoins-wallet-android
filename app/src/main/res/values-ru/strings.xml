@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Восстановить кошелёк</string>
   <string name="import_wallet_body">Вставьте бэкап вашего кошелька ниже.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">ВОССТАНОВИТЬ ИЗ ФАЙЛА</string>
   <string name="import_wallet_button">ВОССТАНОВИТЬ КОШЕЛЁК</string>
   <string name="import_wallet_password_body">Этот кошелёк защищен паролем!</string>
