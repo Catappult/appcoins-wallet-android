@@ -1,7 +1,7 @@
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgtr ""
+msgstr ""
 
 #. Card copy for the Purchase Promotion.
 #:
