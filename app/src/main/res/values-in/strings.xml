@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Pulihkan Dompet</string>
   <string name="import_wallet_body">Tempelkan cadangan dompet Anda di bawah ini.</string>
   <string name="import_wallet_keystore_private_keys">Keystore atau kunci pribadi</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">PULIHKAN DARI FILE</string>
   <string name="import_wallet_button">PULIHKAN DOMPET</string>
   <string name="import_wallet_password_body">Dompet ini diproteksi dengan kata sandi!</string>
