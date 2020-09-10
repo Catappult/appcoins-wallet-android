@@ -1,3 +1,8 @@
+#. Card Title
+#:
+msgid "Earn AppCoins Credits!"
+msgtr ""
+
 #. Card copy for the Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
