@@ -10,32 +10,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Punjabi\n"
 "Language: pa_IN\n"
-"PO-Revision-Date: 2020-08-22 17:03\n"
+"PO-Revision-Date: 2020-09-10 11:39\n"
+
+#. Card Title
+#:
+msgid "Earn AppCoins Credits!"
+msgstr ""
 
 #. Card copy for the Purchase Promotion.
 #:
-msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
-msgstr "%1$s ਵਿਚ ਖਰੀਦੋ ਅਤੇ %2$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
+msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
+msgstr ""
 
 #. Body for Purchase bonus receipt.
 #:
-msgid "Because you made a purchase in %1$s."
-msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ %1$s ਵਿੱਚ ਇੱਕ ਖਰੀਦ ਕੀਤੀ|"
+msgid "Because you made a purchase in {0}."
+msgstr ""
 
 #. Card copy for the Expenditure Promotion.
 #:
-msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
-msgstr "%3$s ਦਿਨਾਂ ਵਿੱਚ %1$s %2$s ਖਰਚ ਕਰੋ ਅਤੇ %4$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ"
+msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
+msgstr ""
 
 #. Body for Expenditure bonus receipt.
 #:
-msgid "Because you spent more than %1$s %2$s in the last %3$s days."
-msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਆਖਰੀ %3$s ਦਿਨਾਂ ਵਿੱਚ %1$s %2$s ਤੋਂ ਵੱਧ ਖਰਚ ਕੀਤਾ"
+msgid "Because you spent more than {0} {1} in the last {2} days."
+msgstr ""
 
 #. Card copy for the Next Level Promotion.
 #:
-msgid "Reach the next level and receive %1$s AppCoins Credits!"
-msgstr "ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚੋ ਅਤੇ %1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ!"
+msgid "Reach the next level and receive {0} AppCoins Credits!"
+msgstr ""
 
 #. Body for Purchase bonus receipt.
 #:
@@ -50,11 +55,11 @@ msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪ�
 
 #. Card copy for Extra Gamification Bonus.
 #:
-msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
-msgstr "%1$s%% ਵਿੱਚ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ %2$s ਵਾਧੂ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Title for bonus receipt.
 #:
-msgid "+%1$s AppCoins Credits Bonus!"
-msgstr "+%1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬੋਨਸ!"
+msgid "+{0} AppCoins Credits Bonus!"
+msgstr ""
 
