@@ -751,7 +751,10 @@
   <string name="perks_gamif_subtitle">Quanto mais gastares nas tuas apps favoritas, maior é o Bónus!</string>
   <string name="perks_title">Promoções</string>
   <string name="perks_body">Fica atento! Temos promoções especiais para ti.</string>
-  <string name="perks_end_in_days">A promoção termina em %s dias.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">A promoção termina a %s.</string>
   <string name="perks_available_soon">Promoção disponível brevemente</string>
   <string name="perks_next_level_reward">Chega ao próximo nível para receber %s AppCoins Credits!</string>
