@@ -750,7 +750,9 @@
   <string name="perks_gamif_subtitle">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar bonusnya!</string>
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan kemana-mana! Kami punya promosi khusus untuk Anda.</string>
-  <string name="perks_end_in_days">Promosi akan berakhir dalam %s hari.</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promosi akan berakhir pada %s.</string>
   <string name="perks_available_soon">Promosi akan segera tersedia</string>
   <string name="perks_next_level_reward">Raih level berikutnya untuk mendapatkan %s Kredit AppCoins!</string>
