@@ -751,7 +751,10 @@
   <string name="perks_gamif_subtitle">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το bonus!</string>
   <string name="perks_title">Προωθήσεις</string>
   <string name="perks_body">Μείνετε συντονισμένοι! Έχουμε ειδικές προωθήσεις για εσάς.</string>
-  <string name="perks_end_in_days">Η προώθηση τελειώνει σε %s ημέρες.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Η προώθηση τελειώνει στις %s.</string>
   <string name="perks_available_soon">Η προώθηση θα είναι διαθέσιμη σύντομα</string>
   <string name="perks_next_level_reward">Φτάστε στο επόμενο επίπεδο για να λάβετε %s AppCoins Credits!</string>
