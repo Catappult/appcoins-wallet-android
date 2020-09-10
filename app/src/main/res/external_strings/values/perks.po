@@ -1,26 +1,26 @@
 #. Card copy for the Purchase Promotion.
 #:
-msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
+msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
 msgstr ""
 
 #. Body for Purchase bonus receipt.
 #:
-msgid "Because you made a purchase in %1$s."
+msgid "Because you made a purchase in {0}."
 msgstr ""
 
 #. Card copy for the Expenditure Promotion.
 #:
-msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
 msgstr ""
 
 #. Body for Expenditure bonus receipt.
 #:
-msgid "Because you spent more than %1$s %2$s in the last %3$s days."
+msgid "Because you spent more than {0} {1} in the last {2} days."
 msgstr ""
 
 #. Card copy for the Next Level Promotion.
 #:
-msgid "Reach the next level and receive %1$s AppCoins Credits!"
+msgid "Reach the next level and receive {0} AppCoins Credits!"
 msgstr ""
 
 #. Body for Purchase bonus receipt.
@@ -35,10 +35,10 @@ msgstr ""
 
 #. Card copy for Extra Gamification Bonus.
 #:
-msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
 msgstr ""
 
 #. Title for bonus receipt.
 #:
-msgid "+%1$s AppCoins Credits Bonus!"
+msgid "+{0} AppCoins Credits Bonus!"
 msgstr ""
