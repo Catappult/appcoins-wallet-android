@@ -751,7 +751,10 @@
   <string name="perks_gamif_subtitle">Favori uygulamalarınızda ne kadar fazla harcarsanız o kadar fazla bonus kazanırsınız!</string>
   <string name="perks_title">Promosyonlar</string>
   <string name="perks_body">Takipte kalın! Sizin için özel promosyonlarımız var.</string>
-  <string name="perks_end_in_days">Promosyon %s gün içinde sona eriyor.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promosyon %s tarihinde sona eriyor.</string>
   <string name="perks_available_soon">Promosyon yakında kullanılabilir</string>
   <string name="perks_next_level_reward">%s AppCoins Credits kazanmak için bir sonraki seviyeye ulaşın!</string>
