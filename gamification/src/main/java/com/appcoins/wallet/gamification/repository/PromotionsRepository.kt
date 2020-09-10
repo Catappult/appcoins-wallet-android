@@ -2,7 +2,6 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
-import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -17,7 +16,7 @@ interface PromotionsRepository {
 
   fun getLastShownLevel(wallet: String, screen: String): Single<Int>
 
-  fun shownLevel(wallet: String, level: Int, screen: String): Completable
+  fun shownLevel(wallet: String, level: Int, screen: String)
 
   fun getSeenGenericPromotion(id: String, screen: String): Boolean
 

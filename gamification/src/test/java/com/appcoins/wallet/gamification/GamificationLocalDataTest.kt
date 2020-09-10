@@ -15,11 +15,9 @@ class GamificationLocalDataTest : GamificationLocalData {
   private var wallet: String? = null
   private var gamificationLevel: Int? = -1
 
-  override fun saveShownLevel(wallet: String, level: Int, screen: String): Completable {
-    return Completable.fromAction {
-      this.wallet = wallet
-      lastShownLevelResponse = Single.just(level)
-    }
+  override fun saveShownLevel(wallet: String, level: Int, screen: String) {
+    this.wallet = wallet
+    lastShownLevelResponse = Single.just(level)
   }
 
   fun getWallet(): String {

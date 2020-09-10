@@ -32,12 +32,10 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     return Single.fromCallable { preferences.getInt(getKey(wallet, screen), -1) }
   }
 
-  override fun saveShownLevel(wallet: String, level: Int, screen: String): Completable {
-    return Completable.fromCallable {
-      preferences.edit()
-          .putInt(getKey(wallet, screen), level)
-          .apply()
-    }
+  override fun saveShownLevel(wallet: String, level: Int, screen: String) {
+    return preferences.edit()
+        .putInt(getKey(wallet, screen), level)
+        .apply()
   }
 
   override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
