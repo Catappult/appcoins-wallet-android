@@ -10,32 +10,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Burmese\n"
 "Language: my_MM\n"
-"PO-Revision-Date: 2020-08-22 17:03\n"
+"PO-Revision-Date: 2020-09-10 11:40\n"
+
+#. Card Title
+#:
+msgid "Earn AppCoins Credits!"
+msgstr ""
 
 #. Card copy for the Purchase Promotion.
 #:
-msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
-msgstr "%1$s တြင္ ဝယ္ယူမႈတစ္ခု ျပဳလုပ္ၿပီး %2$s AppCoins Credits ကို ရယူလိုက္ပါ။"
+msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
+msgstr ""
 
 #. Body for Purchase bonus receipt.
 #:
-msgid "Because you made a purchase in %1$s."
-msgstr "%1$s တြင္ သင္ဝယ္ယူမႈတစ္ခု ျပဳလုပ္ခဲ့ျခင္းေၾကာင့္ ျဖစ္ပါသည္။"
+msgid "Because you made a purchase in {0}."
+msgstr ""
 
 #. Card copy for the Expenditure Promotion.
 #:
-msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
-msgstr "%3$s ရက္အတြင္း %1$s %2$s အသံုးျပဳကာ %4$s AppCoins Credits မ်ားကို ရယူလိုက္ပါ။"
+msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
+msgstr ""
 
 #. Body for Expenditure bonus receipt.
 #:
-msgid "Because you spent more than %1$s %2$s in the last %3$s days."
-msgstr "လြန္ခဲ့ေသာ %3$s ရက္အတြင္း သင္ %1$s %2$s ထက္ပို၍ အသံုးျပဳခဲ့ေသာေၾကာင့္ ျဖစ္ပါသည္။"
+msgid "Because you spent more than {0} {1} in the last {2} days."
+msgstr ""
 
 #. Card copy for the Next Level Promotion.
 #:
-msgid "Reach the next level and receive %1$s AppCoins Credits!"
-msgstr "ေနာက္တစ္ဆင့္သို႔ ေရာက္ေအာင္သြားကာ %1$s AppCoins Credits ကို ရယူလိုက္ပါ။"
+msgid "Reach the next level and receive {0} AppCoins Credits!"
+msgstr ""
 
 #. Body for Purchase bonus receipt.
 #:
@@ -50,11 +55,11 @@ msgstr "ေနာက္တစ္ဆင့္သို႔ သင္ေရာက�
 
 #. Card copy for Extra Gamification Bonus.
 #:
-msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
-msgstr "%2$s တြင္ သင့္ဝယ္ယူမႈမ်ား အားလံုး၌ %1$s%% ေဘာနပ္စ္ အပိုရယူလိုက္ပါ။"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Title for bonus receipt.
 #:
-msgid "+%1$s AppCoins Credits Bonus!"
-msgstr "+%1$s AppCoins Credits ေဘာနပ္စ္။"
+msgid "+{0} AppCoins Credits Bonus!"
+msgstr ""
 
