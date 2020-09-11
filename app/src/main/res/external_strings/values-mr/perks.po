@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Marathi\n"
 "Language: mr_IN\n"
-"PO-Revision-Date: 2020-09-10 15:58\n"
+"PO-Revision-Date: 2020-09-11 20:33\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr ""
+msgstr "अॅपकॉइन्स क्रेडीटस मिळवा!"
 
 #. Card copy for the Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr ""
+msgstr "{0} मध्ये खरेदी करा आणि {1} अॅपकॉइन्स क्रेडीटस मिळवा."
 
 #. Body for Purchase bonus receipt.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "कारण आपण {0} मध्ये खरेदी केलीत."
 
 #. Card copy for the Expenditure Promotion.
 #:
