@@ -67,7 +67,7 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp"
-          android:text="@string/import_wallet_body"
+          android:text="@string/import_wallet_from_file_title"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/half_vertical_guideline"
           app:layout_constraintTop_toTopOf="@id/import_title"
