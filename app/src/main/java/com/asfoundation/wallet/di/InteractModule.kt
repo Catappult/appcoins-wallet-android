@@ -352,9 +352,10 @@ class InteractModule {
   fun provideMergedAppcoinsInteractor(balanceInteract: BalanceInteract,
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportInteractor: SupportInteractor,
+                                      inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       walletService: WalletService): MergedAppcoinsInteract {
     return MergedAppcoinsInteract(balanceInteract, walletBlockedInteract, supportInteractor,
-        walletService)
+        inAppPurchaseInteractor, walletService)
   }
 
   @Provides
