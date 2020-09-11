@@ -33,7 +33,9 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
       containerDate.visibility = View.GONE
     } else {
       containerDate.visibility = View.VISIBLE
-      textView.text = itemView.context.getString(R.string.perks_end_in_days, days.toString())
+      textView.text =
+          itemView.context.resources.getQuantityString(R.plurals.promotion_ends, days.toInt(),
+              days.toString())
     }
   }
 

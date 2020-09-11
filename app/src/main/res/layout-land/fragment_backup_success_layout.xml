@@ -99,12 +99,13 @@
   <RelativeLayout
       android:id="@+id/button_layout"
       android:layout_width="match_parent"
-      android:layout_height="64dp"
+      android:layout_height="0dp"
+      android:layout_alignParentBottom="true"
       android:clipChildren="false"
       android:clipToPadding="false"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintHeight_max="86dp"
+      app:layout_constraintTop_toTopOf="@id/horizontal_guideline"
       >
     <View
         android:layout_width="match_parent"
@@ -114,15 +115,22 @@
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/close_btn"
-        style="@style/MaterialButtonStyle"
-        android:layout_width="match_parent"
+        style="@style/MaterialButtonStyle.Backup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/got_it_button"
         />
 
   </RelativeLayout>
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/horizontal_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.76"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
@@ -23,8 +21,8 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.active_wallet_card.*
 import kotlinx.android.synthetic.main.active_wallet_card.view.*
+import kotlinx.android.synthetic.main.fragment_wallets_bottom_sheet.*
 import kotlinx.android.synthetic.main.restore_create_buttons_layout.*
-import kotlinx.android.synthetic.main.wallets_layout.*
 import javax.inject.Inject
 
 class WalletsFragment : DaggerFragment(), WalletsView {
@@ -68,7 +66,7 @@ class WalletsFragment : DaggerFragment(), WalletsView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.wallets_layout, container, false)
+    return inflater.inflate(R.layout.fragment_wallets_bottom_sheet, container, false)
   }
 
   @SuppressLint("SetTextI18n")
@@ -89,13 +87,10 @@ class WalletsFragment : DaggerFragment(), WalletsView {
         currencyFormatter.formatCurrency(currentWalletBalance.balance.amount)
 
 
-    val layoutManager = LinearLayoutManager(context)
-    layoutManager.orientation = RecyclerView.VERTICAL
     val adapterList = removeCurrentWallet(walletsBalanceList)
     adapter =
         WalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter,
             WalletsViewType.BALANCE)
-    other_wallets_cards_recycler.layoutManager = layoutManager
     other_wallets_cards_recycler.adapter = adapter
     val walletsText =
         resources.getQuantityString(R.plurals.wallets_bottom_wallets_title, walletsBalanceList.size)

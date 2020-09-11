@@ -15,8 +15,8 @@
       >
     <ImageView
         android:id="@+id/restore_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/wallets_button_size"
+        android:layout_height="@dimen/wallets_button_size"
         android:src="@drawable/ic_restore_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,8 +52,8 @@
       >
     <ImageView
         android:id="@+id/create_new_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/wallets_button_size"
+        android:layout_height="@dimen/wallets_button_size"
         android:src="@drawable/ic_create_new_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

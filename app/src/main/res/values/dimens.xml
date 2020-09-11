@@ -6,6 +6,7 @@
   <dimen name="small_padding">4dp</dimen>
   <dimen name="normal_padding">8dp</dimen>
   <dimen name="big_padding">16dp</dimen>
+  <dimen name="half_large_padding">38dp</dimen>
   <dimen name="large_padding">76dp</dimen>
 
   <dimen name="small_margin">4dp</dimen>
@@ -45,4 +46,13 @@
   <dimen name="gamification_card_margin">16dp</dimen>
   <dimen name="bottom_sheet_corner_radius">8dp</dimen>
   <dimen name="promotions_item_margin">8dp</dimen>
+  <dimen name="bottom_sheet_peek_height">96dp</dimen>
+  <dimen name="wallets_button_size">32dp</dimen>
+  <dimen name="item_wallet_addr_height">56dp</dimen>
+  <dimen name="item_wallet_icon_height">31dp</dimen>
+  <dimen name="item_wallet_icon_width">32dp</dimen>
+  <dimen name="backup_success_icon_size">120dp</dimen>
+  <dimen name="backup_success_icon_margin_top">58dp</dimen>
+  <dimen name="backup_success_text_margin_top">24dp</dimen>
+  <dimen name="backup_success_text_box_horizontal_margin">16dp</dimen>
 </resources>
