@@ -10,32 +10,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2020-08-23 17:03\n"
+"PO-Revision-Date: 2020-09-10 15:57\n"
+
+#. Card Title
+#:
+msgid "Earn AppCoins Credits!"
+msgstr "AppCoins Credits verdienen!"
 
 #. Card copy for the Purchase Promotion.
 #:
-msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
-msgstr "Kaufe bei %1$s ein und erhalte %2$s AppCoinsCredits."
+msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
+msgstr "Kaufe bei {0} ein und erhalte {1} AppCoinsCredits."
 
 #. Body for Purchase bonus receipt.
 #:
-msgid "Because you made a purchase in %1$s."
-msgstr "Weil Sie in %1$s etwas eingekauft haben."
+msgid "Because you made a purchase in {0}."
+msgstr "Weil Sie in {0} etwas eingekauft haben."
 
 #. Card copy for the Expenditure Promotion.
 #:
-msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
-msgstr "Geben Sie %1$s %2$s in %3$s Tagen und erhalten Sie %4$s AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
+msgstr "Geben Sie {0} {1} in {2} Tagen und erhalten Sie {3} AppCoins Credits."
 
 #. Body for Expenditure bonus receipt.
 #:
-msgid "Because you spent more than %1$s %2$s in the last %3$s days."
-msgstr "Da Sie in den letzten %3$s Tagen mehr als %1$s %2$s ausgegeben haben."
+msgid "Because you spent more than {0} {1} in the last {2} days."
+msgstr "Da Sie in den letzten {2} Tagen mehr als {0} {1} ausgegeben haben."
 
 #. Card copy for the Next Level Promotion.
 #:
-msgid "Reach the next level and receive %1$s AppCoins Credits!"
-msgstr "Erreichen Sie den nächsten Level und erhalten Sie %1$s AppCoins Credits!"
+msgid "Reach the next level and receive {0} AppCoins Credits!"
+msgstr "Erreichen Sie den nächsten Level und erhalten Sie {0} AppCoins Credits!"
 
 #. Body for Purchase bonus receipt.
 #:
@@ -50,11 +55,11 @@ msgstr "Weil Sie den nächsten erreicht haben."
 
 #. Card copy for Extra Gamification Bonus.
 #:
-msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
-msgstr "Erhalten Sie einen zusätzlichen %1$s%% Bonus auf alle ihre Einkäufe in %2$s."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Title for bonus receipt.
 #:
-msgid "+%1$s AppCoins Credits Bonus!"
-msgstr "+%1$s AppCoins Credits Bonus!"
+msgid "+{0} AppCoins Credits Bonus!"
+msgstr "+{0} AppCoins Credits Bonus!"
 
