@@ -564,6 +564,7 @@
   <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">ဖိုင္မွ ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
@@ -749,7 +750,9 @@
   <string name="perks_gamif_subtitle">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ မ်ားမ်ားပို၍ သံုးစြဲေလ ေဘာနပ္စ္ပိုမ်ားေလ ျဖစ္ပါသည္။</string>
   <string name="perks_title">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="perks_body">နားစြင့္ထားလိုက္ပါ။ သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား ရွိပါသည္။</string>
-  <string name="perks_end_in_days">ပ႐ိုမိုးရွင္းသည္ %s ရက္ၾကာလွ်င္ သက္တမ္းကုန္ပါမည္။</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">ပ႐ိုမိုးရွင္းသည္ %s တြင္ သက္တမ္းကုန္ပါမည္။</string>
   <string name="perks_available_soon">မၾကာမီ ပ႐ိုမိုးရွင္းမ်ား ရရွိပါမည္</string>
   <string name="perks_next_level_reward">%s AppCoins Credits မ်ားကို ရယူရန္ ေနာက္တစ္ဆင့္သို႔ ေရာက္ေအာင္သြားလိုက္ပါ။</string>

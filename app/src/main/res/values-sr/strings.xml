@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Oporavite novčanik</string>
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
   <string name="import_wallet_keystore_private_keys">Skladište ključeva ili privatni ključevi</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">OPORAVITE IZ DATOTEKE</string>
   <string name="import_wallet_button">OPORAVI NOVČANIK</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
@@ -751,7 +752,11 @@
   <string name="perks_gamif_subtitle">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="perks_title">Promocije</string>
   <string name="perks_body">Pratite nas! Pripremili smo vam posebne promocije.</string>
-  <string name="perks_end_in_days">Promocija će se završiti u roku od %s dana.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="few">The promotion ends in %s days.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promocija će se završiti %s.</string>
   <string name="perks_available_soon">Promocija će uskoro biti dostupna</string>
   <string name="perks_next_level_reward">Pređite na sledeći nivo da biste dobili %s AppCoins Credits!</string>

@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Récupérer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">RÉCUPÉRER À PARTIR D\'UN FICHIER</string>
   <string name="import_wallet_button">RECUPERER LE PORTEFEUILLE</string>
   <string name="import_wallet_password_body">Ce portefeuille est protégé par un mot de passe !</string>
@@ -750,7 +751,10 @@
   <string name="perks_gamif_subtitle">Plus vous dépensez dans vos applications préférées, plus le bonus est important !</string>
   <string name="perks_title">Promotions</string>
   <string name="perks_body">Restez à l\'écoute ! Nous avons des promotions spéciales pour vous.</string>
-  <string name="perks_end_in_days">La promotion se termine dans %s jours.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">The promotion ends on %s.</string>
   <string name="perks_available_soon">Promotion bientôt disponible</string>
   <string name="perks_next_level_reward">Atteignez le prochain niveau pour obtenir %s AppCoins Credits !</string>
