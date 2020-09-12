@@ -471,8 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_wallet_error_contact_us">အိုး သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_carrier_error">သင့္ဖုန္းနံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">အိုး ဤဝယ္ယူမႈႏွင့္ပတ္သက္၍ ကၽြႏ္ုပ္တို႔ထံတြင္ ျပႆနာမ်ား ရွိေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
+  <string name="purchase_error_wallet_block_code_403">သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပံုရပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <!--Async Payments-->
@@ -564,7 +564,7 @@
   <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">သို႔မဟုတ္ ဖိုင္မွ ျပန္လည္ရယူပါ</string>
   <string name="import_wallet_file_button">ဖိုင္မွ ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
@@ -751,7 +751,7 @@
   <string name="perks_title">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="perks_body">နားစြင့္ထားလိုက္ပါ။ သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား ရွိပါသည္။</string>
   <plurals name="promotion_ends">
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">ပ႐ိုမိုးရွင္းသည္ %s ရက္အၾကာတြင္ ၿပီးဆံံုးမည္ ျဖစ္ပါသည္။</item>
   </plurals>
   <string name="perks_end_in_date">ပ႐ိုမိုးရွင္းသည္ %s တြင္ သက္တမ္းကုန္ပါမည္။</string>
   <string name="perks_available_soon">မၾကာမီ ပ႐ိုမိုးရွင္းမ်ား ရရွိပါမည္</string>
@@ -759,12 +759,12 @@
   <string name="perks_notification">ေဘာနပ္စ္အျဖစ္ %s AppCoins Credits ကို သင္ရရွိပါသည္</string>
   <string name="perks_level_up_on_this_purchase">ဤဝယ္ယူမႈျဖင့္ အဆင့္တက္လိုက္ပါ</string>
   <string name="perks_level_up_amount_left">ေနာက္တစ္ဆင့္သို႔ သင္ေရာက္ရွိရန္ %1$s %2$s သာ လိုအပ္ပါသည္။</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">အဆင့္ %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s ေဘာနပ္စ္ - %2$s ကို AppCoins Credits အေနျဖင့္</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">လက္ေဗြျဖင့္ပိတ္ျခင္း</string>
+  <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
+  <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
+  <string name="fingerprint_authentication_required_body">ဆက္လုပ္ရန္အတြက္ သင့္လက္ေခ်ာင္း သို႔မဟုတ္ စကားဝွက္ကို အသံုးျပဳေပးပါ။</string>
 </resources>
