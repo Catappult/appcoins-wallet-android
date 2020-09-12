@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Marathi\n"
 "Language: mr_IN\n"
-"PO-Revision-Date: 2020-09-11 20:33\n"
+"PO-Revision-Date: 2020-09-12 20:33\n"
 
 #. Card Title
 #:
@@ -30,17 +30,17 @@ msgstr "कारण आपण {0} मध्ये खरेदी केली�
 #. Card copy for the Expenditure Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr ""
+msgstr "{2} दिवसात {0} {1} खर्च करा आणि {3} अॅपकॉइन्स क्रेडीटस मिळवा."
 
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "कारण आपण गेल्या {2} दिवसात {0} {1} पेक्षा जास्त खर्च केलात."
 
 #. Card copy for the Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr ""
+msgstr "पुढच्या पातळीवर पोचा आणि {0} अॅपकॉइन्स क्रेडीटस मिळवा!"
 
 #. Body for Purchase bonus receipt.
 #:
@@ -51,15 +51,15 @@ msgstr ""
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "कारण आपण पुढच्या पातळीवर पोचलात."
 
 #. Card copy for Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "{1} मधील आपल्या सर्व खरेदीवर अतिरिक्त {0}% बोनस मिळवा."
 
 #. Title for bonus receipt.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+{0} अॅपकॉइन्स क्रेडीट बोनस!"
 
