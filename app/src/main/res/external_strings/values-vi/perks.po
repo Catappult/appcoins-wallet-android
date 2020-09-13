@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
-"PO-Revision-Date: 2020-09-10 15:58\n"
+"PO-Revision-Date: 2020-09-13 20:34\n"
 
 #. Card Title
 #:
@@ -56,7 +56,7 @@ msgstr "Bởi vì bạn đã đạt đến cấp kế tiếp."
 #. Card copy for Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng trên tất cả các giao dịch mua hàng trong {1}."
 
 #. Title for bonus receipt.
 #:
