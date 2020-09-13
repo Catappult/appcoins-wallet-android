@@ -471,8 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_wallet_error_contact_us">ਓਹ ਹੋ, ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_carrier_error">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">ਓਹ ਹੋ, ਇਸ ਖਰੀਦ ਵਿੱਚ ਸਾਨੂੰ ਮੁਸ਼ਕਲਾਂ ਹੋ ਰਹੀਆਂ ਹਨ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_error_wallet_block_code_403">ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਲੱਗ ਰਿਹਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <!--Async Payments-->
@@ -564,7 +564,7 @@
   <string name="import_wallet_title">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਹੇਠਾਂ ਪਾਓ|</string>
   <string name="import_wallet_keystore_private_keys">ਚਾਬੀ ਸਟੋਰ ਜਾਂ ਨਿਜੀ ਕੁੰਜੀਆਂ</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">ਜਾਂ ਫਾਈਲ ਤੋਂ ਰਿਕਵਰ ਕਰੋ</string>
   <string name="import_wallet_file_button">ਫਾਈਲ ਤੋਂ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_button">ਬਟੂਆ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
@@ -753,7 +753,7 @@
   <string name="perks_body">ਸਾਡੇ ਨਾਲ ਜੁੜੇ ਰਹੇ! ਸਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਲਈ ਵਿਸ਼ੇਸ਼ ਆਫਰਾਂ ਹਨ|</string>
   <plurals name="promotion_ends">
     <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">ਆਫਰ %s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
   <string name="perks_end_in_date">ਆਫਰ %s ਨੂੰ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
   <string name="perks_available_soon">ਆਫਰ ਜਲਦੀ ਉਪਲਬਧ ਹੋਵੇਗੀ</string>
@@ -761,12 +761,12 @@
   <string name="perks_notification">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਬੋਨਸ ਦੇ ਰੂਪ ਵਿੱਚ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
   <string name="perks_level_up_on_this_purchase">ਇਸ ਖਰੀਦ ਨਾਲ ਪੱਧਰ ਵਧਿਆ</string>
   <string name="perks_level_up_amount_left">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੋਂ %1$s %2$s ਦੂਰ ਹੋ!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">ਐਲਵੀ %s</string>
+  <string name="perks_bonus_purchase_flow">%1$sਬੋਨਸ: %2$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਿੱਚ</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">ਫਿੰਗਰਪ੍ਰਿੰਟ ਲਾਕ</string>
+  <string name="fingerprint_failed_title">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ!</string>
+  <string name="fingerprint_failed_body">%s ਸਕਿੰਟਾਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ.</string>
+  <string name="fingerprint_authentication_required_title">ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ ਹੈ!</string>
+  <string name="fingerprint_authentication_required_body">ਕਿਰਪਾ ਕਰਕੇ ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੀ ਉਂਗਲ ਜਾਂ ਪਾਸਵਰਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
 </resources>
