@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2020-09-10 15:57\n"
+"PO-Revision-Date: 2020-09-13 20:34\n"
 
 #. Card Title
 #:
@@ -56,7 +56,7 @@ msgstr "เพราะคุณถึงเลเวลถัดไป"
 #. Card copy for Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อทั้งหมดของคุณใน {1}"
 
 #. Title for bonus receipt.
 #:
