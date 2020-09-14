@@ -16,7 +16,7 @@ class PromotionsFragmentPresenter(
     private val networkScheduler: Scheduler,
     private val viewScheduler: Scheduler) {
 
-  var cachedBonus = 0.0
+  private var cachedBonus = 0.0
 
   fun present() {
     retrievePromotions()

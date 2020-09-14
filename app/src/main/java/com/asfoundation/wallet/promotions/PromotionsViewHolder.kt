@@ -12,6 +12,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_promotions_default.view.*
+import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
@@ -22,6 +23,10 @@ import java.util.concurrent.TimeUnit
 
 abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+  companion object {
+    const val DAYS_TO_SHOW_EXPIRATION_DATE = 3
+  }
+
   abstract fun bind(promotion: Promotion)
 
   protected fun handleExpiryDate(textView: TextView, containerDate: LinearLayout, endDate: Long) {
@@ -29,7 +34,7 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     val diff: Long = endDate - currentTime
     val days = TimeUnit.DAYS.convert(diff, TimeUnit.SECONDS)
 
-    if (days > 3) {
+    if (days > DAYS_TO_SHOW_EXPIRATION_DATE) {
       containerDate.visibility = View.GONE
     } else {
       containerDate.visibility = View.VISIBLE
@@ -72,7 +77,7 @@ class ProgressViewHolder(itemView: View,
         .circleCrop()
         .into(itemView.progress_icon)
 
-    itemView.progress_title.text = progressItem.title
+    itemView.progress_title.text = progressItem.description
     if (progressItem.objective != null) {
       itemView.progress_current.max = progressItem.objective.toInt()
       itemView.progress_current.progress = progressItem.current.toInt()
@@ -106,7 +111,7 @@ class DefaultViewHolder(itemView: View,
         .circleCrop()
         .into(itemView.default_icon)
 
-    itemView.default_title.text = defaultItem.title
+    itemView.default_title.text = defaultItem.description
     handleExpiryDate(itemView.default_expiry_date, itemView.default_container_date,
         defaultItem.endDate)
   }
@@ -128,9 +133,9 @@ class FutureViewHolder(itemView: View,
         .load(futureItem.icon)
         .error(R.drawable.ic_promotions_default)
         .circleCrop()
-        .into(itemView.default_icon)
+        .into(itemView.future_icon)
 
-    itemView.default_title.text = futureItem.title
+    itemView.future_title.text = futureItem.description
   }
 
 }

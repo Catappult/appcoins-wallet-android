@@ -60,6 +60,11 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     return inflater.inflate(R.layout.fragment_promotions, container, false)
   }
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    presenter.present()
+  }
+
   override fun showPromotions(promotionsModel: PromotionsModel) {
     adapter = PromotionsAdapter(promotionsModel.promotions, clickListener!!)
     rv_promotions.addItemDecoration(
@@ -107,16 +112,10 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     rv_promotions.visibility = GONE
   }
 
-  override fun onResume() {
-    presenter.present()
-    super.onResume()
-  }
-
-  override fun onPause() {
+  override fun onDestroyView() {
     presenter.stop()
-    super.onPause()
+    super.onDestroyView()
   }
-
   companion object {
     fun newInstance() = PromotionsFragment()
   }

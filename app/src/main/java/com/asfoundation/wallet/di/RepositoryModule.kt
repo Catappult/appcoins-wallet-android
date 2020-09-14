@@ -165,9 +165,8 @@ class RepositoryModule {
         .transactionsDao()
     val localRepository: TransactionsRepository =
         TransactionsLocalRepository(transactionsDao, sharedPreferences)
-    return BackendTransactionRepository(networkInfo, accountKeystoreService,
-        defaultTokenProvider, BlockchainErrorMapper(), nonceObtainer,
-        Schedulers.io(),
+    return BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
+        BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
         transactionsNetworkRepository, localRepository, TransactionMapper(),
         CompositeDisposable(), Schedulers.io())
   }

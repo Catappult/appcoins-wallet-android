@@ -7,11 +7,13 @@ import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.service.AccountKeystoreService
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class BackendTransactionRepository(
@@ -32,9 +34,7 @@ class BackendTransactionRepository(
   private lateinit var disposable: Disposable
   override fun fetchTransaction(wallet: String): Observable<List<Transaction>> {
     if (!::disposable.isInitialized || disposable.isDisposed) {
-      disposable = localRepository.getNewestTransaction(wallet)
-          .map { it.processedTime }
-          .defaultIfEmpty(0)
+      disposable = getLastProcessedTime(wallet)
           .subscribeOn(ioScheduler)
           .flatMapObservable { startingDate ->
             return@flatMapObservable Observable.merge(
@@ -105,7 +105,22 @@ class BackendTransactionRepository(
         }
   }
 
-  override fun stop() {
-    disposables.clear()
+  private fun getLastProcessedTime(wallet: String): Maybe<Long> {
+    val lastLocale = localRepository.getLastLocale()
+    val currentLocale = Locale.getDefault().language
+    return if (lastLocale == null || lastLocale == currentLocale) {
+      if (lastLocale == null) localRepository.setLocale(currentLocale)
+      localRepository.getNewestTransaction(wallet)
+          .map { it.processedTime }
+          .defaultIfEmpty(0)
+    } else {
+      Maybe.fromCallable {
+        localRepository.setLocale(currentLocale)
+        localRepository.deleteAllTransactions()
+        0L
+      }
+    }
   }
+
+  override fun stop() = disposables.clear()
 }
