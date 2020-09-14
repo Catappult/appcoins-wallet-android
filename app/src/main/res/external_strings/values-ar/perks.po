@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Arabic\n"
 "Language: ar_SA\n"
-"PO-Revision-Date: 2020-09-10 15:57\n"
+"PO-Revision-Date: 2020-09-14 14:03\n"
 
 #. Card Title
 #:
@@ -56,7 +56,7 @@ msgstr "لأنك وصلت إلى المستوى التالي."
 #. Card copy for Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "احصل على مكافأة {0}% إضافية في كل عمليات الشراء في لعبة {1}."
 
 #. Title for bonus receipt.
 #:
