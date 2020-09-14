@@ -471,8 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">El CVV/CVC no es correcto. Prueba de nuevo.</string>
   <string name="purchase_wallet_error_contact_us">Oops, algo no está bien con tu wallet. Ponte en contact con nosotros.</string>
   <string name="purchase_carrier_error">Parece que tu número de teléfono no es compatible con este método de pago.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Oops, estamos teniendo problemas con esta compra. Ponte en contacto con nosotros.</string>
+  <string name="purchase_error_wallet_block_code_403">Algo no está bien con tu wallet. Ponte en contacto con nosotros.</string>
   <string name="purchase_card_error_CVV">CVV/CVC no válido</string>
   <string name="error_contac_us_body">Si el problema continúa, contáctanos:</string>
   <!--Async Payments-->
@@ -564,7 +564,7 @@
   <string name="import_wallet_title">Recuperar Wallet</string>
   <string name="import_wallet_body">Pega el backup de tu wallet abajo.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o private keys</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">O recupérala con el archivo</string>
   <string name="import_wallet_file_button">RECUPERAR CON ARCHIVO</string>
   <string name="import_wallet_button">RECUPERAR WALLET</string>
   <string name="import_wallet_password_body">¡La wallet está protegida con contraseña!</string>
@@ -752,8 +752,8 @@
   <string name="perks_title">Promociones</string>
   <string name="perks_body">¡Manténte al día! Tenemos promociones especiales para ti.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">La promoción termina en %s día.</item>
+    <item quantity="other">La promoción termina en %s días.</item>
   </plurals>
   <string name="perks_end_in_date">La promoción termina el %s.</string>
   <string name="perks_available_soon">Promoción disponible pronto.</string>
@@ -761,12 +761,12 @@
   <string name="perks_notification">Recibiste un bonus de %s AppCoins Credits</string>
   <string name="perks_level_up_on_this_purchase">Sube de nivel con esta compra</string>
   <string name="perks_level_up_amount_left">¡Te quedan %1$s %2$s para llegar al siguiente nivel!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">Nv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s de Bonus: %2$s en AppCoins Credits</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Bloqueo con huella</string>
+  <string name="fingerprint_failed_title">¡La autenticación falló!</string>
+  <string name="fingerprint_failed_body">Inténtalo de nuevo en %s segundos.</string>
+  <string name="fingerprint_authentication_required_title">¡Necesitas autenticarte!</string>
+  <string name="fingerprint_authentication_required_body">Por favor, usa tu huella dactilar o la contraseña para continuar.</string>
 </resources>
