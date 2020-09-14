@@ -51,5 +51,6 @@ msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
-msgid "Because you spent {0} {1} in {2}.
+msgid "Because you spent {0} {1} in {2}."
 msgstr ""
+
