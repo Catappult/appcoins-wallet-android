@@ -471,8 +471,8 @@
   <string name="purchase_card_error_wrong_CVV">Kode CVV/CVC Anda sepertinya salah. Silakan coba lagi.</string>
   <string name="purchase_wallet_error_contact_us">Ups, ada masalah dengan dompet Anda. Silakan hubungi kami.</string>
   <string name="purchase_carrier_error">Sepertinya nomor telepon Anda tidak kompatibel dengan metode pembayaran ini.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Ups, terjadi masalah terkait pembelian ini. Silakan hubungi kami.</string>
+  <string name="purchase_error_wallet_block_code_403">Sepertinya ada masalah dengan dompet Anda. Silakan hubungi kami.</string>
   <string name="purchase_card_error_CVV">CVV/CVC salah</string>
   <string name="error_contac_us_body">Kalau masalah tetap ada, silakan hubungi kami.</string>
   <!--Async Payments-->
@@ -564,7 +564,7 @@
   <string name="import_wallet_title">Pulihkan Dompet</string>
   <string name="import_wallet_body">Tempelkan cadangan dompet Anda di bawah ini.</string>
   <string name="import_wallet_keystore_private_keys">Keystore atau kunci pribadi</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">Atau pulihkan dari file</string>
   <string name="import_wallet_file_button">PULIHKAN DARI FILE</string>
   <string name="import_wallet_button">PULIHKAN DOMPET</string>
   <string name="import_wallet_password_body">Dompet ini diproteksi dengan kata sandi!</string>
@@ -751,7 +751,7 @@
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan kemana-mana! Kami punya promosi khusus untuk Anda.</string>
   <plurals name="promotion_ends">
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">Promosi akan berakhir %s hari lagi.</item>
   </plurals>
   <string name="perks_end_in_date">Promosi akan berakhir pada %s.</string>
   <string name="perks_available_soon">Promosi akan segera tersedia</string>
@@ -760,11 +760,11 @@
   <string name="perks_level_up_on_this_purchase">Tingkatkan level dengan pembelian ini</string>
   <string name="perks_level_up_amount_left">Anda tinggal %1$s %2$s dari level berikutnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_bonus_purchase_flow">Bonus %1$s: Kredit AppCoins sebesar %2$s</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Kunci sidik jari</string>
+  <string name="fingerprint_failed_title">Otentikasi gagal!</string>
+  <string name="fingerprint_failed_body">Silakan coba lagi dalam %s detik.</string>
+  <string name="fingerprint_authentication_required_title">Diperlukan otentikasi!</string>
+  <string name="fingerprint_authentication_required_body">Silakan gunakan jari atau kata sandi Anda untuk melanjutkan.</string>
 </resources>
