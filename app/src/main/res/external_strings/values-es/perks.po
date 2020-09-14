@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-09-10 15:57\n"
+"PO-Revision-Date: 2020-09-14 14:03\n"
 
 #. Card Title
 #:
@@ -20,27 +20,27 @@ msgstr "Gana AppCoins Credits!"
 #. Card copy for the Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr ""
+msgstr "Haz una compra en {0} y recibe {1} AppCoins Credits."
 
 #. Body for Purchase bonus receipt.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "Porque hiciste una compra en {0}."
 
 #. Card copy for the Expenditure Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr ""
+msgstr "Gasta {0} {1} en {2} días y recibe {3} AppCoins Credits."
 
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "Porque gastaste más de {0} {1} en los últimos {2} días."
 
 #. Card copy for the Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr ""
+msgstr "Alcanza el siguiente nivel y recibe {0} AppCoins Credits."
 
 #. Body for Purchase bonus receipt.
 #:
@@ -51,15 +51,15 @@ msgstr ""
 #. Body for Expenditure bonus receipt.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "Porque alcanzaste el siguiente nivel."
 
 #. Card copy for Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "Recibe un bonus extra del {0}% en todas tus compras en {1}."
 
 #. Title for bonus receipt.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "¡Un bonus de {0} AppCoins Credits!"
 
