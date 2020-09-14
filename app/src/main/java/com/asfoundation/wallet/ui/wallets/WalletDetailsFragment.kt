@@ -25,9 +25,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
+import kotlinx.android.synthetic.main.fragment_wallet_details.*
 import kotlinx.android.synthetic.main.remove_backup_buttons_layout.*
 import kotlinx.android.synthetic.main.wallet_details_balance_layout.*
-import kotlinx.android.synthetic.main.wallet_details_layout.*
 import javax.inject.Inject
 
 class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
@@ -60,7 +60,7 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.wallet_details_layout, container, false)
+    return inflater.inflate(R.layout.fragment_wallet_details, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,11 +102,13 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
   }
 
   override fun showShare(walletAddress: String) {
-    ShareCompat.IntentBuilder.from(activity)
-        .setText(walletAddress)
-        .setType("text/plain")
-        .setChooserTitle(resources.getString(R.string.share_via))
-        .startChooser()
+    activity?.let {
+      ShareCompat.IntentBuilder.from(activity!!)
+          .setText(walletAddress)
+          .setType("text/plain")
+          .setChooserTitle(resources.getString(R.string.share_via))
+          .startChooser()
+    }
   }
 
   override fun navigateToBalanceView() {

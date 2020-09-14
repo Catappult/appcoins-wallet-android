@@ -103,15 +103,19 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   }
 
   override fun shareFile(uri: Uri) {
-    ShareCompat.IntentBuilder.from(activity)
-        .setStream(uri)
-        .setType("text/json")
-        .setSubject(getString(R.string.tab_keystore))
-        .setChooserTitle(R.string.share_via)
-        .startChooser()
+    activity?.let {
+      ShareCompat.IntentBuilder.from(it)
+          .setStream(uri)
+          .setType("text/json")
+          .setSubject(getString(R.string.tab_keystore))
+          .setChooserTitle(R.string.share_via)
+          .startChooser()
+    }
   }
 
-  override fun getPositiveButtonClick() = RxView.clicks(proceed_button)
+  override fun getFirstSaveClick() = RxView.clicks(proceed_button)
+
+  override fun getFinishClick(): Observable<Any> = RxView.clicks(finish_button)
 
   override fun getSaveAgainClick() = RxView.clicks(save_again_button)
 
@@ -148,9 +152,10 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     backup_confirmation_image.visibility = View.VISIBLE
     title.text = getString(R.string.backup_done_body)
     description.visibility = View.INVISIBLE
-    save_again_button.visibility = View.VISIBLE
-    proceed_button.isEnabled = true
-    proceed_button.text = getText(R.string.backup_confirmation_yes)
+    proceed_button.visibility = View.INVISIBLE
+    file_shared_buttons.visibility = View.VISIBLE
+    //Fix for bug related with group layout
+    file_shared_buttons.requestLayout()
   }
 
   override fun getDialogCancelClick() = RxView.clicks(dialogView.backup_cancel)
