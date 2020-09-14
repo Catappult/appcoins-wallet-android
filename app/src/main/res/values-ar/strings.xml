@@ -472,8 +472,8 @@
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
   <string name="purchase_wallet_error_contact_us">يييي، هناك خطبٌ ما في محفظتك. يرجى الاتصال بنا.</string>
   <string name="purchase_carrier_error">يبدو أن رقم هاتفك لا يتوافق مع وسيلة الدفع هذه.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">يييي، نحن نعاني من مشكلة في عملية الشراء هذه. أرجوك تواصل معنا.</string>
+  <string name="purchase_error_wallet_block_code_403">يبدو أن هناك مشكلة ما في محفظتك. يرجى التواصل معنا.</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
   <!--Async Payments-->
@@ -565,7 +565,7 @@
   <string name="import_wallet_title">استعادة المحفظة</string>
   <string name="import_wallet_body">ألصق النسخ الاحتياطي للمحفظة في الأسفل.</string>
   <string name="import_wallet_keystore_private_keys">مخزن المفاتيح أو المفاتيح الخاصة</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">أو استرجعه من ملف</string>
   <string name="import_wallet_file_button">استعادة من ملف</string>
   <string name="import_wallet_button">استعادة المحفظة</string>
   <string name="import_wallet_password_body">هذه المحفظة محمية بكلمة مرور!</string>
@@ -757,12 +757,12 @@
   <string name="perks_title">ترقيات</string>
   <string name="perks_body">ترقّبوا! لدينا ترقيات خاصة من أجلك.</string>
   <plurals name="promotion_ends">
-    <item quantity="zero">The promotion ends in %s days.</item>
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="two">The promotion ends in %s days.</item>
-    <item quantity="few">The promotion ends in %s days.</item>
-    <item quantity="many">The promotion ends in %s days.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="zero">تنتهي الترقية خلال %s يومًا.</item>
+    <item quantity="one">تنتهي الترقية خلال يوم واحد.</item>
+    <item quantity="two">تنتهي الترقيات خلال يومين.</item>
+    <item quantity="few">تنتهي الترقيات خلال %s أيام.</item>
+    <item quantity="many">تنتهي الترقيات خلال %s يومًا.</item>
+    <item quantity="other">تنتهي الترقيات خلال %s يومًا.</item>
   </plurals>
   <string name="perks_end_in_date">تنتهي الترقية في %s.</string>
   <string name="perks_available_soon">ترقيات متوفرة قريبًا</string>
@@ -770,12 +770,12 @@
   <string name="perks_notification">لقد تلقّيت للتوّ رصيد %s AppCoins كمكافأة</string>
   <string name="perks_level_up_on_this_purchase">انتقل للمستوى التالي مع عملية الشراء هذه</string>
   <string name="perks_level_up_amount_left">أنت على بعد %1$s %2$s عن المستوى التالي!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">المستوى %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s مكافأة: %2$s في رصيد AppCoins</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">قفل البصمة</string>
+  <string name="fingerprint_failed_title">فشلت الإثبات!</string>
+  <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
+  <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>
+  <string name="fingerprint_authentication_required_body">يرجى استخدام بصمة الإصبع أو كلمة المرور للمتابعة.</string>
 </resources>
