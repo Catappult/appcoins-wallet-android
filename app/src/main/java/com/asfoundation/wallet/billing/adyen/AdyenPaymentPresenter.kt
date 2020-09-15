@@ -258,7 +258,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason)
         paymentModel.refusalCode?.let { code ->
           when (code) {
-            CVC_DECLINED -> view.showCvvError()
+            CVC_DECLINED -> {
+              if (priceAmount != null && priceCurrency != null) showBillingAddress(priceAmount,
+                  priceCurrency)
+            }
             FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
             BILLING_ADDRESS_ISSING -> {
               if (priceAmount != null && priceCurrency != null) showBillingAddress(priceAmount,
@@ -269,8 +272,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        sendPaymentErrorEvent(paymentModel.error.code, paymentModel.error.message)
-        handleErrors(paymentModel.error)
+        if (paymentModel.error.code != null && paymentModel.error.code == 400 && paymentModel.error.message?.contains(
+                "payment.billing_address") == true) {
+          if (priceAmount != null && priceCurrency != null) showBillingAddress(priceAmount,
+              priceCurrency)
+        } else {
+          sendPaymentErrorEvent(paymentModel.error.code, paymentModel.error.message)
+          handleErrors(paymentModel.error)
+        }
       }
       paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {

@@ -57,7 +57,7 @@ interface IabView {
                          reference: String?, paymentType: String, origin: String?,
                          packageName: String, metadata: String?, sku: String?,
                          callbackUrl: String?, transactionType: String,
-                         developerWallet: String?)
+                         developerWallet: String?, bonus: String, fiatAmount: BigDecimal)
 
   fun lockRotation()
 

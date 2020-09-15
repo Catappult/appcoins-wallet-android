@@ -159,7 +159,7 @@
 
           <com.google.android.material.textfield.TextInputLayout
               android:id="@+id/state_layout"
-              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginStart="@dimen/small_margin"
@@ -175,7 +175,6 @@
                 android:id="@+id/state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="State"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:inputType="phone"
                 android:maxLines="1"
@@ -203,6 +202,7 @@
                 android:id="@+id/country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:editable="false"
                 />
 
           </com.google.android.material.textfield.TextInputLayout>

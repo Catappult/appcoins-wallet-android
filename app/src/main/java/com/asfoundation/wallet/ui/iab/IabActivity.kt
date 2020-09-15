@@ -13,8 +13,8 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
+import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
-import com.asfoundation.wallet.billing.adyen.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -233,16 +233,19 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                                  hasCvc: Boolean,
-                                  supportedShopperInteraction: List<String>,
+                                  hasCvc: Boolean, supportedShopperInteraction: List<String>,
                                   returnUrl: String, value: String, currency: String,
-                                  reference: String?,
-                                  paymentType: String, origin: String?, packageName: String,
-                                  metadata: String?,
-                                  sku: String?, callbackUrl: String?, transactionType: String,
-                                  developerWallet: String?) {
+                                  reference: String?, paymentType: String, origin: String?,
+                                  packageName: String, metadata: String?, sku: String?,
+                                  callbackUrl: String?, transactionType: String,
+                                  developerWallet: String?, bonus: String, fiatAmount: BigDecimal) {
+    val isDonation = TransactionData.TransactionType.DONATION.name
+        .equals(transaction?.type, ignoreCase = true)
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, BillingAddressFragment.newInstance())
+        .replace(R.id.fragment_container,
+            BillingAddressFragment.newInstance(getSkuDescription(), transaction!!.type,
+                transaction!!.domain, transaction!!.amount(), bonus, fiatAmount, currency,
+                isDonation))
         .commit()
   }
 

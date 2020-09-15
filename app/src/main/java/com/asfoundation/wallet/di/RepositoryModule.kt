@@ -108,7 +108,7 @@ class RepositoryModule {
   @Provides
   fun provideAdyenPaymentRepository(client: OkHttpClient): AdyenPaymentRepository {
     val api = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
