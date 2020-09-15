@@ -10,56 +10,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Romanian\n"
 "Language: ro_RO\n"
-"PO-Revision-Date: 2020-09-10 15:57\n"
+"PO-Revision-Date: 2020-09-15 14:06\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "Câștigă AppCoins Credits!"
 
-#. Card copy for the Purchase Promotion.
+#. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr ""
+msgstr "Fă o cumpărătură în {0} și primești {1} AppCoins Credits."
 
-#. Body for Purchase bonus receipt.
+#. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "Pentru că ai făcut o cumpărătură în {0}."
 
-#. Card copy for the Expenditure Promotion.
+#. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr ""
+msgstr "Cheltuiește {0} {1} în {2} zile și primești {3} AppCoins Credits."
 
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "Pentru că ai cheltuit mai mult de {0} {1} în ultimele {2} zile."
 
-#. Card copy for the Next Level Promotion.
+#. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr ""
+msgstr "Urcă la nivelul următor și primești {0} AppCoins Credits!"
 
-#. Body for Purchase bonus receipt.
-#:
-msgid ""
-msgstr ""
-""
-
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "Pentru că ai ajuns la nivelul următor."
 
-#. Card copy for Extra Gamification Bonus.
+#. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "Primești un Bonus suplimentar de {0}% la toate cumpărăturile în {1}."
 
-#. Title for bonus receipt.
+#. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+{0} Bonus AppCoins Credits!"
+
+#. Card - Expendidute per amount Promotion.
+#:
+msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgstr "Primești {0} AppCoins Credits în plus pentru fiecare {1} {2} pe care îi cheltuiești în {3}."
+
+#. Receipt - Expenditure per amount Promotion.
+#:
+msgid "Because you spent {0} {1} in {2}."
+msgstr "Pentru că ai cheltuit {0} {1} în {2}."
 
