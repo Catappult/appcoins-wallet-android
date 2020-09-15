@@ -23,6 +23,7 @@ import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
+import com.adyen.checkout.core.model.ModelObject
 import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
@@ -265,6 +266,17 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
+
+  override fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                                  hasCvc: Boolean, supportedShopperInteraction: List<String>,
+                                  returnUrl: String, value: String, currency: String,
+                                  reference: String?, paymentType: String, origin: String?,
+                                  packageName: String, metadata: String?, sku: String?,
+                                  callbackUrl: String?, transactionType: String,
+                                  developerWallet: String?) =
+      iabView.showBillingAddress(adyenPaymentMethod, shouldStoreMethod, hasCvc,
+          supportedShopperInteraction, returnUrl, value, currency, reference, paymentType, origin,
+          packageName, metadata, sku, callbackUrl, transactionType, developerWallet)
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE

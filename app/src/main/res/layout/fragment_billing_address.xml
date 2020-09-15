@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/payment_methods_width"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:animateLayoutChanges="true"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <RelativeLayout
+      android:id="@+id/payment_method_main_view"
+      android:layout_width="@dimen/payment_methods_width"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:background="@drawable/background_card"
+      >
+
+    <ProgressBar
+        android:id="@+id/loading_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        android:visibility="gone"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/payment_methods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_card"
+        android:elevation="2dp"
+        >
+
+      <include
+          android:id="@+id/payment_methods_header"
+          layout="@layout/payment_methods_header"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <TextView
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:text="Billing Address"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+          />
+
+      <ScrollView
+          android:id="@+id/scroll_content"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title"
+          >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/address_layout"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginTop="@dimen/normal_margin"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:layout_weight="3.5"
+              android:hint="Address"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                tools:text="1600 Amphitheatre Parkway"
+                />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/city_layout"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginTop="@dimen/small_margin"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:layout_weight="3.5"
+              android:hint="City"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/address_layout"
+              >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                tools:text="Mountain View"
+                />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/zipcode_layout"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginTop="@dimen/small_margin"
+              android:layout_marginEnd="@dimen/small_margin"
+              android:layout_weight="3.5"
+              android:hint="Zip/Postal Code"
+              app:layout_constraintEnd_toStartOf="@id/state_layout"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/city_layout"
+              >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/zipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                tools:text="94043"
+                />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/state_layout"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/small_margin"
+              android:layout_marginTop="@dimen/small_margin"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:layout_weight="3.5"
+              android:hint="State"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toEndOf="@id/zipcode_layout"
+              app:layout_constraintTop_toBottomOf="@id/city_layout"
+              >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="State"
+                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                tools:text="CA"
+                />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/country_layout"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginTop="@dimen/small_margin"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:hint="@string/select_country"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/state_layout"
+              >
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+          </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+      </ScrollView>
+
+      <View
+          android:id="@+id/bottom_separator_buttons"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginTop="19dp"
+          android:layout_marginBottom="8dp"
+          android:background="@color/layout_separator_color"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/scroll_content"
+          />
+
+      <include
+          android:id="@+id/dialog_buy_buttons_payment_methods"
+          layout="@layout/dialog_buy_buttons_payment_methods"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bottom_separator_buttons"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </RelativeLayout>
+
+  <include
+      android:id="@+id/error_message"
+      layout="@layout/iab_error_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      />
+
+</RelativeLayout>
+

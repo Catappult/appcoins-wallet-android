@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.payments.response.Action
+import com.adyen.checkout.core.model.ModelObject
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
 
@@ -74,4 +75,13 @@ interface AdyenPaymentView {
   fun onAdyen3DSError(): Observable<String>
 
   fun setup3DSComponent()
+
+  fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                         hasCvc: Boolean,
+                         supportedShopperInteraction: List<String>,
+                         returnUrl: String, value: String, currency: String, reference: String?,
+                         paymentType: String, origin: String?, packageName: String,
+                         metadata: String?,
+                         sku: String?, callbackUrl: String?, transactionType: String,
+                         developerWallet: String?)
 }

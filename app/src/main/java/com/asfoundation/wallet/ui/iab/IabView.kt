@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.adyen.checkout.core.model.ModelObject
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -49,6 +50,14 @@ interface IabView {
                          appcEnabled: Boolean, creditsEnabled: Boolean, isBds: Boolean,
                          isDonation: Boolean, gamificationLevel: Int, disabledReasonAppc: Int?,
                          disabledReasonCredits: Int?)
+
+  fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                         hasCvc: Boolean, supportedShopperInteraction: List<String>,
+                         returnUrl: String, value: String, currency: String,
+                         reference: String?, paymentType: String, origin: String?,
+                         packageName: String, metadata: String?, sku: String?,
+                         callbackUrl: String?, transactionType: String,
+                         developerWallet: String?)
 
   fun lockRotation()
 

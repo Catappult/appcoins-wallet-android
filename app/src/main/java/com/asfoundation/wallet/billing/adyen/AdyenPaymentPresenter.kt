@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.BILLING_ADDRESS_ISSING
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -204,14 +205,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               }
         }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it) }
+        .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
         .subscribe({}, {
           logger.log(TAG, it)
           view.showGenericError()
         }))
   }
 
-  private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
+  private fun handlePaymentResult(paymentModel: PaymentModel, priceAmount: BigDecimal? = null,
+                                  priceCurrency: String? = null): Completable {
     return when {
       paymentModel.resultCode.equals("AUTHORISED", true) -> {
         adyenPaymentInteractor.getTransaction(paymentModel.uid)
@@ -258,6 +260,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           when (code) {
             CVC_DECLINED -> view.showCvvError()
             FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
+            BILLING_ADDRESS_ISSING -> {
+              if (priceAmount != null && priceCurrency != null) showBillingAddress(priceAmount,
+                  priceCurrency)
+            }
             else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
@@ -272,6 +278,28 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         view.showGenericError()
       }
     }
+  }
+
+  private fun showBillingAddress(priceAmount: BigDecimal, priceCurrency: String) {
+    disposables.add(
+        view.retrievePaymentData()
+            .firstOrError()
+            .subscribeOn(networkScheduler)
+            .flatMap { adyenCard ->
+              transactionBuilder
+                  .observeOn(viewScheduler)
+                  .doOnSuccess {
+                    view.showBillingAddress(adyenCard.cardPaymentMethod,
+                        adyenCard.shouldStoreCard, adyenCard.hasCvc,
+                        adyenCard.supportedShopperInteractions, returnUrl, priceAmount.toString(),
+                        priceCurrency, it.orderReference,
+                        mapPaymentToService(paymentType).transactionType, origin, domain,
+                        it.payload,
+                        it.skuId, it.callbackUrl, it.type, it.toAddress())
+                  }
+            }
+            .subscribe()
+    )
   }
 
   private fun handleSuccessTransaction(bundle: Bundle): Completable {

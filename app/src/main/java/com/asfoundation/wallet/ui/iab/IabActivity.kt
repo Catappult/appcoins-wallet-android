@@ -7,12 +7,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
+import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.billing.adyen.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -227,6 +229,20 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getSkuDescription(), isBds, isDonation, developerPayload, uri,
             intent.dataString))
+        .commit()
+  }
+
+  override fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                                  hasCvc: Boolean,
+                                  supportedShopperInteraction: List<String>,
+                                  returnUrl: String, value: String, currency: String,
+                                  reference: String?,
+                                  paymentType: String, origin: String?, packageName: String,
+                                  metadata: String?,
+                                  sku: String?, callbackUrl: String?, transactionType: String,
+                                  developerWallet: String?) {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, BillingAddressFragment.newInstance())
         .commit()
   }
 
