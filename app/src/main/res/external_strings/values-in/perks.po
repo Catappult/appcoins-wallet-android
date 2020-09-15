@@ -10,56 +10,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2020-09-14 14:03\n"
+"PO-Revision-Date: 2020-09-15 14:05\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "Dapatkan Kredit AppCoins!"
 
-#. Card copy for the Purchase Promotion.
+#. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
 msgstr "Lakukan pembelian di {0} dan dapatkan {1} Kredit AppCoins."
 
-#. Body for Purchase bonus receipt.
+#. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
 msgstr "Karena Anda melakukan pembelian di {0}."
 
-#. Card copy for the Expenditure Promotion.
+#. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
 msgstr "Belanjakan {0} {1} dalam {2} hari dan dapatkan {3} Kredit AppCoins."
 
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
 msgstr "Karena Anda membelanjakan lebih dari {0} {1} dalam {2} hari terakhir."
 
-#. Card copy for the Next Level Promotion.
+#. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
 msgstr "Raih level berikutnya dan dapatkan {0} Kredit AppCoins!"
 
-#. Body for Purchase bonus receipt.
-#:
-msgid ""
-msgstr ""
-""
-
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
 msgstr "Karena Anda sudah meraih level berikutnya."
 
-#. Card copy for Extra Gamification Bonus.
+#. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
 msgstr "Dapatkan Bonus tambahan sebesar {0} pada semua pembelian Anda di {1}."
 
-#. Title for bonus receipt.
+#. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} Bonus Kredit AppCoins!"
+
+#. Card - Expendidute per amount Promotion.
+#:
+msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgstr ""
+
+#. Receipt - Expenditure per amount Promotion.
+#:
+msgid "Because you spent {0} {1} in {2}."
+msgstr ""
 
