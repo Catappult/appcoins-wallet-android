@@ -564,7 +564,7 @@
   <string name="import_wallet_title">Recuperează Portofel</string>
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">Sau recuperează din fișier</string>
   <string name="import_wallet_file_button">RECUPEREAZĂ DIN FIȘIER</string>
   <string name="import_wallet_button">RECUPEREAZĂ PORTOFEL</string>
   <string name="import_wallet_password_body">Acest portofel este protejat cu parolă!</string>
@@ -753,9 +753,9 @@
   <string name="perks_title">Promoții</string>
   <string name="perks_body">Fii pe fază! Avem promoții speciale pentru tine.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="few">The promotion ends in %s days.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">Promoția se încheie în %s zi.</item>
+    <item quantity="few">Promoția se încheie în %s zile.</item>
+    <item quantity="other">Promoția se încheie în %s zile.</item>
   </plurals>
   <string name="perks_end_in_date">Promoția se încheie pe %s.</string>
   <string name="perks_available_soon">Promoție disponibilă în curând</string>
