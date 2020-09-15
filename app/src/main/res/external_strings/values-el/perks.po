@@ -10,56 +10,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2020-09-13 20:34\n"
+"PO-Revision-Date: 2020-09-15 14:06\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "Κερδίστε AppCoins Credits!"
 
-#. Card copy for the Purchase Promotion.
+#. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
 msgstr "Πραγματοποιήστε μία αγορά στο {0} και λάβετε {1} AppCoins Credits."
 
-#. Body for Purchase bonus receipt.
+#. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
 msgstr "Επειδή πραγματοποιήσατε αγορά στο {0}."
 
-#. Card copy for the Expenditure Promotion.
+#. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
 msgstr "Ξοδέψτε {0} {1} σε {2} ημέρες και λάβετε {3} AppCoins Credits."
 
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
 msgstr "Επειδή ξοδέψατε περισσότερα από {0} {1} τις τελευταίες {2} ημέρες."
 
-#. Card copy for the Next Level Promotion.
+#. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
 msgstr "Φτάστε στο επόμενο επίπεδο και λάβετε {0} AppCoins Credits!"
 
-#. Body for Purchase bonus receipt.
-#:
-msgid ""
-msgstr ""
-""
-
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
 msgstr "Επειδή φτάσατε στο επόμενο επίπεδο."
 
-#. Card copy for Extra Gamification Bonus.
+#. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
 msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας στο {1}."
 
-#. Title for bonus receipt.
+#. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} AppCoins Credits Bonus!"
+
+#. Card - Expendidute per amount Promotion.
+#:
+msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgstr ""
+
+#. Receipt - Expenditure per amount Promotion.
+#:
+msgid "Because you spent {0} {1} in {2}."
+msgstr ""
 
