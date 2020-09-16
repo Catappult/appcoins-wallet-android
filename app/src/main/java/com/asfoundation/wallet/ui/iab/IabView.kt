@@ -53,7 +53,7 @@ interface IabView {
 
   fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                          hasCvc: Boolean, supportedShopperInteraction: List<String>,
-                         returnUrl: String, value: String, currency: String,
+                         returnUrl: String, value: BigDecimal, currency: String,
                          reference: String?, paymentType: String, origin: String?,
                          packageName: String, metadata: String?, sku: String?,
                          callbackUrl: String?, transactionType: String,

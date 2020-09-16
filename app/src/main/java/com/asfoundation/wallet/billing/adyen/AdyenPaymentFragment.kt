@@ -269,7 +269,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                                   hasCvc: Boolean, supportedShopperInteraction: List<String>,
-                                  returnUrl: String, value: String, currency: String,
+                                  returnUrl: String, value: BigDecimal, currency: String,
                                   reference: String?, paymentType: String, origin: String?,
                                   packageName: String, metadata: String?, sku: String?,
                                   callbackUrl: String?, transactionType: String,
@@ -277,7 +277,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       iabView.showBillingAddress(adyenPaymentMethod, shouldStoreMethod, hasCvc,
           supportedShopperInteraction, returnUrl, value, currency, reference, paymentType, origin,
           packageName, metadata, sku, callbackUrl, transactionType, developerWallet, bonus,
-          BigDecimal.ZERO)
+          appcAmount)
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE

@@ -28,6 +28,7 @@ class BillingAddressPresenter(private val view: BillingAddressView,
   private fun handleBackClicks() {
     disposables.add(
         view.backClicks()
+            .doOnNext { view.showMoreMethods() }
             .subscribe()
     )
   }

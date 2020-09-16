@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.logging.Logger
@@ -42,21 +43,20 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
     @JvmStatic
     fun newInstance(skuDescription: String, transactionType: String, domain: String,
-                    appcAmount: BigDecimal,
-                    bonus: String, fiatAmount: BigDecimal, currency: String,
+                    appcAmount: BigDecimal, bonus: String, fiatAmount: BigDecimal, currency: String,
                     isDonation: Boolean): BillingAddressFragment {
-      val fragment = BillingAddressFragment()
-      fragment.arguments = Bundle().apply {
-        putString(TRANSACTION_TYPE_KEY, transactionType)
-        putString(SKU_DESCRIPTION, skuDescription)
-        putString(DOMAIN_KEY, domain)
-        putString(BONUS_KEY, bonus)
-        putSerializable(APPC_AMOUNT_KEY, appcAmount)
-        putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
-        putString(FIAT_CURRENCY_KEY, currency)
-        putBoolean(IS_DONATION_KEY, isDonation)
+      return BillingAddressFragment().apply {
+        arguments = Bundle().apply {
+          putString(TRANSACTION_TYPE_KEY, transactionType)
+          putString(SKU_DESCRIPTION, skuDescription)
+          putString(DOMAIN_KEY, domain)
+          putString(BONUS_KEY, bonus)
+          putSerializable(APPC_AMOUNT_KEY, appcAmount)
+          putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
+          putString(FIAT_CURRENCY_KEY, currency)
+          putBoolean(IS_DONATION_KEY, isDonation)
+        }
       }
-      return fragment
     }
   }
 
@@ -94,9 +94,25 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   private fun setupUi() {
     iabView.unlockRotation()
+    cancel_button.setText(R.string.back_button)
     handleBuyButtonText()
     setHeaderInformation()
     showBonus()
+    setupFieldsListener()
+    setupStateAdapter()
+  }
+
+  private fun setupFieldsListener() {
+    address.addTextChangedListener(BillingAddressTextWatcher(address_layout))
+    city.addTextChangedListener(BillingAddressTextWatcher(city_layout))
+    zipcode.addTextChangedListener(BillingAddressTextWatcher(zipcode_layout))
+  }
+
+  private fun setupStateAdapter() {
+    val languages = resources.getStringArray(R.array.states)
+    val adapter = ArrayAdapter(requireContext(),
+        android.R.layout.simple_list_item_1, languages)
+    state.setAdapter(adapter)
   }
 
   override fun submitClicks(): Observable<BillingAddressModel> {
@@ -207,6 +223,10 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     } else {
       buy_button.setText(R.string.action_buy)
     }
+  }
+
+  override fun showMoreMethods() {
+    iabView.showPaymentMethodsView()
   }
 
   override fun onDestroyView() {

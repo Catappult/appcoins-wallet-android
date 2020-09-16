@@ -234,17 +234,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                                   hasCvc: Boolean, supportedShopperInteraction: List<String>,
-                                  returnUrl: String, value: String, currency: String,
+                                  returnUrl: String, value: BigDecimal, currency: String,
                                   reference: String?, paymentType: String, origin: String?,
                                   packageName: String, metadata: String?, sku: String?,
                                   callbackUrl: String?, transactionType: String,
-                                  developerWallet: String?, bonus: String, fiatAmount: BigDecimal) {
+                                  developerWallet: String?, bonus: String, appcAmount: BigDecimal) {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             BillingAddressFragment.newInstance(getSkuDescription(), transaction!!.type,
-                transaction!!.domain, transaction!!.amount(), bonus, fiatAmount, currency,
+                transaction!!.domain, appcAmount, bonus, value, currency,
                 isDonation))
         .commit()
   }

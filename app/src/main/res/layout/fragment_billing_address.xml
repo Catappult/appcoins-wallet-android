@@ -159,27 +159,24 @@
 
           <com.google.android.material.textfield.TextInputLayout
               android:id="@+id/state_layout"
-              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
               android:layout_width="0dp"
-              android:layout_height="wrap_content"
+              android:layout_height="0dp"
               android:layout_marginStart="@dimen/small_margin"
               android:layout_marginTop="@dimen/small_margin"
               android:layout_marginEnd="@dimen/big_margin"
               android:layout_weight="3.5"
               android:hint="State"
+              app:layout_constraintBottom_toBottomOf="@id/zipcode_layout"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@id/zipcode_layout"
               app:layout_constraintTop_toBottomOf="@id/city_layout"
               >
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/state"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-                android:inputType="phone"
-                android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:layout_height="match_parent"
+                android:editable="false"
                 tools:text="CA"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -192,7 +189,9 @@
               android:layout_marginStart="@dimen/big_margin"
               android:layout_marginTop="@dimen/small_margin"
               android:layout_marginEnd="@dimen/big_margin"
-              android:hint="@string/select_country"
+              android:enabled="false"
+              android:focusable="false"
+              android:hint="@string/verification_insert_phone_field_country"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@id/state_layout"
@@ -203,6 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
+                android:text="United States"
                 />
 
           </com.google.android.material.textfield.TextInputLayout>

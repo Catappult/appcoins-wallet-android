@@ -300,7 +300,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                   .doOnSuccess {
                     view.showBillingAddress(adyenCard.cardPaymentMethod,
                         adyenCard.shouldStoreCard, adyenCard.hasCvc,
-                        adyenCard.supportedShopperInteractions, returnUrl, priceAmount.toString(),
+                        adyenCard.supportedShopperInteractions, returnUrl, priceAmount,
                         priceCurrency, it.orderReference,
                         mapPaymentToService(paymentType).transactionType, origin, domain,
                         it.payload,
