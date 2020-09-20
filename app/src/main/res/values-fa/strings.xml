@@ -564,7 +564,7 @@
   <string name="import_wallet_title">بازیابی کیف‌پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">یا بازیابی از فایل</string>
   <string name="import_wallet_file_button">بازیابی از فایل</string>
   <string name="import_wallet_button">بازیابی کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
@@ -752,8 +752,8 @@
   <string name="perks_title">پیشنهادات تشویقی</string>
   <string name="perks_body">منتظر باشید! پیشنهادات تشویقی ویژه‌ای برای شما دارید.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
+    <item quantity="other">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
   </plurals>
   <string name="perks_end_in_date">پیشنهاد تشویقی در %s به پایان می‌رسد.</string>
   <string name="perks_available_soon">پیشهاد تشویقی بزودی</string>
