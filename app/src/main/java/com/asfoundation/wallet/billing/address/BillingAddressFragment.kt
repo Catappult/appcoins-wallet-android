@@ -33,29 +33,24 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   companion object {
 
     private const val SKU_DESCRIPTION = "sku_description"
-    private const val TRANSACTION_TYPE_KEY = "type"
     private const val DOMAIN_KEY = "domain"
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val BONUS_KEY = "bonus"
     private const val IS_DONATION_KEY = "is_donation"
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
-    private const val FIAT_CURRENCY_KEY = "currency_amount"
     private const val BILLING_PAYMENT_MODEL = "billing_payment_model"
 
     @JvmStatic
-    fun newInstance(skuDescription: String, transactionType: String, domain: String,
-                    appcAmount: BigDecimal, bonus: String, fiatAmount: BigDecimal, currency: String,
-                    isDonation: Boolean,
+    fun newInstance(skuDescription: String, domain: String, appcAmount: BigDecimal, bonus: String,
+                    fiatAmount: BigDecimal, isDonation: Boolean,
                     billingPaymentModel: BillingPaymentModel): BillingAddressFragment {
       return BillingAddressFragment().apply {
         arguments = Bundle().apply {
-          putString(TRANSACTION_TYPE_KEY, transactionType)
           putString(SKU_DESCRIPTION, skuDescription)
           putString(DOMAIN_KEY, domain)
           putString(BONUS_KEY, bonus)
           putSerializable(APPC_AMOUNT_KEY, appcAmount)
           putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
-          putString(FIAT_CURRENCY_KEY, currency)
           putBoolean(IS_DONATION_KEY, isDonation)
           putSerializable(BILLING_PAYMENT_MODEL, billingPaymentModel)
         }
@@ -113,8 +108,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   private fun setupStateAdapter() {
     val languages = resources.getStringArray(R.array.states)
-    val adapter = ArrayAdapter(requireContext(),
-        android.R.layout.simple_list_item_1, languages)
+    val adapter = ArrayAdapter(requireContext(), R.layout.item_state, languages)
     state.setAdapter(adapter)
   }
 
@@ -188,7 +182,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     val appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
         .plus(" " + WalletCurrency.APPCOINS.symbol)
     val fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
-        .plus(" $currency")
+        .plus(" ${billingPaymentModel.currency}")
     fiat_price.text = fiatText
     appc_price.text = appcText
     fiat_price_skeleton.visibility = GONE
@@ -222,7 +216,8 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   }
 
   private fun handleBuyButtonText() {
-    if (transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true)) {
+    if (billingPaymentModel.transactionType.equals(TransactionData.TransactionType.DONATION.name,
+            ignoreCase = true)) {
       buy_button.setText(R.string.action_donate)
     } else {
       buy_button.setText(R.string.action_buy)
@@ -244,14 +239,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
       arguments!!.getString(SKU_DESCRIPTION, "")
     } else {
       throw IllegalArgumentException("sku description data not found")
-    }
-  }
-
-  private val transactionType: String by lazy {
-    if (arguments!!.containsKey(TRANSACTION_TYPE_KEY)) {
-      arguments!!.getString(TRANSACTION_TYPE_KEY, "")
-    } else {
-      throw IllegalArgumentException("transaction type data not found")
     }
   }
 
@@ -284,13 +271,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
       arguments!!.getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
     } else {
       throw IllegalArgumentException("amount data not found")
-    }
-  }
-  private val currency: String by lazy {
-    if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
-      arguments!!.getString(FIAT_CURRENCY_KEY)!!
-    } else {
-      throw IllegalArgumentException("currency data not found")
     }
   }
 

@@ -49,6 +49,7 @@
 
       <TextView
           android:id="@+id/title"
+          style="@style/BillingAddress.Title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
@@ -62,8 +63,7 @@
       <ScrollView
           android:id="@+id/scroll_content"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:fillViewport="true"
+          android:layout_height="216dp"
           android:overScrollMode="never"
           android:scrollbars="none"
           app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="10dp"
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
             app:layout_constraintEnd_toEndOf="parent"
@@ -209,7 +209,6 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/small_margin"
-              android:enabled="false"
               android:focusable="false"
               android:hint="@string/verification_insert_phone_field_country"
               app:layout_constraintEnd_toEndOf="parent"

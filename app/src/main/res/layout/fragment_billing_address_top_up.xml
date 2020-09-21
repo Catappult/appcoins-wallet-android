@@ -98,9 +98,23 @@
           android:id="@+id/payment_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="18dp"
+          android:layout_marginTop="@dimen/normal_margin"
           app:layout_constraintTop_toBottomOf="@id/top_separator_topup"
           >
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/BillingAddress.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/half_large_margin"
+            android:layout_marginEnd="@dimen/half_large_margin"
+            android:text="Billing Address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/credit_card_info_container"
@@ -110,7 +124,7 @@
             android:layout_marginEnd="@dimen/half_large_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
             >
 
           <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +132,6 @@
               style="@style/BillingTextInputLayout"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/normal_margin"
               android:layout_weight="3.5"
               android:hint="Address"
               app:layout_constraintEnd_toEndOf="parent"

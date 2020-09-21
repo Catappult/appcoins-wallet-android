@@ -13,5 +13,6 @@ data class BillingPaymentTopUpModel(
     val currency: String,
     val paymentType: String,
     val transactionType: String,
-    val packageName: String
+    val packageName: String,
+    val priceAmount: String
 ) : Serializable

@@ -305,8 +305,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             priceAmount.toString(), priceCurrency, it.orderReference,
                             mapPaymentToService(paymentType).transactionType, origin, domain,
                             it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress())
-                    view.showBillingAddress(priceAmount, priceCurrency, transactionType,
-                        billingPaymentModel)
+                    view.showBillingAddress(priceAmount, billingPaymentModel)
                   }
             }
             .subscribe()

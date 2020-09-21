@@ -77,6 +77,5 @@ interface AdyenPaymentView {
 
   fun setup3DSComponent()
 
-  fun showBillingAddress(value: BigDecimal, currency: String, transactionType: String,
-                         billingPaymentModel: BillingPaymentModel)
+  fun showBillingAddress(value: BigDecimal, billingPaymentModel: BillingPaymentModel)
 }

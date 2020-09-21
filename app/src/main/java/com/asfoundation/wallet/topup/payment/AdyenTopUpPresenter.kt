@@ -303,7 +303,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
         paymentModel.refusalCode?.let { code ->
           when (code) {
-            CVC_DECLINED -> showBillingAddress()
+            CVC_DECLINED -> showBillingAddress(retrievedAmount)
             FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
@@ -325,7 +325,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
   }
 
-  private fun showBillingAddress() {
+  private fun showBillingAddress(priceAmount: String) {
     disposables.add(
         view.retrievePaymentData()
             .firstOrError()
@@ -335,7 +335,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                   BillingPaymentTopUpModel(it.cardPaymentMethod, it.shouldStoreCard,
                       it.hasCvc, it.supportedShopperInteractions, returnUrl,
                       retrievedAmount, retrievedCurrency,
-                      mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
+                      mapPaymentToService(paymentType).transactionType, transactionType, appPackage,
+                      priceAmount)
               view.navigateToBillingAddress(billingPaymentTopUpModel)
             }
             .subscribe()

@@ -267,9 +267,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
 
-  override fun showBillingAddress(value: BigDecimal, currency: String, transactionType: String,
-                                  billingPaymentModel: BillingPaymentModel) =
-      iabView.showBillingAddress(value, currency, transactionType, bonus, appcAmount,
+  override fun showBillingAddress(value: BigDecimal, billingPaymentModel: BillingPaymentModel) =
+      iabView.showBillingAddress(value, bonus, appcAmount,
           billingPaymentModel)
 
   override fun showSpecificError(@StringRes stringRes: Int) {

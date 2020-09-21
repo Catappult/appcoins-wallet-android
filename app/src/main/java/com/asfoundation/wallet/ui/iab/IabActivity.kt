@@ -232,16 +232,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showBillingAddress(value: BigDecimal, currency: String, transactionType: String,
-                                  bonus: String, appcAmount: BigDecimal,
+  override fun showBillingAddress(value: BigDecimal, bonus: String, appcAmount: BigDecimal,
                                   billingPaymentModel: BillingPaymentModel) {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            BillingAddressFragment.newInstance(getSkuDescription(), transaction!!.type,
-                transaction!!.domain, appcAmount, bonus, value, currency,
-                isDonation, billingPaymentModel))
+            BillingAddressFragment.newInstance(getSkuDescription(), transaction!!.domain,
+                appcAmount, bonus, value, isDonation, billingPaymentModel))
         .commit()
   }
 

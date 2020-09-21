@@ -13,6 +13,7 @@ import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.address.BillingAddressTextWatcher
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.topup.TopUpActivityView
+import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -79,6 +80,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
 
   private fun setupUi() {
     showBonus()
+    showValues()
     setupFieldsListener()
     setupStateAdapter()
   }
@@ -92,8 +94,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
 
   private fun setupStateAdapter() {
     val languages = resources.getStringArray(R.array.states)
-    val adapter = ArrayAdapter(requireContext(),
-        android.R.layout.simple_list_item_1, languages)
+    val adapter = ArrayAdapter(requireContext(), R.layout.item_state, languages)
     state.setAdapter(adapter)
   }
 
@@ -165,6 +166,20 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
       bonus_layout?.bonus_header_1?.text = getString(R.string.topup_bonus_header_part_1)
       bonus_layout?.bonus_value?.text = getString(R.string.topup_bonus_header_part_2,
           currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
+    }
+  }
+
+  private fun showValues() {
+    main_value.visibility = VISIBLE
+    val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)
+    if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
+      main_value.setText(billingPaymentModel.priceAmount)
+      main_currency_code.text = billingPaymentModel.currency
+      converted_value.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
+    } else {
+      main_value.setText(formattedValue)
+      main_currency_code.text = WalletCurrency.CREDITS.symbol
+      converted_value.text = "${billingPaymentModel.priceAmount} ${billingPaymentModel.currency}"
     }
   }
 

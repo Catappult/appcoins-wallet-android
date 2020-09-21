@@ -51,8 +51,7 @@ interface IabView {
                          isDonation: Boolean, gamificationLevel: Int, disabledReasonAppc: Int?,
                          disabledReasonCredits: Int?)
 
-  fun showBillingAddress(value: BigDecimal, currency: String, transactionType: String,
-                         bonus: String, appcAmount: BigDecimal,
+  fun showBillingAddress(value: BigDecimal, bonus: String, appcAmount: BigDecimal,
                          billingPaymentModel: BillingPaymentModel)
 
   fun lockRotation()

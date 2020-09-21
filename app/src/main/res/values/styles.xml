@@ -497,22 +497,35 @@
     <item name="hintTextColor">@color/edit_text_label</item>
   </style>
 
-  <style name="BillingTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-    <!-- reference our hint & error styles -->
+  <style name="BillingCursorTheme" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+    <item name="colorControlActivated">#000000</item>
+  </style>
+
+  <style name="BillingTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <item name="android:textColorHint">#757575</item>
-    <item name="boxStrokeColor">#979797</item>
+    <item name="android:textColor">#000000</item>
+    <item name="boxStrokeColor">@color/billing_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">#757575</item>
+    <item name="hintTextColor">#000000</item>
+    <item name="colorControlActivated">#000000</item>
+    <item name="colorControlNormal">#000000</item>
+    <item name="colorControlHighlight">#000000</item>
+    <item name="android:theme">@style/BillingCursorTheme</item>
   </style>
 
   <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-    <!-- reference our hint & error styles -->
     <item name="android:textColorHint">#757575</item>
-    <item name="boxStrokeColor">#979797</item>
+    <item name="android:textColor">#000000</item>
+    <item name="boxStrokeColor">@color/billing_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">#757575</item>
+    <item name="hintTextColor">#000000</item>
+    <item name="colorControlActivated">#000000</item>
+    <item name="colorControlNormal">#000000</item>
+    <item name="colorControlHighlight">#000000</item>
+    <item name="android:theme">@style/BillingCursorTheme</item>
+    <item name="endIconTint">@color/billing_stroke_color</item>
   </style>
 
 
@@ -667,6 +680,11 @@
 
   <style name="TransactionsItem.Description.Extended">
     <item name="android:maxLines">3</item>
+  </style>
+
+  <style name="BillingAddress.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">#000000</item>
+    <item name="android:textSize">14sp</item>
   </style>
 
 </resources>
