@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Serbian (Latin)\n"
 "Language: sr_CS\n"
-"PO-Revision-Date: 2020-09-15 14:06\n"
+"PO-Revision-Date: 2020-09-21 13:27\n"
 
 #. Card Title
 #:
@@ -49,8 +49,8 @@ msgstr "Zato što ste dostigli sledeći nivo."
 
 #. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr "Dobićete dodatni bonus od {0}% za sve kupovine u igri {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr ""
 
 #. Title for bonus receipts.
 #:
