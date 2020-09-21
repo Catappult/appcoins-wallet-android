@@ -35,7 +35,7 @@ msgstr ""
 
 #. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr ""
 
 #. Title for bonus receipts.
