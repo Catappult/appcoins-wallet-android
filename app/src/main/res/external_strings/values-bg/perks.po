@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Bulgarian\n"
 "Language: bg_BG\n"
-"PO-Revision-Date: 2020-09-15 14:06\n"
+"PO-Revision-Date: 2020-09-21 13:27\n"
 
 #. Card Title
 #:
@@ -49,7 +49,7 @@ msgstr ""
 
 #. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr ""
 
 #. Title for bonus receipts.
