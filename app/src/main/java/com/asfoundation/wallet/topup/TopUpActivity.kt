@@ -15,6 +15,8 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
+import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
+import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
@@ -126,6 +128,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .add(R.id.fragment_container,
             LocalTopUpPaymentFragment.newInstance(paymentId, icon, label, topUpData))
         .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
+        .commit()
+  }
+
+  override fun navigateToBillingAddress(topUpData: TopUpPaymentData,
+                                        billingPaymentTopUpModel: BillingPaymentTopUpModel) {
+    supportFragmentManager.beginTransaction()
+        .add(R.id.fragment_container,
+            BillingAddressTopUpFragment.newInstance(topUpData, billingPaymentTopUpModel))
+        .addToBackStack(BillingAddressTopUpFragment::class.java.simpleName)
         .commit()
   }
 

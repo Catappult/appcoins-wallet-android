@@ -22,6 +22,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
+import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -302,7 +303,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
         paymentModel.refusalCode?.let { code ->
           when (code) {
-            CVC_DECLINED -> view.showCvvError()
+            CVC_DECLINED -> showBillingAddress()
             FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
@@ -322,6 +323,23 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         handleSpecificError(R.string.unknown_error)
       }
     }
+  }
+
+  private fun showBillingAddress() {
+    disposables.add(
+        view.retrievePaymentData()
+            .firstOrError()
+            .subscribeOn(networkScheduler)
+            .doOnSuccess {
+              val billingPaymentTopUpModel =
+                  BillingPaymentTopUpModel(it.cardPaymentMethod, it.shouldStoreCard,
+                      it.hasCvc, it.supportedShopperInteractions, returnUrl,
+                      retrievedAmount, retrievedCurrency,
+                      mapPaymentToService(paymentType).transactionType, transactionType, appPackage)
+              view.navigateToBillingAddress(billingPaymentTopUpModel)
+            }
+            .subscribe()
+    )
   }
 
   private fun handleSuccessTransaction(): Completable {

@@ -40,11 +40,13 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     private const val IS_DONATION_KEY = "is_donation"
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "currency_amount"
+    private const val BILLING_PAYMENT_MODEL = "billing_payment_model"
 
     @JvmStatic
     fun newInstance(skuDescription: String, transactionType: String, domain: String,
                     appcAmount: BigDecimal, bonus: String, fiatAmount: BigDecimal, currency: String,
-                    isDonation: Boolean): BillingAddressFragment {
+                    isDonation: Boolean,
+                    billingPaymentModel: BillingPaymentModel): BillingAddressFragment {
       return BillingAddressFragment().apply {
         arguments = Bundle().apply {
           putString(TRANSACTION_TYPE_KEY, transactionType)
@@ -55,6 +57,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
           putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
           putString(FIAT_CURRENCY_KEY, currency)
           putBoolean(IS_DONATION_KEY, isDonation)
+          putSerializable(BILLING_PAYMENT_MODEL, billingPaymentModel)
         }
       }
     }
@@ -65,7 +68,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
-
 
   @Inject
   lateinit var logger: Logger
@@ -78,7 +80,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     super.onCreate(savedInstanceState)
     disposables = CompositeDisposable()
     presenter = BillingAddressPresenter(this, disposables, AndroidSchedulers.mainThread(),
-        Schedulers.io(), interactor)
+        Schedulers.io(), interactor, billingPaymentModel, logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -104,6 +106,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   private fun setupFieldsListener() {
     address.addTextChangedListener(BillingAddressTextWatcher(address_layout))
+    number.addTextChangedListener(BillingAddressTextWatcher(number_layout))
     city.addTextChangedListener(BillingAddressTextWatcher(city_layout))
     zipcode.addTextChangedListener(BillingAddressTextWatcher(zipcode_layout))
   }
@@ -125,6 +128,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
               zipcode.text.toString(),
               state.text.toString(),
               country.text.toString(),
+              number.text.toString(),
               true
           )
         }
@@ -135,6 +139,11 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     if (address.text.isNullOrEmpty()) {
       valid = false
       address_layout.error = getString(R.string.error_field_required)
+    }
+
+    if (number.text.isNullOrEmpty()) {
+      valid = false
+      number_layout.error = getString(R.string.error_field_required)
     }
 
     if (city.text.isNullOrEmpty()) {
@@ -186,11 +195,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE
-  }
-
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    presenter.onSaveInstanceState(outState)
   }
 
   override fun onAttach(context: Context) {
@@ -295,6 +299,14 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
       arguments!!.getBoolean(IS_DONATION_KEY)
     } else {
       throw IllegalArgumentException("is donation data not found")
+    }
+  }
+
+  private val billingPaymentModel: BillingPaymentModel by lazy {
+    if (arguments!!.containsKey(BILLING_PAYMENT_MODEL)) {
+      arguments!!.getSerializable(BILLING_PAYMENT_MODEL) as BillingPaymentModel
+    } else {
+      throw IllegalArgumentException("billingPaymentModel not found")
     }
   }
 }

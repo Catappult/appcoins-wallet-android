@@ -12,6 +12,7 @@ import com.asfoundation.wallet.referrals.ReferralsFragment
 import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
+import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.SettingsFragment
 import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
@@ -191,4 +192,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindBillingAddressFragment(): BillingAddressFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindBillingAddressTopUpFragment(): BillingAddressTopUpFragment
 }

@@ -85,7 +85,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class InteractModule {
+class InteractorModule {
 
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
@@ -528,8 +528,8 @@ class InteractModule {
   }
 
   @Provides
-  fun provideBillingAddressInteractor(
-      adyenPaymentInteractor: AdyenPaymentInteractor): BillingAddressInteractor {
-    return BillingAddressInteractor(adyenPaymentInteractor)
+  fun provideBillingAddressInteractor(adyenPaymentInteractor: AdyenPaymentInteractor,
+                                      gson: Gson): BillingAddressInteractor {
+    return BillingAddressInteractor(adyenPaymentInteractor, gson)
   }
 }

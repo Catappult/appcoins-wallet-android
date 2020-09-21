@@ -24,7 +24,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                   origin: String?, packageName: String?, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
                   storeWallet: String?, oemWallet: String?, userWallet: String?,
-                  walletSignature: String, billingAddress: String?): Single<PaymentModel> {
+                  walletSignature: String,
+                  billingAddress: AdyenBillingAddress?): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
@@ -105,7 +106,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                      @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
                      @SerializedName("payment.return_url") val returnUrl: String,
                      @SerializedName("payment.shopper_interaction") val shopperInteraction: String?,
-                     @SerializedName("payment.billing_address") val billingAddress: String?,
+                     @SerializedName("payment.billing_address")
+                     val billingAddress: AdyenBillingAddress?,
                      @SerializedName("callback_url") val callbackUrl: String?,
                      @SerializedName("domain") val domain: String?,
                      @SerializedName("metadata") val metadata: String?,

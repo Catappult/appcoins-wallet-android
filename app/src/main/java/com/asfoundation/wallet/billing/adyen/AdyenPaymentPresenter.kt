@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
+import com.asfoundation.wallet.billing.address.BillingPaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.BILLING_ADDRESS_ISSING
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -298,13 +299,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               transactionBuilder
                   .observeOn(viewScheduler)
                   .doOnSuccess {
-                    view.showBillingAddress(adyenCard.cardPaymentMethod,
-                        adyenCard.shouldStoreCard, adyenCard.hasCvc,
-                        adyenCard.supportedShopperInteractions, returnUrl, priceAmount,
-                        priceCurrency, it.orderReference,
-                        mapPaymentToService(paymentType).transactionType, origin, domain,
-                        it.payload,
-                        it.skuId, it.callbackUrl, it.type, it.toAddress())
+                    val billingPaymentModel =
+                        BillingPaymentModel(adyenCard.cardPaymentMethod, adyenCard.shouldStoreCard,
+                            adyenCard.hasCvc, adyenCard.supportedShopperInteractions, returnUrl,
+                            priceAmount.toString(), priceCurrency, it.orderReference,
+                            mapPaymentToService(paymentType).transactionType, origin, domain,
+                            it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress())
+                    view.showBillingAddress(priceAmount, priceCurrency, transactionType,
+                        billingPaymentModel)
                   }
             }
             .subscribe()

@@ -7,6 +7,7 @@ import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenComponentResponseModel
+import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -72,4 +73,7 @@ interface AdyenTopUpView {
   fun onAdyen3DSError(): Observable<String>
 
   fun setup3DSComponent()
+
+  fun navigateToBillingAddress(
+      billingPaymentTopUpModel: BillingPaymentTopUpModel)
 }

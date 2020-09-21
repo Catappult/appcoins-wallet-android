@@ -23,7 +23,6 @@ import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
-import com.adyen.checkout.core.model.ModelObject
 import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
@@ -31,6 +30,7 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.address.BillingPaymentModel
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -267,17 +267,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
 
-  override fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                                  hasCvc: Boolean, supportedShopperInteraction: List<String>,
-                                  returnUrl: String, value: BigDecimal, currency: String,
-                                  reference: String?, paymentType: String, origin: String?,
-                                  packageName: String, metadata: String?, sku: String?,
-                                  callbackUrl: String?, transactionType: String,
-                                  developerWallet: String?) =
-      iabView.showBillingAddress(adyenPaymentMethod, shouldStoreMethod, hasCvc,
-          supportedShopperInteraction, returnUrl, value, currency, reference, paymentType, origin,
-          packageName, metadata, sku, callbackUrl, transactionType, developerWallet, bonus,
-          appcAmount)
+  override fun showBillingAddress(value: BigDecimal, currency: String, transactionType: String,
+                                  billingPaymentModel: BillingPaymentModel) =
+      iabView.showBillingAddress(value, currency, transactionType, bonus, appcAmount,
+          billingPaymentModel)
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE

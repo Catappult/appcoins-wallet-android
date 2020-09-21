@@ -1,150 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/payment_methods_width_landscape"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:animateLayoutChanges="true"
-    android:theme="@style/MaterialAppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_card"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
-
-  <RelativeLayout
-      android:id="@+id/payment_method_main_view"
-      android:layout_width="@dimen/payment_methods_width_landscape"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:animateLayoutChanges="true"
-      android:background="@drawable/background_card"
+  <ScrollView
+      android:id="@+id/top_up_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:descendantFocusability="beforeDescendants"
+      android:fillViewport="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       >
-
-    <ProgressBar
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/gradient_progress"
-        android:visibility="invisible"
-        />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/payment_methods"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="2dp"
         >
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/mid_guideline"
+      <TextView
+          android:id="@+id/main_currency_code"
+          style="@style/TopUpTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.46"
-          />
-
-      <View
-          android:id="@+id/top_separator"
-          android:layout_width="0dp"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/big_margin"
-          android:background="@color/layout_separator_color"
-          app:layout_constraintBottom_toTopOf="@id/payment_methods_header"
+          android:layout_marginTop="33dp"
+          android:text="--"
+          app:autoSizeStepGranularity="2sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
 
-      <include
-          android:id="@+id/payment_methods_header"
-          layout="@layout/payment_methods_header"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="19dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+      <com.asfoundation.wallet.ui.widget.AutoFitEditText
+          android:id="@+id/main_value"
+          style="@style/TopUpTextStyle.MainValue"
+          android:layout_width="152dp"
+          android:layout_height="55dp"
+          android:layout_marginTop="5dp"
+          android:background="@null"
+          android:enabled="false"
+          android:focusable="true"
+          android:focusableInTouchMode="true"
+          android:gravity="center"
+          android:hint="0"
+          android:imeOptions="flagNoExtractUi|flagNoFullscreen|actionNext"
+          android:inputType="numberDecimal"
+          android:maxWidth="152dp"
+          android:maxLength="152"
+          android:maxLines="1"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          />
-      <include
-          android:id="@+id/bonus_layout"
-          layout="@layout/view_purchase_bonus"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="15dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
-          app:layout_constraintVertical_bias="1"
-          app:layout_constraintVertical_chainStyle="packed"
-          tools:visibility="visible"
+          app:layout_constraintTop_toBottomOf="@id/main_currency_code"
           />
 
       <TextView
-          android:id="@+id/bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="2dp"
-          android:layout_marginTop="8dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:gravity="start"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="@id/bonus_layout"
-          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-          app:layout_constraintVertical_bias="1"
-          tools:visibility="visible"
-          />
-
-      <ImageView
-          android:id="@+id/mid_separator"
-          android:layout_width="1dp"
-          android:layout_height="0dp"
-          android:layout_marginTop="7dp"
-          android:layout_marginBottom="8dp"
-          android:background="@drawable/dashed_vertical_line"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          />
-
-      <TextView
-          android:id="@+id/title"
+          android:id="@+id/converted_value"
+          style="@style/TopUpTextStyle.ConvertedValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:text="Billing Address"
+          android:layout_marginTop="8dp"
+          android:text="--"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/main_value"
           />
 
-      <ScrollView
-          android:id="@+id/scroll_content"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:fillViewport="true"
-          android:overScrollMode="never"
-          android:scrollbars="none"
+      <View
+          android:id="@+id/top_separator_topup"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="32dp"
+          android:background="#eaeaea"
+          android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/title"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/value_warning_text"
+          />
+
+      <TextView
+          android:id="@+id/value_warning_text"
+          style="@style/TopUpTextStyle.ValueWarning"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="13dp"
+          android:text="@string/topup_minimum_value"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/converted_value"
+          />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/payment_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="18dp"
+          app:layout_constraintTop_toBottomOf="@id/top_separator_topup"
           >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/content_main"
+            android:id="@+id/credit_card_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginStart="@dimen/half_large_margin"
+            android:layout_marginEnd="@dimen/half_large_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             >
 
           <com.google.android.material.textfield.TextInputLayout
@@ -167,7 +133,7 @@
                 android:maxLines="1"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                tools:text="1600 Amphitheatre Parkway"
+                tools:text="Amphitheatre Parkway"
                 />
           </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,9 +142,9 @@
               style="@style/BillingTextInputLayout"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/small_margin"
+              android:layout_marginTop="@dimen/normal_margin"
               android:layout_weight="3.5"
-              android:hint="City"
+              android:hint="Number"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@id/address_layout"
@@ -227,6 +193,7 @@
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/small_margin"
               android:layout_marginEnd="@dimen/small_margin"
+              android:layout_weight="3.5"
               android:hint="Zip/Postal Code"
               app:layout_constraintEnd_toStartOf="@id/state_layout"
               app:layout_constraintStart_toStartOf="parent"
@@ -251,11 +218,13 @@
               android:layout_width="0dp"
               android:layout_height="0dp"
               android:layout_marginStart="@dimen/small_margin"
+              android:layout_marginTop="@dimen/small_margin"
+              android:layout_weight="3.5"
               android:hint="State"
               app:layout_constraintBottom_toBottomOf="@id/zipcode_layout"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@id/zipcode_layout"
-              app:layout_constraintTop_toTopOf="@id/zipcode_layout"
+              app:layout_constraintTop_toBottomOf="@id/city_layout"
               >
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/state"
@@ -272,6 +241,8 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/small_margin"
+              android:enabled="false"
+              android:focusable="false"
               android:hint="@string/verification_insert_phone_field_country"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -290,46 +261,97 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-      </ScrollView>
-
-      <View
-          android:id="@+id/bottom_separator"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/big_margin"
-          android:background="@color/layout_separator_color"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/scroll_content"
-          />
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/bottom_mid_guideline"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.55"
-          />
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:indeterminateDrawable="@drawable/gradient_progress"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <include
-          android:id="@+id/dialog_buy_buttons_payment_methods"
-          layout="@layout/dialog_buy_buttons_payment_methods"
-          android:layout_width="match_parent"
-          android:layout_height="48dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
-
+          android:id="@+id/bonus_layout"
+          layout="@layout/view_purchase_bonus"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/payment_container"
+          app:layout_constraintVertical_bias="0"
+          app:layout_constraintVertical_chainStyle="packed"
           />
+
+      <TextView
+          android:id="@+id/bonus_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="21dp"
+          android:gravity="center"
+          android:text="@string/gamification_purchase_body"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          app:layout_constraintVertical_bias="0"
+          />
+
+      <Button
+          android:id="@+id/button"
+          style="@style/ButtonStyle.Alternative"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/button_height"
+          android:layout_marginStart="40dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="40dp"
+          android:layout_marginBottom="80dp"
+          android:enabled="false"
+          android:text="@string/action_next"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+          app:layout_constraintVertical_bias="1.0"
+          />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-  </RelativeLayout>
+
+  </ScrollView>
 
   <include
-      android:id="@+id/merged_error_layout"
-      layout="@layout/iab_error_layout"
+      android:id="@+id/no_network"
+      layout="@layout/no_network_retry_only_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_centerInParent="true"
       android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
-</RelativeLayout>
+  <include
+      android:id="@+id/fragment_adyen_error"
+      layout="@layout/error_top_up_layout"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

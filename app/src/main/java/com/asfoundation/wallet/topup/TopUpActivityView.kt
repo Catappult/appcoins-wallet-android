@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
 import io.reactivex.Observable
 
 interface TopUpActivityView {
@@ -13,6 +14,9 @@ interface TopUpActivityView {
 
   fun navigateToLocalPayment(paymentId: String, icon: String, label: String,
                              topUpData: TopUpPaymentData)
+
+  fun navigateToBillingAddress(topUpData: TopUpPaymentData,
+                               billingPaymentTopUpModel: BillingPaymentTopUpModel)
 
   fun finish(data: Bundle)
 

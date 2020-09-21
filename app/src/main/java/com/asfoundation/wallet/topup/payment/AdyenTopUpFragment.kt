@@ -31,6 +31,7 @@ import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
+import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
@@ -267,6 +268,10 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun navigateToPaymentSelection() {
     topUpView.navigateBack()
+  }
+
+  override fun navigateToBillingAddress(billingPaymentTopUpModel: BillingPaymentTopUpModel) {
+    topUpView.navigateToBillingAddress(data, billingPaymentTopUpModel)
   }
 
   override fun finishCardConfiguration(

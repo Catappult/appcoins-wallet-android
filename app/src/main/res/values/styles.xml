@@ -497,6 +497,24 @@
     <item name="hintTextColor">@color/edit_text_label</item>
   </style>
 
+  <style name="BillingTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <!-- reference our hint & error styles -->
+    <item name="android:textColorHint">#757575</item>
+    <item name="boxStrokeColor">#979797</item>
+    <item name="boxStrokeWidth">1dp</item>
+    <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="hintTextColor">#757575</item>
+  </style>
+
+  <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <!-- reference our hint & error styles -->
+    <item name="android:textColorHint">#757575</item>
+    <item name="boxStrokeColor">#979797</item>
+    <item name="boxStrokeWidth">1dp</item>
+    <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="hintTextColor">#757575</item>
+  </style>
+
 
   <style name="ErrorText" parent="TextAppearance.AppCompat">
     <item name="android:textColor">@color/colorAccent</item>

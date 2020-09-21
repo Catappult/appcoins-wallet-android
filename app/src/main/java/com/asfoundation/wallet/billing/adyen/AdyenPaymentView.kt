@@ -4,7 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.payments.response.Action
-import com.adyen.checkout.core.model.ModelObject
+import com.asfoundation.wallet.billing.address.BillingPaymentModel
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
 import java.math.BigDecimal
@@ -77,10 +77,6 @@ interface AdyenPaymentView {
 
   fun setup3DSComponent()
 
-  fun showBillingAddress(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                         hasCvc: Boolean, supportedShopperInteraction: List<String>,
-                         returnUrl: String, value: BigDecimal, currency: String, reference: String?,
-                         paymentType: String, origin: String?, packageName: String,
-                         metadata: String?, sku: String?, callbackUrl: String?,
-                         transactionType: String, developerWallet: String?)
+  fun showBillingAddress(value: BigDecimal, currency: String, transactionType: String,
+                         billingPaymentModel: BillingPaymentModel)
 }
