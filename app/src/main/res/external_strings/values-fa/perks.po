@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2020-09-20 13:24\n"
+"PO-Revision-Date: 2020-09-21 13:27\n"
 
 #. Card Title
 #:
@@ -49,8 +49,8 @@ msgstr "زیرا به مرحله بعد رسیده‌اید."
 
 #. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr "در همه خریدهای خود در {1} یک پاداش {0}% بیشتر دریافت کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr ""
 
 #. Title for bonus receipts.
 #:
