@@ -475,6 +475,13 @@
   <string name="purchase_error_wallet_block_code_403">Parece que algo não está certo com sua wallet. Por favor, entre em contato conosco.</string>
   <string name="purchase_card_error_CVV">CVV/CVC errado</string>
   <string name="error_contac_us_body">Se o problema persistir, entre em contato conosco.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Billing address</string>
+  <string name="purchase_address_address_field">Address</string>
+  <string name="purchase_address_apartment_field">Apartment, floor&#8230; (optional)</string>
+  <string name="purchase_address_city_field">City</string>
+  <string name="purchase_address_post_code_field">Zip/Post code</string>
+  <string name="purchase_address_state_field">State/Province</string>
   <!--Async Payments-->
   <string name="async_steps_title">Próximos Passos</string>
   <string name="async_steps_1">Complete seu pagamento com %s. Você será notificado assim que receber os Créditos AppCoins na sua wallet.</string>
