@@ -475,6 +475,13 @@
   <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">गलत सीवीवी/सीवीसी</string>
   <string name="error_contac_us_body">अगर समस्या रहती है तो कृपया हमसे संपर्क करें।</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Billing address</string>
+  <string name="purchase_address_address_field">Address</string>
+  <string name="purchase_address_apartment_field">Apartment, floor&#8230; (optional)</string>
+  <string name="purchase_address_city_field">City</string>
+  <string name="purchase_address_post_code_field">Zip/Post code</string>
+  <string name="purchase_address_state_field">State/Province</string>
   <!--Async Payments-->
   <string name="async_steps_title">अगले चरण</string>
   <string name="async_steps_1">%s के साथ अपना भुगतान पूरा करें। आपके वॉलेट में AppCoins Credits मिलने के बाद आपको सूचित किया जाएगा।</string>
