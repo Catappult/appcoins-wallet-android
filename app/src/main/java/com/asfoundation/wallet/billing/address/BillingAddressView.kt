@@ -10,4 +10,8 @@ interface BillingAddressView {
 
   fun showMoreMethods()
 
+  fun showLoading()
+
+  fun hideLoading()
+
 }

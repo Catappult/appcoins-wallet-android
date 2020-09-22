@@ -26,6 +26,7 @@ class BillingAddressTopUpPresenter(
     disposables.add(
         view.submitClicks()
             .subscribeOn(viewScheduler)
+            .doOnNext { view.showLoading() }
             .observeOn(networkScheduler)
             .flatMapSingle {
               billingAddressInteractor.makeTopUpPayment(billingPaymentTopUpModel, it)

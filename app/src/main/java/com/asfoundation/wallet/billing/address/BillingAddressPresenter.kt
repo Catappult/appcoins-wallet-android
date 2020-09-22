@@ -26,6 +26,7 @@ class BillingAddressPresenter(
     disposables.add(
         view.submitClicks()
             .subscribeOn(viewScheduler)
+            .doOnNext { view.showLoading() }
             .observeOn(networkScheduler)
             .flatMapSingle { billingAddressInteractor.makePayment(billingPaymentModel, it) }
             .subscribe({}, {

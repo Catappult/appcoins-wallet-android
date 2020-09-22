@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
-    android:theme="@style/AdyenMaterialAppTheme"
+    android:theme="@style/MaterialAppTheme"
     >
   <ScrollView
       android:id="@+id/top_up_container"
@@ -94,12 +94,48 @@
           app:layout_constraintTop_toBottomOf="@+id/converted_value"
           />
 
+      <include
+          android:id="@+id/bonus_layout"
+          layout="@layout/view_purchase_bonus"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/value_warning_text"
+          app:layout_constraintVertical_bias="0"
+          app:layout_constraintVertical_chainStyle="packed"
+          tools:visibility="visible"
+          />
+
+      <TextView
+          android:id="@+id/bonus_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="21dp"
+          android:gravity="center"
+          android:text="@string/gamification_purchase_body"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          app:layout_constraintVertical_bias="0"
+          tools:visibility="visible"
+          />
+
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/payment_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/normal_margin"
-          app:layout_constraintTop_toBottomOf="@id/top_separator_topup"
+          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
           >
 
         <TextView
@@ -117,10 +153,11 @@
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/credit_card_info_container"
+            android:id="@+id/billing_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/half_large_margin"
+            android:layout_marginTop="@dimen/big_margin"
             android:layout_marginEnd="@dimen/half_large_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +169,6 @@
               style="@style/BillingTextInputLayout"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_weight="3.5"
               android:hint="Address"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -141,11 +177,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="Amphitheatre Parkway"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -156,7 +191,6 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/normal_margin"
-              android:layout_weight="3.5"
               android:hint="Number"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -165,12 +199,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:inputType="number"
                 android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="36"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -181,7 +214,6 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/small_margin"
-              android:layout_weight="3.5"
               android:hint="City"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -190,11 +222,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/city"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="Mountain View"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -206,7 +237,6 @@
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/small_margin"
               android:layout_marginEnd="@dimen/small_margin"
-              android:layout_weight="3.5"
               android:hint="Zip/Postal Code"
               app:layout_constraintEnd_toStartOf="@id/state_layout"
               app:layout_constraintStart_toStartOf="parent"
@@ -215,12 +245,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/zipcode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:inputType="number"
                 android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="94043"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -229,12 +258,10 @@
               android:id="@+id/state_layout"
               style="@style/BillingDropDown"
               android:layout_width="0dp"
-              android:layout_height="0dp"
+              android:layout_height="wrap_content"
               android:layout_marginStart="@dimen/small_margin"
               android:layout_marginTop="@dimen/small_margin"
-              android:layout_weight="3.5"
               android:hint="State"
-              app:layout_constraintBottom_toBottomOf="@id/zipcode_layout"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@id/zipcode_layout"
               app:layout_constraintTop_toBottomOf="@id/city_layout"
@@ -242,8 +269,9 @@
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/state"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:editable="false"
+                android:textSize="14sp"
                 tools:text="CA"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -265,12 +293,24 @@
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/country"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:editable="false"
                 android:text="United States"
+                android:textSize="14sp"
                 />
 
           </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.switchmaterial.SwitchMaterial
+              android:id="@+id/remember"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:button="@color/billing_switch_color"
+              android:text="@string/dialog_credit_card_remember"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/country_layout"
+              />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -289,40 +329,6 @@
             />
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <include
-          android:id="@+id/bonus_layout"
-          layout="@layout/view_purchase_bonus"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:visibility="gone"
-          app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/payment_container"
-          app:layout_constraintVertical_bias="0"
-          app:layout_constraintVertical_chainStyle="packed"
-          />
-
-      <TextView
-          android:id="@+id/bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="11dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginBottom="21dp"
-          android:gravity="center"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="gone"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-          app:layout_constraintVertical_bias="0"
-          />
-
       <Button
           android:id="@+id/button"
           style="@style/ButtonStyle.Alternative"
@@ -332,11 +338,9 @@
           android:layout_marginTop="16dp"
           android:layout_marginEnd="40dp"
           android:layout_marginBottom="80dp"
-          android:enabled="false"
           android:text="@string/action_next"
-          android:visibility="invisible"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+          app:layout_constraintTop_toBottomOf="@id/payment_container"
           app:layout_constraintVertical_bias="1.0"
           />
 

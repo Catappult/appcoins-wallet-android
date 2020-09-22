@@ -5,8 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -91,12 +90,25 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   private fun setupUi() {
     iabView.unlockRotation()
-    cancel_button.setText(R.string.back_button)
-    handleBuyButtonText()
+    showButtons()
     setHeaderInformation()
     showBonus()
     setupFieldsListener()
     setupStateAdapter()
+  }
+
+  private fun showButtons() {
+    cancel_button.setText(R.string.back_button)
+
+    if (billingPaymentModel.transactionType.equals(TransactionData.TransactionType.DONATION.name,
+            ignoreCase = true)) {
+      buy_button.setText(R.string.action_donate)
+    } else {
+      buy_button.setText(R.string.action_buy)
+    }
+
+    buy_button.visibility = VISIBLE
+    cancel_button.visibility = VISIBLE
   }
 
   private fun setupFieldsListener() {
@@ -108,7 +120,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   private fun setupStateAdapter() {
     val languages = resources.getStringArray(R.array.states)
-    val adapter = ArrayAdapter(requireContext(), R.layout.item_state, languages)
+    val adapter = ArrayAdapter(requireContext(), R.layout.item_billing_address_state, languages)
     state.setAdapter(adapter)
   }
 
@@ -123,9 +135,27 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
               state.text.toString(),
               country.text.toString(),
               number.text.toString(),
-              true
+              remember.isChecked
           )
         }
+  }
+
+  override fun showLoading() {
+    cc_info_view.visibility = INVISIBLE
+    title.visibility = INVISIBLE
+    if (bonus.isNotEmpty()) {
+      bonus_layout?.visibility = INVISIBLE
+      bonus_msg?.visibility = INVISIBLE
+    }
+    cancel_button.visibility = INVISIBLE
+    buy_button.visibility = INVISIBLE
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
+  }
+
+  override fun hideLoading() {
+    fragment_credit_card_authorization_progress_bar?.visibility = GONE
+    cancel_button.visibility = VISIBLE
   }
 
   private fun validateFields(): Boolean {
@@ -212,15 +242,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     } else {
       bonus_layout?.visibility = GONE
       bonus_msg?.visibility = GONE
-    }
-  }
-
-  private fun handleBuyButtonText() {
-    if (billingPaymentModel.transactionType.equals(TransactionData.TransactionType.DONATION.name,
-            ignoreCase = true)) {
-      buy_button.setText(R.string.action_donate)
-    } else {
-      buy_button.setText(R.string.action_buy)
     }
   }
 

@@ -7,4 +7,8 @@ interface BillingAddressTopUpView {
 
   fun submitClicks(): Observable<BillingAddressModel>
 
+  fun showLoading()
+
+  fun hideLoading()
+
 }

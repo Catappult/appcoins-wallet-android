@@ -4,11 +4,9 @@ import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
-import com.google.gson.Gson
 import io.reactivex.Single
 
-class BillingAddressInteractor(private val adyenPaymentInteractor: AdyenPaymentInteractor,
-                               private val gson: Gson) {
+class BillingAddressInteractor(private val adyenPaymentInteractor: AdyenPaymentInteractor) {
 
   fun makePayment(model: BillingPaymentModel,
                   billingPaymentModel: BillingAddressModel): Single<PaymentModel> {
@@ -16,7 +14,8 @@ class BillingAddressInteractor(private val adyenPaymentInteractor: AdyenPaymentI
         AdyenBillingAddress(billingPaymentModel.address, billingPaymentModel.city,
             billingPaymentModel.zipcode, billingPaymentModel.number, billingPaymentModel.state,
             billingPaymentModel.country)
-    return adyenPaymentInteractor.makePayment(model.adyenPaymentMethod, model.shouldStoreMethod,
+    return adyenPaymentInteractor.makePayment(model.adyenPaymentMethod,
+        billingPaymentModel.remember,
         model.hasCvc, model.supportedShopperInteraction, model.returnUrl, model.value,
         model.currency, model.reference, model.paymentType, model.origin, model.packageName,
         model.metadata, model.sku, model.callbackUrl, model.transactionType, model.developerWallet,
@@ -30,9 +29,9 @@ class BillingAddressInteractor(private val adyenPaymentInteractor: AdyenPaymentI
             billingPaymentModel.zipcode, billingPaymentModel.number, billingPaymentModel.state,
             billingPaymentModel.country)
     return adyenPaymentInteractor.makeTopUpPayment(model.adyenPaymentMethod,
-        model.shouldStoreMethod, model.hasCvc, model.supportedShopperInteraction, model.returnUrl,
-        model.value, model.currency, model.paymentType, model.transactionType, model.packageName,
-        adyenBillingAddress)
+        billingPaymentModel.remember, model.hasCvc, model.supportedShopperInteraction,
+        model.returnUrl, model.value, model.currency, model.paymentType, model.transactionType,
+        model.packageName, adyenBillingAddress)
   }
 
 }

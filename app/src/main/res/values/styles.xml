@@ -504,6 +504,7 @@
   <style name="BillingTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <item name="android:textColorHint">#757575</item>
     <item name="android:textColor">#000000</item>
+    <item name="android:textSize">14sp</item>
     <item name="boxStrokeColor">@color/billing_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
@@ -517,6 +518,7 @@
   <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
     <item name="android:textColorHint">#757575</item>
     <item name="android:textColor">#000000</item>
+    <item name="android:textSize">14sp</item>
     <item name="boxStrokeColor">@color/billing_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>

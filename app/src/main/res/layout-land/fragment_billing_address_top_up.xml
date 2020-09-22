@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
-    android:theme="@style/AdyenMaterialAppTheme"
+    android:theme="@style/MaterialAppTheme"
     >
 
   <ScrollView
@@ -145,7 +145,7 @@
           >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/credit_card_info_container"
+            android:id="@+id/billing_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -180,11 +180,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="1600 Amphitheatre Parkway"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -195,7 +194,6 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/small_margin"
-              android:layout_weight="3.5"
               android:hint="City"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -204,12 +202,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:inputType="number"
                 android:maxLines="1"
                 android:textColor="#000000"
-                android:textSize="16sp"
                 tools:text="36"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -220,7 +217,6 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/small_margin"
-              android:layout_weight="3.5"
               android:hint="City"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -229,11 +225,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/city"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="Mountain View"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -253,12 +248,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/zipcode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:imeOptions="flagNoExtractUi|flagNoFullscreen"
                 android:inputType="number"
                 android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="94043"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -267,10 +261,9 @@
               android:id="@+id/state_layout"
               style="@style/BillingDropDown"
               android:layout_width="0dp"
-              android:layout_height="0dp"
+              android:layout_height="wrap_content"
               android:layout_marginStart="@dimen/small_margin"
               android:hint="State"
-              app:layout_constraintBottom_toBottomOf="@id/zipcode_layout"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@id/zipcode_layout"
               app:layout_constraintTop_toTopOf="@id/zipcode_layout"
@@ -278,8 +271,9 @@
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/state"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:editable="false"
+                android:textSize="14sp"
                 tools:text="CA"
                 />
           </com.google.android.material.textfield.TextInputLayout>
@@ -299,12 +293,25 @@
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/country"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:editable="false"
                 android:text="United States"
+                android:textSize="14sp"
                 />
 
           </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.switchmaterial.SwitchMaterial
+              android:id="@+id/remember"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:button="@color/billing_switch_color"
+              android:text="@string/dialog_credit_card_remember"
+              android:textSize="14sp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/country_layout"
+              />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -331,10 +338,8 @@
           android:layout_marginTop="32dp"
           android:layout_marginEnd="16dp"
           android:layout_marginBottom="21dp"
-          android:enabled="false"
           android:minWidth="144dp"
           android:text="@string/action_next"
-          android:visibility="invisible"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/container"

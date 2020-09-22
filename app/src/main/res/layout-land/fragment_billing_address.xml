@@ -6,32 +6,27 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
+    android:maxHeight="300dp"
     android:theme="@style/MaterialAppTheme"
     >
 
   <RelativeLayout
-      android:id="@+id/payment_method_main_view"
+      android:id="@+id/main_view"
       android:layout_width="@dimen/payment_methods_width_landscape"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_card"
+      android:maxHeight="300dp"
       >
 
-    <ProgressBar
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/gradient_progress"
-        android:visibility="invisible"
-        />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/payment_methods"
+        android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_card"
         android:elevation="2dp"
+        android:visibility="visible"
         >
 
       <androidx.constraintlayout.widget.Guideline
@@ -42,13 +37,24 @@
           app:layout_constraintGuide_percent="0.46"
           />
 
+      <ImageView
+          android:id="@+id/mid_separator"
+          android:layout_width="1dp"
+          android:layout_height="0dp"
+          android:layout_marginTop="7dp"
+          android:layout_marginBottom="8dp"
+          android:background="@drawable/dashed_vertical_line"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
+
       <View
           android:id="@+id/top_separator"
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="1dp"
           android:layout_marginTop="@dimen/big_margin"
           android:background="@color/layout_separator_color"
-          app:layout_constraintBottom_toTopOf="@id/payment_methods_header"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -66,20 +72,31 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
+
+
+      <ProgressBar
+          android:id="@+id/fragment_credit_card_authorization_progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="15dp"
+          android:layout_marginTop="19dp"
           android:layout_marginEnd="@dimen/big_margin"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
-          app:layout_constraintVertical_bias="1"
-          app:layout_constraintVertical_chainStyle="packed"
           tools:visibility="visible"
           />
 
@@ -88,30 +105,18 @@
           style="@style/TopUpTextStyle.Small.BonusText"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="2dp"
-          android:layout_marginTop="8dp"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:gravity="start"
+          android:layout_marginBottom="11dp"
+          android:gravity="center_vertical"
           android:text="@string/gamification_purchase_body"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-          app:layout_constraintVertical_bias="1"
-          tools:visibility="visible"
           />
 
-      <ImageView
-          android:id="@+id/mid_separator"
-          android:layout_width="1dp"
-          android:layout_height="0dp"
-          android:layout_marginTop="7dp"
-          android:layout_marginBottom="8dp"
-          android:background="@drawable/dashed_vertical_line"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          />
 
       <TextView
           android:id="@+id/title"
@@ -119,6 +124,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="16dp"
           android:text="Billing Address"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0"
@@ -127,168 +133,193 @@
           />
 
       <ScrollView
-          android:id="@+id/scroll_content"
+          android:id="@+id/cc_info_view"
           android:layout_width="0dp"
-          android:layout_height="216dp"
+          android:layout_height="0dp"
           android:overScrollMode="never"
+          android:paddingStart="@dimen/big_margin"
+          android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/title"
           >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/content_main"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_gravity="center"
             >
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/address_layout"
-              style="@style/BillingTextInputLayout"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/normal_margin"
-              android:layout_weight="3.5"
-              android:hint="Address"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:id="@+id/content_main"
+              android:layout_width="match_parent"
+              android:layout_height="216dp"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginEnd="@dimen/big_margin"
               >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/address"
-                android:layout_width="match_parent"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_layout"
+                style="@style/BillingTextInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-                android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                tools:text="1600 Amphitheatre Parkway"
-                />
-          </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/normal_margin"
+                android:hint="Address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/address"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                  android:maxLines="1"
+                  android:textSize="14sp"
+                  tools:text="1600 Amphitheatre Parkway"
+                  />
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/number_layout"
-              style="@style/BillingTextInputLayout"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/small_margin"
-              android:layout_weight="3.5"
-              android:hint="City"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/address_layout"
-              >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/number"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/number_layout"
+                style="@style/BillingTextInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                tools:text="36"
-                />
-          </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/small_margin"
+                android:hint="City"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address_layout"
+                >
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/number"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                  android:inputType="number"
+                  android:maxLines="1"
+                  android:textSize="14sp"
+                  tools:text="36"
+                  />
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/city_layout"
-              style="@style/BillingTextInputLayout"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/small_margin"
-              android:layout_weight="3.5"
-              android:hint="City"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/number_layout"
-              >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/city"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/city_layout"
+                style="@style/BillingTextInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-                android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                tools:text="Mountain View"
-                />
-          </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/small_margin"
+                android:hint="City"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_layout"
+                >
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/city"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                  android:maxLines="1"
+                  android:textSize="14sp"
+                  tools:text="Mountain View"
+                  />
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/zipcode_layout"
-              style="@style/BillingTextInputLayout"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/small_margin"
-              android:layout_marginEnd="@dimen/small_margin"
-              android:hint="Zip/Postal Code"
-              app:layout_constraintEnd_toStartOf="@id/state_layout"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/city_layout"
-              >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/zipcode"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/zipcode_layout"
+                style="@style/BillingTextInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                tools:text="94043"
-                />
-          </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:hint="Zip/Postal Code"
+                app:layout_constraintEnd_toStartOf="@id/state_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/city_layout"
+                >
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/zipcode"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                  android:inputType="number"
+                  android:maxLines="1"
+                  android:textSize="14sp"
+                  tools:text="94043"
+                  />
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/state_layout"
-              style="@style/BillingDropDown"
-              android:layout_width="0dp"
-              android:layout_height="0dp"
-              android:layout_marginStart="@dimen/small_margin"
-              android:hint="State"
-              app:layout_constraintBottom_toBottomOf="@id/zipcode_layout"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toEndOf="@id/zipcode_layout"
-              app:layout_constraintTop_toTopOf="@id/zipcode_layout"
-              >
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/state"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:editable="false"
-                tools:text="CA"
-                />
-          </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/state_layout"
+                style="@style/BillingDropDown"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/small_margin"
+                android:hint="State"
+                app:layout_constraintBottom_toBottomOf="@id/zipcode_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/zipcode_layout"
+                app:layout_constraintTop_toTopOf="@id/zipcode_layout"
+                >
+              <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                  android:id="@+id/state"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:editable="false"
+                  android:textSize="14sp"
+                  tools:text="CA"
+                  />
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/country_layout"
-              style="@style/BillingDropDown"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/small_margin"
-              android:hint="@string/verification_insert_phone_field_country"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/state_layout"
-              >
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/country"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/country_layout"
+                style="@style/BillingDropDown"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:editable="false"
-                android:text="United States"
+                android:layout_marginTop="@dimen/small_margin"
+                android:hint="@string/verification_insert_phone_field_country"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/state_layout"
+                >
+
+              <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                  android:id="@+id/country"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:editable="false"
+                  android:text="United States"
+                  android:textSize="14sp"
+                  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/remember"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:button="@color/billing_switch_color"
+                android:text="@string/dialog_credit_card_remember"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/country_layout"
                 />
 
-          </com.google.android.material.textfield.TextInputLayout>
+          </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+          <include
+              android:id="@+id/fragment_adyen_error"
+              layout="@layout/support_error_layout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:visibility="gone"
+              />
+
+        </RelativeLayout>
 
       </ScrollView>
 
@@ -296,11 +327,11 @@
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginTop="227dp"
           android:background="@color/layout_separator_color"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/scroll_content"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
 
       <androidx.constraintlayout.widget.Guideline
@@ -308,26 +339,44 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.55"
+          app:layout_constraintGuide_percent="0.5"
           />
 
       <include
-          android:id="@+id/dialog_buy_buttons_payment_methods"
-          layout="@layout/dialog_buy_buttons_payment_methods"
-          android:layout_width="match_parent"
-          android:layout_height="48dp"
+          android:id="@+id/dialog_buy_buttons"
+          layout="@layout/dialog_buy_buttons"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
           app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
-
           />
+
+      <include
+          android:id="@+id/error_buttons"
+          layout="@layout/dialog_buy_buttons_adyen_error"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/fragment_iab_transaction_completed" />
+
   </RelativeLayout>
 
   <include
-      android:id="@+id/merged_error_layout"
+      android:id="@+id/fragment_iab_error"
       layout="@layout/iab_error_layout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:layout_centerInParent="true"
       android:visibility="gone"
       />

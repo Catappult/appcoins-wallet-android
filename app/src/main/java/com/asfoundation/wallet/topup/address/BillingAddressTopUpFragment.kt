@@ -83,6 +83,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     showValues()
     setupFieldsListener()
     setupStateAdapter()
+    button.setText(R.string.topup_home_button)
   }
 
   private fun setupFieldsListener() {
@@ -90,11 +91,12 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     number.addTextChangedListener(BillingAddressTextWatcher(number_layout))
     city.addTextChangedListener(BillingAddressTextWatcher(city_layout))
     zipcode.addTextChangedListener(BillingAddressTextWatcher(zipcode_layout))
+    state.addTextChangedListener(BillingAddressTextWatcher(state_layout))
   }
 
   private fun setupStateAdapter() {
     val languages = resources.getStringArray(R.array.states)
-    val adapter = ArrayAdapter(requireContext(), R.layout.item_state, languages)
+    val adapter = ArrayAdapter(requireContext(), R.layout.item_billing_address_state, languages)
     state.setAdapter(adapter)
   }
 
@@ -109,7 +111,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
               state.text.toString(),
               country.text.toString(),
               number.text.toString(),
-              true
+              remember.isChecked
           )
         }
   }
@@ -181,6 +183,23 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
       main_currency_code.text = WalletCurrency.CREDITS.symbol
       converted_value.text = "${billingPaymentModel.priceAmount} ${billingPaymentModel.currency}"
     }
+  }
+
+  override fun showLoading() {
+    topUpView.lockOrientation()
+    loading.visibility = VISIBLE
+    billing_info_container.visibility = View.INVISIBLE
+    title.visibility = View.INVISIBLE
+    button.isEnabled = false
+  }
+
+  override fun hideLoading() {
+    topUpView.unlockRotation()
+    button.visibility = VISIBLE
+    loading.visibility = View.GONE
+    button.isEnabled = true
+    title.visibility = VISIBLE
+    billing_info_container.visibility = VISIBLE
   }
 
   override fun onDestroyView() {

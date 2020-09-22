@@ -271,6 +271,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun navigateToBillingAddress(billingPaymentTopUpModel: BillingPaymentTopUpModel) {
+    topUpView.unlockRotation()
     topUpView.navigateToBillingAddress(data, billingPaymentTopUpModel)
   }
 

@@ -528,8 +528,8 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideBillingAddressInteractor(adyenPaymentInteractor: AdyenPaymentInteractor,
-                                      gson: Gson): BillingAddressInteractor {
-    return BillingAddressInteractor(adyenPaymentInteractor, gson)
+  fun provideBillingAddressInteractor(
+      adyenPaymentInteractor: AdyenPaymentInteractor): BillingAddressInteractor {
+    return BillingAddressInteractor(adyenPaymentInteractor)
   }
 }
