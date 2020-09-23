@@ -478,7 +478,7 @@
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230; (optional)</string>
+  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
   <string name="purchase_address_city_field">City</string>
   <string name="purchase_address_post_code_field">Zip/Post code</string>
   <string name="purchase_address_state_field">State/Province</string>
