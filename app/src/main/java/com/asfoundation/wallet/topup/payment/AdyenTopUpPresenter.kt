@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
@@ -12,7 +13,9 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.PENDING_USER_PAYMENT
+import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.address.BillingAddressWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -22,12 +25,12 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
-import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -180,7 +183,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
 
   //Called if is card
   private fun handleTopUpClick() {
-    disposables.add(view.topUpButtonClicked()
+    disposables.add(Observable.merge(view.topUpButtonClicked(), view.billingAddressInput())
         .flatMapSingle {
           view.retrievePaymentData()
               .firstOrError()
@@ -191,12 +194,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           view.setFinishingPurchase()
         }
         .observeOn(networkScheduler)
-        .flatMapSingle {
-          topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
-          adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
-              it.hasCvc, it.supportedShopperInteractions, returnUrl, retrievedAmount,
-              retrievedCurrency, mapPaymentToService(paymentType).transactionType, transactionType,
-              appPackage)
+        .flatMap {
+          view.retrieveBillingAddressData()
+              .flatMapSingle { billingAddressWrapper ->
+                topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
+                adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
+                    it.hasCvc, it.supportedShopperInteractions, returnUrl, retrievedAmount,
+                    retrievedCurrency, mapPaymentToService(paymentType).transactionType,
+                    transactionType,
+                    appPackage, mapToAdyenBillingAddress(billingAddressWrapper))
+              }
         }
         .observeOn(viewScheduler)
         .flatMapCompletable {
@@ -303,13 +310,18 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
         paymentModel.refusalCode?.let { code ->
           when (code) {
-            CVC_DECLINED -> showBillingAddress(retrievedAmount)
+            CVC_DECLINED -> view.showCvvError()
             FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
+        if (isBillingAddressError(paymentModel.error)) {
+          view.navigateToBillingAddress(retrievedAmount, retrievedCurrency)
+        } else {
+          handleErrors(paymentModel, appcValue.toDouble())
+        }
         handleErrors(paymentModel, appcValue.toDouble())
       }
       paymentModel.status == CANCELED -> Completable.fromAction {
@@ -325,22 +337,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
   }
 
-  private fun showBillingAddress(priceAmount: String) {
-    disposables.add(
-        view.retrievePaymentData()
-            .firstOrError()
-            .subscribeOn(networkScheduler)
-            .doOnSuccess {
-              val billingPaymentTopUpModel =
-                  BillingPaymentTopUpModel(it.cardPaymentMethod, it.shouldStoreCard,
-                      it.hasCvc, it.supportedShopperInteractions, returnUrl,
-                      retrievedAmount, retrievedCurrency,
-                      mapPaymentToService(paymentType).transactionType, transactionType, appPackage,
-                      priceAmount)
-              view.navigateToBillingAddress(billingPaymentTopUpModel)
-            }
-            .subscribe()
-    )
+  private fun isBillingAddressError(error: Error): Boolean {
+    return error.code != null
+        && error.code == 400
+        && error.message?.contains("payment.billing_address") == true
   }
 
   private fun handleSuccessTransaction(): Completable {
@@ -418,6 +418,13 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       AdyenPaymentRepository.Methods.CREDIT_CARD
     } else {
       AdyenPaymentRepository.Methods.PAYPAL
+    }
+  }
+
+  private fun mapToAdyenBillingAddress(
+      billingAddressModel: BillingAddressWrapper): AdyenBillingAddress? {
+    return billingAddressModel.model?.let {
+      AdyenBillingAddress(it.address, it.city, it.zipcode, it.number, it.state, it.country)
     }
   }
 

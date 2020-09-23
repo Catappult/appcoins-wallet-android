@@ -8,10 +8,8 @@ interface BillingAddressView {
 
   fun submitClicks(): Observable<BillingAddressModel>
 
-  fun showMoreMethods()
+  fun finishSuccess(billingAddressModel: BillingAddressModel)
 
-  fun showLoading()
-
-  fun hideLoading()
+  fun cancel()
 
 }

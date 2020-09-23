@@ -1,16 +1,20 @@
 package com.asfoundation.wallet.billing.address
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_CANCEL_CODE
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -19,7 +23,6 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_billing_address.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
@@ -31,18 +34,19 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   companion object {
 
+    const val BILLING_ADDRESS_MODEL = "billing_address_model"
     private const val SKU_DESCRIPTION = "sku_description"
     private const val DOMAIN_KEY = "domain"
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val BONUS_KEY = "bonus"
     private const val IS_DONATION_KEY = "is_donation"
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
-    private const val BILLING_PAYMENT_MODEL = "billing_payment_model"
+    private const val FIAT_CURRENCY_KEY = "fiat_currency"
 
     @JvmStatic
     fun newInstance(skuDescription: String, domain: String, appcAmount: BigDecimal, bonus: String,
-                    fiatAmount: BigDecimal, isDonation: Boolean,
-                    billingPaymentModel: BillingPaymentModel): BillingAddressFragment {
+                    fiatAmount: BigDecimal, fiatCurrency: String,
+                    isDonation: Boolean): BillingAddressFragment {
       return BillingAddressFragment().apply {
         arguments = Bundle().apply {
           putString(SKU_DESCRIPTION, skuDescription)
@@ -50,15 +54,12 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
           putString(BONUS_KEY, bonus)
           putSerializable(APPC_AMOUNT_KEY, appcAmount)
           putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
+          putString(FIAT_CURRENCY_KEY, fiatCurrency)
           putBoolean(IS_DONATION_KEY, isDonation)
-          putSerializable(BILLING_PAYMENT_MODEL, billingPaymentModel)
         }
       }
     }
   }
-
-  @Inject
-  lateinit var interactor: BillingAddressInteractor
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -73,8 +74,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     disposables = CompositeDisposable()
-    presenter = BillingAddressPresenter(this, disposables, AndroidSchedulers.mainThread(),
-        Schedulers.io(), interactor, billingPaymentModel, logger)
+    presenter = BillingAddressPresenter(this, disposables, AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -100,13 +100,12 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   private fun showButtons() {
     cancel_button.setText(R.string.back_button)
 
-    if (billingPaymentModel.transactionType.equals(TransactionData.TransactionType.DONATION.name,
-            ignoreCase = true)) {
+    if (isDonation) {
       buy_button.setText(R.string.action_donate)
     } else {
       buy_button.setText(R.string.action_buy)
     }
-
+    buy_button.isEnabled = true
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
   }
@@ -140,22 +139,19 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
         }
   }
 
-  override fun showLoading() {
-    cc_info_view.visibility = INVISIBLE
-    title.visibility = INVISIBLE
-    if (bonus.isNotEmpty()) {
-      bonus_layout?.visibility = INVISIBLE
-      bonus_msg?.visibility = INVISIBLE
+  override fun finishSuccess(billingAddressModel: BillingAddressModel) {
+    val intent = Intent().apply {
+      putExtra(BILLING_ADDRESS_MODEL, billingAddressModel)
     }
-    cancel_button.visibility = INVISIBLE
-    buy_button.visibility = INVISIBLE
-    fiat_price_skeleton.visibility = GONE
-    appc_price_skeleton.visibility = GONE
+    targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_SUCCESS_CODE,
+        intent)
+    iabView.navigateBack()
   }
 
-  override fun hideLoading() {
-    fragment_credit_card_authorization_progress_bar?.visibility = GONE
-    cancel_button.visibility = VISIBLE
+  override fun cancel() {
+    targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_CANCEL_CODE,
+        null)
+    iabView.navigateBack()
   }
 
   private fun validateFields(): Boolean {
@@ -212,7 +208,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     val appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
         .plus(" " + WalletCurrency.APPCOINS.symbol)
     val fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
-        .plus(" ${billingPaymentModel.currency}")
+        .plus(" $fiatCurrency")
     fiat_price.text = fiatText
     appc_price.text = appcText
     fiat_price_skeleton.visibility = GONE
@@ -243,10 +239,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
       bonus_layout?.visibility = GONE
       bonus_msg?.visibility = GONE
     }
-  }
-
-  override fun showMoreMethods() {
-    iabView.showPaymentMethodsView()
   }
 
   override fun onDestroyView() {
@@ -291,7 +283,15 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
       arguments!!.getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
     } else {
-      throw IllegalArgumentException("amount data not found")
+      throw IllegalArgumentException("fiat amount data not found")
+    }
+  }
+
+  private val fiatCurrency: String by lazy {
+    if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
+      arguments!!.getString(FIAT_CURRENCY_KEY, "")
+    } else {
+      throw IllegalArgumentException("fiat currency data not found")
     }
   }
 
@@ -303,11 +303,4 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     }
   }
 
-  private val billingPaymentModel: BillingPaymentModel by lazy {
-    if (arguments!!.containsKey(BILLING_PAYMENT_MODEL)) {
-      arguments!!.getSerializable(BILLING_PAYMENT_MODEL) as BillingPaymentModel
-    } else {
-      throw IllegalArgumentException("billingPaymentModel not found")
-    }
-  }
 }

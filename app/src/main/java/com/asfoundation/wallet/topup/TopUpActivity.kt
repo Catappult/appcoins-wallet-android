@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
@@ -16,7 +17,6 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
-import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
@@ -60,6 +60,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val WALLET_VALIDATION_REQUEST_CODE = 1235
+    const val BILLING_ADDRESS_REQUEST_CODE = 1236
+    const val BILLING_ADDRESS_SUCCESS_CODE = 1000
+    const val BILLING_ADDRESS_CANCEL_CODE = 1001
     const val ERROR_MESSAGE = "error_message"
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
@@ -132,10 +135,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun navigateToBillingAddress(topUpData: TopUpPaymentData,
-                                        billingPaymentTopUpModel: BillingPaymentTopUpModel) {
+                                        fiatAmount: String, fiatCurrency: String,
+                                        targetFragment: Fragment) {
+    val fragment = BillingAddressTopUpFragment.newInstance(topUpData, fiatAmount, fiatCurrency)
+        .apply {
+          setTargetFragment(targetFragment, BILLING_ADDRESS_REQUEST_CODE)
+        }
     supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container,
-            BillingAddressTopUpFragment.newInstance(topUpData, billingPaymentTopUpModel))
+        .add(R.id.fragment_container, fragment)
         .addToBackStack(BillingAddressTopUpFragment::class.java.simpleName)
         .commit()
   }

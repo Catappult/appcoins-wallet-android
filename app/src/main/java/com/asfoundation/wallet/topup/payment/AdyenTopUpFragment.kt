@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup.payment
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,22 +24,25 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.address.BillingAddressModel
+import com.asfoundation.wallet.billing.address.BillingAddressWrapper
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
-import com.asfoundation.wallet.topup.address.BillingPaymentTopUpModel
+import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -59,6 +63,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
+
   @Inject
   internal lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
@@ -70,7 +75,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   @Inject
   lateinit var adyenEnvironment: Environment
-
 
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
@@ -99,17 +103,16 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
-  private var keyboardTopUpRelay: PublishRelay<Boolean>? = null
-  private var validationSubject: PublishSubject<Boolean>? = null
+  private var billingAddressInput: PublishSubject<Boolean>? = null
   private var isStored = false
+  private var billingAddressWrapper = BillingAddressWrapper(null)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    keyboardTopUpRelay = PublishRelay.create()
-    validationSubject = PublishSubject.create()
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
     adyen3DSErrorSubject = PublishSubject.create()
+    billingAddressInput = PublishSubject.create()
 
     presenter =
         AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
@@ -156,6 +159,15 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun onResume() {
     super.onResume()
     hideKeyboard()
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
+      val billingAddressModel =
+          data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
+      billingAddressWrapper = BillingAddressWrapper(billingAddressModel)
+      billingAddressInput?.onNext(true)
+    }
   }
 
   override fun setup3DSComponent() {
@@ -266,13 +278,21 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun topUpButtonClicked() = RxView.clicks(button)
 
+  override fun billingAddressInput(): Observable<Boolean> {
+    return billingAddressInput!!
+  }
+
+  override fun retrieveBillingAddressData(): Observable<BillingAddressWrapper> {
+    return Observable.just(billingAddressWrapper)
+  }
+
   override fun navigateToPaymentSelection() {
     topUpView.navigateBack()
   }
 
-  override fun navigateToBillingAddress(billingPaymentTopUpModel: BillingPaymentTopUpModel) {
+  override fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String) {
     topUpView.unlockRotation()
-    topUpView.navigateToBillingAddress(data, billingPaymentTopUpModel)
+    topUpView.navigateToBillingAddress(data, fiatAmount, fiatCurrency, this)
   }
 
   override fun finishCardConfiguration(
@@ -496,8 +516,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun onDestroy() {
     hideKeyboard()
-    validationSubject = null
-    keyboardTopUpRelay = null
+    billingAddressInput = null
     paymentDataSubject = null
     paymentDetailsSubject = null
     adyen3DSErrorSubject = null

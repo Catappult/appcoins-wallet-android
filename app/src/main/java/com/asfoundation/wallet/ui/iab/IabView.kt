@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
-import com.asfoundation.wallet.billing.address.BillingPaymentModel
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -21,6 +21,8 @@ interface IabView {
   fun finish(bundle: Bundle)
 
   fun finishWithError()
+
+  fun navigateBack()
 
   fun close(bundle: Bundle?)
 
@@ -51,8 +53,8 @@ interface IabView {
                          isDonation: Boolean, gamificationLevel: Int, disabledReasonAppc: Int?,
                          disabledReasonCredits: Int?)
 
-  fun showBillingAddress(value: BigDecimal, bonus: String, appcAmount: BigDecimal,
-                         billingPaymentModel: BillingPaymentModel)
+  fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
+                         appcAmount: BigDecimal, targetFragment: Fragment)
 
   fun lockRotation()
 

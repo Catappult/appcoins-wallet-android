@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
@@ -30,12 +31,16 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.address.BillingPaymentModel
+import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL
+import com.asfoundation.wallet.billing.address.BillingAddressModel
+import com.asfoundation.wallet.billing.address.BillingAddressWrapper
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.FragmentNavigator
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -46,6 +51,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -108,6 +114,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private var adyenCardImageLayout: RoundCornerImageView? = null
   private var adyenSaveDetailsSwitch: SwitchCompat? = null
   private var isStored = false
+  private var billingAddressInput: PublishSubject<Boolean>? = null
+  private var billingAddressWrapper = BillingAddressWrapper(null)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -115,6 +123,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
     adyen3DSErrorSubject = PublishSubject.create()
+    billingAddressInput = PublishSubject.create()
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
@@ -193,6 +202,25 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     iabView = context
   }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
+      val billingAddressModel =
+          data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
+      billingAddressWrapper = BillingAddressWrapper(billingAddressModel)
+      billingAddressInput?.onNext(true)
+    } else {
+      showMoreMethods()
+    }
+  }
+
+  override fun billingAddressInput(): Observable<Boolean> {
+    return billingAddressInput!!
+  }
+
+  override fun retrieveBillingAddressData(): Single<BillingAddressWrapper> {
+    return Single.just(billingAddressWrapper)
+  }
+
   override fun getAnimationDuration() = lottie_transaction_success.duration
 
   override fun showProduct() {
@@ -267,9 +295,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
 
-  override fun showBillingAddress(value: BigDecimal, billingPaymentModel: BillingPaymentModel) =
-      iabView.showBillingAddress(value, bonus, appcAmount,
-          billingPaymentModel)
+  override fun showBillingAddress(value: BigDecimal, currency: String) =
+      iabView.showBillingAddress(value, currency, bonus, appcAmount, this)
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
@@ -580,6 +607,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     paymentDataSubject = null
     paymentDetailsSubject = null
     adyen3DSErrorSubject = null
+    billingAddressInput = null
     super.onDestroy()
   }
 

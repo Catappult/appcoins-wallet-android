@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup.address
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,11 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.address.BillingAddressInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.address.BillingAddressTextWatcher
-import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_CANCEL_CODE
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
@@ -22,7 +24,6 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_billing_address_top_up.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
@@ -32,29 +33,26 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
 
   companion object {
 
-    private const val BILLING_PAYMENT_MODEL = "billing_payment_model"
+    const val BILLING_ADDRESS_MODEL = "billing_address_model"
     private const val PAYMENT_DATA = "data"
+    private const val FIAT_AMOUNT_KEY = "fiat_amount"
+    private const val FIAT_CURRENCY_KEY = "fiat_currency"
 
     @JvmStatic
-    fun newInstance(data: TopUpPaymentData,
-                    billingPaymentModel: BillingPaymentTopUpModel): BillingAddressTopUpFragment {
+    fun newInstance(data: TopUpPaymentData, fiatAmount: String,
+                    fiatCurrency: String): BillingAddressTopUpFragment {
       return BillingAddressTopUpFragment().apply {
         arguments = Bundle().apply {
           putSerializable(PAYMENT_DATA, data)
-          putSerializable(BILLING_PAYMENT_MODEL, billingPaymentModel)
+          putString(FIAT_AMOUNT_KEY, fiatAmount)
+          putString(FIAT_CURRENCY_KEY, fiatCurrency)
         }
       }
     }
   }
 
   @Inject
-  lateinit var interactor: BillingAddressInteractor
-
-  @Inject
   lateinit var formatter: CurrencyFormatUtils
-
-  @Inject
-  lateinit var logger: Logger
 
   private lateinit var topUpView: TopUpActivityView
   private lateinit var disposables: CompositeDisposable
@@ -63,8 +61,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     disposables = CompositeDisposable()
-    presenter = BillingAddressTopUpPresenter(this, disposables, AndroidSchedulers.mainThread(),
-        Schedulers.io(), interactor, billingPaymentModel, logger)
+    presenter = BillingAddressTopUpPresenter(this, disposables, AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -98,6 +95,21 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     val languages = resources.getStringArray(R.array.states)
     val adapter = ArrayAdapter(requireContext(), R.layout.item_billing_address_state, languages)
     state.setAdapter(adapter)
+  }
+
+  override fun finishSuccess(billingAddressModel: BillingAddressModel) {
+    val intent = Intent().apply {
+      putExtra(BILLING_ADDRESS_MODEL, billingAddressModel)
+    }
+    targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_SUCCESS_CODE,
+        intent)
+    topUpView.navigateBack()
+  }
+
+  override fun cancel() {
+    targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_CANCEL_CODE,
+        null)
+    topUpView.navigateBack()
   }
 
   override fun submitClicks(): Observable<BillingAddressModel> {
@@ -175,13 +187,13 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     main_value.visibility = VISIBLE
     val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)
     if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
-      main_value.setText(billingPaymentModel.priceAmount)
-      main_currency_code.text = billingPaymentModel.currency
+      main_value.setText(fiatAmount)
+      main_currency_code.text = fiatCurrency
       converted_value.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
     } else {
       main_value.setText(formattedValue)
       main_currency_code.text = WalletCurrency.CREDITS.symbol
-      converted_value.text = "${billingPaymentModel.priceAmount} ${billingPaymentModel.currency}"
+      converted_value.text = "$fiatAmount $fiatCurrency"
     }
   }
 
@@ -207,11 +219,19 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     super.onDestroyView()
   }
 
-  private val billingPaymentModel: BillingPaymentTopUpModel by lazy {
-    if (arguments!!.containsKey(BILLING_PAYMENT_MODEL)) {
-      arguments!!.getSerializable(BILLING_PAYMENT_MODEL) as BillingPaymentTopUpModel
+  private val fiatAmount: String by lazy {
+    if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
+      arguments!!.getString(FIAT_AMOUNT_KEY, "")
     } else {
-      throw IllegalArgumentException("billingPaymentModel not found")
+      throw IllegalArgumentException("fiat amount data not found")
+    }
+  }
+
+  private val fiatCurrency: String by lazy {
+    if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
+      arguments!!.getString(FIAT_CURRENCY_KEY, "")
+    } else {
+      throw IllegalArgumentException("fiat currency data not found")
     }
   }
 

@@ -27,7 +27,6 @@ import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
-import com.asfoundation.wallet.billing.address.BillingAddressInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -527,9 +526,4 @@ class InteractorModule {
         gamificationRepository)
   }
 
-  @Provides
-  fun provideBillingAddressInteractor(
-      adyenPaymentInteractor: AdyenPaymentInteractor): BillingAddressInteractor {
-    return BillingAddressInteractor(adyenPaymentInteractor)
-  }
 }
