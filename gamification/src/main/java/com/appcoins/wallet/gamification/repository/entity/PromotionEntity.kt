@@ -50,5 +50,7 @@ data class PromotionEntity(
     val startDate: Long? = null,
     val title: String? = null,
     @ColumnInfo(name = "view_type")
-    val viewType: String? = null
+    val viewType: String? = null,
+    @ColumnInfo(name = "app_name")
+    val appName: String? = null
 )

@@ -25,6 +25,7 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
   companion object {
     const val DAYS_TO_SHOW_EXPIRATION_DATE = 3
+    const val APP_NAME_EXTRA = "APP_NAME_EXTRA"
   }
 
   abstract fun bind(promotion: Promotion)
@@ -69,7 +70,13 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    itemView.setOnClickListener { clickListener.onNext(PromotionClick((promotion.id))) }
+    itemView.setOnClickListener {
+      val extras = emptyMap<String, String>().toMutableMap()
+      progressItem.appName?.let {
+        extras.put(APP_NAME_EXTRA, it)
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
+    }
 
     GlideApp.with(itemView.context)
         .load(progressItem.icon)
@@ -102,7 +109,11 @@ class DefaultViewHolder(itemView: View,
     val defaultItem = promotion as DefaultItem
 
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      val extras = emptyMap<String, String>().toMutableMap()
+      defaultItem.appName?.let {
+        extras.put(APP_NAME_EXTRA, it)
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     GlideApp.with(itemView.context)
@@ -126,7 +137,11 @@ class FutureViewHolder(itemView: View,
     val futureItem = promotion as FutureItem
 
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      val extras = emptyMap<String, String>().toMutableMap()
+      futureItem.appName?.let {
+        extras.put(APP_NAME_EXTRA, it)
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     GlideApp.with(itemView.context)

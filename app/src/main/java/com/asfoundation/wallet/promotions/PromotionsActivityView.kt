@@ -7,4 +7,6 @@ interface PromotionsActivityView {
   fun navigateToInviteFriends()
 
   fun handleShare(link: String)
+
+  fun openAppView(url: String)
 }

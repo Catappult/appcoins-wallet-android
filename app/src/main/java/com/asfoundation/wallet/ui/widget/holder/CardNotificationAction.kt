@@ -5,5 +5,6 @@ enum class CardNotificationAction {
   DISCOVER,
   UPDATE,
   BACKUP,
+  OPEN_APP,
   NONE
 }

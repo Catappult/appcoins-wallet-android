@@ -1,8 +1,11 @@
 package com.asfoundation.wallet.promotions
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
@@ -39,6 +42,19 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
         .setType("text/plain")
         .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
         .startChooser()
+  }
+
+  override fun openAppView(url: String) {
+    try {
+      val uri = Uri.parse(url)
+      val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
+      launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      startActivity(launchBrowser)
+    } catch (exception: ActivityNotFoundException) {
+      exception.printStackTrace()
+      Toast.makeText(this, R.string.unknown_error, Toast.LENGTH_SHORT)
+          .show()
+    }
   }
 
   override fun navigateToInviteFriends() {

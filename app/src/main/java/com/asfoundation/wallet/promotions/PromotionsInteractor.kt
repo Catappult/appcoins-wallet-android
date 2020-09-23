@@ -29,6 +29,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
     const val REFERRAL_ID = "REFERRAL"
+    const val PACKAGE_PERK_ID = "PACKAGE_PERK"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
@@ -96,10 +97,12 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   private fun buildPromotionNotification(unwatchedPromotion: GenericResponse?): CardNotification {
-    return unwatchedPromotion?.let {
-      if (!isFuturePromotion(it)) {
-        PromotionNotification(CardNotificationAction.NONE, it.title, it.description, it.icon,
-            getPromotionIdKey(it.id, it.startDate, it.endDate))
+    return unwatchedPromotion?.let { res ->
+      if (!isFuturePromotion(res)) {
+        val action = CardNotificationAction.OPEN_APP.takeIf { res.appName != null }
+            ?: CardNotificationAction.NONE
+        PromotionNotification(action, res.title, res.description, res.icon,
+            getPromotionIdKey(res.id, res.startDate, res.endDate), res.appName)
       } else {
         EmptyNotification()
       }
@@ -207,12 +210,12 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
     return ProgressItem(genericResponse.id, genericResponse.description, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate, genericResponse.currentProgress!!,
-        genericResponse.objectiveProgress)
+        genericResponse.objectiveProgress, genericResponse.appName)
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
     return DefaultItem(genericResponse.id, genericResponse.description, genericResponse.icon,
-        genericResponse.startDate, genericResponse.endDate)
+        genericResponse.startDate, genericResponse.endDate, genericResponse.appName)
   }
 
   private fun mapToGamificationItem(
@@ -233,7 +236,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
     return FutureItem(genericResponse.id, genericResponse.description, genericResponse.icon,
-        genericResponse.startDate, genericResponse.endDate)
+        genericResponse.startDate, genericResponse.endDate, genericResponse.appName)
   }
 
   private fun isValidGamificationLink(linkedPromotionId: String?,
