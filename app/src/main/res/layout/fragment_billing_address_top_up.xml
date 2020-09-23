@@ -78,20 +78,7 @@
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/value_warning_text"
-          />
-
-      <TextView
-          android:id="@+id/value_warning_text"
-          style="@style/TopUpTextStyle.ValueWarning"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="13dp"
-          android:text="@string/topup_minimum_value"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/converted_value"
+          app:layout_constraintTop_toBottomOf="@id/converted_value"
           />
 
       <include
@@ -106,7 +93,7 @@
           app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/value_warning_text"
+          app:layout_constraintTop_toBottomOf="@+id/converted_value"
           app:layout_constraintVertical_bias="0"
           app:layout_constraintVertical_chainStyle="packed"
           tools:visibility="visible"
@@ -346,28 +333,5 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
-
-  <include
-      android:id="@+id/no_network"
-      layout="@layout/no_network_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <include
-      android:id="@+id/fragment_adyen_error"
-      layout="@layout/error_top_up_layout"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -322,7 +322,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         } else {
           handleErrors(paymentModel, appcValue.toDouble())
         }
-        handleErrors(paymentModel, appcValue.toDouble())
       }
       paymentModel.status == CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",

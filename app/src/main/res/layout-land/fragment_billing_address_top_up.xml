@@ -330,48 +330,34 @@
           app:layout_constraintTop_toTopOf="@id/container"
           />
 
+      <View
+          android:id="@+id/bottom_separator_buttons"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginTop="@dimen/normal_margin"
+          android:background="@color/layout_separator_color"
+          app:layout_constraintTop_toBottomOf="@id/container"
+          />
+
       <Button
           android:id="@+id/button"
           style="@style/ButtonStyle.Alternative"
           android:layout_width="0dp"
           android:layout_height="@dimen/button_height"
           android:layout_marginStart="40dp"
-          android:layout_marginTop="32dp"
+          android:layout_marginTop="@dimen/normal_margin"
           android:layout_marginEnd="16dp"
           android:layout_marginBottom="21dp"
           android:minWidth="144dp"
           android:text="@string/action_next"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/container"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator_buttons"
           app:layout_constraintVertical_bias="0"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
-
-  <include
-      android:id="@+id/no_network"
-      layout="@layout/no_network_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <include
-      android:id="@+id/fragment_adyen_error"
-      layout="@layout/error_top_up_layout"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
