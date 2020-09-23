@@ -73,15 +73,28 @@ class PromotionsFragmentPresenter(
   }
 
   private fun mapClickType(promotionClick: PromotionClick) {
-    if (promotionClick.id == GAMIFICATION_ID) {
-      activityView.navigateToGamification(cachedBonus)
-    } else if (promotionClick.id == REFERRAL_ID && promotionClick.extras != null) {
-      val link = promotionClick.extras[ReferralViewHolder.KEY_LINK]
-      if (promotionClick.extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
+    when (promotionClick.id) {
+      GAMIFICATION_ID -> activityView.navigateToGamification(cachedBonus)
+      REFERRAL_ID -> mapReferralClick(promotionClick.extras)
+      else -> mapPackagePerkClick(promotionClick.extras)
+    }
+  }
+
+  private fun mapReferralClick(extras: Map<String, String>?) {
+    if (extras != null) {
+      val link = extras[ReferralViewHolder.KEY_LINK]
+      if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
         activityView.navigateToInviteFriends()
-      } else if (promotionClick.extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_SHARE && link != null) {
+      } else if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_SHARE && link != null) {
         activityView.handleShare(link)
       }
+    }
+  }
+
+  private fun mapPackagePerkClick(extras: Map<String, String>?) {
+    if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
+      val detailsUrl = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
+      activityView.openDetailsUrl(detailsUrl!!)
     }
   }
 

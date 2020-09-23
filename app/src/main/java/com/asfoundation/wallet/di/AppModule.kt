@@ -466,9 +466,7 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesPromotionDatabase(context: Context): PromotionDatabase {
-    return Room.databaseBuilder(context,
-        PromotionDatabase::class.java,
-        "promotion_database")
+    return Room.databaseBuilder(context, PromotionDatabase::class.java, "promotion_database")
         .addMigrations(MIGRATION_1_2)
         .build()
   }

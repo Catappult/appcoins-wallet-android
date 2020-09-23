@@ -93,7 +93,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
           GenericResponse(it.id, it.priority, it.currentProgress, it.description!!, it.endDate!!,
               it.icon,
               it.linkedPromotionId, it.objectiveProgress, it.startDate, it.title!!, it.viewType!!,
-              it.appName)
+              it.detailsUrl)
       }
     }
   }
@@ -124,7 +124,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
                 icon = genericResponse.icon, linkedPromotionId = genericResponse.linkedPromotionId,
                 objectiveProgress = genericResponse.objectiveProgress,
                 startDate = genericResponse.startDate, title = genericResponse.title,
-                viewType = genericResponse.viewType, appName = genericResponse.appName)
+                viewType = genericResponse.viewType, detailsUrl = genericResponse.detailsUrl)
           }
         }
       }

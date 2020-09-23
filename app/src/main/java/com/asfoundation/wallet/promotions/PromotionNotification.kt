@@ -8,5 +8,5 @@ data class PromotionNotification(override val positiveAction: CardNotificationAc
                                  val noResBody: String?,
                                  val noResIcon: String?,
                                  val id: String,
-                                 val appName: String?) :
+                                 val detailsUrl: String?) :
     CardNotification(null, null, null, null, positiveAction)

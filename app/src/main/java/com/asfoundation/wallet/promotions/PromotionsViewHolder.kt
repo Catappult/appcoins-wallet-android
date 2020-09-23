@@ -25,7 +25,7 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
   companion object {
     const val DAYS_TO_SHOW_EXPIRATION_DATE = 3
-    const val APP_NAME_EXTRA = "APP_NAME_EXTRA"
+    const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
   }
 
   abstract fun bind(promotion: Promotion)
@@ -72,8 +72,8 @@ class ProgressViewHolder(itemView: View,
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
-      progressItem.appName?.let {
-        extras.put(APP_NAME_EXTRA, it)
+      progressItem.detailsUrl?.let {
+        extras.put(DETAILS_URL_EXTRA, it)
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
@@ -110,8 +110,8 @@ class DefaultViewHolder(itemView: View,
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
-      defaultItem.appName?.let {
-        extras.put(APP_NAME_EXTRA, it)
+      defaultItem.detailsUrl?.let {
+        extras.put(DETAILS_URL_EXTRA, it)
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
@@ -138,8 +138,8 @@ class FutureViewHolder(itemView: View,
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
-      futureItem.appName?.let {
-        extras.put(APP_NAME_EXTRA, it)
+      futureItem.detailsUrl?.let {
+        extras.put(DETAILS_URL_EXTRA, it)
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }

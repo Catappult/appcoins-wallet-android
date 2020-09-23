@@ -8,5 +8,5 @@ interface PromotionsActivityView {
 
   fun handleShare(link: String)
 
-  fun openAppView(url: String)
+  fun openDetailsUrl(url: String)
 }

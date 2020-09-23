@@ -424,11 +424,9 @@ public class TransactionsViewModel extends BaseViewModel {
               WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
         }
         break;
-      case OPEN_APP:
+      case DETAILS_URL:
         if (cardNotification instanceof PromotionNotification) {
-          String url = "https://"
-              + ((PromotionNotification) cardNotification).getAppName()
-              + ".en.aptoide.com/app";
+          String url = ((PromotionNotification) cardNotification).getDetailsUrl();
           transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
         }
         break;

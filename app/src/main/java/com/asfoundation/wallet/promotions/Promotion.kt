@@ -7,7 +7,7 @@ import java.math.BigDecimal
 open class Promotion(val id: String)
 
 open class PerkPromotion(id: String, val startDate: Long?, val endDate: Long,
-                         val appName: String?) : Promotion(id)
+                         val detailsUrl: String?) : Promotion(id)
 
 class TitleItem(
     @StringRes val title: Int,
@@ -23,8 +23,8 @@ class DefaultItem(
     val icon: String?,
     startDate: Long?,
     endDate: Long,
-    appName: String?
-) : PerkPromotion(id, startDate, endDate, appName)
+    detailsUrl: String?
+) : PerkPromotion(id, startDate, endDate, detailsUrl)
 
 class FutureItem(
     id: String,
@@ -32,8 +32,8 @@ class FutureItem(
     val icon: String?,
     startDate: Long?,
     endDate: Long,
-    appName: String?
-) : PerkPromotion(id, startDate, endDate, appName)
+    detailsUrl: String?
+) : PerkPromotion(id, startDate, endDate, detailsUrl)
 
 class ProgressItem(
     id: String,
@@ -43,8 +43,8 @@ class ProgressItem(
     endDate: Long,
     val current: BigDecimal,
     val objective: BigDecimal?,
-    appName: String?
-) : PerkPromotion(id, startDate, endDate, appName)
+    detailsUrl: String?
+) : PerkPromotion(id, startDate, endDate, detailsUrl)
 
 class GamificationItem(
     id: String,
