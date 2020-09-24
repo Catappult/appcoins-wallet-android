@@ -763,6 +763,8 @@
     <item quantity="other">La promoción termina en %s días.</item>
   </plurals>
   <string name="perks_end_in_date">La promoción termina el %s.</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">Promoción disponible pronto.</string>
   <string name="perks_next_level_reward">¡Alcanza el siguiente nivel y recibe %s AppCoins Credits!</string>
   <string name="perks_notification">Recibiste un bonus de %s AppCoins Credits</string>
@@ -770,10 +772,15 @@
   <string name="perks_level_up_amount_left">¡Te quedan %1$s %2$s para llegar al siguiente nivel!</string>
   <string name="perks_level_up_level_tag">Nv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s de Bonus: %2$s en AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Bloqueo con huella</string>
   <string name="fingerprint_failed_title">¡La autenticación falló!</string>
   <string name="fingerprint_failed_body">Inténtalo de nuevo en %s segundos.</string>
   <string name="fingerprint_authentication_required_title">¡Necesitas autenticarte!</string>
   <string name="fingerprint_authentication_required_body">Por favor, usa tu huella dactilar o la contraseña para continuar.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
