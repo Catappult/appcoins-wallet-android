@@ -761,6 +761,8 @@
     <item quantity="other">Promosi akan berakhir %s hari lagi.</item>
   </plurals>
   <string name="perks_end_in_date">Promosi akan berakhir pada %s.</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">Promosi akan segera tersedia</string>
   <string name="perks_next_level_reward">Raih level berikutnya untuk mendapatkan %s Kredit AppCoins!</string>
   <string name="perks_notification">Anda baru saja menerima %s Kredit AppCoins sebagai Bonus</string>
@@ -768,10 +770,15 @@
   <string name="perks_level_up_amount_left">Anda tinggal %1$s %2$s dari level berikutnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">Bonus %1$s: Kredit AppCoins sebesar %2$s</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Kunci sidik jari</string>
   <string name="fingerprint_failed_title">Otentikasi gagal!</string>
   <string name="fingerprint_failed_body">Silakan coba lagi dalam %s detik.</string>
   <string name="fingerprint_authentication_required_title">Diperlukan otentikasi!</string>
   <string name="fingerprint_authentication_required_body">Silakan gunakan jari atau kata sandi Anda untuk melanjutkan.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
