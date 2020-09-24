@@ -761,6 +761,8 @@
     <item quantity="other">The promotion ends in %s days.</item>
   </plurals>
   <string name="perks_end_in_date">โปรโมชั่นสิ้นสุดวันที่ %s</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">พบโปรโมชั่นเร็วๆ นี้</string>
   <string name="perks_next_level_reward">ถึงเลเวลถัดไปเพื่อรับ %s AppCoins Credits!</string>
   <string name="perks_notification">คุณได้รับ %s AppCoins Credits เป็นโบนัส</string>
@@ -768,10 +770,15 @@
   <string name="perks_level_up_amount_left">อีก %1$s%2$s จะถึงเลเวลถัดไป!</string>
   <string name="perks_level_up_level_tag">เลเวล %s</string>
   <string name="perks_bonus_purchase_flow">%1$s โบนัส: %2$s ใน AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">ล็อกลายนิ้วมือ</string>
   <string name="fingerprint_failed_title">การรับรองความถูกต้องล้มเหลว!</string>
   <string name="fingerprint_failed_body">โปรดลองอีกครั้งใน %s วินาที</string>
   <string name="fingerprint_authentication_required_title">จำเป็นต้องรับรองความถูกต้อง!</string>
   <string name="fingerprint_authentication_required_body">โปรดใช้นิ้วของคุณหรือรหัสผ่านเพื่อดำเนินการต่อ</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
