@@ -765,6 +765,8 @@
     <item quantity="other">Promocija se završava za %s dana.</item>
   </plurals>
   <string name="perks_end_in_date">Promocija će se završiti %s.</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">Promocija će uskoro biti dostupna</string>
   <string name="perks_next_level_reward">Pređite na sledeći nivo da biste dobili %s AppCoins Credits!</string>
   <string name="perks_notification">Upravo ste dobili %s AppCoins Credits kao bonus</string>
@@ -772,10 +774,15 @@
   <string name="perks_level_up_amount_left">Nedostaje vam još %1$s %2$s do sledećeg nivoa!</string>
   <string name="perks_level_up_level_tag">N.</string>
   <string name="perks_bonus_purchase_flow">%1$s bonusa: %2$s u AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Zaključavanje pomoću otiska prsta</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
   <string name="fingerprint_failed_body">Pokušajte ponovo za %s sek.</string>
   <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>
   <string name="fingerprint_authentication_required_body">Upotrebite otisak prsta ili lozinku da biste nastavili.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
