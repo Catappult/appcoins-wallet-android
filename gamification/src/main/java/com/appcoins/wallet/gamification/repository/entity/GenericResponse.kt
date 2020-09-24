@@ -20,5 +20,5 @@ class GenericResponse(
     val startDate: Long?,
     val title: String,
     @SerializedName("view_type") val viewType: String,
-    @SerializedName("details_link ") val detailsUrl: String?
+    @SerializedName("details_link") val detailsUrl: String?
 ) : PromotionsResponse(id, priority)
