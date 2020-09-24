@@ -857,6 +857,6 @@
  <!--Send Logs to Support-->
   <string name="send_logs_settings">Send logs to Support Team</string>
   <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Send!</string>
+  <string name="send_logs_send">Sent!</string>
 
 </resources>
