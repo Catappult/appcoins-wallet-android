@@ -4,6 +4,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
@@ -46,13 +47,6 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     }
   }
 
-  protected fun setRippleEffect(view: View) {
-    val outValue = TypedValue()
-    view.context.theme
-        .resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
-    view.setBackgroundResource(outValue.resourceId)
-  }
-
 }
 
 class TitleViewHolder(itemView: View) : PromotionsViewHolder(itemView) {
@@ -78,11 +72,18 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
+    if (progressItem.detailsUrl != null) {
+      val outValue = TypedValue()
+      itemView.progress_container.context.theme.resolveAttribute(
+          android.R.attr.selectableItemBackground,
+          outValue, true)
+      itemView.progress_container.setBackgroundResource(outValue.resourceId)
+    }
+
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
       progressItem.detailsUrl?.let {
         extras[DETAILS_URL_EXTRA] = it
-        setRippleEffect(itemView)
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
@@ -117,11 +118,18 @@ class DefaultViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
+    if (defaultItem.detailsUrl != null) {
+      val outValue = TypedValue()
+      itemView.default_container.context.theme.resolveAttribute(
+          android.R.attr.selectableItemBackground,
+          outValue, true)
+      itemView.default_container.setBackgroundResource(outValue.resourceId)
+    }
+
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
       defaultItem.detailsUrl?.let {
         extras[DETAILS_URL_EXTRA] = it
-        setRippleEffect(itemView)
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
@@ -146,11 +154,15 @@ class FutureViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
+    if (futureItem.detailsUrl != null) {
+      itemView.background = ContextCompat.getDrawable(itemView.context,
+          R.drawable.promotions_future_background_clickable)
+    }
+
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
       futureItem.detailsUrl?.let {
         extras[DETAILS_URL_EXTRA] = it
-        setRippleEffect(itemView)
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
