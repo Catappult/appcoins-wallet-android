@@ -771,6 +771,8 @@
 %s दिवसात प्रमोशन संपत आहे.</item>
   </plurals>
   <string name="perks_end_in_date">%s दिवसात प्रमोशन संपत आहे.</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">लवकरच प्रमोशन उपलब्ध होईल</string>
   <string name="perks_next_level_reward">पुढच्या पातळीवर पोचा आणि %s अॅपकॉइन्स क्रेडीटस मिळवा!</string>
   <string name="perks_notification">आपल्याला आत्ताच %s अॅपकॉइन्स क्रेडीटस बोनस म्हणुन मिळालेत</string>
@@ -778,10 +780,15 @@
   <string name="perks_level_up_amount_left">आपण पुढच्या पातळीपासुन %1$s %2$s दूर आहात!</string>
   <string name="perks_level_up_level_tag">पातळी %s</string>
   <string name="perks_bonus_purchase_flow">%1$s बोनस: %2$s अॅपकॉइन्स क्रेडीटस</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">फिंगरप्रिंट लॉक</string>
   <string name="fingerprint_failed_title">प्रमाणीकरण अयशस्वी!</string>
   <string name="fingerprint_failed_body">कृपया %s सेकंदात पुन्हा प्रयत्न करा.</string>
   <string name="fingerprint_authentication_required_title">प्रमाणीकरण जरुरी!</string>
   <string name="fingerprint_authentication_required_body">चालू ठेवण्यासाठी कृपया आपले बोट किंवा पासवर्ड वापरा.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
