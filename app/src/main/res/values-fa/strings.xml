@@ -763,6 +763,8 @@
     <item quantity="other">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
   </plurals>
   <string name="perks_end_in_date">پیشنهاد تشویقی در %s به پایان می‌رسد.</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">پیشهاد تشویقی بزودی</string>
   <string name="perks_next_level_reward">به مرحله بعدی برسید تا %s AppCoins Credits بدست آورید!</string>
   <string name="perks_notification">همین حالا %s AppCoins Credits به عنوان پاداش دریافت کردید</string>
@@ -770,10 +772,15 @@
   <string name="perks_level_up_amount_left">شما %1$s%2$s با مرحله بعدی فاصله دارید!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">پاداش %1$s: %2$s در AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">قفل با اثرانگشت</string>
   <string name="fingerprint_failed_title">احراز هویت موفق نبود!</string>
   <string name="fingerprint_failed_body">لطفا در %s ثانیه مجدد امتحان کنید.</string>
   <string name="fingerprint_authentication_required_title">احراز هویت الزامی است!</string>
   <string name="fingerprint_authentication_required_body">لطفا از انگشت خود یا رمزعبور برای ادامه استفاده کنید.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
