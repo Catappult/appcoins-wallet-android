@@ -772,6 +772,8 @@
     <item quantity="other">تنتهي الترقيات خلال %s يومًا.</item>
   </plurals>
   <string name="perks_end_in_date">تنتهي الترقية في %s.</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">ترقيات متوفرة قريبًا</string>
   <string name="perks_next_level_reward">إذا وصلت المستوى التالي تحصل على رصيد %s AppCoins!</string>
   <string name="perks_notification">لقد تلقّيت للتوّ رصيد %s AppCoins كمكافأة</string>
@@ -779,10 +781,15 @@
   <string name="perks_level_up_amount_left">أنت على بعد %1$s %2$s عن المستوى التالي!</string>
   <string name="perks_level_up_level_tag">المستوى %s</string>
   <string name="perks_bonus_purchase_flow">%1$s مكافأة: %2$s في رصيد AppCoins</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">قفل البصمة</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>
   <string name="fingerprint_authentication_required_body">يرجى استخدام بصمة الإصبع أو كلمة المرور للمتابعة.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
