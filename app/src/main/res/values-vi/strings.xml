@@ -761,6 +761,8 @@
     <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s ngày.</item>
   </plurals>
   <string name="perks_end_in_date">Chương trình khuyến mãi sẽ kết thúc vào %s.</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">Chương trình khuyến mãi sẽ diễn ra sớm thôi</string>
   <string name="perks_next_level_reward">Đạt cấp kế tiếp để nhận được %s AppCoins Credits!</string>
   <string name="perks_notification">Bạn vừa nhận được số tiền thưởng là %s AppCoins Credits</string>
@@ -768,10 +770,15 @@
   <string name="perks_level_up_amount_left">Bạn còn %1$s %2$s nữa để đạt được cấp kế tiếp!</string>
   <string name="perks_level_up_level_tag">Cấp %s</string>
   <string name="perks_bonus_purchase_flow">%1$s tiền thưởng: %2$s bằng AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Khóa vân tay</string>
   <string name="fingerprint_failed_title">Xác thực thất bại!</string>
   <string name="fingerprint_failed_body">Vui lòng thử lại trong %s giây nữa.</string>
   <string name="fingerprint_authentication_required_title">Yêu cầu xác thực!</string>
   <string name="fingerprint_authentication_required_body">Vui lòng sử dụng dấu vân tay hoặc mật khẩu của bạn để tiếp tục.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
