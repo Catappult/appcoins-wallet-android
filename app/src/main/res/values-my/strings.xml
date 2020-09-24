@@ -761,6 +761,8 @@
     <item quantity="other">ပ႐ိုမိုးရွင္းသည္ %s ရက္အၾကာတြင္ ၿပီးဆံံုးမည္ ျဖစ္ပါသည္။</item>
   </plurals>
   <string name="perks_end_in_date">ပ႐ိုမိုးရွင္းသည္ %s တြင္ သက္တမ္းကုန္ပါမည္။</string>
+  <string name="perks_end_in_hours">The promotion ends in %s.</string>
+  <string name="perks_end_today">The promotions ends today.</string>
   <string name="perks_available_soon">မၾကာမီ ပ႐ိုမိုးရွင္းမ်ား ရရွိပါမည္</string>
   <string name="perks_next_level_reward">%s AppCoins Credits မ်ားကို ရယူရန္ ေနာက္တစ္ဆင့္သို႔ ေရာက္ေအာင္သြားလိုက္ပါ။</string>
   <string name="perks_notification">ေဘာနပ္စ္အျဖစ္ %s AppCoins Credits ကို သင္ရရွိပါသည္</string>
@@ -768,10 +770,15 @@
   <string name="perks_level_up_amount_left">ေနာက္တစ္ဆင့္သို႔ သင္ေရာက္ရွိရန္ %1$s %2$s သာ လိုအပ္ပါသည္။</string>
   <string name="perks_level_up_level_tag">အဆင့္ %s</string>
   <string name="perks_bonus_purchase_flow">%1$s ေဘာနပ္စ္ - %2$s ကို AppCoins Credits အေနျဖင့္</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">လက္ေဗြျဖင့္ပိတ္ျခင္း</string>
   <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
   <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
   <string name="fingerprint_authentication_required_body">ဆက္လုပ္ရန္အတြက္ သင့္လက္ေခ်ာင္း သို႔မဟုတ္ စကားဝွက္ကို အသံုးျပဳေပးပါ။</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>
