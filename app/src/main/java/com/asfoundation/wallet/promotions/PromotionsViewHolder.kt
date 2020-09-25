@@ -34,12 +34,10 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     val minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.SECONDS)
 
     when {
+      days > 3 -> container.visibility = View.GONE
       days in 1..3 -> updateDate(view, container, days, R.plurals.promotion_ends)
-      days == 0L && hours > 0 -> updateDate(view, container, hours,
-          R.plurals.promotion_ends_hours)
-      days == 0L && hours == 0L && minutes > 0 -> updateDate(view, container, minutes,
-          R.plurals.promotion_ends_minutes)
-      else -> container.visibility = View.GONE
+      hours > 0 -> updateDate(view, container, hours, R.plurals.promotion_ends_hours)
+      else -> updateDate(view, container, minutes, R.plurals.promotion_ends_minutes)
     }
   }
 
