@@ -761,8 +761,13 @@
     <item quantity="other">The promotion ends in %s days.</item>
   </plurals>
   <string name="perks_end_in_date">促销将在%s结束。</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">促销即将推出</string>
   <string name="perks_next_level_reward">达到下一关可获取%s AppCoins积金！</string>
   <string name="perks_notification">你刚刚收到了%s AppCoins积金奖励</string>
