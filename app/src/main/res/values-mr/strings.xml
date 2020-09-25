@@ -771,8 +771,15 @@
 %s दिवसात प्रमोशन संपत आहे.</item>
   </plurals>
   <string name="perks_end_in_date">%s दिवसात प्रमोशन संपत आहे.</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">The promotion ends in %s hour.</item>
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">लवकरच प्रमोशन उपलब्ध होईल</string>
   <string name="perks_next_level_reward">पुढच्या पातळीवर पोचा आणि %s अॅपकॉइन्स क्रेडीटस मिळवा!</string>
   <string name="perks_notification">आपल्याला आत्ताच %s अॅपकॉइन्स क्रेडीटस बोनस म्हणुन मिळालेत</string>
