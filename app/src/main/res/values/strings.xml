@@ -845,7 +845,7 @@
     <item quantity="two">The promotion ends in %s minutes.</item>
     <item quantity="other">The promotion ends in %s minutes.</item>
   </plurals>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Promotion available soon</string>
   <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
   <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
