@@ -476,10 +476,10 @@
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
   <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
+  <string name="purchase_address_title">Địa chỉ thanh toán</string>
+  <string name="purchase_address_address_field">Địa chỉ</string>
+  <string name="purchase_address_apartment_field">Căn, tầng&#8230;</string>
+  <string name="purchase_address_city_field">Thành phố</string>
   <string name="purchase_address_post_code_field">Zip/Post code</string>
   <string name="purchase_address_state_field">State/Province</string>
   <!--Async Payments-->
@@ -761,8 +761,13 @@
     <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s ngày.</item>
   </plurals>
   <string name="perks_end_in_date">Chương trình khuyến mãi sẽ kết thúc vào %s.</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s giờ nữa.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s nữa.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Chương trình khuyến mãi sẽ diễn ra sớm thôi</string>
   <string name="perks_next_level_reward">Đạt cấp kế tiếp để nhận được %s AppCoins Credits!</string>
   <string name="perks_notification">Bạn vừa nhận được số tiền thưởng là %s AppCoins Credits</string>
@@ -778,7 +783,7 @@
   <string name="fingerprint_authentication_required_title">Yêu cầu xác thực!</string>
   <string name="fingerprint_authentication_required_body">Vui lòng sử dụng dấu vân tay hoặc mật khẩu của bạn để tiếp tục.</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">Gửi nhật ký cho Đội ngũ Hỗ trợ</string>
+  <string name="send_logs_sending">Đang gửi&#8230;</string>
+  <string name="send_logs_send">Đã gửi!</string>
 </resources>
