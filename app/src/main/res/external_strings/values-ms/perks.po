@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Malay\n"
 "Language: ms_MY\n"
-"PO-Revision-Date: 2020-09-24 10:30\n"
+"PO-Revision-Date: 2020-09-25 10:28\n"
 
 #. Card Title
 #:
@@ -50,27 +50,27 @@ msgstr "Kerana anda telah capai tahap seterusnya."
 #. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "Terima bonus ekstra sebanyak {0}% bagi semua pembelian anda, kecuali Kredit AppCoins, dalam {1}."
 
 #. Card - Firs purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Terima bonus ekstra sebanyak {0}% untuk pembelian pertama anda, kecuali Kredit AppCoins dalam {1}"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "Atas pembelian pertama anda dalam {0}."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Terima bonus ekstra sebanyak {0}% untuk pembelian pertama anda untuk hari ini, kecuali Kredit AppCoins dalam {1}"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "Atas pembelian pertama anda untuk hari ini dalam {0}."
 
 #. Title for bonus receipts.
 #:
