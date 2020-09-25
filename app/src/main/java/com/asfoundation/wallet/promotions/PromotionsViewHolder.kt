@@ -72,7 +72,7 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    if (progressItem.detailsUrl != null) {
+    if (progressItem.detailsLink != null) {
       val outValue = TypedValue()
       itemView.progress_container.context.theme.resolveAttribute(
           android.R.attr.selectableItemBackground,
@@ -82,7 +82,7 @@ class ProgressViewHolder(itemView: View,
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
-      progressItem.detailsUrl?.let {
+      progressItem.detailsLink?.let {
         extras[DETAILS_URL_EXTRA] = it
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
@@ -118,7 +118,7 @@ class DefaultViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
-    if (defaultItem.detailsUrl != null) {
+    if (defaultItem.detailsLink != null) {
       val outValue = TypedValue()
       itemView.default_container.context.theme.resolveAttribute(
           android.R.attr.selectableItemBackground,
@@ -128,7 +128,7 @@ class DefaultViewHolder(itemView: View,
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
-      defaultItem.detailsUrl?.let {
+      defaultItem.detailsLink?.let {
         extras[DETAILS_URL_EXTRA] = it
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))
@@ -154,14 +154,14 @@ class FutureViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
-    if (futureItem.detailsUrl != null) {
+    if (futureItem.detailsLink != null) {
       itemView.background = ContextCompat.getDrawable(itemView.context,
           R.drawable.promotions_future_background_clickable)
     }
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
-      futureItem.detailsUrl?.let {
+      futureItem.detailsLink?.let {
         extras[DETAILS_URL_EXTRA] = it
       }
       clickListener.onNext(PromotionClick(promotion.id, extras))

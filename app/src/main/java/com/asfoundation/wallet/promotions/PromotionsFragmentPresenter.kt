@@ -93,8 +93,8 @@ class PromotionsFragmentPresenter(
 
   private fun mapPackagePerkClick(extras: Map<String, String>?) {
     if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
-      val detailsUrl = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
-      activityView.openDetailsUrl(detailsUrl!!)
+      val detailsLink = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
+      activityView.opendetailsLink(detailsLink!!)
     }
   }
 

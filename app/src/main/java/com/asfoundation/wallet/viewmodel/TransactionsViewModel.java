@@ -426,7 +426,7 @@ public class TransactionsViewModel extends BaseViewModel {
         break;
       case DETAILS_URL:
         if (cardNotification instanceof PromotionNotification) {
-          String url = ((PromotionNotification) cardNotification).getDetailsUrl();
+          String url = ((PromotionNotification) cardNotification).getDetailsLink();
           transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
         }
         break;

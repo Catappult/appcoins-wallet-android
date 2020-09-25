@@ -44,7 +44,7 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
         .startChooser()
   }
 
-  override fun openDetailsUrl(url: String) {
+  override fun opendetailsLink(url: String) {
     try {
       val uri = Uri.parse(url)
       val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
