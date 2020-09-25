@@ -476,12 +476,12 @@
   <string name="purchase_card_error_CVV">CVV/CVC errado</string>
   <string name="error_contac_us_body">Se o problema persistir, entre em contato conosco.</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_title">Endereço de cobrança</string>
+  <string name="purchase_address_address_field">Endereço</string>
+  <string name="purchase_address_apartment_field">Apartamento, bloco&#8230;</string>
+  <string name="purchase_address_city_field">Cidade</string>
+  <string name="purchase_address_post_code_field">CEP</string>
+  <string name="purchase_address_state_field">Estado</string>
   <!--Async Payments-->
   <string name="async_steps_title">Próximos Passos</string>
   <string name="async_steps_1">Complete seu pagamento com %s. Você será notificado assim que receber os Créditos AppCoins na sua wallet.</string>
@@ -763,8 +763,15 @@
     <item quantity="other">A promoção termina em %s dias.</item>
   </plurals>
   <string name="perks_end_in_date">A promoção termina em %s.</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">A promoção termina em %s hora.</item>
+    <item quantity="other">A promoção termina em %s horas.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">A promoção termina em %s minuto.</item>
+    <item quantity="other">A promoção termina em %s minutos.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Promoção disponível em breve</string>
   <string name="perks_next_level_reward">Alcance o próximo nível para receber %s Créditos AppCoins!</string>
   <string name="perks_notification">Você ganhou %s Créditos AppCoins como Bônus</string>
@@ -772,7 +779,7 @@
   <string name="perks_level_up_amount_left">Falta %1$s %2$s para o próximo nível!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s de Bônus: %2$s em Créditos AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Todas as compras no app e recargas feitas com qualquer método de compra, exceto Créditos AppCoins, se qualificam para aumentar seu nível de bônus e receber recompensas.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Bloqueio de impressão digital</string>
   <string name="fingerprint_failed_title">Falha na autenticação!</string>
@@ -780,7 +787,7 @@
   <string name="fingerprint_authentication_required_title">É necessário autenticar-se!</string>
   <string name="fingerprint_authentication_required_body">Utilize sua impressão digital ou senha para continuar.</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">Enviar logs para a Equipe de Suporte</string>
+  <string name="send_logs_sending">Enviando&#8230;</string>
+  <string name="send_logs_send">Enviado!</string>
 </resources>
