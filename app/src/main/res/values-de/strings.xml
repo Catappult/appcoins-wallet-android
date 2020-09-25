@@ -763,8 +763,15 @@
     <item quantity="other">Die Aktion endet in %s Tagen.</item>
   </plurals>
   <string name="perks_end_in_date">Die Aktion endet am %s.</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">The promotion ends in %s hour.</item>
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Aktion startet in Kürze</string>
   <string name="perks_next_level_reward">Erreichen Sie den nächsten Level und erhalten Sie %s AppCoins Credits!</string>
   <string name="perks_notification">Sie haben gerade %s AppCoins Credits als Bonus erhalten</string>
