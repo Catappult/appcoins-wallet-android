@@ -767,8 +767,19 @@
     <item quantity="other">The promotion ends in %s days.</item>
   </plurals>
   <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">The promotion ends in %s hour.</item>
+    <item quantity="few">The promotion ends in %s hours.</item>
+    <item quantity="many">The promotion ends in %s hours.</item>
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="few">The promotion ends in %s minutes.</item>
+    <item quantity="many">The promotion ends in %s minutes.</item>
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Promotion available soon</string>
   <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
   <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
