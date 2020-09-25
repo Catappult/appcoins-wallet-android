@@ -772,8 +772,23 @@
     <item quantity="other">تنتهي الترقيات خلال %s يومًا.</item>
   </plurals>
   <string name="perks_end_in_date">تنتهي الترقية في %s.</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="zero">The promotion ends in %s hours.</item>
+    <item quantity="one">The promotion ends in %s hour.</item>
+    <item quantity="two">The promotion ends in %s hours.</item>
+    <item quantity="few">The promotion ends in %s hours.</item>
+    <item quantity="many">The promotion ends in %s hours.</item>
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="zero">The promotion ends in %s minutes.</item>
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="two">The promotion ends in %s minutes.</item>
+    <item quantity="few">The promotion ends in %s minutes.</item>
+    <item quantity="many">The promotion ends in %s minutes.</item>
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">ترقيات متوفرة قريبًا</string>
   <string name="perks_next_level_reward">إذا وصلت المستوى التالي تحصل على رصيد %s AppCoins!</string>
   <string name="perks_notification">لقد تلقّيت للتوّ رصيد %s AppCoins كمكافأة</string>
