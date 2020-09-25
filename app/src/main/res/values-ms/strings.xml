@@ -476,12 +476,12 @@
   <string name="purchase_card_error_CVV">Salah CVV/CVC</string>
   <string name="error_contac_us_body">Jika masalah berlanjutan, sila hubungi kami.</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_title">Alamat bil</string>
+  <string name="purchase_address_address_field">Alamat</string>
+  <string name="purchase_address_apartment_field">Apartmen, tingkat&#8230;</string>
+  <string name="purchase_address_city_field">Bandar</string>
+  <string name="purchase_address_post_code_field">Zip/Poskod</string>
+  <string name="purchase_address_state_field">Negeri/Daerah</string>
   <!--Async Payments-->
   <string name="async_steps_title">Langkah Seterusnya</string>
   <string name="async_steps_1">Selesaikan pembayaran anda dengan %s. Anda akan dimaklumkan setelah anda terima Kredit AppCoins dalam dompet anda.</string>
@@ -761,8 +761,13 @@
     <item quantity="other">Promosi tamat dalam masa %s hari.</item>
   </plurals>
   <string name="perks_end_in_date">Promosi tamat pada %s.</string>
-  <string name="perks_end_in_hours">The promotion ends in %s.</string>
-  <string name="perks_end_today">The promotions ends today.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Promosi akan tiba tak lama lagi</string>
   <string name="perks_next_level_reward">Capai tahap seterusnya untuk dapat %s Kredit AppCoins!</string>
   <string name="perks_notification">Anda baru saja terima %s Kredit AppCoins sebagai Bonus</string>
@@ -770,7 +775,7 @@
   <string name="perks_level_up_amount_left">Anda perlu %1$s%2$s untuk ke tahap seterusnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s dalam Kredit AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Semua pembelian dan tambah nilai dalam aplikasi yang dibuat dengan sebarang kaedah pembelian selain daripada Kredit AppCoins akan melayakkan anda untuk meningkatkan tahap bonus anda dan menerima ganjaran.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Kunci cap jari</string>
   <string name="fingerprint_failed_title">Pengesahan gagal!</string>
@@ -778,7 +783,7 @@
   <string name="fingerprint_authentication_required_title">Pengesahan diperlukan!</string>
   <string name="fingerprint_authentication_required_body">Sila gunakan jari atau kata laluan anda untuk teruskan.</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">Hantar log ke Pasukan Sokongan</string>
+  <string name="send_logs_sending">Menghantar&#8230;</string>
+  <string name="send_logs_send">Dihantar!</string>
 </resources>
