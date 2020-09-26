@@ -228,6 +228,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">हस्तांतरण</string>
   <string name="transaction_type_bonus">बोनस</string>
+  <string name="transaction_type_reverted_bonus_title">परत केलेला बोनस</string>
+  <string name="transaction_type_reverted_bonus_body">%s ह्यावर आपणांस मिळालेला बोनस परतवला गेलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
+  <string name="transaction_type_reverted_topup_title">टॉप-अपची परतफेड</string>
+  <string name="transaction_type_reverted_topup_body">%s ह्यावर आपण केलेला टॉप-अप परवलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
+  <string name="transaction_type_reverted_purchase_title">खरेदी परतावा</string>
+  <string name="transaction_type_reverted_purchase_body">%s वर आपण केलेली खरेदी रक्कम परतवलीय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">एथरियमने पावर्ड</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -476,12 +482,12 @@
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_title">बिलिंग पत्ता</string>
+  <string name="purchase_address_address_field">पत्ता</string>
+  <string name="purchase_address_apartment_field">इमारत, मजला &#8230;</string>
+  <string name="purchase_address_city_field">शहर</string>
+  <string name="purchase_address_post_code_field">झिप/पोस्ट कोड</string>
+  <string name="purchase_address_state_field">राज्य/प्रोव्हिन्स</string>
   <!--Async Payments-->
   <string name="async_steps_title">पुढचे चरण</string>
   <string name="async_steps_1">आपले पेमेंट %s सह पूर्ण करा. आपल्या वॉलेटमध्ये अॅपकॉइन्स क्रेडीट मिळाल्यानंतर आपल्याला कळविण्यात येईल.</string>
@@ -772,14 +778,22 @@
   </plurals>
   <string name="perks_end_in_date">%s दिवसात प्रमोशन संपत आहे.</string>
   <plurals name="promotion_ends_hours">
-    <item quantity="one">The promotion ends in %s hour.</item>
-    <item quantity="other">The promotion ends in %s hours.</item>
+    <item quantity="one">%s तासात प्रमोशन संपत आहे.
+
+%s तासात प्रमोशन संपत आहे.</item>
+    <item quantity="other">%s तासात प्रमोशन संपत आहे.
+
+%s तासात प्रमोशन संपत आहे.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
-    <item quantity="one">The promotion ends in %s minute.</item>
-    <item quantity="other">The promotion ends in %s minutes.</item>
+    <item quantity="one">%s मिनिटात प्रमोशन संपत आहे.
+
+%s मिनिटात प्रमोशन संपत आहे.</item>
+    <item quantity="other">%s मिनिटात प्रमोशन संपत आहे.
+
+%s मिनिटात प्रमोशन संपत आहे.</item>
   </plurals>
-  <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_end_today">आज प्रमोशन संपत आहे.</string>
   <string name="perks_available_soon">लवकरच प्रमोशन उपलब्ध होईल</string>
   <string name="perks_next_level_reward">पुढच्या पातळीवर पोचा आणि %s अॅपकॉइन्स क्रेडीटस मिळवा!</string>
   <string name="perks_notification">आपल्याला आत्ताच %s अॅपकॉइन्स क्रेडीटस बोनस म्हणुन मिळालेत</string>
@@ -787,7 +801,7 @@
   <string name="perks_level_up_amount_left">आपण पुढच्या पातळीपासुन %1$s %2$s दूर आहात!</string>
   <string name="perks_level_up_level_tag">पातळी %s</string>
   <string name="perks_bonus_purchase_flow">%1$s बोनस: %2$s अॅपकॉइन्स क्रेडीटस</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">अॅपमधील सर्व खरेदी आणि टॉपअपस जे अॅपकॉइन्स क्रेडीतशच्या व्यतिरिक्त कोणत्याही खरेदी पद्धतीने केल्यास आपली बोनस पातळी वाढण्यास पात्र होईल आणि बक्षिसही मिळतील.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">फिंगरप्रिंट लॉक</string>
   <string name="fingerprint_failed_title">प्रमाणीकरण अयशस्वी!</string>
@@ -795,7 +809,7 @@
   <string name="fingerprint_authentication_required_title">प्रमाणीकरण जरुरी!</string>
   <string name="fingerprint_authentication_required_body">चालू ठेवण्यासाठी कृपया आपले बोट किंवा पासवर्ड वापरा.</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">समर्थन गटास लॉग्ज पाठवा</string>
+  <string name="send_logs_sending">&#8230; पाठवित आहे</string>
+  <string name="send_logs_send">पाठवले!</string>
 </resources>
