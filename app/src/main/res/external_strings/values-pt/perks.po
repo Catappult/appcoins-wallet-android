@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2020-09-24 10:31\n"
+"PO-Revision-Date: 2020-09-26 10:23\n"
 
 #. Card Title
 #:
@@ -50,27 +50,27 @@ msgstr "Porque chegaste ao próximo nível."
 #. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "Recebe um Bónus extra de {0}% em todas as tuas compras, exceto AppCoins Credits, em {1}."
 
 #. Card - Firs purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Recebe um Bónus extra de {0}% na tua primeira compra, exceto AppCoins Credits, em {1}"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "Pela tua primeira compra em {0}."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Recebe um Bónus extra de {0}% na tua primeira compra do dia, exceto AppCoins Credits, em {1}"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "Pela tua primeira compra do dia em {0}."
 
 #. Title for bonus receipts.
 #:
