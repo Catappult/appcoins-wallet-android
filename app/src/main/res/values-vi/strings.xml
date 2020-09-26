@@ -228,6 +228,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Chuyển khoản</string>
   <string name="transaction_type_bonus">Tiền thưởng</string>
+  <string name="transaction_type_reverted_bonus_title">Tiền thưởng hoàn nguyên</string>
+  <string name="transaction_type_reverted_bonus_body">Tiền thưởng bạn nhận vào %s đã được hoàn nguyên. Vui lòng liên hệ bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
+  <string name="transaction_type_reverted_topup_title">Hoàn trả tiền nạp</string>
+  <string name="transaction_type_reverted_topup_body">Giao dịch nạp tiền bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
+  <string name="transaction_type_reverted_purchase_title">Hoàn trả tiền mua</string>
+  <string name="transaction_type_reverted_purchase_body">Giao dịch mua bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Được cung cấp bởi Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -480,8 +486,8 @@
   <string name="purchase_address_address_field">Địa chỉ</string>
   <string name="purchase_address_apartment_field">Căn, tầng&#8230;</string>
   <string name="purchase_address_city_field">Thành phố</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_post_code_field">Mã zip/Mã bưu điện</string>
+  <string name="purchase_address_state_field">Bang/Tỉnh</string>
   <!--Async Payments-->
   <string name="async_steps_title">Bước kế tiếp</string>
   <string name="async_steps_1">Hoàn tất thanh toán của bạn bằng %s. Bạn sẽ nhận được thông báo ngay khi nhận được AppCoins Credits vào ví của mình.</string>
@@ -765,9 +771,9 @@
     <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s giờ nữa.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
-    <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s nữa.</item>
+    <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s phút nữa.</item>
   </plurals>
-  <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_end_today">Chương trình khuyến mãi sẽ kết thúc trong hôm nay.</string>
   <string name="perks_available_soon">Chương trình khuyến mãi sẽ diễn ra sớm thôi</string>
   <string name="perks_next_level_reward">Đạt cấp kế tiếp để nhận được %s AppCoins Credits!</string>
   <string name="perks_notification">Bạn vừa nhận được số tiền thưởng là %s AppCoins Credits</string>
@@ -775,7 +781,7 @@
   <string name="perks_level_up_amount_left">Bạn còn %1$s %2$s nữa để đạt được cấp kế tiếp!</string>
   <string name="perks_level_up_level_tag">Cấp %s</string>
   <string name="perks_bonus_purchase_flow">%1$s tiền thưởng: %2$s bằng AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Tất cả các giao dịch mua trong ứng dụng và nạp tiền được thực hiện bằng bất kỳ phương thức mua nào ngoại trừ AppCoins Credits sẽ được tăng mức thưởng và nhận phần thưởng.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Khóa vân tay</string>
   <string name="fingerprint_failed_title">Xác thực thất bại!</string>
