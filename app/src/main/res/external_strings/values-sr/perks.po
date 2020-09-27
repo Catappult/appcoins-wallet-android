@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Serbian (Latin)\n"
 "Language: sr_CS\n"
-"PO-Revision-Date: 2020-09-26 10:25\n"
+"PO-Revision-Date: 2020-09-27 10:25\n"
 
 #. Card Title
 #:
@@ -50,12 +50,12 @@ msgstr "Zato što ste dostigli sledeći nivo."
 #. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr "Dobićete dodatni bonus od {0}% za sve kupovine, osim kupovine AppCoins Credits, u igri {1}."
+msgstr "Dobićete dodatni bonus od {0}% za sve kupovine, osim kupovine pomoću AppCoins Credits, u igri {1}."
 
 #. Card - Firs purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "Dobićete dodatni bonus od {0}% za prvu kupovinu, osim kupovine AppCoins Credits, u igri {1}"
+msgstr "Dobićete dodatni bonus od {0}% za prvu kupovinu, osim kupovine pomoću AppCoins Credits, u igri {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -65,7 +65,7 @@ msgstr "Zbog vaše prve kupovine u aplikaciji {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "Dobićete dodatni bonus od {0}% za prvu kupovinu tokom dana, osim kupovine AppCoins Credits, u igri {1}"
+msgstr "Dobićete dodatni bonus od {0}% za prvu kupovinu tokom dana, osim kupovine pomoću AppCoins Credits, u igri {1}"
 
 #. Receipt - First Purchase of the day.
 #:
