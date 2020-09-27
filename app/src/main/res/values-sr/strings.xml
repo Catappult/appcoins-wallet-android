@@ -484,7 +484,7 @@
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
-  <string name="purchase_address_apartment_field">Stan, sprat itd.</string>
+  <string name="purchase_address_apartment_field">Stan, sprat&#8230;</string>
   <string name="purchase_address_city_field">Grad</string>
   <string name="purchase_address_post_code_field">Poštanski broj</string>
   <string name="purchase_address_state_field">Država/pokrajina</string>
@@ -789,7 +789,7 @@
   <string name="perks_level_up_amount_left">Nedostaje vam još %1$s %2$s do sledećeg nivoa!</string>
   <string name="perks_level_up_level_tag">N.</string>
   <string name="perks_bonus_purchase_flow">%1$s bonusa: %2$s u AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Sve kupovine u aplikacijama i dopune obavljene bilo kojim načinom kupovine osim AppCoins Credits ispunjavaće uslove za povećanje nivoa bonusa i dobijanje nagrada.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Zaključavanje pomoću otiska prsta</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
@@ -797,7 +797,7 @@
   <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>
   <string name="fingerprint_authentication_required_body">Upotrebite otisak prsta ili lozinku da biste nastavili.</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">Pošaljite evidenciju timu korisničke podrške</string>
+  <string name="send_logs_sending">Slanje&#8230;</string>
+  <string name="send_logs_send">Poslato!</string>
 </resources>
