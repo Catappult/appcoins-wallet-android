@@ -228,12 +228,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
-  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
-  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
-  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
-  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_bonus_title">โบนัสเงินคืน</string>
+  <string name="transaction_type_reverted_bonus_body">โบนัสที่คุณได้รับเมื่อ %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
+  <string name="transaction_type_reverted_topup_title">เติมเงินคืน</string>
+  <string name="transaction_type_reverted_topup_body">การเติมเงินที่คุณทำใน %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
+  <string name="transaction_type_reverted_purchase_title">การขอคืนเงิน</string>
+  <string name="transaction_type_reverted_purchase_body">การซื้อที่คุณทำใน %s ถูกเปลี่ยนกลับแล้ว ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">สนับสนุนโดยเอธิเรียม</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -482,12 +482,12 @@
   <string name="purchase_card_error_CVV">CVV/CVC ไม่ถูกต้อง</string>
   <string name="error_contac_us_body">โปรดติดต่อเราหากยังคงมีปัญหา</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
+  <string name="purchase_address_address_field">ที่อยู่</string>
+  <string name="purchase_address_apartment_field">อพาร์ทเม้นท์ชั้น &#8230;</string>
+  <string name="purchase_address_city_field">เมือง</string>
+  <string name="purchase_address_post_code_field">รหัสไปรษณีย์</string>
+  <string name="purchase_address_state_field">รัฐ/จังหวัด</string>
   <!--Async Payments-->
   <string name="async_steps_title">ขั้นตอนถัดไป</string>
   <string name="async_steps_1">ชำระเงินให้เสร็จสมบูรณ์ด้วย %s คุณจะได้รับการแจ้งเตือนเมื่อคุณได้รับเครดิต AppCoins ในกระเป๋าเงินของคุณ</string>
@@ -577,7 +577,7 @@
   <string name="import_wallet_title">กู้คืน Wallet</string>
   <string name="import_wallet_body">วางข้อมูลสำรองของกระเป๋าสตางค์ของคุณด้านล่าง</string>
   <string name="import_wallet_keystore_private_keys">Keystore หรือคีย์ส่วนตัว</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">หรือกู้คืนจากไฟล์</string>
   <string name="import_wallet_file_button">ลบจากไฟล์</string>
   <string name="import_wallet_button">กู้ค่ากระเป๋าสตางค์</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
@@ -764,16 +764,16 @@
   <string name="perks_title">โปรโมชั่น</string>
   <string name="perks_body">คอยติดตาม! พวกเรามีโปรโมชั่นพิเศษสำหรับคุณ</string>
   <plurals name="promotion_ends">
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">โปรโมชันจะสิ้นสุดใน %s วัน</item>
   </plurals>
   <string name="perks_end_in_date">โปรโมชั่นสิ้นสุดวันที่ %s</string>
   <plurals name="promotion_ends_hours">
-    <item quantity="other">The promotion ends in %s hours.</item>
+    <item quantity="other">โปรโมชันจะสิ้นสุดใน %s ชั่วโมง</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
-    <item quantity="other">The promotion ends in %s minutes.</item>
+    <item quantity="other">โปรโมชันจะสิ้นสุดใน %s นาที</item>
   </plurals>
-  <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_end_today">โปรโมชันจะสิ้นสุดในวันนี้</string>
   <string name="perks_available_soon">พบโปรโมชั่นเร็วๆ นี้</string>
   <string name="perks_next_level_reward">ถึงเลเวลถัดไปเพื่อรับ %s AppCoins Credits!</string>
   <string name="perks_notification">คุณได้รับ %s AppCoins Credits เป็นโบนัส</string>
@@ -781,7 +781,7 @@
   <string name="perks_level_up_amount_left">อีก %1$s%2$s จะถึงเลเวลถัดไป!</string>
   <string name="perks_level_up_level_tag">เลเวล %s</string>
   <string name="perks_bonus_purchase_flow">%1$s โบนัส: %2$s ใน AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">การซื้อในแอปและการเติมเงินทั้งหมดที่ทำด้วยวิธีการซื้อใดๆ นอกเหนือจากเครดิต AppCoins จะมีสิทธิ์เพิ่มระดับโบนัสของคุณและรับรางวัล</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">ล็อกลายนิ้วมือ</string>
   <string name="fingerprint_failed_title">การรับรองความถูกต้องล้มเหลว!</string>
@@ -789,7 +789,7 @@
   <string name="fingerprint_authentication_required_title">จำเป็นต้องรับรองความถูกต้อง!</string>
   <string name="fingerprint_authentication_required_body">โปรดใช้นิ้วของคุณหรือรหัสผ่านเพื่อดำเนินการต่อ</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">ส่งบันทึกไปยังทีมสนับสนุน</string>
+  <string name="send_logs_sending">กำลังส่ง&#8230;</string>
+  <string name="send_logs_send">ส่งแล้ว!</string>
 </resources>
