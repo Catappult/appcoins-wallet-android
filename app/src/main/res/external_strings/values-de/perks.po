@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2020-09-24 10:30\n"
+"PO-Revision-Date: 2020-09-27 10:24\n"
 
 #. Card Title
 #:
@@ -50,27 +50,27 @@ msgstr "Weil Sie den nächsten erreicht haben."
 #. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "Erhalten einen Bonus von {0}% für alle deine Einkäufe, ausser AppCoins Credits bei {1}."
 
 #. Card - Firs purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Erhalten einen Bonus von {0}% für deinen ersten Einkauf, ausser AppCoins Credits bei {1}"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "Wegen deines ersten Einkaufs bei {0}."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Erhalten einen Bonus von {0}% für deinen ersten Einkauf des Tages, ausgenommen AppCoins Credits bei {1}"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "Wegen deines ersten Einkauf des Tages bei {0}."
 
 #. Title for bonus receipts.
 #:
@@ -80,10 +80,10 @@ msgstr "+{0} AppCoins Credits Bonus!"
 #. Card - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
-msgstr ""
+msgstr "Erhalte zusätzlich {0} AppCoins Credits für jeden {1} {2} den Du bei {3} ausgibts."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "Weil Du {0}{1} bei {2} ausgegeben hast."
 
