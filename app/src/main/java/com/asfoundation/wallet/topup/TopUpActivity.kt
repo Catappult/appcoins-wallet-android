@@ -18,7 +18,6 @@ import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.iab.PaymentAuthenticationResult
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -53,10 +52,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
   private var firstImpression = true
-
-  private var topUpData: TopUpData? = null
-  private var gamificationLevel = 0
-  private var authenticationResultSubject: PublishSubject<TopUpResult>? = null
+  private var authenticationResultSubject: PublishSubject<Boolean>? = null
 
   companion object {
     @JvmStatic
@@ -70,8 +66,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
     private const val FIRST_IMPRESSION = "first_impression"
-    private const val TOP_UP_DATA = "top_up_data"
-    private const val GAMIFICATION_LEVEL = "gamification_level"
     const val AUTHENTICATION_REQUEST_CODE = 33
   }
 
@@ -86,8 +80,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
-      topUpData = savedInstanceState.getSerializable(TOP_UP_DATA) as TopUpData?
-      gamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
     }
   }
 
@@ -96,8 +88,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     presenter.processActivityResult(requestCode, resultCode, data)
     if (requestCode == AUTHENTICATION_REQUEST_CODE) {
       if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-        topUpData?.let { authenticationResultSubject?.onNext(TopUpResult(true,it, gamificationLevel)) }
-        //topUpData?.let { navigateToPayment(it, gamificationLevel) }
+        authenticationResultSubject?.onNext(true)
       }
     }
   }
@@ -253,8 +244,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(FIRST_IMPRESSION, firstImpression)
-    outState.putSerializable(TOP_UP_DATA, topUpData)
-    outState.putInt(GAMIFICATION_LEVEL, gamificationLevel)
   }
 
   private fun handleTopUpStartAnalytics() {
@@ -264,33 +253,13 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     }
   }
 
-  override fun showAuthenticationActivity(topUpData: TopUpData, gamificationLevel: Int) {
-    this.topUpData = topUpData
-    this.gamificationLevel = gamificationLevel
+  override fun showAuthenticationActivity() {
     val intent = AuthenticationPromptActivity.newIntent(this)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
     startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
-  override fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
-    val paymentMethod = topUpData.paymentMethod!!
-    when (paymentMethod.paymentType) {
-      PaymentType.CARD, PaymentType.PAYPAL -> navigateToAdyenPayment(
-          paymentMethod.paymentType, mapTopUpPaymentData(topUpData, gamificationLevel))
-      PaymentType.LOCAL_PAYMENTS ->
-        navigateToLocalPayment(paymentMethod.paymentId, paymentMethod.icon,
-            paymentMethod.label, mapTopUpPaymentData(topUpData, gamificationLevel))
-    }
-  }
-
-  private fun mapTopUpPaymentData(topUpData: TopUpData, gamificationLevel: Int): TopUpPaymentData {
-    return TopUpPaymentData(topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode,
-        topUpData.selectedCurrencyType, topUpData.bonusValue, topUpData.currency.fiatCurrencySymbol,
-        topUpData.currency.appcValue, "TOPUP", gamificationLevel)
-  }
-
-  override fun onAuthenticationResult(): Observable<TopUpResult> {
+  override fun onAuthenticationResult(): Observable<Boolean> {
     return authenticationResultSubject!!
   }
-
 }

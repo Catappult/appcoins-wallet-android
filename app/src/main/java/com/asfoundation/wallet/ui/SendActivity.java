@@ -32,7 +32,6 @@ import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 public class SendActivity extends BaseActivity {
 
   private static final int BARCODE_READER_REQUEST_CODE = 1;
-  private static final int AUTHENTICATION_REQUEST_CODE = 33;
   @Inject SendViewModelFactory sendViewModelFactory;
   private SendViewModel viewModel;
   private EditText toAddressText;

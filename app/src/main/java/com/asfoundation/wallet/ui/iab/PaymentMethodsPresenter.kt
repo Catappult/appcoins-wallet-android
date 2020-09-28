@@ -52,14 +52,19 @@ class PaymentMethodsPresenter(
     private val activity: IabView?,
     private val preferencesRepositoryType: PreferencesRepositoryType) {
 
-  private var gamificationLevel = 0
+  private var cachedGamificationLevel = 0
   private var shouldHandlePreselected = true
 
   companion object {
     private val TAG = PaymentMethodsPresenter::class.java.name
+    private const val PAYMENT_DATA = "top_up_data"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
   }
 
-  fun present() {
+  fun present(savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
+    }
     handleOnGoingPurchases()
     handleCancelClick()
     handleErrorDismisses()
@@ -97,25 +102,27 @@ class PaymentMethodsPresenter(
                 selectedPaymentMethod)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> {
               val appCoinsPaymentMethod = selectedPaymentMethod as AppCoinsPaymentMethod
-              view.showMergedAppcoins(gamificationLevel, appCoinsPaymentMethod.disabledReasonAppc,
+              view.showMergedAppcoins(cachedGamificationLevel,
+                  appCoinsPaymentMethod.disabledReasonAppc,
                   appCoinsPaymentMethod.disabledReasonCredits)
             }
             else -> {
               if (preferencesRepositoryType.hasAuthenticationPermission()) {
-                view.showAuthenticationActivity(selectedPaymentMethod, gamificationLevel, false)
+                view.showAuthenticationActivity(selectedPaymentMethod, cachedGamificationLevel,
+                    false)
               } else {
                 when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
                   PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(
-                      gamificationLevel)
+                      cachedGamificationLevel)
                   PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
-                      gamificationLevel)
+                      cachedGamificationLevel)
                   PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins(
-                      gamificationLevel)
+                      cachedGamificationLevel)
                   PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
                       selectedPaymentMethod.id)
                   PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                       selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
-                      selectedPaymentMethod.label, gamificationLevel)
+                      selectedPaymentMethod.label, cachedGamificationLevel)
                   else -> return@doOnNext
                 }
               }
@@ -148,9 +155,9 @@ class PaymentMethodsPresenter(
         .observeOn(viewScheduler)
         .doOnSuccess {
           if (preferencesRepositoryType.hasAuthenticationPermission()) {
-            view.showAuthenticationActivity(selectedPaymentMethod, gamificationLevel, false)
+            view.showAuthenticationActivity(selectedPaymentMethod, cachedGamificationLevel, false)
           } else {
-            view.showCredits(gamificationLevel)
+            view.showCredits(cachedGamificationLevel)
           }
         }
         .doOnSubscribe { view.showProgressBarLoading() }
@@ -295,7 +302,7 @@ class PaymentMethodsPresenter(
     } else {
       view.removeBonus()
     }
-    gamificationLevel = forecastBonus.level
+    cachedGamificationLevel = forecastBonus.level
     analyticsSetUp.setGamificationLevel(forecastBonus.level)
   }
 
@@ -324,10 +331,11 @@ class PaymentMethodsPresenter(
             analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
                 .toString(), transaction.type)
             if (preferencesRepositoryType.hasAuthenticationPermission()) {
-              view.showAuthenticationActivity(paymentMethod, gamificationLevel, true, fiatValue)
+              view.showAuthenticationActivity(paymentMethod, cachedGamificationLevel, true,
+                  fiatValue)
             } else {
               view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
-                  paymentMethod.iconUrl, gamificationLevel)
+                  paymentMethod.iconUrl, cachedGamificationLevel)
             }
           }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
@@ -392,8 +400,7 @@ class PaymentMethodsPresenter(
     return if (currencyCode.equals("APPC", ignoreCase = true))
       currencyCode
     else
-      Currency.getInstance(currencyCode)
-          .currencyCode
+      Currency.getInstance(currencyCode).currencyCode
   }
 
   private fun handleCancelClick() {
@@ -486,7 +493,7 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
-        .flatMapCompletable { paymentMethodsInteract.showSupport(gamificationLevel) }
+        .flatMapCompletable { paymentMethodsInteract.showSupport(cachedGamificationLevel) }
         .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -532,8 +539,7 @@ class PaymentMethodsPresenter(
             .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun getPreSelectedPaymentMethod(
-      paymentMethods: List<PaymentMethod>): PaymentMethod? {
+  private fun getPreSelectedPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {
     val preSelectedPreference = paymentMethodsInteract.getPreSelectedPaymentMethod()
     for (paymentMethod in paymentMethods) {
       if (paymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) {
@@ -629,5 +635,9 @@ class PaymentMethodsPresenter(
       }
     }
     return null
+  }
+
+  fun onSavedInstance(outState: Bundle) {
+    outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
   }
 }

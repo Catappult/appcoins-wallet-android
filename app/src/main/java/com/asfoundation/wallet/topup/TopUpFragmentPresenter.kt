@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup
 
+import android.os.Bundle
 import android.util.Log
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.logging.Logger
@@ -30,15 +31,22 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val logger: Logger) {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
-  private var gamificationLevel = 0
+  private var cachedTopUpData: TopUpData? = null
+  private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
+    private const val TOP_UP_DATA = "top_up_data"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
   }
 
-  fun present(appPackage: String) {
+  fun present(appPackage: String, savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      cachedTopUpData = savedInstanceState.getSerializable(TOP_UP_DATA) as TopUpData?
+      cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
+    }
     setupUi()
     handleChangeCurrencyClick()
     handleNextClick()
@@ -142,9 +150,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
                         "next", topUpData.paymentMethod!!.paymentType.name)
                     if (preferencesRepositoryType.hasAuthenticationPermission()) {
-                      activity?.showAuthenticationActivity(topUpData, gamificationLevel)
+                      cachedTopUpData = topUpData
+                      activity?.showAuthenticationActivity()
                     } else {
-                      navigateToPayment(topUpData, gamificationLevel)
+                      navigateToPayment(topUpData, cachedGamificationLevel)
                     }
                   }
             }
@@ -249,7 +258,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             view.removeBonus()
           }
           view.setNextButtonState(true)
-          gamificationLevel = it.level
+          cachedGamificationLevel = it.level
         }
         .ignoreElements()
   }
@@ -368,15 +377,15 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleAuthenticationResult() {
     disposables.add(activity!!.onAuthenticationResult()
         .observeOn(viewScheduler)
-        .doOnNext {
-          if (it.isSuccess) {
-            navigateToPayment(it.topUpData, it.gamificationLevel)
+        .doOnNext { success ->
+          if (success && cachedTopUpData != null) {
+            navigateToPayment(cachedTopUpData!!, cachedGamificationLevel)
           }
         }
         .subscribe({}, { it.printStackTrace() }))
   }
 
- private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
+  private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
     when (paymentMethod.paymentType) {
       PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(
@@ -393,4 +402,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         topUpData.currency.appcValue, "TOPUP", gamificationLevel)
   }
 
+  fun onSavedInstance(outState: Bundle) {
+    outState.putSerializable(TOP_UP_DATA, cachedTopUpData)
+    outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
+  }
 }

@@ -232,6 +232,4 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   }
 
   override fun getAuthenticationErrorTime() = pref.getLong(AUTHENTICATION_ERROR_TIME, 0)
-
-
 }

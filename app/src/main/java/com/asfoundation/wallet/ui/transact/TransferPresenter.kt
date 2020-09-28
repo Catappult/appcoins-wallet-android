@@ -249,7 +249,5 @@ class TransferPresenter(private val view: TransferFragmentView,
 
   companion object {
     const val DATA = "data_key"
-
   }
-
 }

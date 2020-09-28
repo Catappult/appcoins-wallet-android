@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.transact
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -42,13 +41,13 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.currency_choose_layout.*
 import kotlinx.android.synthetic.main.transact_fragment_layout.*
 import java.math.BigDecimal
+import java.util.*
 import javax.inject.Inject
 
 class TransferFragment : BasePageViewFragment(), TransferFragmentView {
+
   companion object {
-    fun newInstance(): TransferFragment {
-      return TransferFragment()
-    }
+    fun newInstance() = TransferFragment()
   }
 
   private lateinit var presenter: TransferPresenter
@@ -92,9 +91,9 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
             .doOnNext { activity?.onBackPressed() }
             .subscribe()
     presenter = TransferPresenter(this, CompositeDisposable(), CompositeDisposable(), interactor,
-        Schedulers.io(),
-        AndroidSchedulers.mainThread(), findDefaultWalletInteract, walletBlockedInteract,
-        context!!.packageName, formatter, transferActivity, preferencesRepositoryType)
+        Schedulers.io(), AndroidSchedulers.mainThread(), findDefaultWalletInteract,
+        walletBlockedInteract, context!!.packageName, formatter, transferActivity,
+        preferencesRepositoryType)
   }
 
   override fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
@@ -199,7 +198,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
           data?.let {
             val barcode = it.getParcelableExtra<Barcode>(BarcodeCaptureActivity.BarcodeObject)
             println(barcode)
-            qrCodeResult.onNext(barcode)
+            barcode?.let { mBarcode -> qrCodeResult.onNext(mBarcode) }
             return true
           }
         } else if (requestCode == TransferActivity.AUTHENTICATION_REQUEST_CODE) {
@@ -239,7 +238,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
           }
           TransferFragmentView.TransferData(
               transact_fragment_recipient_address.text.toString()
-                  .toLowerCase(),
+                  .toLowerCase(Locale.ROOT),
               map(currency_selector.checkedRadioButtonId), amount)
         }
   }

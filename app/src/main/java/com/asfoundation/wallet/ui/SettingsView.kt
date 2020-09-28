@@ -12,6 +12,4 @@ interface SettingsView {
   fun showError()
 
   fun navigateToIntent(intent: Intent)
-
-  //fun getSwitchClick(): Observable<Boolean>
 }

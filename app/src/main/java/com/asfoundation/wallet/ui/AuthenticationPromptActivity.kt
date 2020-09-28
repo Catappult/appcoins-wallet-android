@@ -38,7 +38,6 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     fun newIntent(context: Context): Intent {
       return Intent(context, AuthenticationPromptActivity::class.java)
     }
-
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +46,8 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     setContentView(R.layout.authentication_prompt_activity)
     retryClickSubject = PublishSubject.create<Any>()
     fingerprintResultSubject = PublishSubject.create<FingerprintAuthResult>()
-    presenter =
-        AuthenticationPromptPresenter(this,
-            AndroidSchedulers.mainThread(),
-            CompositeDisposable(),
-            fingerprintInteract,
-            preferencesRepositoryType)
+    presenter = AuthenticationPromptPresenter(this, AndroidSchedulers.mainThread(),
+        CompositeDisposable(), fingerprintInteract, preferencesRepositoryType)
     presenter.present(savedInstanceState)
   }
 
@@ -85,6 +80,11 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
         })
   }
 
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
+  }
+
   override fun getAuthenticationResult(): Observable<FingerprintAuthResult> {
     return fingerprintResultSubject!!
   }
@@ -111,11 +111,8 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     biometricPrompt.authenticate(promptInfo)
   }
 
-  override fun showFail() {}
-
   override fun checkBiometricSupport(): Boolean {
-    val keyguardManager =
-        getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+    val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
     return keyguardManager.isKeyguardSecure
   }
 
@@ -137,9 +134,7 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     presenter.onSaveInstanceState(outState)
   }
 
-  override fun onBackPressed() {
-    closeCancel()
-  }
+  override fun onBackPressed() = closeCancel()
 
   override fun onDestroy() {
     fingerprintResultSubject = null

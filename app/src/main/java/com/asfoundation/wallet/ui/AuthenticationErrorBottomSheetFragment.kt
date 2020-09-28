@@ -11,9 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.authentication_error_bottomsheet.*
 
-class AuthenticationErrorBottomSheetFragment :
-    Fragment(),
-    AuthenticationErrorBottomSheetView {
+class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBottomSheetView {
 
   private lateinit var presenter: AuthenticationErrorBottomSheetPresenter
 

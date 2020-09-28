@@ -162,7 +162,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedPaymentMethodId = it.getString(SELECTED_PAYMENT_METHOD_PARAM)
     }
     topUpActivityView?.showToolbar()
-    presenter.present(appPackage)
+    presenter.present(appPackage, savedInstanceState)
 
     topUpAdapter = TopUpAdapter(Action1 { valueSubject?.onNext(it) })
 
@@ -187,6 +187,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
+    presenter.onSavedInstance(outState)
   }
 
   override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {

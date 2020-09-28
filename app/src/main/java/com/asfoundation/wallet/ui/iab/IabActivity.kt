@@ -55,9 +55,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   @Inject
   lateinit var logger: Logger
 
-  @Inject
-  lateinit var paymentMethodsMapper: PaymentMethodsMapper
-
   private lateinit var presenter: IabPresenter
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
