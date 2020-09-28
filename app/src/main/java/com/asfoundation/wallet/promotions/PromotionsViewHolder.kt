@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.promotions
 
-import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
@@ -72,13 +70,7 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    if (progressItem.detailsLink != null) {
-      val outValue = TypedValue()
-      itemView.progress_container.context.theme.resolveAttribute(
-          android.R.attr.selectableItemBackground,
-          outValue, true)
-      itemView.progress_container.setBackgroundResource(outValue.resourceId)
-    }
+    itemView.isClickable = progressItem.detailsLink != null
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
@@ -118,13 +110,7 @@ class DefaultViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
-    if (defaultItem.detailsLink != null) {
-      val outValue = TypedValue()
-      itemView.default_container.context.theme.resolveAttribute(
-          android.R.attr.selectableItemBackground,
-          outValue, true)
-      itemView.default_container.setBackgroundResource(outValue.resourceId)
-    }
+    itemView.isClickable = defaultItem.detailsLink != null
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
@@ -154,10 +140,7 @@ class FutureViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
-    if (futureItem.detailsLink != null) {
-      itemView.background = ContextCompat.getDrawable(itemView.context,
-          R.drawable.promotions_future_background_clickable)
-    }
+    itemView.isClickable = futureItem.detailsLink != null
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()

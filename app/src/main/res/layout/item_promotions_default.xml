@@ -16,6 +16,7 @@
       android:id="@+id/default_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="?attr/selectableItemBackground"
       android:paddingBottom="@dimen/normal_margin"
       >
 

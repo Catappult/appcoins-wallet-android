@@ -82,6 +82,7 @@ class PromotionsFragmentPresenter(
 
   private fun mapReferralClick(extras: Map<String, String>?) {
     if (extras != null) {
+
       val link = extras[ReferralViewHolder.KEY_LINK]
       if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
         activityView.navigateToInviteFriends()
