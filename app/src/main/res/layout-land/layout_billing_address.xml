@@ -46,6 +46,7 @@
         android:imeOptions="flagNoExtractUi|flagNoFullscreen"
         android:inputType="number"
         android:maxLines="1"
+        android:textSize="14sp"
         tools:text="36"
         />
   </com.google.android.material.textfield.TextInputLayout>
@@ -145,7 +146,7 @@
       android:id="@+id/remember"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:button="@color/billing_switch_color"
+      android:backgroundTint="@color/billing_switch_color"
       android:text="@string/dialog_credit_card_remember"
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"

@@ -202,6 +202,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
+      credit_card_info.visibility = VISIBLE
       val billingAddressModel =
           data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
       this.billingAddressModel = billingAddressModel
@@ -291,8 +292,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
 
-  override fun showBillingAddress(value: BigDecimal, currency: String) =
-      iabView.showBillingAddress(value, currency, bonus, appcAmount, this)
+  override fun showBillingAddress(value: BigDecimal, currency: String) {
+    credit_card_info.visibility = GONE
+    iabView.showBillingAddress(value, currency, bonus, appcAmount, this)
+  }
+
 
   override fun showSpecificError(@StringRes stringRes: Int) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE

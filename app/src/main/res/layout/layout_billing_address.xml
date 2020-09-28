@@ -145,7 +145,7 @@
       android:id="@+id/remember"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:button="@color/billing_switch_color"
+      android:backgroundTint="@color/billing_switch_color"
       android:text="@string/dialog_credit_card_remember"
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"
