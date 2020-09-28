@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -23,6 +24,8 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -39,6 +42,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
+import kotlinx.android.synthetic.main.level_up_bonus_layout.view.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.payment_methods_layout.*
 import kotlinx.android.synthetic.main.payment_methods_layout.error_message
@@ -47,6 +51,7 @@ import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import java.math.BigDecimal
+import java.text.DecimalFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -110,6 +115,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   @Inject
   lateinit var paymentMethodsInteract: PaymentMethodsInteract
 
+  @Inject
+  lateinit var mapper: GamificationMapper
+
+  @Inject
+  lateinit var gamificationInteractor: GamificationInteractor
+
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
   private lateinit var fiatValue: FiatValue
@@ -144,7 +155,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
         bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract, iabView, preferencesRepositoryType)
+        logger, paymentMethodsInteract, iabView, preferencesRepositoryType, gamificationInteractor,
+        mapper)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -523,7 +535,48 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         transactionBuilder!!.amount(), transactionBuilder!!.type)
   }
 
+  override fun setLevelUpInformation(gamificationLevel: Int, progress: Double,
+                                     currentLevelBackground: Drawable?,
+                                     nextLevelBackground: Drawable?,
+                                     levelColor: Int,
+                                     willLevelUp: Boolean,
+                                     leftAmount: BigDecimal?) {
+    if (willLevelUp) level_up_bonus_layout.information_message.text =
+        getString(R.string.perks_level_up_on_this_purchase)
+    else if (leftAmount != null) {
+      val df = DecimalFormat("###.#")
+      level_up_bonus_layout.information_message.text =
+          getString(R.string.perks_level_up_amount_left, df.format(leftAmount), "APPC")
+    }
+    level_up_bonus_layout.bonus_value.text =
+        getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+
+    currentLevelBackground?.let { level_up_bonus_layout.current_level.background = it }
+    nextLevelBackground?.let { level_up_bonus_layout.next_level.background = it }
+    level_up_bonus_layout.current_level.text =
+        getString(R.string.perks_level_up_level_tag, (gamificationLevel + 1).toString())
+    level_up_bonus_layout.next_level.text =
+        getString(R.string.perks_level_up_level_tag, (gamificationLevel + 2).toString())
+    level_up_bonus_layout.current_level_progress_bar.progress = progress.toInt()
+    level_up_bonus_layout.current_level_progress_bar.progressTintList =
+        ColorStateList.valueOf(levelColor)
+  }
+
+  override fun showLevelUp() {
+    bonus_layout.visibility = View.INVISIBLE
+    bonus_msg.visibility = View.INVISIBLE
+    no_bonus_msg?.visibility = View.INVISIBLE
+    level_up_bonus_layout.visibility = View.VISIBLE
+    bottom_separator?.visibility = View.VISIBLE
+  }
+
+  override fun hideLevelUp() {
+    level_up_bonus_layout.visibility = View.GONE
+    bottom_separator?.visibility = View.INVISIBLE
+  }
+
   override fun showBonus() {
+    level_up_bonus_layout.visibility = View.GONE
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
     no_bonus_msg?.visibility = View.INVISIBLE
@@ -561,10 +614,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       compositeDisposable.add(Single.defer { Single.just(appPackage) }
           .observeOn(Schedulers.io())
           .map { packageName ->
-            Pair(
-                getApplicationName(packageName),
-                context!!.packageManager
-                    .getApplicationIcon(packageName))
+            Pair(getApplicationName(packageName),
+                context!!.packageManager.getApplicationIcon(packageName))
           }
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe({ setHeaderInfo(it.first, it.second) }) { it.printStackTrace() })
