@@ -10,7 +10,8 @@ import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.AnalyticsSetUp
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -45,7 +46,8 @@ class PaymentMethodsPresenter(
     private val bdsPendingTransactionService: BdsPendingTransactionService,
     private val billing: Billing,
     private val analytics: BillingAnalytics,
-    private val analyticsSetUp: AnalyticsSetUp,
+    private val analyticsSetup: AnalyticsSetup,
+    private val amplitudeAnalytics: AmplitudeAnalytics,
     private val isBds: Boolean,
     private val developerPayload: String?,
     private val uri: String?,
@@ -363,7 +365,8 @@ class PaymentMethodsPresenter(
       view.removeBonus()
     }
     cachedGamificationLevel = forecastBonus.level
-    analyticsSetUp.setGamificationLevel(forecastBonus.level)
+    analyticsSetup.setGamificationLevel(cachedGamificationLevel)
+    amplitudeAnalytics.setGamificationLevel(cachedGamificationLevel)
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,

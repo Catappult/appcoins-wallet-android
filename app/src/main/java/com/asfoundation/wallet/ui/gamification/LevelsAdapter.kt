@@ -15,7 +15,7 @@ class LevelsAdapter(private val context: Context,
                     private val hiddenLevels: List<LevelModel>,
                     shownLevels: List<LevelModel>,
                     private val amountSpent: BigDecimal, private val currentLevel: Int,
-                    private val nextLevelAmount: BigDecimal,
+                    private val nextLevelAmount: BigDecimal?,
                     private val currencyFormatUtils: CurrencyFormatUtils,
                     private val mapper: GamificationMapper,
                     private val uiEventListener: PublishSubject<Boolean>) :

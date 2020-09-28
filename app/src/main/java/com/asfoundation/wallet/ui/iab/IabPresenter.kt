@@ -66,19 +66,30 @@ class IabPresenter(private val view: IabView,
     view.finishWithError()
   }
 
+  fun handlePerkNotifications(bundle: Bundle) {
+    disposable.add(iabInteract.getWalletAddress()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.launchPerkBonusService(it)
+          view.finishActivity(bundle)
+        }
+        .doOnError { view.finishActivity(bundle) }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
   fun handleBackupNotifications(bundle: Bundle) {
-    disposable.add(
-        iabInteract.incrementAndValidateNotificationNeeded()
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess { notificationNeeded ->
-              if (notificationNeeded.isNeeded) {
-                view.showBackupNotification(notificationNeeded.walletAddress)
-              }
-              view.finishActivity(bundle)
-            }
-            .doOnError { view.finish(bundle) }
-            .subscribe({ }, { it.printStackTrace() })
+    disposable.add(iabInteract.incrementAndValidateNotificationNeeded()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess { notificationNeeded ->
+          if (notificationNeeded.isNeeded) {
+            view.showBackupNotification(notificationNeeded.walletAddress)
+          }
+          view.finishActivity(bundle)
+        }
+        .doOnError { view.finish(bundle) }
+        .subscribe({ }, { it.printStackTrace() })
     )
   }
 

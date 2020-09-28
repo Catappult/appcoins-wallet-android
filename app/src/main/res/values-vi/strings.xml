@@ -564,6 +564,7 @@
   <string name="import_wallet_title">Khôi phục ví</string>
   <string name="import_wallet_body">Dán sao lưu ví của bạn dưới đây.</string>
   <string name="import_wallet_keystore_private_keys">Kho khóa hoặc khóa cá nhân</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">KHÔI PHỤC TỪ TẬP TIN</string>
   <string name="import_wallet_button">KHÔI PHỤC VÍ</string>
   <string name="import_wallet_password_body">Ví này được bảo vệ bằng mật khẩu!</string>
@@ -749,7 +750,9 @@
   <string name="perks_gamif_subtitle">Bạn càng dùng nhiều tiền trong các ứng dụng yêu thích, tiền thưởng cũng sẽ càng lớn!</string>
   <string name="perks_title">Khuyến mãi</string>
   <string name="perks_body">Cùng đón chờ! Chúng tôi có chương trình khuyến mãi đặc biệt dành cho bạn.</string>
-  <string name="perks_end_in_days">Chương trình khuyến mãi sẽ kết thúc trong %s ngày.</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Chương trình khuyến mãi sẽ kết thúc vào %s.</string>
   <string name="perks_available_soon">Chương trình khuyến mãi sẽ diễn ra sớm thôi</string>
   <string name="perks_next_level_reward">Đạt cấp kế tiếp để nhận được %s AppCoins Credits!</string>

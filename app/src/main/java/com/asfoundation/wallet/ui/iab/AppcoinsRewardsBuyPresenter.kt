@@ -145,19 +145,19 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                 appcoinsRewardsBuyInteract.isWalletVerified()
                     .observeOn(viewScheduler)
                     .doOnSuccess {
-                      if (it) view.showError(R.string.purchase_wallet_error_contact_us)
+                      if (it) view.showError(R.string.purchase_error_wallet_block_code_403)
                       else view.showWalletValidation(R.string.unknown_error)
                     }
               } else {
                 Single.just(true)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { view.showError(R.string.purchase_wallet_error_contact_us) }
+                    .doOnSuccess { view.showError(R.string.purchase_error_wallet_block_code_403) }
               }
             }
             .observeOn(viewScheduler)
             .subscribe({}, {
               logger.log(TAG, it)
-              view.showError(R.string.purchase_wallet_error_contact_us)
+              view.showError(R.string.purchase_error_wallet_block_code_403)
             })
     )
   }

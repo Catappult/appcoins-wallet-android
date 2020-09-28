@@ -4,5 +4,6 @@ enum class CardNotificationAction {
   DISMISS,
   DISCOVER,
   UPDATE,
-  BACKUP
+  BACKUP,
+  NONE
 }

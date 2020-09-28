@@ -9,9 +9,9 @@ import retrofit2.http.Query
 import java.math.BigDecimal
 
 interface GamificationApi {
-  @GET("gamification/user_stats")
-  fun getUserStatus(@Query("address") address: String, @Query("version_code")
-  versionCode: String): Single<UserStatusResponse>
+  @GET("gamification/1.20200720/user_stats")
+  fun getUserStats(@Query("address") address: String,
+                   @Query("lang_code") languageCode: String): Single<UserStatusResponse>
 
   @GET("gamification/levels")
   fun getLevels(@Query("address") address: String): Single<LevelsResponse>

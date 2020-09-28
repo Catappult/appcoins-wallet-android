@@ -83,6 +83,10 @@ interface PreferencesRepositoryType {
 
   fun getWalletId(): String?
 
+  fun setPromotionNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
+
+  fun removePromotionNotificationSeenTime(walletAddress: String): Completable
+
   fun setAuthenticationPermission(result: Boolean)
 
   fun hasAuthenticationPermission(): Boolean

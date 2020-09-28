@@ -21,7 +21,7 @@ import java.net.URL
 
 class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
                      private val logger: Logger) :
-    AnalyticsSetUp {
+    AnalyticsSetup {
   private val rakamClient = Rakam.getInstance()
 
   companion object {

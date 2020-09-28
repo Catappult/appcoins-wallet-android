@@ -16,6 +16,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
+import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
@@ -176,6 +177,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     }
   }
 
+  override fun launchPerkBonusService(address: String) {
+    PerkBonusService.buildService(this, address)
+  }
+
   override fun finishActivity(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
@@ -194,6 +199,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun finish(data: Bundle) {
     if (data.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       presenter.handleBackupNotifications(data)
+      presenter.handlePerkNotifications(data)
     } else {
       finishActivity(data)
     }

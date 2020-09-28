@@ -3,7 +3,9 @@ package com.appcoins.wallet.gamification.repository.entity
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-data class ReferralResponse(
+class ReferralResponse(
+    id: String,
+    priority: Int,
     @SerializedName("max_amount")
     val maxAmount: BigDecimal,
     val available: Int,
@@ -23,15 +25,10 @@ data class ReferralResponse(
     @SerializedName("min_amount")
     val minAmount: BigDecimal,
     val status: Status,
-    val amount: BigDecimal) {
+    val amount: BigDecimal) : PromotionsResponse(id, priority) {
 
   @Suppress("unused")
   enum class UserStatus {
     RESERVED, VERIFIED, REDEEMED
-  }
-
-  @Suppress("unused")
-  enum class Status {
-    ACTIVE, INACTIVE
   }
 }

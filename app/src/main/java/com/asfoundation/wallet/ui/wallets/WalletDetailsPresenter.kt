@@ -28,7 +28,7 @@ class WalletDetailsPresenter(
     disposable.add(view.removeWalletClick()
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToRemoveWalletView(walletAddress) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleBackupClick() {
@@ -44,7 +44,7 @@ class WalletDetailsPresenter(
             }
             .observeOn(viewScheduler)
             .doOnNext { view.navigateToBackupView(walletAddress) }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleMakeWalletActiveClick() {
@@ -61,14 +61,14 @@ class WalletDetailsPresenter(
     disposable.add(view.copyClick()
         .observeOn(viewScheduler)
         .doOnNext { view.setAddressToClipBoard(walletAddress) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleShareClick() {
     disposable.add(view.shareClick()
         .observeOn(viewScheduler)
         .doOnNext { view.showShare(walletAddress) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun populateUi() {
@@ -76,7 +76,7 @@ class WalletDetailsPresenter(
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.populateUi(it) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() {

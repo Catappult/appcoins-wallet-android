@@ -216,13 +216,15 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun setEmailPreference() {
     val emailPreference = findPreference<Preference>("pref_email")
     emailPreference?.setOnPreferenceClickListener {
-      val mailto = Intent(Intent.ACTION_SEND_MULTIPLE)
-      mailto.type = "message/rfc822" // use from live device
-      mailto.putExtra(Intent.EXTRA_EMAIL, arrayOf("info@appcoins.io"))
-      mailto.putExtra(Intent.EXTRA_SUBJECT, "Android wallet support question")
-      mailto.putExtra(Intent.EXTRA_TEXT, "Dear AppCoins support,")
-
-      startActivity(Intent.createChooser(mailto, "Select email application."))
+      val email = "info@appcoins.io"
+      val subject = "Android wallet support question"
+      val body = "Dear AppCoins support,"
+      val emailAppIntent = Intent(Intent.ACTION_SENDTO)
+      emailAppIntent.data = Uri.parse("mailto:")
+      emailAppIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+      emailAppIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+      emailAppIntent.putExtra(Intent.EXTRA_TEXT, body)
+      startActivity(Intent.createChooser(emailAppIntent, "Select email application."))
       true
     }
   }

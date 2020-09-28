@@ -67,7 +67,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   }
 
   override fun displayGamificationInfo(currentLevel: Int,
-                                       nextLevelAmount: BigDecimal,
+                                       nextLevelAmount: BigDecimal?,
                                        hiddenLevels: List<LevelModel>,
                                        shownLevels: List<LevelModel>,
                                        totalSpend: BigDecimal,

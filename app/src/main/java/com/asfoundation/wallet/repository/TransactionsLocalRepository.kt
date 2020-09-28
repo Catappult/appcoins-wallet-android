@@ -12,6 +12,7 @@ class TransactionsLocalRepository(private val database: TransactionsDao,
 
   companion object {
     private const val OLD_TRANSACTIONS_LOAD = "IS_OLD_TRANSACTIONS_LOADED"
+    private const val LAST_LOCALE = "locale"
   }
 
 
@@ -37,9 +38,21 @@ class TransactionsLocalRepository(private val database: TransactionsDao,
     return Single.fromCallable { sharedPreferences.getBoolean(OLD_TRANSACTIONS_LOAD, false) }
   }
 
+  override fun deleteAllTransactions() {
+    return database.deleteAllTransactions()
+  }
+
   override fun oldTransactionsLoaded() {
     sharedPreferences.edit()
         .putBoolean(OLD_TRANSACTIONS_LOAD, true)
         .apply()
   }
+
+  override fun setLocale(locale: String) {
+    sharedPreferences.edit()
+        .putString(LAST_LOCALE, locale)
+        .apply()
+  }
+
+  override fun getLastLocale() = sharedPreferences.getString(LAST_LOCALE, null)
 }

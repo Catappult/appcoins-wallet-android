@@ -48,7 +48,6 @@
           android:layout_marginStart="56dp"
           android:layout_marginTop="24dp"
           android:layout_marginEnd="56dp"
-          android:gravity="center"
           android:text="@string/backup_confirmation_title"
           app:layout_constraintBottom_toTopOf="@id/description"
           app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +64,6 @@
           android:layout_marginTop="32dp"
           android:layout_marginEnd="56dp"
           android:layout_marginBottom="8dp"
-          android:gravity="center"
           android:text="@string/backup_confirmation_body"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
@@ -116,6 +114,23 @@
         tools:visibility="visible"
         />
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/finish_button"
+        style="@style/MaterialButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/backup_confirmation_yes"
+        app:layout_constraintBottom_toTopOf="@id/save_again_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/save_again_button"
         style="@style/MaterialButtonStyle.Light"
@@ -125,11 +140,19 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
         android:text="@string/backup_confirmation_no"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/proceed_button"
+        />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/file_shared_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="finish_button, save_again_button"
+        tools:visibility="visible"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

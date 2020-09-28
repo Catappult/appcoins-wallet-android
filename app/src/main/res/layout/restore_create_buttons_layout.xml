@@ -6,17 +6,19 @@
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/restore_button_layout"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:layout_marginStart="32dp"
+      android:layout_marginEnd="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="@id/vertical_guideline2"
-      app:layout_constraintStart_toStartOf="@id/vertical_guideline1"
+      app:layout_constraintEnd_toEndOf="@id/vertical_guideline3"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       >
     <ImageView
         android:id="@+id/restore_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/wallets_button_size"
+        android:layout_height="@dimen/wallets_button_size"
         android:src="@drawable/ic_restore_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +45,10 @@
   </androidx.constraintlayout.widget.ConstraintLayout>
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/create_new_button_layout"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="32dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/vertical_guideline3"
@@ -52,8 +56,8 @@
       >
     <ImageView
         android:id="@+id/create_new_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/wallets_button_size"
+        android:layout_height="@dimen/wallets_button_size"
         android:src="@drawable/ic_create_new_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

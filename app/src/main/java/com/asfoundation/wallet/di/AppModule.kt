@@ -25,6 +25,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
+import com.appcoins.wallet.gamification.repository.PromotionDatabase
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.permissions.Permissions
 import com.aptoide.apk.injector.extractor.data.Extractor
@@ -388,15 +389,46 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  @Named("amplitude_event_list")
+  fun provideAmplitudeEventList() = listOf(
+      BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
+      BillingAnalytics.RAKAM_PAYMENT_METHOD,
+      BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
+      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
+      BillingAnalytics.RAKAM_PAYMENT_START,
+      BillingAnalytics.RAKAM_PAYPAL_URL,
+      TopUpAnalytics.WALLET_TOP_UP_START,
+      TopUpAnalytics.WALLET_TOP_UP_SELECTION,
+      TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
+      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
+      TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
+      PoaAnalytics.RAKAM_POA_EVENT,
+      WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
+      WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
+      WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION,
+      WalletsAnalytics.WALLET_CREATE_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_BACKUP,
+      WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_FILE,
+      WalletsAnalytics.WALLET_IMPORT_RESTORE,
+      WalletsAnalytics.WALLET_PASSWORD_RESTORE,
+      PageViewAnalytics.WALLET_PAGE_VIEW
+  )
+
+  @Singleton
+  @Provides
   fun provideAnalyticsManager(okHttpClient: OkHttpClient, api: AnalyticsAPI, context: Context,
                               @Named("bi_event_list") biEventList: List<String>,
                               @Named("facebook_event_list") facebookEventList: List<String>,
                               @Named("rakam_event_list")
-                              rakamEventList: List<String>): AnalyticsManager {
+                              rakamEventList: List<String>,
+                              @Named("amplitude_event_list")
+                              amplitudeEventList: List<String>): AnalyticsManager {
     return AnalyticsManager.Builder()
         .addLogger(BackendEventLogger(api), biEventList)
         .addLogger(FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
         .addLogger(RakamEventLogger(), rakamEventList)
+        .addLogger(AmplitudeEventLogger(), amplitudeEventList)
         .setAnalyticsNormalizer(KeysNormalizer())
         .setDebugLogger(LogcatAnalyticsLogger())
         .setKnockLogger(HttpClientKnockLogger(okHttpClient))
@@ -430,6 +462,30 @@ internal class AppModule {
         .permissionsDao()))
   }
 
+  @Singleton
+  @Provides
+  fun providesPromotionDatabase(context: Context): PromotionDatabase {
+    return Room.databaseBuilder(context,
+        PromotionDatabase::class.java,
+        "promotion_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesPromotionDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.promotionDao()
+
+  @Singleton
+  @Provides
+  fun providesLevelsDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.levelsDao()
+
+  @Singleton
+  @Provides
+  fun providesLevelDao(promotionDatabase: PromotionDatabase) =
+      promotionDatabase.levelDao()
+
   @Provides
   fun providesObjectMapper(): ObjectMapper {
     return ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -456,10 +512,7 @@ internal class AppModule {
     get() = BuildConfig.VERSION_CODE.toString()
 
   @Provides
-  fun provideTransactionsMapper(defaultTokenProvider: DefaultTokenProvider,
-                                appCoinsOperationRepository: AppCoinsOperationRepository): TransactionsMapper {
-    return TransactionsMapper(defaultTokenProvider, appCoinsOperationRepository, Schedulers.io())
-  }
+  fun provideTransactionsMapper() = TransactionsMapper()
 
   @Singleton
   @Provides
@@ -536,6 +589,13 @@ internal class AppModule {
   fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
                                  logger: Logger): RakamAnalytics {
     return RakamAnalytics(context, idsRepository, logger)
+  }
+
+  @Singleton
+  @Provides
+  fun provideAmplitudeAnalytics(context: Context,
+                                idsRepository: IdsRepository): AmplitudeAnalytics {
+    return AmplitudeAnalytics(context, idsRepository)
   }
 
   @Singleton

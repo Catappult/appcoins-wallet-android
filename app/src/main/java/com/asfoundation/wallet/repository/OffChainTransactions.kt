@@ -17,10 +17,9 @@ class OffChainTransactions(private val repository: OffChainTransactionsRepositor
         repository.getTransactionsSync(wallet, versionCode, startingDate, endingDate, offset,
             sort = lowerCaseSort, limit = limit)
             .execute()
-
-    if (transactions.isSuccessful) {
-      return mapper.mapTransactionsFromWalletHistory(
-          transactions.body()?.result)
+    val body = transactions.body()
+    if (transactions.isSuccessful && body != null) {
+      return mapper.mapTransactionsFromWalletHistory(body.result)
     }
     throw HttpException(transactions)
   }

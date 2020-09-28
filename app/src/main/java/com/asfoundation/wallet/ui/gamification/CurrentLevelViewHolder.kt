@@ -18,7 +18,7 @@ import java.text.DecimalFormat
 class CurrentLevelViewHolder(itemView: View,
                              private val context: Context,
                              private val amountSpent: BigDecimal,
-                             private val nextLevelAmount: BigDecimal,
+                             private val nextLevelAmount: BigDecimal?,
                              private val currencyFormatUtils: CurrencyFormatUtils,
                              private val mapper: GamificationMapper,
                              private val uiEventListener: PublishSubject<Boolean>) :
@@ -57,8 +57,13 @@ class CurrentLevelViewHolder(itemView: View,
   private fun setText(title: String, phrase: String, progressPercentage: String,
                       bonus: Double) {
     itemView.current_level_title.text = title
-    itemView.spend_amount_text.text =
-        context.getString(R.string.gamif_card_body, getRemainingAmount())
+    if (nextLevelAmount != null) {
+      itemView.spend_amount_text.text =
+          context.getString(R.string.gamif_card_body,
+              currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent))
+    } else {
+      itemView.spend_amount_text.visibility = View.INVISIBLE
+    }
     itemView.current_level_phrase.text = phrase
     val df = DecimalFormat("###.#")
     itemView.current_level_bonus.text =
@@ -66,17 +71,18 @@ class CurrentLevelViewHolder(itemView: View,
     itemView.percentage_left.text = "$progressPercentage%"
   }
 
-  private fun getRemainingAmount() =
-      currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent)
-
   private fun getProgressPercentage(levelAmount: BigDecimal): BigDecimal {
-    var levelRange = nextLevelAmount - levelAmount
-    if (levelRange.toDouble() == 0.0) {
-      levelRange = BigDecimal.ONE
+    return if (nextLevelAmount != null) {
+      var levelRange = nextLevelAmount - levelAmount
+      if (levelRange.toDouble() == 0.0) {
+        levelRange = BigDecimal.ONE
+      }
+      val amountSpentInLevel = amountSpent - levelAmount
+      amountSpentInLevel.divide(levelRange, 2, RoundingMode.HALF_EVEN)
+          .multiply(BigDecimal(100))
+    } else {
+      BigDecimal(100)
     }
-    val amountSpentInLevel = amountSpent - levelAmount
-    return amountSpentInLevel.divide(levelRange, 2, RoundingMode.HALF_EVEN)
-        .multiply(BigDecimal(100))
   }
 
   private fun setProgress(progress: BigDecimal) {

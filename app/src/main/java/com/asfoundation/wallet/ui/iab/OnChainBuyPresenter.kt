@@ -116,12 +116,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
         onChainBuyInteract.getCompletedPurchase(transaction, isBds)
             .observeOn(viewScheduler)
             .map { buildBundle(it, transaction.orderReference) }
-            .flatMapCompletable { bundle ->
-              Completable.fromAction { view.showTransactionCompleted() }
-                  .subscribeOn(viewScheduler)
-                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                  .andThen(Completable.fromRunnable { view.finish(bundle) })
-            }
+            .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
             .onErrorResumeNext { Completable.fromAction { showError(it) } }
       }
       Payment.Status.NO_FUNDS -> Completable.fromAction { view.showNoFundsError() }
@@ -164,6 +159,13 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       }
           .andThen(onChainBuyInteract.remove(transaction.uri))
     }
+  }
+
+  private fun handleSuccessTransaction(bundle: Bundle): Completable {
+    return Completable.fromAction { view.showTransactionCompleted() }
+        .subscribeOn(viewScheduler)
+        .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+        .andThen(Completable.fromRunnable { view.finish(bundle) })
   }
 
   private fun buildBundle(payment: Payment, orderReference: String?): Bundle {
@@ -246,7 +248,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                   if (verified) {
                     view.showForbiddenError()
                   } else {
-                    view.showWalletValidation(R.string.purchase_wallet_error_contact_us)
+                    view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
                   }
                 }
           } else {

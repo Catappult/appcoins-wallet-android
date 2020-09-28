@@ -11,10 +11,9 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
-import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository
-import com.appcoins.wallet.gamification.repository.GamificationApi
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
@@ -33,6 +32,7 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_1_2
 import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_2_3
+import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_3_4
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
@@ -118,10 +118,11 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providePromotionsRepository(api: GamificationApi,
-                                  preferences: SharedPreferences): PromotionsRepository {
-    return BdsPromotionsRepository(api, SharedPreferencesGamificationLocalData(preferences),
-        getVersionCode())
+  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences,
+                                  promotionDao: PromotionDao, levelsDao: LevelsDao,
+                                  levelDao: LevelDao): PromotionsRepository {
+    return BdsPromotionsRepository(api,
+        SharedPreferencesGamificationLocalData(preferences, promotionDao, levelsDao, levelDao))
   }
 
   @Singleton
@@ -159,14 +160,13 @@ class RepositoryModule {
     val transactionsDao = Room.databaseBuilder(context.applicationContext,
         TransactionsDatabase::class.java,
         "transactions_database")
-        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
         .build()
         .transactionsDao()
     val localRepository: TransactionsRepository =
         TransactionsLocalRepository(transactionsDao, sharedPreferences)
-    return BackendTransactionRepository(networkInfo, accountKeystoreService,
-        defaultTokenProvider, BlockchainErrorMapper(), nonceObtainer,
-        Schedulers.io(),
+    return BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
+        BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
         transactionsNetworkRepository, localRepository, TransactionMapper(),
         CompositeDisposable(), Schedulers.io())
   }
@@ -197,16 +197,15 @@ class RepositoryModule {
     return IdsRepository(context.contentResolver, sharedPreferencesRepository, installerService)
   }
 
-  private fun getVersionCode() = BuildConfig.VERSION_CODE.toString()
-
   @Singleton
   @Provides
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
                               accountKeystoreService: AccountKeystoreService,
                               walletBalanceService: WalletBalanceService,
-                              analyticsSetup: RakamAnalytics): WalletRepositoryType {
+                              analyticsSetup: RakamAnalytics,
+                              amplitudeAnalytics: AmplitudeAnalytics): WalletRepositoryType {
     return WalletRepository(preferencesRepositoryType, accountKeystoreService,
-        walletBalanceService, Schedulers.io(), analyticsSetup)
+        walletBalanceService, Schedulers.io(), analyticsSetup, amplitudeAnalytics)
   }
 
   @Singleton
@@ -237,5 +236,4 @@ class RepositoryModule {
   fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
     return LocalPaymentsLinkRepository(api)
   }
-
 }

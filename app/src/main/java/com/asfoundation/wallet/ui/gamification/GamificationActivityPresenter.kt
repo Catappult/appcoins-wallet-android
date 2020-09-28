@@ -8,23 +8,18 @@ class GamificationActivityPresenter(private val activity: GamificationActivityVi
                                     private val disposable: CompositeDisposable,
                                     private val viewScheduler: Scheduler) {
 
-  fun present(legacy: Boolean) {
-    handleNavigation(legacy)
-    handleRetryClick(legacy)
+  fun present() {
+    activity.loadGamificationView()
+    handleRetryClick()
   }
 
-  private fun handleNavigation(legacy: Boolean) {
-    if (legacy) activity.loadLegacyGamificationView()
-    else activity.loadGamificationView()
-  }
-
-  private fun handleRetryClick(legacy: Boolean) {
+  private fun handleRetryClick() {
     disposable.add(activity.retryClick()
         .observeOn(viewScheduler)
         .doOnNext { activity.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
-        .doOnNext { handleNavigation(legacy) }
+        .doOnNext { activity.loadGamificationView() }
         .subscribe({}, { it.printStackTrace() }))
   }
 

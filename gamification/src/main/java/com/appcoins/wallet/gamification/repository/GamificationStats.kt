@@ -7,8 +7,7 @@ data class GamificationStats(val status: Status, val level: Int = -1,
                              val bonus: Double = -1.0,
                              val totalSpend: BigDecimal = BigDecimal.ZERO,
                              val totalEarned: BigDecimal = BigDecimal.ZERO,
-                             val isActive: Boolean = false,
-                             val userType: UserType = UserType.STANDARD
+                             val isActive: Boolean = false
 ) {
 
   enum class Status {
