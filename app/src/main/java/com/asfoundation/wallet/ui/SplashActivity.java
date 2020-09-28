@@ -19,7 +19,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
   @Inject AutoUpdateInteract autoUpdateInteract;
 
   private SplashPresenter presenter;
-  private static final int AUTHENTICATION_REQUEST_CODE = 15;
+  private static final int AUTHENTICATION_REQUEST_CODE = 33;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, SplashActivity.class);

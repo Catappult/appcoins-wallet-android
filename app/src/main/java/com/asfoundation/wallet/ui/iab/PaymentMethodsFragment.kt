@@ -21,6 +21,8 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -103,7 +105,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var logger: Logger
 
   @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+
+  @Inject
   lateinit var paymentMethodsInteract: PaymentMethodsInteract
+
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
   private lateinit var fiatValue: FiatValue
@@ -138,7 +144,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
         bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract)
+        logger, paymentMethodsInteract, iabView, preferencesRepositoryType)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -148,7 +154,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     setupAppNameAndIcon()
 
     setBuyButtonText()
-    presenter.present()
+    presenter.present(savedInstanceState)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -159,6 +165,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError)
+    presenter.onSavedInstance(outState)
   }
 
   override fun onDestroyView() {
@@ -342,6 +349,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun hideLoading() {
     if (processing_loading.visibility != View.VISIBLE) {
+      payment_methods.visibility = View.VISIBLE
       removeSkeletons()
       buy_button.isEnabled = true
       if (isPreSelected) {
@@ -390,6 +398,17 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
+  override fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod,
+                                          gamificationLevel: Int, isPreselected: Boolean,
+                                          fiatValue: FiatValue?) {
+    if (fiatValue != null) this.fiatValue = fiatValue
+    val fiat = fiatValue ?: this.fiatValue
+    val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
+        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat.amount,
+        fiat.currency, bonusMessageValue, isPreselected)
+    iabView.showAuthenticationActivity(paymentNavigationData)
+  }
+
   override fun setupUiCompleted() = setupSubject!!
 
   override fun showProcessingLoadingDialog() {
@@ -407,10 +426,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
   }
 
-  override fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
+
+  override fun showAdyen(fiatAmount: BigDecimal, fiatCurrency: String, paymentType: PaymentType,
+                         iconUrl: String?,
                          gamificationLevel: Int) {
     if (!itemAlreadyOwnedError) {
-      iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds, paymentType,
+      iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType,
           bonusMessageValue, true, iconUrl, gamificationLevel)
     }
   }

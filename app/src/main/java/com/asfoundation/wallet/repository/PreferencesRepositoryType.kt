@@ -87,4 +87,8 @@ interface PreferencesRepositoryType {
 
   fun hasAuthenticationPermission(): Boolean
 
+  fun setAuthenticationErrorTime(timer: Long)
+
+  fun getAuthenticationErrorTime(): Long
+
 }

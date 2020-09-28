@@ -20,6 +20,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -111,6 +113,12 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var paymentMethodsMapper: PaymentMethodsMapper
+
+  @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -234,7 +242,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, iabView, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
-        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, logger)
+        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, logger,
+        paymentMethodsMapper, preferencesRepositoryType)
   }
 
   override fun onAttach(context: Context) {
@@ -266,6 +275,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun hideLoading() {
     loading_view?.visibility = GONE
+    payment_methods.visibility = VISIBLE
   }
 
   private fun setBuyButtonText(): String {
@@ -476,11 +486,20 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
+  override fun showAuthenticationActivity(selectedPaymentId: String,
+                                          gamificationLevel: Int) {
+    val paymentNavigationData =
+        PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
+            currency, bonus, false)
+    iabView.showAuthenticationActivity(paymentNavigationData)
+  }
+
   override fun navigateToAppcPayment() =
       iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
 
   override fun navigateToCreditsPayment() =
       iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
+
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =
@@ -494,15 +513,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun onResume() {
     super.onResume()
-    mergedAppcoinsPresenter.present()
-  }
-
-  override fun onPause() {
-    mergedAppcoinsPresenter.handleStop()
-    super.onPause()
+    mergedAppcoinsPresenter.onResume()
   }
 
   override fun onDestroyView() {
+    mergedAppcoinsPresenter.handleStop()
     iabView.enableBack()
     appcoins_radio_button.setOnCheckedChangeListener(null)
     appcoins_radio.setOnClickListener(null)

@@ -18,7 +18,9 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
@@ -31,6 +33,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_iab.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.*
@@ -60,11 +63,15 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var developerPayload: String? = null
   private var uri: String? = null
   private var firstImpression = true
+  private var paymentNavigationData: PaymentNavigationData? = null
+  private var authenticationResultSubject: PublishSubject<PaymentAuthenticationResult>? = null
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     results = PublishRelay.create()
+    authenticationResultSubject = PublishSubject.create()
     setContentView(R.layout.activity_iab)
     isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
@@ -73,6 +80,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = true
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
+      paymentNavigationData =
+          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
     }
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
@@ -104,6 +113,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
       }
       presenter.handleWalletBlockedCheck(errorMessage)
+    } else if (requestCode == AUTHENTICATION_REQUEST_CODE) {
+      if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
+        paymentNavigationData?.let {
+          authenticationResultSubject?.onNext(
+              PaymentAuthenticationResult(true, it))
+        }
+      } else if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
+        paymentNavigationData?.let {
+          authenticationResultSubject?.onNext(PaymentAuthenticationResult(false, it))
+        }
+      }
     }
   }
 
@@ -279,6 +299,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstance(outState)
+    outState.putSerializable(PAYMENT_NAVIGATION_DATA, paymentNavigationData)
   }
 
   private fun getOrigin(isBds: Boolean): String? {
@@ -354,6 +375,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
+  override fun showAuthenticationActivity(paymentNavigationData: PaymentNavigationData) {
+    this.paymentNavigationData = paymentNavigationData
+    val intent = AuthenticationPromptActivity.newIntent(this)
+        .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
+  }
+
+  override fun onAuthenticationResult(): Observable<PaymentAuthenticationResult> {
+    return authenticationResultSubject!!
+  }
+
   companion object {
 
     const val URI = "uri"
@@ -371,8 +403,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val WALLET_VALIDATION_REQUEST_CODE = 12346
+    const val AUTHENTICATION_REQUEST_CODE = 33
     const val IS_BDS_EXTRA = "is_bds_extra"
     const val ERROR_MESSAGE = "error_message"
+    private const val PAYMENT_NAVIGATION_DATA = "payment_navigation_data"
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,

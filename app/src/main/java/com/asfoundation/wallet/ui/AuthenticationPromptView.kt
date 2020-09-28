@@ -6,8 +6,7 @@ import io.reactivex.Observable
 interface AuthenticationPromptView {
   fun createBiometricPrompt(): BiometricPrompt
   fun getAuthenticationResult(): Observable<FingerprintAuthResult>
-  fun showBottomSheetDialogFragment(message: String)
-  fun showFail()
+  fun showAuthenticationBottomSheet(timer: Long)
   fun showPrompt(biometricPrompt: BiometricPrompt, promptInfo: BiometricPrompt.PromptInfo)
   fun getRetryButtonClick(): Observable<Any>
   fun onRetryButtonClick()

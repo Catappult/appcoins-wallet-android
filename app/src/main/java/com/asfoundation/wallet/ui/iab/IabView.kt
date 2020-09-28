@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -71,4 +72,10 @@ interface IabView {
   fun getSupportClicks(): Observable<Any>
 
   fun errorDismisses(): Observable<Any>
+
+  fun showAuthenticationActivity(paymentNavigationData: PaymentNavigationData)
+
+  fun onAuthenticationResult(): Observable<PaymentAuthenticationResult>
+
+
 }

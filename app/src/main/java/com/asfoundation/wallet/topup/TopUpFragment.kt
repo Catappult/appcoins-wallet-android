@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
@@ -59,6 +60,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -136,7 +140,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     valueSubject = PublishSubject.create()
     keyboardEvents = PublishSubject.create()
     presenter =
-        TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
+        TopUpFragmentPresenter(this, topUpActivityView, interactor, preferencesRepositoryType,
+            AndroidSchedulers.mainThread(),
             Schedulers.io(), topUpAnalytics, formatter,
             savedInstanceState?.getString(SELECTED_VALUE_PARAM), logger)
   }
@@ -157,7 +162,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedPaymentMethodId = it.getString(SELECTED_PAYMENT_METHOD_PARAM)
     }
     topUpActivityView?.showToolbar()
-    presenter.present(appPackage)
+    presenter.present(appPackage, savedInstanceState)
 
     topUpAdapter = TopUpAdapter(Action1 { valueSubject?.onNext(it) })
 
@@ -182,6 +187,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
     outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
     outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
+    presenter.onSavedInstance(outState)
   }
 
   override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {

@@ -9,17 +9,19 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.fingerprint.ManageFingerprintActivity
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.preference_fingerprint.*
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -29,6 +31,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   lateinit var pageViewAnalytics: PageViewAnalytics
+
+  @Inject
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
@@ -78,17 +83,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun openPermissionScreen(): Boolean {
     context?.let {
       val intent = ManagePermissionsActivity.newIntent(it)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
-      startActivity(intent)
-    }
-    return true
-  }
-
-  private fun openFingerprintScreen(): Boolean {
-    context?.let {
-      val intent = ManageFingerprintActivity.newIntent(it)
           .apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
           }
@@ -159,10 +153,20 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   private fun setFingerprintPreference() {
-    val fingerprintPreference = findPreference<Preference>("pref_fingerprint")
-    fingerprintPreference?.setOnPreferenceClickListener { openFingerprintScreen() }
+    val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
+    fingerprintPreference?.isChecked = preferencesRepositoryType.hasAuthenticationPermission()
+    if (preferencesRepositoryType.hasAuthenticationPermission()) {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
+    }
+    else {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
+    }
+    fingerprintPreference?.setOnPreferenceChangeListener { preference, newValue ->
+      pref_authentication_switch.isChecked = newValue as Boolean
+      preferencesRepositoryType.setAuthenticationPermission(newValue as Boolean)
+      true
+    }
   }
-
 
   private fun setSourceCodePreference() {
     val sourceCodePreference = findPreference<Preference>("pref_source_code")

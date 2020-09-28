@@ -9,6 +9,7 @@ class AuthenticationErrorBottomSheetPresenter(private val view: AuthenticationEr
 
   fun present() {
     view.setMessage()
+    view.setupUi()
     handleButtonClick()
   }
 
