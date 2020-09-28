@@ -26,6 +26,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionDatabase
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_1_2
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.permissions.Permissions
 import com.aptoide.apk.injector.extractor.data.Extractor
@@ -465,9 +466,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesPromotionDatabase(context: Context): PromotionDatabase {
-    return Room.databaseBuilder(context,
-        PromotionDatabase::class.java,
-        "promotion_database")
+    return Room.databaseBuilder(context, PromotionDatabase::class.java, "promotion_database")
+        .addMigrations(MIGRATION_1_2)
         .build()
   }
 
