@@ -25,7 +25,6 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
-import com.asfoundation.wallet.billing.address.BillingAddressWrapper
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -105,7 +104,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
   private var billingAddressInput: PublishSubject<Boolean>? = null
   private var isStored = false
-  private var billingAddressWrapper = BillingAddressWrapper(null)
+  private var billingAddressModel: BillingAddressModel? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -165,7 +164,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
       val billingAddressModel =
           data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
-      billingAddressWrapper = BillingAddressWrapper(billingAddressModel)
+      this.billingAddressModel = billingAddressModel
       billingAddressInput?.onNext(true)
     }
   }
@@ -282,9 +281,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     return billingAddressInput!!
   }
 
-  override fun retrieveBillingAddressData(): Observable<BillingAddressWrapper> {
-    return Observable.just(billingAddressWrapper)
-  }
+  override fun retrieveBillingAddressData() = billingAddressModel
 
   override fun navigateToPaymentSelection() {
     topUpView.navigateBack()

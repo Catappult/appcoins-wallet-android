@@ -33,7 +33,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.billing.address.BillingAddressModel
-import com.asfoundation.wallet.billing.address.BillingAddressWrapper
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -51,7 +50,6 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -115,7 +113,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private var adyenSaveDetailsSwitch: SwitchCompat? = null
   private var isStored = false
   private var billingAddressInput: PublishSubject<Boolean>? = null
-  private var billingAddressWrapper = BillingAddressWrapper(null)
+  private var billingAddressModel: BillingAddressModel? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -206,7 +204,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
       val billingAddressModel =
           data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
-      billingAddressWrapper = BillingAddressWrapper(billingAddressModel)
+      this.billingAddressModel = billingAddressModel
       billingAddressInput?.onNext(true)
     } else {
       showMoreMethods()
@@ -217,9 +215,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     return billingAddressInput!!
   }
 
-  override fun retrieveBillingAddressData(): Single<BillingAddressWrapper> {
-    return Single.just(billingAddressWrapper)
-  }
+  override fun retrieveBillingAddressData() = billingAddressModel
 
   override fun getAnimationDuration() = lottie_transaction_success.duration
 

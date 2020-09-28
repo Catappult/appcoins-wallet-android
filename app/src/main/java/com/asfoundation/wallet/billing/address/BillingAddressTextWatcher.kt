@@ -12,8 +12,7 @@ class BillingAddressTextWatcher(private val view: TextInputLayout) : TextWatcher
   override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
   override fun afterTextChanged(s: Editable) {
-    if (TextUtils.isEmpty(s)
-            .not()) view.error = null
+    if (!TextUtils.isEmpty(s)) view.error = null
   }
 
 }

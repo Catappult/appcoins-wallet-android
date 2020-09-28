@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
-import com.asfoundation.wallet.billing.address.BillingAddressWrapper
+import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenComponentResponseModel
 import io.reactivex.Observable
@@ -48,7 +48,7 @@ interface AdyenTopUpView {
 
   fun retrievePaymentData(): Observable<AdyenCardWrapper>
 
-  fun retrieveBillingAddressData(): Observable<BillingAddressWrapper>
+  fun retrieveBillingAddressData(): BillingAddressModel?
 
   fun hideKeyboard()
 

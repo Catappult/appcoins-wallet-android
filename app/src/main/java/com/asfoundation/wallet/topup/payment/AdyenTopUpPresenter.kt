@@ -15,7 +15,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.CANCELED
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.PENDING_USER_PAYMENT
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.address.BillingAddressWrapper
+import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -194,16 +194,14 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           view.setFinishingPurchase()
         }
         .observeOn(networkScheduler)
-        .flatMap {
-          view.retrieveBillingAddressData()
-              .flatMapSingle { billingAddressWrapper ->
-                topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
-                adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
-                    it.hasCvc, it.supportedShopperInteractions, returnUrl, retrievedAmount,
-                    retrievedCurrency, mapPaymentToService(paymentType).transactionType,
-                    transactionType,
-                    appPackage, mapToAdyenBillingAddress(billingAddressWrapper))
-              }
+        .flatMapSingle {
+          val billingAddressModel = view.retrieveBillingAddressData()
+          topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
+          adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
+              it.hasCvc, it.supportedShopperInteractions, returnUrl, retrievedAmount,
+              retrievedCurrency, mapPaymentToService(paymentType).transactionType,
+              transactionType,
+              appPackage, mapToAdyenBillingAddress(billingAddressModel))
         }
         .observeOn(viewScheduler)
         .flatMapCompletable {
@@ -421,8 +419,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun mapToAdyenBillingAddress(
-      billingAddressModel: BillingAddressWrapper): AdyenBillingAddress? {
-    return billingAddressModel.model?.let {
+      billingAddressModel: BillingAddressModel?): AdyenBillingAddress? {
+    return billingAddressModel?.let {
       AdyenBillingAddress(it.address, it.city, it.zipcode, it.number, it.state, it.country)
     }
   }

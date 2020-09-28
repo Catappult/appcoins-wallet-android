@@ -25,6 +25,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_billing_address.*
+import kotlinx.android.synthetic.main.layout_billing_address.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import java.math.BigDecimal
@@ -68,13 +69,11 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   lateinit var logger: Logger
 
   private lateinit var iabView: IabView
-  private lateinit var disposables: CompositeDisposable
   private lateinit var presenter: BillingAddressPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    disposables = CompositeDisposable()
-    presenter = BillingAddressPresenter(this, disposables, AndroidSchedulers.mainThread())
+    presenter = BillingAddressPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -100,11 +99,9 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   private fun showButtons() {
     cancel_button.setText(R.string.back_button)
 
-    if (isDonation) {
-      buy_button.setText(R.string.action_donate)
-    } else {
-      buy_button.setText(R.string.action_buy)
-    }
+    if (isDonation) buy_button.setText(R.string.action_donate)
+    else buy_button.setText(R.string.action_buy)
+
     buy_button.isEnabled = true
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE

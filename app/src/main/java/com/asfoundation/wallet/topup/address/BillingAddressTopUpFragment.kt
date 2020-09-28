@@ -25,6 +25,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_billing_address_top_up.*
+import kotlinx.android.synthetic.main.layout_billing_address.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -55,13 +56,12 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
   lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var topUpView: TopUpActivityView
-  private lateinit var disposables: CompositeDisposable
   private lateinit var presenter: BillingAddressTopUpPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    disposables = CompositeDisposable()
-    presenter = BillingAddressTopUpPresenter(this, disposables, AndroidSchedulers.mainThread())
+    presenter =
+        BillingAddressTopUpPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

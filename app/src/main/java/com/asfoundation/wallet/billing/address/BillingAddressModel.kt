@@ -2,10 +2,6 @@ package com.asfoundation.wallet.billing.address
 
 import java.io.Serializable
 
-data class BillingAddressWrapper(
-    val model: BillingAddressModel?
-)
-
 data class BillingAddressModel(
     val address: String,
     val city: String,

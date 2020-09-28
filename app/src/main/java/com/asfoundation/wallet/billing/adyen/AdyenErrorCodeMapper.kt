@@ -43,8 +43,6 @@ class AdyenErrorCodeMapper {
     const val REVOCATION_OF_AUTH = 26
     const val DECLINED_NON_GENERIC = 27
     const val ISSUER_SUSPECTED_FRAUD = 31
-    const val BILLING_ADDRESS_ISSING = 34//TODO check correct code
-
 
   }
 

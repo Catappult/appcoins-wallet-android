@@ -13,7 +13,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
-import com.asfoundation.wallet.billing.address.BillingAddressWrapper
+import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -196,17 +196,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .flatMapSingle { adyenCard ->
           transactionBuilder
               .flatMap {
-                view.retrieveBillingAddressData()
-                    .flatMap { billingAddressWrapper ->
-                      handleBuyAnalytics(it)
-                      adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
-                          adyenCard.shouldStoreCard, adyenCard.hasCvc,
-                          adyenCard.supportedShopperInteractions, returnUrl, priceAmount.toString(),
-                          priceCurrency, it.orderReference,
-                          mapPaymentToService(paymentType).transactionType, origin, domain,
-                          it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
-                          mapToAdyenBillingAddress(billingAddressWrapper))
-                    }
+                handleBuyAnalytics(it)
+                val billingAddressModel = view.retrieveBillingAddressData()
+                adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
+                    adyenCard.shouldStoreCard, adyenCard.hasCvc,
+                    adyenCard.supportedShopperInteractions, returnUrl, priceAmount.toString(),
+                    priceCurrency, it.orderReference,
+                    mapPaymentToService(paymentType).transactionType, origin, domain,
+                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                    mapToAdyenBillingAddress(billingAddressModel))
               }
         }
         .observeOn(viewScheduler)
@@ -518,8 +516,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun mapToAdyenBillingAddress(
-      billingAddressModel: BillingAddressWrapper): AdyenBillingAddress? {
-    return billingAddressModel.model?.let {
+      billingAddressModel: BillingAddressModel?): AdyenBillingAddress? {
+    return billingAddressModel?.let {
       AdyenBillingAddress(it.address, it.city, it.zipcode, it.number, it.state, it.country)
     }
   }
