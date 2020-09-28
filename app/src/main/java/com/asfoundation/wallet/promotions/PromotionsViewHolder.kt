@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.PluralsRes
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
@@ -24,25 +25,31 @@ import java.util.concurrent.TimeUnit
 abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
   companion object {
-    const val DAYS_TO_SHOW_EXPIRATION_DATE = 3
     const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
   }
 
   abstract fun bind(promotion: Promotion)
 
-  protected fun handleExpiryDate(textView: TextView, containerDate: LinearLayout, endDate: Long) {
+  protected fun handleExpiryDate(view: TextView, container: LinearLayout, endDate: Long) {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
     val diff: Long = endDate - currentTime
     val days = TimeUnit.DAYS.convert(diff, TimeUnit.SECONDS)
+    val hours = TimeUnit.HOURS.convert(diff, TimeUnit.SECONDS)
+    val minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.SECONDS)
 
-    if (days > DAYS_TO_SHOW_EXPIRATION_DATE) {
-      containerDate.visibility = View.GONE
-    } else {
-      containerDate.visibility = View.VISIBLE
-      textView.text =
-          itemView.context.resources.getQuantityString(R.plurals.promotion_ends, days.toInt(),
-              days.toString())
+    when {
+      days > 3 -> container.visibility = View.GONE
+      days in 1..3 -> updateDate(view, container, days, R.plurals.promotion_ends)
+      hours > 0 -> updateDate(view, container, hours, R.plurals.promotion_ends_hours)
+      else -> updateDate(view, container, minutes, R.plurals.promotion_ends_minutes)
     }
+  }
+
+  private fun updateDate(view: TextView, container: LinearLayout, time: Long,
+                         @PluralsRes text: Int) {
+    container.visibility = View.VISIBLE
+    view.text =
+        itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
 
 }
