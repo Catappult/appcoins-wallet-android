@@ -17,9 +17,9 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -66,7 +66,6 @@ class PaymentMethodsPresenter(
 
   companion object {
     private val TAG = PaymentMethodsPresenter::class.java.name
-    private const val PAYMENT_DATA = "top_up_data"
     private const val GAMIFICATION_LEVEL = "gamification_level"
   }
 
@@ -320,9 +319,9 @@ class PaymentMethodsPresenter(
     val progress = getProgressPercentage(userStats, levels.list)
     if (shouldShowNextLevel(levels, progress, userStats)) {
       closeToLevelUp = true
-      val currentLevelInfo = mapper.mapCurrentLevelInfo(gamificationLevel)
-      val nextLevelInfo = mapper.mapCurrentLevelInfo(gamificationLevel + 1)
-      view.setLevelUpInformation(gamificationLevel, progress,
+      val currentLevelInfo = mapper.mapCurrentLevelInfo(cachedGamificationLevel)
+      val nextLevelInfo = mapper.mapCurrentLevelInfo(cachedGamificationLevel + 1)
+      view.setLevelUpInformation(cachedGamificationLevel, progress,
           mapper.getRectangleGamificationBackground(currentLevelInfo.levelColor),
           mapper.getRectangleGamificationBackground(nextLevelInfo.levelColor),
           currentLevelInfo.levelColor, willLevelUp(userStats, transactionValue),
@@ -338,18 +337,18 @@ class PaymentMethodsPresenter(
 
   private fun shouldShowNextLevel(levels: Levels, progress: Double,
                                   userStats: GamificationStats): Boolean {
-    return mapper.mapLevelUpPercentage(gamificationLevel) <= progress &&
-        gamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK
+    return mapper.mapLevelUpPercentage(cachedGamificationLevel) <= progress &&
+        cachedGamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK
   }
 
   private fun getProgressPercentage(userStats: GamificationStats,
                                     list: List<Levels.Level>): Double {
-    return if (gamificationLevel <= list.size - 1) {
-      var levelRange = userStats.nextLevelAmount?.minus(list[gamificationLevel].amount)
+    return if (cachedGamificationLevel <= list.size - 1) {
+      var levelRange = userStats.nextLevelAmount?.minus(list[cachedGamificationLevel].amount)
       if (levelRange?.toDouble() == 0.0) {
         levelRange = BigDecimal.ONE
       }
-      val amountSpentInLevel = userStats.totalSpend - list[gamificationLevel].amount
+      val amountSpentInLevel = userStats.totalSpend - list[cachedGamificationLevel].amount
       amountSpentInLevel.divide(levelRange, 2, RoundingMode.HALF_EVEN)
           .multiply(BigDecimal(100))
           .toDouble()

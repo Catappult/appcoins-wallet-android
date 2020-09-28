@@ -614,10 +614,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       compositeDisposable.add(Single.defer { Single.just(appPackage) }
           .observeOn(Schedulers.io())
           .map { packageName ->
-            Pair(
-                getApplicationName(packageName),
-                context!!.packageManager
-                    .getApplicationIcon(packageName))
+            Pair(getApplicationName(packageName),
+                context!!.packageManager.getApplicationIcon(packageName))
           }
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe({ setHeaderInfo(it.first, it.second) }) { it.printStackTrace() })

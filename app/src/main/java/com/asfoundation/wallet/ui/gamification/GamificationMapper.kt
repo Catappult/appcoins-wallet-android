@@ -134,6 +134,7 @@ class GamificationMapper(private val context: Context) {
   }
 
   fun mapLevelUpPercentage(level: Int): Int {
+    //TODO these values need to be defined
     return when (level) {
       0, 1, 2, 3 -> 80
       4 -> 90
