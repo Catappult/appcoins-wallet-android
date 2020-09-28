@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="?android:attr/selectableItemBackground" />
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#c9c9c9">
+  <item android:id="@android:id/mask">
+    <shape android:shape="rectangle">
+      <corners android:radius="12dp" />
+      <solid android:color="#c9c9c9" />
+    </shape>
+  </item>
   <item>
     <shape>
       <stroke
@@ -17,4 +23,4 @@
       <corners android:radius="12dp" />
     </shape>
   </item>
-</layer-list>
+</ripple>
