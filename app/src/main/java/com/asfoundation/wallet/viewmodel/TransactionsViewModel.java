@@ -18,6 +18,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
+import com.asfoundation.wallet.promotions.PromotionNotification;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.support.SupportInteractor;
@@ -421,6 +422,12 @@ public class TransactionsViewModel extends BaseViewModel {
           transactionViewNavigator.navigateToBackup(context, wallet.address);
           walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
               WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
+        }
+        break;
+      case DETAILS_URL:
+        if (cardNotification instanceof PromotionNotification) {
+          String url = ((PromotionNotification) cardNotification).getDetailsLink();
+          transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
         }
         break;
       case NONE:

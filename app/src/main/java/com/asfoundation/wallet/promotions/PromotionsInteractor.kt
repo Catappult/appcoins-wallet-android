@@ -96,10 +96,12 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   private fun buildPromotionNotification(unwatchedPromotion: GenericResponse?): CardNotification {
-    return unwatchedPromotion?.let {
-      if (!isFuturePromotion(it)) {
-        PromotionNotification(CardNotificationAction.NONE, it.title, it.description, it.icon,
-            getPromotionIdKey(it.id, it.startDate, it.endDate))
+    return unwatchedPromotion?.let { res ->
+      if (!isFuturePromotion(res)) {
+        val action = CardNotificationAction.DETAILS_URL.takeIf { res.detailsLink != null }
+            ?: CardNotificationAction.NONE
+        PromotionNotification(action, res.title, res.description, res.icon,
+            getPromotionIdKey(res.id, res.startDate, res.endDate), res.detailsLink)
       } else {
         EmptyNotification()
       }
@@ -207,12 +209,12 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
     return ProgressItem(genericResponse.id, genericResponse.description, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate, genericResponse.currentProgress!!,
-        genericResponse.objectiveProgress)
+        genericResponse.objectiveProgress, genericResponse.detailsLink)
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
     return DefaultItem(genericResponse.id, genericResponse.description, genericResponse.icon,
-        genericResponse.startDate, genericResponse.endDate)
+        genericResponse.startDate, genericResponse.endDate, genericResponse.detailsLink)
   }
 
   private fun mapToGamificationItem(
@@ -233,7 +235,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
     return FutureItem(genericResponse.id, genericResponse.description, genericResponse.icon,
-        genericResponse.startDate, genericResponse.endDate)
+        genericResponse.startDate, genericResponse.endDate, genericResponse.detailsLink)
   }
 
   private fun isValidGamificationLink(linkedPromotionId: String?,
