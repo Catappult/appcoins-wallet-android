@@ -353,8 +353,8 @@ class InteractModule {
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportInteractor: SupportInteractor,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      walletService: WalletService): MergedAppcoinsInteract {
-    return MergedAppcoinsInteract(balanceInteract, walletBlockedInteract, supportInteractor,
+                                      walletService: WalletService): MergedAppcoinsInteractor {
+    return MergedAppcoinsInteractor(balanceInteract, walletBlockedInteract, supportInteractor,
         inAppPurchaseInteractor, walletService)
   }
 

@@ -105,7 +105,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
-  lateinit var mergedAppcoinsInteract: MergedAppcoinsInteract
+  lateinit var mergedAppcoinsInteractor: MergedAppcoinsInteractor
 
   @Inject
   lateinit var logger: Logger
@@ -209,7 +209,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     mergedAppcoinsPresenter =
         MergedAppcoinsPresenter(this, iabView, CompositeDisposable(), CompositeDisposable(),
             AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
-            formatter, mergedAppcoinsInteract, gamificationLevel, navigator, logger,
+            formatter, mergedAppcoinsInteractor, gamificationLevel, navigator, logger,
             transactionBuilder)
   }
 

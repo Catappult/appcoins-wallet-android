@@ -14,11 +14,11 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.*
 
-class MergedAppcoinsInteract(private val balanceInteract: BalanceInteract,
-                             private val walletBlockedInteract: WalletBlockedInteract,
-                             private val supportInteractor: SupportInteractor,
-                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                             private val walletService: WalletService) {
+class MergedAppcoinsInteractor(private val balanceInteract: BalanceInteract,
+                               private val walletBlockedInteract: WalletBlockedInteract,
+                               private val supportInteractor: SupportInteractor,
+                               private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                               private val walletService: WalletService) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
@@ -41,8 +41,7 @@ class MergedAppcoinsInteract(private val balanceInteract: BalanceInteract,
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
-  fun hasAppcFunds(
-      transactionBuilder: TransactionBuilder): Single<Availability> {
+  fun hasAppcFunds(transactionBuilder: TransactionBuilder): Single<Availability> {
     return inAppPurchaseInteractor.getBalanceState(transactionBuilder)
         .map {
           when (it) {

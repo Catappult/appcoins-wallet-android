@@ -30,7 +30,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val networkScheduler: Scheduler,
                               private val analytics: BillingAnalytics,
                               private val formatter: CurrencyFormatUtils,
-                              private val mergedAppcoinsInteract: MergedAppcoinsInteract,
+                              private val mergedAppcoinsInteractor: MergedAppcoinsInteractor,
                               private val gamificationLevel: Int,
                               private val navigator: Navigator,
                               private val logger: Logger,
@@ -49,7 +49,6 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   }
 
   fun onResume() {
-    view.toggleSkeletons(true)
     fetchBalance()
   }
 
@@ -76,7 +75,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .observeOn(networkScheduler)
         .flatMapSingle {
           Single.zip(hasEnoughCredits(it.creditsAppcAmount),
-              mergedAppcoinsInteract.hasAppcFunds(transactionBuilder),
+              mergedAppcoinsInteractor.hasAppcFunds(transactionBuilder),
               BiFunction { hasCredits: Availability, hasAppc: Availability ->
                 Pair(hasCredits, hasAppc)
               })
@@ -87,6 +86,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               it.second.isAvailable, it.second.disableReason)
           view.toggleSkeletons(false)
         }
+        .doOnSubscribe { view.toggleSkeletons(true) }
         .subscribe({ }, { it.printStackTrace() }))
   }
 
@@ -125,7 +125,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
           view.showLoading()
         }
         .flatMapCompletable { paymentMethod ->
-          mergedAppcoinsInteract.isWalletBlocked()
+          mergedAppcoinsInteractor.isWalletBlocked()
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
               .flatMapCompletable {
@@ -141,7 +141,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun handleSupportClicks() {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapCompletable { mergedAppcoinsInteract.showSupport(gamificationLevel) }
+        .flatMapCompletable { mergedAppcoinsInteractor.showSupport(gamificationLevel) }
         .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -191,9 +191,9 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   }
 
   private fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> =
-      mergedAppcoinsInteract.getCreditsBalance()
+      mergedAppcoinsInteractor.getCreditsBalance()
 
-  private fun getAppcBalance(): Observable<FiatValue> = mergedAppcoinsInteract.getAppcBalance()
+  private fun getAppcBalance(): Observable<FiatValue> = mergedAppcoinsInteractor.getAppcBalance()
 
-  private fun getEthBalance(): Observable<FiatValue> = mergedAppcoinsInteract.getEthBalance()
+  private fun getEthBalance(): Observable<FiatValue> = mergedAppcoinsInteractor.getEthBalance()
 }
