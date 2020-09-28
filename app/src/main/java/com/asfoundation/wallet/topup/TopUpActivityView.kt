@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.ui.iab.PaymentAuthenticationResult
 import io.reactivex.Observable
 
 interface TopUpActivityView {
@@ -47,9 +46,7 @@ interface TopUpActivityView {
 
   fun popBackStack()
 
-  fun showAuthenticationActivity(topUpData: TopUpData, gamificationLevel: Int)
+  fun showAuthenticationActivity()
 
-  fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int)
-
-  fun onAuthenticationResult(): Observable<TopUpResult>
+  fun onAuthenticationResult(): Observable<Boolean>
 }

@@ -166,7 +166,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     setupAppNameAndIcon()
 
     setBuyButtonText()
-    presenter.present()
+    presenter.present(savedInstanceState)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -177,6 +177,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError)
+    presenter.onSavedInstance(outState)
   }
 
   override fun onDestroyView() {

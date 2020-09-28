@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.authentication_error_fragment.*
 import kotlinx.android.synthetic.main.fragment_balance.faded_background
 
-class AuthenticationErrorFragment : Fragment(), AuthenticationErrorView {
+class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorView {
 
   private lateinit var presenter: AuthenticationErrorPresenter
   private lateinit var activityView: AuthenticationPromptView

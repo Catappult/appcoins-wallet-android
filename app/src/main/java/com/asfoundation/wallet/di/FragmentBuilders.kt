@@ -198,5 +198,4 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindLocalTopUpPaymentFragment(): LocalTopUpPaymentFragment
-
 }
