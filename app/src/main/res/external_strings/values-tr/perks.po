@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2020-09-24 10:31\n"
+"PO-Revision-Date: 2020-09-28 10:20\n"
 
 #. Card Title
 #:
@@ -50,27 +50,27 @@ msgstr "Bir sonraki seviyeye ulaştığınız için."
 #. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "AppCoins Credits dışında, {1} oyunundaki tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
 
 #. Card - Firs purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "AppCoins Credits dışında, {1} oyunundaki ilk satın alma işleminizde ekstra %{0} Bonus kazanın"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "{0} uygulamasındaki ilk satın alma işleminiz için."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "AppCoins Credits dışında, {1} oyunundaki günün ilk satın alma işleminizde ekstra %{0} Bonus kazanın"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "{0} uygulamasındaki günün ilk satın alma işleminiz için."
 
 #. Title for bonus receipts.
 #:
@@ -80,10 +80,10 @@ msgstr "+{0} AppCoins Credits Bonusu!"
 #. Card - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
-msgstr ""
+msgstr "{3} uygulamasında harcadığınız her {1} {2} için ekstra {0} AppCoins Credits kazanın."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "{2} uygulamasında {0} {1} harcadığınız için."
 
