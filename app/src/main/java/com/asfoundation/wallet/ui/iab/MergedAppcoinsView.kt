@@ -35,4 +35,8 @@ interface MergedAppcoinsView {
 
   fun getSupportIconClicks(): Observable<Any>
 
+  fun setPaymentsInformation(hasCredits: Boolean, creditsDisableReason: Int?, hasAppc: Boolean,
+                             appcDisabledReason: Int?)
+
+  fun toggleSkeletons(show: Boolean)
 }

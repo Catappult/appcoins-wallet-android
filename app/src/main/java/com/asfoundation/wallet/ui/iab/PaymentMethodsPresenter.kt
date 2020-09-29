@@ -99,9 +99,7 @@ class PaymentMethodsPresenter(
                 selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                 selectedPaymentMethod.label, gamificationLevel)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> {
-              val appCoinsPaymentMethod = selectedPaymentMethod as AppCoinsPaymentMethod
-              view.showMergedAppcoins(gamificationLevel, appCoinsPaymentMethod.disabledReasonAppc,
-                  appCoinsPaymentMethod.disabledReasonCredits)
+              view.showMergedAppcoins(gamificationLevel)
             }
             PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
             else -> return@doOnNext
