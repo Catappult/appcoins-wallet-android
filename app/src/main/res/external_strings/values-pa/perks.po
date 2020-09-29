@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Punjabi\n"
 "Language: pa_IN\n"
-"PO-Revision-Date: 2020-09-26 10:24\n"
+"PO-Revision-Date: 2020-09-29 10:19\n"
 
 #. Card Title
 #:
@@ -65,12 +65,12 @@ msgstr "{0} ਵਿੱਚ ਤੁਹਾਡੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰ�
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "{1} ਵਿੱਚ, ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, , ਆਪਣੀ ਦਿਨ ਦੀ ਪਹਿਲੀ ਖਰੀਦ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "{0} ਵਿੱਚ ਤੁਹਾਡੀ ਦਿਨ ਦੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰਕੇ|"
 
 #. Title for bonus receipts.
 #:
@@ -80,7 +80,7 @@ msgstr "+{0} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬੋਨਸ!"
 #. Card - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
-msgstr ""
+msgstr "ਤੁਹਾਡੇ ਵੱਲੋਂ {3} ਵਿੱਚ ਖਰਚੇ ਹਰੇਕ {1} {2} ਲਈ {0} ਵਾਧੂ ਐਪ ਸਿੱਕ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Receipt - Expenditure per amount Promotion.
 #:
