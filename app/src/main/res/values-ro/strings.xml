@@ -228,6 +228,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Oferit de Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -475,6 +481,13 @@
   <string name="purchase_error_wallet_block_code_403">Se pare că ceva nu este în regulă cu portofelul tău. Te rugăm să ne contactezi.</string>
   <string name="purchase_card_error_CVV">CVV/CVC greșit</string>
   <string name="error_contac_us_body">Dacă problema continuă, te rugăm să ne contactezi.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Adresă de facturare</string>
+  <string name="purchase_address_address_field">Adresă</string>
+  <string name="purchase_address_apartment_field">Apartament, etaj&#8230;</string>
+  <string name="purchase_address_city_field">Oraș</string>
+  <string name="purchase_address_post_code_field">Cod poștal</string>
+  <string name="purchase_address_state_field">Județ</string>
   <!--Async Payments-->
   <string name="async_steps_title">Pașii următori</string>
   <string name="async_steps_1">Finalizează plata ta cu %s. Vei fi notificat când vei primi AppCoins Credits în portofelul tău.</string>
@@ -564,7 +577,7 @@
   <string name="import_wallet_title">Recuperează Portofel</string>
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">Sau recuperează din fișier</string>
   <string name="import_wallet_file_button">RECUPEREAZĂ DIN FIȘIER</string>
   <string name="import_wallet_button">RECUPEREAZĂ PORTOFEL</string>
   <string name="import_wallet_password_body">Acest portofel este protejat cu parolă!</string>
@@ -753,11 +766,22 @@
   <string name="perks_title">Promoții</string>
   <string name="perks_body">Fii pe fază! Avem promoții speciale pentru tine.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="few">The promotion ends in %s days.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">Promoția se încheie în %s zi.</item>
+    <item quantity="few">Promoția se încheie în %s zile.</item>
+    <item quantity="other">Promoția se încheie în %s zile.</item>
   </plurals>
   <string name="perks_end_in_date">Promoția se încheie pe %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">The promotion ends in %s hour.</item>
+    <item quantity="few">The promotion ends in %s hours.</item>
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="few">The promotion ends in %s minutes.</item>
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Promoție disponibilă în curând</string>
   <string name="perks_next_level_reward">Urcă la nivelul următor ca să primești %s AppCoins Credits!</string>
   <string name="perks_notification">Tocmai ai primit %s AppCoins Credits ca bonus</string>
@@ -765,10 +789,15 @@
   <string name="perks_level_up_amount_left">Mai ai %1$s %2$s până la nivelul următor!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s în AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">Toate cumpărăturile in-app și alimentările efectuate cu orice metodă de achiziție, cu excepția AppCoins Credits, se vor califica pentru creșterea nivelului tău de bonus și primirea de recompense.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Blocare cu amprentă</string>
   <string name="fingerprint_failed_title">Autentificare eșuată!</string>
   <string name="fingerprint_failed_body">Încearcă din nou în %s secunde.</string>
   <string name="fingerprint_authentication_required_title">Autentificare necesară!</string>
   <string name="fingerprint_authentication_required_body">Folosește-ți degetul sau parola pentru a continua.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Trimite jurnale către Echipa de asistență</string>
+  <string name="send_logs_sending">Se trimit&#8230;</string>
+  <string name="send_logs_send">Trimise!</string>
 </resources>
