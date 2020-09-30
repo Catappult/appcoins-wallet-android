@@ -228,12 +228,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Перевод</string>
   <string name="transaction_type_bonus">Бонус</string>
-  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
-  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
-  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
-  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_bonus_title">Бонус отменён</string>
+  <string name="transaction_type_reverted_bonus_body">Бонус, который вы получили %s, был отменён. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
+  <string name="transaction_type_reverted_topup_title">Возврат пополнения</string>
+  <string name="transaction_type_reverted_topup_body">Пополнение, которое вы сделали %s, было отменено. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
+  <string name="transaction_type_reverted_purchase_title">Возврат за покупку</string>
+  <string name="transaction_type_reverted_purchase_body">Покупка, которую вы сделали %s, была отменена. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Работает на Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -482,12 +482,12 @@
   <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
   <string name="error_contac_us_body">Если проблема не исчезнет – пожалуйста, свяжитесь с нами.</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_title">Адрес для счёта</string>
+  <string name="purchase_address_address_field">Адрес</string>
+  <string name="purchase_address_apartment_field">Квартира, этаж&#8230;</string>
+  <string name="purchase_address_city_field">Город</string>
+  <string name="purchase_address_post_code_field">Почтовый индекс</string>
+  <string name="purchase_address_state_field">Штат/Область</string>
   <!--Async Payments-->
   <string name="async_steps_title">Следующие шаги</string>
   <string name="async_steps_1">Завершите ваш платеж с %s. Вы получите уведомление как только AppCoins Credits поступят на ваш кошелёк.</string>
@@ -767,25 +767,25 @@
   <string name="perks_title">Продвижения</string>
   <string name="perks_body">Будьте в курсе! У нас есть специальные предложения для вас.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="few">The promotion ends in %s days.</item>
-    <item quantity="many">The promotion ends in %s days.</item>
+    <item quantity="one">Акция завершается через %s день.</item>
+    <item quantity="few">Акция завершается через %s дня.</item>
+    <item quantity="many">Акция завершается через %s дней.</item>
     <item quantity="other">Акция завершается через %s дней.</item>
   </plurals>
   <string name="perks_end_in_date">Акция заканчивается %s.</string>
   <plurals name="promotion_ends_hours">
-    <item quantity="one">The promotion ends in %s hour.</item>
-    <item quantity="few">The promotion ends in %s hours.</item>
-    <item quantity="many">The promotion ends in %s hours.</item>
-    <item quantity="other">The promotion ends in %s hours.</item>
+    <item quantity="one">Акция завершается через %s час.</item>
+    <item quantity="few">Акция завершается через %s часа.</item>
+    <item quantity="many">Акция завершается через %s часов.</item>
+    <item quantity="other">Акция завершается через %s часов.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
-    <item quantity="one">The promotion ends in %s minute.</item>
-    <item quantity="few">The promotion ends in %s minutes.</item>
-    <item quantity="many">The promotion ends in %s minutes.</item>
-    <item quantity="other">The promotion ends in %s minutes.</item>
+    <item quantity="one">Акция завершается через %s минуту.</item>
+    <item quantity="few">Акция завершается через %s минуты.</item>
+    <item quantity="many">Акция завершается через %s минут.</item>
+    <item quantity="other">Акция завершается через %s минут.</item>
   </plurals>
-  <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_end_today">Акция заканчивается сегодня.</string>
   <string name="perks_available_soon">Акция скоро появится</string>
   <string name="perks_next_level_reward">Достигните следующего уровня и получите %s AppCoins Credits!</string>
   <string name="perks_notification">Вы только что получили бонус в %s AppCoins Credits</string>
@@ -793,7 +793,7 @@
   <string name="perks_level_up_amount_left">Вы в %1$s%2$s от следующего уровня!</string>
   <string name="perks_level_up_level_tag">Ур. %s</string>
   <string name="perks_bonus_purchase_flow">Бонус %1$s: %2$s в AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Все покупки в приложении и пополнения, сделанные любым способом покупки, кроме AppCoins Credits, приведут к повышению бонусного уровня и получению вознаграждения.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Открывать отпечатком</string>
   <string name="fingerprint_failed_title">Аутентификация не удалась!</string>
@@ -801,7 +801,7 @@
   <string name="fingerprint_authentication_required_title">Необходима аутентификация!</string>
   <string name="fingerprint_authentication_required_body">Используйте отпечаток или пароль, чтобы продолжить.</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">Отправить логи команде поддержки</string>
+  <string name="send_logs_sending">Отправка&#8230;</string>
+  <string name="send_logs_send">Отправлено!</string>
 </resources>
