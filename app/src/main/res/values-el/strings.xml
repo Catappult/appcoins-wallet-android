@@ -27,6 +27,7 @@
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
   <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Μη έγκυρη μορφή barcode: %s</string>
   <string name="title_delete_account">Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτό το wallet;</string>
