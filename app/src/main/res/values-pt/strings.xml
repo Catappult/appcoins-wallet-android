@@ -27,6 +27,7 @@
   <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
   <string name="no_camera_permission_title">Permitir câmara</string>
   <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder à tua câmera e digitalizar códigos QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Código de barras inválido: %s</string>
   <string name="title_delete_account">Tens a certeza de que queres remover esta wallet?</string>
