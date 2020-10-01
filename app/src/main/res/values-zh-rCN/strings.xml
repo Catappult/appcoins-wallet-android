@@ -27,6 +27,7 @@
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission_title">相机权限</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
   <string name="title_delete_account">确实要删除此钱包？</string>
