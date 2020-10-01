@@ -27,6 +27,7 @@
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
   <string name="no_camera_permission_title">Kamera İzni</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Tamam</string>
   <string name="barcode_error_format">Geçersiz barkod formatı: %s</string>
   <string name="title_delete_account">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
