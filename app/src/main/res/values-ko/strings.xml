@@ -27,6 +27,7 @@
   <string name="low_storage_error">저장 공간이 부족합니다</string>
   <string name="no_camera_permission_title">카메라 사용 권한</string>
   <string name="no_camera_permission">AppCoins BDS Wallet은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">확인</string>
   <string name="barcode_error_format">잘못된 바코드 형식: %s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
