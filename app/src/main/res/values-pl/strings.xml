@@ -27,6 +27,7 @@
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
   <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
   <string name="title_delete_account">Czy na pewno chcesz usunąć ten portfel?</string>
