@@ -94,7 +94,7 @@ public final class BarcodeCaptureActivity extends BaseActivity
   }
 
   @Override public void onCameraError() {
-    Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+    Toast.makeText(this, getString(R.string.no_camera_available), Toast.LENGTH_SHORT)
         .show();
     finish();
   }
