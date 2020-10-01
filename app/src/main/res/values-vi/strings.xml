@@ -27,6 +27,7 @@
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Định dạng mã vạch không hợp lệ: %s</string>
   <string name="title_delete_account">Bạn có chắc chắn muốn xóa ví này?</string>
