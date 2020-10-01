@@ -8,6 +8,7 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import retrofit2.http.*
 import java.math.BigDecimal
+import java.util.*
 
 class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary) {
@@ -17,7 +18,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   internal fun isBillingSupported(packageName: String,
                                   type: BillingSupportedType): Single<Boolean> {
-    return api.getPackage(packageName, type.name.toLowerCase())
+    return api.getPackage(packageName, type.name.toLowerCase(Locale.ROOT))
         .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 
@@ -61,7 +62,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletAddress: String,
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
-    return api.getPurchases(packageName, walletAddress, walletSignature, type.name.toLowerCase())
+    return api.getPurchases(packageName, walletAddress, walletSignature, type.name.toLowerCase(Locale.ROOT))
         .map { responseMapper.map(it) }
   }
 
