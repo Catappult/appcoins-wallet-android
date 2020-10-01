@@ -120,8 +120,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private var preSelectedPaymentMethod: BehaviorSubject<PaymentMethod>? = null
   private var isPreSelected = false
   private var itemAlreadyOwnedError = false
-  private var appcEnabled = false
-  private var creditsEnabled = false
   private var bonusMessageValue = ""
 
   override fun onAttach(context: Context) {
@@ -176,10 +174,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                   currency: String, paymentMethodId: String, fiatAmount: String,
                                   appcAmount: String, appcEnabled: Boolean,
                                   creditsEnabled: Boolean) {
-    if (isBds) {
-      this.appcEnabled = appcEnabled
-      this.creditsEnabled = creditsEnabled
-    }
     updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     presenter.sendPaymentMethodsEvents()
@@ -493,11 +487,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
-                                  disabledReasonCredits: Int?) {
+  override fun showMergedAppcoins(gamificationLevel: Int) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel, disabledReasonAppc,
-        disabledReasonCredits)
+        isBds, isDonation, gamificationLevel)
   }
 
   override fun lockRotation() = iabView.lockRotation()
