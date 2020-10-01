@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/details_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_small_height"
+    android:background="@drawable/background_card"
+    android:orientation="vertical"
+    android:paddingTop="31dp"
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="36dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    >
+
+  <TextView
+      android:id="@+id/tvSignUp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Sign Up"
+      android:textSize="14dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <Button
+      style="@style/ButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Got It"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

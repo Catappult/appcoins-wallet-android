@@ -7,6 +7,8 @@
     android:layout_marginStart="2dp"
     android:layout_marginEnd="2dp"
     app:cardCornerRadius="12dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
@@ -87,8 +89,8 @@
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginEnd="11dp"
         android:background="@drawable/oval_grey_background"
         android:ellipsize="end"
         android:fontFamily="sans-serif"
@@ -100,10 +102,26 @@
         android:textColor="@color/white"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/gamification_info"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="14% Bonus"
         />
+
+    <ImageView
+        android:id="@+id/gamification_info"
+        android:layout_width="32dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerInside"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        />
+
     <TextView
         android:id="@+id/current_level_phrase"
         android:layout_width="0dp"

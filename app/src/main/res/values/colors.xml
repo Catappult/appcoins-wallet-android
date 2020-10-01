@@ -128,4 +128,5 @@
   <color name="gamification_light_blue">#7acef9</color>
 
   <color name="color_inactive">#727272</color>
+  <color name="bottom_sheet_translucent_background">#75000000</color>
 </resources>

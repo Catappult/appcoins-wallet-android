@@ -21,6 +21,26 @@
       tools:listitem="@layout/item_promotions_gamification"
       />
 
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:background="@color/bottom_sheet_translucent_background"
+      >
+  <include
+      android:id="@+id/bottom_sheet_fragment_container"
+      layout="@layout/gamification_info_bottom_sheet"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_sheet_small_height"
+      app:behavior_hideable="true"
+      app:layout_behavior="@string/bottom_sheet_behavior"
+      />
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
   <ProgressBar
       android:id="@+id/promotions_progress_bar"
       android:layout_width="wrap_content"

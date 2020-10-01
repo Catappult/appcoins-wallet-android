@@ -12,12 +12,14 @@ import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
+import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
@@ -38,6 +40,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   private lateinit var activityView: PromotionsActivityView
   private lateinit var presenter: PromotionsFragmentPresenter
   private lateinit var adapter: PromotionsAdapter
+  private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
   private var clickListener: PublishSubject<PromotionClick>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +65,17 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+//    floatingActionButton.setOnClickListener {
+//      if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//      } else {
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//      }
+//    }
     presenter.present()
   }
 
