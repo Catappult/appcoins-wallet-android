@@ -27,6 +27,7 @@
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Érvénytelen formátumú Qr-kód: %s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
