@@ -27,6 +27,7 @@
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
   <string name="title_delete_account">هل أنت متأكد من أنك تريد حذف هذه المحفظة؟</string>
