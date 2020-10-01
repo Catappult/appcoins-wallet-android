@@ -47,7 +47,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 public final class BarcodeCaptureActivity extends BaseActivity
-    implements BarcodeTracker.BarcodeGraphicTrackerCallback {
+    implements BarcodeTracker.BarcodeGraphicTrackerCallback, CameraResultListener {
 
   // Constants used to pass extra data in the intent
   public static final String BarcodeObject = "Barcode";
@@ -70,6 +70,7 @@ public final class BarcodeCaptureActivity extends BaseActivity
     setContentView(R.layout.layout_barcode_capture);
 
     mPreview = findViewById(R.id.preview);
+    mPreview.addCameraResultListener(this);
 
     // Check for the camera permission before accessing the camera.  If the
     // permission is not granted yet, request permission.
@@ -90,6 +91,12 @@ public final class BarcodeCaptureActivity extends BaseActivity
     if (mPreview != null) {
       mPreview.release();
     }
+  }
+
+  @Override public void onCameraError() {
+    Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+        .show();
+    finish();
   }
 
   @Override public void onDetectedQrCode(Barcode barcode) {
