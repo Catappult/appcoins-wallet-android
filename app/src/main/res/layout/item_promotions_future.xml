@@ -69,8 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/big_margin"
-        android:ellipsize="end"
-        android:maxLines="2"
         android:text="@string/perks_available_soon"
         />
 
@@ -86,7 +84,7 @@
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@+id/future_container_date"
       app:layout_constraintTop_toTopOf="@+id/future_container_date"
-      app:srcCompat="@drawable/ic_locked"
+      app:srcCompat="@drawable/ic_promotions_lock"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
