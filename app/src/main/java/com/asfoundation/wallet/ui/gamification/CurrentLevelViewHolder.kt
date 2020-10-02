@@ -73,12 +73,12 @@ class CurrentLevelViewHolder(itemView: View,
 
   private fun getProgressPercentage(levelAmount: BigDecimal): BigDecimal {
     return if (nextLevelAmount != null) {
-      var levelRange = nextLevelAmount - levelAmount
+      var levelRange = nextLevelAmount.subtract(levelAmount)
       if (levelRange.toDouble() == 0.0) {
         levelRange = BigDecimal.ONE
       }
-      val amountSpentInLevel = amountSpent - levelAmount
-      amountSpentInLevel.divide(levelRange, 2, RoundingMode.HALF_EVEN)
+      val amountSpentInLevel = amountSpent.subtract(levelAmount)
+      amountSpentInLevel.divide(levelRange, 2, RoundingMode.DOWN)
           .multiply(BigDecimal(100))
     } else {
       BigDecimal(100)
