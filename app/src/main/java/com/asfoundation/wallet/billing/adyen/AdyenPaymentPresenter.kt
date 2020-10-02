@@ -214,7 +214,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
     return when {
       paymentModel.resultCode.equals("AUTHORISED", true) -> {
-        adyenPaymentInteractor.getTransaction(paymentModel.uid)
+        adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {

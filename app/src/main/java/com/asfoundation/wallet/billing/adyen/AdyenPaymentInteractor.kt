@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
+import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
@@ -139,7 +140,7 @@ class AdyenPaymentInteractor(
     return inAppPurchaseInteractor.convertToLocalFiat(doubleValue)
   }
 
-  fun getTransaction(uid: String): Observable<PaymentModel> {
+  fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMapObservable { walletAddressModel ->
           Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
@@ -152,6 +153,23 @@ class AdyenPaymentInteractor(
               .filter { isEndingState(it.status) }
               .distinctUntilChanged { transaction -> transaction.status }
         }
+  }
+
+  fun getFailedTransactionReason(uid: String, timesCalled: Int = 0): Single<PaymentModel> {
+    return if (timesCalled <= 5) {
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletAddressModel ->
+            Single.zip(adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
+                walletAddressModel.signedAddress), Single.timer(2, TimeUnit.SECONDS),
+                BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
+          }
+          .flatMap {
+            if (it.errorCode != null) Single.just(it)
+            else getFailedTransactionReason(it.uid, timesCalled + 1)
+          }
+    } else {
+      Single.just(PaymentModel(Error(true)))
+    }
   }
 
   fun getWalletAddress() = walletService.getWalletAddress()
