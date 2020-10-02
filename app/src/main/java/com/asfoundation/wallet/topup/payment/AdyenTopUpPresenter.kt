@@ -283,10 +283,14 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              if (it.status == Status.COMPLETED) {
+              if (it.status == COMPLETED) {
                 handleSuccessTransaction()
               } else {
-                Completable.fromAction { handleErrors(paymentModel, appcValue.toDouble()) }
+                if (paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
+                  retrieveFailedReason(paymentModel.uid)
+                } else {
+                  Completable.fromAction { handleErrors(paymentModel, appcValue.toDouble()) }
+                }
               }
             }
       }
