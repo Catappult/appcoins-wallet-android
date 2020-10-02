@@ -616,6 +616,8 @@
     <item name="android:textSize">12sp</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:lineSpacingExtra">6sp</item>
+    <item name="android:maxLines">3</item>
+    <item name="android:ellipsize">end</item>
   </style>
 
   <style name="Promotions.TextStyle.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
