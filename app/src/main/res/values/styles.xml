@@ -600,7 +600,7 @@
   <style name="Promotions.TextStyle.Category.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">#e7000000</item>
     <item name="android:textSize">14sp</item>
-    <item name="android:letterSpacing">0.1</item>
+    <item name="android:letterSpacing">0.006</item>
   </style>
 
   <style name="Promotions.TextStyle.Category.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -613,7 +613,7 @@
   <style name="Promotions.TextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">#01131f</item>
     <item name="android:textSize">12sp</item>
-    <item name="android:letterSpacing">0.09</item>
+    <item name="android:letterSpacing">0.005</item>
   </style>
 
   <style name="Promotions.TextStyle.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
