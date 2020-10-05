@@ -1,9 +1,12 @@
 package com.asfoundation.wallet.promotions
 
+import android.util.Log
 import com.appcoins.wallet.gamification.repository.entity.Status
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import com.asfoundation.wallet.util.isNoNetworkException
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
@@ -22,6 +25,8 @@ class PromotionsFragmentPresenter(
     retrievePromotions()
     handlePromotionClicks()
     handleRetryClick()
+    handleBottomSheetVisibility()
+    handleBackPress()
   }
 
   private fun retrievePromotions() {
@@ -75,6 +80,7 @@ class PromotionsFragmentPresenter(
   private fun mapClickType(promotionClick: PromotionClick) {
     when (promotionClick.id) {
       GAMIFICATION_ID -> activityView.navigateToGamification(cachedBonus)
+      GAMIFICATION_INFO -> view.updateBottomSheetVisibility()
       REFERRAL_ID -> mapReferralClick(promotionClick.extras)
       else -> mapPackagePerkClick(promotionClick.extras)
     }
@@ -101,4 +107,19 @@ class PromotionsFragmentPresenter(
 
   fun stop() = disposables.clear()
 
+  private fun handleBottomSheetVisibility() {
+    disposables.add(view.getBottomSheetButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.updateBottomSheetVisibility()
+        }
+        .subscribe({}, { handleError(it) }))
+  }
+
+  private fun handleBackPress() {
+    disposables.add(Observable.merge(view.getBackPressed(), view.getHomeBackPressed())
+        .observeOn(viewScheduler)
+        .doOnNext { view.handleBackPressed() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
 }

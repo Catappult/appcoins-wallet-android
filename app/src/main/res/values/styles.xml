@@ -651,4 +651,9 @@
     <item name="android:maxLines">3</item>
   </style>
 
+  <style name="BottomSheetInfoTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">#191919</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
 </resources>

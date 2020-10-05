@@ -28,6 +28,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
+    const val GAMIFICATION_INFO = "GAMIFICATION_INFO"
     const val REFERRAL_ID = "REFERRAL"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }

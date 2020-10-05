@@ -7,9 +7,12 @@ import com.appcoins.wallet.gamification.LevelModel.LevelType
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
+import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -28,11 +31,18 @@ class GamificationPresenter(private val view: GamificationView,
   fun present(savedInstanceState: Bundle?) {
     handleLevelInformation(savedInstanceState == null)
     handleLevelsClick()
+    handleBottomSheetVisibility()
+    handleBackPress()
   }
 
   private fun handleLevelsClick() {
-    disposables.add(view.getToggleButtonClick()
-        .doOnNext { view.toggleReachedLevels(it) }
+    disposables.add(view.getUiClick()
+        .doOnNext {
+          when (it.first) {
+            SHOW_REACHED_LEVELS_ID -> view.toggleReachedLevels(it.second)
+            GAMIFICATION_INFO_ID -> view.updateBottomSheetVisibility()
+          }
+        }
         .subscribe())
   }
 
@@ -120,4 +130,20 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   fun stop() = disposables.clear()
+
+  private fun handleBottomSheetVisibility() {
+    disposables.add(view.getBottomSheetButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.updateBottomSheetVisibility()
+        }
+        .subscribe({}, { handleError(it) }))
+  }
+
+  private fun handleBackPress() {
+    disposables.add(Observable.merge(view.getBackPressed(), view.getHomeBackPressed())
+        .observeOn(viewScheduler)
+        .doOnNext { view.handleBackPressed() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
 }

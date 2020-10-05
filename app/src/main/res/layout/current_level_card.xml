@@ -102,13 +102,13 @@
         android:textColor="@color/white"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/gamification_info"
+        app:layout_constraintEnd_toStartOf="@id/gamification_info_btn"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="14% Bonus"
         />
 
     <ImageView
-        android:id="@+id/gamification_info"
+        android:id="@+id/gamification_info_btn"
         android:layout_width="32dp"
         android:layout_height="25dp"
         android:layout_marginTop="@dimen/big_margin"

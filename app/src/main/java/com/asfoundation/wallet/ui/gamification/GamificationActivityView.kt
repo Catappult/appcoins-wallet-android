@@ -4,8 +4,6 @@ import io.reactivex.Observable
 
 interface GamificationActivityView {
 
-  fun getInfoButtonClick(): Observable<Any>
-
   fun showMainView()
 
   fun showRetryAnimation()
@@ -15,4 +13,10 @@ interface GamificationActivityView {
   fun retryClick(): Observable<Any>
 
   fun loadGamificationView()
+
+  fun backPressed(): Observable<Any>
+
+  fun enableBack()
+
+  fun disableBack()
 }
