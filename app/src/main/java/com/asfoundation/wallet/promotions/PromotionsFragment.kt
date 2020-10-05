@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -40,6 +41,9 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   @Inject
   lateinit var mapper: GamificationMapper
 
+  @Inject
+  lateinit var preferences: SharedPreferencesRepository
+
   private lateinit var activityView: PromotionsActivityView
   private lateinit var presenter: PromotionsFragmentPresenter
   private lateinit var adapter: PromotionsAdapter
@@ -57,7 +61,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     clickListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
     presenter =
-        PromotionsFragmentPresenter(this, activityView, promotionsInteractor, CompositeDisposable(),
+        PromotionsFragmentPresenter(this, activityView, promotionsInteractor, preferences, CompositeDisposable(),
             Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
@@ -164,6 +168,13 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
       bottomsheet_coordinator_container.background.alpha = 255
       setBackListener(bottomsheet_coordinator_container)
     }
+  }
+
+  override fun showBottomSheet() {
+    detailsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+    bottomsheet_coordinator_container.visibility = VISIBLE
+    bottomsheet_coordinator_container.background.alpha = 255
+    setBackListener(bottomsheet_coordinator_container)
   }
 
   private fun setBackListener(view: View) {

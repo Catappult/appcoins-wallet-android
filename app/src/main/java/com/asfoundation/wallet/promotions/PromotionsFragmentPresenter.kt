@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -15,6 +16,7 @@ class PromotionsFragmentPresenter(
     private val view: PromotionsView,
     private val activityView: PromotionsActivityView,
     private val promotionsInteractor: PromotionsInteractorContract,
+    private val preferences: PreferencesRepositoryType,
     private val disposables: CompositeDisposable,
     private val networkScheduler: Scheduler,
     private val viewScheduler: Scheduler) {
@@ -49,6 +51,10 @@ class PromotionsFragmentPresenter(
       promotionsModel.promotions.isNotEmpty() -> {
         cachedBonus = promotionsModel.maxBonus
         view.showPromotions(promotionsModel)
+        if(preferences.showGamificationDisclaimer()) {
+          view.showBottomSheet()
+          preferences.setGamificationDisclaimerShown()
+        }
       }
       else -> view.showNoPromotionsScreen()
     }
