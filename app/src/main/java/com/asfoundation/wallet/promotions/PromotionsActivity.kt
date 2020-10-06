@@ -37,15 +37,15 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    if (item.itemId == android.R.id.home)  {
+    return if (item.itemId == android.R.id.home) {
       if (backEnabled) {
         transactionsRouter.open(this, true)
       } else {
         onBackPressedSubject?.onNext("")
       }
-      return true
+      true
     } else {
-      return super.onOptionsItemSelected(item)
+      super.onOptionsItemSelected(item)
     }
   }
 
@@ -78,9 +78,7 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     startActivity(intent)
   }
 
-  override fun backPressed(): Observable<Any> {
-    return onBackPressedSubject!!
-  }
+  override fun backPressed() = onBackPressedSubject!!
 
   override fun enableBack() {
     backEnabled = true

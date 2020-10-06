@@ -19,6 +19,7 @@
         android:background="@drawable/space_background_card"
         android:clipToPadding="false"
         android:clipChildren="false"
+        android:paddingBottom="@dimen/normal_margin"
         >
       <ImageView
           android:layout_width="match_parent"
@@ -117,7 +118,6 @@
           android:layout_marginStart="@dimen/normal_margin"
           android:layout_marginTop="@dimen/big_margin"
           android:layout_marginEnd="@dimen/normal_margin"
-          android:layout_marginBottom="@dimen/normal_margin"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/planet_subtitle"
           android:orientation="vertical"

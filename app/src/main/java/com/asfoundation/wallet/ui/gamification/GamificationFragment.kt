@@ -55,6 +55,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     const val SHOW_REACHED_LEVELS_ID = "SHOW_REACHED_LEVELS"
     const val GAMIFICATION_INFO_ID = "GAMIFICATION_INFO"
   }
+  
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
@@ -84,9 +85,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
           override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
 
           override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            if (slideOffset == 0f) {
-              bottomsheet_coordinator_container.visibility = GONE
-            }
+            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })

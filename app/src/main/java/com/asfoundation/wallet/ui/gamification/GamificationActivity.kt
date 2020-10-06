@@ -104,9 +104,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     }
   }
 
-  override fun backPressed(): Observable<Any> {
-    return onBackPressedSubject!!
-  }
+  override fun backPressed()= onBackPressedSubject!!
 
   override fun enableBack() {
     backEnabled = true

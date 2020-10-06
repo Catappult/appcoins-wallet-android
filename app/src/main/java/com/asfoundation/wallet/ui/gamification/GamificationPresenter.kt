@@ -134,9 +134,7 @@ class GamificationPresenter(private val view: GamificationView,
   private fun handleBottomSheetVisibility() {
     disposables.add(view.getBottomSheetButtonClick()
         .observeOn(viewScheduler)
-        .doOnNext {
-          view.updateBottomSheetVisibility()
-        }
+        .doOnNext { view.updateBottomSheetVisibility() }
         .subscribe({}, { handleError(it) }))
   }
 

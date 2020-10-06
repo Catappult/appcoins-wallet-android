@@ -85,9 +85,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
           override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
 
           override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            if (slideOffset == 0f) {
-              bottomsheet_coordinator_container.visibility = GONE
-            }
+            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })
