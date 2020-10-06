@@ -10,56 +10,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2020-09-10 15:58\n"
+"PO-Revision-Date: 2020-09-24 10:31\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "赚取AppCoins积金!"
 
-#. Card copy for the Purchase Promotion.
+#. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
 msgstr "在{0}消费，获取{1} AppCoins积金。"
 
-#. Body for Purchase bonus receipt.
+#. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
 msgstr "因为你在{0}消费了。"
 
-#. Card copy for the Expenditure Promotion.
+#. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
 msgstr "在{2}天内消费{0} {1}，获取{3} AppCoins积金。"
 
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
 msgstr "因为你在过去{2}天消费了{0}以上的{1}。"
 
-#. Card copy for the Next Level Promotion.
+#. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
 msgstr "达到下一关可获取{0} AppCoins积金！"
 
-#. Body for Purchase bonus receipt.
-#:
-msgid ""
-msgstr ""
-""
-
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
 msgstr "因为你已达到下一级。"
 
-#. Card copy for Extra Gamification Bonus.
+#. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr ""
 
-#. Title for bonus receipt.
+#. Card - Firs purchase.
+#:
+msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
+msgstr ""
+
+#. Receipt - First Purchase.
+#:
+msgid "Because of your first purchase in {0}."
+msgstr ""
+
+#. Card - First purchase of the day.
+#:
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
+msgstr ""
+
+#. Receipt - First Purchase of the day.
+#:
+msgid "Because of your first purchase of the day in {0}."
+msgstr ""
+
+#. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} AppCoins积金奖励！"
+
+#. Card - Expendidute per amount Promotion.
+#:
+msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgstr ""
+
+#. Receipt - Expenditure per amount Promotion.
+#:
+msgid "Because you spent {0} {1} in {2}."
+msgstr ""
 
