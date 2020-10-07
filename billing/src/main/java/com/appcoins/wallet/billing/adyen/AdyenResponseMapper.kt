@@ -37,7 +37,7 @@ class AdyenResponseMapper {
     var redirectUrl: String? = null
     var action: Action? = null
 
-    if (adyenResponse.action != null) {
+    if (adyenResponse?.action != null) {
       actionType = adyenResponse.action.get("type")?.asString
       jsonAction = JSONObject(adyenResponse.action.toString())
     }
@@ -52,8 +52,8 @@ class AdyenResponseMapper {
         THREEDS2CHALLENGE -> action = Threeds2ChallengeAction.SERIALIZER.deserialize(jsonAction)
       }
     }
-    return PaymentModel(adyenResponse.resultCode, adyenResponse.refusalReason,
-        adyenResponse.refusalReasonCode?.toInt(), action, redirectUrl,
+    return PaymentModel(adyenResponse?.resultCode, adyenResponse?.refusalReason,
+        adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl,
         action?.paymentData, response.uid, response.hash, response.orderReference,
         response.status, response.metadata?.errorMessage, response.metadata?.errorCode)
   }

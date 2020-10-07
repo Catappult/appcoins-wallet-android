@@ -3,7 +3,7 @@ package com.appcoins.wallet.billing.adyen
 import com.adyen.checkout.base.model.payments.response.Action
 import com.appcoins.wallet.billing.util.Error
 
-data class PaymentModel(val resultCode: String, val refusalReason: String?, val refusalCode: Int?,
+data class PaymentModel(val resultCode: String?, val refusalReason: String?, val refusalCode: Int?,
                         val action: Action?, val redirectUrl: String?,
                         val paymentData: String?, val uid: String,
                         val hash: String?, val orderReference: String?,

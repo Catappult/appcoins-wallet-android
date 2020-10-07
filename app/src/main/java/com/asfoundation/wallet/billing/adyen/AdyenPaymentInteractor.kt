@@ -156,11 +156,12 @@ class AdyenPaymentInteractor(
   }
 
   fun getFailedTransactionReason(uid: String, timesCalled: Int = 0): Single<PaymentModel> {
-    return if (timesCalled <= 5) {
+    return if (timesCalled < MAX_NUMBER_OF_TRIES) {
       walletService.getAndSignCurrentWalletAddress()
           .flatMap { walletAddressModel ->
             Single.zip(adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
-                walletAddressModel.signedAddress), Single.timer(2, TimeUnit.SECONDS),
+                walletAddressModel.signedAddress),
+                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS),
                 BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
           }
           .flatMap {
@@ -184,5 +185,10 @@ class AdyenPaymentInteractor(
 
   private fun isInApp(type: String): Boolean {
     return type.equals("INAPP", ignoreCase = true)
+  }
+
+  private companion object {
+    private const val MAX_NUMBER_OF_TRIES = 5
+    private const val REQUEST_INTERVAL_IN_SECONDS: Long = 2
   }
 }
