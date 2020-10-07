@@ -17,6 +17,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -143,9 +144,9 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   override fun getHomeBackPressed() = activityView.backPressed()
 
   override fun handleBackPressed() {
-    if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
-      detailsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
+    // Currently we only call the hide bottom sheet
+    // but maybe later additional stuff needs to be handled
+    updateBottomSheetVisibility()
   }
 
   override fun getBottomSheetButtonClick() = RxView.clicks(got_it_button)
@@ -163,6 +164,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
       setBackListener(bottomsheet_coordinator_container)
     }
   }
+
+  override fun getBottomSheetContainerClick() = RxView.clicks(bottomsheet_coordinator_container)
 
   private fun setBackListener(view: View) {
     activityView.disableBack()

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promotions
 
-import android.util.Log
 import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
@@ -51,7 +50,7 @@ class PromotionsFragmentPresenter(
       promotionsModel.promotions.isNotEmpty() -> {
         cachedBonus = promotionsModel.maxBonus
         view.showPromotions(promotionsModel)
-        if(preferences.showGamificationDisclaimer()) {
+        if (preferences.showGamificationDisclaimer()) {
           view.showBottomSheet()
           preferences.setGamificationDisclaimerShown()
         }
@@ -86,7 +85,7 @@ class PromotionsFragmentPresenter(
   private fun mapClickType(promotionClick: PromotionClick) {
     when (promotionClick.id) {
       GAMIFICATION_ID -> activityView.navigateToGamification(cachedBonus)
-      GAMIFICATION_INFO -> view.updateBottomSheetVisibility()
+      GAMIFICATION_INFO -> view.showBottomSheet()
       REFERRAL_ID -> mapReferralClick(promotionClick.extras)
       else -> mapPackagePerkClick(promotionClick.extras)
     }
@@ -115,8 +114,9 @@ class PromotionsFragmentPresenter(
 
   private fun handleBottomSheetVisibility() {
     disposables.add(view.getBottomSheetButtonClick()
+        .mergeWith(view.getBottomSheetContainerClick())
         .observeOn(viewScheduler)
-        .doOnNext { view.updateBottomSheetVisibility() }
+        .doOnNext { view.hideBottomSheet() }
         .subscribe({}, { handleError(it) }))
   }
 

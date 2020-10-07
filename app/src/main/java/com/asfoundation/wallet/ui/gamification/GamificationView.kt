@@ -28,4 +28,6 @@ interface GamificationView {
   fun getBackPressed(): Observable<Any>
 
   fun updateBottomSheetVisibility()
+
+  fun getBottomSheetContainerClick(): Observable<Any>
 }

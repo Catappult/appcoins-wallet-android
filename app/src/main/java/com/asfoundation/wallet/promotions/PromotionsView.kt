@@ -32,7 +32,9 @@ interface PromotionsView {
 
   fun getBackPressed(): Observable<Any>
 
-  fun updateBottomSheetVisibility()
+  fun hideBottomSheet()
 
   fun showBottomSheet()
+
+  fun getBottomSheetContainerClick(): Observable<Any>
 }

@@ -147,25 +147,18 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun getHomeBackPressed() = activityView.backPressed()
 
   override fun handleBackPressed() {
-    if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
-      detailsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
+    // Currently we only call the hide bottom sheet
+    // but maybe later additional stuff needs to be handled
+    hideBottomSheet()
   }
 
   override fun getBottomSheetButtonClick() = RxView.clicks(got_it_button)
 
   override fun getBackPressed() = onBackPressedSubject!!
 
-  override fun updateBottomSheetVisibility() {
-    if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+  override fun hideBottomSheet() {
       detailsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
       disableBackListener(bottomsheet_coordinator_container)
-    } else {
-      detailsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-      bottomsheet_coordinator_container.visibility = VISIBLE
-      bottomsheet_coordinator_container.background.alpha = 255
-      setBackListener(bottomsheet_coordinator_container)
-    }
   }
 
   override fun showBottomSheet() {
@@ -174,6 +167,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     bottomsheet_coordinator_container.background.alpha = 255
     setBackListener(bottomsheet_coordinator_container)
   }
+
+  override fun getBottomSheetContainerClick() = RxView.clicks(bottomsheet_coordinator_container)
 
   private fun setBackListener(view: View) {
     activityView.disableBack()
