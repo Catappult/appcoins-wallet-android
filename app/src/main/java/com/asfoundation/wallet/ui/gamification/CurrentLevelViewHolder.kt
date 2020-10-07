@@ -6,6 +6,8 @@ import android.os.Build
 import android.view.View
 import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
+import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.current_level_card.view.*
@@ -21,7 +23,7 @@ class CurrentLevelViewHolder(itemView: View,
                              private val nextLevelAmount: BigDecimal?,
                              private val currencyFormatUtils: CurrencyFormatUtils,
                              private val mapper: GamificationMapper,
-                             private val uiEventListener: PublishSubject<Boolean>) :
+                             private val uiEventListener: PublishSubject<Pair<String, Boolean>>) :
     LevelsViewHolder(itemView) {
 
   override fun bind(level: LevelModel) {
@@ -30,6 +32,9 @@ class CurrentLevelViewHolder(itemView: View,
     handleSpecificLevel(level.level, progressString, level.bonus)
     setProgress(progress)
     handleToggleButton(level.level)
+    itemView.gamification_info_btn.setOnClickListener {
+      uiEventListener.onNext(Pair(GAMIFICATION_INFO_ID, true))
+    }
   }
 
   private fun handleSpecificLevel(level: Int, progressPercentage: String, bonus: Double) {
@@ -42,7 +47,7 @@ class CurrentLevelViewHolder(itemView: View,
   private fun handleToggleButton(level: Int) {
     if (level != 0) {
       itemView.toggle_button.setOnCheckedChangeListener { _, isChecked ->
-        uiEventListener.onNext(isChecked)
+        uiEventListener.onNext(Pair(SHOW_REACHED_LEVELS_ID, isChecked))
       }
     } else {
       itemView.toggle_button.visibility = View.GONE

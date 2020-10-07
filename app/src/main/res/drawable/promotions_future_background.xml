@@ -10,7 +10,7 @@
   <item>
     <shape>
       <stroke
-          android:width="2dp"
+          android:width="1dp"
           android:color="#d9d9d9"
           android:dashWidth="10dp"
           android:dashGap="6dp" />
