@@ -590,19 +590,34 @@
     <item name="android:textColor">@color/appc_pink</item>
   </style>
 
+  <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
+    <item name="cardBackgroundColor">@color/white</item>
+    <item name="cardCornerRadius">12dp</item>
+    <item name="cardElevation">4dp</item>
+    <item name="cardUseCompatPadding">true</item>
+  </style>
+
   <style name="Promotions.TextStyle.Category.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">#e7000000</item>
     <item name="android:textSize">14sp</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
   <style name="Promotions.TextStyle.Category.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">#8a000000</item>
     <item name="android:textSize">12sp</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
   </style>
 
   <style name="Promotions.TextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">#01131f</item>
     <item name="android:textSize">12sp</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">6sp</item>
+    <item name="android:maxLines">3</item>
+    <item name="android:ellipsize">end</item>
   </style>
 
   <style name="Promotions.TextStyle.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -623,6 +638,8 @@
   <style name="Promotions.TextStyle.Date" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">#01131f</item>
     <item name="android:textSize">11sp</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:lineSpacingExtra">5sp</item>
   </style>
 
   <style name="Promotions.TextStyle.Links" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -649,6 +666,12 @@
 
   <style name="TransactionsItem.Description.Extended">
     <item name="android:maxLines">3</item>
+  </style>
+
+  <style name="BottomSheetInfoTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">#191919</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:lineSpacingExtra">10sp</item>
   </style>
 
 </resources>

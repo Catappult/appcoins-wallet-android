@@ -41,6 +41,7 @@
       android:id="@+id/appc_balances_group"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:visibility="invisible"
       app:constraint_referenced_ids="balance_appc_eth,balance_fiat_appc_eth"
       />
 
@@ -78,7 +79,6 @@
       android:layout_marginBottom="12dp"
       android:ellipsize="end"
       android:maxLines="2"
-      android:text="@string/purchase_appcoins_available_body"
       android:textColor="#727272"
       android:visibility="invisible"
       app:layout_constraintBottom_toTopOf="@id/appcoins_bonus_layout"

@@ -27,6 +27,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification_"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
+    private const val SHOW_GAMIFICATION_DISCLAIMER = "SHOW_GAMIFICATION_DISCLAIMER"
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
@@ -228,4 +229,11 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun getWalletId() = pref.getString(WALLET_ID, null)
 
+  override fun showGamificationDisclaimer() = pref.getBoolean(SHOW_GAMIFICATION_DISCLAIMER, true)
+
+  override fun setGamificationDisclaimerShown() {
+    pref.edit()
+        .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
+        .apply()
+  }
 }

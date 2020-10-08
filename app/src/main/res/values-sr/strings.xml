@@ -228,6 +228,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Prenos</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Vraćanje bonusa</string>
+  <string name="transaction_type_reverted_bonus_body">Bonus koji ste dobili %s je vraćen. Obratite se podršci za više informacija.</string>
+  <string name="transaction_type_reverted_topup_title">Refundacija dopune</string>
+  <string name="transaction_type_reverted_topup_body">Dopuna koju ste uplatili %s je vraćena. Obratite se podršci za više informacija.</string>
+  <string name="transaction_type_reverted_purchase_title">Refundacija kupovine</string>
+  <string name="transaction_type_reverted_purchase_body">Kupovina koju ste obavili %s je vraćena. Obratite se podršci za više informacija.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Omogućuje Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +477,17 @@
   <string name="purchase_card_error_wrong_CVV">Izgleda da je CVV/CVC kod pogrešan. Pokušajte ponovo.</string>
   <string name="purchase_wallet_error_contact_us">Ups, nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_carrier_error">Izgleda da vaš broj telefona nije kompatibilan sa ovim načinom plaćanja.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Ups, došlo je do problema sa ovom kupovinom. Javite nam se.</string>
+  <string name="purchase_error_wallet_block_code_403">Izgleda da nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
   <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Adresa za naplatu</string>
+  <string name="purchase_address_address_field">Adresa</string>
+  <string name="purchase_address_apartment_field">Stan, sprat&#8230;</string>
+  <string name="purchase_address_city_field">Grad</string>
+  <string name="purchase_address_post_code_field">Poštanski broj</string>
+  <string name="purchase_address_state_field">Država/pokrajina</string>
   <!--Async Payments-->
   <string name="async_steps_title">Dalji koraci</string>
   <string name="async_steps_1">Dovršite plaćanje pomoću načina plaćanja %s. Dobićete obaveštenje kada budete primili AppCoins Credits u novčanik.</string>
@@ -564,7 +577,7 @@
   <string name="import_wallet_title">Oporavite novčanik</string>
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
   <string name="import_wallet_keystore_private_keys">Skladište ključeva ili privatni ključevi</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">Ili ga obnovite iz datoteke</string>
   <string name="import_wallet_file_button">OPORAVITE IZ DATOTEKE</string>
   <string name="import_wallet_button">OPORAVI NOVČANIK</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
@@ -753,22 +766,38 @@
   <string name="perks_title">Promocije</string>
   <string name="perks_body">Pratite nas! Pripremili smo vam posebne promocije.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="few">The promotion ends in %s days.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">Promocija se završava za %s dan.</item>
+    <item quantity="few">Promocija se završava za %s dana.</item>
+    <item quantity="other">Promocija se završava za %s dana.</item>
   </plurals>
   <string name="perks_end_in_date">Promocija će se završiti %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">Promocija se završava za %s sat.</item>
+    <item quantity="few">Promocija se završava za %s sata.</item>
+    <item quantity="other">Promocija se završava za %s sati.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">Promocija se završava za %s minut.</item>
+    <item quantity="few">Promocija se završava za %s minuta.</item>
+    <item quantity="other">Promocija se završava za %s minuta.</item>
+  </plurals>
+  <string name="perks_end_today">Promocija se završava danas.</string>
   <string name="perks_available_soon">Promocija će uskoro biti dostupna</string>
   <string name="perks_next_level_reward">Pređite na sledeći nivo da biste dobili %s AppCoins Credits!</string>
   <string name="perks_notification">Upravo ste dobili %s AppCoins Credits kao bonus</string>
   <string name="perks_level_up_on_this_purchase">Dostignite sledeći nivo pomoću ove kupovine</string>
   <string name="perks_level_up_amount_left">Nedostaje vam još %1$s %2$s do sledećeg nivoa!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">N.</string>
+  <string name="perks_bonus_purchase_flow">%1$s bonusa: %2$s u AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">Sve kupovine u aplikacijama i dopune obavljene bilo kojim načinom kupovine osim AppCoins Credits ispunjavaće uslove za povećanje nivoa bonusa i dobijanje nagrada.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Zaključavanje pomoću otiska prsta</string>
+  <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
+  <string name="fingerprint_failed_body">Pokušajte ponovo za %s sek.</string>
+  <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>
+  <string name="fingerprint_authentication_required_body">Upotrebite otisak prsta ili lozinku da biste nastavili.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Pošaljite evidenciju timu korisničke podrške</string>
+  <string name="send_logs_sending">Slanje&#8230;</string>
+  <string name="send_logs_send">Poslato!</string>
 </resources>

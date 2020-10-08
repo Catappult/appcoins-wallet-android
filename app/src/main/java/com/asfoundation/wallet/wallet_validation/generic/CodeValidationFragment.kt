@@ -343,12 +343,12 @@ class CodeValidationFragment : BasePageViewFragment(),
     content.visibility = View.GONE
     referral_status.visibility = View.GONE
     animation_validating_code.visibility = View.GONE
-    layout_validation_no_internet.visibility = View.VISIBLE
+    code_layout_validation_no_internet.visibility = View.VISIBLE
   }
 
   override fun hideNoInternetView() {
     walletValidationView?.showProgressAnimation()
-    layout_validation_no_internet.visibility = View.GONE
+    code_layout_validation_no_internet.visibility = View.GONE
   }
 
   private fun stopRetryAnimation() {

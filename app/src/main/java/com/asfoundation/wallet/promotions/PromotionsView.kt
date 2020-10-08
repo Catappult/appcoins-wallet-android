@@ -23,4 +23,18 @@ interface PromotionsView {
   fun hidePromotions()
 
   fun getPromotionClicks(): Observable<PromotionClick>
+
+  fun getHomeBackPressed(): Observable<Any>
+
+  fun handleBackPressed()
+
+  fun getBottomSheetButtonClick(): Observable<Any>
+
+  fun getBackPressed(): Observable<Any>
+
+  fun hideBottomSheet()
+
+  fun showBottomSheet()
+
+  fun getBottomSheetContainerClick(): Observable<Any>
 }

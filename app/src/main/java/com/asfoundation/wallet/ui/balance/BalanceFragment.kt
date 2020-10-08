@@ -356,7 +356,6 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     }
   }
 
-
   private fun animateBackgroundFade() {
     walletsBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) = Unit

@@ -86,4 +86,8 @@ interface PreferencesRepositoryType {
   fun setPromotionNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
 
   fun removePromotionNotificationSeenTime(walletAddress: String): Completable
+
+  fun showGamificationDisclaimer(): Boolean
+
+  fun setGamificationDisclaimerShown()
 }

@@ -1,4 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
-data class MergedAppcoinsBalance(val appcFiatValue: FiatValue, val creditsBalance: FiatValue)
+import java.math.BigDecimal
+
+data class MergedAppcoinsBalance(val appcFiatValue: FiatValue, val creditsFiatBalance: FiatValue,
+                                 val creditsAppcAmount: BigDecimal)
 
