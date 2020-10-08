@@ -16,6 +16,7 @@
       android:layout_height="48dp"
       android:layout_marginStart="@dimen/small_margin"
       android:layout_marginTop="@dimen/small_margin"
+      android:alpha="0.55"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:srcCompat="@drawable/ic_promotions_default"
@@ -86,7 +87,7 @@
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@+id/future_container_date"
       app:layout_constraintTop_toTopOf="@+id/future_container_date"
-      app:srcCompat="@drawable/ic_locked"
+      app:srcCompat="@drawable/ic_locked_promotions"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
