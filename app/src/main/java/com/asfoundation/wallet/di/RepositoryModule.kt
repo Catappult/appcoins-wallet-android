@@ -60,6 +60,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -106,7 +107,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideAdyenPaymentRepository(client: OkHttpClient): AdyenPaymentRepository {
+  fun provideAdyenPaymentRepository(
+      @Named("default") client: OkHttpClient): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/")
         .client(client)
@@ -132,7 +134,8 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providesOffChainTransactionsRepository(client: OkHttpClient): OffChainTransactionsRepository {
+  fun providesOffChainTransactionsRepository(
+      @Named("blockchain") client: OkHttpClient): OffChainTransactionsRepository {
     val objectMapper = ObjectMapper()
     val df: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
     objectMapper.dateFormat = df
