@@ -10,7 +10,7 @@ interface PromotionsActivityView {
 
   fun handleShare(link: String)
 
-  fun opendetailsLink(url: String)
+  fun openDetailsLink(url: String)
 
   fun backPressed(): Observable<Any>
 

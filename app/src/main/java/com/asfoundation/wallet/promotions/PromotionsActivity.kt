@@ -12,7 +12,6 @@ import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 class PromotionsActivity : BaseActivity(), PromotionsActivityView {
@@ -60,7 +59,7 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
         .startChooser()
   }
 
-  override fun opendetailsLink(url: String) {
+  override fun openDetailsLink(url: String) {
     try {
       val uri = Uri.parse(url)
       val launchBrowser = Intent(Intent.ACTION_VIEW, uri)

@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.repository.entity.Status
-import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -106,7 +106,7 @@ class PromotionsFragmentPresenter(
   private fun mapPackagePerkClick(extras: Map<String, String>?) {
     if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
       val detailsLink = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
-      activityView.opendetailsLink(detailsLink!!)
+      activityView.openDetailsLink(detailsLink!!)
     }
   }
 
