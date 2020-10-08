@@ -16,6 +16,7 @@
       android:layout_height="48dp"
       android:layout_marginStart="@dimen/small_margin"
       android:layout_marginTop="@dimen/small_margin"
+      android:alpha="0.55"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:srcCompat="@drawable/ic_promotions_default"
