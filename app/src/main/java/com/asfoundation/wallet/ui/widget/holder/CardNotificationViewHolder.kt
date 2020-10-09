@@ -76,6 +76,7 @@ class CardNotificationViewHolder(
       itemView.notification_dismiss_button.setOnClickListener {
         action.call(cardNotification, CardNotificationAction.DISMISS)
       }
+      itemView.setOnClickListener { action.call(cardNotification, cardNotification.positiveAction) }
       itemView.notification_positive_button.visibility = View.GONE
     } else {
       cardNotification.positiveButtonText?.let { itemView.notification_positive_button.setText(it) }
