@@ -162,6 +162,7 @@
               android:id="@+id/active_wallet_info"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:paddingBottom="8dp"
               >
 
             <ImageView
@@ -206,27 +207,7 @@
                 app:layout_constraintEnd_toStartOf="@id/copy_address"
                 app:layout_constraintStart_toEndOf="@id/active_wallet_text"
                 app:layout_constraintTop_toTopOf="@id/active_wallet_text"
-                >
-
-              <include
-                  android:id="@+id/verified_wallet_chip"
-                  layout="@layout/verified_wallet_chip"
-                  android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
-                  android:visibility="gone"
-                  tools:visibility="visible"
-                  />
-
-              <include
-                  android:id="@+id/unverified_wallet_chip"
-                  layout="@layout/unverified_wallet_chip"
-                  android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
-                  android:visibility="gone"
-                  tools:visibility="visible"
-                  />
-            </RelativeLayout>
-
+                ></RelativeLayout>
 
             <TextView
                 android:id="@+id/active_wallet_address"
@@ -234,32 +215,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="12dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toTopOf="@+id/verify_wallet_button"
                 app:layout_constraintEnd_toStartOf="@id/copy_address"
                 app:layout_constraintStart_toStartOf="@id/wallet_icon"
                 app:layout_constraintTop_toBottomOf="@id/wallet_icon"
                 tools:text="0x8Eb48d1368bbc7731ac5c98Eb48d1368bbc7731ac5c9"
-                />
-
-            <Button
-                android:id="@+id/verify_wallet_button"
-                style="@style/ButtonStyle.Light"
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="12dp"
-                android:text="@string/referral_view_verify_button"
-                android:textSize="11sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/active_wallet_info"
-                app:layout_constraintStart_toStartOf="@id/wallet_icon"
-                app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
-                tools:visibility="visible"
                 />
 
             <ImageView
@@ -301,6 +265,83 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/wallet_icon"
                 />
+
+            <include
+                android:id="@+id/verified_wallet_chip"
+                layout="@layout/verified_wallet_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/active_wallet_address"
+                app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
+                tools:visibility="visible"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/unverified_wallet_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/background_dark_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
+                >
+
+              <ImageView
+                  android:id="@+id/chip_icon"
+                  android:layout_width="14dp"
+                  android:layout_height="14dp"
+                  android:layout_marginStart="8dp"
+                  android:src="@drawable/ic_wallet_unverified_chip"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  />
+
+              <TextView
+                  android:id="@+id/chip_text"
+                  style="@style/BalanceVerifyWalletChip.Unverified"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="8dp"
+                  android:layout_marginEnd="8dp"
+                  android:ellipsize="end"
+                  android:maxLines="2"
+                  android:text="@string/unferified_tag"
+                  app:layout_constraintBottom_toBottomOf="@id/chip_icon"
+                  app:layout_constraintEnd_toStartOf="@id/verify_wallet_button"
+                  app:layout_constraintStart_toEndOf="@id/chip_icon"
+                  app:layout_constraintTop_toTopOf="@id/chip_icon"
+                  />
+              <Button
+                  android:id="@+id/verify_wallet_button"
+                  style="@style/VerifyButtonStyle"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="6dp"
+                  android:layout_marginEnd="16dp"
+                  android:layout_marginBottom="6dp"
+                  android:text="@string/referral_view_verify_button"
+                  android:visibility="gone"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintHorizontal_bias="1"
+                  app:layout_constraintStart_toStartOf="@id/horizontal_guideline"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintWidth_default="wrap"
+                  tools:visibility="visible"
+                  />
+              <androidx.constraintlayout.widget.Guideline
+                  android:id="@+id/horizontal_guideline"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  app:layout_constraintGuide_percent="0.4"
+                  />
+            </androidx.constraintlayout.widget.ConstraintLayout>
           </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
         <LinearLayout

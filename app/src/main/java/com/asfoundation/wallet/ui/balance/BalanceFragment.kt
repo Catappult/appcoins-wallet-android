@@ -293,11 +293,11 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
   }
 
   override fun showUnverifiedWalletChip() {
-    unverified_wallet_chip.visibility = View.VISIBLE
+    unverified_wallet_layout.visibility = View.VISIBLE
   }
 
   override fun hideUnverifiedWalletChip() {
-    unverified_wallet_chip.visibility = View.GONE
+    unverified_wallet_layout.visibility = View.GONE
   }
 
   override fun showVerifyWalletButton() {

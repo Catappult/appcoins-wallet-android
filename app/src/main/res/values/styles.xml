@@ -235,6 +235,18 @@
     <item name="android:letterSpacing">.09</item>
   </style>
 
+  <style name="VerifyButtonStyle" parent="ButtonStyle.Light">
+    <item name="android:background">@drawable/button_light_background</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:paddingStart">@dimen/big_padding</item>
+    <item name="android:paddingEnd">@dimen/big_padding</item>
+    <item name="android:minHeight">28dp</item>
+    <item name="android:lineSpacingExtra">-3sp</item>
+  </style>
+
   <style name="CancelButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
     <item name="android:background">@drawable/borderless_button_background</item>
     <item name="android:textAllCaps">true</item>
@@ -587,7 +599,9 @@
   </style>
 
   <style name="BalanceVerifyWalletChip.Unverified">
-    <item name="android:textColor">@color/appc_pink</item>
+    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textSize">12sp</item>
+    <item name="fontFamily">sans-serif</item>
   </style>
 
   <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
