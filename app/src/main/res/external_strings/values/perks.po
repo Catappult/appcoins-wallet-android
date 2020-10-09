@@ -65,7 +65,7 @@ msgstr ""
 
 #. Card - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgid "Receive {0} AppCoins Credits extra when youspend {1} {2} in {3}."
 msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
@@ -73,9 +73,9 @@ msgstr ""
 msgid "Because you spent {0} {1} in {2}."
 msgstr 
 
-#. Card - Expendidute in any game.
+#. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in AppCoins apps."
+msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
 msgstr ""
 
 #. Receipt - Expenditure in any game.
