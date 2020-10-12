@@ -203,7 +203,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
       main_view_pre_selected?.visibility = VISIBLE
-      main_view.visibility = VISIBLE
+      main_view?.visibility = VISIBLE
       val billingAddressModel =
           data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
       this.billingAddressModel = billingAddressModel
