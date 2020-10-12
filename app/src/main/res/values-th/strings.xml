@@ -760,7 +760,7 @@
   <string name="manage_cards_select_title">เลือกบัตรของคุณ</string>
   <string name="manage_cards_remember">จดจำบัตร</string>
   <!--Perks-->
-  <string name="perks_gamif_title">รับโบนัส %s%% จากทุกการซื้อ</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>
   <string name="perks_title">โปรโมชั่น</string>
   <string name="perks_body">คอยติดตาม! พวกเรามีโปรโมชั่นพิเศษสำหรับคุณ</string>
