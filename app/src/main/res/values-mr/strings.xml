@@ -765,7 +765,7 @@
   <string name="manage_cards_select_title">पेमेंट कार्ड निवडा</string>
   <string name="manage_cards_remember">कार्ड ध्यानात ठेवा</string>
   <!--Perks-->
-  <string name="perks_gamif_title">प्रत्येक खरेदीवर %s%%% पर्यंत बोनस मिळवा</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">आपण आपल्या आवडत्या अॅप्समध्ये जितका जास्त खर्च कराल, तितका मोठा बोनस मिळेल!</string>
   <string name="perks_title">प्रमोशन्स</string>
   <string name="perks_body">संलग्न रहा! आपल्यासाठी आमच्याकडे खास प्रमोशन्स आहेत.</string>
