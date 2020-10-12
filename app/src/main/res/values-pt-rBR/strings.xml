@@ -761,7 +761,7 @@
   <string name="manage_cards_select_title">Selecione o cartão de pagamento</string>
   <string name="manage_cards_remember">Memorizar cartão</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Ganhe %s%% de bônus a cada compra</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Quanto mais gastar em seus apps favoritos, maior o bônus!</string>
   <string name="perks_title">Promoções</string>
   <string name="perks_body">Fique ligado! Temos promoções especiais para você.</string>
