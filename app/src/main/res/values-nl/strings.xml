@@ -761,7 +761,7 @@
   <string name="manage_cards_select_title">Betaalkaart selecteren</string>
   <string name="manage_cards_remember">Kaart onthouden</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Ontvang %s%% bonus bij elke aankoop</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Hoe meer je in je favoriete apps besteedt, hoe groter de bonus!</string>
   <string name="perks_title">Acties</string>
   <string name="perks_body">Blijf ons volgen! We hebben speciale acties voor je.</string>
