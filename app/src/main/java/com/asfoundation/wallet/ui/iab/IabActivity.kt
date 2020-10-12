@@ -7,17 +7,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
+import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -133,6 +136,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = true
   }
 
+  override fun navigateBack() {
+    if (supportFragmentManager.backStackEntryCount != 0) {
+      supportFragmentManager.popBackStack()
+    }
+  }
+
   override fun finishActivity(data: Bundle) {
     presenter.savePreselectedPaymentMethod(data)
     data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
@@ -227,6 +236,24 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getSkuDescription(), isBds, isDonation, developerPayload, uri,
             intent.dataString))
+        .commit()
+  }
+
+  override fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
+                                  appcAmount: BigDecimal, targetFragment: Fragment,
+                                  shouldStoreCard: Boolean, isStored: Boolean) {
+    val isDonation = TransactionData.TransactionType.DONATION.name
+        .equals(transaction?.type, ignoreCase = true)
+
+    val fragment = BillingAddressFragment.newInstance(getSkuDescription(), transaction!!.domain,
+        appcAmount, bonus, value, currency, isDonation, shouldStoreCard, isStored)
+        .apply {
+          setTargetFragment(targetFragment, TopUpActivity.BILLING_ADDRESS_REQUEST_CODE)
+        }
+
+    supportFragmentManager.beginTransaction()
+        .add(R.id.fragment_container, fragment)
+        .addToBackStack(BillingAddressFragment::class.java.simpleName)
         .commit()
   }
 
@@ -360,6 +387,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   companion object {
 
+    const val BILLING_ADDRESS_REQUEST_CODE = 1236
+    const val BILLING_ADDRESS_SUCCESS_CODE = 1000
+    const val BILLING_ADDRESS_CANCEL_CODE = 1001
     const val URI = "uri"
     const val RESPONSE_CODE = "RESPONSE_CODE"
     const val RESULT_USER_CANCELED = 1

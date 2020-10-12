@@ -5,10 +5,7 @@ import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse
+import com.appcoins.wallet.billing.adyen.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
@@ -67,7 +64,8 @@ class AdyenPaymentInteractor(
                   returnUrl: String, value: String, currency: String, reference: String?,
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?): Single<PaymentModel> {
+                  developerWallet: String?,
+                  billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->
           Single.zip(
@@ -81,7 +79,7 @@ class AdyenPaymentInteractor(
                     supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
                     address.address, origin, packageName, metadata, sku, callbackUrl,
                     transactionType, developerWallet, it.first, it.second, address.address,
-                    address.signedAddress)
+                    address.signedAddress, billingAddress)
               }
         }
   }
@@ -89,13 +87,14 @@ class AdyenPaymentInteractor(
   fun makeTopUpPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
                        supportedShopperInteraction: List<String>, returnUrl: String, value: String,
                        currency: String, paymentType: String, transactionType: String,
-                       packageName: String): Single<PaymentModel> {
+                       packageName: String,
+                       billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
               supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
               it.address, null, packageName, null, null, null, transactionType, null, null, null,
-              null, it.signedAddress)
+              null, it.signedAddress, billingAddress)
         }
   }
 

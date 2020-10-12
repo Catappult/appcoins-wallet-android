@@ -84,7 +84,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class InteractModule {
+class InteractorModule {
 
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
@@ -526,4 +526,5 @@ class InteractModule {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
         gamificationRepository)
   }
+
 }

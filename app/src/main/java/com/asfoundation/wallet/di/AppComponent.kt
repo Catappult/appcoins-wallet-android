@@ -13,7 +13,7 @@ import javax.inject.Singleton
       RepositoryModule::class,
       ActivityBuilders::class,
       FragmentBuilders::class,
-      InteractModule::class,
+      InteractorModule::class,
       ServiceModule::class,
       BroadcastReceiverBuilders::class,
       ServiceBuilders::class])
