@@ -17,7 +17,7 @@ interface TopUpActivityView {
 
   fun navigateToBillingAddress(topUpData: TopUpPaymentData,
                                fiatAmount: String, fiatCurrency: String,
-                               targetFragment: Fragment)
+                               targetFragment: Fragment, shouldStoreCard: Boolean)
 
   fun finish(data: Bundle)
 

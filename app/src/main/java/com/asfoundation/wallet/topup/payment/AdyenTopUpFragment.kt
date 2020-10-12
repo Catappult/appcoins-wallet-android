@@ -289,7 +289,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String) {
     topUpView.unlockRotation()
-    topUpView.navigateToBillingAddress(data, fiatAmount, fiatCurrency, this)
+    topUpView.navigateToBillingAddress(data, fiatAmount, fiatCurrency, this,
+        adyenSaveDetailsSwitch?.isChecked ?: true)
   }
 
   override fun finishCardConfiguration(

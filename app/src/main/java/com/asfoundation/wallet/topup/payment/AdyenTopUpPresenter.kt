@@ -195,8 +195,9 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(networkScheduler)
         .flatMapSingle {
           val billingAddressModel = view.retrieveBillingAddressData()
+          val shouldStore = billingAddressModel?.remember ?: it.shouldStoreCard
           topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
-          adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, it.shouldStoreCard,
+          adyenPaymentInteractor.makeTopUpPayment(it.cardPaymentMethod, shouldStore,
               it.hasCvc, it.supportedShopperInteractions, returnUrl, retrievedAmount,
               retrievedCurrency, mapPaymentToService(paymentType).transactionType,
               transactionType,

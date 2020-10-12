@@ -293,8 +293,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
 
   override fun showBillingAddress(value: BigDecimal, currency: String) {
-    credit_card_info.visibility = GONE
-    iabView.showBillingAddress(value, currency, bonus, appcAmount, this)
+    credit_card_info?.visibility = GONE
+    iabView.showBillingAddress(value, currency, bonus, appcAmount, this,
+        adyenSaveDetailsSwitch?.isChecked ?: true)
   }
 
 

@@ -38,15 +38,17 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     private const val PAYMENT_DATA = "data"
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "fiat_currency"
+    private const val STORE_CARD_KEY = "store_card"
 
     @JvmStatic
-    fun newInstance(data: TopUpPaymentData, fiatAmount: String,
-                    fiatCurrency: String): BillingAddressTopUpFragment {
+    fun newInstance(data: TopUpPaymentData, fiatAmount: String, fiatCurrency: String,
+                    shouldStoreCard: Boolean): BillingAddressTopUpFragment {
       return BillingAddressTopUpFragment().apply {
         arguments = Bundle().apply {
           putSerializable(PAYMENT_DATA, data)
           putString(FIAT_AMOUNT_KEY, fiatAmount)
           putString(FIAT_CURRENCY_KEY, fiatCurrency)
+          putBoolean(STORE_CARD_KEY, shouldStoreCard)
         }
       }
     }
@@ -81,6 +83,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     setupFieldsListener()
     setupStateAdapter()
     button.setText(R.string.topup_home_button)
+    remember.isChecked = shouldStoreCard
   }
 
   private fun setupFieldsListener() {
@@ -240,6 +243,14 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
       arguments!!.getSerializable(PAYMENT_DATA) as TopUpPaymentData
     } else {
       throw IllegalArgumentException("previous payment data not found")
+    }
+  }
+
+  private val shouldStoreCard: Boolean by lazy {
+    if (arguments!!.containsKey(STORE_CARD_KEY)) {
+      arguments!!.getBoolean(STORE_CARD_KEY)
+    } else {
+      throw IllegalArgumentException("should store card data not found")
     }
   }
 

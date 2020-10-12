@@ -12,7 +12,6 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
-import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -199,10 +198,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               .flatMap {
                 handleBuyAnalytics(it)
                 val billingAddressModel = view.retrieveBillingAddressData()
+                val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
                 adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
-                    adyenCard.shouldStoreCard, adyenCard.hasCvc,
-                    adyenCard.supportedShopperInteractions, returnUrl, priceAmount.toString(),
-                    priceCurrency, it.orderReference,
+                    shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
+                    returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
                     mapPaymentToService(paymentType).transactionType, origin, domain,
                     it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
                     mapToAdyenBillingAddress(billingAddressModel))
