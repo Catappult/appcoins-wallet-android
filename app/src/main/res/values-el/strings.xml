@@ -761,7 +761,7 @@
   <string name="manage_cards_select_title">Επιλογή κάρτας πληρωμής</string>
   <string name="manage_cards_remember">Αποθήκευση κάρτας</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Κερδίστε %s%% Bonus σε κάθε αγορά</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το bonus!</string>
   <string name="perks_title">Προωθήσεις</string>
   <string name="perks_body">Μείνετε συντονισμένοι! Έχουμε ειδικές προωθήσεις για εσάς.</string>
