@@ -27,6 +27,7 @@
   <string name="low_storage_error">Não há espaço de armazenamento livre</string>
   <string name="no_camera_permission_title">Permissão da Câmera</string>
   <string name="no_camera_permission">A BDS da AppCoins Wallet precisa permissão para acessar sua câmera para escanear QR Codes.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código de barras inválido: %s</string>
   <string name="title_delete_account">Tem certeza que deseja remover esta wallet?</string>
@@ -760,7 +761,7 @@
   <string name="manage_cards_select_title">Selecione o cartão de pagamento</string>
   <string name="manage_cards_remember">Memorizar cartão</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Ganhe %s%% de bônus a cada compra</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Quanto mais gastar em seus apps favoritos, maior o bônus!</string>
   <string name="perks_title">Promoções</string>
   <string name="perks_body">Fique ligado! Temos promoções especiais para você.</string>

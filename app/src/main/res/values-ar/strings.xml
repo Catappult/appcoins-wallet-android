@@ -27,6 +27,7 @@
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
   <string name="title_delete_account">هل أنت متأكد من أنك تريد حذف هذه المحفظة؟</string>
@@ -765,7 +766,7 @@
   <string name="manage_cards_select_title">اختر بطاقة دفع</string>
   <string name="manage_cards_remember">تذكر بطاقتي</string>
   <!--Perks-->
-  <string name="perks_gamif_title">احصل على %s%% مكافأة على كل عملية شراء</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">كلما أنفقت أكثر في تطبيقاتك المفضلة، كانت المكافأة أكبر!</string>
   <string name="perks_title">ترقيات</string>
   <string name="perks_body">ترقّبوا! لدينا ترقيات خاصة من أجلك.</string>

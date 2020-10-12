@@ -27,6 +27,7 @@
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
   <string name="title_delete_account">آیا می خواهید این کیف پول را حذف کنید؟</string>
@@ -760,7 +761,7 @@
   <string name="manage_cards_select_title">انتخاب کارت پرداخت</string>
   <string name="manage_cards_remember">کارت را به یاد داشته باش</string>
   <!--Perks-->
-  <string name="perks_gamif_title">برای هر خرید، %s%% پاداش دریافت کنید</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">هر چه بیشتر در اپلیکیشن‌های محبوب خود خرج کنید، پاداش بزرگتر خواهد بود!</string>
   <string name="perks_title">پیشنهادات تشویقی</string>
   <string name="perks_body">منتظر باشید! پیشنهادات تشویقی ویژه‌ای برای شما دارید.</string>
