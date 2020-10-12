@@ -762,7 +762,7 @@
   <string name="manage_cards_select_title">Izaberite platnu karticu</string>
   <string name="manage_cards_remember">Zapamti karticu</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Ostvarite %s%% bonusa za svaku kupovinu</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="perks_title">Promocije</string>
   <string name="perks_body">Pratite nas! Pripremili smo vam posebne promocije.</string>
