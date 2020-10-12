@@ -760,7 +760,7 @@
   <string name="manage_cards_select_title">Pilih kartu pembayaran</string>
   <string name="manage_cards_remember">Ingat kartu</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Dapatkan Bonus %s%% di setiap pembelian</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar bonusnya!</string>
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan kemana-mana! Kami punya promosi khusus untuk Anda.</string>
