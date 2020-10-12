@@ -179,7 +179,7 @@
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <include
-      android:id="@+id/layout_validation_no_internet"
+      android:id="@+id/phone_layout_validation_no_internet"
       layout="@layout/layout_validation_no_internet"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

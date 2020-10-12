@@ -118,14 +118,14 @@ class PhoneValidationFragment : DaggerFragment(),
     walletValidationView?.hideProgressAnimation()
     stopRetryAnimation()
     content_main.visibility = View.GONE
-    layout_validation_no_internet.visibility = View.VISIBLE
+    phone_layout_validation_no_internet.visibility = View.VISIBLE
     if (!hasBeenInvitedFlow) later_button.visibility = View.GONE
   }
 
   override fun hideNoInternetView() {
     walletValidationView?.showProgressAnimation()
     content_main.visibility = View.VISIBLE
-    layout_validation_no_internet.visibility = View.GONE
+    phone_layout_validation_no_internet.visibility = View.GONE
   }
 
   override fun getRetryButtonClicks(): Observable<PhoneValidationClickData> {

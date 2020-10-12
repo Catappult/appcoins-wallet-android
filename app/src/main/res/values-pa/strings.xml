@@ -228,6 +228,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
+  <string name="transaction_type_reverted_bonus_title">ਵਾਪਸ ਕੀਤਾ ਬੋਨਸ</string>
+  <string name="transaction_type_reverted_bonus_body">%s ਨੂੰ ਦਿੱਤਾ ਬੋਨਸ ਵਾਪਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="transaction_type_reverted_topup_title">ਟੌਪ-ਅਪ ਰਿਫੰਡ</string>
+  <string name="transaction_type_reverted_topup_body">%s ਨੂੰ ਕੀਤਾ ਟਾਪ ਅੱਪ ਵਾਪਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="transaction_type_reverted_purchase_title">ਖਰੀਦ ਦਾ ਰਿਫੰਡ</string>
+  <string name="transaction_type_reverted_purchase_body">%s ਨੂੰ ਕੀਤੀ ਖਰੀਦ ਵਾਪਸ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">ਇਥਿਰਿਅਮ ਦੁਆਰਾ ਸੰਚਾਲਿਤ</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +477,17 @@
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_wallet_error_contact_us">ਓਹ ਹੋ, ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_carrier_error">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">ਓਹ ਹੋ, ਇਸ ਖਰੀਦ ਵਿੱਚ ਸਾਨੂੰ ਮੁਸ਼ਕਲਾਂ ਹੋ ਰਹੀਆਂ ਹਨ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_error_wallet_block_code_403">ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਲੱਗ ਰਿਹਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
+  <string name="purchase_address_address_field">ਪਤਾ</string>
+  <string name="purchase_address_apartment_field">ਅਪਾਰਟਮੈਂਟ, ਮੰਜਲ &#8230;</string>
+  <string name="purchase_address_city_field">ਸ਼ਹਿਰ</string>
+  <string name="purchase_address_post_code_field">ਜ਼ਿਪ/ਪੋਸਟ ਕੋਡ</string>
+  <string name="purchase_address_state_field">ਰਾਜ/ਪ੍ਰਾਂਤ</string>
   <!--Async Payments-->
   <string name="async_steps_title">ਅਗਲੇ ਕਦਮ</string>
   <string name="async_steps_1">%s ਨਾਲ ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ| ਜਦੋਂ ਤੁਸੀਂ ਆਪਣੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ ਤਾਂ ਤੁਹਾਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਜਾਵੇਗਾ|</string>
@@ -564,7 +577,7 @@
   <string name="import_wallet_title">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਹੇਠਾਂ ਪਾਓ|</string>
   <string name="import_wallet_keystore_private_keys">ਚਾਬੀ ਸਟੋਰ ਜਾਂ ਨਿਜੀ ਕੁੰਜੀਆਂ</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">ਜਾਂ ਫਾਈਲ ਤੋਂ ਰਿਕਵਰ ਕਰੋ</string>
   <string name="import_wallet_file_button">ਫਾਈਲ ਤੋਂ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_button">ਬਟੂਆ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
@@ -753,20 +766,34 @@
   <string name="perks_body">ਸਾਡੇ ਨਾਲ ਜੁੜੇ ਰਹੇ! ਸਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਲਈ ਵਿਸ਼ੇਸ਼ ਆਫਰਾਂ ਹਨ|</string>
   <plurals name="promotion_ends">
     <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">ਆਫਰ %s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
   <string name="perks_end_in_date">ਆਫਰ %s ਨੂੰ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">ਆਫਰ %s ਘੰਟੇ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
+    <item quantity="other">ਆਫਰ %s ਘੰਟਿਆਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="other">ਆਫਰ %s ਮਿੰਟਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
+  </plurals>
+  <string name="perks_end_today">ਆਫਰ ਅੱਜ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
   <string name="perks_available_soon">ਆਫਰ ਜਲਦੀ ਉਪਲਬਧ ਹੋਵੇਗੀ</string>
   <string name="perks_next_level_reward">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚੋ!</string>
   <string name="perks_notification">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਬੋਨਸ ਦੇ ਰੂਪ ਵਿੱਚ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
   <string name="perks_level_up_on_this_purchase">ਇਸ ਖਰੀਦ ਨਾਲ ਪੱਧਰ ਵਧਿਆ</string>
   <string name="perks_level_up_amount_left">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੋਂ %1$s %2$s ਦੂਰ ਹੋ!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">ਐਲਵੀ %s</string>
+  <string name="perks_bonus_purchase_flow">%1$sਬੋਨਸ: %2$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਿੱਚ</string>
+  <string name="perks_purchases_disclaimer_body">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੋਂ ਇਲਾਵਾ ਕਿਸੇ ਵੀ ਖਰੀਦ ਵਿਧੀ ਨਾਲ ਕੀਤੀਆਂ ਗਈਆਂ ਇਨ-ਐਪ ਖਰੀਦਾਂ ਅਤੇ ਟਾਪ ਅੱਪ ਤੁਹਾਡੇ ਬੋਨਸ ਪੱਧਰ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਦੇ ਯੋਗ ਹੋਣਗੇ|</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">ਫਿੰਗਰਪ੍ਰਿੰਟ ਲਾਕ</string>
+  <string name="fingerprint_failed_title">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ!</string>
+  <string name="fingerprint_failed_body">%s ਸਕਿੰਟਾਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ.</string>
+  <string name="fingerprint_authentication_required_title">ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ ਹੈ!</string>
+  <string name="fingerprint_authentication_required_body">ਕਿਰਪਾ ਕਰਕੇ ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੀ ਉਂਗਲ ਜਾਂ ਪਾਸਵਰਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">ਸਹਾਇਤਾ ਟੀਮ ਨੂੰ ਲੌਗ ਭੇਜੋ</string>
+  <string name="send_logs_sending">ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+  <string name="send_logs_send">ਭੇਜਿਆ ਗਿਆ!</string>
 </resources>

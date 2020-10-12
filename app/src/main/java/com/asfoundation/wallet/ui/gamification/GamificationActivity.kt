@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -21,33 +22,33 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   private lateinit var menu: Menu
   private lateinit var presenter: GamificationActivityPresenter
   private var toolbar: Toolbar? = null
-  private var infoButtonSubject: PublishSubject<Any>? = null
+  private var backEnabled = true
+  private var onBackPressedSubject: PublishSubject<Any>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_rewards_level)
     toolbar = toolbar()
+    onBackPressedSubject = PublishSubject.create()
     setTitle(getString(R.string.gamif_title, bonus.toString()))
-    infoButtonSubject = PublishSubject.create()
     presenter =
         GamificationActivityPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
     presenter.present()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
+    return when (item.itemId) {
       android.R.id.home -> {
-        onBackPressed()
-        return true
+        if (backEnabled) {
+          onBackPressed()
+        } else {
+          onBackPressedSubject?.onNext("")
+        }
+        true
       }
-
-      R.id.action_info -> {
-        infoButtonSubject?.onNext(Any())
-        return true
-      }
+      else -> super.onOptionsItemSelected(item)
     }
-    return super.onOptionsItemSelected(item)
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,8 +56,6 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     this.menu = menu
     return super.onCreateOptionsMenu(menu)
   }
-
-  override fun getInfoButtonClick() = infoButtonSubject!!
 
   override fun retryClick() = RxView.clicks(retry_button)
 
@@ -85,7 +84,6 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   }
 
   override fun onDestroy() {
-    infoButtonSubject = null
     presenter.stop()
     super.onDestroy()
   }
@@ -104,5 +102,15 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
         putExtra(BONUS, bonus)
       }
     }
+  }
+
+  override fun backPressed()= onBackPressedSubject!!
+
+  override fun enableBack() {
+    backEnabled = true
+  }
+
+  override fun disableBack() {
+    backEnabled = false
   }
 }

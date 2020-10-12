@@ -114,14 +114,29 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun okHttpClient(context: Context,
-                   preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+  @Named("blockchain")
+  fun provideBlockchainOkHttpClient(context: Context,
+                                    preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
     return OkHttpClient.Builder()
         .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
         .addInterceptor(LogInterceptor())
         .connectTimeout(15, TimeUnit.MINUTES)
         .readTimeout(30, TimeUnit.MINUTES)
         .writeTimeout(30, TimeUnit.MINUTES)
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  @Named("default")
+  fun provideDefaultOkHttpClient(context: Context,
+                                 preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+    return OkHttpClient.Builder()
+        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+        .addInterceptor(LogInterceptor())
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(45, TimeUnit.SECONDS)
+        .writeTimeout(45, TimeUnit.SECONDS)
         .build()
   }
 
@@ -238,7 +253,8 @@ internal class AppModule {
 
   @Provides
   @Singleton
-  fun providesCountryCodeProvider(client: OkHttpClient, gson: Gson): CountryCodeProvider {
+  fun providesCountryCodeProvider(@Named("default") client: OkHttpClient,
+                                  gson: Gson): CountryCodeProvider {
     val api = Retrofit.Builder()
         .baseUrl(IpCountryCodeProvider.ENDPOINT)
         .client(client)
@@ -418,11 +434,10 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideAnalyticsManager(okHttpClient: OkHttpClient, api: AnalyticsAPI, context: Context,
-                              @Named("bi_event_list") biEventList: List<String>,
+  fun provideAnalyticsManager(@Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
+                              context: Context, @Named("bi_event_list") biEventList: List<String>,
                               @Named("facebook_event_list") facebookEventList: List<String>,
-                              @Named("rakam_event_list")
-                              rakamEventList: List<String>,
+                              @Named("rakam_event_list") rakamEventList: List<String>,
                               @Named("amplitude_event_list")
                               amplitudeEventList: List<String>): AnalyticsManager {
     return AnalyticsManager.Builder()
@@ -557,7 +572,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideAutoUpdateApi(client: OkHttpClient, gson: Gson): AutoUpdateApi {
+  fun provideAutoUpdateApi(@Named("default") client: OkHttpClient, gson: Gson): AutoUpdateApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -616,7 +631,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesWeb3jProvider(client: OkHttpClient,
+  fun providesWeb3jProvider(@Named("blockchain") client: OkHttpClient,
                             networkInfo: NetworkInfo): Web3jProvider {
     return Web3jProvider(client, networkInfo)
   }

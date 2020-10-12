@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -219,7 +220,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                                   priceCurrency: String? = null): Completable {
     return when {
       paymentModel.resultCode.equals("AUTHORISED", true) -> {
-        adyenPaymentInteractor.getTransaction(paymentModel.uid)
+        adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
@@ -236,12 +237,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
                 }
                 isPaymentFailed(it.status) -> {
-                  Completable.fromAction {
-                    sendPaymentErrorEvent(it.error.code,
-                        buildRefusalReason(it.status, it.error.message))
-                    handleErrors(it.error)
+                  if (paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
+                    retrieveFailedReason(paymentModel.uid)
+                  } else {
+                    Completable.fromAction {
+                      sendPaymentErrorEvent(it.error.code,
+                          buildRefusalReason(it.status, it.error.message))
+                      handleErrors(it.error)
+                    }
+                        .subscribeOn(viewScheduler)
                   }
-                      .subscribeOn(viewScheduler)
                 }
                 else -> {
                   sendPaymentErrorEvent(it.error.code, it.status.toString())
@@ -275,6 +280,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           handleErrors(paymentModel.error)
         }
       }
+      paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
+        retrieveFailedReason(paymentModel.uid)
+      }
       paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
         sendPaymentErrorEvent(paymentModel.error.code, "${paymentModel.status}: Generic Error")
@@ -298,6 +306,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .andThen(Completable.timer(view.getAnimationDuration(),
             TimeUnit.MILLISECONDS))
         .andThen(Completable.fromAction { navigator.popView(bundle) })
+  }
+
+  private fun retrieveFailedReason(uid: String): Completable {
+    return adyenPaymentInteractor.getFailedTransactionReason(uid)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          Completable.fromAction {
+            sendPaymentErrorEvent(it.errorCode, it.errorMessage ?: "")
+            if (it.errorCode != null) view.showSpecificError(
+                adyenErrorCodeMapper.map(it.errorCode!!))
+            else view.showGenericError()
+          }
+        }
   }
 
   private fun handleFraudFlow(@StringRes error: Int) {

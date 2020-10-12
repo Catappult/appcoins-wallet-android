@@ -15,7 +15,19 @@ interface GamificationView {
 
   fun showHeaderInformation(totalSpent: String, bonusEarned: String, symbol: String)
 
-  fun getToggleButtonClick(): Observable<Boolean>
+  fun getUiClick(): Observable<Pair<String, Boolean>>
 
   fun toggleReachedLevels(show: Boolean)
+
+  fun getHomeBackPressed(): Observable<Any>
+
+  fun handleBackPressed()
+
+  fun getBottomSheetButtonClick(): Observable<Any>
+
+  fun getBackPressed(): Observable<Any>
+
+  fun updateBottomSheetVisibility()
+
+  fun getBottomSheetContainerClick(): Observable<Any>
 }

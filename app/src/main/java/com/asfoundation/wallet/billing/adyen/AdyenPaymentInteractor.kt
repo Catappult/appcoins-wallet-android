@@ -6,6 +6,7 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
@@ -138,7 +139,7 @@ class AdyenPaymentInteractor(
     return inAppPurchaseInteractor.convertToLocalFiat(doubleValue)
   }
 
-  fun getTransaction(uid: String): Observable<PaymentModel> {
+  fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMapObservable { walletAddressModel ->
           Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
@@ -153,6 +154,24 @@ class AdyenPaymentInteractor(
         }
   }
 
+  fun getFailedTransactionReason(uid: String, timesCalled: Int = 0): Single<PaymentModel> {
+    return if (timesCalled < MAX_NUMBER_OF_TRIES) {
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletAddressModel ->
+            Single.zip(adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
+                walletAddressModel.signedAddress),
+                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS),
+                BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
+          }
+          .flatMap {
+            if (it.errorCode != null) Single.just(it)
+            else getFailedTransactionReason(it.uid, timesCalled + 1)
+          }
+    } else {
+      Single.just(PaymentModel(Error(true)))
+    }
+  }
+
   fun getWalletAddress() = walletService.getWalletAddress()
 
   private fun isEndingState(status: TransactionResponse.Status): Boolean {
@@ -165,5 +184,10 @@ class AdyenPaymentInteractor(
 
   private fun isInApp(type: String): Boolean {
     return type.equals("INAPP", ignoreCase = true)
+  }
+
+  private companion object {
+    private const val MAX_NUMBER_OF_TRIES = 5
+    private const val REQUEST_INTERVAL_IN_SECONDS: Long = 2
   }
 }
