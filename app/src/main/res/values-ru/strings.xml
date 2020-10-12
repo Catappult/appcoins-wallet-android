@@ -763,7 +763,7 @@
   <string name="manage_cards_select_title">Выберите карту для платежа</string>
   <string name="manage_cards_remember">Запомнить карту</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Заработай бонус %s%% за каждую покупку</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Чем больше вы тратите в ваших любимых приложениях – тем больше бонус!</string>
   <string name="perks_title">Продвижения</string>
   <string name="perks_body">Будьте в курсе! У нас есть специальные предложения для вас.</string>
