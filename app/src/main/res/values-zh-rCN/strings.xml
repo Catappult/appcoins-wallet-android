@@ -760,7 +760,7 @@
   <string name="manage_cards_select_title">选择支付卡</string>
   <string name="manage_cards_remember">记住卡信息</string>
   <!--Perks-->
-  <string name="perks_gamif_title">每次购买可享%s%%的奖励</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="perks_title">促销</string>
   <string name="perks_body">敬请关注！我们为您推出了特别促销。</string>
