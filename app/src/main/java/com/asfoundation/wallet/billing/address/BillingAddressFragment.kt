@@ -44,11 +44,12 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "fiat_currency"
     private const val STORE_CARD_KEY = "store_card"
+    private const val PRE_SELECTED_KEY = "pre_selected"
 
     @JvmStatic
     fun newInstance(skuDescription: String, domain: String, appcAmount: BigDecimal, bonus: String,
                     fiatAmount: BigDecimal, fiatCurrency: String, isDonation: Boolean,
-                    shouldStoreCard: Boolean): BillingAddressFragment {
+                    shouldStoreCard: Boolean, preSelected: Boolean): BillingAddressFragment {
       return BillingAddressFragment().apply {
         arguments = Bundle().apply {
           putString(SKU_DESCRIPTION, skuDescription)
@@ -59,6 +60,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
           putString(FIAT_CURRENCY_KEY, fiatCurrency)
           putBoolean(IS_DONATION_KEY, isDonation)
           putBoolean(STORE_CARD_KEY, shouldStoreCard)
+          putBoolean(PRE_SELECTED_KEY, preSelected)
         }
       }
     }
@@ -96,7 +98,11 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     showBonus()
     setupFieldsListener()
     setupStateAdapter()
-    remember.isChecked = shouldStoreCard
+    if (preSelected) remember.visibility = GONE
+    else {
+      remember.visibility = VISIBLE
+      remember.isChecked = shouldStoreCard
+    }
   }
 
   private fun showButtons() {
@@ -308,6 +314,14 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
       arguments!!.getBoolean(STORE_CARD_KEY)
     } else {
       throw IllegalArgumentException("should store card data not found")
+    }
+  }
+
+  private val preSelected: Boolean by lazy {
+    if (arguments!!.containsKey(PRE_SELECTED_KEY)) {
+      arguments!!.getBoolean(PRE_SELECTED_KEY)
+    } else {
+      throw IllegalArgumentException("pre selected data not found")
     }
   }
 

@@ -39,16 +39,18 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "fiat_currency"
     private const val STORE_CARD_KEY = "store_card"
+    private const val PRE_SELECTED_KEY = "pre_selected"
 
     @JvmStatic
     fun newInstance(data: TopUpPaymentData, fiatAmount: String, fiatCurrency: String,
-                    shouldStoreCard: Boolean): BillingAddressTopUpFragment {
+                    shouldStoreCard: Boolean, preSelected: Boolean): BillingAddressTopUpFragment {
       return BillingAddressTopUpFragment().apply {
         arguments = Bundle().apply {
           putSerializable(PAYMENT_DATA, data)
           putString(FIAT_AMOUNT_KEY, fiatAmount)
           putString(FIAT_CURRENCY_KEY, fiatCurrency)
           putBoolean(STORE_CARD_KEY, shouldStoreCard)
+          putBoolean(PRE_SELECTED_KEY, preSelected)
         }
       }
     }
@@ -83,7 +85,11 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     setupFieldsListener()
     setupStateAdapter()
     button.setText(R.string.topup_home_button)
-    remember.isChecked = shouldStoreCard
+    if (preSelected) remember.visibility = View.GONE
+    else {
+      remember.visibility = VISIBLE
+      remember.isChecked = shouldStoreCard
+    }
   }
 
   private fun setupFieldsListener() {
@@ -251,6 +257,14 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
       arguments!!.getBoolean(STORE_CARD_KEY)
     } else {
       throw IllegalArgumentException("should store card data not found")
+    }
+  }
+
+  private val preSelected: Boolean by lazy {
+    if (arguments!!.containsKey(PRE_SELECTED_KEY)) {
+      arguments!!.getBoolean(PRE_SELECTED_KEY)
+    } else {
+      throw IllegalArgumentException("pre selected data not found")
     }
   }
 

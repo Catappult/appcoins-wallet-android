@@ -134,11 +134,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .commit()
   }
 
-  override fun navigateToBillingAddress(topUpData: TopUpPaymentData,
-                                        fiatAmount: String, fiatCurrency: String,
-                                        targetFragment: Fragment, shouldStoreCard: Boolean) {
+  override fun navigateToBillingAddress(topUpData: TopUpPaymentData, fiatAmount: String,
+                                        fiatCurrency: String, targetFragment: Fragment,
+                                        shouldStoreCard: Boolean, preSelected: Boolean) {
     val fragment = BillingAddressTopUpFragment.newInstance(topUpData, fiatAmount, fiatCurrency,
-        shouldStoreCard)
+        shouldStoreCard, preSelected)
         .apply {
           setTargetFragment(targetFragment, BILLING_ADDRESS_REQUEST_CODE)
         }
