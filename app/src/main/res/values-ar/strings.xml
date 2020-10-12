@@ -766,7 +766,7 @@
   <string name="manage_cards_select_title">اختر بطاقة دفع</string>
   <string name="manage_cards_remember">تذكر بطاقتي</string>
   <!--Perks-->
-  <string name="perks_gamif_title">احصل على %s%% مكافأة على كل عملية شراء</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">كلما أنفقت أكثر في تطبيقاتك المفضلة، كانت المكافأة أكبر!</string>
   <string name="perks_title">ترقيات</string>
   <string name="perks_body">ترقّبوا! لدينا ترقيات خاصة من أجلك.</string>
