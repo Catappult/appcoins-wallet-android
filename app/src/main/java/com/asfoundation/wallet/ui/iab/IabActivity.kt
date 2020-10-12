@@ -241,12 +241,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
                                   appcAmount: BigDecimal, targetFragment: Fragment,
-                                  shouldStoreCard: Boolean, preSelected: Boolean) {
+                                  shouldStoreCard: Boolean, isStored: Boolean) {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
 
     val fragment = BillingAddressFragment.newInstance(getSkuDescription(), transaction!!.domain,
-        appcAmount, bonus, value, currency, isDonation, shouldStoreCard, preSelected)
+        appcAmount, bonus, value, currency, isDonation, shouldStoreCard, isStored)
         .apply {
           setTargetFragment(targetFragment, TopUpActivity.BILLING_ADDRESS_REQUEST_CODE)
         }

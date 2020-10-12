@@ -53,7 +53,7 @@ interface IabView {
 
   fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
                          appcAmount: BigDecimal, targetFragment: Fragment, shouldStoreCard: Boolean,
-                         preSelected: Boolean)
+                         isStored: Boolean)
 
   fun lockRotation()
 

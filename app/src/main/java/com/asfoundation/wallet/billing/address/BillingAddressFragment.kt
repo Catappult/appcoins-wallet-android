@@ -44,12 +44,12 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "fiat_currency"
     private const val STORE_CARD_KEY = "store_card"
-    private const val PRE_SELECTED_KEY = "pre_selected"
+    private const val IS_STORED_KEY = "is_stored"
 
     @JvmStatic
     fun newInstance(skuDescription: String, domain: String, appcAmount: BigDecimal, bonus: String,
                     fiatAmount: BigDecimal, fiatCurrency: String, isDonation: Boolean,
-                    shouldStoreCard: Boolean, preSelected: Boolean): BillingAddressFragment {
+                    shouldStoreCard: Boolean, isStored: Boolean): BillingAddressFragment {
       return BillingAddressFragment().apply {
         arguments = Bundle().apply {
           putString(SKU_DESCRIPTION, skuDescription)
@@ -60,7 +60,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
           putString(FIAT_CURRENCY_KEY, fiatCurrency)
           putBoolean(IS_DONATION_KEY, isDonation)
           putBoolean(STORE_CARD_KEY, shouldStoreCard)
-          putBoolean(PRE_SELECTED_KEY, preSelected)
+          putBoolean(IS_STORED_KEY, isStored)
         }
       }
     }
@@ -98,7 +98,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     showBonus()
     setupFieldsListener()
     setupStateAdapter()
-    if (preSelected) remember.visibility = GONE
+    if (isStored) remember.visibility = GONE
     else {
       remember.visibility = VISIBLE
       remember.isChecked = shouldStoreCard
@@ -317,11 +317,11 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     }
   }
 
-  private val preSelected: Boolean by lazy {
-    if (arguments!!.containsKey(PRE_SELECTED_KEY)) {
-      arguments!!.getBoolean(PRE_SELECTED_KEY)
+  private val isStored: Boolean by lazy {
+    if (arguments!!.containsKey(IS_STORED_KEY)) {
+      arguments!!.getBoolean(IS_STORED_KEY)
     } else {
-      throw IllegalArgumentException("pre selected data not found")
+      throw IllegalArgumentException("is stored data not found")
     }
   }
 

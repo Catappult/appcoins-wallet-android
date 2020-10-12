@@ -39,18 +39,18 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "fiat_currency"
     private const val STORE_CARD_KEY = "store_card"
-    private const val PRE_SELECTED_KEY = "pre_selected"
+    private const val IS_STORED_KEY = "is_stored"
 
     @JvmStatic
     fun newInstance(data: TopUpPaymentData, fiatAmount: String, fiatCurrency: String,
-                    shouldStoreCard: Boolean, preSelected: Boolean): BillingAddressTopUpFragment {
+                    shouldStoreCard: Boolean, isStored: Boolean): BillingAddressTopUpFragment {
       return BillingAddressTopUpFragment().apply {
         arguments = Bundle().apply {
           putSerializable(PAYMENT_DATA, data)
           putString(FIAT_AMOUNT_KEY, fiatAmount)
           putString(FIAT_CURRENCY_KEY, fiatCurrency)
           putBoolean(STORE_CARD_KEY, shouldStoreCard)
-          putBoolean(PRE_SELECTED_KEY, preSelected)
+          putBoolean(IS_STORED_KEY, isStored)
         }
       }
     }
@@ -85,7 +85,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     setupFieldsListener()
     setupStateAdapter()
     button.setText(R.string.topup_home_button)
-    if (preSelected) remember.visibility = View.GONE
+    if (isStored) remember.visibility = View.GONE
     else {
       remember.visibility = VISIBLE
       remember.isChecked = shouldStoreCard
@@ -260,11 +260,11 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     }
   }
 
-  private val preSelected: Boolean by lazy {
-    if (arguments!!.containsKey(PRE_SELECTED_KEY)) {
-      arguments!!.getBoolean(PRE_SELECTED_KEY)
+  private val isStored: Boolean by lazy {
+    if (arguments!!.containsKey(IS_STORED_KEY)) {
+      arguments!!.getBoolean(IS_STORED_KEY)
     } else {
-      throw IllegalArgumentException("pre selected data not found")
+      throw IllegalArgumentException("is stored data not found")
     }
   }
 

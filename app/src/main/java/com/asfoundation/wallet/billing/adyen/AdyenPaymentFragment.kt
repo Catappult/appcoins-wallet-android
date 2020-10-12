@@ -297,7 +297,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     main_view?.visibility = GONE
     main_view_pre_selected?.visibility = GONE
     iabView.showBillingAddress(value, currency, bonus, appcAmount, this,
-        adyenSaveDetailsSwitch?.isChecked ?: true, isPreSelected)
+        adyenSaveDetailsSwitch?.isChecked ?: true, isStored)
   }
 
 
