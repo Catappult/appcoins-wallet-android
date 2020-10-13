@@ -281,8 +281,8 @@
             layout="@layout/skeleton_rounded_rectangle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="42dp"
-            android:layout_marginEnd="42dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
             app:layout_constraintTop_toTopOf="@id/bonus_msg"
             />
