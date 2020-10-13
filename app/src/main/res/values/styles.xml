@@ -596,12 +596,18 @@
   <style name="BalanceVerifyWalletChip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">10sp</item>
     <item name="android:textColor">@color/balance_wallet_verified_chip</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:drawablePadding">4dp</item>
   </style>
 
   <style name="BalanceVerifyWalletChip.Unverified">
     <item name="android:textColor">@color/black_87_alpha</item>
     <item name="android:textSize">12sp</item>
     <item name="fontFamily">sans-serif</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:drawablePadding">8dp</item>
   </style>
 
   <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
