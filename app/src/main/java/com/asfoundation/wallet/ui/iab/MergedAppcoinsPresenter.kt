@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.util.Log
+import android.util.Pair
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -18,6 +20,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
@@ -119,8 +122,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .doOnNext {
           if (!it.isSuccess) {
             view.hideLoading()
-          }
-          else{
+          } else {
             navigateToPayment(it.paymentNavigationData)
           }
         }
