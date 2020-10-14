@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Hay aksi, süreniz doldu. Tekrar başlayın!</string>
   <string name="verification_error_attempts_reached">Deneme limitine ulaşmışsınız gibi görünüyor. Tekrar denemek için lütfen bekleyin.</string>
   <string name="verified_tag">Doğrulanmış</string>
-  <string name="unferified_tag">Doğrulanmamış</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Bu satın alma işlemi zaten işlenmiş gibi görünüyor. Lütfen işlem tamamlanana kadar bekleyin veya Destek Ekibimizle iletişime geçin.</string>
   <string name="purchase_more_payment_methods_button">DİĞER ÖDEME YÖNTEMLERİ</string>
