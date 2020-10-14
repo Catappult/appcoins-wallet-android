@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Ups, waktu Anda sudah habis. Mulai lagi!</string>
   <string name="verification_error_attempts_reached">Sepertinya Anda sudah mencapai batas percobaan. Harap tunggu untuk mencoba lagi.</string>
   <string name="verified_tag">Terverifikasi</string>
-  <string name="unferified_tag">Tidak terverifikasi</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Sepertinya pembelian ini sedang diproses. Harap tunggu sampai transaksinya selesai atau hubungi Tim Dukungan kami.</string>
   <string name="purchase_more_payment_methods_button">METODE PEMBAYARAN LAINNYA</string>
