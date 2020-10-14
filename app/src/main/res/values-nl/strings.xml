@@ -27,6 +27,7 @@
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
   <string name="title_delete_account">Weet je zeker dat je deze wallet wilt verwijderen?</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Overboeking</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Mogelijk gemaakt door Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +478,17 @@
   <string name="purchase_card_error_wrong_CVV">Het lijkt erop dat de CVV/CVC-code onjuist is. Probeer het opnieuw.</string>
   <string name="purchase_wallet_error_contact_us">Oeps, er is iets mis met je wallet. Neem contact met ons op.</string>
   <string name="purchase_carrier_error">Het lijkt erop dat je telefoonnummer niet compatibel met deze betaalmethode is.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Oeps. Er is bij deze aankoop een probleem opgetreden. Neem contact met ons op.</string>
+  <string name="purchase_error_wallet_block_code_403">Er is iets mis met je wallet. Neem contact met ons op.</string>
   <string name="purchase_card_error_CVV">Onjuiste CVV/CVC</string>
   <string name="error_contac_us_body">Neem contact met ons op als het probleem zich blijft voordoen.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Factuuradres</string>
+  <string name="purchase_address_address_field">Adres</string>
+  <string name="purchase_address_apartment_field">Toevoeging&#8230;</string>
+  <string name="purchase_address_city_field">Plaats</string>
+  <string name="purchase_address_post_code_field">Postcode</string>
+  <string name="purchase_address_state_field">Provincie</string>
   <!--Async Payments-->
   <string name="async_steps_title">Volgende stappen</string>
   <string name="async_steps_1">Voltooi je betaling met %s. Je ontvangt een bericht zodra de AppCoins Credits aan je wallet zijn toegevoegd.</string>
@@ -564,7 +578,7 @@
   <string name="import_wallet_title">Wallet herstellen</string>
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">Of vanuit bestand herstellen</string>
   <string name="import_wallet_file_button">VIA BESTAND HERSTELLEN</string>
   <string name="import_wallet_button">WALLET HERSTELLEN</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
@@ -747,26 +761,40 @@
   <string name="manage_cards_select_title">Betaalkaart selecteren</string>
   <string name="manage_cards_remember">Kaart onthouden</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Ontvang %s%% bonus bij elke aankoop</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Hoe meer je in je favoriete apps besteedt, hoe groter de bonus!</string>
   <string name="perks_title">Acties</string>
   <string name="perks_body">Blijf ons volgen! We hebben speciale acties voor je.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">De actie eindigt over %s dag.</item>
+    <item quantity="other">De actie eindigt over %s dagen.</item>
   </plurals>
   <string name="perks_end_in_date">De actie eindigt op %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">De actie eindigt over %s uur.</item>
+    <item quantity="other">De actie eindigt over %s uur.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">De actie eindigt over %s minuut.</item>
+    <item quantity="other">De actie eindigt over %s minuten.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Actie binnenkort beschikbaar</string>
   <string name="perks_next_level_reward">Bereik het volgende niveau om %s AppCoins Credits te ontvangen!</string>
   <string name="perks_notification">Je hebt zojuist een bonus van %s ontvangen</string>
   <string name="perks_level_up_on_this_purchase">Bereik het volgende niveau met deze aankoop</string>
   <string name="perks_level_up_amount_left">Je bent %1$s %2$s verwijderd van het volgende niveau!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">Niveau %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">Behalve AppCoins Credits komen alle aankoopmethoden voor het uitvoeren van in-app aankopen en opwaarderingen in aanmerking om je bonusniveau te verhogen en beloningen te ontvangen.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Vergrendeling met vingerafdruk</string>
+  <string name="fingerprint_failed_title">Authenticatie is mislukt!</string>
+  <string name="fingerprint_failed_body">Probeer het over %s seconden opnieuw.</string>
+  <string name="fingerprint_authentication_required_title">Authenticatie is vereist!</string>
+  <string name="fingerprint_authentication_required_body">Gebruik je vingerafdruk of wachtwoord om door te gaan.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Verzend logboeken naar het ondersteuningsteam</string>
+  <string name="send_logs_sending">Wordt verstuurd&#8230;</string>
+  <string name="send_logs_send">Verzonden!</string>
 </resources>

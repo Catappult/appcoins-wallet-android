@@ -123,7 +123,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
     onboarding_content.visibility = View.VISIBLE
     wallet_creation_animation.visibility = View.GONE
-    layout_validation_no_internet.visibility = View.GONE
+    onboarding_layout_validation_no_internet.visibility = View.GONE
   }
 
   override fun updateUI(maxAmount: String, isActive: Boolean) {
@@ -240,7 +240,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     stopRetryAnimation()
     onboarding_content.visibility = View.GONE
     wallet_creation_animation.visibility = View.GONE
-    layout_validation_no_internet.visibility = View.VISIBLE
+    onboarding_layout_validation_no_internet.visibility = View.VISIBLE
   }
 
   override fun getRetryButtonClicks(): Observable<Any> {

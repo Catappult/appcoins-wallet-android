@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import io.reactivex.Observable
@@ -21,6 +22,8 @@ interface IabView {
   fun finish(bundle: Bundle)
 
   fun finishWithError()
+
+  fun navigateBack()
 
   fun close(bundle: Bundle?)
 
@@ -47,9 +50,11 @@ interface IabView {
                            selectedPaymentMethod: String)
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                         appcEnabled: Boolean, creditsEnabled: Boolean, isBds: Boolean,
-                         isDonation: Boolean, gamificationLevel: Int, disabledReasonAppc: Int?,
-                         disabledReasonCredits: Int?)
+                         isBds: Boolean, isDonation: Boolean, gamificationLevel: Int)
+
+  fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
+                         appcAmount: BigDecimal, targetFragment: Fragment, shouldStoreCard: Boolean,
+                         isStored: Boolean)
 
   fun lockRotation()
 

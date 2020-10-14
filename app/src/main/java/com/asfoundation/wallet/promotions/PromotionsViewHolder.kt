@@ -7,6 +7,7 @@ import androidx.annotation.PluralsRes
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -23,6 +24,10 @@ import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+  companion object {
+    const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
+  }
 
   abstract fun bind(promotion: Promotion)
 
@@ -73,7 +78,15 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    itemView.setOnClickListener { clickListener.onNext(PromotionClick((promotion.id))) }
+    itemView.isClickable = progressItem.detailsLink != null
+
+    itemView.setOnClickListener {
+      val extras = emptyMap<String, String>().toMutableMap()
+      progressItem.detailsLink?.let {
+        extras[DETAILS_URL_EXTRA] = it
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
+    }
 
     GlideApp.with(itemView.context)
         .load(progressItem.icon)
@@ -105,8 +118,14 @@ class DefaultViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
+    itemView.isClickable = defaultItem.detailsLink != null
+
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      val extras = emptyMap<String, String>().toMutableMap()
+      defaultItem.detailsLink?.let {
+        extras[DETAILS_URL_EXTRA] = it
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     GlideApp.with(itemView.context)
@@ -129,8 +148,14 @@ class FutureViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
+    itemView.isClickable = futureItem.detailsLink != null
+
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      val extras = emptyMap<String, String>().toMutableMap()
+      futureItem.detailsLink?.let {
+        extras[DETAILS_URL_EXTRA] = it
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     GlideApp.with(itemView.context)
@@ -197,7 +222,7 @@ class GamificationViewHolder(itemView: View,
     val df = DecimalFormat("###.#")
 
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      clickListener.onNext(PromotionClick(promotion.id))
     }
 
     itemView.planet.setImageDrawable(gamificationItem.planet)
@@ -210,6 +235,10 @@ class GamificationViewHolder(itemView: View,
           formatter.formatGamificationValues(gamificationItem.toNextLevelAmount))
     } else {
       itemView.planet_subtitle.visibility = View.INVISIBLE
+    }
+
+    itemView.gamification_info_btn.setOnClickListener {
+      clickListener.onNext(PromotionClick(GAMIFICATION_INFO))
     }
 
     handleLinks(gamificationItem.links, itemView)

@@ -71,8 +71,7 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
-  fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
-                         disabledReasonCredits: Int?)
+  fun showMergedAppcoins(gamificationLevel: Int)
 
   fun lockRotation()
 

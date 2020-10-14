@@ -111,10 +111,7 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus(
                 selectedPaymentMethod)
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> {
-              val appCoinsPaymentMethod = selectedPaymentMethod as AppCoinsPaymentMethod
-              view.showMergedAppcoins(cachedGamificationLevel,
-                  appCoinsPaymentMethod.disabledReasonAppc,
-                  appCoinsPaymentMethod.disabledReasonCredits)
+              view.showMergedAppcoins(cachedGamificationLevel)
             }
             else -> {
               if (preferencesRepositoryType.hasAuthenticationPermission()) {

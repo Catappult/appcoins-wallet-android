@@ -4,8 +4,10 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.payments.response.Action
+import com.asfoundation.wallet.billing.address.BillingAddressModel
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
+import java.math.BigDecimal
 
 interface AdyenPaymentView {
 
@@ -41,6 +43,10 @@ interface AdyenPaymentView {
 
   fun retrievePaymentData(): ReplaySubject<AdyenCardWrapper>
 
+  fun retrieveBillingAddressData(): BillingAddressModel?
+
+  fun billingAddressInput(): Observable<Boolean>
+
   fun showSpecificError(stringRes: Int)
 
   fun showCvvError()
@@ -74,4 +80,6 @@ interface AdyenPaymentView {
   fun onAdyen3DSError(): Observable<String>
 
   fun setup3DSComponent()
+
+  fun showBillingAddress(value: BigDecimal, currency: String)
 }

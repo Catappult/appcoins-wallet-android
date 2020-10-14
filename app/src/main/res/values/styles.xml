@@ -235,6 +235,18 @@
     <item name="android:letterSpacing">.09</item>
   </style>
 
+  <style name="VerifyButtonStyle" parent="ButtonStyle.Light">
+    <item name="android:background">@drawable/button_light_background</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:paddingStart">@dimen/big_padding</item>
+    <item name="android:paddingEnd">@dimen/big_padding</item>
+    <item name="android:minHeight">28dp</item>
+    <item name="android:lineSpacingExtra">-3sp</item>
+  </style>
+
   <style name="CancelButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
     <item name="android:background">@drawable/borderless_button_background</item>
     <item name="android:textAllCaps">true</item>
@@ -497,6 +509,39 @@
     <item name="hintTextColor">@color/edit_text_label</item>
   </style>
 
+  <style name="BillingCursorTheme" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+    <item name="colorControlActivated">#000000</item>
+  </style>
+
+  <style name="BillingTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+    <item name="android:textColorHint">#757575</item>
+    <item name="android:textColor">#000000</item>
+    <item name="android:textSize">14sp</item>
+    <item name="boxStrokeColor">@color/billing_stroke_color</item>
+    <item name="boxStrokeWidth">1dp</item>
+    <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="hintTextColor">#000000</item>
+    <item name="colorControlActivated">#000000</item>
+    <item name="colorControlNormal">#000000</item>
+    <item name="colorControlHighlight">#000000</item>
+    <item name="android:theme">@style/BillingCursorTheme</item>
+  </style>
+
+  <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <item name="android:textColorHint">#757575</item>
+    <item name="android:textColor">#000000</item>
+    <item name="android:textSize">14sp</item>
+    <item name="boxStrokeColor">@color/billing_stroke_color</item>
+    <item name="boxStrokeWidth">1dp</item>
+    <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="hintTextColor">#000000</item>
+    <item name="colorControlActivated">#000000</item>
+    <item name="colorControlNormal">#000000</item>
+    <item name="colorControlHighlight">#000000</item>
+    <item name="android:theme">@style/BillingCursorTheme</item>
+    <item name="endIconTint">@color/billing_stroke_color</item>
+  </style>
+
 
   <style name="ErrorText" parent="TextAppearance.AppCompat">
     <item name="android:textColor">@color/colorAccent</item>
@@ -584,25 +629,48 @@
   <style name="BalanceVerifyWalletChip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">10sp</item>
     <item name="android:textColor">@color/balance_wallet_verified_chip</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:drawablePadding">4dp</item>
   </style>
 
   <style name="BalanceVerifyWalletChip.Unverified">
-    <item name="android:textColor">@color/appc_pink</item>
+    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textSize">12sp</item>
+    <item name="fontFamily">sans-serif</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:drawablePadding">8dp</item>
+  </style>
+
+  <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
+    <item name="cardBackgroundColor">@color/white</item>
+    <item name="cardCornerRadius">12dp</item>
+    <item name="cardElevation">4dp</item>
+    <item name="cardUseCompatPadding">true</item>
   </style>
 
   <style name="Promotions.TextStyle.Category.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">#e7000000</item>
     <item name="android:textSize">14sp</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
   <style name="Promotions.TextStyle.Category.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">#8a000000</item>
     <item name="android:textSize">12sp</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
   </style>
 
   <style name="Promotions.TextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">#01131f</item>
     <item name="android:textSize">12sp</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">6sp</item>
+    <item name="android:maxLines">3</item>
+    <item name="android:ellipsize">end</item>
   </style>
 
   <style name="Promotions.TextStyle.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -623,6 +691,8 @@
   <style name="Promotions.TextStyle.Date" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">#01131f</item>
     <item name="android:textSize">11sp</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:lineSpacingExtra">5sp</item>
   </style>
 
   <style name="Promotions.TextStyle.Links" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -649,6 +719,17 @@
 
   <style name="TransactionsItem.Description.Extended">
     <item name="android:maxLines">3</item>
+  </style>
+
+  <style name="BottomSheetInfoTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">#191919</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:lineSpacingExtra">10sp</item>
+  </style>
+
+  <style name="BillingAddress.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">#000000</item>
+    <item name="android:textSize">14sp</item>
   </style>
 
 </resources>

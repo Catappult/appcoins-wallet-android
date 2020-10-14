@@ -87,6 +87,10 @@ interface PreferencesRepositoryType {
 
   fun removePromotionNotificationSeenTime(walletAddress: String): Completable
 
+  fun showGamificationDisclaimer(): Boolean
+
+  fun setGamificationDisclaimerShown()
+
   fun setAuthenticationPermission(result: Boolean)
 
   fun hasAuthenticationPermission(): Boolean

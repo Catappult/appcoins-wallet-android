@@ -27,6 +27,7 @@
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
   <string name="no_camera_permission_title">Autorizzazione fotocamera</string>
   <string name="no_camera_permission">L\'AppCoins BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
+  <string name="no_camera_available">Nessuna fotocamera disponibile!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato codice a barre non valido: %s</string>
   <string name="title_delete_account">Sei sicuro di voler eliminare questo wallet?</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Trasferisci</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Bonus eliminato</string>
+  <string name="transaction_type_reverted_bonus_body">Il bonus che hai ricevuto su %s è stato eliminato. Contatta il servizio clienti per maggiori informazioni.</string>
+  <string name="transaction_type_reverted_topup_title">Rimborso ricarica</string>
+  <string name="transaction_type_reverted_topup_body">La ricarica che hai effettuato su %s è stata rimborsata. Contatta il servizio clienti per maggiori informazioni.</string>
+  <string name="transaction_type_reverted_purchase_title">Rimborso acquisto</string>
+  <string name="transaction_type_reverted_purchase_body">L\'acquisto che hai effettuato su %s è stato rimborsato. Contatta il servizio clienti per maggiori informazioni.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -475,6 +482,13 @@
   <string name="purchase_error_wallet_block_code_403">Si è verificato un problema con il tuo wallet. Contattaci.</string>
   <string name="purchase_card_error_CVV">CVV/CVC errato</string>
   <string name="error_contac_us_body">Se il problema persiste, contattaci.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Indirizzo di fatturazione</string>
+  <string name="purchase_address_address_field">Indirizzo</string>
+  <string name="purchase_address_apartment_field">Appartamento, piano&#8230;</string>
+  <string name="purchase_address_city_field">Città</string>
+  <string name="purchase_address_post_code_field">Codice di avviamento postale/CAP</string>
+  <string name="purchase_address_state_field">Stato/Provincia</string>
   <!--Async Payments-->
   <string name="async_steps_title">Passi successivi</string>
   <string name="async_steps_1">Completa il tuo pagamento con %s. Ti invieremo una notifica quando avrai ricevuto gli AppCoins Credits nel tuo wallet.</string>
@@ -564,7 +578,7 @@
   <string name="import_wallet_title">Recupera wallet</string>
   <string name="import_wallet_body">Incolla il backup del tuo wallet di seguito.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o chiavi private</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">O recupera da file</string>
   <string name="import_wallet_file_button">RECUPERA DA FILE</string>
   <string name="import_wallet_button">RECUPERA WALLET</string>
   <string name="import_wallet_password_body">Questo wallet è protetto da password!</string>
@@ -747,15 +761,24 @@
   <string name="manage_cards_select_title">Seleziona carta di pagamento</string>
   <string name="manage_cards_remember">Ricorda carta</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Ricevi %s%% di bonus su ogni acquisto</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Più spendi sulle tue app preferite, maggiore sarà il bonus!</string>
   <string name="perks_title">Promozioni</string>
   <string name="perks_body">Resta sintonizzato! Abbiamo in serbo delle promozioni speciali per te.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">La promozione scadrà tra %s giorno.</item>
+    <item quantity="other">La promozione scadrà tra %s giorni.</item>
   </plurals>
   <string name="perks_end_in_date">La promozione scadrà il giorno %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">La promozione scadrà tra %s ora.</item>
+    <item quantity="other">La promozione scadrà tra %s ore.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">La promozione scadrà tra %s minuto.</item>
+    <item quantity="other">La promozione scadrà tra %s minuti.</item>
+  </plurals>
+  <string name="perks_end_today">La promozione scade oggi.</string>
   <string name="perks_available_soon">Promozione disponibile a breve</string>
   <string name="perks_next_level_reward">Raggiungi il livello successivo per ricevere %s AppCoins Credits!</string>
   <string name="perks_notification">Hai appena ricevuto %s AppCoins Credits di bonus</string>
@@ -763,10 +786,15 @@
   <string name="perks_level_up_amount_left">Ti manca %1$s %2$s per il livello successivo!</string>
   <string name="perks_level_up_level_tag">Liv. %s</string>
   <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">Tutti gli acquisti e le ricariche in-app effettuati con qualsiasi metodo (eccetto gli AppCoins Credits) sono validi per aumentare il tuo livello bonus e ricevere premi.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Blocco impronta digitale</string>
   <string name="fingerprint_failed_title">Autenticazione fallita!</string>
   <string name="fingerprint_failed_body">Ritenta fra %s secondi.</string>
   <string name="fingerprint_authentication_required_title">Autenticazione necessaria!</string>
   <string name="fingerprint_authentication_required_body">Usa il dito o la password per continuare.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Invia log all\'assistenza clienti</string>
+  <string name="send_logs_sending">Invio di...&#8230;</string>
+  <string name="send_logs_send">Invio riuscito!</string>
 </resources>

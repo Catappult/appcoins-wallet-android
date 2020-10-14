@@ -2,8 +2,12 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
@@ -11,12 +15,17 @@ import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.bonus_updated_layout.*
 import kotlinx.android.synthetic.main.fragment_gamification.*
+import kotlinx.android.synthetic.main.fragment_gamification.bottom_sheet_fragment_container
+import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import java.math.BigDecimal
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -39,8 +48,15 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   private lateinit var presenter: GamificationPresenter
   private lateinit var activityView: GamificationActivityView
   private lateinit var levelsAdapter: LevelsAdapter
-  private var uiEventListener: PublishSubject<Boolean>? = null
+  private var uiEventListener: PublishSubject<Pair<String, Boolean>>? = null
+  private var onBackPressedSubject: PublishSubject<Any>? = null
+  private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
 
+  companion object {
+    const val SHOW_REACHED_LEVELS_ID = "SHOW_REACHED_LEVELS"
+    const val GAMIFICATION_INFO_ID = "GAMIFICATION_INFO"
+  }
+  
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
@@ -51,6 +67,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     uiEventListener = PublishSubject.create()
+    onBackPressedSubject = PublishSubject.create()
     presenter =
         GamificationPresenter(this, activityView, interactor, analytics, formatter,
             CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
@@ -63,6 +80,16 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    detailsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    detailsBottomSheet.addBottomSheetCallback(
+        object : BottomSheetBehavior.BottomSheetCallback() {
+          override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
+
+          override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
+            bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
+          }
+        })
     presenter.present(savedInstanceState)
   }
 
@@ -93,7 +120,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     total_spend.visibility = View.VISIBLE
   }
 
-  override fun getToggleButtonClick() = uiEventListener!!
+  override fun getUiClick() = uiEventListener!!
 
   override fun toggleReachedLevels(show: Boolean) {
     levelsAdapter.toggleReachedLevels(show)
@@ -112,5 +139,54 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+  }
+
+  override fun getHomeBackPressed() = activityView.backPressed()
+
+  override fun handleBackPressed() {
+    // Currently we only call the hide bottom sheet
+    // but maybe later additional stuff needs to be handled
+    updateBottomSheetVisibility()
+  }
+
+  override fun getBottomSheetButtonClick() = RxView.clicks(got_it_button)
+
+  override fun getBackPressed() = onBackPressedSubject!!
+
+  override fun updateBottomSheetVisibility() {
+    if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+      detailsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+      disableBackListener(bottomsheet_coordinator_container)
+    } else {
+      detailsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+      bottomsheet_coordinator_container.visibility = VISIBLE
+      bottomsheet_coordinator_container.background.alpha = 255
+      setBackListener(bottomsheet_coordinator_container)
+    }
+  }
+
+  override fun getBottomSheetContainerClick() = RxView.clicks(bottomsheet_coordinator_container)
+
+  private fun setBackListener(view: View) {
+    activityView.disableBack()
+    view.apply {
+      isFocusableInTouchMode = true
+      requestFocus()
+      setOnKeyListener { _, keyCode, keyEvent ->
+        if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+          if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED)
+            onBackPressedSubject?.onNext("")
+        }
+        true
+      }
+    }
+  }
+
+  private fun disableBackListener(view: View) {
+    activityView.enableBack()
+    view.apply {
+      isFocusableInTouchMode = false
+      setOnKeyListener(null)
+    }
   }
 }

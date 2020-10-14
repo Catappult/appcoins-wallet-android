@@ -10,56 +10,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Punjabi\n"
 "Language: pa_IN\n"
-"PO-Revision-Date: 2020-09-10 15:58\n"
+"PO-Revision-Date: 2020-09-29 10:19\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!"
 
-#. Card copy for the Purchase Promotion.
+#. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
 msgstr "{0} ਵਿਚ ਖਰੀਦੋ ਅਤੇ {1} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
-#. Body for Purchase bonus receipt.
+#. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
 msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ {0} ਵਿੱਚ ਇੱਕ ਖਰੀਦ ਕੀਤੀ|"
 
-#. Card copy for the Expenditure Promotion.
+#. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
 msgstr "{2} ਦਿਨਾਂ ਵਿੱਚ {0} {1} ਖਰਚ ਕਰੋ ਅਤੇ {3} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ"
 
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
 msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਆਖਰੀ {2} ਦਿਨਾਂ ਵਿੱਚ {0} {1} ਤੋਂ ਵੱਧ ਖਰਚ ਕੀਤਾ"
 
-#. Card copy for the Next Level Promotion.
+#. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
 msgstr "ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚੋ ਅਤੇ {0} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ!"
 
-#. Body for Purchase bonus receipt.
-#:
-msgid ""
-msgstr ""
-""
-
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
 msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ|"
 
-#. Card copy for Extra Gamification Bonus.
+#. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, {1} ਵਿੱਚ, ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
-#. Title for bonus receipt.
+#. Card - Firs purchase.
+#:
+msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
+msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, {1} ਵਿੱਚ, ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
+
+#. Receipt - First Purchase.
+#:
+msgid "Because of your first purchase in {0}."
+msgstr "{0} ਵਿੱਚ ਤੁਹਾਡੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰਕੇ|"
+
+#. Card - First purchase of the day.
+#:
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
+msgstr "{1} ਵਿੱਚ, ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, , ਆਪਣੀ ਦਿਨ ਦੀ ਪਹਿਲੀ ਖਰੀਦ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
+
+#. Receipt - First Purchase of the day.
+#:
+msgid "Because of your first purchase of the day in {0}."
+msgstr "{0} ਵਿੱਚ ਤੁਹਾਡੀ ਦਿਨ ਦੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰਕੇ|"
+
+#. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬੋਨਸ!"
+
+#. Card - Expendidute per amount Promotion.
+#:
+msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgstr "ਤੁਹਾਡੇ ਵੱਲੋਂ {3} ਵਿੱਚ ਖਰਚੇ ਹਰੇਕ {1} {2} ਲਈ {0} ਵਾਧੂ ਐਪ ਸਿੱਕ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
+
+#. Receipt - Expenditure per amount Promotion.
+#:
+msgid "Because you spent {0} {1} in {2}."
+msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ {0} {1} ਨੂੰ {2} ਵਿੱਚ ਖਰਚਿਆ|"
 

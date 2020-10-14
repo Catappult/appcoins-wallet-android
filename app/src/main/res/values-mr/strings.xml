@@ -27,6 +27,7 @@
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">ठीक आहे</string>
   <string name="barcode_error_format">अवैध बारकोड फोरमॅट: %s</string>
   <string name="title_delete_account">हे वॉलेट नक्की मिटवायचे आहे का?</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">हस्तांतरण</string>
   <string name="transaction_type_bonus">बोनस</string>
+  <string name="transaction_type_reverted_bonus_title">परत केलेला बोनस</string>
+  <string name="transaction_type_reverted_bonus_body">%s ह्यावर आपणांस मिळालेला बोनस परतवला गेलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
+  <string name="transaction_type_reverted_topup_title">टॉप-अपची परतफेड</string>
+  <string name="transaction_type_reverted_topup_body">%s ह्यावर आपण केलेला टॉप-अप परवलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
+  <string name="transaction_type_reverted_purchase_title">खरेदी परतावा</string>
+  <string name="transaction_type_reverted_purchase_body">%s वर आपण केलेली खरेदी रक्कम परतवलीय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">एथरियमने पावर्ड</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -415,7 +422,7 @@
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
   <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
   <string name="verification_insert_phone_body">बक्षिसे मिळविण्यासाठी वॉलेट सत्यापन करा! आम्ही आपल्याला सत्यापन कोड पाठवू.</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">आपला देश / भाग निवडा</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
   <string name="verification_insert_phone_field_region_error">हा प्रांत अजुनपर्यंत समर्थित नाहीं.</string>
@@ -471,18 +478,25 @@
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_wallet_error_contact_us">अरेरे आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_carrier_error">ह्या पेमेंट पद्धतीशी आपला फोन नंबर सुसंगत नाही असे दिसतेय.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">अरेरे, ह्या खरेदीत आम्हास समस्या येत आहे. कृपया आमच्याशी संपर्क साधा.</string>
+  <string name="purchase_error_wallet_block_code_403">आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये अस दिसतय. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">बिलिंग पत्ता</string>
+  <string name="purchase_address_address_field">पत्ता</string>
+  <string name="purchase_address_apartment_field">इमारत, मजला &#8230;</string>
+  <string name="purchase_address_city_field">शहर</string>
+  <string name="purchase_address_post_code_field">झिप/पोस्ट कोड</string>
+  <string name="purchase_address_state_field">राज्य/प्रोव्हिन्स</string>
   <!--Async Payments-->
   <string name="async_steps_title">पुढचे चरण</string>
   <string name="async_steps_1">आपले पेमेंट %s सह पूर्ण करा. आपल्या वॉलेटमध्ये अॅपकॉइन्स क्रेडीट मिळाल्यानंतर आपल्याला कळविण्यात येईल.</string>
   <string name="async_steps_2">खेळात परत जा आणि अॅपकॉइन्स क्रेडीटसना पेमेंट पद्धत म्हणुन वापरुन खरेदी करा.</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">आपल्या आवडत्या खेळात खरेदी करण्यासाठी ह्या अॅपकॉइन्स क्रेडीटसचा वापर करा!</string>
   <string name="async_steps_1_no_notification">%s सह आपले पेमेंट पूर्ण करा.</string>
   <string name="async_steps_2_no_notification">अॅपकॉइन्स क्रेडीटस मिळाल्यानंतर खेळात परत जा आणि अॅपकॉइन्स क्रेडीटसना पेमेंट पद्धत म्हणुन वापरुन खरेदी करा.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">एकदा का आपल्याला अॅपकॉइन्स क्रेडीटस मिळाली, कि मग आपल्या आवडत्या खेळात खरेदी करण्यासाठी त्यांचा वापर करा!</string>
   <string name="async_notification_title">आपली अॅपकॉइन्स क्रेडीटस आलेली आहेत!</string>
   <string name="async_notification_body">%s परत जाऊन खरेदीसाठी अॅपकॉइन्स क्रेडीटस वापरा.</string>
   <!--Referral Program-->
@@ -564,7 +578,7 @@
   <string name="import_wallet_title">वॉलेट परत मिळवा</string>
   <string name="import_wallet_body">आपल्या वॉलेटचा बॅकअप खाली पेस्ट करा.</string>
   <string name="import_wallet_keystore_private_keys">की स्टोर किंवा खासगी कीज</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">किंवा फाईलमधुन रिकव्हर करा</string>
   <string name="import_wallet_file_button">फाईलीतुन परत मिळवा</string>
   <string name="import_wallet_button">वॉलेट परत मिळवा</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
@@ -751,26 +765,52 @@
   <string name="manage_cards_select_title">पेमेंट कार्ड निवडा</string>
   <string name="manage_cards_remember">कार्ड ध्यानात ठेवा</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">आपण आपल्या आवडत्या अॅप्समध्ये जितका जास्त खर्च कराल, तितका मोठा बोनस मिळेल!</string>
+  <string name="perks_title">प्रमोशन्स</string>
+  <string name="perks_body">संलग्न रहा! आपल्यासाठी आमच्याकडे खास प्रमोशन्स आहेत.</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="one">%s दिवसात प्रमोशन संपत आहे.
+
+%s दिवसात प्रमोशन संपत आहे.</item>
+    <item quantity="other">%s दिवसात प्रमोशन संपत आहे.
+
+%s दिवसात प्रमोशन संपत आहे.</item>
   </plurals>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_end_in_date">%s दिवसात प्रमोशन संपत आहे.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">%s तासात प्रमोशन संपत आहे.
+
+%s तासात प्रमोशन संपत आहे.</item>
+    <item quantity="other">%s तासात प्रमोशन संपत आहे.
+
+%s तासात प्रमोशन संपत आहे.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">%s मिनिटात प्रमोशन संपत आहे.
+
+%s मिनिटात प्रमोशन संपत आहे.</item>
+    <item quantity="other">%s मिनिटात प्रमोशन संपत आहे.
+
+%s मिनिटात प्रमोशन संपत आहे.</item>
+  </plurals>
+  <string name="perks_end_today">आज प्रमोशन संपत आहे.</string>
+  <string name="perks_available_soon">लवकरच प्रमोशन उपलब्ध होईल</string>
+  <string name="perks_next_level_reward">पुढच्या पातळीवर पोचा आणि %s अॅपकॉइन्स क्रेडीटस मिळवा!</string>
+  <string name="perks_notification">आपल्याला आत्ताच %s अॅपकॉइन्स क्रेडीटस बोनस म्हणुन मिळालेत</string>
+  <string name="perks_level_up_on_this_purchase">ह्या खरेदीसह बरोबरी करा</string>
+  <string name="perks_level_up_amount_left">आपण पुढच्या पातळीपासुन %1$s %2$s दूर आहात!</string>
+  <string name="perks_level_up_level_tag">पातळी %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s बोनस: %2$s अॅपकॉइन्स क्रेडीटस</string>
+  <string name="perks_purchases_disclaimer_body">अॅपमधील सर्व खरेदी आणि टॉपअपस जे अॅपकॉइन्स क्रेडीतशच्या व्यतिरिक्त कोणत्याही खरेदी पद्धतीने केल्यास आपली बोनस पातळी वाढण्यास पात्र होईल आणि बक्षिसही मिळतील.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">फिंगरप्रिंट लॉक</string>
+  <string name="fingerprint_failed_title">प्रमाणीकरण अयशस्वी!</string>
+  <string name="fingerprint_failed_body">कृपया %s सेकंदात पुन्हा प्रयत्न करा.</string>
+  <string name="fingerprint_authentication_required_title">प्रमाणीकरण जरुरी!</string>
+  <string name="fingerprint_authentication_required_body">चालू ठेवण्यासाठी कृपया आपले बोट किंवा पासवर्ड वापरा.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">समर्थन गटास लॉग्ज पाठवा</string>
+  <string name="send_logs_sending">&#8230; पाठवित आहे</string>
+  <string name="send_logs_send">पाठवले!</string>
 </resources>

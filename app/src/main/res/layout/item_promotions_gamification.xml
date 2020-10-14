@@ -9,17 +9,17 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     >
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/space_background_card"
-      >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gamification_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
+        android:background="@drawable/space_background_card"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:paddingBottom="@dimen/normal_margin"
         >
       <ImageView
           android:layout_width="match_parent"
@@ -49,7 +49,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
-          android:layout_marginEnd="15dp"
+          android:layout_marginEnd="11dp"
           android:background="@drawable/oval_grey_background"
           android:ellipsize="end"
           android:fontFamily="sans-serif"
@@ -61,9 +61,24 @@
           android:textColor="@color/white"
           android:textSize="12sp"
           android:textStyle="bold"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/gamification_info_btn"
           app:layout_constraintTop_toTopOf="parent"
           tools:text="14% Bonus"
+          />
+      
+      <ImageButton
+          android:id="@+id/gamification_info_btn"
+          android:layout_width="48dp"
+          android:layout_height="40dp"
+          android:paddingTop="16dp"
+          android:paddingEnd="15dp"
+          android:src="@drawable/ic_info"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          android:scaleType="centerInside"
+          android:background="?android:attr/selectableItemBackgroundBorderless"
+          android:clickable="true"
+          android:focusable="true"
           />
 
       <TextView
@@ -92,33 +107,26 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/planet_title"
           app:layout_constraintTop_toBottomOf="@id/planet_title"
+          app:layout_constraintBottom_toTopOf="@id/linked_perks"
           tools:text="Spend 90 more AppCoins to reach next level"
           />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gamification_background"
-        android:paddingBottom="8dp"
-        >
 
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/linked_perks"
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/normal_margin"
-          android:layout_marginTop="@dimen/small_margin"
+          android:layout_marginTop="@dimen/big_margin"
           android:layout_marginEnd="@dimen/normal_margin"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/planet_subtitle"
           android:orientation="vertical"
           android:overScrollMode="never"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
           tools:itemCount="1"
           tools:listitem="@layout/item_gamification_link"
           />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-  </RelativeLayout>
 </androidx.cardview.widget.CardView>

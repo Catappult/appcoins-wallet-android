@@ -3,9 +3,10 @@ package com.asfoundation.wallet.ui.iab
 import android.util.Log
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.entity.Balance
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -13,21 +14,25 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import java.util.concurrent.TimeUnit
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val activityView: IabView,
                               private val disposables: CompositeDisposable,
+                              private val resumeDisposables: CompositeDisposable,
                               private val viewScheduler: Scheduler,
                               private val networkScheduler: Scheduler,
                               private val analytics: BillingAnalytics,
                               private val formatter: CurrencyFormatUtils,
-                              private val mergedAppcoinsInteract: MergedAppcoinsInteract,
+                              private val mergedAppcoinsInteractor: MergedAppcoinsInteractor,
                               private val gamificationLevel: Int,
                               private val navigator: Navigator,
                               private val logger: Logger,
+                              private val transactionBuilder: TransactionBuilder,
                               private val paymentMethodsMapper: PaymentMethodsMapper,
                               private val preferencesRepositoryType: PreferencesRepositoryType) {
 
@@ -50,23 +55,49 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   fun handleStop() = disposables.clear()
 
+  fun handlePause() = resumeDisposables.clear()
+
   private fun fetchBalance() {
-    disposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthBalance(),
-        Function3 { appcBalance: FiatValue, creditsBalance: FiatValue, ethBalance: FiatValue ->
+    resumeDisposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthBalance(),
+        Function3 { appcBalance: FiatValue, creditsBalance: Pair<Balance, FiatValue>, ethBalance: FiatValue ->
           val appcFiatValue =
               FiatValue(appcBalance.amount.plus(ethBalance.amount), appcBalance.currency,
                   appcBalance.symbol)
-          MergedAppcoinsBalance(appcFiatValue, creditsBalance)
+          MergedAppcoinsBalance(appcFiatValue, creditsBalance.second, creditsBalance.first.value)
         })
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext {
           val appcFiat = formatter.formatCurrency(it.appcFiatValue.amount, WalletCurrency.APPCOINS)
-          val creditsFiat = formatter.formatCurrency(it.creditsBalance.amount,
+          val creditsFiat = formatter.formatCurrency(it.creditsFiatBalance.amount,
               WalletCurrency.CREDITS)
-          view.updateBalanceValues(appcFiat, creditsFiat, it.creditsBalance.currency)
+          view.updateBalanceValues(appcFiat, creditsFiat, it.creditsFiatBalance.currency)
         }
+        .observeOn(networkScheduler)
+        .flatMapSingle {
+          Single.zip(hasEnoughCredits(it.creditsAppcAmount),
+              mergedAppcoinsInteractor.hasAppcFunds(transactionBuilder),
+              BiFunction { hasCredits: Availability, hasAppc: Availability ->
+                Pair(hasCredits, hasAppc)
+              })
+        }
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.setPaymentsInformation(it.first.isAvailable, it.first.disableReason,
+              it.second.isAvailable, it.second.disableReason)
+          view.toggleSkeletons(false)
+        }
+        .doOnSubscribe { view.toggleSkeletons(true) }
         .subscribe({ }, { it.printStackTrace() }))
+  }
+
+  private fun hasEnoughCredits(creditsAppcAmount: BigDecimal): Single<Availability> {
+    return Single.fromCallable {
+      val available = creditsAppcAmount >= transactionBuilder.amount()
+      val disabledReason =
+          if (!available) R.string.purchase_appcoins_credits_noavailable_body else null
+      Availability(available, disabledReason)
+    }
   }
 
   private fun handleBackClick() {
@@ -120,7 +151,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
           view.showLoading()
         }
         .flatMapSingle { paymentMethod ->
-          mergedAppcoinsInteract.isWalletBlocked()
+          mergedAppcoinsInteractor.isWalletBlocked()
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
               .doOnSuccess {
@@ -147,7 +178,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun handleSupportClicks() {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapCompletable { mergedAppcoinsInteract.showSupport(gamificationLevel) }
+        .flatMapCompletable { mergedAppcoinsInteractor.showSupport(gamificationLevel) }
         .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -193,10 +224,10 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     }
   }
 
-  private fun getCreditsBalance(): Observable<FiatValue> =
-      mergedAppcoinsInteract.getCreditsBalance()
+  private fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> =
+      mergedAppcoinsInteractor.getCreditsBalance()
 
-  private fun getAppcBalance(): Observable<FiatValue> = mergedAppcoinsInteract.getAppcBalance()
+  private fun getAppcBalance(): Observable<FiatValue> = mergedAppcoinsInteractor.getAppcBalance()
 
-  private fun getEthBalance(): Observable<FiatValue> = mergedAppcoinsInteract.getEthBalance()
+  private fun getEthBalance(): Observable<FiatValue> = mergedAppcoinsInteractor.getEthBalance()
 }

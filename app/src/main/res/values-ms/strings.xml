@@ -27,6 +27,7 @@
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
   <string name="no_camera_permission_title">Kebenaran Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format kod bar tidak sah: %s</string>
   <string name="title_delete_account">Anda pasti mahu alih keluar dompet ini?</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Pemindahan</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Dikuasakan Oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +478,17 @@
   <string name="purchase_card_error_wrong_CVV">Kod CVV/CVC anda mungkin tidak betul. Sila cuba lagi.</string>
   <string name="purchase_wallet_error_contact_us">Alamak, dompet anda ada masalah. Sila hubungi kami.</string>
   <string name="purchase_carrier_error">Nampaknya nombor telefon anda tidak serasi dengan kaedah pembayaran ini.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Oops, ada masalah dengan pembelian ini. Sila hubungi kami.</string>
+  <string name="purchase_error_wallet_block_code_403">Alamak, dompet anda ada masalah. Sila hubungi kami.</string>
   <string name="purchase_card_error_CVV">Salah CVV/CVC</string>
   <string name="error_contac_us_body">Jika masalah berlanjutan, sila hubungi kami.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Alamat bil</string>
+  <string name="purchase_address_address_field">Alamat</string>
+  <string name="purchase_address_apartment_field">Apartmen, tingkat&#8230;</string>
+  <string name="purchase_address_city_field">Bandar</string>
+  <string name="purchase_address_post_code_field">Zip/Poskod</string>
+  <string name="purchase_address_state_field">Negeri/Daerah</string>
   <!--Async Payments-->
   <string name="async_steps_title">Langkah Seterusnya</string>
   <string name="async_steps_1">Selesaikan pembayaran anda dengan %s. Anda akan dimaklumkan setelah anda terima Kredit AppCoins dalam dompet anda.</string>
@@ -564,7 +578,7 @@
   <string name="import_wallet_title">Dapatkan Semula Dompet</string>
   <string name="import_wallet_body">Tampal sandaran dompet anda di bawah.</string>
   <string name="import_wallet_keystore_private_keys">Kunci gedung atau kunci peribadi</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">Atau pulihkan dari fail</string>
   <string name="import_wallet_file_button">DAPATKAN DARIPADA FAIL</string>
   <string name="import_wallet_button">DAPATKAN SEMULA DOMPET</string>
   <string name="import_wallet_password_body">Dompet ini dilindungi kata laluan!</string>
@@ -746,25 +760,37 @@
   <string name="manage_cards_select_title">Pilih kad pembayaran</string>
   <string name="manage_cards_remember">Ingat kad</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Peroleh Bonus %s%% bagi setiap pembelian</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Lebih banyak anda berbelanja dalam aplikasi kegemaran anda, lebih besar bonusnya!</string>
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan ke mana-mana! Kami ada promosi istimewa untuk anda.</string>
   <plurals name="promotion_ends">
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">Promosi tamat dalam masa %s hari.</item>
   </plurals>
   <string name="perks_end_in_date">Promosi tamat pada %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Promosi akan tiba tak lama lagi</string>
   <string name="perks_next_level_reward">Capai tahap seterusnya untuk dapat %s Kredit AppCoins!</string>
   <string name="perks_notification">Anda baru saja terima %s Kredit AppCoins sebagai Bonus</string>
   <string name="perks_level_up_on_this_purchase">Naik tahap dengan pembelian ini</string>
   <string name="perks_level_up_amount_left">Anda perlu %1$s%2$s untuk ke tahap seterusnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s dalam Kredit AppCoins</string>
+  <string name="perks_purchases_disclaimer_body">Semua pembelian dan tambah nilai dalam aplikasi yang dibuat dengan sebarang kaedah pembelian selain daripada Kredit AppCoins akan melayakkan anda untuk meningkatkan tahap bonus anda dan menerima ganjaran.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Kunci cap jari</string>
+  <string name="fingerprint_failed_title">Pengesahan gagal!</string>
+  <string name="fingerprint_failed_body">Sila cuba lagi dalam masa %s saat.</string>
+  <string name="fingerprint_authentication_required_title">Pengesahan diperlukan!</string>
+  <string name="fingerprint_authentication_required_body">Sila gunakan jari atau kata laluan anda untuk teruskan.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Hantar log ke Pasukan Sokongan</string>
+  <string name="send_logs_sending">Menghantar&#8230;</string>
+  <string name="send_logs_send">Dihantar!</string>
 </resources>
