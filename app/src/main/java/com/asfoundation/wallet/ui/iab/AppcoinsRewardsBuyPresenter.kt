@@ -122,7 +122,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         }
       }
       Status.ERROR -> Completable.fromAction {
-        logger.log(TAG, "Credits transaction returned with error")
+        logger.log(TAG, "Credits transaction returned with error: ${transaction.errorMessage}")
         view.showError(null)
       }
       Status.FORBIDDEN -> Completable.fromAction {
