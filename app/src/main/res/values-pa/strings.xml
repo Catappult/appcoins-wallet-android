@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">ਓਹ ਹੋ, ਤੁਹਾਡਾ ਸਮਾਂ ਖਤਮ ਹੋ ਗਿਆ ਹੈ| ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ!</string>
   <string name="verification_error_attempts_reached">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕੋਸ਼ਿਸ਼ਾਂ ਦੀ ਸੀਮਾ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ|. ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਉਡੀਕ ਕਰੋ ਜੀ|</string>
   <string name="verified_tag">ਪ੍ਰਮਾਣਿਤ</string>
-  <string name="unferified_tag">ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ਇੰਝ ਲਗਦਾ ਹੈ ਕਿ ਖਰੀਦ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਪ੍ਰੋਸੈਸ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਪੂਰੀ ਹੋਣ ਤੱਕ ਰੁਕੋ ਜਾਂ ਸਾਡੀ ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_more_payment_methods_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
