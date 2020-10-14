@@ -42,9 +42,12 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleTooltipBackupClick()
     handleTooltipLaterClick()
     handleVerifyWalletClick()
+    handleCachedWalletInfoDisplay()
   }
 
-  fun onResume() = handleWalletInfoDisplay()
+  fun onResume() {
+    handleWalletInfoDisplay()
+  }
 
   private fun handleTooltipLaterClick() {
     disposables.add(view.getTooltipDismissClick()
@@ -94,20 +97,30 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleVerifyWalletClick() {
     disposables.add(view.getVerifyWalletClick()
-        .map { view.openWalletValidationScreen() }
         .observeOn(viewScheduler)
+        .doOnNext { view.openWalletValidationScreen() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleCachedWalletInfoDisplay() {
+    disposables.add(balanceInteract.requestActiveWalletAddress()
+        .observeOn(viewScheduler)
+        .doOnSuccess { handleValidationCache(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletInfoDisplay() {
-    disposables.add(balanceInteract.isWalletValid()
-        .subscribeOn(networkScheduler)
+    disposables.add(balanceInteract.requestActiveWalletAddress()
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setWalletAddress(it.first) }
+        .doOnSuccess { view.setWalletAddress(it) }
+        .observeOn(networkScheduler)
+        .flatMap { balanceInteract.isWalletValid(it) }
+        .observeOn(viewScheduler)
         .doOnSuccess {
           when (it.second) {
             WalletValidationStatus.SUCCESS -> displayWalletVerifiedStatus()
             WalletValidationStatus.GENERIC_ERROR -> displayWalletUnverifiedStatus()
+            WalletValidationStatus.NO_NETWORK -> handleNoNetwork(it.first)
             else -> handleValidationCache(it.first)
           }
         }
@@ -191,26 +204,28 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleValidationCache(address: String) {
     if (balanceInteract.isWalletValidated(address)) displayWalletVerifiedStatus()
+    else displayWalletUnverifiedStatus()
+  }
+
+  private fun handleNoNetwork(address: String) {
+    if (balanceInteract.isWalletValidated(address)) displayWalletVerifiedStatus()
     else displayNoNetworkStatus()
   }
 
   private fun displayWalletVerifiedStatus() {
     view.showVerifiedWalletChip()
     view.hideUnverifiedWalletChip()
-    view.hideVerifyWalletButton()
   }
 
   private fun displayWalletUnverifiedStatus() {
     view.showUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
-    view.showVerifyWalletButton()
     view.enableVerifyWalletButton()
   }
 
   private fun displayNoNetworkStatus() {
     view.showUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
-    view.showVerifyWalletButton()
     view.disableVerifyWalletButton()
   }
 

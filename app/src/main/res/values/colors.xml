@@ -88,7 +88,7 @@
 
   <color name="balance_active_wallet_grey">#a6a6a6</color>
   <color name="balance_verify_chip_background">#f7f7f7</color>
-  <color name="balance_wallet_verified_chip">#58ab00</color>
+  <color name="balance_wallet_verified_chip">#57aa00</color>
 
   <color name="remove_wallet_red">#e44b46</color>
 

@@ -105,12 +105,9 @@ class BalanceInteract(
     )
   }
 
-  fun isWalletValid(): Single<Pair<String, WalletValidationStatus>> {
-    return walletInteract.find()
-        .flatMap { wallet ->
-          smsValidationInteract.getValidationStatus(wallet.address)
-              .map { Pair(wallet.address, it) }
-        }
+  fun isWalletValid(address: String): Single<Pair<String, WalletValidationStatus>> {
+    return smsValidationInteract.getValidationStatus(address)
+        .map { Pair(address, it) }
   }
 
   fun isWalletValidated(address: String) = preferencesRepositoryType.isWalletValidated(address)

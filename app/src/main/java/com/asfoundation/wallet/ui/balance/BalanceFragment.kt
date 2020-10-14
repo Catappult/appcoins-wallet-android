@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.bottom_sheet_fragment_container
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
+import kotlinx.android.synthetic.main.unverified_layout.*
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -73,9 +74,8 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BalanceFragmentPresenter(this, activityView, balanceInteract,
-        walletsEventSender, Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(),
-        formatter)
+    presenter = BalanceFragmentPresenter(this, activityView, balanceInteract, walletsEventSender,
+        Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
     onBackPressedSubject = PublishSubject.create()
   }
 
@@ -271,7 +271,7 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     }
   }
 
-  override fun openWalletValidationScreen(): Boolean {
+  override fun openWalletValidationScreen() {
     context?.let {
       val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
           navigateToTransactionsOnSuccess = false, navigateToTransactionsOnCancel = false,
@@ -281,7 +281,6 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
           }
       startActivity(intent)
     }
-    return true
   }
 
   override fun showVerifiedWalletChip() {
@@ -293,19 +292,11 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
   }
 
   override fun showUnverifiedWalletChip() {
-    unverified_wallet_chip.visibility = View.VISIBLE
+    unverified_wallet_layout.visibility = View.VISIBLE
   }
 
   override fun hideUnverifiedWalletChip() {
-    unverified_wallet_chip.visibility = View.GONE
-  }
-
-  override fun showVerifyWalletButton() {
-    verify_wallet_button.visibility = View.VISIBLE
-  }
-
-  override fun hideVerifyWalletButton() {
-    verify_wallet_button.visibility = View.GONE
+    unverified_wallet_layout.visibility = View.GONE
   }
 
   override fun disableVerifyWalletButton() {
