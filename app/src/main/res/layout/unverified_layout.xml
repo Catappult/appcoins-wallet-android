@@ -28,7 +28,7 @@
       android:layout_marginTop="6dp"
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="6dp"
-      android:text="@string/referral_view_verify_button"
+      android:text="@string/verification_wallets_verify_button"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
