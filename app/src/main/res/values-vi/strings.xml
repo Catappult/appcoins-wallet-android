@@ -27,6 +27,7 @@
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Định dạng mã vạch không hợp lệ: %s</string>
   <string name="title_delete_account">Bạn có chắc chắn muốn xóa ví này?</string>
@@ -759,7 +760,7 @@
   <string name="manage_cards_select_title">Chọn thẻ thanh toán</string>
   <string name="manage_cards_remember">Nhớ thẻ</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Nhận %s%% tiền thưởng trên mỗi lượt mua</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Bạn càng dùng nhiều tiền trong các ứng dụng yêu thích, tiền thưởng cũng sẽ càng lớn!</string>
   <string name="perks_title">Khuyến mãi</string>
   <string name="perks_body">Cùng đón chờ! Chúng tôi có chương trình khuyến mãi đặc biệt dành cho bạn.</string>

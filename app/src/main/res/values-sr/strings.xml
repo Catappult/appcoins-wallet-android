@@ -27,6 +27,7 @@
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
   <string name="no_camera_permission_title">Dozvola za kameru</string>
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
   <string name="title_delete_account">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
@@ -761,7 +762,7 @@
   <string name="manage_cards_select_title">Izaberite platnu karticu</string>
   <string name="manage_cards_remember">Zapamti karticu</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Ostvarite %s%% bonusa za svaku kupovinu</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="perks_title">Promocije</string>
   <string name="perks_body">Pratite nas! Pripremili smo vam posebne promocije.</string>
