@@ -44,7 +44,6 @@ class AdyenErrorCodeMapper {
     const val DECLINED_NON_GENERIC = 27
     const val ISSUER_SUSPECTED_FRAUD = 31
 
-
   }
 
 }

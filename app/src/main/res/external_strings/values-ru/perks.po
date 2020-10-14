@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2020-09-24 10:31\n"
+"PO-Revision-Date: 2020-09-30 10:16\n"
 
 #. Card Title
 #:
@@ -50,27 +50,27 @@ msgstr "Потому что вы достигли следующего уров�
 #. Card - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "Получите бонус в {0}% на все ваши покупки в {1}, кроме покупок AppCoins Credits."
 
 #. Card - Firs purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Получите бонус в {0}% на вашу первую покупку в {1}, кроме покупок AppCoins Credits"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "За вашу первую покупку в {0}."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Получите бонус в {0}% на вашу первую покупку за день в {1}, кроме покупок AppCoins Credits"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "За вашу первую покупку за день в {0}."
 
 #. Title for bonus receipts.
 #:

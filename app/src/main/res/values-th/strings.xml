@@ -27,6 +27,7 @@
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
   <string name="title_delete_account">คุณมั่นใจว่าต้องการลบกระเป๋าสตางค์นี้</string>
@@ -759,7 +760,7 @@
   <string name="manage_cards_select_title">เลือกบัตรของคุณ</string>
   <string name="manage_cards_remember">จดจำบัตร</string>
   <!--Perks-->
-  <string name="perks_gamif_title">รับโบนัส %s%% จากทุกการซื้อ</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>
   <string name="perks_title">โปรโมชั่น</string>
   <string name="perks_body">คอยติดตาม! พวกเรามีโปรโมชั่นพิเศษสำหรับคุณ</string>

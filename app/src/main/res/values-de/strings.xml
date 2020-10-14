@@ -27,6 +27,7 @@
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
   <string name="no_camera_permission_title">Kamera-Berechtigung</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Okay</string>
   <string name="barcode_error_format">Ungültiges Barcode-Format: %s</string>
   <string name="title_delete_account">Sind Sie sicher das Sie das Wallet entfernen wollen?</string>
@@ -760,7 +761,7 @@
   <string name="manage_cards_select_title">Karte für Bezahlung auswählen</string>
   <string name="manage_cards_remember">An diese Karte erinnern</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Erhalten Sie %s%% Bonus bei jedem Einkauf</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Je mehr Sie in ihren Lieblings-Apps ausgeben, um so größer ist der Bonus!</string>
   <string name="perks_title">Aktionen</string>
   <string name="perks_body">Bleiben Sie dran! Wir haben besondere Aktionen für Sie.</string>

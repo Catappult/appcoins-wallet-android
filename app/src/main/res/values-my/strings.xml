@@ -27,6 +27,7 @@
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
   <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">အိုေက</string>
   <string name="barcode_error_format">ဘားကုဒ္ပံုစံ မမွန္ကန္ပါ - %s</string>
   <string name="title_delete_account">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
@@ -759,7 +760,7 @@
   <string name="manage_cards_select_title">ေငြေပးေခ်မည့္ကဒ္ကို ေရြးခ်ယ္ပါ</string>
   <string name="manage_cards_remember">ကဒ္ကို သတိရပါ</string>
   <!--Perks-->
-  <string name="perks_gamif_title">ဝယ္ယူမႈတိုင္းအတြက္ %s%% ေဘာနပ္စ္ရယူလိုက္ပါ</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ မ်ားမ်ားပို၍ သံုးစြဲေလ ေဘာနပ္စ္ပိုမ်ားေလ ျဖစ္ပါသည္။</string>
   <string name="perks_title">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="perks_body">နားစြင့္ထားလိုက္ပါ။ သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား ရွိပါသည္။</string>
