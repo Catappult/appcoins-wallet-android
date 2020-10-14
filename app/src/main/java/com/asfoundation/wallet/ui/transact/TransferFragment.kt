@@ -204,7 +204,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
         } else if (requestCode == TransferActivity.AUTHENTICATION_REQUEST_CODE) {
           if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
             authenticationResultSubject?.onNext(true)
-          } else if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
+          } else {
             authenticationResultSubject?.onNext(false)
           }
         }

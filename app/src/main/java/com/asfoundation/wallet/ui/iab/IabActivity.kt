@@ -18,8 +18,8 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.transactions.PerkBonusService
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -80,9 +80,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
     isBackEnable = true
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
-      firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
-      paymentNavigationData =
-          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
+      if (savedInstanceState.containsKey(FIRST_IMPRESSION)) {
+        firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
+      }
+      if (savedInstanceState.containsKey(PAYMENT_NAVIGATION_DATA)) {
+        paymentNavigationData =
+            savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
+      }
     }
     presenter =
         IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),

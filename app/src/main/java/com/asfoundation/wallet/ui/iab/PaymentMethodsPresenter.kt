@@ -314,10 +314,8 @@ class PaymentMethodsPresenter(
         .subscribe({ }, { this.showError(it) }))
   }
 
-  private fun setUpNextLevelInformation(
-      userStats: GamificationStats,
-      levels: Levels,
-      transactionValue: Double) {
+  private fun setUpNextLevelInformation(userStats: GamificationStats, levels: Levels,
+                                        transactionValue: Double) {
     val progress = getProgressPercentage(userStats, levels.list)
     if (shouldShowNextLevel(levels, progress, userStats)) {
       closeToLevelUp = true
@@ -327,7 +325,7 @@ class PaymentMethodsPresenter(
           mapper.getRectangleGamificationBackground(currentLevelInfo.levelColor),
           mapper.getRectangleGamificationBackground(nextLevelInfo.levelColor),
           currentLevelInfo.levelColor, willLevelUp(userStats, transactionValue),
-          userStats.nextLevelAmount?.minus(userStats.totalSpend))
+          userStats.nextLevelAmount!!.minus(userStats.totalSpend))
     } else {
       closeToLevelUp = false
     }
@@ -340,7 +338,7 @@ class PaymentMethodsPresenter(
   private fun shouldShowNextLevel(levels: Levels, progress: Double,
                                   userStats: GamificationStats): Boolean {
     return mapper.mapLevelUpPercentage(cachedGamificationLevel) <= progress &&
-        cachedGamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK
+        cachedGamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK && userStats.nextLevelAmount != null
   }
 
   private fun getProgressPercentage(userStats: GamificationStats,
@@ -645,8 +643,7 @@ class PaymentMethodsPresenter(
 
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
     when (selectedPaymentMethod) {
-      paymentMethodsMapper
-          .map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> {
+      paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> {
         view.replaceBonus()
         view.hideLevelUp()
       }

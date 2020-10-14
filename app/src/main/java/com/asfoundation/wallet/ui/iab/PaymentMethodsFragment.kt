@@ -421,8 +421,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (fiatValue != null) this.fiatValue = fiatValue
     val fiat = fiatValue ?: this.fiatValue
     val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
-        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat.amount,
-        fiat.currency, bonusMessageValue, isPreselected)
+        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat.amount, fiat.currency,
+        bonusMessageValue, isPreselected)
     iabView.showAuthenticationActivity(paymentNavigationData)
   }
 
@@ -448,8 +448,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                          iconUrl: String?,
                          gamificationLevel: Int) {
     if (!itemAlreadyOwnedError) {
-      iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType,
-          bonusMessageValue, true, iconUrl, gamificationLevel)
+      iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType, bonusMessageValue,
+          true, iconUrl, gamificationLevel)
     }
   }
 
@@ -545,17 +545,17 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                      nextLevelBackground: Drawable?,
                                      levelColor: Int,
                                      willLevelUp: Boolean,
-                                     leftAmount: BigDecimal?) {
-    if (willLevelUp) level_up_bonus_layout.information_message.text =
-        getString(R.string.perks_level_up_on_this_purchase)
-    else if (leftAmount != null) {
+                                     leftAmount: BigDecimal) {
+    if (willLevelUp) {
+      level_up_bonus_layout.information_message.text =
+          getString(R.string.perks_level_up_on_this_purchase)
+    } else {
       val df = DecimalFormat("###.#")
       level_up_bonus_layout.information_message.text =
           getString(R.string.perks_level_up_amount_left, df.format(leftAmount), "APPC")
     }
     level_up_bonus_layout.bonus_value.text =
         getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
-
     currentLevelBackground?.let { level_up_bonus_layout.current_level.background = it }
     nextLevelBackground?.let { level_up_bonus_layout.next_level.background = it }
     level_up_bonus_layout.current_level.text =
@@ -573,6 +573,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     no_bonus_msg?.visibility = View.INVISIBLE
     level_up_bonus_layout.visibility = View.VISIBLE
     bottom_separator?.visibility = View.VISIBLE
+    removeBonusSkeletons()
   }
 
   override fun hideLevelUp() {

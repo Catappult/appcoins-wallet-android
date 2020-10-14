@@ -73,13 +73,12 @@ class TransferPresenter(private val view: TransferFragmentView,
   }
 
   private fun handleQrCodeResult() {
-    onResumeDisposables.add(
-        view.getQrCodeResult()
-            .observeOn(ioScheduler)
-            .map { QRUri.parse(it.displayValue) }
-            .observeOn(viewScheduler)
-            .doOnNext { handleQRUri(it) }
-            .subscribe())
+    onResumeDisposables.add(view.getQrCodeResult()
+        .observeOn(ioScheduler)
+        .map { QRUri.parse(it.displayValue) }
+        .observeOn(viewScheduler)
+        .doOnNext { handleQRUri(it) }
+        .subscribe())
   }
 
   private fun handleQRUri(qrUri: QRUri) {
@@ -96,8 +95,7 @@ class TransferPresenter(private val view: TransferFragmentView,
         .subscribe())
   }
 
-  private fun shouldBlockTransfer(
-      currency: TransferFragmentView.Currency): Single<Boolean> {
+  private fun shouldBlockTransfer(currency: TransferFragmentView.Currency): Single<Boolean> {
     return if (currency == TransferFragmentView.Currency.APPC_C) {
       walletBlockedInteract.isWalletBlocked()
     } else {
@@ -235,13 +233,9 @@ class TransferPresenter(private val view: TransferFragmentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun clearOnPause() {
-    onResumeDisposables.clear()
-  }
+  fun clearOnPause() = onResumeDisposables.clear()
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
 
   fun onSaveInstance(outState: Bundle) {
     outState.putSerializable(DATA, cachedData)

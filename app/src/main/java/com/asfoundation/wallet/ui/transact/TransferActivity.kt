@@ -98,7 +98,6 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     startActivityForResult(intent, BARCODE_READER_REQUEST_CODE)
   }
 
-
   override fun hideKeyboard() {
     val inputMethodManager =
         this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -108,5 +107,4 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     }
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
   }
-
 }
