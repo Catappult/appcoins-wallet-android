@@ -71,7 +71,7 @@ msgstr ""
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr 
+msgstr ""
 
 #. Card - Expendidure in any game.
 #:
