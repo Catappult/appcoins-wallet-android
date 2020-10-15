@@ -89,7 +89,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
-        sendPayPalConfirmationEvent("cancel")
+        if(data?.dataString?.contains("codapayments") != true){
+          sendPayPalConfirmationEvent("cancel")
+        }
         showPaymentMethodsView()
       } else if (resultCode == SUCCESS) {
         if (data?.scheme?.contains("adyencheckout") == true) {
