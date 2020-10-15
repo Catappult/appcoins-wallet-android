@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">อุ๊ปส์ หมดเวลาแล้ว เริ่มอีกครั้ง!</string>
   <string name="verification_error_attempts_reached">ดูเหมือนว่าคุณเกินจำนวนทีจำกัดแล้ว โปรดรอซักครู่และลองอีกครั้ง</string>
   <string name="verified_tag">ยืนยัน</string>
-  <string name="unferified_tag">ไม่ยืนยัน</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>

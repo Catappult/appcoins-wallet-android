@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Opa, seu tempo expirou. Comece de novo!</string>
   <string name="verification_error_attempts_reached">Parece que você excedeu o limite de tentativas. Aguarde para tentar novamente.</string>
   <string name="verified_tag">Verificado</string>
-  <string name="unferified_tag">Não verificado</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Parece que esta compra já está sendo processada. Por favor, aguarde até que a transação seja concluída ou entre em contato com nossa equipe de suporte.</string>
   <string name="purchase_more_payment_methods_button">OUTROS MÉTODOS DE PAGAMENTO</string>
