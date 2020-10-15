@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Punjabi\n"
 "Language: pa_IN\n"
-"PO-Revision-Date: 2020-09-29 10:19\n"
+"PO-Revision-Date: 2020-10-15 14:26\n"
 
 #. Card Title
 #:
@@ -52,7 +52,7 @@ msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪ�
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, {1} ਵਿੱਚ, ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
-#. Card - Firs purchase.
+#. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
 msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, {1} ਵਿੱਚ, ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
@@ -79,11 +79,26 @@ msgstr "+{0} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬੋਨਸ!"
 
 #. Card - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
-msgstr "ਤੁਹਾਡੇ ਵੱਲੋਂ {3} ਵਿੱਚ ਖਰਚੇ ਹਰੇਕ {1} {2} ਲਈ {0} ਵਾਧੂ ਐਪ ਸਿੱਕ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
+msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
 msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ {0} {1} ਨੂੰ {2} ਵਿੱਚ ਖਰਚਿਆ|"
+
+#. Card - Expendidure in any game.
+#:
+msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
+msgstr ""
+
+#. Receipt - Expenditure in any game.
+#:
+msgid "Because you spent {0} {1} in AppCoins apps."
+msgstr ""
+
+#. Card - Extra bonus in all games.
+#:
+msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
+msgstr ""
 
