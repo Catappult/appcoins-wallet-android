@@ -312,7 +312,7 @@
   <string name="gamification_galaxy_subtitle">Mevcut en büyük sistem!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Satın Alma Bonusu:</string>
+  <string name="gamification_purchase_header_part_1">Bonus:</string>
   <string name="gamification_purchase_header_part_2">APPC Credits cinsinden %s</string>
   <string name="gamification_purchase_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Bitti!</string>
