@@ -69,8 +69,7 @@ class TransactionsMapper {
   }
 
   private fun mapOperations(operations: List<WalletHistory.Operation>): List<Operation> {
-    val list: MutableList<Operation> =
-        ArrayList(operations.size)
+    val list: MutableList<Operation> = ArrayList(operations.size)
     for (operation in operations) {
       list.add(Operation(operation.transactionId,
           operation.sender,

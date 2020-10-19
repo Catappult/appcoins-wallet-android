@@ -668,4 +668,30 @@ internal class AppModule {
   @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 
+  @Singleton
+  @Provides
+  fun provideTransactionsDatabase(context: Context): TransactionsDatabase {
+    return Room.databaseBuilder(context.applicationContext,
+        TransactionsDatabase::class.java,
+        "transactions_database")
+        .addMigrations(
+            TransactionsDatabase.MIGRATION_1_2,
+            TransactionsDatabase.MIGRATION_2_3,
+            TransactionsDatabase.MIGRATION_3_4,
+            TransactionsDatabase.MIGRATION_4_5
+        )
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun provideTransactionsDao(transactionsDatabase: TransactionsDatabase): TransactionsDao =
+      transactionsDatabase.transactionsDao()
+
+  @Singleton
+  @Provides
+  fun provideTransactionsLinkIdDao(
+      transactionsDatabase: TransactionsDatabase): TransactionLinkIdDao =
+      transactionsDatabase.transactionLinkIdDao()
+
 }

@@ -6,7 +6,7 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 
-class TransactionsLocalRepository(private val database: TransactionsDao,
+class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
                                   private val sharedPreferences: SharedPreferences) :
     TransactionsRepository {
 
@@ -15,22 +15,21 @@ class TransactionsLocalRepository(private val database: TransactionsDao,
     private const val LAST_LOCALE = "locale"
   }
 
-
   override fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>> {
-    return database.getAllAsFlowable(relatedWallet)
+    return transactionsDao.getAllAsFlowable(relatedWallet)
   }
 
   override fun insertAll(roomTransactions: List<TransactionEntity>) {
-    return database.insertAll(roomTransactions)
+    return transactionsDao.insertAll(roomTransactions)
   }
 
   override fun getNewestTransaction(relatedWallet: String): Maybe<TransactionEntity> {
-    return database.getNewestTransaction(relatedWallet)
+    return transactionsDao.getNewestTransaction(relatedWallet)
 
   }
 
   override fun getOlderTransaction(relatedWallet: String): Maybe<TransactionEntity> {
-    return database.getOlderTransaction(relatedWallet)
+    return transactionsDao.getOlderTransaction(relatedWallet)
   }
 
 
@@ -38,9 +37,7 @@ class TransactionsLocalRepository(private val database: TransactionsDao,
     return Single.fromCallable { sharedPreferences.getBoolean(OLD_TRANSACTIONS_LOAD, false) }
   }
 
-  override fun deleteAllTransactions() {
-    return database.deleteAllTransactions()
-  }
+  override fun deleteAllTransactions() = transactionsDao.deleteAllTransactions()
 
   override fun oldTransactionsLoaded() {
     sharedPreferences.edit()
