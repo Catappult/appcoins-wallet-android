@@ -238,11 +238,19 @@ dependencies {
 def renameArtifact(defaultConfig) {
   android.applicationVariants.all { variant ->
     variant.outputs.all {
-      def formattedDate = new Date().format('yyMMdd-HHmm')
-      def fileName = "AppCoins_Wallet_V${defaultConfig.versionCode}_${formattedDate}_${variant.name}"
-      outputFileName = new File("${fileName}.apk")
+      def SEP = "_"
+      def buildType = variant.variantData.variantConfiguration.buildType.name
+      def versionName = variant.versionName
+      def versionCode = defaultConfig.versionCode
+      def fileName =
+          "AppCoins_Wallet_v" + versionName + SEP + versionCode + SEP + buildType + ".apk"
+      outputFileName = new File("${fileName}")
     }
   }
 }
+
+// execute android tests before realising a new apk
+(tasks.whenTaskAdded { task -> if (task.name == 'assembleDebug') task.dependsOn('test')
+})
 
 apply plugin: 'com.google.gms.google-services'
