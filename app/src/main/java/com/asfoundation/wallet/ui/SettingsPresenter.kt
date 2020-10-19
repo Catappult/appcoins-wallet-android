@@ -14,8 +14,41 @@ class SettingsPresenter(private val view: SettingsView,
                         private val settingsInteract: SettingsInteract) {
 
   fun present() {
-    view.setupPreferences()
+    handleFingerPrintPreference()
+  }
+
+  fun onResume() {
+    setupPreferences()
     handleRedeemPreferenceSetup()
+    handleAuthenticationResult()
+  }
+
+  private fun setupPreferences() {
+    view.setPermissionPreference()
+    view.setSourceCodePreference()
+    view.setIssueReportPreference()
+    view.setTwitterPreference()
+    view.setTelegramPreference()
+    view.setFacebookPreference()
+    view.setEmailPreference()
+    view.setPrivacyPolicyPreference()
+    view.setTermsConditionsPreference()
+    view.setCreditsPreference()
+    view.setVersionPreference()
+    view.setRestorePreference()
+    view.setBackupPreference()
+  }
+
+  private fun handleFingerPrintPreference() {
+    if (settingsInteract.hasFingerPrintConfigured()) view.setFingerprintPreference()
+    else view.removeFingerprintPreference()
+  }
+
+  private fun handleAuthenticationResult() {
+    disposables.add(view.authenticationResult()
+        .filter { it }
+        .doOnNext { view.disableFingerPrint() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() = disposables.dispose()

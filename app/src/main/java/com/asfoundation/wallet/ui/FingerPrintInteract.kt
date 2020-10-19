@@ -19,5 +19,4 @@ class FingerPrintInteract(private val context: Context) {
         .setDeviceCredentialAllowed(true)
         .build()
   }
-
 }

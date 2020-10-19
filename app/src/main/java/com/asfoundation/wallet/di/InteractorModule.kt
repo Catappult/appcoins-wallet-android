@@ -513,10 +513,10 @@ class InteractorModule {
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
                                autoUpdateInteract: AutoUpdateInteract,
+                               fingerPrintInteract: FingerPrintInteract,
                                walletsEventSender: WalletsEventSender): SettingsInteract {
     return SettingsInteract(findDefaultWalletInteract, supportInteractor, walletsInteract,
-        autoUpdateInteract,
-        walletsEventSender)
+        autoUpdateInteract, fingerPrintInteract, walletsEventSender)
   }
 
   @Provides

@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui
 
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
-import android.util.Log
 import androidx.biometric.BiometricPrompt
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
@@ -35,19 +34,13 @@ class AuthenticationPromptPresenter(
   private fun showBiometricPrompt() {
     when (fingerprintInteract.compatibleDevice()) {
       BiometricManager.BIOMETRIC_SUCCESS -> {
-        view.showPrompt(view.createBiometricPrompt(),
-            fingerprintInteract.definePromptInformation())
+        view.showPrompt(view.createBiometricPrompt(), fingerprintInteract.definePromptInformation())
       }
       BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.closeSuccess()
       BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.closeSuccess()
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-        if (view.checkBiometricSupport()) {
-          view.showPrompt(view.createBiometricPrompt(),
-              fingerprintInteract.definePromptInformation())
-        } else {
-          preferencesRepositoryType.setAuthenticationPermission(false)
-          view.closeSuccess()
-        }
+        preferencesRepositoryType.setAuthenticationPermission(false)
+        view.closeSuccess()
       }
     }
   }
@@ -95,8 +88,9 @@ class AuthenticationPromptPresenter(
       preferencesRepositoryType.setAuthenticationErrorTime(currentTime)
       30
     } else {
-      val time = (ERROR_RETRY_TIME_IN_MILLIS - (currentTime - lastAuthenticationErrorTime)).toDouble()
-      ceil(time/1000).toLong()
+      val time =
+          (ERROR_RETRY_TIME_IN_MILLIS - (currentTime - lastAuthenticationErrorTime)).toDouble()
+      ceil(time / 1000).toLong()
     }
   }
 

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui
 
+import androidx.biometric.BiometricManager
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.AutoUpdateInteract
@@ -11,6 +12,7 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
                        private val supportInteractor: SupportInteractor,
                        private val walletsInteract: WalletsInteract,
                        private val autoUpdateInteract: AutoUpdateInteract,
+                       private val fingerPrintInteract: FingerPrintInteract,
                        private val walletsEventSender: WalletsEventSender) {
 
   fun findWallet() = findDefaultWalletInteract.find()
@@ -31,4 +33,7 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
   fun displaySupportScreen() = supportInteractor.displayChatScreen()
 
   fun retriveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
+
+  fun hasFingerPrintConfigured() =
+      fingerPrintInteract.compatibleDevice() == BiometricManager.BIOMETRIC_SUCCESS
 }

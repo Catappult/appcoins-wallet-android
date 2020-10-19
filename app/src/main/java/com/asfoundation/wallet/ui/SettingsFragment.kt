@@ -18,6 +18,7 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -52,6 +53,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter =
         SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), settingsInteract)
+    presenter.present()
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -61,7 +63,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun onResume() {
     super.onResume()
     pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
-    presenter.present()
+    presenter.onResume()
   }
 
   override fun onDestroyView() {
@@ -91,23 +93,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return true
   }
 
-  override fun setupPreferences() {
-    setPermissionPreference()
-    setFingerprintPreference()
-    setSourceCodePreference()
-    setIssueReportPreference()
-    setTwitterPreference()
-    setTelegramPreference()
-    setFacebookPreference()
-    setEmailPreference()
-    setPrivacyPolicyPreference()
-    setTermsConditionsPreference()
-    setCreditsPreference()
-    setVersionPreference()
-    setRestorePreference()
-    setBackupPreference()
-  }
-
   override fun showError() {
     view?.let {
       Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
@@ -115,7 +100,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setBackupPreference() {
+  override fun setBackupPreference() {
     val backupPreference = findPreference<Preference>("pref_backup")
     backupPreference?.setOnPreferenceClickListener {
       presenter.onBackupPreferenceClick()
@@ -123,7 +108,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setRestorePreference() {
+  override fun setRestorePreference() {
     val restorePreference = findPreference<Preference>("pref_restore")
     restorePreference?.setOnPreferenceClickListener {
       context?.let {
@@ -145,30 +130,51 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
-  private fun setPermissionPreference() {
+  override fun authenticationResult(): Observable<Boolean> {
+    return activityView.authenticationResult()
+  }
+
+  override fun disableFingerPrint() {
+    changeAuthenticationPermission(false)
+  }
+
+  override fun removeFingerprintPreference() {
+    val fingerPrintPreference = findPreference<SwitchPreference>("pref_fingerprint")
+    fingerPrintPreference?.isVisible = false
+  }
+
+  override fun setPermissionPreference() {
     val permissionPreference = findPreference<Preference>("pref_permissions")
     permissionPreference?.setOnPreferenceClickListener {
       openPermissionScreen()
     }
   }
 
-  private fun setFingerprintPreference() {
+  override fun setFingerprintPreference() {
     val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
     fingerprintPreference?.isChecked = preferencesRepositoryType.hasAuthenticationPermission()
     if (preferencesRepositoryType.hasAuthenticationPermission()) {
       fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
-    }
-    else {
+    } else {
       fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
     }
     fingerprintPreference?.setOnPreferenceChangeListener { preference, newValue ->
-      pref_authentication_switch.isChecked = newValue as Boolean
-      preferencesRepositoryType.setAuthenticationPermission(newValue as Boolean)
+      val value = newValue as Boolean
+      if (value.not()) {
+        activityView.showAuthentication()
+      } else {
+        changeAuthenticationPermission(value)
+      }
       true
     }
   }
 
-  private fun setSourceCodePreference() {
+  private fun changeAuthenticationPermission(value: Boolean) {
+    pref_authentication_switch.isChecked = value
+    preferencesRepositoryType.setAuthenticationPermission(value)
+  }
+
+  override fun setSourceCodePreference() {
     val sourceCodePreference = findPreference<Preference>("pref_source_code")
     sourceCodePreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://github.com/Aptoide/appcoins-wallet-android"), false)
@@ -176,7 +182,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setIssueReportPreference() {
+  override fun setIssueReportPreference() {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
       presenter.onBugReportClicked()
@@ -184,7 +190,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setTwitterPreference() {
+  override fun setTwitterPreference() {
     val twitterPreference = findPreference<Preference>("pref_twitter")
     twitterPreference?.setOnPreferenceClickListener {
       try {
@@ -197,7 +203,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setTelegramPreference() {
+  override fun setTelegramPreference() {
     val telegramPreference = findPreference<Preference>("pref_telegram")
     telegramPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://t.me/appcoinsofficial"), false)
@@ -205,7 +211,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setFacebookPreference() {
+  override fun setFacebookPreference() {
     val facebookPreference = findPreference<Preference>("pref_facebook")
     facebookPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://www.facebook.com/AppCoinsOfficial"), false)
@@ -213,7 +219,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setEmailPreference() {
+  override fun setEmailPreference() {
     val emailPreference = findPreference<Preference>("pref_email")
     emailPreference?.setOnPreferenceClickListener {
       val email = "info@appcoins.io"
@@ -229,7 +235,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setPrivacyPolicyPreference() {
+  override fun setPrivacyPolicyPreference() {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"),
@@ -238,7 +244,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setTermsConditionsPreference() {
+  override fun setTermsConditionsPreference() {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/terms-conditions"),
@@ -247,7 +253,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setCreditsPreference() {
+  override fun setCreditsPreference() {
     val creditsPreference = findPreference<Preference>("pref_credits")
     creditsPreference?.setOnPreferenceClickListener {
       AlertDialog.Builder(activity)
@@ -260,7 +266,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setVersionPreference() {
+  override fun setVersionPreference() {
     val versionString = getVersion()
     val versionPreference = findPreference<Preference>("pref_version")
     versionPreference?.summary = getString(R.string.check_updates_settings_subtitle, versionString)
