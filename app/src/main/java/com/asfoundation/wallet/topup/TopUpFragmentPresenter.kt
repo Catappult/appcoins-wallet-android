@@ -134,29 +134,29 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleNextClick() {
-    disposables.add(
-        view.getNextClick()
-            .flatMap { topUpData ->
-              interactor.getLimitTopUpValues()
-                  .toObservable()
-                  .filter {
-                    isCurrencyValid(topUpData.currency) && isValueInRange(it,
-                        topUpData.currency.fiatValue.toDouble()) && topUpData.paymentMethod != null
-                  }
-                  .subscribeOn(networkScheduler)
-                  .observeOn(viewScheduler)
-                  .doOnNext {
-                    topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
-                        "next", topUpData.paymentMethod!!.paymentType.name)
-                    if (preferencesRepositoryType.hasAuthenticationPermission()) {
-                      cachedTopUpData = topUpData
-                      activity?.showAuthenticationActivity()
-                    } else {
-                      navigateToPayment(topUpData, cachedGamificationLevel)
-                    }
-                  }
-            }
-            .subscribe({}, { handleError(it) }))
+    disposables.add(view.getNextClick()
+        .throttleFirst(500, TimeUnit.MILLISECONDS)
+        .observeOn(networkScheduler)
+        .switchMap { topUpData ->
+          interactor.getLimitTopUpValues()
+              .toObservable()
+              .filter {
+                isCurrencyValid(topUpData.currency) && isValueInRange(it,
+                    topUpData.currency.fiatValue.toDouble()) && topUpData.paymentMethod != null
+              }
+              .observeOn(viewScheduler)
+              .doOnNext {
+                topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
+                    "next", topUpData.paymentMethod!!.paymentType.name)
+                if (preferencesRepositoryType.hasAuthenticationPermission()) {
+                  cachedTopUpData = topUpData
+                  activity?.showAuthenticationActivity()
+                } else {
+                  navigateToPayment(topUpData, cachedGamificationLevel)
+                }
+              }
+        }
+        .subscribe({}, { handleError(it) }))
   }
 
 

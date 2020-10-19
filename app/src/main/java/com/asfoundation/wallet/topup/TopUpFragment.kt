@@ -154,29 +154,21 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (savedInstanceState?.containsKey(SELECTED_CURRENCY_PARAM) == true) {
-      selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
-      localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
-    }
+    topUpActivityView?.showToolbar()
     savedInstanceState?.let {
+      if (savedInstanceState.containsKey(SELECTED_CURRENCY_PARAM)) {
+        selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
+        localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
+      }
       selectedPaymentMethodId = it.getString(SELECTED_PAYMENT_METHOD_PARAM)
     }
-    topUpActivityView?.showToolbar()
     presenter.present(appPackage, savedInstanceState)
 
     topUpAdapter = TopUpAdapter(Action1 { valueSubject?.onNext(it) })
-
     rv_default_values.apply {
       adapter = topUpAdapter
     }
-
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
-  }
-
-  override fun onResume() {
-    //added since this fragment continues active after navigating to the payment fragment
-    if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(main_value)
-    super.onResume()
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -253,6 +245,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
     swap_value_label.visibility = View.VISIBLE
+    //added since this fragment continues active after navigating to the payment fragment
+    if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(main_value)
+
   }
 
   private fun focusAndShowKeyboard(view: EditText) {
