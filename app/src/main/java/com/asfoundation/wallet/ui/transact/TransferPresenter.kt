@@ -40,7 +40,7 @@ class TransferPresenter(private val view: TransferFragmentView,
 
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let {
-      cachedData = savedInstanceState.getSerializable(DATA) as TransferFragmentView.TransferData
+      cachedData = savedInstanceState.getSerializable(DATA) as TransferFragmentView.TransferData?
     }
     handleButtonClick()
     handleQrCodeButtonClick()

@@ -64,6 +64,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     private const val TRANSACTION = "transaction"
     private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
+    private const val FIAT_VALUE = "fiat_value"
 
     @JvmStatic
     fun newInstance(transaction: TransactionBuilder?, productName: String?,
@@ -127,7 +128,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
-  private lateinit var fiatValue: FiatValue
+  private var fiatValue: FiatValue? = null
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var paymentMethodClick: PublishRelay<Int>
   private lateinit var paymentMethodsAdapter: PaymentMethodsAdapter
@@ -153,13 +154,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     paymentMethodClick = PublishRelay.create()
     onBackPressedSubject = PublishSubject.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
+    fiatValue = savedInstanceState?.getSerializable(FIAT_VALUE) as FiatValue?
     presenter = PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
         bdsPendingTransactionService, billing, analytics, analyticsSetup, amplitudeAnalytics, isBds,
-        developerPayload,
-        uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract, iabView, preferencesRepositoryType, gamificationInteractor,
-        mapper)
+        developerPayload, uri, transactionBuilder!!, paymentMethodsMapper,
+        transactionValue.toDouble(), formatter, logger, paymentMethodsInteract, iabView,
+        preferencesRepositoryType, gamificationInteractor, mapper)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -180,6 +181,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError)
+    outState.putSerializable(FIAT_VALUE, fiatValue)
     presenter.onSavedInstance(outState)
   }
 
@@ -415,7 +417,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (fiatValue != null) this.fiatValue = fiatValue
     val fiat = fiatValue ?: this.fiatValue
     val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
-        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat.amount, fiat.currency,
+        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat!!.amount, fiat.currency,
         bonusMessageValue, isPreselected)
     iabView.showAuthenticationActivity(paymentNavigationData)
   }
@@ -433,7 +435,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showPaypal(gamificationLevel: Int) {
-    iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
+    iabView.showAdyenPayment(fiatValue!!.amount, fiatValue!!.currency, isBds,
         PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
   }
 
@@ -448,7 +450,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showCreditCard(gamificationLevel: Int) {
-    iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
+    iabView.showAdyenPayment(fiatValue!!.amount, fiatValue!!.currency, isBds,
         PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
   }
 
@@ -521,7 +523,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showMergedAppcoins(gamificationLevel: Int) {
-    iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
+    iabView.showMergedAppcoins(fiatValue!!.amount, fiatValue!!.currency, bonusMessageValue,
         isBds, isDonation, gamificationLevel)
   }
 

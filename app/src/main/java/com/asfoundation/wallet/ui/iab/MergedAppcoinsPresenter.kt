@@ -120,7 +120,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     disposables.add(activityView.onAuthenticationResult()
         .observeOn(viewScheduler)
         .doOnNext {
-          if (!it.isSuccess) {
+          if (!it.isSuccess || it.paymentNavigationData == null) {
             view.hideLoading()
           } else {
             navigateToPayment(it.paymentNavigationData)

@@ -86,15 +86,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       if (savedInstanceState.containsKey(FIRST_IMPRESSION)) {
         firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
       }
-      if (savedInstanceState.containsKey(PAYMENT_NAVIGATION_DATA)) {
-        paymentNavigationData =
-            savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
-      }
+      paymentNavigationData =
+          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
     }
-    presenter =
-        IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
-            walletBlockedInteract, logger)
+    presenter = IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
+        CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
+        walletBlockedInteract, logger)
     if (savedInstanceState == null) showPaymentMethodsView()
   }
 
@@ -126,13 +123,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         paymentNavigationData?.let {
           authenticationResultSubject?.onNext(
               PaymentAuthenticationResult(true, it))
-        }
+        } ?: sendFailAuthenticationResult()
       } else if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
         paymentNavigationData?.let {
           authenticationResultSubject?.onNext(PaymentAuthenticationResult(false, it))
-        }
+        } ?: sendFailAuthenticationResult()
       }
     }
+  }
+
+  private fun sendFailAuthenticationResult() {
+    authenticationResultSubject?.onNext(PaymentAuthenticationResult(false, null))
   }
 
   override fun onResume() {

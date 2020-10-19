@@ -143,7 +143,8 @@ class PaymentMethodsPresenter(
     disposables.add(activity!!.onAuthenticationResult()
         .observeOn(viewScheduler)
         .doOnNext {
-          if (!it.isSuccess) {
+          if (it.paymentNavigationData == null) close()
+          else if (!it.isSuccess) {
             view.hideLoading()
             if (it.paymentNavigationData.isPreselected && paymentMethodsMapper.map(
                     it.paymentNavigationData.selectedPaymentId) == PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD) {
