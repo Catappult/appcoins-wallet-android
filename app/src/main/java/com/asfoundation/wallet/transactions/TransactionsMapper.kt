@@ -39,7 +39,7 @@ class TransactionsMapper {
               TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.icon),
               transaction.sku),
               if (txType == Transaction.TransactionType.ETHER_TRANSFER) "ETH" else "APPC",
-              mapOperations(transaction.operations)))
+              mapOperations(transaction.operations), emptyList()))
     }
     return transactionList
   }
@@ -88,6 +88,9 @@ class TransactionsMapper {
       "PoA OffChain" -> Transaction.TransactionType.ADS_OFFCHAIN
       "Ether Transfer" -> Transaction.TransactionType.ETHER_TRANSFER
       "IAP" -> Transaction.TransactionType.IAP
+      "Bonus Revert OffChain" -> Transaction.TransactionType.BONUS_REVERT
+      "Topup Revert OffChain" -> Transaction.TransactionType.TOP_UP_REVERT
+      "IAP Revert IffChain" -> Transaction.TransactionType.IAP_REVERT
       else -> Transaction.TransactionType.STANDARD
     }
   }

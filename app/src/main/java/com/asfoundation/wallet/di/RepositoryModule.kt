@@ -155,9 +155,10 @@ class RepositoryModule {
                                    nonceObtainer: MultiWalletNonceObtainer,
                                    transactionsNetworkRepository: OffChainTransactions,
                                    sharedPreferences: SharedPreferences,
-                                   transactionsDao: TransactionsDao): TransactionRepositoryType {
+                                   transactionsDao: TransactionsDao,
+                                   transactionLinkIdDao: TransactionLinkIdDao): TransactionRepositoryType {
     val localRepository: TransactionsRepository =
-        TransactionsLocalRepository(transactionsDao, sharedPreferences)
+        TransactionsLocalRepository(transactionsDao, sharedPreferences, transactionLinkIdDao)
     return BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
         BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
         localRepository, TransactionMapper(), CompositeDisposable(), Schedulers.io())

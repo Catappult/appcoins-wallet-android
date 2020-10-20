@@ -2,12 +2,14 @@ package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
 import com.asfoundation.wallet.repository.entity.TransactionEntity
+import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 
 class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
-                                  private val sharedPreferences: SharedPreferences) :
+                                  private val sharedPreferences: SharedPreferences,
+                                  private val transactionLinkIdDao: TransactionLinkIdDao) :
     TransactionsRepository {
 
   companion object {
@@ -32,7 +34,6 @@ class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
     return transactionsDao.getOlderTransaction(relatedWallet)
   }
 
-
   override fun isOldTransactionsLoaded(): Single<Boolean> {
     return Single.fromCallable { sharedPreferences.getBoolean(OLD_TRANSACTIONS_LOAD, false) }
   }
@@ -52,4 +53,9 @@ class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
   }
 
   override fun getLastLocale() = sharedPreferences.getString(LAST_LOCALE, null)
+
+  override fun insertTransactionLink(txId: String, originalTxId: String) {
+    val transactionLinkId = TransactionLinkIdEntity(null, txId, originalTxId)
+    transactionLinkIdDao.insert(transactionLinkId)
+  }
 }

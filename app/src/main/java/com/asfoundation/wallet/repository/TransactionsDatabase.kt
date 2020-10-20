@@ -70,8 +70,7 @@ abstract class TransactionsDatabase : RoomDatabase() {
     val MIGRATION_4_5: Migration = object : Migration(4, 5) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
-            "CREATE TABLE IF NOT EXISTS transaction_link_id (id INTEGER PRIMARY KEY " +
-                "AUTOINCREMENT NOT NULL, transactionId TEXT NOT NULL, linkTransactionId TEXT NOT NULL)")
+            "CREATE TABLE IF NOT EXISTS transaction_link_id (id INTEGER PRIMARY KEY AUTOINCREMENT, transactionId TEXT NOT NULL, linkTransactionId TEXT NOT NULL)")
       }
     }
   }

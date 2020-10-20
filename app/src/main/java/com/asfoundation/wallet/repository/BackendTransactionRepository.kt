@@ -42,7 +42,8 @@ class BackendTransactionRepository(
                 fetchMissingOldTransactions(wallet))
           }
           .buffer(2, TimeUnit.SECONDS)
-          .doOnNext { localRepository.insertAll(it.flatten()) }
+          .flatMap { transactions -> handleRevertedTransactions(transactions.flatten(), wallet) }
+          .doOnNext { transactions -> localRepository.insertAll(transactions) }
           .subscribe({}, { it.printStackTrace() })
     }
     disposables.add(disposable)
@@ -63,12 +64,13 @@ class BackendTransactionRepository(
           // and we store with 3, so the last transaction will always be returned
           fetchNewTransactions(wallet, startingDate + 1).firstOrError()
         }
+        .flatMap { transactions -> handleRevertedTransactions(transactions, wallet).firstOrError() }
         .doOnSuccess { localRepository.insertAll(it) }
-        .map { mapper.map(it) }
+        .map { it.map { transaction -> mapper.map(transaction) } }
   }
 
   private fun fetchNewTransactions(wallet: String,
-                                   startingDate: Long): Observable<MutableList<TransactionEntity>> {
+                                   startingDate: Long): Observable<MutableList<Transaction>> {
     var sort = OffChainTransactions.Sort.DESC
     if (startingDate != 0L) {
       sort = OffChainTransactions.Sort.ASC
@@ -77,11 +79,11 @@ class BackendTransactionRepository(
   }
 
   private fun fetchMissingOldTransactions(
-      wallet: String): Observable<MutableList<TransactionEntity>> {
+      wallet: String): Observable<MutableList<Transaction>> {
     return localRepository.isOldTransactionsLoaded()
         .flatMapObservable { isLoaded ->
           if (isLoaded) {
-            return@flatMapObservable Observable.empty<MutableList<TransactionEntity>>()
+            return@flatMapObservable Observable.empty<MutableList<Transaction>>()
           }
           return@flatMapObservable localRepository.getOlderTransaction(wallet)
               .map { it.processedTime }
@@ -96,13 +98,28 @@ class BackendTransactionRepository(
   private fun fetchTransactions(wallet: String,
                                 startingDate: Long? = null,
                                 endDate: Long? = null,
-                                sort: OffChainTransactions.Sort? = null): Observable<MutableList<TransactionEntity>> {
+                                sort: OffChainTransactions.Sort? = null): Observable<MutableList<Transaction>> {
     return TransactionsLoadObservable(offChainTransactions, wallet, startingDate, endDate, sort)
         .flatMapSingle { transactions ->
           Observable.fromIterable(transactions)
-              .map { mapper.map(it, wallet) }
               .toList()
         }
+  }
+
+  private fun handleRevertedTransactions(
+      transactions: List<Transaction>, wallet: String): Observable<List<TransactionEntity>> {
+    return Observable.fromIterable(transactions)
+        .flatMap { transaction ->
+          if (isRevertTransaction(transaction.type, transaction.linkedIds.orEmpty())) {
+            transaction.linkedIds?.forEach {
+              localRepository.insertTransactionLink(transaction.transactionId, it)
+            }
+          }
+          val entity = mapper.map(transaction, wallet)
+          Observable.just(entity)
+        }
+        .toList()
+        .toObservable()
   }
 
   private fun getLastProcessedTime(wallet: String): Maybe<Long> {
@@ -120,6 +137,14 @@ class BackendTransactionRepository(
         0L
       }
     }
+  }
+
+  private fun isRevertTransaction(
+      type: Transaction.TransactionType, links: List<String>): Boolean {
+    return (type == Transaction.TransactionType.BONUS_REVERT ||
+        type == Transaction.TransactionType.TOP_UP_REVERT ||
+        type == Transaction.TransactionType.IAP_REVERT) &&
+        links.isNotEmpty()
   }
 
   override fun stop() = disposables.clear()

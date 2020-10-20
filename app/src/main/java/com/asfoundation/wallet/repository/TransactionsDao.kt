@@ -15,7 +15,7 @@ interface TransactionsDao {
       "select * from TransactionEntity where relatedWallet like :relatedWallet order by timeStamp")
   fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>>
 
-  @Insert(onConflict = OnConflictStrategy.IGNORE)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertAll(roomTransactions: List<TransactionEntity>)
 
   @Query(

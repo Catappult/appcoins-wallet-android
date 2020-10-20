@@ -13,12 +13,13 @@ class TransactionMapper {
 
   fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 
-  private fun map(transaction: TransactionEntity): Transaction {
+  fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
         map(transaction.status), transaction.value, transaction.from, transaction.to,
-        map(transaction.details), transaction.currency, mapToOperations(transaction.operations))
+        map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
+        emptyList())
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
@@ -62,6 +63,9 @@ class TransactionMapper {
       TransactionEntity.TransactionType.TOP_UP -> Transaction.TransactionType.TOP_UP
       TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN -> Transaction.TransactionType.TRANSFER_OFF_CHAIN
       TransactionEntity.TransactionType.ETHER_TRANSFER -> Transaction.TransactionType.ETHER_TRANSFER
+      TransactionEntity.TransactionType.TOP_UP_REVERT -> Transaction.TransactionType.TOP_UP_REVERT
+      TransactionEntity.TransactionType.BONUS_REVERT -> Transaction.TransactionType.BONUS_REVERT
+      TransactionEntity.TransactionType.IAP_REVERT -> Transaction.TransactionType.IAP_REVERT
     }
   }
 
@@ -122,6 +126,9 @@ class TransactionMapper {
       Transaction.TransactionType.TOP_UP -> TransactionEntity.TransactionType.TOP_UP
       Transaction.TransactionType.TRANSFER_OFF_CHAIN -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
       Transaction.TransactionType.ETHER_TRANSFER -> TransactionEntity.TransactionType.ETHER_TRANSFER
+      Transaction.TransactionType.BONUS_REVERT -> TransactionEntity.TransactionType.BONUS_REVERT
+      Transaction.TransactionType.TOP_UP_REVERT -> TransactionEntity.TransactionType.TOP_UP_REVERT
+      Transaction.TransactionType.IAP_REVERT -> TransactionEntity.TransactionType.IAP_REVERT
     }
   }
 

@@ -24,4 +24,6 @@ interface TransactionsRepository {
   fun setLocale(locale: String)
 
   fun getLastLocale(): String?
+
+  fun insertTransactionLink(txId: String, originalTxId: String)
 }

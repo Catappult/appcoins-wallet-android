@@ -43,6 +43,7 @@ import java.util.List;
     @JsonProperty("perk") private String perk;
     @JsonProperty("status") private Status status;
     @JsonProperty("operations") private List<Operation> operations;
+    @JsonProperty("linked_transactions") private List<LinkedTransaction> linkedTransactions;
 
     public List<Operation> getOperations() {
       return operations;
@@ -156,6 +157,14 @@ import java.util.List;
       this.type = type;
     }
 
+    public List<LinkedTransaction> getLinkedTransactions() {
+      return linkedTransactions;
+    }
+
+    public void setLinkedTransactions(List<LinkedTransaction> linkedTransactions) {
+      this.linkedTransactions = linkedTransactions;
+    }
+
     @Override public String toString() {
       return "Result{"
           + "txID='"
@@ -249,6 +258,18 @@ import java.util.List;
 
     public void setReceiver(String receiver) {
       this.receiver = receiver;
+    }
+  }
+
+  public static class LinkedTransaction {
+    @JsonProperty("TxID") private String transactionId;
+
+    public String getTransactionId() {
+      return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+      this.transactionId = transactionId;
     }
   }
 }
