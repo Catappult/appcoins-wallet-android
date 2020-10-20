@@ -23,7 +23,6 @@ class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
     savedInstanceState?.let {
       hasBottomsheetOn = it.getBoolean(BOTTOMSHEET_KEY)
     }
-    if (!hasBottomsheetOn) showBiometricPrompt()
     handleAuthenticationResult()
     handleRetryAuthentication()
   }
@@ -55,10 +54,11 @@ class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
           when (it.type) {
             FingerprintResult.SUCCESS -> view.closeSuccess()
             FingerprintResult.ERROR -> {
-              if (it.errorCode == BiometricPrompt.ERROR_LOCKOUT) {
-                showBottomSheet(getAuthenticationTimer())
-              } else {
-                view.closeCancel()
+              when (it.errorCode) {
+                BiometricPrompt.ERROR_LOCKOUT -> showBottomSheet(getAuthenticationTimer())
+                //This event needs to be ignored to allow rotation and to allow user to send app to background and then foreground
+                BiometricPrompt.ERROR_CANCELED -> Unit
+                else -> view.closeCancel()
               }
             }
             /*FingerprintResult.Fail happens when user fails authentication using, for example, a fingerprint that isn't associated yet
@@ -97,5 +97,10 @@ class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
   }
 
   fun stop() = disposables.clear()
+
+  fun onResume() {
+    //On resume to allow rotation and to allow the user to send the app to background and then to foregorund and keep the auth dialog
+    if (!hasBottomsheetOn) showBiometricPrompt()
+  }
 
 }

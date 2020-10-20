@@ -53,15 +53,18 @@ class PaymentMethodsPresenter(
   private var cachedGamificationLevel = 0
   private var closeToLevelUp: Boolean = false
   private var shouldHandlePreselected = true
+  private var hasStartedAuth = false
 
   companion object {
     private val TAG = PaymentMethodsPresenter::class.java.name
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val HAS_STARTED_AUTH = "has_started_auth"
   }
 
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
+      hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
     }
     handleOnGoingPurchases()
     handleCancelClick()
@@ -131,6 +134,7 @@ class PaymentMethodsPresenter(
         .doOnNext {
           if (it.paymentNavigationData == null) close()
           else if (!it.isSuccess) {
+            hasStartedAuth = false
             view.hideLoading()
             if (it.paymentNavigationData.isPreselected && paymentMethodsMapper.map(
                     it.paymentNavigationData.selectedPaymentId) == PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD) {
@@ -384,8 +388,11 @@ class PaymentMethodsPresenter(
                 transaction.amount()
                     .toString(), transaction.type)
             if (paymentMethodsInteract.hasAuthenticationPermission()) {
-              view.showAuthenticationActivity(paymentMethod, cachedGamificationLevel, true,
-                  fiatValue)
+              if (!hasStartedAuth) {
+                view.showAuthenticationActivity(paymentMethod, cachedGamificationLevel, true,
+                    fiatValue)
+                hasStartedAuth = true
+              }
             } else {
               view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
                   paymentMethod.iconUrl, cachedGamificationLevel)
@@ -710,5 +717,6 @@ class PaymentMethodsPresenter(
 
   fun onSavedInstance(outState: Bundle) {
     outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
+    outState.putBoolean(HAS_STARTED_AUTH, hasStartedAuth)
   }
 }

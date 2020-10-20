@@ -46,7 +46,6 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     presenter.present(savedInstanceState)
   }
 
-
   override fun createBiometricPrompt(): BiometricPrompt {
     val executor = ContextCompat.getMainExecutor(this)
     return BiometricPrompt(this, executor,
@@ -74,6 +73,7 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   override fun onResume() {
     super.onResume()
+    presenter.onResume()
     sendPageViewEvent()
   }
 
