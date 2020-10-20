@@ -143,6 +143,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     fingerPrintPreference?.isVisible = false
   }
 
+  override fun setDisabledFingerPrintPreference() {
+    TODO("Not yet implemented")
+  }
+
   override fun setPermissionPreference() {
     val permissionPreference = findPreference<Preference>("pref_permissions")
     permissionPreference?.setOnPreferenceClickListener {

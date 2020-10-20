@@ -45,4 +45,6 @@ interface SettingsView {
   fun setBackupPreference()
 
   fun removeFingerprintPreference()
+
+  fun setDisabledFingerPrintPreference()
 }

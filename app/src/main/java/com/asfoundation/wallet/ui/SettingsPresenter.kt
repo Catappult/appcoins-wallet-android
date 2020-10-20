@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui
 
 import android.content.Intent
+import android.hardware.biometrics.BiometricManager
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -40,8 +41,11 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun handleFingerPrintPreference() {
-    if (settingsInteract.hasFingerPrintConfigured()) view.setFingerprintPreference()
-    else view.removeFingerprintPreference()
+    when (settingsInteract.retrieveFingerPrintAvailability()) {
+      BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference()
+      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.removeFingerprintPreference()
+      BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> view.setDisabledFingerPrintPreference()
+    }
   }
 
   private fun handleAuthenticationResult() {
@@ -84,7 +88,7 @@ class SettingsPresenter(private val view: SettingsView,
   fun onBugReportClicked() = settingsInteract.displaySupportScreen()
 
   fun redirectToStore() {
-    disposables.add(Single.create<Intent> { it.onSuccess(settingsInteract.retriveUpdateIntent()) }
+    disposables.add(Single.create<Intent> { it.onSuccess(settingsInteract.retrieveUpdateIntent()) }
         .doOnSuccess { view.navigateToIntent(it) }
         .subscribe({}, { handleError(it) }))
   }
