@@ -249,6 +249,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.AuthenticationPromptActivity"
         android:launchMode="singleTask"
+        android:screenOrientation="locked"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
 
     <service

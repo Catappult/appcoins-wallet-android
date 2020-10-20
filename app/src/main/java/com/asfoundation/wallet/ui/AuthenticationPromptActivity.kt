@@ -114,7 +114,6 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     finishAndRemoveTask()
   }
 
-
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstanceState(outState)
@@ -128,5 +127,4 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     presenter.stop()
     super.onDestroy()
   }
-
 }

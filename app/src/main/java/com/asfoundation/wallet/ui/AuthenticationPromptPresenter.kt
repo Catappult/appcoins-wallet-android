@@ -55,10 +55,10 @@ class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
           when (it.type) {
             FingerprintResult.SUCCESS -> view.closeSuccess()
             FingerprintResult.ERROR -> {
-              if (it.errorCode == BiometricPrompt.ERROR_USER_CANCELED || it.errorCode == BiometricPrompt.ERROR_CANCELED) {
-                view.closeCancel()
-              } else {
+              if (it.errorCode == BiometricPrompt.ERROR_LOCKOUT) {
                 showBottomSheet(getAuthenticationTimer())
+              } else {
+                view.closeCancel()
               }
             }
             /*FingerprintResult.Fail happens when user fails authentication using, for example, a fingerprint that isn't associated yet
