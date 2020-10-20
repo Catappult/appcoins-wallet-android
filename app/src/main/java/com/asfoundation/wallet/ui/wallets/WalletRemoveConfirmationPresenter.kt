@@ -20,6 +20,7 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
   fun present() {
     handleNoButtonClick()
     handleYesButtonClick()
+    handleAuthentication()
   }
 
   private fun handleNoButtonClick() {
@@ -32,28 +33,44 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
   private fun handleYesButtonClick() {
     disposable.add(view.yesButtonClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.showRemoveWalletAnimation() }
+        .flatMapSingle {
+          if (deleteWalletInteract.hasAuthenticationPermission()) {
+            view.showAuthentication()
+            Single.just(true)
+          } else {
+            view.showRemoveWalletAnimation()
+            Single.just(false)
+          }
+        }
+        .filter { authenticationRequired -> !authenticationRequired }
         .observeOn(networkScheduler)
         .flatMapSingle { deleteWallet() }
-        .observeOn(viewScheduler)
-        .doOnNext { view.finish() }
-        .doOnError {
-          logger.log("WalletRemoveConfirmationPresenter", it)
-          view.finish()
-        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun deleteWallet(): Single<Any> {
+  private fun handleAuthentication() {
+    disposable.add(view.authenticationResult()
+        .filter { it }
+        .observeOn(viewScheduler)
+        .doOnNext { view.showRemoveWalletAnimation() }
+        .observeOn(networkScheduler)
+        .flatMapSingle { deleteWallet() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun deleteWallet(): Single<Unit> {
     return Single.zip(deleteWalletInteract.delete(walletAddress)
         .toSingleDefault(Unit),
         Completable.timer(2, TimeUnit.SECONDS)
             .toSingleDefault(Unit),
         BiFunction { _: Unit, _: Unit -> })
+        .observeOn(viewScheduler)
+        .doOnSuccess { view.finish() }
+        .doOnError {
+          logger.log("WalletRemoveConfirmationPresenter", it)
+          view.finish()
+        }
   }
 
-  fun stop() {
-    disposable.clear()
-  }
-
+  fun stop() = disposable.clear()
 }

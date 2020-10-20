@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.AuthenticationPromptActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import dagger.android.AndroidInjection
@@ -69,7 +68,7 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
   override fun hideBottomSheet() = supportFragmentManager.popBackStack()
 
   override fun showAuthentication() {
-    val intent = newIntent(this)
+    val intent = AuthenticationPromptActivity.newIntent(this)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
     startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }

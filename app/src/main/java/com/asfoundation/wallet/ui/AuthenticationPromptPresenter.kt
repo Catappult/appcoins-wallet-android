@@ -45,7 +45,7 @@ class AuthenticationPromptPresenter(
     }
   }
 
-  private fun setBottomsheetOn(timer: Long) {
+  private fun showBottomSheet(timer: Long) {
     hasBottomsheetOn = true
     view.showAuthenticationBottomSheet(timer)
   }
@@ -60,7 +60,7 @@ class AuthenticationPromptPresenter(
               if (it.errorCode == BiometricPrompt.ERROR_USER_CANCELED || it.errorCode == BiometricPrompt.ERROR_CANCELED) {
                 view.closeCancel()
               } else {
-                setBottomsheetOn(getAuthenticationTimer())
+                showBottomSheet(getAuthenticationTimer())
               }
             }
             /*FingerprintResult.Fail happens when user fails authentication using, for example, a fingerprint that isn't associated yet
