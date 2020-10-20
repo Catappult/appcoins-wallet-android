@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui.transact
 
-import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository.Status
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
+import com.asfoundation.wallet.ui.transact.TransferFragmentView.Currency
+import com.asfoundation.wallet.ui.transact.TransferFragmentView.TransferData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
 import com.asfoundation.wallet.util.WalletCurrency
@@ -54,11 +56,11 @@ class TransferPresenter(private val view: TransferFragmentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun getBalance(currency: TransferFragmentView.Currency): Single<BigDecimal> {
+  private fun getBalance(currency: Currency): Single<BigDecimal> {
     return when (currency) {
-      TransferFragmentView.Currency.APPC_C -> interactor.getCreditsBalance()
-      TransferFragmentView.Currency.APPC -> interactor.getAppcoinsBalance()
-      TransferFragmentView.Currency.ETH -> interactor.getEthBalance()
+      Currency.APPC_C -> interactor.getCreditsBalance()
+      Currency.APPC -> interactor.getAppcoinsBalance()
+      Currency.ETH -> interactor.getEthBalance()
     }
   }
 
@@ -85,8 +87,8 @@ class TransferPresenter(private val view: TransferFragmentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun shouldBlockTransfer(currency: TransferFragmentView.Currency): Single<Boolean> {
-    return if (currency == TransferFragmentView.Currency.APPC_C) {
+  private fun shouldBlockTransfer(currency: Currency): Single<Boolean> {
+    return if (currency == Currency.APPC_C) {
       walletBlockedInteract.isWalletBlocked()
     } else {
       Single.just(false)
@@ -130,59 +132,45 @@ class TransferPresenter(private val view: TransferFragmentView,
     }
   }
 
-  private fun makeTransaction(
-      data: TransferFragmentView.TransferData): Single<AppcoinsRewardsRepository.Status> {
+  private fun makeTransaction(data: TransferData): Single<Status> {
     return when (data.currency) {
-      TransferFragmentView.Currency.APPC_C -> handleCreditsTransfer(data.walletAddress,
-          data.amount)
-      TransferFragmentView.Currency.ETH -> interactor.validateEthTransferData(data.walletAddress,
-          data.amount)
-      TransferFragmentView.Currency.APPC -> interactor.validateAppcTransferData(data.walletAddress,
-          data.amount)
+      Currency.APPC_C -> handleCreditsTransfer(data.walletAddress, data.amount)
+      Currency.ETH -> interactor.validateEthTransferData(data.walletAddress, data.amount)
+      Currency.APPC -> interactor.validateAppcTransferData(data.walletAddress, data.amount)
     }
   }
 
-  private fun handleTransferResult(currency: TransferFragmentView.Currency,
-                                   status: AppcoinsRewardsRepository.Status, walletAddress: String,
-                                   amount: BigDecimal): Completable {
+  private fun handleTransferResult(currency: Currency, status: Status,
+                                   walletAddress: String, amount: BigDecimal): Completable {
     return Single.just(status)
         .subscribeOn(viewScheduler)
         .flatMapCompletable {
           when (status) {
-            AppcoinsRewardsRepository.Status.API_ERROR,
-            AppcoinsRewardsRepository.Status.UNKNOWN_ERROR,
-            AppcoinsRewardsRepository.Status.NO_INTERNET ->
-              Completable.fromCallable { view.showUnknownError() }
-            AppcoinsRewardsRepository.Status.SUCCESS -> handleSuccess(currency, walletAddress,
-                amount)
-            AppcoinsRewardsRepository.Status.INVALID_AMOUNT -> Completable.fromCallable { view.showInvalidAmountError() }
-            AppcoinsRewardsRepository.Status.INVALID_WALLET_ADDRESS -> Completable.fromCallable { view.showInvalidWalletAddress() }
-            AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS -> Completable.fromCallable { view.showNotEnoughFunds() }
+            Status.API_ERROR, Status.UNKNOWN_ERROR, Status.NO_INTERNET -> Completable.fromCallable { view.showUnknownError() }
+            Status.SUCCESS -> handleSuccess(currency, walletAddress, amount)
+            Status.INVALID_AMOUNT -> Completable.fromCallable { view.showInvalidAmountError() }
+            Status.INVALID_WALLET_ADDRESS -> Completable.fromCallable { view.showInvalidWalletAddress() }
+            Status.NOT_ENOUGH_FUNDS -> Completable.fromCallable { view.showNotEnoughFunds() }
           }
         }
   }
 
-  private fun handleSuccess(currency: TransferFragmentView.Currency, walletAddress: String,
+  private fun handleSuccess(currency: Currency, walletAddress: String,
                             amount: BigDecimal): Completable {
     return when (currency) {
-      TransferFragmentView.Currency.APPC_C ->
-        view.openAppcCreditsConfirmationView(walletAddress, amount, currency)
-      TransferFragmentView.Currency.APPC -> walletInteract.find()
-          .flatMapCompletable { wallet ->
-            view.openAppcConfirmationView(wallet.address, walletAddress, amount)
-          }
-      TransferFragmentView.Currency.ETH -> walletInteract.find()
-          .flatMapCompletable { wallet ->
-            view.openEthConfirmationView(wallet.address, walletAddress, amount)
-          }
+      Currency.APPC_C -> view.openAppcCreditsConfirmationView(walletAddress, amount, currency)
+      Currency.APPC -> walletInteract.find()
+          .flatMapCompletable { view.openAppcConfirmationView(it.address, walletAddress, amount) }
+      Currency.ETH -> walletInteract.find()
+          .flatMapCompletable { view.openEthConfirmationView(it.address, walletAddress, amount) }
     }
   }
 
   private fun handleCreditsTransfer(walletAddress: String,
-                                    amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
+                                    amount: BigDecimal): Single<Status> {
     return Single.zip(Single.timer(1, TimeUnit.SECONDS),
         interactor.transferCredits(walletAddress, amount, packageName),
-        BiFunction { _: Long, status: AppcoinsRewardsRepository.Status -> status })
+        BiFunction { _: Long, status: Status -> status })
   }
 
   fun clearOnPause() = onResumeDisposables.clear()
