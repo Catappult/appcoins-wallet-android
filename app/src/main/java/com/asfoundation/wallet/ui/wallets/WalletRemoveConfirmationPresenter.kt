@@ -32,15 +32,17 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
 
   private fun handleYesButtonClick() {
     disposable.add(view.yesButtonClick()
+        .throttleFirst(100, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .flatMapSingle {
+          var authenticationRequired = false
           if (deleteWalletInteract.hasAuthenticationPermission()) {
             view.showAuthentication()
-            Single.just(true)
+            authenticationRequired = true
           } else {
             view.showRemoveWalletAnimation()
-            Single.just(false)
           }
+          Single.just(authenticationRequired)
         }
         .filter { authenticationRequired -> !authenticationRequired }
         .observeOn(networkScheduler)
