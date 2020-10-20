@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
-import android.os.Bundle
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
@@ -27,24 +25,16 @@ class TransferPresenter(private val view: TransferFragmentView,
                         private val walletInteract: FindDefaultWalletInteract,
                         private val walletBlockedInteract: WalletBlockedInteract,
                         private val packageName: String,
-                        private val formatter: CurrencyFormatUtils,
-                        private val transferActivity: TransferActivityView,
-                        private val preferencesRepositoryType: PreferencesRepositoryType) {
-
-  private var cachedData: TransferFragmentView.TransferData? = null
+                        private val formatter: CurrencyFormatUtils) {
 
   fun onResume() {
     handleQrCodeResult()
     handleCurrencyChange()
   }
 
-  fun present(savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
-      cachedData = savedInstanceState.getSerializable(DATA) as TransferFragmentView.TransferData?
-    }
+  fun present() {
     handleButtonClick()
     handleQrCodeButtonClick()
-    handleAuthenticationResult()
   }
 
   private fun handleCurrencyChange() {
@@ -61,7 +51,7 @@ class TransferPresenter(private val view: TransferFragmentView,
         }
         .doOnError { it.printStackTrace() }
         .retry()
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun getBalance(currency: TransferFragmentView.Currency): Single<BigDecimal> {
@@ -78,7 +68,7 @@ class TransferPresenter(private val view: TransferFragmentView,
         .map { QRUri.parse(it.displayValue) }
         .observeOn(viewScheduler)
         .doOnNext { handleQRUri(it) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleQRUri(qrUri: QRUri) {
@@ -92,7 +82,7 @@ class TransferPresenter(private val view: TransferFragmentView,
   private fun handleQrCodeButtonClick() {
     disposables.add(view.getQrCodeButtonClick()
         .doOnNext { view.showQrCodeScreen() }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun shouldBlockTransfer(currency: TransferFragmentView.Currency): Single<Boolean> {
@@ -115,26 +105,19 @@ class TransferPresenter(private val view: TransferFragmentView,
                   Completable.fromAction { view.showWalletBlocked() }
                       .subscribeOn(viewScheduler)
                 } else {
-                  if (preferencesRepositoryType.hasAuthenticationPermission()) {
-                    Completable.fromAction {
-                      this.cachedData = data
-                      transferActivity.showAuthenticationActivity()
-                    }
-                  } else {
-                    makeTransaction(data)
-                        .observeOn(viewScheduler)
-                        .flatMapCompletable { status ->
-                          handleTransferResult(data.currency, status, data.walletAddress,
-                              data.amount)
-                        }
-                        .andThen { view.hideLoading() }
-                  }
+                  makeTransaction(data)
+                      .observeOn(viewScheduler)
+                      .flatMapCompletable { status ->
+                        handleTransferResult(data.currency, status, data.walletAddress,
+                            data.amount)
+                      }
+                      .andThen { view.hideLoading() }
                 }
               }
         }
         .doOnError { handleError(it) }
         .retry()
-        .subscribe { })
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleError(throwable: Throwable) {
@@ -179,9 +162,8 @@ class TransferPresenter(private val view: TransferFragmentView,
         }
   }
 
-  private fun handleSuccess(
-      currency: TransferFragmentView.Currency,
-      walletAddress: String, amount: BigDecimal): Completable {
+  private fun handleSuccess(currency: TransferFragmentView.Currency, walletAddress: String,
+                            amount: BigDecimal): Completable {
     return when (currency) {
       TransferFragmentView.Currency.APPC_C ->
         view.openAppcCreditsConfirmationView(walletAddress, amount, currency)
@@ -203,45 +185,7 @@ class TransferPresenter(private val view: TransferFragmentView,
         BiFunction { _: Long, status: AppcoinsRewardsRepository.Status -> status })
   }
 
-  private fun handleAuthenticationResult() {
-    disposables.add(view.onAuthenticationResult()
-        .observeOn(viewScheduler)
-        .flatMapCompletable {
-          if (it) {
-            if (cachedData != null) {
-              makeTransaction(cachedData!!)
-                  .subscribeOn(ioScheduler)
-                  .observeOn(viewScheduler)
-                  .doOnSuccess { view.hideLoading() }
-                  .flatMapCompletable { status ->
-                    handleTransferResult(cachedData!!.currency, status, cachedData!!.walletAddress,
-                        cachedData!!.amount)
-                  }
-            } else {
-              Completable.fromAction {
-                view.hideLoading()
-                view.showUnknownError()
-              }
-            }
-          } else {
-            Completable.fromAction {
-              view.hideLoading()
-              cachedData = null
-            }
-          }
-        }
-        .subscribe({}, { it.printStackTrace() }))
-  }
-
   fun clearOnPause() = onResumeDisposables.clear()
 
   fun stop() = disposables.clear()
-
-  fun onSaveInstance(outState: Bundle) {
-    outState.putSerializable(DATA, cachedData)
-  }
-
-  companion object {
-    const val DATA = "data_key"
-  }
 }

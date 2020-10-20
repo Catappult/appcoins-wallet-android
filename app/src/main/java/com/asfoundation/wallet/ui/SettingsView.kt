@@ -14,13 +14,13 @@ interface SettingsView {
 
   fun authenticationResult(): Observable<Boolean>
 
-  fun disableFingerPrint()
+  fun toggleFingerprint(enabled: Boolean)
 
   fun setPermissionPreference()
 
   fun setSourceCodePreference()
 
-  fun setFingerprintPreference()
+  fun setFingerprintPreference(hasAuthenticationPermission: Boolean)
 
   fun setTwitterPreference()
 

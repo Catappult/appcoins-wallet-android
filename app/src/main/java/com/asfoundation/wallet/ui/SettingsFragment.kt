@@ -14,7 +14,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -32,9 +31,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   lateinit var pageViewAnalytics: PageViewAnalytics
-
-  @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
@@ -85,9 +81,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun openPermissionScreen(): Boolean {
     context?.let {
       val intent = ManagePermissionsActivity.newIntent(it)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
+          .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
       startActivity(intent)
     }
     return true
@@ -111,9 +105,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setRestorePreference() {
     val restorePreference = findPreference<Preference>("pref_restore")
     restorePreference?.setOnPreferenceClickListener {
-      context?.let {
-        startActivity(RestoreWalletActivity.newIntent(it))
-      }
+      context?.let { startActivity(RestoreWalletActivity.newIntent(it)) }
       false
     }
   }
@@ -134,8 +126,24 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return activityView.authenticationResult()
   }
 
-  override fun disableFingerPrint() {
-    changeAuthenticationPermission(false)
+  override fun toggleFingerprint(enabled: Boolean) {
+    pref_authentication_switch.isChecked = enabled
+  }
+
+  override fun setFingerprintPreference(hasAuthenticationPermission: Boolean) {
+    val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
+    fingerprintPreference?.isChecked = hasAuthenticationPermission
+
+    if (hasAuthenticationPermission) {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
+    } else {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
+    }
+
+    fingerprintPreference?.setOnPreferenceChangeListener { _, newValue ->
+      presenter.onFingerPrintPreferenceChange(newValue as Boolean)
+      true
+    }
   }
 
   override fun removeFingerprintPreference() {
@@ -143,38 +151,18 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     fingerPrintPreference?.isVisible = false
   }
 
-  override fun setDisabledFingerPrintPreference() {//TODO
-  }
-
-  override fun setPermissionPreference() {
-    val permissionPreference = findPreference<Preference>("pref_permissions")
-    permissionPreference?.setOnPreferenceClickListener {
-      openPermissionScreen()
-    }
-  }
-
-  override fun setFingerprintPreference() {
+  override fun setDisabledFingerPrintPreference() {
     val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
-    fingerprintPreference?.isChecked = preferencesRepositoryType.hasAuthenticationPermission()
-    if (preferencesRepositoryType.hasAuthenticationPermission()) {
-      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
-    } else {
-      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
-    }
-    fingerprintPreference?.setOnPreferenceChangeListener { preference, newValue ->
-      val value = newValue as Boolean
-      if (value.not()) {
-        activityView.showAuthentication()
-      } else {
-        changeAuthenticationPermission(value)
-      }
+    fingerprintPreference?.isChecked = false
+    fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
+    fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
       true
     }
   }
 
-  private fun changeAuthenticationPermission(value: Boolean) {
-    pref_authentication_switch.isChecked = value
-    preferencesRepositoryType.setAuthenticationPermission(value)
+  override fun setPermissionPreference() {
+    val permissionPreference = findPreference<Preference>("pref_permissions")
+    permissionPreference?.setOnPreferenceClickListener { openPermissionScreen() }
   }
 
   override fun setSourceCodePreference() {

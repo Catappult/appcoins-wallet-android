@@ -3,17 +3,14 @@ package com.asfoundation.wallet.ui
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import androidx.biometric.BiometricPrompt
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import kotlin.math.ceil
 
-class AuthenticationPromptPresenter(
-    private val view: AuthenticationPromptView,
-    private val viewScheduler: Scheduler,
-    private val disposables: CompositeDisposable,
-    private val fingerprintInteract: FingerPrintInteract,
-    private val preferencesRepositoryType: PreferencesRepositoryType) {
+class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
+                                    private val viewScheduler: Scheduler,
+                                    private val disposables: CompositeDisposable,
+                                    private val fingerprintInteractor: FingerPrintInteractor) {
 
   private var hasBottomsheetOn = false
 
@@ -32,14 +29,15 @@ class AuthenticationPromptPresenter(
   }
 
   private fun showBiometricPrompt() {
-    when (fingerprintInteract.compatibleDevice()) {
+    when (fingerprintInteractor.compatibleDevice()) {
       BiometricManager.BIOMETRIC_SUCCESS -> {
-        view.showPrompt(view.createBiometricPrompt(), fingerprintInteract.definePromptInformation())
+        view.showPrompt(view.createBiometricPrompt(),
+            fingerprintInteractor.definePromptInformation())
       }
       BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.closeSuccess()
       BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.closeSuccess()
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-        preferencesRepositoryType.setAuthenticationPermission(false)
+        fingerprintInteractor.setAuthenticationPermission(false)
         view.closeSuccess()
       }
     }
@@ -82,10 +80,10 @@ class AuthenticationPromptPresenter(
   }
 
   private fun getAuthenticationTimer(): Long {
-    val lastAuthenticationErrorTime = preferencesRepositoryType.getAuthenticationErrorTime()
+    val lastAuthenticationErrorTime = fingerprintInteractor.getAuthenticationErrorTime()
     val currentTime = System.currentTimeMillis()
     return if (currentTime - lastAuthenticationErrorTime >= ERROR_RETRY_TIME_IN_MILLIS) {
-      preferencesRepositoryType.setAuthenticationErrorTime(currentTime)
+      fingerprintInteractor.setAuthenticationErrorTime(currentTime)
       30
     } else {
       val time =

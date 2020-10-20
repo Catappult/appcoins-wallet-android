@@ -39,7 +39,7 @@
         tools:text="Pref Title"
         />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/pref_authentication_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

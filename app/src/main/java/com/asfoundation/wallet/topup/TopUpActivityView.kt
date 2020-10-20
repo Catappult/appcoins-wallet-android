@@ -52,8 +52,4 @@ interface TopUpActivityView {
   fun popBackStack()
 
   fun launchPerkBonusService(address: String)
-
-  fun showAuthenticationActivity()
-
-  fun onAuthenticationResult(): Observable<Boolean>
 }

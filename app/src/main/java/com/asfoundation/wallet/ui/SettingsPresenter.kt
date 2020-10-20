@@ -42,16 +42,26 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun handleFingerPrintPreference() {
     when (settingsInteract.retrieveFingerPrintAvailability()) {
-      BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference()
-      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.removeFingerprintPreference()
-      BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> view.setDisabledFingerPrintPreference()
+      BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
+          settingsInteract.hasAuthenticationPermission())
+      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+        settingsInteract.changeAuthorizationPermission(false)
+        view.removeFingerprintPreference()
+      }
+      BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+        settingsInteract.changeAuthorizationPermission(false)
+        view.setDisabledFingerPrintPreference()
+      }
     }
   }
 
   private fun handleAuthenticationResult() {
     disposables.add(view.authenticationResult()
         .filter { it }
-        .doOnNext { view.disableFingerPrint() }
+        .doOnNext {
+          view.toggleFingerprint(false)
+          settingsInteract.changeAuthorizationPermission(false)
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -96,6 +106,14 @@ class SettingsPresenter(private val view: SettingsView,
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
     view.showError()
+  }
+
+  fun onFingerPrintPreferenceChange(value: Boolean) {
+    if (value.not()) activityView.showAuthentication()
+    else {
+      view.toggleFingerprint(value)
+      settingsInteract.changeAuthorizationPermission(value)
+    }
   }
 }
 

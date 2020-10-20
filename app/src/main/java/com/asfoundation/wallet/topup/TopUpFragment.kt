@@ -21,8 +21,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
@@ -37,6 +35,7 @@ import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_top_up.*
@@ -45,7 +44,6 @@ import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import rx.functions.Action1
 import java.math.BigDecimal
 import javax.inject.Inject
-
 
 class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
@@ -57,12 +55,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
-
-  @Inject
-  lateinit var logger: Logger
-
-  @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -139,11 +131,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     paymentMethodClick = PublishRelay.create()
     valueSubject = PublishSubject.create()
     keyboardEvents = PublishSubject.create()
-    presenter =
-        TopUpFragmentPresenter(this, topUpActivityView, interactor, preferencesRepositoryType,
-            AndroidSchedulers.mainThread(),
-            Schedulers.io(), topUpAnalytics, formatter,
-            savedInstanceState?.getString(SELECTED_VALUE_PARAM), logger)
+    presenter = TopUpFragmentPresenter(this, topUpActivityView, interactor,
+        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), topUpAnalytics,
+        formatter, savedInstanceState?.getString(SELECTED_VALUE_PARAM))
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

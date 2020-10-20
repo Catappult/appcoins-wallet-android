@@ -4,6 +4,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 
@@ -11,8 +12,9 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
                        private val supportInteractor: SupportInteractor,
                        private val walletsInteract: WalletsInteract,
                        private val autoUpdateInteract: AutoUpdateInteract,
-                       private val fingerPrintInteract: FingerPrintInteract,
-                       private val walletsEventSender: WalletsEventSender) {
+                       private val fingerPrintInteractor: FingerPrintInteractor,
+                       private val walletsEventSender: WalletsEventSender,
+                       private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun findWallet() = findDefaultWalletInteract.find()
       .map { it.address }
@@ -33,5 +35,10 @@ class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletI
 
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
-  fun retrieveFingerPrintAvailability() = fingerPrintInteract.compatibleDevice()
+  fun retrieveFingerPrintAvailability() = fingerPrintInteractor.compatibleDevice()
+
+  fun changeAuthorizationPermission(value: Boolean) =
+      preferencesRepositoryType.setAuthenticationPermission(value)
+
+  fun hasAuthenticationPermission() = preferencesRepositoryType.hasAuthenticationPermission()
 }
