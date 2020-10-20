@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
@@ -22,10 +21,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.repository.BdsPendingTransactionService
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
-import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -100,12 +96,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var amplitudeAnalytics: AmplitudeAnalytics
 
   @Inject
-  lateinit var bdsPendingTransactionService: BdsPendingTransactionService
-
-  @Inject
-  lateinit var billing: Billing
-
-  @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
   @Inject
@@ -115,16 +105,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
-
-  @Inject
   lateinit var paymentMethodsInteract: PaymentMethodsInteract
 
   @Inject
   lateinit var mapper: GamificationMapper
-
-  @Inject
-  lateinit var gamificationInteractor: GamificationInteractor
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
@@ -155,12 +139,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     onBackPressedSubject = PublishSubject.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
     fiatValue = savedInstanceState?.getSerializable(FIAT_VALUE) as FiatValue?
-    presenter = PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
+    val paymentMethodsData = PaymentMethodsData(appPackage, isBds, getDeveloperPayload(), getUri(),
+        getTransactionValue())
+    presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
-        bdsPendingTransactionService, billing, analytics, analyticsSetup, amplitudeAnalytics, isBds,
-        developerPayload, uri, transactionBuilder!!, paymentMethodsMapper,
-        transactionValue.toDouble(), formatter, logger, paymentMethodsInteract, iabView,
-        preferencesRepositoryType, gamificationInteractor, mapper)
+        analytics, analyticsSetup, amplitudeAnalytics, transactionBuilder!!,
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteract, iabView, mapper,
+        paymentMethodsData)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -659,14 +644,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private val transactionValue: BigDecimal by lazy {
-    if (arguments!!.containsKey(IabActivity.TRANSACTION_AMOUNT)) {
-      arguments!!.getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
-    } else {
-      throw java.lang.IllegalArgumentException("transaction value not found")
-    }
-  }
-
   private val productName: String? by lazy {
     if (arguments!!.containsKey(IabActivity.PRODUCT_NAME)) {
       arguments!!.getString(IabActivity.PRODUCT_NAME)
@@ -683,19 +660,27 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private val developerPayload: String by lazy {
-    if (arguments!!.containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
+  private fun getDeveloperPayload(): String? {
+    return if (arguments!!.containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
       arguments!!.getString(IabActivity.DEVELOPER_PAYLOAD, "")
     } else {
       throw IllegalArgumentException("developer payload data not found")
     }
   }
 
-  private val uri: String by lazy {
-    if (arguments!!.containsKey(IabActivity.URI)) {
+  private fun getUri(): String? {
+    return if (arguments!!.containsKey(IabActivity.URI)) {
       arguments!!.getString(IabActivity.URI, "")
     } else {
       throw IllegalArgumentException("uri data not found")
+    }
+  }
+
+  private fun getTransactionValue(): BigDecimal {
+    return if (arguments!!.containsKey(IabActivity.TRANSACTION_AMOUNT)) {
+      arguments!!.getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
+    } else {
+      throw java.lang.IllegalArgumentException("transaction value not found")
     }
   }
 

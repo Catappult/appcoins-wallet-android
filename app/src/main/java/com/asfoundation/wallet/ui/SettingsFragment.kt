@@ -143,8 +143,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     fingerPrintPreference?.isVisible = false
   }
 
-  override fun setDisabledFingerPrintPreference() {
-    TODO("Not yet implemented")
+  override fun setDisabledFingerPrintPreference() {//TODO
   }
 
   override fun setPermissionPreference() {
