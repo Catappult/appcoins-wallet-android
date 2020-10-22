@@ -117,6 +117,7 @@
   <string name="intro_3_body">Traitez tous vos achats in-app en utilisant votre méthode de paiement préférée.</string>
   <string name="intro_4_title">Sécurisé et privé</string>
   <string name="intro_4_body">Vos clés privées ne quitterons jamais votre appareil, vos AppCoins sont donc sécurisés en permanence.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Obtenez des crédits AppCoins gratuits !</string>
   <string name="intro_5_body">Vous gagnerez des AppCoins Credits gratuits en essayant des applications et des jeux.</string>
   <string name="intro_creating_wallet_short">Configurer votre portefeuille pour vous&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Réussite</string>
   <string name="transaction_status_pending">En attente</string>
   <string name="transaction_status_failed">A échoué</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Achat in-App</string>
   <string name="transaction_type_poa">Récompense</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Présenté par Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Code d\'échange</string>
   <string name="settings_item_support">Contacter le Support</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">En cours&#8230;</string>
   <string name="local_payments_inprogress_body">Une fois le paiement effectué, vous recevrez les crédits AppCoins dans votre portefeuille. Puis retournez au jeu pour faire l\'achat !</string>
