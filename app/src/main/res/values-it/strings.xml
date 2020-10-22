@@ -117,6 +117,7 @@
   <string name="intro_3_body">Processa tutti i tuoi acquisti in-app con il tuo metodo di pagamento preferito.</string>
   <string name="intro_4_title">Sicuro e privato</string>
   <string name="intro_4_body">Le tue chiavi private non lasceranno mai il tuo dispositivo, rendendo le AppCoins sicure in ogni momento.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Ricevi AppCoins Credits gratis!</string>
   <string name="intro_5_body">Riceverai AppCoins Credits gratuitamente provando app e giochi.</string>
   <string name="intro_creating_wallet_short">Stiamo configurando il tuo wallet&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Successo</string>
   <string name="transaction_status_pending">In sospeso</string>
   <string name="transaction_status_failed">Non riuscito</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Acquisto in-App</string>
   <string name="transaction_type_poa">Premio</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">La ricarica che hai effettuato su %s è stata rimborsata. Contatta il servizio clienti per maggiori informazioni.</string>
   <string name="transaction_type_reverted_purchase_title">Rimborso acquisto</string>
   <string name="transaction_type_reverted_purchase_body">L\'acquisto che hai effettuato su %s è stato rimborsato. Contatta il servizio clienti per maggiori informazioni.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Riscatta il codice</string>
   <string name="settings_item_support">Contatta l\'assistenza clienti</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In corso&#8230;</string>
   <string name="local_payments_inprogress_body">Una volta completato il pagamento riceverai gli AppCoins Credits nel tuo wallet. A quel punto per completare l\'acquisto dovrai solo tornare al gioco!</string>
