@@ -117,6 +117,7 @@
   <string name="intro_3_body">Πραγματοποιήστε όλες σας τις πληρωμές σας εντός εφαρμογών, χρησιμοποιώντας την αγαπημένη σας μέθοδο πληρωμής.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
   <string name="intro_4_body">Τα ιδιωτικά σας κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας, επομένως τα AppCoins σας θα είναι πάντα ασφαλή.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Λάβετε Δωρεάν AppCoins Credits!</string>
   <string name="intro_5_body">Θα κερδίσετε δωρεάν AppCoins Credits δοκιμάζοντας εφαρμογές και παιχνίδια.</string>
   <string name="intro_creating_wallet_short">Ρυθμίζουμε το wallet για εσάς&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Επιτυχία</string>
   <string name="transaction_status_pending">Σε εκκρεμότητα</string>
   <string name="transaction_status_failed">Απέτυχε</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Αγορά Εντός Εφαρμογής</string>
   <string name="transaction_type_poa">Αμοιβή</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Εξαργύρωση Κωδικού</string>
   <string name="settings_item_support">Επικοινωνήστε με την Ομάδα Υποστήριξης</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Σε εξέλιξη&#8230;</string>
   <string name="local_payments_inprogress_body">Μόλις ολοκληρώσετε την πληρωμή, θα λάβετε AppCoins Credits στο wallet σας. Στη συνέχεια, επιστρέψτε στο παιχνίδι για να πραγματοποιήσετε την αγορά!</string>
