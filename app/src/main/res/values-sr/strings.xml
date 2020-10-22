@@ -117,6 +117,7 @@
   <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
   <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Dobijte besplatne AppCoins Credits!</string>
   <string name="intro_5_body">Zaradićete besplatne AppCoins Credits ako isprobate ove aplikacije i igre.</string>
   <string name="intro_creating_wallet_short">Podešavamo vam novčanik&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Uspelo</string>
   <string name="transaction_status_pending">Na čekanju</string>
   <string name="transaction_status_failed">Nije uspelo</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Kupovina u aplikaciji</string>
   <string name="transaction_type_poa">Nagrada</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">Dopuna koju ste uplatili %s je vraćena. Obratite se podršci za više informacija.</string>
   <string name="transaction_type_reverted_purchase_title">Refundacija kupovine</string>
   <string name="transaction_type_reverted_purchase_body">Kupovina koju ste obavili %s je vraćena. Obratite se podršci za više informacija.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Omogućuje Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Iskoristite kod</string>
   <string name="settings_item_support">Obratite se timu korisničke podrške</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">U toku&#8230;</string>
   <string name="local_payments_inprogress_body">Kada dovršite plaćanje, u novčanik ćete dobiti AppCoins Credits. Zatim se vratite u igru da obavite kupovinu!</string>
