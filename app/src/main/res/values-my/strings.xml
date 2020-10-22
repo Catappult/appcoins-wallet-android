@@ -117,6 +117,7 @@
   <string name="intro_3_body">သင့္စိတ္ႀကိဳက္ ေငြေပးေခ်မႈ နည္းလမ္းကို အသံုးျပဳ၍ အက္ပ္အတြင္း ဝယ္ယူမႈမ်ား အားလံုးကို စီစဥ္ေဆာင္ရြက္လိုက္ပါ။</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
   <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">အခမဲ့ AppCoins Credits မ်ားကို ရယူလိုက္ပါ။</string>
   <string name="intro_5_body">အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားကို စမ္းသံုးျခင္းျဖင့္ AppCoins Credits မ်ားကို သင္အခမဲ့ ရရွိပါမည္။</string>
   <string name="intro_creating_wallet_short">သင့္္အတြက္ ပိုက္ဆံအိတ္ကို ျပဳလုပ္ေနပါသည္&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">ေအာင္ျမင္ပါသည္</string>
   <string name="transaction_status_pending">စိစစ္ဆဲျဖစ္ပါသည္</string>
   <string name="transaction_status_failed">မေအာင္ျမင္ပါ</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">အက္ပ္အတြင္း ဝယ္ယူမႈ</string>
   <string name="transaction_type_poa">ဆု</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum မွ ျပဳလုပ္ပါသည္</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">လုပ္ေဆာင္ေနပါသည္&#8230;</string>
   <string name="local_payments_inprogress_body">ေငြေပးေခ်မႈ ျပဳလုပ္ၿပီးသည္ႏွင့္ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credit မ်ားကို ရရွိပါမည္။ ယင္းေနာက္တြင္ ၀ယ္ယူမႈျပဳလုပ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
