@@ -117,6 +117,7 @@
   <string name="intro_3_body">Proses semua pembelian dalam aplikasi anda dengan menggunakan kaedah pembayaran kegemaran anda.</string>
   <string name="intro_4_title">Selamat dan Terjamin</string>
   <string name="intro_4_body">Kunci peribadi anda tidak sesekali akan meninggalkan peranti anda, jadi AppCoins anda adalah selamat pada setiap masa.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Dapatkan Kredit AppCoins Percuma!</string>
   <string name="intro_5_body">Anda akan dapat Kredit AppCoins dengan mencuba aplikasi dan permainan.</string>
   <string name="intro_creating_wallet_short">Menyediakan dompet anda&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Berjaya</string>
   <string name="transaction_status_pending">Belum selesai</string>
   <string name="transaction_status_failed">Gagal</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Belian Dalam Aplikasi</string>
   <string name="transaction_type_poa">Ganjaran</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Dikuasakan Oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Tebus Kod</string>
   <string name="settings_item_support">Hubungi Pasukan Sokongan</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Sedang diproses&#8230;</string>
   <string name="local_payments_inprogress_body">Setelah anda selesaikan bayaran, anda akan terima Kredit AppCoins dalam dompet anda. Kemudian, sila kembali ke permainan untuk buat pembelian!</string>
