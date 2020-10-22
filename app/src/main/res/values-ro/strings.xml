@@ -117,6 +117,7 @@
   <string name="intro_3_body">Procesează-ți toate cumpărăturile in-app folosind metoda ta de plată preferată.</string>
   <string name="intro_4_title">Sigur și Privat</string>
   <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Obține AppCoins Credits gratuite!</string>
   <string name="intro_5_body">Vei câștiga AppCoins Credits gratuite încercând aplicații și jocuri.</string>
   <string name="intro_creating_wallet_short">Se configurează portofelul tău&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Reușită</string>
   <string name="transaction_status_pending">În așteptare</string>
   <string name="transaction_status_failed">Eșuată</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Cumpărătură in-app</string>
   <string name="transaction_type_poa">Recompensă</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Oferit de Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Revendică cod</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">În curs&#8230;</string>
   <string name="local_payments_inprogress_body">Odată ce ai finalizat plata, vei primi AppCoins Credits în portofelul tău. Apoi întoarce-te la joc ca să faci cumpărătura!</string>
