@@ -117,6 +117,7 @@
   <string name="intro_3_body">使用你最喜爱的付款方式处理所有应用内购买。</string>
   <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">你的私钥永远不会离开你的设备，因此你的AppCoins始终安全。</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">获取免费AppCoins积金！</string>
   <string name="intro_5_body">你可以通过试用应用和试玩游戏来赢取免费AppCoins积金。</string>
   <string name="intro_creating_wallet_short">正在为你设置钱包&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">成功</string>
   <string name="transaction_status_pending">待处理</string>
   <string name="transaction_status_failed">失败</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">应用内购买</string>
   <string name="transaction_type_poa">奖励</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">采用以太网技术</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">兑换码</string>
   <string name="settings_item_support">联系支持团队</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">正在进行中&#8230;</string>
   <string name="local_payments_inprogress_body">完成付款后，你将在钱包中收到AppCoins积金。然后回到游戏进行购买！</string>
