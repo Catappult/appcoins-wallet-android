@@ -117,6 +117,7 @@
   <string name="intro_3_body">Обработи всичките си покупки в приложението, използвайки любимия си метод за плащане.</string>
   <string name="intro_4_title">Сигурно и Частно</string>
   <string name="intro_4_body">Твоите частни ключове никога няма да напуснат устройството ти, така че твоите AppCoins са в безопасност по всяко време.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Получи безплатни AppCoins Credits!</string>
   <string name="intro_5_body">Ще спечелиш безплатни AppCoins Credits като изпробваш приложения и игри.</string>
   <string name="intro_creating_wallet_short">Настройка на портфейла ти за теб &#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Успех</string>
   <string name="transaction_status_pending">В процес на чакане</string>
   <string name="transaction_status_failed">Неуспешно</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Покупка в приложението</string>
   <string name="transaction_type_poa">Награда</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Осъществено от Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Осребри кода</string>
   <string name="settings_item_support">Свържи се със съпорт отдела</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">В прогрес&#8230;</string>
   <string name="local_payments_inprogress_body">След като завършиш плащането, ще получиш AppCoins Credits в портфейла си. След това се върни към играта, за да направиш покупката!</string>
