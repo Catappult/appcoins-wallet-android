@@ -117,6 +117,7 @@
   <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
   <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
   <string name="intro_5_body">ਤੁਸੀਂ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਚਲਾ ਕੇ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਸਕਦੇ ਹੋ|</string>
   <string name="intro_creating_wallet_short">ਤੁਹਾਡੇ ਲਈ ਤੁਹਾਡਾ ਬਟੂਆ ਸੈਟ ਅਪ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">ਸਫਲ</string>
   <string name="transaction_status_pending">ਬਕਾਇਆ</string>
   <string name="transaction_status_failed">ਅਸਫਲ</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">ਇਨ-ਐਪ ਖਰੀਦ</string>
   <string name="transaction_type_poa">ਇਨਾਮ</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">%s ਨੂੰ ਕੀਤਾ ਟਾਪ ਅੱਪ ਵਾਪਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="transaction_type_reverted_purchase_title">ਖਰੀਦ ਦਾ ਰਿਫੰਡ</string>
   <string name="transaction_type_reverted_purchase_body">%s ਨੂੰ ਕੀਤੀ ਖਰੀਦ ਵਾਪਸ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">ਇਥਿਰਿਅਮ ਦੁਆਰਾ ਸੰਚਾਲਿਤ</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="local_payments_inprogress_body">ਇੱਕ ਵਾਰ ਤੁਸੀਂ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰ ਲੈਂਦੇ ਹੋ ਤਾਂ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਹੋਣਗੇ| ਫਿਰ ਖਰੀਦਣ ਲਈ ਗੇਮ ਵਿੱਚ ਵਾਪਸ ਜਾਓ!</string>
