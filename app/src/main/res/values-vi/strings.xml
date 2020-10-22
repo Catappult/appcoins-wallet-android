@@ -117,6 +117,7 @@
   <string name="intro_3_body">Xử lý tất cả các giao dịch mua trong ứng dụng bằng phương thức thanh toán yêu thích của bạn.</string>
   <string name="intro_4_title">Bảo mật và Riêng tư</string>
   <string name="intro_4_body">Khóa cá nhân sẽ không bao giờ rời khỏi thiết bị của bạn, vì vậy AppCoin của bạn sẽ luôn được an toàn.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Nhận AppCoins Credits miễn phí!</string>
   <string name="intro_5_body">Bạn sẽ kiếm được AppCoins Credits bằng cách trải nghiệm thử ứng dụng và trò chơi.</string>
   <string name="intro_creating_wallet_short">Cài đặt ví của bạn&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">Thành công</string>
   <string name="transaction_status_pending">Chờ xử lý</string>
   <string name="transaction_status_failed">Thất bại</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">Mua hàng trong ứng dụng</string>
   <string name="transaction_type_poa">Phần thưởng</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">Giao dịch nạp tiền bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
   <string name="transaction_type_reverted_purchase_title">Hoàn trả tiền mua</string>
   <string name="transaction_type_reverted_purchase_body">Giao dịch mua bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Được cung cấp bởi Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">Mã quà tặng</string>
   <string name="settings_item_support">Liên hệ với Đội ngũ Hỗ trợ</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Đang xử lý&#8230;</string>
   <string name="local_payments_inprogress_body">Khi bạn hoàn tất thanh toán, bạn sẽ nhận được AppCoins Credits trong ví của mình. Sau đó quay trở lại trò chơi để mua hàng!</string>
