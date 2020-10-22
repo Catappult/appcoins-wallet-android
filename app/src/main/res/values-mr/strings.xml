@@ -117,6 +117,7 @@
   <string name="intro_3_body">आपली आवडती पेमेंट पद्धत वापरुन आपली इन-अॅप खरेदी प्रक्रिया पूर्ण करा.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
   <string name="intro_4_body">आपल्या खासगी कीज आपल्या डिव्हाइसच्या बाहेर जाणार नाहीत. त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">मोफत अॅपकॉइन्स क्रेडीटस मिळवा!</string>
   <string name="intro_5_body">ही अॅप्स आणि खेळ खेळुन आपण मोफत अॅपकॉइन्स क्रेडीटस कमवाल.</string>
   <string name="intro_creating_wallet_short">आपले वॉलेट आपल्यासाठी सेटअप करीत आहे&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">यशस्वी</string>
   <string name="transaction_status_pending">प्रलंबित आहे</string>
   <string name="transaction_status_failed">होऊ शकले नाही</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">इन-अॅप खरेदी</string>
   <string name="transaction_type_poa">बक्षिस</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">%s ह्यावर आपण केलेला टॉप-अप परवलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_type_reverted_purchase_title">खरेदी परतावा</string>
   <string name="transaction_type_reverted_purchase_body">%s वर आपण केलेली खरेदी रक्कम परतवलीय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">एथरियमने पावर्ड</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">रिडीम कोड</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
   <string name="local_payments_inprogress_body">पेमेंट पूर्ण केल्यानंतर आपल्या वॉलेटमध्ये अॅपकॉइन्स मिळतील. नंतर खेळात परत जाऊन खरेदी करा!</string>
