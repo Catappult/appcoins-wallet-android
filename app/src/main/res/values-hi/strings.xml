@@ -117,6 +117,7 @@
   <string name="intro_3_body">अपनी पसंदीदा भुगतान विधि का उपयोग कर अपने सभी इन-एप्प खरीद संसाधित करें।</string>
   <string name="intro_4_title">सुरक्षित एवं निजी</string>
   <string name="intro_4_body">आपकी निजी कुंजी आपकी डिवाइस को कभी नहीं छोड़ेगी, इसलिए आपके AppCoins हर समय सुरक्षित हैं।</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">मुफ्त AppCoins Credits प्राप्त करें!</string>
   <string name="intro_5_body">आप ऐप्स और गेम परख कर मुफ्त AppCoins Credits अर्जित करेंगे।</string>
   <string name="intro_creating_wallet_short">आपके लिए वॉलेट स्थापित कर रहा है&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">सफल</string>
   <string name="transaction_status_pending">लंबित</string>
   <string name="transaction_status_failed">विफल</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">इन-एप्प खरीद</string>
   <string name="transaction_type_poa">इनाम</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">इथीरियम द्वारा संचालित</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">कोड भुनाएं</string>
   <string name="settings_item_support">Contact Support Team</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">प्रगति पर&#8230;</string>
   <string name="local_payments_inprogress_body">एक बार जब आप भुगतान पूरा कर लेंगे तो आपको अपने वॉलेट में AppCoins Credits मिल जाएगा। फिर खरीद करने के लिए गेम पर वापस जाएँ!</string>
