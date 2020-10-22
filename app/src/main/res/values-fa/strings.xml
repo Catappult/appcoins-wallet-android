@@ -117,6 +117,7 @@
   <string name="intro_3_body">برای همه خریدهای داخل اپلیکیشن از روش پرداخت مورد علاقه خود استفاده کن.</string>
   <string name="intro_4_title">امن و خصوصی</string>
   <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">اعتبار AppCoins رایگان بگیرید!</string>
   <string name="intro_5_body">با امتحان کردن اپلیکیشن‌ها و بازی‌ها می‌توانید اعتبار رایگان AppCoins دریافت کنید.</string>
   <string name="intro_creating_wallet_short">تنظیم کردن کیف پول شما برای شما&#8230;</string>
@@ -224,6 +225,7 @@
   <string name="transaction_status_success">موفقیت</string>
   <string name="transaction_status_pending">در حال انتظار</string>
   <string name="transaction_status_failed">انجام نشد</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">خرید داخل اپلیکیشن</string>
   <string name="transaction_type_poa">پاداش</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,6 +237,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">طراحی شده توسط Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -414,6 +417,8 @@
   <!--Settings-->
   <string name="title_redeem">استفاده از کد</string>
   <string name="settings_item_support">تماس با تیم پشتیبانی</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">در حال پیش رفتن&#8230;</string>
   <string name="local_payments_inprogress_body">هرزمان که پرداخت خود را تکمیل کنید، اعتبار AppCoins در کیف پول خود دریافت خواهید کرد. پس برای تکمیل خرید به بازی برگردید!</string>
