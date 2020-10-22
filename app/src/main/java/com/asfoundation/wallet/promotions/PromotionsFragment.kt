@@ -2,7 +2,6 @@ package com.asfoundation.wallet.promotions
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,23 +9,18 @@ import android.view.View.*
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
-import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
-import kotlinx.android.synthetic.main.fragment_promotions.bottom_sheet_fragment_container
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
-import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
-import kotlinx.android.synthetic.main.item_promotions_gamification.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
@@ -51,7 +45,6 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   private var clickListener: PublishSubject<PromotionClick>? = null
   private var onBackPressedSubject: PublishSubject<Any>? = null
 
-
   companion object {
     fun newInstance() = PromotionsFragment()
   }
@@ -61,7 +54,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     clickListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
     presenter =
-        PromotionsFragmentPresenter(this, activityView, promotionsInteractor, preferences, CompositeDisposable(),
+        PromotionsFragmentPresenter(this, activityView, promotionsInteractor, preferences,
+            CompositeDisposable(),
             Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
@@ -157,8 +151,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun getBackPressed() = onBackPressedSubject!!
 
   override fun hideBottomSheet() {
-      detailsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-      disableBackListener(bottomsheet_coordinator_container)
+    detailsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+    disableBackListener(bottomsheet_coordinator_container)
   }
 
   override fun showBottomSheet() {

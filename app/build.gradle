@@ -4,6 +4,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
   buildToolsVersion '29.0.3'
@@ -248,9 +249,3 @@ def renameArtifact(defaultConfig) {
     }
   }
 }
-
-// execute android tests before realising a new apk
-(tasks.whenTaskAdded { task -> if (task.name == 'assembleDebug') task.dependsOn('test')
-})
-
-apply plugin: 'com.google.gms.google-services'
