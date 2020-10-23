@@ -84,5 +84,5 @@ interface IabView {
 
   fun onAuthenticationResult(): Observable<PaymentAuthenticationResult>
 
-
+  fun backButtonPress(): Observable<Any>
 }

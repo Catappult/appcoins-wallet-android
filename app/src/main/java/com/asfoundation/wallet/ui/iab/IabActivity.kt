@@ -63,6 +63,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
   private var isBds: Boolean = false
+  private var backButtonPress: PublishRelay<Any>? = null
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
   private var uri: String? = null
@@ -74,6 +75,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
+    backButtonPress = PublishRelay.create()
     results = PublishRelay.create()
     authenticationResultSubject = PublishSubject.create()
     setContentView(R.layout.activity_iab)
@@ -150,6 +152,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         close(this)
       }
       super.onBackPressed()
+    } else {
+      backButtonPress?.accept(Unit)
     }
   }
 
@@ -376,9 +380,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
+  override fun backButtonPress() = backButtonPress!!
+
   override fun onPause() {
     presenter.stop()
     super.onPause()
+  }
+
+  override fun onDestroy() {
+    backButtonPress = null
+    super.onDestroy()
   }
 
   private fun sendPayPalConfirmationEvent(action: String) {

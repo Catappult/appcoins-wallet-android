@@ -6,7 +6,6 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -96,7 +95,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private lateinit var mergedAppcoinsPresenter: MergedAppcoinsPresenter
   private var paymentSelectionSubject: PublishSubject<String>? = null
-  private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var iabView: IabView
 
   @Inject
@@ -209,7 +207,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onCreate(savedInstanceState)
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
-    onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
         MergedAppcoinsPresenter(this, CompositeDisposable(), CompositeDisposable(),
             AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
@@ -234,7 +231,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     buy_button.text = setBuyButtonText()
     cancel_button.text = getString(R.string.back_button)
     setBonus()
-    setBackListener(view)
+    iabView.disableBack()
     mergedAppcoinsPresenter.present()
   }
 
@@ -391,18 +388,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     return packageManager.getApplicationLabel(packageInfo)
   }
 
-  private fun setBackListener(view: View) {
-    iabView.disableBack()
-    view.isFocusableInTouchMode = true
-    view.requestFocus()
-    view.setOnKeyListener { _, keyCode, keyEvent ->
-      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-        onBackPressSubject?.onNext("")
-      }
-      true
-    }
-  }
-
   private fun getSelectedPaymentMethod(): String {
     var selectedPaymentMethod = ""
     if (appcoins_radio_button.isChecked) selectedPaymentMethod = APPC
@@ -427,10 +412,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun backPressed(): Observable<PaymentInfoWrapper> {
-    return onBackPressSubject!!.map {
-      PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
-          transactionType)
-    }
+    return iabView.backButtonPress()
+        .map {
+          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+              transactionType)
+        }
   }
 
 
@@ -529,8 +515,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun onDestroy() {
-    super.onDestroy()
     paymentSelectionSubject = null
-    onBackPressSubject = null
+    super.onDestroy()
   }
 }
