@@ -45,7 +45,6 @@ class PaymentMethodsPresenter(
   private var cachedFiatValue: FiatValue? = null
   private var cachedPaymentNavigationData: PaymentNavigationData? = null
   private var closeToLevelUp: Boolean = false
-  private var shouldHandlePreselected = true
   private var hasStartedAuth = false
 
   companion object {
@@ -287,11 +286,8 @@ class PaymentMethodsPresenter(
                               setUpNextLevelInformation(it.second, it.third,
                                   paymentMethodsData.transactionValue)
                             }
-                            if (shouldHandlePreselected) {
-                              selectPaymentMethod(paymentMethods, fiatValue,
-                                  interactor.isBonusActiveAndValid(it.first))
-                              shouldHandlePreselected = false
-                            }
+                            selectPaymentMethod(paymentMethods, fiatValue,
+                                interactor.isBonusActiveAndValid(it.first))
                           }
                         }
                   }
