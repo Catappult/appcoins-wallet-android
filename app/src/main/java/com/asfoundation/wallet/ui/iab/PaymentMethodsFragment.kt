@@ -15,14 +15,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
-import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.PaymentNavigationData
-import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -84,16 +80,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
-
-  @Inject
-  lateinit var analytics: BillingAnalytics
-
-  @Inject
-  lateinit var analyticsSetup: RakamAnalytics
-
-  @Inject
-  lateinit var amplitudeAnalytics: AmplitudeAnalytics
+  lateinit var paymentMethodsAnalytics: PaymentMethodsAnalytics
 
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
@@ -106,9 +93,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   @Inject
   lateinit var paymentMethodsInteract: PaymentMethodsInteract
-
-  @Inject
-  lateinit var mapper: GamificationMapper
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
@@ -142,10 +126,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     val paymentMethodsData = PaymentMethodsData(appPackage, isBds, getDeveloperPayload(), getUri(),
         getTransactionValue())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
-        analytics, analyticsSetup, amplitudeAnalytics, transactionBuilder!!,
-        paymentMethodsMapper, formatter, logger, paymentMethodsInteract, iabView, mapper,
-        paymentMethodsData)
+        Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteract, paymentMethodsData)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -182,14 +164,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                   creditsEnabled: Boolean) {
     updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
-    presenter.sendPaymentMethodsEvents()
 
     setupSubject!!.onNext(true)
   }
 
   override fun onResume() {
     val firstRun = paymentMethodList.isEmpty() && !isPreSelected
-    if (firstRun.not()) showPaymentsSkeletonLoading()
     presenter.onResume(firstRun)
     super.onResume()
   }
@@ -235,8 +215,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
 
     setupPaymentMethod(paymentMethod, isBonusActive)
-
-    presenter.sendPreSelectedPaymentMethodsEvents()
 
     setupSubject!!.onNext(true)
   }
@@ -363,15 +341,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  override fun getCancelClick(): Observable<PaymentMethod> {
+  override fun getCancelClick(): Observable<Any> {
     return RxView.clicks(cancel_button)
-        .map { getSelectedPaymentMethod() }
   }
 
-  private fun getSelectedPaymentMethod(): PaymentMethod {
+  override fun getSelectedPaymentMethod(hasPreSelectedPaymentMethod: Boolean): PaymentMethod {
     if (!isPreSelected && ::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
-    val hasPreSelectedPaymentMethod =
-        inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
     val checkedButtonId =
         if (::paymentMethodsAdapter.isInitialized) paymentMethodsAdapter.getSelectedItem() else -1
     return if (paymentMethodList.isNotEmpty() && !isPreSelected && checkedButtonId != -1) {
@@ -414,9 +389,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     processing_loading.visibility = View.VISIBLE
   }
 
-  override fun getBuyClick(): Observable<PaymentMethod> {
+  override fun getBuyClick(): Observable<Any> {
     return RxView.clicks(buy_button)
-        .map { getSelectedPaymentMethod() }
   }
 
   override fun showPaypal(gamificationLevel: Int) {
@@ -465,9 +439,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         PaymentMethod::id))
   }
 
-  override fun getMorePaymentMethodsClicks(): Observable<PaymentMethod> {
+  override fun getMorePaymentMethodsClicks(): Observable<Any> {
     return RxView.clicks(more_payment_methods)
-        .map { getSelectedPaymentMethod() }
   }
 
   override fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
@@ -589,6 +562,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_msg.visibility = View.INVISIBLE
     no_bonus_msg?.visibility = View.VISIBLE
     removeBonusSkeletons()
+  }
+
+  override fun onAuthenticationResult(): Observable<PaymentAuthenticationResult> {
+    return iabView.onAuthenticationResult()
   }
 
   private fun setupAppNameAndIcon() {

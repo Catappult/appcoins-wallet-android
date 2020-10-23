@@ -356,9 +356,10 @@ class InteractorModule {
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportInteractor: SupportInteractor,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      walletService: WalletService): MergedAppcoinsInteractor {
+                                      walletService: WalletService,
+                                      preferencesRepositoryType: PreferencesRepositoryType): MergedAppcoinsInteractor {
     return MergedAppcoinsInteractor(balanceInteract, walletBlockedInteract, supportInteractor,
-        inAppPurchaseInteractor, walletService)
+        inAppPurchaseInteractor, walletService, preferencesRepositoryType)
   }
 
   @Provides

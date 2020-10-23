@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
@@ -49,11 +50,15 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter =
         SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), settingsInteract)
-    presenter.present()
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     setPreferencesFromResource(R.xml.fragment_settings, rootKey)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    presenter.present()
   }
 
   override fun onResume() {

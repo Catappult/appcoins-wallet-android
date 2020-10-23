@@ -7,7 +7,6 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
@@ -24,7 +23,6 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
-                              private val activityView: IabView,
                               private val disposables: CompositeDisposable,
                               private val resumeDisposables: CompositeDisposable,
                               private val viewScheduler: Scheduler,
@@ -36,8 +34,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val navigator: Navigator,
                               private val logger: Logger,
                               private val transactionBuilder: TransactionBuilder,
-                              private val paymentMethodsMapper: PaymentMethodsMapper,
-                              private val preferencesRepositoryType: PreferencesRepositoryType) {
+                              private val paymentMethodsMapper: PaymentMethodsMapper) {
 
   companion object {
     private val TAG = MergedAppcoinsFragment::class.java.simpleName
@@ -112,12 +109,12 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               paymentMethod.transactionType, "cancel")
         }
         .observeOn(viewScheduler)
-        .doOnNext { activityView.showPaymentMethodsView() }
+        .doOnNext { view.showPaymentMethodsView() }
         .subscribe({}, { showError(it) }))
   }
 
   private fun handleAuthenticationResult() {
-    disposables.add(activityView.onAuthenticationResult()
+    disposables.add(view.onAuthenticationResult()
         .observeOn(viewScheduler)
         .doOnNext {
           if (!it.isSuccess || it.paymentNavigationData == null) {
@@ -149,17 +146,14 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               paymentMethod.transactionType, "buy")
         }
         .observeOn(viewScheduler)
-        .doOnNext {
-          view.showLoading()
-        }
+        .doOnNext { view.showLoading() }
         .flatMapSingle { paymentMethod ->
           mergedAppcoinsInteractor.isWalletBlocked()
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
               .doOnSuccess {
-                if (preferencesRepositoryType.hasAuthenticationPermission()) {
-                  view.showAuthenticationActivity(map(paymentMethod.purchaseDetails),
-                      gamificationLevel)
+                if (mergedAppcoinsInteractor.hasAuthenticationPermission()) {
+                  view.showAuthenticationActivity(map(paymentMethod.purchaseDetails))
                 } else {
                   handleBuyClickSelection(paymentMethod.purchaseDetails)
                 }

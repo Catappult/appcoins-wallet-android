@@ -24,7 +24,6 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -114,9 +113,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
-
-  @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -215,10 +211,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
-        MergedAppcoinsPresenter(this, iabView, CompositeDisposable(), CompositeDisposable(),
+        MergedAppcoinsPresenter(this, CompositeDisposable(), CompositeDisposable(),
             AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
             formatter, mergedAppcoinsInteractor, gamificationLevel, navigator, logger,
-            transactionBuilder, paymentMethodsMapper, preferencesRepositoryType)
+            transactionBuilder, paymentMethodsMapper)
   }
 
   override fun onAttach(context: Context) {
@@ -473,8 +469,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun showAuthenticationActivity(selectedPaymentId: String,
-                                          gamificationLevel: Int) {
+  override fun showAuthenticationActivity(selectedPaymentId: String) {
     val paymentNavigationData =
         PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
             currency, bonus, false)
@@ -505,6 +500,12 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       payment_methods_group.visibility = VISIBLE
     }
   }
+
+  override fun onAuthenticationResult(): Observable<PaymentAuthenticationResult> {
+    return iabView.onAuthenticationResult()
+  }
+
+  override fun showPaymentMethodsView() = iabView.showPaymentMethodsView()
 
   override fun onResume() {
     super.onResume()
