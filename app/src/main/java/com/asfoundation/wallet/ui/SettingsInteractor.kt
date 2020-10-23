@@ -8,13 +8,13 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 
-class SettingsInteract(private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                       private val supportInteractor: SupportInteractor,
-                       private val walletsInteract: WalletsInteract,
-                       private val autoUpdateInteract: AutoUpdateInteract,
-                       private val fingerPrintInteractor: FingerPrintInteractor,
-                       private val walletsEventSender: WalletsEventSender,
-                       private val preferencesRepositoryType: PreferencesRepositoryType) {
+class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalletInteract,
+                         private val supportInteractor: SupportInteractor,
+                         private val walletsInteract: WalletsInteract,
+                         private val autoUpdateInteract: AutoUpdateInteract,
+                         private val fingerPrintInteractor: FingerPrintInteractor,
+                         private val walletsEventSender: WalletsEventSender,
+                         private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun findWallet() = findDefaultWalletInteract.find()
       .map { it.address }

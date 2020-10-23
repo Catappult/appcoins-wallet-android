@@ -51,7 +51,7 @@ import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.ui.FingerPrintInteractor
-import com.asfoundation.wallet.ui.SettingsInteract
+import com.asfoundation.wallet.ui.SettingsInteractor
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
@@ -512,7 +512,6 @@ class InteractorModule {
     return RestoreWalletPasswordInteractor(gson, balanceInteract, restoreWalletInteractor)
   }
 
-
   @Provides
   fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                                supportInteractor: SupportInteractor,
@@ -520,8 +519,8 @@ class InteractorModule {
                                autoUpdateInteract: AutoUpdateInteract,
                                fingerPrintInteractor: FingerPrintInteractor,
                                walletsEventSender: WalletsEventSender,
-                               preferencesRepositoryType: PreferencesRepositoryType): SettingsInteract {
-    return SettingsInteract(findDefaultWalletInteract, supportInteractor, walletsInteract,
+                               preferencesRepositoryType: PreferencesRepositoryType): SettingsInteractor {
+    return SettingsInteractor(findDefaultWalletInteract, supportInteractor, walletsInteract,
         autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType)
   }
 

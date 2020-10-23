@@ -28,7 +28,7 @@ import javax.inject.Inject
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
-  lateinit var settingsInteract: SettingsInteract
+  lateinit var settingsInteract: SettingsInteractor
 
   @Inject
   lateinit var pageViewAnalytics: PageViewAnalytics
@@ -145,8 +145,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
     }
 
-    fingerprintPreference?.setOnPreferenceChangeListener { _, newValue ->
-      presenter.onFingerPrintPreferenceChange(newValue as Boolean)
+    fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
+      presenter.onFingerPrintPreferenceChange()
       true
     }
   }

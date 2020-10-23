@@ -12,10 +12,11 @@ class SettingsPresenter(private val view: SettingsView,
                         private val networkScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
                         private val disposables: CompositeDisposable,
-                        private val settingsInteract: SettingsInteract) {
+                        private val settingsInteractor: SettingsInteractor) {
 
   fun present() {
     handleFingerPrintPreference()
+    handleAuthenticationResult()
   }
 
   fun onResume() {
@@ -24,7 +25,6 @@ class SettingsPresenter(private val view: SettingsView,
     handleFingerPrintPreference()
     setupPreferences()
     handleRedeemPreferenceSetup()
-    handleAuthenticationResult()
   }
 
   private fun setupPreferences() {
@@ -44,15 +44,15 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   private fun handleFingerPrintPreference() {
-    when (settingsInteract.retrieveFingerPrintAvailability()) {
+    when (settingsInteractor.retrieveFingerPrintAvailability()) {
       BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
-          settingsInteract.hasAuthenticationPermission())
+          settingsInteractor.hasAuthenticationPermission())
       BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
-        settingsInteract.changeAuthorizationPermission(false)
+        settingsInteractor.changeAuthorizationPermission(false)
         view.removeFingerprintPreference()
       }
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-        settingsInteract.changeAuthorizationPermission(false)
+        settingsInteractor.changeAuthorizationPermission(false)
         view.setDisabledFingerPrintPreference()
       }
     }
@@ -63,7 +63,7 @@ class SettingsPresenter(private val view: SettingsView,
         .filter { it }
         .doOnNext {
           view.toggleFingerprint(false)
-          settingsInteract.changeAuthorizationPermission(false)
+          settingsInteractor.changeAuthorizationPermission(false)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -71,13 +71,13 @@ class SettingsPresenter(private val view: SettingsView,
   fun stop() = disposables.dispose()
 
   private fun handleRedeemPreferenceSetup() {
-    disposables.add(settingsInteract.findWallet()
+    disposables.add(settingsInteractor.findWallet()
         .doOnSuccess { view.setRedeemCodePreference(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   fun onBackupPreferenceClick() {
-    disposables.add(settingsInteract.retrieveWallets()
+    disposables.add(settingsInteractor.retrieveWallets()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { handleWalletModel(it) }
@@ -87,23 +87,24 @@ class SettingsPresenter(private val view: SettingsView,
   private fun handleWalletModel(walletModel: WalletsModel) {
     when (walletModel.totalWallets) {
       0 -> {
-        settingsInteract.sendCreateErrorEvent()
+        settingsInteractor.sendCreateErrorEvent()
         view.showError()
       }
       1 -> {
-        settingsInteract.sendCreateSuccessEvent()
+        settingsInteractor.sendCreateSuccessEvent()
         activityView.navigateToBackup(walletModel.walletsBalance[0].walletAddress)
       }
       else -> activityView.showWalletsBottomSheet(walletModel)
     }
   }
 
-  fun onBugReportClicked() = settingsInteract.displaySupportScreen()
+  fun onBugReportClicked() = settingsInteractor.displaySupportScreen()
 
   fun redirectToStore() {
-    disposables.add(Single.create<Intent> { it.onSuccess(settingsInteract.retrieveUpdateIntent()) }
-        .doOnSuccess { view.navigateToIntent(it) }
-        .subscribe({}, { handleError(it) }))
+    disposables.add(
+        Single.create<Intent> { it.onSuccess(settingsInteractor.retrieveUpdateIntent()) }
+            .doOnSuccess { view.navigateToIntent(it) }
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleError(throwable: Throwable) {
@@ -111,11 +112,11 @@ class SettingsPresenter(private val view: SettingsView,
     view.showError()
   }
 
-  fun onFingerPrintPreferenceChange(value: Boolean) {
-    if (value.not()) activityView.showAuthentication()
+  fun onFingerPrintPreferenceChange() {
+    if (settingsInteractor.hasAuthenticationPermission()) activityView.showAuthentication()
     else {
-      view.toggleFingerprint(value)
-      settingsInteract.changeAuthorizationPermission(value)
+      view.toggleFingerprint(true)
+      settingsInteractor.changeAuthorizationPermission(true)
     }
   }
 }
