@@ -40,9 +40,9 @@ interface MergedAppcoinsView {
 
   fun toggleSkeletons(show: Boolean)
 
-  fun showAuthenticationActivity(selectedPaymentId: String)
+  fun showAuthenticationActivity()
 
-  fun onAuthenticationResult(): Observable<PaymentAuthenticationResult>
+  fun onAuthenticationResult(): Observable<Boolean>
 
   fun showPaymentMethodsView()
 }

@@ -1,14 +1,8 @@
 package com.asfoundation.wallet.ui
 
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import java.io.Serializable
-import java.math.BigDecimal
 
 
-data class PaymentNavigationData(val gamificationLevel: Int,
-                                 val selectedPaymentId: String,
-                                 val selectedPaymentIcon: String?,
-                                 val selectedPaymentLabel: String?,
-                                 val fiatAmount: BigDecimal,
-                                 val fiatCurrency: String,
-                                 val bonusMessageValue: String,
-                                 val isPreselected: Boolean) : Serializable
+data class PaymentNavigationData(val paymentMethod: PaymentMethod, val isPreselected: Boolean) :
+    Serializable

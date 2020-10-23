@@ -23,7 +23,6 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -232,7 +231,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     cancel_button.text = getString(R.string.back_button)
     setBonus()
     iabView.disableBack()
-    mergedAppcoinsPresenter.present()
+    mergedAppcoinsPresenter.present(savedInstanceState)
   }
 
   override fun showLoading() {
@@ -455,11 +454,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun showAuthenticationActivity(selectedPaymentId: String) {
-    val paymentNavigationData =
-        PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
-            currency, bonus, false)
-    iabView.showAuthenticationActivity(paymentNavigationData)
+  override fun showAuthenticationActivity() {
+    iabView.showAuthenticationActivity()
   }
 
   override fun navigateToAppcPayment() =
@@ -487,11 +483,16 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
-  override fun onAuthenticationResult(): Observable<PaymentAuthenticationResult> {
+  override fun onAuthenticationResult(): Observable<Boolean> {
     return iabView.onAuthenticationResult()
   }
 
   override fun showPaymentMethodsView() = iabView.showPaymentMethodsView()
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    mergedAppcoinsPresenter.onSavedInstanceState(outState)
+  }
 
   override fun onResume() {
     super.onResume()

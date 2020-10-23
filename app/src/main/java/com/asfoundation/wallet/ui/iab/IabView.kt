@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.ui.PaymentNavigationData
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -80,9 +80,13 @@ interface IabView {
 
   fun launchPerkBonusService(address: String)
 
-  fun showAuthenticationActivity(paymentNavigationData: PaymentNavigationData)
+  fun showAuthenticationActivity()
 
-  fun onAuthenticationResult(): Observable<PaymentAuthenticationResult>
+  fun onAuthenticationResult(): Observable<Boolean>
 
   fun backButtonPress(): Observable<Any>
+
+  fun successWebViewResult(data: Uri?)
+
+  fun authenticationResult(success: Boolean)
 }

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.os.Bundle
 import android.util.Log
 import android.util.Pair
 import com.asf.wallet.R
@@ -7,7 +8,6 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -36,11 +36,15 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val transactionBuilder: TransactionBuilder,
                               private val paymentMethodsMapper: PaymentMethodsMapper) {
 
+  private var cachedSelectedPaymentId: String? = null
+
   companion object {
     private val TAG = MergedAppcoinsFragment::class.java.simpleName
+    private const val SELECTED_PAYMENT_ID = "selected_paymentId"
   }
 
-  fun present() {
+  fun present(savedInstanceState: Bundle?) {
+    savedInstanceState?.let { cachedSelectedPaymentId = it.getString(SELECTED_PAYMENT_ID) }
     handlePaymentSelectionChange()
     handleBuyClick()
     handleBackClick()
@@ -117,17 +121,17 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     disposables.add(view.onAuthenticationResult()
         .observeOn(viewScheduler)
         .doOnNext {
-          if (!it.isSuccess || it.paymentNavigationData == null) {
+          if (!it || cachedSelectedPaymentId == null) {
             view.hideLoading()
           } else {
-            navigateToPayment(it.paymentNavigationData)
+            navigateToPayment(cachedSelectedPaymentId!!)
           }
         }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
-    when (paymentMethodsMapper.map(paymentNavigationData.selectedPaymentId)) {
+  private fun navigateToPayment(selectedPaymentId: String) {
+    when (paymentMethodsMapper.map(selectedPaymentId)) {
       PaymentMethodsView.SelectedPaymentMethod.APPC -> view.navigateToAppcPayment()
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.navigateToCreditsPayment()
       else -> {
@@ -153,7 +157,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
               .observeOn(viewScheduler)
               .doOnSuccess {
                 if (mergedAppcoinsInteractor.hasAuthenticationPermission()) {
-                  view.showAuthenticationActivity(map(paymentMethod.purchaseDetails))
+                  cachedSelectedPaymentId = map(paymentMethod.purchaseDetails)
+                  view.showAuthenticationActivity()
                 } else {
                   handleBuyClickSelection(paymentMethod.purchaseDetails)
                 }
@@ -226,4 +231,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun getAppcBalance(): Observable<FiatValue> = mergedAppcoinsInteractor.getAppcBalance()
 
   private fun getEthBalance(): Observable<FiatValue> = mergedAppcoinsInteractor.getEthBalance()
+
+  fun onSavedInstanceState(outState: Bundle) {
+    outState.putString(SELECTED_PAYMENT_ID, cachedSelectedPaymentId)
+  }
 }

@@ -529,9 +529,10 @@ class InteractorModule {
   fun provideIabInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                          autoUpdateInteract: AutoUpdateInteract,
                          supportInteractor: SupportInteractor,
-                         gamificationRepository: Gamification): IabInteract {
+                         gamificationRepository: Gamification,
+                         walletBlockedInteract: WalletBlockedInteract): IabInteract {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
-        gamificationRepository)
+        gamificationRepository, walletBlockedInteract)
   }
 
   @Provides

@@ -17,7 +17,6 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -95,7 +94,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
-  private var fiatValue: FiatValue? = null
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var paymentMethodClick: PublishRelay<Int>
   private lateinit var paymentMethodsAdapter: PaymentMethodsAdapter
@@ -119,7 +117,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
-    fiatValue = savedInstanceState?.getSerializable(FIAT_VALUE) as FiatValue?
     val paymentMethodsData = PaymentMethodsData(appPackage, isBds, getDeveloperPayload(), getUri(),
         getTransactionValue())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
@@ -145,7 +142,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError)
-    outState.putSerializable(FIAT_VALUE, fiatValue)
     presenter.onSavedInstance(outState)
   }
 
@@ -155,11 +151,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     super.onDestroyView()
   }
 
-  override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
-                                  currency: String, paymentMethodId: String, fiatAmount: String,
-                                  appcAmount: String, appcEnabled: Boolean,
-                                  creditsEnabled: Boolean) {
-    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
+  override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, currency: String,
+                                  paymentMethodId: String, fiatAmount: String, appcAmount: String,
+                                  appcEnabled: Boolean, creditsEnabled: Boolean) {
+    updateHeaderInfo(currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
 
     setupSubject!!.onNext(true)
@@ -186,9 +181,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private fun updateHeaderInfo(fiatValue: FiatValue, currency: String,
-                               fiatAmount: String, appcAmount: String) {
-    this.fiatValue = fiatValue
+  private fun updateHeaderInfo(currency: String, fiatAmount: String, appcAmount: String) {
     val appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     val fiatPrice = "$fiatAmount $currency"
     appc_price.text = appcPrice
@@ -205,11 +198,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         ?.let { getString(it.stringId) } ?: paymentMethod.label
   }
 
-  override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                            currency: String, fiatAmount: String,
-                                            appcAmount: String, isBonusActive: Boolean) {
+  override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, currency: String,
+                                            fiatAmount: String, appcAmount: String,
+                                            isBonusActive: Boolean) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
-    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
+    updateHeaderInfo(currency, fiatAmount, appcAmount)
 
     setupPaymentMethod(paymentMethod, isBonusActive)
 
@@ -357,16 +350,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun showAuthenticationActivity(selectedPaymentMethod: PaymentMethod,
-                                          gamificationLevel: Int, isPreselected: Boolean,
-                                          fiatValue: FiatValue?) {
-    if (fiatValue != null) this.fiatValue = fiatValue
-    val fiat = fiatValue ?: this.fiatValue
-    val paymentNavigationData = PaymentNavigationData(gamificationLevel, selectedPaymentMethod.id,
-        selectedPaymentMethod.iconUrl, selectedPaymentMethod.label, fiat!!.amount, fiat.currency,
-        bonusMessageValue, isPreselected)
-    iabView.showAuthenticationActivity(paymentNavigationData)
-  }
+  override fun showAuthenticationActivity() = iabView.showAuthenticationActivity()
 
   override fun setupUiCompleted() = setupSubject!!
 
@@ -379,8 +363,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     return RxView.clicks(buy_button)
   }
 
-  override fun showPaypal(gamificationLevel: Int) {
-    iabView.showAdyenPayment(fiatValue!!.amount, fiatValue!!.currency, isBds,
+  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue) {
+    iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
   }
 
@@ -394,8 +378,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  override fun showCreditCard(gamificationLevel: Int) {
-    iabView.showAdyenPayment(fiatValue!!.amount, fiatValue!!.currency, isBds,
+  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue) {
+    iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
   }
 
@@ -469,8 +453,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int) {
-    iabView.showMergedAppcoins(fiatValue!!.amount, fiatValue!!.currency, bonusMessageValue,
+  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue) {
+    iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
         isBds, isDonation, gamificationLevel)
   }
 
@@ -553,7 +537,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     removeBonusSkeletons()
   }
 
-  override fun onAuthenticationResult(): Observable<PaymentAuthenticationResult> {
+  override fun onAuthenticationResult(): Observable<Boolean> {
     return iabView.onAuthenticationResult()
   }
 
