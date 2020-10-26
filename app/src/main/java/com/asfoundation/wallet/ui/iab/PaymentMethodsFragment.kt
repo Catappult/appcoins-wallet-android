@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.Billing
@@ -179,7 +180,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                   currency: String, paymentMethodId: String, fiatAmount: String,
                                   appcAmount: String, appcEnabled: Boolean,
                                   creditsEnabled: Boolean, frequency: String?) {
-    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
+    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount, frequency)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     presenter.sendPaymentMethodsEvents()
 
@@ -506,7 +507,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showMergedAppcoins(gamificationLevel: Int) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        isBds, isDonation, gamificationLevel, isSubscription,frequency)
+        isBds, isDonation, gamificationLevel, isSubscription, frequency)
   }
 
   override fun lockRotation() = iabView.lockRotation()

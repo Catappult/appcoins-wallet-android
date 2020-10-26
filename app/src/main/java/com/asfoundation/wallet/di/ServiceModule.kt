@@ -543,7 +543,8 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideSubscriptionService(client: OkHttpClient, gson: Gson): SubscriptionService {
+  fun provideSubscriptionService(@Named("default") client: OkHttpClient,
+                                 gson: Gson): SubscriptionService {
     return SubscriptionApiMockedImpl()
   }
 
@@ -553,7 +554,7 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideSubscriptionBillingService(client: OkHttpClient,
+  fun provideSubscriptionBillingService(@Named("blockchain") client: OkHttpClient,
                                         gson: Gson): SubscriptionBillingService {
     return Retrofit.Builder()
         .baseUrl("http://192.168.2.3:8080/api/")
