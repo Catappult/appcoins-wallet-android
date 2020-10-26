@@ -162,11 +162,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
   }
 
   private fun handleSuccessTransaction(bundle: Bundle): Completable {
-    return onChainBuyInteract.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction { view.launchPerkBonusService(it) }
-        }
-        .andThen(Completable.fromAction { view.showTransactionCompleted() })
+    return Completable.fromAction { view.showTransactionCompleted() }
         .subscribeOn(viewScheduler)
         .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
         .andThen(Completable.fromRunnable { view.finish(bundle) })

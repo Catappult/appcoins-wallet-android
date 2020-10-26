@@ -27,6 +27,7 @@
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
   <string name="no_camera_permission_title">Kamera İzni</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Tamam</string>
   <string name="barcode_error_format">Geçersiz barkod formatı: %s</string>
   <string name="title_delete_account">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Geri Alınan Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">%s tarihinde aldığınız Bonus geri alındı. Daha fazla bilgi için Destek ile iletişime geçin.</string>
+  <string name="transaction_type_reverted_topup_title">Yükleme İadesi</string>
+  <string name="transaction_type_reverted_topup_body">%s tarihinde yaptığınız yükleme işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
+  <string name="transaction_type_reverted_purchase_title">Satın Alma İadesi</string>
+  <string name="transaction_type_reverted_purchase_body">%s tarihinde yaptığınız satın alma işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum tarafından sağlanıyor</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +478,17 @@
   <string name="purchase_card_error_wrong_CVV">CVV/CVC kodunuz yanlış gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_wallet_error_contact_us">Hay aksi, cüzdanınızla ilgili bir sorun var. Lütfen bizimle iletişime geçin.</string>
   <string name="purchase_carrier_error">Telefon numaranız bu ödeme yöntemine uygun değil gibi görünüyor.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Hay aksi, bu satın alma işlemiyle ilgili sorunlar yaşıyoruz. Lütfen bizimle iletişime geçin.</string>
+  <string name="purchase_error_wallet_block_code_403">Cüzdanınızla ilgili bir sorun var gibi görünüyor. Lütfen bizimle iletişime geçin.</string>
   <string name="purchase_card_error_CVV">Yanlış CVV/CVC</string>
   <string name="error_contac_us_body">Sorun devam ederse lütfen bizimle iletişime geçin.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Faturalandırma adresi</string>
+  <string name="purchase_address_address_field">Adres</string>
+  <string name="purchase_address_apartment_field">Daire, kat&#8230;</string>
+  <string name="purchase_address_city_field">Şehir</string>
+  <string name="purchase_address_post_code_field">Posta Kodu</string>
+  <string name="purchase_address_state_field">Eyalet/İl</string>
   <!--Async Payments-->
   <string name="async_steps_title">Sonraki Adımlar</string>
   <string name="async_steps_1">%s ile ödemenizi tamamlayın. AppCoins Credits cüzdanınıza geldiğinde bildirim alacaksınız.</string>
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">Cüzdanı geri yükle</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
+  <string name="import_wallet_from_file_title">Veya dosyadan geri kurtarın</string>
   <string name="import_wallet_file_button">DOSYADAN GERİ YÜKLE</string>
   <string name="import_wallet_button">CÜZDANI GERİ YÜKLE</string>
   <string name="import_wallet_password_body">Bu cüzdan şifre korumalıdır!</string>
@@ -746,23 +761,40 @@
   <string name="manage_cards_select_title">Ödeme kartı seçin</string>
   <string name="manage_cards_remember">Kartı hatırla</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Her satın alma işleminde %%%s Bonus kazanın</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Favori uygulamalarınızda ne kadar fazla harcarsanız o kadar fazla bonus kazanırsınız!</string>
   <string name="perks_title">Promosyonlar</string>
   <string name="perks_body">Takipte kalın! Sizin için özel promosyonlarımız var.</string>
-  <string name="perks_end_in_days">Promosyon %s gün içinde sona eriyor.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">Promosyon %s gün içinde sona eriyor.</item>
+    <item quantity="other">Promosyon %s gün içinde sona eriyor.</item>
+  </plurals>
   <string name="perks_end_in_date">Promosyon %s tarihinde sona eriyor.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">Promosyon %s saat içinde sona eriyor.</item>
+    <item quantity="other">Promosyon %s saat içinde sona eriyor.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">Promosyon %s dakika içinde sona eriyor.</item>
+    <item quantity="other">Promosyon %s dakika içinde sona eriyor.</item>
+  </plurals>
+  <string name="perks_end_today">Promosyon bugün sona eriyor.</string>
   <string name="perks_available_soon">Promosyon yakında kullanılabilir</string>
   <string name="perks_next_level_reward">%s AppCoins Credits kazanmak için bir sonraki seviyeye ulaşın!</string>
   <string name="perks_notification">Bonus olarak %s AppCoins Credits aldınız</string>
   <string name="perks_level_up_on_this_purchase">Bu satın alma işlemiyle seviye atlayın</string>
   <string name="perks_level_up_amount_left">Bir sonraki seviyeden %1$s %2$s uzaksınız!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">%s. Svy</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">AppCoins Credits dışında başka bir satın alma yöntemiyle yapılan tüm uygulama içi satın alma işlemleri ve yüklemeler, bonus seviyenizi arttırmaya ve ödül almaya hak kazanmanızı sağlar.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Parmak izi kilidi</string>
+  <string name="fingerprint_failed_title">Kimlik doğrulama başarısız!</string>
+  <string name="fingerprint_failed_body">Lütfen %s saniye içinde tekrar deneyin.</string>
+  <string name="fingerprint_authentication_required_title">Kimlik doğrulama gerekli!</string>
+  <string name="fingerprint_authentication_required_body">Lütfen devam etmek için parmağınızı veya şifrenizi kullanın.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Destek Ekibine günlükleri gönderin</string>
+  <string name="send_logs_sending">Gönderiliyor&#8230;</string>
+  <string name="send_logs_send">Gönderildi!</string>
 </resources>

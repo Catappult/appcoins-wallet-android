@@ -27,6 +27,7 @@
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission_title">Autorisation de la caméra</string>
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format de code à barres non valide : %s</string>
   <string name="title_delete_account">Etes-vous sûr de vouloir supprimer ce portefeuille ?</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfert</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Présenté par Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +478,17 @@
   <string name="purchase_card_error_wrong_CVV">Votre code CVV/CVC semble être erroné. Veuillez réessayer.</string>
   <string name="purchase_wallet_error_contact_us">Oups, quelque chose ne va pas avec votre portefeuille. Veuillez nous contacter.</string>
   <string name="purchase_carrier_error">Il semble que votre numéro de téléphone ne soit pas compatible avec ce mode de paiement.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Oups, nous avons des problèmes avec cet achat. Veuillez nous contacter.</string>
+  <string name="purchase_error_wallet_block_code_403">Il semble que quelque chose ne va pas avec votre portefeuille. Veuillez nous contacter.</string>
   <string name="purchase_card_error_CVV">Mauvais CVV/CVC</string>
   <string name="error_contac_us_body">Si le problème persiste, veuillez nous contacter.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Adresse de facturation</string>
+  <string name="purchase_address_address_field">Adresse</string>
+  <string name="purchase_address_apartment_field">Appartement, étage&#8230;</string>
+  <string name="purchase_address_city_field">Ville</string>
+  <string name="purchase_address_post_code_field">Code postal</string>
+  <string name="purchase_address_state_field">Etat/Province</string>
   <!--Async Payments-->
   <string name="async_steps_title">Prochaines étapes</string>
   <string name="async_steps_1">Complétez votre paiement avec des %s. Vous serez averti dès que vous aurez reçu les AppCoins Credits dans votre portefeuille.</string>
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">Récupérer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
+  <string name="import_wallet_from_file_title">Ou récupérer à partir d\'un fichier</string>
   <string name="import_wallet_file_button">RÉCUPÉRER À PARTIR D\'UN FICHIER</string>
   <string name="import_wallet_button">RECUPERER LE PORTEFEUILLE</string>
   <string name="import_wallet_password_body">Ce portefeuille est protégé par un mot de passe !</string>
@@ -746,23 +761,40 @@
   <string name="manage_cards_select_title">Sélectionnez une carte de paiement</string>
   <string name="manage_cards_remember">Enregistrer la carte</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Gagnez %s%% de Bonus sur chaque achat</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Plus vous dépensez dans vos applications préférées, plus le bonus est important !</string>
   <string name="perks_title">Promotions</string>
   <string name="perks_body">Restez à l\'écoute ! Nous avons des promotions spéciales pour vous.</string>
-  <string name="perks_end_in_days">La promotion se termine dans %s jours.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">La promotion se termine dans %s jour.</item>
+    <item quantity="other">La promotion se termine dans %s jours.</item>
+  </plurals>
+  <string name="perks_end_in_date">La promotion se termine le %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">La promotion se termine dans %s heure.</item>
+    <item quantity="other">La promotion se termine dans %s heures.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">La promotion se termine dans %s minute.</item>
+    <item quantity="other">La promotion se termine dans %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">La promotion se termine aujourd\'hui.</string>
   <string name="perks_available_soon">Promotion bientôt disponible</string>
   <string name="perks_next_level_reward">Atteignez le prochain niveau pour obtenir %s AppCoins Credits !</string>
   <string name="perks_notification">Vous venez de recevoir %s AppCoins Credits en Bonus</string>
   <string name="perks_level_up_on_this_purchase">Se mettre à niveau avec cet achat</string>
   <string name="perks_level_up_amount_left">Vous êtes à %1$s %2$s du prochain niveau !</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_bonus_purchase_flow">Bonus %1$s : %2$s en AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">Tous les achats effectués dans l\'application et les recharges effectuées avec une méthode d\'achat autre que les AppCoins Credits vous permettront d\'augmenter votre niveau de bonus et de recevoir des récompenses.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Verrouillage par empreinte digitale</string>
+  <string name="fingerprint_failed_title">L\'authentification a échoué !</string>
+  <string name="fingerprint_failed_body">Merci de réessayer dans %s secondes.</string>
+  <string name="fingerprint_authentication_required_title">Authentification requise !</string>
+  <string name="fingerprint_authentication_required_body">Veuillez utiliser votre empreinte ou votre mot de passe pour continuer.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Envoyer les journaux à l\'équipe du support</string>
+  <string name="send_logs_sending">Envoi&#8230;</string>
+  <string name="send_logs_send">Envoyé !</string>
 </resources>

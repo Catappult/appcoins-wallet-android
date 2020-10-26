@@ -6,6 +6,9 @@ import java.math.BigDecimal
 
 open class Promotion(val id: String)
 
+open class PerkPromotion(id: String, val startDate: Long?, val endDate: Long,
+                         val detailsLink: String?) : Promotion(id)
+
 class TitleItem(
     @StringRes val title: Int,
     @StringRes val subtitle: Int,
@@ -16,26 +19,32 @@ class TitleItem(
 
 class DefaultItem(
     id: String,
-    val title: String,
+    val description: String,
     val icon: String?,
-    val endDate: Long
-) : Promotion(id)
+    startDate: Long?,
+    endDate: Long,
+    detailsLink: String?
+) : PerkPromotion(id, startDate, endDate, detailsLink)
 
 class FutureItem(
     id: String,
-    val title: String,
+    val description: String,
     val icon: String?,
-    val endDate: Long
-) : Promotion(id)
+    startDate: Long?,
+    endDate: Long,
+    detailsLink: String?
+) : PerkPromotion(id, startDate, endDate, detailsLink)
 
 class ProgressItem(
     id: String,
-    val title: String,
+    val description: String,
     val icon: String?,
-    val endDate: Long,
+    startDate: Long?,
+    endDate: Long,
     val current: BigDecimal,
-    val objective: BigDecimal
-) : Promotion(id)
+    val objective: BigDecimal?,
+    detailsLink: String?
+) : PerkPromotion(id, startDate, endDate, detailsLink)
 
 class GamificationItem(
     id: String,
@@ -43,7 +52,7 @@ class GamificationItem(
     val level: Int,
     val levelColor: Int,
     val title: String,
-    val phrase: String,
+    val toNextLevelAmount: BigDecimal?,
     var bonus: Double,
     val links: MutableList<GamificationLinkItem>
 ) : Promotion(id)
@@ -56,6 +65,9 @@ class ReferralItem(
 ) : Promotion(id)
 
 class GamificationLinkItem(
-    val title: String,
-    val icon: String?
-)
+    id: String,
+    val description: String,
+    val icon: String?,
+    startDate: Long?,
+    endDate: Long
+) : PerkPromotion(id, startDate, endDate, null)

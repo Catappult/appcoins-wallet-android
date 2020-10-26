@@ -48,6 +48,7 @@
         android:id="@+id/credits_balances_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:constraint_referenced_ids="credits_balance,credits_fiat_balance"
         />
 
@@ -83,7 +84,6 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif"
         android:maxLines="2"
-        android:text="@string/purchase_appcoins_credits_available_body"
         android:textColor="#727272"
         android:textSize="12sp"
         android:visibility="invisible"

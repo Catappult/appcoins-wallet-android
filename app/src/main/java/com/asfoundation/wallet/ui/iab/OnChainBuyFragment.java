@@ -243,10 +243,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView.showWalletValidation(error);
   }
 
-  @Override public void launchPerkBonusService(@NotNull String address) {
-    iabView.launchPerkBonusService(address);
-  }
-
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {

@@ -27,6 +27,7 @@
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
   <string name="title_delete_account">هل أنت متأكد من أنك تريد حذف هذه المحفظة؟</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">تحويل</string>
   <string name="transaction_type_bonus">علاوة</string>
+  <string name="transaction_type_reverted_bonus_title">مكافأة راجعة</string>
+  <string name="transaction_type_reverted_bonus_body">المكافأة التي استلمتها على %s رجعت إلى المصدر. يرجى التواصل مع الدعم لمزيد من المعلومات.</string>
+  <string name="transaction_type_reverted_topup_title">استرجاع تعبئة الرصيد</string>
+  <string name="transaction_type_reverted_topup_body">تعبئة الرصيد التي أجريتها على %s رجعت إلى المصدر. يرجى التواصل مع الدعمل لمزيد من المعلومات.</string>
+  <string name="transaction_type_reverted_purchase_title">استرجاع مشتريات</string>
+  <string name="transaction_type_reverted_purchase_body">المشتريات التي طلبتها على %s عادت إلى المصدر. يرجى التواصل مع الدعم لمزيد من المعلومات.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">مدعوم من الإيثيريوم</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -472,10 +479,17 @@
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
   <string name="purchase_wallet_error_contact_us">يييي، هناك خطبٌ ما في محفظتك. يرجى الاتصال بنا.</string>
   <string name="purchase_carrier_error">يبدو أن رقم هاتفك لا يتوافق مع وسيلة الدفع هذه.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">يييي، نحن نعاني من مشكلة في عملية الشراء هذه. أرجوك تواصل معنا.</string>
+  <string name="purchase_error_wallet_block_code_403">يبدو أن هناك مشكلة ما في محفظتك. يرجى التواصل معنا.</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">عنوان الفوترة</string>
+  <string name="purchase_address_address_field">العنوان</string>
+  <string name="purchase_address_apartment_field">الشقة، الطابق&#8230;</string>
+  <string name="purchase_address_city_field">المدينة</string>
+  <string name="purchase_address_post_code_field">الرمز البريدي</string>
+  <string name="purchase_address_state_field">الولاية/المحافظة</string>
   <!--Async Payments-->
   <string name="async_steps_title">الخطوة التالية</string>
   <string name="async_steps_1">أتمّ عملية الدفع بواسطة %s. سنرسل لك إشعارًا عند استلامك رصيد AppCoins في محفظتك.</string>
@@ -565,6 +579,7 @@
   <string name="import_wallet_title">استعادة المحفظة</string>
   <string name="import_wallet_body">ألصق النسخ الاحتياطي للمحفظة في الأسفل.</string>
   <string name="import_wallet_keystore_private_keys">مخزن المفاتيح أو المفاتيح الخاصة</string>
+  <string name="import_wallet_from_file_title">أو استرجعه من ملف</string>
   <string name="import_wallet_file_button">استعادة من ملف</string>
   <string name="import_wallet_button">استعادة المحفظة</string>
   <string name="import_wallet_password_body">هذه المحفظة محمية بكلمة مرور!</string>
@@ -751,23 +766,52 @@
   <string name="manage_cards_select_title">اختر بطاقة دفع</string>
   <string name="manage_cards_remember">تذكر بطاقتي</string>
   <!--Perks-->
-  <string name="perks_gamif_title">احصل على %s%% مكافأة على كل عملية شراء</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">كلما أنفقت أكثر في تطبيقاتك المفضلة، كانت المكافأة أكبر!</string>
   <string name="perks_title">ترقيات</string>
   <string name="perks_body">ترقّبوا! لدينا ترقيات خاصة من أجلك.</string>
-  <string name="perks_end_in_days">تنتهي الترقيات في %s يومًا.</string>
+  <plurals name="promotion_ends">
+    <item quantity="zero">تنتهي الترقية خلال %s يومًا.</item>
+    <item quantity="one">تنتهي الترقية خلال يوم واحد.</item>
+    <item quantity="two">تنتهي الترقيات خلال يومين.</item>
+    <item quantity="few">تنتهي الترقيات خلال %s أيام.</item>
+    <item quantity="many">تنتهي الترقيات خلال %s يومًا.</item>
+    <item quantity="other">تنتهي الترقيات خلال %s يومًا.</item>
+  </plurals>
   <string name="perks_end_in_date">تنتهي الترقية في %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="zero">ينتهي الإعلان خلال %s ساعة.</item>
+    <item quantity="one">ينتهي الإعلان خلال ساعة.</item>
+    <item quantity="two">ينتهي الإعلان خلال ساعتين.</item>
+    <item quantity="few">ينتهي الإعلان خلال %s ساعات.</item>
+    <item quantity="many">ينتهي الإعلان خلال %s ساعة.</item>
+    <item quantity="other">ينتهي الإعلان خلال %s ساعة.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="zero">ينتهي الإعلان خلال %s دقيقة.</item>
+    <item quantity="one">ينتهي الإعلان خلال دقيقة.</item>
+    <item quantity="two">ينتهي الإعلان خلال دقيقتين.</item>
+    <item quantity="few">ينتهي الإعلان خلال %s دقائق.</item>
+    <item quantity="many">ينتهي الإعلان خلال %s دقيقة.</item>
+    <item quantity="other">ينتهي الإعلان خلال %s دقيقة.</item>
+  </plurals>
+  <string name="perks_end_today">ينتهي الإعلان اليوم.</string>
   <string name="perks_available_soon">ترقيات متوفرة قريبًا</string>
   <string name="perks_next_level_reward">إذا وصلت المستوى التالي تحصل على رصيد %s AppCoins!</string>
   <string name="perks_notification">لقد تلقّيت للتوّ رصيد %s AppCoins كمكافأة</string>
   <string name="perks_level_up_on_this_purchase">انتقل للمستوى التالي مع عملية الشراء هذه</string>
   <string name="perks_level_up_amount_left">أنت على بعد %1$s %2$s عن المستوى التالي!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">المستوى %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s مكافأة: %2$s في رصيد AppCoins</string>
+  <string name="perks_purchases_disclaimer_body">كل عمليات الشراء داخل التطبيق وعمليات تعبئة الرصيد التي أجريتها بأي وسيلة شراء غير رصيد AppCoins ستؤهلك لرفع مستوى مكافآتك وتمكنك من استقبال الجوائز.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">قفل البصمة</string>
+  <string name="fingerprint_failed_title">فشلت الإثبات!</string>
+  <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
+  <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>
+  <string name="fingerprint_authentication_required_body">يرجى استخدام بصمة الإصبع أو كلمة المرور للمتابعة.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">أرسل سجل النشاط إلى فريق الدعم</string>
+  <string name="send_logs_sending">يتم إرسال&#8230;</string>
+  <string name="send_logs_send">أُرسلت!</string>
 </resources>

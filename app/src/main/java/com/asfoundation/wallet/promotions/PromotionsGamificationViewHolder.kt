@@ -16,7 +16,7 @@ class PromotionsGamificationViewHolder(itemView: View) : RecyclerView.ViewHolder
         .circleCrop()
         .into(itemView.link_icon)
 
-    itemView.link_description.text = gamificationLinkItem.title
+    itemView.link_description.text = gamificationLinkItem.description
   }
 
 }

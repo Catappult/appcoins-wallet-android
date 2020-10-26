@@ -27,6 +27,7 @@
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission_title">相机权限</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
   <string name="title_delete_account">确实要删除此钱包？</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">转移</string>
   <string name="transaction_type_bonus">奖励</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">采用以太网技术</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -475,6 +482,13 @@
   <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC错误</string>
   <string name="error_contac_us_body">如果问题仍然存在，请与我们联系。</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Billing address</string>
+  <string name="purchase_address_address_field">Address</string>
+  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
+  <string name="purchase_address_city_field">City</string>
+  <string name="purchase_address_post_code_field">Zip/Post code</string>
+  <string name="purchase_address_state_field">State/Province</string>
   <!--Async Payments-->
   <string name="async_steps_title">后续步骤</string>
   <string name="async_steps_1">使用%s完成付款。钱包中收到AppCoins积金后，你会获得通知。</string>
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">恢复钱包</string>
   <string name="import_wallet_body">将你的钱包备份粘贴在下方。</string>
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
+  <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">从文件恢复</string>
   <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
@@ -745,12 +760,21 @@
   <string name="manage_cards_select_title">选择支付卡</string>
   <string name="manage_cards_remember">记住卡信息</string>
   <!--Perks-->
-  <string name="perks_gamif_title">每次购买可享%s%%的奖励</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="perks_title">促销</string>
   <string name="perks_body">敬请关注！我们为您推出了特别促销。</string>
-  <string name="perks_end_in_days">促销将在%s天内结束。</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">The promotion ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">促销将在%s结束。</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">促销即将推出</string>
   <string name="perks_next_level_reward">达到下一关可获取%s AppCoins积金！</string>
   <string name="perks_notification">你刚刚收到了%s AppCoins积金奖励</string>
@@ -758,10 +782,15 @@
   <string name="perks_level_up_amount_left">您还要%1$s %2$s升到下一级！</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Fingerprint lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>
   <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>

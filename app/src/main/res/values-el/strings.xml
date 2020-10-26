@@ -27,6 +27,7 @@
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
   <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Μη έγκυρη μορφή barcode: %s</string>
   <string name="title_delete_account">Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτό το wallet;</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Μεταφορά</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +478,17 @@
   <string name="purchase_card_error_wrong_CVV">Φαίνεται ότι ο κωδικός CVV/CVC είναι λανθασμένος. Παρακαλούμε, δοκιμάστε ξανά.</string>
   <string name="purchase_wallet_error_contact_us">Ωχ, κάτι δεν πάει καλά με το wallet σας. Παρακαλούμε, επικοινωνήστε μαζί μας.</string>
   <string name="purchase_carrier_error">Φαίνεται πως ο αριθμός του τηλεφώνου σας δεν είναι συμβατός με αυτή τη μέθοδο πληρωμής.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Ωχ, υπάρχει πρόβλημα με αυτήν την αγορά. Παρακαλούμε επικοινωνήστε μαζί μας.</string>
+  <string name="purchase_error_wallet_block_code_403">Φαίνεται πως υπάρχει κάποιο πρόβλημα με το wallet σας. Παρακαλούμε επικοινωνήστε μαζί μας.</string>
   <string name="purchase_card_error_CVV">Εσφαλμένο CVV/CVC</string>
   <string name="error_contac_us_body">Εάν το πρόβλημα επιμένει, παρακαλούμε επικοινωνήστε μαζί μας.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
+  <string name="purchase_address_address_field">Διεύθυνση</string>
+  <string name="purchase_address_apartment_field">Διαμέρισμα, όροφος&#8230;</string>
+  <string name="purchase_address_city_field">Πόλη</string>
+  <string name="purchase_address_post_code_field">Ταχυδρομικός κώδικας</string>
+  <string name="purchase_address_state_field">Πολιτεία/Περιοχή</string>
   <!--Async Payments-->
   <string name="async_steps_title">Επόμενα Βήματα</string>
   <string name="async_steps_1">Ολοκληρώστε την πληρωμή σας με %s. Θα ειδοποιηθείτε μόλις λάβετε τα AppCoins Credits στο wallet σας.</string>
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">Ανάκτηση Wallet</string>
   <string name="import_wallet_body">Επικολλήστε το αντίγραφο ασφαλείας του wallet σας παρακάτω.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ή ιδιωτικά κλειδιά</string>
+  <string name="import_wallet_from_file_title">Ή ανακτήστε το μέσω αρχείου</string>
   <string name="import_wallet_file_button">ΑΝΑΚΤΗΣΗ ΑΠΟ ΑΡΧΕΙΟ</string>
   <string name="import_wallet_button">ΑΝΑΚΤΗΣΗ WALLET</string>
   <string name="import_wallet_password_body">Αυτό το wallet προστατεύεται από κωδικό!</string>
@@ -746,23 +761,40 @@
   <string name="manage_cards_select_title">Επιλογή κάρτας πληρωμής</string>
   <string name="manage_cards_remember">Αποθήκευση κάρτας</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Κερδίστε %s%% Bonus σε κάθε αγορά</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το bonus!</string>
   <string name="perks_title">Προωθήσεις</string>
   <string name="perks_body">Μείνετε συντονισμένοι! Έχουμε ειδικές προωθήσεις για εσάς.</string>
-  <string name="perks_end_in_days">Η προώθηση τελειώνει σε %s ημέρες.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">Η προώθηση τελειώνει σε %s ημέρα.</item>
+    <item quantity="other">Η προώθηση τελειώνει σε %s ημέρες.</item>
+  </plurals>
   <string name="perks_end_in_date">Η προώθηση τελειώνει στις %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">Η προώθηση τελειώνει σε %s ώρα.</item>
+    <item quantity="other">Η προώθηση τελειώνει σε %s ώρες.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">Η προώθηση τελειώνει σε %s λεπτό.</item>
+    <item quantity="other">Η προώθηση τελειώνει σε %s λεπτά.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Η προώθηση θα είναι διαθέσιμη σύντομα</string>
   <string name="perks_next_level_reward">Φτάστε στο επόμενο επίπεδο για να λάβετε %s AppCoins Credits!</string>
   <string name="perks_notification">Μόλις λάβατε %s AppCoins Credits ως Bonus</string>
   <string name="perks_level_up_on_this_purchase">Ανεβείτε στο επόμενο επίπεδο με αυτήν την αγορά</string>
   <string name="perks_level_up_amount_left">Είστε %1$s %2$s μακριά από το επόμενο επίπεδο!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">Επ. %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s σε AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">Κάθε αγορά εντός εφαρμογής και κάθε φόρτιση που πραγματοποιείται με οποιαδήποτε μέθοδο, εκτός από AppCoins Credits, θα πληροί τις προϋποθέσεις για την αύξηση του επιπέδου bonus σας και τη λήψη αμοιβών.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Κλείδωμα με αποτύπωμα</string>
+  <string name="fingerprint_failed_title">Αποτυχία επαλήθευσης!</string>
+  <string name="fingerprint_failed_body">Παρακαλούμε προσπαθήστε ξανά σε %s δευτερόλεπτα.</string>
+  <string name="fingerprint_authentication_required_title">Απαιτείται επαλήθευση!</string>
+  <string name="fingerprint_authentication_required_body">Παρακαλούμε χρησιμοποιήστε το δάχτυλό σας ή τον κωδικό πρόσβασης για να συνεχίσετε.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Αποστολή αρχείων καταγραφής στην Ομάδα Υποστήριξης</string>
+  <string name="send_logs_sending">Αποστολή&#8230;</string>
+  <string name="send_logs_send">Στάλθηκαν!</string>
 </resources>

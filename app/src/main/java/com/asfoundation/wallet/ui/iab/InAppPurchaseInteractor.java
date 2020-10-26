@@ -195,11 +195,11 @@ public class InAppPurchaseInteractor {
             hasAppcoinsFunds, transactionBuilder.amount()));
   }
 
-  private Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
+  public Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
     return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
   }
 
-  private Single<GetDefaultWalletBalanceInteract.BalanceState> getBalanceState(
+  public Single<GetDefaultWalletBalanceInteract.BalanceState> getBalanceState(
       TransactionBuilder transaction) {
     return asfInAppPurchaseInteractor.getAppcoinsBalanceState(transaction);
   }

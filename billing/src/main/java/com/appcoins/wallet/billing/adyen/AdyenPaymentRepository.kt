@@ -3,7 +3,6 @@ package com.appcoins.wallet.billing.adyen
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -29,14 +28,16 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                   origin: String?, packageName: String?, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
                   storeWallet: String?, oemWallet: String?, userWallet: String?,
-                  walletSignature: String, autoRenewing: Boolean?): Single<PaymentModel> {
+                  walletSignature: String, billingAddress: AdyenBillingAddress?,
+                  autoRenewing: Boolean?): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
-    return makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-        callbackUrl, packageName, metadata, paymentType, origin, sku, reference, transactionType,
-        currency, value, developerWallet, storeWallet, oemWallet, userWallet, autoRenewing,
-        walletAddress, walletSignature)
+    return adyenApi.makePayment(walletAddress, walletSignature,
+        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+            billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
+            transactionType, currency, value, developerWallet, storeWallet, oemWallet, userWallet,
+            autoRenewing, walletAddress, walletSignature))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }

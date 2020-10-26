@@ -36,7 +36,7 @@ allprojects {
 }
 project.ext {
   adyen_version = '3.6.6'
-  appcompat_version = '1.1.0'
+  appcompat_version = '1.2.0'
   aptoide_analytics_version = '1.0.3'
   asf_applications_version = '6'
   asf_sdk_version = "0.4.5.19b"
@@ -62,7 +62,7 @@ project.ext {
   junit_version = '4.13'
   lifecycle_version = '1.1.1'
   lottie_version = '3.4.0'
-  material_version = '1.1.0'
+  material_version = '1.2.1'
   mockito_version = '3.3.0'
   multidex_version = '2.0.1'
   okhttp_version = '4.4.1'
@@ -87,6 +87,7 @@ project.ext {
   zxing_android_version = '3.6.0'
   zxing_version = '3.4.0'
   sentry_version = '1.7.30'
+  amplitude_version = '2.25.2'
 }
 
 task clean(type: Delete) {

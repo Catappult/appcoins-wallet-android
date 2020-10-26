@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.ui.backup
 
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class BackupWalletPresenter(private var balanceInteract: BalanceInteract,
-                            private var walletsEventSender: WalletsEventSender,
                             private var view: BackupWalletFragmentView,
                             private var activityView: BackupActivityView,
                             private var disposables: CompositeDisposable,

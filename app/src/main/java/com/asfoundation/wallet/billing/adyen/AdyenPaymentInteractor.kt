@@ -6,6 +6,8 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -66,7 +68,7 @@ class AdyenPaymentInteractor(
                   returnUrl: String, value: String, currency: String, reference: String?,
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?, autoRenewing: Boolean?): Single<PaymentModel> {
+                  developerWallet: String?, billingAddress: AdyenBillingAddress? = null, autoRenewing: Boolean?): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->
           Single.zip(
@@ -80,7 +82,7 @@ class AdyenPaymentInteractor(
                     supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
                     address.address, origin, packageName, metadata, sku, callbackUrl,
                     transactionType, developerWallet, it.first, it.second, address.address,
-                    address.signedAddress, autoRenewing)
+                    address.signedAddress, billingAddress, autoRenewing)
               }
         }
   }
@@ -88,13 +90,14 @@ class AdyenPaymentInteractor(
   fun makeTopUpPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
                        supportedShopperInteraction: List<String>, returnUrl: String, value: String,
                        currency: String, paymentType: String, transactionType: String,
-                       packageName: String): Single<PaymentModel> {
+                       packageName: String,
+                       billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
               supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
               it.address, null, packageName, null, null, null, transactionType, null, null, null,
-              null, it.signedAddress, null)
+              null, it.signedAddress, billingAddress, null)
         }
   }
 
@@ -140,7 +143,7 @@ class AdyenPaymentInteractor(
     return inAppPurchaseInteractor.convertToLocalFiat(doubleValue)
   }
 
-  fun getTransaction(uid: String): Observable<PaymentModel> {
+  fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMapObservable { walletAddressModel ->
           Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
@@ -155,6 +158,24 @@ class AdyenPaymentInteractor(
         }
   }
 
+  fun getFailedTransactionReason(uid: String, timesCalled: Int = 0): Single<PaymentModel> {
+    return if (timesCalled < MAX_NUMBER_OF_TRIES) {
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletAddressModel ->
+            Single.zip(adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
+                walletAddressModel.signedAddress),
+                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS),
+                BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
+          }
+          .flatMap {
+            if (it.errorCode != null) Single.just(it)
+            else getFailedTransactionReason(it.uid, timesCalled + 1)
+          }
+    } else {
+      Single.just(PaymentModel(Error(true)))
+    }
+  }
+
   fun getWalletAddress() = walletService.getWalletAddress()
 
   private fun isEndingState(status: PaymentModel.Status): Boolean {
@@ -167,5 +188,10 @@ class AdyenPaymentInteractor(
 
   private fun isManagedTransaction(type: BillingSupportedType): Boolean {
     return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
+  }
+
+  private companion object {
+    private const val MAX_NUMBER_OF_TRIES = 5
+    private const val REQUEST_INTERVAL_IN_SECONDS: Long = 2
   }
 }

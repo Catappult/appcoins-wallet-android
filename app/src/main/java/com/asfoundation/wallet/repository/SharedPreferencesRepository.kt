@@ -16,6 +16,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val BACKUP_SEEN_TIME = "backup_seen_time_"
+    private const val PROMOTION_SEEN_TIME = "promotion_seen_time_"
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
@@ -26,6 +27,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification_"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
+    private const val SHOW_GAMIFICATION_DISCLAIMER = "SHOW_GAMIFICATION_DISCLAIMER"
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
@@ -132,6 +134,20 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     }
   }
 
+  override fun setPromotionNotificationSeenTime(walletAddress: String, currentTimeMillis: Long) {
+    pref.edit()
+        .putLong(PROMOTION_SEEN_TIME + walletAddress, currentTimeMillis)
+        .apply()
+  }
+
+  override fun removePromotionNotificationSeenTime(walletAddress: String): Completable {
+    return Completable.fromAction {
+      pref.edit()
+          .remove(PROMOTION_SEEN_TIME + walletAddress)
+          .apply()
+    }
+  }
+
   override fun isWalletRestoreBackup(walletAddress: String) =
       pref.getBoolean(WALLET_IMPORT_BACKUP + walletAddress, false)
 
@@ -213,4 +229,11 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun getWalletId() = pref.getString(WALLET_ID, null)
 
+  override fun showGamificationDisclaimer() = pref.getBoolean(SHOW_GAMIFICATION_DISCLAIMER, true)
+
+  override fun setGamificationDisclaimerShown() {
+    pref.edit()
+        .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
+        .apply()
+  }
 }

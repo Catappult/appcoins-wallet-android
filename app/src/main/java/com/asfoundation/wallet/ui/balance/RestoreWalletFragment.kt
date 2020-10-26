@@ -18,7 +18,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.restore_wallet_first_layout.*
+import kotlinx.android.synthetic.main.fragment_restore_wallet_first_layout.*
 import javax.inject.Inject
 
 class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
@@ -59,7 +59,7 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.restore_wallet_first_layout, container, false)
+    return inflater.inflate(R.layout.fragment_restore_wallet_first_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

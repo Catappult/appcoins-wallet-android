@@ -158,7 +158,7 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideAirdropService(client: OkHttpClient, gson: Gson): AirdropService {
+  fun provideAirdropService(@Named("blockchain") client: OkHttpClient, gson: Gson): AirdropService {
     val api = Retrofit.Builder()
         .baseUrl(AirdropService.BASE_URL)
         .client(client)
@@ -171,7 +171,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideTokenRateService(client: OkHttpClient, objectMapper: ObjectMapper): TokenRateService {
+  fun provideTokenRateService(@Named("blockchain") client: OkHttpClient,
+                              objectMapper: ObjectMapper): TokenRateService {
     val baseUrl = TokenRateService.CONVERSION_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -185,7 +186,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideLocalCurrencyConversionService(client: OkHttpClient,
+  fun provideLocalCurrencyConversionService(@Named("default") client: OkHttpClient,
                                             objectMapper: ObjectMapper): LocalCurrencyConversionService {
     val baseUrl = LocalCurrencyConversionService.CONVERSION_HOST
     val api = Retrofit.Builder()
@@ -242,7 +243,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun providePoASubmissionService(client: OkHttpClient): CampaignService {
+  fun providePoASubmissionService(@Named("blockchain") client: OkHttpClient): CampaignService {
     val baseUrl = CampaignService.SERVICE_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -285,7 +286,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideGasService(client: OkHttpClient, gson: Gson): GasService {
+  fun provideGasService(@Named("blockchain") client: OkHttpClient, gson: Gson): GasService {
     return Retrofit.Builder()
         .baseUrl(GasService.API_BASE_URL)
         .client(client)
@@ -331,7 +332,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideWalletBalanceService(client: OkHttpClient, gson: Gson): WalletBalanceService {
+  fun provideWalletBalanceService(@Named("default") client: OkHttpClient,
+                                  gson: Gson): WalletBalanceService {
     return Retrofit.Builder()
         .baseUrl(WalletBalanceService.API_BASE_URL)
         .client(client)
@@ -380,7 +382,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideSmsValidationApi(client: OkHttpClient, gson: Gson): SmsValidationApi {
+  fun provideSmsValidationApi(@Named("default") client: OkHttpClient,
+                              gson: Gson): SmsValidationApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -393,7 +396,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideWalletStatusApi(client: OkHttpClient, gson: Gson): WalletStatusApi {
+  fun provideWalletStatusApi(@Named("default") client: OkHttpClient, gson: Gson): WalletStatusApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -406,7 +409,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideDeepLinkApi(client: OkHttpClient, gson: Gson): DeepLinkApi {
+  fun provideDeepLinkApi(@Named("default") client: OkHttpClient, gson: Gson): DeepLinkApi {
     val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -419,7 +422,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun providesTopUpValuesApi(client: OkHttpClient, gson: Gson): TopUpValuesApi {
+  fun providesTopUpValuesApi(@Named("default") client: OkHttpClient, gson: Gson): TopUpValuesApi {
     val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -432,7 +435,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsShareLinkApi(client: OkHttpClient, gson: Gson): BdsShareLinkApi {
+  fun provideBdsShareLinkApi(@Named("default") client: OkHttpClient, gson: Gson): BdsShareLinkApi {
     val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -445,7 +448,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsPartnersApi(client: OkHttpClient, gson: Gson): BdsPartnersApi {
+  fun provideBdsPartnersApi(@Named("default") client: OkHttpClient, gson: Gson): BdsPartnersApi {
     val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -458,7 +461,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideAnalyticsAPI(client: OkHttpClient, objectMapper: ObjectMapper): AnalyticsAPI {
+  fun provideAnalyticsAPI(@Named("default") client: OkHttpClient,
+                          objectMapper: ObjectMapper): AnalyticsAPI {
     return Retrofit.Builder()
         .baseUrl("https://ws75.aptoide.com/api/7/")
         .client(client)
@@ -469,7 +473,7 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideGamificationApi(client: OkHttpClient): GamificationApi {
+  fun provideGamificationApi(@Named("default") client: OkHttpClient): GamificationApi {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
         .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
@@ -487,7 +491,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBackendApi(client: OkHttpClient, gson: Gson): BackendApi {
+  fun provideBackendApi(@Named("default") client: OkHttpClient, gson: Gson): BackendApi {
     return Retrofit.Builder()
         .baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)
@@ -499,7 +503,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideAppcoinsApps(client: OkHttpClient, gson: Gson): AppcoinsApps {
+  fun provideAppcoinsApps(@Named("default") client: OkHttpClient, gson: Gson): AppcoinsApps {
     val appsApi = Retrofit.Builder()
         .baseUrl(AppsApi.API_BASE_URL)
         .client(client)
@@ -514,7 +518,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsApi(client: OkHttpClient, gson: Gson): BdsApi {
+  fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -527,7 +531,7 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsApiSecondary(client: OkHttpClient, gson: Gson): BdsApiSecondary {
+  fun provideBdsApiSecondary(@Named("default") client: OkHttpClient, gson: Gson): BdsApiSecondary {
     val baseUrl = BuildConfig.BDS_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -539,7 +543,8 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideSubscriptionService(client: OkHttpClient, gson: Gson): SubscriptionService {
+  fun provideSubscriptionService(@Named("default") client: OkHttpClient,
+                                 gson: Gson): SubscriptionService {
     return SubscriptionApiMockedImpl()
   }
 
@@ -549,7 +554,7 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideSubscriptionBillingService(client: OkHttpClient,
+  fun provideSubscriptionBillingService(@Named("blockchain") client: OkHttpClient,
                                         gson: Gson): SubscriptionBillingApi {
     val baseUrl = BuildConfig.CATAPPULT_HOST
     return Retrofit.Builder()

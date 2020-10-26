@@ -78,7 +78,7 @@ class Gamification(private val repository: PromotionsRepository) {
   }
 
   fun levelShown(wallet: String, level: Int, screen: String): Completable {
-    return repository.shownLevel(wallet, level, screen)
+    return Completable.fromAction { repository.shownLevel(wallet, level, screen) }
   }
 
 }

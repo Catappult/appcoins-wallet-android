@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.SortedList;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.promotions.PromotionNotification;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
@@ -206,7 +207,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
           if (Objects.equals(card.get(j), cardNotification)) {
             card.remove(j);
             this.notifyItemChanged(i);
-            return card.size() == 0;
+            return card.size() == 0 || cardNotification instanceof PromotionNotification;
           }
         }
       }

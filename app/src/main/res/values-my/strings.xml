@@ -27,6 +27,7 @@
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
   <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">အိုေက</string>
   <string name="barcode_error_format">ဘားကုဒ္ပံုစံ မမွန္ကန္ပါ - %s</string>
   <string name="title_delete_account">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">လႊဲေျပာင္းမည္</string>
   <string name="transaction_type_bonus">ေဘာနပ္စ္</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum မွ ျပဳလုပ္ပါသည္</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +478,17 @@
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_wallet_error_contact_us">အိုး သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_carrier_error">သင့္ဖုန္းနံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">အိုး ဤဝယ္ယူမႈႏွင့္ပတ္သက္၍ ကၽြႏ္ုပ္တို႔ထံတြင္ ျပႆနာမ်ား ရွိေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
+  <string name="purchase_error_wallet_block_code_403">သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပံုရပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
+  <string name="purchase_address_address_field">လိပ္စာ</string>
+  <string name="purchase_address_apartment_field">တိုက္ခန္း၊ အထပ္&#8230;</string>
+  <string name="purchase_address_city_field">ၿမိဳ႕</string>
+  <string name="purchase_address_post_code_field">Zip/စာပို႔ကုဒ္</string>
+  <string name="purchase_address_state_field">ျပည္နယ္/ခ႐ိုင္</string>
   <!--Async Payments-->
   <string name="async_steps_title">ေနာက္ထပ္အဆင့္မ်ား</string>
   <string name="async_steps_1">သင့္ေငြေပးေခ်မႈကို %s ျဖင့္ ၿပီးေအာင္လုပ္လိုက္ပါ။ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credits မ်ားကို ရရွိသည္ႏွင့္ သင့္အားအသိေပးပါမည္။</string>
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
+  <string name="import_wallet_from_file_title">သို႔မဟုတ္ ဖိုင္မွ ျပန္လည္ရယူပါ</string>
   <string name="import_wallet_file_button">ဖိုင္မွ ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
@@ -745,23 +760,37 @@
   <string name="manage_cards_select_title">ေငြေပးေခ်မည့္ကဒ္ကို ေရြးခ်ယ္ပါ</string>
   <string name="manage_cards_remember">ကဒ္ကို သတိရပါ</string>
   <!--Perks-->
-  <string name="perks_gamif_title">ဝယ္ယူမႈတိုင္းအတြက္ %s%% ေဘာနပ္စ္ရယူလိုက္ပါ</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ မ်ားမ်ားပို၍ သံုးစြဲေလ ေဘာနပ္စ္ပိုမ်ားေလ ျဖစ္ပါသည္။</string>
   <string name="perks_title">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="perks_body">နားစြင့္ထားလိုက္ပါ။ သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား ရွိပါသည္။</string>
-  <string name="perks_end_in_days">ပ႐ိုမိုးရွင္းသည္ %s ရက္ၾကာလွ်င္ သက္တမ္းကုန္ပါမည္။</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">ပ႐ိုမိုးရွင္းသည္ %s ရက္အၾကာတြင္ ၿပီးဆံံုးမည္ ျဖစ္ပါသည္။</item>
+  </plurals>
   <string name="perks_end_in_date">ပ႐ိုမိုးရွင္းသည္ %s တြင္ သက္တမ္းကုန္ပါမည္။</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="other">ပ႐ိုမိုးရွင္းသည္ %s နာရီအၾကာတြင္ ၿပီးဆံုးပါမည္။</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="other">ပ႐ိုမိုးရွင္းသည္ %s မိနစ္အၾကာတြင္ ၿပီးဆံုးပါမည္။</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">မၾကာမီ ပ႐ိုမိုးရွင္းမ်ား ရရွိပါမည္</string>
   <string name="perks_next_level_reward">%s AppCoins Credits မ်ားကို ရယူရန္ ေနာက္တစ္ဆင့္သို႔ ေရာက္ေအာင္သြားလိုက္ပါ။</string>
   <string name="perks_notification">ေဘာနပ္စ္အျဖစ္ %s AppCoins Credits ကို သင္ရရွိပါသည္</string>
   <string name="perks_level_up_on_this_purchase">ဤဝယ္ယူမႈျဖင့္ အဆင့္တက္လိုက္ပါ</string>
   <string name="perks_level_up_amount_left">ေနာက္တစ္ဆင့္သို႔ သင္ေရာက္ရွိရန္ %1$s %2$s သာ လိုအပ္ပါသည္။</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">အဆင့္ %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s ေဘာနပ္စ္ - %2$s ကို AppCoins Credits အေနျဖင့္</string>
+  <string name="perks_purchases_disclaimer_body">AppCoins Credits မွလြဲ၍ မည္သည့္ဝယ္ယူမႈ နည္းလမ္းျဖင့္မဆို ျပဳလုပ္ေသာ အက္ပ္အတြင္း ဝယ္ယူမႈမ်ားႏွင့္ ေငြျဖည့္မႈမ်ား အားလံုးသည္ သင့္ေဘာနပ္စ္အဆင့္ကို ျမင့္ေစရန္ႏွင့္ ဆုမ်ားကို ရရွိေစရန္ အက်ံဳးဝင္မည္ ျဖစ္ပါသည္။</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">လက္ေဗြျဖင့္ပိတ္ျခင္း</string>
+  <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
+  <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
+  <string name="fingerprint_authentication_required_body">ဆက္လုပ္ရန္အတြက္ သင့္လက္ေခ်ာင္း သို႔မဟုတ္ စကားဝွက္ကို အသံုးျပဳေပးပါ။</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">မွတ္တမ္းမ်ားကို ပံ့ပိုးေရးအဖြဲ႕ထံသို႔ ေပးပို႔မည္</string>
+  <string name="send_logs_sending">ေပးပို႔ေနပါသည္&#8230;</string>
+  <string name="send_logs_send">ေပးပို႔လိုက္ပါသည္။</string>
 </resources>

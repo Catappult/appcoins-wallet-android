@@ -15,11 +15,9 @@ class GamificationLocalDataTest : GamificationLocalData {
   private var wallet: String? = null
   private var gamificationLevel: Int? = -1
 
-  override fun saveShownLevel(wallet: String, level: Int, screen: String): Completable {
-    return Completable.fromAction {
-      this.wallet = wallet
-      lastShownLevelResponse = Single.just(level)
-    }
+  override fun saveShownLevel(wallet: String, level: Int, screen: String) {
+    this.wallet = wallet
+    lastShownLevelResponse = Single.just(level)
   }
 
   fun getWallet(): String {
@@ -34,17 +32,14 @@ class GamificationLocalDataTest : GamificationLocalData {
     return aux
   }
 
-  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
+  override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
     val aux = seenGenericPromotionResponse!!
     seenGenericPromotionResponse = null
     return aux
   }
 
-  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
-    return Completable.fromAction {
-      this.wallet = wallet
-      seenGenericPromotionResponse = true
-    }
+  override fun setSeenGenericPromotion(id: String, screen: String) {
+    seenGenericPromotionResponse = true
   }
 
   override fun setGamificationLevel(gamificationLevel: Int): Completable {

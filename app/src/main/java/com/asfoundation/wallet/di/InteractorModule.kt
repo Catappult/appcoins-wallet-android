@@ -85,7 +85,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class InteractModule {
+class InteractorModule {
 
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
@@ -350,9 +350,10 @@ class InteractModule {
   fun provideMergedAppcoinsInteractor(balanceInteract: BalanceInteract,
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportInteractor: SupportInteractor,
-                                      walletService: WalletService): MergedAppcoinsInteract {
-    return MergedAppcoinsInteract(balanceInteract, walletBlockedInteract, supportInteractor,
-        walletService)
+                                      inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                      walletService: WalletService): MergedAppcoinsInteractor {
+    return MergedAppcoinsInteractor(balanceInteract, walletBlockedInteract, supportInteractor,
+        inAppPurchaseInteractor, walletService)
   }
 
   @Provides
@@ -431,9 +432,10 @@ class InteractModule {
   @Provides
   fun provideCardNotificationInteractor(referralInteractor: ReferralInteractorContract,
                                         autoUpdateInteract: AutoUpdateInteract,
-                                        backupInteract: BackupInteractContract): CardNotificationsInteractor {
+                                        backupInteract: BackupInteractContract,
+                                        promotionsInteractorContract: PromotionsInteractorContract): CardNotificationsInteractor {
     return CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        backupInteract)
+        backupInteract, promotionsInteractorContract)
   }
 
   @Singleton

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -92,6 +93,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var analyticsSetup: RakamAnalytics
 
   @Inject
+  lateinit var amplitudeAnalytics: AmplitudeAnalytics
+
+  @Inject
   lateinit var bdsPendingTransactionService: BdsPendingTransactionService
 
   @Inject
@@ -120,8 +124,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private var preSelectedPaymentMethod: BehaviorSubject<PaymentMethod>? = null
   private var isPreSelected = false
   private var itemAlreadyOwnedError = false
-  private var appcEnabled = false
-  private var creditsEnabled = false
   private var bonusMessageValue = ""
 
   override fun onAttach(context: Context) {
@@ -140,7 +142,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
     presenter = PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
-        bdsPendingTransactionService, billing, analytics, analyticsSetup, isBds, developerPayload,
+        bdsPendingTransactionService, billing, analytics, analyticsSetup, amplitudeAnalytics, isBds,
+        developerPayload,
         uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
         logger, paymentMethodsInteract, isSubscription)
   }
@@ -175,10 +178,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                   currency: String, paymentMethodId: String, fiatAmount: String,
                                   appcAmount: String, appcEnabled: Boolean,
                                   creditsEnabled: Boolean) {
-    if (isBds) {
-      this.appcEnabled = appcEnabled
-      this.creditsEnabled = creditsEnabled
-    }
     updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     presenter.sendPaymentMethodsEvents()
@@ -507,11 +506,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int, disabledReasonAppc: Int?,
-                                  disabledReasonCredits: Int?) {
+  override fun showMergedAppcoins(gamificationLevel: Int) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        appcEnabled, creditsEnabled, isBds, isDonation, gamificationLevel, disabledReasonAppc,
-        disabledReasonCredits, isSubscription,frequency)
+        isBds, isDonation, gamificationLevel, isSubscription, frequency)
   }
 
   override fun lockRotation() = iabView.lockRotation()

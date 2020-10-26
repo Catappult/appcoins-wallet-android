@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
@@ -61,6 +62,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Named
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -109,10 +112,10 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideAdyenPaymentRepository(client: OkHttpClient, bdsApi: BdsApi,
+  fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient, bdsApi: BdsApi,
                                     subscriptionBillingApi: SubscriptionBillingApi): AdyenPaymentRepository {
     val api = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -136,7 +139,8 @@ class RepositoryModule {
   }
 
   @Provides
-  fun providesOffChainTransactionsRepository(client: OkHttpClient): OffChainTransactionsRepository {
+  fun providesOffChainTransactionsRepository(
+      @Named("blockchain") client: OkHttpClient): OffChainTransactionsRepository {
     val objectMapper = ObjectMapper()
     val df: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
     objectMapper.dateFormat = df
@@ -169,9 +173,8 @@ class RepositoryModule {
         .transactionsDao()
     val localRepository: TransactionsRepository =
         TransactionsLocalRepository(transactionsDao, sharedPreferences)
-    return BackendTransactionRepository(networkInfo, accountKeystoreService,
-        defaultTokenProvider, BlockchainErrorMapper(), nonceObtainer,
-        Schedulers.io(),
+    return BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
+        BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
         transactionsNetworkRepository, localRepository, TransactionMapper(),
         CompositeDisposable(), Schedulers.io())
   }
@@ -207,9 +210,10 @@ class RepositoryModule {
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
                               accountKeystoreService: AccountKeystoreService,
                               walletBalanceService: WalletBalanceService,
-                              analyticsSetup: RakamAnalytics): WalletRepositoryType {
+                              analyticsSetup: RakamAnalytics,
+                              amplitudeAnalytics: AmplitudeAnalytics): WalletRepositoryType {
     return WalletRepository(preferencesRepositoryType, accountKeystoreService,
-        walletBalanceService, Schedulers.io(), analyticsSetup)
+        walletBalanceService, Schedulers.io(), analyticsSetup, amplitudeAnalytics)
   }
 
   @Singleton

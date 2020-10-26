@@ -24,6 +24,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionDatabase
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_1_2
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.permissions.Permissions
 import com.aptoide.apk.injector.extractor.data.Extractor
@@ -111,14 +112,29 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun okHttpClient(context: Context,
-                   preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+  @Named("blockchain")
+  fun provideBlockchainOkHttpClient(context: Context,
+                                    preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
     return OkHttpClient.Builder()
         .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
         .addInterceptor(LogInterceptor())
         .connectTimeout(15, TimeUnit.MINUTES)
         .readTimeout(30, TimeUnit.MINUTES)
         .writeTimeout(30, TimeUnit.MINUTES)
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  @Named("default")
+  fun provideDefaultOkHttpClient(context: Context,
+                                 preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+    return OkHttpClient.Builder()
+        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+        .addInterceptor(LogInterceptor())
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(45, TimeUnit.SECONDS)
+        .writeTimeout(45, TimeUnit.SECONDS)
         .build()
   }
 
@@ -236,7 +252,8 @@ internal class AppModule {
 
   @Provides
   @Singleton
-  fun providesCountryCodeProvider(client: OkHttpClient, gson: Gson): CountryCodeProvider {
+  fun providesCountryCodeProvider(@Named("default") client: OkHttpClient,
+                                  gson: Gson): CountryCodeProvider {
     val api = Retrofit.Builder()
         .baseUrl(IpCountryCodeProvider.ENDPOINT)
         .client(client)
@@ -388,15 +405,45 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideAnalyticsManager(okHttpClient: OkHttpClient, api: AnalyticsAPI, context: Context,
-                              @Named("bi_event_list") biEventList: List<String>,
+  @Named("amplitude_event_list")
+  fun provideAmplitudeEventList() = listOf(
+      BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
+      BillingAnalytics.RAKAM_PAYMENT_METHOD,
+      BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
+      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
+      BillingAnalytics.RAKAM_PAYMENT_START,
+      BillingAnalytics.RAKAM_PAYPAL_URL,
+      TopUpAnalytics.WALLET_TOP_UP_START,
+      TopUpAnalytics.WALLET_TOP_UP_SELECTION,
+      TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
+      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
+      TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
+      PoaAnalytics.RAKAM_POA_EVENT,
+      WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
+      WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
+      WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION,
+      WalletsAnalytics.WALLET_CREATE_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_BACKUP,
+      WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_FILE,
+      WalletsAnalytics.WALLET_IMPORT_RESTORE,
+      WalletsAnalytics.WALLET_PASSWORD_RESTORE,
+      PageViewAnalytics.WALLET_PAGE_VIEW
+  )
+
+  @Singleton
+  @Provides
+  fun provideAnalyticsManager(@Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
+                              context: Context, @Named("bi_event_list") biEventList: List<String>,
                               @Named("facebook_event_list") facebookEventList: List<String>,
-                              @Named("rakam_event_list")
-                              rakamEventList: List<String>): AnalyticsManager {
+                              @Named("rakam_event_list") rakamEventList: List<String>,
+                              @Named("amplitude_event_list")
+                              amplitudeEventList: List<String>): AnalyticsManager {
     return AnalyticsManager.Builder()
         .addLogger(BackendEventLogger(api), biEventList)
         .addLogger(FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
         .addLogger(RakamEventLogger(), rakamEventList)
+        .addLogger(AmplitudeEventLogger(), amplitudeEventList)
         .setAnalyticsNormalizer(KeysNormalizer())
         .setDebugLogger(LogcatAnalyticsLogger())
         .setKnockLogger(HttpClientKnockLogger(okHttpClient))
@@ -433,9 +480,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesPromotionDatabase(context: Context): PromotionDatabase {
-    return Room.databaseBuilder(context,
-        PromotionDatabase::class.java,
-        "promotion_database")
+    return Room.databaseBuilder(context, PromotionDatabase::class.java, "promotion_database")
+        .addMigrations(MIGRATION_1_2)
         .build()
   }
 
@@ -525,7 +571,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideAutoUpdateApi(client: OkHttpClient, gson: Gson): AutoUpdateApi {
+  fun provideAutoUpdateApi(@Named("default") client: OkHttpClient, gson: Gson): AutoUpdateApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -561,6 +607,13 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun provideAmplitudeAnalytics(context: Context,
+                                idsRepository: IdsRepository): AmplitudeAnalytics {
+    return AmplitudeAnalytics(context, idsRepository)
+  }
+
+  @Singleton
+  @Provides
   fun provideTopUpAnalytics(analyticsManager: AnalyticsManager) = TopUpAnalytics(analyticsManager)
 
   @Singleton
@@ -577,7 +630,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesWeb3jProvider(client: OkHttpClient,
+  fun providesWeb3jProvider(@Named("blockchain") client: OkHttpClient,
                             networkInfo: NetworkInfo): Web3jProvider {
     return Web3jProvider(client, networkInfo)
   }

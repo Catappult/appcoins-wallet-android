@@ -128,4 +128,6 @@ class TopUpInteractor(private val repository: BdsRepository,
   private fun cacheLimitValues(values: TopUpLimitValues) {
     limitValues = TopUpLimitValues(values.minValue, values.maxValue)
   }
+
+  fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
 }

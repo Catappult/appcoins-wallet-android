@@ -13,11 +13,15 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -55,15 +59,12 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val APP_NAME_KEY = "app_name"
     private const val PRODUCT_NAME_KEY = "product_name"
     private const val APPC_AMOUNT_KEY = "appc_amount"
-    private const val APPC_ENABLED_KEY = "appc_enabled"
-    private const val CREDITS_ENABLED_KEY = "credits_enabled"
-    private const val DISABLE_REASON_APPC = "disable_reason_appc"
-    private const val DISABLE_REASON_CREDITS = "disable_reason_credits"
     private const val IS_BDS_KEY = "is_bds"
     private const val IS_DONATION_KEY = "is_donation"
     private const val SKU_ID = "sku_id"
     private const val TRANSACTION_TYPE = "transaction_type"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val TRANSACTION_BUILDER = "transaction_builder"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
     const val APPC = "appcoins"
@@ -71,10 +72,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
     @JvmStatic
     fun newInstance(fiatAmount: BigDecimal, currency: String, bonus: String, appName: String,
-                    productName: String?, appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean, skuId: String?,
-                    transactionType: String, gamificationLevel: Int, disabledReasonAppc: Int?,
-                    disabledReasonCredits: Int?, isSubscription: Boolean,
+                    productName: String?, appcAmount: BigDecimal, isBds: Boolean,
+                    isDonation: Boolean, skuId: String?,
+                    transactionType: String, gamificationLevel: Int,
+                    transactionBuilder: TransactionBuilder, isSubscription: Boolean,
                     frequency: String?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
@@ -84,15 +85,12 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         putString(APP_NAME_KEY, appName)
         putString(PRODUCT_NAME_KEY, productName)
         putSerializable(APPC_AMOUNT_KEY, appcAmount)
-        putBoolean(APPC_ENABLED_KEY, appcEnabled)
-        putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
         putBoolean(IS_BDS_KEY, isBds)
         putBoolean(IS_DONATION_KEY, isDonation)
         putString(SKU_ID, skuId)
         putString(TRANSACTION_TYPE, transactionType)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        disabledReasonAppc?.let { putInt(DISABLE_REASON_APPC, it) }
-        disabledReasonCredits?.let { putInt(DISABLE_REASON_CREDITS, it) }
+        putParcelable(TRANSACTION_BUILDER, transactionBuilder)
         putBoolean(IS_SUBSCRIPTION, isSubscription)
         putString(FREQUENCY, frequency)
       }
@@ -113,7 +111,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
-  lateinit var mergedAppcoinsInteract: MergedAppcoinsInteract
+  lateinit var mergedAppcoinsInteractor: MergedAppcoinsInteractor
 
   @Inject
   lateinit var logger: Logger
@@ -165,22 +163,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
-  private val appcEnabled: Boolean by lazy {
-    if (arguments!!.containsKey(APPC_ENABLED_KEY)) {
-      arguments!!.getBoolean(APPC_ENABLED_KEY)
-    } else {
-      throw IllegalArgumentException("appc enable data not found")
-    }
-  }
-
-  private val creditsEnabled: Boolean by lazy {
-    if (arguments!!.containsKey(CREDITS_ENABLED_KEY)) {
-      arguments!!.getBoolean(CREDITS_ENABLED_KEY)
-    } else {
-      throw IllegalArgumentException("credits enable data not found")
-    }
-  }
-
   private val isBds: Boolean by lazy {
     if (arguments!!.containsKey(IS_BDS_KEY)) {
       arguments!!.getBoolean(IS_BDS_KEY)
@@ -201,22 +183,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     arguments!!.getString(SKU_ID)
   }
 
-  private val disableReasonAppc: Int? by lazy {
-    if (arguments!!.containsKey(DISABLE_REASON_APPC)) {
-      arguments!!.getInt(DISABLE_REASON_APPC)
-    } else {
-      null
-    }
-  }
-
-  private val disableReasonCredits: Int? by lazy {
-    if (arguments!!.containsKey(DISABLE_REASON_CREDITS)) {
-      arguments!!.getInt(DISABLE_REASON_CREDITS)
-    } else {
-      null
-    }
-  }
-
   private val transactionType: String by lazy {
     if (arguments!!.containsKey(TRANSACTION_TYPE)) {
       arguments!!.getString(TRANSACTION_TYPE)!!
@@ -230,6 +196,14 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       arguments!!.getInt(GAMIFICATION_LEVEL)
     } else {
       throw IllegalArgumentException("gamification level not found")
+    }
+  }
+
+  private val transactionBuilder: TransactionBuilder by lazy {
+    if (arguments!!.containsKey(TRANSACTION_BUILDER)) {
+      (arguments!!.getParcelable(TRANSACTION_BUILDER) as TransactionBuilder?)!!
+    } else {
+      throw IllegalArgumentException("transaction builder not found")
     }
   }
 
@@ -254,9 +228,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
-    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, iabView, CompositeDisposable(),
-        AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
-        formatter, mergedAppcoinsInteract, gamificationLevel, navigator, logger, isSubscription)
+    mergedAppcoinsPresenter =
+        MergedAppcoinsPresenter(this, iabView, CompositeDisposable(), CompositeDisposable(),
+            AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
+            formatter, mergedAppcoinsInteractor, gamificationLevel, navigator, logger,
+            transactionBuilder, isSubscription)
   }
 
   override fun onAttach(context: Context) {
@@ -279,7 +255,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   private fun setupUI(view: View) {
     setHeaderInformation()
     setButtonsText()
-    setPaymentInformation()
     setBonus()
     setBackListener(view)
     if (isSubscription) showVolatilityInfo()
@@ -325,32 +300,85 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     setPriceInformation()
   }
 
-  private fun setPaymentInformation() {
-    if (appcEnabled) setAppcoinsEnabled() else setAppcoinsDisabled(isSubscription)
-    if (creditsEnabled) setCreditsEnabled() else setCreditsDisabled()
-  }
+  override fun setPaymentsInformation(hasCredits: Boolean, creditsDisableReason: Int?,
+                                      hasAppc: Boolean, appcDisabledReason: Int?) {
 
-  private fun setAppcTitle(checked: Boolean) {
-    if (checked) {
-      paymentSelectionSubject?.onNext(APPC)
-      appcoins_radio.title.setTextColor(
-          ContextCompat.getColor(requireContext(), R.color.details_address_text_color))
-      appcoins_radio.title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+    if (hasAppc) {
+      setEnabledRadio(appcoins_radio, appcoins_radio_button, credits_radio_button,
+          appcoins_radio.title, appcoins_radio.message, appcoins_radio.icon, appcoins_bonus_layout,
+          appc_balances_group, APPC)
     } else {
-      appcoins_radio.title.setTextColor(
-          ContextCompat.getColor(requireContext(), R.color.grey_alpha_active_54))
-      appcoins_radio.title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+      setDisabledRadio(appcoins_radio, appcoins_radio_button, appcoins_radio.title,
+          appcoins_radio.message, appcoins_radio.icon, appcoins_bonus_layout, appc_balances_group,
+          appcDisabledReason, R.string.purchase_appcoins_noavailable_body)
+    }
+    if (hasCredits) {
+      setEnabledRadio(credits_radio, credits_radio_button, appcoins_radio_button,
+          credits_radio.title, credits_radio.message, credits_radio.icon, null,
+          credits_balances_group, CREDITS)
+      credits_radio_button.isChecked = true
+    } else {
+      setDisabledRadio(credits_radio, credits_radio_button, credits_radio.title,
+          credits_radio.message, credits_radio.icon, null, credits_balances_group,
+          creditsDisableReason, R.string.purchase_appcoins_credits_noavailable_body)
+      appcoins_radio_button.isChecked = hasAppc
+    }
+    if (hasAppc || hasCredits) buy_button.isEnabled = true
+    else {
+      bonus_layout?.visibility = INVISIBLE
+      bonus_msg?.visibility = INVISIBLE
     }
   }
 
-  private fun setCreditsTitle(checked: Boolean) {
+  private fun setDisabledRadio(view: View, radioButton: AppCompatRadioButton, title: TextView,
+                               message: TextView, icon: ImageView, bonusLayout: View?,
+                               balanceGroup: Group, disabledReason: Int?,
+                               defaultDisabledReason: Int) {
+    view.setOnClickListener(null)
+    radioButton.setOnCheckedChangeListener(null)
+    val reason = disabledReason ?: defaultDisabledReason
+    radioButton.isEnabled = false
+    radioButton.isChecked = false
+    message.text = getString(reason)
+    title.setTextColor(ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
+    message.setTextColor(ContextCompat.getColor(context!!, R.color.disable_reason))
+    bonusLayout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
+    message.visibility = VISIBLE
+    balanceGroup.visibility = INVISIBLE
+    balanceGroup.requestLayout()
+    title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+    applyAlphaScale(icon)
+  }
+
+  private fun setEnabledRadio(view: View, selectedRadioButton: AppCompatRadioButton,
+                              unSelectedRadioButton: AppCompatRadioButton, title: TextView,
+                              message: TextView, icon: ImageView, bonusView: View?,
+                              balanceGroup: Group, method: String) {
+    view.setOnClickListener { selectedRadioButton.isChecked = true }
+    selectedRadioButton.setOnCheckedChangeListener { _, checked ->
+      if (checked) paymentSelectionSubject?.onNext(method)
+      setTitle(checked, title)
+      unSelectedRadioButton.isChecked = !checked
+    }
+    selectedRadioButton.isEnabled = true
+    message.text = ""
+    title.setTextColor(ContextCompat.getColor(context!!, R.color.color_title))
+    bonusView?.setBackgroundResource(R.drawable.bonus_img_background)
+    message.visibility = INVISIBLE
+    balanceGroup.visibility = VISIBLE
+    balanceGroup.requestLayout()
+    icon.colorFilter = null
+  }
+
+  private fun setTitle(checked: Boolean, title: TextView) {
     if (checked) {
-      paymentSelectionSubject?.onNext(CREDITS)
-      credits_radio.title.setTextColor(resources.getColor(R.color.details_address_text_color))
-      credits_radio.title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+      title.setTextColor(
+          ContextCompat.getColor(requireContext(), R.color.details_address_text_color))
+      title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
-      credits_radio.title.setTextColor(resources.getColor(R.color.grey_alpha_active_54))
-      credits_radio.title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+      title.setTextColor(
+          ContextCompat.getColor(requireContext(), R.color.grey_alpha_active_54))
+      title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
 
@@ -464,22 +492,33 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
     credits_fiat_balance.text =
         getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
-    skeleton_appcoins.visibility = GONE
-    skeleton_credits.visibility = GONE
-    payment_methods_group.visibility = VISIBLE
+  }
+
+  override fun toggleSkeletons(show: Boolean) {
+    if (show) {
+      skeleton_appcoins.visibility = VISIBLE
+      skeleton_credits.visibility = VISIBLE
+      payment_methods_group.visibility = INVISIBLE
+    } else {
+      skeleton_appcoins.visibility = GONE
+      skeleton_credits.visibility = GONE
+      payment_methods_group.visibility = VISIBLE
+    }
   }
 
   override fun onResume() {
     super.onResume()
-    mergedAppcoinsPresenter.present()
+    buy_button.isEnabled = false
+    mergedAppcoinsPresenter.onResume()
   }
 
   override fun onPause() {
-    mergedAppcoinsPresenter.handleStop()
+    mergedAppcoinsPresenter.handlePause()
     super.onPause()
   }
 
   override fun onDestroyView() {
+    mergedAppcoinsPresenter.handleStop()
     iabView.enableBack()
     appcoins_radio_button.setOnCheckedChangeListener(null)
     appcoins_radio.setOnClickListener(null)
@@ -492,58 +531,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onDestroy()
     paymentSelectionSubject = null
     onBackPressSubject = null
-  }
-
-  private fun setCreditsEnabled() {
-    credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
-    credits_radio_button.setOnCheckedChangeListener { _, checked ->
-      if (checked) paymentSelectionSubject?.onNext(CREDITS)
-      setCreditsTitle(checked)
-      appcoins_radio_button.isChecked = !checked
-    }
-    credits_radio_button.isEnabled = true
-    credits_radio_button.isChecked = true
-  }
-
-  private fun setCreditsDisabled() {
-    appcoins_radio_button.isChecked = true
-    val reason = disableReasonCredits ?: R.string.purchase_appcoins_credits_noavailable_body
-    credits_radio.message.text = getString(reason)
-    credits_radio.message.setTextColor(resources.getColor(R.color.disable_reason))
-    credits_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
-    credits_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
-    credits_radio.message.visibility = VISIBLE
-    credits_balances_group.visibility = INVISIBLE
-
-    applyAlphaScale(credits_radio.icon)
-  }
-
-  private fun setAppcoinsEnabled() {
-    appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
-    appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
-      if (checked) paymentSelectionSubject?.onNext(APPC)
-      setAppcTitle(checked)
-      credits_radio_button.isChecked = !checked
-    }
-    appcoins_radio_button.isEnabled = true
-  }
-
-  private fun setAppcoinsDisabled(isSubscription: Boolean) {
-    val reason =
-        if (isSubscription) "AppCoins support for subscriptions is coming soon" //TODO
-        else {
-          getString(disableReasonAppc ?: R.string.purchase_appcoins_noavailable_body)
-        }
-    appcoins_radio.message.text = reason
-    appcoins_radio.title.setTextColor(
-        ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-    appcoins_radio.message.setTextColor(
-        ContextCompat.getColor(context!!, R.color.disable_reason))
-    appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
-    appcoins_radio.message.visibility = VISIBLE
-    appc_balances_group.visibility = INVISIBLE
-
-    applyAlphaScale(appcoins_radio.icon)
   }
 
   private fun setNameAndDescription() {

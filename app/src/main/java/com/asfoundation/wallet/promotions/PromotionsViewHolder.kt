@@ -3,14 +3,18 @@ package com.asfoundation.wallet.promotions
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.PluralsRes
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_promotions_default.view.*
+import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
@@ -21,19 +25,32 @@ import java.util.concurrent.TimeUnit
 
 abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+  companion object {
+    const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
+  }
+
   abstract fun bind(promotion: Promotion)
 
-  protected fun handleExpiryDate(textView: TextView, containerDate: LinearLayout, endDate: Long) {
+  protected fun handleExpiryDate(view: TextView, container: LinearLayout, endDate: Long) {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
     val diff: Long = endDate - currentTime
     val days = TimeUnit.DAYS.convert(diff, TimeUnit.SECONDS)
+    val hours = TimeUnit.HOURS.convert(diff, TimeUnit.SECONDS)
+    val minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.SECONDS)
 
-    if (days > 3) {
-      containerDate.visibility = View.GONE
-    } else {
-      containerDate.visibility = View.VISIBLE
-      textView.text = itemView.context.getString(R.string.perks_end_in_days, days.toString())
+    when {
+      days > 3 -> container.visibility = View.GONE
+      days in 1..3 -> updateDate(view, container, days, R.plurals.promotion_ends)
+      hours > 0 -> updateDate(view, container, hours, R.plurals.promotion_ends_hours)
+      else -> updateDate(view, container, minutes, R.plurals.promotion_ends_minutes)
     }
+  }
+
+  private fun updateDate(view: TextView, container: LinearLayout, time: Long,
+                         @PluralsRes text: Int) {
+    container.visibility = View.VISIBLE
+    view.text =
+        itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
 
 }
@@ -61,7 +78,15 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    itemView.setOnClickListener { clickListener.onNext(PromotionClick((promotion.id))) }
+    itemView.isClickable = progressItem.detailsLink != null
+
+    itemView.setOnClickListener {
+      val extras = emptyMap<String, String>().toMutableMap()
+      progressItem.detailsLink?.let {
+        extras[DETAILS_URL_EXTRA] = it
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
+    }
 
     GlideApp.with(itemView.context)
         .load(progressItem.icon)
@@ -69,11 +94,17 @@ class ProgressViewHolder(itemView: View,
         .circleCrop()
         .into(itemView.progress_icon)
 
-    itemView.progress_title.text = progressItem.title
-    itemView.progress_current.progress = progressItem.current.toInt()
-    itemView.progress_current.max = progressItem.objective.toInt()
-    val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
-    itemView.progress_label.text = progress
+    itemView.progress_title.text = progressItem.description
+    if (progressItem.objective != null) {
+      itemView.progress_current.max = progressItem.objective.toInt()
+      itemView.progress_current.progress = progressItem.current.toInt()
+      val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
+      itemView.progress_label.text = progress
+    } else {
+      itemView.progress_current.max = progressItem.current.toInt()
+      itemView.progress_current.progress = progressItem.current.toInt()
+      itemView.progress_label.text = "${progressItem.current.toInt()}"
+    }
     handleExpiryDate(itemView.progress_expiry_date, itemView.progress_container_date,
         progressItem.endDate)
   }
@@ -87,8 +118,14 @@ class DefaultViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
+    itemView.isClickable = defaultItem.detailsLink != null
+
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      val extras = emptyMap<String, String>().toMutableMap()
+      defaultItem.detailsLink?.let {
+        extras[DETAILS_URL_EXTRA] = it
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     GlideApp.with(itemView.context)
@@ -97,7 +134,7 @@ class DefaultViewHolder(itemView: View,
         .circleCrop()
         .into(itemView.default_icon)
 
-    itemView.default_title.text = defaultItem.title
+    itemView.default_title.text = defaultItem.description
     handleExpiryDate(itemView.default_expiry_date, itemView.default_container_date,
         defaultItem.endDate)
   }
@@ -111,17 +148,23 @@ class FutureViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
+    itemView.isClickable = futureItem.detailsLink != null
+
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      val extras = emptyMap<String, String>().toMutableMap()
+      futureItem.detailsLink?.let {
+        extras[DETAILS_URL_EXTRA] = it
+      }
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     GlideApp.with(itemView.context)
         .load(futureItem.icon)
         .error(R.drawable.ic_promotions_default)
         .circleCrop()
-        .into(itemView.default_icon)
+        .into(itemView.future_icon)
 
-    itemView.default_title.text = futureItem.title
+    itemView.future_title.text = futureItem.description
   }
 
 }
@@ -175,10 +218,11 @@ class GamificationViewHolder(itemView: View,
 
   override fun bind(promotion: Promotion) {
     val gamificationItem = promotion as GamificationItem
+    val formatter = CurrencyFormatUtils.create()
     val df = DecimalFormat("###.#")
 
     itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick((promotion.id)))
+      clickListener.onNext(PromotionClick(promotion.id))
     }
 
     itemView.planet.setImageDrawable(gamificationItem.planet)
@@ -186,7 +230,16 @@ class GamificationViewHolder(itemView: View,
     itemView.current_level_bonus.text =
         itemView.context?.getString(R.string.gamif_bonus, df.format(gamificationItem.bonus))
     itemView.planet_title.text = gamificationItem.title
-    itemView.planet_subtitle.text = gamificationItem.phrase
+    if (gamificationItem.toNextLevelAmount != null) {
+      itemView.planet_subtitle.text = itemView.context.getString(R.string.gamif_card_body,
+          formatter.formatGamificationValues(gamificationItem.toNextLevelAmount))
+    } else {
+      itemView.planet_subtitle.visibility = View.INVISIBLE
+    }
+
+    itemView.gamification_info_btn.setOnClickListener {
+      clickListener.onNext(PromotionClick(GAMIFICATION_INFO))
+    }
 
     handleLinks(gamificationItem.links, itemView)
   }
@@ -197,6 +250,9 @@ class GamificationViewHolder(itemView: View,
     } else {
       itemView.linked_perks.visibility = View.VISIBLE
       val adapter = PromotionsGamificationAdapter(links)
+      itemView.linked_perks.addItemDecoration(
+          MarginItemDecoration(itemView.resources.getDimension(R.dimen.promotions_item_margin)
+              .toInt()))
       itemView.linked_perks.adapter = adapter
     }
   }

@@ -25,4 +25,7 @@ interface TransactionsDao {
   @Query(
       "select * from TransactionEntity where relatedWallet like :relatedWallet order by processedTime asc limit 1")
   fun getOlderTransaction(relatedWallet: String): Maybe<TransactionEntity>
+
+  @Query("DELETE FROM TransactionEntity")
+  fun deleteAllTransactions()
 }
