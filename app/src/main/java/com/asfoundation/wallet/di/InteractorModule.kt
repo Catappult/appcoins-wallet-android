@@ -266,8 +266,9 @@ class InteractorModule {
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,
                                     defaultWallet: FindDefaultWalletInteract,
-                                    conversionService: LocalCurrencyConversionService) =
-      GamificationInteractor(gamification, defaultWallet, conversionService)
+                                    conversionService: LocalCurrencyConversionService,
+                                    gamificationMapper: GamificationMapper) =
+      GamificationInteractor(gamification, defaultWallet, conversionService, gamificationMapper)
 
   @Provides
   fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,

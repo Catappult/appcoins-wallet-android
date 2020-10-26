@@ -155,16 +155,6 @@ class GamificationMapper(private val context: Context) {
     return ovalBackground
   }
 
-  fun getRectangleGamificationBackground(levelColor: Int): Drawable? {
-    val rectangleGamificationLevel =
-        ResourcesCompat.getDrawable(context.resources, R.drawable.rectangle_gamification_level,
-            null)
-    rectangleGamificationLevel?.let { drawable ->
-      DrawableCompat.setTint(drawable.mutate(), levelColor)
-    }
-    return rectangleGamificationLevel
-  }
-
   private fun getDrawable(@DrawableRes drawable: Int) =
       ResourcesCompat.getDrawable(context.resources, drawable, null)
 

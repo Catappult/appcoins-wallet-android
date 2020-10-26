@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
@@ -94,13 +93,7 @@ class PaymentMethodsInteract(private val walletService: WalletService,
 
   fun getLastUsedPaymentMethod(): String = inAppPurchaseInteractor.lastUsedPaymentMethod
 
-  fun getUserStatus(): Single<GamificationStats> {
-    return gamificationInteractor.getUserStats()
-  }
-
   fun hasAuthenticationPermission() = preferencesRepositoryType.hasAuthenticationPermission()
-
-  fun getLevels() = gamificationInteractor.getLevels()
 
   fun checkTransactionStateFromTransactionId(uid: String) =
       bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
