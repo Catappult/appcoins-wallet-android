@@ -79,7 +79,7 @@ class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
     private const val VALUE = "value"
     private const val ACTION = "action"
-    private const val METHOD = "method"
+    private const val METHOD = "payment_method"
     private const val STATUS = "status"
     private const val ERROR_CODE = "error_code"
     private const val ERROR_DETAILS = "error_details"

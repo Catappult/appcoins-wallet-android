@@ -47,6 +47,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
         "https://airtime.codapayments.com/epcgw/dlocal/"
     private const val CODAPAY_BACK_URL =
         "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
+    private const val CODAPAY_CANCEL_URL =
+        "codapayments.com/airtime/cancelConfirm"
     private const val URL = "url"
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
@@ -97,6 +99,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
           val orderId = Uri.parse(clickUrl)
               .getQueryParameter(ORDER_ID_PARAMETER)
           finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
+        } else if (clickUrl.contains(CODAPAY_CANCEL_URL)) {
+          finishWithFail(clickUrl)
         } else {
           currentUrl = clickUrl
           return false
@@ -166,6 +170,13 @@ class BillingWebViewFragment : BasePageViewFragment() {
     val intent = Intent()
     intent.data = Uri.parse(url)
     webViewActivity!!.setResult(WebViewActivity.SUCCESS, intent)
+    webViewActivity!!.finish()
+  }
+
+  private fun finishWithFail(url: String) {
+    val intent = Intent()
+    intent.data = Uri.parse(url)
+    webViewActivity!!.setResult(WebViewActivity.FAIL, intent)
     webViewActivity!!.finish()
   }
 }
