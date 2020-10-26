@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">اوه، زمان شما به پایان رسید. دوباره شروع کنید!</string>
   <string name="verification_error_attempts_reached">تعداد تلاش‌های شما به پایان رسیده است. برای تکرار مدتی صبر کنید.</string>
   <string name="verified_tag">تاییدشده</string>
-  <string name="unferified_tag">تاییدنشده</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
   <string name="purchase_more_payment_methods_button">سایر روش‌های پرداخت</string>

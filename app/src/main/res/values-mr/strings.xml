@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">अरेरे, आपली वेळ संपली. परत सुरु करा!</string>
   <string name="verification_error_attempts_reached">प्रयत्नांची शिकस्त झालीसे दिसतेय. कृपया पुन्हा प्रयत्न करण्यापूर्वी थोड थांबा.</string>
   <string name="verified_tag">तपासले</string>
-  <string name="unferified_tag">तपासलेले नाही</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>

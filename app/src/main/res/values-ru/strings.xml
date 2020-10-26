@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Ой, ваше время истекло. Начните заново!</string>
   <string name="verification_error_attempts_reached">Похоже, вы достигли лимита попыток. Пожалуйста, подождите, чтобы попробовать снова.</string>
   <string name="verified_tag">Подтверждено</string>
-  <string name="unferified_tag">Не подтверждено</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Кажется, покупка уже обрабатывается. Пожалуйста, подождите пока транзакция не завершится, или свяжитесь с командой поддержки.</string>
   <string name="purchase_more_payment_methods_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>

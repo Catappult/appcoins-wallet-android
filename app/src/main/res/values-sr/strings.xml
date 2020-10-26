@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Ups, vreme je isteklo. Počnite ponovo!</string>
   <string name="verification_error_attempts_reached">Izgleda da ste dostigli ograničenje za broj pokušaja. Sačekajte pre nego što pokušate ponovo.</string>
   <string name="verified_tag">Potvrđeno</string>
-  <string name="unferified_tag">Nepotvrđeno</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
   <string name="purchase_more_payment_methods_button">DRUGI NAČINI PLAĆANJA</string>
