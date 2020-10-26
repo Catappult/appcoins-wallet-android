@@ -10,51 +10,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2020-08-22 17:03\n"
+"PO-Revision-Date: 2020-09-25 10:28\n"
 
-#. Card copy for the Purchase Promotion.
+#. Card Title
 #:
-msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
-msgstr "Doe een aankoop in %1$s en ontvang %2$s AppCoins Credits."
+msgid "Earn AppCoins Credits!"
+msgstr "Verdien AppCoins Credits!"
 
-#. Body for Purchase bonus receipt.
+#. Card - Purchase Promotion.
 #:
-msgid "Because you made a purchase in %1$s."
-msgstr "Omdat je een aankoop in %1$s hebt gedaan."
+msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
+msgstr "Doe een aankoop in {0} en ontvang {1} AppCoins Credits."
 
-#. Card copy for the Expenditure Promotion.
+#. Receipt - Purchase Promotion.
 #:
-msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
-msgstr "Besteed %1$s %2$s in %3$s dagen en ontvang %4$s AppCoins Credits."
+msgid "Because you made a purchase in {0}."
+msgstr "Omdat je een aankoop in {0} hebt gedaan."
 
-#. Body for Expenditure bonus receipt.
+#. Card - Expenditure per days Promotion.
 #:
-msgid "Because you spent more than %1$s %2$s in the last %3$s days."
-msgstr "Omdat je in de afgelopen %3$s dagen meer dan %1$s %2$s hebt besteed."
+msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
+msgstr "Besteed {0} {1} in {2} dagen en ontvang {3} AppCoins Credits."
 
-#. Card copy for the Next Level Promotion.
+#. Receipt - Expenditure per days Promotion.
 #:
-msgid "Reach the next level and receive %1$s AppCoins Credits!"
-msgstr "Bereik het volgende niveau en ontvang %1$s AppCoins Credits!"
+msgid "Because you spent more than {0} {1} in the last {2} days."
+msgstr "Omdat je in de afgelopen {2} dagen meer dan {0} {1} hebt besteed."
 
-#. Body for Purchase bonus receipt.
+#. Card - Next Level Promotion.
 #:
-msgid ""
-msgstr ""
-""
+msgid "Reach the next level and receive {0} AppCoins Credits!"
+msgstr "Bereik het volgende niveau en ontvang {0} AppCoins Credits!"
 
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
 msgstr "Omdat je het volgende niveau hebt bereikt."
 
-#. Card copy for Extra Gamification Bonus.
+#. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
-msgstr "Ontvang een extra bonus van %1$s%% bij al je aankopen in %2$s."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "Krijg een extra bonus van {0}% voor al je aankopen in {1}, met uitzondering van AppCoins."
 
-#. Title for bonus receipt.
+#. Card - Firs purchase.
 #:
-msgid "+%1$s AppCoins Credits Bonus!"
-msgstr "+ bonus van %1$s AppCoins Credits!"
+msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
+msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop in {1}, met uitzondering van AppCoins."
+
+#. Receipt - First Purchase.
+#:
+msgid "Because of your first purchase in {0}."
+msgstr "Vanwege je eerste aankoop in {0}."
+
+#. Card - First purchase of the day.
+#:
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
+msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop van de dag in {1}, met uitzondering van AppCoins."
+
+#. Receipt - First Purchase of the day.
+#:
+msgid "Because of your first purchase of the day in {0}."
+msgstr "Vanwege je eerste aankoop van de dag in {0}."
+
+#. Title for bonus receipts.
+#:
+msgid "+{0} AppCoins Credits Bonus!"
+msgstr "+ bonus van {0} AppCoins Credits!"
+
+#. Card - Expendidute per amount Promotion.
+#:
+msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgstr "Krijg {0} AppCoins Credits extra voor elke {1} {2} die je in {3} besteed."
+
+#. Receipt - Expenditure per amount Promotion.
+#:
+msgid "Because you spent {0} {1} in {2}."
+msgstr "Omdat je {0} {1} in {2} hebt besteed."
 

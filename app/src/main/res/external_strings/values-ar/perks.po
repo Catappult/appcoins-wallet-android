@@ -10,51 +10,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Arabic\n"
 "Language: ar_SA\n"
-"PO-Revision-Date: 2020-08-22 17:03\n"
+"PO-Revision-Date: 2020-09-26 10:24\n"
 
-#. Card copy for the Purchase Promotion.
+#. Card Title
 #:
-msgid "Make a purchase in %1$s and receive %2$s AppCoins Credits."
-msgstr "قم بعملية شراء في %1$s واحصل على رصيد %2$s Appcoins."
+msgid "Earn AppCoins Credits!"
+msgstr "اربح رصيد AppCoins!"
 
-#. Body for Purchase bonus receipt.
+#. Card - Purchase Promotion.
 #:
-msgid "Because you made a purchase in %1$s."
-msgstr "لأنك قمت بالشراء في %1$s."
+msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
+msgstr "قم بعملية شراء في {0} واحصل على رصيد {1} Appcoins."
 
-#. Card copy for the Expenditure Promotion.
+#. Receipt - Purchase Promotion.
 #:
-msgid "Spend %1$s %2$s in %3$s days and receive %4$s AppCoins Credits."
-msgstr "أنفق %1$s %2$s في %3$s أيام واحصل على رصيد %4$s AppCoins."
+msgid "Because you made a purchase in {0}."
+msgstr "لأنك قمت بالشراء في {0}."
 
-#. Body for Expenditure bonus receipt.
+#. Card - Expenditure per days Promotion.
 #:
-msgid "Because you spent more than %1$s %2$s in the last %3$s days."
-msgstr "لأنك أنفقت أكثر من %1$s %2$s في أخر %3$s يوم."
+msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
+msgstr "أنفق {0} {1} في {2} أيام واحصل على رصيد {3} AppCoins."
 
-#. Card copy for the Next Level Promotion.
+#. Receipt - Expenditure per days Promotion.
 #:
-msgid "Reach the next level and receive %1$s AppCoins Credits!"
-msgstr "انتقل إلى المستوى التالي واحصل على رصيد %1$s AppCoins!"
+msgid "Because you spent more than {0} {1} in the last {2} days."
+msgstr "لأنك أنفقت أكثر من {0} {1} في أخر {2} يوم."
 
-#. Body for Purchase bonus receipt.
+#. Card - Next Level Promotion.
 #:
-msgid ""
-msgstr ""
-""
+msgid "Reach the next level and receive {0} AppCoins Credits!"
+msgstr "انتقل إلى المستوى التالي واحصل على رصيد {0} AppCoins!"
 
-#. Body for Expenditure bonus receipt.
+#. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
 msgstr "لأنك وصلت إلى المستوى التالي."
 
-#. Card copy for Extra Gamification Bonus.
+#. Card - Extra Gamification Bonus.
 #:
-msgid "Receive an extra %1$s%% Bonus in all your purchases in %2$s."
-msgstr "احصل على مكافأة %1$s%% إضافية في كل عمليات الشراء في %2$s."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "احصل على مكافأة {0}% إضافية في كل عمليات الشراء، ما عدا رصيد AppCoins، في لعبة {1}."
 
-#. Title for bonus receipt.
+#. Card - Firs purchase.
 #:
-msgid "+%1$s AppCoins Credits Bonus!"
-msgstr "+%1$s رصيد AppCoins مكافأة!"
+msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
+msgstr "احصل على مكافأة {0}% إضافية في أول عملية شراء لك، ما عدا رصيد AppCoins، في لعبة {1}"
+
+#. Receipt - First Purchase.
+#:
+msgid "Because of your first purchase in {0}."
+msgstr "لأنك اشتريت لأول مرة في {0}."
+
+#. Card - First purchase of the day.
+#:
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
+msgstr "احصل على مكافأة {0}% إضافية في أول عملية شراء في اليوم، ما عدا رصيد AppCoins، في {1}"
+
+#. Receipt - First Purchase of the day.
+#:
+msgid "Because of your first purchase of the day in {0}."
+msgstr "لأنك اشتريت لأول مرة في اليوم في {0}."
+
+#. Title for bonus receipts.
+#:
+msgid "+{0} AppCoins Credits Bonus!"
+msgstr "+{0} رصيد AppCoins مكافأة!"
+
+#. Card - Expendidute per amount Promotion.
+#:
+msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgstr "احصل على {0} رصيد AppCoins إضافي لكل {1} {2} تُنفقها في {3}."
+
+#. Receipt - Expenditure per amount Promotion.
+#:
+msgid "Because you spent {0} {1} in {2}."
+msgstr "لأنك أنفقت {0} {1} في {2}."
 

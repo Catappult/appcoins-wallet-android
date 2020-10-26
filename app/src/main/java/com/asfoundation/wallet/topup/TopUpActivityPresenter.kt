@@ -77,19 +77,31 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
     view.showError(R.string.unknown_error)
   }
 
+  fun handlePerkNotifications(bundle: Bundle) {
+    disposables.add(topUpInteractor.getWalletAddress()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.launchPerkBonusService(it)
+          view.finishActivity(bundle)
+        }
+        .doOnError { view.finishActivity(bundle) }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+
   fun handleBackupNotifications(bundle: Bundle) {
-    disposables.add(
-        topUpInteractor.incrementAndValidateNotificationNeeded()
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess { notificationNeeded ->
-              if (notificationNeeded.isNeeded) {
-                view.showBackupNotification(notificationNeeded.walletAddress)
-              }
-              view.finishActivity(bundle)
-            }
-            .doOnError { view.finish(bundle) }
-            .subscribe({ }, { it.printStackTrace() })
+    disposables.add(topUpInteractor.incrementAndValidateNotificationNeeded()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess { notificationNeeded ->
+          if (notificationNeeded.isNeeded) {
+            view.showBackupNotification(notificationNeeded.walletAddress)
+          }
+          view.finishActivity(bundle)
+        }
+        .doOnError { view.finish(bundle) }
+        .subscribe({ }, { it.printStackTrace() })
     )
   }
 }

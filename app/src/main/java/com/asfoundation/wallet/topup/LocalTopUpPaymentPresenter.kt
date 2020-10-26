@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.TypedValue
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.LocalPaymentInteractor
@@ -96,7 +97,7 @@ class LocalTopUpPaymentPresenter(
 
   private fun onViewCreatedRequestLink() {
     disposables.add(localPaymentInteractor.getTopUpPaymentLink(packageName, data.fiatValue,
-        data.fiatCurrencyCode, paymentId)
+        data.fiatCurrencyCode, paymentId, context?.getString(R.string.topup_title) ?: "Top up")
         .filter { !waitingResult && it.isNotEmpty() }
         .observeOn(viewScheduler)
         .doOnSuccess {
@@ -161,14 +162,12 @@ class LocalTopUpPaymentPresenter(
           transaction.status == Transaction.Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(): Completable {
-    return localPaymentInteractor.getWalletAddress()
-        .flatMapCompletable { Completable.fromAction { view.launchPerkBonusService(it) } }
-        .andThen(Completable.fromAction {
-          analytics.sendSuccessEvent(data.appcValue.toDouble(), paymentId, "success")
-          val bundle = createBundle(data.fiatValue, data.fiatCurrencyCode, data.fiatCurrencySymbol)
-          waitingResult = false
-          navigator.popView(bundle)
-        })
+    return Completable.fromAction {
+      analytics.sendSuccessEvent(data.appcValue.toDouble(), paymentId, "success")
+      val bundle = createBundle(data.fiatValue, data.fiatCurrencyCode, data.fiatCurrencySymbol)
+      waitingResult = false
+      navigator.popView(bundle)
+    }
   }
 
   private fun handleSupportClicks() {

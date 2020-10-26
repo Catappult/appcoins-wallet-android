@@ -27,6 +27,7 @@
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
   <string name="title_delete_account">คุณมั่นใจว่าต้องการลบกระเป๋าสตางค์นี้</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
+  <string name="transaction_type_reverted_bonus_title">โบนัสเงินคืน</string>
+  <string name="transaction_type_reverted_bonus_body">โบนัสที่คุณได้รับเมื่อ %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
+  <string name="transaction_type_reverted_topup_title">เติมเงินคืน</string>
+  <string name="transaction_type_reverted_topup_body">การเติมเงินที่คุณทำใน %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
+  <string name="transaction_type_reverted_purchase_title">การขอคืนเงิน</string>
+  <string name="transaction_type_reverted_purchase_body">การซื้อที่คุณทำใน %s ถูกเปลี่ยนกลับแล้ว ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">สนับสนุนโดยเอธิเรียม</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -415,7 +422,7 @@
   <string name="verification_notification_verification_needed_body">เพื่อเหตุผลด้านความปลอดภัย เราต้องยืนยันกระเป๋าสตางค์ของคุณด้วยรหัส SMS</string>
   <string name="verification_insert_phone_title">ใส่เบอร์โทรศัพท์ของคุณ</string>
   <string name="verification_insert_phone_body">ยืนยันกระเป๋าสตางค์ของคุณเพื่อรับรางวัล! เราจะส่งรหัสยืนยันให้คุณ</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">เลือกประเทศ/ภูมิภาคของคุณ</string>
   <string name="verification_insert_phone_field_number">เบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_field_number_error">ไม่มีเบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_field_region_error">ภูมิภาคยังไม่สนับสนุน</string>
@@ -471,18 +478,25 @@
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
   <string name="purchase_wallet_error_contact_us">อุ๊ปส์ มีบางอย่างไม่ปกติกับวอลเล็ตของคุณ โปรดติดต่อเรา</string>
   <string name="purchase_carrier_error">ดูเหมือนว่าหมายเลขโทรศัพท์ใช้ไม่ได้สำหรับการชำระเงินนี้</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">อุ๊ปส์ พวกเรากำลังมีปัญหากับการซื้อนี้ โปรดติดต่อเรา</string>
+  <string name="purchase_error_wallet_block_code_403">มันดูเหมือนว่ามีสิ่งผิกปกติกับกระเป๋าสตางค์ของคุณ โปรดติดต่อเรา</string>
   <string name="purchase_card_error_CVV">CVV/CVC ไม่ถูกต้อง</string>
   <string name="error_contac_us_body">โปรดติดต่อเราหากยังคงมีปัญหา</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
+  <string name="purchase_address_address_field">ที่อยู่</string>
+  <string name="purchase_address_apartment_field">อพาร์ทเม้นท์ชั้น &#8230;</string>
+  <string name="purchase_address_city_field">เมือง</string>
+  <string name="purchase_address_post_code_field">รหัสไปรษณีย์</string>
+  <string name="purchase_address_state_field">รัฐ/จังหวัด</string>
   <!--Async Payments-->
   <string name="async_steps_title">ขั้นตอนถัดไป</string>
   <string name="async_steps_1">ชำระเงินให้เสร็จสมบูรณ์ด้วย %s คุณจะได้รับการแจ้งเตือนเมื่อคุณได้รับเครดิต AppCoins ในกระเป๋าเงินของคุณ</string>
   <string name="async_steps_2">กลับไปยังเกมและซื้อโดยใช้เครดิต AppCoins เป็นวิธีการชำระเงิน</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">ใช้ AppCoins Credits เหล่านี้เพื่อซื้อเกมส์ที่คุณชื่นชอบ!</string>
   <string name="async_steps_1_no_notification">ชำระเงินให้เสร็จสมบูรณ์ด้วย %s</string>
   <string name="async_steps_2_no_notification">เมื่อคุณได้รับเครดิต AppCoins กลับไปยังเกมและซื้อโดยใช้เครดิต AppCoins เป็นวิธีการชำระเงิน</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">เมื่อคุณได้รับ AppCoins Credits ใช้มันซื้อเกมส์ที่คุณชื่นชอบ!</string>
   <string name="async_notification_title">AppCoins ของคุณมาถึงแล้ว!</string>
   <string name="async_notification_body">กลับไปที่ %s เพื่อซื้อโดยใช้เครดิต AppCoins</string>
   <!--Referral Program-->
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">กู้คืน Wallet</string>
   <string name="import_wallet_body">วางข้อมูลสำรองของกระเป๋าสตางค์ของคุณด้านล่าง</string>
   <string name="import_wallet_keystore_private_keys">Keystore หรือคีย์ส่วนตัว</string>
+  <string name="import_wallet_from_file_title">หรือกู้คืนจากไฟล์</string>
   <string name="import_wallet_file_button">ลบจากไฟล์</string>
   <string name="import_wallet_button">กู้ค่ากระเป๋าสตางค์</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
@@ -745,23 +760,37 @@
   <string name="manage_cards_select_title">เลือกบัตรของคุณ</string>
   <string name="manage_cards_remember">จดจำบัตร</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
-  <string name="perks_end_in_days">The promotion ends in %s days.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>
+  <string name="perks_title">โปรโมชั่น</string>
+  <string name="perks_body">คอยติดตาม! พวกเรามีโปรโมชั่นพิเศษสำหรับคุณ</string>
+  <plurals name="promotion_ends">
+    <item quantity="other">โปรโมชันจะสิ้นสุดใน %s วัน</item>
+  </plurals>
+  <string name="perks_end_in_date">โปรโมชั่นสิ้นสุดวันที่ %s</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="other">โปรโมชันจะสิ้นสุดใน %s ชั่วโมง</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="other">โปรโมชันจะสิ้นสุดใน %s นาที</item>
+  </plurals>
+  <string name="perks_end_today">โปรโมชันจะสิ้นสุดในวันนี้</string>
+  <string name="perks_available_soon">พบโปรโมชั่นเร็วๆ นี้</string>
+  <string name="perks_next_level_reward">ถึงเลเวลถัดไปเพื่อรับ %s AppCoins Credits!</string>
+  <string name="perks_notification">คุณได้รับ %s AppCoins Credits เป็นโบนัส</string>
+  <string name="perks_level_up_on_this_purchase">เลเวลสูงขึ้นด้วยการซื้อนี้</string>
+  <string name="perks_level_up_amount_left">อีก %1$s%2$s จะถึงเลเวลถัดไป!</string>
+  <string name="perks_level_up_level_tag">เลเวล %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s โบนัส: %2$s ใน AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">การซื้อในแอปและการเติมเงินทั้งหมดที่ทำด้วยวิธีการซื้อใดๆ นอกเหนือจากเครดิต AppCoins จะมีสิทธิ์เพิ่มระดับโบนัสของคุณและรับรางวัล</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">ล็อกลายนิ้วมือ</string>
+  <string name="fingerprint_failed_title">การรับรองความถูกต้องล้มเหลว!</string>
+  <string name="fingerprint_failed_body">โปรดลองอีกครั้งใน %s วินาที</string>
+  <string name="fingerprint_authentication_required_title">จำเป็นต้องรับรองความถูกต้อง!</string>
+  <string name="fingerprint_authentication_required_body">โปรดใช้นิ้วของคุณหรือรหัสผ่านเพื่อดำเนินการต่อ</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">ส่งบันทึกไปยังทีมสนับสนุน</string>
+  <string name="send_logs_sending">กำลังส่ง&#8230;</string>
+  <string name="send_logs_send">ส่งแล้ว!</string>
 </resources>

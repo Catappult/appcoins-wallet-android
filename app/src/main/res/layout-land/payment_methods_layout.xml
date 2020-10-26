@@ -139,6 +139,7 @@
           app:layout_constraintStart_toStartOf="@id/bonus_layout"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           app:layout_constraintVertical_bias="1"
+          app:layout_constraintWidth_default="wrap"
           tools:text="@string/gamification_purchase_body"
           tools:visibility="visible"
           />

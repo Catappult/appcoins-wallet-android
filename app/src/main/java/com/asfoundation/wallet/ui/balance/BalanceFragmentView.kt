@@ -57,7 +57,7 @@ interface BalanceFragmentView {
 
   fun getVerifyWalletClick(): Observable<Any>
 
-  fun openWalletValidationScreen(): Boolean
+  fun openWalletValidationScreen()
 
   fun showVerifiedWalletChip()
 
@@ -66,10 +66,6 @@ interface BalanceFragmentView {
   fun showUnverifiedWalletChip()
 
   fun hideUnverifiedWalletChip()
-
-  fun showVerifyWalletButton()
-
-  fun hideVerifyWalletButton()
 
   fun disableVerifyWalletButton()
 

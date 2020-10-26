@@ -27,6 +27,7 @@
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
   <string name="title_delete_account">آیا می خواهید این کیف پول را حذف کنید؟</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">انتقال</string>
   <string name="transaction_type_bonus">جایزه</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">طراحی شده توسط Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -415,7 +422,7 @@
   <string name="verification_notification_verification_needed_body">به دلایل امنیتی، نیازمند به تایید کیف پول شما با یک کد پیامکی هستیم.</string>
   <string name="verification_insert_phone_title">شماره تلفن خود را وارد کنید</string>
   <string name="verification_insert_phone_body">برای دریافت پاداش، کیف پول خود را تایید کنید! کد تاییدیه را برای شما ارسال خواهیم کرد.</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_insert_phone_field_country">کشور/منطقه خود را انتخاب کنید</string>
   <string name="verification_insert_phone_field_number">شماره تلفن</string>
   <string name="verification_insert_phone_field_number_error">شمشماره تلفن نامعتبر</string>
   <string name="verification_insert_phone_field_region_error">منطقه جغرافیایی فعلا پشتیبانی نمی‌شود.</string>
@@ -471,18 +478,25 @@
   <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
   <string name="purchase_wallet_error_contact_us">مشکلی برای کیف پول شما پیش آمده است. لطفا با ما تماس بگیرید.</string>
   <string name="purchase_carrier_error">شماره موبایل شما برای این روش پرداخت سازگار نیست.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">اوه، مشکلی برای این خرید پیش آمده است. لطفا با ما تماس بگیرید.</string>
+  <string name="purchase_error_wallet_block_code_403">به نظر می‌رسد که کیف پول شما مشکلی دارد. لطفا با ما تماس بگیرید.</string>
   <string name="purchase_card_error_CVV">CVV/CVC اشتباه</string>
   <string name="error_contac_us_body">اگر مشکل ادامه داشت لطفا با ما تماس بگیرید.</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Billing address</string>
+  <string name="purchase_address_address_field">Address</string>
+  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
+  <string name="purchase_address_city_field">City</string>
+  <string name="purchase_address_post_code_field">Zip/Post code</string>
+  <string name="purchase_address_state_field">State/Province</string>
   <!--Async Payments-->
   <string name="async_steps_title">قدم‌های بعدی</string>
   <string name="async_steps_1">پرداخت خود را با %s تکمیل کنید. زمانی که اعتبار AppCoins در کیف پول شما دریافت شد مطلع خواهید شد.</string>
   <string name="async_steps_2">به بازی برگردید و خرید را از طریق AppCoins Credits به عنوان روش پرداخت تکمیل کنید.</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
+  <string name="async_steps_topup_2">از این AppCoins Credits برای خرید در بازی‌های مورد علاقه خود استفاده کنید!</string>
   <string name="async_steps_1_no_notification">پرداخت خود را با %s تکمیل کنید.</string>
   <string name="async_steps_2_no_notification">هر زمان که AppCoins Credits را دریافت کردید، به بازی برگردید و خرید را با استفاده از AppCoins Credits به عنوان روش پرداخت تکمیل کنید.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">زمانی که AppCoins Credits دریافت کنید، می‌توانید از آن برای خرید در بازی‌های مورد علاقه خود استفاده کنید!</string>
   <string name="async_notification_title">AppCoins Credits شما رسید!</string>
   <string name="async_notification_body">برای پرداخت با استفاده از AppCoins Credits به %s برگردید.</string>
   <!--Referral Program-->
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">بازیابی کیف‌پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
+  <string name="import_wallet_from_file_title">یا بازیابی از فایل</string>
   <string name="import_wallet_file_button">بازیابی از فایل</string>
   <string name="import_wallet_button">بازیابی کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
@@ -746,23 +761,40 @@
   <string name="manage_cards_select_title">انتخاب کارت پرداخت</string>
   <string name="manage_cards_remember">کارت را به یاد داشته باش</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
-  <string name="perks_end_in_days">The promotion ends in %s days.</string>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_subtitle">هر چه بیشتر در اپلیکیشن‌های محبوب خود خرج کنید، پاداش بزرگتر خواهد بود!</string>
+  <string name="perks_title">پیشنهادات تشویقی</string>
+  <string name="perks_body">منتظر باشید! پیشنهادات تشویقی ویژه‌ای برای شما دارید.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
+    <item quantity="other">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
+  </plurals>
+  <string name="perks_end_in_date">پیشنهاد تشویقی در %s به پایان می‌رسد.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">The promotion ends in %s hour.</item>
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_available_soon">پیشهاد تشویقی بزودی</string>
+  <string name="perks_next_level_reward">به مرحله بعدی برسید تا %s AppCoins Credits بدست آورید!</string>
+  <string name="perks_notification">همین حالا %s AppCoins Credits به عنوان پاداش دریافت کردید</string>
+  <string name="perks_level_up_on_this_purchase">با این خرید پیشرفت کنید</string>
+  <string name="perks_level_up_amount_left">شما %1$s%2$s با مرحله بعدی فاصله دارید!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_bonus_purchase_flow">پاداش %1$s: %2$s در AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">قفل با اثرانگشت</string>
+  <string name="fingerprint_failed_title">احراز هویت موفق نبود!</string>
+  <string name="fingerprint_failed_body">لطفا در %s ثانیه مجدد امتحان کنید.</string>
+  <string name="fingerprint_authentication_required_title">احراز هویت الزامی است!</string>
+  <string name="fingerprint_authentication_required_body">لطفا از انگشت خود یا رمزعبور برای ادامه استفاده کنید.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>

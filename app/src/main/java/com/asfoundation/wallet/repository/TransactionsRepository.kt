@@ -18,4 +18,10 @@ interface TransactionsRepository {
   fun isOldTransactionsLoaded(): Single<Boolean>
 
   fun oldTransactionsLoaded()
+
+  fun deleteAllTransactions()
+
+  fun setLocale(locale: String)
+
+  fun getLastLocale(): String?
 }

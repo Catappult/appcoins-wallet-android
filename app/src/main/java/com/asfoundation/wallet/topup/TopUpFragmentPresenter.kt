@@ -108,7 +108,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    logger.log(TAG, throwable)
     if (throwable.isNoNetworkException()) view.showNoNetworkError()
   }
 
@@ -175,7 +174,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                     .observeOn(viewScheduler)
                     .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
               }
-              .doOnError { it.printStackTrace() }
+              .doOnError { handleError(it) }
               .onErrorComplete()
         }
         .subscribe({}, { it.printStackTrace() }))

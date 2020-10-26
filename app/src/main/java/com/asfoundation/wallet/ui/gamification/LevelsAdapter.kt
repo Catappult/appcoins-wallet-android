@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.gamification.LevelModel
 import com.appcoins.wallet.gamification.LevelModel.LevelType
 import com.asf.wallet.R
+import com.asfoundation.wallet.promotions.PromotionClick
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
@@ -15,10 +16,10 @@ class LevelsAdapter(private val context: Context,
                     private val hiddenLevels: List<LevelModel>,
                     shownLevels: List<LevelModel>,
                     private val amountSpent: BigDecimal, private val currentLevel: Int,
-                    private val nextLevelAmount: BigDecimal,
+                    private val nextLevelAmount: BigDecimal?,
                     private val currencyFormatUtils: CurrencyFormatUtils,
                     private val mapper: GamificationMapper,
-                    private val uiEventListener: PublishSubject<Boolean>) :
+                    private val uiEventListener: PublishSubject<Pair<String, Boolean>>) :
     RecyclerView.Adapter<LevelsViewHolder>() {
 
   private var activeLevelList: MutableList<LevelModel> = shownLevels.toMutableList()

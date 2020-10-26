@@ -18,6 +18,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
+import com.asfoundation.wallet.promotions.PromotionNotification;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.support.SupportInteractor;
@@ -65,13 +66,13 @@ public class TransactionsViewModel extends BaseViewModel {
   private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
   private final WalletsEventSender walletsEventSender;
+  private final PublishSubject<Context> topUpClicks = PublishSubject.create();
+  private final CurrencyFormatUtils formatter;
   private CompositeDisposable disposables;
+  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
   private Disposable fetchTransactionsDisposable;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
-  private final PublishSubject<Context> topUpClicks = PublishSubject.create();
-  private final CurrencyFormatUtils formatter;
-  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
@@ -183,7 +184,6 @@ public class TransactionsViewModel extends BaseViewModel {
   public void fetchTransactions(boolean shouldShowProgress) {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
-    /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
     if (fetchTransactionsDisposable != null && !fetchTransactionsDisposable.isDisposed()) {
       fetchTransactionsDisposable.dispose();
     }
@@ -423,6 +423,14 @@ public class TransactionsViewModel extends BaseViewModel {
           walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
               WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
         }
+        break;
+      case DETAILS_URL:
+        if (cardNotification instanceof PromotionNotification) {
+          String url = ((PromotionNotification) cardNotification).getDetailsLink();
+          transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
+        }
+        break;
+      case NONE:
         break;
     }
   }

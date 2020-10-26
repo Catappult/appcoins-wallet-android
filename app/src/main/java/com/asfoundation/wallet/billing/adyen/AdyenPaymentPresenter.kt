@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
+import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
@@ -12,6 +13,7 @@ import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
+import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -179,7 +181,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
-    disposables.add(view.buyButtonClicked()
+    disposables.add(Observable.merge(view.buyButtonClicked(), view.billingAddressInput())
         .flatMapSingle {
           view.retrievePaymentData()
               .firstOrError()
@@ -195,26 +197,29 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           transactionBuilder
               .flatMap {
                 handleBuyAnalytics(it)
+                val billingAddressModel = view.retrieveBillingAddressData()
+                val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
                 adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
-                    adyenCard.shouldStoreCard, adyenCard.hasCvc,
-                    adyenCard.supportedShopperInteractions, returnUrl, priceAmount.toString(),
-                    priceCurrency, it.orderReference,
-                    mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-                    it.skuId, it.callbackUrl, it.type, it.toAddress())
+                    shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
+                    returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
+                    mapPaymentToService(paymentType).transactionType, origin, domain,
+                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                    mapToAdyenBillingAddress(billingAddressModel))
               }
         }
         .observeOn(viewScheduler)
-        .flatMapCompletable { handlePaymentResult(it) }
+        .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
         .subscribe({}, {
           logger.log(TAG, it)
           view.showGenericError()
         }))
   }
 
-  private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
+  private fun handlePaymentResult(paymentModel: PaymentModel, priceAmount: BigDecimal? = null,
+                                  priceCurrency: String? = null): Completable {
     return when {
       paymentModel.resultCode.equals("AUTHORISED", true) -> {
-        adyenPaymentInteractor.getTransaction(paymentModel.uid)
+        adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
@@ -231,12 +236,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
                 }
                 isPaymentFailed(it.status) -> {
-                  Completable.fromAction {
-                    sendPaymentErrorEvent(it.error.code,
-                        buildRefusalReason(it.status, it.error.message))
-                    handleErrors(it.error)
+                  if (paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
+                    retrieveFailedReason(paymentModel.uid)
+                  } else {
+                    Completable.fromAction {
+                      sendPaymentErrorEvent(it.error.code,
+                          buildRefusalReason(it.status, it.error.message))
+                      handleErrors(it.error)
+                    }
+                        .subscribeOn(viewScheduler)
                   }
-                      .subscribeOn(viewScheduler)
                 }
                 else -> {
                   sendPaymentErrorEvent(it.error.code, it.status.toString())
@@ -263,8 +272,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        sendPaymentErrorEvent(paymentModel.error.code, paymentModel.error.message)
-        handleErrors(paymentModel.error)
+        if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
+          view.showBillingAddress(priceAmount!!, priceCurrency!!)
+        } else {
+          sendPaymentErrorEvent(paymentModel.error.code, paymentModel.error.message)
+          handleErrors(paymentModel.error)
+        }
+      }
+      paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
+        retrieveFailedReason(paymentModel.uid)
       }
       paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
@@ -274,13 +290,35 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
+  private fun isBillingAddressError(error: Error,
+                                    priceAmount: BigDecimal?,
+                                    priceCurrency: String?): Boolean {
+    return error.code != null
+        && error.code == 400
+        && error.message?.contains("payment.billing_address") == true
+        && priceAmount != null
+        && priceCurrency != null
+  }
+
   private fun handleSuccessTransaction(bundle: Bundle): Completable {
-    return adyenPaymentInteractor.getWalletAddress()
-        .flatMapCompletable { Completable.fromAction { view.launchPerkBonusService(it) } }
-        .andThen(Completable.fromAction { view.showSuccess() })
+    return Completable.fromAction { view.showSuccess() }
         .andThen(Completable.timer(view.getAnimationDuration(),
             TimeUnit.MILLISECONDS))
         .andThen(Completable.fromAction { navigator.popView(bundle) })
+  }
+
+  private fun retrieveFailedReason(uid: String): Completable {
+    return adyenPaymentInteractor.getFailedTransactionReason(uid)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable {
+          Completable.fromAction {
+            sendPaymentErrorEvent(it.errorCode, it.errorMessage ?: "")
+            if (it.errorCode != null) view.showSpecificError(
+                adyenErrorCodeMapper.map(it.errorCode!!))
+            else view.showGenericError()
+          }
+        }
   }
 
   private fun handleFraudFlow(@StringRes error: Int) {
@@ -495,6 +533,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       AdyenPaymentRepository.Methods.CREDIT_CARD
     } else {
       AdyenPaymentRepository.Methods.PAYPAL
+    }
+  }
+
+  private fun mapToAdyenBillingAddress(
+      billingAddressModel: BillingAddressModel?): AdyenBillingAddress? {
+    return billingAddressModel?.let {
+      AdyenBillingAddress(it.address, it.city, it.zipcode, it.number, it.state, it.country)
     }
   }
 

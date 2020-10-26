@@ -32,24 +32,20 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     return Single.fromCallable { preferences.getInt(getKey(wallet, screen), -1) }
   }
 
-  override fun saveShownLevel(wallet: String, level: Int, screen: String): Completable {
-    return Completable.fromCallable {
-      preferences.edit()
-          .putInt(getKey(wallet, screen), level)
-          .apply()
-    }
+  override fun saveShownLevel(wallet: String, level: Int, screen: String) {
+    return preferences.edit()
+        .putInt(getKey(wallet, screen), level)
+        .apply()
   }
 
-  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
-    return preferences.getBoolean(getKeyGeneric(wallet, screen, id), false)
+  override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
+    return preferences.getBoolean(getKeyGeneric(screen, id), false)
   }
 
-  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
-    return Completable.fromCallable {
-      preferences.edit()
-          .putBoolean(getKeyGeneric(wallet, screen, id), true)
-          .apply()
-    }
+  override fun setSeenGenericPromotion(id: String, screen: String) {
+    return preferences.edit()
+        .putBoolean(getKeyGeneric(screen, id), true)
+        .apply()
   }
 
   override fun setGamificationLevel(gamificationLevel: Int): Completable {
@@ -69,8 +65,8 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     }
   }
 
-  private fun getKeyGeneric(wallet: String, screen: String, id: String) =
-      SHOWN_GENERIC + wallet + SCREEN + screen + ID + id
+  private fun getKeyGeneric(screen: String, id: String) =
+      SHOWN_GENERIC + SCREEN + screen + ID + id
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     return promotionDao.getPromotions()
@@ -96,7 +92,8 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
         else ->
           GenericResponse(it.id, it.priority, it.currentProgress, it.description!!, it.endDate!!,
               it.icon,
-              it.linkedPromotionId, it.objectiveProgress, it.startDate, it.title!!, it.viewType!!)
+              it.linkedPromotionId, it.objectiveProgress, it.startDate, it.title!!, it.viewType!!,
+              it.detailsLink)
       }
     }
   }
@@ -127,7 +124,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
                 icon = genericResponse.icon, linkedPromotionId = genericResponse.linkedPromotionId,
                 objectiveProgress = genericResponse.objectiveProgress,
                 startDate = genericResponse.startDate, title = genericResponse.title,
-                viewType = genericResponse.viewType)
+                viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink)
           }
         }
       }

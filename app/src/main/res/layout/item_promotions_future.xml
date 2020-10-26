@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/big_margin"
-    android:layout_marginEnd="@dimen/big_margin"
+    android:layout_marginStart="14dp"
+    android:layout_marginEnd="14dp"
     android:background="@drawable/promotions_future_background"
     android:paddingBottom="@dimen/normal_margin"
     >
@@ -14,8 +14,9 @@
       android:id="@+id/future_icon"
       android:layout_width="48dp"
       android:layout_height="48dp"
-      android:layout_marginStart="@dimen/normal_margin"
-      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginStart="@dimen/small_margin"
+      android:layout_marginTop="@dimen/small_margin"
+      android:alpha="0.55"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:srcCompat="@drawable/ic_promotions_default"
@@ -40,7 +41,7 @@
       android:id="@+id/future_container_date"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/normal_margin"
+      android:layout_marginStart="@dimen/small_margin"
       android:layout_marginTop="12dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:background="@drawable/promotions_date_background"
@@ -69,8 +70,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/big_margin"
-        android:ellipsize="end"
-        android:maxLines="2"
         android:text="@string/perks_available_soon"
         />
 
@@ -80,13 +79,13 @@
       android:id="@+id/future_locked"
       android:layout_width="24dp"
       android:layout_height="24dp"
-      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/small_margin"
       app:layout_constraintBottom_toBottomOf="@+id/future_container_date"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@+id/future_container_date"
       app:layout_constraintTop_toTopOf="@+id/future_container_date"
-      app:srcCompat="@drawable/ic_locked"
+      app:srcCompat="@drawable/ic_promotions_lock"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

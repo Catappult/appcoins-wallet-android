@@ -9,11 +9,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.commons.MemoryCache;
-import com.asf.wallet.BuildConfig;
-import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
-import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -77,10 +74,6 @@ import static org.mockito.Mockito.when;
  */
 public class InAppPurchaseInteractorTest {
 
-  private static final NetworkInfo networkInfo =
-      new com.asfoundation.wallet.entity.NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://ropsten.infura.io/v3/" + BuildConfig.INFURA_API_KEY_ROPSTEN,
-          "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false);
   private static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   private static final String APPROVE_HASH = "approve_hash";
   private static final String BUY_HASH = "buy_hash";
@@ -286,7 +279,7 @@ public class InAppPurchaseInteractorTest {
         .getStatus());
     Assert.assertEquals(Payment.Status.BUYING, values.get(index++)
         .getStatus());
-    Assert.assertEquals(Payment.Status.COMPLETED, values.get(index++)
+    Assert.assertEquals(Payment.Status.COMPLETED, values.get(index)
         .getStatus());
   }
 
@@ -326,7 +319,7 @@ public class InAppPurchaseInteractorTest {
     int index = 0;
     Assert.assertEquals(values.get(index++)
         .getStatus(), Payment.Status.APPROVING);
-    Assert.assertEquals(values.get(index++)
+    Assert.assertEquals(values.get(index)
         .getStatus(), Payment.Status.NO_ETHER);
     Assert.assertEquals(2, values.size());
   }
@@ -370,7 +363,7 @@ public class InAppPurchaseInteractorTest {
     int index = 0;
     Assert.assertEquals(values.get(index++)
         .getStatus(), Payment.Status.APPROVING);
-    Assert.assertEquals(values.get(index++)
+    Assert.assertEquals(values.get(index)
         .getStatus(), Payment.Status.NO_FUNDS);
     Assert.assertEquals(2, values.size());
   }

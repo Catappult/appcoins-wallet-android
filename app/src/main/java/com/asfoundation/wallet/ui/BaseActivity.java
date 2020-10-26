@@ -25,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     activityResultListeners = new ArrayList<>();
-    pageViewAnalytics = new PageViewAnalytics(((App) getApplication()).analyticsManager);
+    pageViewAnalytics = new PageViewAnalytics(((App) getApplication()).analyticsManager());
     super.onCreate(savedInstanceState);
     Window window = getWindow();
 

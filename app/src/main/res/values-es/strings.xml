@@ -27,6 +27,7 @@
   <string name="low_storage_error">No hay suficiente espacio de almacenamiento</string>
   <string name="no_camera_permission_title">Acceso a la cámara</string>
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
+  <string name="no_camera_available">No camera available!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código no válido: %s</string>
   <string name="title_delete_account">¿Estás seguro de que quieres eliminar esta wallet?</string>
@@ -228,6 +229,12 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferencia</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
+  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
+  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
+  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -471,10 +478,17 @@
   <string name="purchase_card_error_wrong_CVV">El CVV/CVC no es correcto. Prueba de nuevo.</string>
   <string name="purchase_wallet_error_contact_us">Oops, algo no está bien con tu wallet. Ponte en contact con nosotros.</string>
   <string name="purchase_carrier_error">Parece que tu número de teléfono no es compatible con este método de pago.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_fraud_code_20">Oops, estamos teniendo problemas con esta compra. Ponte en contacto con nosotros.</string>
+  <string name="purchase_error_wallet_block_code_403">Algo no está bien con tu wallet. Ponte en contacto con nosotros.</string>
   <string name="purchase_card_error_CVV">CVV/CVC no válido</string>
   <string name="error_contac_us_body">Si el problema continúa, contáctanos:</string>
+  <!--Billing address in purchase flow-->
+  <string name="purchase_address_title">Billing address</string>
+  <string name="purchase_address_address_field">Address</string>
+  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
+  <string name="purchase_address_city_field">City</string>
+  <string name="purchase_address_post_code_field">Zip/Post code</string>
+  <string name="purchase_address_state_field">State/Province</string>
   <!--Async Payments-->
   <string name="async_steps_title">Próximos pasos</string>
   <string name="async_steps_1">Completa el pago con %s. Te notificaremos cuando recibas las AppCoins Credits en tu wallet.</string>
@@ -564,6 +578,7 @@
   <string name="import_wallet_title">Recuperar Wallet</string>
   <string name="import_wallet_body">Pega el backup de tu wallet abajo.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o private keys</string>
+  <string name="import_wallet_from_file_title">O recupérala con el archivo</string>
   <string name="import_wallet_file_button">RECUPERAR CON ARCHIVO</string>
   <string name="import_wallet_button">RECUPERAR WALLET</string>
   <string name="import_wallet_password_body">¡La wallet está protegida con contraseña!</string>
@@ -746,23 +761,40 @@
   <string name="manage_cards_select_title">Selecciona la tarjeta</string>
   <string name="manage_cards_remember">Recordar tarjeta</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Recibe un bonus de %s%% en cada compra</string>
+  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">Cuanto más gastes en tus apps favoritas, ¡mayor será el bonus!</string>
   <string name="perks_title">Promociones</string>
   <string name="perks_body">¡Manténte al día! Tenemos promociones especiales para ti.</string>
-  <string name="perks_end_in_days">La promoción termina en %s días.</string>
+  <plurals name="promotion_ends">
+    <item quantity="one">La promoción termina en %s día.</item>
+    <item quantity="other">La promoción termina en %s días.</item>
+  </plurals>
   <string name="perks_end_in_date">La promoción termina el %s.</string>
+  <plurals name="promotion_ends_hours">
+    <item quantity="one">The promotion ends in %s hour.</item>
+    <item quantity="other">The promotion ends in %s hours.</item>
+  </plurals>
+  <plurals name="promotion_ends_minutes">
+    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="other">The promotion ends in %s minutes.</item>
+  </plurals>
+  <string name="perks_end_today">The promotion ends today.</string>
   <string name="perks_available_soon">Promoción disponible pronto.</string>
   <string name="perks_next_level_reward">¡Alcanza el siguiente nivel y recibe %s AppCoins Credits!</string>
   <string name="perks_notification">Recibiste un bonus de %s AppCoins Credits</string>
   <string name="perks_level_up_on_this_purchase">Sube de nivel con esta compra</string>
   <string name="perks_level_up_amount_left">¡Te quedan %1$s %2$s para llegar al siguiente nivel!</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
+  <string name="perks_level_up_level_tag">Nv %s</string>
+  <string name="perks_bonus_purchase_flow">%1$s de Bonus: %2$s en AppCoins Credits</string>
+  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_settings">Bloqueo con huella</string>
+  <string name="fingerprint_failed_title">¡La autenticación falló!</string>
+  <string name="fingerprint_failed_body">Inténtalo de nuevo en %s segundos.</string>
+  <string name="fingerprint_authentication_required_title">¡Necesitas autenticarte!</string>
+  <string name="fingerprint_authentication_required_body">Por favor, usa tu huella dactilar o la contraseña para continuar.</string>
+  <!--Send Logs to Support-->
+  <string name="send_logs_settings">Send logs to Support Team</string>
+  <string name="send_logs_sending">Sending&#8230;</string>
+  <string name="send_logs_send">Sent!</string>
 </resources>

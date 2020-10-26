@@ -1,19 +1,18 @@
 package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.*
-import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.IOException
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-class BdsPromotionsRepository(
-    private val api: GamificationApi,
-    private val local: GamificationLocalData) : PromotionsRepository {
+class BdsPromotionsRepository(private val api: GamificationApi,
+                              private val local: GamificationLocalData) : PromotionsRepository {
 
   private fun getUserStats(wallet: String): Single<UserStatusResponse> {
-    return api.getUserStats(wallet)
+    return api.getUserStats(wallet, Locale.getDefault().language)
         .map { filterByDate(it) }
         .flatMap { userStats ->
           local.deletePromotions()
@@ -43,16 +42,16 @@ class BdsPromotionsRepository(
     return local.getLastShownLevel(wallet, screen)
   }
 
-  override fun shownLevel(wallet: String, level: Int, screen: String): Completable {
+  override fun shownLevel(wallet: String, level: Int, screen: String) {
     return local.saveShownLevel(wallet, level, screen)
   }
 
-  override fun getSeenGenericPromotion(wallet: String, id: String, screen: String): Boolean {
-    return local.getSeenGenericPromotion(wallet, id, screen)
+  override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
+    return local.getSeenGenericPromotion(id, screen)
   }
 
-  override fun setSeenGenericPromotion(wallet: String, id: String, screen: String): Completable {
-    return local.setSeenGenericPromotion(wallet, id, screen)
+  override fun setSeenGenericPromotion(id: String, screen: String) {
+    return local.setSeenGenericPromotion(id, screen)
   }
 
   override fun getForecastBonus(wallet: String, packageName: String,

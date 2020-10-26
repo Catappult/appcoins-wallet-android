@@ -2,19 +2,18 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Promotions.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/normal_margin"
     android:layout_marginEnd="@dimen/normal_margin"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:cardUseCompatPadding="true"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/progress_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="?attr/selectableItemBackground"
       android:paddingBottom="@dimen/normal_margin"
       >
 
@@ -34,7 +33,7 @@
         style="@style/Promotions.TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="@dimen/big_margin"
         app:layout_constraintBottom_toBottomOf="@+id/progress_icon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,8 +103,6 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/big_margin"
-          android:ellipsize="end"
-          android:maxLines="2"
           tools:text="The promotion ends in 2 days"
           />
 
