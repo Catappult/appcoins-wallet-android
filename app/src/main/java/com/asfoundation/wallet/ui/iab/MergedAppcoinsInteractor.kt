@@ -41,15 +41,21 @@ class MergedAppcoinsInteractor(private val balanceInteract: BalanceInteract,
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
-  fun hasAppcFunds(transactionBuilder: TransactionBuilder): Single<Availability> {
-    return inAppPurchaseInteractor.getBalanceState(transactionBuilder)
-        .map {
-          when (it) {
-            BalanceState.NO_ETHER -> Availability(false, R.string.purchase_no_eth_body)
-            BalanceState.NO_TOKEN, BalanceState.NO_ETHER_NO_TOKEN -> Availability(false,
-                R.string.purchase_no_appcoins_body)
-            BalanceState.OK -> Availability(true, null)
+  fun retrieveAppcAvailability(transactionBuilder: TransactionBuilder,
+                               isSubscription: Boolean): Single<Availability> {
+    return if (isSubscription) {
+      //TODO replace for correct string
+      Single.just(Availability(false, R.string.subscriptions_details_disclaimer))
+    } else {
+      inAppPurchaseInteractor.getBalanceState(transactionBuilder)
+          .map {
+            when (it) {
+              BalanceState.NO_ETHER -> Availability(false, R.string.purchase_no_eth_body)
+              BalanceState.NO_TOKEN, BalanceState.NO_ETHER_NO_TOKEN -> Availability(false,
+                  R.string.purchase_no_appcoins_body)
+              BalanceState.OK -> Availability(true, null)
+            }
           }
-        }
+    }
   }
 }

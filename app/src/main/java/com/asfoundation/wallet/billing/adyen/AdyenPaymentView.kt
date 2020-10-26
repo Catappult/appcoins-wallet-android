@@ -83,7 +83,5 @@ interface AdyenPaymentView {
 
   fun showBillingAddress(value: BigDecimal, currency: String)
 
-  fun launchPerkBonusService(address: String)
-
   fun retrieveAutoRenewing(): Boolean?
 }

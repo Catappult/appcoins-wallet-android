@@ -8,6 +8,8 @@ data class TokenPayment(@SerializedName("payment.method") val adyenPaymentMethod
                         @SerializedName("payment.return_url") val returnUrl: String,
                         @SerializedName("payment.shopper_interaction")
                         val shopperInteraction: String?,
+                        @SerializedName("payment.billing_address")
+                        val billingAddress: AdyenBillingAddress?,
                         @SerializedName("callback_url") val callbackUrl: String?,
                         @SerializedName("metadata") val metadata: String?,
                         @SerializedName("method") val method: String?,

@@ -7,10 +7,10 @@ data class PaymentModel(val resultCode: String?, val refusalReason: String?, val
                         val action: Action?, val redirectUrl: String?,
                         val paymentData: String?, val uid: String, val purchaseUid: String?,
                         val hash: String?, val orderReference: String?,
-                        val status: Status, val errorMessage: String?,
-                        val errorCode: Int?, val error: Error = Error()) {
+                        val status: Status, val errorMessage: String? = null,
+                        val errorCode: Int? = null, val error: Error = Error()) {
 
-  constructor(error: Error) : this("", null, null, null, "", "", "", null, "",
+  constructor(error: Error) : this("", null, null, null, "", "", "", null, "", "",
       Status.FAILED, null, null, error)
 
   enum class Status {

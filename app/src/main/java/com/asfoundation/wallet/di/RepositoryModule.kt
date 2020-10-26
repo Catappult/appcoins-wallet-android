@@ -63,7 +63,6 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Named
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module

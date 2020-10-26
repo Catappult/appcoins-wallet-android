@@ -3,6 +3,7 @@ package com.appcoins.wallet.billing.adyen
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -33,11 +34,10 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
-    return adyenApi.makePayment(walletAddress, walletSignature,
-        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-            billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
-            transactionType, currency, value, developerWallet, storeWallet, oemWallet, userWallet,
-            autoRenewing, walletAddress, walletSignature))
+    return makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+        callbackUrl, packageName, metadata, paymentType, origin, sku, reference, transactionType,
+        currency, value, developerWallet, storeWallet, oemWallet, userWallet, autoRenewing,
+        walletAddress, walletSignature, billingAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -77,19 +77,21 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                           oemWallet: String?, userWallet: String?,
                           autoRenewing: Boolean?,
                           walletAddress: String,
-                          walletSignature: String): Single<AdyenTransactionResponse> {
+                          walletSignature: String,
+                          billingAddress: AdyenBillingAddress?): Single<AdyenTransactionResponse> {
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
       subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency)
           .map {
             TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-                callbackUrl, metadata, paymentType, origin, reference, developerWallet, storeWallet,
-                oemWallet, userWallet, autoRenewing, it)
+                billingAddress, callbackUrl, metadata, paymentType, origin, reference,
+                developerWallet, storeWallet, oemWallet, userWallet, autoRenewing, it)
           }
           .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
     } else {
       adyenApi.makePayment(walletAddress, walletSignature,
-          Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction, callbackUrl,
-              packageName, metadata, paymentType, origin, sku, reference, transactionType, currency,
+          Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+              billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
+              reference, transactionType, currency,
               value, developerWallet, storeWallet, oemWallet, userWallet))
     }
   }
