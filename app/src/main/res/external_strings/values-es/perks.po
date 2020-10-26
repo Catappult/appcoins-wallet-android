@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-09-24 10:30\n"
+"PO-Revision-Date: 2020-10-15 14:26\n"
 
 #. Card Title
 #:
@@ -52,7 +52,7 @@ msgstr "Porque alcanzaste el siguiente nivel."
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr ""
 
-#. Card - Firs purchase.
+#. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
 msgstr ""
@@ -79,11 +79,26 @@ msgstr "¡Un bonus de {0} AppCoins Credits!"
 
 #. Card - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra for every {1} {2} you spend in {3}."
+msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
 msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
+msgstr ""
+
+#. Card - Expendidure in any game.
+#:
+msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
+msgstr ""
+
+#. Receipt - Expenditure in any game.
+#:
+msgid "Because you spent {0} {1} in AppCoins apps."
+msgstr ""
+
+#. Card - Extra bonus in all games.
+#:
+msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
 msgstr ""
 

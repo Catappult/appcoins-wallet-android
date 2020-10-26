@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Upps, ihr Zeitfenster ist abgelaufen. Bitte starten Sie erneut!</string>
   <string name="verification_error_attempts_reached">Sie haben die maximale Anzahl von Versuchen erreicht. Bitte warten Sie bevor Sie es erneut versuchen.</string>
   <string name="verified_tag">Überprüft</string>
-  <string name="unferified_tag">Nicht überprüft</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Wie es scheint wurde dieser Einkauf bereits verarbeitet. Bitte warten Sie ab, bis die Transaktion verarbeitet wurde oder kontaktieren Sie ihren Kunden-Support.</string>
   <string name="purchase_more_payment_methods_button">ANDERE BEZAHL-METHODEN</string>

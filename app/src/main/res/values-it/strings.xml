@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Ops, la sessione è scaduta. Ritenta!</string>
   <string name="verification_error_attempts_reached">Hai superato il numero di tentativi permessi. Attendi prima di ritentare.</string>
   <string name="verified_tag">Verificato</string>
-  <string name="unferified_tag">Non verificato</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Sembra che questo acquisto sia già stato processato. Attendi il completamento della transazione o contatta il nostro servizio clienti.</string>
   <string name="purchase_more_payment_methods_button">ALTRI METODI DI PAGAMENTO</string>

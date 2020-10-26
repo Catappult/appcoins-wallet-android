@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">အိုုး သင့္အခ်ိန္ကုန္သြားပါၿပီ။ ျပန္လည္စတင္ပါ။</string>
   <string name="verification_error_attempts_reached">ျပန္လည္ႀကိဳးစားမႈ အကန္႔အသတ္သို႔ သင္ေရာက္ရွိသြားပံုရပါသည္။ ထပ္ႀကိဳးစားရန္ ေစာင့္ေပးပါ။</string>
   <string name="verified_tag">အတည္ျပဳထားေသာ</string>
-  <string name="unferified_tag">အတည္မျပဳထားေသာ</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ဤ၀ယ္ယူမႈကို ေဆာင္ရြက္ေပးၿပီး ျဖစ္ပံုရပါသည္။ ေငြလႊဲေျပာင္းမႈ ၿပီးစီးသည္အထိ ေစာင့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔၏ ပံ့ပိုးေရးအဖြဲ႕သို႔ ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_more_payment_methods_button">အျခား ေငြေပးေခ်ရန္နည္းလမ္းမ်ား</string>

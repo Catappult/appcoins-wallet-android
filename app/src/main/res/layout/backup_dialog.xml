@@ -66,12 +66,14 @@
       tools:text="/Storage/downloads/backup"
       tools:visibility="visible"
       />
-  <EditText
+  <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/edit_text_name"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       android:layout_marginEnd="20dp"
+      android:inputType="textImeMultiLine"
+      android:imeOptions="actionDone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toStartOf="@id/store_path"
