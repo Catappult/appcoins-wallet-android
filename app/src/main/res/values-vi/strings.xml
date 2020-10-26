@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Rất tiếc, thời gian của bạn đã hết. Hãy bắt đầu lại!</string>
   <string name="verification_error_attempts_reached">Có vẻ như bạn đã đạt đến giới hạn số lần thử. Vui lòng chờ để thử lại.</string>
   <string name="verified_tag">Đã xác minh</string>
-  <string name="unferified_tag">Chưa xác minh</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>

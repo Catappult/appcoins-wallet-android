@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">يييي، انتهى وقتك. ابدأ من جديد!</string>
   <string name="verification_error_attempts_reached">يبدو أنك وصلت الحد المسموح به. يرجى الانتظار والمحاولة مجددًا.</string>
   <string name="verified_tag">مُصدَّق</string>
-  <string name="unferified_tag">غير مصدَّق</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
   <string name="purchase_more_payment_methods_button">طرق دفع أخرى</string>
