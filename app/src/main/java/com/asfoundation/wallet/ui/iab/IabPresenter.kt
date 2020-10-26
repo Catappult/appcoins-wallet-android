@@ -188,7 +188,9 @@ class IabPresenter(private val view: IabView,
 
   private fun handleWebViewResult(resultCode: Int, data: Intent?) {
     if (resultCode == WebViewActivity.FAIL) {
-      sendPayPalConfirmationEvent("cancel")
+      if (data?.dataString?.contains("codapayments") != true) {
+        sendPayPalConfirmationEvent("cancel")
+      }
       view.showPaymentMethodsView()
     } else if (resultCode == WebViewActivity.SUCCESS) {
       if (data?.scheme?.contains("adyencheckout") == true) {
