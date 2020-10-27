@@ -15,13 +15,10 @@ class SettingsPresenter(private val view: SettingsView,
                         private val settingsInteractor: SettingsInteractor) {
 
   fun present() {
-    handleFingerPrintPreference()
     handleAuthenticationResult()
   }
 
   fun onResume() {
-    //This needs to be done twice to avoid adding a setting after view is set and to update the
-    // availability if the user sends app to background and adds/removes a fingerprint
     handleFingerPrintPreference()
     setupPreferences()
     handleRedeemPreferenceSetup()

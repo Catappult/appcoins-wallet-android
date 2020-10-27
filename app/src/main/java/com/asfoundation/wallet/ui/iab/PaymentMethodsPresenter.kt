@@ -137,7 +137,7 @@ class PaymentMethodsPresenter(
           else if (!it) {
             hasStartedAuth = false
             if (cachedPaymentNavigationData!!.isPreselected && paymentMethodsMapper.map(
-                    cachedPaymentNavigationData!!.paymentMethod.id) == SelectedPaymentMethod.CREDIT_CARD) {
+                    cachedPaymentNavigationData!!.paymentId) == SelectedPaymentMethod.CREDIT_CARD) {
               close()
             }
           } else {
@@ -179,21 +179,20 @@ class PaymentMethodsPresenter(
   }
 
   private fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
-    val paymentMethod = paymentNavigationData.paymentMethod
-    when (paymentMethodsMapper.map(paymentMethod.id)) {
+    when (paymentMethodsMapper.map(paymentNavigationData.paymentId)) {
       SelectedPaymentMethod.PAYPAL -> view.showPaypal(cachedGamificationLevel, cachedFiatValue!!)
       SelectedPaymentMethod.CREDIT_CARD -> {
         if (paymentNavigationData.isPreselected) {
           view.showAdyen(cachedFiatValue!!.amount, cachedFiatValue!!.currency, PaymentType.CARD,
-              paymentMethod.iconUrl, cachedGamificationLevel)
+              paymentNavigationData.paymentIconUrl, cachedGamificationLevel)
         } else view.showCreditCard(cachedGamificationLevel, cachedFiatValue!!)
       }
       SelectedPaymentMethod.APPC -> view.showAppCoins(cachedGamificationLevel)
       SelectedPaymentMethod.APPC_CREDITS -> view.showCredits(cachedGamificationLevel)
-      SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(paymentMethod.id)
+      SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(paymentNavigationData.paymentId)
       SelectedPaymentMethod.LOCAL_PAYMENTS -> {
-        view.showLocalPayment(paymentMethod.id, paymentMethod.iconUrl, paymentMethod.label,
-            cachedGamificationLevel)
+        view.showLocalPayment(paymentNavigationData.paymentId, paymentNavigationData.paymentIconUrl,
+            paymentNavigationData.paymentLabel, cachedGamificationLevel)
       }
       else -> {
         view.showError(R.string.unknown_error)
@@ -711,7 +710,9 @@ class PaymentMethodsPresenter(
   }
 
   private fun showAuthenticationActivity(paymentMethod: PaymentMethod, isPreselected: Boolean) {
-    cachedPaymentNavigationData = PaymentNavigationData(paymentMethod, isPreselected)
+    cachedPaymentNavigationData =
+        PaymentNavigationData(paymentMethod.id, paymentMethod.label, paymentMethod.iconUrl,
+            isPreselected)
     view.showAuthenticationActivity()
   }
 
