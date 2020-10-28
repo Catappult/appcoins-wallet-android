@@ -44,7 +44,7 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun setFingerPrintPreference(previousAvailability: Int = -1) {
     val newAvailability = settingsInteractor.retrieveFingerPrintAvailability()
-    if (previousAvailability == -1 || previousAvailability != newAvailability) {
+    if (previousAvailability != newAvailability) {
       when (settingsInteractor.retrieveFingerPrintAvailability()) {
         BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
             settingsInteractor.hasAuthenticationPermission())
