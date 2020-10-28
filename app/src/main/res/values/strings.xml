@@ -127,6 +127,7 @@
   <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
   <string name="intro_4_title">Secure and Private</string>
   <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Get Free AppCoins Credits!</string>
   <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
   <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
@@ -236,6 +237,7 @@
   <string name="transaction_status_success">Success</string>
   <string name="transaction_status_pending">Pending</string>
   <string name="transaction_status_failed">Failed</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">In-App Purchase</string>
   <string name="transaction_type_poa">Reward</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -247,6 +249,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -451,6 +454,8 @@
   <!--Settings-->
   <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Contact Support Team</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
 
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In progress&#8230;</string>

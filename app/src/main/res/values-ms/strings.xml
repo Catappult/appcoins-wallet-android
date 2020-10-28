@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Alamak, masa anda telah tamat. Buat semula!</string>
   <string name="verification_error_attempts_reached">Anda telah capai had percubaan. Sila tunggu sebentar sebelum cuba lagi.</string>
   <string name="verified_tag">Disahkan</string>
-  <string name="unferified_tag">Tidak disahkan</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Nampaknya pembelian ini sedang diproses. Sila tunggu sehingga transaksi selesai atau hubungi Pasukan Sokongan kami.</string>
   <string name="purchase_more_payment_methods_button">KAEDAH BAYARAN LAIN</string>
