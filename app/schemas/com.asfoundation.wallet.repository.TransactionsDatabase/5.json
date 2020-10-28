@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "8f9d910e8294ee3f389952633c0b9338",
+    "identityHash": "c82c9a3171c63d4c932ff6025648aa16",
     "entities": [
       {
         "tableName": "TransactionEntity",
@@ -233,14 +233,24 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_transaction_link_id_transactionId_linkTransactionId",
+            "unique": true,
+            "columnNames": [
+              "transactionId",
+              "linkTransactionId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_transaction_link_id_transactionId_linkTransactionId` ON `${TABLE_NAME}` (`transactionId`, `linkTransactionId`)"
+          }
+        ],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8f9d910e8294ee3f389952633c0b9338')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c82c9a3171c63d4c932ff6025648aa16')"
     ]
   }
 }

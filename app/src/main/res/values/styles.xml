@@ -721,6 +721,13 @@
     <item name="android:maxLines">3</item>
   </style>
 
+  <style name="TransactionsItem.Revert" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:alpha">0.55</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+    <item name="android:textColor">#212121</item>
+    <item name="android:textAlignment">textStart</item>
+  </style>
+
   <style name="BottomSheetInfoTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">#191919</item>
     <item name="android:textSize">14sp</item>

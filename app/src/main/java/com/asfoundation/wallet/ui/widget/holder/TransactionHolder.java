@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.widget.holder;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +26,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class TransactionHolder extends BinderViewHolder<Transaction>
     implements View.OnClickListener {
@@ -41,6 +44,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private final TextView status;
   private final OnTransactionClickListener onTransactionClickListener;
   private final CurrencyFormatUtils formatter;
+  private final TextView revertMessage;
   private Transaction transaction;
   private String defaultAddress;
 
@@ -55,6 +59,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     value = findViewById(R.id.value);
     currency = findViewById(R.id.currency);
     status = findViewById(R.id.status);
+    revertMessage = findViewById(R.id.revert_message);
     onTransactionClickListener = listener;
     this.formatter = formatter;
 
@@ -103,6 +108,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       case IAP_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_iab;
         setTypeIconVisibilityBasedOnDescription(details, uri);
+        break;
+      case BONUS_REVERT:
+      case TOP_UP_REVERT:
+      case IAP_REVERT:
+        transactionTypeIcon = R.drawable.ic_transaction_revert;
+        setTypeIconVisibilityBasedOnDescription(details, uri);
+        setRevertMessage(transaction);
         break;
       case ADS:
       case ADS_OFFCHAIN:
@@ -201,6 +213,31 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     currency.setText(currencySymbol);
 
     this.value.setText(valueStr);
+  }
+
+  private void setRevertMessage(Transaction transaction) {
+    String message = null;
+    Transaction linked = transaction.getLinkedTx()
+        .get(0);
+    if (transaction.getType() == Transaction.TransactionType.BONUS_REVERT) {
+      message =
+          getString(R.string.transaction_type_reverted_bonus_body, getDate(linked.getTimeStamp()));
+    } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
+      message = getString(R.string.transaction_type_reverted_purchase_body,
+          getDate(linked.getTimeStamp()));
+    } else if (transaction.getType() == Transaction.TransactionType.TOP_UP_REVERT) {
+      message =
+          getString(R.string.transaction_type_reverted_topup_body, getDate(linked.getTimeStamp()));
+    }
+    revertMessage.setText(message);
+    revertMessage.setVisibility(View.VISIBLE);
+  }
+
+  private String getDate(long timeStampInSec) {
+    Calendar cal = Calendar.getInstance(Locale.getDefault());
+    cal.setTimeInMillis(timeStampInSec);
+    return DateFormat.format("MMM, dd yyyy", cal.getTime())
+        .toString();
   }
 
   private String getSourceText(Transaction transaction) {
