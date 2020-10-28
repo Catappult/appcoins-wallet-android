@@ -141,6 +141,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   override fun toggleFingerprint(enabled: Boolean) {
+    if (pref_authentication_switch == null && pref_authentication_switch_off == null) {
+      setFingerprintPreference(enabled)
+    }
     pref_authentication_switch?.isChecked = enabled
     pref_authentication_switch_off?.isChecked = enabled
   }
@@ -156,6 +159,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
     fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
       switchSubject?.onNext(Unit)
+      true
+    }
+  }
+
+  override fun updateFingerPrintListener(enabled: Boolean) {
+    val fingerprintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
+    fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
+      if (enabled) switchSubject?.onNext(Unit)
       true
     }
   }

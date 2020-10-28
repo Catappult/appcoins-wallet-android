@@ -21,7 +21,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   fun onResume() {
-    setFingerPrintPreference(settingsInteractor.retrievePreviousFingerPrintAvailability())
+    updateFingerPrintPreference(settingsInteractor.retrievePreviousFingerPrintAvailability())
     setupPreferences()
     handleRedeemPreferenceSetup()
   }
@@ -42,12 +42,33 @@ class SettingsPresenter(private val view: SettingsView,
     view.setBackupPreference()
   }
 
-  private fun setFingerPrintPreference(previousAvailability: Int = -1) {
+  private fun setFingerPrintPreference() {
+    when (settingsInteractor.retrieveFingerPrintAvailability()) {
+      BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
+          settingsInteractor.hasAuthenticationPermission())
+      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+        settingsInteractor.changeAuthorizationPermission(false)
+        view.removeFingerprintPreference()
+      }
+      BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+        view.toggleFingerprint(false)
+        settingsInteractor.changeAuthorizationPermission(false)
+        view.setDisabledFingerPrintPreference()
+      }
+    }
+  }
+
+  private fun updateFingerPrintPreference(previousAvailability: Int) {
     val newAvailability = settingsInteractor.retrieveFingerPrintAvailability()
     if (previousAvailability != newAvailability) {
       when (settingsInteractor.retrieveFingerPrintAvailability()) {
-        BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
-            settingsInteractor.hasAuthenticationPermission())
+        BiometricManager.BIOMETRIC_SUCCESS -> {
+          if (previousAvailability == BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE) {
+            view.setFingerprintPreference(settingsInteractor.hasAuthenticationPermission())
+          } else {
+            view.updateFingerPrintListener(true)
+          }
+        }
         BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
           settingsInteractor.changeAuthorizationPermission(false)
           view.removeFingerprintPreference()
@@ -55,7 +76,11 @@ class SettingsPresenter(private val view: SettingsView,
         BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
           view.toggleFingerprint(false)
           settingsInteractor.changeAuthorizationPermission(false)
-          view.setDisabledFingerPrintPreference()
+          if (previousAvailability == BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE) {
+            view.setDisabledFingerPrintPreference()
+          } else {
+            view.updateFingerPrintListener(false)
+          }
         }
       }
     }
@@ -66,7 +91,6 @@ class SettingsPresenter(private val view: SettingsView,
         .filter { it }
         .doOnNext {
           settingsInteractor.changeAuthorizationPermission(false)
-          view.setFingerprintPreference(false)
           view.toggleFingerprint(false)
         }
         .subscribe({}, { it.printStackTrace() }))

@@ -49,4 +49,6 @@ interface SettingsView {
   fun setDisabledFingerPrintPreference()
 
   fun switchPreferenceChange(): Observable<Unit>
+
+  fun updateFingerPrintListener(enabled: Boolean)
 }
