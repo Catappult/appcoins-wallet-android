@@ -56,7 +56,7 @@ class TransactionsMapper {
     return when (type) {
       "Bonus Revert OffChain",
       "Topup Revert OffChain",
-      "IAP Revert IffChain" -> true
+      "IAP Revert OffChain" -> true
       else -> false
     }
   }
@@ -73,7 +73,7 @@ class TransactionsMapper {
       "IAP" -> TransactionEntity.TransactionType.IAP
       "Bonus Revert OffChain" -> TransactionEntity.TransactionType.BONUS_REVERT
       "Topup Revert OffChain" -> TransactionEntity.TransactionType.TOP_UP_REVERT
-      "IAP Revert IffChain" -> TransactionEntity.TransactionType.IAP_REVERT
+      "IAP Revert OffChain" -> TransactionEntity.TransactionType.IAP_REVERT
       else -> TransactionEntity.TransactionType.STANDARD
     }
   }

@@ -111,10 +111,15 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         break;
       case BONUS_REVERT:
       case TOP_UP_REVERT:
+        transactionTypeIcon = R.drawable.ic_transaction_revert;
+        typeIcon.setVisibility(View.VISIBLE);
+        setRevertMessage();
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
+        break;
       case IAP_REVERT:
         transactionTypeIcon = R.drawable.ic_transaction_revert;
-        setTypeIconVisibilityBasedOnDescription(details, uri);
-        setRevertMessage(transaction);
+        typeIcon.setVisibility(View.VISIBLE);
+        setRevertMessage();
         break;
       case ADS:
       case ADS_OFFCHAIN:
@@ -152,6 +157,15 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       } else if (transaction.getType()
           .equals(Transaction.TransactionType.TRANSFER_OFF_CHAIN)) {
         address.setText(R.string.transaction_type_p2p);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.TOP_UP_REVERT)) {
+        address.setText(R.string.transaction_type_reverted_topup_title);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.BONUS_REVERT)) {
+        address.setText(R.string.transaction_type_reverted_bonus_title);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.IAP_REVERT)) {
+        address.setText(R.string.transaction_type_reverted_purchase_title);
       } else {
         address.setText(
             details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
@@ -206,6 +220,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     if (valueStr.equals("0")) {
       valueStr = "0 ";
+    } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
+      valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     } else {
       valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     }
@@ -215,7 +231,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     this.value.setText(valueStr);
   }
 
-  private void setRevertMessage(Transaction transaction) {
+  private void setRevertMessage() {
     String message = null;
     Transaction linked = transaction.getLinkedTx()
         .get(0);
@@ -268,5 +284,11 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
   @Override public void onClick(View view) {
     onTransactionClickListener.onTransactionClick(view, transaction);
+  }
+
+  private boolean isRevertedType(Transaction.TransactionType type) {
+    return type == Transaction.TransactionType.BONUS_REVERT
+        || type == Transaction.TransactionType.IAP_REVERT
+        || type == Transaction.TransactionType.TOP_UP_REVERT;
   }
 }
