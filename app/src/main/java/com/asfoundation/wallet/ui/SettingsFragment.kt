@@ -22,7 +22,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.preference_fingerprint.*
+import kotlinx.android.synthetic.main.preference_fingerprint_off.*
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -35,6 +37,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   private lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
+  private var switchSubject: PublishSubject<Unit>? = null
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -47,6 +50,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
+    switchSubject = PublishSubject.create()
     presenter =
         SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), settingsInteract)
@@ -70,6 +74,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+  }
+
+  override fun onDestroy() {
+    switchSubject = null
+    super.onDestroy()
   }
 
   private fun startBrowserActivity(uri: Uri, newTaskFlag: Boolean) {
@@ -132,12 +141,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   override fun toggleFingerprint(enabled: Boolean) {
-    pref_authentication_switch.isChecked = enabled
+    pref_authentication_switch?.isChecked = enabled
+    pref_authentication_switch_off?.isChecked = enabled
   }
 
   override fun setFingerprintPreference(hasAuthenticationPermission: Boolean) {
     val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
-    fingerprintPreference?.isChecked = hasAuthenticationPermission
 
     if (hasAuthenticationPermission) {
       fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
@@ -146,10 +155,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
 
     fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
-      presenter.onFingerPrintPreferenceChange()
+      switchSubject?.onNext(Unit)
       true
     }
   }
+
+  override fun switchPreferenceChange() = switchSubject!!
 
   override fun removeFingerprintPreference() {
     val fingerPrintPreference = findPreference<SwitchPreference>("pref_fingerprint")

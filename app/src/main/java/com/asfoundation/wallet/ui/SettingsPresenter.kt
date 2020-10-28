@@ -15,11 +15,13 @@ class SettingsPresenter(private val view: SettingsView,
                         private val settingsInteractor: SettingsInteractor) {
 
   fun present() {
+    setFingerPrintPreference()
     handleAuthenticationResult()
+    onFingerPrintPreferenceChange()
   }
 
   fun onResume() {
-    handleFingerPrintPreference()
+    setFingerPrintPreference(settingsInteractor.retrievePreviousFingerPrintAvailability())
     setupPreferences()
     handleRedeemPreferenceSetup()
   }
@@ -40,17 +42,21 @@ class SettingsPresenter(private val view: SettingsView,
     view.setBackupPreference()
   }
 
-  private fun handleFingerPrintPreference() {
-    when (settingsInteractor.retrieveFingerPrintAvailability()) {
-      BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
-          settingsInteractor.hasAuthenticationPermission())
-      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
-        settingsInteractor.changeAuthorizationPermission(false)
-        view.removeFingerprintPreference()
-      }
-      BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-        settingsInteractor.changeAuthorizationPermission(false)
-        view.setDisabledFingerPrintPreference()
+  private fun setFingerPrintPreference(previousAvailability: Int = -1) {
+    val newAvailability = settingsInteractor.retrieveFingerPrintAvailability()
+    if (previousAvailability == -1 || previousAvailability != newAvailability) {
+      when (settingsInteractor.retrieveFingerPrintAvailability()) {
+        BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
+            settingsInteractor.hasAuthenticationPermission())
+        BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+          settingsInteractor.changeAuthorizationPermission(false)
+          view.removeFingerprintPreference()
+        }
+        BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+          view.toggleFingerprint(false)
+          settingsInteractor.changeAuthorizationPermission(false)
+          view.setDisabledFingerPrintPreference()
+        }
       }
     }
   }
@@ -109,12 +115,16 @@ class SettingsPresenter(private val view: SettingsView,
     view.showError()
   }
 
-  fun onFingerPrintPreferenceChange() {
-    if (settingsInteractor.hasAuthenticationPermission()) activityView.showAuthentication()
-    else {
-      view.toggleFingerprint(true)
-      settingsInteractor.changeAuthorizationPermission(true)
-    }
+  private fun onFingerPrintPreferenceChange() {
+    disposables.add(view.switchPreferenceChange()
+        .doOnNext {
+          if (settingsInteractor.hasAuthenticationPermission()) activityView.showAuthentication()
+          else {
+            view.toggleFingerprint(true)
+            settingsInteractor.changeAuthorizationPermission(true)
+          }
+        }
+        .subscribe({}, { it.printStackTrace() }))
   }
 }
 

@@ -16,6 +16,8 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
                          private val walletsEventSender: WalletsEventSender,
                          private val preferencesRepositoryType: PreferencesRepositoryType) {
 
+  private var fingerPrintAvailability: Int = -1
+
   fun findWallet() = findDefaultWalletInteract.find()
       .map { it.address }
 
@@ -35,7 +37,12 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
 
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
-  fun retrieveFingerPrintAvailability() = fingerPrintInteractor.compatibleDevice()
+  fun retrieveFingerPrintAvailability(): Int {
+    fingerPrintAvailability = fingerPrintInteractor.compatibleDevice()
+    return fingerPrintAvailability
+  }
+
+  fun retrievePreviousFingerPrintAvailability() = fingerPrintAvailability
 
   fun changeAuthorizationPermission(value: Boolean) =
       preferencesRepositoryType.setAuthenticationPermission(value)

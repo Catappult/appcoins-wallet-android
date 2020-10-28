@@ -33,14 +33,14 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/pref_authentication_switch"
+        app:layout_constraintEnd_toStartOf="@id/pref_authentication_switch_off"
         app:layout_constraintStart_toEndOf="@android:id/icon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Pref Title"
         />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/pref_authentication_switch"
+        android:id="@+id/pref_authentication_switch_off"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"

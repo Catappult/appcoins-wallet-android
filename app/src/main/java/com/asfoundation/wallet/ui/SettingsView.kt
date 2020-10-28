@@ -47,4 +47,6 @@ interface SettingsView {
   fun removeFingerprintPreference()
 
   fun setDisabledFingerPrintPreference()
+
+  fun switchPreferenceChange(): Observable<Unit>
 }
