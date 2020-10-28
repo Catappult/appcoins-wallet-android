@@ -1,26 +1,18 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
-import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.repository.BdsPendingTransactionService
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.PaymentNavigationData
-import com.asfoundation.wallet.ui.gamification.GamificationInteractor
-import com.asfoundation.wallet.ui.gamification.GamificationMapper
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -38,42 +30,38 @@ import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
     private val view: PaymentMethodsView,
-    private val appPackage: String,
     private val viewScheduler: Scheduler,
     private val networkThread: Scheduler,
     private val disposables: CompositeDisposable,
-    private val billingMessagesMapper: BillingMessagesMapper,
-    private val bdsPendingTransactionService: BdsPendingTransactionService,
-    private val billing: Billing,
-    private val analytics: BillingAnalytics,
-    private val analyticsSetup: AnalyticsSetup,
-    private val amplitudeAnalytics: AmplitudeAnalytics,
-    private val isBds: Boolean,
-    private val developerPayload: String?,
-    private val uri: String?,
+    private val analytics: PaymentMethodsAnalytics,
     private val transaction: TransactionBuilder,
     private val paymentMethodsMapper: PaymentMethodsMapper,
-    private val transactionValue: Double,
     private val formatter: CurrencyFormatUtils,
     private val logger: Logger,
-    private val paymentMethodsInteract: PaymentMethodsInteract,
-    private val activity: IabView?,
-    private val preferencesRepositoryType: PreferencesRepositoryType,
-    private val gamificationInteractor: GamificationInteractor,
-    private val mapper: GamificationMapper) {
+    private val interactor: PaymentMethodsInteract,
+    private val paymentMethodsData: PaymentMethodsData) {
 
   private var cachedGamificationLevel = 0
+  private var cachedFiatValue: FiatValue? = null
+  private var cachedPaymentNavigationData: PaymentNavigationData? = null
   private var closeToLevelUp: Boolean = false
-  private var shouldHandlePreselected = true
+  private var hasStartedAuth = false
 
   companion object {
     private val TAG = PaymentMethodsPresenter::class.java.name
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val HAS_STARTED_AUTH = "has_started_auth"
+    private const val FIAT_VALUE = "fiat_value"
+    private const val PAYMENTE_NAVIGATION_DATA = "payment_navigation_data"
   }
 
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
+      hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
+      cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as FiatValue?
+      cachedPaymentNavigationData =
+          savedInstanceState.getSerializable(PAYMENTE_NAVIGATION_DATA) as PaymentNavigationData?
     }
     handleOnGoingPurchases()
     handleCancelClick()
@@ -82,18 +70,19 @@ class PaymentMethodsPresenter(
     handleBuyClick()
     handleSupportClicks()
     handleAuthenticationResult()
-    if (isBds) {
-      handlePaymentSelection()
-    }
+    if (paymentMethodsData.isBds) handlePaymentSelection()
   }
 
-  fun onResume(firstRun: Boolean) = setupUi(transactionValue, firstRun)
+  fun onResume(firstRun: Boolean) {
+    if (firstRun.not()) view.showPaymentsSkeletonLoading()
+    setupUi(firstRun)
+  }
 
   private fun handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
         .observeOn(viewScheduler)
         .doOnNext { selectedPaymentMethod ->
-          if (paymentMethodsInteract.isBonusActiveAndValid()) {
+          if (interactor.isBonusActiveAndValid()) {
             handleBonusVisibility(selectedPaymentMethod)
           }
           handlePositiveButtonText(selectedPaymentMethod)
@@ -103,31 +92,32 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyClick() {
     disposables.add(view.getBuyClick()
+        .map { view.getSelectedPaymentMethod(interactor.hasPreSelectedPaymentMethod()) }
         .observeOn(viewScheduler)
         .doOnNext { handleBuyAnalytics(it) }
         .doOnNext { selectedPaymentMethod ->
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
-            PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> handleWalletBlockStatus(
-                selectedPaymentMethod)
-            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> {
-              view.showMergedAppcoins(cachedGamificationLevel)
+            SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
+            SelectedPaymentMethod.APPC_CREDITS -> {
+              view.showProgressBarLoading()
+              handleWalletBlockStatus(selectedPaymentMethod)
             }
+            SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(cachedGamificationLevel,
+                cachedFiatValue!!)
+
             else -> {
-              if (preferencesRepositoryType.hasAuthenticationPermission()) {
-                view.showAuthenticationActivity(selectedPaymentMethod, cachedGamificationLevel,
-                    false)
+              if (interactor.hasAuthenticationPermission()) {
+                showAuthenticationActivity(selectedPaymentMethod,
+                    interactor.hasPreSelectedPaymentMethod())
               } else {
                 when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-                  PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(
-                      cachedGamificationLevel)
-                  PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
-                      cachedGamificationLevel)
-                  PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins(
-                      cachedGamificationLevel)
-                  PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
-                      selectedPaymentMethod.id)
-                  PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
+                  SelectedPaymentMethod.PAYPAL -> view.showPaypal(cachedGamificationLevel,
+                      cachedFiatValue!!)
+                  SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(cachedGamificationLevel,
+                      cachedFiatValue!!)
+                  SelectedPaymentMethod.APPC -> view.showAppCoins(cachedGamificationLevel)
+                  SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(selectedPaymentMethod.id)
+                  SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                       selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                       selectedPaymentMethod.label, cachedGamificationLevel)
                   else -> return@doOnNext
@@ -140,34 +130,35 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleAuthenticationResult() {
-    disposables.add(activity!!.onAuthenticationResult()
+    disposables.add(view.onAuthenticationResult()
         .observeOn(viewScheduler)
         .doOnNext {
-          if (!it.isSuccess) {
-            view.hideLoading()
-            if (it.paymentNavigationData.isPreselected && paymentMethodsMapper.map(
-                    it.paymentNavigationData.selectedPaymentId) == PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD) {
+          if (cachedPaymentNavigationData == null) close()
+          else if (!it) {
+            hasStartedAuth = false
+            if (cachedPaymentNavigationData!!.isPreselected && paymentMethodsMapper.map(
+                    cachedPaymentNavigationData!!.paymentId) == SelectedPaymentMethod.CREDIT_CARD) {
               close()
             }
           } else {
-            navigateToPayment(it.paymentNavigationData)
+            navigateToPayment(cachedPaymentNavigationData!!)
           }
         }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletBlockStatus(selectedPaymentMethod: PaymentMethod) {
-    disposables.add(paymentMethodsInteract.isWalletBlocked()
+    disposables.add(interactor.isWalletBlocked()
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          if (preferencesRepositoryType.hasAuthenticationPermission()) {
-            view.showAuthenticationActivity(selectedPaymentMethod, cachedGamificationLevel, false)
+          if (interactor.hasAuthenticationPermission()) {
+            showAuthenticationActivity(selectedPaymentMethod,
+                interactor.hasPreSelectedPaymentMethod())
           } else {
             view.showCredits(cachedGamificationLevel)
           }
         }
-        .doOnSubscribe { view.showProgressBarLoading() }
         .doOnError { showError(it) }
         .subscribe({}, { showError(it) })
     )
@@ -188,27 +179,20 @@ class PaymentMethodsPresenter(
   }
 
   private fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
-    when (paymentMethodsMapper.map(paymentNavigationData.selectedPaymentId)) {
-      PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> view.showPaypal(
-          paymentNavigationData.gamificationLevel)
-      PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> {
+    when (paymentMethodsMapper.map(paymentNavigationData.paymentId)) {
+      SelectedPaymentMethod.PAYPAL -> view.showPaypal(cachedGamificationLevel, cachedFiatValue!!)
+      SelectedPaymentMethod.CREDIT_CARD -> {
         if (paymentNavigationData.isPreselected) {
-          view.showAdyen(paymentNavigationData.fiatAmount,
-              paymentNavigationData.fiatCurrency, PaymentType.CARD,
-              paymentNavigationData.selectedPaymentIcon, paymentNavigationData.gamificationLevel)
-        } else view.showCreditCard(paymentNavigationData.gamificationLevel)
+          view.showAdyen(cachedFiatValue!!.amount, cachedFiatValue!!.currency, PaymentType.CARD,
+              paymentNavigationData.paymentIconUrl, cachedGamificationLevel)
+        } else view.showCreditCard(cachedGamificationLevel, cachedFiatValue!!)
       }
-      PaymentMethodsView.SelectedPaymentMethod.APPC -> view.showAppCoins(
-          paymentNavigationData.gamificationLevel)
-      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.showCredits(
-          paymentNavigationData.gamificationLevel)
-      PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(
-          paymentNavigationData.selectedPaymentId)
-      PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> {
-        view.showLocalPayment(paymentNavigationData.selectedPaymentId,
-            paymentNavigationData.selectedPaymentIcon!!,
-            paymentNavigationData.selectedPaymentLabel!!,
-            paymentNavigationData.gamificationLevel)
+      SelectedPaymentMethod.APPC -> view.showAppCoins(cachedGamificationLevel)
+      SelectedPaymentMethod.APPC_CREDITS -> view.showCredits(cachedGamificationLevel)
+      SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(paymentNavigationData.paymentId)
+      SelectedPaymentMethod.LOCAL_PAYMENTS -> {
+        view.showLocalPayment(paymentNavigationData.paymentId, paymentNavigationData.paymentIconUrl,
+            paymentNavigationData.paymentLabel, cachedGamificationLevel)
       }
       else -> {
         view.showError(R.string.unknown_error)
@@ -230,7 +214,8 @@ class PaymentMethodsPresenter(
   }
 
   private fun checkProcessing(skuId: String?): Completable {
-    return billing.getSkuTransaction(appPackage, skuId, networkThread)
+    return interactor.getSkuTransaction(paymentMethodsData.appPackage, skuId,
+        networkThread)
         .subscribeOn(networkThread)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(viewScheduler)
@@ -239,25 +224,29 @@ class PaymentMethodsPresenter(
         .map { it.uid }
         .observeOn(networkThread)
         .flatMapCompletable { uid ->
-          bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
+          interactor.checkTransactionStateFromTransactionId(uid)
               .ignoreElements()
               .andThen(finishProcess(skuId))
         }
   }
 
   private fun handleProcessing() {
-    disposables.add(paymentMethodsInteract.getCurrentPaymentStep(appPackage, transaction)
-        .filter { currentPaymentStep -> currentPaymentStep == AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN }
-        .doOnSuccess {
-          view.lockRotation()
-          paymentMethodsInteract.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-              appPackage, transaction.skuId, developerPayload, isBds)
-        }
-        .subscribe({}, { it.printStackTrace() }))
+    disposables.add(
+        interactor.getCurrentPaymentStep(paymentMethodsData.appPackage, transaction)
+            .filter { currentPaymentStep -> currentPaymentStep == AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN }
+            .doOnSuccess {
+              view.lockRotation()
+              interactor.resume(paymentMethodsData.uri,
+                  AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+                  paymentMethodsData.appPackage, transaction.skuId,
+                  paymentMethodsData.developerPayload, paymentMethodsData.isBds)
+            }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun finishProcess(skuId: String?): Completable {
-    return billing.getSkuPurchase(appPackage, skuId, networkThread)
+    return interactor.getSkuPurchase(paymentMethodsData.appPackage, skuId,
+        networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
         .ignoreElement()
@@ -274,53 +263,53 @@ class PaymentMethodsPresenter(
         }
   }
 
-  private fun setupUi(transactionValue: Double, firstRun: Boolean) {
-    disposables.add(paymentMethodsInteract.convertToLocalFiat(transactionValue)
-        .subscribeOn(networkThread)
-        .flatMapCompletable { fiatValue ->
-          getPaymentMethods(fiatValue)
-              .flatMapCompletable { paymentMethods ->
-                Single.zip(paymentMethodsInteract.getEarningBonus(transaction.domain,
-                    transaction.amount()), paymentMethodsInteract.getUserStatus(),
-                    gamificationInteractor.getLevels(),
-                    Function3 { earningBonus: ForecastBonusAndLevel, userStats: GamificationStats, levels: Levels ->
-                      Triple(earningBonus, userStats, levels)
-                    })
-                    .observeOn(viewScheduler)
-                    .flatMapCompletable {
-                      Completable.fromAction {
-                        setupBonusInformation(it.first)
-                        if (paymentMethodsInteract.isBonusActiveAndValid(it.first)) {
-                          setUpNextLevelInformation(it.second, it.third, transactionValue)
+  private fun setupUi(firstRun: Boolean) {
+    disposables.add(
+        interactor.convertToLocalFiat(paymentMethodsData.transactionValue.toDouble())
+            .subscribeOn(networkThread)
+            .flatMapCompletable { fiatValue ->
+              this.cachedFiatValue = fiatValue
+              getPaymentMethods(fiatValue)
+                  .flatMapCompletable { paymentMethods ->
+                    Single.zip(interactor.getEarningBonus(transaction.domain,
+                        transaction.amount()), interactor.getUserStatus(),
+                        interactor.getLevels(),
+                        Function3 { earningBonus: ForecastBonusAndLevel, userStats: GamificationStats, levels: Levels ->
+                          Triple(earningBonus, userStats, levels)
+                        })
+                        .observeOn(viewScheduler)
+                        .flatMapCompletable {
+                          Completable.fromAction {
+                            setupBonusInformation(it.first)
+                            if (interactor.isBonusActiveAndValid(it.first)) {
+                              setUpNextLevelInformation(it.second, it.third,
+                                  paymentMethodsData.transactionValue)
+                            }
+                            selectPaymentMethod(paymentMethods, fiatValue,
+                                interactor.isBonusActiveAndValid(it.first))
+                          }
                         }
-                        if (shouldHandlePreselected) {
-                          selectPaymentMethod(paymentMethods, fiatValue,
-                              paymentMethodsInteract.isBonusActiveAndValid(it.first))
-                          shouldHandlePreselected = false
-                        }
-                      }
-                    }
-              }
-        }
-        .subscribeOn(networkThread)
-        .observeOn(viewScheduler)
-        .doOnComplete {
-          //If not first run we should rely on the hideLoading of the handleOnGoingPurchases method
-          if (!firstRun) view.hideLoading()
-        }
-        .subscribe({ }, { this.showError(it) }))
+                  }
+            }
+            .subscribeOn(networkThread)
+            .observeOn(viewScheduler)
+            .doOnComplete {
+              //If first run we should rely on the hideLoading of the handleOnGoingPurchases method
+              if (!firstRun) view.hideLoading()
+            }
+            .subscribe({ }, { this.showError(it) }))
   }
 
   private fun setUpNextLevelInformation(userStats: GamificationStats, levels: Levels,
-                                        transactionValue: Double) {
+                                        transactionValue: BigDecimal) {
     val progress = getProgressPercentage(userStats, levels.list)
     if (shouldShowNextLevel(levels, progress, userStats)) {
       closeToLevelUp = true
-      val currentLevelInfo = mapper.mapCurrentLevelInfo(cachedGamificationLevel)
-      val nextLevelInfo = mapper.mapCurrentLevelInfo(cachedGamificationLevel + 1)
+      val currentLevelInfo = paymentMethodsMapper.mapCurrentLevelInfo(cachedGamificationLevel)
+      val nextLevelInfo = paymentMethodsMapper.mapCurrentLevelInfo(cachedGamificationLevel + 1)
       view.setLevelUpInformation(cachedGamificationLevel, progress,
-          mapper.getRectangleGamificationBackground(currentLevelInfo.levelColor),
-          mapper.getRectangleGamificationBackground(nextLevelInfo.levelColor),
+          paymentMethodsMapper.getRectangleGamificationBackground(currentLevelInfo.levelColor),
+          paymentMethodsMapper.getRectangleGamificationBackground(nextLevelInfo.levelColor),
           currentLevelInfo.levelColor, willLevelUp(userStats, transactionValue),
           userStats.nextLevelAmount!!.minus(userStats.totalSpend))
     } else {
@@ -328,13 +317,13 @@ class PaymentMethodsPresenter(
     }
   }
 
-  private fun willLevelUp(userStats: GamificationStats, transactionValue: Double): Boolean {
-    return userStats.totalSpend + BigDecimal(transactionValue) >= userStats.nextLevelAmount
+  private fun willLevelUp(userStats: GamificationStats, transactionValue: BigDecimal): Boolean {
+    return userStats.totalSpend + transactionValue >= userStats.nextLevelAmount
   }
 
   private fun shouldShowNextLevel(levels: Levels, progress: Double,
                                   userStats: GamificationStats): Boolean {
-    return mapper.mapLevelUpPercentage(cachedGamificationLevel) <= progress &&
+    return paymentMethodsMapper.mapLevelUpPercentage(cachedGamificationLevel) <= progress &&
         cachedGamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK && userStats.nextLevelAmount != null
   }
 
@@ -354,21 +343,20 @@ class PaymentMethodsPresenter(
 
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
-    if (paymentMethodsInteract.isBonusActiveAndValid(forecastBonus)) {
+    if (interactor.isBonusActiveAndValid(forecastBonus)) {
       view.setBonus(forecastBonus.amount, forecastBonus.currency)
     } else {
       view.removeBonus()
     }
     cachedGamificationLevel = forecastBonus.level
-    analyticsSetup.setGamificationLevel(cachedGamificationLevel)
-    amplitudeAnalytics.setGamificationLevel(cachedGamificationLevel)
+    analytics.setGamificationLevel(cachedGamificationLevel)
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
                                   isBonusActive: Boolean) {
     val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
     val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
-    if (paymentMethodsInteract.hasAsyncLocalPayment()) {
+    if (interactor.hasAsyncLocalPayment()) {
       //After a asynchronous payment credits will be used as pre selected
       getCreditsPaymentMethod(paymentMethods)?.let {
         if (it.isEnabled) {
@@ -378,7 +366,7 @@ class PaymentMethodsPresenter(
       }
     }
 
-    if (paymentMethodsInteract.hasPreSelectedPaymentMethod()) {
+    if (interactor.hasPreSelectedPaymentMethod()) {
       val paymentMethod = getPreSelectedPaymentMethod(paymentMethods)
       if (paymentMethod == null || !paymentMethod.isEnabled) {
         showPaymentMethods(fiatValue, paymentMethods,
@@ -386,11 +374,14 @@ class PaymentMethodsPresenter(
       } else {
         when (paymentMethod.id) {
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> {
-            analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
-                .toString(), transaction.type)
-            if (preferencesRepositoryType.hasAuthenticationPermission()) {
-              view.showAuthenticationActivity(paymentMethod, cachedGamificationLevel, true,
-                  fiatValue)
+            analytics.sendPurchaseDetailsEvent(paymentMethodsData.appPackage, transaction.skuId,
+                transaction.amount()
+                    .toString(), transaction.type)
+            if (interactor.hasAuthenticationPermission()) {
+              if (!hasStartedAuth) {
+                showAuthenticationActivity(paymentMethod, true)
+                hasStartedAuth = true
+              }
             } else {
               view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
                   paymentMethod.iconUrl, cachedGamificationLevel)
@@ -428,7 +419,7 @@ class PaymentMethodsPresenter(
     var creditsEnabled = false
     val paymentList: MutableList<PaymentMethod>
     val symbol = mapCurrencyCodeToSymbol(fiatValue.currency)
-    if (isBds) {
+    if (paymentMethodsData.isBds) {
       paymentMethods.forEach {
         if (it is AppCoinsPaymentMethod) {
           appcEnabled = it.isAppcEnabled
@@ -439,19 +430,21 @@ class PaymentMethodsPresenter(
     } else {
       paymentList = paymentMethods
           .filter {
-            it.id == paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.APPC)
+            it.id == paymentMethodsMapper.map(SelectedPaymentMethod.APPC)
           }
           .toMutableList()
     }
-    view.showPaymentMethods(paymentList, fiatValue, symbol, paymentMethodId, fiatAmount, appcAmount,
+    view.showPaymentMethods(paymentList, symbol, paymentMethodId, fiatAmount, appcAmount,
         appcEnabled, creditsEnabled)
+    sendPaymentMethodsEvents()
   }
 
   private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,
                                            fiatAmount: String, appcAmount: String,
                                            isBonusActive: Boolean) {
-    view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
-        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive)
+    view.showPreSelectedPaymentMethod(paymentMethod, mapCurrencyCodeToSymbol(fiatValue.currency),
+        fiatAmount, appcAmount, isBonusActive)
+    sendPreSelectedPaymentMethodsEvents()
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -463,38 +456,43 @@ class PaymentMethodsPresenter(
 
   private fun handleCancelClick() {
     disposables.add(view.getCancelClick()
+        .map { view.getSelectedPaymentMethod(interactor.hasPreSelectedPaymentMethod()) }
         .observeOn(networkThread)
-        .doOnNext { handlePaymentMethodAnalytics(it) }
+        .doOnNext { sendCancelPaymentMethodAnalytics(it) }
         .subscribe { close() })
   }
 
-  private fun handlePaymentMethodAnalytics(paymentMethod: PaymentMethod) {
-    if (paymentMethodsInteract.hasPreSelectedPaymentMethod()) {
-      analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
-          transaction.amount()
-              .toString(), paymentMethod.id, transaction.type, "cancel")
-    } else {
-      analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
-          .toString(), paymentMethod.id, transaction.type, "cancel")
-    }
+  private fun sendCancelPaymentMethodAnalytics(paymentMethod: PaymentMethod) {
+    analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage, transaction.skuId,
+        transaction.amount()
+            .toString(), paymentMethod.id, transaction.type, "cancel",
+        interactor.hasPreSelectedPaymentMethod())
+
   }
 
   private fun handleMorePaymentMethodClicks() {
     disposables.add(view.getMorePaymentMethodsClicks()
+        .map { view.getSelectedPaymentMethod(interactor.hasPreSelectedPaymentMethod()) }
         .observeOn(networkThread)
         .doOnNext { selectedPaymentMethod ->
-          analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+          analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage,
+              transaction.skuId,
               transaction.amount()
                   .toString(), selectedPaymentMethod.id, transaction.type, "other_payments")
         }
         .observeOn(viewScheduler)
         .doOnEach { view.showSkeletonLoading() }
         .flatMapSingle {
-          paymentMethodsInteract.convertToLocalFiat(transactionValue)
-              .subscribeOn(networkThread)
+          if (cachedFiatValue == null) {
+            interactor.convertToLocalFiat(paymentMethodsData.transactionValue.toDouble())
+                .subscribeOn(networkThread)
+          } else {
+            Single.just(cachedFiatValue)
+          }
         }
         .flatMapCompletable { fiatValue ->
-          getPaymentMethods(fiatValue).observeOn(viewScheduler)
+          getPaymentMethods(fiatValue).subscribeOn(networkThread)
+              .observeOn(viewScheduler)
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
                   val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
@@ -506,8 +504,8 @@ class PaymentMethodsPresenter(
                 }
               }
               .andThen(
-                  Completable.fromAction { paymentMethodsInteract.removePreSelectedPaymentMethod() })
-              .andThen(Completable.fromAction { paymentMethodsInteract.removeAsyncLocalPayment() })
+                  Completable.fromAction { interactor.removePreSelectedPaymentMethod() })
+              .andThen(Completable.fromAction { interactor.removeAsyncLocalPayment() })
               .andThen(Completable.fromAction { view.hideLoading() })
         }
         .subscribe({ }, { this.showError(it) }))
@@ -528,7 +526,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun close() {
-    view.close(billingMessagesMapper.mapCancellation())
+    view.close(paymentMethodsMapper.mapCancellation())
   }
 
   private fun handleErrorDismisses() {
@@ -551,23 +549,25 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
-        .flatMapCompletable { paymentMethodsInteract.showSupport(cachedGamificationLevel) }
+        .flatMapCompletable { interactor.showSupport(cachedGamificationLevel) }
         .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun finish(purchase: Purchase, itemAlreadyOwned: Boolean) {
-    view.finish(billingMessagesMapper.mapFinishedPurchase(purchase, itemAlreadyOwned))
+    view.finish(paymentMethodsMapper.mapFinishedPurchase(purchase, itemAlreadyOwned))
   }
 
-  fun sendPaymentMethodsEvents() {
-    analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
-        .toString(), transaction.type)
+  private fun sendPaymentMethodsEvents() {
+    analytics.sendPurchaseDetailsEvent(paymentMethodsData.appPackage, transaction.skuId,
+        transaction.amount()
+            .toString(), transaction.type)
   }
 
-  fun sendPreSelectedPaymentMethodsEvents() {
-    analytics.sendPurchaseDetailsEvent(appPackage, transaction.skuId, transaction.amount()
-        .toString(), transaction.type)
+  private fun sendPreSelectedPaymentMethodsEvents() {
+    analytics.sendPurchaseDetailsEvent(paymentMethodsData.appPackage, transaction.skuId,
+        transaction.amount()
+            .toString(), transaction.type)
   }
 
   fun stop() {
@@ -575,11 +575,11 @@ class PaymentMethodsPresenter(
   }
 
   private fun getPaymentMethods(fiatValue: FiatValue): Single<List<PaymentMethod>> {
-    return if (isBds) {
-      paymentMethodsInteract.getPaymentMethods(transaction, fiatValue.amount.toString(),
+    return if (paymentMethodsData.isBds) {
+      interactor.getPaymentMethods(transaction, fiatValue.amount.toString(),
           fiatValue.currency)
-          .map { paymentMethodsInteract.mergeAppcoins(it) }
-          .map { paymentMethodsInteract.swapDisabledPositions(it) }
+          .map { interactor.mergeAppcoins(it) }
+          .map { interactor.swapDisabledPositions(it) }
           .doOnSuccess { updateBalanceDao() }
     } else {
       Single.just(listOf(PaymentMethod.APPC))
@@ -589,16 +589,16 @@ class PaymentMethodsPresenter(
   //Updates database with the latest balance to take less time loading the merged appcoins view
   private fun updateBalanceDao() {
     disposables.add(
-        Observable.zip(paymentMethodsInteract.getEthBalance(),
-            paymentMethodsInteract.getCreditsBalance(),
-            paymentMethodsInteract.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> })
+        Observable.zip(interactor.getEthBalance(),
+            interactor.getCreditsBalance(),
+            interactor.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> })
             .take(1)
             .subscribeOn(networkThread)
             .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun getPreSelectedPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {
-    val preSelectedPreference = paymentMethodsInteract.getPreSelectedPaymentMethod()
+    val preSelectedPreference = interactor.getPreSelectedPaymentMethod()
     for (paymentMethod in paymentMethods) {
       if (paymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) {
         if (preSelectedPreference == PaymentMethodsView.PaymentMethodId.APPC.id) {
@@ -622,7 +622,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun getLastUsedPaymentMethod(paymentMethods: List<PaymentMethod>): String {
-    val lastUsedPaymentMethod = paymentMethodsInteract.getLastUsedPaymentMethod()
+    val lastUsedPaymentMethod = interactor.getLastUsedPaymentMethod()
     for (it in paymentMethods) {
       if (it.isEnabled) {
         if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id &&
@@ -640,17 +640,17 @@ class PaymentMethodsPresenter(
 
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
     when (selectedPaymentMethod) {
-      paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.EARN_APPC) -> {
+      paymentMethodsMapper.map(SelectedPaymentMethod.EARN_APPC) -> {
         view.replaceBonus()
         view.hideLevelUp()
       }
       paymentMethodsMapper
-          .map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) -> {
+          .map(SelectedPaymentMethod.MERGED_APPC) -> {
         view.hideBonus()
         view.hideLevelUp()
       }
       paymentMethodsMapper
-          .map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS) -> {
+          .map(SelectedPaymentMethod.APPC_CREDITS) -> {
         view.hideBonus()
         view.hideLevelUp()
       }
@@ -663,8 +663,8 @@ class PaymentMethodsPresenter(
 
   private fun handlePositiveButtonText(selectedPaymentMethod: String) {
     if (selectedPaymentMethod == paymentMethodsMapper.map(
-            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC) || selectedPaymentMethod == paymentMethodsMapper.map(
-            PaymentMethodsView.SelectedPaymentMethod.EARN_APPC)) {
+            SelectedPaymentMethod.MERGED_APPC) || selectedPaymentMethod == paymentMethodsMapper.map(
+            SelectedPaymentMethod.EARN_APPC)) {
       view.showNext()
     } else {
       view.showBuy()
@@ -674,18 +674,21 @@ class PaymentMethodsPresenter(
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
         if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
-    if (paymentMethodsInteract.hasPreSelectedPaymentMethod()) {
-      analytics.sendPreSelectedPaymentMethodEvent(appPackage, transaction.skuId,
+    if (interactor.hasPreSelectedPaymentMethod()) {
+      analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage, transaction.skuId,
           transaction.amount()
               .toString(), selectedPaymentMethod.id, transaction.type, action)
     } else {
-      analytics.sendPaymentMethodEvent(appPackage, transaction.skuId, transaction.amount()
-          .toString(), selectedPaymentMethod.id, transaction.type, action)
+      analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage, transaction.skuId,
+          transaction.amount()
+              .toString(), selectedPaymentMethod.id, transaction.type, action)
     }
   }
 
   private fun getPurchases(): Single<List<Purchase>> {
-    return billing.getPurchases(appPackage, BillingSupportedType.INAPP, networkThread)
+    return interactor.getPurchases(paymentMethodsData.appPackage,
+        BillingSupportedType.INAPP,
+        networkThread)
   }
 
   private fun hasRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Boolean {
@@ -706,7 +709,17 @@ class PaymentMethodsPresenter(
     return null
   }
 
+  private fun showAuthenticationActivity(paymentMethod: PaymentMethod, isPreselected: Boolean) {
+    cachedPaymentNavigationData =
+        PaymentNavigationData(paymentMethod.id, paymentMethod.label, paymentMethod.iconUrl,
+            isPreselected)
+    view.showAuthenticationActivity()
+  }
+
   fun onSavedInstance(outState: Bundle) {
     outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
+    outState.putBoolean(HAS_STARTED_AUTH, hasStartedAuth)
+    outState.putSerializable(FIAT_VALUE, cachedFiatValue)
+    outState.putSerializable(PAYMENTE_NAVIGATION_DATA, cachedPaymentNavigationData)
   }
 }

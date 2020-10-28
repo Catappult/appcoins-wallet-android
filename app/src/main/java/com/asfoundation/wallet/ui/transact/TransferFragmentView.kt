@@ -48,8 +48,6 @@ interface TransferFragmentView {
 
   fun showNoNetworkError()
 
-  fun onAuthenticationResult(): Observable<Boolean>
-
   data class TransferData(val walletAddress: String, val currency: Currency,
                           val amount: BigDecimal) : Serializable
 

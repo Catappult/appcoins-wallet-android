@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import com.asf.wallet.R
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 
-class FingerPrintInteract(private val context: Context) {
+class FingerPrintInteractor(private val context: Context,
+                            private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun compatibleDevice(): Int {
     return BiometricManager.from(context)
@@ -20,4 +22,11 @@ class FingerPrintInteract(private val context: Context) {
         .build()
   }
 
+  fun setAuthenticationPermission(value: Boolean) =
+      preferencesRepositoryType.setAuthenticationPermission(value)
+
+  fun getAuthenticationErrorTime() = preferencesRepositoryType.getAuthenticationErrorTime()
+
+  fun setAuthenticationErrorTime(currentTime: Long) =
+      preferencesRepositoryType.setAuthenticationErrorTime(currentTime)
 }

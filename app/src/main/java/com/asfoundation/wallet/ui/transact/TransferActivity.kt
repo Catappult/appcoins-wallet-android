@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
@@ -21,7 +20,6 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
 
   companion object {
     const val BARCODE_READER_REQUEST_CODE = 1
-    const val AUTHENTICATION_REQUEST_CODE = 33
 
     @JvmStatic
     fun newIntent(context: Context): Intent {
@@ -45,12 +43,6 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TransferFragment.newInstance())
         .commit()
-  }
-
-  override fun showAuthenticationActivity() {
-    val intent = AuthenticationPromptActivity.newIntent(this)
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
   override fun showLoading() {
@@ -85,8 +77,8 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
-  override fun openAppcoinsCreditsSuccess(walletAddress: String,
-                                          amount: BigDecimal, currency: String) {
+  override fun openAppcoinsCreditsSuccess(walletAddress: String, amount: BigDecimal,
+                                          currency: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AppcoinsCreditsTransferSuccessFragment.newInstance(amount, currency, walletAddress))

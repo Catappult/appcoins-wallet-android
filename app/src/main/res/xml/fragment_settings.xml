@@ -27,7 +27,7 @@
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/import_wallet_title" />
 
-  <SwitchPreference
+  <SwitchPreferenceCompat
       android:id="@+id/preference_fingerprint"
       android:icon="@drawable/ic_settings_fingerprint"
       android:key="pref_fingerprint"

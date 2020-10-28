@@ -184,8 +184,7 @@
         android:label="@string/title_activity_send" />
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
-        android:label="@string/topup_title"
-        android:windowSoftInputMode="stateHidden">
+        android:label="@string/topup_title">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
@@ -249,7 +248,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.AuthenticationPromptActivity"
-        android:launchMode="singleInstance"
+        android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
 
     <service

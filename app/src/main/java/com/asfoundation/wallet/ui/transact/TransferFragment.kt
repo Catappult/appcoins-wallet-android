@@ -16,10 +16,8 @@ import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.ConfirmationRouter
 import com.asfoundation.wallet.ui.ActivityResultSharer
-import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -70,30 +68,23 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
-
   lateinit var navigator: TransactNavigator
-  lateinit var transferActivity: TransferActivityView
   private lateinit var activityResultSharer: ActivityResultSharer
   private lateinit var doneClick: PublishSubject<Any>
   private lateinit var qrCodeResult: BehaviorSubject<Barcode>
   private var disposable: Disposable? = null
-  private var authenticationResultSubject: BehaviorSubject<Boolean>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     doneClick = PublishSubject.create()
     qrCodeResult = BehaviorSubject.create()
-    authenticationResultSubject = BehaviorSubject.create()
     disposable =
         confirmationRouter.transactionResult
             .doOnNext { activity?.onBackPressed() }
             .subscribe()
     presenter = TransferPresenter(this, CompositeDisposable(), CompositeDisposable(), interactor,
         Schedulers.io(), AndroidSchedulers.mainThread(), findDefaultWalletInteract,
-        walletBlockedInteract, context!!.packageName, formatter, transferActivity,
-        preferencesRepositoryType)
+        walletBlockedInteract, context!!.packageName, formatter)
   }
 
   override fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
@@ -152,7 +143,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present(savedInstanceState)
+    presenter.present()
     transact_fragment_amount.setOnEditorActionListener(
         TextView.OnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->
           if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -164,9 +155,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
         })
   }
 
-  override fun showWalletBlocked() {
-    navigator.showWalletBlocked()
-  }
+  override fun showWalletBlocked() = navigator.showWalletBlocked()
 
   override fun onResume() {
     super.onResume()
@@ -185,11 +174,6 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
       else -> throw IllegalArgumentException(
           "${this.javaClass.simpleName} has to be attached to an activity that implements ${ActivityResultSharer::class}")
     }
-    when (context) {
-      is TransferActivityView -> transferActivity = context
-      else -> throw IllegalArgumentException(
-          "${this.javaClass.simpleName} has to be attached to an activity that implements TransferActivityView")
-    }
     activityResultSharer.addOnActivityListener(confirmationRouter)
     activityResultSharer.addOnActivityListener(object :
         ActivityResultSharer.ActivityResultListener {
@@ -201,18 +185,11 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
             barcode?.let { mBarcode -> qrCodeResult.onNext(mBarcode) }
             return true
           }
-        } else if (requestCode == TransferActivity.AUTHENTICATION_REQUEST_CODE) {
-          if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-            authenticationResultSubject?.onNext(true)
-          } else {
-            authenticationResultSubject?.onNext(false)
-          }
         }
         return false
       }
     })
   }
-
 
   override fun showCameraErrorToast() {
     Toast.makeText(context, R.string.toast_qr_code_no_address, LENGTH_SHORT)
@@ -284,10 +261,6 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
     navigator.hideLoading()
   }
 
-  override fun onAuthenticationResult(): Observable<Boolean> {
-    return authenticationResultSubject!!
-  }
-
   override fun onDetach() {
     activityResultSharer.remove(confirmationRouter)
     super.onDetach()
@@ -307,13 +280,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
     }
   }
 
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    presenter.onSaveInstance(outState)
-  }
-
   override fun onDestroy() {
-    authenticationResultSubject = null
     disposable?.takeIf {
       !it.isDisposed
     }
@@ -325,5 +292,4 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
     presenter.stop()
     super.onDestroyView()
   }
-
 }

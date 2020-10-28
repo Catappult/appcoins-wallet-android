@@ -6,7 +6,6 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -24,8 +23,6 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -97,7 +94,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private lateinit var mergedAppcoinsPresenter: MergedAppcoinsPresenter
   private var paymentSelectionSubject: PublishSubject<String>? = null
-  private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var iabView: IabView
 
   @Inject
@@ -114,9 +110,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
-
-  @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -213,12 +206,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onCreate(savedInstanceState)
     val navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
-    onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
-        MergedAppcoinsPresenter(this, iabView, CompositeDisposable(), CompositeDisposable(),
+        MergedAppcoinsPresenter(this, CompositeDisposable(), CompositeDisposable(),
             AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
             formatter, mergedAppcoinsInteractor, gamificationLevel, navigator, logger,
-            transactionBuilder, paymentMethodsMapper, preferencesRepositoryType)
+            transactionBuilder, paymentMethodsMapper)
   }
 
   override fun onAttach(context: Context) {
@@ -238,8 +230,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     buy_button.text = setBuyButtonText()
     cancel_button.text = getString(R.string.back_button)
     setBonus()
-    setBackListener(view)
-    mergedAppcoinsPresenter.present()
+    iabView.disableBack()
+    mergedAppcoinsPresenter.present(savedInstanceState)
   }
 
   override fun showLoading() {
@@ -395,18 +387,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     return packageManager.getApplicationLabel(packageInfo)
   }
 
-  private fun setBackListener(view: View) {
-    iabView.disableBack()
-    view.isFocusableInTouchMode = true
-    view.requestFocus()
-    view.setOnKeyListener { _, keyCode, keyEvent ->
-      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-        onBackPressSubject?.onNext("")
-      }
-      true
-    }
-  }
-
   private fun getSelectedPaymentMethod(): String {
     var selectedPaymentMethod = ""
     if (appcoins_radio_button.isChecked) selectedPaymentMethod = APPC
@@ -431,10 +411,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun backPressed(): Observable<PaymentInfoWrapper> {
-    return onBackPressSubject!!.map {
-      PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
-          transactionType)
-    }
+    return iabView.backButtonPress()
+        .map {
+          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
+              transactionType)
+        }
   }
 
 
@@ -473,12 +454,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun showAuthenticationActivity(selectedPaymentId: String,
-                                          gamificationLevel: Int) {
-    val paymentNavigationData =
-        PaymentNavigationData(gamificationLevel, selectedPaymentId, null, null, fiatAmount,
-            currency, bonus, false)
-    iabView.showAuthenticationActivity(paymentNavigationData)
+  override fun showAuthenticationActivity() {
+    iabView.showAuthenticationActivity()
   }
 
   override fun navigateToAppcPayment() =
@@ -506,6 +483,17 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+  override fun onAuthenticationResult(): Observable<Boolean> {
+    return iabView.onAuthenticationResult()
+  }
+
+  override fun showPaymentMethodsView() = iabView.showPaymentMethodsView()
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    mergedAppcoinsPresenter.onSavedInstanceState(outState)
+  }
+
   override fun onResume() {
     super.onResume()
     buy_button.isEnabled = false
@@ -528,8 +516,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun onDestroy() {
-    super.onDestroy()
     paymentSelectionSubject = null
-    onBackPressSubject = null
+    super.onDestroy()
   }
 }

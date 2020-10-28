@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui
 
-import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +7,6 @@ import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,10 +17,7 @@ import javax.inject.Inject
 class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
-
-  @Inject
-  lateinit var fingerprintInteract: FingerPrintInteract
+  lateinit var fingerprintInteractor: FingerPrintInteractor
 
   private lateinit var presenter: AuthenticationPromptPresenter
 
@@ -47,26 +42,22 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     retryClickSubject = PublishSubject.create<Any>()
     fingerprintResultSubject = PublishSubject.create<FingerprintAuthResult>()
     presenter = AuthenticationPromptPresenter(this, AndroidSchedulers.mainThread(),
-        CompositeDisposable(), fingerprintInteract, preferencesRepositoryType)
+        CompositeDisposable(), fingerprintInteractor)
     presenter.present(savedInstanceState)
   }
 
-
   override fun createBiometricPrompt(): BiometricPrompt {
-    val executor =
-        ContextCompat.getMainExecutor(this)
+    val executor = ContextCompat.getMainExecutor(this)
     return BiometricPrompt(this, executor,
         object : BiometricPrompt.AuthenticationCallback() {
-          override fun onAuthenticationError(errorCode: Int,
-                                             errString: CharSequence) {
+          override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
             fingerprintResultSubject?.onNext(
                 FingerprintAuthResult(errorCode, errString.toString(), null,
                     FingerprintResult.ERROR))
           }
 
-          override fun onAuthenticationSucceeded(
-              result: BiometricPrompt.AuthenticationResult) {
+          override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
             super.onAuthenticationSucceeded(result)
             fingerprintResultSubject?.onNext(
                 FingerprintAuthResult(null, null, result, FingerprintResult.SUCCESS))
@@ -82,6 +73,7 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   override fun onResume() {
     super.onResume()
+    presenter.onResume()
     sendPageViewEvent()
   }
 
@@ -106,14 +98,8 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
         .commit()
   }
 
-  override fun showPrompt(biometricPrompt: BiometricPrompt,
-                          promptInfo: PromptInfo) {
+  override fun showPrompt(biometricPrompt: BiometricPrompt, promptInfo: PromptInfo) {
     biometricPrompt.authenticate(promptInfo)
-  }
-
-  override fun checkBiometricSupport(): Boolean {
-    val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-    return keyguardManager.isKeyguardSecure
   }
 
   override fun closeSuccess() {
@@ -128,7 +114,6 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     finishAndRemoveTask()
   }
 
-
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstanceState(outState)
@@ -142,5 +127,4 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     presenter.stop()
     super.onDestroy()
   }
-
 }
