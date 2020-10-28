@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
@@ -146,7 +146,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   override fun setFingerprintPreference(hasAuthenticationPermission: Boolean) {
-    val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
+    val fingerprintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
 
     if (hasAuthenticationPermission) {
       fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
@@ -163,12 +163,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun switchPreferenceChange() = switchSubject!!
 
   override fun removeFingerprintPreference() {
-    val fingerPrintPreference = findPreference<SwitchPreference>("pref_fingerprint")
+    val fingerPrintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
     fingerPrintPreference?.isVisible = false
   }
 
   override fun setDisabledFingerPrintPreference() {
-    val fingerprintPreference = findPreference<SwitchPreference>("pref_fingerprint")
+    val fingerprintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
     fingerprintPreference?.isChecked = false
     fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
     fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->

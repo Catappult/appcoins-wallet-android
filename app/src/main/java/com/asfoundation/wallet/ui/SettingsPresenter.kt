@@ -65,8 +65,9 @@ class SettingsPresenter(private val view: SettingsView,
     disposables.add(view.authenticationResult()
         .filter { it }
         .doOnNext {
-          view.toggleFingerprint(false)
           settingsInteractor.changeAuthorizationPermission(false)
+          view.setFingerprintPreference(false)
+          view.toggleFingerprint(false)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
