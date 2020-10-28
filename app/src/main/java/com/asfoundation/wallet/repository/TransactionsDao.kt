@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 @Dao
 interface TransactionsDao {
@@ -28,4 +29,8 @@ interface TransactionsDao {
 
   @Query("DELETE FROM TransactionEntity")
   fun deleteAllTransactions()
+
+  @Query(
+      "select * from TransactionEntity where relatedWallet like :relatedWallet and transactionId = :txId limit 1")
+  fun getById(relatedWallet: String, txId: String): Single<TransactionEntity>
 }

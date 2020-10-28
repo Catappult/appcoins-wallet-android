@@ -13,6 +13,15 @@ class TransactionMapper {
 
   fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 
+  fun map(transaction: TransactionEntity, link: TransactionEntity): Transaction {
+    return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
+        transaction.title, transaction.cardDescription, map(transaction.perk),
+        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
+        map(transaction.status), transaction.value, transaction.from, transaction.to,
+        map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
+        listOf(map(link)))
+  }
+
   fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),

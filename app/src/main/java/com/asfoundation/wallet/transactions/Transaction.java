@@ -34,14 +34,14 @@ public class Transaction implements Parcelable {
   @Nullable private final TransactionDetails details;
   @Nullable private final String currency;
   @Nullable private final List<Operation> operations;
-  @Nullable private final List<String> linkedIds;
+  @Nullable private final List<Transaction> linkedTx;
 
   public Transaction(String transactionId, TransactionType type, @Nullable SubType subType,
       @Nullable String title, @Nullable String description, @Nullable Perk perk,
       @Nullable String approveTransactionId, long timeStamp, long processedTime,
       TransactionStatus status, String value, String from, String to,
       @Nullable TransactionDetails details, @Nullable String currency,
-      @Nullable List<Operation> operations, @Nullable List<String> linkedIds) {
+      @Nullable List<Operation> operations, @Nullable List<Transaction> linkedTx) {
     this.transactionId = transactionId;
     this.subType = subType;
     this.title = title;
@@ -58,7 +58,7 @@ public class Transaction implements Parcelable {
     this.details = details;
     this.currency = currency;
     this.operations = operations;
-    this.linkedIds = linkedIds;
+    this.linkedTx = linkedTx;
   }
 
   protected Transaction(Parcel in) {
@@ -84,8 +84,13 @@ public class Transaction implements Parcelable {
           Arrays.copyOf(operationParcelable, operationParcelable.length, Operation[].class);
       operations.addAll(Arrays.asList(operationsArray));
     }
-    linkedIds = new ArrayList<>();
-    in.readStringList(linkedIds);
+    Parcelable[] linkedTxParcelable = in.readParcelableArray(Transaction.class.getClassLoader());
+    linkedTx = new ArrayList<>();
+    if (linkedTxParcelable != null) {
+      Transaction[] linkedTxArray =
+          Arrays.copyOf(linkedTxParcelable, linkedTxParcelable.length, Transaction[].class);
+      linkedTx.addAll(Arrays.asList(linkedTxArray));
+    }
   }
 
   @Override public int describeContents() {
@@ -122,7 +127,12 @@ public class Transaction implements Parcelable {
       operations.toArray(operationsArray);
     }
     dest.writeParcelableArray(operationsArray, flags);
-    dest.writeStringList(linkedIds);
+    Transaction[] linkedTxArray = new Transaction[0];
+    if (linkedTx != null) {
+      linkedTxArray = new Transaction[linkedTx.size()];
+      linkedTx.toArray(linkedTxArray);
+    }
+    dest.writeParcelableArray(linkedTxArray, flags);
   }
 
   @Override public int hashCode() {
@@ -141,7 +151,7 @@ public class Transaction implements Parcelable {
     result = 31 * result + (details != null ? details.hashCode() : 0);
     result = 31 * result + (currency != null ? currency.hashCode() : 0);
     result = 31 * result + (operations != null ? operations.hashCode() : 0);
-    result = 31 * result + (linkedIds != null ? linkedIds.hashCode() : 0);
+    result = 31 * result + (linkedTx != null ? linkedTx.hashCode() : 0);
     return result;
   }
 
@@ -165,7 +175,8 @@ public class Transaction implements Parcelable {
     if (!to.equals(that.to)) return false;
     if (!Objects.equals(details, that.details)) return false;
     if (!Objects.equals(currency, that.currency)) return false;
-    return Objects.equals(operations, that.operations);
+    if (!Objects.equals(operations, that.operations)) return false;
+    return Objects.equals(linkedTx, that.linkedTx);
   }
 
   @Override public String toString() {
@@ -173,25 +184,25 @@ public class Transaction implements Parcelable {
         + "transactionId='"
         + transactionId
         + '\''
+        + ", subType="
+        + subType
+        + ", title='"
+        + title
+        + '\''
+        + ", description='"
+        + description
+        + '\''
+        + ", perk="
+        + perk
         + ", approveTransactionId='"
         + approveTransactionId
         + '\''
         + ", type="
         + type
-        + '\''
-        + ", subType="
-        + subType
-        + '\''
-        + ", title="
-        + title
-        + '\''
-        + ", description="
-        + description
-        + '\''
-        + ", perk="
-        + perk
         + ", timeStamp="
         + timeStamp
+        + ", processedTime="
+        + processedTime
         + ", status="
         + status
         + ", value='"
@@ -210,6 +221,8 @@ public class Transaction implements Parcelable {
         + '\''
         + ", operations="
         + operations
+        + ", linkedTx="
+        + linkedTx
         + '}';
   }
 
@@ -277,8 +290,8 @@ public class Transaction implements Parcelable {
     return currency;
   }
 
-  @Nullable public List<String> getLinkedIds() {
-    return linkedIds;
+  @Nullable public List<Transaction> getLinkedTx() {
+    return linkedTx;
   }
 
   public enum TransactionType {
@@ -301,11 +314,11 @@ public class Transaction implements Parcelable {
           return TOP_UP;
         case 7:
           return TRANSFER_OFF_CHAIN;
-        case 8:
-          return BONUS_REVERT;
         case 9:
-          return TOP_UP_REVERT;
+          return BONUS_REVERT;
         case 10:
+          return TOP_UP_REVERT;
+        case 11:
           return IAP_REVERT;
         default:
           return STANDARD;

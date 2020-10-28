@@ -31,6 +31,7 @@ import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.*
+import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
@@ -161,7 +162,8 @@ class RepositoryModule {
         TransactionsLocalRepository(transactionsDao, sharedPreferences, transactionLinkIdDao)
     return BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
         BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
-        localRepository, TransactionMapper(), CompositeDisposable(), Schedulers.io())
+        localRepository, TransactionMapper(), TransactionsMapper(), CompositeDisposable(),
+        Schedulers.io())
   }
 
   @Singleton

@@ -1,103 +1,114 @@
 package com.asfoundation.wallet.transactions
 
 import com.asfoundation.wallet.entity.WalletHistory
-import com.asfoundation.wallet.transactions.TransactionDetails
+import com.asfoundation.wallet.repository.entity.OperationEntity
+import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
+import com.asfoundation.wallet.repository.entity.TransactionEntity
 import java.util.*
 
 class TransactionsMapper {
-
-  fun mapTransactionsFromWalletHistory(
-      transactions: List<WalletHistory.Transaction>): List<Transaction> {
-
-    val transactionList: MutableList<Transaction> = ArrayList(transactions.size)
-
-    for (i in transactions.indices.reversed()) {
-      val transaction = transactions[i]
-      val txType = mapTransactionType(transaction)
-      val status: Transaction.TransactionStatus = when (transaction.status) {
-        WalletHistory.Status.SUCCESS -> Transaction.TransactionStatus.SUCCESS
-        WalletHistory.Status.FAIL -> Transaction.TransactionStatus.FAILED
-        else -> Transaction.TransactionStatus.FAILED
-      }
-      val sourceName = if (txType == Transaction.TransactionType.BONUS) {
-        if (transaction.bonus == null) {
-          null
-        } else {
-          transaction.bonus.stripTrailingZeros()
-              .toPlainString()
-        }
-      } else {
-        transaction.app
-      }
-      val bonusSubType = mapSubtype(transaction.subType)
-      val perk = mapPerk(transaction.perk)
-      transactionList.add(0,
-          Transaction(transaction.txID, txType, bonusSubType, transaction.title,
-              transaction.description, perk, null, transaction.ts.time,
-              transaction.processedTime.time, status, transaction.amount.toString(),
-              transaction.sender, transaction.receiver, TransactionDetails(sourceName,
-              TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.icon),
-              transaction.sku),
-              if (txType == Transaction.TransactionType.ETHER_TRANSFER) "ETH" else "APPC",
-              mapOperations(transaction.operations), emptyList()))
-    }
-    return transactionList
-  }
-
-  private fun mapPerk(perk: String?): Transaction.Perk? {
-    var perkType: Transaction.Perk? = null
-    if (perk != null) {
-      perkType = when (perk) {
-        GAMIFICATION_LEVEL_UP -> Transaction.Perk.GAMIFICATION_LEVEL_UP
-        PACKAGE_PERK -> Transaction.Perk.PACKAGE_PERK
-        else -> Transaction.Perk.UNKNOWN
-      }
-    }
-    return perkType
-  }
-
-  private fun mapSubtype(subType: String?): Transaction.SubType? {
-    var bonusSubType: Transaction.SubType? = null
-    if (subType != null) {
-      bonusSubType = if (subType == PERK_BONUS) {
-        Transaction.SubType.PERK_PROMOTION
-      } else {
-        Transaction.SubType.UNKNOWN
-      }
-    }
-    return bonusSubType
-  }
-
-  private fun mapOperations(operations: List<WalletHistory.Operation>): List<Operation> {
-    val list: MutableList<Operation> = ArrayList(operations.size)
-    for (operation in operations) {
-      list.add(Operation(operation.transactionId,
-          operation.sender,
-          operation.receiver, operation.fee))
-    }
-    return list
-  }
-
-  private fun mapTransactionType(
-      transaction: WalletHistory.Transaction): Transaction.TransactionType {
-    return when (transaction.type) {
-      "Transfer OffChain" -> Transaction.TransactionType.TRANSFER_OFF_CHAIN
-      "Topup OffChain" -> Transaction.TransactionType.TOP_UP
-      "IAP OffChain" -> Transaction.TransactionType.IAP_OFFCHAIN
-      "bonus" -> Transaction.TransactionType.BONUS
-      "PoA OffChain" -> Transaction.TransactionType.ADS_OFFCHAIN
-      "Ether Transfer" -> Transaction.TransactionType.ETHER_TRANSFER
-      "IAP" -> Transaction.TransactionType.IAP
-      "Bonus Revert OffChain" -> Transaction.TransactionType.BONUS_REVERT
-      "Topup Revert OffChain" -> Transaction.TransactionType.TOP_UP_REVERT
-      "IAP Revert IffChain" -> Transaction.TransactionType.IAP_REVERT
-      else -> Transaction.TransactionType.STANDARD
-    }
-  }
 
   companion object {
     private const val PERK_BONUS = "perk_bonus"
     private const val GAMIFICATION_LEVEL_UP = "GAMIFICATION_LEVEL_UP"
     private const val PACKAGE_PERK = "PACKAGE_PERK"
   }
+
+  fun map(transaction: WalletHistory.Transaction, wallet: String): TransactionEntity {
+    val txType = mapTransactionType(transaction)
+    val status = map(transaction.status)
+    val sourceName = mapSource(txType, transaction)
+    val bonusSubType = mapSubtype(transaction.subType)
+    val perk = mapPerk(transaction.perk)
+    val operations = mapOperations(transaction.operations)
+    val icon = TransactionDetailsEntity.Icon(TransactionDetailsEntity.Type.URL, transaction.icon)
+    val details = TransactionDetailsEntity(icon, sourceName, transaction.sku)
+    val currency = if (txType == TransactionEntity.TransactionType.ETHER_TRANSFER) "ETH" else "APPC"
+    return TransactionEntity(transaction.txID, wallet, null, perk, txType, bonusSubType,
+        transaction.title, transaction.description, transaction.ts.time,
+        transaction.processedTime.time, status, transaction.amount.toString(), transaction.sender,
+        transaction.receiver, details, currency, operations)
+  }
+
+  private fun mapSource(txType: TransactionEntity.TransactionType,
+                        transaction: WalletHistory.Transaction): String? {
+    return if (txType == TransactionEntity.TransactionType.BONUS) {
+      if (transaction.bonus == null) {
+        null
+      } else {
+        transaction.bonus.stripTrailingZeros()
+            .toPlainString()
+      }
+    } else {
+      transaction.app
+    }
+  }
+
+  private fun map(status: WalletHistory.Status): TransactionEntity.TransactionStatus {
+    return when (status) {
+      WalletHistory.Status.SUCCESS -> TransactionEntity.TransactionStatus.SUCCESS
+      WalletHistory.Status.FAIL -> TransactionEntity.TransactionStatus.FAILED
+      else -> TransactionEntity.TransactionStatus.PENDING
+    }
+  }
+
+  fun isRevertType(type: String): Boolean {
+    return when (type) {
+      "Bonus Revert OffChain",
+      "Topup Revert OffChain",
+      "IAP Revert IffChain" -> true
+      else -> false
+    }
+  }
+
+  private fun mapTransactionType(
+      transaction: WalletHistory.Transaction): TransactionEntity.TransactionType {
+    return when (transaction.type) {
+      "Transfer OffChain" -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
+      "Topup OffChain" -> TransactionEntity.TransactionType.TOP_UP
+      "IAP OffChain" -> TransactionEntity.TransactionType.IAP_OFFCHAIN
+      "bonus" -> TransactionEntity.TransactionType.BONUS
+      "PoA OffChain" -> TransactionEntity.TransactionType.ADS_OFFCHAIN
+      "Ether Transfer" -> TransactionEntity.TransactionType.ETHER_TRANSFER
+      "IAP" -> TransactionEntity.TransactionType.IAP
+      "Bonus Revert OffChain" -> TransactionEntity.TransactionType.BONUS_REVERT
+      "Topup Revert OffChain" -> TransactionEntity.TransactionType.TOP_UP_REVERT
+      "IAP Revert IffChain" -> TransactionEntity.TransactionType.IAP_REVERT
+      else -> TransactionEntity.TransactionType.STANDARD
+    }
+  }
+
+
+  private fun mapPerk(perk: String?): TransactionEntity.Perk? {
+    return perk?.let {
+      when (it) {
+        GAMIFICATION_LEVEL_UP -> TransactionEntity.Perk.GAMIFICATION_LEVEL_UP
+        PACKAGE_PERK -> TransactionEntity.Perk.PACKAGE_PERK
+        else -> TransactionEntity.Perk.UNKNOWN
+      }
+    }
+  }
+
+  private fun mapSubtype(subType: String?): TransactionEntity.SubType? {
+    var bonusSubType: TransactionEntity.SubType? = null
+    if (subType != null) {
+      bonusSubType = if (subType == PERK_BONUS) {
+        TransactionEntity.SubType.PERK_PROMOTION
+      } else {
+        TransactionEntity.SubType.UNKNOWN
+      }
+    }
+    return bonusSubType
+  }
+
+  private fun mapOperations(operations: List<WalletHistory.Operation>): List<OperationEntity> {
+    val list: MutableList<OperationEntity> = ArrayList(operations.size)
+    for (operation in operations) {
+      list.add(OperationEntity(operation.transactionId,
+          operation.sender,
+          operation.receiver, operation.fee))
+    }
+    return list
+  }
+
 }

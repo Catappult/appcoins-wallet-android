@@ -58,4 +58,14 @@ class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
     val transactionLinkId = TransactionLinkIdEntity(null, txId, originalTxId)
     transactionLinkIdDao.insert(transactionLinkId)
   }
+
+  override fun getRevertedTransaction(wallet: String, txId: String): Single<TransactionEntity> {
+    return transactionLinkIdDao.getRevertedTransaction(txId)
+        .flatMap { link -> transactionsDao.getById(wallet, link.linkTransactionId) }
+  }
+
+  override fun getRevertTransaction(wallet: String, txId: String): Single<TransactionEntity> {
+    return transactionLinkIdDao.getRevertTransaction(txId)
+        .flatMap { link -> transactionsDao.getById(wallet, link.transactionId) }
+  }
 }

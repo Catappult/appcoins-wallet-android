@@ -520,7 +520,7 @@ internal class AppModule {
   @Provides
   fun providesOffChainTransactions(repository: OffChainTransactionsRepository,
                                    mapper: TransactionsMapper): OffChainTransactions {
-    return OffChainTransactions(repository, mapper, versionCode)
+    return OffChainTransactions(repository, versionCode)
   }
 
   private val versionCode: String

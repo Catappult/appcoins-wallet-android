@@ -74,10 +74,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:text="+0.85 APPC"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          tools:text="+0.85 APPC"
           />
 
       <TextView
@@ -108,6 +108,21 @@
           app:layout_constraintTop_toBottomOf="@id/app_id"
           />
 
+      <TextView
+          android:id="@+id/reverted_description"
+          style="@style/TransactionDetailsTextStyle.Subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:visibility="gone"
+          app:layout_constrainedWidth="true"
+          app:layout_constraintEnd_toStartOf="@id/guideline_end"
+          app:layout_constraintStart_toEndOf="@id/guideline_start"
+          app:layout_constraintTop_toBottomOf="@id/item_id"
+          tools:visibility="visible"
+          />
+
       <View
           android:id="@+id/top_separator"
           android:layout_width="match_parent"
@@ -118,7 +133,7 @@
           android:background="#eaeaea"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/item_id"
+          app:layout_constraintTop_toBottomOf="@id/reverted_description"
           />
 
       <TextView
@@ -139,10 +154,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/half_large_margin"
-          android:text="Sucess"
           android:textColor="@color/green"
           app:layout_constraintBottom_toBottomOf="@id/status_label"
           app:layout_constraintEnd_toEndOf="parent"
+          tools:text="Success"
           />
 
       <TextView
@@ -163,9 +178,9 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/half_large_margin"
-          android:text="In App Purchase"
           app:layout_constraintBottom_toBottomOf="@id/category_label"
           app:layout_constraintEnd_toEndOf="parent"
+          tools:text="In App Purchase"
           />
 
       <FrameLayout
@@ -208,13 +223,13 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/half_large_margin"
           android:singleLine="true"
-          android:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
           android:visibility="gone"
           app:layout_constrainedWidth="true"
           app:layout_constraintBottom_toBottomOf="@id/to_label"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
           />
 
       <View
@@ -258,8 +273,37 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/details_label"
-          app:layout_constraintVertical_bias="0.0"
+          tools:listitem="@layout/item_transaction_details"
           />
+
+
+      <RelativeLayout
+          android:id="@+id/revert_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintBottom_toTopOf="@id/logo"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/more_detail"
+          app:layout_constraintVertical_bias="0.2"
+          >
+
+        <include
+            layout="@layout/layout_reverted_transaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+        <include
+            layout="@layout/layout_revert_transaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+
+      </RelativeLayout>
 
       <Button
           android:id="@+id/close_channel_btn"
@@ -272,7 +316,7 @@
           app:layout_constraintBottom_toTopOf="@id/logo"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/details_list"
+          app:layout_constraintTop_toBottomOf="@+id/revert_container"
           app:layout_constraintVertical_bias="1.0"
           />
 

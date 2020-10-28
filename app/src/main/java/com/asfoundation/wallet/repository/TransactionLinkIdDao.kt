@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
-import io.reactivex.Maybe
+import io.reactivex.Single
 
 @Dao
 interface TransactionLinkIdDao {
@@ -15,10 +15,10 @@ interface TransactionLinkIdDao {
 
   @Query(
       "select * from transaction_link_id where transactionId  = :transactionId limit 1")
-  fun getRevertTransaction(transactionId: String): Maybe<TransactionLinkIdEntity>
+  fun getRevertedTransaction(transactionId: String): Single<TransactionLinkIdEntity>
 
   @Query(
       "select * from transaction_link_id where linkTransactionId  = :transactionId limit 1")
-  fun getRevertedTransaction(transactionId: String): Maybe<TransactionLinkIdEntity>
+  fun getRevertTransaction(transactionId: String): Single<TransactionLinkIdEntity>
 
 }
