@@ -12,6 +12,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,6 +21,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
+  private final SupportInteractor supportInteractor;
 
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -27,9 +29,11 @@ public class TransactionDetailViewModel extends BaseViewModel {
 
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable) {
+      ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
+      SupportInteractor supportInteractor) {
     this.externalBrowserRouter = externalBrowserRouter;
     this.disposables = compositeDisposable;
+    this.supportInteractor = supportInteractor;
     disposables.add(findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
@@ -43,6 +47,14 @@ public class TransactionDetailViewModel extends BaseViewModel {
   @Override protected void onCleared() {
     disposables.clear();
     super.onCleared();
+  }
+
+  public void showSupportScreen(boolean fromNotification) {
+    if (fromNotification) {
+      supportInteractor.displayConversationListOrChat();
+    } else {
+      supportInteractor.displayChatScreen();
+    }
   }
 
   public LiveData<NetworkInfo> defaultNetwork() {

@@ -9,17 +9,15 @@
 
   <TextView
       android:id="@+id/message"
-      style="@style/TransactionDetailsTextStyle"
+      style="@style/TransactionDetailsTextStyle.Reverted"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="12dp"
-      android:layout_marginTop="5dp"
-      android:layout_marginEnd="14dp"
-      android:gravity="center_horizontal"
+      android:layout_marginStart="@dimen/half_large_margin"
+      android:layout_marginEnd="@dimen/half_large_margin"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:text="This  purchase has been reversed. \nFor more information contact support."
+      tools:text="@string/transaction_type_reverted_bonus_body"
       />
 
 

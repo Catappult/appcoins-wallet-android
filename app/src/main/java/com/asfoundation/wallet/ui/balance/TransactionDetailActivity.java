@@ -139,6 +139,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     @StringRes int statusStr = R.string.transaction_status_success;
     @ColorRes int statusColor = R.color.transaction_orange;
+    @ColorRes int descriptionColor = R.color.transaction_orange;
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
@@ -166,6 +167,7 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
         revertedDescription = R.string.transaction_type_reverted_purchase_title;
+        descriptionColor = R.color.green;
         break;
       case IAP_OFFCHAIN:
         button.setVisibility(View.VISIBLE);
@@ -253,7 +255,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, icon, id, description,
         typeStr, typeIcon, statusStr, statusColor, to, isSent, isRevertTransaction,
-        isRevertedTransaction, revertedDescription);
+        isRevertedTransaction, revertedDescription, descriptionColor);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -262,7 +264,10 @@ public class TransactionDetailActivity extends BaseActivity {
     String symbol =
         transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
             : transaction.getCurrency();
-    formatValue(getValue(symbol), symbol);
+
+    boolean isRevertOrReverted = isRevertTransaction(transaction);
+
+    formatValue(getValue(symbol), symbol, isRevertOrReverted);
   }
 
   private String getScaledValue(String valueStr, String currencySymbol) {
@@ -293,11 +298,11 @@ public class TransactionDetailActivity extends BaseActivity {
   private void setUiContent(long timeStamp, String value, String symbol, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
       boolean isSent, boolean isRevertTransaction, boolean isRevertedTransaction,
-      int revertedDescription) {
+      int revertedDescription, int descriptionColor) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
-    formatValue(value, symbol);
+    formatValue(value, symbol, isRevertTransaction || isRevertedTransaction);
 
     ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
@@ -355,7 +360,7 @@ public class TransactionDetailActivity extends BaseActivity {
       TextView tvRevertedDescription = findViewById(R.id.reverted_description);
       if (revertedDescription != -1) {
         tvRevertedDescription.setText(revertedDescription);
-        tvRevertedDescription.setTextColor(getResources().getColor(R.color.transaction_orange));
+        tvRevertedDescription.setTextColor(getResources().getColor(descriptionColor));
         tvRevertedDescription.setVisibility(View.VISIBLE);
       } else {
         tvRevertedDescription.setVisibility(View.GONE);
@@ -446,6 +451,12 @@ public class TransactionDetailActivity extends BaseActivity {
       revertedView.setVisibility(View.GONE);
       TextView body = revertView.findViewById(R.id.message);
 
+      ImageView logo = revertView.findViewById(R.id.layout_support_logo);
+      ImageView icn = revertView.findViewById(R.id.layout_support_icn);
+
+      logo.setOnClickListener(view -> viewModel.showSupportScreen(false));
+      icn.setOnClickListener(view -> viewModel.showSupportScreen(false));
+
       String date = getDate(transaction.getTimeStamp());
       switch (transaction.getType()) {
         case TOP_UP_REVERT:
@@ -477,8 +488,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
-    String formattedValue = "+" + value;
-    valueTv.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+    valueTv.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
 
     if (icon != null) {
       String path;
@@ -510,11 +520,16 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void formatValue(String value, String symbol) {
+  private void formatValue(String value, String symbol, boolean isOriginal) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
-    String formattedValue = (isSent ? "-" : "+") + value;
-    amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+
+    if (isOriginal) {
+      amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+    } else {
+      String formattedValue = (isSent ? "-" : "+") + value;
+      amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+    }
   }
 
   private String getValue(String currencySymbol) {

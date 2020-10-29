@@ -88,6 +88,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
 
+    revertMessage.setVisibility(View.GONE);
+
     TransactionDetails.Icon icon;
     String uri = null;
     if (details != null) {
