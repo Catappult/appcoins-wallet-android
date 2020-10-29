@@ -384,6 +384,15 @@ public class TransactionDetailActivity extends BaseActivity {
       revertView.setVisibility(View.GONE);
       revertedView.setVisibility(View.VISIBLE);
 
+      ImageView logo = revertedView.findViewById(R.id.layout_support_logo);
+      ImageView icn = revertedView.findViewById(R.id.layout_support_icn);
+
+      logo.setOnClickListener(view -> viewModel.showSupportScreen(false));
+      icn.setOnClickListener(view -> viewModel.showSupportScreen(false));
+
+      revertedView.setOnClickListener(
+          view -> viewModel.showDetails(view.getContext(), transaction));
+
       NetworkInfo networkInfo = viewModel.defaultNetwork()
           .getValue();
 

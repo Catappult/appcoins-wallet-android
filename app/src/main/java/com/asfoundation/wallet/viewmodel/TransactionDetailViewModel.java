@@ -12,6 +12,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
+import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
@@ -22,6 +23,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
   private final SupportInteractor supportInteractor;
+  private final TransactionDetailRouter transactionDetailRouter;
 
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -30,10 +32,11 @@ public class TransactionDetailViewModel extends BaseViewModel {
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
-      SupportInteractor supportInteractor) {
+      SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter) {
     this.externalBrowserRouter = externalBrowserRouter;
     this.disposables = compositeDisposable;
     this.supportInteractor = supportInteractor;
+    this.transactionDetailRouter = transactionDetailRouter;
     disposables.add(findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
@@ -55,6 +58,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
     } else {
       supportInteractor.displayChatScreen();
     }
+  }
+
+  public void showDetails(Context context, Transaction transaction) {
+    transactionDetailRouter.open(context, transaction);
   }
 
   public LiveData<NetworkInfo> defaultNetwork() {
