@@ -7,8 +7,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
@@ -16,21 +18,26 @@ import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.preference_fingerprint.*
+import kotlinx.android.synthetic.main.preference_fingerprint_off.*
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
-  lateinit var settingsInteract: SettingsInteract
+  lateinit var settingsInteract: SettingsInteractor
 
   @Inject
   lateinit var pageViewAnalytics: PageViewAnalytics
 
   private lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
+  private var switchSubject: PublishSubject<Unit>? = null
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -43,6 +50,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
+    switchSubject = PublishSubject.create()
     presenter =
         SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), settingsInteract)
@@ -52,15 +60,25 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     setPreferencesFromResource(R.xml.fragment_settings, rootKey)
   }
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    presenter.present()
+  }
+
   override fun onResume() {
     super.onResume()
     pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
-    presenter.present()
+    presenter.onResume()
   }
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+  }
+
+  override fun onDestroy() {
+    switchSubject = null
+    super.onDestroy()
   }
 
   private fun startBrowserActivity(uri: Uri, newTaskFlag: Boolean) {
@@ -77,28 +95,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun openPermissionScreen(): Boolean {
     context?.let {
       val intent = ManagePermissionsActivity.newIntent(it)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
+          .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
       startActivity(intent)
     }
     return true
-  }
-
-  override fun setupPreferences() {
-    setPermissionPreference()
-    setSourceCodePreference()
-    setIssueReportPreference()
-    setTwitterPreference()
-    setTelegramPreference()
-    setFacebookPreference()
-    setEmailPreference()
-    setPrivacyPolicyPreference()
-    setTermsConditionsPreference()
-    setCreditsPreference()
-    setVersionPreference()
-    setRestorePreference()
-    setBackupPreference()
   }
 
   override fun showError() {
@@ -108,7 +108,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setBackupPreference() {
+  override fun setBackupPreference() {
     val backupPreference = findPreference<Preference>("pref_backup")
     backupPreference?.setOnPreferenceClickListener {
       presenter.onBackupPreferenceClick()
@@ -116,12 +116,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setRestorePreference() {
+  override fun setRestorePreference() {
     val restorePreference = findPreference<Preference>("pref_restore")
     restorePreference?.setOnPreferenceClickListener {
-      context?.let {
-        startActivity(RestoreWalletActivity.newIntent(it))
-      }
+      context?.let { startActivity(RestoreWalletActivity.newIntent(it)) }
       false
     }
   }
@@ -138,14 +136,63 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
-  private fun setPermissionPreference() {
-    val permissionPreference = findPreference<Preference>("pref_permissions")
-    permissionPreference?.setOnPreferenceClickListener {
-      openPermissionScreen()
+  override fun authenticationResult(): Observable<Boolean> {
+    return activityView.authenticationResult()
+  }
+
+  override fun toggleFingerprint(enabled: Boolean) {
+    if (pref_authentication_switch == null && pref_authentication_switch_off == null) {
+      setFingerprintPreference(enabled)
+    }
+    pref_authentication_switch?.isChecked = enabled
+    pref_authentication_switch_off?.isChecked = enabled
+  }
+
+  override fun setFingerprintPreference(hasAuthenticationPermission: Boolean) {
+    val fingerprintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
+
+    if (hasAuthenticationPermission) {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint
+    } else {
+      fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
+    }
+
+    fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
+      switchSubject?.onNext(Unit)
+      true
     }
   }
 
-  private fun setSourceCodePreference() {
+  override fun updateFingerPrintListener(enabled: Boolean) {
+    val fingerprintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
+    fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
+      if (enabled) switchSubject?.onNext(Unit)
+      true
+    }
+  }
+
+  override fun switchPreferenceChange() = switchSubject!!
+
+  override fun removeFingerprintPreference() {
+    val fingerPrintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
+    fingerPrintPreference?.isVisible = false
+  }
+
+  override fun setDisabledFingerPrintPreference() {
+    val fingerprintPreference = findPreference<SwitchPreferenceCompat>("pref_fingerprint")
+    fingerprintPreference?.isChecked = false
+    fingerprintPreference?.layoutResource = R.layout.preference_fingerprint_off
+    fingerprintPreference?.setOnPreferenceChangeListener { _, _ ->
+      true
+    }
+  }
+
+  override fun setPermissionPreference() {
+    val permissionPreference = findPreference<Preference>("pref_permissions")
+    permissionPreference?.setOnPreferenceClickListener { openPermissionScreen() }
+  }
+
+  override fun setSourceCodePreference() {
     val sourceCodePreference = findPreference<Preference>("pref_source_code")
     sourceCodePreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://github.com/Aptoide/appcoins-wallet-android"), false)
@@ -153,7 +200,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setIssueReportPreference() {
+  override fun setIssueReportPreference() {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
       presenter.onBugReportClicked()
@@ -161,7 +208,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setTwitterPreference() {
+  override fun setTwitterPreference() {
     val twitterPreference = findPreference<Preference>("pref_twitter")
     twitterPreference?.setOnPreferenceClickListener {
       try {
@@ -174,7 +221,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setTelegramPreference() {
+  override fun setTelegramPreference() {
     val telegramPreference = findPreference<Preference>("pref_telegram")
     telegramPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://t.me/appcoinsofficial"), false)
@@ -182,7 +229,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setFacebookPreference() {
+  override fun setFacebookPreference() {
     val facebookPreference = findPreference<Preference>("pref_facebook")
     facebookPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://www.facebook.com/AppCoinsOfficial"), false)
@@ -190,7 +237,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setEmailPreference() {
+  override fun setEmailPreference() {
     val emailPreference = findPreference<Preference>("pref_email")
     emailPreference?.setOnPreferenceClickListener {
       val email = "info@appcoins.io"
@@ -206,7 +253,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setPrivacyPolicyPreference() {
+  override fun setPrivacyPolicyPreference() {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"),
@@ -215,7 +262,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setTermsConditionsPreference() {
+  override fun setTermsConditionsPreference() {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/terms-conditions"),
@@ -224,7 +271,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setCreditsPreference() {
+  override fun setCreditsPreference() {
     val creditsPreference = findPreference<Preference>("pref_credits")
     creditsPreference?.setOnPreferenceClickListener {
       AlertDialog.Builder(activity)
@@ -237,7 +284,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  private fun setVersionPreference() {
+  override fun setVersionPreference() {
     val versionString = getVersion()
     val versionPreference = findPreference<Preference>("pref_version")
     versionPreference?.summary = getString(R.string.check_updates_settings_subtitle, versionString)

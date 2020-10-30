@@ -39,13 +39,13 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.currency_choose_layout.*
 import kotlinx.android.synthetic.main.transact_fragment_layout.*
 import java.math.BigDecimal
+import java.util.*
 import javax.inject.Inject
 
 class TransferFragment : BasePageViewFragment(), TransferFragmentView {
+
   companion object {
-    fun newInstance(): TransferFragment {
-      return TransferFragment()
-    }
+    fun newInstance() = TransferFragment()
   }
 
   private lateinit var presenter: TransferPresenter
@@ -82,9 +82,9 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
         confirmationRouter.transactionResult
             .doOnNext { activity?.onBackPressed() }
             .subscribe()
-    presenter = TransferPresenter(this, CompositeDisposable(), interactor, Schedulers.io(),
-        AndroidSchedulers.mainThread(), findDefaultWalletInteract, walletBlockedInteract,
-        context!!.packageName, formatter)
+    presenter = TransferPresenter(this, CompositeDisposable(), CompositeDisposable(), interactor,
+        Schedulers.io(), AndroidSchedulers.mainThread(), findDefaultWalletInteract,
+        walletBlockedInteract, context!!.packageName, formatter)
   }
 
   override fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
@@ -143,6 +143,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    presenter.present()
     transact_fragment_amount.setOnEditorActionListener(
         TextView.OnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->
           if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -154,13 +155,11 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
         })
   }
 
-  override fun showWalletBlocked() {
-    navigator.showWalletBlocked()
-  }
+  override fun showWalletBlocked() = navigator.showWalletBlocked()
 
   override fun onResume() {
     super.onResume()
-    presenter.present()
+    presenter.onResume()
   }
 
   override fun onAttach(context: Context) {
@@ -179,11 +178,11 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
     activityResultSharer.addOnActivityListener(object :
         ActivityResultSharer.ActivityResultListener {
       override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-        if (resultCode == CommonStatusCodes.SUCCESS) {
+        if (resultCode == CommonStatusCodes.SUCCESS && requestCode == TransferActivity.BARCODE_READER_REQUEST_CODE) {
           data?.let {
             val barcode = it.getParcelableExtra<Barcode>(BarcodeCaptureActivity.BarcodeObject)
             println(barcode)
-            qrCodeResult.onNext(barcode)
+            barcode?.let { mBarcode -> qrCodeResult.onNext(mBarcode) }
             return true
           }
         }
@@ -216,7 +215,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
           }
           TransferFragmentView.TransferData(
               transact_fragment_recipient_address.text.toString()
-                  .toLowerCase(),
+                  .toLowerCase(Locale.ROOT),
               map(currency_selector.checkedRadioButtonId), amount)
         }
   }
@@ -268,7 +267,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   }
 
   override fun onPause() {
-    presenter.clear()
+    presenter.clearOnPause()
     super.onPause()
   }
 
@@ -287,5 +286,10 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
     }
         .let { it?.dispose() }
     super.onDestroy()
+  }
+
+  override fun onDestroyView() {
+    presenter.stop()
+    super.onDestroyView()
   }
 }
