@@ -345,8 +345,8 @@ class InteractorModule {
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       billing: Billing,
-                                      bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteract {
-    return PaymentMethodsInteract(walletService, supportInteractor, gamificationInteractor,
+                                      bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
+    return PaymentMethodsInteractor(walletService, supportInteractor, gamificationInteractor,
         balanceInteract, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
         billing, bdsPendingTransactionService)
   }

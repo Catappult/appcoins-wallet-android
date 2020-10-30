@@ -165,9 +165,9 @@ internal class AppModule {
   fun provideGasSettingsRouter() = GasSettingsRouter()
 
   @Provides
-  fun providePaymentMethodsMapper(billingMessagesMapper: BillingMessagesMapper,
-                                  gamificationMapper: GamificationMapper): PaymentMethodsMapper {
-    return PaymentMethodsMapper(billingMessagesMapper, gamificationMapper)
+  fun providePaymentMethodsMapper(
+      billingMessagesMapper: BillingMessagesMapper): PaymentMethodsMapper {
+    return PaymentMethodsMapper(billingMessagesMapper)
   }
 
   @Provides

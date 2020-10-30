@@ -5,8 +5,8 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.asfoundation.wallet.entity.Balance
+import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -21,15 +21,15 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.*
 
-class PaymentMethodsInteract(private val walletService: WalletService,
-                             private val supportInteractor: SupportInteractor,
-                             private val gamificationInteractor: GamificationInteractor,
-                             private val balanceInteract: BalanceInteract,
-                             private val walletBlockedInteract: WalletBlockedInteract,
-                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                             private val preferencesRepositoryType: PreferencesRepositoryType,
-                             private val billing: Billing,
-                             private val bdsPendingTransactionService: BdsPendingTransactionService) {
+class PaymentMethodsInteractor(private val walletService: WalletService,
+                               private val supportInteractor: SupportInteractor,
+                               private val gamificationInteractor: GamificationInteractor,
+                               private val balanceInteract: BalanceInteract,
+                               private val walletBlockedInteract: WalletBlockedInteract,
+                               private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                               private val preferencesRepositoryType: PreferencesRepositoryType,
+                               private val billing: Billing,
+                               private val bdsPendingTransactionService: BdsPendingTransactionService) {
 
 
   fun showSupport(gamificationLevel: Int): Completable {
@@ -94,15 +94,9 @@ class PaymentMethodsInteract(private val walletService: WalletService,
 
   fun getLastUsedPaymentMethod(): String = inAppPurchaseInteractor.lastUsedPaymentMethod
 
-  fun getUserStatus(): Single<GamificationStats> {
-    return gamificationInteractor.getUserStats()
-  }
-
   fun hasAuthenticationPermission() = preferencesRepositoryType.hasAuthenticationPermission()
 
-  fun getLevels() = gamificationInteractor.getLevels()
-
-  fun checkTransactionStateFromTransactionId(uid: String) =
+  fun checkTransactionStateFromTransactionId(uid: String): Observable<PendingTransaction> =
       bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
 
   fun getSkuTransaction(appPackage: String, skuId: String?, networkThread: Scheduler) =

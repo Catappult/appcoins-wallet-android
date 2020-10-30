@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -33,7 +32,6 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
-import kotlinx.android.synthetic.main.level_up_bonus_layout.view.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.payment_methods_layout.*
 import kotlinx.android.synthetic.main.payment_methods_layout.error_message
@@ -42,7 +40,6 @@ import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import java.math.BigDecimal
-import java.text.DecimalFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -54,7 +51,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     private const val TRANSACTION = "transaction"
     private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
-    private const val FIAT_VALUE = "fiat_value"
 
     @JvmStatic
     fun newInstance(transaction: TransactionBuilder?, productName: String?,
@@ -90,7 +86,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var paymentMethodsInteract: PaymentMethodsInteract
+  lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
@@ -121,7 +117,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         getTransactionValue())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
-        paymentMethodsMapper, formatter, logger, paymentMethodsInteract, paymentMethodsData)
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -465,49 +461,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         transactionBuilder!!.amount(), transactionBuilder!!.type)
   }
 
-  override fun setLevelUpInformation(gamificationLevel: Int, progress: Double,
-                                     currentLevelBackground: Drawable?,
-                                     nextLevelBackground: Drawable?,
-                                     levelColor: Int,
-                                     willLevelUp: Boolean,
-                                     leftAmount: BigDecimal) {
-    if (willLevelUp) {
-      level_up_bonus_layout.information_message.text =
-          getString(R.string.perks_level_up_on_this_purchase)
-    } else {
-      val df = DecimalFormat("###.#")
-      level_up_bonus_layout.information_message.text =
-          getString(R.string.perks_level_up_amount_left, df.format(leftAmount), "APPC")
-    }
-    level_up_bonus_layout.bonus_value.text =
-        getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
-    currentLevelBackground?.let { level_up_bonus_layout.current_level.background = it }
-    nextLevelBackground?.let { level_up_bonus_layout.next_level.background = it }
-    level_up_bonus_layout.current_level.text =
-        getString(R.string.perks_level_up_level_tag, (gamificationLevel + 1).toString())
-    level_up_bonus_layout.next_level.text =
-        getString(R.string.perks_level_up_level_tag, (gamificationLevel + 2).toString())
-    level_up_bonus_layout.current_level_progress_bar.progress = progress.toInt()
-    level_up_bonus_layout.current_level_progress_bar.progressTintList =
-        ColorStateList.valueOf(levelColor)
-  }
-
-  override fun showLevelUp() {
-    bonus_layout.visibility = View.INVISIBLE
-    bonus_msg.visibility = View.INVISIBLE
-    no_bonus_msg?.visibility = View.INVISIBLE
-    level_up_bonus_layout.visibility = View.VISIBLE
-    bottom_separator?.visibility = View.VISIBLE
-    removeBonusSkeletons()
-  }
-
-  override fun hideLevelUp() {
-    level_up_bonus_layout.visibility = View.GONE
-    bottom_separator?.visibility = View.INVISIBLE
-  }
-
   override fun showBonus() {
-    level_up_bonus_layout.visibility = View.GONE
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
     no_bonus_msg?.visibility = View.INVISIBLE

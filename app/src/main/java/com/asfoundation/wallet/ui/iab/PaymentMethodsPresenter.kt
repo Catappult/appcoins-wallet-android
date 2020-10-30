@@ -5,8 +5,6 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.appcoins.wallet.gamification.repository.GamificationStats
-import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -23,8 +21,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
-import java.math.BigDecimal
-import java.math.RoundingMode
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -38,13 +34,12 @@ class PaymentMethodsPresenter(
     private val paymentMethodsMapper: PaymentMethodsMapper,
     private val formatter: CurrencyFormatUtils,
     private val logger: Logger,
-    private val interactor: PaymentMethodsInteract,
+    private val interactor: PaymentMethodsInteractor,
     private val paymentMethodsData: PaymentMethodsData) {
 
   private var cachedGamificationLevel = 0
   private var cachedFiatValue: FiatValue? = null
   private var cachedPaymentNavigationData: PaymentNavigationData? = null
-  private var closeToLevelUp: Boolean = false
   private var hasStartedAuth = false
 
   companion object {
@@ -52,7 +47,7 @@ class PaymentMethodsPresenter(
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val HAS_STARTED_AUTH = "has_started_auth"
     private const val FIAT_VALUE = "fiat_value"
-    private const val PAYMENTE_NAVIGATION_DATA = "payment_navigation_data"
+    private const val PAYMENT_NAVIGATION_DATA = "payment_navigation_data"
   }
 
   fun present(savedInstanceState: Bundle?) {
@@ -61,7 +56,7 @@ class PaymentMethodsPresenter(
       hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
       cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as FiatValue?
       cachedPaymentNavigationData =
-          savedInstanceState.getSerializable(PAYMENTE_NAVIGATION_DATA) as PaymentNavigationData?
+          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
     }
     handleOnGoingPurchases()
     handleCancelClick()
@@ -201,7 +196,6 @@ class PaymentMethodsPresenter(
     }
   }
 
-
   private fun isSetupCompleted(): Completable {
     return view.setupUiCompleted()
         .takeWhile { isViewSet -> !isViewSet }
@@ -271,22 +265,13 @@ class PaymentMethodsPresenter(
               this.cachedFiatValue = fiatValue
               getPaymentMethods(fiatValue)
                   .flatMapCompletable { paymentMethods ->
-                    Single.zip(interactor.getEarningBonus(transaction.domain,
-                        transaction.amount()), interactor.getUserStatus(),
-                        interactor.getLevels(),
-                        Function3 { earningBonus: ForecastBonusAndLevel, userStats: GamificationStats, levels: Levels ->
-                          Triple(earningBonus, userStats, levels)
-                        })
+                    interactor.getEarningBonus(transaction.domain, transaction.amount())
                         .observeOn(viewScheduler)
                         .flatMapCompletable {
                           Completable.fromAction {
-                            setupBonusInformation(it.first)
-                            if (interactor.isBonusActiveAndValid(it.first)) {
-                              setUpNextLevelInformation(it.second, it.third,
-                                  paymentMethodsData.transactionValue)
-                            }
+                            setupBonusInformation(it)
                             selectPaymentMethod(paymentMethods, fiatValue,
-                                interactor.isBonusActiveAndValid(it.first))
+                                interactor.isBonusActiveAndValid(it))
                           }
                         }
                   }
@@ -299,48 +284,6 @@ class PaymentMethodsPresenter(
             }
             .subscribe({ }, { this.showError(it) }))
   }
-
-  private fun setUpNextLevelInformation(userStats: GamificationStats, levels: Levels,
-                                        transactionValue: BigDecimal) {
-    val progress = getProgressPercentage(userStats, levels.list)
-    if (shouldShowNextLevel(levels, progress, userStats)) {
-      closeToLevelUp = true
-      val currentLevelInfo = paymentMethodsMapper.mapCurrentLevelInfo(cachedGamificationLevel)
-      val nextLevelInfo = paymentMethodsMapper.mapCurrentLevelInfo(cachedGamificationLevel + 1)
-      view.setLevelUpInformation(cachedGamificationLevel, progress,
-          paymentMethodsMapper.getRectangleGamificationBackground(currentLevelInfo.levelColor),
-          paymentMethodsMapper.getRectangleGamificationBackground(nextLevelInfo.levelColor),
-          currentLevelInfo.levelColor, willLevelUp(userStats, transactionValue),
-          userStats.nextLevelAmount!!.minus(userStats.totalSpend))
-    } else {
-      closeToLevelUp = false
-    }
-  }
-
-  private fun willLevelUp(userStats: GamificationStats, transactionValue: BigDecimal): Boolean {
-    return userStats.totalSpend + transactionValue >= userStats.nextLevelAmount
-  }
-
-  private fun shouldShowNextLevel(levels: Levels, progress: Double,
-                                  userStats: GamificationStats): Boolean {
-    return paymentMethodsMapper.mapLevelUpPercentage(cachedGamificationLevel) <= progress &&
-        cachedGamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK && userStats.nextLevelAmount != null
-  }
-
-  private fun getProgressPercentage(userStats: GamificationStats,
-                                    list: List<Levels.Level>): Double {
-    return if (cachedGamificationLevel <= list.size - 1) {
-      var levelRange = userStats.nextLevelAmount?.minus(list[cachedGamificationLevel].amount)
-      if (levelRange?.toDouble() == 0.0) {
-        levelRange = BigDecimal.ONE
-      }
-      val amountSpentInLevel = userStats.totalSpend - list[cachedGamificationLevel].amount
-      amountSpentInLevel.divide(levelRange, 2, RoundingMode.HALF_EVEN)
-          .multiply(BigDecimal(100))
-          .toDouble()
-    } else 0.0
-  }
-
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
     if (interactor.isBonusActiveAndValid(forecastBonus)) {
@@ -570,9 +513,8 @@ class PaymentMethodsPresenter(
             .toString(), transaction.type)
   }
 
-  fun stop() {
-    disposables.clear()
-  }
+  fun stop() = disposables.clear()
+
 
   private fun getPaymentMethods(fiatValue: FiatValue): Single<List<PaymentMethod>> {
     return if (paymentMethodsData.isBds) {
@@ -640,24 +582,10 @@ class PaymentMethodsPresenter(
 
   private fun handleBonusVisibility(selectedPaymentMethod: String) {
     when (selectedPaymentMethod) {
-      paymentMethodsMapper.map(SelectedPaymentMethod.EARN_APPC) -> {
-        view.replaceBonus()
-        view.hideLevelUp()
-      }
-      paymentMethodsMapper
-          .map(SelectedPaymentMethod.MERGED_APPC) -> {
-        view.hideBonus()
-        view.hideLevelUp()
-      }
-      paymentMethodsMapper
-          .map(SelectedPaymentMethod.APPC_CREDITS) -> {
-        view.hideBonus()
-        view.hideLevelUp()
-      }
-      else -> {
-        if (closeToLevelUp) view.showLevelUp()
-        else view.showBonus()
-      }
+      paymentMethodsMapper.map(SelectedPaymentMethod.EARN_APPC) -> view.replaceBonus()
+      paymentMethodsMapper.map(SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
+      paymentMethodsMapper.map(SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
+      else -> view.showBonus()
     }
   }
 
@@ -720,6 +648,6 @@ class PaymentMethodsPresenter(
     outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
     outState.putBoolean(HAS_STARTED_AUTH, hasStartedAuth)
     outState.putSerializable(FIAT_VALUE, cachedFiatValue)
-    outState.putSerializable(PAYMENTE_NAVIGATION_DATA, cachedPaymentNavigationData)
+    outState.putSerializable(PAYMENT_NAVIGATION_DATA, cachedPaymentNavigationData)
   }
 }
