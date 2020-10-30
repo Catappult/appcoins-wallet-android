@@ -54,6 +54,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter =
         SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
             CompositeDisposable(), settingsInteract)
+    presenter.setFingerPrintPreference()
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
