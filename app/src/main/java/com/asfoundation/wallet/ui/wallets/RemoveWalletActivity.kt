@@ -8,17 +8,32 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity.Companion.newIntent
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
 class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
+
+  private var authenticationResultSubject: PublishSubject<Boolean>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.remove_wallet_activity_layout)
     toolbar()
+    authenticationResultSubject = PublishSubject.create()
     if (savedInstanceState == null) navigateToInitialRemoveWalletView()
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == AUTHENTICATION_REQUEST_CODE) {
+      if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
+        authenticationResultSubject?.onNext(true)
+      }
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -31,6 +46,11 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun onBackPressed() {
     if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+  }
+
+  override fun onDestroy() {
+    authenticationResultSubject = null
+    super.onDestroy()
   }
 
   private fun navigateToInitialRemoveWalletView() {
@@ -62,6 +82,16 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     wallet_remove_animation.visibility = View.VISIBLE
     remove_wallet_animation.repeatCount = 0
     remove_wallet_animation.playAnimation()
+  }
+
+  override fun showAuthentication() {
+    val intent = AuthenticationPromptActivity.newIntent(this)
+        .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
+  }
+
+  override fun authenticationResult(): Observable<Boolean> {
+    return authenticationResultSubject!!
   }
 
   private val walletAddress: String by lazy {
@@ -110,6 +140,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     private const val APPC_BALANCE_KEY = "appc_balance"
     private const val CREDITS_BALANCE_KEY = "credits_balance"
     private const val ETHEREUM_BALANCE_KEY = "ethereum_balance"
+    private const val AUTHENTICATION_REQUEST_CODE = 33
 
     @JvmStatic
     fun newIntent(context: Context, walletAddress: String, totalFiatBalance: String,

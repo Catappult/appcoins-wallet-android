@@ -20,6 +20,7 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
   fun present() {
     handleNoButtonClick()
     handleYesButtonClick()
+    handleAuthentication()
   }
 
   private fun handleNoButtonClick() {
@@ -31,29 +32,47 @@ class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmati
 
   private fun handleYesButtonClick() {
     disposable.add(view.yesButtonClick()
+        .throttleFirst(100, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .flatMapSingle {
+          var authenticationRequired = false
+          if (deleteWalletInteract.hasAuthenticationPermission()) {
+            view.showAuthentication()
+            authenticationRequired = true
+          } else {
+            view.showRemoveWalletAnimation()
+          }
+          Single.just(authenticationRequired)
+        }
+        .filter { authenticationRequired -> !authenticationRequired }
+        .observeOn(networkScheduler)
+        .flatMapSingle { deleteWallet() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleAuthentication() {
+    disposable.add(view.authenticationResult()
+        .filter { it }
         .observeOn(viewScheduler)
         .doOnNext { view.showRemoveWalletAnimation() }
         .observeOn(networkScheduler)
         .flatMapSingle { deleteWallet() }
-        .observeOn(viewScheduler)
-        .doOnNext { view.finish() }
-        .doOnError {
-          logger.log("WalletRemoveConfirmationPresenter", it)
-          view.finish()
-        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun deleteWallet(): Single<Any> {
+  private fun deleteWallet(): Single<Unit> {
     return Single.zip(deleteWalletInteract.delete(walletAddress)
         .toSingleDefault(Unit),
         Completable.timer(2, TimeUnit.SECONDS)
             .toSingleDefault(Unit),
         BiFunction { _: Unit, _: Unit -> })
+        .observeOn(viewScheduler)
+        .doOnSuccess { view.finish() }
+        .doOnError {
+          logger.log("WalletRemoveConfirmationPresenter", it)
+          view.finish()
+        }
   }
 
-  fun stop() {
-    disposable.clear()
-  }
-
+  fun stop() = disposable.clear()
 }

@@ -10,7 +10,6 @@ import android.os.Build
 import android.preference.PreferenceManager
 import androidx.core.app.NotificationCompat
 import androidx.room.Room
-import cm.aptoide.analytics.AnalyticsManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
@@ -39,14 +38,9 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.advertise.PoaAnalyticsController
-import com.asfoundation.wallet.analytics.*
-import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
-import com.asfoundation.wallet.billing.analytics.*
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -66,9 +60,7 @@ import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.support.SupportSharedPreferences
-import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
-import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -78,8 +70,6 @@ import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
-import com.facebook.appevents.AppEventsLogger
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -97,7 +87,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.math.BigDecimal
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -176,13 +165,10 @@ internal class AppModule {
   fun provideGasSettingsRouter() = GasSettingsRouter()
 
   @Provides
-  fun provideLocalPaymentAnalytics(billingAnalytics: BillingAnalytics,
-                                   inAppPurchaseInteractor: InAppPurchaseInteractor): LocalPaymentAnalytics {
-    return LocalPaymentAnalytics(billingAnalytics, inAppPurchaseInteractor, Schedulers.io())
+  fun providePaymentMethodsMapper(
+      billingMessagesMapper: BillingMessagesMapper): PaymentMethodsMapper {
+    return PaymentMethodsMapper(billingMessagesMapper)
   }
-
-  @Provides
-  fun providePaymentMethodsMapper() = PaymentMethodsMapper()
 
   @Provides
   fun provideNonceObtainer(web3jProvider: Web3jProvider): MultiWalletNonceObtainer {
@@ -353,123 +339,6 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  @Named("bi_event_list")
-  fun provideBiEventList() = listOf(
-      BillingAnalytics.PURCHASE_DETAILS,
-      BillingAnalytics.PAYMENT_METHOD_DETAILS,
-      BillingAnalytics.PAYMENT,
-      PoaAnalytics.POA_STARTED,
-      PoaAnalytics.POA_COMPLETED)
-
-  @Singleton
-  @Provides
-  @Named("facebook_event_list")
-  fun provideFacebookEventList() = listOf(
-      BillingAnalytics.PURCHASE_DETAILS,
-      BillingAnalytics.PAYMENT_METHOD_DETAILS,
-      BillingAnalytics.PAYMENT,
-      BillingAnalytics.REVENUE,
-      PoaAnalytics.POA_STARTED,
-      PoaAnalytics.POA_COMPLETED,
-      TransactionsAnalytics.OPEN_APPLICATION,
-      GamificationAnalytics.GAMIFICATION,
-      GamificationAnalytics.GAMIFICATION_MORE_INFO
-  )
-
-  @Singleton
-  @Provides
-  @Named("rakam_event_list")
-  fun provideRakamEventList() = listOf(
-      BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
-      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
-      BillingAnalytics.RAKAM_PAYMENT_START,
-      BillingAnalytics.RAKAM_PAYPAL_URL,
-      TopUpAnalytics.WALLET_TOP_UP_START,
-      TopUpAnalytics.WALLET_TOP_UP_SELECTION,
-      TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
-      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
-      TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
-      PoaAnalytics.RAKAM_POA_EVENT,
-      WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
-      WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
-      WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION,
-      WalletsAnalytics.WALLET_CREATE_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_BACKUP,
-      WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_FILE,
-      WalletsAnalytics.WALLET_IMPORT_RESTORE,
-      WalletsAnalytics.WALLET_PASSWORD_RESTORE,
-      PageViewAnalytics.WALLET_PAGE_VIEW
-  )
-
-  @Singleton
-  @Provides
-  @Named("amplitude_event_list")
-  fun provideAmplitudeEventList() = listOf(
-      BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
-      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
-      BillingAnalytics.RAKAM_PAYMENT_START,
-      BillingAnalytics.RAKAM_PAYPAL_URL,
-      TopUpAnalytics.WALLET_TOP_UP_START,
-      TopUpAnalytics.WALLET_TOP_UP_SELECTION,
-      TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
-      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
-      TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
-      PoaAnalytics.RAKAM_POA_EVENT,
-      WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
-      WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
-      WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION,
-      WalletsAnalytics.WALLET_CREATE_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_BACKUP,
-      WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_FILE,
-      WalletsAnalytics.WALLET_IMPORT_RESTORE,
-      WalletsAnalytics.WALLET_PASSWORD_RESTORE,
-      PageViewAnalytics.WALLET_PAGE_VIEW
-  )
-
-  @Singleton
-  @Provides
-  fun provideAnalyticsManager(@Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
-                              context: Context, @Named("bi_event_list") biEventList: List<String>,
-                              @Named("facebook_event_list") facebookEventList: List<String>,
-                              @Named("rakam_event_list") rakamEventList: List<String>,
-                              @Named("amplitude_event_list")
-                              amplitudeEventList: List<String>): AnalyticsManager {
-    return AnalyticsManager.Builder()
-        .addLogger(BackendEventLogger(api), biEventList)
-        .addLogger(FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
-        .addLogger(RakamEventLogger(), rakamEventList)
-        .addLogger(AmplitudeEventLogger(), amplitudeEventList)
-        .setAnalyticsNormalizer(KeysNormalizer())
-        .setDebugLogger(LogcatAnalyticsLogger())
-        .setKnockLogger(HttpClientKnockLogger(okHttpClient))
-        .build()
-  }
-
-  @Singleton
-  @Provides
-  fun provideWalletEventSender(analytics: AnalyticsManager): WalletsEventSender =
-      WalletsAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun provideBillingAnalytics(analytics: AnalyticsManager) = BillingAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun providePoAAnalytics(analytics: AnalyticsManager) = PoaAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun providesPoaAnalyticsController() = PoaAnalyticsController(CopyOnWriteArrayList())
-
-  @Singleton
-  @Provides
   fun providesPermissions(context: Context): Permissions {
     return Permissions(PermissionRepository(Room.databaseBuilder(context.applicationContext,
         PermissionsDatabase::class.java,
@@ -508,14 +377,6 @@ internal class AppModule {
 
   @Provides
   fun providesTopUpValuesApiResponseMapper() = TopUpValuesApiResponseMapper()
-
-  @Singleton
-  @Provides
-  fun providesTransactionsAnalytics(analytics: AnalyticsManager) = TransactionsAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun provideGamificationAnalytics(analytics: AnalyticsManager) = GamificationAnalytics(analytics)
 
   @Provides
   fun providesOffChainTransactions(repository: OffChainTransactionsRepository,
@@ -601,30 +462,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
-                                 logger: Logger): RakamAnalytics {
-    return RakamAnalytics(context, idsRepository, logger)
-  }
-
-  @Singleton
-  @Provides
-  fun provideAmplitudeAnalytics(context: Context,
-                                idsRepository: IdsRepository): AmplitudeAnalytics {
-    return AmplitudeAnalytics(context, idsRepository)
-  }
-
-  @Singleton
-  @Provides
-  fun provideTopUpAnalytics(analyticsManager: AnalyticsManager) = TopUpAnalytics(analyticsManager)
-
-  @Singleton
-  @Provides
   fun provideCurrencyFormatUtils() = create()
-
-  @Singleton
-  @Provides
-  fun provideWalletValidationAnalytics(analyticsManager: AnalyticsManager) =
-      WalletValidationAnalytics(analyticsManager)
 
   @Provides
   fun provideContentResolver(context: Context): ContentResolver = context.contentResolver
@@ -652,12 +490,6 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesPageViewAnalytics(analyticsManager: AnalyticsManager): PageViewAnalytics {
-    return PageViewAnalytics(analyticsManager)
-  }
-
-  @Singleton
-  @Provides
   fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
 
   @Singleton
@@ -667,5 +499,4 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
-
 }

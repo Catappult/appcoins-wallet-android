@@ -15,10 +15,12 @@ import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import java.math.BigDecimal
 
 class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator {
+
   private lateinit var presenter: TransferActivityPresenter
 
   companion object {
     const val BARCODE_READER_REQUEST_CODE = 1
+
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, TransferActivity::class.java)
@@ -75,8 +77,8 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
-  override fun openAppcoinsCreditsSuccess(walletAddress: String,
-                                          amount: BigDecimal, currency: String) {
+  override fun openAppcoinsCreditsSuccess(walletAddress: String, amount: BigDecimal,
+                                          currency: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AppcoinsCreditsTransferSuccessFragment.newInstance(amount, currency, walletAddress))
@@ -97,5 +99,4 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     }
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
   }
-
 }
