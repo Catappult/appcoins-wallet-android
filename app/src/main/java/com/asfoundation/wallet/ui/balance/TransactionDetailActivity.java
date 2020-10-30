@@ -265,9 +265,9 @@ public class TransactionDetailActivity extends BaseActivity {
         transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
             : transaction.getCurrency();
 
-    boolean isRevertOrReverted = isRevertTransaction(transaction);
+    boolean isRevertTransaction = isRevertTransaction(transaction);
 
-    formatValue(getValue(symbol), symbol, isRevertOrReverted);
+    formatValue(getValue(symbol), symbol, isRevertTransaction);
   }
 
   private String getScaledValue(String valueStr, String currencySymbol) {
@@ -387,8 +387,8 @@ public class TransactionDetailActivity extends BaseActivity {
       ImageView logo = revertedView.findViewById(R.id.layout_support_logo);
       ImageView icn = revertedView.findViewById(R.id.layout_support_icn);
 
-      logo.setOnClickListener(view -> viewModel.showSupportScreen(false));
-      icn.setOnClickListener(view -> viewModel.showSupportScreen(false));
+      logo.setOnClickListener(view -> viewModel.showSupportScreen());
+      icn.setOnClickListener(view -> viewModel.showSupportScreen());
 
       revertedView.setOnClickListener(
           view -> viewModel.showDetails(view.getContext(), transaction));
@@ -463,8 +463,8 @@ public class TransactionDetailActivity extends BaseActivity {
       ImageView logo = revertView.findViewById(R.id.layout_support_logo);
       ImageView icn = revertView.findViewById(R.id.layout_support_icn);
 
-      logo.setOnClickListener(view -> viewModel.showSupportScreen(false));
-      icn.setOnClickListener(view -> viewModel.showSupportScreen(false));
+      logo.setOnClickListener(view -> viewModel.showSupportScreen());
+      icn.setOnClickListener(view -> viewModel.showSupportScreen());
 
       String date = getDate(transaction.getTimeStamp());
       switch (transaction.getType()) {
@@ -529,11 +529,11 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void formatValue(String value, String symbol, boolean isOriginal) {
+  private void formatValue(String value, String symbol, boolean isOriginalTransaction) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
 
-    if (isOriginal) {
+    if (isOriginalTransaction) {
       amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
     } else {
       String formattedValue = (isSent ? "-" : "+") + value;

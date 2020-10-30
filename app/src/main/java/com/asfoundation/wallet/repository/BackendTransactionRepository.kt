@@ -123,9 +123,8 @@ class BackendTransactionRepository(
         }
   }
 
-  private fun saveTransactions(
-      transactions: List<WalletHistory.Transaction>,
-      wallet: String): Observable<List<TransactionEntity>> {
+  private fun saveTransactions(transactions: List<WalletHistory.Transaction>,
+                               wallet: String): Observable<List<TransactionEntity>> {
     return Observable.fromIterable(transactions)
         .flatMap { transaction ->
           if (isRevertTransaction(transaction.type, transaction.linkedTx.orEmpty())) {

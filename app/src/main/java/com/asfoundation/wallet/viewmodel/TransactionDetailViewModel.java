@@ -52,12 +52,8 @@ public class TransactionDetailViewModel extends BaseViewModel {
     super.onCleared();
   }
 
-  public void showSupportScreen(boolean fromNotification) {
-    if (fromNotification) {
-      supportInteractor.displayConversationListOrChat();
-    } else {
-      supportInteractor.displayChatScreen();
-    }
+  public void showSupportScreen() {
+    supportInteractor.displayChatScreen();
   }
 
   public void showDetails(Context context, Transaction transaction) {

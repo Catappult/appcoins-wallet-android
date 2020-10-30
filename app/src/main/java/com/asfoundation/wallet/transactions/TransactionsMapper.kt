@@ -48,7 +48,6 @@ class TransactionsMapper {
     return when (status) {
       WalletHistory.Status.SUCCESS -> TransactionEntity.TransactionStatus.SUCCESS
       WalletHistory.Status.FAIL -> TransactionEntity.TransactionStatus.FAILED
-      else -> TransactionEntity.TransactionStatus.PENDING
     }
   }
 

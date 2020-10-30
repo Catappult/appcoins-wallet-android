@@ -13,12 +13,10 @@ interface TransactionLinkIdDao {
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   fun insert(vararg: TransactionLinkIdEntity)
 
-  @Query(
-      "select * from transaction_link_id where transactionId  = :transactionId limit 1")
+  @Query("select * from transaction_link_id where transactionId  = :transactionId limit 1")
   fun getRevertedTransaction(transactionId: String): Single<TransactionLinkIdEntity>
 
-  @Query(
-      "select * from transaction_link_id where linkTransactionId  = :transactionId limit 1")
+  @Query("select * from transaction_link_id where linkTransactionId  = :transactionId limit 1")
   fun getRevertTransaction(transactionId: String): Single<TransactionLinkIdEntity>
 
 }
