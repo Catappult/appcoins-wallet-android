@@ -191,6 +191,9 @@ class IabPresenter(private val view: IabView,
       if (data?.dataString?.contains("codapayments") != true) {
         sendPayPalConfirmationEvent("cancel")
       }
+      if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+        iabInteract.showSupport()
+      }
       view.showPaymentMethodsView()
     } else if (resultCode == WebViewActivity.SUCCESS) {
       if (data?.scheme?.contains("adyencheckout") == true) {
