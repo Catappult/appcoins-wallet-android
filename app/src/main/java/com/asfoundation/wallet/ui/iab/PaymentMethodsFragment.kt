@@ -86,7 +86,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var paymentMethodsInteract: PaymentMethodsInteract
+  lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
@@ -117,7 +117,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         getTransactionValue())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
-        paymentMethodsMapper, formatter, logger, paymentMethodsInteract, paymentMethodsData)
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

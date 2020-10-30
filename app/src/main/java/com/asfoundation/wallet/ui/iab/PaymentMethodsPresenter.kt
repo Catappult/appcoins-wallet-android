@@ -34,7 +34,7 @@ class PaymentMethodsPresenter(
     private val paymentMethodsMapper: PaymentMethodsMapper,
     private val formatter: CurrencyFormatUtils,
     private val logger: Logger,
-    private val interactor: PaymentMethodsInteract,
+    private val interactor: PaymentMethodsInteractor,
     private val paymentMethodsData: PaymentMethodsData) {
 
   private var cachedGamificationLevel = 0
@@ -47,7 +47,7 @@ class PaymentMethodsPresenter(
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val HAS_STARTED_AUTH = "has_started_auth"
     private const val FIAT_VALUE = "fiat_value"
-    private const val PAYMENTE_NAVIGATION_DATA = "payment_navigation_data"
+    private const val PAYMENT_NAVIGATION_DATA = "payment_navigation_data"
   }
 
   fun present(savedInstanceState: Bundle?) {
@@ -56,7 +56,7 @@ class PaymentMethodsPresenter(
       hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
       cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as FiatValue?
       cachedPaymentNavigationData =
-          savedInstanceState.getSerializable(PAYMENTE_NAVIGATION_DATA) as PaymentNavigationData?
+          savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
     }
     handleOnGoingPurchases()
     handleCancelClick()
@@ -647,6 +647,6 @@ class PaymentMethodsPresenter(
     outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
     outState.putBoolean(HAS_STARTED_AUTH, hasStartedAuth)
     outState.putSerializable(FIAT_VALUE, cachedFiatValue)
-    outState.putSerializable(PAYMENTE_NAVIGATION_DATA, cachedPaymentNavigationData)
+    outState.putSerializable(PAYMENT_NAVIGATION_DATA, cachedPaymentNavigationData)
   }
 }

@@ -21,8 +21,7 @@ import java.math.BigDecimal
 class GamificationInteractor(
     private val gamification: Gamification,
     private val defaultWallet: FindDefaultWalletInteract,
-    private val conversionService: LocalCurrencyConversionService,
-    private val gamificationMapper: GamificationMapper) {
+    private val conversionService: LocalCurrencyConversionService) {
 
   private var isBonusActiveAndValid: Boolean = false
 
@@ -99,16 +98,5 @@ class GamificationInteractor(
 
   fun isBonusActiveAndValid(forecastBonus: ForecastBonusAndLevel): Boolean {
     return forecastBonus.status == ForecastBonus.Status.ACTIVE && forecastBonus.amount > BigDecimal.ZERO
-  }
-
-
-  private fun willLevelUp(userStats: GamificationStats, transactionValue: BigDecimal): Boolean {
-    return userStats.totalSpend + transactionValue >= userStats.nextLevelAmount
-  }
-
-  private fun shouldShowNextLevel(levels: Levels, progress: Double, userStats: GamificationStats,
-                                  gamificationLevel: Int): Boolean {
-    return gamificationMapper.mapLevelUpPercentage(gamificationLevel) <= progress &&
-        gamificationLevel < levels.list.size - 1 && levels.status == Levels.Status.OK && userStats.status == GamificationStats.Status.OK && userStats.nextLevelAmount != null
   }
 }
