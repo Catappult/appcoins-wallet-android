@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
@@ -78,4 +79,14 @@ interface IabView {
   fun errorDismisses(): Observable<Any>
 
   fun launchPerkBonusService(address: String)
+
+  fun showAuthenticationActivity()
+
+  fun onAuthenticationResult(): Observable<Boolean>
+
+  fun backButtonPress(): Observable<Any>
+
+  fun successWebViewResult(data: Uri?)
+
+  fun authenticationResult(success: Boolean)
 }

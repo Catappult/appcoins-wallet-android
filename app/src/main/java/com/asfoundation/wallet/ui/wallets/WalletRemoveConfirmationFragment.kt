@@ -65,6 +65,10 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
 
   override fun finish() = activityView.navigateToWalletList()
 
+  override fun showAuthentication() = activityView.showAuthentication()
+
+  override fun authenticationResult() = activityView.authenticationResult()
+
   private fun setWalletBalance() {
     wallet_address.text = walletAddress
     wallet_balance.text = fiatBalance

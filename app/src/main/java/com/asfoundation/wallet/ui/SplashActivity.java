@@ -3,19 +3,23 @@ package com.asfoundation.wallet.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.router.OnboardingRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements SplashView {
 
+  private static final int AUTHENTICATION_REQUEST_CODE = 33;
   @Inject PreferencesRepositoryType preferencesRepositoryType;
   @Inject AutoUpdateInteract autoUpdateInteract;
+  private SplashPresenter presenter;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, SplashActivity.class);
@@ -25,32 +29,31 @@ public class SplashActivity extends BaseActivity {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
 
-    handleAutoUpdate();
+    presenter = new SplashPresenter(this, preferencesRepositoryType, AndroidSchedulers.mainThread(),
+        Schedulers.io(), new CompositeDisposable(), autoUpdateInteract);
+
+    presenter.present(savedInstanceState);
   }
 
-  private void handleAutoUpdate() {
-    autoUpdateInteract.getAutoUpdateModel(true)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess(updateModel -> {
-          if (autoUpdateInteract.isHardUpdateRequired(updateModel.getBlackList(),
-              updateModel.getUpdateVersionCode(), updateModel.getUpdateMinSdk())) {
-            navigateToAutoUpdate();
-          } else {
-            firstScreenNavigation();
-          }
-        })
-        .subscribe();
+  @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == SplashActivity.AUTHENTICATION_REQUEST_CODE) {
+      if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
+        firstScreenNavigation();
+      } else {
+        finish();
+      }
+    }
   }
 
-  private void navigateToAutoUpdate() {
+  @Override public void navigateToAutoUpdate() {
     Intent intent = UpdateRequiredActivity.newIntent(this);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
     finish();
   }
 
-  private void firstScreenNavigation() {
+  @Override public void firstScreenNavigation() {
     if (shouldShowOnboarding()) {
       new OnboardingRouter().open(this, true);
     } else {
@@ -59,7 +62,24 @@ public class SplashActivity extends BaseActivity {
     finish();
   }
 
+  @Override public void showAuthenticationActivity() {
+    Intent intent = AuthenticationPromptActivity.newIntent(this);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE);
+  }
+
   private boolean shouldShowOnboarding() {
     return !preferencesRepositoryType.hasCompletedOnboarding();
   }
+
+  @Override protected void onDestroy() {
+    presenter.stop();
+    super.onDestroy();
+  }
+
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    presenter.onSaveInstance(outState);
+  }
 }
+
