@@ -121,6 +121,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private var isPreSelected = false
   private var itemAlreadyOwnedError = false
   private var bonusMessageValue = ""
+  private var bonusValue: BigDecimal? = null
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -401,6 +402,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         .map { getSelectedPaymentMethod() }
   }
 
+  override fun showCarrierBilling(paymentType: PaymentType, fiatValue: FiatValue,
+                                  bonus: BigDecimal) {
+    iabView.showCarrierBilling(paymentType, fiatValue.currency, fiatValue.amount, bonus)
+  }
+
   override fun showPaypal(gamificationLevel: Int) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
@@ -415,8 +421,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showCreditCard(gamificationLevel: Int) {
-    iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
+    // TODO: Pass actual bonus through presenter
+    showCarrierBilling(PaymentType.CARRIER_BILLING, fiatValue, bonusValue!!)
+//    iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
+//        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
   }
 
   override fun showAppCoins(gamificationLevel: Int) {
@@ -464,6 +472,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun setBonus(bonus: BigDecimal, currency: String) {
+    bonusValue = bonus
     var scaledBonus = bonus.stripTrailingZeros()
         .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currency

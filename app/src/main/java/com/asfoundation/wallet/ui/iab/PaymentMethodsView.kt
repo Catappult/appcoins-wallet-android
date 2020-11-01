@@ -40,6 +40,8 @@ interface PaymentMethodsView {
 
   fun getBuyClick(): Observable<PaymentMethod>
 
+  fun showCarrierBilling(paymentType: PaymentType, fiatValue: FiatValue, bonus: BigDecimal)
+
   fun showPaypal(gamificationLevel: Int)
 
   fun showAdyen(fiatValue: FiatValue,
@@ -89,7 +91,7 @@ interface PaymentMethodsView {
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    ERROR
+    CARRIER_BILLING, ERROR
 
   }
 
@@ -99,6 +101,7 @@ interface PaymentMethodsView {
     APPC_CREDITS("appcoins_credits"),
     MERGED_APPC("merged_appcoins"),
     CREDIT_CARD("credit_card"),
+    CARRIER_BILLING("carrier_billing"),
     ASK_FRIEND("ask_friend")
   }
 }

@@ -25,6 +25,7 @@ import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
@@ -89,7 +90,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
-        if(data?.dataString?.contains("codapayments") != true){
+        if (data?.dataString?.contains("codapayments") != true) {
           sendPayPalConfirmationEvent("cancel")
         }
         showPaymentMethodsView()
@@ -203,6 +204,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
                 bonus, isPreselected, gamificationLevel, getSkuDescription()))
+        .commit()
+  }
+
+  override fun showCarrierBilling(paymentType: PaymentType, currency: String?, amount: BigDecimal,
+                                  bonus: BigDecimal) {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container,
+            CarrierVerifyFragment.newInstance(transaction!!.domain, transaction!!.type,
+                intent.dataString, currency, amount, transaction!!.amount(), bonus,
+                getSkuDescription()))
+        .addToBackStack(null)
         .commit()
   }
 

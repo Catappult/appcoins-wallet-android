@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="PaymentMethods" />
+
+  <style name="PaymentMethods.DialogCardStyle">
+    <item name="android:layout_width">@dimen/payment_methods_width</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_gravity">center</item>
+    <item name="android:animateLayoutChanges">true</item>
+    <item name="android:background">@drawable/background_card_grey</item>
+  </style>
+
+  <style name="PaymentMethods.Carrier" />
+
+  <style name="PaymentMethods.Carrier.TextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+
+  <style name="PaymentMethods.CarrierBilling.Title" parent="PaymentMethods.Carrier.TextStyle">
+    <item name="android:textSize">14sp</item>
+  </style>
+
+  <style name="PaymentMethods.CarrierBilling.Description" parent="PaymentMethods.Carrier.TextStyle">
+    <item name="android:textColor">@color/top_up_bonus_text</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+</resources>

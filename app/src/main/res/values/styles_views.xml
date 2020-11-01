@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="SeparatorView">
+    <attr name="line_type" format="enum">
+      <enum name="solid" value="0" />
+      <enum name="dashed" value="1" />
+    </attr>
+  </declare-styleable>
+
+</resources>

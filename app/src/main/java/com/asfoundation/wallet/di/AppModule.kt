@@ -78,6 +78,7 @@ import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import com.facebook.appevents.AppEventsLogger
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -668,4 +669,7 @@ internal class AppModule {
   @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 
+  @Singleton
+  @Provides
+  fun providesApplicationInfoLoader(context: Context) = ApplicationInfoLoader(context)
 }
