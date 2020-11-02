@@ -28,8 +28,8 @@ data class SubscriptionPurchaseResponse(val uid: String,
                                         val sku: String,
                                         val status: Status,
                                         val state: PurchaseState,
-                                        @SerializedName("order_reference")
-                                        val orderReference: String,
+                                        @SerializedName("order_uid")
+                                        val orderUid: String,
                                         @SerializedName("auto_renewing")
                                         val autoRenewing: Boolean,
                                         val payload: String?,
