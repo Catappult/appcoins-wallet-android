@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.biometric.BiometricManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
@@ -535,9 +536,10 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideFingerprintInteract(context: Context,
+  fun provideFingerprintInteract(biometricManager: BiometricManager,
+                                 packageManager: PackageManager,
                                  preferencesRepositoryType: PreferencesRepositoryType): FingerPrintInteractor {
-    return FingerPrintInteractor(context, preferencesRepositoryType)
+    return FingerPrintInteractor(biometricManager, packageManager, preferencesRepositoryType)
   }
 
 }

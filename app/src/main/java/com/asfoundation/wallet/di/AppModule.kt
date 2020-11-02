@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.preference.PreferenceManager
+import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
 import androidx.room.Room
 import com.adyen.checkout.core.api.Environment
@@ -499,4 +500,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
+
+  @Singleton
+  @Provides
+  fun providesBiometricManager(context: Context) = BiometricManager.from(context)
 }

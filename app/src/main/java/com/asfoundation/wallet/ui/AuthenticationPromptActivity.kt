@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.biometric.BiometricPrompt
-import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
 import dagger.android.AndroidInjection
@@ -98,7 +97,12 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
         .commit()
   }
 
-  override fun showPrompt(biometricPrompt: BiometricPrompt, promptInfo: PromptInfo) {
+  override fun showPrompt(biometricPrompt: BiometricPrompt, deviceCredentialsAllowed: Boolean) {
+    val promptInfo = BiometricPrompt.PromptInfo.Builder()
+        .setTitle(getString(R.string.fingerprint_authentication_required_title))
+        .setSubtitle(getString(R.string.fingerprint_authentication_required_body))
+        .setDeviceCredentialAllowed(deviceCredentialsAllowed)
+        .build()
     biometricPrompt.authenticate(promptInfo)
   }
 
