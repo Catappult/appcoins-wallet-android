@@ -13,7 +13,7 @@ class PaymentMethodsMapper {
       "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
       "merged_appcoins" -> SelectedPaymentMethod.MERGED_APPC
       "earn_appcoins" -> SelectedPaymentMethod.EARN_APPC
-      "carrier_billing" -> SelectedPaymentMethod.CARRIER_BILLING
+      "onebip" -> SelectedPaymentMethod.CARRIER_BILLING
       "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
     }
