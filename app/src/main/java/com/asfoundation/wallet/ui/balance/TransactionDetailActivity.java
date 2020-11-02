@@ -401,15 +401,11 @@ public class TransactionDetailActivity extends BaseActivity {
               : transaction.getCurrency();
 
       String icon = null;
-      String id = null;
-      String description = null;
       TransactionDetails details = transaction.getDetails();
 
       if (details != null) {
         icon = details.getIcon()
             .getUri();
-        id = details.getSourceName();
-        description = details.getDescription();
       }
 
       @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
@@ -429,20 +425,12 @@ public class TransactionDetailActivity extends BaseActivity {
         case BONUS:
           button.setVisibility(View.VISIBLE);
           typeIcon = -1;
-          if (transaction.getDetails()
-              .getSourceName() == null) {
-            id = getString(R.string.transaction_type_bonus);
-          } else {
-            id = getString(R.string.gamification_level_bonus, transaction.getDetails()
-                .getSourceName());
-          }
           button.setOnClickListener(
               view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
           symbol = getString(R.string.p2p_send_currency_appc_c);
           address.setText(R.string.transaction_type_bonus);
           break;
         case TOP_UP:
-          id = getString(R.string.topup_title);
           typeIcon = R.drawable.transaction_type_top_up;
           button.setVisibility(View.VISIBLE);
           button.setOnClickListener(
@@ -453,8 +441,8 @@ public class TransactionDetailActivity extends BaseActivity {
       }
       String sourceDescription = details.getDescription() == null ? "" : details.getDescription();
 
-      setupRevertedUi(icon, typeIcon, id, description, getValue(symbol), symbol,
-          getDate(transaction.getTimeStamp()), sourceDescription);
+      setupRevertedUi(icon, typeIcon, getValue(symbol), symbol, getDate(transaction.getTimeStamp()),
+          sourceDescription);
     } else if (isRevertedTransaction) {
       revertView.setVisibility(View.VISIBLE);
       revertedView.setVisibility(View.GONE);
@@ -481,8 +469,8 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void setupRevertedUi(String icon, int typeIcon, String id, String description,
-      String value, String symbol, String date, String sourceDescription) {
+  private void setupRevertedUi(String icon, int typeIcon, String value, String symbol, String date,
+      String sourceDescription) {
     View revertedView = findViewById(R.id.layout_reverted_transaction);
 
     TextView originalDate = revertedView.findViewById(R.id.original_date);
