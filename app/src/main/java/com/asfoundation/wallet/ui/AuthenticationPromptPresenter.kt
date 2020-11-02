@@ -28,11 +28,8 @@ class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
   }
 
   private fun showBiometricPrompt() {
-    when (fingerprintInteractor.compatibleDevice()) {
-      BiometricManager.BIOMETRIC_SUCCESS -> {
-        view.showPrompt(view.createBiometricPrompt(),
-            fingerprintInteractor.definePromptInformation())
-      }
+    when (fingerprintInteractor.getDeviceCompatibility()) {
+      BiometricManager.BIOMETRIC_SUCCESS -> view.showPrompt(view.createBiometricPrompt(), true)
       BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> view.closeSuccess()
       BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> view.closeSuccess()
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {

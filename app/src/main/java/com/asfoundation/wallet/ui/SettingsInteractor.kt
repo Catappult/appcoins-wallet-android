@@ -38,7 +38,7 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
   fun retrieveFingerPrintAvailability(): Int {
-    fingerPrintAvailability = fingerPrintInteractor.compatibleDevice()
+    fingerPrintAvailability = fingerPrintInteractor.getDeviceCompatibility()
     return fingerPrintAvailability
   }
 
