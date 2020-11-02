@@ -11,7 +11,7 @@ interface AuthenticationPromptView {
 
   fun showAuthenticationBottomSheet(timer: Long)
 
-  fun showPrompt(biometricPrompt: BiometricPrompt, promptInfo: BiometricPrompt.PromptInfo)
+  fun showPrompt(biometricPrompt: BiometricPrompt, deviceCredentialsAllowed: Boolean)
 
   fun getRetryButtonClick(): Observable<Any>
 
