@@ -138,7 +138,7 @@ public class TransactionDetailActivity extends BaseActivity {
     }
 
     @StringRes int statusStr = R.string.transaction_status_success;
-    @ColorRes int statusColor = R.color.transaction_orange;
+    @ColorRes int statusColor = R.color.green;
     @ColorRes int descriptionColor = R.color.transaction_orange;
 
     @StringRes int typeStr = R.string.transaction_type_standard;
