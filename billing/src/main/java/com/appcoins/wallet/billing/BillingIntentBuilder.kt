@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.appcoins.wallet.bdsbilling.repository.entity.Intro
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOPER_PAYLOAD
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -28,11 +27,10 @@ class BillingIntentBuilder(val context: Context) {
                            appcAmount: BigDecimal,
                            skuTitle: String,
                            subscriptionPeriod: String?,
-                           trialPeriod: String?,
-                           introductoryPrice: Intro?): Bundle {
+                           trialPeriod: String?): Bundle {
     val intent = buildPaymentIntent(type, appcAmount, tokenContractAddress, iabContractAddress,
         developerAddress, skuId, packageName, payload, skuTitle, bdsIap, subscriptionPeriod,
-        trialPeriod, introductoryPrice)
+        trialPeriod)
     return Bundle().apply {
       val pendingIntent = buildPaymentPendingIntent(intent)
 
@@ -54,14 +52,13 @@ class BillingIntentBuilder(val context: Context) {
                                  payload: String?, skuTitle: String,
                                  bdsIap: Boolean,
                                  subscriptionPeriod: String?,
-                                 trialPeriod: String?,
-                                 introductoryPrice: Intro?): Intent {
+                                 trialPeriod: String?): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
 
     val uri = Uri.parse(buildUriString(type, tokenContractAddress, iabContractAddress, value,
         developerAddress, skuId, BuildConfig.NETWORK_ID, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
-        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod, introductoryPrice))
+        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod))
 
 
     return Intent(Intent.ACTION_VIEW).apply {
@@ -80,15 +77,14 @@ class BillingIntentBuilder(val context: Context) {
                              networkId: Int, packageName: String,
                              developerPayload: String?,
                              orderReference: String?, origin: String?,
-                             subscriptionPeriod: String?, trialPeriod: String?,
-                             introductoryPrice: Intro?): String {
+                             subscriptionPeriod: String?, trialPeriod: String?): String {
     val stringBuilder = StringBuilder(4)
     try {
       Formatter(stringBuilder).use { formatter ->
         formatter.format("ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
             tokenContractAddress, networkId, amount.toString(), developerAddress ?: "",
             buildUriData(type, skuId, packageName, developerPayload, orderReference, origin,
-                subscriptionPeriod, trialPeriod, introductoryPrice),
+                subscriptionPeriod, trialPeriod),
             iabContractAddress)
       }
     } catch (e: UnsupportedEncodingException) {
@@ -101,13 +97,10 @@ class BillingIntentBuilder(val context: Context) {
                            developerPayload: String?, orderReference: String?,
                            origin: String?,
                            subscriptionPeriod: String?,
-                           trialPeriod: String?,
-                           introductoryPrice: Intro?): String {
+                           trialPeriod: String?): String {
     return "0x" + Hex.toHexString(Gson().toJson(
         TransactionData(type.toUpperCase(Locale.ROOT), packageName, skuId, developerPayload,
-            orderReference, origin, subscriptionPeriod, trialPeriod,
-            introductoryPrice?.price?.appcoinsAmount?.toString(), introductoryPrice?.period,
-            introductoryPrice?.cycles))
+            orderReference, origin, subscriptionPeriod, trialPeriod))
         .toByteArray(charset("UTF-8")))
   }
 }

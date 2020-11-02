@@ -160,7 +160,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
                 intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress,
                     iabContractAddress, developerPayload, true, packageName, developerAddress,
                     product.sku, BigDecimal(product.price.appcoinsAmount), product.title,
-                    product.subscriptionPeriod, product.trialPeriod, product.introductoryPrice)
+                    product.subscriptionPeriod, product.trialPeriod)
               } catch (exception: Exception) {
                 if (skuDetails.isEmpty()) {
                   billingMessagesMapper.mapBuyIntentError(

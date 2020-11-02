@@ -3,8 +3,6 @@ package com.appcoins.wallet.bdsbilling
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-data class SellerDomain(val domain: String)
-
 data class SubscriptionsResponse(val items: List<SubscriptionResponse>)
 
 data class SubscriptionResponse(val sku: String,
@@ -13,16 +11,13 @@ data class SubscriptionResponse(val sku: String,
                                 val trialPeriod: String?,
                                 val title: String,
                                 val description: String,
-                                val price: Price,
-                                val intro: Intro? // The subscription introductory object. If null, then no introductory period has been set in the subscription.
+                                val price: Price
 )
 
 data class Price(val currency: String, val value: BigDecimal, val label: String, val symbol: String,
                  val micros: Long, val appc: AppcPrice)
 
 data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
-
-data class Intro(val period: String, val cycles: Int, val price: Price)
 
 data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchaseResponse>)
 

@@ -70,17 +70,8 @@ public class EIPTransactionParser {
               getTokenTransferAmount(payment, tokenInfo.decimals), data.getSkuId(),
               tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
               data.getDomain(), data.getPayload(), null, data.getOrderReference(), null, null,
-              data.getPeriod(), data.getTrialPeriod(),
-              getIntroAppcAmount(data.getIntroAppcAmount(), tokenInfo.decimals),
-              data.getIntroPeriod(), getIntroCycles(data.getIntroCycles())).shouldSendToken(true);
+              data.getPeriod(), data.getTrialPeriod()).shouldSendToken(true);
         });
-  }
-
-  private String getIntroCycles(Integer introCycles) {
-    if (introCycles == null) {
-      return null;
-    }
-    return introCycles.toString();
   }
 
   private String getIabContract(ERC681 payment) {
@@ -140,13 +131,6 @@ public class EIPTransactionParser {
     } catch (NumberFormatException ex) {
       return BigDecimal.ZERO;
     }
-  }
-
-  private BigDecimal getIntroAppcAmount(String introAppcAmount, int decimals) {
-    if (introAppcAmount != null) {
-      return convertToMainMetric(new BigDecimal(introAppcAmount), decimals);
-    }
-    return null;
   }
 
   private String getReceiverAddress(ERC681 payment) {

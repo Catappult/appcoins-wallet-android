@@ -56,11 +56,6 @@ class OneStepTransactionParser(
     }
   }
 
-  private fun getIntroAppcAmount(appcoinsAmount: Double?): BigDecimal? {
-    if (appcoinsAmount == null) return null
-    return BigDecimal(appcoinsAmount)
-  }
-
   private fun getOrderReference(uri: OneStepUri): String? {
     return uri.parameters["order_reference"]
   }

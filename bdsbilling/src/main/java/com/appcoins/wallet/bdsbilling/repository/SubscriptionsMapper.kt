@@ -10,18 +10,10 @@ class SubscriptionsMapper {
 
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
     return ArrayList(subscriptionsResponse.items.map {
-      val intro = it.intro?.let { intro ->
-        Intro(intro.period, intro.cycles,
-            Price(intro.price.currency, intro.price.appc.value.toDouble(),
-                intro.price.value.toDouble(),
-                intro.price.currency, intro.price.currency))
-      }
-      Product(it.sku, it.title, it.description,
+      SubsProduct(it.sku, it.title, it.description,
           Price(it.price.currency, it.price.appc.value.toDouble(), it.price.value.toDouble(),
               it.price.currency, it.price.symbol), BillingSupportedType.INAPP_SUBSCRIPTION.name,
-          it.period, it.trialPeriod,
-          intro
-      )
+          it.period, it.trialPeriod)
     })
   }
 
