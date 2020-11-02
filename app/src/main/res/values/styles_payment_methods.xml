@@ -11,6 +11,11 @@
     <item name="android:background">@drawable/background_card_grey</item>
   </style>
 
+  <style name="PaymentMethods.DialogCardStyle.Landscape">
+    <item name="android:layout_width">@dimen/payment_methods_width_landscape</item>
+    <item name="android:maxHeight">300dp</item>
+  </style>
+
   <style name="PaymentMethods.Carrier" />
 
   <style name="PaymentMethods.Carrier.TextStyle">

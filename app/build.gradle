@@ -136,6 +136,9 @@ android {
     targetCompatibility 1.8
     sourceCompatibility 1.8
   }
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
 }
 
 dependencies {
@@ -227,6 +230,9 @@ dependencies {
   implementation "io.sentry:sentry-android:$project.sentry_version"
 
   implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
+
+  implementation "androidx.core:core-ktx:$project.corektx_version"
+
 
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"

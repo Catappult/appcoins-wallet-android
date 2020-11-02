@@ -98,6 +98,7 @@ class PaymentMethodsPresenter(
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                 selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                 selectedPaymentMethod.label, gamificationLevel)
+            PaymentMethodsView.SelectedPaymentMethod.CARRIER_BILLING -> view.showCarrierBilling()
             PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> {
               view.showMergedAppcoins(gamificationLevel)
             }

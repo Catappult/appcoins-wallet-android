@@ -4,7 +4,9 @@ import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
 @Module
@@ -43,7 +45,7 @@ class CarrierVerifyModule {
                                      applicationInfoLoader: ApplicationInfoLoader): CarrierVerifyPresenter {
     return CarrierVerifyPresenter(
         CompositeDisposable(), view, data, navigator,
-        applicationInfoLoader)
+        applicationInfoLoader, AndroidSchedulers.mainThread(), Schedulers.io())
   }
 }
 

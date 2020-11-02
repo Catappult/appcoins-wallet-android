@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -8,7 +9,9 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
                               private val view: CarrierConfirmView,
                               private val data: CarrierConfirmData,
                               private val navigator: CarrierConfirmNavigator,
-                              private val appInfoLoader: ApplicationInfoLoader) {
+                              private val appInfoLoader: ApplicationInfoLoader,
+                              private val viewScheduler: Scheduler,
+                              private val ioScheduler: Scheduler) {
   fun present() {
     initializeView()
     handleBackButton()

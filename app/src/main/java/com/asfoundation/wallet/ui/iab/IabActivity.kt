@@ -207,7 +207,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showCarrierBilling(paymentType: PaymentType, currency: String?, amount: BigDecimal,
+  override fun showCarrierBilling(currency: String?, amount: BigDecimal,
                                   bonus: BigDecimal) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,

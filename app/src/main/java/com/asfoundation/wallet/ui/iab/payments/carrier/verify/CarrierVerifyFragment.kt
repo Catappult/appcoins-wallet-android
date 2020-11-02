@@ -30,7 +30,6 @@ class CarrierVerifyFragment : DaggerFragment(),
     setupUi()
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
-
   }
 
   override fun onDestroyView() {
@@ -78,6 +77,12 @@ class CarrierVerifyFragment : DaggerFragment(),
 
   override fun nextClickEvent(): Observable<Any> {
     return RxView.clicks(buy_button)
+  }
+
+  override fun setLoading() {
+    content_group.visibility = View.GONE
+    progress_bar.visibility = View.VISIBLE
+    buy_button.isEnabled = false
   }
 
   companion object {

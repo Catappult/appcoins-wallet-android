@@ -25,6 +25,9 @@ import com.asfoundation.wallet.ui.balance.RestoreWalletFragment
 import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmModule
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmViewModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyViewModule
@@ -203,5 +206,10 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(
       modules = [CarrierVerifyModule::class, CarrierVerifyViewModule::class])
-  abstract fun bindCarrierPhoneFragment(): CarrierVerifyFragment
+  abstract fun bindCarrierVerifyFragment(): CarrierVerifyFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(
+      modules = [CarrierConfirmModule::class, CarrierConfirmViewModule::class])
+  abstract fun bindCarrierConfirmFragment(): CarrierConfirmFragment
 }

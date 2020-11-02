@@ -402,9 +402,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         .map { getSelectedPaymentMethod() }
   }
 
-  override fun showCarrierBilling(paymentType: PaymentType, fiatValue: FiatValue,
-                                  bonus: BigDecimal) {
-    iabView.showCarrierBilling(paymentType, fiatValue.currency, fiatValue.amount, bonus)
+  override fun showCarrierBilling() {
+    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue!!)
   }
 
   override fun showPaypal(gamificationLevel: Int) {
@@ -422,7 +421,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showCreditCard(gamificationLevel: Int) {
     // TODO: Pass actual bonus through presenter
-    showCarrierBilling(PaymentType.CARRIER_BILLING, fiatValue, bonusValue!!)
+    showCarrierBilling()
 //    iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
 //        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
   }

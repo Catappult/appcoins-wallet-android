@@ -14,4 +14,6 @@ interface CarrierVerifyView {
   fun backEvent(): Observable<Any>
 
   fun nextClickEvent(): Observable<Any>
+
+  fun setLoading()
 }

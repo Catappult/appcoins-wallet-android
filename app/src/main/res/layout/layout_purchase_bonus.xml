@@ -11,10 +11,10 @@
       android:layout_height="wrap_content"
       android:background="@drawable/bonus_img_background"
       android:gravity="center"
+      android:paddingBottom="6dp"
+      android:paddingEnd="@dimen/normal_margin"
       android:paddingStart="@dimen/normal_margin"
       android:paddingTop="6dp"
-      android:paddingEnd="@dimen/normal_margin"
-      android:paddingBottom="6dp"
       android:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -30,34 +30,33 @@
 
     <TextView
         android:id="@+id/bonus_header_1"
-        style="@style/BonusTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:text="@string/gamification_purchase_header_part_1"
+        style="@style/BonusTextStyle"
         />
 
     <TextView
         android:id="@+id/bonus_value"
-        style="@style/BonusTextStyle.Value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/gamification_purchase_header_part_2"
+        style="@style/BonusTextStyle.Value"
         />
 
   </LinearLayout>
 
   <TextView
       android:id="@+id/bonus_msg"
-      style="@style/TopUpTextStyle.Small.BonusText"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="11dp"
-      android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="11dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="11dp"
       android:gravity="center"
       android:text="@string/gamification_purchase_body"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -66,11 +65,12 @@
       app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
       app:layout_constraintVertical_bias="0"
       app:layout_constraintWidth_default="wrap"
+      style="@style/TopUpTextStyle.Small.BonusText"
       />
 
   <include
-      android:id="@+id/bonus_layout_skeleton"
       layout="@layout/skeleton_rounded_rectangle"
+      android:id="@+id/bonus_layout_skeleton"
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
@@ -79,8 +79,8 @@
       app:layout_constraintTop_toTopOf="@id/bonus_layout"
       />
   <include
-      android:id="@+id/bonus_msg_skeleton"
       layout="@layout/skeleton_rounded_rectangle"
+      android:id="@+id/bonus_msg_skeleton"
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
