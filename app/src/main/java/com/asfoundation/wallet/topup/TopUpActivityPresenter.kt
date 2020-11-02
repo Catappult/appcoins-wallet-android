@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.asf.wallet.R
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.WALLET_VALIDATION_REQUEST_CODE
+import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import io.reactivex.Scheduler
@@ -47,7 +48,11 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
       if (resultCode == WebViewActivity.SUCCESS && data != null) {
         data.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
       } else if (resultCode == WebViewActivity.FAIL) {
-        view.cancelPayment()
+        if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+          cancelPaymentAndShowSupport()
+        } else {
+          view.cancelPayment()
+        }
       }
     } else if (requestCode == WALLET_VALIDATION_REQUEST_CODE) {
       var errorMessage = data?.getIntExtra(IabActivity.ERROR_MESSAGE, 0)
@@ -56,6 +61,14 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
       }
       handleWalletBlockedCheck(errorMessage)
     }
+  }
+
+  private fun cancelPaymentAndShowSupport() {
+    disposables.add(topUpInteractor.showSupport()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnComplete { view.cancelPayment() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletBlockedCheck(@StringRes error: Int) {
