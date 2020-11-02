@@ -63,11 +63,9 @@
       >
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/city"
+        style="@style/BillingAddressInputEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-        android:maxLines="1"
-        android:textSize="14sp"
         tools:text="Mountain View"
         />
   </com.google.android.material.textfield.TextInputLayout>
@@ -86,12 +84,10 @@
       >
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/zipcode"
+        style="@style/BillingAddressInputEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:imeOptions="flagNoExtractUi|flagNoFullscreen"
         android:inputType="number"
-        android:maxLines="1"
-        android:textSize="14sp"
         tools:text="94043"
         />
   </com.google.android.material.textfield.TextInputLayout>
