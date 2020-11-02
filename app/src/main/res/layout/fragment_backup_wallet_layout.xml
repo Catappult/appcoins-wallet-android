@@ -60,7 +60,7 @@
 
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/password_container"
-          style="@style/TextInputLayoutAppearanceOutlinedDense"
+          style="@style/BackupRestoreTextInputLayout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="15dp"
@@ -72,12 +72,10 @@
           >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            style="@style/ThemeOverlay.MaterialComponents.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:padding="16dp"
-            android:textCursorDrawable="@drawable/text_cursor"
             />
       </com.google.android.material.textfield.TextInputLayout>
 
