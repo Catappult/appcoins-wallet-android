@@ -76,6 +76,9 @@ class BackendTransactionRepository(
             localRepository.getRevertedTransaction(wallet, transaction.transactionId)
                 .map { link -> mapper.map(transaction, link) }
                 .onErrorResumeNext {
+                  //if getRevertedTransaction fails it means that the original transaction doesn't
+                  //exist in the database hence we need to fetch it from the remote repo to be able
+                  //to use it in the transactions flow
                   localRepository.getRevertedTxId(wallet, transaction.transactionId)
                       .flatMap { link ->
                         offChainTransactions.getTransactionsById(wallet, link)

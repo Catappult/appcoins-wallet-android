@@ -45,6 +45,5 @@ class OffChainTransactionsRepository(private val api: TransactionsApi,
         @Query("wallet") wallet: String,
         @Query("transaction_list")
         transactions: Array<String>): Single<List<WalletHistory.Transaction>>
-
   }
 }

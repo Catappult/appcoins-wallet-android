@@ -27,9 +27,7 @@ class OffChainTransactions(
   fun getTransactionsById(wallet: String,
                           txId: String): Single<Map<String, WalletHistory.Transaction>> {
     return repository.getTransactionsById(wallet, listOf(txId))
-        .map { transactions ->
-          transactions.associateBy({ it.txID }, { it })
-        }
+        .map { transactions -> transactions.associateBy({ it.txID }, { it }) }
   }
 
   enum class Sort {

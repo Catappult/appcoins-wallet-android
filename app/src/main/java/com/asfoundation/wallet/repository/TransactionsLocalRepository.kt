@@ -54,8 +54,8 @@ class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
 
   override fun getLastLocale() = sharedPreferences.getString(LAST_LOCALE, null)
 
-  override fun insertTransactionLink(txId: String, originalTxId: String) {
-    val transactionLinkId = TransactionLinkIdEntity(null, txId, originalTxId)
+  override fun insertTransactionLink(revertTxId: String, originalTxId: String) {
+    val transactionLinkId = TransactionLinkIdEntity(null, revertTxId, originalTxId)
     transactionLinkIdDao.insert(transactionLinkId)
   }
 
