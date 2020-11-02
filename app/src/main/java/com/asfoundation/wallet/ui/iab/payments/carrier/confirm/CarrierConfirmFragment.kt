@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.SpannedString
@@ -65,7 +66,8 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     payment_methods_header.setTitle(appName)
     payment_methods_header.setIcon(appIcon)
     payment_methods_header.setDescription(skuDescription)
-    payment_methods_header.hidePrice()
+    payment_methods_header.hidePrice(
+        resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
     payment_methods_header.hideSkeleton()
 
     val fiat = "${formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)} $currency"

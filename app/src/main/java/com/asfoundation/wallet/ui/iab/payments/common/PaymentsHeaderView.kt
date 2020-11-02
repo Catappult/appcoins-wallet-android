@@ -42,9 +42,14 @@ class PaymentsHeaderView : FrameLayout {
     appc_price.visibility = View.VISIBLE
   }
 
-  fun hidePrice() {
-    fiat_price.visibility = View.GONE
-    appc_price.visibility = View.GONE
+  fun hidePrice(remove: Boolean) {
+    if (remove) {
+      fiat_price.visibility = View.GONE
+      appc_price.visibility = View.GONE
+    } else {
+      fiat_price.visibility = View.INVISIBLE
+      appc_price.visibility = View.INVISIBLE
+    }
   }
 
   fun setIcon(icon: Drawable) {
