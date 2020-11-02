@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository
 
 import android.annotation.SuppressLint
 import com.asfoundation.wallet.entity.WalletHistory
+import io.reactivex.Single
 import retrofit2.HttpException
 
 class OffChainTransactions(
@@ -21,6 +22,14 @@ class OffChainTransactions(
       return body.result
     }
     throw HttpException(transactions)
+  }
+
+  fun getTransactionsById(wallet: String,
+                          txId: String): Single<Map<String, WalletHistory.Transaction>> {
+    return repository.getTransactionsById(wallet, listOf(txId))
+        .map { transactions ->
+          transactions.associateBy({ it.txID }, { it })
+        }
   }
 
   enum class Sort {

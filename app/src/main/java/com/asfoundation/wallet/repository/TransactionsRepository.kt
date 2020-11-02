@@ -30,4 +30,6 @@ interface TransactionsRepository {
   fun getRevertedTransaction(wallet: String, txId: String): Single<TransactionEntity>
 
   fun getRevertTransaction(wallet: String, txId: String): Single<TransactionEntity>
+
+  fun getRevertedTxId(wallet: String, txId: String): Single<String>
 }

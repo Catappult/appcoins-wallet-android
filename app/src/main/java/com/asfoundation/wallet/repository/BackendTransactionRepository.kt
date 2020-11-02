@@ -75,7 +75,19 @@ class BackendTransactionRepository(
           if (isRevertTransaction(transaction.type)) {
             localRepository.getRevertedTransaction(wallet, transaction.transactionId)
                 .map { link -> mapper.map(transaction, link) }
-                .onErrorReturn { mapper.map(transaction) }
+                .onErrorResumeNext {
+                  localRepository.getRevertedTxId(wallet, transaction.transactionId)
+                      .flatMap { link ->
+                        offChainTransactions.getTransactionsById(wallet, link)
+                            .map { result -> result[link] }
+                            .map { revertedTx -> transactionsMapper.map(revertedTx, wallet) }
+                            .doOnSuccess { revertedTx ->
+                              localRepository.insertAll(listOf(revertedTx))
+                            }
+                            .map { revertedTx -> mapper.map(transaction, revertedTx) }
+                      }
+                      .onErrorReturn { mapper.map(transaction) }
+                }
           } else {
             localRepository.getRevertTransaction(wallet, transaction.transactionId)
                 .map { link -> mapper.map(transaction, link) }
