@@ -4,6 +4,7 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Completable
 import io.reactivex.Observable
+import java.io.Serializable
 import java.math.BigDecimal
 
 interface TransferFragmentView {
@@ -47,7 +48,8 @@ interface TransferFragmentView {
 
   fun showNoNetworkError()
 
-  data class TransferData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
+  data class TransferData(val walletAddress: String, val currency: Currency,
+                          val amount: BigDecimal) : Serializable
 
   enum class Currency {
     APPC_C, APPC, ETH

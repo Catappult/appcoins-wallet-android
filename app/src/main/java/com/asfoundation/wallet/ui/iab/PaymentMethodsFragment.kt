@@ -5,23 +5,17 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
-import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -80,22 +74,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
-
-  @Inject
-  lateinit var analytics: BillingAnalytics
-
-  @Inject
-  lateinit var analyticsSetup: RakamAnalytics
-
-  @Inject
-  lateinit var amplitudeAnalytics: AmplitudeAnalytics
-
-  @Inject
-  lateinit var bdsPendingTransactionService: BdsPendingTransactionService
-
-  @Inject
-  lateinit var billing: Billing
+  lateinit var paymentMethodsAnalytics: PaymentMethodsAnalytics
 
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
@@ -107,16 +86,15 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var paymentMethodsInteract: PaymentMethodsInteract
+  lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
+
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
-  private lateinit var fiatValue: FiatValue
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var paymentMethodClick: PublishRelay<Int>
   private lateinit var paymentMethodsAdapter: PaymentMethodsAdapter
   private val paymentMethodList: MutableList<PaymentMethod> = ArrayList()
   private var setupSubject: PublishSubject<Boolean>? = null
-  private var onBackPressedSubject: PublishSubject<Boolean>? = null
   private var preSelectedPaymentMethod: BehaviorSubject<PaymentMethod>? = null
   private var isPreSelected = false
   private var itemAlreadyOwnedError = false
@@ -134,14 +112,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     setupSubject = PublishSubject.create()
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
-    onBackPressedSubject = PublishSubject.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
-    presenter = PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), inAppPurchaseInteractor.billingMessagesMapper,
-        bdsPendingTransactionService, billing, analytics, analyticsSetup, amplitudeAnalytics, isBds,
-        developerPayload,
-        uri, transactionBuilder!!, paymentMethodsMapper, transactionValue.toDouble(), formatter,
-        logger, paymentMethodsInteract)
+    val paymentMethodsData = PaymentMethodsData(appPackage, isBds, getDeveloperPayload(), getUri(),
+        getTransactionValue())
+    presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
+        Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -151,7 +127,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     setupAppNameAndIcon()
 
     setBuyButtonText()
-    presenter.present()
+    presenter.present(savedInstanceState)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -162,6 +138,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError)
+    presenter.onSavedInstance(outState)
   }
 
   override fun onDestroyView() {
@@ -170,20 +147,17 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     super.onDestroyView()
   }
 
-  override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
-                                  currency: String, paymentMethodId: String, fiatAmount: String,
-                                  appcAmount: String, appcEnabled: Boolean,
-                                  creditsEnabled: Boolean) {
-    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
+  override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, currency: String,
+                                  paymentMethodId: String, fiatAmount: String, appcAmount: String,
+                                  appcEnabled: Boolean, creditsEnabled: Boolean) {
+    updateHeaderInfo(currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
-    presenter.sendPaymentMethodsEvents()
 
     setupSubject!!.onNext(true)
   }
 
   override fun onResume() {
     val firstRun = paymentMethodList.isEmpty() && !isPreSelected
-    if (firstRun.not()) showPaymentsSkeletonLoading()
     presenter.onResume(firstRun)
     super.onResume()
   }
@@ -203,9 +177,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private fun updateHeaderInfo(fiatValue: FiatValue, currency: String,
-                               fiatAmount: String, appcAmount: String) {
-    this.fiatValue = fiatValue
+  private fun updateHeaderInfo(currency: String, fiatAmount: String, appcAmount: String) {
     val appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     val fiatPrice = "$fiatAmount $currency"
     appc_price.text = appcPrice
@@ -222,15 +194,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         ?.let { getString(it.stringId) } ?: paymentMethod.label
   }
 
-  override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                            currency: String, fiatAmount: String,
-                                            appcAmount: String, isBonusActive: Boolean) {
+  override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, currency: String,
+                                            fiatAmount: String, appcAmount: String,
+                                            isBonusActive: Boolean) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
-    updateHeaderInfo(fiatValue, currency, fiatAmount, appcAmount)
+    updateHeaderInfo(currency, fiatAmount, appcAmount)
 
     setupPaymentMethod(paymentMethod, isBonusActive)
-
-    presenter.sendPreSelectedPaymentMethodsEvents()
 
     setupSubject!!.onNext(true)
   }
@@ -296,17 +266,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     payment_method_main_view.visibility = View.GONE
     itemAlreadyOwnedError = true
     iabView.disableBack()
-    val view = view
-    if (view != null) {
-      view.isFocusableInTouchMode = true
-      view.requestFocus()
-      view.setOnKeyListener(View.OnKeyListener { _: View?, keyCode: Int, keyEvent: KeyEvent ->
-        if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-          onBackPressedSubject?.onNext(itemAlreadyOwnedError)
-        }
-        true
-      })
-    }
     error_dismiss.text = getString(R.string.ok)
     error_message.visibility = View.VISIBLE
     generic_error_layout.error_message.setText(
@@ -341,6 +300,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun hideLoading() {
     if (processing_loading.visibility != View.VISIBLE) {
+      payment_methods.visibility = View.VISIBLE
       removeSkeletons()
       buy_button.isEnabled = true
       if (isPreSelected) {
@@ -356,15 +316,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  override fun getCancelClick(): Observable<PaymentMethod> {
+  override fun getCancelClick(): Observable<Any> {
     return RxView.clicks(cancel_button)
-        .map { getSelectedPaymentMethod() }
   }
 
-  private fun getSelectedPaymentMethod(): PaymentMethod {
+  override fun getSelectedPaymentMethod(hasPreSelectedPaymentMethod: Boolean): PaymentMethod {
     if (!isPreSelected && ::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
-    val hasPreSelectedPaymentMethod =
-        inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
     val checkedButtonId =
         if (::paymentMethodsAdapter.isInitialized) paymentMethodsAdapter.getSelectedItem() else -1
     return if (paymentMethodList.isNotEmpty() && !isPreSelected && checkedButtonId != -1) {
@@ -389,6 +346,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
+  override fun showAuthenticationActivity() = iabView.showAuthenticationActivity()
+
   override fun setupUiCompleted() = setupSubject!!
 
   override fun showProcessingLoadingDialog() {
@@ -396,25 +355,26 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     processing_loading.visibility = View.VISIBLE
   }
 
-  override fun getBuyClick(): Observable<PaymentMethod> {
+  override fun getBuyClick(): Observable<Any> {
     return RxView.clicks(buy_button)
-        .map { getSelectedPaymentMethod() }
   }
 
-  override fun showPaypal(gamificationLevel: Int) {
+  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel)
   }
 
-  override fun showAdyen(fiatValue: FiatValue, paymentType: PaymentType, iconUrl: String?,
+
+  override fun showAdyen(fiatAmount: BigDecimal, fiatCurrency: String, paymentType: PaymentType,
+                         iconUrl: String?,
                          gamificationLevel: Int) {
     if (!itemAlreadyOwnedError) {
-      iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds, paymentType,
-          bonusMessageValue, true, iconUrl, gamificationLevel)
+      iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType, bonusMessageValue,
+          true, iconUrl, gamificationLevel)
     }
   }
 
-  override fun showCreditCard(gamificationLevel: Int) {
+  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel)
   }
@@ -445,9 +405,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         PaymentMethod::id))
   }
 
-  override fun getMorePaymentMethodsClicks(): Observable<PaymentMethod> {
+  override fun getMorePaymentMethodsClicks(): Observable<Any> {
     return RxView.clicks(more_payment_methods)
-        .map { getSelectedPaymentMethod() }
   }
 
   override fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
@@ -476,7 +435,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
   }
 
-  override fun onBackPressed() = onBackPressedSubject!!
+  override fun onBackPressed(): Observable<Boolean> {
+    return iabView.backButtonPress()
+        .map { itemAlreadyOwnedError }
+  }
 
   override fun showNext() = buy_button.setText(R.string.action_next)
 
@@ -487,7 +449,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int) {
+  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue) {
     iabView.showMergedAppcoins(fiatValue.amount, fiatValue.currency, bonusMessageValue,
         isBds, isDonation, gamificationLevel)
   }
@@ -529,6 +491,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     removeBonusSkeletons()
   }
 
+  override fun onAuthenticationResult(): Observable<Boolean> {
+    return iabView.onAuthenticationResult()
+  }
+
   private fun setupAppNameAndIcon() {
     if (isDonation) {
       app_sku_description.text = resources.getString(R.string.item_donation)
@@ -537,10 +503,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       compositeDisposable.add(Single.defer { Single.just(appPackage) }
           .observeOn(Schedulers.io())
           .map { packageName ->
-            Pair(
-                getApplicationName(packageName),
-                context!!.packageManager
-                    .getApplicationIcon(packageName))
+            Pair(getApplicationName(packageName),
+                context!!.packageManager.getApplicationIcon(packageName))
           }
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe({ setHeaderInfo(it.first, it.second) }) { it.printStackTrace() })
@@ -584,14 +548,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private val transactionValue: BigDecimal by lazy {
-    if (arguments!!.containsKey(IabActivity.TRANSACTION_AMOUNT)) {
-      arguments!!.getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
-    } else {
-      throw java.lang.IllegalArgumentException("transaction value not found")
-    }
-  }
-
   private val productName: String? by lazy {
     if (arguments!!.containsKey(IabActivity.PRODUCT_NAME)) {
       arguments!!.getString(IabActivity.PRODUCT_NAME)
@@ -608,19 +564,27 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private val developerPayload: String by lazy {
-    if (arguments!!.containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
+  private fun getDeveloperPayload(): String? {
+    return if (arguments!!.containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
       arguments!!.getString(IabActivity.DEVELOPER_PAYLOAD, "")
     } else {
       throw IllegalArgumentException("developer payload data not found")
     }
   }
 
-  private val uri: String by lazy {
-    if (arguments!!.containsKey(IabActivity.URI)) {
+  private fun getUri(): String? {
+    return if (arguments!!.containsKey(IabActivity.URI)) {
       arguments!!.getString(IabActivity.URI, "")
     } else {
       throw IllegalArgumentException("uri data not found")
+    }
+  }
+
+  private fun getTransactionValue(): BigDecimal {
+    return if (arguments!!.containsKey(IabActivity.TRANSACTION_AMOUNT)) {
+      arguments!!.getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
+    } else {
+      throw java.lang.IllegalArgumentException("transaction value not found")
     }
   }
 

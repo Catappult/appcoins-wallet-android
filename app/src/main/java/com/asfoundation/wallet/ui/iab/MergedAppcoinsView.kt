@@ -39,4 +39,10 @@ interface MergedAppcoinsView {
                              appcDisabledReason: Int?)
 
   fun toggleSkeletons(show: Boolean)
+
+  fun showAuthenticationActivity()
+
+  fun onAuthenticationResult(): Observable<Boolean>
+
+  fun showPaymentMethodsView()
 }

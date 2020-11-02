@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.topup
 
+import android.os.Bundle
 import android.util.Log
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -22,21 +22,23 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val interactor: TopUpInteractor,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler,
+                             private val disposables: CompositeDisposable,
                              private val topUpAnalytics: TopUpAnalytics,
                              private val formatter: CurrencyFormatUtils,
-                             private val selectedValue: String?,
-                             private val logger: Logger) {
+                             private val selectedValue: String?) {
 
-  private val disposables: CompositeDisposable = CompositeDisposable()
-  private var gamificationLevel = 0
+  private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
 
   companion object {
-    private val TAG = TopUpFragmentPresenter::class.java.name
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
+    private const val GAMIFICATION_LEVEL = "gamification_level"
   }
 
-  fun present(appPackage: String) {
+  fun present(appPackage: String, savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
+    }
     setupUi()
     handleChangeCurrencyClick()
     handleNextClick()
@@ -123,36 +125,26 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleNextClick() {
-    disposables.add(
-        view.getNextClick()
-            .flatMap { topUpData ->
-              interactor.getLimitTopUpValues()
-                  .toObservable()
-                  .filter {
-                    isCurrencyValid(topUpData.currency) && isValueInRange(it,
-                        topUpData.currency.fiatValue.toDouble()) && topUpData.paymentMethod != null
-                  }
-                  .subscribeOn(networkScheduler)
-                  .observeOn(viewScheduler)
-                  .doOnNext {
-                    topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
-                        "next", topUpData.paymentMethod!!.paymentType.name)
-                    navigateToPayment(topUpData, gamificationLevel)
-                  }
-            }
-            .subscribe({}, { handleError(it) }))
+    disposables.add(view.getNextClick()
+        .throttleFirst(500, TimeUnit.MILLISECONDS)
+        .observeOn(networkScheduler)
+        .switchMap { topUpData ->
+          interactor.getLimitTopUpValues()
+              .toObservable()
+              .filter {
+                isCurrencyValid(topUpData.currency) && isValueInRange(it,
+                    topUpData.currency.fiatValue.toDouble()) && topUpData.paymentMethod != null
+              }
+              .observeOn(viewScheduler)
+              .doOnNext {
+                topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
+                    "next", topUpData.paymentMethod!!.paymentType.name)
+                navigateToPayment(topUpData, cachedGamificationLevel)
+              }
+        }
+        .subscribe({}, { handleError(it) }))
   }
 
-  private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
-    val paymentMethod = topUpData.paymentMethod!!
-    when (paymentMethod.paymentType) {
-      PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(
-          paymentMethod.paymentType, mapTopUpPaymentData(topUpData, gamificationLevel))
-      PaymentType.LOCAL_PAYMENTS ->
-        activity?.navigateToLocalPayment(paymentMethod.paymentId, paymentMethod.icon,
-            paymentMethod.label, mapTopUpPaymentData(topUpData, gamificationLevel))
-    }
-  }
 
   private fun handleManualAmountChange(packageName: String) {
     disposables.add(view.getEditTextChanges()
@@ -251,7 +243,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             view.removeBonus()
           }
           view.setNextButtonState(true)
-          gamificationLevel = it.level
+          cachedGamificationLevel = it.level
         }
         .ignoreElements()
   }
@@ -367,9 +359,24 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
+  private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
+    val paymentMethod = topUpData.paymentMethod!!
+    when (paymentMethod.paymentType) {
+      PaymentType.CARD, PaymentType.PAYPAL -> activity?.navigateToAdyenPayment(
+          paymentMethod.paymentType, mapTopUpPaymentData(topUpData, gamificationLevel))
+      PaymentType.LOCAL_PAYMENTS ->
+        activity?.navigateToLocalPayment(paymentMethod.paymentId, paymentMethod.icon,
+            paymentMethod.label, mapTopUpPaymentData(topUpData, gamificationLevel))
+    }
+  }
+
   private fun mapTopUpPaymentData(topUpData: TopUpData, gamificationLevel: Int): TopUpPaymentData {
     return TopUpPaymentData(topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode,
         topUpData.selectedCurrencyType, topUpData.bonusValue, topUpData.currency.fiatCurrencySymbol,
         topUpData.currency.appcValue, "TOPUP", gamificationLevel)
+  }
+
+  fun onSavedInstance(outState: Bundle) {
+    outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
   }
 }

@@ -14,6 +14,7 @@ import javax.inject.Singleton
       ActivityBuilders::class,
       FragmentBuilders::class,
       InteractorModule::class,
+      AnalyticsModule::class,
       ServiceModule::class,
       BroadcastReceiverBuilders::class,
       ServiceBuilders::class])

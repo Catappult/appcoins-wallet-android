@@ -60,7 +60,6 @@ public class SendActivity extends BaseActivity {
 
     setContentView(R.layout.activity_send);
     toolbar();
-
     toInputLayout = findViewById(R.id.to_input_layout);
     toAddressText = findViewById(R.id.send_to_address);
     amountInputLayout = findViewById(R.id.amount_input_layout);
@@ -160,7 +159,6 @@ public class SendActivity extends BaseActivity {
     if (!hasError) {
       toInputLayout.setErrorEnabled(false);
       amountInputLayout.setErrorEnabled(false);
-
       viewModel.openConfirmation(this);
     }
   }

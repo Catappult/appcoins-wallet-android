@@ -118,4 +118,9 @@ abstract class ActivityBuilders {
   @ActivityScope
   @ContributesAndroidInjector
   abstract fun bindOneStepPaymentReceiver(): OneStepPaymentReceiver
+
+  @ActivityScope
+  @ContributesAndroidInjector
+  internal abstract fun bindAuthenticationPromptActivity(): AuthenticationPromptActivity
+
 }

@@ -22,9 +22,9 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusService
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
-import com.asfoundation.wallet.ui.iab.WebViewActivity.Companion.SUCCESS
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
@@ -35,6 +35,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_iab.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.*
@@ -60,64 +61,40 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
   private var isBds: Boolean = false
+  private var backButtonPress: PublishRelay<Any>? = null
   private var results: PublishRelay<Uri>? = null
   private var developerPayload: String? = null
   private var uri: String? = null
-  private var firstImpression = true
+  private var authenticationResultSubject: PublishSubject<Boolean>? = null
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
+    backButtonPress = PublishRelay.create()
     results = PublishRelay.create()
+    authenticationResultSubject = PublishSubject.create()
     setContentView(R.layout.activity_iab)
     isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
     uri = intent.getStringExtra(URI)
     transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
     isBackEnable = true
-    if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
-      firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
-    }
-    presenter =
-        IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), billingAnalytics, firstImpression, iabInteract,
-            walletBlockedInteract, logger)
-    if (savedInstanceState == null) showPaymentMethodsView()
+    presenter = IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
+        CompositeDisposable(), billingAnalytics, iabInteract, logger, transaction)
+    presenter.present(savedInstanceState)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == WEB_VIEW_REQUEST_CODE) {
-      if (resultCode == WebViewActivity.FAIL) {
-        if(data?.dataString?.contains("codapayments") != true){
-          sendPayPalConfirmationEvent("cancel")
-        }
-        showPaymentMethodsView()
-      } else if (resultCode == SUCCESS) {
-        if (data?.scheme?.contains("adyencheckout") == true) {
-          sendPaypalUrlEvent(data)
-          if (getQueryParameter(data, "resultCode") == "cancelled")
-            sendPayPalConfirmationEvent("cancel")
-          else
-            sendPayPalConfirmationEvent("buy")
-        }
-        results!!.accept(Objects.requireNonNull(data!!.data, "Intent data cannot be null!"))
-      }
-    } else if (requestCode == WALLET_VALIDATION_REQUEST_CODE) {
-      var errorMessage = data?.getIntExtra(ERROR_MESSAGE, 0)
-      if (errorMessage == null || errorMessage == 0) {
-        errorMessage = R.string.unknown_error
-
-      }
-      presenter.handleWalletBlockedCheck(errorMessage)
-    }
+    presenter.onActivityResult(requestCode, resultCode, data)
   }
 
   override fun onResume() {
     super.onResume()
     //The present is set here due to the Can not perform this action after onSaveInstanceState
     //This assures that doesn't
-    presenter.present()
+    presenter.onResume()
   }
 
   override fun onBackPressed() {
@@ -127,6 +104,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         close(this)
       }
       super.onBackPressed()
+    } else {
+      backButtonPress?.accept(Unit)
     }
   }
 
@@ -231,7 +210,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
-    presenter.handlePurchaseStartAnalytics(transaction)
     layout_error.visibility = View.GONE
     fragment_container.visibility = View.VISIBLE
     supportFragmentManager.beginTransaction()
@@ -352,29 +330,24 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
+  override fun backButtonPress() = backButtonPress!!
+
+  override fun successWebViewResult(data: Uri?) {
+    results!!.accept(Objects.requireNonNull(data, "Intent data cannot be null!"))
+  }
+
+  override fun authenticationResult(success: Boolean) {
+    authenticationResultSubject?.onNext(success)
+  }
+
   override fun onPause() {
     presenter.stop()
     super.onPause()
   }
 
-  private fun sendPayPalConfirmationEvent(action: String) {
-    billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
-        transaction?.amount()
-            .toString(), "paypal",
-        transaction?.type, action)
-  }
-
-  private fun sendPaypalUrlEvent(data: Intent) {
-    val amountString = transaction?.amount()
-        .toString()
-    billingAnalytics.sendPaypalUrlEvent(transaction?.domain, transaction?.skuId,
-        amountString, "PAYPAL", getQueryParameter(data, "type"),
-        getQueryParameter(data, "resultCode"), data.dataString)
-  }
-
-  private fun getQueryParameter(data: Intent, parameter: String): String? {
-    return Uri.parse(data.dataString)
-        .getQueryParameter(parameter)
+  override fun onDestroy() {
+    backButtonPress = null
+    super.onDestroy()
   }
 
   private fun getSkuDescription(): String {
@@ -387,6 +360,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
+  override fun showAuthenticationActivity() {
+    val intent = AuthenticationPromptActivity.newIntent(this)
+        .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
+  }
+
+  override fun onAuthenticationResult(): Observable<Boolean> {
+    return authenticationResultSubject!!
+  }
+
   companion object {
 
     const val BILLING_ADDRESS_REQUEST_CODE = 1236
@@ -395,7 +378,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val URI = "uri"
     const val RESPONSE_CODE = "RESPONSE_CODE"
     const val RESULT_USER_CANCELED = 1
-    const val FIRST_IMPRESSION = "first_impression"
     const val APP_PACKAGE = "app_package"
     const val TRANSACTION_EXTRA = "transaction_extra"
     const val PRODUCT_NAME = "product_name"
@@ -407,6 +389,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val WALLET_VALIDATION_REQUEST_CODE = 12346
+    const val AUTHENTICATION_REQUEST_CODE = 33
     const val IS_BDS_EXTRA = "is_bds_extra"
     const val ERROR_MESSAGE = "error_message"
 
@@ -426,6 +409,5 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
             putExtra(APP_PACKAGE, transaction.domain)
           }
     }
-
   }
 }
