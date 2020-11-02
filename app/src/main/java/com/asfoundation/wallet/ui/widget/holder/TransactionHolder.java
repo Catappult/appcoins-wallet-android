@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class TransactionHolder extends BinderViewHolder<Transaction>
@@ -235,20 +236,25 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
   private void setRevertMessage() {
     String message = null;
-    Transaction linked = transaction.getLinkedTx()
-        .get(0);
-    if (transaction.getType() == Transaction.TransactionType.BONUS_REVERT) {
-      message =
-          getString(R.string.transaction_type_reverted_bonus_body, getDate(linked.getTimeStamp()));
-    } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
-      message = getString(R.string.transaction_type_reverted_purchase_body,
-          getDate(linked.getTimeStamp()));
-    } else if (transaction.getType() == Transaction.TransactionType.TOP_UP_REVERT) {
-      message =
-          getString(R.string.transaction_type_reverted_topup_body, getDate(linked.getTimeStamp()));
+    List<Transaction> links = transaction.getLinkedTx();
+    if (links == null || links.isEmpty()) {
+      revertMessage.setVisibility(View.GONE);
+    } else {
+      Transaction linkedTx = links.get(0);
+      if (transaction.getType() == Transaction.TransactionType.BONUS_REVERT) {
+        message = getString(R.string.transaction_type_reverted_bonus_body,
+            getDate(linkedTx.getTimeStamp()));
+      } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
+        message = getString(R.string.transaction_type_reverted_purchase_body,
+            getDate(linkedTx.getTimeStamp()));
+      } else if (transaction.getType() == Transaction.TransactionType.TOP_UP_REVERT) {
+        message = getString(R.string.transaction_type_reverted_topup_body,
+            getDate(linkedTx.getTimeStamp()));
+      }
+
+      revertMessage.setText(message);
+      revertMessage.setVisibility(View.VISIBLE);
     }
-    revertMessage.setText(message);
-    revertMessage.setVisibility(View.VISIBLE);
   }
 
   private String getDate(long timeStampInSec) {
