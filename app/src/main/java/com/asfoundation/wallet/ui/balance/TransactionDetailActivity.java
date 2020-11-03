@@ -375,7 +375,7 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void setupRevertedUi(Transaction transaction, boolean isRevertTransaction,
+  private void setupRevertedUi(Transaction linkTransaction, boolean isRevertTransaction,
       boolean isRevertedTransaction) {
 
     View revertView = findViewById(R.id.layout_revert_transaction);
@@ -391,17 +391,17 @@ public class TransactionDetailActivity extends BaseActivity {
       icn.setOnClickListener(view -> viewModel.showSupportScreen());
 
       revertedView.setOnClickListener(
-          view -> viewModel.showDetails(view.getContext(), transaction));
+          view -> viewModel.showDetails(view.getContext(), linkTransaction));
 
       NetworkInfo networkInfo = viewModel.defaultNetwork()
           .getValue();
 
       String symbol =
-          transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
-              : transaction.getCurrency();
+          linkTransaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
+              : linkTransaction.getCurrency();
 
       String icon = null;
-      TransactionDetails details = transaction.getDetails();
+      TransactionDetails details = linkTransaction.getDetails();
 
       if (details != null) {
         icon = details.getIcon()
@@ -413,20 +413,20 @@ public class TransactionDetailActivity extends BaseActivity {
       View button = revertedView.findViewById(R.id.more_detail);
       TextView address = revertedView.findViewById(R.id.address);
 
-      switch (transaction.getType()) {
+      switch (linkTransaction.getType()) {
         case IAP_OFFCHAIN:
           button.setVisibility(View.VISIBLE);
           typeIcon = R.drawable.ic_transaction_iab;
           button.setOnClickListener(
-              view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+              view -> viewModel.showMoreDetailsBds(view.getContext(), linkTransaction));
           address.setText(
-              details.getSourceName() == null ? transaction.getTo() : details.getSourceName());
+              details.getSourceName() == null ? linkTransaction.getTo() : details.getSourceName());
           break;
         case BONUS:
           button.setVisibility(View.VISIBLE);
           typeIcon = -1;
           button.setOnClickListener(
-              view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+              view -> viewModel.showMoreDetailsBds(view.getContext(), linkTransaction));
           symbol = getString(R.string.p2p_send_currency_appc_c);
           address.setText(R.string.transaction_type_bonus);
           break;
@@ -434,15 +434,15 @@ public class TransactionDetailActivity extends BaseActivity {
           typeIcon = R.drawable.transaction_type_top_up;
           button.setVisibility(View.VISIBLE);
           button.setOnClickListener(
-              view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+              view -> viewModel.showMoreDetailsBds(view.getContext(), linkTransaction));
           symbol = getString(R.string.p2p_send_currency_appc_c);
           address.setText(R.string.topup_home_button);
           break;
       }
       String sourceDescription = details.getDescription() == null ? "" : details.getDescription();
 
-      setupRevertedUi(icon, typeIcon, getValue(symbol), symbol, getDate(transaction.getTimeStamp()),
-          sourceDescription);
+      setupRevertedUi(icon, typeIcon, getValue(symbol), symbol,
+          getDate(linkTransaction.getTimeStamp()), sourceDescription);
     } else if (isRevertedTransaction) {
       revertView.setVisibility(View.VISIBLE);
       revertedView.setVisibility(View.GONE);
@@ -454,8 +454,8 @@ public class TransactionDetailActivity extends BaseActivity {
       logo.setOnClickListener(view -> viewModel.showSupportScreen());
       icn.setOnClickListener(view -> viewModel.showSupportScreen());
 
-      String date = getDate(transaction.getTimeStamp());
-      switch (transaction.getType()) {
+      String date = getDate(linkTransaction.getTimeStamp());
+      switch (linkTransaction.getType()) {
         case TOP_UP_REVERT:
           body.setText(getString(R.string.transaction_type_reverted_topup_body, date));
           break;
