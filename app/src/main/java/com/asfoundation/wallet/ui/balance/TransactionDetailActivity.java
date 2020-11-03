@@ -168,6 +168,9 @@ public class TransactionDetailActivity extends BaseActivity {
         typeIcon = R.drawable.ic_transaction_iab;
         revertedDescription = R.string.transaction_type_reverted_purchase_title;
         descriptionColor = R.color.green;
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case IAP_OFFCHAIN:
         button.setVisibility(View.VISIBLE);
@@ -184,6 +187,9 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.transaction_type_bonus;
         typeIcon = -1;
         id = getString(R.string.transaction_type_reverted_bonus_title);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case BONUS:
         button.setVisibility(View.VISIBLE);
@@ -208,6 +214,9 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.topup_title;
         typeIcon = R.drawable.transaction_type_top_up;
         id = getString(R.string.transaction_type_reverted_topup_title);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case TOP_UP:
         typeStr = R.string.topup_title;
@@ -410,7 +419,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
       @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
 
-      View button = revertedView.findViewById(R.id.more_detail);
+      View button = revertedView.findViewById(R.id.reverted_more_detail);
       TextView address = revertedView.findViewById(R.id.address);
 
       switch (linkTransaction.getType()) {

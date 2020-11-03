@@ -196,7 +196,7 @@
           />
 
       <Button
-          android:id="@+id/more_detail"
+          android:id="@+id/reverted_more_detail"
           style="@style/TransactionDetailsButtonStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
