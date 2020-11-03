@@ -22,7 +22,7 @@ class TransactionMapper {
         listOf(mapLink(link, transaction)))
   }
 
-  fun mapLink(transaction: TransactionEntity, link: TransactionEntity): Transaction {
+  private fun mapLink(transaction: TransactionEntity, link: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
