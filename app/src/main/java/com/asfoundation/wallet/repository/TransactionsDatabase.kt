@@ -73,6 +73,7 @@ abstract class TransactionsDatabase : RoomDatabase() {
             "CREATE TABLE IF NOT EXISTS transaction_link_id (id INTEGER PRIMARY KEY AUTOINCREMENT, transactionId TEXT NOT NULL, linkTransactionId TEXT NOT NULL)")
         database.execSQL(
             "CREATE UNIQUE INDEX IF NOT EXISTS index_transaction_link_id_transactionId_linkTransactionId ON transaction_link_id (transactionId, linkTransactionId)")
+        database.execSQL("DELETE FROM TransactionEntity WHERE processedTime >= 1583280000000")
       }
     }
   }
