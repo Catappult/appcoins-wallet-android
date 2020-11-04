@@ -534,6 +534,12 @@
     <item name="android:textSize">16sp</item>
   </style>
 
+  <style name="PasswordTextInputLayout" parent="BackupRestoreTextInputLayout">
+    <item name="android:hint">@string/backup_password</item>
+    <item name="passwordToggleEnabled">true</item>
+    <item name="passwordToggleTint">@color/password_toggle_selector</item>
+  </style>
+
   <style name="BillingAddressInputEditText">
     <item name="android:imeOptions">flagNoExtractUi|flagNoFullscreen</item>
     <item name="android:maxLines">1</item>
@@ -745,4 +751,8 @@
     <item name="android:textSize">14sp</item>
   </style>
 
+  <style name="PasswordEditText">
+    <item name="android:inputType">textPassword</item>
+    <item name="android:imeOptions">flagNoFullscreen|flagNoExtractUi</item>
+  </style>
 </resources>
