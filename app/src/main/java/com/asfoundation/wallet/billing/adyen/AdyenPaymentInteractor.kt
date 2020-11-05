@@ -5,7 +5,11 @@ import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
+import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
@@ -174,12 +178,12 @@ class AdyenPaymentInteractor(
 
   fun getWalletAddress() = walletService.getWalletAddress()
 
-  private fun isEndingState(status: TransactionResponse.Status): Boolean {
-    return (status == TransactionResponse.Status.COMPLETED
-        || status == TransactionResponse.Status.FAILED
-        || status == TransactionResponse.Status.CANCELED
-        || status == TransactionResponse.Status.INVALID_TRANSACTION
-        || status == TransactionResponse.Status.FRAUD)
+  private fun isEndingState(status: TransactionStatus): Boolean {
+    return (status == TransactionStatus.COMPLETED
+        || status == TransactionStatus.FAILED
+        || status == TransactionStatus.CANCELED
+        || status == TransactionStatus.INVALID_TRANSACTION
+        || status == TransactionStatus.FRAUD)
   }
 
   private fun isInApp(type: String): Boolean {

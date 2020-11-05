@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PaymentMethods.DialogCardStyle.Landscape"
+    android:layout_height="300dp"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/error_icon"
+      android:layout_width="66dp"
+      android:layout_height="66dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/adyen_error_animation"
+      />
+
+
+  <TextView
+      android:id="@+id/error_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="sans-serif"
+      android:letterSpacing="0.03"
+      android:lineSpacingExtra="4sp"
+      android:text="@string/error_general"
+      android:textAlignment="center"
+      android:textColor="@color/btn_light_enabled_color"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/error_message"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/error_icon"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/error_message"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:textAlignment="center"
+      android:textColor="@color/pending_payment_text_color"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toTopOf="@+id/more_payment_methods"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/error_title"
+      app:layout_constraintVertical_bias="1"
+      tools:text="@string/purchase_card_error_general_2"
+      />
+
+
+  <Button
+      android:id="@+id/more_payment_methods"
+      style="@style/PaymentMethods.Error.OtherPaymentsButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/purchase_more_payment_methods_button"
+      app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/error_message"
+      />
+
+  <com.asfoundation.wallet.ui.iab.payments.common.SeparatorView
+      android:id="@+id/bottom_separator_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:line_type="solid"
+      />
+
+  <include
+      android:id="@+id/dialog_buy_buttons"
+      layout="@layout/dialog_buy_buttons_payment_methods"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

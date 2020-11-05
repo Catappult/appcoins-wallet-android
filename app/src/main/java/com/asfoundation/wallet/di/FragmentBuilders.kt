@@ -31,6 +31,9 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmVie
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyViewModule
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorViewModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
@@ -212,4 +215,9 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector(
       modules = [CarrierConfirmModule::class, CarrierConfirmViewModule::class])
   abstract fun bindCarrierConfirmFragment(): CarrierConfirmFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(
+      modules = [IabErrorModule::class, IabErrorViewModule::class])
+  abstract fun bindIabErrorFragment(): IabErrorFragment
 }

@@ -32,4 +32,15 @@
     <item name="android:textSize">12sp</item>
   </style>
 
+  <style name="PaymentMethods.Error" />
+
+  <style name="PaymentMethods.Error.OtherPaymentsButton" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <item name="android:textColor">@color/text_button_color</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+    <item name="android:textStyle">normal</item>
+
+  </style>
+
 </resources>

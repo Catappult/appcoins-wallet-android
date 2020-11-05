@@ -11,6 +11,8 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
+import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
@@ -117,6 +119,21 @@ class RepositoryModule {
         .build()
         .create(AdyenApi::class.java)
     return AdyenPaymentRepository(api, AdyenResponseMapper())
+  }
+
+  @Singleton
+  @Provides
+  fun provideCarrierBillingRepository(
+      @Named("default") client: OkHttpClient): CarrierBillingRepository {
+    val api = Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201101/gateways/dimoco/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        .build()
+        .create(
+            CarrierBillingRepository.CarrierBillingApi::class.java)
+    return CarrierBillingRepository(api, CarrierResponseMapper(), BuildConfig.APPLICATION_ID)
   }
 
   @Provides

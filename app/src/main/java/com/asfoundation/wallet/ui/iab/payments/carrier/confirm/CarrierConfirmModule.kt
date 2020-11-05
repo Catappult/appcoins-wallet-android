@@ -25,7 +25,7 @@ class CarrierConfirmModule {
               CarrierConfirmFragment.DOMAIN_KEY)!!, getString(
           CarrierConfirmFragment.SKU_DESCRIPTION)!!,
           getString(
-              CarrierConfirmFragment.TRANSACTION_DATA_KEY) ?: "", getString(
+              CarrierConfirmFragment.PAYMENT_URL_KEY)!!, getString(
           CarrierConfirmFragment.CURRENCY_KEY)!!,
           getSerializable(
               CarrierConfirmFragment.FIAT_AMOUNT_KEY) as BigDecimal,

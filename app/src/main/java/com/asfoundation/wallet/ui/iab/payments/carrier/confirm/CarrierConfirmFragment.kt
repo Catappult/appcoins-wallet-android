@@ -38,8 +38,8 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    setupUi()
     super.onViewCreated(view, savedInstanceState)
+    setupUi()
     presenter.present()
   }
 
@@ -112,7 +112,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
   companion object {
 
     internal const val DOMAIN_KEY = "domain"
-    internal const val TRANSACTION_DATA_KEY = "transaction_data"
+    internal const val PAYMENT_URL_KEY = "payment_url"
     internal const val APPC_AMOUNT_KEY = "appc_amount"
     internal const val FIAT_AMOUNT_KEY = "fiat_amount"
     internal const val CURRENCY_KEY = "currency"
@@ -123,7 +123,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     internal const val CARRIER_IMAGE = "carrier_image"
 
     @JvmStatic
-    fun newInstance(domain: String, transactionData: String?,
+    fun newInstance(domain: String, paymentUrl: String?,
                     currency: String?, amount: BigDecimal, appcAmount: BigDecimal,
                     bonus: BigDecimal?, skuDescription: String, feeFiatAmount: BigDecimal,
                     carrierName: String, carrierImage: String): CarrierConfirmFragment {
@@ -133,7 +133,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
         putString(
             DOMAIN_KEY, domain)
         putString(
-            TRANSACTION_DATA_KEY, transactionData)
+            PAYMENT_URL_KEY, paymentUrl)
         putString(
             CURRENCY_KEY, currency)
         putSerializable(

@@ -211,10 +211,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                   bonus: BigDecimal) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CarrierVerifyFragment.newInstance(transaction!!.domain, transaction!!.type,
-                intent.dataString, currency, amount, transaction!!.amount(), bonus,
-                getSkuDescription()))
-        .addToBackStack(null)
+            CarrierVerifyFragment.newInstance(transaction!!.domain, getOrigin(isBds),
+                transaction!!.type, intent.dataString, currency, amount, transaction!!.amount(),
+                bonus, getSkuDescription()))
+        .addToBackStack(CarrierVerifyFragment.BACKSTACK_NAME)
         .commit()
   }
 

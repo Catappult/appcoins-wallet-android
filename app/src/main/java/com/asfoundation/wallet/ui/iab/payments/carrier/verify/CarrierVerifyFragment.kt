@@ -75,20 +75,24 @@ class CarrierVerifyFragment : DaggerFragment(),
     return RxView.clicks(cancel_button)
   }
 
-  override fun nextClickEvent(): Observable<Any> {
+  override fun nextClickEvent(): Observable<String> {
     return RxView.clicks(buy_button)
+        .map { phone_number.text.toString() }
   }
 
   override fun setLoading() {
-    content_group.visibility = View.GONE
+    content_group.visibility = View.INVISIBLE
     progress_bar.visibility = View.VISIBLE
     buy_button.isEnabled = false
   }
 
   companion object {
 
+    const val BACKSTACK_NAME = "carrier_entry_point"
+
     internal const val TRANSACTION_TYPE_KEY = "type"
     internal const val DOMAIN_KEY = "domain"
+    internal const val ORIGIN_KEY = "origin"
     internal const val TRANSACTION_DATA_KEY = "transaction_data"
     internal const val APPC_AMOUNT_KEY = "appc_amount"
     internal const val FIAT_AMOUNT_KEY = "fiat_amount"
@@ -97,7 +101,8 @@ class CarrierVerifyFragment : DaggerFragment(),
     internal const val SKU_DESCRIPTION = "sku_description"
 
     @JvmStatic
-    fun newInstance(domain: String, transactionType: String, transactionData: String?,
+    fun newInstance(domain: String, origin: String?, transactionType: String,
+                    transactionData: String?,
                     currency: String?, amount: BigDecimal, appcAmount: BigDecimal,
                     bonus: BigDecimal?, skuDescription: String): CarrierVerifyFragment {
       val fragment =
@@ -107,6 +112,8 @@ class CarrierVerifyFragment : DaggerFragment(),
       fragment.arguments = Bundle().apply {
         putString(
             DOMAIN_KEY, domain)
+        putString(
+            ORIGIN_KEY, origin)
         putString(
             TRANSACTION_TYPE_KEY, transactionType)
         putString(
