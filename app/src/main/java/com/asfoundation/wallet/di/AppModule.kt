@@ -124,9 +124,9 @@ internal class AppModule {
     return OkHttpClient.Builder()
         .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
         .addInterceptor(LogInterceptor())
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(45, TimeUnit.SECONDS)
-        .writeTimeout(45, TimeUnit.SECONDS)
+        .connectTimeout(45, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
         .build()
   }
 
