@@ -81,7 +81,9 @@ class CarrierVerifyFragment : DaggerFragment(),
   }
 
   override fun setLoading() {
-    content_group.visibility = View.INVISIBLE
+    title.visibility = View.INVISIBLE
+    disclaimer.visibility = View.INVISIBLE
+    phone_number_layout.visibility = View.INVISIBLE
     progress_bar.visibility = View.VISIBLE
     buy_button.isEnabled = false
   }

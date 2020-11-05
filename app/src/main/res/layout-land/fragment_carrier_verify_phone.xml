@@ -55,13 +55,6 @@
 
         />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/content_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="title, disclaimer, phone_number_layout"
-        />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phone_number_layout"
         style="@style/AppcoinsTextInputLayout"

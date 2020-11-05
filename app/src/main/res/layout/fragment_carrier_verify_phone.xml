@@ -11,7 +11,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:indeterminateDrawable="@drawable/gradient_progress"
-      android:visibility="gone"
+      android:visibility="invisible"
       app:layout_constraintBottom_toTopOf="@id/purchase_bonus"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +37,6 @@
       android:text="@string/carrier_billing_fees_disclaimer"
       app:layout_constraintLeft_toLeftOf="@id/payment_methods_header"
       app:layout_constraintTop_toBottomOf="@+id/title"
-      />
-
-  <androidx.constraintlayout.widget.Group
-      android:id="@+id/content_group"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:constraint_referenced_ids="title, disclaimer, phone_number_layout"
       />
 
   <com.asfoundation.wallet.ui.iab.payments.common.PaymentsHeaderView
