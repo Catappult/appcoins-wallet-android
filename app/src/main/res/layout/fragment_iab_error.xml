@@ -33,11 +33,10 @@
       android:textColor="@color/btn_light_enabled_color"
       android:textSize="20sp"
       android:textStyle="bold"
-      android:visibility="gone"
+      android:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_icon"
-      tools:visibility="visible"
       />
 
   <TextView
@@ -57,7 +56,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_title"
       app:layout_constraintVertical_bias="0"
-      tools:text="@string/purchase_card_error_general_2"
+      tools:text="@string/purchase_carrier_error"
       />
 
 

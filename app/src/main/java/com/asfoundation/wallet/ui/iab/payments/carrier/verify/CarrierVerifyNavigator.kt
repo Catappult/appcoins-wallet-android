@@ -27,10 +27,9 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager) {
   }
 
   fun navigateToError() {
-    // TODO: Change string resource, the right one currently doesn't exist
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            IabErrorFragment.newInstance(R.string.purchase_card_error_no_funds,
+            IabErrorFragment.newInstance(R.string.purchase_carrier_error,
                 CarrierVerifyFragment.BACKSTACK_NAME))
         .addToBackStack(null)
         .commit()

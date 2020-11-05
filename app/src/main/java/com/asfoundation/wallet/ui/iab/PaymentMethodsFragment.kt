@@ -360,7 +360,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     return RxView.clicks(buy_button)
   }
 
-  override fun showCarrierBilling() {
+  override fun showCarrierBilling(fiatValue: FiatValue) {
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue!!)
   }
 

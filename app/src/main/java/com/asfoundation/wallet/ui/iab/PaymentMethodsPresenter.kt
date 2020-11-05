@@ -115,7 +115,8 @@ class PaymentMethodsPresenter(
                   SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                       selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                       selectedPaymentMethod.label, cachedGamificationLevel)
-                  SelectedPaymentMethod.CARRIER_BILLING -> view.showCarrierBilling()
+                  SelectedPaymentMethod.CARRIER_BILLING -> view.showCarrierBilling(
+                      cachedFiatValue!!)
                   else -> return@doOnNext
                 }
               }

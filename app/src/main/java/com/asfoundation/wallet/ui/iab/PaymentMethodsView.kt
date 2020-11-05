@@ -39,7 +39,7 @@ interface PaymentMethodsView {
 
   fun getBuyClick(): Observable<Any>
 
-  fun showCarrierBilling()
+  fun showCarrierBilling(fiatValue: FiatValue)
 
   fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue)
 
