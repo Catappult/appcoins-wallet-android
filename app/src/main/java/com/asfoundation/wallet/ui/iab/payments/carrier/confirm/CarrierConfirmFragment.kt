@@ -61,7 +61,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
                               currency: String, fiatAmount: BigDecimal,
                               appcAmount: BigDecimal, skuDescription: String,
                               bonusAmount: BigDecimal, carrierName: String, carrierImage: String,
-                              carrierFee: BigDecimal) {
+                              carrierFeeFiat: BigDecimal) {
     buy_button.isEnabled = true
     payment_methods_header.setTitle(appName)
     payment_methods_header.setIcon(appIcon)
@@ -70,7 +70,8 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
         resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
     payment_methods_header.hideSkeleton()
 
-    val fiat = "${formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)} $currency"
+    val fiat =
+        "${formatter.formatCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)} $currency"
     val appc = "${formatter.formatCurrency(appcAmount,
         WalletCurrency.APPCOINS)} ${WalletCurrency.APPCOINS.symbol}"
     fiat_price_text.text = fiat
@@ -78,7 +79,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
 
     val feeString: SpannedString = buildSpannedString {
       color(resources.getColor(R.color.disable_reason)) {
-        append("${formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)} $currency")
+        append("${formatter.formatCurrency(carrierFeeFiat, WalletCurrency.FIAT)} $currency")
       }
     }
     fee_title.text =
@@ -91,6 +92,11 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
 
     purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
     purchase_bonus.hideSkeleton()
+  }
+
+
+  override fun setLoading() {
+    buy_button.isEnabled = false
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {

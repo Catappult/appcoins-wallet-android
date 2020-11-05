@@ -34,7 +34,10 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
   private fun handleNextButton() {
     disposables.add(
         view.nextClickEvent()
-            .doOnNext { navigator.navigateToWebview() }
+            .doOnNext {
+              view.setLoading()
+              navigator.navigateToWebview()
+            }
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })
     )

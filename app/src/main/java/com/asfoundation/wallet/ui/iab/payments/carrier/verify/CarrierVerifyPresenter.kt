@@ -6,7 +6,6 @@ import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import com.asfoundation.wallet.util.safeLet
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 
 class CarrierVerifyPresenter(
     private val disposables: CompositeDisposable,
@@ -55,8 +54,8 @@ class CarrierVerifyPresenter(
                   safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
                     fee.cost?.let { cost ->
                       navigator.navigateToConfirm(data.domain, paymentModel.paymentUrl,
-                          data.currency, data.fiatAmount + cost.value, data.appcAmount,
-                          data.bonusAmount, data.skuDescription, BigDecimal.ONE, carrier.name,
+                          data.currency, data.fiatAmount, data.appcAmount,
+                          data.bonusAmount, data.skuDescription, cost.value, carrier.name,
                           carrier.icon)
                     }
                   }

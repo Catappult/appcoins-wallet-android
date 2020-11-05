@@ -10,9 +10,12 @@ interface CarrierConfirmView {
                      currency: String, fiatAmount: BigDecimal,
                      appcAmount: BigDecimal, skuDescription: String,
                      bonusAmount: BigDecimal, carrierName: String, carrierImage: String,
-                     carrierFee: BigDecimal)
+                     carrierFeeFiat: BigDecimal)
 
   fun backEvent(): Observable<Any>
 
   fun nextClickEvent(): Observable<Any>
+
+  fun setLoading()
+
 }
