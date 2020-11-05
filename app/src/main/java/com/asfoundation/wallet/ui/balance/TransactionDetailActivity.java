@@ -275,8 +275,10 @@ public class TransactionDetailActivity extends BaseActivity {
             : transaction.getCurrency();
 
     boolean isRevertTransaction = isRevertTransaction(transaction);
+    boolean isRevertedTransaction = isRevertedTransaction(transaction);
 
-    formatValue(getValue(symbol), symbol, isRevertTransaction);
+    formatValue(getValue(symbol), symbol, transaction.getType(), isRevertTransaction,
+        isRevertedTransaction);
   }
 
   private String getScaledValue(String valueStr, String currencySymbol) {
@@ -311,7 +313,7 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
-    formatValue(value, symbol, isRevertTransaction || isRevertedTransaction);
+    formatValue(value, symbol, transaction.getType(), isRevertTransaction, isRevertedTransaction);
 
     ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
@@ -450,7 +452,7 @@ public class TransactionDetailActivity extends BaseActivity {
       }
       String sourceDescription = details.getDescription() == null ? "" : details.getDescription();
 
-      setupRevertedUi(icon, typeIcon, getValue(symbol), symbol,
+      setupRevertedUi(icon, typeIcon, getValue(linkTransaction, symbol), symbol,
           getDate(linkTransaction.getTimeStamp()), sourceDescription);
     } else if (isRevertedTransaction) {
       revertView.setVisibility(View.VISIBLE);
@@ -526,22 +528,40 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void formatValue(String value, String symbol, boolean isOriginalTransaction) {
+  private void formatValue(String value, String symbol, Transaction.TransactionType type,
+      boolean isRevert, boolean isReverted) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
-
-    if (isOriginalTransaction) {
-      amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
-    } else {
-      String formattedValue = (isSent ? "-" : "+") + value;
-      amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+    String signal = "";
+    if (isRevert && type != Transaction.TransactionType.IAP_REVERT) {
+      signal = "-";
+    } else if (isReverted && type != Transaction.TransactionType.IAP_OFFCHAIN) {
+      signal = "+";
+    } else if (!isReverted && !isRevert) {
+      signal = isSent ? "-" : "+";
     }
+
+    String formattedValue = signal + value;
+    amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
   }
 
   private String getValue(String currencySymbol) {
     String rawValue = transaction.getValue();
     if (!rawValue.equals("0")) {
       rawValue = getScaledValue(rawValue, currencySymbol);
+    }
+    return rawValue;
+  }
+
+  private String getValue(Transaction linkedTx, String currencySymbol) {
+    String rawValue = linkedTx.getValue();
+    if (!rawValue.equals("0")) {
+      rawValue = getScaledValue(rawValue, currencySymbol);
+    }
+    if (linkedTx.getType() == Transaction.TransactionType.IAP_OFFCHAIN) {
+      rawValue = "-" + rawValue;
+    } else {
+      rawValue = "+" + rawValue;
     }
     return rawValue;
   }
