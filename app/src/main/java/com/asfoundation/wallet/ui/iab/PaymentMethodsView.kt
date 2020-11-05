@@ -6,13 +6,12 @@ import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
+  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
                          currency: String, paymentMethodId: String, fiatAmount: String,
                          appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean)
 
-  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
-                                   currency: String, fiatAmount: String,
-                                   appcAmount: String, isBonusActive: Boolean)
+  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, currency: String,
+                                   fiatAmount: String, appcAmount: String, isBonusActive: Boolean)
 
   fun showError(message: Int)
 
@@ -28,7 +27,7 @@ interface PaymentMethodsView {
 
   fun hideLoading()
 
-  fun getCancelClick(): Observable<PaymentMethod>
+  fun getCancelClick(): Observable<Any>
 
   fun close(bundle: Bundle)
 
@@ -38,17 +37,18 @@ interface PaymentMethodsView {
 
   fun showProcessingLoadingDialog()
 
-  fun getBuyClick(): Observable<PaymentMethod>
+  fun getBuyClick(): Observable<Any>
 
   fun showCarrierBilling()
 
-  fun showPaypal(gamificationLevel: Int)
+  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue)
 
-  fun showAdyen(fiatValue: FiatValue,
+  fun showAdyen(fiatAmount: BigDecimal,
+                fiatCurrency: String,
                 paymentType: PaymentType,
                 iconUrl: String?, gamificationLevel: Int)
 
-  fun showCreditCard(gamificationLevel: Int)
+  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue)
 
   fun showAppCoins(gamificationLevel: Int)
 
@@ -58,7 +58,7 @@ interface PaymentMethodsView {
 
   fun getPaymentSelection(): Observable<String>
 
-  fun getMorePaymentMethodsClicks(): Observable<PaymentMethod>
+  fun getMorePaymentMethodsClicks(): Observable<Any>
 
   fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
                        gamificationLevel: Int)
@@ -71,7 +71,7 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
-  fun showMergedAppcoins(gamificationLevel: Int)
+  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue)
 
   fun lockRotation()
 
@@ -89,10 +89,15 @@ interface PaymentMethodsView {
 
   fun getSupportIconClicks(): Observable<Any>
 
+  fun showAuthenticationActivity()
+
+  fun onAuthenticationResult(): Observable<Boolean>
+
+  fun getSelectedPaymentMethod(hasPreSelectedPaymentMethod: Boolean): PaymentMethod
+
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
     CARRIER_BILLING, ERROR
-
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -103,5 +108,6 @@ interface PaymentMethodsView {
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("carrier_billing"),
     ASK_FRIEND("ask_friend")
+
   }
 }

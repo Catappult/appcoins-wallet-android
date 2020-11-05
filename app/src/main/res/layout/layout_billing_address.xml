@@ -8,7 +8,7 @@
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/address_layout"
-      style="@style/BillingTextInputLayout"
+      style="@style/BillingAddressTextInputLayout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:hint="@string/purchase_address_address_field"
@@ -18,18 +18,16 @@
       >
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/address"
+        style="@style/BillingAddressInputEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-        android:maxLines="1"
-        android:textSize="14sp"
         tools:text="Amphitheatre Parkway"
         />
   </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/number_layout"
-      style="@style/BillingTextInputLayout"
+      style="@style/BillingAddressTextInputLayout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
@@ -40,19 +38,16 @@
       >
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/number"
+        style="@style/BillingAddressInputEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-        android:inputType="number"
-        android:maxLines="1"
-        android:textSize="14sp"
         tools:text="36"
         />
   </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/city_layout"
-      style="@style/BillingTextInputLayout"
+      style="@style/BillingAddressTextInputLayout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
@@ -63,18 +58,16 @@
       >
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/city"
+        style="@style/BillingAddressInputEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-        android:maxLines="1"
-        android:textSize="14sp"
         tools:text="Mountain View"
         />
   </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/zipcode_layout"
-      style="@style/BillingTextInputLayout"
+      style="@style/BillingAddressTextInputLayout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
@@ -86,12 +79,10 @@
       >
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/zipcode"
+        style="@style/BillingAddressInputEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:imeOptions="flagNoExtractUi|flagNoFullscreen"
         android:inputType="number"
-        android:maxLines="1"
-        android:textSize="14sp"
         tools:text="94043"
         />
   </com.google.android.material.textfield.TextInputLayout>

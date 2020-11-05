@@ -90,6 +90,7 @@ android {
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
+      buildConfigField 'String', 'MY_APPCOINS_SUPPORT_HOST', project.MY_APPCOINS_SUPPORT_HOST
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
     }
@@ -112,6 +113,7 @@ android {
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
+      buildConfigField 'String', 'MY_APPCOINS_SUPPORT_HOST', project.MY_APPCOINS_HOST_SUPPORT_DEV
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
@@ -236,6 +238,8 @@ dependencies {
 
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"
+
+  implementation "androidx.biometric:biometric:$project.biometrics_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"

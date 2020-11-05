@@ -258,7 +258,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-
     outState.putBoolean(FIRST_IMPRESSION, firstImpression)
   }
 
@@ -268,5 +267,4 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       firstImpression = false
     }
   }
-
 }
