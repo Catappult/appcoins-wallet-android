@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.restore.password
 
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.RestoreErrorType
@@ -12,4 +12,5 @@ interface RestoreWalletPasswordView {
   fun showWalletRestoredAnimation()
   fun showError(type: RestoreErrorType)
   fun hideAnimation()
+  fun hideKeyboard()
 }

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.restore.intro
 
 import android.content.Context
 import android.os.Bundle
@@ -7,17 +7,16 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.restore.RestoreWalletActivityView
 import com.asfoundation.wallet.util.RestoreErrorType
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_restore_wallet_first_layout.*
 import javax.inject.Inject
 
@@ -31,21 +30,16 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var presenter: RestoreWalletPresenter
+
   private lateinit var activityView: RestoreWalletActivityView
-  private lateinit var presenter: RestoreWalletPresenter
 
   companion object {
-    private const val KEYSTORE = "keystore"
 
     @JvmStatic
     fun newInstance() = RestoreWalletFragment()
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter =
-        RestoreWalletPresenter(this, activityView, CompositeDisposable(), restoreWalletInteractor,
-            walletsEventSender, logger, AndroidSchedulers.mainThread(), Schedulers.computation())
   }
 
   override fun onAttach(context: Context) {
@@ -64,9 +58,12 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    presenter.present(savedInstanceState)
+  }
+
+  override fun setupUi(keystore: String) {
     setTextChangeListener()
-    savedInstanceState?.let { keystore_edit_text.setText(it.getString(KEYSTORE, "")) }
-    presenter.present()
+    keystore_edit_text.setText(keystore)
   }
 
   override fun restoreFromStringClick(): Observable<String> = RxView.clicks(import_wallet_button)
@@ -84,20 +81,32 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
     }
   }
 
-  override fun navigateToPasswordView(keystore: String) {
-    activityView.navigateToPasswordView(keystore)
+  override fun onPermissionsGiven() = activityView.onPermissionsGiven()
+
+  override fun onFileChosen() = activityView.onFileChosen()
+
+  override fun showWalletRestoreAnimation() = activityView.showWalletRestoreAnimation()
+
+  override fun showWalletRestoredAnimation() = activityView.showWalletRestoredAnimation()
+
+  override fun showSnackBarError() {
+    Snackbar.make(fragment_main_view, R.string.unknown_error, Snackbar.LENGTH_SHORT)
+        .show()
+  }
+
+  override fun hideAnimation() = activityView.hideAnimation()
+
+  override fun askForReadPermissions() = activityView.askForReadPermissions()
+
+  override fun hideKeyboard() {
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(keystore_edit_text.windowToken, 0)
   }
 
   private fun setTextChangeListener() {
     keystore_edit_text.addTextChangedListener(object : TextWatcher {
-      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int,
-                                     i2: Int) {
-      }
-
-      override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int,
-                                 i2: Int) {
-      }
-
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
+      override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun afterTextChanged(editable: Editable) {
         label_input.isErrorEnabled = false
         import_wallet_button.isEnabled = editable.toString()
@@ -109,7 +118,7 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     if (keystore_edit_text != null) {
-      outState.putString(KEYSTORE, keystore_edit_text.editableText.toString())
+      presenter.onSaveInstanceState(outState, keystore_edit_text.editableText.toString())
     }
   }
 

@@ -15,7 +15,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
-import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
+import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
@@ -120,7 +120,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setRestorePreference() {
     val restorePreference = findPreference<Preference>("pref_restore")
     restorePreference?.setOnPreferenceClickListener {
-      context?.let { startActivity(RestoreWalletActivity.newIntent(it)) }
+      context?.let { startActivity(
+          RestoreWalletActivity.newIntent(it)) }
       false
     }
   }

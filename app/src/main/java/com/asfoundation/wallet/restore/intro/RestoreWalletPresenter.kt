@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.restore.intro
 
+import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.RestoreError
@@ -12,15 +12,20 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
 class RestoreWalletPresenter(private val view: RestoreWalletView,
-                             private val activityView: RestoreWalletActivityView,
                              private val disposable: CompositeDisposable,
+                             private val navigator: RestoreWalletNavigator,
                              private val restoreWalletInteractor: RestoreWalletInteractor,
                              private val walletsEventSender: WalletsEventSender,
                              private val logger: Logger,
                              private val viewScheduler: Scheduler,
                              private val computationScheduler: Scheduler) {
 
-  fun present() {
+  companion object {
+    private const val KEYSTORE = "keystore"
+  }
+
+  fun present(savedInstanceState: Bundle?) {
+    savedInstanceState?.let { view.setupUi(it.getString(KEYSTORE, "")) }
     handleRestoreFromString()
     handleRestoreFromFile()
     handleFileChosen()
@@ -28,14 +33,15 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
   }
 
   private fun handleOnPermissionsGiven() {
-    disposable.add(activityView.onPermissionsGiven()
-        .doOnNext { activityView.launchFileIntent(restoreWalletInteractor.getPath()) }
-        .subscribe())
+    disposable.add(view.onPermissionsGiven()
+        .flatMapCompletable { navigator.launchFileIntent(restoreWalletInteractor.getPath()) }
+        .doOnError { view.showSnackBarError() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleFileChosen() {
-    disposable.add(activityView.onFileChosen()
-        .doOnNext { activityView.showWalletRestoreAnimation() }
+    disposable.add(view.onFileChosen()
+        .doOnNext { view.showWalletRestoreAnimation() }
         .flatMapSingle { restoreWalletInteractor.readFile(it) }
         .observeOn(computationScheduler)
         .flatMapSingle { fetchWalletModel(it) }
@@ -43,7 +49,7 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
         .doOnNext { handleWalletModel(it) }
         .subscribe({}, {
           logger.log("RestoreWalletPresenter", it)
-          activityView.hideAnimation()
+          view.hideAnimation()
           view.showError(RestoreErrorType.INVALID_KEYSTORE)
         })
     )
@@ -51,30 +57,30 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
 
   private fun handleRestoreFromFile() {
     disposable.add(view.restoreFromFileClick()
-        .doOnNext { activityView.askForReadPermissions() }
+        .doOnNext { view.askForReadPermissions() }
         .doOnNext {
-          walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT_FROM_FILE,
+          walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT_FROM_FILE,
               WalletsAnalytics.STATUS_SUCCESS)
         }
         .doOnError { t ->
-          walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT_FROM_FILE,
+          walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT_FROM_FILE,
               WalletsAnalytics.STATUS_FAIL, t.message)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleRestoreFromString() {
     disposable.add(view.restoreFromStringClick()
         .doOnNext {
-          activityView.hideKeyboard()
-          activityView.showWalletRestoreAnimation()
+          view.hideKeyboard()
+          view.showWalletRestoreAnimation()
         }
         .observeOn(computationScheduler)
         .flatMapSingle { fetchWalletModel(it) }
         .observeOn(viewScheduler)
         .doOnNext { handleWalletModel(it) }
         .doOnError { t ->
-          walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+          walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
               WalletsAnalytics.STATUS_FAIL, t.message)
         }
         .subscribe())
@@ -82,25 +88,25 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
 
   private fun setDefaultWallet(address: String) {
     disposable.add(restoreWalletInteractor.setDefaultWallet(address)
-        .doOnComplete { activityView.showWalletRestoredAnimation() }
+        .doOnComplete { view.showWalletRestoredAnimation() }
         .subscribe())
   }
 
   private fun handleWalletModel(walletModel: WalletModel) {
     if (walletModel.error.hasError) {
-      activityView.hideAnimation()
+      view.hideAnimation()
       if (walletModel.error.type == RestoreErrorType.INVALID_PASS) {
-        view.navigateToPasswordView(walletModel.keystore)
-        walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+        navigator.navigateToPasswordView(walletModel.keystore)
+        walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
             WalletsAnalytics.STATUS_SUCCESS)
       } else {
         view.showError(walletModel.error.type)
-        walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+        walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
             WalletsAnalytics.STATUS_FAIL, walletModel.error.type.toString())
       }
     } else {
       setDefaultWallet(walletModel.address)
-      walletsEventSender.sendWalletImportRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+      walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS)
     }
   }
@@ -113,8 +119,9 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
     }
   }
 
-  fun stop() {
-    disposable.clear()
+  fun onSaveInstanceState(outState: Bundle, keystore: String) {
+    outState.putString(KEYSTORE, keystore)
   }
 
+  fun stop() = disposable.clear()
 }

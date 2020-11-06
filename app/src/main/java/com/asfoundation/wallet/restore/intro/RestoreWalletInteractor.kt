@@ -1,8 +1,10 @@
-package com.asfoundation.wallet.interact
+package com.asfoundation.wallet.restore.intro
 
 import android.net.Uri
 import android.os.Build
 import com.asfoundation.wallet.backup.FileInteractor
+import com.asfoundation.wallet.interact.SetDefaultWalletInteract
+import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.interact.rx.operator.Operators
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -39,7 +41,10 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
         }
         .map { WalletModel(it.address) }
         .doOnSuccess { preferencesRepositoryType.setWalletRestoreBackup(it.address) }
-        .onErrorReturn { WalletModel(RestoreError(RestoreErrorType.GENERIC)) }
+        .onErrorReturn {
+          WalletModel(
+              RestoreError(RestoreErrorType.GENERIC))
+        }
   }
 
   fun setDefaultWallet(address: String): Completable {
@@ -59,16 +64,21 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
   private fun mapError(keystore: String, throwable: Throwable): WalletModel {
     if (throwable.message != null) {
       if ((throwable.message as String).contains("Invalid Keystore", true)) {
-        return WalletModel(RestoreError(RestoreErrorType.INVALID_KEYSTORE))
+        return WalletModel(
+            RestoreError(RestoreErrorType.INVALID_KEYSTORE))
       }
       return when (throwable.message) {
-        "Invalid password provided" -> WalletModel(keystore,
+        "Invalid password provided" -> WalletModel(
+            keystore,
             RestoreError(RestoreErrorType.INVALID_PASS))
-        "Already added" -> WalletModel(RestoreError(RestoreErrorType.ALREADY_ADDED))
-        else -> WalletModel(RestoreError(RestoreErrorType.GENERIC))
+        "Already added" -> WalletModel(
+            RestoreError(RestoreErrorType.ALREADY_ADDED))
+        else -> WalletModel(
+            RestoreError(RestoreErrorType.GENERIC))
       }
     } else {
-      return WalletModel(RestoreError(RestoreErrorType.GENERIC))
+      return WalletModel(
+          RestoreError(RestoreErrorType.GENERIC))
     }
   }
 

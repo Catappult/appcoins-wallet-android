@@ -44,6 +44,8 @@ import com.asfoundation.wallet.referrals.ReferralInteractor
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
+import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
+import com.asfoundation.wallet.restore.password.RestoreWalletPasswordInteractor
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
@@ -58,7 +60,6 @@ import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.balance.BalanceRepository
-import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
@@ -510,7 +511,9 @@ class InteractorModule {
   @Provides
   fun provideRestoreWalletInteractor(gson: Gson, balanceInteract: BalanceInteract,
                                      restoreWalletInteractor: RestoreWalletInteractor): RestoreWalletPasswordInteractor {
-    return RestoreWalletPasswordInteractor(gson, balanceInteract, restoreWalletInteractor)
+    return RestoreWalletPasswordInteractor(
+        gson,
+        balanceInteract, restoreWalletInteractor)
   }
 
   @Provides

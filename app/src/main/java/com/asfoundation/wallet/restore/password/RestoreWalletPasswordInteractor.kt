@@ -1,7 +1,8 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.restore.password
 
-import com.asfoundation.wallet.interact.RestoreWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
+import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
+import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.google.gson.Gson
 import io.reactivex.Observable
