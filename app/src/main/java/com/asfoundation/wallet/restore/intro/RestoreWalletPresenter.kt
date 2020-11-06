@@ -25,7 +25,7 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
   }
 
   fun present(savedInstanceState: Bundle?) {
-    savedInstanceState?.let { view.setupUi(it.getString(KEYSTORE, "")) }
+    savedInstanceState?.let { view.setKeystore(it.getString(KEYSTORE, "")) }
     handleRestoreFromString()
     handleRestoreFromFile()
     handleFileChosen()

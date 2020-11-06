@@ -20,7 +20,7 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
                               private val preferencesRepositoryType: PreferencesRepositoryType,
                               private val fileInteractor: FileInteractor) {
 
-  fun isKeystore(key: String) = key.contains("{")
+  fun isKeystore(key: String): Boolean = key.contains("{")
 
   fun restoreKeystore(keystore: String, password: String = ""): Single<WalletModel> {
     return passwordStore.generatePassword()
@@ -41,15 +41,10 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
         }
         .map { WalletModel(it.address) }
         .doOnSuccess { preferencesRepositoryType.setWalletRestoreBackup(it.address) }
-        .onErrorReturn {
-          WalletModel(
-              RestoreError(RestoreErrorType.GENERIC))
-        }
+        .onErrorReturn { WalletModel(RestoreError(RestoreErrorType.GENERIC)) }
   }
 
-  fun setDefaultWallet(address: String): Completable {
-    return setDefaultWalletInteract.set(address)
-  }
+  fun setDefaultWallet(address: String): Completable = setDefaultWalletInteract.set(address)
 
   fun getPath(): Uri? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -77,12 +72,9 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
             RestoreError(RestoreErrorType.GENERIC))
       }
     } else {
-      return WalletModel(
-          RestoreError(RestoreErrorType.GENERIC))
+      return WalletModel(RestoreError(RestoreErrorType.GENERIC))
     }
   }
 
-  fun readFile(fileUri: Uri?): Single<String> {
-    return fileInteractor.readFile(fileUri)
-  }
+  fun readFile(fileUri: Uri?): Single<String> = fileInteractor.readFile(fileUri)
 }

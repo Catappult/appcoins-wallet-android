@@ -29,5 +29,5 @@ interface RestoreWalletView {
 
   fun hideKeyboard()
 
-  fun setupUi(keystore: String)
+  fun setKeystore(keystore: String)
 }

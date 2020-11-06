@@ -11,7 +11,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -26,7 +26,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
                              private val billingMessagesMapper: BillingMessagesMapper,
-                             private val supportInteractor: SupportInteractor,
+                             private val supportRepository: SupportRepository,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val smsValidationInteract: SmsValidationInteract,
                              private val remoteRepository: RemoteRepository) {
@@ -109,8 +109,8 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
+            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
+            supportRepository.displayChatScreen()
           }
         }
   }

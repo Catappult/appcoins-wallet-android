@@ -6,7 +6,7 @@ import com.asfoundation.wallet.interact.FetchWalletsInteract
 import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.sumByBigDecimal
@@ -17,7 +17,7 @@ import io.reactivex.Single
 class WalletsInteract(private val balanceInteract: BalanceInteract,
                       private val fetchWalletsInteract: FetchWalletsInteract,
                       private val walletCreatorInteract: WalletCreatorInteract,
-                      private val supportInteractor: SupportInteractor,
+                      private val supportRepository: SupportRepository,
                       private val preferencesRepository: SharedPreferencesRepository,
                       private val gamificationRepository: Gamification,
                       private val logger: Logger) {
@@ -49,7 +49,7 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
         .flatMapCompletable { wallet ->
           walletCreatorInteract.setDefaultWallet(wallet.address)
               .andThen(gamificationRepository.getUserStats(wallet.address)
-                  .doOnSuccess { supportInteractor.registerUser(it.level, wallet.address) }
+                  .doOnSuccess { supportRepository.registerUser(it.level, wallet.address) }
                   .toCompletable())
         }
   }

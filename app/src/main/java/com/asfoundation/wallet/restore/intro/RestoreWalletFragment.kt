@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.restore.RestoreWalletActivityView
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.google.android.material.snackbar.Snackbar
@@ -21,15 +19,6 @@ import kotlinx.android.synthetic.main.fragment_restore_wallet_first_layout.*
 import javax.inject.Inject
 
 class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
-
-  @Inject
-  lateinit var restoreWalletInteractor: RestoreWalletInteractor
-
-  @Inject
-  lateinit var walletsEventSender: WalletsEventSender
-
-  @Inject
-  lateinit var logger: Logger
 
   @Inject
   lateinit var presenter: RestoreWalletPresenter
@@ -58,11 +47,11 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setTextChangeListener()
     presenter.present(savedInstanceState)
   }
 
-  override fun setupUi(keystore: String) {
-    setTextChangeListener()
+  override fun setKeystore(keystore: String) {
     keystore_edit_text.setText(keystore)
   }
 

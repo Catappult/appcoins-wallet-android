@@ -3,13 +3,13 @@ package com.asfoundation.wallet.ui.iab
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Single
 
 class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                   private val autoUpdateInteract: AutoUpdateInteract,
-                  private val supportInteractor: SupportInteractor,
+                  private val supportRepository: SupportRepository,
                   private val gamificationRepository: Gamification,
                   private val walletBlockedInteract: WalletBlockedInteract) {
 
@@ -17,7 +17,7 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
   }
 
-  fun showSupport() = supportInteractor.displayChatScreen()
+  fun showSupport() = supportRepository.displayChatScreen()
 
   fun hasPreSelectedPaymentMethod() = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
 
@@ -34,7 +34,7 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   fun registerUser() =
       inAppPurchaseInteractor.walletAddress.flatMap { address ->
         gamificationRepository.getUserStats(address)
-            .doOnSuccess { supportInteractor.registerUser(it.level, address) }
+            .doOnSuccess { supportRepository.registerUser(it.level, address) }
       }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {

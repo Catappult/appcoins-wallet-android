@@ -10,7 +10,7 @@ import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -22,7 +22,7 @@ import java.math.BigDecimal
 import java.util.*
 
 class PaymentMethodsInteractor(private val walletService: WalletService,
-                               private val supportInteractor: SupportInteractor,
+                               private val supportRepository: SupportRepository,
                                private val gamificationInteractor: GamificationInteractor,
                                private val balanceInteract: BalanceInteract,
                                private val walletBlockedInteract: WalletBlockedInteract,
@@ -36,8 +36,8 @@ class PaymentMethodsInteractor(private val walletService: WalletService,
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
+            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
+            supportRepository.displayChatScreen()
           }
         }
   }
