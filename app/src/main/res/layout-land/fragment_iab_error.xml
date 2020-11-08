@@ -33,7 +33,7 @@
       android:textColor="@color/btn_light_enabled_color"
       android:textSize="20sp"
       android:textStyle="bold"
-      android:visibility="gone"
+      android:visibility="visible"
       app:layout_constraintBottom_toTopOf="@id/error_message"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

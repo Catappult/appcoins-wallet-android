@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
 import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
+import com.asfoundation.wallet.util.StringProvider
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import com.asfoundation.wallet.util.safeLet
 import io.reactivex.Scheduler
@@ -14,6 +16,7 @@ class CarrierVerifyPresenter(
     private val navigator: CarrierVerifyNavigator,
     private val interactor: CarrierInteractor,
     private val appInfoLoader: ApplicationInfoLoader,
+    private val stringProvider: StringProvider,
     private val viewScheduler: Scheduler,
     private val ioScheduler: Scheduler) {
 
@@ -47,8 +50,16 @@ class CarrierVerifyPresenter(
             }
             .observeOn(viewScheduler)
             .doOnNext { paymentModel ->
-              if (paymentModel.error.hasError) {
-                navigator.navigateToError()
+              if (paymentModel.hasError()) {
+                var message = stringProvider.getString(R.string.purchase_carrier_error)
+                paymentModel.error?.let { error ->
+                  when (error.errorCode) {
+                    // TODO: Missing strings
+                    4001 -> message = stringProvider.getString(R.string.purchase_carrier_error)
+                    4002 -> message = stringProvider.getString(R.string.purchase_carrier_error)
+                  }
+                }
+                navigator.navigateToError(message)
               } else {
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
                   safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->

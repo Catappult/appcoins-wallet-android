@@ -96,6 +96,11 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
 
 
   override fun setLoading() {
+    progress_bar.visibility = View.VISIBLE
+    carrier_image.visibility = View.INVISIBLE
+    fee_title.visibility = View.INVISIBLE
+    fiat_price_text.visibility = View.INVISIBLE
+    appc_price_text.visibility = View.INVISIBLE
     buy_button.isEnabled = false
   }
 

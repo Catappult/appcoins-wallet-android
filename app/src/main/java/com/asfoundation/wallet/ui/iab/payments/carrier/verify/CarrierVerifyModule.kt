@@ -6,6 +6,7 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
+import com.asfoundation.wallet.util.StringProvider
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import dagger.Binds
 import dagger.Module
@@ -20,8 +21,7 @@ class CarrierVerifyModule {
 
   @Provides
   fun providesCarrierVerifyNavigator(fragment: CarrierVerifyFragment): CarrierVerifyNavigator {
-    return CarrierVerifyNavigator(
-        fragment.requireFragmentManager())
+    return CarrierVerifyNavigator(fragment.requireFragmentManager())
   }
 
   @Provides
@@ -50,10 +50,10 @@ class CarrierVerifyModule {
                                      data: CarrierVerifyData,
                                      navigator: CarrierVerifyNavigator,
                                      interactor: CarrierInteractor,
+                                     stringProvider: StringProvider,
                                      applicationInfoLoader: ApplicationInfoLoader): CarrierVerifyPresenter {
-    return CarrierVerifyPresenter(
-        CompositeDisposable(), view, data, navigator, interactor,
-        applicationInfoLoader, AndroidSchedulers.mainThread(), Schedulers.io())
+    return CarrierVerifyPresenter(CompositeDisposable(), view, data, navigator, interactor,
+        applicationInfoLoader, stringProvider, AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   @Provides

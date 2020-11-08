@@ -9,7 +9,7 @@ class CarrierResponseMapper {
 
   fun mapPayment(response: CarrierTransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(response.uid, response.url, response.fee, response.carrier,
-        response.status, response.metadata?.errorMessage, response.metadata?.errorCode, Error())
+        response.status, response.error, Error())
   }
 
   fun mapPaymentError(throwable: Throwable): CarrierPaymentModel {

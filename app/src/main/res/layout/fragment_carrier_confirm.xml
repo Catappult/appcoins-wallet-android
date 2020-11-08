@@ -2,18 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PaymentMethods.DialogCardStyle"
     android:animateLayoutChanges="true"
     android:theme="@style/MaterialAppTheme"
-    style="@style/PaymentMethods.DialogCardStyle"
     >
+
+  <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toTopOf="@id/purchase_bonus"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/line_separator"
+      />
 
   <ImageView
       android:id="@+id/carrier_image"
       android:layout_width="0dp"
       android:layout_height="50dp"
-      android:layout_marginEnd="16dp"
       android:layout_marginStart="16dp"
       android:layout_marginTop="25dp"
+      android:layout_marginEnd="16dp"
       android:adjustViewBounds="true"
       app:layout_constraintBottom_toTopOf="@+id/fee_title"
       app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +35,7 @@
 
   <TextView
       android:id="@+id/fee_title"
+      style="@style/PaymentMethods.CarrierBilling.Title"
       android:layout_width="150dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="25dp"
@@ -30,7 +43,6 @@
       app:layout_constraintBottom_toTopOf="@+id/purchase_bonus"
       app:layout_constraintLeft_toLeftOf="@id/payment_methods_header"
       app:layout_constraintTop_toBottomOf="@+id/carrier_image"
-      style="@style/PaymentMethods.CarrierBilling.Title"
       />
 
   <TextView
@@ -67,9 +79,9 @@
       android:id="@+id/payment_methods_header"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
       android:layout_marginStart="16dp"
       android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -101,8 +113,8 @@
       android:id="@+id/bottom_separator_buttons"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
       android:layout_marginTop="15dp"
+      android:layout_marginBottom="8dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/purchase_bonus"
@@ -110,8 +122,8 @@
       />
 
   <include
-      layout="@layout/dialog_buy_buttons_payment_methods"
       android:id="@+id/dialog_buy_buttons"
+      layout="@layout/dialog_buy_buttons_payment_methods"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"

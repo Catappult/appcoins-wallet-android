@@ -1,7 +1,6 @@
 package com.appcoins.wallet.billing.carrierbilling.response
 
 import com.appcoins.wallet.billing.common.response.TransactionFee
-import com.appcoins.wallet.billing.common.response.TransactionMetadata
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 
 data class CarrierTransactionResponse(val uid: String,
@@ -9,4 +8,4 @@ data class CarrierTransactionResponse(val uid: String,
                                       val url: String,
                                       val fee: TransactionFee,
                                       val carrier: TransactionCarrier,
-                                      val metadata: TransactionMetadata?)
+                                      val error: TransactionCarrierError?)

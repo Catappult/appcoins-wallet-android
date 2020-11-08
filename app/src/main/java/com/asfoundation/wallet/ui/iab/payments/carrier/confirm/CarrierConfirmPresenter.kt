@@ -36,7 +36,7 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
         view.nextClickEvent()
             .doOnNext {
               view.setLoading()
-              navigator.navigateToWebview()
+              navigator.navigateToPaymentWebView(data.paymentUrl)
             }
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })

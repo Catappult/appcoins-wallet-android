@@ -509,4 +509,10 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesApplicationInfoLoader(context: Context) = ApplicationInfoLoader(context)
+
+  @Singleton
+  @Provides
+  fun providesStringProvider(context: Context): StringProvider {
+    return StringProvider(context.resources)
+  }
 }
