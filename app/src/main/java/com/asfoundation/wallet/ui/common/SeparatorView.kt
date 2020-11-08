@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab.payments.common
+package com.asfoundation.wallet.ui.common
 
 import android.content.Context
 import android.util.AttributeSet

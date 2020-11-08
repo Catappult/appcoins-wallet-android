@@ -98,7 +98,7 @@
       />
 
 
-  <com.asfoundation.wallet.ui.iab.payments.common.SeparatorView
+  <com.asfoundation.wallet.ui.common.SeparatorView
       android:id="@+id/line_separator"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
       app:line_type="dashed"
       />
 
-  <com.asfoundation.wallet.ui.iab.payments.common.SeparatorView
+  <com.asfoundation.wallet.ui.common.SeparatorView
       android:id="@+id/bottom_separator_buttons"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

@@ -106,17 +106,17 @@
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
             >
 
-          <View
+          <com.asfoundation.wallet.ui.common.SeparatorView
               android:id="@+id/top_separator"
               android:layout_width="match_parent"
-              android:layout_height="1dp"
+              android:layout_height="wrap_content"
               android:layout_marginTop="12dp"
-              android:background="@color/layout_separator_color"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
+              app:line_orientation="horizontal"
+              app:line_type="solid"
               />
-
 
           <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/payment_methods_radio_list"
@@ -221,17 +221,18 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
+        <com.asfoundation.wallet.ui.common.SeparatorView
             android:id="@+id/bottom_separator"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_margin"
             android:layout_marginBottom="32dp"
-            android:background="@color/layout_separator_color"
             app:layout_constraintBottom_toTopOf="@id/bonuses_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/content_main"
+            app:line_orientation="horizontal"
+            app:line_type="solid"
             tools:visibility="visible"
             />
 
@@ -312,14 +313,16 @@
               />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
+
+        <com.asfoundation.wallet.ui.common.SeparatorView
             android:id="@+id/bottom_separator_buttons"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/layout_separator_color"
             app:layout_constraintTop_toBottomOf="@id/bonuses_layout"
+            app:line_orientation="horizontal"
+            app:line_type="solid"
             />
 
         <include
