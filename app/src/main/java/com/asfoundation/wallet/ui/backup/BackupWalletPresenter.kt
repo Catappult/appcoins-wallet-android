@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.ui.backup
 
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class BackupWalletPresenter(private var balanceInteract: BalanceInteract,
+class BackupWalletPresenter(private var balanceInteractor: BalanceInteractor,
                             private var view: BackupWalletFragmentView,
                             private var activityView: BackupActivityView,
                             private var disposables: CompositeDisposable,
@@ -26,7 +26,7 @@ class BackupWalletPresenter(private var balanceInteract: BalanceInteract,
   }
 
   private fun retrieveStoredBalance(walletAddress: String) {
-    disposables.add(balanceInteract.getStoredOverallBalance(walletAddress)
+    disposables.add(balanceInteractor.getStoredOverallBalance(walletAddress)
         .subscribeOn(dbScheduler)
         .observeOn(viewScheduler)
         .map { view.showBalance(it) }

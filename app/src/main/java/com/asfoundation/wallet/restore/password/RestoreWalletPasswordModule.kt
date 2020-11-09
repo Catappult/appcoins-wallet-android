@@ -2,7 +2,7 @@ package com.asfoundation.wallet.restore.password
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.google.gson.Gson
 import dagger.Binds
 import dagger.Module
@@ -33,9 +33,9 @@ class RestoreWalletPasswordModule {
   }
 
   @Provides
-  fun provideRestoreWalletPasswordInteractor(gson: Gson, balanceInteract: BalanceInteract,
+  fun provideRestoreWalletPasswordInteractor(gson: Gson, balanceInteractor: BalanceInteractor,
                                              restoreWalletInteractor: RestoreWalletInteractor): RestoreWalletPasswordInteractor {
-    return RestoreWalletPasswordInteractor(gson, balanceInteract, restoreWalletInteractor)
+    return RestoreWalletPasswordInteractor(gson, balanceInteractor, restoreWalletInteractor)
   }
 }
 

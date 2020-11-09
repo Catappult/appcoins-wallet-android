@@ -43,7 +43,7 @@ import kotlin.math.abs
 class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   @Inject
-  lateinit var balanceInteract: BalanceInteract
+  lateinit var balanceInteractor: BalanceInteractor
 
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
@@ -74,7 +74,7 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BalanceFragmentPresenter(this, activityView, balanceInteract, walletsEventSender,
+    presenter = BalanceFragmentPresenter(this, activityView, balanceInteractor, walletsEventSender,
         Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
     onBackPressedSubject = PublishSubject.create()
   }

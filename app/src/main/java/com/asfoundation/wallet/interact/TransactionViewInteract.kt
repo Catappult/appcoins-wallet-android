@@ -11,7 +11,7 @@ import com.asfoundation.wallet.promotions.PromotionsInteractorContract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
@@ -22,7 +22,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
                               private val findDefaultWalletInteract: FindDefaultWalletInteract,
                               private val fetchTransactionsInteract: FetchTransactionsInteract,
                               private val gamificationInteractor: GamificationInteractor,
-                              private val balanceInteract: BalanceInteract,
+                              private val balanceInteractor: BalanceInteractor,
                               private val promotionsInteractor: PromotionsInteractorContract,
                               private val cardNotificationsInteractor: CardNotificationsInteractor,
                               private val autoUpdateInteract: AutoUpdateInteract) {
@@ -31,13 +31,13 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     get() = gamificationInteractor.getLevels()
 
   val appcBalance: Observable<Pair<Balance, FiatValue>>
-    get() = balanceInteract.getAppcBalance()
+    get() = balanceInteractor.getAppcBalance()
 
   val ethereumBalance: Observable<Pair<Balance, FiatValue>>
-    get() = balanceInteract.getEthBalance()
+    get() = balanceInteractor.getEthBalance()
 
   val creditsBalance: Observable<Pair<Balance, FiatValue>>
-    get() = balanceInteract.getCreditsBalance()
+    get() = balanceInteractor.getCreditsBalance()
 
   val cardNotifications: Single<List<CardNotification>>
     get() = cardNotificationsInteractor.getCardNotifications()

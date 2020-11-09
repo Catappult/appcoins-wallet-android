@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_restore_wallet_first_layout.*
+import kotlinx.android.synthetic.main.fragment_restore_wallet_first.*
 import javax.inject.Inject
 
 class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
@@ -42,7 +42,7 @@ class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_restore_wallet_first_layout, container, false)
+    return inflater.inflate(R.layout.fragment_restore_wallet_first, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

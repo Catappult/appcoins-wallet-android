@@ -3,11 +3,11 @@ package com.asfoundation.wallet.interact;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import io.reactivex.Completable;
 
-public class SetDefaultWalletInteract {
+public class SetDefaultWalletInteractor {
 
   private WalletRepositoryType accountRepository;
 
-  public SetDefaultWalletInteract(WalletRepositoryType walletRepositoryType) {
+  public SetDefaultWalletInteractor(WalletRepositoryType walletRepositoryType) {
     this.accountRepository = walletRepositoryType;
   }
 

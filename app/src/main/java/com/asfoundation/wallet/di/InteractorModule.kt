@@ -57,7 +57,7 @@ import com.asfoundation.wallet.ui.SettingsInteractor
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -318,7 +318,7 @@ class InteractorModule {
                              balanceRepository: BalanceRepository,
                              preferencesRepositoryType: PreferencesRepositoryType,
                              smsValidationInteract: SmsValidationInteract) =
-      BalanceInteract(findDefaultWalletInteract, balanceRepository,
+      BalanceInteractor(findDefaultWalletInteract, balanceRepository,
           preferencesRepositoryType, smsValidationInteract)
 
   @Provides
@@ -340,25 +340,25 @@ class InteractorModule {
   fun providePaymentMethodsInteractor(walletService: WalletService,
                                       supportRepository: SupportRepository,
                                       gamificationInteractor: GamificationInteractor,
-                                      balanceInteract: BalanceInteract,
+                                      balanceInteractor: BalanceInteractor,
                                       walletBlockedInteract: WalletBlockedInteract,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       billing: Billing,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(walletService, supportRepository, gamificationInteractor,
-        balanceInteract, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
+        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
         billing, bdsPendingTransactionService)
   }
 
   @Provides
-  fun provideMergedAppcoinsInteractor(balanceInteract: BalanceInteract,
+  fun provideMergedAppcoinsInteractor(balanceInteractor: BalanceInteractor,
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportRepository: SupportRepository,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       walletService: WalletService,
                                       preferencesRepositoryType: PreferencesRepositoryType): MergedAppcoinsInteractor {
-    return MergedAppcoinsInteractor(balanceInteract, walletBlockedInteract, supportRepository,
+    return MergedAppcoinsInteractor(balanceInteractor, walletBlockedInteract, supportRepository,
         inAppPurchaseInteractor, walletService, preferencesRepositoryType)
   }
 
@@ -410,12 +410,12 @@ class InteractorModule {
                                       findDefaultWalletInteract: FindDefaultWalletInteract,
                                       fetchTransactionsInteract: FetchTransactionsInteract,
                                       gamificationInteractor: GamificationInteractor,
-                                      balanceInteract: BalanceInteract,
+                                      balanceInteractor: BalanceInteractor,
                                       promotionsInteractorContract: PromotionsInteractorContract,
                                       cardNotificationsInteractor: CardNotificationsInteractor,
                                       autoUpdateInteract: AutoUpdateInteract): TransactionViewInteract {
     return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
-        fetchTransactionsInteract, gamificationInteractor, balanceInteract,
+        fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
         promotionsInteractorContract, cardNotificationsInteractor, autoUpdateInteract)
   }
 
@@ -429,9 +429,9 @@ class InteractorModule {
   fun provideBackupInteractor(sharedPreferences: PreferencesRepositoryType,
                               gamificationInteractor: GamificationInteractor,
                               fetchTransactionsInteract: FetchTransactionsInteract,
-                              balanceInteract: BalanceInteract,
+                              balanceInteractor: BalanceInteractor,
                               findDefaultWalletInteract: FindDefaultWalletInteract): BackupInteractContract {
-    return BackupInteract(sharedPreferences, fetchTransactionsInteract, balanceInteract,
+    return BackupInteract(sharedPreferences, fetchTransactionsInteract, balanceInteractor,
         gamificationInteractor, findDefaultWalletInteract)
   }
 
@@ -453,8 +453,9 @@ class InteractorModule {
 
   @Provides
   fun provideSetDefaultAccountInteract(
-      accountRepository: WalletRepositoryType): SetDefaultWalletInteract {
-    return SetDefaultWalletInteract(accountRepository)
+      accountRepository: WalletRepositoryType): SetDefaultWalletInteractor {
+    return SetDefaultWalletInteractor(
+        accountRepository)
   }
 
   @Provides
@@ -475,22 +476,22 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideWalletsInteract(balanceInteract: BalanceInteract,
+  fun provideWalletsInteract(balanceInteractor: BalanceInteractor,
                              fetchWalletsInteract: FetchWalletsInteract,
                              walletCreatorInteract: WalletCreatorInteract,
                              supportRepository: SupportRepository,
                              sharedPreferencesRepository: SharedPreferencesRepository,
                              gamification: Gamification, logger: Logger): WalletsInteract {
-    return WalletsInteract(balanceInteract, fetchWalletsInteract, walletCreatorInteract,
+    return WalletsInteract(balanceInteractor, fetchWalletsInteract, walletCreatorInteract,
         supportRepository, sharedPreferencesRepository, gamification, logger)
   }
 
   @Provides
-  fun provideWalletDetailInteract(balanceInteract: BalanceInteract,
-                                  setDefaultWalletInteract: SetDefaultWalletInteract,
+  fun provideWalletDetailInteract(balanceInteractor: BalanceInteractor,
+                                  setDefaultWalletInteractor: SetDefaultWalletInteractor,
                                   supportRepository: SupportRepository,
                                   gamification: Gamification): WalletDetailsInteractor {
-    return WalletDetailsInteractor(balanceInteract, setDefaultWalletInteract, supportRepository,
+    return WalletDetailsInteractor(balanceInteractor, setDefaultWalletInteractor, supportRepository,
         gamification)
   }
 
@@ -499,9 +500,9 @@ class InteractorModule {
   fun provideRestoreWalletInteract(
       walletRepository: WalletRepositoryType, passwordStore: PasswordStore,
       preferencesRepositoryType: PreferencesRepositoryType,
-      setDefaultWalletInteract: SetDefaultWalletInteract,
+      setDefaultWalletInteractor: SetDefaultWalletInteractor,
       fileInteractor: FileInteractor): RestoreWalletInteractor {
-    return RestoreWalletInteractor(walletRepository, setDefaultWalletInteract,
+    return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor,
         passwordStore, preferencesRepositoryType, fileInteractor)
   }
 

@@ -3,7 +3,7 @@ package com.asfoundation.wallet.restore.intro
 import android.net.Uri
 import android.os.Build
 import com.asfoundation.wallet.backup.FileInteractor
-import com.asfoundation.wallet.interact.SetDefaultWalletInteract
+import com.asfoundation.wallet.interact.SetDefaultWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.interact.rx.operator.Operators
 import com.asfoundation.wallet.repository.PasswordStore
@@ -15,7 +15,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType,
-                              private val setDefaultWalletInteract: SetDefaultWalletInteract,
+                              private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
                               private val passwordStore: PasswordStore,
                               private val preferencesRepositoryType: PreferencesRepositoryType,
                               private val fileInteractor: FileInteractor) {
@@ -44,7 +44,7 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
         .onErrorReturn { WalletModel(RestoreError(RestoreErrorType.GENERIC)) }
   }
 
-  fun setDefaultWallet(address: String): Completable = setDefaultWalletInteract.set(address)
+  fun setDefaultWallet(address: String): Completable = setDefaultWalletInteractor.set(address)
 
   fun getPath(): Uri? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
