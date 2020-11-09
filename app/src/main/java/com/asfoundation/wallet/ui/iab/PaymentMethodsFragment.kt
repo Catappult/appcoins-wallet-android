@@ -427,6 +427,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun setBonus(bonus: BigDecimal, currency: String) {
+    bonusValue = bonus
     bonus_view.setPurchaseBonusHeaderValue(bonus, currency)
   }
 

@@ -54,9 +54,12 @@ class CarrierVerifyPresenter(
                 var message = stringProvider.getString(R.string.purchase_carrier_error)
                 paymentModel.error?.let { error ->
                   when (error.errorCode) {
-                    // TODO: Missing strings
-                    4001 -> message = stringProvider.getString(R.string.purchase_carrier_error)
-                    4002 -> message = stringProvider.getString(R.string.purchase_carrier_error)
+                    4001 -> message =
+                        stringProvider.getString(R.string.purchase_carrier_error_minimum,
+                            error.value)
+                    4002 -> message =
+                        stringProvider.getString(R.string.purchase_carrier_error_maximum,
+                            error.value)
                   }
                 }
                 navigator.navigateToError(message)

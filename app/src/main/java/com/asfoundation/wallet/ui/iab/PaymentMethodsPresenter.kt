@@ -123,6 +123,7 @@ class PaymentMethodsPresenter(
             }
           }
         }
+        .retry()
         .subscribe({}, { it.printStackTrace() }))
   }
 
