@@ -9,6 +9,10 @@ import com.asfoundation.wallet.promotions.PromotionsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
+import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
+import com.asfoundation.wallet.restore.intro.RestoreWalletModule
+import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
+import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
 import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
@@ -22,8 +26,6 @@ import com.asfoundation.wallet.ui.backup.BackupCreationFragment
 import com.asfoundation.wallet.ui.backup.BackupSuccessFragment
 import com.asfoundation.wallet.ui.backup.BackupWalletFragment
 import com.asfoundation.wallet.ui.balance.BalanceFragment
-import com.asfoundation.wallet.ui.balance.RestoreWalletFragment
-import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
@@ -155,11 +157,13 @@ abstract class FragmentBuilders {
   abstract fun bindWalletRemoveConfirmationFragment(): WalletRemoveConfirmationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(
+      modules = [RestoreWalletModule::class])
   abstract fun bindRestoreWalletFragment(): RestoreWalletFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(
+      modules = [RestoreWalletPasswordModule::class])
   abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
 
   @FragmentScope

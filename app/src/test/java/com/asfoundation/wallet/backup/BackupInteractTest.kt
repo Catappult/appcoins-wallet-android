@@ -3,7 +3,7 @@ package com.asfoundation.wallet.backup
 import com.asfoundation.wallet.interact.FetchTransactionsInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import io.reactivex.Completable
 import io.reactivex.observers.TestObserver
@@ -30,7 +30,7 @@ class BackupInteractTest {
   lateinit var fetchTransactionsInteract: FetchTransactionsInteract
 
   @Mock
-  lateinit var balanceInteract: BalanceInteract
+  lateinit var balanceInteractor: BalanceInteractor
 
   @Mock
   lateinit var gamificationInteractor: GamificationInteractor
@@ -43,7 +43,7 @@ class BackupInteractTest {
   @Before
   fun setup() {
     backupInteract =
-        BackupInteract(sharedPreferencesRepository, fetchTransactionsInteract, balanceInteract,
+        BackupInteract(sharedPreferencesRepository, fetchTransactionsInteract, balanceInteractor,
             gamificationInteractor, findDefaultWalletInteract)
   }
 

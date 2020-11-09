@@ -9,7 +9,7 @@ import com.appcoins.wallet.billing.adyen.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -30,7 +30,7 @@ class AdyenPaymentInteractor(
     private val partnerAddressService: AddressService,
     private val billing: Billing,
     private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor,
+    private val supportRepository: SupportRepository,
     private val walletBlockedInteract: WalletBlockedInteract,
     private val smsValidationInteract: SmsValidationInteract
 ) {
@@ -47,8 +47,8 @@ class AdyenPaymentInteractor(
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
+            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
+            supportRepository.displayChatScreen()
           }
         }
   }

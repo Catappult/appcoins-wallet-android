@@ -8,14 +8,14 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralModel
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 
 class OnboardingInteract(
     private val walletService: WalletService,
     private val preferencesRepositoryType: PreferencesRepositoryType,
-    private val supportInteractor: SupportInteractor,
+    private val supportRepository: SupportRepository,
     private val gamificationRepository: Gamification,
     private val smsValidationInteract: SmsValidationInteract,
     private val referralInteractor: ReferralInteractorContract,
@@ -24,7 +24,7 @@ class OnboardingInteract(
   fun getWalletAddress() = walletService.getWalletOrCreate()
       .flatMap { address ->
         gamificationRepository.getUserStats(address)
-            .doOnSuccess { supportInteractor.registerUser(it.level, address) }
+            .doOnSuccess { supportRepository.registerUser(it.level, address) }
             .map { address }
       }
 

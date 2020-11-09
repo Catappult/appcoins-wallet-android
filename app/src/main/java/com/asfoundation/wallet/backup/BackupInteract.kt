@@ -6,7 +6,7 @@ import com.asfoundation.wallet.interact.FetchTransactionsInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Completable
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 class BackupInteract(
     private val sharedPreferencesRepository: PreferencesRepositoryType,
     private val fetchTransactionsInteract: FetchTransactionsInteract,
-    private val balanceInteract: BalanceInteract,
+    private val balanceInteractor: BalanceInteractor,
     private val gamificationInteractor: GamificationInteractor,
     private val findDefaultWalletInteract: FindDefaultWalletInteract
 ) : BackupInteractContract {
@@ -78,7 +78,7 @@ class BackupInteract(
   }
 
   private fun meetsBalanceConditions(): Single<Boolean> {
-    return balanceInteract.requestTokenConversion()
+    return balanceInteractor.requestTokenConversion()
         .firstOrError()
         .map { it.overallFiat.amount >= BigDecimal(BALANCE_AMOUNT_THRESHOLD) }
         .onErrorReturn { false }

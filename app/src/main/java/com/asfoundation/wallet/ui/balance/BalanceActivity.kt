@@ -14,8 +14,9 @@ import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.navigator.ActivityNavigator
+import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.wallets.RemoveWalletActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
@@ -24,8 +25,7 @@ import kotlinx.android.synthetic.main.activity_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
 
-class BalanceActivity : BaseActivity(),
-    BalanceActivityView {
+class BalanceActivity : ActivityNavigator(), BalanceActivityView {
 
   private lateinit var activityPresenter: BalanceActivityPresenter
   private var onBackPressedSubject: PublishSubject<Any>? = null

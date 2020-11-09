@@ -17,7 +17,7 @@ import io.reactivex.annotations.Nullable
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
-class BalanceInteract(
+class BalanceInteractor(
     private val walletInteract: FindDefaultWalletInteract,
     private val balanceRepository: BalanceRepository,
     private val preferencesRepositoryType: PreferencesRepositoryType,
