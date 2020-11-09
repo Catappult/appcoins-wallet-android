@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.restore.password
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.restore.RestoreWalletActivityView
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.jakewharton.rxbinding2.view.RxView
@@ -51,11 +49,9 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
     return inflater.inflate(R.layout.fragment_restore_wallet_password, container, false)
   }
 
-  @SuppressLint("SetTextI18n")
-  override fun updateUi(address: String, fiatValue: FiatValue) {
+  override fun updateUi(address: String, fiatAmount: String, fiatSymbol: String) {
     wallet_address.text = address
-    wallet_balance.text =
-        "${fiatValue.symbol}${currencyFormatUtils.formatCurrency(fiatValue.amount)}"
+    wallet_balance.text = getString(R.string.value_fiat, fiatSymbol, fiatAmount)
   }
 
   override fun restoreWalletButtonClick(): Observable<String> {

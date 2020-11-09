@@ -3,6 +3,7 @@ package com.asfoundation.wallet.restore.password
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.WalletModel
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -11,6 +12,7 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
                                      private val data: RestoreWalletPasswordData,
                                      private val interactor: RestoreWalletPasswordInteractor,
                                      private val walletsEventSender: WalletsEventSender,
+                                     private val currencyFormatUtils: CurrencyFormatUtils,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
                                      private val networkScheduler: Scheduler,
@@ -28,7 +30,10 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         .flatMapObservable { address ->
           interactor.getOverallBalance(address)
               .observeOn(viewScheduler)
-              .doOnNext { fiatValue -> view.updateUi(address, fiatValue) }
+              .doOnNext { fiatValue ->
+                view.updateUi(address, currencyFormatUtils.formatCurrency(fiatValue.amount),
+                    fiatValue.symbol)
+              }
         }
         .observeOn(viewScheduler)
         .subscribe({}, {

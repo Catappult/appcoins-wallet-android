@@ -3,6 +3,7 @@ package com.asfoundation.wallet.restore.password
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.google.gson.Gson
 import dagger.Binds
 import dagger.Module
@@ -18,8 +19,9 @@ class RestoreWalletPasswordModule {
   fun providesRestoreWalletPasswordPresenter(view: RestoreWalletPasswordView,
                                              data: RestoreWalletPasswordData,
                                              interactor: RestoreWalletPasswordInteractor,
-                                             eventSender: WalletsEventSender): RestoreWalletPasswordPresenter {
-    return RestoreWalletPasswordPresenter(view, data, interactor, eventSender,
+                                             eventSender: WalletsEventSender,
+                                             currencyFormatUtils: CurrencyFormatUtils): RestoreWalletPasswordPresenter {
+    return RestoreWalletPasswordPresenter(view, data, interactor, eventSender, currencyFormatUtils,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
         Schedulers.computation())
   }

@@ -17,7 +17,7 @@ import com.asfoundation.wallet.navigator.ActivityNavigator
 import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import dagger.android.AndroidInjection
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activityrestore_wallet.*
+import kotlinx.android.synthetic.main.activity_restore_wallet.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 import javax.inject.Inject
 
@@ -43,7 +43,7 @@ class RestoreWalletActivity : ActivityNavigator(), RestoreWalletActivityView {
     super.onCreate(savedInstanceState)
     fileChosenSubject = PublishSubject.create()
     onPermissionSubject = PublishSubject.create()
-    setContentView(R.layout.activityrestore_wallet)
+    setContentView(R.layout.activity_restore_wallet)
     toolbar()
     presenter.present(savedInstanceState)
   }
