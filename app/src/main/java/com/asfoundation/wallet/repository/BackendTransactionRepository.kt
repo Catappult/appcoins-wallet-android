@@ -1,16 +1,16 @@
 package com.asfoundation.wallet.repository
 
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.entity.WalletHistory
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.service.AccountKeystoreService
 import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
-import io.reactivex.Maybe
+import io.reactivex.*
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.*
@@ -26,6 +26,7 @@ class BackendTransactionRepository(
     private val offChainTransactions: OffChainTransactions,
     private val localRepository: TransactionsRepository,
     private val mapper: TransactionMapper,
+    private val transactionsMapper: TransactionsMapper,
     private val disposables: CompositeDisposable,
     private val ioScheduler: Scheduler) :
     TransactionRepository(networkInfo, accountKeystoreService,
@@ -42,13 +43,13 @@ class BackendTransactionRepository(
                 fetchMissingOldTransactions(wallet))
           }
           .buffer(2, TimeUnit.SECONDS)
-          .doOnNext { localRepository.insertAll(it.flatten()) }
+          .flatMap { transactions -> saveTransactions(transactions.flatten(), wallet) }
           .subscribe({}, { it.printStackTrace() })
     }
     disposables.add(disposable)
 
     return localRepository.getAllAsFlowable(wallet)
-        .map { mapper.map(it) }
+        .flatMap { transactions -> getLinkedTransactions(wallet, transactions) }
         .toObservable()
         .distinctUntilChanged()
   }
@@ -63,12 +64,45 @@ class BackendTransactionRepository(
           // and we store with 3, so the last transaction will always be returned
           fetchNewTransactions(wallet, startingDate + 1).firstOrError()
         }
-        .doOnSuccess { localRepository.insertAll(it) }
-        .map { mapper.map(it) }
+        .flatMap { transactions -> saveTransactions(transactions, wallet).firstOrError() }
+        .map { it.map { transaction -> mapper.map(transaction) } }
+  }
+
+  private fun getLinkedTransactions(wallet: String,
+                                    transactions: List<TransactionEntity>): Flowable<List<Transaction>> {
+    return Observable.fromIterable(transactions)
+        .flatMapSingle { transaction ->
+          if (isRevertTransaction(transaction.type)) {
+            localRepository.getRevertedTransaction(wallet, transaction.transactionId)
+                .map { link -> mapper.map(transaction, link) }
+                .onErrorResumeNext {
+                  //if getRevertedTransaction fails it means that the original transaction doesn't
+                  //exist in the database hence we need to fetch it from the remote repo to be able
+                  //to use it in the transactions flow
+                  localRepository.getRevertedTxId(wallet, transaction.transactionId)
+                      .flatMap { link ->
+                        offChainTransactions.getTransactionsById(wallet, link)
+                            .map { result -> result[link] }
+                            .map { revertedTx -> transactionsMapper.map(revertedTx, wallet) }
+                            .doOnSuccess { revertedTx ->
+                              localRepository.insertAll(listOf(revertedTx))
+                            }
+                            .map { revertedTx -> mapper.map(transaction, revertedTx) }
+                      }
+                      .onErrorReturn { mapper.map(transaction) }
+                }
+          } else {
+            localRepository.getRevertTransaction(wallet, transaction.transactionId)
+                .map { link -> mapper.map(transaction, link) }
+                .onErrorReturn { mapper.map(transaction) }
+          }
+        }
+        .toList()
+        .toFlowable()
   }
 
   private fun fetchNewTransactions(wallet: String,
-                                   startingDate: Long): Observable<MutableList<TransactionEntity>> {
+                                   startingDate: Long): Observable<MutableList<WalletHistory.Transaction>> {
     var sort = OffChainTransactions.Sort.DESC
     if (startingDate != 0L) {
       sort = OffChainTransactions.Sort.ASC
@@ -77,11 +111,11 @@ class BackendTransactionRepository(
   }
 
   private fun fetchMissingOldTransactions(
-      wallet: String): Observable<MutableList<TransactionEntity>> {
+      wallet: String): Observable<MutableList<WalletHistory.Transaction>> {
     return localRepository.isOldTransactionsLoaded()
         .flatMapObservable { isLoaded ->
           if (isLoaded) {
-            return@flatMapObservable Observable.empty<MutableList<TransactionEntity>>()
+            return@flatMapObservable Observable.empty<MutableList<WalletHistory.Transaction>>()
           }
           return@flatMapObservable localRepository.getOlderTransaction(wallet)
               .map { it.processedTime }
@@ -96,13 +130,29 @@ class BackendTransactionRepository(
   private fun fetchTransactions(wallet: String,
                                 startingDate: Long? = null,
                                 endDate: Long? = null,
-                                sort: OffChainTransactions.Sort? = null): Observable<MutableList<TransactionEntity>> {
+                                sort: OffChainTransactions.Sort? = null): Observable<MutableList<WalletHistory.Transaction>> {
     return TransactionsLoadObservable(offChainTransactions, wallet, startingDate, endDate, sort)
         .flatMapSingle { transactions ->
           Observable.fromIterable(transactions)
-              .map { mapper.map(it, wallet) }
               .toList()
         }
+  }
+
+  private fun saveTransactions(transactions: List<WalletHistory.Transaction>,
+                               wallet: String): Observable<List<TransactionEntity>> {
+    return Observable.fromIterable(transactions)
+        .flatMap { transaction ->
+          if (isRevertTransaction(transaction.type, transaction.linkedTx.orEmpty())) {
+            transaction.linkedTx?.forEach {
+              localRepository.insertTransactionLink(transaction.txID, it)
+            }
+          }
+          val entity = transactionsMapper.map(transaction, wallet)
+          Observable.just(entity)
+        }
+        .toList()
+        .doOnSuccess { localRepository.insertAll(it) }
+        .toObservable()
   }
 
   private fun getLastProcessedTime(wallet: String): Maybe<Long> {
@@ -120,6 +170,17 @@ class BackendTransactionRepository(
         0L
       }
     }
+  }
+
+  private fun isRevertTransaction(type: String, links: List<String>): Boolean {
+    val isRevertType = transactionsMapper.isRevertType(type)
+    return isRevertType && links.isNotEmpty()
+  }
+
+  private fun isRevertTransaction(transactionEntity: TransactionEntity.TransactionType): Boolean {
+    return transactionEntity == TransactionEntity.TransactionType.IAP_REVERT ||
+        transactionEntity == TransactionEntity.TransactionType.BONUS_REVERT ||
+        transactionEntity == TransactionEntity.TransactionType.TOP_UP_REVERT
   }
 
   override fun stop() = disposables.clear()

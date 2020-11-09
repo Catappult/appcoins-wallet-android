@@ -37,6 +37,8 @@
 
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
+  <color name="transaction_orange">#ff7600</color>
+  <color name="transaction_green">#62be00</color>
   <color name="list_separator_color">#f0f0f0</color>
 
   <color name="details_address_text_color">#000000</color>

@@ -186,7 +186,6 @@
   </style>
 
   <style name="FloatingButtonStyle" parent="Widget.MaterialComponents.Button">
-    <!--<item name="android:background">@draw~able/floating_button_background</item>-->
     <item name="android:backgroundTint">@color/floating_btn_start_gradient_color</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@drawable/btn_text_color</item>
@@ -220,6 +219,14 @@
   <style name="TransactionDetailsTextStyle.Title">
     <item name="android:textSize">16sp</item>
     <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="TransactionDetailsTextStyle.Reverted">
+    <item name="android:textColor">#212121</item>
+    <item name="android:textAlignment">center</item>
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:alpha">0.54</item>
+    <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
   <style name="ButtonStyle.Light" parent="Base.Widget.AppCompat.ImageButton">
@@ -738,6 +745,13 @@
 
   <style name="TransactionsItem.Description.Extended">
     <item name="android:maxLines">3</item>
+  </style>
+
+  <style name="TransactionsItem.Revert" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:alpha">0.55</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+    <item name="android:textColor">#212121</item>
+    <item name="android:textAlignment">textStart</item>
   </style>
 
   <style name="BottomSheetInfoTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
