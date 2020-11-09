@@ -14,7 +14,8 @@ data class CarrierPaymentModel(
     val status: TransactionStatus, val error: TransactionCarrierError?,
     val networkError: Error = Error()
 ) {
-  constructor(error: Error) : this("", "", null, null, TransactionStatus.FAILED, null, error)
+  constructor(carrierError: TransactionCarrierError?, error: Error) : this("", "", null, null,
+      TransactionStatus.FAILED, carrierError, error)
 
   fun hasError(): Boolean {
     return error != null || networkError.hasError

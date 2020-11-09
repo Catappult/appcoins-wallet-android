@@ -6,6 +6,7 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.StringProvider
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import dagger.Binds
@@ -53,7 +54,8 @@ class CarrierVerifyModule {
                                      stringProvider: StringProvider,
                                      applicationInfoLoader: ApplicationInfoLoader): CarrierVerifyPresenter {
     return CarrierVerifyPresenter(CompositeDisposable(), view, data, navigator, interactor,
-        applicationInfoLoader, stringProvider, AndroidSchedulers.mainThread(), Schedulers.io())
+        applicationInfoLoader, stringProvider, CurrencyFormatUtils(),
+        AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   @Provides
@@ -62,7 +64,7 @@ class CarrierVerifyModule {
                                 inAppPurchaseInteractor: InAppPurchaseInteractor,
                                 logger: Logger): CarrierInteractor {
     return CarrierInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, logger)
+        inAppPurchaseInteractor, logger, Schedulers.io())
   }
 }
 

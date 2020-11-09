@@ -8,16 +8,17 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
+import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
-import io.reactivex.schedulers.Schedulers
 
 class CarrierInteractor(val repository: CarrierBillingRepository,
                         val walletService: WalletService,
                         val partnerAddressService: AddressService,
                         val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                        val logger: Logger) {
+                        val logger: Logger,
+                        val ioScheduler: Scheduler) {
 
   fun createPayment(phoneNumber: String, packageName: String,
                     origin: String?, transactionData: String?, transactionType: String,
@@ -38,15 +39,15 @@ class CarrierInteractor(val repository: CarrierBillingRepository,
 
   fun getTransactionBuilder(transactionData: String?): Single<TransactionBuilder> {
     return inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(ioScheduler)
   }
 
   fun getAddresses(packageName: String): Single<WalletAddresses> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress()
-        .subscribeOn(Schedulers.io()), partnerAddressService.getStoreAddressForPackage(packageName)
-        .subscribeOn(Schedulers.io()),
+        .subscribeOn(ioScheduler), partnerAddressService.getStoreAddressForPackage(packageName)
+        .subscribeOn(ioScheduler),
         partnerAddressService.getOemAddressForPackage(packageName)
-            .subscribeOn(Schedulers.io()), Function3 { addressModel, storeAddress, oemAddress ->
+            .subscribeOn(ioScheduler), Function3 { addressModel, storeAddress, oemAddress ->
       return@Function3 WalletAddresses(addressModel.address, addressModel.signedAddress,
           storeAddress, oemAddress)
     })

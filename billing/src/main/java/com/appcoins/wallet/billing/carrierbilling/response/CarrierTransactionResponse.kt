@@ -7,5 +7,4 @@ data class CarrierTransactionResponse(val uid: String,
                                       val status: TransactionStatus,
                                       val url: String,
                                       val fee: TransactionFee,
-                                      val carrier: TransactionCarrier,
-                                      val error: TransactionCarrierError?)
+                                      val carrier: TransactionCarrier)

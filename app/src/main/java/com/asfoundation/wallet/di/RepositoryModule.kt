@@ -125,15 +125,15 @@ class RepositoryModule {
   @Provides
   fun provideCarrierBillingRepository(
       @Named("default") client: OkHttpClient): CarrierBillingRepository {
-    val api = Retrofit.Builder()
+    val retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201101/gateways/dimoco/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .build()
-        .create(
-            CarrierBillingRepository.CarrierBillingApi::class.java)
-    return CarrierBillingRepository(api, CarrierResponseMapper(), BuildConfig.APPLICATION_ID)
+    val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
+    return CarrierBillingRepository(api, CarrierResponseMapper(retrofit),
+        BuildConfig.APPLICATION_ID)
   }
 
   @Provides
