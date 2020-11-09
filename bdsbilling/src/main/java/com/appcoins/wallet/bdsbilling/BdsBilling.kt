@@ -58,13 +58,13 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
-  override fun getPurchases(merchantName: String, type: BillingSupportedType,
+  override fun getPurchases(packageName: String, type: BillingSupportedType,
                             scheduler: Scheduler): Single<List<Purchase>> {
     return if (isManagedType(type)) {
       walletService.getAndSignCurrentWalletAddress()
           .observeOn(scheduler)
           .flatMap {
-            repository.getPurchases(merchantName, it.address, it.signedAddress, type)
+            repository.getPurchases(packageName, it.address, it.signedAddress, type)
           }
           .onErrorReturn { emptyList() }
     } else Single.just(emptyList())

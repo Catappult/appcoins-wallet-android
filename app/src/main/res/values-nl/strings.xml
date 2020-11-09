@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Oeps, je sessie is verlopen. Begin opnieuw!</string>
   <string name="verification_error_attempts_reached">Het lijkt erop dat je het maximale aantal pogingen hebt bereikt. Wacht even en probeer het opnieuw.</string>
   <string name="verified_tag">Geverifieerd</string>
-  <string name="unferified_tag">Niet geverifieerd</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Het lijkt erop dat deze aankoop al wordt verwerkt. Wacht totdat de transactie is voltooid of neem contact op met ons ondersteuningsteam.</string>
   <string name="purchase_more_payment_methods_button">ANDERE BETALINGSMETHODEN</string>

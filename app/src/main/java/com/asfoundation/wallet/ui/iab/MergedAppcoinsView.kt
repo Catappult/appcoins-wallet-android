@@ -40,6 +40,12 @@ interface MergedAppcoinsView {
 
   fun toggleSkeletons(show: Boolean)
 
+  fun showAuthenticationActivity()
+
+  fun onAuthenticationResult(): Observable<Boolean>
+
+  fun showPaymentMethodsView()
+
   fun showVolatilityInfo()
 
   fun hideVolatilityInfo()

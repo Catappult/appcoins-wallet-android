@@ -6,6 +6,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -18,7 +19,8 @@ class MergedAppcoinsInteractor(private val balanceInteract: BalanceInteract,
                                private val walletBlockedInteract: WalletBlockedInteract,
                                private val supportInteractor: SupportInteractor,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                               private val walletService: WalletService) {
+                               private val walletService: WalletService,
+                               private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
@@ -58,4 +60,6 @@ class MergedAppcoinsInteractor(private val balanceInteract: BalanceInteract,
           }
     }
   }
+
+  fun hasAuthenticationPermission() = preferencesRepositoryType.hasAuthenticationPermission()
 }

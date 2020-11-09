@@ -114,7 +114,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="15dp"
+          android:layout_marginTop="20dp"
           android:layout_marginEnd="@dimen/big_margin"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
@@ -154,6 +154,7 @@
           app:layout_constraintStart_toStartOf="@id/bonus_layout"
           app:layout_constraintTop_toTopOf="@id/bonus_layout"
           />
+
       <include
           android:id="@+id/bonus_msg_skeleton"
           layout="@layout/skeleton_rounded_rectangle"
@@ -264,7 +265,7 @@
           android:id="@+id/bottom_separator_buttons"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginTop="224dp"
+          android:layout_marginTop="232dp"
           android:background="@color/layout_separator_color"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

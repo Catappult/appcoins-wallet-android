@@ -122,6 +122,10 @@ abstract class ActivityBuilders {
   abstract fun bindOneStepPaymentReceiver(): OneStepPaymentReceiver
 
   @ActivityScope
+  @ContributesAndroidInjector
+  internal abstract fun bindAuthenticationPromptActivity(): AuthenticationPromptActivity
+
+  @ActivityScope
   @ContributesAndroidInjector()
   abstract fun bindSubscriptionActivity(): SubscriptionActivity
 }

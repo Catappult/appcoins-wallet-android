@@ -22,7 +22,7 @@ interface Billing {
   fun getSkuPurchase(merchantName: String, sku: String?, purchaseUid: String?, scheduler: Scheduler,
                      type: BillingSupportedType): Single<Purchase>
 
-  fun getPurchases(merchantName: String, type: BillingSupportedType,
+  fun getPurchases(packageName: String, type: BillingSupportedType,
                    scheduler: Scheduler): Single<List<Purchase>>
 
   fun consumePurchases(merchantName: String, purchaseToken: String,

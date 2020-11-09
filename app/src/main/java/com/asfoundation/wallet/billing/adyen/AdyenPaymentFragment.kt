@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -48,7 +47,6 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.mapToSubFrequency
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -103,7 +101,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
-  private var backButton: PublishRelay<Boolean>? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
@@ -118,7 +115,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    backButton = PublishRelay.create()
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
     adyen3DSErrorSubject = PublishSubject.create()
@@ -144,7 +140,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setupUi(view)
+    setupUi()
     presenter.present(savedInstanceState)
   }
 
@@ -158,13 +154,13 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     })
   }
 
-  private fun setupUi(view: View) {
+  private fun setupUi() {
     setupAdyenLayouts()
     setupTransactionCompleteAnimation()
     handleBuyButtonText()
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
 
-    handlePreSelectedView(view)
+    handlePreSelectedView()
     handleBonusAnimation()
 
     showProduct()
@@ -270,7 +266,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun backEvent(): Observable<Any> {
     return RxView.clicks(cancel_button)
-        .mergeWith(backButton)
+        .mergeWith(iabView.backButtonPress())
   }
 
   override fun showSuccess() {
@@ -412,18 +408,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     //TODO When this logic is implemented it should be an option from the user,
     // but as of right now this logic is not implemented
     return false
-  }
-
-  private fun setBackListener(view: View) {
-    iabView.disableBack()
-    view.isFocusableInTouchMode = true
-    view.requestFocus()
-    view.setOnKeyListener { _: View?, _: Int, keyEvent: KeyEvent ->
-      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyEvent.keyCode == KeyEvent.KEYCODE_BACK) {
-        backButton?.accept(true)
-      }
-      true
-    }
   }
 
   private fun setupAdyenLayouts() {
@@ -602,10 +586,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     }
   }
 
-  private fun handlePreSelectedView(view: View) {
+  private fun handlePreSelectedView() {
     if (!isPreSelected) {
       cancel_button.setText(R.string.back_button)
-      setBackListener(view)
+      iabView.disableBack()
     }
     showBonus()
   }
@@ -632,7 +616,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun onDestroy() {
-    backButton = null
     paymentDataSubject = null
     paymentDetailsSubject = null
     adyen3DSErrorSubject = null

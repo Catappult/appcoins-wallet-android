@@ -1,12 +1,15 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -17,16 +20,28 @@ class IabPresenter(private val view: IabView,
                    private val viewScheduler: Scheduler,
                    private val disposable: CompositeDisposable,
                    private val billingAnalytics: BillingAnalytics,
-                   private var firstImpression: Boolean,
                    private val iabInteract: IabInteract,
-                   private val walletBlockedInteract: WalletBlockedInteract,
-                   private val logger: Logger) {
+                   private val logger: Logger,
+                   private val transaction: TransactionBuilder?) {
+
+  private var firstImpression = true
 
   companion object {
     private val TAG = IabActivity::class.java.name
+    private const val FIRST_IMPRESSION = "first_impression"
   }
 
-  fun present() {
+  fun present(savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      firstImpression = it.getBoolean(FIRST_IMPRESSION, firstImpression)
+    }
+    if (savedInstanceState == null) {
+      handlePurchaseStartAnalytics(transaction)
+      view.showPaymentMethodsView()
+    }
+  }
+
+  fun onResume() {
     handleAutoUpdate()
     handleUserRegistration()
     handleSupportClicks()
@@ -48,16 +63,15 @@ class IabPresenter(private val view: IabView,
     )
   }
 
-  fun handleWalletBlockedCheck(@StringRes error: Int) {
-    disposable.add(
-        walletBlockedInteract.isWalletBlocked()
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess {
-              if (it) view.showError(error)
-              else view.showPaymentMethodsView()
-            }
-            .subscribe({}, { handleError(it) })
+  private fun handleWalletBlockedCheck(@StringRes error: Int) {
+    disposable.add(iabInteract.isWalletBlocked()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it) view.showError(error)
+          else view.showPaymentMethodsView()
+        }
+        .subscribe({}, { handleError(it) })
     )
   }
 
@@ -134,11 +148,76 @@ class IabPresenter(private val view: IabView,
   fun stop() = disposable.clear()
 
   fun onSaveInstance(outState: Bundle) {
-    outState.putBoolean(IabActivity.FIRST_IMPRESSION, firstImpression)
+    outState.putBoolean(FIRST_IMPRESSION, firstImpression)
   }
 
   fun savePreselectedPaymentMethod(bundle: Bundle) {
     bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY)
         ?.let { iabInteract.savePreSelectedPaymentMethod(it) }
+  }
+
+  private fun sendPayPalConfirmationEvent(action: String) {
+    billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
+        transaction?.amount()
+            .toString(), "paypal",
+        transaction?.type, action)
+  }
+
+  private fun sendPaypalUrlEvent(data: Intent) {
+    val amountString = transaction?.amount()
+        .toString()
+    billingAnalytics.sendPaypalUrlEvent(transaction?.domain, transaction?.skuId,
+        amountString, "PAYPAL", getQueryParameter(data, "type"),
+        getQueryParameter(data, "resultCode"), data.dataString)
+  }
+
+  private fun getQueryParameter(data: Intent, parameter: String): String? {
+    return Uri.parse(data.dataString)
+        .getQueryParameter(parameter)
+  }
+
+  fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    when (requestCode) {
+      IabActivity.WEB_VIEW_REQUEST_CODE -> handleWebViewResult(resultCode, data)
+      IabActivity.WALLET_VALIDATION_REQUEST_CODE -> handleWalletValidationResult(data)
+      IabActivity.AUTHENTICATION_REQUEST_CODE -> handleAuthenticationResult(resultCode)
+    }
+  }
+
+  private fun handleWebViewResult(resultCode: Int, data: Intent?) {
+    if (resultCode == WebViewActivity.FAIL) {
+      if (data?.dataString?.contains("codapayments") != true) {
+        sendPayPalConfirmationEvent("cancel")
+      }
+      if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+        iabInteract.showSupport()
+      }
+      view.showPaymentMethodsView()
+    } else if (resultCode == WebViewActivity.SUCCESS) {
+      if (data?.scheme?.contains("adyencheckout") == true) {
+        sendPaypalUrlEvent(data)
+        if (getQueryParameter(data, "resultCode") == "cancelled")
+          sendPayPalConfirmationEvent("cancel")
+        else
+          sendPayPalConfirmationEvent("buy")
+      }
+      view.successWebViewResult(data!!.data)
+    }
+  }
+
+  private fun handleWalletValidationResult(data: Intent?) {
+    var errorMessage = data?.getIntExtra(IabActivity.ERROR_MESSAGE, 0)
+    if (errorMessage == null || errorMessage == 0) {
+      errorMessage = R.string.unknown_error
+    }
+    handleWalletBlockedCheck(errorMessage)
+  }
+
+  private fun handleAuthenticationResult(resultCode: Int) {
+    if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
+      view.authenticationResult(true)
+    } else if (resultCode == AuthenticationPromptActivity.RESULT_CANCELED) {
+      view.authenticationResult(false)
+    }
   }
 }

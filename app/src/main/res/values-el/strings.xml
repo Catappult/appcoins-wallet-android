@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Ωχ, ο χρόνος σας έληξε. Ξεκινήστε εκ νέου!</string>
   <string name="verification_error_attempts_reached">Φαίνεται πως φτάσατε το όριο προσπαθειών. Παρακαλούμε, περιμένετε πριν προσπαθήσετε ξανά.</string>
   <string name="verified_tag">Επαληθευμένο</string>
-  <string name="unferified_tag">Μη επαληθευμένο</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>
   <string name="purchase_more_payment_methods_button">ΑΛΛΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>

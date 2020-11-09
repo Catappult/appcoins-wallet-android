@@ -447,7 +447,8 @@
   <string name="verification_error_time_expired">Ups, timpul tău a expirat. Începe din nou!</string>
   <string name="verification_error_attempts_reached">Se pare că ai atins limita maximă de încercări. Așteaptă ca să încerci din nou.</string>
   <string name="verified_tag">Verificat</string>
-  <string name="unferified_tag">Neverificat</string>
+  <string name="unferified_tag">Unverified wallet</string>
+  <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Se pare că această cumpărătură este deja în curs de procesare. Te rugăm să aștepți până când tranzacția este finalizată sau contactează Echipa de asistență.</string>
   <string name="purchase_more_payment_methods_button">ALTE METODE DE PLATĂ</string>
