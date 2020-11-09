@@ -9,7 +9,9 @@ import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 
 @Module
@@ -24,7 +26,7 @@ class TransactionDetailModule {
       subscriptionRepository: SubscriptionRepository): TransactionDetailViewModelFactory {
     return TransactionDetailViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         externalBrowserRouter, CompositeDisposable(), supportInteractor, transactionDetailRouter,
-        subscriptionRepository)
+        subscriptionRepository, AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   @Provides

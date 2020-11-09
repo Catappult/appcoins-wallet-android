@@ -253,9 +253,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     setBonus()
     iabView.disableBack()
     mergedAppcoinsPresenter.present(savedInstanceState)
-    if (isSubscription) {
-      showVolatilityInfo()
-    }
   }
 
   override fun showLoading() {

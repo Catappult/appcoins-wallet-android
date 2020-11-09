@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.viewmodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity;
 import com.asfoundation.wallet.subscriptions.SubscriptionDetails;
 import com.asfoundation.wallet.subscriptions.SubscriptionRepository;
 import com.asfoundation.wallet.support.SupportInteractor;

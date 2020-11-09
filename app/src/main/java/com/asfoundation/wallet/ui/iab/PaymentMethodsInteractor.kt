@@ -99,11 +99,13 @@ class PaymentMethodsInteractor(private val walletService: WalletService,
   fun checkTransactionStateFromTransactionId(uid: String): Observable<PendingTransaction> =
       bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
 
-  fun getSkuTransaction(appPackage: String, skuId: String?, networkThread: Scheduler) =
-      billing.getSkuTransaction(appPackage, skuId, networkThread)
+  fun getSkuTransaction(appPackage: String, skuId: String?, networkThread: Scheduler,
+                        type: BillingSupportedType) =
+      billing.getSkuTransaction(appPackage, skuId, networkThread, type)
 
-  fun getSkuPurchase(appPackage: String, skuId: String?, networkThread: Scheduler) =
-      billing.getSkuPurchase(appPackage, skuId, networkThread)
+  fun getSkuPurchase(appPackage: String, skuId: String?, networkThread: Scheduler,
+                     type: BillingSupportedType) =
+      billing.getSkuPurchase(appPackage, skuId, networkThread, type)
 
   fun getPurchases(appPackage: String, inapp: BillingSupportedType, networkThread: Scheduler) =
       billing.getPurchases(appPackage, inapp, networkThread)

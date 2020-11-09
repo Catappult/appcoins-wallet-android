@@ -78,7 +78,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         TransactionDetails("Real Boxing",
             TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png"),
-            "Subscription"), "EUR", emptyList())
+            "Subscription"), "EUR", emptyList(), emptyList())
   }
 
   private fun getExpiringMockedTransaction(address: String): Transaction {
@@ -89,7 +89,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         TransactionDetails("Cuties",
             TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "http://pool.img.aptoide.com/bds-store/d6267357ec641dd583a0ad318fa0741b_icon.png"),
-            "Subscription"), "EUR", emptyList())
+            "Subscription"), "EUR", emptyList(), emptyList())
   }
 
   private fun getExpiredMockedTransaction(address: String): Transaction {
@@ -100,7 +100,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         TransactionDetails("Creative Destruction",
             TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
                 "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg"),
-            "Subscription"), "EUR", emptyList())
+            "Subscription"), "EUR", emptyList(), emptyList())
   }
 
   fun stopTransactionFetch() = fetchTransactionsInteract.stop()

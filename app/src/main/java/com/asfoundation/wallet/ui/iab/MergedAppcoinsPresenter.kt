@@ -52,6 +52,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     handleSupportClicks()
     handleErrorDismiss()
     handleAuthenticationResult()
+    if (isSubscription) view.showVolatilityInfo()
   }
 
   fun onResume() {

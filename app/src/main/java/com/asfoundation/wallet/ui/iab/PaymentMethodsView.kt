@@ -10,10 +10,11 @@ interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
                          currency: String, paymentMethodId: String, fiatAmount: String,
                          appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
-                         frequency: String?)
+                         frequency: String?, isSubscription: Boolean)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, currency: String,
-                                   fiatAmount: String, appcAmount: String, isBonusActive: Boolean, frequency: String?)
+                                   fiatAmount: String, appcAmount: String, isBonusActive: Boolean,
+                                   frequency: String?, isSubscription: Boolean)
 
   fun showError(message: Int)
 
@@ -41,14 +42,14 @@ interface PaymentMethodsView {
 
   fun getBuyClick(): Observable<Any>
 
-  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue)
+  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?)
 
   fun showAdyen(fiatAmount: BigDecimal,
                 fiatCurrency: String,
                 paymentType: PaymentType,
-                iconUrl: String?, gamificationLevel: Int)
+                iconUrl: String?, gamificationLevel: Int, frequency: String?)
 
-  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue)
+  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?)
 
   fun showAppCoins(gamificationLevel: Int)
 
@@ -71,7 +72,8 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
-  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue)
+  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                         isSubscription: Boolean)
 
   fun showSubscribe()
 

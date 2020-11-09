@@ -98,7 +98,7 @@ class PaymentMethodsPresenter(
               handleWalletBlockStatus(selectedPaymentMethod)
             }
             SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(cachedGamificationLevel,
-                cachedFiatValue!!)
+                cachedFiatValue!!, paymentMethodsData.frequency, paymentMethodsData.subscription)
 
             else -> {
               if (interactor.hasAuthenticationPermission()) {
@@ -107,9 +107,9 @@ class PaymentMethodsPresenter(
               } else {
                 when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
                   SelectedPaymentMethod.PAYPAL -> view.showPaypal(cachedGamificationLevel,
-                      cachedFiatValue!!)
+                      cachedFiatValue!!, paymentMethodsData.frequency)
                   SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(cachedGamificationLevel,
-                      cachedFiatValue!!)
+                      cachedFiatValue!!, paymentMethodsData.frequency)
                   SelectedPaymentMethod.APPC -> view.showAppCoins(cachedGamificationLevel)
                   SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(selectedPaymentMethod.id)
                   SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
@@ -178,12 +178,15 @@ class PaymentMethodsPresenter(
 
   private fun navigateToPayment(paymentNavigationData: PaymentNavigationData) {
     when (paymentMethodsMapper.map(paymentNavigationData.paymentId)) {
-      SelectedPaymentMethod.PAYPAL -> view.showPaypal(cachedGamificationLevel, cachedFiatValue!!)
+      SelectedPaymentMethod.PAYPAL -> view.showPaypal(cachedGamificationLevel, cachedFiatValue!!,
+          paymentMethodsData.frequency)
       SelectedPaymentMethod.CREDIT_CARD -> {
         if (paymentNavigationData.isPreselected) {
           view.showAdyen(cachedFiatValue!!.amount, cachedFiatValue!!.currency, PaymentType.CARD,
-              paymentNavigationData.paymentIconUrl, cachedGamificationLevel)
-        } else view.showCreditCard(cachedGamificationLevel, cachedFiatValue!!)
+              paymentNavigationData.paymentIconUrl, cachedGamificationLevel,
+              paymentMethodsData.frequency)
+        } else view.showCreditCard(cachedGamificationLevel, cachedFiatValue!!,
+            paymentMethodsData.frequency)
       }
       SelectedPaymentMethod.APPC -> view.showAppCoins(cachedGamificationLevel)
       SelectedPaymentMethod.APPC_CREDITS -> view.showCredits(cachedGamificationLevel)
@@ -211,7 +214,7 @@ class PaymentMethodsPresenter(
         isSetupCompleted())
   }
 
-  private fun checkProcessing(skuId: String?,type: BillingSupportedType): Completable {
+  private fun checkProcessing(skuId: String?, type: BillingSupportedType): Completable {
     return interactor.getSkuTransaction(paymentMethodsData.appPackage, skuId,
         networkThread, type)
         .subscribeOn(networkThread)
@@ -291,7 +294,7 @@ class PaymentMethodsPresenter(
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
     if (interactor.isBonusActiveAndValid(forecastBonus)) {
-      if (paymentMethodsData.isSubscription) {
+      if (paymentMethodsData.subscription) {
         view.setPurchaseBonus(forecastBonus.amount, forecastBonus.currency,
             R.string.subscriptions_bonus_body)
       } else {
@@ -338,7 +341,7 @@ class PaymentMethodsPresenter(
               }
             } else {
               view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
-                  paymentMethod.iconUrl, cachedGamificationLevel)
+                  paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency)
             }
           }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
@@ -369,7 +372,8 @@ class PaymentMethodsPresenter(
   }
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
-                                 paymentMethodId: String, fiatAmount: String, appcAmount: String, frequency: String?) {
+                                 paymentMethodId: String, fiatAmount: String, appcAmount: String,
+                                 frequency: String?) {
     var appcEnabled = false
     var creditsEnabled = false
     val paymentList: MutableList<PaymentMethod>
@@ -390,16 +394,15 @@ class PaymentMethodsPresenter(
           .toMutableList()
     }
     view.showPaymentMethods(paymentList, symbol, paymentMethodId, fiatAmount, appcAmount,
-        appcEnabled, creditsEnabled,frequency)
+        appcEnabled, creditsEnabled, frequency, paymentMethodsData.subscription)
     sendPaymentMethodsEvents()
   }
 
   private fun showPreSelectedPaymentMethod(fiatValue: FiatValue, paymentMethod: PaymentMethod,
                                            fiatAmount: String, appcAmount: String,
                                            isBonusActive: Boolean, frequency: String?) {
-    view.showPreSelectedPaymentMethod(paymentMethod, fiatValue,
-        mapCurrencyCodeToSymbol(fiatValue.currency), fiatAmount, appcAmount, isBonusActive,
-        frequency)
+    view.showPreSelectedPaymentMethod(paymentMethod, mapCurrencyCodeToSymbol(fiatValue.currency),
+        fiatAmount, appcAmount, isBonusActive, frequency, paymentMethodsData.subscription)
     sendPreSelectedPaymentMethodsEvents()
   }
 
@@ -456,7 +459,7 @@ class PaymentMethodsPresenter(
                       WalletCurrency.APPCOINS)
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount,
-                      appcAmount, frequency)
+                      appcAmount, paymentMethodsData.frequency)
                 }
               }
               .andThen(
@@ -599,11 +602,12 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(SelectedPaymentMethod.EARN_APPC) -> view.replaceBonus()
       paymentMethodsMapper.map(SelectedPaymentMethod.MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper.map(SelectedPaymentMethod.APPC_CREDITS) -> view.hideBonus()
-      else -> if (paymentMethodsData.isSubscription) {
+      else -> if (paymentMethodsData.subscription) {
         view.showBonus(R.string.subscriptions_bonus_body)
       } else {
         view.showBonus(R.string.gamification_purchase_body)
-      }    }
+      }
+    }
   }
 
   private fun handlePositiveButtonText(selectedPaymentMethod: String) {
@@ -612,7 +616,7 @@ class PaymentMethodsPresenter(
             SelectedPaymentMethod.EARN_APPC)) {
       view.showNext()
     } else {
-      if (paymentMethodsData.isSubscription) {
+      if (paymentMethodsData.subscription) {
         view.showSubscribe()
       } else {
         view.showBuy()
