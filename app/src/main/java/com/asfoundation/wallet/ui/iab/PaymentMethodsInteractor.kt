@@ -103,9 +103,9 @@ class PaymentMethodsInteractor(private val walletService: WalletService,
                         type: BillingSupportedType) =
       billing.getSkuTransaction(appPackage, skuId, networkThread, type)
 
-  fun getSkuPurchase(appPackage: String, skuId: String?, networkThread: Scheduler,
-                     type: BillingSupportedType) =
-      billing.getSkuPurchase(appPackage, skuId, networkThread, type)
+  fun getSkuPurchase(appPackage: String, skuId: String?, purchaseUid: String?,
+                     networkThread: Scheduler, type: BillingSupportedType) =
+      billing.getSkuPurchase(appPackage, skuId, purchaseUid, networkThread, type)
 
   fun getPurchases(appPackage: String, inapp: BillingSupportedType, networkThread: Scheduler) =
       billing.getPurchases(appPackage, inapp, networkThread)

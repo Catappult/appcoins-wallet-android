@@ -374,7 +374,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     return RxView.clicks(buy_button)
   }
 
-  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?) {
+  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                          isSubscription: Boolean) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel, isSubscription,
         frequency)
@@ -382,14 +383,16 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
 
   override fun showAdyen(fiatAmount: BigDecimal, fiatCurrency: String, paymentType: PaymentType,
-                         iconUrl: String?, gamificationLevel: Int, frequency: String?, isSubscription: Boolean) {
+                         iconUrl: String?, gamificationLevel: Int, frequency: String?,
+                         isSubscription: Boolean) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType, bonusMessageValue,
           true, iconUrl, gamificationLevel, isSubscription, frequency)
     }
   }
 
-  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?) {
+  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                              isSubscription: Boolean) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
         PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel,
         isSubscription, frequency)
