@@ -14,6 +14,7 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.intro.RestoreWalletViewModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
+import com.asfoundation.wallet.restore.password.RestoreWalletPasswordViewModule
 import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
@@ -164,7 +165,7 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector(
-      modules = [RestoreWalletPasswordModule::class])
+      modules = [RestoreWalletPasswordModule::class, RestoreWalletPasswordViewModule::class])
   abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
 
   @FragmentScope
