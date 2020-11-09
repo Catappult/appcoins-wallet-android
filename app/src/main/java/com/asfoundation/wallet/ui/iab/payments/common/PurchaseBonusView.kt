@@ -19,15 +19,13 @@ import java.math.BigDecimal
 class PurchaseBonusView : FrameLayout {
   private val formatter = CurrencyFormatUtils()
 
+  private var showHeader: Boolean = true
+
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
       defStyleAttr) {
     inflate(context, R.layout.layout_purchase_bonus, this)
-  }
-
-  fun setPurchaseBonusHeaderTitle(title: String) {
-    bonus_header_1.text = title
   }
 
   fun setPurchaseBonusHeaderValue(bonus: BigDecimal, currencySymbol: String) {
@@ -50,7 +48,13 @@ class PurchaseBonusView : FrameLayout {
   }
 
   fun hidePurchaseBonusHeader() {
+    showHeader = false
     bonus_layout.visibility = View.GONE
+  }
+
+  fun showPurchaseBonusHeader() {
+    showHeader = true
+    bonus_layout.visibility = View.VISIBLE
   }
 
   fun setPurchaseBonusDescription(description: String) {
@@ -58,12 +62,18 @@ class PurchaseBonusView : FrameLayout {
   }
 
   fun showSkeleton() {
-    bonus_layout_skeleton.visibility = View.VISIBLE
+    if (showHeader) {
+      bonus_layout.visibility = View.INVISIBLE
+      bonus_layout_skeleton.visibility = View.VISIBLE
+    }
     bonus_msg_skeleton.visibility = View.VISIBLE
   }
 
   fun hideSkeleton() {
-    bonus_layout_skeleton.visibility = View.GONE
+    if (showHeader) {
+      bonus_layout.visibility = View.VISIBLE
+      bonus_layout_skeleton.visibility = View.GONE
+    }
     bonus_msg_skeleton.visibility = View.GONE
   }
 

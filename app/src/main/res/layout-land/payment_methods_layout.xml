@@ -109,62 +109,18 @@
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
 
-      <include
-          android:id="@+id/bonus_layout"
-          layout="@layout/view_purchase_bonus"
+      <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
+          android:id="@+id/bonus_view"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="20dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
           app:layout_constraintVertical_bias="1"
           app:layout_constraintVertical_chainStyle="packed"
-          tools:visibility="visible"
-          />
-
-      <TextView
-          android:id="@+id/bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="2dp"
-          android:layout_marginTop="8dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:gravity="start"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="@id/bonus_layout"
-          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-          app:layout_constraintVertical_bias="1"
-          app:layout_constraintWidth_default="wrap"
-          tools:visibility="visible"
-          />
-
-      <include
-          android:id="@+id/bonus_layout_skeleton"
-          layout="@layout/skeleton_rounded_rectangle"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
-          app:layout_constraintEnd_toEndOf="@id/bonus_layout"
-          app:layout_constraintStart_toStartOf="@id/bonus_layout"
-          app:layout_constraintTop_toTopOf="@id/bonus_layout"
-          />
-
-      <include
-          android:id="@+id/bonus_msg_skeleton"
-          layout="@layout/skeleton_rounded_rectangle"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
-          app:layout_constraintEnd_toEndOf="@+id/bonus_msg"
-          app:layout_constraintStart_toStartOf="@id/bonus_msg"
-          app:layout_constraintTop_toTopOf="@id/bonus_msg"
           />
 
       <ImageView
