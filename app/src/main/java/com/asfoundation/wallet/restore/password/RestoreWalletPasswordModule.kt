@@ -5,7 +5,6 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.google.gson.Gson
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,12 +15,13 @@ import io.reactivex.schedulers.Schedulers
 class RestoreWalletPasswordModule {
 
   @Provides
-  fun providesRestoreWalletPasswordPresenter(view: RestoreWalletPasswordView,
+  fun providesRestoreWalletPasswordPresenter(fragment: RestoreWalletPasswordFragment,
                                              data: RestoreWalletPasswordData,
                                              interactor: RestoreWalletPasswordInteractor,
                                              eventSender: WalletsEventSender,
                                              currencyFormatUtils: CurrencyFormatUtils): RestoreWalletPasswordPresenter {
-    return RestoreWalletPasswordPresenter(view, data, interactor, eventSender, currencyFormatUtils,
+    return RestoreWalletPasswordPresenter(fragment as RestoreWalletPasswordView, data, interactor,
+        eventSender, currencyFormatUtils,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
         Schedulers.computation())
   }
@@ -39,11 +39,4 @@ class RestoreWalletPasswordModule {
                                              restoreWalletInteractor: RestoreWalletInteractor): RestoreWalletPasswordInteractor {
     return RestoreWalletPasswordInteractor(gson, balanceInteractor, restoreWalletInteractor)
   }
-}
-
-@Module
-abstract class RestoreWalletPasswordViewModule {
-  @Binds
-  abstract fun bindRestoreWalletPasswordView(
-      fragment: RestoreWalletPasswordFragment): RestoreWalletPasswordView
 }

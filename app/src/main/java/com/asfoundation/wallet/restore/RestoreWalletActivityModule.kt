@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.restore
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
@@ -9,10 +8,11 @@ import dagger.Provides
 class RestoreWalletActivityModule {
 
   @Provides
-  fun providesRestoreWalletActivityPresenter(view: RestoreWalletActivityView,
+  fun providesRestoreWalletActivityPresenter(activity: RestoreWalletActivity,
                                              walletsEventSender: WalletsEventSender,
                                              navigator: RestoreWalletActivityNavigator): RestoreWalletActivityPresenter {
-    return RestoreWalletActivityPresenter(view, walletsEventSender, navigator)
+    return RestoreWalletActivityPresenter(activity as RestoreWalletActivityView, walletsEventSender,
+        navigator)
   }
 
   @Provides
@@ -20,11 +20,4 @@ class RestoreWalletActivityModule {
       activity: RestoreWalletActivity): RestoreWalletActivityNavigator {
     return RestoreWalletActivityNavigator(activity, activity.supportFragmentManager)
   }
-}
-
-@Module
-abstract class RestoreWalletActivityViewModule {
-  @Binds
-  abstract fun providesRestoreWalletActivityView(
-      activity: RestoreWalletActivity): RestoreWalletActivityView
 }

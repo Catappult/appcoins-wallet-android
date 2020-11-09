@@ -4,7 +4,6 @@ import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivityModule
-import com.asfoundation.wallet.restore.RestoreWalletActivityViewModule
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.*
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity
@@ -107,7 +106,7 @@ abstract class ActivityBuilders {
 
   @ActivityScope
   @ContributesAndroidInjector(
-      modules = [RestoreWalletActivityModule::class, RestoreWalletActivityViewModule::class])
+      modules = [RestoreWalletActivityModule::class])
   internal abstract fun bindRestoreWalletActivity(): RestoreWalletActivity
 
   @ActivityScope
