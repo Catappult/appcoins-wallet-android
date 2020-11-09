@@ -62,14 +62,18 @@ class SeparatorView : View {
 
     when (orientation) {
       Orientation.HORIZONTAL -> {
-        heightSpec = if (type == Type.DASHED) {
-          MeasureSpec.makeMeasureSpec(dpToPx(5).toInt(), MeasureSpec.EXACTLY)
-        } else {
-          MeasureSpec.makeMeasureSpec(dpToPx(1).toInt(), MeasureSpec.EXACTLY)
+        if (MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY) {
+          heightSpec = if (type == Type.DASHED) {
+            MeasureSpec.makeMeasureSpec(dpToPx(5).toInt(), MeasureSpec.EXACTLY)
+          } else {
+            MeasureSpec.makeMeasureSpec(dpToPx(1).toInt(), MeasureSpec.EXACTLY)
+          }
         }
       }
       Orientation.VERTICAL -> {
-        widthSpec = MeasureSpec.makeMeasureSpec(dpToPx(1).toInt(), MeasureSpec.EXACTLY)
+        if (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY) {
+          widthSpec = MeasureSpec.makeMeasureSpec(dpToPx(1).toInt(), MeasureSpec.EXACTLY)
+        }
       }
     }
 
