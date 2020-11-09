@@ -33,6 +33,12 @@
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/import_wallet_title" />
 
+  <SwitchPreferenceCompat
+      android:id="@+id/preference_fingerprint"
+      android:icon="@drawable/ic_settings_fingerprint"
+      android:key="pref_fingerprint"
+      android:title="@string/fingerprint_settings" />
+
   <PreferenceCategory
       android:key="pref_opensource_links"
       android:layout="@layout/preference_category_layout"

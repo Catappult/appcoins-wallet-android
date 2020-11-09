@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.biometric.BiometricManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
@@ -52,7 +53,8 @@ import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
-import com.asfoundation.wallet.ui.SettingsInteract
+import com.asfoundation.wallet.ui.FingerPrintInteractor
+import com.asfoundation.wallet.ui.SettingsInteractor
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
@@ -343,9 +345,13 @@ class InteractorModule {
                                       gamificationInteractor: GamificationInteractor,
                                       balanceInteract: BalanceInteract,
                                       walletBlockedInteract: WalletBlockedInteract,
-                                      inAppPurchaseInteractor: InAppPurchaseInteractor): PaymentMethodsInteract {
-    return PaymentMethodsInteract(walletService, supportInteractor, gamificationInteractor,
-        balanceInteract, walletBlockedInteract, inAppPurchaseInteractor)
+                                      inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                      preferencesRepositoryType: PreferencesRepositoryType,
+                                      billing: Billing,
+                                      bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
+    return PaymentMethodsInteractor(walletService, supportInteractor, gamificationInteractor,
+        balanceInteract, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
+        billing, bdsPendingTransactionService)
   }
 
   @Provides
@@ -353,9 +359,10 @@ class InteractorModule {
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportInteractor: SupportInteractor,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      walletService: WalletService): MergedAppcoinsInteractor {
+                                      walletService: WalletService,
+                                      preferencesRepositoryType: PreferencesRepositoryType): MergedAppcoinsInteractor {
     return MergedAppcoinsInteractor(balanceInteract, walletBlockedInteract, supportInteractor,
-        inAppPurchaseInteractor, walletService)
+        inAppPurchaseInteractor, walletService, preferencesRepositoryType)
   }
 
   @Provides
@@ -508,25 +515,33 @@ class InteractorModule {
     return RestoreWalletPasswordInteractor(gson, balanceInteract, restoreWalletInteractor)
   }
 
-
   @Provides
   fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                                supportInteractor: SupportInteractor,
                                walletsInteract: WalletsInteract,
                                autoUpdateInteract: AutoUpdateInteract,
-                               walletsEventSender: WalletsEventSender): SettingsInteract {
-    return SettingsInteract(findDefaultWalletInteract, supportInteractor, walletsInteract,
-        autoUpdateInteract,
-        walletsEventSender)
+                               fingerPrintInteractor: FingerPrintInteractor,
+                               walletsEventSender: WalletsEventSender,
+                               preferencesRepositoryType: PreferencesRepositoryType): SettingsInteractor {
+    return SettingsInteractor(findDefaultWalletInteract, supportInteractor, walletsInteract,
+        autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType)
   }
 
   @Provides
   fun provideIabInteract(inAppPurchaseInteractor: InAppPurchaseInteractor,
                          autoUpdateInteract: AutoUpdateInteract,
                          supportInteractor: SupportInteractor,
-                         gamificationRepository: Gamification): IabInteract {
+                         gamificationRepository: Gamification,
+                         walletBlockedInteract: WalletBlockedInteract): IabInteract {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
-        gamificationRepository)
+        gamificationRepository, walletBlockedInteract)
+  }
+
+  @Provides
+  fun provideFingerprintInteract(biometricManager: BiometricManager,
+                                 packageManager: PackageManager,
+                                 preferencesRepositoryType: PreferencesRepositoryType): FingerPrintInteractor {
+    return FingerPrintInteractor(biometricManager, packageManager, preferencesRepositoryType)
   }
 
   @Provides

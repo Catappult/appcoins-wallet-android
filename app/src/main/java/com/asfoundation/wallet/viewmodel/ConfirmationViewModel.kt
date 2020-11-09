@@ -38,7 +38,7 @@ class ConfirmationViewModel internal constructor(
 
   override fun onCleared() {
     subscription?.let {
-      if (!it.isDisposed)  {
+      if (!it.isDisposed) {
         it.dispose()
       }
     }
@@ -88,7 +88,7 @@ class ConfirmationViewModel internal constructor(
     val transactionBuilder = transactionBuilder.value
     transactionBuilder?.let {
       it.gasSettings(gasSettings)
-      this.transactionBuilder.postValue(it) // refresh view
+      this.transactionBuilder.value = it // refresh view
     }
   }
 

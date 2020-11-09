@@ -47,7 +47,6 @@ import java.util.concurrent.TimeUnit;
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
   private static final long FETCH_TRANSACTIONS_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
-  private static final int FIAT_SCALE = 2;
   private static final BigDecimal MINUS_ONE = new BigDecimal("-1");
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();

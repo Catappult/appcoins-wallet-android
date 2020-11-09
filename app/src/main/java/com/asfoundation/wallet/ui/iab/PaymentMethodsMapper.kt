@@ -1,8 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
 
-class PaymentMethodsMapper {
+class PaymentMethodsMapper(private val billingMessagesMapper: BillingMessagesMapper) {
 
   fun map(paymentId: String): SelectedPaymentMethod {
     return when (paymentId) {
@@ -30,5 +33,11 @@ class PaymentMethodsMapper {
       SelectedPaymentMethod.EARN_APPC -> "earn_appcoins"
       SelectedPaymentMethod.ERROR -> ""
     }
+  }
+
+  fun mapCancellation() = billingMessagesMapper.mapCancellation()
+
+  fun mapFinishedPurchase(purchase: Purchase, itemAlreadyOwned: Boolean): Bundle {
+    return billingMessagesMapper.mapFinishedPurchase(purchase, itemAlreadyOwned)
   }
 }

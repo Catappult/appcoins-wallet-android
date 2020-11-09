@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -60,24 +61,20 @@
 
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/password_container"
-          style="@style/TextInputLayoutAppearanceOutlinedDense"
+          style="@style/PasswordTextInputLayout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="15dp"
-          android:hint="@string/backup_password"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/password_label_ic"
-          app:passwordToggleEnabled="true"
           >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            style="@style/ThemeOverlay.MaterialComponents.TextInputEditText"
+            style="@style/PasswordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:padding="16dp"
-            android:textCursorDrawable="@drawable/text_cursor"
             />
       </com.google.android.material.textfield.TextInputLayout>
 

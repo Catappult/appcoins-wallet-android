@@ -19,7 +19,7 @@
       android:layout_marginBottom="@dimen/big_padding"
       android:contentDescription="@string/empty"
       android:scaleType="fitCenter"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/revert_message"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:src="@drawable/ic_transaction_peer"
@@ -65,14 +65,13 @@
 
   <TextView
       android:id="@+id/description"
+      style="@style/TransactionsItem.Description"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="@dimen/big_padding"
-      style="@style/TransactionsItem.Description"
       app:layout_constrainedWidth="true"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/value"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/img"
@@ -115,10 +114,26 @@
       android:layout_marginBottom="@dimen/big_padding"
       android:textColor="@color/green"
       android:textSize="12sp"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/currency"
       tools:text="Success"
+      />
+
+  <TextView
+      android:id="@+id/revert_message"
+      style="@style/TransactionsItem.Revert"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/big_padding"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/img"
+      tools:text="@string/transaction_type_reverted_bonus_body"
+      tools:visibility="visible"
       />
 
   <View

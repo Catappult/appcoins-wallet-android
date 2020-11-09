@@ -24,4 +24,12 @@ interface TransactionsRepository {
   fun setLocale(locale: String)
 
   fun getLastLocale(): String?
+
+  fun insertTransactionLink(revertTxId: String, originalTxId: String)
+
+  fun getRevertedTransaction(wallet: String, txId: String): Single<TransactionEntity>
+
+  fun getRevertTransaction(wallet: String, txId: String): Single<TransactionEntity>
+
+  fun getRevertedTxId(wallet: String, txId: String): Single<String>
 }

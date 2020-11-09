@@ -10,7 +10,7 @@
   <color name="colorPrimary">#fc9d48</color>
   <color name="colorPrimaryDark">#e44b46</color>
   <color name="colorAccent">#e44b46</color>
-  <color name="primaryColor">@color/btn_end_gradient_color</color>
+  <color name="primaryColor">#000000</color>
   <color name="pinkish_orange">#fe6446</color>
   <color name="statusBarColor">#154868</color>
   <color name="activity_background_color">#fafafa</color>
@@ -37,6 +37,8 @@
 
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
+  <color name="transaction_orange">#ff7600</color>
+  <color name="transaction_green">#62be00</color>
   <color name="list_separator_color">#f0f0f0</color>
 
   <color name="details_address_text_color">#000000</color>

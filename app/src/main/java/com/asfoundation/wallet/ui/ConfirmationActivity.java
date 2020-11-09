@@ -75,6 +75,12 @@ public class ConfirmationActivity extends BaseActivity {
         .observe(this, this::onProgress);
     viewModel.error()
         .observe(this, this::onError);
+
+    TransactionBuilder transactionBuilder =
+        getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER);
+    if (transactionBuilder != null) {
+      viewModel.init(transactionBuilder);
+    }
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -192,11 +198,6 @@ public class ConfirmationActivity extends BaseActivity {
 
   @Override protected void onResume() {
     super.onResume();
-    TransactionBuilder transactionBuilder =
-        getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER);
-    if (transactionBuilder != null) {
-      viewModel.init(transactionBuilder);
-    }
     sendPageViewEvent();
   }
 }

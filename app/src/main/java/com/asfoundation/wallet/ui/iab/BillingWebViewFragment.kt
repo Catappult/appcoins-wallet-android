@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -52,6 +53,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val URL = "url"
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
+    const val OPEN_SUPPORT = BuildConfig.MY_APPCOINS_SUPPORT_HOST + "open-support"
 
     fun newInstance(url: String?): BillingWebViewFragment {
       return BillingWebViewFragment().apply {
@@ -88,22 +90,27 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
     view.webview.webViewClient = object : WebViewClient() {
       override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
-        if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA)) {
-          currentUrl = clickUrl
-          finishWithSuccess(clickUrl)
-        } else if (clickUrl.contains(GO_PAY_APP_PAYMENTS_SCHEMA) || clickUrl.contains(
-                LINE_APP_PAYMENTS_SCHEMA)) {
-          launchActivity(Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)))
-        } else if (clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
-                ORDER_ID_PARAMETER)) {
-          val orderId = Uri.parse(clickUrl)
-              .getQueryParameter(ORDER_ID_PARAMETER)
-          finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
-        } else if (clickUrl.contains(CODAPAY_CANCEL_URL)) {
-          finishWithFail(clickUrl)
-        } else {
-          currentUrl = clickUrl
-          return false
+        when {
+          clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA) -> {
+            currentUrl = clickUrl
+            finishWithSuccess(clickUrl)
+          }
+          clickUrl.contains(GO_PAY_APP_PAYMENTS_SCHEMA) || clickUrl.contains(
+              LINE_APP_PAYMENTS_SCHEMA) -> {
+            launchActivity(Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)))
+          }
+          clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
+              ORDER_ID_PARAMETER) -> {
+            val orderId = Uri.parse(clickUrl)
+                .getQueryParameter(ORDER_ID_PARAMETER)
+            finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
+          }
+          clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
+          clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
+          else -> {
+            currentUrl = clickUrl
+            return false
+          }
         }
         return true
       }
