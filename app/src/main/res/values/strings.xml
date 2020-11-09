@@ -518,17 +518,15 @@
   <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
   <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>  
   <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-
   <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
   <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
   <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-
   <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
-  
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
   <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
-
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
 
@@ -815,6 +813,7 @@
   <string name="carrier_billing_code_field">Your code...</string>
   <string name="carrier_billing_code_resend_button">RESEND CODE</string>
   <string name="carrier_billing_submit_button">SUBMIT</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string
   <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
   <string name="carrier_billing_help_1">Need help?</string>
   <string name="carrier_billing_help_2_button">Contact Support</string>
@@ -880,4 +879,9 @@
   <string name="send_logs_sending">Sending&#8230;</string>
   <string name="send_logs_send">Sent!</string>
 
+  
+ <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
