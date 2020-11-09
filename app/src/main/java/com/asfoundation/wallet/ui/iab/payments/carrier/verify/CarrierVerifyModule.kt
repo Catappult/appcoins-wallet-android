@@ -9,7 +9,6 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.StringProvider
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -47,14 +46,14 @@ class CarrierVerifyModule {
   }
 
   @Provides
-  fun providesCarrierVerifyPresenter(view: CarrierVerifyView,
+  fun providesCarrierVerifyPresenter(fragment: CarrierVerifyFragment,
                                      data: CarrierVerifyData,
                                      navigator: CarrierVerifyNavigator,
                                      interactor: CarrierInteractor,
                                      stringProvider: StringProvider,
                                      applicationInfoLoader: ApplicationInfoLoader): CarrierVerifyPresenter {
-    return CarrierVerifyPresenter(CompositeDisposable(), view, data, navigator, interactor,
-        applicationInfoLoader, stringProvider, CurrencyFormatUtils(),
+    return CarrierVerifyPresenter(CompositeDisposable(), fragment as CarrierVerifyView, data,
+        navigator, interactor, applicationInfoLoader, stringProvider, CurrencyFormatUtils(),
         AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
@@ -66,11 +65,4 @@ class CarrierVerifyModule {
     return CarrierInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, logger, Schedulers.io())
   }
-}
-
-@Module
-abstract class CarrierVerifyViewModule {
-  @Binds
-  abstract fun bindCarrierVerifyPhoneView(
-      fragment: CarrierVerifyFragment): CarrierVerifyView
 }
