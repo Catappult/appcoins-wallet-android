@@ -22,7 +22,6 @@ import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
-import com.asfoundation.wallet.App
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.backup.BackupInteract
@@ -48,7 +47,6 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
-import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
@@ -397,12 +395,6 @@ class InteractorModule {
                               sharedPreferences: PreferencesRepositoryType): CampaignInteract {
     return CampaignInteract(campaignService, walletService, autoUpdateInteract,
         AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, sharedPreferences)
-  }
-
-  @Singleton
-  @Provides
-  fun provideSupportInteractor(preferences: SupportSharedPreferences, app: App): SupportRepository {
-    return SupportRepository(preferences, app)
   }
 
   @Provides
