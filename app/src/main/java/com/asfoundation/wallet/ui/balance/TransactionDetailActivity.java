@@ -137,10 +137,18 @@ public class TransactionDetailActivity extends BaseActivity {
       description = details.getDescription();
     }
 
+    @StringRes int statusStr = R.string.transaction_status_success;
+    @ColorRes int statusColor = R.color.green;
+    @ColorRes int descriptionColor = R.color.transaction_orange;
+
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
     View button = findViewById(R.id.more_detail);
-    View categorybackground = findViewById(R.id.category_icon_background);
+    View categoryBackground = findViewById(R.id.category_icon_background);
+
+    boolean isRevertTransaction = isRevertTransaction(transaction);
+    boolean isRevertedTransaction = isRevertedTransaction(transaction);
+    @StringRes int revertedDescription = -1;
 
     switch (transaction.getType()) {
       case ADS:
@@ -155,11 +163,31 @@ public class TransactionDetailActivity extends BaseActivity {
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
+      case IAP_REVERT:
+        typeStr = R.string.transaction_type_iab;
+        typeIcon = R.drawable.ic_transaction_iab;
+        revertedDescription = R.string.transaction_type_reverted_purchase_title;
+        descriptionColor = R.color.green;
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        break;
       case IAP_OFFCHAIN:
         button.setVisibility(View.VISIBLE);
         to = transaction.getTo();
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        if (isRevertedTransaction) {
+          revertedDescription = R.string.transaction_type_reverted_purchase_title;
+        }
+        break;
+      case BONUS_REVERT:
+        typeStr = R.string.transaction_type_bonus;
+        typeIcon = -1;
+        id = getString(R.string.transaction_type_reverted_bonus_title);
+        button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
@@ -177,22 +205,37 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         symbol = getString(R.string.p2p_send_currency_appc_c);
+        if (isRevertedTransaction) {
+          revertedDescription = R.string.transaction_type_reverted_bonus_title;
+        }
+        break;
+      case TOP_UP_REVERT:
+        categoryBackground.setBackground(null);
+        typeStr = R.string.topup_title;
+        typeIcon = R.drawable.transaction_type_top_up;
+        id = getString(R.string.transaction_type_reverted_topup_title);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case TOP_UP:
         typeStr = R.string.topup_title;
         id = getString(R.string.topup_title);
-        categorybackground.setBackground(null);
+        categoryBackground.setBackground(null);
         typeIcon = R.drawable.transaction_type_top_up;
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         symbol = getString(R.string.p2p_send_currency_appc_c);
+        if (isRevertedTransaction) {
+          revertedDescription = R.string.transaction_type_reverted_topup_title;
+        }
         break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
         id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
         typeIcon = R.drawable.transaction_type_transfer_off_chain;
-        categorybackground.setBackground(null);
+        categoryBackground.setBackground(null);
         to = transaction.getTo();
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
@@ -201,9 +244,6 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
     }
 
-    @StringRes int statusStr = R.string.transaction_status_success;
-    @ColorRes int statusColor = R.color.green;
-
     switch (transaction.getStatus()) {
       case FAILED:
         statusStr = R.string.transaction_status_failed;
@@ -211,12 +251,20 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
       case PENDING:
         statusStr = R.string.transaction_status_pending;
-        statusColor = R.color.orange;
+        statusColor = R.color.transaction_orange;
         break;
     }
 
-    setUIContent(transaction.getTimeStamp(), getValue(symbol), symbol, icon, id, description,
-        typeStr, typeIcon, statusStr, statusColor, to, isSent);
+    if (isRevertedTransaction) {
+      statusStr = R.string.transaction_status_reverted;
+      statusColor = R.color.orange;
+    } else if (isRevertTransaction) {
+      statusColor = R.color.green;
+    }
+
+    setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, icon, id, description,
+        typeStr, typeIcon, statusStr, statusColor, to, isSent, isRevertTransaction,
+        isRevertedTransaction, revertedDescription, descriptionColor);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -225,7 +273,12 @@ public class TransactionDetailActivity extends BaseActivity {
     String symbol =
         transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
             : transaction.getCurrency();
-    formatValue(getValue(symbol), symbol);
+
+    boolean isRevertTransaction = isRevertTransaction(transaction);
+    boolean isRevertedTransaction = isRevertedTransaction(transaction);
+
+    formatValue(getValue(symbol), symbol, transaction.getType(), isRevertTransaction,
+        isRevertedTransaction);
   }
 
   private String getScaledValue(String valueStr, String currencySymbol) {
@@ -235,10 +288,17 @@ public class TransactionDetailActivity extends BaseActivity {
     return formatter.formatCurrency(value, walletCurrency);
   }
 
-  private String getDate(long timeStampInSec) {
+  private String getDateAndTime(long timeStampInSec) {
     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
     cal.setTimeInMillis(timeStampInSec);
     return DateFormat.format("dd MMM yyyy hh:mm a", cal.getTime())
+        .toString();
+  }
+
+  private String getDate(long timeStampInSec) {
+    Calendar cal = Calendar.getInstance(Locale.getDefault());
+    cal.setTimeInMillis(timeStampInSec);
+    return DateFormat.format("MMM, dd yyyy", cal.getTime())
         .toString();
   }
 
@@ -246,13 +306,14 @@ public class TransactionDetailActivity extends BaseActivity {
     viewModel.showMoreDetails(view.getContext(), operation);
   }
 
-  private void setUIContent(long timeStamp, String value, String symbol, String icon, String id,
+  private void setUiContent(long timeStamp, String value, String symbol, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
-      boolean isSent) {
-    ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
+      boolean isSent, boolean isRevertTransaction, boolean isRevertedTransaction,
+      int revertedDescription, int descriptionColor) {
+    ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
-    formatValue(value, symbol);
+    formatValue(value, symbol, transaction.getType(), isRevertTransaction, isRevertedTransaction);
 
     ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
@@ -304,6 +365,160 @@ public class TransactionDetailActivity extends BaseActivity {
       detailsList.setVisibility(View.GONE);
       findViewById(R.id.details_label).setVisibility(View.GONE);
     }
+
+    if (isRevertTransaction || isRevertedTransaction) {
+      findViewById(R.id.details_label).setVisibility(View.GONE);
+      TextView tvRevertedDescription = findViewById(R.id.reverted_description);
+      if (revertedDescription != -1) {
+        tvRevertedDescription.setText(revertedDescription);
+        tvRevertedDescription.setTextColor(getResources().getColor(descriptionColor));
+        tvRevertedDescription.setVisibility(View.VISIBLE);
+      } else {
+        tvRevertedDescription.setVisibility(View.GONE);
+      }
+
+      if (!transaction.getLinkedTx()
+          .isEmpty()) {
+        Transaction link = transaction.getLinkedTx()
+            .get(0);
+        setupRevertedUi(link, isRevertTransaction, isRevertedTransaction);
+      }
+    }
+  }
+
+  private void setupRevertedUi(Transaction linkTransaction, boolean isRevertTransaction,
+      boolean isRevertedTransaction) {
+
+    View revertView = findViewById(R.id.layout_revert_transaction);
+    View revertedView = findViewById(R.id.layout_reverted_transaction);
+    if (isRevertTransaction) {
+      revertView.setVisibility(View.GONE);
+      revertedView.setVisibility(View.VISIBLE);
+
+      ImageView logo = revertedView.findViewById(R.id.layout_support_logo);
+      ImageView icn = revertedView.findViewById(R.id.layout_support_icn);
+
+      logo.setOnClickListener(view -> viewModel.showSupportScreen());
+      icn.setOnClickListener(view -> viewModel.showSupportScreen());
+
+      revertedView.setOnClickListener(
+          view -> viewModel.showDetails(view.getContext(), linkTransaction));
+
+      NetworkInfo networkInfo = viewModel.defaultNetwork()
+          .getValue();
+
+      String symbol =
+          linkTransaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
+              : linkTransaction.getCurrency();
+
+      String icon = null;
+      TransactionDetails details = linkTransaction.getDetails();
+
+      if (details != null) {
+        icon = details.getIcon()
+            .getUri();
+      }
+
+      @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
+
+      View button = revertedView.findViewById(R.id.reverted_more_detail);
+      TextView address = revertedView.findViewById(R.id.address);
+
+      switch (linkTransaction.getType()) {
+        case IAP_OFFCHAIN:
+          button.setVisibility(View.VISIBLE);
+          typeIcon = R.drawable.ic_transaction_iab;
+          button.setOnClickListener(
+              view -> viewModel.showMoreDetailsBds(view.getContext(), linkTransaction));
+          address.setText(
+              details.getSourceName() == null ? linkTransaction.getTo() : details.getSourceName());
+          break;
+        case BONUS:
+          button.setVisibility(View.VISIBLE);
+          typeIcon = -1;
+          button.setOnClickListener(
+              view -> viewModel.showMoreDetailsBds(view.getContext(), linkTransaction));
+          symbol = getString(R.string.p2p_send_currency_appc_c);
+          address.setText(R.string.transaction_type_bonus);
+          break;
+        case TOP_UP:
+          typeIcon = R.drawable.transaction_type_top_up;
+          button.setVisibility(View.VISIBLE);
+          button.setOnClickListener(
+              view -> viewModel.showMoreDetailsBds(view.getContext(), linkTransaction));
+          symbol = getString(R.string.p2p_send_currency_appc_c);
+          address.setText(R.string.topup_home_button);
+          break;
+      }
+      String sourceDescription = details.getDescription() == null ? "" : details.getDescription();
+
+      setupRevertedUi(icon, typeIcon, getValue(linkTransaction, symbol), symbol,
+          getDate(linkTransaction.getTimeStamp()), sourceDescription);
+    } else if (isRevertedTransaction) {
+      revertView.setVisibility(View.VISIBLE);
+      revertedView.setVisibility(View.GONE);
+      TextView body = revertView.findViewById(R.id.message);
+
+      ImageView logo = revertView.findViewById(R.id.layout_support_logo);
+      ImageView icn = revertView.findViewById(R.id.layout_support_icn);
+
+      logo.setOnClickListener(view -> viewModel.showSupportScreen());
+      icn.setOnClickListener(view -> viewModel.showSupportScreen());
+
+      String date = getDate(linkTransaction.getTimeStamp());
+      switch (linkTransaction.getType()) {
+        case TOP_UP_REVERT:
+          body.setText(getString(R.string.transaction_type_reverted_topup_body, date));
+          break;
+        case IAP_REVERT:
+          body.setText(getString(R.string.transaction_type_reverted_purchase_body, date));
+          break;
+        case BONUS_REVERT:
+          body.setText(getString(R.string.transaction_type_reverted_bonus_body, date));
+          break;
+      }
+    }
+  }
+
+  private void setupRevertedUi(String icon, int typeIcon, String value, String symbol, String date,
+      String sourceDescription) {
+    View revertedView = findViewById(R.id.layout_reverted_transaction);
+
+    TextView originalDate = revertedView.findViewById(R.id.original_date);
+    TextView valueTv = revertedView.findViewById(R.id.value);
+    ImageView typeIconImageView = revertedView.findViewById(R.id.img);
+    TextView sourceDescriptionTv = revertedView.findViewById(R.id.description);
+
+    originalDate.setText(date);
+    originalDate.setVisibility(View.VISIBLE);
+
+    sourceDescriptionTv.setText(sourceDescription);
+
+    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
+    int color = getResources().getColor(R.color.color_grey_9e);
+    valueTv.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+
+    if (icon != null) {
+      String path;
+      if (icon.startsWith("http://") || icon.startsWith("https://")) {
+        path = icon;
+      } else {
+        path = "file:" + icon;
+      }
+
+      GlideApp.with(this)
+          .load(path)
+          .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+          .transition(DrawableTransitionOptions.withCrossFade())
+          .into(typeIconImageView);
+    } else {
+      if (typeIcon != -1) {
+        typeIconImageView.setImageResource(typeIcon);
+        typeIconImageView.setVisibility(View.VISIBLE);
+      } else {
+        typeIconImageView.setVisibility(View.GONE);
+      }
+    }
   }
 
   private void hideDialog() {
@@ -313,10 +528,20 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void formatValue(String value, String symbol) {
+  private void formatValue(String value, String symbol, Transaction.TransactionType type,
+      boolean isRevert, boolean isReverted) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
-    String formattedValue = (isSent ? "-" : "+") + value;
+    String signal = "";
+    if (isRevert && type != Transaction.TransactionType.IAP_REVERT) {
+      signal = "-";
+    } else if (isReverted && type != Transaction.TransactionType.IAP_OFFCHAIN) {
+      signal = "+";
+    } else if (!isReverted && !isRevert) {
+      signal = isSent ? "-" : "+";
+    }
+
+    String formattedValue = signal + value;
     amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
   }
 
@@ -326,5 +551,30 @@ public class TransactionDetailActivity extends BaseActivity {
       rawValue = getScaledValue(rawValue, currencySymbol);
     }
     return rawValue;
+  }
+
+  private String getValue(Transaction linkedTx, String currencySymbol) {
+    String rawValue = linkedTx.getValue();
+    if (!rawValue.equals("0")) {
+      rawValue = getScaledValue(rawValue, currencySymbol);
+    }
+    if (linkedTx.getType() == Transaction.TransactionType.IAP_OFFCHAIN) {
+      rawValue = "-" + rawValue;
+    } else {
+      rawValue = "+" + rawValue;
+    }
+    return rawValue;
+  }
+
+  private boolean isRevertTransaction(Transaction transaction) {
+    return transaction.getType() == Transaction.TransactionType.BONUS_REVERT
+        || transaction.getType() == Transaction.TransactionType.IAP_REVERT
+        || transaction.getType() == Transaction.TransactionType.TOP_UP_REVERT;
+  }
+
+  private boolean isRevertedTransaction(Transaction transaction) {
+    return !isRevertTransaction(transaction)
+        && transaction.getLinkedTx()
+        .size() > 0;
   }
 }

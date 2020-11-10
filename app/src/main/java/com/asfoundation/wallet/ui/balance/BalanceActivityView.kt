@@ -9,9 +9,8 @@ interface BalanceActivityView {
 
   fun showBalanceScreen()
 
-  fun showTokenDetailsScreen(
-      tokenDetailsId: TokenDetailsActivity.TokenDetailsId, imgView: ImageView,
-      textView: TextView, parentView: View)
+  fun showTokenDetailsScreen(tokenDetailsId: TokenDetailsActivity.TokenDetailsId,
+                             imgView: ImageView, textView: TextView, parentView: View)
 
   fun setupToolbar()
 

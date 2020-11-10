@@ -4,7 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -14,7 +14,7 @@ import java.math.BigDecimal
 import java.util.*
 
 class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                         private val supportInteractor: SupportInteractor,
+                         private val supportRepository: SupportRepository,
                          private val walletService: WalletService,
                          private val walletBlockedInteract: WalletBlockedInteract,
                          private val smsValidationInteract: SmsValidationInteract) {
@@ -23,8 +23,8 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
+            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
+            supportRepository.displayChatScreen()
           }
         }
   }

@@ -43,6 +43,7 @@ import java.util.List;
     @JsonProperty("perk") private String perk;
     @JsonProperty("status") private Status status;
     @JsonProperty("operations") private List<Operation> operations;
+    @JsonProperty("linked_tx") private List<String> linkedTx;
 
     public List<Operation> getOperations() {
       return operations;
@@ -154,6 +155,14 @@ import java.util.List;
 
     public void setType(String type) {
       this.type = type;
+    }
+
+    public List<String> getLinkedTx() {
+      return linkedTx;
+    }
+
+    public void setLinkedTx(List<String> linkedTx) {
+      this.linkedTx = linkedTx;
     }
 
     @Override public String toString() {

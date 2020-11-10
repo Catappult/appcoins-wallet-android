@@ -30,10 +30,8 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
-import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_1_2
-import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_2_3
-import com.asfoundation.wallet.repository.TransactionsDatabase.Companion.MIGRATION_3_4
 import com.asfoundation.wallet.service.*
+import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
@@ -157,21 +155,15 @@ class RepositoryModule {
                                    defaultTokenProvider: DefaultTokenProvider,
                                    nonceObtainer: MultiWalletNonceObtainer,
                                    transactionsNetworkRepository: OffChainTransactions,
-                                   context: Context,
-                                   sharedPreferences: SharedPreferences): TransactionRepositoryType {
-
-    val transactionsDao = Room.databaseBuilder(context.applicationContext,
-        TransactionsDatabase::class.java,
-        "transactions_database")
-        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
-        .build()
-        .transactionsDao()
+                                   sharedPreferences: SharedPreferences,
+                                   transactionsDao: TransactionsDao,
+                                   transactionLinkIdDao: TransactionLinkIdDao): TransactionRepositoryType {
     val localRepository: TransactionsRepository =
-        TransactionsLocalRepository(transactionsDao, sharedPreferences)
+        TransactionsLocalRepository(transactionsDao, sharedPreferences, transactionLinkIdDao)
     return BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-        BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
-        transactionsNetworkRepository, localRepository, TransactionMapper(),
-        CompositeDisposable(), Schedulers.io())
+        BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
+        localRepository, TransactionMapper(), TransactionsMapper(), CompositeDisposable(),
+        Schedulers.io())
   }
 
   @Singleton

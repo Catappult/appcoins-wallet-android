@@ -47,8 +47,8 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
         AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  override fun sendWalletImportRestoreEvent(action: String, status: String,
-                                            errorDetails: String?) {
+  override fun sendWalletRestoreEvent(action: String, status: String,
+                                      errorDetails: String?) {
     val eventData: MutableMap<String, Any> =
         HashMap()
     eventData[EVENT_ACTION] = action

@@ -14,7 +14,7 @@ import io.intercom.android.sdk.push.IntercomPushClient
 import io.reactivex.Observable
 
 
-class SupportInteractor(private val preferences: SupportSharedPreferences, val app: App) {
+class SupportRepository(private val preferences: SupportSharedPreferences, val app: App) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"

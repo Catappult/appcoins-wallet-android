@@ -1,8 +1,10 @@
-package com.asfoundation.wallet.interact
+package com.asfoundation.wallet.restore.intro
 
 import android.net.Uri
 import android.os.Build
 import com.asfoundation.wallet.backup.FileInteractor
+import com.asfoundation.wallet.interact.SetDefaultWalletInteractor
+import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.interact.rx.operator.Operators
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -13,12 +15,12 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType,
-                              private val setDefaultWalletInteract: SetDefaultWalletInteract,
+                              private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
                               private val passwordStore: PasswordStore,
                               private val preferencesRepositoryType: PreferencesRepositoryType,
                               private val fileInteractor: FileInteractor) {
 
-  fun isKeystore(key: String) = key.contains("{")
+  fun isKeystore(key: String): Boolean = key.contains("{")
 
   fun restoreKeystore(keystore: String, password: String = ""): Single<WalletModel> {
     return passwordStore.generatePassword()
@@ -42,9 +44,7 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
         .onErrorReturn { WalletModel(RestoreError(RestoreErrorType.GENERIC)) }
   }
 
-  fun setDefaultWallet(address: String): Completable {
-    return setDefaultWalletInteract.set(address)
-  }
+  fun setDefaultWallet(address: String): Completable = setDefaultWalletInteractor.set(address)
 
   fun getPath(): Uri? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -59,20 +59,22 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
   private fun mapError(keystore: String, throwable: Throwable): WalletModel {
     if (throwable.message != null) {
       if ((throwable.message as String).contains("Invalid Keystore", true)) {
-        return WalletModel(RestoreError(RestoreErrorType.INVALID_KEYSTORE))
+        return WalletModel(
+            RestoreError(RestoreErrorType.INVALID_KEYSTORE))
       }
       return when (throwable.message) {
-        "Invalid password provided" -> WalletModel(keystore,
+        "Invalid password provided" -> WalletModel(
+            keystore,
             RestoreError(RestoreErrorType.INVALID_PASS))
-        "Already added" -> WalletModel(RestoreError(RestoreErrorType.ALREADY_ADDED))
-        else -> WalletModel(RestoreError(RestoreErrorType.GENERIC))
+        "Already added" -> WalletModel(
+            RestoreError(RestoreErrorType.ALREADY_ADDED))
+        else -> WalletModel(
+            RestoreError(RestoreErrorType.GENERIC))
       }
     } else {
       return WalletModel(RestoreError(RestoreErrorType.GENERIC))
     }
   }
 
-  fun readFile(fileUri: Uri?): Single<String> {
-    return fileInteractor.readFile(fileUri)
-  }
+  fun readFile(fileUri: Uri?): Single<String> = fileInteractor.readFile(fileUri)
 }

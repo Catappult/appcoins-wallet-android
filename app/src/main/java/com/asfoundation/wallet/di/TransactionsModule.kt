@@ -4,7 +4,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.TransactionViewInteract
 import com.asfoundation.wallet.navigator.TransactionViewNavigator
 import com.asfoundation.wallet.router.*
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -20,10 +20,10 @@ internal class TransactionsModule {
                                           transactionViewNavigator: TransactionViewNavigator,
                                           transactionViewInteract: TransactionViewInteract,
                                           walletsEventSender: WalletsEventSender,
-                                          supportInteractor: SupportInteractor,
+                                          supportRepository: SupportRepository,
                                           formatter: CurrencyFormatUtils): TransactionsViewModelFactory {
     return TransactionsViewModelFactory(applications, analytics, transactionViewNavigator,
-        transactionViewInteract, walletsEventSender, supportInteractor, formatter)
+        transactionViewInteract, walletsEventSender, supportRepository, formatter)
   }
 
   @Provides
