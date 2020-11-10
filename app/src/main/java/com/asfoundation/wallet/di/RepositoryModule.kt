@@ -13,6 +13,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.App
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
@@ -31,6 +32,8 @@ import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.*
+import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
@@ -230,5 +233,11 @@ class RepositoryModule {
   @Provides
   fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
     return LocalPaymentsLinkRepository(api)
+  }
+
+  @Singleton
+  @Provides
+  fun provideSupportRepository(preferences: SupportSharedPreferences, app: App): SupportRepository {
+    return SupportRepository(preferences, app)
   }
 }
