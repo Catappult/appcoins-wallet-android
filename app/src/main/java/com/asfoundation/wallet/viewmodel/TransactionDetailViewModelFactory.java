@@ -7,7 +7,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.support.SupportInteractor;
+import com.asfoundation.wallet.support.SupportRepository;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class TransactionDetailViewModelFactory implements ViewModelProvider.Factory {
@@ -16,23 +16,23 @@ public class TransactionDetailViewModelFactory implements ViewModelProvider.Fact
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final CompositeDisposable compositeDisposable;
-  private final SupportInteractor supportInteractor;
+  private final SupportRepository supportRepository;
   private final TransactionDetailRouter transactionDetailRouter;
 
   public TransactionDetailViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
-      SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter) {
+      SupportRepository supportRepository, TransactionDetailRouter transactionDetailRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.externalBrowserRouter = externalBrowserRouter;
     this.compositeDisposable = compositeDisposable;
-    this.supportInteractor = supportInteractor;
+    this.supportRepository = supportRepository;
     this.transactionDetailRouter = transactionDetailRouter;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new TransactionDetailViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
-        externalBrowserRouter, compositeDisposable, supportInteractor, transactionDetailRouter);
+        externalBrowserRouter, compositeDisposable, supportRepository, transactionDetailRouter);
   }
 }
