@@ -434,6 +434,10 @@
   <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
+
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -648,6 +652,12 @@
   <string name="backup_notification_title">Make a backup of your wallet!</string>
   <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
   <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
+
+  
 
 
 <!--Wallets Management-->
@@ -873,6 +883,7 @@
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>
   <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   
  <!--Send Logs to Support-->
   <string name="send_logs_settings">Send logs to Support Team</string>
