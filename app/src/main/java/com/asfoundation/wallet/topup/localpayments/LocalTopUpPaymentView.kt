@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup
+package com.asfoundation.wallet.topup.localpayments
 
 import android.graphics.Bitmap
 import io.reactivex.Observable

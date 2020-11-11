@@ -12,7 +12,7 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentAnalytics
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import com.facebook.appevents.AppEventsLogger
 import dagger.Module

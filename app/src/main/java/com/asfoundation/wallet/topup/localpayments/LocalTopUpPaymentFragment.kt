@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup
+package com.asfoundation.wallet.topup.localpayments
 
 import android.animation.Animator
 import android.content.Context
@@ -10,9 +10,13 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.topup.TopUpActivityView
+import com.asfoundation.wallet.topup.TopUpAnalytics
+import com.asfoundation.wallet.topup.TopUpData
+import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.PaymentFragmentNavigator
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentInteractor
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -33,7 +37,8 @@ import kotlinx.android.synthetic.main.topup_pending_user_payment_view.view.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
+class LocalTopUpPaymentFragment : DaggerFragment(),
+    LocalTopUpPaymentView {
 
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
@@ -70,13 +75,19 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
 
     fun newInstance(paymentId: String, icon: String, label: String, async: Boolean,
                     data: TopUpPaymentData): LocalTopUpPaymentFragment {
-      val fragment = LocalTopUpPaymentFragment()
+      val fragment =
+          LocalTopUpPaymentFragment()
       Bundle().apply {
-        putString(PAYMENT_ID, paymentId)
-        putString(PAYMENT_ICON, icon)
-        putString(PAYMENT_LABEL, label)
-        putBoolean(ASYNC, async)
-        putSerializable(PAYMENT_DATA, data)
+        putString(
+            PAYMENT_ID, paymentId)
+        putString(
+            PAYMENT_ICON, icon)
+        putString(
+            PAYMENT_LABEL, label)
+        putBoolean(
+            ASYNC, async)
+        putSerializable(
+            PAYMENT_DATA, data)
         fragment.arguments = this
       }
       return fragment
@@ -94,10 +105,13 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = LocalTopUpPaymentPresenter(this, activityView, context, localPaymentInteractor,
-        topUpAnalytics, navigator, formatter, inAppPurchaseInteractor.billingMessagesMapper,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), data, paymentId,
-        paymentIcon, activity!!.packageName, async, logger)
+    presenter =
+        LocalTopUpPaymentPresenter(
+            this,
+            activityView, context, localPaymentInteractor,
+            topUpAnalytics, navigator, formatter, inAppPurchaseInteractor.billingMessagesMapper,
+            AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), data, paymentId,
+            paymentIcon, activity!!.packageName, async, logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -266,40 +280,50 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
   }
 
   private val paymentId: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_ID)) {
-      arguments!!.getString(PAYMENT_ID)!!
+    if (arguments!!.containsKey(
+            PAYMENT_ID)) {
+      arguments!!.getString(
+          PAYMENT_ID)!!
     } else {
       throw IllegalArgumentException("payment id data not found")
     }
   }
 
   private val paymentIcon: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_ICON)) {
-      arguments!!.getString(PAYMENT_ICON)!!
+    if (arguments!!.containsKey(
+            PAYMENT_ICON)) {
+      arguments!!.getString(
+          PAYMENT_ICON)!!
     } else {
       throw IllegalArgumentException("payment icon data not found")
     }
   }
 
   private val paymentLabel: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_LABEL)) {
-      arguments!!.getString(PAYMENT_LABEL)!!
+    if (arguments!!.containsKey(
+            PAYMENT_LABEL)) {
+      arguments!!.getString(
+          PAYMENT_LABEL)!!
     } else {
       throw IllegalArgumentException("payment label data not found")
     }
   }
 
   private val async: Boolean by lazy {
-    if (arguments!!.containsKey(ASYNC)) {
-      arguments!!.getBoolean(ASYNC)
+    if (arguments!!.containsKey(
+            ASYNC)) {
+      arguments!!.getBoolean(
+          ASYNC)
     } else {
       throw IllegalArgumentException("payment label data not found")
     }
   }
 
   private val data: TopUpPaymentData by lazy {
-    if (arguments!!.containsKey(PAYMENT_DATA)) {
-      arguments!!.getSerializable(PAYMENT_DATA)!! as TopUpPaymentData
+    if (arguments!!.containsKey(
+            PAYMENT_DATA)) {
+      arguments!!.getSerializable(
+          PAYMENT_DATA)!! as TopUpPaymentData
     } else {
       throw IllegalArgumentException("topup payment data not found")
     }

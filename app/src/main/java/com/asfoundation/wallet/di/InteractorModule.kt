@@ -60,7 +60,7 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentInteractor
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator

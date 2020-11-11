@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab.local_payments
+package com.asfoundation.wallet.ui.iab.localpayments
 
 import java.math.BigDecimal
 

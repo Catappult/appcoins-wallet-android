@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab.local_payments
+package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.animation.Animator
 import android.content.Context
@@ -13,8 +13,8 @@ import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentView.ViewState
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentView.ViewState.*
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.*
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*

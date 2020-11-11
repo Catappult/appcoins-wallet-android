@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab.local_payments
+package com.asfoundation.wallet.ui.iab.localpayments
 
 import com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics

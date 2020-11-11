@@ -18,6 +18,7 @@ import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
+import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
@@ -130,7 +131,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
             LocalTopUpPaymentFragment.newInstance(paymentId, icon, label, async, topUpData))
-        .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
+        .addToBackStack(
+            LocalTopUpPaymentFragment::class.java.simpleName)
         .commit()
   }
 

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup
+package com.asfoundation.wallet.topup.localpayments
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,8 +9,11 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.topup.TopUpActivityView
+import com.asfoundation.wallet.topup.TopUpAnalytics
+import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.ui.iab.Navigator
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentInteractor
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -41,13 +44,16 @@ class LocalTopUpPaymentPresenter(
     private val logger: Logger) {
 
   private var waitingResult: Boolean = false
-  private var status: ViewState = ViewState.NONE
+  private var status: ViewState =
+      ViewState.NONE
 
   fun present(savedInstance: Bundle?) {
     setupUi()
     if (savedInstance != null) {
-      waitingResult = savedInstance.getBoolean(WAITING_RESULT)
-      status = savedInstance.get(STATUS_KEY) as ViewState
+      waitingResult = savedInstance.getBoolean(
+          WAITING_RESULT)
+      status = savedInstance.get(
+          STATUS_KEY) as ViewState
     }
     handleViewInitialization(status)
     handlePaymentRedirect()
@@ -144,7 +150,8 @@ class LocalTopUpPaymentPresenter(
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     return when {
       isErrorStatus(transaction) -> Completable.fromAction {
-        logger.log(TAG, "Transaction came with error status: ${transaction.status}")
+        logger.log(
+            TAG, "Transaction came with error status: ${transaction.status}")
         showGenericError()
       }
       transaction.status == Transaction.Status.COMPLETED -> handleSyncCompletedStatus()
@@ -179,7 +186,8 @@ class LocalTopUpPaymentPresenter(
   }
 
   private fun showError(throwable: Throwable) {
-    logger.log(TAG, throwable)
+    logger.log(
+        TAG, throwable)
     if (throwable.isNoNetworkException()) {
       status = ViewState.NO_NETWORK
       view.showNetworkError()
@@ -198,8 +206,10 @@ class LocalTopUpPaymentPresenter(
   }
 
   fun onSaveInstanceState(outState: Bundle) {
-    outState.putSerializable(STATUS_KEY, status)
-    outState.putBoolean(WAITING_RESULT, waitingResult)
+    outState.putSerializable(
+        STATUS_KEY, status)
+    outState.putBoolean(
+        WAITING_RESULT, waitingResult)
   }
 
   private fun handleRetryClick() {

@@ -13,11 +13,11 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
-import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
+import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.ui.AuthenticationErrorFragment
 import com.asfoundation.wallet.ui.SettingsFragment
 import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
@@ -28,8 +28,8 @@ import com.asfoundation.wallet.ui.backup.BackupWalletFragment
 import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentFragment
-import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentModule
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
