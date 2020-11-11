@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
   <string name="common_or">أو</string>
   <string name="share_via">مشاركة بواسطة:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -485,6 +488,8 @@
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
   <string name="purchase_wallet_error_contact_us">يييي، هناك خطبٌ ما في محفظتك. يرجى الاتصال بنا.</string>
   <string name="purchase_carrier_error">يبدو أن رقم هاتفك لا يتوافق مع وسيلة الدفع هذه.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">يييي، نحن نعاني من مشكلة في عملية الشراء هذه. أرجوك تواصل معنا.</string>
   <string name="purchase_error_wallet_block_code_403">يبدو أن هناك مشكلة ما في محفظتك. يرجى التواصل معنا.</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
@@ -598,6 +603,10 @@
   <string name="backup_notification_title">أنشئ نسخًا احتياطًا لمحفظتك!</string>
   <string name="backup_notification_body">احتفظ بأموالك بأمان وتأكد من أنك تستطيع دومًا الدخول إلى محفظتك.</string>
   <string name="backup_choose_wallet_title">اختر محفظة لإنشاء نسخ احتياطي لها</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">المَحافظ</string>
   <string name="wallets_total_balance_title">الرصيد الكلي يساوي %s</string>
@@ -752,6 +761,7 @@
   <string name="carrier_billing_code_field">رمزك هو...</string>
   <string name="carrier_billing_code_resend_button">أعد إرسال الرمز</string>
   <string name="carrier_billing_submit_button">اعتمِد</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">بالضغط على اعتمِد، أنت تُقرّ بأنك تقبل الأحكام والشروط وسياسة الخصوصية.</string>
   <string name="carrier_billing_help_1">تحتاج مساعدة؟</string>
   <string name="carrier_billing_help_2_button">تواصل مع فريق الدعم</string>
@@ -816,8 +826,13 @@
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>
   <string name="fingerprint_authentication_required_body">يرجى استخدام بصمة الإصبع أو كلمة المرور للمتابعة.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">أرسل سجل النشاط إلى فريق الدعم</string>
   <string name="send_logs_sending">يتم إرسال&#8230;</string>
   <string name="send_logs_send">أُرسلت!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
