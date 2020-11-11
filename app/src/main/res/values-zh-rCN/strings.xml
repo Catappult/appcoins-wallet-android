@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
   <string name="common_or">或</string>
   <string name="share_via">分享方式：</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">你的CVV/CVC代码似乎有误。请重试。</string>
   <string name="purchase_wallet_error_contact_us">糟糕，您的钱包出现问题。请与我们联系。</string>
   <string name="purchase_carrier_error">您的电话号码似乎与此付款方式不兼容。</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
   <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">CVV/CVC错误</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">备份您的钱包！</string>
   <string name="backup_notification_body">确保资金安全，确保您随时均可访问钱包。</string>
   <string name="backup_choose_wallet_title">选择要备份的钱包</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
@@ -746,6 +755,7 @@
   <string name="carrier_billing_code_field">您的代码...</string>
   <string name="carrier_billing_code_resend_button">重新发送代码</string>
   <string name="carrier_billing_submit_button">提交</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">点击“提交”即表示，您确认接受条款与条件以及隐私政策。</string>
   <string name="carrier_billing_help_1">需要帮助？</string>
   <string name="carrier_billing_help_2_button">联系支持人员</string>
@@ -795,8 +805,13 @@
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>
   <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Send logs to Support Team</string>
   <string name="send_logs_sending">Sending&#8230;</string>
   <string name="send_logs_send">Sent!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
