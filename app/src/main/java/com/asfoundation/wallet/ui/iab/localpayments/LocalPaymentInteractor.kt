@@ -117,5 +117,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
         }
   }
 
+  fun topUpBundle(priceAmount: String, priceCurrency: String, bonus: String,
+                  fiatCurrencySymbol: String): Bundle {
+    return billingMessagesMapper.topUpBundle(priceAmount, priceCurrency, bonus, fiatCurrencySymbol)
+  }
+
   private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
 }

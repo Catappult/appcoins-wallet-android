@@ -64,8 +64,6 @@ interface AdyenTopUpView {
 
   fun showRetryAnimation()
 
-  fun navigateToPaymentSelection()
-
   fun setupUi()
 
   fun showBonus(bonus: BigDecimal, currency: String)

@@ -25,8 +25,6 @@ interface TopUpActivityView {
 
   fun showBackupNotification(walletAddress: String)
 
-  fun navigateBack()
-
   fun close(navigateToTransactions: Boolean = true)
 
   fun acceptResult(uri: Uri)

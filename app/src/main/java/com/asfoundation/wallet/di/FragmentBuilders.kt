@@ -18,6 +18,7 @@ import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
+import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentModule
 import com.asfoundation.wallet.ui.AuthenticationErrorFragment
 import com.asfoundation.wallet.ui.SettingsFragment
 import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
@@ -193,7 +194,7 @@ abstract class FragmentBuilders {
   abstract fun bindGamificationFragment(): GamificationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [LocalTopUpPaymentModule::class])
   abstract fun bindLocalTopUpPaymentFragment(): LocalTopUpPaymentFragment
 
   @FragmentScope

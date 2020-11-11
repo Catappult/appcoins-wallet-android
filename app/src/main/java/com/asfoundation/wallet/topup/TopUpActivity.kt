@@ -63,7 +63,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     const val WALLET_VALIDATION_REQUEST_CODE = 1235
     const val BILLING_ADDRESS_REQUEST_CODE = 1236
     const val BILLING_ADDRESS_SUCCESS_CODE = 1000
-    const val BILLING_ADDRESS_CANCEL_CODE = 1001
     const val ERROR_MESSAGE = "error_message"
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
@@ -130,9 +129,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                                       async: Boolean, topUpData: TopUpPaymentData) {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container,
-            LocalTopUpPaymentFragment.newInstance(paymentId, icon, label, async, topUpData))
-        .addToBackStack(
-            LocalTopUpPaymentFragment::class.java.simpleName)
+            LocalTopUpPaymentFragment.newInstance(paymentId, icon, label, async, packageName,
+                topUpData))
+        .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
         .commit()
   }
 
@@ -168,14 +167,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       return true
     }
     return super.onOptionsItemSelected(item)
-  }
-
-  override fun navigateBack() {
-    if (supportFragmentManager.backStackEntryCount != 0) {
-      supportFragmentManager.popBackStack()
-    } else {
-      close()
-    }
   }
 
   override fun setupToolbar() {
