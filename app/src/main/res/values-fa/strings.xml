@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <string name="common_or">یا</string>
   <string name="share_via">به اشتراک گذاری از طریق:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
   <string name="purchase_wallet_error_contact_us">مشکلی برای کیف پول شما پیش آمده است. لطفا با ما تماس بگیرید.</string>
   <string name="purchase_carrier_error">شماره موبایل شما برای این روش پرداخت سازگار نیست.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">اوه، مشکلی برای این خرید پیش آمده است. لطفا با ما تماس بگیرید.</string>
   <string name="purchase_error_wallet_block_code_403">به نظر می‌رسد که کیف پول شما مشکلی دارد. لطفا با ما تماس بگیرید.</string>
   <string name="purchase_card_error_CVV">CVV/CVC اشتباه</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_notification_body">پول‌های خود را امن نگه دارید و مطمئن شوید که همیشه قادر به دسترسی به کیف پول خود هستید.</string>
   <string name="backup_choose_wallet_title">یک کیف پول برای بک‌آپ انتخاب کنید</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>
@@ -747,6 +756,7 @@
   <string name="carrier_billing_code_field">کد شما...</string>
   <string name="carrier_billing_code_resend_button">ارسال مجدد کد</string>
   <string name="carrier_billing_submit_button">ارسال</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">با کلیک روی ارسال، تایید می‌کنید که شرایط و ضوابط سیاست حفظ حریم خصوصی را قبول کرده‌اید.</string>
   <string name="carrier_billing_help_1">نیاز به کمک دارید؟</string>
   <string name="carrier_billing_help_2_button">تماس با پشتیبانی</string>
@@ -799,8 +809,13 @@
   <string name="fingerprint_failed_body">لطفا در %s ثانیه مجدد امتحان کنید.</string>
   <string name="fingerprint_authentication_required_title">احراز هویت الزامی است!</string>
   <string name="fingerprint_authentication_required_body">لطفا از انگشت خود یا رمزعبور برای ادامه استفاده کنید.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Send logs to Support Team</string>
   <string name="send_logs_sending">Sending&#8230;</string>
   <string name="send_logs_send">Sent!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
