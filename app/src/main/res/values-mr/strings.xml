@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
   <string name="common_or">किंवा</string>
   <string name="share_via">द्वारे सामायिक करा:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_wallet_error_contact_us">अरेरे आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_carrier_error">ह्या पेमेंट पद्धतीशी आपला फोन नंबर सुसंगत नाही असे दिसतेय.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">अरेरे, ह्या खरेदीत आम्हास समस्या येत आहे. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_error_wallet_block_code_403">आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये अस दिसतय. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_notification_body">आपले पैसे सुरक्षित राखा आणि आपल्या वॉलेटमध्ये आपल्याला नेहमीच प्रवेश मिळेल याची खात्री करा.</string>
   <string name="backup_choose_wallet_title">बॅकअपसाठी वॉलेट निवडा</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
@@ -751,6 +760,7 @@
   <string name="carrier_billing_code_field">आपला कोड...</string>
   <string name="carrier_billing_code_resend_button">कोड परत पाठवा</string>
   <string name="carrier_billing_submit_button">सबमिट करा</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">सबमिटवर टॅप करण्याने आपणांस गोपनीयता धोरण आणि अटी व शर्ती मंजूर आहेत ह्याची पुष्टी आपण कराल.</string>
   <string name="carrier_billing_help_1">मदत हवीय?</string>
   <string name="carrier_billing_help_2_button">समर्थनाशी संपर्क साधा</string>
@@ -815,8 +825,13 @@
   <string name="fingerprint_failed_body">कृपया %s सेकंदात पुन्हा प्रयत्न करा.</string>
   <string name="fingerprint_authentication_required_title">प्रमाणीकरण जरुरी!</string>
   <string name="fingerprint_authentication_required_body">चालू ठेवण्यासाठी कृपया आपले बोट किंवा पासवर्ड वापरा.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">समर्थन गटास लॉग्ज पाठवा</string>
   <string name="send_logs_sending">&#8230; पाठवित आहे</string>
   <string name="send_logs_send">पाठवले!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
