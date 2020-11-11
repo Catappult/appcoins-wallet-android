@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,6 +45,14 @@ class CarrierVerifyFragment : DaggerFragment(),
     buy_button.setText(R.string.action_next)
     buy_button.visibility = View.VISIBLE
     buy_button.isEnabled = false
+
+    country_code_picker.imageViewFlag.alpha = 0.7f
+    country_code_picker.registerCarrierNumberEditText(phone_number)
+    country_code_picker.textView_selectedCountry.typeface =
+        Typeface.create("sans-serif-medium", Typeface.NORMAL)
+    country_code_picker.setPhoneNumberValidityChangeListener { isValidNumber ->
+      buy_button.isEnabled = isValidNumber
+    }
   }
 
 
@@ -52,7 +61,6 @@ class CarrierVerifyFragment : DaggerFragment(),
                               fiatAmount: BigDecimal, appcAmount: BigDecimal,
                               skuDescription: String,
                               bonusAmount: BigDecimal) {
-    buy_button.isEnabled = true
     payment_methods_header.setTitle(appName)
     payment_methods_header.setIcon(icon)
     payment_methods_header.setDescription(skuDescription)
@@ -77,7 +85,7 @@ class CarrierVerifyFragment : DaggerFragment(),
 
   override fun nextClickEvent(): Observable<String> {
     return RxView.clicks(buy_button)
-        .map { phone_number.text.toString() }
+        .map { country_code_picker.fullNumberWithPlus.toString() }
   }
 
   override fun setLoading() {

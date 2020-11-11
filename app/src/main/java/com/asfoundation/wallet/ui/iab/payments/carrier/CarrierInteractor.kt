@@ -8,6 +8,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -35,6 +36,14 @@ class CarrierInteractor(val repository: CarrierBillingRepository,
               pair.first.storeAddress, pair.first.address)
         }
         .doOnError { e -> logger.log("CarrierInteractor", e) }
+  }
+
+  fun cancelTransaction(uid: String, packageName: String): Completable {
+    return getAddresses(packageName)
+        .flatMapCompletable { addresses ->
+          repository.cancelPayment(uid, addresses.address, addresses.signedAddress)
+              .ignoreElement()
+        }
   }
 
   fun getTransactionBuilder(transactionData: String?): Single<TransactionBuilder> {
