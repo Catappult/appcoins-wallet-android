@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">Scheinbar sind Sie nicht mit dem Internet verbunden. Überprüfen Sie ihrer Verbindung und überprüfen Sie es erneut!</string>
   <string name="common_or">ODER</string>
   <string name="share_via">Teilen über:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
   <string name="terms_and_conditions_error">Um fortzufahren, akzeptieren Sie bitte unsere AGBs und unsere Datenschutzrichtlinie</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">Scheinbar ist ihr CVV/CVC-Code nicht korrekt. Bitte geben Sie ihn erneut ein.</string>
   <string name="purchase_wallet_error_contact_us">Upps, etwas ist mit dem Wallet nicht in Ordnung, bitte nehmen Sie Kontakt mit uns auf.</string>
   <string name="purchase_carrier_error">Ihre Telefonnummer ist nicht kompatibel zu dieser Bezahlmethode.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Hoppla, wir haben Probleme mit diesem Einkauf, nehmen Sie bitte Kontakt zu uns auf.</string>
   <string name="purchase_error_wallet_block_code_403">Upps, etwas ist mit dem Wallet nicht in Ordnung, bitte nehmen Sie Kontakt mit uns auf.</string>
   <string name="purchase_card_error_CVV">Falscher CVV/CVC-Code</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Erstellen Sie ein Backup ihres Wallets!</string>
   <string name="backup_notification_body">Sichern Sie ihr Guthaben und stellen Sie sicher, dass Sie jederzeit Zuzgriff auf ihr Wallet haben.</string>
   <string name="backup_choose_wallet_title">Wählen Sie für das Backup ein Wallet</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Gesamtguthaben in %s</string>
@@ -747,6 +756,7 @@
   <string name="carrier_billing_code_field">Ihren Code...</string>
   <string name="carrier_billing_code_resend_button">CODE ERNEUT SENDEN</string>
   <string name="carrier_billing_submit_button">ABSENDEN</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">Durch das Drücken von Absenden, bestätigen Sie, dass Sie den AGBs und der Datenschutzrichtlinie zustimmen.</string>
   <string name="carrier_billing_help_1">Benötigen Sie Hilfe?</string>
   <string name="carrier_billing_help_2_button">Support Kontaktieren</string>
@@ -799,8 +809,13 @@
   <string name="fingerprint_failed_body">Bitte versuchen Sie es in %s Sekunden erneut.</string>
   <string name="fingerprint_authentication_required_title">Authentifizierung erforderlich!</string>
   <string name="fingerprint_authentication_required_body">Um Fortzufahren verwenden Sie ihren Fingerabdruck oder ihr Passwort.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Log-Daten an das Support-Team versenden</string>
   <string name="send_logs_sending">Senden&#8230;</string>
   <string name="send_logs_send">Gesendet!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
