@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
   <string name="common_or">ATAU</string>
   <string name="share_via">Bagikan melalui:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">Kode CVV/CVC Anda sepertinya salah. Silakan coba lagi.</string>
   <string name="purchase_wallet_error_contact_us">Ups, ada masalah dengan dompet Anda. Silakan hubungi kami.</string>
   <string name="purchase_carrier_error">Sepertinya nomor telepon Anda tidak kompatibel dengan metode pembayaran ini.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Ups, terjadi masalah terkait pembelian ini. Silakan hubungi kami.</string>
   <string name="purchase_error_wallet_block_code_403">Sepertinya ada masalah dengan dompet Anda. Silakan hubungi kami.</string>
   <string name="purchase_card_error_CVV">CVV/CVC salah</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Buat cadangan dompet!</string>
   <string name="backup_notification_body">Jaga keamanan dana Anda dan pastikan agar Anda selalu bisa mengakses dompet Anda.</string>
   <string name="backup_choose_wallet_title">Pilih dompet untuk dicadangkan</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Total saldo dalam %s</string>
@@ -746,6 +755,7 @@
   <string name="carrier_billing_code_field">Kode Anda...</string>
   <string name="carrier_billing_code_resend_button">KIRIM ULANG KODE</string>
   <string name="carrier_billing_submit_button">KIRIM</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">Dengan mengetuk Kirim, Anda mengonfirmasi bahwa Anda menyetujui Syarat dan Ketentuan serta Kebijakan Privasi.</string>
   <string name="carrier_billing_help_1">Perlu bantuan?</string>
   <string name="carrier_billing_help_2_button">Hubungi Dukungan</string>
@@ -795,8 +805,13 @@
   <string name="fingerprint_failed_body">Silakan coba lagi dalam %s detik.</string>
   <string name="fingerprint_authentication_required_title">Diperlukan otentikasi!</string>
   <string name="fingerprint_authentication_required_body">Silakan gunakan jari atau kata sandi Anda untuk melanjutkan.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Kirim log ke Tim Dukungan</string>
   <string name="send_logs_sending">Mengirim&#8230;</string>
   <string name="send_logs_send">Terkirim!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
