@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
   <string name="common_or">HOẶC</string>
   <string name="share_via">Chia sẻ qua:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
   <string name="purchase_wallet_error_contact_us">Rất tiếc, có điều gì đó không ổn với ví của bạn. Vui lòng liên hệ ngay với chúng tôi.</string>
   <string name="purchase_carrier_error">Có vẻ như số điện thoại của bạn không tương thích với phương thức thanh toán này.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Rất tiếc, chúng tôi đang gặp sự cố với giao dịch mua này. Xin vui lòng liên hệ ngay với chúng tôi.</string>
   <string name="purchase_error_wallet_block_code_403">Có vẻ như có gì đó không ổn với ví của bạn. Xin vui lòng liên hệ ngay với chúng tôi.</string>
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_notification_body">Giữ tiền của bạn an toàn và đảm bảo bạn luôn có thể truy cập vào ví của mình.</string>
   <string name="backup_choose_wallet_title">Chọn một ví để sao lưu</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
@@ -746,6 +755,7 @@
   <string name="carrier_billing_code_field">Mã của bạn...</string>
   <string name="carrier_billing_code_resend_button">GỬI LẠI MÃ</string>
   <string name="carrier_billing_submit_button">GỬI</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">Bằng việc nhấn vào Gửi, bạn xác nhận rằng bạn chấp nhận Điều khoản và Điều kiện và Chính sách Quyền riêng tư.</string>
   <string name="carrier_billing_help_1">Cần trợ giúp?</string>
   <string name="carrier_billing_help_2_button">Liên hệ bộ phận hỗ trợ</string>
@@ -795,8 +805,13 @@
   <string name="fingerprint_failed_body">Vui lòng thử lại trong %s giây nữa.</string>
   <string name="fingerprint_authentication_required_title">Yêu cầu xác thực!</string>
   <string name="fingerprint_authentication_required_body">Vui lòng sử dụng dấu vân tay hoặc mật khẩu của bạn để tiếp tục.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Gửi nhật ký cho Đội ngũ Hỗ trợ</string>
   <string name="send_logs_sending">Đang gửi&#8230;</string>
   <string name="send_logs_send">Đã gửi!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
