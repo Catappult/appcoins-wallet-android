@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
   <string name="common_or">OU</string>
   <string name="share_via">Compartilhar via:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">Seu código CVV/CVC parece estar errado. Por favor, tente novamente.</string>
   <string name="purchase_wallet_error_contact_us">Opa, algo não está certo com sua wallet. Entre em contato conosco.</string>
   <string name="purchase_carrier_error">Parece que seu número de telefone não é compatível com esta forma de pagamento.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Ops, estamos tendo problemas com esta compra. Por favor, entre em contato conosco.</string>
   <string name="purchase_error_wallet_block_code_403">Parece que algo não está certo com sua wallet. Por favor, entre em contato conosco.</string>
   <string name="purchase_card_error_CVV">CVV/CVC errado</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Faça um backup da sua wallet!</string>
   <string name="backup_notification_body">Mantenha seus fundos seguros e tenha sempre acesso à sua carteira.</string>
   <string name="backup_choose_wallet_title">Escolha uma wallet para fazer backup</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>
@@ -747,6 +756,7 @@
   <string name="carrier_billing_code_field">Seu código...</string>
   <string name="carrier_billing_code_resend_button">REENVIAR CÓDIGO</string>
   <string name="carrier_billing_submit_button">ENVIAR</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">Ao tocar em Enviar, você confirma que aceita os Termos e Condições e a Política de Privacidade.</string>
   <string name="carrier_billing_help_1">Precisa ajuda?</string>
   <string name="carrier_billing_help_2_button">Falar com a Equipe de Suporte</string>
@@ -799,8 +809,13 @@
   <string name="fingerprint_failed_body">Tente novamente em %s segundos.</string>
   <string name="fingerprint_authentication_required_title">É necessário autenticar-se!</string>
   <string name="fingerprint_authentication_required_body">Utilize sua impressão digital ou senha para continuar.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Enviar logs para a Equipe de Suporte</string>
   <string name="send_logs_sending">Enviando&#8230;</string>
   <string name="send_logs_send">Enviado!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
