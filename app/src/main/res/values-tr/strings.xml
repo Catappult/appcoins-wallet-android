@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
   <string name="common_or">VEYA</string>
   <string name="share_via">Şu yolla paylaş:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">CVV/CVC kodunuz yanlış gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_wallet_error_contact_us">Hay aksi, cüzdanınızla ilgili bir sorun var. Lütfen bizimle iletişime geçin.</string>
   <string name="purchase_carrier_error">Telefon numaranız bu ödeme yöntemine uygun değil gibi görünüyor.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Hay aksi, bu satın alma işlemiyle ilgili sorunlar yaşıyoruz. Lütfen bizimle iletişime geçin.</string>
   <string name="purchase_error_wallet_block_code_403">Cüzdanınızla ilgili bir sorun var gibi görünüyor. Lütfen bizimle iletişime geçin.</string>
   <string name="purchase_card_error_CVV">Yanlış CVV/CVC</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Cüzdanınızın bir yedeğini oluşturun!</string>
   <string name="backup_notification_body">Fonlarınızı güvende tutun ve cüzdanınıza her zaman ulaşabileceğinizden emin olun.</string>
   <string name="backup_choose_wallet_title">Yedeklemek için bir cüzdan seçin</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>
@@ -747,6 +756,7 @@
   <string name="carrier_billing_code_field">Kodunuz...</string>
   <string name="carrier_billing_code_resend_button">KODU TEKRAR GÖNDER</string>
   <string name="carrier_billing_submit_button">GÖNDER</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">Gönder\'e dokunarak, Şartlar ve Koşullar ile Gizlilik Politikası\'nı kabul etmiş olursunuz.</string>
   <string name="carrier_billing_help_1">Yardım mı gerekiyor?</string>
   <string name="carrier_billing_help_2_button">Destekle İletişime Geçin</string>
@@ -799,8 +809,13 @@
   <string name="fingerprint_failed_body">Lütfen %s saniye içinde tekrar deneyin.</string>
   <string name="fingerprint_authentication_required_title">Kimlik doğrulama gerekli!</string>
   <string name="fingerprint_authentication_required_body">Lütfen devam etmek için parmağınızı veya şifrenizi kullanın.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Destek Ekibine günlükleri gönderin</string>
   <string name="send_logs_sending">Gönderiliyor&#8230;</string>
   <string name="send_logs_send">Gönderildi!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
