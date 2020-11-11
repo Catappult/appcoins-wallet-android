@@ -105,7 +105,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
                 .getQueryParameter(ORDER_ID_PARAMETER)
             finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
           }
-          //clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
+          clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
           else -> {
             currentUrl = clickUrl

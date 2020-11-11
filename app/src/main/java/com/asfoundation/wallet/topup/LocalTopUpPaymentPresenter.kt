@@ -37,6 +37,7 @@ class LocalTopUpPaymentPresenter(
     private val paymentId: String,
     private val paymentIcon: String,
     private val packageName: String,
+    private val async: Boolean,
     private val logger: Logger) {
 
   private var waitingResult: Boolean = false
@@ -118,7 +119,7 @@ class LocalTopUpPaymentPresenter(
           view.showProcessingLoading()
         }
         .flatMap {
-          localPaymentInteractor.getTransaction(it)
+          localPaymentInteractor.getTransaction(it, async)
               .subscribeOn(networkScheduler)
         }
         .observeOn(viewScheduler)
@@ -147,11 +148,10 @@ class LocalTopUpPaymentPresenter(
         showGenericError()
       }
       transaction.status == Transaction.Status.COMPLETED -> handleSyncCompletedStatus()
-      localPaymentInteractor.isAsync(transaction.type) ->
-        Completable.fromAction {
-          analytics.sendSuccessEvent(data.appcValue.toDouble(), paymentId, "pending")
-        }
-            .andThen(Completable.fromAction { preparePendingUserPayment() })
+      async -> Completable.fromAction {
+        analytics.sendSuccessEvent(data.appcValue.toDouble(), paymentId, "pending")
+      }
+          .andThen(Completable.fromAction { preparePendingUserPayment() })
       else -> Completable.complete()
     }
   }

@@ -75,13 +75,13 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
         .map { it.url ?: "" }
   }
 
-  fun getTransaction(uri: Uri): Observable<Transaction> =
+  fun getTransaction(uri: Uri, async: Boolean): Observable<Transaction> =
       inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
-          .filter { isEndingState(it.status, it.type) }
+          .filter { isEndingState(it.status, async) }
           .distinctUntilChanged { transaction -> transaction.status }
 
-  private fun isEndingState(status: Transaction.Status, type: String) =
-      (status == PENDING_USER_PAYMENT && type == "TOPUP") ||
+  private fun isEndingState(status: Transaction.Status, async: Boolean) =
+      (status == PENDING_USER_PAYMENT && async) ||
           status == COMPLETED ||
           status == FAILED ||
           status == CANCELED ||
@@ -118,6 +118,4 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
-
-  fun isAsync(type: String) = type == "TOPUP"
 }

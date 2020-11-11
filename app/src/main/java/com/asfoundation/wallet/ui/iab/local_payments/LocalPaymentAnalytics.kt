@@ -11,39 +11,27 @@ class LocalPaymentAnalytics(private val analytics: BillingAnalytics,
                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                             private val scheduler: Scheduler) {
 
-
-  fun sendPaymentMethodDetailsEvent(domain: String, skuId: String?, amount: String,
-                                    type: String, paymentId: String) {
-    analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount, paymentId, type)
+  fun sendNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
+                                paymentId: String) {
+    analytics.sendPaymentMethodDetailsEvent(packageName, skuId, amount, paymentId, type)
+    analytics.sendPaymentConfirmationEvent(packageName, skuId, amount, type, paymentId, "buy")
   }
 
-
-  fun sendPaymentEvent(domain: String, skuId: String?, amount: String,
-                       type: String, paymentId: String) {
-    analytics.sendPaymentEvent(domain, skuId, amount, paymentId, type)
-  }
-
-  fun sendRevenueEvent(disposable: CompositeDisposable, amount: BigDecimal) {
-    disposable.add(inAppPurchaseInteractor.convertToFiat(amount.toDouble(),
-        EVENT_REVENUE_CURRENCY)
+  fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,
+                                  type: String, paymentId: String,
+                                  disposable: CompositeDisposable) {
+    analytics.sendPaymentEvent(packageName, skuId, amount.toString(), paymentId, type)
+    analytics.sendPaymentSuccessEvent(packageName, skuId, amount.toString(), paymentId, type)
+    disposable.add(inAppPurchaseInteractor.convertToFiat(amount.toDouble(), EVENT_REVENUE_CURRENCY)
         .subscribeOn(scheduler)
         .doOnSuccess { fiatValue -> analytics.sendRevenueEvent(fiatValue.amount.toString()) }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun sendPaymentConfirmationEvent(domain: String, skuId: String?, amount: String, type: String,
-                                   paymentId: String) {
-    analytics.sendPaymentConfirmationEvent(domain, skuId, amount, type, paymentId, "buy")
-  }
-
-  fun sendPaymentConclusionEvent(domain: String, skuId: String?, amount: String, type: String,
-                                 paymentId: String) {
-    analytics.sendPaymentSuccessEvent(domain, skuId, amount, paymentId, type)
-  }
-
-  fun sendPaymentPendingEvent(domain: String, skuId: String?, amount: String, type: String,
-                              paymentId: String) {
-    analytics.sendPaymentPendingEvent(domain, skuId, amount, paymentId, type)
+  fun sendPendingPaymentEvents(packageName: String, skuId: String?, amount: String, type: String,
+                               paymentId: String) {
+    analytics.sendPaymentEvent(packageName, skuId, amount, paymentId, type)
+    analytics.sendPaymentPendingEvent(packageName, skuId, amount, paymentId, type)
   }
 
 }

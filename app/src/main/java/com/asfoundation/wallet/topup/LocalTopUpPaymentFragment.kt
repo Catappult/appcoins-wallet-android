@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.topup.payment.PaymentFragmentNavigator
+import com.asfoundation.wallet.topup.adyen.PaymentFragmentNavigator
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -62,18 +62,20 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     private const val PAYMENT_ICON = "payment_icon"
     private const val PAYMENT_LABEL = "payment_label"
     private const val PAYMENT_DATA = "data"
+    private const val ASYNC = "async"
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
     private const val ANIMATION_STEP_TWO_START_FRAME = 80
     private const val ANIMATION_FRAME_INCREMENT = 40
     private const val BUTTON_ANIMATION_START_FRAME = 120
 
-    fun newInstance(paymentId: String, icon: String, label: String,
+    fun newInstance(paymentId: String, icon: String, label: String, async: Boolean,
                     data: TopUpPaymentData): LocalTopUpPaymentFragment {
       val fragment = LocalTopUpPaymentFragment()
       Bundle().apply {
         putString(PAYMENT_ID, paymentId)
         putString(PAYMENT_ICON, icon)
         putString(PAYMENT_LABEL, label)
+        putBoolean(ASYNC, async)
         putSerializable(PAYMENT_DATA, data)
         fragment.arguments = this
       }
@@ -95,7 +97,7 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     presenter = LocalTopUpPaymentPresenter(this, activityView, context, localPaymentInteractor,
         topUpAnalytics, navigator, formatter, inAppPurchaseInteractor.billingMessagesMapper,
         AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), data, paymentId,
-        paymentIcon, activity!!.packageName, logger)
+        paymentIcon, activity!!.packageName, async, logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -175,7 +177,7 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
     no_network.visibility = View.GONE
     main_content.visibility = View.GONE
     topup_pending_user_payment_view.visibility = View.VISIBLE
-    val placeholder = getString(R.string.async_steps_topup_2)
+    val placeholder = getString(R.string.async_steps_1_no_notification)
     val stepOneText = String.format(placeholder, paymentLabel)
 
     step_one_desc.text = stepOneText
@@ -282,6 +284,14 @@ class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
   private val paymentLabel: String by lazy {
     if (arguments!!.containsKey(PAYMENT_LABEL)) {
       arguments!!.getString(PAYMENT_LABEL)!!
+    } else {
+      throw IllegalArgumentException("payment label data not found")
+    }
+  }
+
+  private val async: Boolean by lazy {
+    if (arguments!!.containsKey(ASYNC)) {
+      arguments!!.getBoolean(ASYNC)
     } else {
       throw IllegalArgumentException("payment label data not found")
     }

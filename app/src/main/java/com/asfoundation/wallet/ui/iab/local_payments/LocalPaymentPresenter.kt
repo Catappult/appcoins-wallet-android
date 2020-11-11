@@ -91,9 +91,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             .filter { !waitingResult }
             .observeOn(viewScheduler)
             .doOnSuccess {
-              analytics.sendPaymentMethodDetailsEvent(data.packageName, data.skuId,
-                  data.amount.toString(), data.type, data.paymentId)
-              analytics.sendPaymentConfirmationEvent(data.packageName, data.skuId,
+              analytics.sendNavigationToUrlEvents(data.packageName, data.skuId,
                   data.amount.toString(), data.type, data.paymentId)
               navigator.navigateToUriForResult(it)
               waitingResult = true
@@ -108,7 +106,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         .doOnNext { view.showProcessingLoading() }
         .doOnNext { view.lockRotation() }
         .flatMap {
-          localPaymentInteractor.getTransaction(it)
+          localPaymentInteractor.getTransaction(it, data.async)
               .subscribeOn(networkScheduler)
         }
         .observeOn(viewScheduler)
@@ -163,7 +161,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         view.showError()
       }
           .subscribeOn(viewScheduler)
-      localPaymentInteractor.isAsync(transaction.type) ->
+      data.async ->
+        //Although this should no longer happen at the moment in Iab, since it doesn't consume much process time
+        //I decided to leave this here in case the API wants to change the logic and return them to Iab in the future.
         handleAsyncTransactionStatus(transaction)
             .andThen(Completable.fromAction {
               localPaymentInteractor.savePreSelectedPaymentMethod(data.paymentId)
@@ -184,11 +184,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     return localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
         transaction.orderReference, transaction.hash, networkScheduler)
         .doOnSuccess {
-          analytics.sendPaymentEvent(data.packageName, data.skuId, data.amount.toString(),
-              data.type, data.paymentId)
-          analytics.sendPaymentConclusionEvent(data.packageName, data.skuId, data.amount.toString(),
-              data.type, data.paymentId)
-          analytics.sendRevenueEvent(disposables, data.amount)
+          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
+              data.type, data.paymentId, disposables)
         }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -203,19 +200,14 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     return when (transaction.status) {
       Status.PENDING_USER_PAYMENT -> {
         Completable.fromAction {
-          analytics.sendPaymentEvent(data.packageName, data.skuId, data.amount.toString(),
-              data.type, data.paymentId)
-          analytics.sendPaymentPendingEvent(data.packageName, data.skuId, data.amount.toString(),
+          analytics.sendPendingPaymentEvents(data.packageName, data.skuId, data.amount.toString(),
               data.type, data.paymentId)
         }
       }
       Status.COMPLETED -> {
         Completable.fromAction {
-          analytics.sendPaymentEvent(data.packageName, data.skuId, data.amount.toString(),
-              data.type, data.paymentId)
-          analytics.sendPaymentConclusionEvent(data.packageName, data.skuId, data.amount.toString(),
-              data.type, data.paymentId)
-          analytics.sendRevenueEvent(disposables, data.amount)
+          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
+              data.type, data.paymentId, disposables)
         }
       }
       else -> Completable.complete()

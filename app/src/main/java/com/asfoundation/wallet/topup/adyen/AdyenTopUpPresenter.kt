@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup.payment
+package com.asfoundation.wallet.topup.adyen
 
 import android.os.Bundle
 import androidx.annotation.StringRes
