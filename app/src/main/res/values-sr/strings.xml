@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <string name="common_or">ILI</string>
   <string name="share_via">Podeli preko:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">Izgleda da je CVV/CVC kod pogrešan. Pokušajte ponovo.</string>
   <string name="purchase_wallet_error_contact_us">Ups, nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_carrier_error">Izgleda da vaš broj telefona nije kompatibilan sa ovim načinom plaćanja.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Ups, došlo je do problema sa ovom kupovinom. Javite nam se.</string>
   <string name="purchase_error_wallet_block_code_403">Izgleda da nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Napravite rezervnu kopiju novčanika!</string>
   <string name="backup_notification_body">Zaštitite svoja sredstva i pristupite novčaniku kad god želite.</string>
   <string name="backup_choose_wallet_title">Odaberite novčanik za pravljenje rezervne kopije</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
@@ -748,6 +757,7 @@
   <string name="carrier_billing_code_field">Vaš kod...</string>
   <string name="carrier_billing_code_resend_button">PONOVO POŠALJI KOD</string>
   <string name="carrier_billing_submit_button">POŠALJI</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">Ako dodirnete dugme Pošalji, potvrđujete da prihvatate Uslove i odredbe i Smernice za privatnost.</string>
   <string name="carrier_billing_help_1">Potrebna vam je pomoć?</string>
   <string name="carrier_billing_help_2_button">Obratite se podršci</string>
@@ -803,8 +813,13 @@
   <string name="fingerprint_failed_body">Pokušajte ponovo za %s sek.</string>
   <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>
   <string name="fingerprint_authentication_required_body">Upotrebite otisak prsta ili lozinku da biste nastavili.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Pošaljite evidenciju timu korisničke podrške</string>
   <string name="send_logs_sending">Slanje&#8230;</string>
   <string name="send_logs_send">Poslato!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
