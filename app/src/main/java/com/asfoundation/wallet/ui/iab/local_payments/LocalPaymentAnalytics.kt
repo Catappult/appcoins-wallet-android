@@ -1,7 +1,8 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.ui.iab.local_payments
 
 import com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
@@ -24,7 +25,8 @@ class LocalPaymentAnalytics(private val analytics: BillingAnalytics,
 
   fun sendRevenueEvent(disposable: CompositeDisposable, amount: BigDecimal) {
     disposable.add(inAppPurchaseInteractor.convertToFiat(amount.toDouble(),
-        EVENT_REVENUE_CURRENCY).subscribeOn(scheduler)
+        EVENT_REVENUE_CURRENCY)
+        .subscribeOn(scheduler)
         .doOnSuccess { fiatValue -> analytics.sendRevenueEvent(fiatValue.amount.toString()) }
         .subscribe())
   }

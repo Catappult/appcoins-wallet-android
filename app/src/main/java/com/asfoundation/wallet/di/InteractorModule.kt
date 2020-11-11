@@ -60,6 +60,7 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator
@@ -201,7 +202,8 @@ class InteractorModule {
                                     walletBlockedInteract: WalletBlockedInteract,
                                     smsValidationInteract: SmsValidationInteract,
                                     remoteRepository: RemoteRepository): LocalPaymentInteractor {
-    return LocalPaymentInteractor(repository, walletService, partnerAddressService,
+    return LocalPaymentInteractor(
+        repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper, supportRepository,
         walletBlockedInteract, smsValidationInteract, remoteRepository)
   }
@@ -345,7 +347,8 @@ class InteractorModule {
                                       billing: Billing,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(walletService, supportRepository, gamificationInteractor,
-        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
+        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor,
+        preferencesRepositoryType,
         billing, bdsPendingTransactionService)
   }
 

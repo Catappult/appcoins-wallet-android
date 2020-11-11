@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.ui.iab.local_payments
 
 import android.animation.Animator
 import android.content.Context
@@ -11,15 +11,12 @@ import android.view.ViewGroup
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
-import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
-import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
+import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentView.ViewState
+import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentView.ViewState.*
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
@@ -32,192 +29,10 @@ import javax.inject.Inject
 
 class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
-  companion object {
-
-    private const val DOMAIN_KEY = "domain"
-    private const val SKU_ID_KEY = "skuId"
-    private const val ORIGINAL_AMOUNT_KEY = "original_amount"
-    private const val CURRENCY_KEY = "currency"
-    private const val PAYMENT_KEY = "payment_name"
-    private const val BONUS_KEY = "bonus"
-    private const val STATUS_KEY = "status"
-    private const val ERROR_MESSAGE_KEY = "error_message"
-    private const val TYPE_KEY = "type"
-    private const val DEV_ADDRESS_KEY = "dev_address"
-    private const val AMOUNT_KEY = "amount"
-    private const val CALLBACK_URL = "CALLBACK_URL"
-    private const val ORDER_REFERENCE = "ORDER_REFERENCE"
-    private const val PAYLOAD = "PAYLOAD"
-    private const val PAYMENT_METHOD_URL = "payment_method_url"
-    private const val PAYMENT_METHOD_LABEL = "payment_method_label"
-    private const val GAMIFICATION_LEVEL = "gamification_level"
-    private const val ANIMATION_STEP_ONE_START_FRAME = 0
-    private const val ANIMATION_STEP_TWO_START_FRAME = 80
-    private const val MID_ANIMATION_FRAME_INCREMENT = 40
-    private const val LAST_ANIMATION_FRAME_INCREMENT = 30
-    private const val BUTTON_ANIMATION_START_FRAME = 120
-    private const val LAST_ANIMATION_FRAME = 150
-
-    @JvmStatic
-    fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
-                    bonus: String?, selectedPaymentMethod: String, developerAddress: String,
-                    type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
-                    payload: String?, paymentMethodIconUrl: String,
-                    paymentMethodLabel: String, gamificationLevel: Int): LocalPaymentFragment {
-      return LocalPaymentFragment().apply {
-        arguments = Bundle().apply {
-          putString(DOMAIN_KEY, domain)
-          putString(SKU_ID_KEY, skudId)
-          putString(ORIGINAL_AMOUNT_KEY, originalAmount)
-          putString(CURRENCY_KEY, currency)
-          putString(BONUS_KEY, bonus)
-          putString(PAYMENT_KEY, selectedPaymentMethod)
-          putString(DEV_ADDRESS_KEY, developerAddress)
-          putString(TYPE_KEY, type)
-          putSerializable(AMOUNT_KEY, amount)
-          putString(CALLBACK_URL, callbackUrl)
-          putString(ORDER_REFERENCE, orderReference)
-          putString(PAYLOAD, payload)
-          putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
-          putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
-          putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        }
-      }
-    }
-  }
-
-  private val domain: String by lazy {
-    if (arguments!!.containsKey(DOMAIN_KEY)) {
-      arguments!!.getString(DOMAIN_KEY)!!
-    } else {
-      throw IllegalArgumentException("domain data not found")
-    }
-  }
-
-  private val skudId: String? by lazy {
-    if (arguments!!.containsKey(SKU_ID_KEY)) {
-      arguments!!.getString(SKU_ID_KEY)
-    } else {
-      throw IllegalArgumentException("skuId data not found")
-    }
-  }
-
-  private val originalAmount: String? by lazy {
-    if (arguments!!.containsKey(ORIGINAL_AMOUNT_KEY)) {
-      arguments!!.getString(ORIGINAL_AMOUNT_KEY)
-    } else {
-      throw IllegalArgumentException("original amount data not found")
-    }
-  }
-
-  private val bonus: String? by lazy {
-    if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)
-    } else {
-      throw IllegalArgumentException("bonus amount data not found")
-    }
-  }
-
-  private val paymentId: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_KEY)) {
-      arguments!!.getString(PAYMENT_KEY)!!
-    } else {
-      throw IllegalArgumentException("payment method data not found")
-    }
-  }
-
-  private val currency: String? by lazy {
-    if (arguments!!.containsKey(CURRENCY_KEY)) {
-      arguments!!.getString(CURRENCY_KEY)
-    } else {
-      throw IllegalArgumentException("currency data not found")
-    }
-  }
-
-  private val developerAddress: String by lazy {
-    if (arguments!!.containsKey(DEV_ADDRESS_KEY)) {
-      arguments!!.getString(DEV_ADDRESS_KEY)!!
-    } else {
-      throw IllegalArgumentException("dev address data not found")
-    }
-  }
-
-  private val type: String by lazy {
-    if (arguments!!.containsKey(TYPE_KEY)) {
-      arguments!!.getString(TYPE_KEY)!!
-    } else {
-      throw IllegalArgumentException("type data not found")
-    }
-  }
-
-  private val amount: BigDecimal by lazy {
-    if (arguments!!.containsKey(AMOUNT_KEY)) {
-      arguments!!.getSerializable(AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
-  }
-
-  private val orderReference: String? by lazy {
-    if (arguments!!.containsKey(ORDER_REFERENCE)) {
-      arguments!!.getString(ORDER_REFERENCE)
-    } else {
-      throw IllegalArgumentException("dev address data not found")
-    }
-  }
-
-  private val callbackUrl: String? by lazy {
-    if (arguments!!.containsKey(CALLBACK_URL)) {
-      arguments!!.getString(CALLBACK_URL)
-    } else {
-      throw IllegalArgumentException("dev address data not found")
-    }
-  }
-
-  private val payload: String? by lazy {
-    if (arguments!!.containsKey(PAYLOAD)) {
-      arguments!!.getString(PAYLOAD)
-    } else {
-      throw IllegalArgumentException("dev address data not found")
-    }
-  }
-
-  private val paymentMethodIconUrl: String? by lazy {
-    if (arguments!!.containsKey(PAYMENT_METHOD_URL)) {
-      arguments!!.getString(PAYMENT_METHOD_URL)
-    } else {
-      throw IllegalArgumentException("payment method icon url not found")
-    }
-  }
-
-  private val paymentMethodIconLabel: String? by lazy {
-    if (arguments!!.containsKey(PAYMENT_METHOD_LABEL)) {
-      arguments!!.getString(PAYMENT_METHOD_LABEL)
-    } else {
-      throw IllegalArgumentException("payment method icon label not found")
-    }
-  }
-
-  private val gamificationLevel: Int by lazy {
-    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
-      arguments!!.getInt(GAMIFICATION_LEVEL)
-    } else {
-      throw IllegalArgumentException("gamification level not found")
-    }
-  }
-
   @Inject
-  lateinit var localPaymentInteractor: LocalPaymentInteractor
-
-  @Inject
-  lateinit var analytics: LocalPaymentAnalytics
-
-  @Inject
-  lateinit var logger: Logger
+  lateinit var localPaymentPresenter: LocalPaymentPresenter
 
   private lateinit var iabView: IabView
-  private lateinit var navigator: FragmentNavigator
-  private lateinit var localPaymentPresenter: LocalPaymentPresenter
   private lateinit var status: ViewState
   private var errorMessage = R.string.activity_iab_error_message
   private var minFrame = 0
@@ -225,14 +40,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     status = NONE
-    localPaymentPresenter =
-        LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
-            paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
-            savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable(), callbackUrl, orderReference, payload, context,
-            paymentMethodIconUrl, gamificationLevel, logger)
   }
 
 
@@ -253,17 +61,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    setupUi()
-
-    localPaymentPresenter.present()
+    localPaymentPresenter.present(savedInstanceState)
   }
 
-  private fun setupUi() {
+  override fun setupUi(bonus: String?) {
     if (bonus?.isNotBlank() == true) {
       complete_payment_view.lottie_transaction_success.setAnimation(
           R.raw.top_up_bonus_success_animation)
-      setAnimationText()
+      setAnimationText(bonus)
     } else {
       complete_payment_view.lottie_transaction_success.setAnimation(R.raw.top_up_success_animation)
     }
@@ -288,7 +93,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     else -> Unit
   }
 
-  private fun setAnimationText() {
+  private fun setAnimationText(bonus: String?) {
     val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
     textDelegate.setText("bonus_value", bonus)
     textDelegate.setText("bonus_received",
@@ -350,7 +155,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     pending_user_payment_view.in_progress_animation.cancelAnimation()
   }
 
-  override fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap) {
+  override fun showPendingUserPayment(paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
+                                      applicationIcon: Bitmap) {
     status = PENDING_USER_PAYMENT
     error_view.visibility = View.GONE
     complete_payment_view.visibility = View.GONE
@@ -358,7 +164,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     pending_user_payment_view?.visibility = View.VISIBLE
 
     val placeholder = getString(R.string.async_steps_1_no_notification)
-    val stepOneText = String.format(placeholder, paymentMethodIconLabel)
+    val stepOneText = String.format(placeholder, paymentMethodLabel)
 
     step_one_desc.text = stepOneText
 
@@ -400,9 +206,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun getAnimationDuration() = complete_payment_view.lottie_transaction_success.duration
 
-  override fun popView(bundle: Bundle) {
-    bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        paymentId)
+  override fun popView(bundle: Bundle, paymentId: String) {
+    bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY, paymentId)
     iabView.finish(bundle)
   }
 
@@ -482,4 +287,60 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
+  companion object {
+
+    const val DOMAIN_KEY = "domain"
+    const val SKU_ID_KEY = "skuId"
+    const val ORIGINAL_AMOUNT_KEY = "original_amount"
+    const val CURRENCY_KEY = "currency"
+    const val PAYMENT_KEY = "payment_name"
+    const val BONUS_KEY = "bonus"
+    const val STATUS_KEY = "status"
+    const val ERROR_MESSAGE_KEY = "error_message"
+    const val TYPE_KEY = "type"
+    const val DEV_ADDRESS_KEY = "dev_address"
+    const val AMOUNT_KEY = "amount"
+    const val CALLBACK_URL = "CALLBACK_URL"
+    const val ORDER_REFERENCE = "ORDER_REFERENCE"
+    const val PAYLOAD = "PAYLOAD"
+    const val PAYMENT_METHOD_URL = "payment_method_url"
+    const val PAYMENT_METHOD_LABEL = "payment_method_label"
+    const val ASYNC = "async"
+    const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val ANIMATION_STEP_ONE_START_FRAME = 0
+    private const val ANIMATION_STEP_TWO_START_FRAME = 80
+    private const val MID_ANIMATION_FRAME_INCREMENT = 40
+    private const val LAST_ANIMATION_FRAME_INCREMENT = 30
+    private const val BUTTON_ANIMATION_START_FRAME = 120
+    private const val LAST_ANIMATION_FRAME = 150
+
+    @JvmStatic
+    fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
+                    bonus: String?, selectedPaymentMethod: String, developerAddress: String,
+                    type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
+                    payload: String?, paymentMethodIconUrl: String, paymentMethodLabel: String,
+                    async: Boolean, gamificationLevel: Int): LocalPaymentFragment {
+      return LocalPaymentFragment()
+          .apply {
+            arguments = Bundle().apply {
+              putString(DOMAIN_KEY, domain)
+              putString(SKU_ID_KEY, skudId)
+              putString(ORIGINAL_AMOUNT_KEY, originalAmount)
+              putString(CURRENCY_KEY, currency)
+              putString(BONUS_KEY, bonus)
+              putString(PAYMENT_KEY, selectedPaymentMethod)
+              putString(DEV_ADDRESS_KEY, developerAddress)
+              putString(TYPE_KEY, type)
+              putSerializable(AMOUNT_KEY, amount)
+              putString(CALLBACK_URL, callbackUrl)
+              putString(ORDER_REFERENCE, orderReference)
+              putString(PAYLOAD, payload)
+              putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
+              putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
+              putBoolean(ASYNC, async)
+              putInt(GAMIFICATION_LEVEL, gamificationLevel)
+            }
+          }
+    }
+  }
 }

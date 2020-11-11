@@ -114,7 +114,8 @@ class PaymentMethodsPresenter(
                   SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(selectedPaymentMethod.id)
                   SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                       selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
-                      selectedPaymentMethod.label, cachedGamificationLevel)
+                      selectedPaymentMethod.label, selectedPaymentMethod.async,
+                      cachedGamificationLevel)
                   else -> return@doOnNext
                 }
               }
@@ -187,7 +188,8 @@ class PaymentMethodsPresenter(
       SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(paymentNavigationData.paymentId)
       SelectedPaymentMethod.LOCAL_PAYMENTS -> {
         view.showLocalPayment(paymentNavigationData.paymentId, paymentNavigationData.paymentIconUrl,
-            paymentNavigationData.paymentLabel, cachedGamificationLevel)
+            paymentNavigationData.paymentLabel, paymentNavigationData.async,
+            cachedGamificationLevel)
       }
       else -> {
         view.showError(R.string.unknown_error)
@@ -345,7 +347,8 @@ class PaymentMethodsPresenter(
       if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) {
         val mergedPaymentMethod = it as AppCoinsPaymentMethod
         return PaymentMethod(PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id,
-            mergedPaymentMethod.creditsLabel, mergedPaymentMethod.iconUrl, mergedPaymentMethod.fee,
+            mergedPaymentMethod.creditsLabel, mergedPaymentMethod.iconUrl,
+            mergedPaymentMethod.async, mergedPaymentMethod.fee,
             mergedPaymentMethod.isCreditsEnabled)
       }
       if (it.id == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id) {
@@ -546,14 +549,15 @@ class PaymentMethodsPresenter(
         if (preSelectedPreference == PaymentMethodsView.PaymentMethodId.APPC.id) {
           val mergedPaymentMethod = paymentMethod as AppCoinsPaymentMethod
           return PaymentMethod(PaymentMethodsView.PaymentMethodId.APPC.id,
-              mergedPaymentMethod.appcLabel, mergedPaymentMethod.iconUrl, mergedPaymentMethod.fee,
-              mergedPaymentMethod.isAppcEnabled)
+              mergedPaymentMethod.appcLabel, mergedPaymentMethod.iconUrl, mergedPaymentMethod.async,
+              mergedPaymentMethod.fee, mergedPaymentMethod.isAppcEnabled)
         }
         if (preSelectedPreference == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id) {
           val mergedPaymentMethod = paymentMethod as AppCoinsPaymentMethod
           return PaymentMethod(PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id,
               mergedPaymentMethod.creditsLabel, paymentMethod.creditsIconUrl,
-              mergedPaymentMethod.fee, mergedPaymentMethod.isCreditsEnabled)
+              mergedPaymentMethod.async, mergedPaymentMethod.fee,
+              mergedPaymentMethod.isCreditsEnabled)
         }
       }
       if (paymentMethod.id == preSelectedPreference) {
@@ -640,7 +644,7 @@ class PaymentMethodsPresenter(
   private fun showAuthenticationActivity(paymentMethod: PaymentMethod, isPreselected: Boolean) {
     cachedPaymentNavigationData =
         PaymentNavigationData(paymentMethod.id, paymentMethod.label, paymentMethod.iconUrl,
-            isPreselected)
+            paymentMethod.async, isPreselected)
     view.showAuthenticationActivity()
   }
 

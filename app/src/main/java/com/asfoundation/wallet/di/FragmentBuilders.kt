@@ -28,6 +28,8 @@ import com.asfoundation.wallet.ui.backup.BackupWalletFragment
 import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentFragment
+import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
@@ -86,7 +88,7 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector
   abstract fun bindSharePaymentLinkFragment(): SharePaymentLinkFragment
 
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [LocalPaymentModule::class])
   abstract fun bindLocalPaymentFragment(): LocalPaymentFragment
 
   @ContributesAndroidInjector

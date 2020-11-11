@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.ui.iab.local_payments
 
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +12,7 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -49,7 +50,8 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
               partnerAddressService.getStoreAddressForPackage(domain),
               partnerAddressService.getOemAddressForPackage(domain),
               BiFunction { storeAddress: String, oemAddress: String ->
-                DeepLinkInformation(storeAddress, oemAddress)
+                DeepLinkInformation(
+                    storeAddress, oemAddress)
               })
               .flatMap {
                 deepLinkRepository.getDeepLink(domain, skuId, walletAddressModel.address,

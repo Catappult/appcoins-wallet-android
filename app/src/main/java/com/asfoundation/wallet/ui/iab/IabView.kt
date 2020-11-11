@@ -41,7 +41,7 @@ interface IabView {
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                        type: String, amount: BigDecimal, callbackUrl: String?,
                        orderReference: String?, payload: String?, paymentMethodIconUrl: String,
-                       paymentMethodLabel: String, gamificationLevel: Int)
+                       paymentMethodLabel: String, async: Boolean, gamificationLevel: Int)
 
   fun showPaymentMethodsView()
 

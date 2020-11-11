@@ -9,8 +9,8 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.iab.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.local_payments.LocalPaymentInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
