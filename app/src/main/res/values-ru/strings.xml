@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
   <string name="common_or">ИЛИ</string>
   <string name="share_via">Поделиться через:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_wallet_error_contact_us">Ой, с вашим бумажником что-то не так. Пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_carrier_error">Похоже, ваш номер телефона несовместим с этим способом оплаты.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Упс, с этой покупкой возникла проблема. Пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_error_wallet_block_code_403">Похоже, что с вашим кошельком что-то не так. Пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Сделайте резервную копию кошелька!</string>
   <string name="backup_notification_body">Обезопасьте ваши средства и гарантируйте, что у вас всегда будет доступ к вашему кошельку.</string>
   <string name="backup_choose_wallet_title">Выберите кошелёк для создания резервной копии</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Кошельки</string>
   <string name="wallets_total_balance_title">Общий баланс в %s</string>
@@ -749,6 +758,7 @@
   <string name="carrier_billing_code_field">Ваш код...</string>
   <string name="carrier_billing_code_resend_button">ОТПРАВИТЬ КОД СНОВА</string>
   <string name="carrier_billing_submit_button">ПОДТВЕРДИТЬ</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">Нажимая \"Подтвердить\", вы принимаете Условия и ограничения, а также Политику конфиденциальности.</string>
   <string name="carrier_billing_help_1">Нужна помощь?</string>
   <string name="carrier_billing_help_2_button">Свяжитесь с поддержкой</string>
@@ -807,8 +817,13 @@
   <string name="fingerprint_failed_body">Пожалуйста, попробуйте снова через %s секунд.</string>
   <string name="fingerprint_authentication_required_title">Необходима аутентификация!</string>
   <string name="fingerprint_authentication_required_body">Используйте отпечаток или пароль, чтобы продолжить.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Отправить логи команде поддержки</string>
   <string name="send_logs_sending">Отправка&#8230;</string>
   <string name="send_logs_send">Отправлено!</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
