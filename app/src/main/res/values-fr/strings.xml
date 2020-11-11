@@ -405,6 +405,9 @@
   <string name="connectoin_error_body">On dirait que vous n\'êtes pas connecté à Internet. Vérifiez votre connexion et réessayez !</string>
   <string name="common_or">OU</string>
   <string name="share_via">Partager via :</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
@@ -484,6 +487,8 @@
   <string name="purchase_card_error_wrong_CVV">Votre code CVV/CVC semble être erroné. Veuillez réessayer.</string>
   <string name="purchase_wallet_error_contact_us">Oups, quelque chose ne va pas avec votre portefeuille. Veuillez nous contacter.</string>
   <string name="purchase_carrier_error">Il semble que votre numéro de téléphone ne soit pas compatible avec ce mode de paiement.</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">Oups, nous avons des problèmes avec cet achat. Veuillez nous contacter.</string>
   <string name="purchase_error_wallet_block_code_403">Il semble que quelque chose ne va pas avec votre portefeuille. Veuillez nous contacter.</string>
   <string name="purchase_card_error_CVV">Mauvais CVV/CVC</string>
@@ -597,6 +602,10 @@
   <string name="backup_notification_title">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_notification_body">Gardez vos fonds en sécurité et assurez-vous que vous pouvez toujours accéder à votre portefeuille.</string>
   <string name="backup_choose_wallet_title">Choisissez un portefeuille à sauvegarder</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portefeuilles</string>
   <string name="wallets_total_balance_title">Solde total en %s</string>
@@ -747,6 +756,7 @@
   <string name="carrier_billing_code_field">Votre code...</string>
   <string name="carrier_billing_code_resend_button">RENVOYER CODE</string>
   <string name="carrier_billing_submit_button">SOUMETTRE</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">En cliquant sur \"Soumettre\", vous confirmez que vous acceptez les conditions générales et la politique de confidentialité.</string>
   <string name="carrier_billing_help_1">Besoin d\'aide ?</string>
   <string name="carrier_billing_help_2_button">Contacter le Support</string>
@@ -799,8 +809,13 @@
   <string name="fingerprint_failed_body">Merci de réessayer dans %s secondes.</string>
   <string name="fingerprint_authentication_required_title">Authentification requise !</string>
   <string name="fingerprint_authentication_required_body">Veuillez utiliser votre empreinte ou votre mot de passe pour continuer.</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Envoyer les journaux à l\'équipe du support</string>
   <string name="send_logs_sending">Envoi&#8230;</string>
   <string name="send_logs_send">Envoyé !</string>
+  <!--Rate us-->
+  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">No</string>
+  <string name="rate_us_yes">Yes!</string>
 </resources>
