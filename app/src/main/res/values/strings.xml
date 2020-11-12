@@ -900,7 +900,7 @@
  <!--Rate us-->
   <string name="rate_us_no">Not really</string>
   <string name="rate_us_yes">Yes!</string>
-  <string name="rate_us_improve_title">what can we improve?</string>
+  <string name="rate_us_improve_title">What can we improve?</string>
   <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
   <string name="rate_us_improve_field__empty_error">Please write something</string>
   <string name="rate_us_possitive_thanks_title">Thank you!</string>
