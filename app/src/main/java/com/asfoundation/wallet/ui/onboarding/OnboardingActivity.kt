@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.onboarding
 
 import android.animation.Animator
 import android.graphics.Typeface
-import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -13,36 +12,24 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.router.ExternalBrowserRouter
-import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import javax.inject.Inject
 
 class OnboardingActivity : BaseActivity(), OnboardingView {
 
+  @Inject
+  lateinit var presenter: OnboardingPresenter
+
   private lateinit var listener: OnboardingPageChangeListener
-
-  @Inject
-  lateinit var interactor: OnboardingInteract
-
-  @Inject
-  lateinit var logger: Logger
-
-  private lateinit var browserRouter: ExternalBrowserRouter
-  private lateinit var presenter: OnboardingPresenter
   private lateinit var adapter: OnboardingPageAdapter
   private var linkSubject: PublishSubject<String>? = null
-  private var paymentMethodsIcons: ArrayList<String>? = null
+  private var paymentMethodsIcons: ArrayList<String> = ArrayList()
 
   companion object {
     fun newInstance() = OnboardingActivity()
@@ -54,20 +41,15 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-
-    paymentMethodsIcons?.let { outState.putStringArrayList(PAYMENT_METHODS_ICONS, it) }
+    outState.putStringArrayList(PAYMENT_METHODS_ICONS, paymentMethodsIcons)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     AndroidInjection.inject(this)
     setContentView(R.layout.activity_onboarding)
-    browserRouter = ExternalBrowserRouter()
     linkSubject = PublishSubject.create()
-    presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
-        AndroidSchedulers.mainThread(), Schedulers.io(), ReplaySubject.create(), logger)
     setupUI(savedInstanceState)
-
     presenter.present()
   }
 
@@ -104,15 +86,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
     onboarding_viewpager.adapter = adapter
-    val paymentMethodsIcons =
-        if (savedInstanceState != null && savedInstanceState.containsKey(PAYMENT_METHODS_ICONS)) {
-          savedInstanceState.getStringArrayList(PAYMENT_METHODS_ICONS)!!
-              .toList()
-        } else {
-          emptyList()
-        }
-    listener =
-        OnboardingPageChangeListener(onboarding_content, paymentMethodsIcons = paymentMethodsIcons)
+    savedInstanceState?.getStringArrayList(PAYMENT_METHODS_ICONS)
+        ?.let { paymentMethodsIcons = it }
+    listener = OnboardingPageChangeListener(onboarding_content, paymentMethodsIcons)
     onboarding_viewpager.registerOnPageChangeCallback(listener)
 
     onboarding_content.visibility = View.VISIBLE
@@ -174,9 +150,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   }
 
   private fun endOnboarding() {
-    TransactionsRouter().open(this, true)
+    presenter.onOnboardingCompleted()
     finish()
-    presenter.markOnboardingCompleted()
   }
 
   private fun setLinkToString(spannableString: SpannableString, highlightString: String,
@@ -187,7 +162,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       }
 
       override fun updateDrawState(ds: TextPaint) {
-        ds.color = resources.getColor(R.color.grey_alpha_active_54)
+        ds.color = ResourcesCompat.getColor(resources, R.color.grey_alpha_active_54, null)
         ds.isUnderlineText = true
       }
     }
@@ -199,8 +174,6 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     spannableString.setSpan(StyleSpan(Typeface.BOLD), indexHighlightString,
         indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
   }
-
-  override fun navigateToBrowser(uri: Uri) = browserRouter.open(this, uri)
 
   private fun createDefaultItemList(): List<OnboardingItem> {
     val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))

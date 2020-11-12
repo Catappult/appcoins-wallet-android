@@ -8,11 +8,11 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportRepository
 import io.reactivex.Single
 
-class OnboardingInteract(private val walletService: WalletService,
-                         private val preferencesRepositoryType: PreferencesRepositoryType,
-                         private val supportRepository: SupportRepository,
-                         private val gamificationRepository: Gamification,
-                         private val bdsRepository: BdsRepository) {
+class OnboardingInteractor(private val walletService: WalletService,
+                           private val preferencesRepositoryType: PreferencesRepositoryType,
+                           private val supportRepository: SupportRepository,
+                           private val gamificationRepository: Gamification,
+                           private val bdsRepository: BdsRepository) {
 
   fun getWalletAddress() = walletService.getWalletOrCreate()
       .flatMap { address ->
@@ -21,7 +21,7 @@ class OnboardingInteract(private val walletService: WalletService,
             .map { address }
       }
 
-  fun finishOnboarding() = preferencesRepositoryType.setOnboardingComplete()
+  fun saveOnboardingCompleted() = preferencesRepositoryType.setOnboardingComplete()
 
   fun clickSkipOnboarding() = preferencesRepositoryType.setOnboardingSkipClicked()
 

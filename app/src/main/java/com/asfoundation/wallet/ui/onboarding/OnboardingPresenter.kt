@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.onboarding
 
-import android.net.Uri
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -12,11 +11,12 @@ import java.util.concurrent.TimeUnit
 
 class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val view: OnboardingView,
-                          private val onboardingInteract: OnboardingInteract,
+                          private val onboardingInteractor: OnboardingInteractor,
                           private val viewScheduler: Scheduler,
                           private val networkScheduler: Scheduler,
                           private val walletCreated: ReplaySubject<Boolean>,
-                          private val logger: Logger) {
+                          private val logger: Logger,
+                          private val navigator: OnboardingNavigator) {
 
   private var hasShowedWarning = false
 
@@ -31,7 +31,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleAvailablePaymentMethods() {
-    disposables.add(onboardingInteract.getPaymentMethodsIcons()
+    disposables.add(onboardingInteractor.getPaymentMethodsIcons()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.setPaymentMethodsIcons(it) }
@@ -73,7 +73,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handleFinishNavigation(showAnimation: Boolean, delay: Long) {
     disposables.add(isWalletCreated()
-        .flatMapSingle { onboardingInteract.getWalletAddress() }
+        .flatMapSingle { onboardingInteractor.getWalletAddress() }
         .delay(delay, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
         .doOnNext { finishOnBoarding(showAnimation) }
@@ -88,7 +88,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleCreateWallet() {
-    disposables.add(onboardingInteract.getWalletAddress()
+    disposables.add(onboardingInteractor.getWalletAddress()
         .observeOn(viewScheduler)
         .flatMapCompletable { Completable.fromAction { walletCreated.onNext(true) } }
         .subscribe({}, { logger.log(TAG, it) }))
@@ -96,9 +96,9 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handleSkippedOnboarding() {
     disposables.add(Observable.zip(isWalletCreated(),
-        Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
+        Observable.fromCallable { onboardingInteractor.hasClickedSkipOnboarding() }
             .filter { clicked -> clicked },
-        Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }
+        Observable.fromCallable { onboardingInteractor.hasOnboardingCompleted() }
             .filter { clicked -> clicked },
         Function3 { _: Any, _: Any, _: Any -> }
     )
@@ -111,15 +111,18 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handleLinkClick() {
     disposables.add(view.getLinkClick()
-        .doOnNext { uri -> view.navigateToBrowser(Uri.parse(uri)) }
+        .doOnNext { uri -> navigator.launchBrowser(uri) }
         .subscribe({}, { it.printStackTrace() })
     )
   }
 
-  fun markOnboardingCompleted() = onboardingInteract.finishOnboarding()
+  fun onOnboardingCompleted() {
+    navigator.navigateToTransactions()
+    onboardingInteractor.saveOnboardingCompleted()
+  }
 
   private fun finishOnBoarding(showAnimation: Boolean) {
-    onboardingInteract.clickSkipOnboarding()
+    onboardingInteractor.clickSkipOnboarding()
     view.finishOnboarding(showAnimation)
   }
 

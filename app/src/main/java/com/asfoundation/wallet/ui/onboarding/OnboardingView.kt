@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.onboarding
 
-import android.net.Uri
 import io.reactivex.Observable
 
 interface OnboardingView {
@@ -14,8 +13,6 @@ interface OnboardingView {
   fun getLinkClick(): Observable<String>
 
   fun getSkipClicks(): Observable<Any>
-
-  fun navigateToBrowser(uri: Uri)
 
   fun showViewPagerLastPage()
 
