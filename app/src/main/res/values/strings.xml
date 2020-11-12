@@ -437,6 +437,8 @@
   <string name="password">Password</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
+  <string name="no_thanks_button">No,thanks</string>
+  <string name="remind_later_button">Remind me later</string>
 
 
   <!--Onboarding-->
@@ -892,7 +894,14 @@
 
   
  <!--Rate us-->
-  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">No</string>
+  <string name="rate_us_no">Not really</string>
   <string name="rate_us_yes">Yes!</string>
+  <string name="rate_us_improve_title">what can we improve?</string>
+  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
+  <string name="rate_us_improve_field__empty_error">Please write something</string>
+  <string name="rate_us_possitive_thanks_title">Thank you!</string>
+  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
+  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  
 </resources>
