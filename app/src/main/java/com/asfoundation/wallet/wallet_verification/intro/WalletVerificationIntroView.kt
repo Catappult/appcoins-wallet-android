@@ -1,0 +1,3 @@
+package com.asfoundation.wallet.wallet_verification.intro
+
+interface WalletVerificationIntroView

@@ -9,9 +9,10 @@ class WalletVerificationActivityModule {
 
   @Provides
   fun providesWalletVerificationActivityPresenter(activity: WalletVerificationActivity,
-                                            walletsEventSender: WalletsEventSender,
-                                            navigator: WalletVerificationActivityNavigator): WalletVerificationActivityPresenter {
-    return WalletVerificationActivityPresenter(activity as WalletVerificationActivityView, walletsEventSender,
+                                                  walletsEventSender: WalletsEventSender,
+                                                  navigator: WalletVerificationActivityNavigator): WalletVerificationActivityPresenter {
+    return WalletVerificationActivityPresenter(activity as WalletVerificationActivityView,
+        walletsEventSender,
         navigator)
   }
 

@@ -41,6 +41,10 @@ import com.asfoundation.wallet.wallet_validation.dialog.ValidationLoadingDialogF
 import com.asfoundation.wallet.wallet_validation.dialog.ValidationSuccessDialogFragment
 import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment
 import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment
+import com.asfoundation.wallet.wallet_verification.code.WalletVerificationCodeFragment
+import com.asfoundation.wallet.wallet_verification.code.WalletVerificationCodeModule
+import com.asfoundation.wallet.wallet_verification.intro.WalletVerificationIntroFragment
+import com.asfoundation.wallet.wallet_verification.intro.WalletVerificationIntroModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -157,13 +161,11 @@ abstract class FragmentBuilders {
   abstract fun bindWalletRemoveConfirmationFragment(): WalletRemoveConfirmationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [RestoreWalletModule::class])
+  @ContributesAndroidInjector(modules = [RestoreWalletModule::class])
   abstract fun bindRestoreWalletFragment(): RestoreWalletFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [RestoreWalletPasswordModule::class])
+  @ContributesAndroidInjector(modules = [RestoreWalletPasswordModule::class])
   abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
 
   @FragmentScope
@@ -205,4 +207,12 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindAuthenticationErrorFragment(): AuthenticationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [WalletVerificationIntroModule::class])
+  abstract fun bindWalletVerificationIntroFragment(): WalletVerificationIntroFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [WalletVerificationCodeModule::class])
+  abstract fun bindWalletVerificationCodeFragment(): WalletVerificationCodeFragment
 }

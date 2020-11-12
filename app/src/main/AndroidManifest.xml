@@ -251,6 +251,11 @@
         android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
 
+    <activity
+        android:name="com.asfoundation.wallet.wallet_verification.WalletVerificationActivity"
+        android:label="Verify Wallet"
+        android:windowSoftInputMode="stateHidden" />
+
     <service
         android:name="com.asfoundation.wallet.support.SupportMessagingService"
         android:enabled="true"
