@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/button_guideline"
         app:layout_constraintEnd_toEndOf="parent"

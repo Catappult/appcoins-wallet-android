@@ -106,24 +106,8 @@
         android:overScrollMode="never"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
-        />
-
-    <TextView
-        android:id="@+id/terms_conditions_warning"
-        style="@style/OnboardingTermsConditionsTextStyle.Warning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center"
-        android:text="@string/terms_and_conditions_error"
         android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
@@ -133,14 +117,14 @@
         android:id="@+id/terms_conditions_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/terms_conditions_warning"
+        app:layout_constraintTop_toBottomOf="@id/payment_methods_recycler_view"
         >
       <CheckBox
           android:id="@+id/onboarding_checkbox"
@@ -160,18 +144,34 @@
           />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/terms_conditions_warning"
+        style="@style/OnboardingTermsConditionsTextStyle.Warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:gravity="center"
+        android:text="@string/terms_and_conditions_error"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/terms_conditions_layout"
+        />
+
     <Button
         android:id="@+id/next_button"
         style="@style/ButtonStyle.Alternative"
         android:layout_width="120dp"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginBottom="20dp"
         android:text="@string/action_next"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/terms_conditions_layout"
+        app:layout_constraintTop_toBottomOf="@id/terms_conditions_warning"
         />
 
     <Button

@@ -87,7 +87,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     nextButton.visibility = View.VISIBLE
     termsConditionsLayout.visibility = View.VISIBLE
     nextButton.isEnabled = checkBox.isChecked
-    paymentMethodsRecyclerView.visibility = View.GONE
+    paymentMethodsRecyclerView.visibility = View.INVISIBLE
 
     if (checkBox.isChecked) {
       if (warningText.visibility == View.VISIBLE) {
@@ -101,7 +101,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     skipButton.visibility = View.VISIBLE
     nextButton.visibility = View.GONE
     termsConditionsLayout.visibility = View.GONE
-    paymentMethodsRecyclerView.visibility = View.GONE
+    paymentMethodsRecyclerView.visibility = View.INVISIBLE
 
     if (warningText.visibility == View.VISIBLE) {
       animateHideWarning(warningText)
