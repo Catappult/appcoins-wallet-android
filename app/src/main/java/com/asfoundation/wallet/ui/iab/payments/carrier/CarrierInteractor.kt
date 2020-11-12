@@ -1,25 +1,40 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
+import android.net.Uri
+import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
+import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
+import java.util.concurrent.TimeUnit
 
-class CarrierInteractor(val repository: CarrierBillingRepository,
-                        val walletService: WalletService,
-                        val partnerAddressService: AddressService,
-                        val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                        val logger: Logger,
-                        val ioScheduler: Scheduler) {
+class CarrierInteractor(private val repository: CarrierBillingRepository,
+                        private val walletService: WalletService,
+                        private val partnerAddressService: AddressService,
+                        private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                        private val walletBlockedInteract: WalletBlockedInteract,
+                        private val smsValidationInteract: SmsValidationInteract,
+                        private val billing: Billing,
+                        private val billingMessagesMapper: BillingMessagesMapper,
+                        private val logger: Logger,
+                        private val ioScheduler: Scheduler) {
 
   fun createPayment(phoneNumber: String, packageName: String,
                     origin: String?, transactionData: String?, transactionType: String,
@@ -36,6 +51,63 @@ class CarrierInteractor(val repository: CarrierBillingRepository,
               pair.first.storeAddress, pair.first.address)
         }
         .doOnError { e -> logger.log("CarrierInteractor", e) }
+  }
+
+  fun observePaymentUntilFinished(uri: Uri, packageName: String): Observable<CarrierPaymentModel> {
+    return getAddresses(packageName)
+        .flatMapObservable { addresses ->
+          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.address,
+              addresses.signedAddress)
+        }
+        .map { paymentModel ->
+          if (!paymentModel.networkError.hasError) {
+            return@map paymentModel.copy(
+                networkError = Error(hasError = true, isNetworkError = false, code = -1,
+                    message = getErrorReasonFromUri(uri)))
+          }
+          return@map paymentModel
+        }
+  }
+
+  fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
+                                orderReference: String?, hash: String?,
+                                scheduler: Scheduler): Single<Bundle> {
+    return if (isInApp(type) && sku != null) {
+      billing.getSkuPurchase(merchantName, sku, scheduler)
+          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
+    } else {
+      Single.just(billingMessagesMapper.successBundle(hash))
+    }
+  }
+
+  private fun isInApp(type: String): Boolean {
+    return type.equals("INAPP", ignoreCase = true)
+  }
+
+
+  private fun observeTransactionUpdates(uid: String, walletAddress: String,
+                                        walletSignature: String): Observable<CarrierPaymentModel> {
+    return Observable.interval(0, 5, TimeUnit.SECONDS, ioScheduler)
+        .timeInterval()
+        .switchMap {
+          repository.getPayment(uid, walletAddress, walletSignature)
+        }
+        .filter { paymentModel -> isEndingState(paymentModel.status) }
+        .distinctUntilChanged { transaction -> transaction.status }
+  }
+
+  private fun isEndingState(status: TransactionStatus) =
+      status == TransactionStatus.COMPLETED ||
+          status == TransactionStatus.FAILED ||
+          status == TransactionStatus.CANCELED ||
+          status == TransactionStatus.INVALID_TRANSACTION
+
+  private fun getUidFromUri(uri: Uri): String? {
+    return uri.getQueryParameter("remote_txid")
+  }
+
+  fun getErrorReasonFromUri(uri: Uri): String {
+    return uri.getQueryParameter("why") ?: "Unknown Error"
   }
 
   fun cancelTransaction(uid: String, packageName: String): Completable {
@@ -62,4 +134,16 @@ class CarrierInteractor(val repository: CarrierBillingRepository,
     })
 
   }
+
+  fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
+    return inAppPurchaseInteractor.convertToFiat(amount, currency)
+  }
+
+  fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
+
+  fun isWalletVerified() =
+      walletService.getWalletAddress()
+          .flatMap { smsValidationInteract.isValidated(it) }
+          .onErrorReturn { true }
+
 }

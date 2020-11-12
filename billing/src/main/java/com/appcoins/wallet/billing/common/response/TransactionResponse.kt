@@ -1,7 +1,5 @@
-package com.appcoins.wallet.billing.adyen
+package com.appcoins.wallet.billing.common.response
 
-import com.appcoins.wallet.billing.common.response.TransactionMetadata
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.google.gson.annotations.SerializedName
 
 data class TransactionResponse(val uid: String, val hash: String,

@@ -1,6 +1,10 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.ui.iab.IabActivity
+import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import dagger.Module
 import dagger.Provides
@@ -14,8 +18,9 @@ class CarrierConfirmModule {
 
   @Provides
   fun providesCarrierConfirmNavigator(fragment: CarrierConfirmFragment,
-                                      uriNavigator: UriNavigator): CarrierConfirmNavigator {
-    return CarrierConfirmNavigator(fragment.requireFragmentManager(), uriNavigator)
+                                      uriNavigator: UriNavigator,
+                                      iabActivity: IabActivity): CarrierConfirmNavigator {
+    return CarrierConfirmNavigator(fragment.requireFragmentManager(), uriNavigator, iabActivity)
   }
 
   @Provides
@@ -23,22 +28,20 @@ class CarrierConfirmModule {
     fragment.arguments!!.apply {
       return CarrierConfirmData(
           getString(
-              CarrierConfirmFragment.DOMAIN_KEY)!!, getString(
-          CarrierConfirmFragment.SKU_DESCRIPTION)!!,
+              CarrierConfirmFragment.DOMAIN_KEY)!!,
           getString(
-              CarrierConfirmFragment.PAYMENT_URL_KEY)!!, getString(
-          CarrierConfirmFragment.CURRENCY_KEY)!!,
-          getSerializable(
-              CarrierConfirmFragment.FIAT_AMOUNT_KEY) as BigDecimal,
-          getSerializable(
-              CarrierConfirmFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(
-              CarrierConfirmFragment.BONUS_AMOUNT_KEY) as BigDecimal,
-          getSerializable(
-              CarrierConfirmFragment.FEE_FIAT_AMOUNT) as BigDecimal,
+              CarrierConfirmFragment.TRANSACTION_DATA_KEY)!!,
           getString(
-              CarrierConfirmFragment.CARRIER_NAME)!!, getString(
-          CarrierConfirmFragment.CARRIER_IMAGE)!!)
+              CarrierConfirmFragment.TRANSACTION_TYPE_KEY)!!,
+          getString(CarrierConfirmFragment.SKU_DESCRIPTION)!!,
+          getString(CarrierConfirmFragment.PAYMENT_URL_KEY)!!,
+          getString(CarrierConfirmFragment.CURRENCY_KEY)!!,
+          getSerializable(CarrierConfirmFragment.FIAT_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierConfirmFragment.APPC_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierConfirmFragment.BONUS_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierConfirmFragment.FEE_FIAT_AMOUNT) as BigDecimal,
+          getString(CarrierConfirmFragment.CARRIER_NAME)!!,
+          getString(CarrierConfirmFragment.CARRIER_IMAGE)!!)
     }
   }
 
@@ -46,10 +49,13 @@ class CarrierConfirmModule {
   fun providesCarrierConfirmPresenter(fragment: CarrierConfirmFragment,
                                       data: CarrierConfirmData,
                                       navigator: CarrierConfirmNavigator,
+                                      interactor: CarrierInteractor,
+                                      billingAnalytics: BillingAnalytics,
+                                      logger: Logger,
                                       appInfoLoader: ApplicationInfoLoader): CarrierConfirmPresenter {
     return CarrierConfirmPresenter(
-        CompositeDisposable(), fragment as CarrierConfirmView, data, navigator, appInfoLoader,
-        AndroidSchedulers.mainThread(), Schedulers.io())
+        CompositeDisposable(), fragment as CarrierConfirmView, data, navigator, interactor,
+        billingAnalytics, appInfoLoader, logger, AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   @Provides

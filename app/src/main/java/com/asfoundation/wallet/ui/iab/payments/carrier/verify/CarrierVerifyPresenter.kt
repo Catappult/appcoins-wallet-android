@@ -58,11 +58,11 @@ class CarrierVerifyPresenter(
               if (paymentModel.hasError()) {
                 var message = stringProvider.getString(R.string.purchase_carrier_error)
                 paymentModel.error?.let { error ->
-                  when (error.code) {
-                    4001 -> message =
+                  when (error.type) {
+                    "LOWER_BOUND" -> message =
                         stringProvider.getString(R.string.purchase_carrier_error_minimum,
                             formatFiatValue(error.value, data.currency))
-                    4002 -> message =
+                    "UPPER_BOUND" -> message =
                         stringProvider.getString(R.string.purchase_carrier_error_maximum,
                             formatFiatValue(error.value, data.currency))
                   }
@@ -72,8 +72,9 @@ class CarrierVerifyPresenter(
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
                   safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
                     fee.cost?.let { cost ->
-                      navigator.navigateToConfirm(data.domain, paymentModel.paymentUrl,
-                          data.currency, data.fiatAmount, data.appcAmount,
+                      navigator.navigateToConfirm(data.domain, data.transactionData,
+                          data.transactionType,
+                          paymentModel.paymentUrl, data.currency, data.fiatAmount, data.appcAmount,
                           data.bonusAmount, data.skuDescription, cost.value, carrier.name,
                           carrier.icon)
                     }

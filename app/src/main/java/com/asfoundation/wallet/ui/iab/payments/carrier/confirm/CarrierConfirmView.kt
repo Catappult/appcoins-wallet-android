@@ -16,6 +16,14 @@ interface CarrierConfirmView {
 
   fun nextClickEvent(): Observable<Any>
 
+  fun lockRotation()
+
+  fun unlockRotation()
+
   fun setLoading()
+
+  fun showFinishedTransaction()
+
+  fun getFinishedDuration(): Long
 
 }

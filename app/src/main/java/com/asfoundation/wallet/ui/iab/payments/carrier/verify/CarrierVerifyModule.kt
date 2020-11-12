@@ -1,10 +1,5 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
-import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
-import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.StringProvider
@@ -55,14 +50,5 @@ class CarrierVerifyModule {
     return CarrierVerifyPresenter(CompositeDisposable(), fragment as CarrierVerifyView, data,
         navigator, interactor, applicationInfoLoader, stringProvider, CurrencyFormatUtils(),
         AndroidSchedulers.mainThread(), Schedulers.io())
-  }
-
-  @Provides
-  fun providesCarrierInteractor(repository: CarrierBillingRepository, walletService: WalletService,
-                                partnerAddressService: AddressService,
-                                inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                logger: Logger): CarrierInteractor {
-    return CarrierInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, logger, Schedulers.io())
   }
 }

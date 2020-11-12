@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -19,8 +20,10 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_carrier_confirm.*
+import kotlinx.android.synthetic.main.fragment_carrier_confirm.progress_bar
 import kotlinx.android.synthetic.main.fragment_carrier_verify_phone.payment_methods_header
 import kotlinx.android.synthetic.main.fragment_carrier_verify_phone.purchase_bonus
+import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -101,7 +104,34 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     fee_title.visibility = View.INVISIBLE
     fiat_price_text.visibility = View.INVISIBLE
     appc_price_text.visibility = View.INVISIBLE
+    purchase_bonus.visibility = View.INVISIBLE
+    payment_methods_header.visibility = View.INVISIBLE
+    dialog_buy_buttons.visibility = View.INVISIBLE
     buy_button.isEnabled = false
+  }
+
+  override fun showFinishedTransaction() {
+    progress_bar.visibility = View.GONE
+    carrier_image.visibility = View.INVISIBLE
+    fee_title.visibility = View.INVISIBLE
+    fiat_price_text.visibility = View.INVISIBLE
+    appc_price_text.visibility = View.INVISIBLE
+    purchase_bonus.visibility = View.INVISIBLE
+    payment_methods_header.visibility = View.INVISIBLE
+    dialog_buy_buttons.visibility = View.INVISIBLE
+    complete_payment_view.visibility = View.VISIBLE
+    complete_payment_view.lottie_transaction_success.playAnimation()
+  }
+
+  override fun getFinishedDuration(): Long =
+      complete_payment_view.lottie_transaction_success.duration
+
+  override fun unlockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+  }
+
+  override fun lockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -124,6 +154,8 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
 
     internal const val DOMAIN_KEY = "domain"
     internal const val PAYMENT_URL_KEY = "payment_url"
+    internal const val TRANSACTION_DATA_KEY = "transaction_data"
+    internal const val TRANSACTION_TYPE_KEY = "transaction_type"
     internal const val APPC_AMOUNT_KEY = "appc_amount"
     internal const val FIAT_AMOUNT_KEY = "fiat_amount"
     internal const val CURRENCY_KEY = "currency"
@@ -134,8 +166,9 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     internal const val CARRIER_IMAGE = "carrier_image"
 
     @JvmStatic
-    fun newInstance(domain: String, paymentUrl: String?,
-                    currency: String?, amount: BigDecimal, appcAmount: BigDecimal,
+    fun newInstance(domain: String, transactionData: String, transactionType: String,
+                    paymentUrl: String?, currency: String?, amount: BigDecimal,
+                    appcAmount: BigDecimal,
                     bonus: BigDecimal?, skuDescription: String, feeFiatAmount: BigDecimal,
                     carrierName: String, carrierImage: String): CarrierConfirmFragment {
       val fragment =
@@ -143,6 +176,10 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
       fragment.arguments = Bundle().apply {
         putString(
             DOMAIN_KEY, domain)
+        putString(
+            TRANSACTION_DATA_KEY, transactionData)
+        putString(
+            TRANSACTION_TYPE_KEY, transactionType)
         putString(
             PAYMENT_URL_KEY, paymentUrl)
         putString(

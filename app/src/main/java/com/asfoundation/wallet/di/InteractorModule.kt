@@ -15,6 +15,7 @@ import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
@@ -62,6 +63,7 @@ import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.onboarding.OnboardingInteract
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator
@@ -540,6 +542,21 @@ class InteractorModule {
                                  packageManager: PackageManager,
                                  preferencesRepositoryType: PreferencesRepositoryType): FingerPrintInteractor {
     return FingerPrintInteractor(biometricManager, packageManager, preferencesRepositoryType)
+  }
+
+  @Singleton
+  @Provides
+  fun providesCarrierInteractor(repository: CarrierBillingRepository, walletService: WalletService,
+                                partnerAddressService: AddressService,
+                                inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                walletBlockedInteract: WalletBlockedInteract,
+                                smsValidationInteract: SmsValidationInteract,
+                                billing: Billing,
+                                billingMessagesMapper: BillingMessagesMapper,
+                                logger: Logger): CarrierInteractor {
+    return CarrierInteractor(repository, walletService, partnerAddressService,
+        inAppPurchaseInteractor, walletBlockedInteract, smsValidationInteract, billing,
+        billingMessagesMapper, logger, Schedulers.io())
   }
 
 }

@@ -13,13 +13,14 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager) {
     fragmentManager.popBackStack()
   }
 
-  fun navigateToConfirm(domain: String, paymentUrl: String?,
-                        currency: String?, amount: BigDecimal, appcAmount: BigDecimal,
-                        bonus: BigDecimal?, skuDescription: String, feeFiatAmount: BigDecimal,
+  fun navigateToConfirm(domain: String, transactionData: String, transactionType: String,
+                        paymentUrl: String?, currency: String?, amount: BigDecimal,
+                        appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
+                        feeFiatAmount: BigDecimal,
                         carrierName: String, carrierImage: String) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CarrierConfirmFragment.newInstance(domain, paymentUrl,
+            CarrierConfirmFragment.newInstance(domain, transactionData, transactionType, paymentUrl,
                 currency, amount, appcAmount, bonus, skuDescription, feeFiatAmount, carrierName,
                 carrierImage))
         .addToBackStack(null)
