@@ -4,22 +4,15 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.Gamification
-import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.referrals.ReferralInteractorContract
-import com.asfoundation.wallet.referrals.ReferralModel
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportRepository
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 
-class OnboardingInteract(
-    private val walletService: WalletService,
-    private val preferencesRepositoryType: PreferencesRepositoryType,
-    private val supportRepository: SupportRepository,
-    private val gamificationRepository: Gamification,
-    private val smsValidationInteract: SmsValidationInteract,
-    private val referralInteractor: ReferralInteractorContract,
-    private val bdsRepository: BdsRepository) {
+class OnboardingInteract(private val walletService: WalletService,
+                         private val preferencesRepositoryType: PreferencesRepositoryType,
+                         private val supportRepository: SupportRepository,
+                         private val gamificationRepository: Gamification,
+                         private val bdsRepository: BdsRepository) {
 
   fun getWalletAddress() = walletService.getWalletOrCreate()
       .flatMap { address ->
@@ -35,11 +28,6 @@ class OnboardingInteract(
   fun hasClickedSkipOnboarding() = preferencesRepositoryType.hasClickedSkipOnboarding()
 
   fun hasOnboardingCompleted() = preferencesRepositoryType.hasCompletedOnboarding()
-
-  fun isAddressValid(address: String): Single<WalletValidationStatus> =
-      smsValidationInteract.getValidationStatus(address)
-
-  fun getReferralInfo(): Single<ReferralModel> = referralInteractor.getReferralInfo()
 
   fun getPaymentMethodsIcons(): Single<List<String>> {
     return bdsRepository.getPaymentMethods(currencyType = "fiat", direct = true)

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.animation.Animator
-import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -19,19 +18,14 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.activity_onboarding.*
-import kotlinx.android.synthetic.main.layout_validation_no_internet.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class OnboardingActivity : BaseActivity(), OnboardingView {
@@ -123,22 +117,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
     onboarding_content.visibility = View.VISIBLE
     wallet_creation_animation.visibility = View.GONE
-    onboarding_layout_validation_no_internet.visibility = View.GONE
-  }
-
-  override fun updateUI(maxAmount: String, isActive: Boolean) {
-    if (isActive) {
-      listener.setIsActiveFlag(isActive)
-      adapter.setPages(createReferralsItemList(maxAmount))
-    } else {
-      adapter.setPages(createDefaultItemList())
-    }
-    listener.updateUI()
   }
 
   override fun getNextButtonClick() = RxView.clicks(next_button)
-
-  override fun getRedeemButtonClick() = RxView.clicks(been_invited_bonus)
 
   override fun getSkipClicks() = RxView.clicks(skip_button)
 
@@ -175,42 +156,27 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.playAnimation()
   }
 
-  private fun navigate(walletValidationStatus: WalletValidationStatus?) {
-    if (walletValidationStatus == null || walletValidationStatus == WalletValidationStatus.SUCCESS) {
-      TransactionsRouter().open(this, true)
-    } else {
-      val intent = WalletValidationActivity.newIntent(this, hasBeenInvitedFlow = true,
-          navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = true,
-          showToolbar = false, previousContext = "onboarding")
-      intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-      startActivity(intent)
-    }
-    presenter.markOnboardingCompleted()
-  }
-
-  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus,
-                                showAnimation: Boolean) {
+  override fun finishOnboarding(showAnimation: Boolean) {
     if (!showAnimation) {
-      navigate(walletValidationStatus)
-      finish()
+      endOnboarding()
       return
     }
     create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator?) = Unit
-
-      override fun onAnimationEnd(animation: Animator?) {
-        navigate(walletValidationStatus)
-        finish()
-      }
-
+      override fun onAnimationEnd(animation: Animator?) = endOnboarding()
       override fun onAnimationCancel(animation: Animator?) = Unit
-
       override fun onAnimationStart(animation: Animator?) = Unit
     })
     create_wallet_animation.repeatCount = 0
     create_wallet_animation.playAnimation()
+  }
+
+  private fun endOnboarding() {
+    TransactionsRouter().open(this, true)
+    finish()
+    presenter.markOnboardingCompleted()
   }
 
   private fun setLinkToString(spannableString: SpannableString, highlightString: String,
@@ -236,49 +202,10 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun navigateToBrowser(uri: Uri) = browserRouter.open(this, uri)
 
-  override fun showNoInternetView() {
-    stopRetryAnimation()
-    onboarding_content.visibility = View.GONE
-    wallet_creation_animation.visibility = View.GONE
-    onboarding_layout_validation_no_internet.visibility = View.VISIBLE
-  }
-
-  override fun getRetryButtonClicks(): Observable<Any> {
-    return RxView.clicks(retry_button)
-        .doOnNext { playRetryAnimation() }
-        .delay(1, TimeUnit.SECONDS)
-  }
-
-  override fun getLaterButtonClicks() = RxView.clicks(later_button)
-
-  private fun playRetryAnimation() {
-    retry_button.visibility = View.GONE
-    later_button.visibility = View.GONE
-    retry_animation.visibility = View.VISIBLE
-    retry_animation.playAnimation()
-  }
-
-  private fun stopRetryAnimation() {
-    retry_button.visibility = View.VISIBLE
-    later_button.visibility = View.VISIBLE
-    retry_animation.visibility = View.GONE
-  }
-
-  private fun createReferralsItemList(maxAmount: String): List<OnboardingItem> {
-    val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
-    val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
-    val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
-    val item4 = OnboardingItem(R.string.referral_onboarding_title,
-        this.getString(R.string.referral_onboarding_body, maxAmount))
-    return listOf(item1, item2, item3, item4)
-  }
-
   private fun createDefaultItemList(): List<OnboardingItem> {
     val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
     val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
     val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
-    val item4 = OnboardingItem(R.string.intro_5_title,
-        this.getString(R.string.intro_5_body))
-    return listOf(item1, item2, item3, item4)
+    return listOf(item1, item2, item3)
   }
 }

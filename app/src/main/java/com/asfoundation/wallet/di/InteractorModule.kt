@@ -255,11 +255,9 @@ class InteractorModule {
   fun provideOnboardingInteract(walletService: WalletService,
                                 preferencesRepositoryType: PreferencesRepositoryType,
                                 supportRepository: SupportRepository, gamification: Gamification,
-                                smsValidationInteract: SmsValidationInteract,
-                                referralInteractor: ReferralInteractorContract,
                                 bdsRepository: BdsRepository) =
       OnboardingInteract(walletService, preferencesRepositoryType, supportRepository, gamification,
-          smsValidationInteract, referralInteractor, bdsRepository)
+          bdsRepository)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,
@@ -345,7 +343,8 @@ class InteractorModule {
                                       billing: Billing,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(walletService, supportRepository, gamificationInteractor,
-        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
+        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor,
+        preferencesRepositoryType,
         billing, bdsPendingTransactionService)
   }
 
