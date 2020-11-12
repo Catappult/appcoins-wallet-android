@@ -408,6 +408,10 @@
   <string name="password">Password</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
+  <string name="no_thanks_button">No,thanks</string>
+  <string name="remind_later_button">Remind me later</string>
+  <string name="get_code_button">Get code</string>
+  <string name="confirm_button">Confirm</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -493,6 +497,7 @@
   <string name="purchase_error_wallet_block_code_403">Có vẻ như có gì đó không ổn với ví của bạn. Xin vui lòng liên hệ ngay với chúng tôi.</string>
   <string name="purchase_card_error_CVV">CVV/CVC sai</string>
   <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -811,7 +816,31 @@
   <string name="send_logs_sending">Đang gửi&#8230;</string>
   <string name="send_logs_send">Đã gửi!</string>
   <!--Rate us-->
-  <string name="rate_us_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">No</string>
+  <string name="rate_us_no">Not really</string>
   <string name="rate_us_yes">Yes!</string>
+  <string name="rate_us_improve_title">What can we improve?</string>
+  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
+  <string name="rate_us_improve_field__empty_error">Please write something</string>
+  <string name="rate_us_possitive_thanks_title">Thank you!</string>
+  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
+  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <!--Card verification-->
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
+  <string name="card_verification_code_title">Check the code in the transaction details</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
+  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
+  <string name="card_verification_code_example_date">Trans. Date</string>
+  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_code">Unique code</string>
+  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
+  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
+  <string name="card_verification_code_enter_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="card_verification_code_other_card_button">Try with another card</string>
+  <string name="card_verification_code_wrong_error">Wrong code</string>
+  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
+  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
+  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
 </resources>
