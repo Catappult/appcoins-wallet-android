@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <TextView
+      android:id="@+id/title"
+      style="@style/VerifyWallet.Title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="27dp"
+      android:layout_marginEnd="24dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="Check the code in the transaction details"
+      />
+
+  <TextView
+      android:id="@+id/subtitle"
+      style="@style/VerifyWallet.Subtitle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginEnd="24dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title"
+      tools:text="A unique code will appear in the summary of the transaction provided by your card issuer."
+      />
+
+  <include
+      android:id="@+id/layout_example"
+      layout="@layout/layout_verify_example"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/subtitle"
+      />
+
+  <TextView
+      android:id="@+id/code_title"
+      style="@style/VerifyWallet.Title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="27dp"
+      android:layout_marginEnd="24dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/layout_example"
+      app:layout_constraintTop_toBottomOf="@id/layout_example"
+      tools:text="Check the code in the transaction details"
+      />
+
+  <EditText
+      android:id="@+id/code"
+      style="@style/VerifyWallet.Code.EditText"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:background="@drawable/background_edittext"
+      app:layout_constraintBottom_toBottomOf="@id/code_disclaimer"
+      app:layout_constraintStart_toStartOf="@id/code_title"
+      app:layout_constraintTop_toTopOf="@id/code_disclaimer"
+      tools:text="1234"
+      />
+
+  <TextView
+      android:id="@+id/code_disclaimer"
+      style="@style/VerifyWallet.Subtitle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="14dp"
+      android:layout_marginEnd="24dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/code"
+      app:layout_constraintTop_toBottomOf="@+id/code_title"
+      tools:text="%s will be refunded within 24 hours after you confirm the code."
+      />
+
+  <Button
+      android:id="@+id/change_card_button"
+      style="@style/VerifyWallet.ChangeCard.Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
+      android:text="@string/activity_iab_change_card"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="@+id/code"
+      app:layout_constraintTop_toBottomOf="@+id/code_disclaimer"
+      tools:visibility="visible"
+      />
+
+  <Button
+      android:id="@+id/submit"
+      style="@style/VerifyWallet.Submit.Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="24dp"
+      app:layout_constraintBaseline_toBaselineOf="@id/cancel"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/change_card_button"
+      app:layout_constraintVertical_bias="0"
+      tools:text="CONFIRM"
+      />
+
+  <Button
+      android:id="@+id/cancel"
+      style="@style/VerifyWallet.Cancel.Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="56dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/submit"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/change_card_button"
+      app:layout_constraintVertical_bias="0"
+      tools:text="MAYBE LATER"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
