@@ -430,6 +430,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     val height = resources.getDimensionPixelSize(R.dimen.adyen_text_input_layout_height)
 
     adyenCardNumberLayout.minimumHeight = height
+    adyenCardNumberLayout.errorIconDrawable = null
     adyenExpiryDateLayout.minimumHeight = height
     adyenSecurityCodeLayout.minimumHeight = height
   }
