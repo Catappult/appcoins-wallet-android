@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab.payments.common.error
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -27,16 +26,9 @@ class IabErrorModule {
   }
 
   @Provides
-  fun providesIabErrorPresenter(view: IabErrorView,
+  fun providesIabErrorPresenter(fragment: IabErrorFragment,
                                 data: IabErrorData,
                                 navigator: IabErrorNavigator): IabErrorPresenter {
-    return IabErrorPresenter(view, data, navigator, CompositeDisposable())
+    return IabErrorPresenter(fragment as IabErrorView, data, navigator, CompositeDisposable())
   }
-}
-
-@Module
-abstract class IabErrorViewModule {
-  @Binds
-  abstract fun bindIabErrorView(
-      fragment: IabErrorFragment): IabErrorView
 }

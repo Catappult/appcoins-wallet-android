@@ -2,8 +2,6 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import dagger.Module
@@ -17,10 +15,8 @@ import java.math.BigDecimal
 class CarrierConfirmModule {
 
   @Provides
-  fun providesCarrierConfirmNavigator(fragment: CarrierConfirmFragment,
-                                      uriNavigator: UriNavigator): CarrierConfirmNavigator {
-    return CarrierConfirmNavigator(fragment.requireFragmentManager(), uriNavigator,
-        fragment.activity as IabActivity)
+  fun providesCarrierConfirmNavigator(fragment: CarrierConfirmFragment): CarrierConfirmNavigator {
+    return CarrierConfirmNavigator(fragment.requireFragmentManager())
   }
 
   @Provides
@@ -56,10 +52,5 @@ class CarrierConfirmModule {
     return CarrierConfirmPresenter(
         CompositeDisposable(), fragment as CarrierConfirmView, data, navigator, interactor,
         billingAnalytics, appInfoLoader, logger, AndroidSchedulers.mainThread(), Schedulers.io())
-  }
-
-  @Provides
-  fun providesUriNavigator(fragment: CarrierConfirmFragment): UriNavigator {
-    return fragment.activity as UriNavigator
   }
 }

@@ -28,11 +28,12 @@ import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmModule
+import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModule
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
-import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorViewModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
@@ -221,6 +222,11 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector(
-      modules = [IabErrorModule::class, IabErrorViewModule::class])
+      modules = [CarrierPaymentModule::class])
+  abstract fun bindCarrierPaymentStatusFragment(): CarrierPaymentFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(
+      modules = [IabErrorModule::class])
   abstract fun bindIabErrorFragment(): IabErrorFragment
 }

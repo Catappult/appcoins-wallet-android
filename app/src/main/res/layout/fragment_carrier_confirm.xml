@@ -7,6 +7,29 @@
     android:theme="@style/MaterialAppTheme"
     >
 
+  <com.asfoundation.wallet.ui.iab.payments.common.PaymentsHeaderView
+      android:id="@+id/payment_methods_header"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.asfoundation.wallet.ui.common.SeparatorView
+      android:id="@+id/line_separator"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      app:layout_constraintLeft_toLeftOf="@id/payment_methods_header"
+      app:layout_constraintRight_toRightOf="@id/payment_methods_header"
+      app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+      app:line_type="dashed"
+      />
+
   <ImageView
       android:id="@+id/carrier_image"
       android:layout_width="0dp"
@@ -63,18 +86,6 @@
       tools:text="0,09 APPC"
       />
 
-  <com.asfoundation.wallet.ui.iab.payments.common.PaymentsHeaderView
-      android:id="@+id/payment_methods_header"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="16dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
   <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
       android:id="@+id/purchase_bonus"
       android:layout_width="0dp"
@@ -83,18 +94,6 @@
       app:layout_constraintEnd_toEndOf="@+id/payment_methods_header"
       app:layout_constraintStart_toStartOf="@+id/payment_methods_header"
       app:layout_constraintTop_toBottomOf="@+id/fee_title"
-      />
-
-
-  <com.asfoundation.wallet.ui.common.SeparatorView
-      android:id="@+id/line_separator"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="4dp"
-      app:layout_constraintLeft_toLeftOf="@id/payment_methods_header"
-      app:layout_constraintRight_toRightOf="@id/payment_methods_header"
-      app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
-      app:line_type="dashed"
       />
 
   <com.asfoundation.wallet.ui.common.SeparatorView
@@ -117,32 +116,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/bottom_separator_buttons"
-      />
-
-  <!--  Transaction Status-->
-  <ProgressBar
-      android:id="@+id/progress_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-
-  <include
-      android:id="@+id/complete_payment_view"
-      layout="@layout/fragment_iab_transaction_completed"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

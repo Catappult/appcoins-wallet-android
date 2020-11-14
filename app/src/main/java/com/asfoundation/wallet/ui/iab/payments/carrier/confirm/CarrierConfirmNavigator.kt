@@ -1,47 +1,23 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
-import android.net.Uri
-import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.IabActivity
-import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
-import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
-import io.reactivex.Observable
+import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentFragment
 
-class CarrierConfirmNavigator(private val fragmentManager: FragmentManager,
-                              private val uriNavigator: UriNavigator,
-                              private val iabActivity: IabActivity) {
+class CarrierConfirmNavigator(private val fragmentManager: FragmentManager) {
 
   fun navigateBack() {
     fragmentManager.popBackStack()
   }
 
-  fun navigateToPaymentWebView(paymentUrl: String) {
-    uriNavigator.navigateToUri(paymentUrl)
-  }
-
-  fun uriResults(): Observable<Uri> {
-    return uriNavigator.uriResults()
-  }
-
-  fun navigateToWalletValidation(@StringRes messageStringRes: Int) {
-    iabActivity.showWalletValidation(messageStringRes)
-  }
-
-  fun navigateToError(@StringRes messageStringRes: Int, showSupport: Boolean) {
+  fun navigateToPayment(domain: String, transactionData: String,
+                        transactionType: String, paymentUrl: String) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            IabErrorFragment.newInstance(messageStringRes, CarrierVerifyFragment.BACKSTACK_NAME,
-                showSupport))
+            CarrierPaymentFragment.newInstance(domain, transactionData, transactionType,
+                paymentUrl))
         .addToBackStack(null)
         .commit()
-  }
-
-  fun finishPayment(bundle: Bundle) {
-    iabActivity.finish(bundle)
   }
 
 }

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import android.content.Context
-import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -22,10 +21,6 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_carrier_confirm.*
-import kotlinx.android.synthetic.main.fragment_carrier_confirm.progress_bar
-import kotlinx.android.synthetic.main.fragment_carrier_verify_phone.payment_methods_header
-import kotlinx.android.synthetic.main.fragment_carrier_verify_phone.purchase_bonus
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -38,8 +33,6 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
   lateinit var presenter: CarrierConfirmPresenter
 
   lateinit var iabView: IabView
-
-  private var disableBackEvents: Boolean = false
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -112,46 +105,6 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     purchase_bonus.hideSkeleton()
   }
 
-  override fun setLoading() {
-    progress_bar.visibility = View.VISIBLE
-    carrier_image.visibility = View.INVISIBLE
-    fee_title.visibility = View.INVISIBLE
-    fiat_price_text.visibility = View.INVISIBLE
-    appc_price_text.visibility = View.INVISIBLE
-    purchase_bonus.visibility = View.INVISIBLE
-    payment_methods_header.visibility = View.INVISIBLE
-    dialog_buy_buttons.visibility = View.INVISIBLE
-    buy_button.isEnabled = false
-  }
-
-  override fun showFinishedTransaction() {
-    progress_bar.visibility = View.GONE
-    carrier_image.visibility = View.INVISIBLE
-    fee_title.visibility = View.INVISIBLE
-    fiat_price_text.visibility = View.INVISIBLE
-    appc_price_text.visibility = View.INVISIBLE
-    purchase_bonus.visibility = View.INVISIBLE
-    payment_methods_header.visibility = View.INVISIBLE
-    dialog_buy_buttons.visibility = View.INVISIBLE
-    complete_payment_view.visibility = View.VISIBLE
-    complete_payment_view.lottie_transaction_success.playAnimation()
-  }
-
-  override fun getFinishedDuration(): Long =
-      complete_payment_view.lottie_transaction_success.duration
-
-  override fun unlockRotation() {
-    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-  }
-
-  override fun lockRotation() {
-    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
-  }
-
-  override fun disableAllBackEvents() {
-    disableBackEvents = true
-  }
-
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
     return if (currencyCode.equals("APPC", ignoreCase = true))
       currencyCode
@@ -163,7 +116,6 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
   override fun backEvent(): Observable<Any> {
     return RxView.clicks(cancel_button)
         .mergeWith(iabView.backButtonPress())
-        .filter { !disableBackEvents }
   }
 
   override fun nextClickEvent(): Observable<Any> {

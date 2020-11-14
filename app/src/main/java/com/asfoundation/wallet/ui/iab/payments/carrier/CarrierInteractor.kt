@@ -37,8 +37,6 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val logger: Logger,
                         private val ioScheduler: Scheduler) {
 
-  private var cachedTransactionBuilders: HashMap<String, TransactionBuilder> = HashMap()
-
   fun createPayment(phoneNumber: String, packageName: String,
                     origin: String?, transactionData: String, transactionType: String,
                     currency: String,
@@ -93,11 +91,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   }
 
   fun getTransactionBuilder(transactionData: String): Single<TransactionBuilder> {
-    cachedTransactionBuilders[transactionData]?.let { cached ->
-      return Single.just(cached)
-    }
     return inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .doOnSuccess { transaction -> cachedTransactionBuilders[transactionData] = transaction }
         .subscribeOn(ioScheduler)
   }
 
