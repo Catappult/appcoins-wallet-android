@@ -10,7 +10,6 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import io.reactivex.Completable
 import io.reactivex.Scheduler
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 import java.math.BigDecimal
@@ -38,6 +37,44 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
     handleTransactionResult()
   }
 
+  private fun initializeView() {
+    disposables.add(
+        appInfoLoader.getApplicationInfo(data.domain)
+            .observeOn(viewScheduler)
+            .doOnSuccess { ai ->
+              view.initializeView(ai.appName, ai.icon, data.currency, data.totalFiatAmount,
+                  data.totalAppcAmount, data.skuDescription, data.bonusAmount, data.carrierName,
+                  data.carrierImage, data.feeFiatAmount)
+            }
+            .subscribe({}, { e -> e.printStackTrace() })
+    )
+  }
+
+  private fun handleNextButton() {
+    disposables.add(
+        view.nextClickEvent()
+            .doOnNext { view.setLoading() }
+            .flatMapCompletable { sendPaymentConfirmationEvent("buy") }
+            .observeOn(viewScheduler)
+            .doOnComplete {
+              navigator.navigateToPaymentWebView(data.paymentUrl)
+            }
+            .retry()
+            .subscribe({}, { e -> e.printStackTrace() })
+    )
+  }
+
+
+  private fun handleBackButton() {
+    disposables.add(
+        view.backEvent()
+            .flatMapCompletable { sendPaymentConfirmationEvent("back") }
+            .doOnComplete { navigator.navigateBack() }
+            .retry()
+            .subscribe({}, { e -> e.printStackTrace() })
+    )
+  }
+
   private fun handleTransactionResult() {
     disposables.add(navigator.uriResults()
         .doOnNext { view.setLoading() }
@@ -56,7 +93,7 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
                   payment.networkError.message)
                   .observeOn(viewScheduler)
                   .doOnComplete {
-                    navigator.navigateToError(R.string.activity_iab_error_message)
+                    navigator.navigateToError(R.string.activity_iab_error_message, false)
                   }
             }
             payment.status == TransactionStatus.COMPLETED -> {
@@ -103,7 +140,7 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
               })
     } else {
       Completable.fromAction {
-        navigator.navigateToError(R.string.unknown_error)
+        navigator.navigateToError(R.string.unknown_error, false)
       }
           .subscribeOn(viewScheduler)
     }
@@ -111,23 +148,19 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleFraudFlow(): Completable {
-    return interactor.isWalletBlocked()
-        .flatMap { blocked ->
-          if (blocked) {
-            interactor.isWalletVerified()
-                .observeOn(viewScheduler)
-                .doOnSuccess { verified ->
-                  if (verified) navigator.navigateToError(
-                      R.string.purchase_error_wallet_block_code_403)
-                  else navigator.navigateToWalletValidation(
-                      R.string.purchase_error_wallet_block_code_403)
-                }
+    return interactor.getWalletStatus()
+        .observeOn(viewScheduler)
+        .doOnSuccess { walletStatus ->
+          if (walletStatus.blocked) {
+            if (walletStatus.verified) {
+              navigator.navigateToError(
+                  R.string.purchase_error_wallet_block_code_403, false)
+            } else {
+              navigator.navigateToWalletValidation(
+                  R.string.purchase_error_wallet_block_code_403)
+            }
           } else {
-            Single.just(true)
-                .observeOn(viewScheduler)
-                .doOnSuccess {
-                  navigator.navigateToError(R.string.purchase_error_wallet_block_code_403)
-                }
+            navigator.navigateToError(R.string.purchase_error_wallet_block_code_403, false)
           }
         }
         .ignoreElement()
@@ -165,46 +198,22 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
         .subscribeOn(ioScheduler)
   }
 
+  private fun sendPaymentConfirmationEvent(event: String): Completable {
+    return interactor.getTransactionBuilder(data.transactionData)
+        .doOnSuccess { transaction ->
+          billingAnalytics.sendPaymentConfirmationEvent(data.domain, transaction.skuId,
+              transaction.amount()
+                  .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, transaction.type, event)
+        }
+        .ignoreElement()
+        .subscribeOn(ioScheduler)
+  }
+
   private fun isErrorStatus(status: TransactionStatus) =
       status == TransactionStatus.FAILED ||
           status == TransactionStatus.CANCELED ||
           status == TransactionStatus.INVALID_TRANSACTION
 
-  private fun initializeView() {
-    disposables.add(
-        appInfoLoader.getApplicationInfo(data.domain)
-            .observeOn(viewScheduler)
-            .doOnSuccess { ai ->
-              view.initializeView(ai.appName, ai.icon, data.currency, data.totalFiatAmount,
-                  data.totalAppcAmount, data.skuDescription, data.bonusAmount, data.carrierName,
-                  data.carrierImage, data.feeFiatAmount)
-            }
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
-  }
-
-  private fun handleNextButton() {
-    disposables.add(
-        view.nextClickEvent()
-            .doOnNext {
-              view.setLoading()
-              navigator.navigateToPaymentWebView(data.paymentUrl)
-            }
-            .retry()
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
-  }
-
-
-  private fun handleBackButton() {
-    disposables.add(
-        view.backEvent()
-            .doOnNext { navigator.navigateBack() }
-            .retry()
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
-  }
 
   fun stop() = disposables.clear()
-
 }

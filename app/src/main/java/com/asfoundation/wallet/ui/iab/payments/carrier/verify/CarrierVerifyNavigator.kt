@@ -27,10 +27,11 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager) {
         .commit()
   }
 
-  fun navigateToError(message: String) {
+  fun navigateToError(message: String, showSupport: Boolean) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            IabErrorFragment.newInstance(message, CarrierVerifyFragment.BACKSTACK_NAME))
+            IabErrorFragment.newInstance(message, CarrierVerifyFragment.BACKSTACK_NAME,
+                showSupport))
         .addToBackStack(null)
         .commit()
   }

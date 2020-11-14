@@ -12,4 +12,6 @@ interface IabErrorView {
 
   fun setErrorMessage(errorMessage: String)
 
+  fun setSupportVisibility(showSupport: Boolean)
+
 }

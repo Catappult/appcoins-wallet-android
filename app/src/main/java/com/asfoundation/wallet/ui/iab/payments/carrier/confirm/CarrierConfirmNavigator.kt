@@ -4,8 +4,11 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
+import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabActivity
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import io.reactivex.Observable
 
 class CarrierConfirmNavigator(private val fragmentManager: FragmentManager,
@@ -24,16 +27,21 @@ class CarrierConfirmNavigator(private val fragmentManager: FragmentManager,
     return uriNavigator.uriResults()
   }
 
-
   fun navigateToWalletValidation(@StringRes messageStringRes: Int) {
     iabActivity.showWalletValidation(messageStringRes)
   }
 
-  fun navigateToError(@StringRes messageStringRes: Int) {
-    // TODO
+  fun navigateToError(@StringRes messageStringRes: Int, showSupport: Boolean) {
+    fragmentManager.beginTransaction()
+        .replace(R.id.fragment_container,
+            IabErrorFragment.newInstance(messageStringRes, CarrierVerifyFragment.BACKSTACK_NAME,
+                showSupport))
+        .addToBackStack(null)
+        .commit()
   }
 
   fun finishPayment(bundle: Bundle) {
     iabActivity.finish(bundle)
   }
+
 }

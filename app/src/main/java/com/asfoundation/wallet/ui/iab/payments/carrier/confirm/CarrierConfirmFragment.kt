@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
@@ -12,6 +13,7 @@ import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.getStringSpanned
@@ -35,6 +37,8 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
   @Inject
   lateinit var presenter: CarrierConfirmPresenter
 
+  lateinit var iabView: IabView
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_carrier_confirm, container, false)
@@ -47,11 +51,20 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
   }
 
   override fun onDestroyView() {
+    iabView.enableBack()
     presenter.stop()
     super.onDestroyView()
   }
 
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(context is IabView) { "CarrierConfirmFragment must be attached to IAB activity" }
+    iabView = context
+  }
+
   private fun setupUi() {
+    iabView.disableBack()
+
     cancel_button.setText(R.string.back_button)
     cancel_button.visibility = View.VISIBLE
 
@@ -96,7 +109,6 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
     purchase_bonus.hideSkeleton()
   }
-
 
   override fun setLoading() {
     progress_bar.visibility = View.VISIBLE
@@ -144,6 +156,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
 
   override fun backEvent(): Observable<Any> {
     return RxView.clicks(cancel_button)
+        .mergeWith(iabView.backButtonPress())
   }
 
   override fun nextClickEvent(): Observable<Any> {

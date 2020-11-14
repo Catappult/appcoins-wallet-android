@@ -48,13 +48,13 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
                     @Body carrierTransactionBody: CarrierTransactionBody)
         : Single<CarrierCreateTransactionResponse>
 
-    @GET("transactions/{uid]")
+    @GET("transactions/{uid}")
     fun getPayment(@Path("uid") uid: String,
                    @Query("wallet.address") walletAddress: String,
                    @Query("wallet.signature")
                    walletSignature: String): Observable<TransactionResponse>
 
-    @POST("transactions/{uid]/cancel")
+    @POST("transactions/{uid}/cancel")
     fun cancelPayment(@Path("uid") uid: String,
                       @Query("wallet.address") walletAddress: String,
                       @Query("wallet.signature")

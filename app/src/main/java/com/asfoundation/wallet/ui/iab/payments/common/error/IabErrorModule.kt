@@ -21,7 +21,8 @@ class IabErrorModule {
       } else {
         fragment.getString(getInt(IabErrorFragment.ERROR_MESSAGE_RESOURCE))
       }
-      return IabErrorData(errorMessage, getString(IabErrorFragment.FEATURE_ENTRY_BACKSTACK_NAME)!!)
+      return IabErrorData(errorMessage, getString(IabErrorFragment.FEATURE_ENTRY_BACKSTACK_NAME)!!,
+          getBoolean(IabErrorFragment.SHOW_SUPPORT))
     }
   }
 

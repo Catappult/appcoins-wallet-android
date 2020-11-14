@@ -55,11 +55,27 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
     error_message.text = errorMessage
   }
 
+  override fun setSupportVisibility(showSupport: Boolean) {
+    if (showSupport) {
+      layout_support_logo.visibility = View.VISIBLE
+      layout_support_icn.visibility = View.VISIBLE
+      contact_us.visibility = View.VISIBLE
+      more_payment_methods.visibility = View.GONE
+    } else {
+      layout_support_logo.visibility = View.GONE
+      layout_support_icn.visibility = View.GONE
+      contact_us.visibility = View.GONE
+      more_payment_methods.visibility = View.VISIBLE
+    }
+
+  }
+
   companion object {
 
     internal const val ERROR_MESSAGE_STRING = "error_message_string"
     internal const val ERROR_MESSAGE_RESOURCE = "error_message_resource"
     internal const val FEATURE_ENTRY_BACKSTACK_NAME = "backstack_name"
+    internal const val SHOW_SUPPORT = "show_support"
 
     /**
      * Creates a new instance of IabErrorFragment. Note that the entry fragment of the payment
@@ -72,9 +88,11 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
      * @param errorMessage Message description in the error fragment
      * @param entryBackStackName The backstack name given when adding the payment entry fragment
      *                           to the backstack
+     * @param showSupport If the error should show support redirect
      */
     @JvmStatic
-    fun newInstance(errorMessage: String, entryBackStackName: String): IabErrorFragment {
+    fun newInstance(errorMessage: String, entryBackStackName: String,
+                    showSupport: Boolean): IabErrorFragment {
       val fragment =
           IabErrorFragment()
 
@@ -83,13 +101,16 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
             ERROR_MESSAGE_STRING, errorMessage)
         putString(
             FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
+        putBoolean(
+            SHOW_SUPPORT, showSupport)
       }
       return fragment
     }
 
     @JvmStatic
     fun newInstance(@StringRes errorMessageResource: Int,
-                    entryBackStackName: String): IabErrorFragment {
+                    entryBackStackName: String,
+                    showSupport: Boolean): IabErrorFragment {
       val fragment =
           IabErrorFragment()
 
@@ -98,6 +119,8 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
             ERROR_MESSAGE_RESOURCE, errorMessageResource)
         putString(
             FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
+        putBoolean(
+            SHOW_SUPPORT, showSupport)
       }
       return fragment
     }

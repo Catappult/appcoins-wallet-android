@@ -56,18 +56,29 @@ class CarrierVerifyPresenter(
             .observeOn(viewScheduler)
             .doOnNext { paymentModel ->
               if (paymentModel.hasError()) {
-                var message = stringProvider.getString(R.string.purchase_carrier_error)
+                var showSupport = true
+                var message = stringProvider.getString(R.string.activity_iab_error_message)
                 paymentModel.error?.let { error ->
+                  if (error.name == "phone_number") {
+                    message = stringProvider.getString(R.string.purchase_carrier_error)
+                    showSupport = false
+                  }
                   when (error.type) {
-                    "LOWER_BOUND" -> message =
-                        stringProvider.getString(R.string.purchase_carrier_error_minimum,
-                            formatFiatValue(error.value, data.currency))
-                    "UPPER_BOUND" -> message =
-                        stringProvider.getString(R.string.purchase_carrier_error_maximum,
-                            formatFiatValue(error.value, data.currency))
+                    "LOWER_BOUND" -> {
+                      message =
+                          stringProvider.getString(R.string.purchase_carrier_error_minimum,
+                              formatFiatValue(error.value!!, data.currency))
+                      showSupport = false
+                    }
+                    "UPPER_BOUND" -> {
+                      message =
+                          stringProvider.getString(R.string.purchase_carrier_error_maximum,
+                              formatFiatValue(error.value!!, data.currency))
+                      showSupport = false
+                    }
                   }
                 }
-                navigator.navigateToError(message)
+                navigator.navigateToError(message, showSupport)
               } else {
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
                   safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->

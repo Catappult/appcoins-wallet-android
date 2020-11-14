@@ -11,7 +11,6 @@ import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.HttpException
 import retrofit2.Retrofit
-import java.io.IOException
 
 class CarrierResponseMapper(private val retrofit: Retrofit) {
 
@@ -37,7 +36,7 @@ class CarrierResponseMapper(private val retrofit: Retrofit) {
                   arrayOfNulls<Annotation>(0))
           carrierError = try {
             errorConverter.convert(body)?.error
-          } catch (e: IOException) {
+          } catch (e: Exception) {
             null
           }
         }

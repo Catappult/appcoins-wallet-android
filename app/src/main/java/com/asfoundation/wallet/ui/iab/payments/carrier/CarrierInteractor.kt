@@ -16,6 +16,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
+import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -36,8 +37,10 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val logger: Logger,
                         private val ioScheduler: Scheduler) {
 
+  private var cachedTransactionBuilders: HashMap<String, TransactionBuilder> = HashMap()
+
   fun createPayment(phoneNumber: String, packageName: String,
-                    origin: String?, transactionData: String?, transactionType: String,
+                    origin: String?, transactionData: String, transactionType: String,
                     currency: String,
                     value: String): Single<CarrierPaymentModel> {
     return Single.zip(getAddresses(packageName), getTransactionBuilder(transactionData),
@@ -69,6 +72,14 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
         }
   }
 
+  fun cancelTransaction(uid: String, packageName: String): Completable {
+    return getAddresses(packageName)
+        .flatMapCompletable { addresses ->
+          repository.cancelPayment(uid, addresses.address, addresses.signedAddress)
+              .ignoreElement()
+        }
+  }
+
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
@@ -80,10 +91,29 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
     }
   }
 
+  fun getTransactionBuilder(transactionData: String): Single<TransactionBuilder> {
+    cachedTransactionBuilders[transactionData]?.let { cached ->
+      return Single.just(cached)
+    }
+    return inAppPurchaseInteractor.parseTransaction(transactionData, true)
+        .doOnSuccess { transaction -> cachedTransactionBuilders[transactionData] = transaction }
+        .subscribeOn(ioScheduler)
+  }
+
+  private fun getAddresses(packageName: String): Single<WalletAddresses> {
+    return Single.zip(walletService.getAndSignCurrentWalletAddress()
+        .subscribeOn(ioScheduler), partnerAddressService.getStoreAddressForPackage(packageName)
+        .subscribeOn(ioScheduler),
+        partnerAddressService.getOemAddressForPackage(packageName)
+            .subscribeOn(ioScheduler), Function3 { addressModel, storeAddress, oemAddress ->
+      return@Function3 WalletAddresses(addressModel.address, addressModel.signedAddress,
+          storeAddress, oemAddress)
+    })
+  }
+
   private fun isInApp(type: String): Boolean {
     return type.equals("INAPP", ignoreCase = true)
   }
-
 
   private fun observeTransactionUpdates(uid: String, walletAddress: String,
                                         walletSignature: String): Observable<CarrierPaymentModel> {
@@ -106,42 +136,23 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
     return uri.getQueryParameter("remote_txid")
   }
 
-  fun getErrorReasonFromUri(uri: Uri): String {
+  private fun getErrorReasonFromUri(uri: Uri): String {
     return uri.getQueryParameter("why") ?: "Unknown Error"
-  }
-
-  fun cancelTransaction(uid: String, packageName: String): Completable {
-    return getAddresses(packageName)
-        .flatMapCompletable { addresses ->
-          repository.cancelPayment(uid, addresses.address, addresses.signedAddress)
-              .ignoreElement()
-        }
-  }
-
-  fun getTransactionBuilder(transactionData: String?): Single<TransactionBuilder> {
-    return inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .subscribeOn(ioScheduler)
-  }
-
-  fun getAddresses(packageName: String): Single<WalletAddresses> {
-    return Single.zip(walletService.getAndSignCurrentWalletAddress()
-        .subscribeOn(ioScheduler), partnerAddressService.getStoreAddressForPackage(packageName)
-        .subscribeOn(ioScheduler),
-        partnerAddressService.getOemAddressForPackage(packageName)
-            .subscribeOn(ioScheduler), Function3 { addressModel, storeAddress, oemAddress ->
-      return@Function3 WalletAddresses(addressModel.address, addressModel.signedAddress,
-          storeAddress, oemAddress)
-    })
-
   }
 
   fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(amount, currency)
   }
 
-  fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
+  fun getWalletStatus(): Single<WalletStatus> {
+    return Single.zip(walletBlockedInteract.isWalletBlocked()
+        .subscribeOn(ioScheduler), isWalletVerified().subscribeOn(ioScheduler),
+        BiFunction { blocked, verified ->
+          WalletStatus(blocked, verified)
+        })
+  }
 
-  fun isWalletVerified() =
+  private fun isWalletVerified(): Single<Boolean> =
       walletService.getWalletAddress()
           .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }

@@ -17,6 +17,7 @@ class IabErrorPresenter(
 
   private fun initializeView() {
     view.setErrorMessage(data.errorMessage)
+    view.setSupportVisibility(data.showSupport)
   }
 
   private fun handleOtherPaymentsClick() {

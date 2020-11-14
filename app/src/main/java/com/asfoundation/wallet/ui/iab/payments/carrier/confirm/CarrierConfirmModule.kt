@@ -18,9 +18,9 @@ class CarrierConfirmModule {
 
   @Provides
   fun providesCarrierConfirmNavigator(fragment: CarrierConfirmFragment,
-                                      uriNavigator: UriNavigator,
-                                      iabActivity: IabActivity): CarrierConfirmNavigator {
-    return CarrierConfirmNavigator(fragment.requireFragmentManager(), uriNavigator, iabActivity)
+                                      uriNavigator: UriNavigator): CarrierConfirmNavigator {
+    return CarrierConfirmNavigator(fragment.requireFragmentManager(), uriNavigator,
+        fragment.activity as IabActivity)
   }
 
   @Provides
