@@ -9,6 +9,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
@@ -54,9 +55,9 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
     disposables.add(
         view.nextClickEvent()
             .doOnNext { view.setLoading() }
-            .flatMapCompletable { sendPaymentConfirmationEvent("buy") }
+            .flatMap { sendPaymentConfirmationEvent("buy").andThen(Observable.just(Unit)) }
             .observeOn(viewScheduler)
-            .doOnComplete {
+            .doOnNext {
               navigator.navigateToPaymentWebView(data.paymentUrl)
             }
             .retry()
@@ -68,8 +69,12 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
   private fun handleBackEvents() {
     disposables.add(
         view.backEvent()
-            .flatMapCompletable { sendPaymentConfirmationEvent("back") }
-            .doOnComplete { navigator.navigateBack() }
+            .flatMap {
+              sendPaymentConfirmationEvent("back")
+                  .andThen(Observable.just(Unit))
+            }
+            .observeOn(viewScheduler)
+            .doOnNext { navigator.navigateBack() }
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })
     )
@@ -82,25 +87,26 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
           view.lockRotation()
           view.setLoading()
         }
-        .flatMap { uri ->
-          interactor.observePaymentUntilFinished(uri, data.domain)
+        .flatMapSingle { uri ->
+          interactor.getFinishedPayment(uri, data.domain)
               .subscribeOn(ioScheduler)
         }
-        .flatMapCompletable { payment ->
+        .flatMap { payment ->
           when {
             isErrorStatus(payment.status) -> {
               val code =
                   if (payment.networkError.code == -1) "ERROR" else payment.networkError.code.toString()
               logger.log(TAG, "Transaction came with error status: ${payment.status}")
-              return@flatMapCompletable sendPaymentErrorEvent(code,
+              return@flatMap sendPaymentErrorEvent(code,
                   payment.networkError.message)
                   .observeOn(viewScheduler)
                   .doOnComplete {
                     navigator.navigateToError(R.string.activity_iab_error_message, false)
                   }
+                  .andThen(Observable.just(Unit))
             }
             payment.status == TransactionStatus.COMPLETED -> {
-              return@flatMapCompletable sendPaymentSuccessEvents()
+              return@flatMap sendPaymentSuccessEvents()
                   .observeOn(viewScheduler)
                   .andThen(
                       Completable.fromAction { view.showFinishedTransaction() }
@@ -108,11 +114,12 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
                               Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
                           .andThen(finishPayment(payment))
                   )
+                  .andThen(Observable.just(Unit))
             }
-            else -> Completable.complete()
+            else -> Observable.just(Unit)
           }
         }
-        .onErrorResumeNext { e -> handleError(e) }
+        .onErrorReturn { e -> handleError(e).andThen(Observable.just(Unit)) }
         .subscribe({}, { e -> e.printStackTrace() }))
   }
 

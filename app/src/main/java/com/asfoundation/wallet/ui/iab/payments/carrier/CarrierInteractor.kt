@@ -56,12 +56,13 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
         .doOnError { e -> logger.log("CarrierInteractor", e) }
   }
 
-  fun observePaymentUntilFinished(uri: Uri, packageName: String): Observable<CarrierPaymentModel> {
+  fun getFinishedPayment(uri: Uri, packageName: String): Single<CarrierPaymentModel> {
     return getAddresses(packageName)
         .flatMapObservable { addresses ->
           observeTransactionUpdates(getUidFromUri(uri)!!, addresses.address,
               addresses.signedAddress)
         }
+        .firstOrError()
         .map { paymentModel ->
           if (!paymentModel.networkError.hasError) {
             return@map paymentModel.copy(
