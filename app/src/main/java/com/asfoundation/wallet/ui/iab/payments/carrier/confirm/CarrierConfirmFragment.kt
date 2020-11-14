@@ -39,6 +39,8 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
 
   lateinit var iabView: IabView
 
+  private var disableBackEvents: Boolean = false
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_carrier_confirm, container, false)
@@ -146,6 +148,10 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 
+  override fun disableAllBackEvents() {
+    disableBackEvents = true
+  }
+
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
     return if (currencyCode.equals("APPC", ignoreCase = true))
       currencyCode
@@ -157,6 +163,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
   override fun backEvent(): Observable<Any> {
     return RxView.clicks(cancel_button)
         .mergeWith(iabView.backButtonPress())
+        .filter { !disableBackEvents }
   }
 
   override fun nextClickEvent(): Observable<Any> {

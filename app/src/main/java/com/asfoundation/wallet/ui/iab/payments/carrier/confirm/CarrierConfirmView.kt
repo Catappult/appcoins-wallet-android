@@ -26,4 +26,6 @@ interface CarrierConfirmView {
 
   fun getFinishedDuration(): Long
 
+  fun disableAllBackEvents()
+
 }

@@ -32,7 +32,7 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
 
   fun present() {
     initializeView()
-    handleBackButton()
+    handleBackEvents()
     handleNextButton()
     handleTransactionResult()
   }
@@ -65,7 +65,7 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
   }
 
 
-  private fun handleBackButton() {
+  private fun handleBackEvents() {
     disposables.add(
         view.backEvent()
             .flatMapCompletable { sendPaymentConfirmationEvent("back") }
@@ -77,8 +77,11 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
 
   private fun handleTransactionResult() {
     disposables.add(navigator.uriResults()
-        .doOnNext { view.setLoading() }
-        .doOnNext { view.lockRotation() }
+        .doOnNext {
+          view.disableAllBackEvents()
+          view.lockRotation()
+          view.setLoading()
+        }
         .flatMap { uri ->
           interactor.observePaymentUntilFinished(uri, data.domain)
               .subscribeOn(ioScheduler)
