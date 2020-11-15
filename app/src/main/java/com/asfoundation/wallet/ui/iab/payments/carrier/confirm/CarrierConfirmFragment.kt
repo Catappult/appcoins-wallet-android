@@ -124,6 +124,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
 
   companion object {
 
+    internal const val UID_KEY = "uid"
     internal const val DOMAIN_KEY = "domain"
     internal const val PAYMENT_URL_KEY = "payment_url"
     internal const val TRANSACTION_DATA_KEY = "transaction_data"
@@ -138,7 +139,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     internal const val CARRIER_IMAGE = "carrier_image"
 
     @JvmStatic
-    fun newInstance(domain: String, transactionData: String, transactionType: String,
+    fun newInstance(uid: String, domain: String, transactionData: String, transactionType: String,
                     paymentUrl: String?, currency: String?, amount: BigDecimal,
                     appcAmount: BigDecimal,
                     bonus: BigDecimal?, skuDescription: String, feeFiatAmount: BigDecimal,
@@ -146,6 +147,8 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
       val fragment =
           CarrierConfirmFragment()
       fragment.arguments = Bundle().apply {
+        putString(
+            UID_KEY, uid)
         putString(
             DOMAIN_KEY, domain)
         putString(

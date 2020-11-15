@@ -22,21 +22,15 @@ class CarrierVerifyModule {
   @Provides
   fun providesCarrierVerifyPhoneData(fragment: CarrierVerifyFragment): CarrierVerifyData {
     fragment.arguments!!.apply {
-      return CarrierVerifyData(
-          getString(
-              CarrierVerifyFragment.DOMAIN_KEY)!!, getString(
-          CarrierVerifyFragment.ORIGIN_KEY), getString(
-          CarrierVerifyFragment.TRANSACTION_TYPE_KEY) ?: "",
-          getString(
-              CarrierVerifyFragment.TRANSACTION_DATA_KEY) ?: "", getString(
-          CarrierVerifyFragment.CURRENCY_KEY)!!,
-          getSerializable(
-              CarrierVerifyFragment.FIAT_AMOUNT_KEY) as BigDecimal,
-          getSerializable(
-              CarrierVerifyFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(
-              CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal, getString(
-          CarrierVerifyFragment.SKU_DESCRIPTION)!!)
+      return CarrierVerifyData(getString(CarrierVerifyFragment.DOMAIN_KEY)!!,
+          getString(CarrierVerifyFragment.ORIGIN_KEY),
+          getString(CarrierVerifyFragment.TRANSACTION_TYPE_KEY) ?: "",
+          getString(CarrierVerifyFragment.TRANSACTION_DATA_KEY) ?: "",
+          getString(CarrierVerifyFragment.CURRENCY_KEY)!!,
+          getSerializable(CarrierVerifyFragment.FIAT_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierVerifyFragment.APPC_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal,
+          getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!)
     }
   }
 

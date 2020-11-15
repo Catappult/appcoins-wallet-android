@@ -23,15 +23,10 @@ class CarrierPaymentModule {
   @Provides
   fun providesCarrierPaymentStatusData(fragment: CarrierPaymentFragment): CarrierPaymentData {
     fragment.arguments!!.apply {
-      return CarrierPaymentData(
-          getString(
-              CarrierPaymentFragment.DOMAIN_KEY)!!,
-          getString(
-              CarrierPaymentFragment.TRANSACTION_DATA_KEY)!!,
-          getString(
-              CarrierPaymentFragment.TRANSACTION_TYPE_KEY)!!,
-          getString(
-              CarrierPaymentFragment.PAYMENT_URL)!!)
+      return CarrierPaymentData(getString(CarrierPaymentFragment.DOMAIN_KEY)!!,
+          getString(CarrierPaymentFragment.TRANSACTION_DATA_KEY)!!,
+          getString(CarrierPaymentFragment.TRANSACTION_TYPE_KEY)!!,
+          getString(CarrierPaymentFragment.PAYMENT_URL)!!)
     }
   }
 

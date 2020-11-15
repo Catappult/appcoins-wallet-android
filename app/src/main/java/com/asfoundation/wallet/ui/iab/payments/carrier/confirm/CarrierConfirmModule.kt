@@ -22,13 +22,10 @@ class CarrierConfirmModule {
   @Provides
   fun providesCarrierConfirmPhoneData(fragment: CarrierConfirmFragment): CarrierConfirmData {
     fragment.arguments!!.apply {
-      return CarrierConfirmData(
-          getString(
-              CarrierConfirmFragment.DOMAIN_KEY)!!,
-          getString(
-              CarrierConfirmFragment.TRANSACTION_DATA_KEY)!!,
-          getString(
-              CarrierConfirmFragment.TRANSACTION_TYPE_KEY)!!,
+      return CarrierConfirmData(getString(CarrierConfirmFragment.UID_KEY)!!,
+          getString(CarrierConfirmFragment.DOMAIN_KEY)!!,
+          getString(CarrierConfirmFragment.TRANSACTION_DATA_KEY)!!,
+          getString(CarrierConfirmFragment.TRANSACTION_TYPE_KEY)!!,
           getString(CarrierConfirmFragment.SKU_DESCRIPTION)!!,
           getString(CarrierConfirmFragment.PAYMENT_URL_KEY)!!,
           getString(CarrierConfirmFragment.CURRENCY_KEY)!!,

@@ -13,8 +13,12 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
                                private val mapper: CarrierResponseMapper,
                                packageName: String) {
 
+  companion object {
+    private const val METHOD = "onebip"
+    const val GATEWAY_NAME = "dimoco"
+  }
+
   private val RETURN_URL = "http://${packageName}/return/carrier_billing"
-  private val METHOD = "onebip"
 
   fun makePayment(walletAddress: String, walletSignature: String,
                   phoneNumber: String, packageName: String, origin: String?, sku: String?,

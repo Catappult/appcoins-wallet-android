@@ -83,11 +83,10 @@ class CarrierVerifyPresenter(
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
                   safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
                     fee.cost?.let { cost ->
-                      navigator.navigateToConfirm(data.domain, data.transactionData,
-                          data.transactionType,
-                          paymentModel.paymentUrl, data.currency, data.fiatAmount, data.appcAmount,
-                          data.bonusAmount, data.skuDescription, cost.value, carrier.name,
-                          carrier.icon)
+                      navigator.navigateToConfirm(paymentModel.uid, data.domain,
+                          data.transactionData, data.transactionType, paymentModel.paymentUrl,
+                          data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
+                          data.skuDescription, cost.value, carrier.name, carrier.icon)
                     }
                   }
                 }
