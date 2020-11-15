@@ -58,15 +58,19 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
         .flatMap { payment ->
           when {
             isErrorStatus(payment.status) -> {
-              val code =
-                  if (payment.networkError.code == -1) "ERROR" else payment.networkError.code.toString()
               logger.log(TAG, "Transaction came with error status: ${payment.status}")
-              return@flatMap sendPaymentErrorEvent(code,
+              return@flatMap sendPaymentErrorEvent(payment.networkError.code,
                   payment.networkError.message)
                   .observeOn(viewScheduler)
-                  .doOnComplete {
-                    navigator.navigateToError(R.string.activity_iab_error_message, false)
-                  }
+                  .andThen(
+                      if (payment.networkError.code == 403) {
+                        handleFraudFlow()
+                      } else {
+                        Completable.fromAction {
+                          navigator.navigateToError(R.string.activity_iab_error_message, false)
+                        }
+                      }
+                  )
                   .andThen(Observable.just(Unit))
             }
             payment.status == TransactionStatus.COMPLETED -> {
@@ -95,8 +99,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   private fun handleError(throwable: Throwable): Completable {
     logger.log(TAG, throwable)
     return if (throwable is HttpException) {
-      sendPaymentErrorEvent(throwable.code()
-          .toString(), throwable.message())
+      sendPaymentErrorEvent(throwable.code(), throwable.message())
           .andThen(
               if (throwable.code() == 403) {
                 handleFraudFlow()
@@ -105,7 +108,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
               })
     } else {
       Completable.fromAction {
-        navigator.navigateToError(R.string.unknown_error, false)
+        navigator.navigateToError(R.string.activity_iab_error_message, false)
       }
           .subscribeOn(viewScheduler)
     }
@@ -125,12 +128,13 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   }
 
 
-  private fun sendPaymentErrorEvent(refusalCode: String?, refusalReason: String?): Completable {
+  private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?): Completable {
     return Completable.fromAction {
+      val code: String? = if (refusalCode == -1) "ERROR" else refusalCode.toString()
       billingAnalytics.sendPaymentErrorWithDetailsEvent(data.domain, transactionBuilder.skuId,
           transactionBuilder.amount()
               .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, transactionBuilder.type,
-          refusalCode.toString(), refusalReason)
+          code, refusalReason)
     }
   }
 
