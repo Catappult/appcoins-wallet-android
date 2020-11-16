@@ -820,6 +820,7 @@
   <string name="send_logs_sending">ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="send_logs_send">ਭੇਜਿਆ ਗਿਆ!</string>
   <!--Rate us-->
+  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
   <string name="rate_us_no">Not really</string>
   <string name="rate_us_yes">Yes!</string>
   <string name="rate_us_improve_title">What can we improve?</string>
