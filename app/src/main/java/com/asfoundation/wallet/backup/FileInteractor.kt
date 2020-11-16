@@ -96,10 +96,6 @@ class FileInteractor(private val context: Context,
     else null
   }
 
-  fun getTemporaryPath(): File? {
-    return context.externalCacheDir
-  }
-
   fun getUriFromFile(file: File): Uri {
     return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
   }

@@ -1,6 +1,7 @@
-package com.asfoundation.wallet.ui.backup
+package com.asfoundation.wallet.ui.backup.creation
 
 import android.net.Uri
+import com.asfoundation.wallet.ui.backup.SystemFileIntentResult
 import io.reactivex.Observable
 
 interface BackupCreationView {
@@ -26,4 +27,12 @@ interface BackupCreationView {
   fun getDialogSaveClick(): Observable<String>
 
   fun closeDialog()
+
+  fun onSystemFileIntentResult(): Observable<SystemFileIntentResult>
+
+  fun closeScreen()
+
+  fun askForWritePermissions()
+
+  fun onPermissionGiven(): Observable<Unit>
 }

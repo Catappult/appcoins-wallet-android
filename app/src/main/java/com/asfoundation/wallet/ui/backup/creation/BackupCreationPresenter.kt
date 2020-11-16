@@ -1,32 +1,27 @@
-package com.asfoundation.wallet.ui.backup
+package com.asfoundation.wallet.ui.backup.creation
 
 import android.os.Build
 import android.os.Bundle
 import androidx.documentfile.provider.DocumentFile
-import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.ExportWalletInteract
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
 
-class BackupCreationPresenter(
-    private val activityView: BackupActivityView,
-    private val view: BackupCreationView,
-    private val exportWalletInteract: ExportWalletInteract,
-    private val fileInteractor: FileInteractor,
-    private val walletsEventSender: WalletsEventSender,
-    private val logger: Logger,
-    private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler,
-    private val disposables: CompositeDisposable,
-    private val walletAddress: String,
-    private val password: String,
-    private val temporaryPath: File?,
-    private val downloadsPath: File?) {
+class BackupCreationPresenter(private val view: BackupCreationView,
+                              private val interactor: BackupCreationInteractor,
+                              private val walletsEventSender: WalletsEventSender,
+                              private val logger: Logger,
+                              private val networkScheduler: Scheduler,
+                              private val viewScheduler: Scheduler,
+                              private val disposables: CompositeDisposable,
+                              private val data: BackupCreationData,
+                              private val navigator: BackupCreationNavigator,
+                              private val temporaryPath: File?,
+                              private val downloadsPath: File?) {
 
   companion object {
     private const val FILE_SHARED_KEY = "FILE_SHARED"
@@ -56,7 +51,7 @@ class BackupCreationPresenter(
   }
 
   private fun handleSystemFileIntentResult() {
-    disposables.add(activityView.onSystemFileIntentResult()
+    disposables.add(view.onSystemFileIntentResult()
         .observeOn(networkScheduler)
         .flatMapCompletable {
           if (it.documentFile != null && cachedFileName != null) {
@@ -73,7 +68,7 @@ class BackupCreationPresenter(
         .doOnNext {
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             cachedFileName = it
-            activityView.openSystemFileDirectory(it)
+            navigator.openSystemFileDirectory(it)
           } else {
             handleDialogSaveClickBelowAndroidQ(it)
           }
@@ -88,12 +83,12 @@ class BackupCreationPresenter(
   }
 
   private fun handleDialogSaveClickBelowAndroidQ(fileName: String) {
-    disposables.add(fileInteractor.createAndSaveFile(cachedKeystore, downloadsPath, fileName)
+    disposables.add(interactor.createAndSaveFile(cachedKeystore, downloadsPath, fileName)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnComplete {
           view.closeDialog()
-          activityView.showSuccessScreen()
+          navigator.showSuccessScreen()
         }
         .doOnError { showError(it) }
         .subscribe({}, { showError(it) }))
@@ -114,9 +109,9 @@ class BackupCreationPresenter(
   }
 
   private fun createBackUpFile() {
-    disposables.add(exportWalletInteract.export(walletAddress, password)
+    disposables.add(interactor.export(data.walletAddress, data.password)
         .doOnSuccess { cachedKeystore = it }
-        .flatMapCompletable { fileInteractor.createTmpFile(walletAddress, it, temporaryPath) }
+        .flatMapCompletable { interactor.createTmpFile(data.walletAddress, it, temporaryPath) }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnComplete { view.enableSaveButton() }
@@ -129,16 +124,16 @@ class BackupCreationPresenter(
         .observeOn(viewScheduler)
         .doOnNext {
           walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH)
-          activityView.closeScreen()
+          view.closeScreen()
         }
-        .subscribe({}, { activityView.closeScreen() })
+        .subscribe({}, { view.closeScreen() })
     )
   }
 
   private fun handleFirstSaveClick() {
     disposables.add(view.getFirstSaveClick()
         .observeOn(viewScheduler)
-        .doOnNext { shareFile(fileInteractor.getCachedFile()) }
+        .doOnNext { shareFile(interactor.getCachedFile()) }
         .subscribe({}, { logger.log(TAG, it) }))
   }
 
@@ -147,24 +142,27 @@ class BackupCreationPresenter(
       showError("Error retrieving file")
     } else {
       fileShared = true
-      view.shareFile(fileInteractor.getUriFromFile(file))
+      view.shareFile(interactor.getUriFromFile(file))
       walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
     }
   }
 
   private fun handleSaveAgainClick() {
     disposables.add(view.getSaveAgainClick()
-        .doOnNext { activityView.askForWritePermissions() }
+        .doOnNext { view.askForWritePermissions() }
         .doOnNext {
           walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_SAVE)
         }
-        .subscribe({}, { logger.log(TAG, it) }))
+        .subscribe({}, {
+          logger.log(
+              TAG, it)
+        }))
   }
 
   private fun handlePermissionGiven() {
-    disposables.add(activityView.onPermissionGiven()
+    disposables.add(view.onPermissionGiven()
         .doOnNext {
-          view.showSaveOnDeviceDialog(fileInteractor.getDefaultBackupFileName(walletAddress),
+          view.showSaveOnDeviceDialog(interactor.getDefaultBackupFileName(data.walletAddress),
               downloadsPath?.path)
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -172,24 +170,24 @@ class BackupCreationPresenter(
 
   private fun createAndSaveFile(documentFile: DocumentFile,
                                 fileName: String): Completable {
-    return fileInteractor.createAndSaveFile(cachedKeystore, documentFile, fileName)
+    return interactor.createAndSaveFile(cachedKeystore, documentFile, fileName)
         .observeOn(viewScheduler)
         .doOnComplete {
-          fileInteractor.saveChosenUri(documentFile.uri)
+          interactor.saveChosenUri(documentFile.uri)
           view.closeDialog()
-          activityView.showSuccessScreen()
+          navigator.showSuccessScreen()
         }
   }
 
   fun onResume() {
     if (fileShared) {
       view.showConfirmation()
-      fileInteractor.deleteFile()
+      interactor.deleteFile()
     }
   }
 
   fun stop() {
-    fileInteractor.deleteFile()
+    interactor.deleteFile()
     disposables.clear()
   }
 

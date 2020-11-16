@@ -1,10 +1,43 @@
 package com.asfoundation.wallet.ui.backup
 
-class BackupActivityPresenter(private val view: BackupActivityView) {
+import android.content.Context
+import android.content.Intent
+import androidx.documentfile.provider.DocumentFile
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
 
-  var currentFragmentName: String = BackupWalletFragment::class.java.simpleName;
+class BackupActivityPresenter(private val view: BackupActivityView,
+                              private val data: BackupActivityData,
+                              private val navigator: BackupActivityNavigator,
+                              private val eventSender: WalletsEventSender) {
 
   fun present(isCreating: Boolean) {
-    if (isCreating) view.showBackupScreen()
+    view.setupToolbar()
+    if (isCreating) navigator.showBackupScreen(data.walletAddress)
+  }
+
+  fun sendWalletSaveFileEvent() {
+    when (view.getCurrentFragment()) {
+      BackupCreationFragment::class.java.simpleName -> {
+        eventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_BACK,
+            WalletsAnalytics.STATUS_FAIL, WalletsAnalytics.REASON_CANCELED)
+      }
+    }
+  }
+
+  fun onActivityResult(requestCode: Int, resultCode: Int,
+                       data: Intent?, context: Context) {
+    if (requestCode == BackupActivity.ACTION_OPEN_DOCUMENT_TREE_REQUEST_CODE) {
+      var systemFileIntentResult = SystemFileIntentResult()
+      if (resultCode == BaseActivity.RESULT_OK && data != null) {
+        data.data?.let {
+          val documentFile = DocumentFile.fromTreeUri(context, it)
+          systemFileIntentResult = SystemFileIntentResult(documentFile)
+        }
+      }
+      view.onDocumentFile(systemFileIntentResult)
+    }
   }
 }

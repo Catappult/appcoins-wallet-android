@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.backup
+package com.asfoundation.wallet.ui.backup.creation
 
 import android.content.Context
 import android.net.Uri
@@ -10,16 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ShareCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.FileInteractor
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.ExportWalletInteract
-import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.ui.backup.BackupActivityView
+import com.asfoundation.wallet.ui.backup.SystemFileIntentResult
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.backup_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.*
 import javax.inject.Inject
@@ -27,26 +22,15 @@ import javax.inject.Inject
 class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   @Inject
-  lateinit var exportWalletInteract: ExportWalletInteract
-
-  @Inject
-  lateinit var fileInteractor: FileInteractor
-
-  @Inject
-  lateinit var walletsEventSender: WalletsEventSender
-
-  @Inject
-  lateinit var logger: Logger
-
+  lateinit var presenter: BackupCreationPresenter
   private lateinit var dialogView: View
-  private lateinit var presenter: BackupCreationPresenter
   private lateinit var activityView: BackupActivityView
   private lateinit var dialog: AlertDialog
 
   companion object {
 
-    private const val WALLET_ADDRESS_KEY = "wallet_address"
-    private const val PASSWORD_KEY = "password"
+    const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val PASSWORD_KEY = "password"
 
     @JvmStatic
     fun newInstance(walletAddress: String, password: String): BackupCreationFragment {
@@ -63,15 +47,6 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     super.onAttach(context)
     check(context is BackupActivityView) { "Backup fragment must be attached to Backup activity" }
     activityView = context
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter =
-        BackupCreationPresenter(activityView, this, exportWalletInteract, fileInteractor,
-            walletsEventSender, logger,
-            Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), walletAddress,
-            password, fileInteractor.getTemporaryPath(), fileInteractor.getDownloadPath())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -171,19 +146,13 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     }
   }
 
-  private val walletAddress: String by lazy {
-    if (arguments!!.containsKey(WALLET_ADDRESS_KEY)) {
-      arguments!!.getString(WALLET_ADDRESS_KEY)!!
-    } else {
-      throw IllegalArgumentException("Wallet address not available")
-    }
+  override fun onSystemFileIntentResult(): Observable<SystemFileIntentResult> {
+    return activityView.onSystemFileIntentResult()
   }
 
-  private val password: String by lazy {
-    if (arguments!!.containsKey(PASSWORD_KEY)) {
-      arguments!!.getString(PASSWORD_KEY)!!
-    } else {
-      throw IllegalArgumentException("Password not available")
-    }
-  }
+  override fun closeScreen() = activityView.closeScreen()
+
+  override fun askForWritePermissions() = activityView.askForWritePermissions()
+
+  override fun onPermissionGiven(): Observable<Unit> = activityView.onPermissionGiven()
 }

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.backup
+package com.asfoundation.wallet.ui.backup.success
 
 import android.content.Context
 import android.os.Bundle
@@ -6,25 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.backup.BackupActivityView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.animation
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
+import javax.inject.Inject
 
 class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
-  private lateinit var presenter: BackupSuccessPresenter
+  @Inject
+  lateinit var presenter: BackupSuccessPresenter
   private lateinit var activityView: BackupActivityView
 
   companion object {
     @JvmStatic
     fun newInstance() = BackupSuccessFragment()
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter = BackupSuccessPresenter(this, activityView, CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +48,8 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
   }
 
   override fun getCloseButtonClick() = RxView.clicks(close_btn)
+
+  override fun closeScreen() = activityView.closeScreen()
 
   override fun onDestroy() {
     presenter.stop()

@@ -345,7 +345,8 @@ class InteractorModule {
                                       billing: Billing,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(walletService, supportRepository, gamificationInteractor,
-        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
+        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor,
+        preferencesRepositoryType,
         billing, bdsPendingTransactionService)
   }
 
@@ -463,8 +464,8 @@ class InteractorModule {
 
   @Provides
   fun provideExportWalletInteract(walletRepository: WalletRepositoryType,
-                                  passwordStore: PasswordStore): ExportWalletInteract {
-    return ExportWalletInteract(walletRepository, passwordStore)
+                                  passwordStore: PasswordStore): ExportWalletInteractor {
+    return ExportWalletInteractor(walletRepository, passwordStore)
   }
 
   @Provides

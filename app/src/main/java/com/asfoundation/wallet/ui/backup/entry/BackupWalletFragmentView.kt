@@ -1,10 +1,12 @@
-package com.asfoundation.wallet.ui.backup
+package com.asfoundation.wallet.ui.backup.entry
 
-import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 
 interface BackupWalletFragmentView {
-  fun showBalance(value: FiatValue)
+
+  fun showBalance(walletAddress: String, symbol: String, formattedAmount: String)
+
   fun getBackupClick(): Observable<String>
+
   fun hideKeyboard()
 }
