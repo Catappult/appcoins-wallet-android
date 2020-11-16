@@ -37,6 +37,15 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
+  fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                              returnUrl: String, walletAddress: String,
+                              walletSignature: String): Single<VerificationPaymentModel> {
+    return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
+        VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
+        .map { VerificationPaymentModel() }
+        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
+  }
+
   fun submitRedirect(uid: String, walletAddress: String, walletSignature: String,
                      details: JSONObject, paymentData: String?): Single<PaymentModel> {
     val json = convertToJson(details)
@@ -108,6 +117,11 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
     @POST("verification/info")
     fun getVerificationInfo(): Single<VerificationInfoResponse>
+
+    @POST("transactions")
+    fun makeVerificationPayment(@Query("wallet.address") walletAddress: String,
+                                @Query("wallet.signature") walletSignature: String,
+                                @Body verificationPayment: VerificationPayment): Single<Void>
   }
 
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
@@ -130,6 +144,11 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                      @SerializedName("wallets.store") val store: String?,
                      @SerializedName("wallets.oem") val oem: String?,
                      @SerializedName("wallets.user") val user: String?)
+
+  data class VerificationPayment(
+      @SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
+      @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
+      @SerializedName("payment.return_url") val returnUrl: String)
 
   data class AdyenPayment(@SerializedName("payment.details") val details: Any,
                           @SerializedName("payment.data") val data: String?)

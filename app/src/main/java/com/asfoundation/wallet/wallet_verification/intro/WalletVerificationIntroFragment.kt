@@ -241,6 +241,20 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
 
   }
 
+  override fun retrievePaymentData() = paymentDataSubject!!
+
+  override fun hideKeyboard() {
+    view?.let { KeyboardUtils.hideKeyboard(view) }
+  }
+
+  override fun lockRotation() {
+    activityView.lockRotation()
+  }
+
+  override fun unlockRotation() {
+    activityView.unlockRotation()
+  }
+
   override fun cancel() {
     activityView.cancel()
   }

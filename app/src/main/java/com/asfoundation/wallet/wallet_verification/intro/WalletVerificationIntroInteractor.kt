@@ -1,14 +1,18 @@
 package com.asfoundation.wallet.wallet_verification.intro
 
+import com.adyen.checkout.core.model.ModelObject
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
+import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import io.reactivex.Single
 
 class WalletVerificationIntroInteractor(
     private val adyenPaymentRepository: AdyenPaymentRepository,
-    private val adyenPaymentInteractor: AdyenPaymentInteractor
+    private val adyenPaymentInteractor: AdyenPaymentInteractor,
+    private val walletService: WalletService
 ) {
 
   companion object {
@@ -27,12 +31,21 @@ class WalletVerificationIntroInteractor(
     return adyenPaymentInteractor.disablePayments()
   }
 
+  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                  returnUrl: String): Single<VerificationPaymentModel> {
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap {
+          adyenPaymentRepository.makeVerificationPayment(adyenPaymentMethod, shouldStoreMethod,
+              returnUrl, it.address, it.signedAddress)
+        }
+  }
+
   private fun mapToVerificationIntroModel(infoModel: VerificationInfoModel,
                                           paymentInfoModel: PaymentInfoModel): VerificationIntroModel {
     return VerificationIntroModel(infoModel, paymentInfoModel)
   }
 
-  fun loadPaymentMethodInfo(currency: String, amount: String): Single<PaymentInfoModel> {
+  private fun loadPaymentMethodInfo(currency: String, amount: String): Single<PaymentInfoModel> {
     return adyenPaymentInteractor.loadPaymentInfo(PAYMENT_TYPE, amount, currency)
   }
 

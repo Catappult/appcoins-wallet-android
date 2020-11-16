@@ -2,6 +2,7 @@ package com.asfoundation.wallet.wallet_verification
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
@@ -30,5 +31,13 @@ class WalletVerificationActivity : BaseActivity(), WalletVerificationActivityVie
 
   override fun cancel() {
     finish()
+  }
+
+  override fun lockRotation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
+  override fun unlockRotation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 }

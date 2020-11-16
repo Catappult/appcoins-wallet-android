@@ -32,9 +32,11 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
             .observeOn(viewScheduler)
             .doOnSuccess {
               view.updateUi(it)
+              view.unlockRotation()
               view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!,
                   it.paymentInfoModel.isStored, false, savedInstanceState)
             }
+            .doOnSubscribe { view.lockRotation() }
             .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -50,6 +52,17 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
   private fun handleSubmitClicks() {
     disposable.add(
         view.getSubmitClicks()
+            .flatMapSingle {
+              view.retrievePaymentData()
+                  .firstOrError()
+            }
+            .observeOn(viewScheduler)
+            .doOnNext {
+              view.showLoading()
+              view.hideKeyboard()
+              view.lockRotation()
+            }
+            .observeOn(ioScheduler)
             .doOnNext { navigator.navigateToCodeView() }
             .subscribe({}, { it.printStackTrace() })
     )
