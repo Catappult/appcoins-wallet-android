@@ -98,7 +98,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun handleVerifyWalletClick() {
     disposables.add(view.getVerifyWalletClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.openWalletValidationScreen() }
+        .doOnNext { view.openWalletVerificationScreen() }
         .subscribe({}, { it.printStackTrace() }))
   }
 

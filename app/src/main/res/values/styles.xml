@@ -826,6 +826,7 @@
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:lineSpacingExtra">2sp</item>
     <item name="android:textStyle">normal</item>
+    <item name="android:background">@drawable/borderless_button_background</item>
   </style>
 
   <style name="VerifyWallet.Example.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">

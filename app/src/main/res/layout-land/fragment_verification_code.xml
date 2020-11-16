@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:theme="@style/MaterialAppTheme"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,10 +124,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
+        android:text="@string/confirm_button"
         app:layout_constraintBaseline_toBaselineOf="@id/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="CONFIRM"
         />
 
     <Button
@@ -136,12 +137,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="22dp"
+        android:text="@string/backup_tooltip_later_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/submit"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0"
-        tools:text="MAYBE LATER"
         />
 
     <androidx.constraintlayout.widget.Guideline

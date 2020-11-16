@@ -81,6 +81,7 @@
         android:label="" />
     <activity
         android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
+
         android:label="@string/title_import"
         android:windowSoftInputMode="stateHidden" />
     <activity

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/MaterialAppTheme"
     >
 
   <TextView
@@ -25,8 +26,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="30dp"
-      android:paddingStart="25dp"
-      android:paddingEnd="25dp"
+      android:paddingStart="@dimen/normal_margin"
+      android:paddingEnd="@dimen/normal_margin"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/title"
@@ -77,12 +78,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="24dp"
+      android:enabled="false"
+      android:text="@string/get_code_button"
       app:layout_constraintBaseline_toBaselineOf="@id/cancel"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/description"
       app:layout_constraintVertical_bias="0"
-      tools:text="GET A CODE"
       />
 
   <Button
@@ -91,13 +93,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="56dp"
+      android:text="@string/cancel"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/submit"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/description"
       app:layout_constraintVertical_bias="0"
-      tools:text="CANCEL"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

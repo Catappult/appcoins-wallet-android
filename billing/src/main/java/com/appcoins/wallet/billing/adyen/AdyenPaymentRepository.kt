@@ -53,6 +53,11 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .onErrorReturn { false }
   }
 
+  fun getVerificationInfo(): Single<VerificationInfoResponse> {
+    return adyenApi.getVerificationInfo()
+        .onErrorReturn { VerificationInfoResponse("EUR", "1.00", 4, "APPC*{{code}}CODE", "PT2M") }
+  }
+
   fun getTransaction(uid: String, walletAddress: String,
                      signedWalletAddress: String): Single<PaymentModel> {
     return adyenApi.getTransaction(uid, walletAddress, signedWalletAddress)
@@ -100,6 +105,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
     @POST("disable-recurring")
     fun disablePayments(@Body wallet: DisableWallet): Completable
+
+    @POST("verification/info")
+    fun getVerificationInfo(): Single<VerificationInfoResponse>
   }
 
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,

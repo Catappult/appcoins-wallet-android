@@ -3,14 +3,13 @@ package com.asfoundation.wallet.wallet_verification
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import com.asf.wallet.R
-import com.asfoundation.wallet.navigator.ActivityNavigator
+import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 
-class WalletVerificationActivity : ActivityNavigator(), WalletVerificationActivityView {
+class WalletVerificationActivity : BaseActivity(), WalletVerificationActivityView {
 
   companion object {
 
@@ -29,12 +28,7 @@ class WalletVerificationActivity : ActivityNavigator(), WalletVerificationActivi
     presenter.present(savedInstanceState)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    if (item.itemId == android.R.id.home) {
-      presenter.sendBackEvent()
-      super.onBackPressed()
-      return true
-    }
-    return super.onOptionsItemSelected(item)
+  override fun cancel() {
+    finish()
   }
 }

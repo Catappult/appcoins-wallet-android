@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.wallet_verification
 
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import dagger.Module
 import dagger.Provides
 
@@ -8,12 +7,9 @@ import dagger.Provides
 class WalletVerificationActivityModule {
 
   @Provides
-  fun providesWalletVerificationActivityPresenter(activity: WalletVerificationActivity,
-                                                  walletsEventSender: WalletsEventSender,
-                                                  navigator: WalletVerificationActivityNavigator): WalletVerificationActivityPresenter {
-    return WalletVerificationActivityPresenter(activity as WalletVerificationActivityView,
-        walletsEventSender,
-        navigator)
+  fun providesWalletVerificationActivityPresenter(
+      navigator: WalletVerificationActivityNavigator): WalletVerificationActivityPresenter {
+    return WalletVerificationActivityPresenter(navigator)
   }
 
   @Provides

@@ -69,6 +69,8 @@ import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.wallet_verification.code.WalletVerificationCodeInteractor
+import com.asfoundation.wallet.wallet_verification.intro.WalletVerificationIntroInteractor
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -345,7 +347,8 @@ class InteractorModule {
                                       billing: Billing,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(walletService, supportRepository, gamificationInteractor,
-        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType,
+        balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor,
+        preferencesRepositoryType,
         billing, bdsPendingTransactionService)
   }
 
@@ -525,6 +528,21 @@ class InteractorModule {
                                  packageManager: PackageManager,
                                  preferencesRepositoryType: PreferencesRepositoryType): FingerPrintInteractor {
     return FingerPrintInteractor(biometricManager, packageManager, preferencesRepositoryType)
+  }
+
+  @Provides
+  fun provideWalletVerificationIntroInteractor(
+      adyenPaymentRepository: AdyenPaymentRepository,
+      adyenPaymentInteractor: AdyenPaymentInteractor
+  ): WalletVerificationIntroInteractor {
+    return WalletVerificationIntroInteractor(adyenPaymentRepository, adyenPaymentInteractor)
+  }
+
+  @Provides
+  fun provideWalletVerificationCodeInteractor(
+      adyenPaymentRepository: AdyenPaymentRepository
+  ): WalletVerificationCodeInteractor {
+    return WalletVerificationCodeInteractor(adyenPaymentRepository)
   }
 
 }

@@ -59,6 +59,8 @@ interface BalanceFragmentView {
 
   fun openWalletValidationScreen()
 
+  fun openWalletVerificationScreen()
+
   fun showVerifiedWalletChip()
 
   fun hideVerifiedWalletChip()
