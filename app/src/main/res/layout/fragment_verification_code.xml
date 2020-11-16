@@ -14,10 +14,10 @@
       android:layout_marginStart="24dp"
       android:layout_marginTop="27dp"
       android:layout_marginEnd="24dp"
+      android:text="@string/card_verification_code_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:text="Check the code in the transaction details"
       />
 
   <TextView
@@ -28,10 +28,10 @@
       android:layout_marginStart="24dp"
       android:layout_marginTop="10dp"
       android:layout_marginEnd="24dp"
+      android:text="@string/card_verification_code_body"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/title"
-      tools:text="A unique code will appear in the summary of the transaction provided by your card issuer."
       />
 
   <include
@@ -54,10 +54,10 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="27dp"
       android:layout_marginEnd="24dp"
+      android:text="@string/card_verification_code_enter_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/layout_example"
       app:layout_constraintTop_toBottomOf="@id/layout_example"
-      tools:text="Check the code in the transaction details"
       />
 
   <EditText
@@ -83,7 +83,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/code"
       app:layout_constraintTop_toBottomOf="@+id/code_title"
-      tools:text="%s will be refunded within 24 hours after you confirm the code."
+      tools:text="@string/card_verification_code_enter_body"
       />
 
   <Button
@@ -92,7 +92,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
-      android:text="@string/activity_iab_change_card"
+      android:text="@string/card_verification_code_other_card_button"
       android:visibility="gone"
       app:layout_constraintStart_toStartOf="@+id/code"
       app:layout_constraintTop_toBottomOf="@+id/code_disclaimer"
@@ -126,6 +126,33 @@
       app:layout_constraintTop_toBottomOf="@id/change_card_button"
       app:layout_constraintVertical_bias="0"
       tools:text="MAYBE LATER"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/success_animation"
+      android:layout_width="wrap_content"
+      android:layout_height="120dp"
+      android:layout_margin="@dimen/big_margin"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/success_animation"
+      />
+
+  <TextView
+      android:id="@+id/validation_done"
+      style="@style/VerifyWallet.Success"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/verification_settings_verified_title"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/success_animation"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
